@@ -129,6 +129,8 @@ public class NamespaceBinder
     // Data
     //
 
+    protected HTMLElements fHtmlElements;
+
     // features
 
     /** Namespaces. */
@@ -163,6 +165,14 @@ public class NamespaceBinder
 
     /** QName. */
     private final QName fQName = new QName();
+
+    public NamespaceBinder() {
+        this(new HTMLElements());
+    }
+
+    public NamespaceBinder(HTMLElements htmlElements) {
+        fHtmlElements = htmlElements;
+    }
 
     //
     // HTMLComponent methods
@@ -422,7 +432,7 @@ public class NamespaceBinder
                 String uri = avalue.length() > 0 ? avalue : null;
                 if (fOverrideNamespaces && 
                     prefix.equals(element.prefix) &&
-                    HTMLElements.getElement(element.localpart, null) != null) {
+                    fHtmlElements.getElement(element.localpart, null) != null) {
                     uri = fNamespacesURI;
                 }
                 fNamespaceContext.declarePrefix(prefix, uri);
@@ -443,7 +453,7 @@ public class NamespaceBinder
 
         // do we need to insert namespace bindings?
         if (fInsertNamespaces && attrs != null &&
-            HTMLElements.getElement(element.localpart,null) != null) {
+                fHtmlElements.getElement(element.localpart,null) != null) {
             if (element.prefix == null || 
                 fNamespaceContext.getURI(element.prefix) == null) {
                 String xmlns = "xmlns" + ((element.prefix != null)

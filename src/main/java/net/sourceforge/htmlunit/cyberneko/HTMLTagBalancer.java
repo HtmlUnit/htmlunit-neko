@@ -176,6 +176,8 @@ public class HTMLTagBalancer
     // Data
     //
 
+    protected HTMLElements fHtmlElements;
+    
     // features
 
     /** Namespaces. */
@@ -281,6 +283,14 @@ public class HTMLTagBalancer
 	private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
     private List/*ElementEntry*/ endElementsBuffer_ = new ArrayList(); 
+
+    public HTMLTagBalancer() {
+        this(new HTMLElements());
+    }
+
+    public HTMLTagBalancer(HTMLElements htmlElements) {
+        fHtmlElements = htmlElements;
+    }
 
     //
     // HTMLComponent methods
@@ -421,7 +431,7 @@ public class HTMLTagBalancer
         	fragmentContextStackSize_ = fragmentContextStack_.length;
         	for (int i=0; i<fragmentContextStack_.length; ++i) {
         		final QName name = fragmentContextStack_[i];
-            	final Element elt = HTMLElements.getElement(name.localpart);
+            	final Element elt = fHtmlElements.getElement(name.localpart);
             	fElementStack.push(new Info(elt, name));
         	}
         	
@@ -1155,7 +1165,7 @@ public class HTMLTagBalancer
                 name = name.substring(index+1);
             }
         }
-        return HTMLElements.getElement(name);
+        return fHtmlElements.getElement(name);
     } // getElement(String):HTMLElements.Element
 
     /** Call document handler start element. */

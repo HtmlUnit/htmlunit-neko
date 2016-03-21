@@ -43,10 +43,10 @@ public abstract class XercesBridge
     private static XercesBridge makeInstance()
     {
         final String[] classNames = {
-            "org.cyberneko.html.xercesbridge.XercesBridge_2_3",
-            "org.cyberneko.html.xercesbridge.XercesBridge_2_2",
-            "org.cyberneko.html.xercesbridge.XercesBridge_2_1",
-            "org.cyberneko.html.xercesbridge.XercesBridge_2_0"
+            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_3",
+            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_2",
+            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_1",
+            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_0"
         };
 
         for (int i = 0; i != classNames.length; ++i) {
