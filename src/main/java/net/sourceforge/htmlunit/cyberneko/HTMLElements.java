@@ -160,16 +160,27 @@ public class HTMLElements {
     // information
 
     /** Element information organized by first letter. */
-    protected Element[][] elementsArray_;
+    protected static final Element[][] ELEMENTS_ARRAY = new Element[26][];
 
     /** Element information as a contiguous list. */
-    protected final ElementList elements_ = new ElementList();
+    protected static final ElementList ELEMENTS = new ElementList();
 
     /** No such element. */
     public static final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
 
-    public HTMLElements() {
-        Element[][] elementsArray = new Element[26][];
+    //
+    // Static initializer
+    //
+
+    /**
+     * Initializes the element information.
+     * <p>
+     * <strong>Note:</strong>
+     * The <code>getElement</code> method requires that the HTML elements
+     * are added to the list in alphabetical order. If new elements are
+     * added, then they <em>must</em> be inserted in alphabetical order.
+     */
+    static {
         // <!ENTITY % heading "H1|H2|H3|H4|H5|H6">
         // <!ENTITY % fontstyle "TT | I | B | BIG | SMALL">
         // <!ENTITY % phrase "EM | STRONG | DFN | CODE | SAMP | KBD | VAR | CITE | ABBR | ACRONYM" >
@@ -180,7 +191,7 @@ public class HTMLElements {
         // <!ENTITY % flow "%block; | %inline;">
 
         // initialize array of element information
-        elementsArray['A'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['A'-'A'] = new Element[] {
             // A - - (%inline;)* -(A)
             new Element(A, "A", Element.INLINE, BODY, new short[] {A}),
             // ABBR - - (%inline;)*
@@ -194,7 +205,7 @@ public class HTMLElements {
             // AREA - O EMPTY
             new Element(AREA, "AREA", Element.EMPTY, MAP, null),
         };
-        elementsArray['B'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['B'-'A'] = new Element[] {
             // B - - (%inline;)*
             new Element(B, "B", Element.INLINE, BODY, null),
             // BASE - O EMPTY
@@ -218,7 +229,7 @@ public class HTMLElements {
             // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
             new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, null),
         };
-        elementsArray['C'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['C'-'A'] = new Element[] {
             // CAPTION - - (%inline;)*
             new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
             // CENTER, 
@@ -234,7 +245,7 @@ public class HTMLElements {
             // COMMENT
             new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
         };
-        elementsArray['D'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['D'-'A'] = new Element[] {
             // DEL - - (%flow;)*
             new Element(DEL, "DEL", 0, BODY, null),
             // DFN - - (%inline;)*
@@ -250,13 +261,13 @@ public class HTMLElements {
             // DT - O (%inline;)*
             new Element(DT, "DT", 0, BODY, new short[]{DT,DD,P}),
         };
-        elementsArray['E'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['E'-'A'] = new Element[] {
             // EM - - (%inline;)*
             new Element(EM, "EM", Element.INLINE, BODY, null),
             // EMBED
             new Element(EMBED, "EMBED", 0, BODY, null),
         };
-        elementsArray['F'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['F'-'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
             new Element(FIELDSET, "FIELDSET", 0, BODY, new short[] {P}),
             // FONT
@@ -268,7 +279,7 @@ public class HTMLElements {
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
             new Element(FRAMESET, "FRAMESET", 0, HTML, null),
         };
-        elementsArray['H'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['H'-'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
             new Element(H1, "H1", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
             new Element(H2, "H2", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
@@ -283,7 +294,7 @@ public class HTMLElements {
             // HTML O O (%html.content;)
             new Element(HTML, "HTML", 0, null, null),
         };
-        elementsArray['I'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['I'-'A'] = new Element[] {
             // I - - (%inline;)*
             new Element(I, "I", Element.INLINE, BODY, null),
             // IFRAME
@@ -299,13 +310,13 @@ public class HTMLElements {
             // ISINDEX
             new Element(ISINDEX, "ISINDEX", 0, HEAD, null),
         };
-        elementsArray['K'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['K'-'A'] = new Element[] {
             // KBD - - (%inline;)*
             new Element(KBD, "KBD", Element.INLINE, BODY, null),
             // KEYGEN
             new Element(KEYGEN, "KEYGEN", 0, BODY, null),
         };
-        elementsArray['L'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['L'-'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
             new Element(LABEL, "LABEL", Element.INLINE, BODY, null),
             // LAYER
@@ -319,7 +330,7 @@ public class HTMLElements {
             // LISTING
             new Element(LISTING, "LISTING", 0, BODY, new short[] {P}),
         };
-        elementsArray['M'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['M'-'A'] = new Element[] {
             // MAP - - ((%block;) | AREA)+
             new Element(MAP, "MAP", Element.INLINE, BODY, null),
             // MARQUEE
@@ -331,7 +342,7 @@ public class HTMLElements {
             // MULTICOL
             new Element(MULTICOL, "MULTICOL", 0, BODY, null),
         };
-        elementsArray['N'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['N'-'A'] = new Element[] {
             // NEXTID
             new Element(NEXTID, "NEXTID", Element.EMPTY, BODY, null),
             // NOBR
@@ -345,7 +356,7 @@ public class HTMLElements {
             // NOSCRIPT - - (%block;)+
             new Element(NOSCRIPT, "NOSCRIPT", 0, new short[]{BODY}, null),
         };
-        elementsArray['O'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['O'-'A'] = new Element[] {
             // OBJECT - - (PARAM | %flow;)*
             new Element(OBJECT, "OBJECT", 0, BODY, null),
             // OL - - (LI)+
@@ -355,7 +366,7 @@ public class HTMLElements {
             // OPTION - O (#PCDATA)
             new Element(OPTION, "OPTION", 0, SELECT, new short[]{OPTION}),
         };
-        elementsArray['P'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['P'-'A'] = new Element[] {
             // P - O (%inline;)*
             new Element(P, "P", Element.CONTAINER, BODY, new short[]{P}),
             // PARAM - O EMPTY
@@ -365,11 +376,11 @@ public class HTMLElements {
             // PRE - - (%inline;)* -(%pre.exclusion;)
             new Element(PRE, "PRE", 0, BODY, new short[] {P}),
         };
-        elementsArray['Q'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['Q'-'A'] = new Element[] {
             // Q - - (%inline;)*
             new Element(Q, "Q", Element.INLINE, BODY, null),
         };
-        elementsArray['R'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['R'-'A'] = new Element[] {
             // RB
             new Element(RB, "RB", Element.INLINE, RUBY, new short[]{RB}),
             // RBC
@@ -383,7 +394,7 @@ public class HTMLElements {
             // RUBY
             new Element(RUBY, "RUBY", 0, BODY, new short[]{RUBY}),
         };
-        elementsArray['S'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['S'-'A'] = new Element[] {
             // S
             new Element(S, "S", 0, BODY, null),
             // SAMP - - (%inline;)*
@@ -413,7 +424,7 @@ public class HTMLElements {
             // SUP - - (%inline;)*
             new Element(SUP, "SUP", Element.INLINE, BODY, null),
         };
-        elementsArray['T'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['T'-'A'] = new Element[] {
             // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
             new Element(TABLE, "TABLE", Element.BLOCK|Element.CONTAINER, BODY, null),
             // TBODY O O (TR)+
@@ -435,54 +446,46 @@ public class HTMLElements {
             // TT - - (%inline;)*
             new Element(TT, "TT", Element.INLINE, BODY, null),
         };
-        elementsArray['U'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['U'-'A'] = new Element[] {
             // U, 
             new Element(U, "U", Element.INLINE, BODY, null),
             // UL - - (LI)+
             new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P}),
         };
-        elementsArray['V'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['V'-'A'] = new Element[] {
             // VAR - - (%inline;)*
             new Element(VAR, "VAR", Element.INLINE, BODY, null),
         };
-        elementsArray['W'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['W'-'A'] = new Element[] {
             // WBR
             new Element(WBR, "WBR", Element.EMPTY, BODY, null),
         };
-        elementsArray['X'-'A'] = new Element[] {
+        ELEMENTS_ARRAY['X'-'A'] = new Element[] {
             // XML
             new Element(XML, "XML", 0, BODY, null),
             // XMP
             new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
         };
 
-        setElements(elementsArray);
-    }        
-
-    protected void setElements(final Element[][] elementsArray) {
-        elementsArray_ = elementsArray;
-        elements_.data = new Element[120];
-        elements_.size = 0;
-
         // keep contiguous list of elements for lookups by code
-        for (int i = 0; i < elementsArray.length; i++) {
-            Element[] elements = elementsArray[i];
+        for (int i = 0; i < ELEMENTS_ARRAY.length; i++) {
+            Element[] elements = ELEMENTS_ARRAY[i];
             if (elements != null) {
                 for (int j = 0; j < elements.length; j++) {
                     Element element = elements[j];
-                    elements_.addElement(element);
+                    ELEMENTS.addElement(element);
                 }
             }
         }
-        elements_.addElement(NO_SUCH_ELEMENT);
+        ELEMENTS.addElement(NO_SUCH_ELEMENT);
 
         // initialize cross references to parent elements
-        for (int i = 0; i < elements_.size; i++) {
-            Element element = elements_.data[i];
+        for (int i = 0; i < ELEMENTS.size; i++) {
+            Element element = ELEMENTS.data[i];
             if (element.parentCodes != null) {
                 element.parent = new Element[element.parentCodes.length];
                 for (int j = 0; j < element.parentCodes.length; j++) {
-                    element.parent[j] = elements_.data[element.parentCodes[j]];
+                    element.parent[j] = ELEMENTS.data[element.parentCodes[j]];
                 }
                 element.parentCodes = null;
             }
@@ -499,8 +502,8 @@ public class HTMLElements {
      *
      * @param code The element code.
      */
-    public final Element getElement(final short code) {
-        return elements_.data[code];
+    public static final Element getElement(final short code) {
+        return ELEMENTS.data[code];
     } // getElement(short):Element
 
     /**
@@ -508,7 +511,7 @@ public class HTMLElements {
      *
      * @param ename The element name.
      */
-    public final Element getElement(final String ename) {
+    public static final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
             element = new Element(UNKNOWN, ename.toUpperCase(),  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
@@ -524,7 +527,7 @@ public class HTMLElements {
      * @param ename The element name.
      * @param element The default element to return if not found.
      */
-    public final Element getElement(final String ename, final Element element) {
+    public static final Element getElement(final String ename, final Element element) {
 
         if (ename.length() > 0) {
             int c = ename.charAt(0);
@@ -532,7 +535,7 @@ public class HTMLElements {
                 c = 'A' + c - 'a';
             }
             if (c >= 'A' && c <= 'Z') {
-                Element[] elements = elementsArray_[c - 'A'];
+                Element[] elements = ELEMENTS_ARRAY[c - 'A'];
                 if (elements != null) {
                     for (int i = 0; i < elements.length; i++) {
                         Element elem = elements[i];

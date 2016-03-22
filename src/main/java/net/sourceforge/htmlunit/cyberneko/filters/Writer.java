@@ -84,8 +84,6 @@ public class Writer
     // Data
     //
 
-    protected HTMLElements fHtmlElements;
-
     /** The encoding. */
     protected String fEncoding;
 
@@ -139,7 +137,7 @@ public class Writer
      */
     public Writer(OutputStream outputStream, String encoding) 
         throws UnsupportedEncodingException {
-        this(new OutputStreamWriter(outputStream, encoding), encoding, new HTMLElements());
+        this(new OutputStreamWriter(outputStream, encoding), encoding);
     } // <init>(OutputStream,String)
 
     /**
@@ -150,7 +148,7 @@ public class Writer
      * @param encoding The encoding to be used for the output. The encoding name
      *                 should be an official IANA encoding name.
      */
-    public Writer(java.io.Writer writer, String encoding, HTMLElements htmlElements) {
+    public Writer(java.io.Writer writer, String encoding) {
         fEncoding = encoding;
         if (writer instanceof PrintWriter) {
             fPrinter = (PrintWriter)writer;
@@ -158,7 +156,6 @@ public class Writer
         else {
             fPrinter = new PrintWriter(writer);
         }
-        fHtmlElements = htmlElements;
     } // <init>(java.io.Writer,String)
 
     //
@@ -207,7 +204,7 @@ public class Writer
         throws XNIException {
         fSeenRootElement = true;
         fElementDepth++;
-        fNormalize = !fHtmlElements.getElement(element.rawname).isSpecial();
+        fNormalize = !HTMLElements.getElement(element.rawname).isSpecial();
         printStartElement(element, attributes);
         super.startElement(element, attributes, augs);
     } // startElement(QName,XMLAttributes,Augmentations)

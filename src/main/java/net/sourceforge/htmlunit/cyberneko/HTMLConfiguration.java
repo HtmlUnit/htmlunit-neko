@@ -171,7 +171,7 @@ public class HTMLConfiguration
     protected final HTMLScanner fDocumentScanner = createDocumentScanner();
 
 	/** HTML tag balancer. */
-    protected final HTMLTagBalancer fTagBalancer = createTagBalancer();
+    protected final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer();
 
     /** Namespace binder. */
     protected final NamespaceBinder fNamespaceBinder = new NamespaceBinder();
@@ -307,11 +307,7 @@ public class HTMLConfiguration
 		return new HTMLScanner();
 	}
 
-	protected HTMLTagBalancer createTagBalancer() {
-	    return new HTMLTagBalancer();
-	}
-
-	//
+    //
     // Public methods
     //
 
