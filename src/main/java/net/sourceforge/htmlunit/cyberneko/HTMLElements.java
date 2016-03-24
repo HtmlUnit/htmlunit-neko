@@ -46,7 +46,9 @@ public class HTMLElements {
     public static final short ADDRESS = ACRONYM+1;
     public static final short APPLET = ADDRESS+1;
     public static final short AREA = APPLET+1;
-    public static final short B = AREA+1;
+    public static final short ARTICLE = AREA+1;
+    public static final short ASIDE = ARTICLE+1;
+    public static final short B = ASIDE+1;
     public static final short BASE = B+1;
     public static final short BASEFONT = BASE+1;
     public static final short BDO = BASEFONT+1;
@@ -63,9 +65,11 @@ public class HTMLElements {
     public static final short CODE = CITE+1;
     public static final short COL = CODE+1;
     public static final short COLGROUP = COL+1;
-    public static final short COMMENT = COLGROUP+1;
+    public static final short COMMAND = COLGROUP+1;
+    public static final short COMMENT = COMMAND+1;
     public static final short DEL = COMMENT+1;
-    public static final short DFN = DEL+1;
+    public static final short DETAILS = DEL+1;
+    public static final short DFN = DETAILS+1;
     public static final short DIR = DFN+1;
     public static final short DIV = DIR+1;
     public static final short DD = DIV+1;
@@ -74,8 +78,11 @@ public class HTMLElements {
     public static final short EM = DT+1;
     public static final short EMBED = EM+1;
     public static final short FIELDSET = EMBED+1;
-    public static final short FONT = FIELDSET+1;
-    public static final short FORM = FONT+1;
+    public static final short FIGCAPTION = EMBED+1;
+    public static final short FIGURE = EMBED+1;
+    public static final short FONT = FIGURE+1;
+    public static final short FOOTER = FONT+1;
+    public static final short FORM = FOOTER+1;
     public static final short FRAME = FORM+1;
     public static final short FRAMESET = FRAME+1;
     public static final short H1 = FRAMESET+1;
@@ -195,6 +202,10 @@ public class HTMLElements {
             new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
             // AREA - O EMPTY
             new Element(AREA, "AREA", Element.EMPTY, MAP, null),
+
+            new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
+
+            new Element(ASIDE, "ASIDE", Element.BLOCK, BODY, new short[] {P}),
         };
         elementsArray['B'-'A'] = new Element[] {
             // B - - (%inline;)*
@@ -239,6 +250,8 @@ public class HTMLElements {
         elementsArray['D'-'A'] = new Element[] {
             // DEL - - (%flow;)*
             new Element(DEL, "DEL", Element.INLINE, BODY, null),
+
+            new Element(DETAILS, "DETAILS", Element.BLOCK, BODY, new short[] {P}),
             // DFN - - (%inline;)*
             new Element(DFN, "DFN", Element.INLINE, BODY, null),
             // DIR
@@ -261,8 +274,15 @@ public class HTMLElements {
         elementsArray['F'-'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
             new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
+
+            new Element(FIGCAPTION, "FIGCAPTION", Element.BLOCK, BODY, new short[] {P}),
+
+            new Element(FIGURE, "FIGURE", Element.BLOCK, BODY, new short[] {P}),
             // FONT
             new Element(FONT, "FONT", Element.CONTAINER, BODY, null),
+
+            new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
+
             // FORM - - (%block;|SCRIPT)+ -(FORM)
             new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY,TD,DIV}, new short[]{BUTTON,P}),
             // FRAME - O EMPTY
