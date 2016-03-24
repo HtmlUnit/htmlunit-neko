@@ -16,6 +16,9 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Collection of HTML element information.
  *
@@ -159,15 +162,10 @@ public class HTMLElements {
 
     // information
 
-    /** Element information organized by first letter. */
-    protected Element[][] elementsArray_ = new Element[26][];
-
-    /** Element information as a contiguous list. */
-    protected final ElementList elements_ = new ElementList();
-
     /** No such element. */
     public static final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
 
+    public final Map<Short, Element> elementsMap = new HashMap<>();
     //
     // Static initializer
     //
@@ -460,39 +458,40 @@ public class HTMLElements {
             new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
         };
 
-        setElements(elementsArray);
-            }        
-        
-    protected void setElements(final Element[][] elementsArray) {
-        elementsArray_ = elementsArray;
-        elements_.data = new Element[120];
-        elements_.size = 0;
-
         // keep contiguous list of elements for lookups by code
         for (int i = 0; i < elementsArray.length; i++) {
             Element[] elements = elementsArray[i];
             if (elements != null) {
                 for (int j = 0; j < elements.length; j++) {
                     Element element = elements[j];
-                    elements_.addElement(element);
+                    elementsMap.put(element.code, element);
                 }
             }
         }
-        elements_.addElement(NO_SUCH_ELEMENT);
+        
+        elementsMap.put(NO_SUCH_ELEMENT.code, NO_SUCH_ELEMENT);
 
         // initialize cross references to parent elements
-        for (int i = 0; i < elements_.size; i++) {
-            Element element = elements_.data[i];
-            if (element.parentCodes != null) {
-                element.parent = new Element[element.parentCodes.length];
-                for (int j = 0; j < element.parentCodes.length; j++) {
-                    element.parent[j] = elements_.data[element.parentCodes[j]];
-                }
-                element.parentCodes = null;
-            }
+        for (Element element : elementsMap.values()) {
+            defineParents(element);
         }
 
     } // <clinit>()
+
+    public void setElement(Element element) {
+        elementsMap.put(element.code, element);
+        defineParents(element);
+    }
+
+    private void defineParents(final Element element) {
+        if (element.parentCodes != null) {
+            element.parent = new Element[element.parentCodes.length];
+            for (int j = 0; j < element.parentCodes.length; j++) {
+                element.parent[j] = elementsMap.get(element.parentCodes[j]);
+            }
+            element.parentCodes = null;
+        }
+    }
 
     //
     // Public static methods
@@ -504,7 +503,7 @@ public class HTMLElements {
      * @param code The element code.
      */
     public final Element getElement(final short code) {
-        return elements_.data[code];
+        return elementsMap.get(code);
     } // getElement(short):Element
 
     /**
@@ -529,22 +528,9 @@ public class HTMLElements {
      * @param element The default element to return if not found.
      */
     public final Element getElement(final String ename, final Element element) {
-
-        if (ename.length() > 0) {
-            int c = ename.charAt(0);
-            if (c >= 'a' && c <= 'z') {
-                c = 'A' + c - 'a';
-            }
-            if (c >= 'A' && c <= 'Z') {
-                Element[] elements = elementsArray_[c - 'A'];
-                if (elements != null) {
-                    for (int i = 0; i < elements.length; i++) {
-                        Element elem = elements[i];
-                        if (elem.name.equalsIgnoreCase(ename)) {
-                            return elem;
-                        }
-                    }
-                }
+        for (Element e : elementsMap.values()) {
+            if (e.name.equalsIgnoreCase(ename)) {
+                return e;
             }
         }
         return element;
