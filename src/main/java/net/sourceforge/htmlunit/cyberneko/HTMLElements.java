@@ -163,7 +163,8 @@ public class HTMLElements {
     public static final short THEAD = TH+1;
     public static final short TITLE = THEAD+1;
     public static final short TR = TITLE+1;
-    public static final short TT = TR+1;
+    public static final short TRACK = TR+1;
+    public static final short TT = TRACK+1;
     public static final short U = TT+1;
     public static final short UL = U+1;
     public static final short VAR = UL+1;
@@ -469,6 +470,8 @@ public class HTMLElements {
             new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD,BODY}, null),
             // TR - O (TH|TD)+
             new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{TD,TH,TR,COLGROUP,DIV}),
+
+            new Element(TRACK, "TRACK", Element.EMPTY, HEAD, null),
             // TT - - (%inline;)*
             new Element(TT, "TT", Element.INLINE, BODY, null),
         };
