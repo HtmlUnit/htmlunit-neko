@@ -145,13 +145,15 @@ public class HTMLElements {
     public static final short SELECT = SECTION+1;
     public static final short SMALL = SELECT+1;
     public static final short SOUND = SMALL+1;
-    public static final short SPACER = SOUND+1;
+    public static final short SOURCE = SOUND+1;
+    public static final short SPACER = SOURCE+1;
     public static final short SPAN = SPACER+1;
     public static final short STRIKE = SPAN+1;
     public static final short STRONG = STRIKE+1;
     public static final short STYLE = STRONG+1;
     public static final short SUB = STYLE+1;
-    public static final short SUP = SUB+1;
+    public static final short SUMMARY = SUB+1;
+    public static final short SUP = SUMMARY+1;
     public static final short TABLE = SUP+1;
     public static final short TBODY = TABLE+1;
     public static final short TD = TBODY+1;
@@ -390,7 +392,7 @@ public class HTMLElements {
             // P - O (%inline;)*
             new Element(P, "P", Element.CONTAINER, BODY, new short[]{P}),
             // PARAM - O EMPTY
-            new Element(PARAM, "PARAM", Element.EMPTY, new short[]{OBJECT,APPLET}, null),
+            new Element(PARAM, "PARAM", Element.EMPTY, HEAD, null),
             // PLAINTEXT
             new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, null),
             // PRE - - (%inline;)* -(%pre.exclusion;)
@@ -406,9 +408,9 @@ public class HTMLElements {
             // RBC
             new Element(RBC, "RBC", 0, RUBY, null),
             // RP
-            new Element(RP, "RP", Element.INLINE, RUBY, new short[]{RB}),
+            new Element(RP, "RP", Element.INLINE, BODY, new short[]{RB}),
             // RT
-            new Element(RT, "RT", Element.INLINE, RUBY, new short[]{RB,RP}),
+            new Element(RT, "RT", Element.INLINE, BODY, new short[]{RB,RP}),
             // RTC
             new Element(RTC, "RTC", 0, RUBY, new short[]{RBC}),
             // RUBY
@@ -422,15 +424,17 @@ public class HTMLElements {
             // SCRIPT - - %Script;
             new Element(SCRIPT, "SCRIPT", Element.SPECIAL, new short[]{HEAD,BODY}, null),
 
-            new Element(SECTION, "SECTION", Element.CONTAINER, BODY, new short[]{SELECT}),
+            new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{SELECT, P}),
             // SELECT - - (OPTGROUP|OPTION)+
             new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
             // SMALL - - (%inline;)*
             new Element(SMALL, "SMALL", Element.INLINE, BODY, null),
             // SOUND
             new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
+
+            new Element(SOURCE, "SOURCE", Element.EMPTY, HEAD, null),
             // SPACER
-            new Element(SPACER, "SPACER", Element.EMPTY, BODY, null),
+            new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
             // SPAN - - (%inline;)*
             new Element(SPAN, "SPAN", Element.CONTAINER, BODY, null),
             // STRIKE
@@ -441,6 +445,8 @@ public class HTMLElements {
             new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD,BODY}, new short[]{STYLE,TITLE,META}),
             // SUB - - (%inline;)*
             new Element(SUB, "SUB", Element.INLINE, BODY, null),
+
+            new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
             // SUP - - (%inline;)*
             new Element(SUP, "SUP", Element.INLINE, BODY, null),
         };
