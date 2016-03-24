@@ -20,7 +20,11 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
+<parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+</parent>
     <scm>
         <connection>scm:svn:https://svn.code.sf.net/p/htmlunit/code/trunk/neko-hu</connection>
         <developerConnection>scm:svn:https://svn.code.sf.net/p/htmlunit/code/trunk/neko-hu</developerConnection>

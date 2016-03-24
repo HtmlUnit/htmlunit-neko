@@ -536,6 +536,16 @@ public class HTMLScanner
 
 	private final char REPLACEMENT_CHARACTER = '\uFFFD'; // the � character
 
+	private final HTMLElements htmlElements_;
+
+	HTMLScanner() {
+	    this(new HTMLElements());
+	}
+
+    HTMLScanner(HTMLElements htmlElements) {
+        htmlElements_ = htmlElements;
+    }
+
     //
     // Public methods
     //
@@ -2126,7 +2136,7 @@ public class HTMLScanner
                                 	scanUntilEndTag("noframes");
                                 }
                                 else if (ename != null && !fSingleBoolean[0] 
-                                    && HTMLElements.getElement(enameLC).isSpecial() 
+                                    && htmlElements_.getElement(enameLC).isSpecial() 
                                     && (!ename.equalsIgnoreCase("TITLE") || isEnded(enameLC))) {
                                     setScanner(fSpecialScanner.setElementName(ename));
                                     setScannerState(STATE_CONTENT);
@@ -2148,7 +2158,7 @@ public class HTMLScanner
                                 XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
                             }
                             if (fInsertDoctype && fDocumentHandler != null) {
-                                String root = HTMLElements.getElement(HTMLElements.HTML).name;
+                                String root = htmlElements_.getElement(HTMLElements.HTML).name;
                                 root = modifyName(root, fNamesElems);
                                 String pubid = fDoctypePubid;
                                 String sysid = fDoctypeSysid;
@@ -2737,7 +2747,7 @@ public class HTMLScanner
                     fByteStream = null;
                 }
                 else {
-                     HTMLElements.Element element = HTMLElements.getElement(ename);
+                     HTMLElements.Element element = htmlElements_.getElement(ename);
                      if (element.parent != null && element.parent.length > 0) {
                          if (element.parent[0].code == HTMLElements.BODY) {
                              fByteStream.clear();
