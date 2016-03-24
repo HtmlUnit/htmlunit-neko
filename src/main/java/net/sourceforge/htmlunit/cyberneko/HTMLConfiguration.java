@@ -171,10 +171,10 @@ public class HTMLConfiguration
     protected final HTMLScanner fDocumentScanner = createDocumentScanner();
 
 	/** HTML tag balancer. */
-    protected final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer();
+    protected final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer(this);
 
     /** Namespace binder. */
-    protected final NamespaceBinder fNamespaceBinder = new NamespaceBinder();
+    protected final NamespaceBinder fNamespaceBinder = new NamespaceBinder(this);
 
     // other components
 
@@ -211,12 +211,18 @@ public class HTMLConfiguration
         }
     } // <clinit>()
 
+    public final HTMLElements htmlElements_;
     //
     // Constructors
     //
 
     /** Default constructor. */
     public HTMLConfiguration() {
+        this(new HTMLElements());
+    }
+
+    public HTMLConfiguration(HTMLElements htmlElements) {
+        htmlElements_ = htmlElements;
 
         // add components
         addComponent(fDocumentScanner);
@@ -304,7 +310,7 @@ public class HTMLConfiguration
     } // <init>()
 
 	protected HTMLScanner createDocumentScanner() {
-		return new HTMLScanner();
+		return new HTMLScanner(this);
 	}
 
     //

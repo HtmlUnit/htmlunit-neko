@@ -282,14 +282,10 @@ public class HTMLTagBalancer
 
     private List/*ElementEntry*/ endElementsBuffer_ = new ArrayList(); 
 
-    private final HTMLElements htmlElements_;
+    private final HTMLConfiguration htmlConfiguration_;
 
-    HTMLTagBalancer() {
-        this(new HTMLElements());
-    }
-
-    HTMLTagBalancer(HTMLElements htmlElements) {
-        htmlElements_ = htmlElements;
+    HTMLTagBalancer(HTMLConfiguration htmlConfiguration) {
+        htmlConfiguration_ = htmlConfiguration;
     }
 
     //
@@ -431,7 +427,7 @@ public class HTMLTagBalancer
         	fragmentContextStackSize_ = fragmentContextStack_.length;
         	for (int i=0; i<fragmentContextStack_.length; ++i) {
         		final QName name = fragmentContextStack_[i];
-            	final Element elt = htmlElements_.getElement(name.localpart);
+            	final Element elt = htmlConfiguration_.htmlElements_.getElement(name.localpart);
             	fElementStack.push(new Info(elt, name));
         	}
         	
@@ -1165,7 +1161,7 @@ public class HTMLTagBalancer
                 name = name.substring(index+1);
             }
         }
-        return htmlElements_.getElement(name);
+        return htmlConfiguration_.htmlElements_.getElement(name);
     } // getElement(String):HTMLElements.Element
 
     /** Call document handler start element. */
