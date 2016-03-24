@@ -78,8 +78,8 @@ public class HTMLElements {
     public static final short EM = DT+1;
     public static final short EMBED = EM+1;
     public static final short FIELDSET = EMBED+1;
-    public static final short FIGCAPTION = EMBED+1;
-    public static final short FIGURE = EMBED+1;
+    public static final short FIGCAPTION = FIELDSET+1;
+    public static final short FIGURE = FIGCAPTION+1;
     public static final short FONT = FIGURE+1;
     public static final short FOOTER = FONT+1;
     public static final short FORM = FOOTER+1;
