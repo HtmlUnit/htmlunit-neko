@@ -92,7 +92,8 @@ public class HTMLElements {
     public static final short H5 = H4+1;
     public static final short H6 = H5+1;
     public static final short HEAD = H6+1;
-    public static final short HR = HEAD+1;
+    public static final short HEADER = HEAD+1;
+    public static final short HR = HEADER+1;
     public static final short HTML = HR+1;
     public static final short I = HTML+1;
     public static final short IFRAME = I+1;
@@ -109,12 +110,14 @@ public class HTMLElements {
     public static final short LI = LEGEND+1;
     public static final short LINK = LI+1;
     public static final short LISTING = LINK+1;
-    public static final short MAP = LISTING+1;
+    public static final short MAIN = LISTING+1;
+    public static final short MAP = MAIN+1;
     public static final short MARQUEE = MAP+1;
     public static final short MENU = MARQUEE+1;
     public static final short META = MENU+1;
     public static final short MULTICOL = META+1;
-    public static final short NEXTID = MULTICOL+1;
+    public static final short NAV = MULTICOL+1;
+    public static final short NEXTID = NAV+1;
     public static final short NOBR = NEXTID+1;
     public static final short NOEMBED = NOBR+1;
     public static final short NOFRAMES = NOEMBED+1;
@@ -122,9 +125,9 @@ public class HTMLElements {
     public static final short NOSCRIPT = NOLAYER+1;
     public static final short OBJECT = NOSCRIPT+1;
     public static final short OL = OBJECT+1;
-    public static final short OPTION = OL+1;
-    public static final short OPTGROUP = OPTION+1;
-    public static final short P = OPTGROUP+1;
+    public static final short OPTGROUP = OL+1;
+    public static final short OPTION = OPTGROUP+1;
+    public static final short P = OPTION+1;
     public static final short PARAM = P+1;
     public static final short PLAINTEXT = PARAM+1;
     public static final short PRE = PLAINTEXT+1;
@@ -300,6 +303,9 @@ public class HTMLElements {
             new Element(H6, "H6", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
             // HEAD O O (%head.content;) +(%head.misc;)
             new Element(HEAD, "HEAD", 0, HTML, null),
+
+            new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
+
             // HR - O EMPTY
             new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P}),
             // HTML O O (%html.content;)
@@ -333,7 +339,7 @@ public class HTMLElements {
             // LAYER
             new Element(LAYER, "LAYER", Element.BLOCK, BODY, null),
             // LEGEND - - (%inline;)*
-            new Element(LEGEND, "LEGEND", Element.INLINE, FIELDSET, null),
+            new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
             // LI - O (%flow;)*
             new Element(LI, "LI", Element.CONTAINER, new short[]{BODY,UL,OL}, new short[]{LI,P}),
             // LINK - O EMPTY
@@ -342,6 +348,7 @@ public class HTMLElements {
             new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P}),
         };
         elementsArray['M'-'A'] = new Element[] {
+            new Element(MAIN, "MAIN", Element.BLOCK, BODY, new short[] {P}),
             // MAP - - ((%block;) | AREA)+
             new Element(MAP, "MAP", Element.INLINE, BODY, null),
             // MARQUEE
@@ -354,8 +361,10 @@ public class HTMLElements {
             new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
         };
         elementsArray['N'-'A'] = new Element[] {
+            new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
+
             // NEXTID
-            new Element(NEXTID, "NEXTID", Element.EMPTY, BODY, null),
+            new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
             // NOBR
             new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR}),
             // NOEMBED
@@ -373,9 +382,9 @@ public class HTMLElements {
             // OL - - (LI)+
             new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P}),
             // OPTGROUP - - (OPTION)+
-            new Element(OPTGROUP, "OPTGROUP", 0, SELECT, new short[]{OPTION}),
+            new Element(OPTGROUP, "OPTGROUP", Element.INLINE, BODY, new short[]{OPTION}),
             // OPTION - O (#PCDATA)
-            new Element(OPTION, "OPTION", 0, SELECT, new short[]{OPTION}),
+            new Element(OPTION, "OPTION", Element.INLINE, BODY, new short[]{OPTION}),
         };
         elementsArray['P'-'A'] = new Element[] {
             // P - O (%inline;)*
