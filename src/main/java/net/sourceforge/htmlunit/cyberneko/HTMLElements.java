@@ -193,7 +193,7 @@ public class HTMLElements {
         // initialize array of element information
         ELEMENTS_ARRAY['A'-'A'] = new Element[] {
             // A - - (%inline;)* -(A)
-            new Element(A, "A", Element.INLINE, BODY, new short[] {A}),
+            new Element(A, "A", Element.CONTAINER, BODY, new short[] {A}),
             // ABBR - - (%inline;)*
             new Element(ABBR, "ABBR", Element.INLINE, BODY, null),
             // ACRONYM - - (%inline;)*
@@ -201,7 +201,7 @@ public class HTMLElements {
             // ADDRESS - - (%inline;)*
             new Element(ADDRESS, "ADDRESS", Element.BLOCK, BODY, new short[] {P}),
             // APPLET
-            new Element(APPLET, "APPLET", 0, BODY, null),
+            new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
             // AREA - O EMPTY
             new Element(AREA, "AREA", Element.EMPTY, MAP, null),
         };
@@ -211,7 +211,7 @@ public class HTMLElements {
             // BASE - O EMPTY
             new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
             // BASEFONT
-            new Element(BASEFONT, "BASEFONT", 0, HEAD, null),
+            new Element(BASEFONT, "BASEFONT", Element.EMPTY, HEAD, null),
             // BDO - - (%inline;)*
             new Element(BDO, "BDO", Element.INLINE, BODY, null),
             // BGSOUND
@@ -227,13 +227,13 @@ public class HTMLElements {
             // BR - O EMPTY
             new Element(BR, "BR", Element.EMPTY, BODY, null),
             // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
-            new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, null),
+            new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
         };
         ELEMENTS_ARRAY['C'-'A'] = new Element[] {
             // CAPTION - - (%inline;)*
             new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
             // CENTER, 
-            new Element(CENTER, "CENTER", 0, BODY, new short[] {P}),
+            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P}),
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
             // CODE - - (%inline;)*
@@ -241,35 +241,35 @@ public class HTMLElements {
             // COL - O EMPTY
             new Element(COL, "COL", Element.EMPTY, TABLE, null),
             // COLGROUP - O (COL)*
-            new Element(COLGROUP, "COLGROUP", 0, TABLE, new short[]{COL,COLGROUP}),
+            new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL,COLGROUP}),
             // COMMENT
             new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
         };
         ELEMENTS_ARRAY['D'-'A'] = new Element[] {
             // DEL - - (%flow;)*
-            new Element(DEL, "DEL", 0, BODY, null),
+            new Element(DEL, "DEL", Element.INLINE, BODY, null),
             // DFN - - (%inline;)*
             new Element(DFN, "DFN", Element.INLINE, BODY, null),
             // DIR
-            new Element(DIR, "DIR", 0, BODY, new short[] {P}),
+            new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
             // DIV - - (%flow;)*
             new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P}),
             // DD - O (%flow;)*
-            new Element(DD, "DD", 0, BODY, new short[]{DT,DD,P}),
+            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT,DD,P}),
             // DL - - (DT|DD)+
             new Element(DL, "DL", Element.BLOCK, BODY, new short[] {P}),
             // DT - O (%inline;)*
-            new Element(DT, "DT", 0, BODY, new short[]{DT,DD,P}),
+            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT,DD,P}),
         };
         ELEMENTS_ARRAY['E'-'A'] = new Element[] {
             // EM - - (%inline;)*
             new Element(EM, "EM", Element.INLINE, BODY, null),
             // EMBED
-            new Element(EMBED, "EMBED", 0, BODY, null),
+            new Element(EMBED, "EMBED", Element.EMPTY, BODY, null),
         };
         ELEMENTS_ARRAY['F'-'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
-            new Element(FIELDSET, "FIELDSET", 0, BODY, new short[] {P}),
+            new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
             // FONT
             new Element(FONT, "FONT", Element.CONTAINER, BODY, null),
             // FORM - - (%block;|SCRIPT)+ -(FORM)
@@ -277,7 +277,7 @@ public class HTMLElements {
             // FRAME - O EMPTY
             new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
-            new Element(FRAMESET, "FRAMESET", 0, HTML, null),
+            new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, null),
         };
         ELEMENTS_ARRAY['H'-'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
@@ -308,13 +308,13 @@ public class HTMLElements {
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
             // ISINDEX
-            new Element(ISINDEX, "ISINDEX", 0, HEAD, null),
+            new Element(ISINDEX, "ISINDEX", Element.INLINE, HEAD, null),
         };
         ELEMENTS_ARRAY['K'-'A'] = new Element[] {
             // KBD - - (%inline;)*
             new Element(KBD, "KBD", Element.INLINE, BODY, null),
             // KEYGEN
-            new Element(KEYGEN, "KEYGEN", 0, BODY, null),
+            new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
         };
         ELEMENTS_ARRAY['L'-'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
@@ -328,37 +328,37 @@ public class HTMLElements {
             // LINK - O EMPTY
             new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
             // LISTING
-            new Element(LISTING, "LISTING", 0, BODY, new short[] {P}),
+            new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P}),
         };
         ELEMENTS_ARRAY['M'-'A'] = new Element[] {
             // MAP - - ((%block;) | AREA)+
             new Element(MAP, "MAP", Element.INLINE, BODY, null),
             // MARQUEE
-            new Element(MARQUEE, "MARQUEE", 0, BODY, null),
+            new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
             // MENU
-            new Element(MENU, "MENU", 0, BODY, new short[] {P}),
+            new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P}),
             // META - O EMPTY
             new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE,TITLE}),
             // MULTICOL
-            new Element(MULTICOL, "MULTICOL", 0, BODY, null),
+            new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
         };
         ELEMENTS_ARRAY['N'-'A'] = new Element[] {
             // NEXTID
             new Element(NEXTID, "NEXTID", Element.EMPTY, BODY, null),
             // NOBR
-            new Element(NOBR, "NOBR", Element.INLINE, BODY, null),
+            new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR}),
             // NOEMBED
-            new Element(NOEMBED, "NOEMBED", 0, BODY, null),
+            new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
-            new Element(NOFRAMES, "NOFRAMES", 0, null, null),
+            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, null, null),
             // NOLAYER
-            new Element(NOLAYER, "NOLAYER", 0, BODY, null),
+            new Element(NOLAYER, "NOLAYER", Element.CONTAINER, BODY, null),
             // NOSCRIPT - - (%block;)+
-            new Element(NOSCRIPT, "NOSCRIPT", 0, new short[]{BODY}, null),
+            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{BODY}, null),
         };
         ELEMENTS_ARRAY['O'-'A'] = new Element[] {
             // OBJECT - - (PARAM | %flow;)*
-            new Element(OBJECT, "OBJECT", 0, BODY, null),
+            new Element(OBJECT, "OBJECT", Element.CONTAINER, BODY, null),
             // OL - - (LI)+
             new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P}),
             // OPTGROUP - - (OPTION)+
@@ -374,7 +374,7 @@ public class HTMLElements {
             // PLAINTEXT
             new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, null),
             // PRE - - (%inline;)* -(%pre.exclusion;)
-            new Element(PRE, "PRE", 0, BODY, new short[] {P}),
+            new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P}),
         };
         ELEMENTS_ARRAY['Q'-'A'] = new Element[] {
             // Q - - (%inline;)*
@@ -392,11 +392,11 @@ public class HTMLElements {
             // RTC
             new Element(RTC, "RTC", 0, RUBY, new short[]{RBC}),
             // RUBY
-            new Element(RUBY, "RUBY", 0, BODY, new short[]{RUBY}),
+            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{RUBY}),
         };
         ELEMENTS_ARRAY['S'-'A'] = new Element[] {
             // S
-            new Element(S, "S", 0, BODY, null),
+            new Element(S, "S", Element.INLINE, BODY, null),
             // SAMP - - (%inline;)*
             new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
             // SCRIPT - - %Script;

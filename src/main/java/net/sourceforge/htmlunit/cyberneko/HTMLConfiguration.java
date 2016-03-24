@@ -639,7 +639,7 @@ public class HTMLConfiguration
                 }
                 if (fErrorMessages == null) {
                     fErrorMessages = 
-                        ResourceBundle.getBundle("org/cyberneko/html/res/ErrorMessages",
+                        ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages",
                                                  fLocale);
                 }
                 try {

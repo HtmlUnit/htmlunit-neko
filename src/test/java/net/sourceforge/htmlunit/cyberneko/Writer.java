@@ -16,6 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
+
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -29,6 +30,8 @@ import org.apache.xerces.xni.XMLAttributes;
 import org.apache.xerces.xni.XMLLocator;
 import org.apache.xerces.xni.XMLString;
 import org.apache.xerces.xni.XNIException;
+
+import net.sourceforge.htmlunit.cyberneko.HTMLEventInfo;
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
@@ -462,7 +465,8 @@ public class Writer
         org.apache.xerces.xni.parser.XMLDocumentFilter[] filters = {
             new Writer(),
         };
-        org.apache.xerces.xni.parser.XMLParserConfiguration parser = new HTMLConfiguration();
+        org.apache.xerces.xni.parser.XMLParserConfiguration parser =
+            new net.sourceforge.htmlunit.cyberneko.HTMLConfiguration();
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
         for (int i = 0; i < argv.length; i++) {
             org.apache.xerces.xni.parser.XMLInputSource source =

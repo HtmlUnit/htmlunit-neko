@@ -18,7 +18,6 @@ package net.sourceforge.htmlunit.cyberneko;
 import org.apache.xerces.xni.Augmentations;
 import org.apache.xerces.xni.QName;
 import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLDocumentHandler;
 
 /**
  * <font color="red">EXPERIMENTAL: may change in next release</font><br/>

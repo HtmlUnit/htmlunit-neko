@@ -3710,15 +3710,31 @@ public class HTMLScanner
      * be the same in both encodings
      */ 
     boolean isEncodingCompatible(final String encoding1, final String encoding2) {
-		final String reference = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=";
 		try {
-			final byte[] bytesEncoding1 = reference.getBytes(encoding1);
-			final String referenceWithEncoding2 = new String(bytesEncoding1, encoding2);
-			return reference.equals(referenceWithEncoding2);
+            try {
+                return canRoundtrip(encoding1, encoding2);
+            }
+            catch (final UnsupportedOperationException e) {
+                // if encoding1 only supports decode, we can test it the other way to only decode with it
+                try {
+                    return canRoundtrip(encoding2, encoding1);
+                }
+                catch (final UnsupportedOperationException e1) {
+                    // encoding2 only supports decode too. Time to give up.
+                    return false;
+                }
+            }
 		}
 		catch (final UnsupportedEncodingException e) {
 			return false;
 		}
+    }
+
+    private boolean canRoundtrip(final String encodeCharset, final String decodeCharset) throws UnsupportedEncodingException {
+        final String reference = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=";
+        final byte[] bytesEncoding1 = reference.getBytes(encodeCharset);
+        final String referenceWithEncoding2 = new String(bytesEncoding1, decodeCharset);
+        return reference.equals(referenceWithEncoding2);
     }
 
     private boolean endsWith(final XMLStringBuffer buffer, final String string) {
