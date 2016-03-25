@@ -2760,7 +2760,7 @@ public class HTMLScanner
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                if (empty[0]) {
+                if (empty[0] && !"BR".equalsIgnoreCase(ename)) {
                     fDocumentHandler.emptyElement(fQName, fAttributes, locationAugs());
                 }
                 else {
