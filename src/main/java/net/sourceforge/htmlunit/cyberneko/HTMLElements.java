@@ -328,7 +328,7 @@ public class HTMLElements {
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
             // ISINDEX
-            new Element(ISINDEX, "ISINDEX", Element.INLINE, HEAD, null),
+            new Element(ISINDEX, "ISINDEX", Element.BLOCK, BODY, new short[] {ISINDEX, P}),
         };
         elementsArray['K'-'A'] = new Element[] {
             // KBD - - (%inline;)*
