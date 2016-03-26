@@ -2134,8 +2134,13 @@ public class HTMLScanner
                                 else if (ename != null && !fSingleBoolean[0] 
                                     && htmlConfiguration_.htmlElements_.getElement(enameLC).isSpecial() 
                                     && (!ename.equalsIgnoreCase("TITLE") || isEnded(enameLC))) {
-                                    setScanner(fSpecialScanner.setElementName(ename));
-                                    setScannerState(STATE_CONTENT);
+                                    if (ename.equalsIgnoreCase("PLAINTEXT")) {
+                                        setScanner(new PlainTextScanner());
+                                    }
+                                    else {
+                                        setScanner(fSpecialScanner.setElementName(ename));
+                                        setScannerState(STATE_CONTENT);
+                                    }
                                     return true;
                                 }
                             }
@@ -3358,6 +3363,48 @@ public class HTMLScanner
             }
         } // scanCharacters(StringBuffer)
     } // class SpecialScanner
+
+    /**
+     * Special scanner used for {@code PLAINTEXT}
+     */
+    public class PlainTextScanner implements Scanner {
+
+        /** A string buffer. */
+        private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
+
+        public boolean scan(boolean complete) throws IOException {
+            scanCharacters(fStringBuffer, -1);
+            return false;
+        }
+
+        protected void scanCharacters(XMLStringBuffer buffer, int delimiter) throws IOException {
+            while (true) {
+                int c = fCurrentEntity.read();
+
+                if (c == -1) {
+                    break;
+                }
+                appendChar(buffer, c);
+                if (c == '\n') {
+                    fCurrentEntity.incLine();
+                }
+            }
+
+            if (buffer.length > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (DEBUG_CALLBACKS) {
+                    System.out.println("characters("+buffer+")");
+                }
+                fEndLineNumber = fCurrentEntity.getLineNumber();
+                fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                fDocumentHandler.characters(buffer, locationAugs());
+                fDocumentHandler.endDocument(locationAugs());
+            }
+            if (DEBUG_BUFFER) { 
+                fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
+            }
+        }
+    }
 
     /**
      * A playback input stream. This class has the ability to save the bytes

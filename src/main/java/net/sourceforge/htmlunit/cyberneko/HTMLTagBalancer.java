@@ -34,6 +34,7 @@ import org.apache.xerces.xni.parser.XMLComponentManager;
 import org.apache.xerces.xni.parser.XMLConfigurationException;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLDocumentSource;
+import org.w3c.dom.html.HTMLElement;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLElements.Element;
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
@@ -638,6 +639,23 @@ public class HTMLTagBalancer
         }
         else if (elementCode == HTMLElements.UNKNOWN) {
         	consumeBufferedEndElements();
+        }
+        else if (elementCode == HTMLElements.PLAINTEXT) {
+            //close all elements but BODY or HTML
+            int length = fElementStack.top - fragmentContextStackSize_;
+            for (int i = 0; i < length; i++) {
+                Info info = fElementStack.peek();
+                if (info.element.code != HTMLElements.BODY && info.element.code != HTMLElements.HTML) {
+                    info = fElementStack.pop();
+                    if (fReportErrors) {
+                        String ename = info.qname.rawname;
+                        fErrorReporter.reportWarning("HTML2001", new Object[]{ename});
+                    }
+                    if (fDocumentHandler != null) {
+                        callEndElement(info.qname, synthesizedAugs());
+                    }
+                }
+            }
         }
 
         // check proper parent
