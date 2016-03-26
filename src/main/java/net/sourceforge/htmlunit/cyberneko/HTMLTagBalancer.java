@@ -17,6 +17,7 @@
 package net.sourceforge.htmlunit.cyberneko;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +35,6 @@ import org.apache.xerces.xni.parser.XMLComponentManager;
 import org.apache.xerces.xni.parser.XMLConfigurationException;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLDocumentSource;
-import org.w3c.dom.html.HTMLElement;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLElements.Element;
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
@@ -245,14 +245,14 @@ public class HTMLTagBalancer
      */
     protected boolean fSeenRootElementEnd;
 
-    /** True if seen &lt;head&lt; element. */
+    /** True if seen {@code head} element. */
     protected boolean fSeenHeadElement;
 
-    /** True if seen &lt;body&lt; element. */
+    /** True if seen {@code body} element. */
     protected boolean fSeenBodyElement;
     private boolean fSeenBodyElementEnd;
 
-    /** True if seen &lt;frameset&lt; element. */
+    /** True if seen {@code frameset} element. */
     private boolean fSeenFramesetElement;
 
     /** True if a form is in the stack (allow to discard opening of nested forms) */
@@ -281,7 +281,8 @@ public class HTMLTagBalancer
 	private QName[] fragmentContextStack_ = null;
 	private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
-    private List/*ElementEntry*/ endElementsBuffer_ = new ArrayList(); 
+    private List<ElementEntry> endElementsBuffer_ = new ArrayList<>();
+    private List<String> discardedStartElements = new ArrayList<>();
 
     private final HTMLConfiguration htmlConfiguration_;
 
@@ -526,10 +527,9 @@ public class HTMLTagBalancer
      * at the end of document
      */
 	private void consumeBufferedEndElements() {
-		final List toConsume = new ArrayList(endElementsBuffer_);
+		final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
 		endElementsBuffer_.clear();
-		for (int i=0; i<toConsume.size(); ++i) {
-    		final ElementEntry entry = (ElementEntry) toConsume.get(i);
+		for (final ElementEntry entry : toConsume) {
     		forcedEndElement_ = true;
         	endElement(entry.name_, entry.augs_);
     	}
@@ -1023,6 +1023,13 @@ public class HTMLTagBalancer
         // if we consider outside content, just buffer </body> and </html> to consider them at the very end
         if (!fIgnoreOutsideContent &&
             (elem.code == HTMLElements.BODY || elem.code == HTMLElements.HTML)) {
+            for (final Iterator<String> it = discardedStartElements.iterator(); it.hasNext();) {
+                if (element.rawname.equals(it.next())) {
+                    it.remove();
+                    return;
+                }
+            }
+            // only add to buffer if the elements was discarded before
         	endElementsBuffer_.add(new ElementEntry(element, augs));
             return;
         }
@@ -1452,10 +1459,11 @@ public class HTMLTagBalancer
 	/**
 	 * Notifies the tagBalancingListener (if any) of an ignored start element
 	 */
-    private void notifyDiscardedStartElement(final QName elem, final XMLAttributes attrs,
-    		final Augmentations augs) {
-    	if (tagBalancingListener != null)
+    private void notifyDiscardedStartElement(final QName elem, final XMLAttributes attrs, final Augmentations augs) {
+    	if (tagBalancingListener != null) {
     		tagBalancingListener.ignoredStartElement(elem, attrs, augs);
+    	}
+    	discardedStartElements.add(elem.rawname);
 	}
 
 	/**
