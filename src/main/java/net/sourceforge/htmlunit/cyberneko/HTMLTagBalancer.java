@@ -1073,7 +1073,7 @@ public class HTMLTagBalancer
         		forceStartElement(element, emptyAttributes(), synthesizedAugs());
 	            endElement(element, augs);
         	}
-            if (elem.code == HTMLElements.BR) {
+        	else if (elem.code == HTMLElements.BR) {
                 forceStartElement(element, emptyAttributes(), synthesizedAugs());
             }
         	else if (!elem.isEmpty()) {
