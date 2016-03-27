@@ -606,6 +606,10 @@ public class HTMLTagBalancer
             fSeenHeadElement = true;
         }
         else if (elementCode == HTMLElements.FRAMESET) {
+            if (fSeenBodyElement) {
+                notifyDiscardedStartElement(elem, attrs, augs);
+                return;
+            }
     		// create <head></head> if none was present
     		if (!fSeenHeadElement) {
     			final QName head = createQName("head");
