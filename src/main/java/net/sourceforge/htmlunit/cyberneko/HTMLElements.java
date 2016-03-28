@@ -157,7 +157,8 @@ public class HTMLElements {
     public static final short TABLE = SUP+1;
     public static final short TBODY = TABLE+1;
     public static final short TD = TBODY+1;
-    public static final short TEXTAREA = TD+1;
+    public static final short TEMPLATE = TD+1;
+    public static final short TEXTAREA = TEMPLATE+1;
     public static final short TFOOT = TEXTAREA+1;
     public static final short TH = TFOOT+1;
     public static final short THEAD = TH+1;
@@ -458,6 +459,8 @@ public class HTMLElements {
             new Element(TBODY, "TBODY", 0, TABLE, new short[]{THEAD,TBODY,TFOOT,TD,TH,TR,COLGROUP}),
             // TD - O (%flow;)*
             new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD,TH}),
+
+            new Element(TEMPLATE, "TEMPLATE", Element.INLINE, BODY, new short[]{TEMPLATE}),
             // TEXTAREA - - (#PCDATA)
             new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
             // TFOOT - O (TR)+
