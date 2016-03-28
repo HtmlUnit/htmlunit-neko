@@ -416,7 +416,7 @@ public class HTMLElements {
             // RTC
             new Element(RTC, "RTC", 0, RUBY, new short[]{RBC}),
             // RUBY
-            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{RUBY}),
+            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, null),
         };
         elementsArray['S'-'A'] = new Element[] {
             // S
