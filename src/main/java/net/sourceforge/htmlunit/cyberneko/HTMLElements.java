@@ -99,7 +99,8 @@ public class HTMLElements {
     public static final short IFRAME = I+1;
     public static final short ILAYER = IFRAME+1;
     public static final short IMG = ILAYER+1;
-    public static final short INPUT = IMG+1;
+    public static final short IMAGE = IMG+1;
+    public static final short INPUT = IMAGE+1;
     public static final short INS = INPUT+1;
     public static final short ISINDEX = INS+1;
     public static final short KBD = ISINDEX+1;
@@ -324,6 +325,8 @@ public class HTMLElements {
             new Element(ILAYER, "ILAYER", Element.BLOCK, BODY, null),
             // IMG - O EMPTY
             new Element(IMG, "IMG", Element.EMPTY, BODY, null),
+
+            new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
             // INPUT - O EMPTY
             new Element(INPUT, "INPUT", Element.EMPTY, BODY, null),
             // INS - - (%flow;)*
