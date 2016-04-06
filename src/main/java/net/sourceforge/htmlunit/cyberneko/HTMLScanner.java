@@ -3029,8 +3029,7 @@ public class HTMLScanner
                         if (fReportErrors) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
-                        break;
-//                        throw new EOFException();
+                        throw new EOFException();
                     }
                     if (c == '&') {
                     	isStart = false;
