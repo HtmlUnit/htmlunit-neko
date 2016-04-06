@@ -68,7 +68,7 @@
                 <version>1.9.4</version>
                 <configuration>
                     <tag>${project.name}-${project.version}</tag>
-                    <message>Release ${project.version}</message>
+                    <message>${project.name} release ${project.version}</message>
                 </configuration>
             </plugin>
         </plugins>
