@@ -178,7 +178,7 @@ public class HTMLElements {
     // information
 
     /** No such element. */
-    public static final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
+    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
 
     public final Map<Short, Element> elementsMap = new HashMap<>();
     //
