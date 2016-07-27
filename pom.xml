@@ -20,6 +20,9 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <scm>
         <connection>scm:svn:https://svn.code.sf.net/p/htmlunit/code/trunk/neko-htmlunit</connection>
