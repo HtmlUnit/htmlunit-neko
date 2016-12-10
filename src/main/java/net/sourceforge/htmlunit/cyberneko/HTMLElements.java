@@ -25,6 +25,7 @@ import java.util.Map;
  * @author Andy Clark
  * @author Ahmed Ashour
  * @author Marc Guillemot
+ * @author Ronald Brill
  *
  * @version $Id: HTMLElements.java,v 1.12 2005/02/14 07:16:59 andyc Exp $
  */
@@ -269,7 +270,7 @@ public class HTMLElements {
             // DD - O (%flow;)*
             new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT,DD,P}),
             // DL - - (DT|DD)+
-            new Element(DL, "DL", Element.BLOCK, BODY, new short[] {P}),
+            new Element(DL, "DL", Element.BLOCK|Element.CONTAINER, BODY, new short[] {P}),
             // DT - O (%inline;)*
             new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT,DD,P}),
         };
