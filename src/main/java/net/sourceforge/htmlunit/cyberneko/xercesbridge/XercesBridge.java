@@ -44,9 +44,7 @@ public abstract class XercesBridge
     {
         final String[] classNames = {
             "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_3",
-            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_2",
-            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_1",
-            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_0"
+            "net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge_2_2"
         };
 
         for (int i = 0; i != classNames.length; ++i) {
