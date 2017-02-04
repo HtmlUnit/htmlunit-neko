@@ -32,14 +32,14 @@ import org.apache.xerces.xni.XMLAttributes;
  */
 public interface HTMLTagBalancingListener 
 {
-	/**
-	 * Notifies that the start element has been ignored. 
-	 */
-	void ignoredStartElement(QName elem, XMLAttributes attrs, Augmentations augs);
+    /**
+     * Notifies that the start element has been ignored. 
+     */
+    void ignoredStartElement(QName elem, XMLAttributes attrs, Augmentations augs);
 
-	/**
-	 * Notifies that the end element has been ignored. 
-	 */
-	void ignoredEndElement(QName element, Augmentations augs);
+    /**
+     * Notifies that the end element has been ignored. 
+     */
+    void ignoredEndElement(QName element, Augmentations augs);
 
 }

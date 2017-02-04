@@ -43,13 +43,13 @@ public class HTMLAugmentations implements Augmentations {
     //
 
     /** Augmentation items. */
-    protected final Hashtable fItems = new Hashtable();
+    protected final Hashtable<String, Object> fItems = new Hashtable<String, Object>();
 
     //
     // Public methods
     //
     public HTMLAugmentations() {
-    	// nothing
+        // nothing
     }
 
     /**
@@ -57,14 +57,14 @@ public class HTMLAugmentations implements Augmentations {
      * @param augs the object to copy
      */
     HTMLAugmentations(final Augmentations augs) {
-    	for (final Enumeration keys=augs.keys(); keys.hasMoreElements(); ) {
-    		final String key = (String) keys.nextElement();
-    		Object value = augs.getItem(key);
-    		if (value instanceof HTMLScanner.LocationItem) {
-    			value = new HTMLScanner.LocationItem((HTMLScanner.LocationItem) value);
-    		}
-        	fItems.put(key, value);
-    	}
+        for (final Enumeration keys=augs.keys(); keys.hasMoreElements(); ) {
+            final String key = (String) keys.nextElement();
+            Object value = augs.getItem(key);
+            if (value instanceof HTMLScanner.LocationItem) {
+                value = new HTMLScanner.LocationItem((HTMLScanner.LocationItem) value);
+            }
+            fItems.put(key, value);
+        }
     }
 
     // since Xerces 2.3.0

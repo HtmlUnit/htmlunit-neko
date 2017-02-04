@@ -40,34 +40,34 @@ class SecuritySupport {
     private static final Object securitySupport;
 
     static {
-	SecuritySupport ss = null;
-	try {
-	    Class c = Class.forName("java.security.AccessController");
-	    // if that worked, we're on 1.2.
-	    /*
-	    // don't reference the class explicitly so it doesn't
-	    // get dragged in accidentally.
-	    c = Class.forName("javax.mail.SecuritySupport12");
-	    Constructor cons = c.getConstructor(new Class[] { });
-	    ss = (SecuritySupport)cons.newInstance(new Object[] { });
-	    */
-	    /*
-	     * Unfortunately, we can't load the class using reflection
-	     * because the class is package private.  And the class has
-	     * to be package private so the APIs aren't exposed to other
-	     * code that could use them to circumvent security.  Thus,
-	     * we accept the risk that the direct reference might fail
-	     * on some JDK 1.1 JVMs, even though we would never execute
-	     * this code in such a case.  Sigh...
-	     */
-	    ss = new SecuritySupport12();
-	} catch (Exception ex) {
-	    // ignore it
-	} finally {
-	    if (ss == null)
-		ss = new SecuritySupport();
-	    securitySupport = ss;
-	}
+    SecuritySupport ss = null;
+    try {
+        Class c = Class.forName("java.security.AccessController");
+        // if that worked, we're on 1.2.
+        /*
+        // don't reference the class explicitly so it doesn't
+        // get dragged in accidentally.
+        c = Class.forName("javax.mail.SecuritySupport12");
+        Constructor cons = c.getConstructor(new Class[] { });
+        ss = (SecuritySupport)cons.newInstance(new Object[] { });
+        */
+        /*
+         * Unfortunately, we can't load the class using reflection
+         * because the class is package private.  And the class has
+         * to be package private so the APIs aren't exposed to other
+         * code that could use them to circumvent security.  Thus,
+         * we accept the risk that the direct reference might fail
+         * on some JDK 1.1 JVMs, even though we would never execute
+         * this code in such a case.  Sigh...
+         */
+        ss = new SecuritySupport12();
+    } catch (Exception ex) {
+        // ignore it
+    } finally {
+        if (ss == null)
+        ss = new SecuritySupport();
+        securitySupport = ss;
+    }
     }
 
     /**
@@ -75,11 +75,11 @@ class SecuritySupport {
      * we're on a JDK 1.1 or J2SE 1.2 (or later) system.
      */
     static SecuritySupport getInstance() {
-	return (SecuritySupport)securitySupport;
+    return (SecuritySupport)securitySupport;
     }
 
     ClassLoader getContextClassLoader() {
-	return null;
+    return null;
     }
 
     ClassLoader getSystemClassLoader() {

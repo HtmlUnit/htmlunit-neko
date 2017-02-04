@@ -16,7 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko.filters;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import org.apache.xerces.xni.Augmentations;
 import org.apache.xerces.xni.NamespaceContext;
@@ -108,10 +108,10 @@ public class ElementRemover
     // information
 
     /** Accepted elements. */
-    protected Hashtable fAcceptedElements = new Hashtable();
+    protected HashMap<String, Object> fAcceptedElements = new HashMap<String, Object>();
 
     /** Removed elements. */
-    protected Hashtable fRemovedElements = new Hashtable();
+    protected HashMap<String, Object> fRemovedElements = new HashMap<String, Object>();
 
     // state
 
@@ -136,7 +136,7 @@ public class ElementRemover
      * see #removeElement
      */
     public void acceptElement(String element, String[] attributes) {
-        Object key = element.toLowerCase();
+        String key = element.toLowerCase();
         Object value = NULL;
         if (attributes != null) {
             String[] newarray = new String[attributes.length];
@@ -157,7 +157,7 @@ public class ElementRemover
      * @param element The element to completely remove.
      */
     public void removeElement(String element) {
-        Object key = element.toLowerCase();
+        String key = element.toLowerCase();
         Object value = NULL;
         fRemovedElements.put(key, value);
     } // removeElement(String)

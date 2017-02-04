@@ -16,7 +16,6 @@
 package net.sourceforge.htmlunit.cyberneko;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.xerces.xni.Augmentations;
@@ -32,52 +31,52 @@ import org.apache.xerces.xni.XMLString;
  */
 class LostText
 {
-	/**
-	 * Pair of (text, augmentation)
-	 */
-	static class Entry
-	{
-    	private XMLString text_;
-    	private Augmentations augs_;
+    /**
+     * Pair of (text, augmentation)
+     */
+    static class Entry
+    {
+        private XMLString text_;
+        private Augmentations augs_;
 
-    	public Entry(final XMLString text, final Augmentations augs)
-    	{
-    		final char[] chars = new char[text.length];
-    		System.arraycopy(text.ch, text.offset, chars, 0, text.length);
-    		text_ = new XMLString(chars, 0, chars.length);
-    		if (augs != null)
-    			augs_ = new HTMLAugmentations(augs);
-    	}
-	}
-	private final List entries = new ArrayList();
+        public Entry(final XMLString text, final Augmentations augs)
+        {
+            final char[] chars = new char[text.length];
+            System.arraycopy(text.ch, text.offset, chars, 0, text.length);
+            text_ = new XMLString(chars, 0, chars.length);
+            if (augs != null)
+                augs_ = new HTMLAugmentations(augs);
+        }
+    }
+    private final List<Entry> entries = new ArrayList<Entry>();
 
-	/**
-	 * Adds some text that need to be re-feed later. The information gets copied.
-	 */
-	public void add(final XMLString text, final Augmentations augs)
-	{
-		if (!entries.isEmpty() || text.toString().trim().length() > 0)
-			entries.add(new Entry(text, augs));
-	}
-	
-	/**
-	 * Pushes the characters into the {@link XMLDocumentHandler}
-	 * @param tagBalancer the tag balancer that will receive the events
-	 */
-	public void refeed(final XMLDocumentHandler tagBalancer) {
-		for (final Iterator iter = entries.iterator(); iter.hasNext();) {
-			final LostText.Entry entry = (LostText.Entry) iter.next();
-			tagBalancer.characters(entry.text_, entry.augs_);
-		}
-		// not needed anymore once it has been used -> clear to free memory
-		entries.clear();
-	}
-	
-	/**
-	 * Indicates if this container contains something
-	 * @return <code>true</code> if no lost text has been collected
-	 */
-	public boolean isEmpty() {
-		return entries.isEmpty();
-	}
+    /**
+     * Adds some text that need to be re-feed later. The information gets copied.
+     */
+    public void add(final XMLString text, final Augmentations augs)
+    {
+        if (!entries.isEmpty() || text.toString().trim().length() > 0)
+            entries.add(new Entry(text, augs));
+    }
+    
+    /**
+     * Pushes the characters into the {@link XMLDocumentHandler}
+     * @param tagBalancer the tag balancer that will receive the events
+     */
+    public void refeed(final XMLDocumentHandler tagBalancer) {
+        for (Entry entry : entries) {
+            final LostText.Entry lostEntry = (LostText.Entry) entry;
+            tagBalancer.characters(lostEntry.text_, lostEntry.augs_);
+        }
+        // not needed anymore once it has been used -> clear to free memory
+        entries.clear();
+    }
+    
+    /**
+     * Indicates if this container contains something
+     * @return <code>true</code> if no lost text has been collected
+     */
+    public boolean isEmpty() {
+        return entries.isEmpty();
+    }
 }

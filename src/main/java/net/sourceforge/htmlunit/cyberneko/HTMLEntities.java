@@ -48,7 +48,7 @@ public class HTMLEntities {
     //
 
     static {
-    	final Properties props = new Properties();
+        final Properties props = new Properties();
         // load entities
         load0(props, "res/HTMLlat1.properties");
         load0(props, "res/HTMLspecial.properties");
@@ -56,12 +56,12 @@ public class HTMLEntities {
         load0(props, "res/XMLbuiltin.properties");
 
         // store reverse mappings
-        final Enumeration keys = props.propertyNames();
+        final Enumeration<?> keys = props.propertyNames();
         while (keys.hasMoreElements()) {
-        	final String key = (String)keys.nextElement();
-        	final String value = props.getProperty(key);
+            final String key = (String) keys.nextElement();
+            final String value = props.getProperty(key);
             if (value.length() == 1) {
-            	final int ivalue = value.charAt(0);
+                final int ivalue = value.charAt(0);
                 SEITITNE.put(ivalue, key);
             }
         }
@@ -97,9 +97,9 @@ public class HTMLEntities {
     /** Loads the entity values in the specified resource. */
     private static void load0(final Properties props, final String filename) {
         try {
-        	final InputStream stream = HTMLEntities.class.getResourceAsStream(filename);
-			props.load(stream);
-			stream.close();
+            final InputStream stream = HTMLEntities.class.getResourceAsStream(filename);
+            props.load(stream);
+            stream.close();
         }
         catch (final IOException e) {
             System.err.println("error: unable to load resource \""+filename+"\"");

@@ -651,7 +651,7 @@ public class HTMLElements {
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags, 
-        		final short parent, final short[] closes) {
+                final short parent, final short[] closes) {
             this(code, name, flags, new short[]{parent}, (short)-1, closes);
         } // <init>(short,String,int,short,short[]);
 
@@ -665,7 +665,7 @@ public class HTMLElements {
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags, 
-        		final short parent, final short bounds, final short[] closes) {
+                final short parent, final short bounds, final short[] closes) {
             this(code, name, flags, new short[]{parent}, bounds, closes);
         } // <init>(short,String,int,short,short,short[])
 
@@ -679,7 +679,7 @@ public class HTMLElements {
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags, 
-        		final short[] parents, final short[] closes) {
+                final short[] parents, final short[] closes) {
             this(code, name, flags, parents, (short)-1, closes);
         } // <init>(short,String,int,short[],short[])
 
@@ -693,7 +693,7 @@ public class HTMLElements {
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags, 
-        		final short[] parents, final short bounds, final short[] closes) {
+                final short[] parents, final short bounds, final short[] closes) {
             this.code = code;
             this.name = name;
             this.flags = flags;
@@ -770,7 +770,7 @@ public class HTMLElements {
          * Provides a simple representation to make debugging easier
          */
         public String toString() {
-        	return super.toString() + "(name=" + name + ")";
+            return super.toString() + "(name=" + name + ")";
         }
 
         /**
@@ -778,15 +778,15 @@ public class HTMLElements {
          * @param element the element to test for "paternity"
          * @return <code>true</code> if <code>element</code> belongs to the {@link #parent}
          */
-		public boolean isParent(final Element element) {
-			if (parent == null)
-				return false;
-			for (int i=0; i<parent.length; ++i) {
-				if (element.code == parent[i].code)
-					return true;
-			}
-			return false;
-		}
+        public boolean isParent(final Element element) {
+            if (parent == null)
+                return false;
+            for (int i=0; i<parent.length; ++i) {
+                if (element.code == parent[i].code)
+                    return true;
+            }
+            return false;
+        }
     } // class Element
 
     /** Unsynchronized list of elements. */

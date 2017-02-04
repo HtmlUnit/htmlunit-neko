@@ -35,16 +35,16 @@ import java.security.PrivilegedExceptionAction;
 class SecuritySupport12 extends SecuritySupport {
 
     ClassLoader getContextClassLoader() {
-	return (ClassLoader)
-		AccessController.doPrivileged(new PrivilegedAction() {
-	    public Object run() {
-		ClassLoader cl = null;
-		try {
-		    cl = Thread.currentThread().getContextClassLoader();
-		} catch (SecurityException ex) { }
-		return cl;
-	    }
-	});
+    return (ClassLoader)
+        AccessController.doPrivileged(new PrivilegedAction() {
+        public Object run() {
+        ClassLoader cl = null;
+        try {
+            cl = Thread.currentThread().getContextClassLoader();
+        } catch (SecurityException ex) { }
+        return cl;
+        }
+    });
     }
 
     ClassLoader getSystemClassLoader() {
@@ -77,7 +77,7 @@ class SecuritySupport12 extends SecuritySupport {
     }
 
     String getSystemProperty(final String propName) {
-	return (String)
+    return (String)
             AccessController.doPrivileged(new PrivilegedAction() {
                 public Object run() {
                     return System.getProperty(propName);
@@ -88,16 +88,16 @@ class SecuritySupport12 extends SecuritySupport {
     FileInputStream getFileInputStream(final File file)
         throws FileNotFoundException
     {
-	try {
+    try {
             return (FileInputStream)
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
                     public Object run() throws FileNotFoundException {
                         return new FileInputStream(file);
                     }
                 });
-	} catch (PrivilegedActionException e) {
-	    throw (FileNotFoundException)e.getException();
-	}
+    } catch (PrivilegedActionException e) {
+        throw (FileNotFoundException)e.getException();
+    }
     }
 
     InputStream getResourceAsStream(final ClassLoader cl,

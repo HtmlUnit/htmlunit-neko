@@ -18,10 +18,11 @@ package net.sourceforge.htmlunit.cyberneko;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 import org.apache.xerces.util.DefaultErrorHandler;
 import org.apache.xerces.util.ParserConfigurationSettings;
@@ -163,14 +164,14 @@ public class HTMLConfiguration
     // components
 
     /** Components. */
-    protected final Vector fHTMLComponents = new Vector(2);
+    protected final List<HTMLComponent> fHTMLComponents = new ArrayList<HTMLComponent>(2);
 
     // pipeline
 
     /** Document scanner. */
     protected final HTMLScanner fDocumentScanner = createDocumentScanner();
 
-	/** HTML tag balancer. */
+    /** HTML tag balancer. */
     protected final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer(this);
 
     /** Namespace binder. */
@@ -309,9 +310,9 @@ public class HTMLConfiguration
 
     } // <init>()
 
-	protected HTMLScanner createDocumentScanner() {
-		return new HTMLScanner(this);
-	}
+    protected HTMLScanner createDocumentScanner() {
+        return new HTMLScanner(this);
+    }
 
     //
     // Public methods
@@ -358,7 +359,7 @@ public class HTMLConfiguration
         super.setFeature(featureId, state);
         int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = (HTMLComponent)fHTMLComponents.elementAt(i);
+            HTMLComponent component = fHTMLComponents.get(i);
             component.setFeature(featureId, state);
         }
     } // setFeature(String,boolean)
@@ -382,7 +383,7 @@ public class HTMLConfiguration
 
         int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = (HTMLComponent)fHTMLComponents.elementAt(i);
+            HTMLComponent component = fHTMLComponents.get(i);
             component.setProperty(propertyId, value);
         }
     } // setProperty(String,Object)
@@ -391,7 +392,7 @@ public class HTMLConfiguration
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
         if (handler instanceof HTMLTagBalancingListener) {
-        	fTagBalancer.setTagBalancingListener((HTMLTagBalancingListener) handler);
+            fTagBalancer.setTagBalancingListener((HTMLTagBalancingListener) handler);
         }
     } // setDocumentHandler(XMLDocumentHandler)
 
@@ -536,7 +537,7 @@ public class HTMLConfiguration
     protected void addComponent(HTMLComponent component) {
 
         // add component to list
-        fHTMLComponents.addElement(component);
+        fHTMLComponents.add(component);
 
         // add recognized features and set default states
         String[] features = component.getRecognizedFeatures();
@@ -568,7 +569,7 @@ public class HTMLConfiguration
         // reset components
         int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = (HTMLComponent)fHTMLComponents.elementAt(i);
+            HTMLComponent component = fHTMLComponents.get(i);
             component.reset(this);
         }
 
@@ -688,7 +689,7 @@ public class HTMLConfiguration
 
         /** Format simple message. */
         protected String formatSimpleMessage(String key, Object[] args) {
-            StringBuffer str = new StringBuffer();
+            StringBuilder str = new StringBuilder();
             str.append(ERROR_DOMAIN);
             str.append('#');
             str.append(key);

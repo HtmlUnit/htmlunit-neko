@@ -216,7 +216,7 @@ public class Purifier
     /** Comment. */
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
-        StringBuffer str = new StringBuffer(purifyText(text).toString());
+        StringBuilder str = new StringBuilder(purifyText(text).toString());
         int length = str.length();
         for (int i = length-1; i >= 0; i--) {
             char c = str.charAt(i);
@@ -287,7 +287,7 @@ public class Purifier
         throws XNIException {
         text = purifyText(text);
         if (fInCDATASection) {
-            StringBuffer str = new StringBuffer(text.toString());
+            StringBuilder str = new StringBuilder(text.toString());
             int length = str.length();
             for (int i = length-1; i >= 0; i--) {
                 char c = str.charAt(i);
@@ -414,7 +414,7 @@ public class Purifier
         if (name == null) {
             return name;
         }
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         int length = name.length();
         boolean seenColon = localpart;
         for (int i = 0; i < length; i++) {
@@ -461,7 +461,7 @@ public class Purifier
 
     /** Returns a padded hexadecimal string for the given value. */
     protected static String toHexString(int c, int padlen) {
-        StringBuffer str = new StringBuffer(padlen);
+        StringBuilder str = new StringBuilder(padlen);
         str.append(Integer.toHexString(c));
         int len = padlen - str.length();
         for (int i = 0; i < len; i++) {

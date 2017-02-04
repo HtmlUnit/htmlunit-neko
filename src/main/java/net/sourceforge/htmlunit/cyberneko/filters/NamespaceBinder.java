@@ -30,7 +30,6 @@ import org.apache.xerces.xni.parser.XMLComponentManager;
 import org.apache.xerces.xni.parser.XMLConfigurationException;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
-import net.sourceforge.htmlunit.cyberneko.HTMLElements;
 import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
 
 /**
@@ -570,8 +569,8 @@ public class NamespaceBinder
         /** Pop context. */
         public void popContext() {
             if (fTop > 1) {
-				fTop--;
-			}
+                fTop--;
+            }
         } // popContext()
 
         /** Declare prefix. */
@@ -605,8 +604,8 @@ public class NamespaceBinder
         } // getPrefix(String):String
 
         /** Get all prefixes. */
-        public Enumeration getAllPrefixes() {
-            Vector prefixes = new Vector();
+        public Enumeration<String> getAllPrefixes() {
+            Vector<String> prefixes = new Vector<String>();
             for (int i = fLevels[1]; i < fLevels[fTop]; i++) {
                 String prefix = fEntries[i].prefix;
                 if (!prefixes.contains(prefix)) {

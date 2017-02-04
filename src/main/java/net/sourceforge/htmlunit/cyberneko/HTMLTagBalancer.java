@@ -281,8 +281,8 @@ public class HTMLTagBalancer
     /**
      * Stack of elements determining the context in which a document fragment should be parsed
      */
-	private QName[] fragmentContextStack_ = null;
-	private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
+    private QName[] fragmentContextStack_ = null;
+    private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
     private List<ElementEntry> endElementsBuffer_ = new ArrayList<>();
     private List<String> discardedStartElements = new ArrayList<>();
@@ -429,21 +429,21 @@ public class HTMLTagBalancer
         // reset state
         fElementStack.top = 0;
         if (fragmentContextStack_ != null) {
-        	fragmentContextStackSize_ = fragmentContextStack_.length;
-        	for (int i=0; i<fragmentContextStack_.length; ++i) {
-        		final QName name = fragmentContextStack_[i];
-            	final Element elt = htmlConfiguration_.htmlElements_.getElement(name.localpart);
-            	fElementStack.push(new Info(elt, name));
-        	}
-        	
+            fragmentContextStackSize_ = fragmentContextStack_.length;
+            for (int i=0; i<fragmentContextStack_.length; ++i) {
+                final QName name = fragmentContextStack_[i];
+                final Element elt = htmlConfiguration_.htmlElements_.getElement(name.localpart);
+                fElementStack.push(new Info(elt, name));
+            }
+            
         }
         else {
-        	fragmentContextStackSize_ = 0;
+            fragmentContextStackSize_ = 0;
         }
 
         // pass on event
         if (fDocumentHandler != null) {
-        	XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
+            XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
         }
     
     } // startDocument(XMLLocator,String,Augmentations)
@@ -481,17 +481,17 @@ public class HTMLTagBalancer
     /** End document. */
     public void endDocument(Augmentations augs) throws XNIException {
 
-    	// </body> and </html> have been buffered to consider outside content
-    	fIgnoreOutsideContent = true; // endElement should not ignore the elements passed from buffer
-    	consumeBufferedEndElements();
-    	
+        // </body> and </html> have been buffered to consider outside content
+        fIgnoreOutsideContent = true; // endElement should not ignore the elements passed from buffer
+        consumeBufferedEndElements();
+        
         // handle empty document
         if (!fSeenRootElement && !fDocumentFragment) {
             if (fReportErrors) {
                 fErrorReporter.reportError("HTML2000", null);
             }
             if (fDocumentHandler != null) {
-            	fSeenRootElementEnd = false;
+                fSeenRootElementEnd = false;
                 forceStartBody(); // will force <html> and <head></head>
                 final String body = modifyName("body", fNamesElems);
                 fQName.setValues(null, body, body, null);
@@ -529,15 +529,15 @@ public class HTMLTagBalancer
      * Consume elements that have been buffered, like </body></html> that are first consumed
      * at the end of document
      */
-	private void consumeBufferedEndElements() {
-		final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
-		endElementsBuffer_.clear();
-		for (final ElementEntry entry : toConsume) {
-    		forcedEndElement_ = true;
-        	endElement(entry.name_, entry.augs_);
-    	}
-		endElementsBuffer_.clear();
-	}
+    private void consumeBufferedEndElements() {
+        final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
+        endElementsBuffer_.clear();
+        for (final ElementEntry entry : toConsume) {
+            forcedEndElement_ = true;
+            endElement(entry.name_, entry.augs_);
+        }
+        endElementsBuffer_.clear();
+    }
 
     /** Comment. */
     public void comment(XMLString text, Augmentations augs) throws XNIException {
@@ -548,14 +548,14 @@ public class HTMLTagBalancer
         }
     } // comment(XMLString,Augmentations)
 
-	private void consumeEarlyTextIfNeeded() {
-		if (!lostText_.isEmpty()) {
-        	if (!fSeenBodyElement) {
-        		forceStartBody();
-        	}
+    private void consumeEarlyTextIfNeeded() {
+        if (!lostText_.isEmpty()) {
+            if (!fSeenBodyElement) {
+                forceStartBody();
+            }
             lostText_.refeed(this);
         }
-	}
+    }
 
     /** Processing instruction. */
     public void processingInstruction(String target, XMLString data,
@@ -577,7 +577,7 @@ public class HTMLTagBalancer
 
         // check for end of document
         if (fSeenRootElementEnd) {
-        	notifyDiscardedStartElement(elem, attrs, augs);
+            notifyDiscardedStartElement(elem, attrs, augs);
             return;
         }
 
@@ -587,23 +587,23 @@ public class HTMLTagBalancer
 
         // the creation of some elements like TABLE or SELECT can't be forced. Any others? 
         if (isForcedCreation && (elementCode == HTMLElements.TABLE || elementCode == HTMLElements.SELECT)) {
-        	return; // don't accept creation
+            return; // don't accept creation
         }
 
         // ignore multiple html, head, body elements
-		if (fSeenRootElement && elementCode == HTMLElements.HTML) {
-        	notifyDiscardedStartElement(elem, attrs, augs);
+        if (fSeenRootElement && elementCode == HTMLElements.HTML) {
+            notifyDiscardedStartElement(elem, attrs, augs);
             return;
         }
-		// accept only frame and frameset within frameset
-		if (fSeenFramesetElement && elementCode != HTMLElements.FRAME && elementCode != HTMLElements.FRAMESET && elementCode != HTMLElements.NOFRAMES) {
-        	notifyDiscardedStartElement(elem, attrs, augs);
+        // accept only frame and frameset within frameset
+        if (fSeenFramesetElement && elementCode != HTMLElements.FRAME && elementCode != HTMLElements.FRAMESET && elementCode != HTMLElements.NOFRAMES) {
+            notifyDiscardedStartElement(elem, attrs, augs);
             return;
-		}
+        }
 
-		if (elementCode == HTMLElements.HEAD) {
+        if (elementCode == HTMLElements.HEAD) {
             if (fSeenHeadElement) {
-            	notifyDiscardedStartElement(elem, attrs, augs);
+                notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
             fSeenHeadElement = true;
@@ -613,39 +613,39 @@ public class HTMLTagBalancer
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
-    		// create <head></head> if none was present
-    		if (!fSeenHeadElement) {
-    			final QName head = createQName("head");
-    			forceStartElement(head, null, synthesizedAugs());
-    			endElement(head, synthesizedAugs());
-    		}
-        	consumeBufferedEndElements(); // </head> (if any) has been buffered
+            // create <head></head> if none was present
+            if (!fSeenHeadElement) {
+                final QName head = createQName("head");
+                forceStartElement(head, null, synthesizedAugs());
+                endElement(head, synthesizedAugs());
+            }
+            consumeBufferedEndElements(); // </head> (if any) has been buffered
             fSeenFramesetElement = true;
         }
         else if (elementCode == HTMLElements.BODY) {
-    		// create <head></head> if none was present
-    		if (!fSeenHeadElement) {
-    			final QName head = createQName("head");
-    			forceStartElement(head, null, synthesizedAugs());
-    			endElement(head, synthesizedAugs());
-    		}
-        	consumeBufferedEndElements(); // </head> (if any) has been buffered
-    		
+            // create <head></head> if none was present
+            if (!fSeenHeadElement) {
+                final QName head = createQName("head");
+                forceStartElement(head, null, synthesizedAugs());
+                endElement(head, synthesizedAugs());
+            }
+            consumeBufferedEndElements(); // </head> (if any) has been buffered
+            
             if (fSeenBodyElement) {
-            	notifyDiscardedStartElement(elem, attrs, augs);
+                notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
             fSeenBodyElement = true;
         }
         else if (elementCode == HTMLElements.FORM) {
-        	if (fOpenedForm) {
-            	notifyDiscardedStartElement(elem, attrs, augs);
-        		return;
-        	}
-        	fOpenedForm = true;
+            if (fOpenedForm) {
+                notifyDiscardedStartElement(elem, attrs, augs);
+                return;
+            }
+            fOpenedForm = true;
         }
         else if (elementCode == HTMLElements.UNKNOWN) {
-        	consumeBufferedEndElements();
+            consumeBufferedEndElements();
         }
         else if (elementCode == HTMLElements.PLAINTEXT) {
             //close all elements but BODY or HTML
@@ -668,10 +668,10 @@ public class HTMLTagBalancer
         // check proper parent
         if (element.parent != null) {
             final HTMLElements.Element preferedParent = element.parent[0];
-        	if (fDocumentFragment && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
-        		// nothing, don't force HEAD or BODY creation for a document fragment
-        	}
-        	else if (!fSeenRootElement && !fDocumentFragment) {
+            if (fDocumentFragment && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
+                // nothing, don't force HEAD or BODY creation for a document fragment
+            }
+            else if (!fSeenRootElement && !fDocumentFragment) {
                 String pname = preferedParent.name;
                 pname = modifyName(pname, fNamesElems);
                 if (fReportErrors) {
@@ -681,13 +681,13 @@ public class HTMLTagBalancer
                 final QName qname = new QName(null, pname, pname, null);
                 final boolean parentCreated = forceStartElement(qname, null, synthesizedAugs());
                 if (!parentCreated) {
-                	if (!isForcedCreation) {
-                		notifyDiscardedStartElement(elem, attrs, augs);
-                	}
-            		return;
+                    if (!isForcedCreation) {
+                        notifyDiscardedStartElement(elem, attrs, augs);
+                    }
+                    return;
                 }
             }
-        	else {
+            else {
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
                     int depth = getParentDepth(element.parent, element.bounds);
                     if (depth == -1) { // no parent found
@@ -699,10 +699,10 @@ public class HTMLTagBalancer
                         }
                         final boolean parentCreated = forceStartElement(qname, null, synthesizedAugs());
                         if (!parentCreated) {
-                        	if (!isForcedCreation) {
-                        		notifyDiscardedStartElement(elem, attrs, augs);
-                        	}
-                    		return;
+                            if (!isForcedCreation) {
+                                notifyDiscardedStartElement(elem, attrs, augs);
+                            }
+                            return;
                         }
                     }
                 }
@@ -729,8 +729,8 @@ public class HTMLTagBalancer
         // all elements close a <script>
         // in head, no element has children
         if ((fElementStack.top > 1 
-        		&& (fElementStack.peek().element.code == HTMLElements.SCRIPT))
-        		|| fElementStack.top > 2 && fElementStack.data[fElementStack.top-2].element.code == HTMLElements.HEAD) {
+                && (fElementStack.peek().element.code == HTMLElements.SCRIPT))
+                || fElementStack.top > 2 && fElementStack.data[fElementStack.top-2].element.code == HTMLElements.HEAD) {
             final Info info = fElementStack.pop();
             if (fDocumentHandler != null) {
                 callEndElement(info.qname, synthesizedAugs());
@@ -761,7 +761,7 @@ public class HTMLTagBalancer
                 
                 // should we stop searching?
                 if (info.element.isBlock() || element.isParent(info.element)) {
-                	break;
+                    break;
                 }
             }
         }
@@ -794,7 +794,7 @@ public class HTMLTagBalancer
         }
 
         if (elementCode == HTMLElements.BODY) {
-        	lostText_.refeed(this);
+            lostText_.refeed(this);
         }
     } // startElement(QName,XMLAttributes,Augmentations)
 
@@ -805,33 +805,33 @@ public class HTMLTagBalancer
      */
     private boolean forceStartElement(final QName elem, XMLAttributes attrs, final Augmentations augs)
     throws XNIException {
-    	
-    	forcedStartElement_ = true;
-    	startElement(elem, attrs, augs);
-    	
-    	return fElementStack.top > 0 && elem.equals(fElementStack.peek().qname);
+        
+        forcedStartElement_ = true;
+        startElement(elem, attrs, augs);
+        
+        return fElementStack.top > 0 && elem.equals(fElementStack.peek().qname);
     }
 
     private QName createQName(String tagName) {
-		tagName = modifyName(tagName, fNamesElems);
-		return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
-	}
+        tagName = modifyName(tagName, fNamesElems);
+        return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
+    }
 
-	/** Empty element. */
+    /** Empty element. */
     public void emptyElement(final QName element, XMLAttributes attrs, Augmentations augs)
         throws XNIException {
-    	startElement(element, attrs, augs);
+        startElement(element, attrs, augs);
         // browser ignore the closing indication for non empty tags like <form .../> but not for unknown element
         final HTMLElements.Element elem = getElement(element);
         if (elem.isEmpty()
-        		|| fAllowSelfclosingTags
-        		|| elem.code == HTMLElements.UNKNOWN
-        		|| (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)) {
-        	endElement(element, augs);
+                || fAllowSelfclosingTags
+                || elem.code == HTMLElements.UNKNOWN
+                || (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)) {
+            endElement(element, augs);
         }
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
-	/** Start entity. */
+    /** Start entity. */
     public void startGeneralEntity(String name, 
                                    XMLResourceIdentifier id,
                                    String encoding,
@@ -875,13 +875,13 @@ public class HTMLTagBalancer
     /**
      * Generates a missing <body> (which creates missing <head> when needed)
      */
-	private void forceStartBody() {
-		final QName body = createQName("body");
-		if (fReportErrors) {
-		    fErrorReporter.reportWarning("HTML2006", new Object[]{body.localpart});
-		}
-		forceStartElement(body, null, synthesizedAugs());
-	}
+    private void forceStartBody() {
+        final QName body = createQName("body");
+        if (fReportErrors) {
+            fErrorReporter.reportWarning("HTML2006", new Object[]{body.localpart});
+        }
+        forceStartElement(body, null, synthesizedAugs());
+    }
 
     /** Text declaration. */
     public void textDecl(String version, String encoding, Augmentations augs)
@@ -955,11 +955,11 @@ public class HTMLTagBalancer
             return;
         }
 
-    	if (fElementStack.top == 0 && !fDocumentFragment) {
-    		// character before first opening tag
-    		lostText_.add(text, augs);
-    		return;
-    	}
+        if (fElementStack.top == 0 && !fDocumentFragment) {
+            // character before first opening tag
+            lostText_.add(text, augs);
+            return;
+        }
 
         // is this text whitespace?
         boolean whitespace = true;
@@ -981,8 +981,8 @@ public class HTMLTagBalancer
             }
             
             if (whitespace && (fElementStack.top < 2 || endElementsBuffer_.size() == 1)) {
-            	// ignore spaces directly within <html>
-            	return;
+                // ignore spaces directly within <html>
+                return;
             }
 
             // handle character content in head
@@ -1020,10 +1020,10 @@ public class HTMLTagBalancer
     
     /** End element. */
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
-    	final boolean forcedEndElement = forcedEndElement_;
+        final boolean forcedEndElement = forcedEndElement_;
         // is there anything to do?
         if (fSeenRootElementEnd) {
-        	notifyDiscardedEndElement(element, augs);
+            notifyDiscardedEndElement(element, augs);
             return;
         }
         
@@ -1040,51 +1040,51 @@ public class HTMLTagBalancer
                 }
             }
             // only add to buffer if the elements was discarded before
-        	endElementsBuffer_.add(new ElementEntry(element, augs));
+            endElementsBuffer_.add(new ElementEntry(element, augs));
             return;
         }
 
-		// accept only frame and frameset within frameset
-		if (fSeenFramesetElement && elem.code != HTMLElements.FRAME && elem.code != HTMLElements.FRAMESET) {
-        	notifyDiscardedEndElement(element, augs);
+        // accept only frame and frameset within frameset
+        if (fSeenFramesetElement && elem.code != HTMLElements.FRAME && elem.code != HTMLElements.FRAMESET) {
+            notifyDiscardedEndElement(element, augs);
             return;
-		}
+        }
 
-		// check for end of document
+        // check for end of document
         if (elem.code == HTMLElements.HTML) {
             fSeenRootElementEnd = true;
         }
         else if (fIgnoreOutsideContent) {
-        	if (elem.code == HTMLElements.BODY) {
-        		fSeenBodyElementEnd = true;
-        	}
-        	else if (fSeenBodyElementEnd) {
-            	notifyDiscardedEndElement(element, augs);
+            if (elem.code == HTMLElements.BODY) {
+                fSeenBodyElementEnd = true;
+            }
+            else if (fSeenBodyElementEnd) {
+                notifyDiscardedEndElement(element, augs);
                 return;
-        	}
+            }
         }
         else if (elem.code == HTMLElements.FORM) {
-        	fOpenedForm = false;
+            fOpenedForm = false;
         }
         else if (elem.code == HTMLElements.HEAD && !forcedEndElement) {
-        	// consume </head> first when <body> is reached to retrieve content lost between </head> and <body>
-        	endElementsBuffer_.add(new ElementEntry(element, augs));
-        	return;
+            // consume </head> first when <body> is reached to retrieve content lost between </head> and <body>
+            endElementsBuffer_.add(new ElementEntry(element, augs));
+            return;
         }
         
         // empty element
         int depth = getElementDepth(elem);
         if (depth == -1) {
-        	if (elem.code == HTMLElements.P) {
-        		forceStartElement(element, emptyAttributes(), synthesizedAugs());
-	            endElement(element, augs);
-        	}
-        	else if (elem.code == HTMLElements.BR) {
+            if (elem.code == HTMLElements.P) {
+                forceStartElement(element, emptyAttributes(), synthesizedAugs());
+                endElement(element, augs);
+            }
+            else if (elem.code == HTMLElements.BR) {
                 forceStartElement(element, emptyAttributes(), synthesizedAugs());
             }
-        	else if (!elem.isEmpty()) {
-            	notifyDiscardedEndElement(element, augs);
-        	}
+            else if (!elem.isEmpty()) {
+                notifyDiscardedEndElement(element, augs);
+            }
             return;
         }
 
@@ -1136,7 +1136,7 @@ public class HTMLTagBalancer
 
     // @since Xerces 2.1.0
 
-	/** Sets the document source. */
+    /** Sets the document source. */
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
     } // setDocumentSource(XMLDocumentSource)
@@ -1165,7 +1165,7 @@ public class HTMLTagBalancer
 
         // call handler
         if (fDocumentHandler != null) {
-        	XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
+            XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
         }
     
     } // startPrefixMapping(String,String,Augmentations)
@@ -1181,7 +1181,7 @@ public class HTMLTagBalancer
 
         // call handler
         if (fDocumentHandler != null) {
-        	XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
+            XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
         }
     
     } // endPrefixMapping(String,Augmentations)
@@ -1192,7 +1192,7 @@ public class HTMLTagBalancer
 
     /** Returns an HTML element. */
     protected HTMLElements.Element getElement(final QName elementName) {
-    	String name = elementName.rawname;
+        String name = elementName.rawname;
         if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
             int index = name.indexOf(':');
             if (index != -1) {
@@ -1225,12 +1225,12 @@ public class HTMLTagBalancer
         final boolean container = element.isContainer();
         final short elementCode = element.code;
         final boolean tableBodyOrHtml = (elementCode == HTMLElements.TABLE)
-			|| (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
+            || (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
         int depth = -1;
         for (int i = fElementStack.top - 1; i >=fragmentContextStackSize_; i--) {
             Info info = fElementStack.data[i];
             if (info.element.code == element.code
-            		&& (elementCode != HTMLElements.UNKNOWN || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
+                    && (elementCode != HTMLElements.UNKNOWN || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
                 depth = fElementStack.top - i;
                 break;
             }
@@ -1238,10 +1238,10 @@ public class HTMLTagBalancer
                 break;
             }
             if (info.element.code == HTMLElements.TABLE && !tableBodyOrHtml) {
-            	return -1; // current element not allowed to close a table
+                return -1; // current element not allowed to close a table
             }
             if (element.isParent(info.element)) {
-            	break;
+                break;
             }
         }
         return depth;
@@ -1404,7 +1404,7 @@ public class HTMLTagBalancer
          * Simple representation to make debugging easier
          */
         public String toString() {
-        	return super.toString() + qname;
+            return super.toString() + qname;
         }
     } // class Info
 
@@ -1449,50 +1449,50 @@ public class HTMLTagBalancer
          * Simple representation to make debugging easier
          */
         public String toString() {
-        	final StringBuffer sb = new StringBuffer("InfoStack(");
-        	for (int i=top-1; i>=0; --i) {
-        		sb.append(data[i]);
-        		if (i != 0)
-        			sb.append(", ");
-        	}
-        	sb.append(")");
-        	return sb.toString();
+            final StringBuilder sb = new StringBuilder("InfoStack(");
+            for (int i=top-1; i>=0; --i) {
+                sb.append(data[i]);
+                if (i != 0)
+                    sb.append(", ");
+            }
+            sb.append(")");
+            return sb.toString();
         }
 
 
     } // class InfoStack
 
-	void setTagBalancingListener(final HTMLTagBalancingListener tagBalancingListener) {
-		this.tagBalancingListener = tagBalancingListener;
-	}
+    void setTagBalancingListener(final HTMLTagBalancingListener tagBalancingListener) {
+        this.tagBalancingListener = tagBalancingListener;
+    }
 
-	/**
-	 * Notifies the tagBalancingListener (if any) of an ignored start element
-	 */
+    /**
+     * Notifies the tagBalancingListener (if any) of an ignored start element
+     */
     private void notifyDiscardedStartElement(final QName elem, final XMLAttributes attrs, final Augmentations augs) {
-    	if (tagBalancingListener != null) {
-    		tagBalancingListener.ignoredStartElement(elem, attrs, augs);
-    	}
-    	discardedStartElements.add(elem.rawname);
-	}
+        if (tagBalancingListener != null) {
+            tagBalancingListener.ignoredStartElement(elem, attrs, augs);
+        }
+        discardedStartElements.add(elem.rawname);
+    }
 
-	/**
-	 * Notifies the tagBalancingListener (if any) of an ignored end element
-	 */
+    /**
+     * Notifies the tagBalancingListener (if any) of an ignored end element
+     */
     private void notifyDiscardedEndElement(final QName element, final Augmentations augs) {
-    	if (tagBalancingListener != null)
-    		tagBalancingListener.ignoredEndElement(element, augs);
-	}
+        if (tagBalancingListener != null)
+            tagBalancingListener.ignoredEndElement(element, augs);
+    }
 
     /**
      * Structure to hold information about an element placed in buffer to be comsumed later
      */
     static class ElementEntry {
-    	private final QName name_;
-    	private final Augmentations augs_;
-    	ElementEntry(final QName element, final Augmentations augs) {
-    		name_ = new QName(element);
-    		augs_ = (augs == null) ? null : new HTMLAugmentations(augs);
-    	}
+        private final QName name_;
+        private final Augmentations augs_;
+        ElementEntry(final QName element, final Augmentations augs) {
+            name_ = new QName(element);
+            augs_ = (augs == null) ? null : new HTMLAugmentations(augs);
+        }
     }
 } // class HTMLTagBalancer

@@ -392,14 +392,14 @@ public class DOMFragmentParser
 
     /** Processing instruction. */
     public void processingInstruction(final String target, final XMLString data,
-    		final Augmentations augs)
+            final Augmentations augs)
         throws XNIException {
-    	
-    	final String s = data.toString();
-    	if (XMLChar.isValidName(s)) {
+        
+        final String s = data.toString();
+        if (XMLChar.isValidName(s)) {
             final ProcessingInstruction pi = fDocument.createProcessingInstruction(target, s);
             fCurrentNode.appendChild(pi);
-    	}
+        }
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Comment. */
@@ -428,7 +428,7 @@ public class DOMFragmentParser
             String aname = attrs.getQName(i);
             String avalue = attrs.getValue(i);
             if (XMLChar.isValidName(aname)) {
-            	elementNode.setAttribute(aname, avalue);
+                elementNode.setAttribute(aname, avalue);
             }
         }
         fCurrentNode.appendChild(elementNode);
