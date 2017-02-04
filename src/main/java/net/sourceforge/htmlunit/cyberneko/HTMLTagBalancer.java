@@ -255,6 +255,9 @@ public class HTMLTagBalancer
     /** True if seen {@code frameset} element. */
     private boolean fSeenFramesetElement;
 
+    /** True if seen non whitespace characters. */
+    private boolean fSeenCharacters;
+
     /** True if a form is in the stack (allow to discard opening of nested forms) */
     protected boolean fOpenedForm;
 
@@ -606,7 +609,7 @@ public class HTMLTagBalancer
             fSeenHeadElement = true;
         }
         else if (elementCode == HTMLElements.FRAMESET) {
-            if (fSeenBodyElement) {
+            if (fSeenBodyElement && fSeenCharacters) {
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
@@ -960,8 +963,9 @@ public class HTMLTagBalancer
 
         // is this text whitespace?
         boolean whitespace = true;
-        for (int i = 0; i < text.length; i++) {
-            if (!Character.isWhitespace(text.ch[text.offset + i])) {
+        final int limit = text.offset + text.length;
+        for (int i = text.offset; i < limit; i++) {
+            if (!Character.isWhitespace(text.ch[i])) {
                 whitespace = false;
                 break;
             }
@@ -998,6 +1002,8 @@ public class HTMLTagBalancer
                 }
             }
         }
+
+        fSeenCharacters = fSeenCharacters || !whitespace;
 
         // call handler
         if (fDocumentHandler != null) {
