@@ -124,9 +124,6 @@ public class HTMLConfiguration
 
     // private
 
-    /** Document source class array. */
-    private static final Class[] DOCSOURCE = { XMLDocumentSource.class };
-
     //
     // Data
     //

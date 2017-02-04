@@ -90,12 +90,6 @@ public class Purifier
     /** Include infoset augmentations. */
     protected static final String AUGMENTATIONS = "http://cyberneko.org/html/features/augmentations";
 
-    /** Recognized features. */
-    private static final String[] RECOGNIZED_FEATURES = {
-        NAMESPACES,
-        AUGMENTATIONS,
-    };
-
     // static vars
 
     /** Synthesized event info item. */

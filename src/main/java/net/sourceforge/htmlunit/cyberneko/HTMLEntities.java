@@ -38,7 +38,7 @@ public class HTMLEntities {
     //
 
     /** Entities. */
-    protected static final Map ENTITIES;
+    protected static final Map<String, String> ENTITIES;
 
     /** Reverse mapping from characters to names. */
     protected static final IntProperties SEITITNE = new IntProperties();
@@ -55,18 +55,21 @@ public class HTMLEntities {
         load0(props, "res/HTMLsymbol.properties");
         load0(props, "res/XMLbuiltin.properties");
 
+        Map<String, String> entities = new HashMap<String, String>();
+
         // store reverse mappings
         final Enumeration<?> keys = props.propertyNames();
         while (keys.hasMoreElements()) {
             final String key = (String) keys.nextElement();
             final String value = props.getProperty(key);
+            entities.put(key, value);
             if (value.length() == 1) {
                 final int ivalue = value.charAt(0);
                 SEITITNE.put(ivalue, key);
             }
         }
         
-        ENTITIES = Collections.unmodifiableMap(new HashMap(props));
+        ENTITIES = Collections.unmodifiableMap(entities);
     }
 
     //
