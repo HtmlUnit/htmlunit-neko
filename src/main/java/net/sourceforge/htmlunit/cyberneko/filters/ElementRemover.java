@@ -108,10 +108,10 @@ public class ElementRemover
     // information
 
     /** Accepted elements. */
-    protected HashMap<String, Object> fAcceptedElements = new HashMap<String, Object>();
+    protected HashMap<String, Object> fAcceptedElements = new HashMap<>();
 
     /** Removed elements. */
-    protected HashMap<String, Object> fRemovedElements = new HashMap<String, Object>();
+    protected HashMap<String, Object> fRemovedElements = new HashMap<>();
 
     // state
 

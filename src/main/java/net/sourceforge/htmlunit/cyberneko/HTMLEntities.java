@@ -55,7 +55,7 @@ public class HTMLEntities {
         load0(props, "res/HTMLsymbol.properties");
         load0(props, "res/XMLbuiltin.properties");
 
-        Map<String, String> entities = new HashMap<String, String>();
+        Map<String, String> entities = new HashMap<>();
 
         // store reverse mappings
         final Enumeration<?> keys = props.propertyNames();

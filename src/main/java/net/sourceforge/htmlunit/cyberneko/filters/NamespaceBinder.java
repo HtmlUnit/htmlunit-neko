@@ -623,7 +623,7 @@ public class NamespaceBinder
         /** Get all prefixes. */
         @Override
         public Enumeration<String> getAllPrefixes() {
-            Vector<String> prefixes = new Vector<String>();
+            Vector<String> prefixes = new Vector<>();
             for (int i = fLevels[1]; i < fLevels[fTop]; i++) {
                 String prefix = fEntries[i].prefix;
                 if (!prefixes.contains(prefix)) {

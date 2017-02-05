@@ -48,7 +48,7 @@ class LostText
                 augs_ = new HTMLAugmentations(augs);
         }
     }
-    private final List<Entry> entries = new ArrayList<Entry>();
+    private final List<Entry> entries = new ArrayList<>();
 
     /**
      * Adds some text that need to be re-feed later. The information gets copied.

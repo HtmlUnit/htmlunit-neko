@@ -473,7 +473,7 @@ public class HTMLScanner
     protected CurrentEntity fCurrentEntity;
     
     /** The current entity stack. */
-    protected final Stack<CurrentEntity> fCurrentEntityStack = new Stack<CurrentEntity>();
+    protected final Stack<CurrentEntity> fCurrentEntityStack = new Stack<>();
 
     /** The current scanner. */
     protected Scanner fScanner;

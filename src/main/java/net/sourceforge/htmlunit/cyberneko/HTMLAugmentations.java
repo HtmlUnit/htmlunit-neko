@@ -43,7 +43,7 @@ public class HTMLAugmentations implements Augmentations {
     //
 
     /** Augmentation items. */
-    protected final Hashtable<String, Object> fItems = new Hashtable<String, Object>();
+    protected final Hashtable<String, Object> fItems = new Hashtable<>();
 
     //
     // Public methods

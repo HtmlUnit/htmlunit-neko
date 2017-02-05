@@ -106,7 +106,7 @@ public class HTMLScannerTest extends TestCase {
 
     private static class EvaluateInputSourceFilter extends DefaultFilter {
 
-       private List<String> collectedStrings = new ArrayList<String>();
+       private List<String> collectedStrings = new ArrayList<>();
        private static int counter = 1;
        protected HTMLConfiguration fConfiguration;
 

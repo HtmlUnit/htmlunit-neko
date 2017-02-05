@@ -60,7 +60,7 @@ public class CanonicalTest extends TestCase {
         outputDir.mkdirs();
 
         TestSuite suite = new TestSuite();
-        final List<File> dataFiles = new ArrayList<File>();
+        final List<File> dataFiles = new ArrayList<>();
         File dataDir = new File("data");
         dataDir.listFiles(new FileFilter() {
             @Override

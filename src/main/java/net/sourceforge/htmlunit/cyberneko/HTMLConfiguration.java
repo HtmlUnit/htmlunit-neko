@@ -161,7 +161,7 @@ public class HTMLConfiguration
     // components
 
     /** Components. */
-    protected final List<HTMLComponent> fHTMLComponents = new ArrayList<HTMLComponent>(2);
+    protected final List<HTMLComponent> fHTMLComponents = new ArrayList<>(2);
 
     // pipeline
 
