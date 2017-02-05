@@ -62,7 +62,7 @@ public class DOMFragmentParserTest extends TestCase {
         LSSerializer writer = impl.createLSSerializer();
         String str = writer.writeToString(fragment);
         
-        final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>" + System.getProperty("line.separator");
+        final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n";
         assertEquals(xmlDecl + expected, str);
     }
 

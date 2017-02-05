@@ -20,11 +20,11 @@ import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
 public class FragmentContextStackTest extends TestCase {
 
     public void testSimple() throws Exception {
-        String expected = "(DIV\n"
-            + "(SPAN\n"
-            + "\"hello\n"
-            + ")SPAN\n"
-            + ")DIV\n";
+        String expected = "(DIV\r\n"
+            + "(SPAN\r\n"
+            + "\"hello\r\n"
+            + ")SPAN\r\n"
+            + ")DIV\r\n";
         doTest("<div><span>hello</span>", new String[] { "html", "body" }, expected);
 
         doTest("<div><span>hello</span>", new String[] { "html" }, expected);
@@ -34,13 +34,13 @@ public class FragmentContextStackTest extends TestCase {
     }
 
     public void testTR() throws Exception {
-        String expected = "(TR\n"
-            + "(TD\n"
-            + "\"hello\n"
-            + ")TD\n"
-            + ")TR\n";
+        String expected = "(TR\r\n"
+            + "(TD\r\n"
+            + "\"hello\r\n"
+            + ")TD\r\n"
+            + ")TR\r\n";
         doTest("<tr><td>hello</td></tr>", new String[] { "html", "body", "table", "tbody" }, expected);
-        expected = "(TBODY\n"
+        expected = "(TBODY\r\n"
             + expected
             + ")TBODY\n";
         doTest("<tr><td>hello</td></tr>", new String[] { "html", "body", "table" }, expected);

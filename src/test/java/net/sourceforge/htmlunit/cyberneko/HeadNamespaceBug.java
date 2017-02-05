@@ -40,7 +40,7 @@ public class HeadNamespaceBug extends TestCase {
         parser.parse(source);
         
         // to be sure that test doesn't pass just because handler has never been called
-        assertEquals(5, nbTags[0]);
+        assertEquals(3, nbTags[0]);
     }
 }
 
