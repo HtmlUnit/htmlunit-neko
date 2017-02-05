@@ -142,23 +142,27 @@ public class Writer
     // since Xerces-J 2.2.0
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding, 
                               NamespaceContext nscontext, Augmentations augs) throws XNIException {
         fStringBuffer.clear();
     } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
 
     /** End document. */
+    @Override
     public void endDocument(Augmentations augs) throws XNIException {
         chars();
     }
     // old methods
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding, Augmentations augs) throws XNIException {
         startDocument(locator, encoding, null, augs);
     } // startDocument(XMLLocator,String,Augmentations)
-    
+
     /** XML declaration. */
+    @Override
     public void xmlDecl(String version, String encoding, String standalone,
                         Augmentations augs) throws XNIException {
         doAugs(augs);
@@ -178,6 +182,7 @@ public class Writer
     } // xmlDecl(String,String,String,Augmentations)
 
     /** Doctype declaration. */
+    @Override
     public void doctypeDecl(String root, String pubid, String sysid, Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
@@ -200,6 +205,7 @@ public class Writer
     } // doctypeDecl(String,String,String,Augmentations)
 
     /** Processing instruction. */
+    @Override
     public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
@@ -214,6 +220,7 @@ public class Writer
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Comment. */
+    @Override
     public void comment(XMLString text, Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
@@ -224,6 +231,7 @@ public class Writer
     } // comment(XMLString,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
@@ -254,6 +262,7 @@ public class Writer
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
@@ -264,12 +273,14 @@ public class Writer
     } // endElement(QName,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** Characters. */
+    @Override
     public void characters(XMLString text, Augmentations augs) throws XNIException {
         storeCharactersEnd(augs);
         if(!fInCharacters) {
@@ -280,17 +291,19 @@ public class Writer
     } // characters(XMLString,Augmentations)
 
     /** Ignorable whitespace. */
+    @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
         characters(text, augs);
     } // ignorableWhitespace(XMLString,Augmentations)
 
-    
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.println("((CDATA");
     }
-    
+
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
