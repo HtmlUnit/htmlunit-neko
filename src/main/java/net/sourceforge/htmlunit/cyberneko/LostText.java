@@ -65,7 +65,7 @@ class LostText
      */
     public void refeed(final XMLDocumentHandler tagBalancer) {
         for (Entry entry : entries) {
-            final LostText.Entry lostEntry = (LostText.Entry) entry;
+            final LostText.Entry lostEntry = entry;
             tagBalancer.characters(lostEntry.text_, lostEntry.augs_);
         }
         // not needed anymore once it has been used -> clear to free memory
