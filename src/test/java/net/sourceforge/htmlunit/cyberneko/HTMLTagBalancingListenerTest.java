@@ -73,7 +73,7 @@ public class HTMLTagBalancingListenerTest extends TestCase {
 
 class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener
 {
-    final List messages = new ArrayList();
+    final List<String> messages = new ArrayList<String>();
     TestParser() throws Exception
     {
         super(new HTMLConfiguration());

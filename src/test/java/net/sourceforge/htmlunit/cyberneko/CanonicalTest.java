@@ -60,7 +60,7 @@ public class CanonicalTest extends TestCase {
         outputDir.mkdirs();
 
         TestSuite suite = new TestSuite();
-        final List/*File*/ dataFiles = new ArrayList();
+        final List<File> dataFiles = new ArrayList<File>();
         File dataDir = new File("data");
         dataDir.listFiles(new FileFilter() {
             @Override
@@ -78,7 +78,7 @@ public class CanonicalTest extends TestCase {
         Collections.sort(dataFiles);
 
         for (int i=0; i < dataFiles.size(); i++) {
-            suite.addTest(new CanonicalTest((File) dataFiles.get(i)));
+            suite.addTest(new CanonicalTest(dataFiles.get(i)));
         }
         return suite;
     }
