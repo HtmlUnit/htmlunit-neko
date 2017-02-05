@@ -642,7 +642,7 @@ public class HTMLScanner
             }
             // close remaining streams
             for (int i = closeall ? 0 : 1; i < size; i++) {
-                fCurrentEntity = (CurrentEntity) fCurrentEntityStack.pop();
+                fCurrentEntity = fCurrentEntityStack.pop();
                 fCurrentEntity.closeQuietly();
             }
         }
@@ -656,46 +656,55 @@ public class HTMLScanner
     //
 
     /** Returns the encoding. */
+    @Override
     public String getEncoding() {
         return fCurrentEntity != null ? fCurrentEntity.encoding : null;
     } // getEncoding():String
 
     /** Returns the public identifier. */
+    @Override
     public String getPublicId() { 
         return fCurrentEntity != null ? fCurrentEntity.publicId : null; 
     } // getPublicId():String
 
     /** Returns the base system identifier. */
+    @Override
     public String getBaseSystemId() { 
         return fCurrentEntity != null ? fCurrentEntity.baseSystemId : null; 
     } // getBaseSystemId():String
 
     /** Returns the literal system identifier. */
+    @Override
     public String getLiteralSystemId() { 
         return fCurrentEntity != null ? fCurrentEntity.literalSystemId : null; 
     } // getLiteralSystemId():String
 
     /** Returns the expanded system identifier. */
+    @Override
     public String getExpandedSystemId() { 
         return fCurrentEntity != null ? fCurrentEntity.expandedSystemId : null; 
     } // getExpandedSystemId():String
 
     /** Returns the current line number. */
+    @Override
     public int getLineNumber() { 
         return fCurrentEntity != null ? fCurrentEntity.getLineNumber() : -1; 
     } // getLineNumber():int
 
     /** Returns the current column number. */
+    @Override
     public int getColumnNumber() { 
         return fCurrentEntity != null ? fCurrentEntity.getColumnNumber() : -1; 
     } // getColumnNumber():int
     
     /** Returns the XML version. */
+    @Override
     public String getXMLVersion() {
         return fCurrentEntity != null ? fCurrentEntity.version : null; 
     } // getXMLVersion():String
     
     /** Returns the character offset. */
+    @Override
     public int getCharacterOffset() {
         return fCurrentEntity != null ? fCurrentEntity.getCharacterOffset() : -1; 
     } // getCharacterOffset():int
@@ -705,6 +714,7 @@ public class HTMLScanner
     //
 
     /** Returns the default state for a feature. */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         int length = RECOGNIZED_FEATURES != null ? RECOGNIZED_FEATURES.length : 0;
         for (int i = 0; i < length; i++) {
@@ -716,6 +726,7 @@ public class HTMLScanner
     } // getFeatureDefault(String):Boolean
 
     /** Returns the default state for a property. */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         int length = RECOGNIZED_PROPERTIES != null ? RECOGNIZED_PROPERTIES.length : 0;
         for (int i = 0; i < length; i++) {
@@ -731,16 +742,19 @@ public class HTMLScanner
     //
 
     /** Returns recognized features. */
+    @Override
     public String[] getRecognizedFeatures() {
         return RECOGNIZED_FEATURES;
     } // getRecognizedFeatures():String[]
 
     /** Returns recognized properties. */
+    @Override
     public String[] getRecognizedProperties() {
         return RECOGNIZED_PROPERTIES;
     } // getRecognizedProperties():String[]
 
     /** Resets the component. */
+    @Override
     public void reset(XMLComponentManager manager)
         throws XMLConfigurationException {
 
@@ -775,6 +789,7 @@ public class HTMLScanner
     } // reset(XMLComponentManager)
 
     /** Sets a feature. */
+    @Override
     public void setFeature(final String featureId, final boolean state) {
 
         if (featureId.equals(AUGMENTATIONS)) { 
@@ -820,6 +835,7 @@ public class HTMLScanner
     } // setFeature(String,boolean)
 
     /** Sets a property. */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
     
@@ -845,6 +861,7 @@ public class HTMLScanner
     //
 
     /** Sets the input source. */
+    @Override
     public void setInputSource(XMLInputSource source) throws IOException {
 
         // reset state
@@ -922,6 +939,7 @@ public class HTMLScanner
     } // setInputSource(XMLInputSource)
 
     /** Scans the document. */
+    @Override
     public boolean scanDocument(boolean complete) throws XNIException, IOException {
         do {
             if (!fScanner.scan(complete)) {
@@ -932,6 +950,7 @@ public class HTMLScanner
     } // scanDocument(boolean):boolean
 
     /** Sets the document handler. */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
     } // setDocumentHandler(XMLDocumentHandler)
@@ -939,6 +958,7 @@ public class HTMLScanner
     // @since Xerces 2.1.0
 
     /** Returns the document handler. */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
@@ -2043,6 +2063,7 @@ public class HTMLScanner
         //
 
         /** Scan. */
+        @Override
         public boolean scan(boolean complete) throws IOException {
             boolean next;
             do {
@@ -2187,7 +2208,7 @@ public class HTMLScanner
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fCurrentEntity = (CurrentEntity)fCurrentEntityStack.pop();
+                        fCurrentEntity = fCurrentEntityStack.pop();
                     }
                     next = true;
                 }
@@ -2820,8 +2841,8 @@ public class HTMLScanner
                      }
                       // change the charset
                      else {
-                        fIso8859Encoding = ianaEncoding == null 
-                                || ianaEncoding.toUpperCase(Locale.ENGLISH).startsWith("ISO-8859")
+                        fIso8859Encoding = 
+                                ianaEncoding.toUpperCase(Locale.ENGLISH).startsWith("ISO-8859")
                                 || ianaEncoding.equalsIgnoreCase(fDefaultIANAEncoding);
                         fJavaEncoding = javaEncoding;
                         fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding));
@@ -3202,6 +3223,7 @@ public class HTMLScanner
         //
 
         /** Scan. */
+        @Override
         public boolean scan(boolean complete) throws IOException {
             boolean next;
             do {
@@ -3289,7 +3311,7 @@ public class HTMLScanner
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fCurrentEntity = (CurrentEntity)fCurrentEntityStack.pop();
+                        fCurrentEntity = fCurrentEntityStack.pop();
                         setScannerState(STATE_CONTENT);
                     }
                     return true;
@@ -3367,12 +3389,13 @@ public class HTMLScanner
         /** A string buffer. */
         private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
 
+        @Override
         public boolean scan(boolean complete) throws IOException {
-            scanCharacters(fStringBuffer, -1);
+            scanCharacters(fStringBuffer);
             return false;
         }
 
-        protected void scanCharacters(XMLStringBuffer buffer, int delimiter) throws IOException {
+        protected void scanCharacters(XMLStringBuffer buffer) throws IOException {
             while (true) {
                 int c = fCurrentEntity.read();
 
@@ -3546,6 +3569,7 @@ public class HTMLScanner
         //
 
         /** Read a byte. */
+        @Override
         public int read() throws IOException {
             if (DEBUG_PLAYBACK) {
                 System.out.println("(read");
@@ -3583,11 +3607,13 @@ public class HTMLScanner
         } // read():int
 
         /** Read an array of bytes. */
+        @Override
         public int read(byte[] array) throws IOException {
             return read(array, 0, array.length);
         } // read(byte[]):int
 
         /** Read an array of bytes. */
+        @Override
         public int read(byte[] array, int offset, int length) throws IOException {
             if (DEBUG_PLAYBACK) {
                 System.out.println(")read("+offset+','+length+')');
@@ -3693,31 +3719,37 @@ public class HTMLScanner
         // location information
 
         /** Returns the line number of the beginning of this event.*/
+        @Override
         public int getBeginLineNumber() {
             return fBeginLineNumber;
         } // getBeginLineNumber():int
 
         /** Returns the column number of the beginning of this event.*/
+        @Override
         public int getBeginColumnNumber() { 
             return fBeginColumnNumber;
         } // getBeginColumnNumber():int
 
         /** Returns the character offset of the beginning of this event.*/
+        @Override
         public int getBeginCharacterOffset() { 
             return fBeginCharacterOffset;
         } // getBeginCharacterOffset():int
 
         /** Returns the line number of the end of this event.*/
+        @Override
         public int getEndLineNumber() {
             return fEndLineNumber;
         } // getEndLineNumber():int
 
         /** Returns the column number of the end of this event.*/
+        @Override
         public int getEndColumnNumber() {
             return fEndColumnNumber;
         } // getEndColumnNumber():int
 
         /** Returns the character offset of the end of this event.*/
+        @Override
         public int getEndCharacterOffset() { 
             return fEndCharacterOffset;
         } // getEndCharacterOffset():int
@@ -3725,6 +3757,7 @@ public class HTMLScanner
         // other information
 
         /** Returns true if this corresponding event was synthesized. */
+        @Override
         public boolean isSynthesized() {
             return false;
         } // isSynthesize():boolean
@@ -3734,6 +3767,7 @@ public class HTMLScanner
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
             str.append(fBeginLineNumber);
