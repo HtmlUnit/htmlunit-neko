@@ -785,7 +785,7 @@ public class HTMLTagBalancer
 
         // call handler
         fSeenRootElement = true;
-        if (element != null && element.isEmpty()) {
+        if (element.isEmpty()) {
             if (attrs == null) {
                 attrs = emptyAttributes();
             }
@@ -794,7 +794,7 @@ public class HTMLTagBalancer
             }
         }
         else {
-            boolean inline = element != null && element.isInline();
+            boolean inline = element.isInline();
             fElementStack.push(new Info(element, elem, inline ? attrs : null));
             if (attrs == null) {
                 attrs = emptyAttributes();

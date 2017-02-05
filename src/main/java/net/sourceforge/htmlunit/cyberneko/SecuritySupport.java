@@ -42,7 +42,7 @@ class SecuritySupport {
     static {
     SecuritySupport ss = null;
     try {
-        Class c = Class.forName("java.security.AccessController");
+        Class.forName("java.security.AccessController");
         // if that worked, we're on 1.2.
         /*
         // don't reference the class explicitly so it doesn't

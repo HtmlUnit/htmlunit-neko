@@ -68,6 +68,7 @@ public class Identity
     //
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attributes,
                              Augmentations augs) throws XNIException {
         if (augs == null || !synthesized(augs)) {
@@ -76,6 +77,7 @@ public class Identity
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attributes,
                              Augmentations augs) throws XNIException {
         if (augs == null || !synthesized(augs)) {
@@ -84,6 +86,7 @@ public class Identity
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs) 
         throws XNIException {
         if (augs == null || !synthesized(augs)) {

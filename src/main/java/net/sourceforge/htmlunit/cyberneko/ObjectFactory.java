@@ -294,7 +294,7 @@ class ObjectFactory {
             // Check for any extension ClassLoaders in chain up to
             // boot ClassLoader
             chain = ss.getParentClassLoader(chain);
-        };
+        }
 
         // Assert: Context ClassLoader not in chain of
         // boot/extension/system ClassLoaders
@@ -310,7 +310,7 @@ class ObjectFactory {
     {
         // assert(className != null);
         try{
-            Class providerClass = findProviderClass(className, cl, doFallback);
+            Class<?> providerClass = findProviderClass(className, cl, doFallback);
             Object instance = providerClass.newInstance();
             if (DEBUG) debugPrintln("created new instance of " + providerClass +
                    " using ClassLoader: " + cl);
@@ -328,7 +328,7 @@ class ObjectFactory {
     /**
      * Find a Class using the specified ClassLoader
      */
-    static Class findProviderClass(String className, ClassLoader cl,
+    static Class<?> findProviderClass(String className, ClassLoader cl,
                                       boolean doFallback)
         throws ClassNotFoundException, ConfigurationError
     {
@@ -345,7 +345,7 @@ class ObjectFactory {
         }catch(SecurityException e){
             throw e ;
         }
-        Class providerClass;
+        Class<?> providerClass;
         if (cl == null) {
             // XXX Use the bootstrap ClassLoader.  There is no way to
             // load a class using the bootstrap ClassLoader that works

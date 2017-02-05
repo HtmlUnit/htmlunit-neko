@@ -39,6 +39,7 @@ public interface HTMLComponent
      * component does not want to report a default value for this
      * feature.
      */
+    @Override
     public Boolean getFeatureDefault(String featureId);
 
     /** 
@@ -46,6 +47,7 @@ public interface HTMLComponent
      * component does not want to report a default value for this
      * property. 
      */
+    @Override
     public Object getPropertyDefault(String propertyId);
 
 } // interface HTMLComponent
