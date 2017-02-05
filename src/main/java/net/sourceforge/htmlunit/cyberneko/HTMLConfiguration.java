@@ -351,6 +351,7 @@ public class HTMLConfiguration
     //
 
     /** Sets a feature. */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
@@ -362,6 +363,7 @@ public class HTMLConfiguration
     } // setFeature(String,boolean)
 
     /** Sets a property. */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
         super.setProperty(propertyId, value);
@@ -386,6 +388,7 @@ public class HTMLConfiguration
     } // setProperty(String,Object)
 
     /** Sets the document handler. */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
         if (handler instanceof HTMLTagBalancingListener) {
@@ -394,51 +397,61 @@ public class HTMLConfiguration
     } // setDocumentHandler(XMLDocumentHandler)
 
     /** Returns the document handler. */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
 
     /** Sets the DTD handler. */
+    @Override
     public void setDTDHandler(XMLDTDHandler handler) {
         fDTDHandler = handler;
     } // setDTDHandler(XMLDTDHandler)
 
     /** Returns the DTD handler. */
+    @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
     } // getDTDHandler():XMLDTDHandler
 
     /** Sets the DTD content model handler. */
+    @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
         fDTDContentModelHandler = handler;
     } // setDTDContentModelHandler(XMLDTDContentModelHandler)
 
     /** Returns the DTD content model handler. */
+    @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler;
     } // getDTDContentModelHandler():XMLDTDContentModelHandler
 
     /** Sets the error handler. */
+    @Override
     public void setErrorHandler(XMLErrorHandler handler) {
         fErrorHandler = handler;
     } // setErrorHandler(XMLErrorHandler)
 
     /** Returns the error handler. */
+    @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
     } // getErrorHandler():XMLErrorHandler
 
     /** Sets the entity resolver. */
+    @Override
     public void setEntityResolver(XMLEntityResolver resolver) {
         fEntityResolver = resolver;
     } // setEntityResolver(XMLEntityResolver)
 
     /** Returns the entity resolver. */
+    @Override
     public XMLEntityResolver getEntityResolver() {
         return fEntityResolver;
     } // getEntityResolver():XMLEntityResolver
 
     /** Sets the locale. */
+    @Override
     public void setLocale(Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
@@ -447,11 +460,13 @@ public class HTMLConfiguration
     } // setLocale(Locale)
 
     /** Returns the locale. */
+    @Override
     public Locale getLocale() {
         return fLocale;
     } // getLocale():Locale
 
     /** Parses a document. */
+    @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
         setInputSource(source);
         parse(true);
@@ -475,6 +490,7 @@ public class HTMLConfiguration
      *
      * @see #parse(boolean)
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource)
         throws XMLConfigurationException, IOException {
         reset();
@@ -499,6 +515,7 @@ public class HTMLConfiguration
      *
      * @see #setInputSource
      */
+    @Override
     public boolean parse(boolean complete) throws XNIException, IOException {
         try {
             boolean more = fDocumentScanner.scanDocument(complete);
@@ -522,6 +539,7 @@ public class HTMLConfiguration
      * is fully parsed, the application should call this method to free any
      * resource allocated during parsing. For example, close all opened streams.
      */
+    @Override
     public void cleanup() {
         fDocumentScanner.cleanup(fCloseStream);
     } // cleanup()
@@ -635,6 +653,7 @@ public class HTMLConfiguration
         //
 
         /** Format message without reporting error. */
+        @Override
         public String formatMessage(String key, Object[] args) {
             if (!getFeature(SIMPLE_ERROR_FORMAT)) {
                 if (!fLocale.equals(fLastLocale)) {
@@ -659,6 +678,7 @@ public class HTMLConfiguration
         } // formatMessage(String,Object[]):String
 
         /** Reports a warning. */
+        @Override
         public void reportWarning(String key, Object[] args)
             throws XMLParseException {
             if (fErrorHandler != null) {
@@ -667,6 +687,7 @@ public class HTMLConfiguration
         } // reportWarning(String,Object[])
 
         /** Reports an error. */
+        @Override
         public void reportError(String key, Object[] args)
             throws XMLParseException {
             if (fErrorHandler != null) {

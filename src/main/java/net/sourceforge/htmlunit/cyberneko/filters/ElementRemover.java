@@ -169,6 +169,7 @@ public class ElementRemover
     // since Xerces-J 2.2.0
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding, 
                               NamespaceContext nscontext, Augmentations augs) 
         throws XNIException {
@@ -180,12 +181,14 @@ public class ElementRemover
     // old methods
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding, Augmentations augs)
         throws XNIException {
         startDocument(locator, encoding, null, augs);
     } // startDocument(XMLLocator,String,Augmentations)
 
     /** Start prefix mapping. */
+    @Override
     public void startPrefixMapping(String prefix, String uri, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -194,6 +197,7 @@ public class ElementRemover
     } // startPrefixMapping(String,String,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth && handleOpenTag(element, attributes)) {
@@ -203,6 +207,7 @@ public class ElementRemover
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth && handleOpenTag(element, attributes)) {
@@ -211,6 +216,7 @@ public class ElementRemover
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** Comment. */
+    @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -219,6 +225,7 @@ public class ElementRemover
     } // comment(XMLString,Augmentations)
 
     /** Processing instruction. */
+    @Override
     public void processingInstruction(String target, XMLString data, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -227,6 +234,7 @@ public class ElementRemover
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Characters. */
+    @Override
     public void characters(XMLString text, Augmentations augs) 
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -235,6 +243,7 @@ public class ElementRemover
     } // characters(XMLString,Augmentations)
 
     /** Ignorable whitespace. */
+    @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) 
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -243,6 +252,7 @@ public class ElementRemover
     } // ignorableWhitespace(XMLString,Augmentations)
 
     /** Start general entity. */
+    @Override
     public void startGeneralEntity(String name, XMLResourceIdentifier id, String encoding, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -251,6 +261,7 @@ public class ElementRemover
     } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
 
     /** Text declaration. */
+    @Override
     public void textDecl(String version, String encoding, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -259,6 +270,7 @@ public class ElementRemover
     } // textDecl(String,String,Augmentations)
 
     /** End general entity. */
+    @Override
     public void endGeneralEntity(String name, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
@@ -267,6 +279,7 @@ public class ElementRemover
     } // endGeneralEntity(String,Augmentations)
 
     /** Start CDATA section. */
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
             super.startCDATA(augs);
@@ -274,6 +287,7 @@ public class ElementRemover
     } // startCDATA(Augmentations)
 
     /** End CDATA section. */
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {
             super.endCDATA(augs);
@@ -281,6 +295,7 @@ public class ElementRemover
     } // endCDATA(Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth && elementAccepted(element.rawname)) {
@@ -293,6 +308,7 @@ public class ElementRemover
     } // endElement(QName,Augmentations)
 
     /** End prefix mapping. */
+    @Override
     public void endPrefixMapping(String prefix, Augmentations augs)
         throws XNIException {
         if (fElementDepth <= fRemovalElementDepth) {

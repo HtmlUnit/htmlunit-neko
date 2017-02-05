@@ -42,21 +42,25 @@ public class XercesBridge_2_2 extends XercesBridge
         }
     }
 
+    @Override
     public String getVersion() {
         return Version.getVersion();
     }
     
+    @Override
     public void XMLDocumentHandler_startPrefixMapping(
             XMLDocumentHandler documentHandler, String prefix, String uri,
             Augmentations augs) {
         // does nothing, not needed
     }
 
+    @Override
     public void XMLDocumentHandler_startDocument(XMLDocumentHandler documentHandler, XMLLocator locator,
             String encoding, NamespaceContext nscontext, Augmentations augs) {
         documentHandler.startDocument(locator, encoding, nscontext, augs);
      }
 
+    @Override
     public void XMLDocumentFilter_setDocumentSource(XMLDocumentFilter filter,
             XMLDocumentSource lastSource) {
         filter.setDocumentSource(lastSource);

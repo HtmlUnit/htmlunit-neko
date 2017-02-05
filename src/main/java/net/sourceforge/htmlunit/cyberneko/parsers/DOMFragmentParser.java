@@ -355,11 +355,13 @@ public class DOMFragmentParser
     //
 
     /** Sets the document source. */
+    @Override
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
     } // setDocumentSource(XMLDocumentSource)
 
     /** Returns the document source. */
+    @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
     } // getDocumentSource():XMLDocumentSource
@@ -373,6 +375,7 @@ public class DOMFragmentParser
     // since Xerces 2.2.0
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext,
                               Augmentations augs) throws XNIException {
@@ -380,17 +383,20 @@ public class DOMFragmentParser
     } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
 
     /** XML declaration. */
+    @Override
     public void xmlDecl(String version, String encoding,
                         String standalone, Augmentations augs)
         throws XNIException {
     } // xmlDecl(String,String,String,Augmentations)
 
     /** Document type declaration. */
+    @Override
     public void doctypeDecl(String root, String pubid, String sysid,
                             Augmentations augs) throws XNIException {
     } // doctypeDecl(String,String,String,Augmentations)
 
     /** Processing instruction. */
+    @Override
     public void processingInstruction(final String target, final XMLString data,
             final Augmentations augs)
         throws XNIException {
@@ -403,6 +409,7 @@ public class DOMFragmentParser
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Comment. */
+    @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
         Comment comment = fDocument.createComment(text.toString());
@@ -420,6 +427,7 @@ public class DOMFragmentParser
     } // endPrefixMapping(String,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         Element elementNode = fDocument.createElement(element.rawname);
@@ -436,6 +444,7 @@ public class DOMFragmentParser
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
@@ -443,6 +452,7 @@ public class DOMFragmentParser
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** Characters. */
+    @Override
     public void characters(XMLString text, Augmentations augs)
         throws XNIException {
 
@@ -472,12 +482,14 @@ public class DOMFragmentParser
     } // characters(XMLString,Augmentations)
 
     /** Ignorable whitespace. */
+    @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs)
         throws XNIException {
         characters(text, augs);
     } // ignorableWhitespace(XMLString,Augmentations)
 
     /** Start general entity. */
+    @Override
     public void startGeneralEntity(String name, XMLResourceIdentifier id,
                                    String encoding, Augmentations augs)
         throws XNIException {
@@ -487,33 +499,39 @@ public class DOMFragmentParser
     } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
 
     /** Text declaration. */
+    @Override
     public void textDecl(String version, String encoding,
                          Augmentations augs) throws XNIException {
     } // textDecl(String,String,Augmentations)
 
     /** End general entity. */
+    @Override
     public void endGeneralEntity(String name, Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
     } // endGeneralEntity(String,Augmentations)
 
     /** Start CDATA section. */
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = true;
     } // startCDATA(Augmentations)
 
     /** End CDATA section. */
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = false;
     } // endCDATA(Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
     } // endElement(QName,Augmentations)
 
     /** End document. */
+    @Override
     public void endDocument(Augmentations augs) throws XNIException {
     } // endDocument(Augmentations)
 

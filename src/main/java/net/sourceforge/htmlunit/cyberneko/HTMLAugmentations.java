@@ -70,6 +70,7 @@ public class HTMLAugmentations implements Augmentations {
     // since Xerces 2.3.0
 
     /** Removes all of the elements in this augmentations object. */
+    @Override
     public void removeAllItems() {
         fItems.clear();
     } // removeAllItems()
@@ -95,6 +96,7 @@ public class HTMLAugmentations implements Augmentations {
      * @return The previous value of the specified key in the Augmentations 
      *         structure, or <code>null</code> if it did not have one.
      */
+    @Override
     public Object putItem(String key, Object item) {
         return fItems.put(key, item);
     } // putItem(String, Object):Object
@@ -109,6 +111,7 @@ public class HTMLAugmentations implements Augmentations {
      *         structure; <code>null</code> if the key is not mapped to any 
      *         value.
      */
+    @Override
     public Object getItem(String key) {
         return fItems.get(key);
     } // getItem(String):Object
@@ -120,6 +123,7 @@ public class HTMLAugmentations implements Augmentations {
      * @return The previous value of the specified key in the Augmentations 
      *         structure, or <code>null</code> if it did not have one.
      */
+    @Override
     public Object removeItem(String key) {
         return fItems.remove(key);
     } // removeItem(String):Object
@@ -127,6 +131,7 @@ public class HTMLAugmentations implements Augmentations {
     /**
      * Returns an enumeration of the keys in the Augmentations structure.
      */
+    @Override
     public Enumeration keys() {
         return fItems.keys();
     } // keys():Enumeration

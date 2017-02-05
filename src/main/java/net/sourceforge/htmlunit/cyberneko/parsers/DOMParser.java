@@ -70,6 +70,7 @@ public class DOMParser
     //
 
     /** Doctype declaration. */
+    @Override
     public void doctypeDecl(String root, String pubid, String sysid,
                             Augmentations augs) throws XNIException {
         

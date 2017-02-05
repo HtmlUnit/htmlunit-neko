@@ -37,6 +37,7 @@ public class XercesBridge_2_3 extends XercesBridge_2_2
         }
     }
 
+    @Override
     public void NamespaceContext_declarePrefix(final NamespaceContext namespaceContext, 
             final String ns, String avalue) {
         namespaceContext.declarePrefix(ns, avalue);

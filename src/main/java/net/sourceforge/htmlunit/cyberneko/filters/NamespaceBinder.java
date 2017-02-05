@@ -178,6 +178,7 @@ public class NamespaceBinder
      * this component. This method may return null if no features
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedFeatures() {
         return merge(super.getRecognizedFeatures(), RECOGNIZED_FEATURES);
     } // getRecognizedFeatures():String[]
@@ -187,6 +188,7 @@ public class NamespaceBinder
      * component does not want to report a default value for this
      * feature.
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         for (int i = 0; i < RECOGNIZED_FEATURES.length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
@@ -201,6 +203,7 @@ public class NamespaceBinder
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedProperties() {
         return merge(super.getRecognizedProperties(), RECOGNIZED_PROPERTIES);
     } // getRecognizedProperties():String[]
@@ -210,6 +213,7 @@ public class NamespaceBinder
      * component does not want to report a default value for this
      * property.
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         for (int i = 0; i < RECOGNIZED_PROPERTIES.length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -228,6 +232,7 @@ public class NamespaceBinder
      *
      * @throws XNIException Thrown by component on initialization error.
      */
+    @Override
     public void reset(XMLComponentManager manager) 
         throws XMLConfigurationException {
         super.reset(manager);
@@ -252,6 +257,7 @@ public class NamespaceBinder
     //
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext, Augmentations augs)
         throws XNIException {
@@ -263,6 +269,7 @@ public class NamespaceBinder
     } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         
@@ -287,6 +294,7 @@ public class NamespaceBinder
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         
@@ -324,6 +332,7 @@ public class NamespaceBinder
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         
@@ -524,6 +533,7 @@ public class NamespaceBinder
         // since Xerces 2.0.0-beta2 (old XNI namespaces)
 
         /** Get URI. */
+        @Override
         public String getURI(String prefix) {
             for (int i = fLevels[fTop]-1; i >= 0; i--) {
                 final Entry entry = fEntries[i];
@@ -535,11 +545,13 @@ public class NamespaceBinder
         } // getURI(String):String
 
         /** Get declared prefix count. */
+        @Override
         public int getDeclaredPrefixCount() {
             return fLevels[fTop] - fLevels[fTop-1];
         } // getDeclaredPrefixCount():int
 
         /** Get declared prefix at. */
+        @Override
         public String getDeclaredPrefixAt(int index) {
             return fEntries[fLevels[fTop-1] + index].prefix;
         } // getDeclaredPrefixAt(int):String
@@ -552,11 +564,13 @@ public class NamespaceBinder
         // since Xerces #.#.# (new XNI namespaces)
 
         /** Reset. */
+        @Override
         public void reset() {
             fLevels[fTop = 1] = fLevels[fTop-1];
         } // reset()
 
         /** Push context. */
+        @Override
         public void pushContext() {
             if (++fTop == fLevels.length) {
                 int[] iarray = new int[fLevels.length + 10];
@@ -567,6 +581,7 @@ public class NamespaceBinder
         } // pushContext()
 
         /** Pop context. */
+        @Override
         public void popContext() {
             if (fTop > 1) {
                 fTop--;
@@ -574,6 +589,7 @@ public class NamespaceBinder
         } // popContext()
 
         /** Declare prefix. */
+        @Override
         public boolean declarePrefix(String prefix, String uri) {
             int count = getDeclaredPrefixCount();
             for (int i = 0; i < count; i++) {
@@ -593,6 +609,7 @@ public class NamespaceBinder
         } // declarePrefix(String,String):boolean
 
         /** Get prefix. */
+        @Override
         public String getPrefix(String uri) {
             for (int i = fLevels[fTop]-1; i >= 0; i--) {
                 final Entry entry = fEntries[i];
@@ -604,6 +621,7 @@ public class NamespaceBinder
         } // getPrefix(String):String
 
         /** Get all prefixes. */
+        @Override
         public Enumeration<String> getAllPrefixes() {
             Vector<String> prefixes = new Vector<String>();
             for (int i = fLevels[1]; i < fLevels[fTop]; i++) {

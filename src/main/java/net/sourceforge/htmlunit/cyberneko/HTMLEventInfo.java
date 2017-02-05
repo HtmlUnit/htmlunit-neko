@@ -70,31 +70,37 @@ public interface HTMLEventInfo {
         // location information
 
         /** Returns the line number of the beginning of this event.*/
+        @Override
         public int getBeginLineNumber() {
             return -1;
         } // getBeginLineNumber():int
 
         /** Returns the column number of the beginning of this event.*/
+        @Override
         public int getBeginColumnNumber() { 
             return -1;
         } // getBeginColumnNumber():int
 
         /** Returns the character offset of the beginning of this event.*/
+        @Override
         public int getBeginCharacterOffset() { 
             return -1;
         } // getBeginCharacterOffset():int
 
         /** Returns the line number of the end of this event.*/
+        @Override
         public int getEndLineNumber() {
             return -1;
         } // getEndLineNumber():int
 
         /** Returns the column number of the end of this event.*/
+        @Override
         public int getEndColumnNumber() {
             return -1;
         } // getEndColumnNumber():int
 
         /** Returns the character offset of the end of this event.*/
+        @Override
         public int getEndCharacterOffset() { 
             return -1;
         } // getEndCharacterOffset():int
@@ -102,6 +108,7 @@ public interface HTMLEventInfo {
         // other information
 
         /** Returns true if this corresponding event was synthesized. */
+        @Override
         public boolean isSynthesized() {
             return true;
         } // isSynthesized():boolean
@@ -111,6 +118,7 @@ public interface HTMLEventInfo {
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
             return "synthesized";
         } // toString():String

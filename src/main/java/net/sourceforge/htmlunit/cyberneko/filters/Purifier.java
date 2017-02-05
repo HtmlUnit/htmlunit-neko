@@ -150,6 +150,7 @@ public class Purifier
     // XMLComponent methods
     //
 
+    @Override
     public void reset(XMLComponentManager manager) 
         throws XMLConfigurationException {
 
@@ -167,6 +168,7 @@ public class Purifier
     //
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding,
                               Augmentations augs) throws XNIException {
         fNamespaceContext = fNamespaces 
@@ -177,6 +179,7 @@ public class Purifier
     } // startDocument(XMLLocator,String,Augmentations)
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext, Augmentations augs)
         throws XNIException {
@@ -187,6 +190,7 @@ public class Purifier
     } // startDocument(XMLLocator,NamespaceContext,String,Augmentations)
 
     /** XML declaration. */
+    @Override
     public void xmlDecl(String version, String encoding, String standalone,
                         Augmentations augs) throws XNIException {
         if (version == null || !version.equals("1.0")) {
@@ -208,6 +212,7 @@ public class Purifier
     } // xmlDecl(String,String,String,Augmentations)
 
     /** Comment. */
+    @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
         StringBuilder str = new StringBuilder(purifyText(text).toString());
@@ -225,6 +230,7 @@ public class Purifier
     } // comment(XMLString,Augmentations)
 
     /** Processing instruction. */
+    @Override
     public void processingInstruction(String target, XMLString data,
                                       Augmentations augs)
         throws XNIException {
@@ -234,6 +240,7 @@ public class Purifier
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Doctype declaration. */
+    @Override
     public void doctypeDecl(String root, String pubid, String sysid,
                             Augmentations augs) throws XNIException {
         fSeenDoctype = true;
@@ -251,6 +258,7 @@ public class Purifier
     } // doctypeDecl(String,String,String,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         handleStartElement(element, attrs);
@@ -258,6 +266,7 @@ public class Purifier
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         handleStartElement(element, attrs);
@@ -265,18 +274,21 @@ public class Purifier
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** Start CDATA section. */
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = true;
         super.startCDATA(augs);
     } // startCDATA(Augmentations)
 
     /** End CDATA section. */
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = false;
         super.endCDATA(augs);
     } // endCDATA(Augmentations)
 
     /** Characters. */
+    @Override
     public void characters(XMLString text, Augmentations augs)
         throws XNIException {
         text = purifyText(text);
@@ -297,6 +309,7 @@ public class Purifier
     } // characters(XMLString,Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         element = purifyQName(element);

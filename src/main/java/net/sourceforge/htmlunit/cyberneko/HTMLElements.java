@@ -757,11 +757,13 @@ public class HTMLElements {
         //
 
         /** Returns a hash code for this object. */
+        @Override
         public int hashCode() {
             return name.hashCode();
         } // hashCode():int
 
         /** Returns true if the objects are equal. */
+        @Override
         public boolean equals(final Object o) {
             return name.equals(o);
         } // equals(Object):boolean
@@ -769,6 +771,7 @@ public class HTMLElements {
         /**
          * Provides a simple representation to make debugging easier
          */
+        @Override
         public String toString() {
             return super.toString() + "(name=" + name + ")";
         }

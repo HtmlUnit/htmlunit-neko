@@ -60,6 +60,7 @@ public class DefaultFilter
     //
 
     /** Sets the document handler. */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
     } // setDocumentHandler(XMLDocumentHandler)
@@ -67,16 +68,19 @@ public class DefaultFilter
     // @since Xerces 2.1.0
 
     /** Returns the document handler. */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
 
     /** Sets the document source. */
+    @Override
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
     } // setDocumentSource(XMLDocumentSource)
 
     /** Returns the document source. */
+    @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
     } // getDocumentSource():XMLDocumentSource
@@ -88,6 +92,7 @@ public class DefaultFilter
     // since Xerces-J 2.2.0
 
     /** Start document. */
+    @Override
     public void startDocument(XMLLocator locator, String encoding, 
                               NamespaceContext nscontext, Augmentations augs) 
         throws XNIException {
@@ -99,6 +104,7 @@ public class DefaultFilter
     // old methods
 
     /** XML declaration. */
+    @Override
     public void xmlDecl(String version, String encoding, String standalone, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -107,6 +113,7 @@ public class DefaultFilter
     } // xmlDecl(String,String,String,Augmentations)
 
     /** Doctype declaration. */
+    @Override
     public void doctypeDecl(String root, String publicId, String systemId, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -115,6 +122,7 @@ public class DefaultFilter
     } // doctypeDecl(String,String,String,Augmentations)
 
     /** Comment. */
+    @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -123,6 +131,7 @@ public class DefaultFilter
     } // comment(XMLString,Augmentations)
 
     /** Processing instruction. */
+    @Override
     public void processingInstruction(String target, XMLString data, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -131,6 +140,7 @@ public class DefaultFilter
     } // processingInstruction(String,XMLString,Augmentations)
 
     /** Start element. */
+    @Override
     public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -139,6 +149,7 @@ public class DefaultFilter
     } // startElement(QName,XMLAttributes,Augmentations)
 
     /** Empty element. */
+    @Override
     public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -147,6 +158,7 @@ public class DefaultFilter
     } // emptyElement(QName,XMLAttributes,Augmentations)
 
     /** Characters. */
+    @Override
     public void characters(XMLString text, Augmentations augs) 
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -155,6 +167,7 @@ public class DefaultFilter
     } // characters(XMLString,Augmentations)
 
     /** Ignorable whitespace. */
+    @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) 
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -163,6 +176,7 @@ public class DefaultFilter
     } // ignorableWhitespace(XMLString,Augmentations)
 
     /** Start general entity. */
+    @Override
     public void startGeneralEntity(String name, XMLResourceIdentifier id, String encoding, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -171,6 +185,7 @@ public class DefaultFilter
     } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
 
     /** Text declaration. */
+    @Override
     public void textDecl(String version, String encoding, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -179,6 +194,7 @@ public class DefaultFilter
     } // textDecl(String,String,Augmentations)
 
     /** End general entity. */
+    @Override
     public void endGeneralEntity(String name, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -187,6 +203,7 @@ public class DefaultFilter
     } // endGeneralEntity(String,Augmentations)
 
     /** Start CDATA section. */
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.startCDATA(augs);
@@ -194,6 +211,7 @@ public class DefaultFilter
     } // startCDATA(Augmentations)
 
     /** End CDATA section. */
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.endCDATA(augs);
@@ -201,6 +219,7 @@ public class DefaultFilter
     } // endCDATA(Augmentations)
 
     /** End element. */
+    @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
@@ -209,6 +228,7 @@ public class DefaultFilter
     } // endElement(QName,Augmentations)
 
     /** End document. */
+    @Override
     public void endDocument(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.endDocument(augs);
@@ -248,6 +268,7 @@ public class DefaultFilter
      * this component. This method may return null if no features
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedFeatures() {
         return null;
     } // getRecognizedFeatures():String[]
@@ -257,6 +278,7 @@ public class DefaultFilter
      * component does not want to report a default value for this
      * feature.
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         return null;
     } // getFeatureDefault(String):Boolean
@@ -266,6 +288,7 @@ public class DefaultFilter
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedProperties() {
         return null;
     } // getRecognizedProperties():String[]
@@ -275,6 +298,7 @@ public class DefaultFilter
      * component does not want to report a default value for this
      * property.
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         return null;
     } // getPropertyDefault(String):Object
@@ -288,6 +312,7 @@ public class DefaultFilter
      *
      * @throws XNIException Thrown by component on initialization error.
      */
+    @Override
     public void reset(XMLComponentManager componentManager) 
         throws XMLConfigurationException {
     } // reset(XMLComponentManager)
@@ -308,6 +333,7 @@ public class DefaultFilter
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public void setFeature(String featureId, boolean state) 
         throws XMLConfigurationException {
     } // setFeature(String,boolean)
@@ -328,6 +354,7 @@ public class DefaultFilter
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public void setProperty(String propertyId, Object value) 
         throws XMLConfigurationException {
     } // setProperty(String,Object)
