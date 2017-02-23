@@ -53,7 +53,7 @@ import org.apache.xerces.xni.parser.XMLParserConfiguration;
 public class CanonicalTest extends TestCase {
 
     private static final File canonicalDir = new File("data/canonical");
-    private static final File outputDir = new File("build/data/output/" + XercesBridge.getInstance().getVersion());
+    private static final File outputDir = new File("target/data/output/" + XercesBridge.getInstance().getVersion());
     private File dataFile;
     
     public static Test suite() throws Exception {
