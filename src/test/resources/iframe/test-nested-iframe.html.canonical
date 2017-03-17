@@ -1,0 +1,10 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(IFRAME
+Asrc foo1
+"<iframe src="foo2">
+)IFRAME
+)BODY
+)HTML

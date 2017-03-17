@@ -1,0 +1,32 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(TABLE
+Aid tbl-a
+"\n
+(TBODY
+(TR
+(TD
+"\n
+(TABLE
+Aid tbl-b
+"\n\n
+(TBODY
+(TR
+(TD
+Aid td-b1
+)TD
+)TR
+"\n
+)TBODY
+)TABLE
+"\n
+)TD
+)TR
+"\n
+)TBODY
+)TABLE
+"\n
+)BODY
+)HTML

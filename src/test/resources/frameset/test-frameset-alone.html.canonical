@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+)HEAD
+(FRAMESET
+Acols 100%
+"\n  
+(FRAME
+Aid frame1
+Asrc foo
+)FRAME
+"\n
+)FRAMESET
+)HTML

@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+(SCRIPT
+" on comment line\nhtml script content\n//
+)SCRIPT
+"\n
+)HEAD
+(BODY
+(H1
+"Foo
+)H1
+)BODY
+)HTML

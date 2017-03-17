@@ -1,0 +1,58 @@
+(HTML
+(HEAD
+(TITLE
+"foo
+)TITLE
+)HEAD
+(BODY
+"\n
+(A
+"Here is an 
+(UNKNOWN
+"unknown element
+)UNKNOWN
+" in some inline text
+)A
+"\n
+(DIV
+"and 
+(UNKNOWN
+"here
+)UNKNOWN
+" in some block text
+)DIV
+"\n
+(P
+"and 
+(UNKNOWN
+"here
+)UNKNOWN
+" in a paragraph
+)P
+"\n\n
+(UNKNOWN
+"\n
+(P
+"containing p tag
+)P
+"\n
+)UNKNOWN
+"\n
+(UNKNOWN
+"\n
+(A
+"a tag
+)A
+"\n
+)UNKNOWN
+"\n
+(UNKNOWN
+"\n
+(DIV
+"and a div
+)DIV
+"\n
+)UNKNOWN
+"\n
+)BODY
+)HTML

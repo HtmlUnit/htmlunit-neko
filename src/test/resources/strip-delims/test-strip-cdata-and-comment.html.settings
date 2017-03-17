@@ -1,0 +1,2 @@
+feature http://cyberneko.org/html/features/scanner/script/strip-cdata-delims  true
+feature http://cyberneko.org/html/features/scanner/script/strip-comment-delims  true

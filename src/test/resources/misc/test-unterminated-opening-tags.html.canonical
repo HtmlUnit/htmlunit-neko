@@ -1,0 +1,22 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(INPUT
+Aname foo1
+)INPUT
+(INPUT
+Aname foo2
+Aonclick alert(1>2)
+Avalue 123
+)INPUT
+(INPUT
+Aname foo3
+Avalue 456
+)INPUT
+(INPUT
+Aname foo4
+Avalue 789
+)INPUT
+)BODY
+)HTML

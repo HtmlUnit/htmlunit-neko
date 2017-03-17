@@ -1,0 +1,17 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+Aonload alert(1) // comment alert(2)
+"\n
+(DIV
+Aall 2s 2t 2n|2s
+Aleading-newline 2n
+Aleading-space 2s
+Aleading-tab 2t
+Atrailing-newline 2n
+Atrailing-space 2s
+Atrailing-tab 2t
+)DIV
+)BODY
+)HTML

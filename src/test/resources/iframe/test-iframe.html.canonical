@@ -1,0 +1,17 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"\n
+(IFRAME
+Aname testFrame
+Asrc testFrame.html
+)IFRAME
+"\n
+(DIV
+Aid aButton
+"test text
+)DIV
+"\n
+)BODY
+)HTML

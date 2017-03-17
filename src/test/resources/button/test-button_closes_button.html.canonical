@@ -1,0 +1,12 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(BUTTON
+"hello
+)BUTTON
+(BUTTON
+"world
+)BUTTON
+)BODY
+)HTML

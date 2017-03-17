@@ -1,0 +1,9 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(H:BODY
+A{http://www.w3.org/2000/xmlns/}xmlns:H urn:not-a-html-ns
+)H:BODY
+)BODY
+)HTML

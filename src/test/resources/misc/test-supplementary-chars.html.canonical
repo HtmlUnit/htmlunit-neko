@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"Actual Character: 𠀀, Decimal Entity: 𠀀, Hex Entity: 𠀀
+(BR
+)BR
+"\n
+(IMG
+Aalt Character: 𠀀, Entity: 𠀀
+Asrc data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP
+)IMG
+)BODY
+)HTML
