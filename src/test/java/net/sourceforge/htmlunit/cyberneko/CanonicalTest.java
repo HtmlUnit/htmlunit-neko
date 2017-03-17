@@ -52,16 +52,17 @@ import org.apache.xerces.xni.parser.XMLParserConfiguration;
  */
 public class CanonicalTest extends TestCase {
 
-    private static final File canonicalDir = new File("data/canonical");
+    private static final File dataDir = new File("src/test/resources");
+    private static final File canonicalDir = new File("src/test/resources/canonical");
     private static final File outputDir = new File("target/data/output/" + XercesBridge.getInstance().getVersion());
     private File dataFile;
     
     public static Test suite() throws Exception {
+        System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 
         TestSuite suite = new TestSuite();
         final List<File> dataFiles = new ArrayList<>();
-        File dataDir = new File("data");
         dataDir.listFiles(new FileFilter() {
             @Override
             public boolean accept(final File file) {
@@ -104,7 +105,7 @@ public class CanonicalTest extends TestCase {
             }
             final String canonicalLines = getCanonical(canonicalFile);
             
-            assertEquals(canonicalLines, dataLines);
+            assertEquals(dataFile.toString(), canonicalLines, dataLines);
         }
         catch (final AssertionFailedError e)
         {
