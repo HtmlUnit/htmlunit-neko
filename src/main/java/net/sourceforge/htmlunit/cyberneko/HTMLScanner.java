@@ -1284,7 +1284,7 @@ public class HTMLScanner
                     break;
                 }
                 else {
-                    appendChar(str, c);
+                    appendChar(str, c, null);
                 }
             }
             if (c == -1) {
@@ -1363,7 +1363,7 @@ public class HTMLScanner
                 fCurrentEntity.rewind();
                 break;
             }
-            appendChar(str, c);
+            appendChar(str, c, null);
         }
 
         if (!endsWithSemicolon) {
@@ -1410,15 +1410,7 @@ public class HTMLScanner
                         fDocumentHandler.startGeneralEntity(name, id, encoding, locationAugs());
                     }
                     str.clear();
-                    try {
-                        appendChar(str, value);
-                    }
-                    catch (final IllegalArgumentException e) { // when value is not valid as UTF-16 
-                        if (fReportErrors) {
-                            fErrorReporter.reportError("HTML1005", new Object[]{name});
-                        }
-                        str.append(REPLACEMENT_CHARACTER);
-                    }
+                    appendChar(str, value, name);
                     fDocumentHandler.characters(str, locationAugs());
                     if (fNotifyCharRefs) {
                         fDocumentHandler.endGeneralEntity(name, locationAugs());
@@ -1467,7 +1459,7 @@ public class HTMLScanner
                 fDocumentHandler.startGeneralEntity(name, id, encoding, locationAugs());
             }
             str.clear();
-            appendChar(str, c);
+            appendChar(str, c, null);
             fDocumentHandler.characters(str, locationAugs());
             if (notify) {
                 fDocumentHandler.endGeneralEntity(name, locationAugs());
@@ -1700,14 +1692,25 @@ public class HTMLScanner
      *
      * @param str The XMLStringBuffer to append to.
      * @param value The character value.
+     * @param name to be used for error reporting
      */
-    private void appendChar( XMLStringBuffer str, int value )
+    private void appendChar( XMLStringBuffer str, int value, String name )
     {
         if ( value > Character.MAX_VALUE )
         {
-            char[] chars = Character.toChars( value );
-
-            str.append( chars, 0, chars.length );
+            try {
+                char[] chars = Character.toChars( value );
+                str.append( chars, 0, chars.length );
+            }
+            catch (final IllegalArgumentException e) { // when value is not valid as UTF-16 
+                if (fReportErrors) {
+                    if (name == null) {
+                        name = "&#" + value + ';';
+                    }
+                    fErrorReporter.reportError("HTML1005", new Object[]{name});
+                }
+                str.append(REPLACEMENT_CHARACTER);
+            }
         }
         else
         {
@@ -1721,14 +1724,25 @@ public class HTMLScanner
      *
      * @param str The StringBuffer to append to.
      * @param value The character value.
+     * @param name to be used for error reporting
      */
-    private void appendChar( StringBuilder str, int value )
+    private void appendChar( StringBuilder str, int value, String name )
     {
         if ( value > Character.MAX_VALUE )
         {
-            char[] chars = Character.toChars( value );
-
-            str.append( chars, 0, chars.length );
+            try {
+                char[] chars = Character.toChars( value );
+                str.append( chars, 0, chars.length );
+            }
+            catch (final IllegalArgumentException e) { // when value is not valid as UTF-16 
+                if (fReportErrors) {
+                    if (name == null) {
+                        name = "&#" + value + ';';
+                    }
+                    fErrorReporter.reportError("HTML1005", new Object[]{name});
+                }
+                fStringBuffer.append(REPLACEMENT_CHARACTER);
+            }
         }
         else
         {
@@ -2248,7 +2262,7 @@ public class HTMLScanner
                     }
                 }
                 else {
-                    appendChar(buffer, c);
+                    appendChar(buffer, c, null);
                 }
             }
             if (buffer.length > 0 && fDocumentHandler != null) {
@@ -2292,7 +2306,7 @@ public class HTMLScanner
                     }
                 }
                 else {
-                    appendChar(buffer, c);
+                    appendChar(buffer, c, null);
                 }
             }
 
@@ -2486,7 +2500,7 @@ public class HTMLScanner
                         break;
                     }
                     else if (c != '>') {
-                        appendChar(buffer, c);
+                        appendChar(buffer, c, null);
                         continue;
                     }
                     else if (c == '\n' || c == '\r') {
@@ -2573,7 +2587,7 @@ public class HTMLScanner
                     }
                     break;
                 }
-                appendChar(buffer, c);
+                appendChar(buffer, c, null);
             }
             return c == -1;
         } // scanMarkupContent(XMLStringBuffer,char):boolean
@@ -2640,7 +2654,7 @@ public class HTMLScanner
                         break;
                     }
                     else {
-                        appendChar(fStringBuffer, c);
+                        appendChar(fStringBuffer, c, null);
                     }
                 }
                 XMLString data = fStringBuffer;
@@ -3012,7 +3026,7 @@ public class HTMLScanner
                         if (c == '&') {
                             int ce = scanEntityRef(fStringBuffer2, false);
                             if (ce != -1) {
-                                appendChar(fStringBuffer, ce);
+                                appendChar(fStringBuffer, ce, null);
                             }
                             else {
                                 fStringBuffer.append(fStringBuffer2);
@@ -3020,8 +3034,8 @@ public class HTMLScanner
                             fNonNormAttr.append(fStringBuffer2);
                         }
                         else {
-                            appendChar(fStringBuffer, c);
-                            appendChar(fNonNormAttr, c);
+                            appendChar(fStringBuffer, c, null);
+                            appendChar(fNonNormAttr, c, null);
                         }
                     }
                     fQName.setValues(null, aname, aname, null);
@@ -3052,7 +3066,7 @@ public class HTMLScanner
                         isStart = false;
                         int ce = scanEntityRef(fStringBuffer2, false);
                         if (ce != -1) {
-                            appendChar(fStringBuffer, ce);
+                            appendChar(fStringBuffer, ce, null);
                         }
                         else {
                             fStringBuffer.append(fStringBuffer2);
@@ -3084,8 +3098,8 @@ public class HTMLScanner
                     }
                     else if (c != quote) {
                         isStart = false;
-                        appendChar(fStringBuffer, c);
-                        appendChar(fNonNormAttr, c);
+                        appendChar(fStringBuffer, c, null);
+                        appendChar(fNonNormAttr, c, null);
                     }
                     prevSpace = c == ' ' || c == '\t' || c == '\r' || c == '\n';
                     isStart = isStart && prevSpace;
@@ -3297,7 +3311,7 @@ public class HTMLScanner
                             else {
                                 fStringBuffer.clear();
                                 fStringBuffer.append('<');
-                                appendChar(fStringBuffer, c);
+                                appendChar(fStringBuffer, c, null);
                             }
                             scanCharacters(fStringBuffer, delimiter);
                             setScannerState(STATE_CONTENT);
@@ -3350,7 +3364,7 @@ public class HTMLScanner
                     }
                 }
                 else {
-                    appendChar(buffer, c);
+                    appendChar(buffer, c, null);
                     if (c == '\n') {
                         fCurrentEntity.incLine();
                     }
@@ -3402,7 +3416,7 @@ public class HTMLScanner
                 if (c == -1) {
                     break;
                 }
-                appendChar(buffer, c);
+                appendChar(buffer, c, null);
                 if (c == '\n') {
                     fCurrentEntity.incLine();
                 }
