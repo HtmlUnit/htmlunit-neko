@@ -2108,7 +2108,17 @@ public class HTMLScanner
                         case STATE_MARKUP_BRACKET: {
                             int c = fCurrentEntity.read();
                             if (c == '!') {
-                                if (skip("--", false)) {
+                                // process some strange self closing comments first
+                                if (skip("--->", false)
+                                        || skip("-->", false)
+                                        || skip("->", false)
+                                        || skip(">", false)) {
+                                    fEndLineNumber = fCurrentEntity.getLineNumber();
+                                    fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                                    fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                                    fDocumentHandler.comment(new XMLStringBuffer(), locationAugs());
+                                }
+                                else if (skip("--", false)) {
                                     scanComment();
                                 }
                                 else if (skip("[CDATA[", false)) {
