@@ -3,11 +3,11 @@ package net.sourceforge.htmlunit.cyberneko;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import junit.framework.TestCase;
-
 import org.apache.xerces.xni.QName;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
+
+import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
 
 /**
@@ -19,12 +19,14 @@ import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
  */
 public class FragmentContextStackTest extends TestCase {
 
+    private static final String NL = System.lineSeparator();
+
     public void testSimple() throws Exception {
-        String expected = "(DIV\r\n"
-            + "(SPAN\r\n"
-            + "\"hello\r\n"
-            + ")SPAN\r\n"
-            + ")DIV\r\n";
+        String expected = "(DIV" + NL
+            + "(SPAN" + NL
+            + "\"hello" + NL
+            + ")SPAN" + NL
+            + ")DIV" + NL;
         doTest("<div><span>hello</span>", new String[] { "html", "body" }, expected);
 
         doTest("<div><span>hello</span>", new String[] { "html" }, expected);
@@ -34,13 +36,13 @@ public class FragmentContextStackTest extends TestCase {
     }
 
     public void testTR() throws Exception {
-        String expected = "(TR\r\n"
-            + "(TD\r\n"
-            + "\"hello\r\n"
-            + ")TD\r\n"
-            + ")TR\r\n";
+        String expected = "(TR" + NL
+            + "(TD" + NL
+            + "\"hello" + NL
+            + ")TD" + NL
+            + ")TR" + NL;
         doTest("<tr><td>hello</td></tr>", new String[] { "html", "body", "table", "tbody" }, expected);
-        expected = "(TBODY\r\n"
+        expected = "(TBODY" + NL
             + expected
             + ")TBODY\n";
         doTest("<tr><td>hello</td></tr>", new String[] { "html", "body", "table" }, expected);
