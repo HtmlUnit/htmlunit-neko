@@ -3,9 +3,9 @@
 )HEAD
 (BODY
 (A
-)A
 (PLAINTEXT
 "</body></html>
 )PLAINTEXT
+)A
 )BODY
 )HTML

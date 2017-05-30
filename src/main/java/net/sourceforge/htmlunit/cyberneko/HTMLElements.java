@@ -400,7 +400,7 @@ public class HTMLElements {
             // PARAM - O EMPTY
             new Element(PARAM, "PARAM", Element.EMPTY, HEAD, null),
             // PLAINTEXT
-            new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, null),
+            new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
             // PRE - - (%inline;)* -(%pre.exclusion;)
             new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P}),
         };
