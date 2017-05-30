@@ -293,7 +293,7 @@ public class HTMLElements {
             new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
 
             // FORM - - (%block;|SCRIPT)+ -(FORM)
-            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY,TD,DIV}, new short[]{BUTTON,P}),
+            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY,TD,DIV}, new short[]{P}),
             // FRAME - O EMPTY
             new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
