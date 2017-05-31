@@ -156,7 +156,8 @@ public class HTMLElements {
     public static final short SUB = STYLE+1;
     public static final short SUMMARY = SUB+1;
     public static final short SUP = SUMMARY+1;
-    public static final short TABLE = SUP+1;
+    public static final short SVG = SUP+1;
+    public static final short TABLE = SVG+1;
     public static final short TBODY = TABLE+1;
     public static final short TD = TBODY+1;
     public static final short TEMPLATE = TD+1;
@@ -218,7 +219,7 @@ public class HTMLElements {
         };
         elementsArray['B'-'A'] = new Element[] {
             // B - - (%inline;)*
-            new Element(B, "B", Element.INLINE, BODY, null),
+            new Element(B, "B", Element.INLINE, BODY, new short[] {SVG}),
             // BASE - O EMPTY
             new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
             // BASEFONT
@@ -228,15 +229,15 @@ public class HTMLElements {
             // BGSOUND
             new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
             // BIG - - (%inline;)*
-            new Element(BIG, "BIG", Element.INLINE, BODY, null),
+            new Element(BIG, "BIG", Element.INLINE, BODY, new short[]{SVG}),
             // BLINK
             new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
             // BLOCKQUOTE - - (%block;|SCRIPT)+
-            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P}),
+            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P,SVG}),
             // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
-            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD}),
+            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD,SVG}),
             // BR - O EMPTY
-            new Element(BR, "BR", Element.EMPTY, BODY, null),
+            new Element(BR, "BR", Element.EMPTY, BODY, new short[]{SVG}),
             // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
             new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
         };
@@ -244,11 +245,11 @@ public class HTMLElements {
             // CAPTION - - (%inline;)*
             new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
             // CENTER, 
-            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P}),
+            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P,SVG}),
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
             // CODE - - (%inline;)*
-            new Element(CODE, "CODE", Element.INLINE, BODY, null),
+            new Element(CODE, "CODE", Element.INLINE, BODY, new short[]{SVG}),
             // COL - O EMPTY
             new Element(COL, "COL", Element.EMPTY, TABLE, null),
             // COLGROUP - O (COL)*
@@ -266,19 +267,19 @@ public class HTMLElements {
             // DIR
             new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
             // DIV - - (%flow;)*
-            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P}),
+            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P,SVG}),
             // DD - O (%flow;)*
-            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT,DD,P}),
+            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT,DD,P,SVG}),
             // DL - - (DT|DD)+
-            new Element(DL, "DL", Element.BLOCK|Element.CONTAINER, BODY, new short[] {P}),
+            new Element(DL, "DL", Element.BLOCK|Element.CONTAINER, BODY, new short[] {P,SVG}),
             // DT - O (%inline;)*
-            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT,DD,P}),
+            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT,DD,P,SVG}),
         };
         elementsArray['E'-'A'] = new Element[] {
             // EM - - (%inline;)*
-            new Element(EM, "EM", Element.INLINE, BODY, null),
+            new Element(EM, "EM", Element.INLINE, BODY, new short[]{SVG}),
             // EMBED
-            new Element(EMBED, "EMBED", Element.EMPTY, BODY, null),
+            new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
         };
         elementsArray['F'-'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
@@ -301,31 +302,31 @@ public class HTMLElements {
         };
         elementsArray['H'-'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
-            new Element(H1, "H1", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
-            new Element(H2, "H2", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
-            new Element(H3, "H3", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
-            new Element(H4, "H4", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
-            new Element(H5, "H5", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
-            new Element(H6, "H6", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P}),
+            new Element(H1, "H1", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H2, "H2", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H3, "H3", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H4, "H4", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H5, "H5", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H6, "H6", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
             // HEAD O O (%head.content;) +(%head.misc;)
             new Element(HEAD, "HEAD", 0, HTML, null),
 
             new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
 
             // HR - O EMPTY
-            new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P}),
+            new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P,SVG}),
             // HTML O O (%html.content;)
             new Element(HTML, "HTML", 0, null, null),
         };
         elementsArray['I'-'A'] = new Element[] {
             // I - - (%inline;)*
-            new Element(I, "I", Element.INLINE, BODY, null),
+            new Element(I, "I", Element.INLINE, BODY, new short[]{SVG}),
             // IFRAME
             new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
             // ILAYER
             new Element(ILAYER, "ILAYER", Element.BLOCK, BODY, null),
             // IMG - O EMPTY
-            new Element(IMG, "IMG", Element.EMPTY, BODY, null),
+            new Element(IMG, "IMG", Element.EMPTY, BODY, new short[]{SVG}),
 
             new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
             // INPUT - O EMPTY
@@ -349,11 +350,11 @@ public class HTMLElements {
             // LEGEND - - (%inline;)*
             new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
             // LI - O (%flow;)*
-            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY,UL,OL}, new short[]{LI,P}),
+            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY,UL,OL}, new short[]{LI,P,SVG}),
             // LINK - O EMPTY
             new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
             // LISTING
-            new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P}),
+            new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P,SVG}),
         };
         elementsArray['M'-'A'] = new Element[] {
             new Element(MAIN, "MAIN", Element.BLOCK, BODY, new short[] {P}),
@@ -362,9 +363,9 @@ public class HTMLElements {
             // MARQUEE
             new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
             // MENU
-            new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P}),
+            new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P,SVG}),
             // META - O EMPTY
-            new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE,TITLE}),
+            new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE,TITLE,SVG}),
             // MULTICOL
             new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
         };
@@ -374,7 +375,7 @@ public class HTMLElements {
             // NEXTID
             new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
             // NOBR
-            new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR}),
+            new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR,SVG}),
             // NOEMBED
             new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
@@ -388,7 +389,7 @@ public class HTMLElements {
             // OBJECT - - (PARAM | %flow;)*
             new Element(OBJECT, "OBJECT", Element.CONTAINER, BODY, null),
             // OL - - (LI)+
-            new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P}),
+            new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P,SVG}),
             // OPTGROUP - - (OPTION)+
             new Element(OPTGROUP, "OPTGROUP", Element.INLINE, BODY, new short[]{OPTION}),
             // OPTION - O (#PCDATA)
@@ -396,13 +397,13 @@ public class HTMLElements {
         };
         elementsArray['P'-'A'] = new Element[] {
             // P - O (%inline;)*
-            new Element(P, "P", Element.CONTAINER, BODY, new short[]{P}),
+            new Element(P, "P", Element.CONTAINER, BODY, new short[]{P,SVG}),
             // PARAM - O EMPTY
             new Element(PARAM, "PARAM", Element.EMPTY, HEAD, null),
             // PLAINTEXT
             new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
             // PRE - - (%inline;)* -(%pre.exclusion;)
-            new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P}),
+            new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P,SVG}),
         };
         elementsArray['Q'-'A'] = new Element[] {
             // Q - - (%inline;)*
@@ -412,7 +413,7 @@ public class HTMLElements {
             // RB
             new Element(RB, "RB", Element.INLINE, RUBY, new short[]{RB}),
             // RBC
-            new Element(RBC, "RBC", 0, RUBY, null),
+            new Element(RBC, "RBC", 0, RUBY, new short[]{SVG}),
             // RP
             new Element(RP, "RP", Element.INLINE, BODY, new short[]{RB}),
             // RT
@@ -420,11 +421,11 @@ public class HTMLElements {
             // RTC
             new Element(RTC, "RTC", 0, RUBY, new short[]{RBC}),
             // RUBY
-            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, null),
+            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{SVG}),
         };
         elementsArray['S'-'A'] = new Element[] {
             // S
-            new Element(S, "S", Element.INLINE, BODY, null),
+            new Element(S, "S", Element.INLINE, BODY, new short[]{SVG}),
             // SAMP - - (%inline;)*
             new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
             // SCRIPT - - %Script;
@@ -434,7 +435,7 @@ public class HTMLElements {
             // SELECT - - (OPTGROUP|OPTION)+
             new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
             // SMALL - - (%inline;)*
-            new Element(SMALL, "SMALL", Element.INLINE, BODY, null),
+            new Element(SMALL, "SMALL", Element.INLINE, BODY, new short[]{SVG}),
             // SOUND
             new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
 
@@ -442,7 +443,7 @@ public class HTMLElements {
             // SPACER
             new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
             // SPAN - - (%inline;)*
-            new Element(SPAN, "SPAN", Element.CONTAINER, BODY, null),
+            new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
             // STRIKE
             new Element(STRIKE, "STRIKE", Element.INLINE, BODY, null),
             // STRONG - - (%inline;)*
@@ -455,10 +456,13 @@ public class HTMLElements {
             new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
             // SUP - - (%inline;)*
             new Element(SUP, "SUP", Element.INLINE, BODY, null),
+
+            // SVG - - (%SVG;)*
+            new Element(SVG, "SVG", Element.CONTAINER, BODY, null),
         };
         elementsArray['T'-'A'] = new Element[] {
             // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
-            new Element(TABLE, "TABLE", Element.BLOCK|Element.CONTAINER, BODY, null),
+            new Element(TABLE, "TABLE", Element.BLOCK|Element.CONTAINER, BODY, new short[]{SVG}),
             // TBODY O O (TR)+
             new Element(TBODY, "TBODY", 0, TABLE, new short[]{THEAD,TBODY,TFOOT,TD,TH,TR,COLGROUP}),
             // TD - O (%flow;)*
@@ -480,17 +484,17 @@ public class HTMLElements {
 
             new Element(TRACK, "TRACK", Element.EMPTY, HEAD, null),
             // TT - - (%inline;)*
-            new Element(TT, "TT", Element.INLINE, BODY, null),
+            new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
         };
         elementsArray['U'-'A'] = new Element[] {
             // U, 
-            new Element(U, "U", Element.INLINE, BODY, null),
+            new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
             // UL - - (LI)+
-            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P}),
+            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P,SVG}),
         };
         elementsArray['V'-'A'] = new Element[] {
             // VAR - - (%inline;)*
-            new Element(VAR, "VAR", Element.INLINE, BODY, null),
+            new Element(VAR, "VAR", Element.INLINE, BODY, new short[]{SVG}),
         };
         elementsArray['W'-'A'] = new Element[] {
             // WBR

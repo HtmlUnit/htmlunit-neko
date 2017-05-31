@@ -261,6 +261,9 @@ public class HTMLTagBalancer
     /** True if a form is in the stack (allow to discard opening of nested forms) */
     protected boolean fOpenedForm;
 
+    /** True if a svg is in the stack (no parent checking takes place) */
+    protected boolean fOpenedSvg;
+
     // temp vars
 
     /** A qualified name. */
@@ -608,7 +611,7 @@ public class HTMLTagBalancer
         }
 
         // ignore multiple html, head, body elements
-        if (fSeenRootElement && elementCode == HTMLElements.HTML) {
+        if (fSeenRootElement && elementCode == HTMLElements.HTML && !fOpenedSvg) {
             notifyDiscardedStartElement(elem, attrs, augs);
             return;
         }
@@ -666,7 +669,7 @@ public class HTMLTagBalancer
         }
 
         // check proper parent
-        if (element.parent != null) {
+        if (element.parent != null && !fOpenedSvg) {
             final HTMLElements.Element preferedParent = element.parent[0];
             if (fDocumentFragment && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
                 // nothing, don't force HEAD or BODY creation for a document fragment
@@ -707,6 +710,10 @@ public class HTMLTagBalancer
                     }
                 }
             }
+        }
+
+        if (elementCode == HTMLElements.SVG) {
+            fOpenedSvg = true;
         }
 
         // if block element, save immediate parent inline elements
@@ -1074,6 +1081,9 @@ public class HTMLTagBalancer
         }
         else if (elem.code == HTMLElements.FORM) {
             fOpenedForm = false;
+        }
+        else if (elem.code == HTMLElements.SVG) {
+            fOpenedSvg = false;
         }
         else if (elem.code == HTMLElements.HEAD && !forcedEndElement) {
             // consume </head> first when <body> is reached to retrieve content lost between </head> and <body>
