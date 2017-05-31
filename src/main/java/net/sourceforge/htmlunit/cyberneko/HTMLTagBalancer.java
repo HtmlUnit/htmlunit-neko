@@ -628,7 +628,7 @@ public class HTMLTagBalancer
             }
             fSeenHeadElement = true;
         }
-        else if (elementCode == HTMLElements.FRAMESET) {
+        else if (!fOpenedSvg && elementCode == HTMLElements.FRAMESET) {
             if (fSeenBodyElement && fSeenCharacters) {
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;

@@ -1,5 +1,10 @@
 (HTML
 (HEAD
+"\n
+(SCRIPT
+"alert('test');
+)SCRIPT
+"\n
 )HEAD
 (BODY
 (SVG
