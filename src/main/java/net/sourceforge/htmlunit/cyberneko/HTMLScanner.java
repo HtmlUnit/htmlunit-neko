@@ -2156,7 +2156,7 @@ public class HTMLScanner
                                 fElementCount++;
                                 fSingleBoolean[0] = false;
                                 final String ename = scanStartElement(fSingleBoolean);
-                                final String enameLC = ename == null ? null : ename.toLowerCase();
+                                final String enameLC = ename == null ? null : ename.toLowerCase(Locale.ROOT);
                                 fBeginLineNumber = fCurrentEntity.getLineNumber();
                                 fBeginColumnNumber = fCurrentEntity.getColumnNumber();
                                 fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
@@ -2690,7 +2690,7 @@ public class HTMLScanner
                     }
                     else {
                         fAttributes.getName(aindex,fQName);
-                        fQName.rawname = fQName.rawname.toLowerCase();
+                        fQName.rawname = fQName.rawname.toLowerCase(Locale.ROOT);
                         fAttributes.setName(aindex,fQName);
                         aindex++;
                     }
@@ -2769,7 +2769,7 @@ public class HTMLScanner
                         String content = getValue(fAttributes, "content");
                         if (content != null) {
                             content = removeSpaces(content);
-                            int index1 = content.toLowerCase().indexOf("charset=");
+                            int index1 = content.toLowerCase(Locale.ROOT).indexOf("charset=");
                             if (index1 != -1) {
                                 final int index2 = content.indexOf(';', index1);
                                 final String charset = index2 != -1 ? content.substring(index1+8, index2) : content.substring(index1+8);
@@ -3190,7 +3190,7 @@ public class HTMLScanner
         private boolean isEnded(String ename) {
             String content = new String(fCurrentEntity.buffer, fCurrentEntity.offset,
                 fCurrentEntity.length - fCurrentEntity.offset);
-            return content.toLowerCase().indexOf("</" + ename.toLowerCase() + ">") != -1;
+            return content.toLowerCase(Locale.ROOT).indexOf("</" + ename.toLowerCase(Locale.ROOT) + ">") != -1;
         }
 
     } // class ContentScanner

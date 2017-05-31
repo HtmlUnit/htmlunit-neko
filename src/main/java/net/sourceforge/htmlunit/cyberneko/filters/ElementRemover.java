@@ -17,6 +17,7 @@
 package net.sourceforge.htmlunit.cyberneko.filters;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.apache.xerces.xni.Augmentations;
 import org.apache.xerces.xni.NamespaceContext;
@@ -136,12 +137,12 @@ public class ElementRemover
      * see #removeElement
      */
     public void acceptElement(String element, String[] attributes) {
-        String key = element.toLowerCase();
+        String key = element.toLowerCase(Locale.ROOT);
         Object value = NULL;
         if (attributes != null) {
             String[] newarray = new String[attributes.length];
             for (int i = 0; i < attributes.length; i++) {
-                newarray[i] = attributes[i].toLowerCase();
+                newarray[i] = attributes[i].toLowerCase(Locale.ROOT);
             }
             value = attributes;
         }
@@ -157,7 +158,7 @@ public class ElementRemover
      * @param element The element to completely remove.
      */
     public void removeElement(String element) {
-        String key = element.toLowerCase();
+        String key = element.toLowerCase(Locale.ROOT);
         Object value = NULL;
         fRemovedElements.put(key, value);
     } // removeElement(String)
@@ -322,26 +323,26 @@ public class ElementRemover
 
     /** Returns true if the specified element is accepted. */
     protected boolean elementAccepted(String element) {
-        Object key = element.toLowerCase();
+        Object key = element.toLowerCase(Locale.ROOT);
         return fAcceptedElements.containsKey(key);
     } // elementAccepted(String):boolean
 
     /** Returns true if the specified element should be removed. */
     protected boolean elementRemoved(String element) {
-        Object key = element.toLowerCase();
+        Object key = element.toLowerCase(Locale.ROOT);
         return fRemovedElements.containsKey(key);
     } // elementRemoved(String):boolean
 
     /** Handles an open tag. */
     protected boolean handleOpenTag(QName element, XMLAttributes attributes) {
         if (elementAccepted(element.rawname)) {
-            Object key = element.rawname.toLowerCase();
+            Object key = element.rawname.toLowerCase(Locale.ROOT);
             Object value = fAcceptedElements.get(key);
             if (value != NULL) {
                 String[] anames = (String[])value;
                 int attributeCount = attributes.getLength();
                 LOOP: for (int i = 0; i < attributeCount; i++) {
-                    String aname = attributes.getQName(i).toLowerCase();
+                    String aname = attributes.getQName(i).toLowerCase(Locale.ROOT);
                     for (int j = 0; j < anames.length; j++) {
                         if (anames[j].equals(aname)) {
                             continue LOOP;

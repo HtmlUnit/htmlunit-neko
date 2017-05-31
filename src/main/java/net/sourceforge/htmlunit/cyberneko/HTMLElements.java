@@ -17,6 +17,7 @@
 package net.sourceforge.htmlunit.cyberneko;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -563,7 +564,7 @@ public class HTMLElements {
     public final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
-            element = new Element(UNKNOWN, ename.toUpperCase(),  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
+            element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
             element.parent = NO_SUCH_ELEMENT.parent;
             element.parentCodes = NO_SUCH_ELEMENT.parentCodes;
         }

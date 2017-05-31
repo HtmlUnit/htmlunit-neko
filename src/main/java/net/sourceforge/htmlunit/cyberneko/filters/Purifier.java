@@ -205,7 +205,7 @@ public class Purifier
                 standalone = null;
             }
             else {
-                standalone = standalone.toLowerCase();
+                standalone = standalone.toLowerCase(Locale.ROOT);
             }
         }
         super.xmlDecl(version,encoding,standalone,augs);
