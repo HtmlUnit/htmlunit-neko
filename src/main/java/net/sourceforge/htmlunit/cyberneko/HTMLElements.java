@@ -212,7 +212,7 @@ public class HTMLElements {
             // APPLET
             new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
             // AREA - O EMPTY
-            new Element(AREA, "AREA", Element.EMPTY, MAP, null),
+            new Element(AREA, "AREA", Element.EMPTY, BODY, null),
 
             new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
 
