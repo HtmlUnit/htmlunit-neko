@@ -119,15 +119,15 @@ public class CanonicalTest extends TestCase {
     }
 
     private String getCanonical(final File infile) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new UTF8BOMSkipper(new FileInputStream(infile)), "UTF-8"));
-        final StringBuffer sb = new StringBuffer();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line).append("\n");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                new UTF8BOMSkipper(new FileInputStream(infile)), "UTF-8"))) {
+            final StringBuffer sb = new StringBuffer();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
         }
-        reader.close();
-        return sb.toString();
     }
 
     private String getResult(final File infile) throws IOException {
