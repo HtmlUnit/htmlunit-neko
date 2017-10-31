@@ -182,9 +182,9 @@ class ObjectFactory {
                     if(loadProperties) {
                         // must never have attempted to read xerces.properties before (or it's outdeated)
                         fXercesProperties = new Properties();
-                        FileInputStream fis = ss.getFileInputStream(propertiesFile);
-                        fXercesProperties.load(fis);
-                        fis.close();
+                        try (FileInputStream fis = ss.getFileInputStream(propertiesFile)) {
+                            fXercesProperties.load(fis);
+                        }
                     }
                 } catch (Exception x) {
                     fXercesProperties = null;
@@ -199,10 +199,10 @@ class ObjectFactory {
             }
         } else {
             try {
-                FileInputStream fis = ss.getFileInputStream(new File(propertiesFilename));
                 Properties props = new Properties();
-                props.load(fis);
-                fis.close();
+                try (FileInputStream fis = ss.getFileInputStream(new File(propertiesFilename))) {
+                    props.load(fis);
+                }
                 factoryClassName = props.getProperty(factoryId);
             } catch (Exception x) {
                 // assert(x instanceof FileNotFoundException
