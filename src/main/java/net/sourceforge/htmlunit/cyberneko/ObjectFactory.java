@@ -415,31 +415,10 @@ class ObjectFactory {
         if (DEBUG) debugPrintln("found jar resource=" + serviceId +
                " using ClassLoader: " + cl);
 
-        // Read the service provider name in UTF-8 as specified in
-        // the jar spec.  Unfortunately this fails in Microsoft
-        // VJ++, which does not implement the UTF-8
-        // encoding. Theoretically, we should simply let it fail in
-        // that case, since the JVM is obviously broken if it
-        // doesn't support such a basic standard.  But since there
-        // are still some users attempting to use VJ++ for
-        // development, we have dropped in a fallback which makes a
-        // second attempt using the platform's default encoding. In
-        // VJ++ this is apparently ASCII, which is a subset of
-        // UTF-8... and since the strings we'll be reading here are
-        // also primarily limited to the 7-bit ASCII range (at
-        // least, in English versions), this should work well
-        // enough to keep us on the air until we're ready to
-        // officially decommit from VJ++. [Edited comment from
-        // jkesselm]
-        BufferedReader rd;
-        try {
-            rd = new BufferedReader(new InputStreamReader(is, "UTF-8"), DEFAULT_LINE_LENGTH);
-        } catch (java.io.UnsupportedEncodingException e) {
-            rd = new BufferedReader(new InputStreamReader(is), DEFAULT_LINE_LENGTH);
-        }
-
         String factoryClassName = null;
-        try {
+        // Read the service provider name in UTF-8 as specified in
+        // the jar spec.
+        try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"), DEFAULT_LINE_LENGTH)) {
             // XXX Does not handle all possible input as specified by the
             // Jar Service Provider specification
             factoryClassName = rd.readLine();
