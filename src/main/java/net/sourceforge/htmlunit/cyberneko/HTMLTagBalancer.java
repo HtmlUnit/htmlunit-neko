@@ -681,7 +681,7 @@ public class HTMLTagBalancer
                     String ename = elem.rawname;
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename,pname});
                 }
-                final QName qname = new QName(null, pname, pname, null);
+                final QName qname = createQName(pname);
                 final boolean parentCreated = forceStartElement(qname, null, synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
@@ -695,7 +695,7 @@ public class HTMLTagBalancer
                     int depth = getParentDepth(element.parent, element.bounds);
                     if (depth == -1) { // no parent found
                         final String pname = modifyName(preferedParent.name, fNamesElems);
-                        final QName qname = new QName(null, pname, pname, null);
+                        final QName qname = createQName(pname);
                         if (fReportErrors) {
                             String ename = elem.rawname;
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename,pname});
