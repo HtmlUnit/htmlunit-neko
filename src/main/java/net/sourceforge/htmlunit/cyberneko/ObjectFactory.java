@@ -391,53 +391,61 @@ class ObjectFactory {
     {
         SecuritySupport ss = SecuritySupport.getInstance();
         String serviceId = "META-INF/services/" + factoryId;
-        InputStream is = null;
 
         // First try the Context ClassLoader
         ClassLoader cl = findClassLoader();
 
-        is = ss.getResourceAsStream(cl, serviceId);
-
-        // If no provider found then try the current ClassLoader
-        if (is == null) {
-            ClassLoader current = ObjectFactory.class.getClassLoader();
-            if (cl != current) {
-                cl = current;
-                is = ss.getResourceAsStream(cl, serviceId);
+        InputStream is = ss.getResourceAsStream(cl, serviceId);
+        try {
+            // If no provider found then try the current ClassLoader
+            if (is == null) {
+                ClassLoader current = ObjectFactory.class.getClassLoader();
+                if (cl != current) {
+                    cl = current;
+                    is = ss.getResourceAsStream(cl, serviceId);
+                }
             }
-        }
-
-        if (is == null) {
-            // No provider found
-            return null;
-        }
-
-        if (DEBUG) debugPrintln("found jar resource=" + serviceId +
-               " using ClassLoader: " + cl);
-
-        String factoryClassName = null;
-        // Read the service provider name in UTF-8 as specified in
-        // the jar spec.
-        try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"), DEFAULT_LINE_LENGTH)) {
-            // XXX Does not handle all possible input as specified by the
-            // Jar Service Provider specification
-            factoryClassName = rd.readLine();
-            rd.close();
-        } catch (IOException x) {
-            // No provider found
-            return null;
-        }
-
-        if (factoryClassName != null &&
-            ! "".equals(factoryClassName)) {
-            if (DEBUG) debugPrintln("found in resource, value="
-                   + factoryClassName);
-
-            // Note: here we do not want to fall back to the current
-            // ClassLoader because we want to avoid the case where the
-            // resource file was found using one ClassLoader and the
-            // provider class was instantiated using a different one.
-            return newInstance(factoryClassName, cl, false);
+    
+            if (is == null) {
+                // No provider found
+                return null;
+            }
+    
+            if (DEBUG) debugPrintln("found jar resource=" + serviceId +
+                   " using ClassLoader: " + cl);
+    
+            String factoryClassName = null;
+            // Read the service provider name in UTF-8 as specified in
+            // the jar spec.
+            try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"), DEFAULT_LINE_LENGTH)) {
+                // XXX Does not handle all possible input as specified by the
+                // Jar Service Provider specification
+                factoryClassName = rd.readLine();
+                rd.close();
+            } catch (IOException x) {
+                // No provider found
+                return null;
+            }
+    
+            if (factoryClassName != null &&
+                ! "".equals(factoryClassName)) {
+                if (DEBUG) debugPrintln("found in resource, value="
+                       + factoryClassName);
+    
+                // Note: here we do not want to fall back to the current
+                // ClassLoader because we want to avoid the case where the
+                // resource file was found using one ClassLoader and the
+                // provider class was instantiated using a different one.
+                return newInstance(factoryClassName, cl, false);
+            }
+        } finally {
+            try {
+                if (is != null) {
+                    is.close(); 
+                }
+            } catch (IOException e) {
+                // ignore
+            }
         }
 
         // No provider found
