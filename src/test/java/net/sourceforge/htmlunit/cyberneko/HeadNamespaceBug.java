@@ -43,5 +43,3 @@ public class HeadNamespaceBug extends TestCase {
         assertEquals(3, nbTags[0]);
     }
 }
-
-            
