@@ -351,7 +351,7 @@ public class HTMLElements {
             // LEGEND - - (%inline;)*
             new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
             // LI - O (%flow;)*
-            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY,UL,OL}, new short[]{LI,P,SVG}),
+            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY,UL,OL,MENU}, new short[]{LI,P,SVG}),
             // LINK - O EMPTY
             new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
             // LISTING
