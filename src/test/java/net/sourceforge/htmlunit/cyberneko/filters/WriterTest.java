@@ -27,20 +27,20 @@ public class WriterTest extends TestCase {
         final String content = "<html><head>"
             + "<meta name='COPYRIGHT' content='SOMEONE' />"
             + "</head><body></body></html>";
-        final InputStream inputStream = new ByteArrayInputStream(content.getBytes()); 
-        
-        final XMLDocumentFilter[] filters = {
-            new net.sourceforge.htmlunit.cyberneko.Writer(new ByteArrayOutputStream(), "UTF-8"),
-            new net.sourceforge.htmlunit.cyberneko.Writer(new ByteArrayOutputStream(), "UTF-8")
-        };
-        
-        // create HTML parser
-        final XMLParserConfiguration parser = new HTMLConfiguration();
-        parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
 
-        XMLInputSource source = new XMLInputSource(null, "currentUrl", null, inputStream, "UTF-8");
-        
-        parser.parse(source);
-        inputStream.close();
+        try (InputStream inputStream = new ByteArrayInputStream(content.getBytes())) { 
+            final XMLDocumentFilter[] filters = {
+                new net.sourceforge.htmlunit.cyberneko.Writer(new ByteArrayOutputStream(), "UTF-8"),
+                new net.sourceforge.htmlunit.cyberneko.Writer(new ByteArrayOutputStream(), "UTF-8")
+            };
+
+            // create HTML parser
+            final XMLParserConfiguration parser = new HTMLConfiguration();
+            parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+    
+            XMLInputSource source = new XMLInputSource(null, "currentUrl", null, inputStream, "UTF-8");
+
+            parser.parse(source);
+        }
     }
 }
