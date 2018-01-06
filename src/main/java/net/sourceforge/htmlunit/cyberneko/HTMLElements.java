@@ -622,13 +622,13 @@ public class HTMLElements {
         //
 
         /** The element code. */
-        public short code;
+        public final short code;
 
         /** The element name. */
-        public String name;
+        public final String name;
 
         /** Informational flags. */
-        public int flags;
+        public final int flags;
 
         /** Parent elements. */
         public short[] parentCodes;
@@ -637,10 +637,10 @@ public class HTMLElements {
         public Element[] parent;
 
         /** The bounding element code. */
-        public short bounds;
+        public final short bounds;
 
         /** List of elements this element can close. */
-        public short[] closes;
+        public final short[] closes;
 
         //
         // Constructors
@@ -770,7 +770,10 @@ public class HTMLElements {
         /** Returns true if the objects are equal. */
         @Override
         public boolean equals(final Object o) {
-            return name.equals(o);
+            if (o instanceof Element) {
+                return name.equals(((Element)o).name);
+            }
+            return false;
         } // equals(Object):boolean
 
         /**

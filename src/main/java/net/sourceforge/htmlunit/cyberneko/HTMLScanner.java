@@ -2509,16 +2509,16 @@ public class HTMLScanner
                         eof = true;
                         break;
                     }
-                    else if (c != '>') {
-                        appendChar(buffer, c, null);
-                        continue;
-                    }
                     else if (c == '\n' || c == '\r') {
                         fCurrentEntity.rewind();
                         int newlines = skipNewlines();
                         for (int i = 0; i < newlines; i++) {
                             buffer.append('\n');
                         }
+                        continue;
+                    }
+                    else if (c != '>') {
+                        appendChar(buffer, c, null);
                         continue;
                     }
                     eof = false;
@@ -3375,9 +3375,6 @@ public class HTMLScanner
                 }
                 else {
                     appendChar(buffer, c, null);
-                    if (c == '\n') {
-                        fCurrentEntity.incLine();
-                    }
                 }
             }
 
