@@ -2663,6 +2663,17 @@ public class HTMLScanner
                     else if (c == -1) {
                         break;
                     }
+                    else if (c =='>') {
+                        // invalid procession instruction, handle as comment
+                        if (fDocumentHandler != null) {
+                            fStringBuffer.append(target);
+                            fEndLineNumber = fCurrentEntity.getLineNumber();
+                            fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                            fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                            fDocumentHandler.comment(fStringBuffer, locationAugs());
+                        }
+                        return;
+                    }
                     else {
                         appendChar(fStringBuffer, c, null);
                     }
