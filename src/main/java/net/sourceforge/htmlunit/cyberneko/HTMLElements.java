@@ -252,7 +252,7 @@ public class HTMLElements {
             // CODE - - (%inline;)*
             new Element(CODE, "CODE", Element.INLINE, BODY, new short[]{SVG}),
             // COL - O EMPTY
-            new Element(COL, "COL", Element.EMPTY, TABLE, null),
+            new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
             // COLGROUP - O (COL)*
             new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL,COLGROUP}),
             // COMMENT

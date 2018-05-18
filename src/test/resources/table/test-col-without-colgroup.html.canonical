@@ -1,0 +1,26 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(TABLE
+(COLGROUP
+(COL
+Awidth 7
+)COL
+(COL
+Awidth 1
+)COL
+)COLGROUP
+(TBODY
+(TR
+(TD
+"seven
+)TD
+(TD
+"One
+)TD
+)TR
+)TBODY
+)TABLE
+)BODY
+)HTML
