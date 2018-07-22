@@ -1,0 +1,8 @@
+*        text=auto
+
+*.java   text diff=java
+*.html   text diff=html
+*.css    text
+*.js     text
+*.xml    text
+.travis.yml text
