@@ -24,7 +24,7 @@ Open a command line window from the root folder of the project and call
 mvn compile
 ```
 
-## Running the tests
+### Running the tests
 
 ```
 mvn test
@@ -37,7 +37,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Deployment and Versioning
 
-This part is intended for committers who are packaging a release.
+This part is intended for committer who are packaging a release.
 
 * Check all your files are checked in
 * Execute "mvn clean test" to be sure all tests are passing
