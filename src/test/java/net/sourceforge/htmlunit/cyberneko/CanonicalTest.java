@@ -32,15 +32,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.xerces.impl.Version;
+import org.apache.xerces.xni.parser.XMLDocumentFilter;
+import org.apache.xerces.xni.parser.XMLInputSource;
+import org.apache.xerces.xni.parser.XMLParserConfiguration;
+
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
-
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -54,7 +54,7 @@ public class CanonicalTest extends TestCase {
 
     private static final File dataDir = new File("src/test/resources");
     private static final File canonicalDir = new File("src/test/resources/canonical");
-    private static final File outputDir = new File("target/data/output/" + XercesBridge.getInstance().getVersion());
+    private static final File outputDir = new File("target/data/output/" + Version.getVersion());
     private File dataFile;
     
     public static Test suite() throws Exception {
@@ -85,7 +85,7 @@ public class CanonicalTest extends TestCase {
     }
 
     CanonicalTest(final File dataFile) throws Exception {
-        super(dataFile.getName() + " [" + XercesBridge.getInstance().getVersion() + "]");
+        super(dataFile.getName() + " [" + Version.getVersion() + "]");
         this.dataFile = dataFile;
     }
     

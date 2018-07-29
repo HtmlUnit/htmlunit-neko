@@ -31,7 +31,6 @@ import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLDocumentSource;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLComponent;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
 
 /**
  * This class implements a filter that simply passes document
@@ -97,7 +96,7 @@ public class DefaultFilter
                               NamespaceContext nscontext, Augmentations augs) 
         throws XNIException {
         if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
+            fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
         }
     } // startDocument(XMLLocator,String,Augmentations)
 
@@ -246,17 +245,11 @@ public class DefaultFilter
     /** Start prefix mapping. */
     public void startPrefixMapping(String prefix, String uri, Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
-        }
     } // startPrefixMapping(String,String,Augmentations)
 
     /** End prefix mapping. */
     public void endPrefixMapping(String prefix, Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
-        }
     } // endPrefixMapping(String,Augmentations)
 
     //

@@ -30,7 +30,6 @@ import org.apache.xerces.xni.parser.XMLComponentManager;
 import org.apache.xerces.xni.parser.XMLConfigurationException;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
 
 /**
  * This filter binds namespaces if namespace processing is turned on
@@ -277,15 +276,6 @@ public class NamespaceBinder
         if (fNamespaces) {
             fNamespaceContext.pushContext();
             bindNamespaces(element, attrs);
-
-            int dcount = fNamespaceContext.getDeclaredPrefixCount();
-            if (fDocumentHandler != null && dcount > 0) {
-                for (int i = 0; i < dcount; i++) {
-                    String prefix = fNamespaceContext.getDeclaredPrefixAt(i);
-                    String uri = fNamespaceContext.getURI(prefix);
-                    XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
-                }
-            }
         }
 
         // perform default handling
@@ -302,15 +292,6 @@ public class NamespaceBinder
         if (fNamespaces) {
             fNamespaceContext.pushContext();
             bindNamespaces(element, attrs);
-
-            int dcount = fNamespaceContext.getDeclaredPrefixCount();
-            if (fDocumentHandler != null && dcount > 0) {
-                for (int i = 0; i < dcount; i++) {
-                    String prefix = fNamespaceContext.getDeclaredPrefixAt(i);
-                    String uri = fNamespaceContext.getURI(prefix);
-                    XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
-                }
-            }
         }
 
         // perform default handling
@@ -318,14 +299,6 @@ public class NamespaceBinder
 
         // pop context
         if (fNamespaces) {
-            int dcount = fNamespaceContext.getDeclaredPrefixCount();
-            if (fDocumentHandler != null && dcount > 0) {
-                for (int i = dcount-1; i >= 0; i--) {
-                    String prefix = fNamespaceContext.getDeclaredPrefixAt(i);
-                    XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
-                }
-            }
-            
             fNamespaceContext.popContext();
         }
 
@@ -346,14 +319,6 @@ public class NamespaceBinder
 
         // pop context
         if (fNamespaces) {
-            int dcount = fNamespaceContext.getDeclaredPrefixCount();
-            if (fDocumentHandler != null && dcount > 0) {
-                for (int i = dcount-1; i >= 0; i--) {
-                    String prefix = fNamespaceContext.getDeclaredPrefixAt(i);
-                    XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
-                }
-            }
-            
             fNamespaceContext.popContext();
         }
 

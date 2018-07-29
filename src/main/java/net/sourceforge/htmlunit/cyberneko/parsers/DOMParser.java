@@ -16,11 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko.parsers;
 
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.XNIException;
-
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
 
 /**
  * A DOM parser for HTML documents.
@@ -64,57 +60,5 @@ public class DOMParser
                                    "org.apache.html.dom.HTMLDocumentImpl");
         /***/
     } // <init>()
-
-    //
-    // XMLDocumentHandler methods
-    //
-
-    /** Doctype declaration. */
-    @Override
-    public void doctypeDecl(String root, String pubid, String sysid,
-                            Augmentations augs) throws XNIException {
-        
-        // NOTE: Xerces HTML DOM implementation (up to and including
-        //       2.5.0) throws a heirarchy request error exception 
-        //       when a doctype node is appended to the tree. So, 
-        //       don't insert this node into the tree for those 
-        //       versions... -Ac
-
-        String VERSION = XercesBridge.getInstance().getVersion();
-        boolean okay = true;
-        if (VERSION.startsWith("Xerces-J 2.")) {
-            okay = getParserSubVersion() > 5;
-        }
-        // REVISIT: As soon as XML4J is updated with the latest code
-        //          from Xerces, then this needs to be updated to
-        //          check XML4J's version. -Ac
-        else if (VERSION.startsWith("XML4J")) {
-            okay = false;
-        }
-
-        // if okay, insert doctype; otherwise, don't risk it
-        if (okay) {
-            super.doctypeDecl(root, pubid, sysid, augs);
-        }
-
-    } // doctypeDecl(String,String,String,Augmentations)
-
-    //
-    // Private static methods
-    //
-
-    /** Returns the parser's sub-version number. */
-    private static int getParserSubVersion() {
-        try {
-            String VERSION = XercesBridge.getInstance().getVersion();
-            int index1 = VERSION.indexOf('.') + 1;
-            int index2 = VERSION.indexOf('.', index1);
-            if (index2 == -1) { index2 = VERSION.length(); }
-            return Integer.parseInt(VERSION.substring(index1, index2));
-        }
-        catch (Exception e) {
-            return -1;
-        }
-    } // getParserSubVersion():int
 
 } // class DOMParser

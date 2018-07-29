@@ -32,7 +32,6 @@ import org.apache.xerces.xni.parser.XMLConfigurationException;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLAugmentations;
 import net.sourceforge.htmlunit.cyberneko.HTMLEventInfo;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
 
 /**
  * This filter purifies the HTML input to ensure XML well-formedness.
@@ -389,8 +388,7 @@ public class Purifier
         attrs.addAttribute(fQName, atype, avalue);
 
         // bind namespace
-        XercesBridge.getInstance().NamespaceContext_declarePrefix(fNamespaceContext, ns, avalue);
-
+        fNamespaceContext.declarePrefix(ns, avalue);
     } // synthesizeBinding(XMLAttributes,String)
 
     /** Returns an augmentations object with a synthesized item added. */

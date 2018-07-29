@@ -40,7 +40,6 @@ import org.apache.xerces.xni.parser.XMLParseException;
 import org.apache.xerces.xni.parser.XMLPullParserConfiguration;
 
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
                                       
 /**
  * An XNI-based parser configuration that can be used to parse HTML 
@@ -604,7 +603,7 @@ public class HTMLConfiguration
         if (filters != null) {
             for (int i = 0; i < filters.length; i++) {
                 XMLDocumentFilter filter = filters[i];
-                XercesBridge.getInstance().XMLDocumentFilter_setDocumentSource(filter, lastSource);
+                filter.setDocumentSource(lastSource);
                 lastSource.setDocumentHandler(filter);
                 lastSource = filter;
             }

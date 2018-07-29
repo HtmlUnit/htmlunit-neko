@@ -48,8 +48,6 @@ import org.apache.xerces.xni.parser.XMLConfigurationException;
 import org.apache.xerces.xni.parser.XMLDocumentScanner;
 import org.apache.xerces.xni.parser.XMLInputSource;
 
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
-
 /**
  * A simple HTML scanner. This scanner makes no attempt to balance tags
  * or fix other problems in the source document &mdash; it just scans what 
@@ -2197,7 +2195,7 @@ public class HTMLScanner
                                 String encoding = fIANAEncoding;
                                 Augmentations augs = locationAugs();
                                 NamespaceContext nscontext = new NamespaceSupport();
-                                XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
+                                fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
                             }
                             if (fInsertDoctype && fDocumentHandler != null) {
                                 String root = htmlConfiguration_.htmlElements_.getElement(HTMLElements.HTML).name;

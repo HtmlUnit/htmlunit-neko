@@ -38,7 +38,6 @@ import org.apache.xerces.xni.parser.XMLDocumentSource;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLElements.Element;
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
-import net.sourceforge.htmlunit.cyberneko.xercesbridge.XercesBridge;
                       
 /**
  * Balances tags in an HTML document. This component receives document events
@@ -457,7 +456,7 @@ public class HTMLTagBalancer
 
         // pass on event
         if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_startDocument(fDocumentHandler, locator, encoding, nscontext, augs);
+            fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
         }
     
     } // startDocument(XMLLocator,String,Augmentations)
@@ -1178,33 +1177,11 @@ public class HTMLTagBalancer
     /** Start prefix mapping. */
     public void startPrefixMapping(String prefix, String uri, Augmentations augs)
         throws XNIException {
-        
-        // check for end of document
-        if (fSeenRootElementEnd) {
-            return;
-        }
-
-        // call handler
-        if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_startPrefixMapping(fDocumentHandler, prefix, uri, augs);
-        }
-    
     } // startPrefixMapping(String,String,Augmentations)
 
     /** End prefix mapping. */
     public void endPrefixMapping(String prefix, Augmentations augs)
         throws XNIException {
-        
-        // check for end of document
-        if (fSeenRootElementEnd) {
-            return;
-        }
-
-        // call handler
-        if (fDocumentHandler != null) {
-            XercesBridge.getInstance().XMLDocumentHandler_endPrefixMapping(fDocumentHandler, prefix, augs);
-        }
-    
     } // endPrefixMapping(String,Augmentations)
 
     //
