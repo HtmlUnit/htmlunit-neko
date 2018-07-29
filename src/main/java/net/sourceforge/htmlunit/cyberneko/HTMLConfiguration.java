@@ -178,35 +178,9 @@ public class HTMLConfiguration
     /** Error reporter. */
     protected final HTMLErrorReporter fErrorReporter = new ErrorReporter();
 
-    // HACK: workarounds Xerces 2.0.x problems
-
-    /** Parser version is Xerces 2.0.0. */
-    protected static boolean XERCES_2_0_0 = false;
-
-    /** Parser version is Xerces 2.0.1. */
-    protected static boolean XERCES_2_0_1 = false;
-
-    /** Parser version is XML4J 4.0.x. */
-    protected static boolean XML4J_4_0_x = false;
-
     //
     // Static initializer
     //
-
-    static {
-        try {
-            String VERSION = "org.apache.xerces.impl.Version";
-            Object version = ObjectFactory.createObject(VERSION, VERSION);
-            java.lang.reflect.Field field = version.getClass().getField("fVersion");
-            String versionStr = String.valueOf(field.get(version));
-            XERCES_2_0_0 = versionStr.equals("Xerces-J 2.0.0");
-            XERCES_2_0_1 = versionStr.equals("Xerces-J 2.0.1");
-            XML4J_4_0_x = versionStr.startsWith("XML4J 4.0.");
-        }
-        catch (Throwable e) {
-            // ignore
-        }
-    } // <clinit>()
 
     public final HTMLElements htmlElements_;
     //
@@ -248,29 +222,6 @@ public class HTMLConfiguration
         setFeature(SIMPLE_ERROR_FORMAT, false);
         setFeature(BALANCE_TAGS, true);
 
-        // HACK: Xerces 2.0.0
-        if (XERCES_2_0_0) {
-            // NOTE: These features should not be required but it causes a
-            //       problem if they're not there. This will be fixed in 
-            //       subsequent releases of Xerces.
-            recognizedFeatures = new String[] {
-                "http://apache.org/xml/features/scanner/notify-builtin-refs",
-            };
-            addRecognizedFeatures(recognizedFeatures);
-        }
-        
-        // HACK: Xerces 2.0.1
-        if (XERCES_2_0_0 || XERCES_2_0_1 || XML4J_4_0_x) {
-            // NOTE: These features should not be required but it causes a
-            //       problem if they're not there. This should be fixed in 
-            //       subsequent releases of Xerces.
-            recognizedFeatures = new String[] {
-                "http://apache.org/xml/features/validation/schema/normalized-value",
-                "http://apache.org/xml/features/scanner/notify-char-refs",
-            };
-            addRecognizedFeatures(recognizedFeatures);
-        }
-        
         //
         // properties
         //
@@ -286,24 +237,6 @@ public class HTMLConfiguration
         setProperty(NAMES_ELEMS, "upper");
         setProperty(NAMES_ATTRS, "lower");
         setProperty(ERROR_REPORTER, fErrorReporter);
-        
-        // HACK: Xerces 2.0.0
-        if (XERCES_2_0_0) {
-            // NOTE: This is a hack to get around a problem in the Xerces 2.0.0
-            //       AbstractSAXParser. If it uses a parser configuration that
-            //       does not have a SymbolTable, then it will remove *all*
-            //       attributes. This will be fixed in subsequent releases of 
-            //       Xerces.
-            String SYMBOL_TABLE = "http://apache.org/xml/properties/internal/symbol-table";
-            recognizedProperties = new String[] {
-                SYMBOL_TABLE,
-            };
-            addRecognizedProperties(recognizedProperties);
-            Object symbolTable = ObjectFactory.createObject("org.apache.xerces.util.SymbolTable",
-                                                            "org.apache.xerces.util.SymbolTable");
-            setProperty(SYMBOL_TABLE, symbolTable);
-        }
-
     } // <init>()
 
     protected HTMLScanner createDocumentScanner() {
