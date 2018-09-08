@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
 import org.apache.xerces.util.XMLStringBuffer;
 import org.apache.xerces.xni.Augmentations;
 import org.apache.xerces.xni.QName;
@@ -17,6 +15,8 @@ import org.apache.xerces.xni.XNIException;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xni.parser.XMLParserConfiguration;
+
+import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
@@ -41,7 +41,7 @@ public class HTMLScannerTest extends TestCase {
     }
 
     public void testEvaluateInputSource() throws Exception {
-        String string = "<html><head><title>foo</title></head>"
+        final String string = "<html><head><title>foo</title></head>"
             + "<body>"
             + "<script id='myscript'>"
             + "  document.write('<style type=\"text/css\" id=\"myStyle\">');"
@@ -52,13 +52,13 @@ public class HTMLScannerTest extends TestCase {
             + "</script>"
             + "<div><a/></div>"
             + "</body></html>";
-        HTMLConfiguration parser = new HTMLConfiguration();
-        EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+        final HTMLConfiguration parser = new HTMLConfiguration();
+        final EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
         parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
-        XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
         parser.parse(source);
-        
-        String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", "(SCRIPT",
+
+        final String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", "(SCRIPT",
             ")SCRIPT", "~inserting", "(STYLE", "~inserting", "~inserting", ")STYLE", "~inserting",
             "(DIV", "(SPAN", ")SPAN", "~inserting", ")DIV", "(DIV", "(A", ")A", ")DIV", ")BODY", ")HTML"};
         assertEquals(Arrays.asList(expectedString), filter.collectedStrings);
@@ -73,16 +73,16 @@ public class HTMLScannerTest extends TestCase {
         final Locale originalLocale = Locale.getDefault();
         try {
             Locale.setDefault(new Locale("tr", "TR"));
-            String string = "<html><head><title>foo</title></head>"
+            final String string = "<html><head><title>foo</title></head>"
                 + "<body>"
                 + "</body></html>";
-            HTMLConfiguration parser = new HTMLConfiguration();
-            EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+            final HTMLConfiguration parser = new HTMLConfiguration();
+            final EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
             parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
-            XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+            final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
             parser.parse(source);
-            
-            String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", ")BODY", ")HTML"};
+
+            final String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", ")BODY", ")HTML"};
             assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings.toString());
         }
         finally {
@@ -96,17 +96,17 @@ public class HTMLScannerTest extends TestCase {
      * Regression test for [ 2503982 ] NPE when parsing from a CharacterStream
      */
     public void testChangeEncodingWithReader() throws Exception {
-        String string = "<?xml version='1.0' encoding='UTF-8'?><html><head><title>foo</title></head>"
+        final String string = "<?xml version='1.0' encoding='UTF-8'?><html><head><title>foo</title></head>"
             + "</body></html>";
 
-        XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "ISO8859-1");
-        HTMLConfiguration parser = new HTMLConfiguration();
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "ISO8859-1");
+        final HTMLConfiguration parser = new HTMLConfiguration();
         parser.parse(source);
     }
 
     private static class EvaluateInputSourceFilter extends DefaultFilter {
 
-       private List<String> collectedStrings = new ArrayList<>();
+       private final List<String> collectedStrings = new ArrayList<>();
        private static int counter = 1;
        protected HTMLConfiguration fConfiguration;
 
@@ -134,7 +134,7 @@ public class HTMLScannerTest extends TestCase {
 
         private void insert(final String string) {
             collectedStrings.add("~inserting");
-            XMLInputSource source = new XMLInputSource(null, "myTest" + counter++, null,
+            final XMLInputSource source = new XMLInputSource(null, "myTest" + counter++, null,
                                                       new StringReader(string), "UTF-8");
             fConfiguration.evaluateInputSource(source);
        }
@@ -143,7 +143,7 @@ public class HTMLScannerTest extends TestCase {
 
     public void testReduceToContent() throws Exception {
         XMLStringBuffer buffer = new XMLStringBuffer("<!-- hello-->");
-        
+
         HTMLScanner.reduceToContent(buffer, "<!--", "-->");
         assertEquals(" hello", buffer.toString());
 
@@ -169,21 +169,21 @@ public class HTMLScannerTest extends TestCase {
      * @throws Exception
      */
     public void testInfiniteLoop() throws Exception {
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         buffer.append("<html>\n");
         for (int x = 0; x <= 2005; x++) {
             buffer.append((char) (x % 10 + '0'));
         }
-        
+
         buffer.append("\n<noframes>- Generated in 1<1ms -->");
 
-        XMLParserConfiguration parser = new HTMLConfiguration() {
+        final XMLParserConfiguration parser = new HTMLConfiguration() {
             @Override
             protected HTMLScanner createDocumentScanner() {
                 return new InfiniteLoopScanner();
             }
         };
-        XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(buffer.toString()), "UTF-8");
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(buffer.toString()), "UTF-8");
         parser.parse(source);
     }
 

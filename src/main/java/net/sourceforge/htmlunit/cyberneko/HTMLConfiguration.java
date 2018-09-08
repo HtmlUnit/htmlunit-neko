@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,9 +40,9 @@ import org.apache.xerces.xni.parser.XMLParseException;
 import org.apache.xerces.xni.parser.XMLPullParserConfiguration;
 
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
-                                      
+
 /**
- * An XNI-based parser configuration that can be used to parse HTML 
+ * An XNI-based parser configuration that can be used to parse HTML
  * documents. This configuration can be used directly in order to
  * parse HTML documents or can be used in conjunction with any XNI
  * based tools, such as the Xerces2 implementation.
@@ -77,7 +77,7 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  *
  * @version $Id: HTMLConfiguration.java,v 1.9 2005/02/14 03:56:54 andyc Exp $
  */
-public class HTMLConfiguration 
+public class HTMLConfiguration
     extends ParserConfigurationSettings
     implements XMLPullParserConfiguration {
 
@@ -109,7 +109,7 @@ public class HTMLConfiguration
 
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
-    
+
     /** Pipeline filters. */
     protected static final String FILTERS = "http://cyberneko.org/html/properties/filters";
 
@@ -151,7 +151,7 @@ public class HTMLConfiguration
 
     // state
 
-    /** 
+    /**
      * Stream opened by parser. Therefore, must close stream manually upon
      * termination of parsing.
      */
@@ -205,8 +205,8 @@ public class HTMLConfiguration
         //
 
         // recognized features
-        String VALIDATION = "http://xml.org/sax/features/validation";
-        String[] recognizedFeatures = {
+        final String VALIDATION = "http://xml.org/sax/features/validation";
+        final String[] recognizedFeatures = {
             AUGMENTATIONS,
             NAMESPACES,
             VALIDATION,
@@ -227,7 +227,7 @@ public class HTMLConfiguration
         //
 
         // recognized properties
-        String[] recognizedProperties = {
+        final String[] recognizedProperties = {
             NAMES_ELEMS,
             NAMES_ATTRS,
             FILTERS,
@@ -247,9 +247,9 @@ public class HTMLConfiguration
     // Public methods
     //
 
-    /** 
-     * Pushes an input source onto the current entity stack. This 
-     * enables the scanner to transparently scan new content (e.g. 
+    /**
+     * Pushes an input source onto the current entity stack. This
+     * enables the scanner to transparently scan new content (e.g.
      * the output written by an embedded script). At the end of the
      * current entity, the scanner returns where it left off at the
      * time this entity source was pushed.
@@ -269,7 +269,7 @@ public class HTMLConfiguration
 
     /**
      * <font color="red">EXPERIMENTAL: may change in next release</font><br/>
-     * Immediately evaluates an input source and add the new content (e.g. 
+     * Immediately evaluates an input source and add the new content (e.g.
      * the output written by an embedded script).
      *
      * @param inputSource The new input source to start scanning.
@@ -287,9 +287,9 @@ public class HTMLConfiguration
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
-        int size = fHTMLComponents.size();
+        final int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = fHTMLComponents.get(i);
+            final HTMLComponent component = fHTMLComponents.get(i);
             component.setFeature(featureId, state);
         }
     } // setFeature(String,boolean)
@@ -301,10 +301,9 @@ public class HTMLConfiguration
         super.setProperty(propertyId, value);
 
         if (propertyId.equals(FILTERS)) {
-            XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
+            final XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
             if (filters != null) {
-                for (int i = 0; i < filters.length; i++) {
-                    XMLDocumentFilter filter = filters[i];
+                for (final XMLDocumentFilter filter : filters) {
                     if (filter instanceof HTMLComponent) {
                         addComponent((HTMLComponent)filter);
                     }
@@ -312,9 +311,9 @@ public class HTMLConfiguration
             }
         }
 
-        int size = fHTMLComponents.size();
+        final int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = fHTMLComponents.get(i);
+            final HTMLComponent component = fHTMLComponents.get(i);
             component.setProperty(propertyId, value);
         }
     } // setProperty(String,Object)
@@ -415,7 +414,7 @@ public class HTMLConfiguration
      *
      * @param inputSource The document's input source.
      *
-     * @exception XMLConfigurationException Thrown if there is a 
+     * @exception XMLConfigurationException Thrown if there is a
      *                        configuration error when initializing the
      *                        parser.
      * @exception IOException Thrown on I/O error.
@@ -439,7 +438,7 @@ public class HTMLConfiguration
      *
      * @return True if there is more document to parse.
      *
-     * @exception XNIException Any XNI exception, possibly wrapping 
+     * @exception XNIException Any XNI exception, possibly wrapping
      *                         another exception.
      * @exception IOException  An IO exception from the parser, possibly
      *                         from a byte stream or character stream
@@ -450,17 +449,17 @@ public class HTMLConfiguration
     @Override
     public boolean parse(boolean complete) throws XNIException, IOException {
         try {
-            boolean more = fDocumentScanner.scanDocument(complete);
+            final boolean more = fDocumentScanner.scanDocument(complete);
             if (!more) {
                 cleanup();
             }
             return more;
         }
-        catch (XNIException e) {
+        catch (final XNIException e) {
             cleanup();
             throw e;
         }
-        catch (IOException e) {
+        catch (final IOException e) {
             cleanup();
             throw e;
         }
@@ -475,7 +474,7 @@ public class HTMLConfiguration
     public void cleanup() {
         fDocumentScanner.cleanup(fCloseStream);
     } // cleanup()
-    
+
     //
     // Protected methods
     //
@@ -487,22 +486,22 @@ public class HTMLConfiguration
         fHTMLComponents.add(component);
 
         // add recognized features and set default states
-        String[] features = component.getRecognizedFeatures();
+        final String[] features = component.getRecognizedFeatures();
         addRecognizedFeatures(features);
-        int featureCount = features != null ? features.length : 0;
+        final int featureCount = features != null ? features.length : 0;
         for (int i = 0; i < featureCount; i++) {
-            Boolean state = component.getFeatureDefault(features[i]);
+            final Boolean state = component.getFeatureDefault(features[i]);
             if (state != null) {
                 setFeature(features[i], state.booleanValue());
             }
         }
 
         // add recognized properties and set default values
-        String[] properties = component.getRecognizedProperties();
+        final String[] properties = component.getRecognizedProperties();
         addRecognizedProperties(properties);
-        int propertyCount = properties != null ? properties.length : 0;
+        final int propertyCount = properties != null ? properties.length : 0;
         for (int i = 0; i < propertyCount; i++) {
-            Object value = component.getPropertyDefault(properties[i]);
+            final Object value = component.getPropertyDefault(properties[i]);
             if (value != null) {
                 setProperty(properties[i], value);
             }
@@ -514,9 +513,9 @@ public class HTMLConfiguration
     protected void reset() throws XMLConfigurationException {
 
         // reset components
-        int size = fHTMLComponents.size();
+        final int size = fHTMLComponents.size();
         for (int i = 0; i < size; i++) {
-            HTMLComponent component = fHTMLComponents.get(i);
+            final HTMLComponent component = fHTMLComponents.get(i);
             component.reset(this);
         }
 
@@ -532,10 +531,9 @@ public class HTMLConfiguration
             fTagBalancer.setDocumentSource(fDocumentScanner);
             lastSource = fTagBalancer;
         }
-        XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
+        final XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
         if (filters != null) {
-            for (int i = 0; i < filters.length; i++) {
-                XMLDocumentFilter filter = filters[i];
+            for (final XMLDocumentFilter filter : filters) {
                 filter.setDocumentSource(lastSource);
                 lastSource.setDocumentHandler(filter);
                 lastSource = filter;
@@ -550,8 +548,8 @@ public class HTMLConfiguration
     //
 
     /**
-     * Defines an error reporter for reporting HTML errors. There is no such 
-     * thing as a fatal error in parsing HTML. I/O errors are fatal but should 
+     * Defines an error reporter for reporting HTML errors. There is no such
+     * thing as a fatal error in parsing HTML. I/O errors are fatal but should
      * throw an <code>IOException</code> directly instead of reporting an error.
      * <p>
      * When used in a configuration, the error reporter instance should be
@@ -563,7 +561,7 @@ public class HTMLConfiguration
      * property identifier.
      * <p>
      * <strong>Note:</strong>
-     * All reported errors are within the domain "http://cyberneko.org/html". 
+     * All reported errors are within the domain "http://cyberneko.org/html".
      *
      * @author Andy Clark
      */
@@ -593,16 +591,16 @@ public class HTMLConfiguration
                     fLastLocale = fLocale;
                 }
                 if (fErrorMessages == null) {
-                    fErrorMessages = 
+                    fErrorMessages =
                         ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages",
                                                  fLocale);
                 }
                 try {
-                    String value = fErrorMessages.getString(key);
-                    String message = MessageFormat.format(value, args);
+                    final String value = fErrorMessages.getString(key);
+                    final String message = MessageFormat.format(value, args);
                     return message;
                 }
-                catch (MissingResourceException e) {
+                catch (final MissingResourceException e) {
                     // ignore and return a simple format
                 }
             }
@@ -633,13 +631,13 @@ public class HTMLConfiguration
 
         /** Creates parse exception. */
         protected XMLParseException createException(String key, Object[] args) {
-            String message = formatMessage(key, args);
+            final String message = formatMessage(key, args);
             return new XMLParseException(fDocumentScanner, message);
         } // createException(String,Object[]):XMLParseException
 
         /** Format simple message. */
         protected String formatSimpleMessage(String key, Object[] args) {
-            StringBuilder str = new StringBuilder();
+            final StringBuilder str = new StringBuilder();
             str.append(ERROR_DOMAIN);
             str.append('#');
             str.append(key);

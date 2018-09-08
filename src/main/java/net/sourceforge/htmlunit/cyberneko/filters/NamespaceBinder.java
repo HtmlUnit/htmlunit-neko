@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2004-2008 Andy Clark
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,9 +40,9 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  * <ul>
  * <li>http://xml.org/sax/features/namespaces
  * </ul>
- * 
+ *
  * @author Andy Clark
- * 
+ *
  * @version $Id: NamespaceBinder.java,v 1.8 2005/05/30 00:19:28 andyc Exp $
  */
 public class NamespaceBinder
@@ -75,8 +75,8 @@ public class NamespaceBinder
     protected static final String INSERT_NAMESPACES = "http://cyberneko.org/html/features/insert-namespaces";
 
     /** Recognized features. */
-    private static final String[] RECOGNIZED_FEATURES = { 
-        NAMESPACES, 
+    private static final String[] RECOGNIZED_FEATURES = {
+        NAMESPACES,
         OVERRIDE_NAMESPACES,
         INSERT_NAMESPACES,
     };
@@ -232,7 +232,7 @@ public class NamespaceBinder
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(XMLComponentManager manager) 
+    public void reset(XMLComponentManager manager)
         throws XMLConfigurationException {
         super.reset(manager);
 
@@ -245,7 +245,7 @@ public class NamespaceBinder
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
         fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fNamespacesURI = String.valueOf(manager.getProperty(NAMESPACES_URI));
-    
+
         // initialize state
         fNamespaceContext.reset();
 
@@ -260,7 +260,7 @@ public class NamespaceBinder
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext, Augmentations augs)
         throws XNIException {
-        
+
         // perform default handling
         // NOTE: using own namespace context
         super.startDocument(locator,encoding,fNamespaceContext,augs);
@@ -271,7 +271,7 @@ public class NamespaceBinder
     @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
-        
+
         // bind namespaces, if needed
         if (fNamespaces) {
             fNamespaceContext.pushContext();
@@ -287,7 +287,7 @@ public class NamespaceBinder
     @Override
     public void emptyElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
-        
+
         // bind namespaces, if needed
         if (fNamespaces) {
             fNamespaceContext.pushContext();
@@ -308,7 +308,7 @@ public class NamespaceBinder
     @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
-        
+
         // bind namespaces, if needed
         if (fNamespaces) {
             bindNamespaces(element, null);
@@ -330,7 +330,7 @@ public class NamespaceBinder
 
     /** Splits a qualified name. */
     protected static void splitQName(QName qname) {
-        int index = qname.rawname.indexOf(':');
+        final int index = qname.rawname.indexOf(':');
         if (index != -1) {
             qname.prefix = qname.rawname.substring(0,index);
             qname.localpart  = qname.rawname.substring(index+1);
@@ -338,7 +338,7 @@ public class NamespaceBinder
     } // splitQName(QName)
 
     /**
-     * Converts HTML names string value to constant value. 
+     * Converts HTML names string value to constant value.
      *
      * @see #NAMES_NO_CHANGE
      * @see #NAMES_LOWERCASE
@@ -374,15 +374,15 @@ public class NamespaceBinder
         for (int i = attrCount - 1; i >= 0; i--) {
             attrs.getName(i, fQName);
             String aname = fQName.rawname;
-            String ANAME = aname.toUpperCase(Locale.ENGLISH);
+            final String ANAME = aname.toUpperCase(Locale.ENGLISH);
             if (ANAME.startsWith("XMLNS:") || ANAME.equals("XMLNS")) {
-                int anamelen = aname.length();
+                final int anamelen = aname.length();
 
                 // get parts
                 String aprefix = anamelen > 5 ? aname.substring(0,5) : null;
                 String alocal = anamelen > 5 ? aname.substring(6) : aname;
-                String avalue = attrs.getValue(i);
-                
+                final String avalue = attrs.getValue(i);
+
                 // re-case parts and set them back into attributes
                 if (anamelen > 5) {
                     aprefix = modifyName(aprefix, NAMES_LOWERCASE);
@@ -397,9 +397,9 @@ public class NamespaceBinder
                 attrs.setName(i, fQName);
 
                 // declare prefix
-                String prefix = alocal != aname ? alocal : "";
+                final String prefix = alocal != aname ? alocal : "";
                 String uri = avalue.length() > 0 ? avalue : null;
-                if (fOverrideNamespaces && 
+                if (fOverrideNamespaces &&
                     prefix.equals(element.prefix) &&
                     htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
                     uri = fNamespacesURI;
@@ -423,9 +423,9 @@ public class NamespaceBinder
         // do we need to insert namespace bindings?
         if (fInsertNamespaces && attrs != null &&
                 htmlConfiguration_.htmlElements_.getElement(element.localpart,null) != null) {
-            if (element.prefix == null || 
+            if (element.prefix == null ||
                 fNamespaceContext.getURI(element.prefix) == null) {
-                String xmlns = "xmlns" + ((element.prefix != null)
+                final String xmlns = "xmlns" + ((element.prefix != null)
                              ? ":"+element.prefix : "");
                 fQName.setValues(null, xmlns, xmlns, null);
                 attrs.addAttribute(fQName, "CDATA", fNamespacesURI);
@@ -446,7 +446,7 @@ public class NamespaceBinder
                 fQName.uri = prefix.equals("xml") ? XML_URI : fNamespaceContext.getURI(prefix);
             }
             // NOTE: You would think the xmlns namespace would be handled
-            //       by NamespaceSupport but it's not. -Ac 
+            //       by NamespaceSupport but it's not. -Ac
             if (prefix.equals("xmlns") && fQName.uri == null) {
                 fQName.uri = XMLNS_URI;
             }
@@ -460,7 +460,7 @@ public class NamespaceBinder
     //
 
     /**
-     * This namespace context object implements the old and new XNI 
+     * This namespace context object implements the old and new XNI
      * <code>NamespaceContext</code> interface methods so that it can
      * be used across all versions of Xerces2.
      */
@@ -538,7 +538,7 @@ public class NamespaceBinder
         @Override
         public void pushContext() {
             if (++fTop == fLevels.length) {
-                int[] iarray = new int[fLevels.length + 10];
+                final int[] iarray = new int[fLevels.length + 10];
                 System.arraycopy(fLevels, 0, iarray, 0, fLevels.length);
                 fLevels = iarray;
             }
@@ -556,16 +556,16 @@ public class NamespaceBinder
         /** Declare prefix. */
         @Override
         public boolean declarePrefix(String prefix, String uri) {
-            int count = getDeclaredPrefixCount();
+            final int count = getDeclaredPrefixCount();
             for (int i = 0; i < count; i++) {
-                String dprefix = getDeclaredPrefixAt(i);
+                final String dprefix = getDeclaredPrefixAt(i);
                 if (dprefix.equals(prefix)) {
                     return false;
                 }
             }
-            Entry entry = new Entry(prefix, uri);
+            final Entry entry = new Entry(prefix, uri);
             if (fLevels[fTop] == fEntries.length) {
-                Entry[] earray = new Entry[fEntries.length + 10];
+                final Entry[] earray = new Entry[fEntries.length + 10];
                 System.arraycopy(fEntries, 0, earray, 0, fEntries.length);
                 fEntries = earray;
             }
@@ -588,9 +588,9 @@ public class NamespaceBinder
         /** Get all prefixes. */
         @Override
         public Enumeration<String> getAllPrefixes() {
-            Vector<String> prefixes = new Vector<>();
+            final Vector<String> prefixes = new Vector<>();
             for (int i = fLevels[1]; i < fLevels[fTop]; i++) {
-                String prefix = fEntries[i].prefix;
+                final String prefix = fEntries[i].prefix;
                 if (!prefixes.contains(prefix)) {
                     prefixes.addElement(prefix);
                 }

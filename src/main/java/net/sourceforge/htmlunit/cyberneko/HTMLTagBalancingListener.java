@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,15 +31,15 @@ import org.apache.xerces.xni.XMLDocumentHandler;
  * @author Marc Guillemot
  * @version $Id: HTMLTagBalancingListener.java 260 2009-09-02 08:26:01Z mguillem $
  */
-public interface HTMLTagBalancingListener 
+public interface HTMLTagBalancingListener
 {
     /**
-     * Notifies that the start element has been ignored. 
+     * Notifies that the start element has been ignored.
      */
     void ignoredStartElement(QName elem, XMLAttributes attrs, Augmentations augs);
 
     /**
-     * Notifies that the end element has been ignored. 
+     * Notifies that the end element has been ignored.
      */
     void ignoredEndElement(QName element, Augmentations augs);
 

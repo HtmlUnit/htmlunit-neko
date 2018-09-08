@@ -2,13 +2,13 @@ package net.sourceforge.htmlunit.cyberneko;
 
 import java.io.ByteArrayInputStream;
 
-import junit.framework.TestCase;
-
 import org.apache.xerces.parsers.AbstractSAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
+
+import junit.framework.TestCase;
 
 /**
  * Unit test for <a href="http://sourceforge.net/support/tracker.php?aid=2799585">Bug 2799585</a>.
@@ -30,15 +30,15 @@ public class HeadNamespaceBug extends TestCase {
                 ++nbTags[0];
             }
         };
-        InputSource source = new InputSource();
+        final InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body/></html>".getBytes()));
-        HTMLConfiguration conf = new HTMLConfiguration();
+        final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
-        AbstractSAXParser parser = new AbstractSAXParser(conf){};
+        final AbstractSAXParser parser = new AbstractSAXParser(conf){};
         parser.setContentHandler(handler);
         parser.parse(source);
-        
+
         // to be sure that test doesn't pass just because handler has never been called
         assertEquals(3, nbTags[0]);
     }

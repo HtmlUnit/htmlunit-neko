@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,6 @@ import org.apache.xerces.xni.XMLLocator;
 import org.apache.xerces.xni.XMLString;
 import org.apache.xerces.xni.XNIException;
 
-import net.sourceforge.htmlunit.cyberneko.HTMLEventInfo;
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
@@ -104,17 +103,17 @@ public class Writer
     // Constructors
     //
 
-    /** 
-     * Creates a writer to the standard output stream using UTF-8 
-     * encoding. 
+    /**
+     * Creates a writer to the standard output stream using UTF-8
+     * encoding.
      */
     public Writer() {
         this(System.out);
     } // <init>()
 
-    /** 
-     * Creates a writer with the specified output stream using UTF-8 
-     * encoding. 
+    /**
+     * Creates a writer with the specified output stream using UTF-8
+     * encoding.
      */
     public Writer(OutputStream stream) {
         this(stream, "UTF8");
@@ -125,7 +124,7 @@ public class Writer
         try {
             out = new PrintWriter(new OutputStreamWriter(stream, encoding), true);
         }
-        catch (UnsupportedEncodingException e) {
+        catch (final UnsupportedEncodingException e) {
             throw new RuntimeException("JVM must have "+encoding+" decoder");
         }
     } // <init>(OutputStream,String)
@@ -143,7 +142,7 @@ public class Writer
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding, 
+    public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext, Augmentations augs) throws XNIException {
         fStringBuffer.clear();
     } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
@@ -153,13 +152,7 @@ public class Writer
     public void endDocument(Augmentations augs) throws XNIException {
         chars();
     }
-    // old methods
 
-    /** Start document. */
-    @Override
-    public void startDocument(XMLLocator locator, String encoding, Augmentations augs) throws XNIException {
-        startDocument(locator, encoding, null, augs);
-    } // startDocument(XMLLocator,String,Augmentations)
 
     /** XML declaration. */
     @Override
@@ -237,13 +230,13 @@ public class Writer
         doAugs(augs);
         out.print('(');
         out.print(element.rawname);
-        int acount = attrs != null ? attrs.getLength() : 0;
+        final int acount = attrs != null ? attrs.getLength() : 0;
         if (acount > 0) {
-            String[] anames = new String[acount];
-            String[] auris = new String[acount];
+            final String[] anames = new String[acount];
+            final String[] auris = new String[acount];
             sortAttrNames(attrs, anames, auris);
             for (int i = 0; i < acount; i++) {
-                String aname = anames[i];
+                final String aname = anames[i];
                 out.println();
                 out.flush();
                 out.print('A');
@@ -330,9 +323,9 @@ public class Writer
 
     /** Prints the specified string. */
     protected void print(String s) {
-        int length = s != null ? s.length() : 0;
+        final int length = s != null ? s.length() : 0;
         for (int i = 0; i < length; i++) {
-            char c = s.charAt(i);
+            final char c = s.charAt(i);
             switch (c) {
                 case '\n': {
                     out.print("\\n");
@@ -362,7 +355,7 @@ public class Writer
      * there are no HTML augmentations available.
      */
     protected void doAugs(Augmentations augs) {
-        HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
                 .getItem("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             if(evInfo.isSynthesized()) {
@@ -392,7 +385,7 @@ public class Writer
      * are no HTML augmentations available.
      */
     protected void storeCharactersStart(Augmentations augs) {
-        HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
                 .getItem("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             fCharactersBeginLine = evInfo.getBeginLineNumber();
@@ -407,7 +400,7 @@ public class Writer
      * are no HTML augmentations available.
      */
     protected void storeCharactersEnd(Augmentations augs) {
-        HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
                 .getItem("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             fCharactersEndLine = evInfo.getEndLineNumber();
@@ -444,7 +437,7 @@ public class Writer
     //
 
     /** Sorts the attribute names. */
-    protected static void sortAttrNames(XMLAttributes attrs, 
+    protected static void sortAttrNames(XMLAttributes attrs,
                                         String[] anames, String[] auris) {
         for (int i = 0; i < anames.length; i++) {
             anames[i] = attrs.getQName(i);
@@ -459,10 +452,10 @@ public class Writer
                 }
             }
             if (index != i) {
-                String tn = anames[i];
+                final String tn = anames[i];
                 anames[i] = anames[index];
                 anames[index] = tn;
-                String tu = auris[i];
+                final String tu = auris[i];
                 auris[i] = auris[index];
                 auris[index] = tu;
             }
@@ -475,15 +468,15 @@ public class Writer
 
     /** Main program. */
     public static void main(String[] argv) throws Exception {
-        org.apache.xerces.xni.parser.XMLDocumentFilter[] filters = {
+        final org.apache.xerces.xni.parser.XMLDocumentFilter[] filters = {
             new Writer(),
         };
-        org.apache.xerces.xni.parser.XMLParserConfiguration parser =
+        final org.apache.xerces.xni.parser.XMLParserConfiguration parser =
             new net.sourceforge.htmlunit.cyberneko.HTMLConfiguration();
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
-        for (int i = 0; i < argv.length; i++) {
-            org.apache.xerces.xni.parser.XMLInputSource source =
-                new org.apache.xerces.xni.parser.XMLInputSource(null, argv[i], null);
+        for (final String element : argv) {
+            final org.apache.xerces.xni.parser.XMLInputSource source =
+                new org.apache.xerces.xni.parser.XMLInputSource(null, element, null);
             parser.parse(source);
         }
     } // main(String[])

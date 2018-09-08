@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,8 +19,8 @@ package net.sourceforge.htmlunit.cyberneko;
 import org.apache.xerces.xni.parser.XMLParseException;
 
 /**
- * Defines an error reporter for reporting HTML errors. There is no such 
- * thing as a fatal error in parsing HTML. I/O errors are fatal but should 
+ * Defines an error reporter for reporting HTML errors. There is no such
+ * thing as a fatal error in parsing HTML. I/O errors are fatal but should
  * throw an <code>IOException</code> directly instead of reporting an error.
  * <p>
  * When used in a configuration, the error reporter instance should be
@@ -32,14 +32,14 @@ import org.apache.xerces.xni.parser.XMLParseException;
  * property identifier.
  * <p>
  * <strong>Note:</strong>
- * All reported errors are within the domain "http://cyberneko.org/html". 
+ * All reported errors are within the domain "http://cyberneko.org/html".
  *
  * @author Andy Clark
  *
  * @version $Id: HTMLErrorReporter.java,v 1.4 2005/02/14 03:56:54 andyc Exp $
  */
 public interface HTMLErrorReporter {
-    
+
     //
     // HTMLErrorReporter methods
     //

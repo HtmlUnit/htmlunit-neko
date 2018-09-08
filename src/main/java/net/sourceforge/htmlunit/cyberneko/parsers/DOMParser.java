@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -49,10 +49,10 @@ public class DOMParser
             setProperty("http://apache.org/xml/properties/dom/document-class-name",
                                        "org.apache.html.dom.HTMLDocumentImpl");
         }
-        catch (org.xml.sax.SAXNotRecognizedException e) {
+        catch (final org.xml.sax.SAXNotRecognizedException e) {
             throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not recognized");
         }
-        catch (org.xml.sax.SAXNotSupportedException e) {
+        catch (final org.xml.sax.SAXNotSupportedException e) {
             throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not supported");
         }
         /*** extending AbstractDOMParser ***

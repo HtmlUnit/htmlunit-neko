@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,7 +23,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-                           
+
 /**
  * Pre-defined HTML entities.
  *
@@ -55,7 +55,7 @@ public class HTMLEntities {
         load0(props, "res/HTMLsymbol.properties");
         load0(props, "res/XMLbuiltin.properties");
 
-        Map<String, String> entities = new HashMap<>();
+        final Map<String, String> entities = new HashMap<>();
 
         // store reverse mappings
         final Enumeration<?> keys = props.propertyNames();
@@ -68,7 +68,7 @@ public class HTMLEntities {
                 SEITITNE.put(ivalue, key);
             }
         }
-        
+
         ENTITIES = Collections.unmodifiableMap(entities);
     }
 
@@ -76,16 +76,16 @@ public class HTMLEntities {
     // Public static methods
     //
 
-    /** 
+    /**
      * Returns the character associated to the given entity name, or
      * -1 if the name is not known.
      */
     public static int get(String name) {
-        String value = ENTITIES.get(name);
+        final String value = ENTITIES.get(name);
         return value != null ? value.charAt(0) : -1;
     } // get(String):char
 
-    /** 
+    /**
      * Returns the name associated to the given character or null if
      * the character is not known.
      */
@@ -112,14 +112,14 @@ public class HTMLEntities {
     //
 
     static class IntProperties {
-        private Entry[] entries = new Entry[101];
+        private final Entry[] entries = new Entry[101];
         public void put(int key, String value) {
-            int hash = key % entries.length;
-            Entry entry = new Entry(key, value, entries[hash]);
+            final int hash = key % entries.length;
+            final Entry entry = new Entry(key, value, entries[hash]);
             entries[hash] = entry;
         }
         public String get(int key) {
-            int hash = key % entries.length;
+            final int hash = key % entries.length;
             Entry entry = entries[hash];
             while (entry != null) {
                 if (entry.key == key) {

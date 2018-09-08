@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -41,7 +41,7 @@ import net.sourceforge.htmlunit.cyberneko.HTMLComponent;
  *
  * @version $Id: DefaultFilter.java,v 1.7 2005/02/14 03:56:54 andyc Exp $
  */
-public class DefaultFilter 
+public class DefaultFilter
     implements XMLDocumentFilter, HTMLComponent {
 
     //
@@ -92,8 +92,8 @@ public class DefaultFilter
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding, 
-                              NamespaceContext nscontext, Augmentations augs) 
+    public void startDocument(XMLLocator locator, String encoding,
+                              NamespaceContext nscontext, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
@@ -158,7 +158,7 @@ public class DefaultFilter
 
     /** Characters. */
     @Override
-    public void characters(XMLString text, Augmentations augs) 
+    public void characters(XMLString text, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.characters(text, augs);
@@ -167,7 +167,7 @@ public class DefaultFilter
 
     /** Ignorable whitespace. */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs) 
+    public void ignorableWhitespace(XMLString text, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
             fDocumentHandler.ignorableWhitespace(text, augs);
@@ -234,24 +234,6 @@ public class DefaultFilter
         }
     } // endDocument(Augmentations)
 
-    // removed since Xerces-J 2.3.0
-
-    /** Start document. */
-    public void startDocument(XMLLocator locator, String encoding, Augmentations augs) 
-        throws XNIException {
-        startDocument(locator, encoding, null, augs);
-    } // startDocument(XMLLocator,String,Augmentations)
-
-    /** Start prefix mapping. */
-    public void startPrefixMapping(String prefix, String uri, Augmentations augs)
-        throws XNIException {
-    } // startPrefixMapping(String,String,Augmentations)
-
-    /** End prefix mapping. */
-    public void endPrefixMapping(String prefix, Augmentations augs)
-        throws XNIException {
-    } // endPrefixMapping(String,Augmentations)
-
     //
     // HTMLComponent methods
     //
@@ -306,7 +288,7 @@ public class DefaultFilter
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(XMLComponentManager componentManager) 
+    public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
     } // reset(XMLComponentManager)
 
@@ -327,7 +309,7 @@ public class DefaultFilter
      *                                   a critical error.
      */
     @Override
-    public void setFeature(String featureId, boolean state) 
+    public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
     } // setFeature(String,boolean)
 
@@ -348,7 +330,7 @@ public class DefaultFilter
      *                                   a critical error.
      */
     @Override
-    public void setProperty(String propertyId, Object value) 
+    public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
     } // setProperty(String,Object)
 
@@ -356,7 +338,7 @@ public class DefaultFilter
     // Protected static methods
     //
 
-    /** 
+    /**
      * Utility method for merging string arrays for recognized features
      * and recognized properties.
      */
@@ -374,7 +356,7 @@ public class DefaultFilter
         }
 
         // full merge
-        String[] array3 = new String[array1.length + array2.length];
+        final String[] array3 = new String[array1.length + array2.length];
         System.arraycopy(array1, 0, array3, 0, array1.length);
         System.arraycopy(array2, 0, array3, array1.length, array2.length);
 

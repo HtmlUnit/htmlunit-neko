@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -77,13 +77,13 @@ public interface HTMLEventInfo {
 
         /** Returns the column number of the beginning of this event.*/
         @Override
-        public int getBeginColumnNumber() { 
+        public int getBeginColumnNumber() {
             return -1;
         } // getBeginColumnNumber():int
 
         /** Returns the character offset of the beginning of this event.*/
         @Override
-        public int getBeginCharacterOffset() { 
+        public int getBeginCharacterOffset() {
             return -1;
         } // getBeginCharacterOffset():int
 
@@ -101,7 +101,7 @@ public interface HTMLEventInfo {
 
         /** Returns the character offset of the end of this event.*/
         @Override
-        public int getEndCharacterOffset() { 
+        public int getEndCharacterOffset() {
             return -1;
         } // getEndCharacterOffset():int
 

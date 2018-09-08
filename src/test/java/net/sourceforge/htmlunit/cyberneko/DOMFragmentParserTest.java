@@ -2,10 +2,7 @@ package net.sourceforge.htmlunit.cyberneko;
 
 import java.io.StringReader;
 
-import junit.framework.TestCase;
-
 import org.apache.html.dom.HTMLDocumentImpl;
-import net.sourceforge.htmlunit.cyberneko.parsers.DOMFragmentParser;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
@@ -13,6 +10,9 @@ import org.w3c.dom.html.HTMLDocument;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
+
+import junit.framework.TestCase;
+import net.sourceforge.htmlunit.cyberneko.parsers.DOMFragmentParser;
 
 /**
  * Unit tests for {@link DOMFragmentParser}.
@@ -41,12 +41,12 @@ public class DOMFragmentParserTest extends TestCase {
         doTest("<html 9='id'></html>", "<HTML/>");
     }
 
-    private void doTest(final String html, final String expected) throws Exception {
-        DOMFragmentParser parser = new DOMFragmentParser();
-        HTMLDocument document = new HTMLDocumentImpl();
+    private static void doTest(final String html, final String expected) throws Exception {
+        final DOMFragmentParser parser = new DOMFragmentParser();
+        final HTMLDocument document = new HTMLDocumentImpl();
 
-        DocumentFragment fragment = document.createDocumentFragment();
-        InputSource source = new InputSource(new StringReader(html));
+        final DocumentFragment fragment = document.createDocumentFragment();
+        final InputSource source = new InputSource(new StringReader(html));
         parser.parse(source, fragment);
 //        final OutputFormat of = new OutputFormat();
 //        of.setOmitXMLDeclaration(true);
@@ -54,14 +54,14 @@ public class DOMFragmentParserTest extends TestCase {
 //        StringWriter sw = new StringWriter();
 //        s.setOutputCharStream(sw);
 //        s.serialize(fragment);
-        DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+        final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
 
-        DOMImplementationLS impl = 
+        final DOMImplementationLS impl =
             (DOMImplementationLS)registry.getDOMImplementation("LS");
 
-        LSSerializer writer = impl.createLSSerializer();
-        String str = writer.writeToString(fragment);
-        
+        final LSSerializer writer = impl.createLSSerializer();
+        final String str = writer.writeToString(fragment);
+
         final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n";
         assertEquals(xmlDecl + expected, str);
     }
@@ -76,7 +76,7 @@ public class DOMFragmentParserTest extends TestCase {
     }
 
     /**
-     * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17  
+     * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17
      * @throws Exception
      */
     public void testInstanceReuse() throws Exception {
@@ -92,7 +92,7 @@ public class DOMFragmentParserTest extends TestCase {
         parser.parse(new InputSource(new StringReader(s)), fragment2);
 
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-        final DOMImplementationLS impl = 
+        final DOMImplementationLS impl =
             (DOMImplementationLS)registry.getDOMImplementation("LS");
 
         final LSSerializer writer = impl.createLSSerializer();

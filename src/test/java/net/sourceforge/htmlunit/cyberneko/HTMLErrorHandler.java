@@ -16,7 +16,7 @@ class HTMLErrorHandler extends DefaultErrorHandler {
     public HTMLErrorHandler(final java.io.Writer out) {
         out_ = out;
     }
-    
+
 
     /** @see DefaultErrorHandler#error(String,String,XMLParseException) */
     @Override

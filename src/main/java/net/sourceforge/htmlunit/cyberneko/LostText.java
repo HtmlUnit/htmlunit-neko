@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -36,7 +36,7 @@ class LostText
      */
     static class Entry
     {
-        private XMLString text_;
+        private final XMLString text_;
         private Augmentations augs_;
 
         public Entry(final XMLString text, final Augmentations augs)
@@ -58,20 +58,20 @@ class LostText
         if (!entries.isEmpty() || text.toString().trim().length() > 0)
             entries.add(new Entry(text, augs));
     }
-    
+
     /**
      * Pushes the characters into the {@link XMLDocumentHandler}
      * @param tagBalancer the tag balancer that will receive the events
      */
     public void refeed(final XMLDocumentHandler tagBalancer) {
-        for (Entry entry : entries) {
+        for (final Entry entry : entries) {
             final LostText.Entry lostEntry = entry;
             tagBalancer.characters(lostEntry.text_, lostEntry.augs_);
         }
         // not needed anymore once it has been used -> clear to free memory
         entries.clear();
     }
-    
+
     /**
      * Indicates if this container contains something
      * @return <code>true</code> if no lost text has been collected

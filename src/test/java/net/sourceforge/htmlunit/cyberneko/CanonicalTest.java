@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -55,18 +55,18 @@ public class CanonicalTest extends TestCase {
     private static final File dataDir = new File("src/test/resources");
     private static final File canonicalDir = new File("src/test/resources/canonical");
     private static final File outputDir = new File("target/data/output/" + Version.getVersion());
-    private File dataFile;
-    
+    private final File dataFile;
+
     public static Test suite() throws Exception {
         System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 
-        TestSuite suite = new TestSuite();
+        final TestSuite suite = new TestSuite();
         final List<File> dataFiles = new ArrayList<>();
         dataDir.listFiles(new FileFilter() {
             @Override
             public boolean accept(final File file) {
-                String name = file.getName();
+                final String name = file.getName();
                 if (file.isDirectory() && !"canonical".equals(name)) {
                     file.listFiles(this);
                 }
@@ -88,8 +88,8 @@ public class CanonicalTest extends TestCase {
         super(dataFile.getName() + " [" + Version.getVersion() + "]");
         this.dataFile = dataFile;
     }
-    
-    
+
+
     @Override
     protected void runTest() throws Exception {
         final String dataLines = getResult(dataFile);
@@ -104,21 +104,20 @@ public class CanonicalTest extends TestCase {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
             final String canonicalLines = getCanonical(canonicalFile);
-            
+
             assertEquals(dataFile.toString(), canonicalLines, dataLines);
         }
         catch (final AssertionFailedError e)
         {
             final File output = new File(outputDir, dataFile.getName());
-            final PrintWriter pw = new PrintWriter(new FileOutputStream(output));
-            pw.print(dataLines);
-            pw.close();
-            
+            try (final PrintWriter pw = new PrintWriter(new FileOutputStream(output))) {
+                pw.print(dataLines);
+            }
             throw e;
         }
     }
 
-    private String getCanonical(final File infile) throws IOException {
+    private static String getCanonical(final File infile) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 new UTF8BOMSkipper(new FileInputStream(infile)), "UTF-8"))) {
             final StringBuffer sb = new StringBuffer();
@@ -130,52 +129,48 @@ public class CanonicalTest extends TestCase {
         }
     }
 
-    private String getResult(final File infile) throws IOException {
-        StringWriter out = new StringWriter();
-        try {
+    private static String getResult(final File infile) throws IOException {
+        try (StringWriter out = new StringWriter()) {
             // create filters
-            XMLDocumentFilter[] filters = { new Writer(out) };
-            
+            final XMLDocumentFilter[] filters = { new Writer(out) };
+
             // create parser
-            XMLParserConfiguration parser = new HTMLConfiguration();
+            final XMLParserConfiguration parser = new HTMLConfiguration();
 
             // parser settings
             parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
-            String infilename = infile.toString();
-            File insettings = new File(infilename+".settings");
+            final String infilename = infile.toString();
+            final File insettings = new File(infilename+".settings");
             if (insettings.exists()) {
-                BufferedReader settings = new BufferedReader(new FileReader(insettings));
-                String settingline;
-                while ((settingline = settings.readLine()) != null) {
-                    StringTokenizer tokenizer = new StringTokenizer(settingline);
-                    String type = tokenizer.nextToken();
-                    String id = tokenizer.nextToken();
-                    String value = tokenizer.nextToken();
-                    if (type.equals("feature")) {
-                        parser.setFeature(id, value.equals("true"));
-                        if (HTMLScanner.REPORT_ERRORS.equals(id)) {
-                            parser.setErrorHandler(new HTMLErrorHandler(out));
+                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                    String settingline;
+                    while ((settingline = settings.readLine()) != null) {
+                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                        final String type = tokenizer.nextToken();
+                        final String id = tokenizer.nextToken();
+                        final String value = tokenizer.nextToken();
+                        if (type.equals("feature")) {
+                            parser.setFeature(id, value.equals("true"));
+                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
+                                parser.setErrorHandler(new HTMLErrorHandler(out));
+                            }
+                        }
+                        else {
+                            parser.setProperty(id, value);
                         }
                     }
-                    else {
-                        parser.setProperty(id, value);
-                    }
                 }
-                settings.close();
             }
 
             // parse
             parser.parse(new XMLInputSource(null, infilename, null));
+            final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
+            final StringBuffer sb = new StringBuffer();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
         }
-        finally {
-            out.close();
-        }
-        final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
-        final StringBuffer sb = new StringBuffer();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line).append("\n");
-        }
-        return sb.toString();
     }
 }

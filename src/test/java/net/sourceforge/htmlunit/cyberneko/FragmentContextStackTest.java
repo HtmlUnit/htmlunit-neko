@@ -12,7 +12,7 @@ import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
 
 /**
  * Unit tests for {@link HTMLTagBalancer}'s property {@link HTMLTagBalancer#FRAGMENT_CONTEXT_STACK}.
- * 
+ *
  * @author Marc Guillemot
  * @version $Id: HTMLTagBalancingListenerTest.java 145 2008-03-17 18:18:33Z
  *          mguillem $
@@ -22,7 +22,7 @@ public class FragmentContextStackTest extends TestCase {
     private static final String NL = System.lineSeparator();
 
     public void testSimple() throws Exception {
-        String expected = "(DIV" + NL
+        final String expected = "(DIV" + NL
             + "(SPAN" + NL
             + "\"hello" + NL
             + ")SPAN" + NL
@@ -50,12 +50,12 @@ public class FragmentContextStackTest extends TestCase {
     }
 
     public void testFragmentShouldNotCloseContextStack() throws Exception {
-        String expected = "\"helloworld\n";
+        final String expected = "\"helloworld\n";
         doTest("hello</div>world", new String[] { "html", "body", "div" }, expected);
         doTest("hello</span>world", new String[] { "html", "body", "div", "span" }, expected);
     }
 
-    private void doTest(final String html, final String[] contextStack,
+    private static void doTest(final String html, final String[] contextStack,
             final String expected) throws Exception {
         final DOMParser parser = new DOMParser();
         parser.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
@@ -74,7 +74,7 @@ public class FragmentContextStackTest extends TestCase {
         assertEquals(expected.trim(), out.toString().trim());
     }
 
-    private QName[] toQNames(final String[] tags) {
+    private static QName[] toQNames(final String[] tags) {
         final QName[] qnames = new QName[tags.length];
         for (int i = 0; i < tags.length; ++i) {
             qnames[i] = new QName(null, tags[i], null, null);

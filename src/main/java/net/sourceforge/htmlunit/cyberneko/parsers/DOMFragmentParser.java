@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,7 +14,7 @@
  * limitations under the License.
  * ==============================================================
  * This file contains some code from Apache Xerces-J which is
- * used in accordance with the Apache license. 
+ * used in accordance with the Apache license.
  */
 
 package net.sourceforge.htmlunit.cyberneko.parsers;
@@ -76,7 +76,7 @@ public class DOMFragmentParser
     // features
 
     /** Document fragment balancing only. */
-    protected static final String DOCUMENT_FRAGMENT = 
+    protected static final String DOCUMENT_FRAGMENT =
         "http://cyberneko.org/html/features/document-fragment";
 
     /** Recognized features. */
@@ -140,35 +140,34 @@ public class DOMFragmentParser
     //
 
     /** Parses a document fragment. */
-    public void parse(String systemId, DocumentFragment fragment) 
+    public void parse(String systemId, DocumentFragment fragment)
         throws SAXException, IOException {
         parse(new InputSource(systemId), fragment);
     } // parse(String,DocumentFragment)
 
     /** Parses a document fragment. */
-    public void parse(InputSource source, DocumentFragment fragment) 
+    public void parse(InputSource source, DocumentFragment fragment)
         throws SAXException, IOException {
 
         fCurrentNode = fDocumentFragment = fragment;
         fDocument = fDocumentFragment.getOwnerDocument();
 
         try {
-            String pubid = source.getPublicId();
-            String sysid = source.getSystemId();
-            String encoding = source.getEncoding();
-            InputStream stream = source.getByteStream();
-            Reader reader = source.getCharacterStream();
-            
-            XMLInputSource inputSource = 
-                new XMLInputSource(pubid, sysid, sysid);
+            final String pubid = source.getPublicId();
+            final String sysid = source.getSystemId();
+            final String encoding = source.getEncoding();
+            final InputStream stream = source.getByteStream();
+            final Reader reader = source.getCharacterStream();
+
+            final XMLInputSource inputSource = new XMLInputSource(pubid, sysid, sysid);
             inputSource.setEncoding(encoding);
             inputSource.setByteStream(stream);
             inputSource.setCharacterStream(reader);
-            
+
             fParserConfiguration.parse(inputSource);
         }
-        catch (XMLParseException e) {
-            Exception ex = e.getException();
+        catch (final XMLParseException e) {
+            final Exception ex = e.getException();
             if (ex != null) {
                 throw new SAXParseException(e.getMessage(), null, ex);
             }
@@ -191,7 +190,7 @@ public class DOMFragmentParser
      * handler immediately.</p>
      *
      * @param errorHandler The error handler.
-     * @exception java.lang.NullPointerException If the handler 
+     * @exception java.lang.NullPointerException If the handler
      *            argument is null.
      * @see #getErrorHandler
      */
@@ -210,14 +209,14 @@ public class DOMFragmentParser
 
         ErrorHandler errorHandler = null;
         try {
-            XMLErrorHandler xmlErrorHandler = 
+            final XMLErrorHandler xmlErrorHandler =
                 (XMLErrorHandler)fParserConfiguration.getProperty(ERROR_HANDLER);
-            if (xmlErrorHandler != null && 
+            if (xmlErrorHandler != null &&
                 xmlErrorHandler instanceof ErrorHandlerWrapper) {
                 errorHandler = ((ErrorHandlerWrapper)xmlErrorHandler).getErrorHandler();
             }
         }
-        catch (XMLConfigurationException e) {
+        catch (final XMLConfigurationException e) {
             // do nothing
         }
         return errorHandler;
@@ -244,8 +243,8 @@ public class DOMFragmentParser
         try {
             fParserConfiguration.setFeature(featureId, state);
         }
-        catch (XMLConfigurationException e) {
-            String message = e.getMessage();
+        catch (final XMLConfigurationException e) {
+            final String message = e.getMessage();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(message);
             }
@@ -274,8 +273,8 @@ public class DOMFragmentParser
         try {
             return fParserConfiguration.getFeature(featureId);
         }
-        catch (XMLConfigurationException e) {
-            String message = e.getMessage();
+        catch (final XMLConfigurationException e) {
+            final String message = e.getMessage();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(message);
             }
@@ -305,8 +304,8 @@ public class DOMFragmentParser
         try {
             fParserConfiguration.setProperty(propertyId, value);
         }
-        catch (XMLConfigurationException e) {
-            String message = e.getMessage();
+        catch (final XMLConfigurationException e) {
+            final String message = e.getMessage();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(message);
             }
@@ -333,15 +332,15 @@ public class DOMFragmentParser
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         if (propertyId.equals(CURRENT_ELEMENT_NODE)) {
-            return (fCurrentNode!=null && 
+            return (fCurrentNode!=null &&
                     fCurrentNode.getNodeType() == Node.ELEMENT_NODE)? fCurrentNode:null;
         }
 
         try {
             return fParserConfiguration.getProperty(propertyId);
         }
-        catch (XMLConfigurationException e) {
-            String message = e.getMessage();
+        catch (final XMLConfigurationException e) {
+            final String message = e.getMessage();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(message);
             }
@@ -400,7 +399,7 @@ public class DOMFragmentParser
     public void processingInstruction(final String target, final XMLString data,
             final Augmentations augs)
         throws XNIException {
-        
+
         final String s = data.toString();
         if (XMLChar.isValidName(s)) {
             final ProcessingInstruction pi = fDocument.createProcessingInstruction(target, s);
@@ -412,29 +411,19 @@ public class DOMFragmentParser
     @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
-        Comment comment = fDocument.createComment(text.toString());
+        final Comment comment = fDocument.createComment(text.toString());
         fCurrentNode.appendChild(comment);
     } // comment(XMLString,Augmentations)
-
-    /** Start prefix mapping. @deprecated Since Xerces 2.2.0. */
-    public void startPrefixMapping(String prefix, String uri,
-                                   Augmentations augs) throws XNIException {
-    } // startPrefixMapping(String,String,Augmentations)
-
-    /** End prefix mapping. @deprecated Since Xerces 2.2.0. */
-    public void endPrefixMapping(String prefix, Augmentations augs)
-        throws XNIException {
-    } // endPrefixMapping(String,Augmentations)
 
     /** Start element. */
     @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
-        Element elementNode = fDocument.createElement(element.rawname);
-        int count = attrs != null ? attrs.getLength() : 0;
+        final Element elementNode = fDocument.createElement(element.rawname);
+        final int count = attrs != null ? attrs.getLength() : 0;
         for (int i = 0; i < count; i++) {
-            String aname = attrs.getQName(i);
-            String avalue = attrs.getValue(i);
+            final String aname = attrs.getQName(i);
+            final String avalue = attrs.getValue(i);
             if (XMLChar.isValidName(aname)) {
                 elementNode.setAttribute(aname, avalue);
             }
@@ -457,24 +446,24 @@ public class DOMFragmentParser
         throws XNIException {
 
         if (fInCDATASection) {
-            Node node = fCurrentNode.getLastChild();
+            final Node node = fCurrentNode.getLastChild();
             if (node != null && node.getNodeType() == Node.CDATA_SECTION_NODE) {
-                CDATASection cdata = (CDATASection)node;
+                final CDATASection cdata = (CDATASection)node;
                 cdata.appendData(text.toString());
             }
             else {
-                CDATASection cdata = fDocument.createCDATASection(text.toString());
+                final CDATASection cdata = fDocument.createCDATASection(text.toString());
                 fCurrentNode.appendChild(cdata);
             }
         }
         else {
-            Node node = fCurrentNode.getLastChild();
+            final Node node = fCurrentNode.getLastChild();
             if (node != null && node.getNodeType() == Node.TEXT_NODE) {
-                Text textNode = (Text)node;
+                final Text textNode = (Text)node;
                 textNode.appendData(text.toString());
             }
             else {
-                Text textNode = fDocument.createTextNode(text.toString());
+                final Text textNode = fDocument.createTextNode(text.toString());
                 fCurrentNode.appendChild(textNode);
             }
         }
@@ -493,7 +482,7 @@ public class DOMFragmentParser
     public void startGeneralEntity(String name, XMLResourceIdentifier id,
                                    String encoding, Augmentations augs)
         throws XNIException {
-        EntityReference entityRef = fDocument.createEntityReference(name);
+        final EntityReference entityRef = fDocument.createEntityReference(name);
         fCurrentNode.appendChild(entityRef);
         fCurrentNode = entityRef;
     } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)

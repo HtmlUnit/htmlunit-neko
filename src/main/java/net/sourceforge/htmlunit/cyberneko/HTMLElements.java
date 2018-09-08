@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,11 +35,11 @@ public class HTMLElements {
     //
     // Constants
     //
-    
+
     // element codes
 
     // NOTE: The element codes *must* start with 0 and increment in
-    //       sequence. The parent and closes references depends on 
+    //       sequence. The parent and closes references depends on
     //       this assumption. -Ac
 
     public static final short A = 0;
@@ -189,7 +189,7 @@ public class HTMLElements {
     //
 
     public HTMLElements() {
-        Element[][] elementsArray = new Element[26][];
+        final Element[][] elementsArray = new Element[26][];
         // <!ENTITY % heading "H1|H2|H3|H4|H5|H6">
         // <!ENTITY % fontstyle "TT | I | B | BIG | SMALL">
         // <!ENTITY % phrase "EM | STRONG | DFN | CODE | SAMP | KBD | VAR | CITE | ABBR | ACRONYM" >
@@ -245,7 +245,7 @@ public class HTMLElements {
         elementsArray['C'-'A'] = new Element[] {
             // CAPTION - - (%inline;)*
             new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
-            // CENTER, 
+            // CENTER,
             new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P,SVG}),
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
@@ -488,7 +488,7 @@ public class HTMLElements {
             new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
         };
         elementsArray['U'-'A'] = new Element[] {
-            // U, 
+            // U,
             new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
             // UL - - (LI)+
             new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P,SVG}),
@@ -509,20 +509,18 @@ public class HTMLElements {
         };
 
         // keep contiguous list of elements for lookups by code
-        for (int i = 0; i < elementsArray.length; i++) {
-            Element[] elements = elementsArray[i];
+        for (final Element[] elements : elementsArray) {
             if (elements != null) {
-                for (int j = 0; j < elements.length; j++) {
-                    Element element = elements[j];
+                for (final Element element : elements) {
                     elementsMap.put(element.code, element);
                 }
             }
         }
-        
+
         elementsMap.put(NO_SUCH_ELEMENT.code, NO_SUCH_ELEMENT);
 
         // initialize cross references to parent elements
-        for (Element element : elementsMap.values()) {
+        for (final Element element : elementsMap.values()) {
             defineParents(element);
         }
 
@@ -578,7 +576,7 @@ public class HTMLElements {
      * @param element The default element to return if not found.
      */
     public final Element getElement(final String ename, final Element element) {
-        for (Element e : elementsMap.values()) {
+        for (final Element e : elementsMap.values()) {
             if (e.name.equalsIgnoreCase(ename)) {
                 return e;
             }
@@ -646,7 +644,7 @@ public class HTMLElements {
         // Constructors
         //
 
-        /** 
+        /**
          * Constructs an element object.
          *
          * @param code The element code.
@@ -655,12 +653,12 @@ public class HTMLElements {
          * @param parent Natural closing parent name.
          * @param closes List of elements this element can close.
          */
-        public Element(final short code, final String name, final int flags, 
+        public Element(final short code, final String name, final int flags,
                 final short parent, final short[] closes) {
             this(code, name, flags, new short[]{parent}, (short)-1, closes);
         } // <init>(short,String,int,short,short[]);
 
-        /** 
+        /**
          * Constructs an element object.
          *
          * @param code The element code.
@@ -669,12 +667,12 @@ public class HTMLElements {
          * @param parent Natural closing parent name.
          * @param closes List of elements this element can close.
          */
-        public Element(final short code, final String name, final int flags, 
+        public Element(final short code, final String name, final int flags,
                 final short parent, final short bounds, final short[] closes) {
             this(code, name, flags, new short[]{parent}, bounds, closes);
         } // <init>(short,String,int,short,short,short[])
 
-        /** 
+        /**
          * Constructs an element object.
          *
          * @param code The element code.
@@ -683,12 +681,12 @@ public class HTMLElements {
          * @param parents Natural closing parent names.
          * @param closes List of elements this element can close.
          */
-        public Element(final short code, final String name, final int flags, 
+        public Element(final short code, final String name, final int flags,
                 final short[] parents, final short[] closes) {
             this(code, name, flags, parents, (short)-1, closes);
         } // <init>(short,String,int,short[],short[])
 
-        /** 
+        /**
          * Constructs an element object.
          *
          * @param code The element code.
@@ -697,7 +695,7 @@ public class HTMLElements {
          * @param parents Natural closing parent names.
          * @param closes List of elements this element can close.
          */
-        public Element(final short code, final String name, final int flags, 
+        public Element(final short code, final String name, final int flags,
                 final short[] parents, final short bounds, final short[] closes) {
             this.code = code;
             this.name = name;
@@ -732,7 +730,7 @@ public class HTMLElements {
             return (flags & CONTAINER) != 0;
         } // isContainer():boolean
 
-        /** 
+        /**
          * Returns true if this element is special -- if its content
          * should be parsed ignoring markup.
          */
@@ -747,8 +745,8 @@ public class HTMLElements {
          */
         public boolean closes(final short tag) {
             if (closes != null) {
-                for (int i = 0; i < closes.length; i++) {
-                    if (closes[i] == tag) {
+                for (final short close : closes) {
+                    if (close == tag) {
                         return true;
                     }
                 }
@@ -792,8 +790,8 @@ public class HTMLElements {
         public boolean isParent(final Element element) {
             if (parent == null)
                 return false;
-            for (int i=0; i<parent.length; ++i) {
-                if (element.code == parent[i].code)
+            for (final Element element2 : parent) {
+                if (element.code == element2.code)
                     return true;
             }
             return false;
@@ -820,7 +818,7 @@ public class HTMLElements {
         /** Adds an element to list, resizing if necessary. */
         public void addElement(final Element element) {
             if (size == data.length) {
-                Element[] newarray = new Element[size + 20];
+                final Element[] newarray = new Element[size + 20];
                 System.arraycopy(data, 0, newarray, 0, size);
                 data = newarray;
             }

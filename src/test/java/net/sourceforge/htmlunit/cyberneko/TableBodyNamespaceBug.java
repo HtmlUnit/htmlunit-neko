@@ -2,13 +2,13 @@ package net.sourceforge.htmlunit.cyberneko;
 
 import java.io.ByteArrayInputStream;
 
-import junit.framework.TestCase;
-
 import org.apache.xerces.parsers.AbstractSAXParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
+
+import junit.framework.TestCase;
 
 /**
  * Unit test for <a href="https://sourceforge.net/p/nekohtml/bugs/126/">Bug 126</a>.
@@ -30,12 +30,12 @@ public class TableBodyNamespaceBug extends TestCase {
                ++nbTags[0];
             }
         };
-        InputSource source = new InputSource();
+        final InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
-        HTMLConfiguration conf = new HTMLConfiguration();
+        final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
-        AbstractSAXParser parser = new AbstractSAXParser(conf){};
+        final AbstractSAXParser parser = new AbstractSAXParser(conf){};
         parser.setContentHandler(handler);
         parser.parse(source);
 

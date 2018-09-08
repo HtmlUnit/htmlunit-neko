@@ -1,6 +1,6 @@
-/* 
+/*
  * Copyright 2004-2008 Andy Clark, Marc Guillemot
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,7 +22,7 @@ import java.util.Hashtable;
 import org.apache.xerces.xni.Augmentations;
 
 /**
- * This class is here to overcome the XNI changes to the 
+ * This class is here to overcome the XNI changes to the
  * <code>Augmentations</code> interface. In early versions of XNI, the
  * augmentations interface contained a <code>clear()</code> method to
  * remove all of the items from the augmentations instance. A later
@@ -33,7 +33,7 @@ import org.apache.xerces.xni.Augmentations;
  * <strong>Note:</strong>
  * This code is inspired by performance enhancements submitted by
  * Marc-André Morissette.
- * 
+ *
  * @author Andy Clark
  */
 public class HTMLAugmentations implements Augmentations {
@@ -57,8 +57,8 @@ public class HTMLAugmentations implements Augmentations {
      * @param augs the object to copy
      */
     HTMLAugmentations(final Augmentations augs) {
-        for (final Enumeration keys=augs.keys(); keys.hasMoreElements(); ) {
-            final String key = (String) keys.nextElement();
+        for (final Enumeration<String> keys = augs.keys(); keys.hasMoreElements(); ) {
+            final String key = keys.nextElement();
             Object value = augs.getItem(key);
             if (value instanceof HTMLScanner.LocationItem) {
                 value = new HTMLScanner.LocationItem((HTMLScanner.LocationItem) value);
@@ -87,13 +87,13 @@ public class HTMLAugmentations implements Augmentations {
     //
 
     /**
-     * Add additional information identified by a key to the Augmentations 
+     * Add additional information identified by a key to the Augmentations
      * structure.
-     * 
+     *
      * @param key    Identifier, can't be <code>null</code>
      * @param item   Additional information
      *
-     * @return The previous value of the specified key in the Augmentations 
+     * @return The previous value of the specified key in the Augmentations
      *         structure, or <code>null</code> if it did not have one.
      */
     @Override
@@ -104,23 +104,23 @@ public class HTMLAugmentations implements Augmentations {
 
     /**
      * Get information identified by a key from the Augmentations structure.
-     * 
+     *
      * @param key    Identifier, can't be <code>null</code>
      *
-     * @return The value to which the key is mapped in the Augmentations 
-     *         structure; <code>null</code> if the key is not mapped to any 
+     * @return The value to which the key is mapped in the Augmentations
+     *         structure; <code>null</code> if the key is not mapped to any
      *         value.
      */
     @Override
     public Object getItem(String key) {
         return fItems.get(key);
     } // getItem(String):Object
-    
+
     /**
      * Remove additional info from the Augmentations structure
-     * 
+     *
      * @param key    Identifier, can't be <code>null</code>
-     * @return The previous value of the specified key in the Augmentations 
+     * @return The previous value of the specified key in the Augmentations
      *         structure, or <code>null</code> if it did not have one.
      */
     @Override
@@ -132,7 +132,7 @@ public class HTMLAugmentations implements Augmentations {
      * Returns an enumeration of the keys in the Augmentations structure.
      */
     @Override
-    public Enumeration keys() {
+    public Enumeration<String> keys() {
         return fItems.keys();
     } // keys():Enumeration
 
