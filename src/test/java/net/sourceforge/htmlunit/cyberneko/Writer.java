@@ -230,24 +230,26 @@ public class Writer
         doAugs(augs);
         out.print('(');
         out.print(element.rawname);
-        final int acount = attrs != null ? attrs.getLength() : 0;
-        if (acount > 0) {
-            final String[] anames = new String[acount];
-            final String[] auris = new String[acount];
-            sortAttrNames(attrs, anames, auris);
-            for (int i = 0; i < acount; i++) {
-                final String aname = anames[i];
-                out.println();
-                out.flush();
-                out.print('A');
-                if (auris[i] != null) {
-                    out.print('{');
-                    out.print(auris[i]);
-                    out.print('}');
+        if (attrs != null) {
+            final int acount = attrs.getLength();
+            if (acount > 0) {
+                final String[] anames = new String[acount];
+                final String[] auris = new String[acount];
+                sortAttrNames(attrs, anames, auris);
+                for (int i = 0; i < acount; i++) {
+                    final String aname = anames[i];
+                    out.println();
+                    out.flush();
+                    out.print('A');
+                    if (auris[i] != null) {
+                        out.print('{');
+                        out.print(auris[i]);
+                        out.print('}');
+                    }
+                    out.print(aname);
+                    out.print(' ');
+                    print(attrs.getValue(aname));
                 }
-                out.print(aname);
-                out.print(' ');
-                print(attrs.getValue(aname));
             }
         }
         out.println();
@@ -323,28 +325,30 @@ public class Writer
 
     /** Prints the specified string. */
     protected void print(String s) {
-        final int length = s != null ? s.length() : 0;
-        for (int i = 0; i < length; i++) {
-            final char c = s.charAt(i);
-            switch (c) {
-                case '\n': {
-                    out.print("\\n");
-                    break;
-                }
-                case '\r': {
-                    out.print("\\r");
-                    break;
-                }
-                case '\t': {
-                    out.print("\\t");
-                    break;
-                }
-                case '\\': {
-                    out.print("\\\\");
-                    break;
-                }
-                default: {
-                    out.print(c);
+        if (s != null) {
+            final int length = s.length();
+            for (int i = 0; i < length; i++) {
+                final char c = s.charAt(i);
+                switch (c) {
+                    case '\n': {
+                        out.print("\\n");
+                        break;
+                    }
+                    case '\r': {
+                        out.print("\\r");
+                        break;
+                    }
+                    case '\t': {
+                        out.print("\\t");
+                        break;
+                    }
+                    case '\\': {
+                        out.print("\\\\");
+                        break;
+                    }
+                    default: {
+                        out.print(c);
+                    }
                 }
             }
         }

@@ -488,25 +488,28 @@ public class HTMLConfiguration
         // add recognized features and set default states
         final String[] features = component.getRecognizedFeatures();
         addRecognizedFeatures(features);
-        final int featureCount = features != null ? features.length : 0;
-        for (int i = 0; i < featureCount; i++) {
-            final Boolean state = component.getFeatureDefault(features[i]);
-            if (state != null) {
-                setFeature(features[i], state.booleanValue());
+        if (features != null) {
+            final int featureCount = features.length;
+            for (int i = 0; i < featureCount; i++) {
+                final Boolean state = component.getFeatureDefault(features[i]);
+                if (state != null) {
+                    setFeature(features[i], state.booleanValue());
+                }
             }
         }
 
         // add recognized properties and set default values
         final String[] properties = component.getRecognizedProperties();
         addRecognizedProperties(properties);
-        final int propertyCount = properties != null ? properties.length : 0;
-        for (int i = 0; i < propertyCount; i++) {
-            final Object value = component.getPropertyDefault(properties[i]);
-            if (value != null) {
-                setProperty(properties[i], value);
+        if (properties != null) {
+            final int propertyCount = properties.length;
+            for (int i = 0; i < propertyCount; i++) {
+                final Object value = component.getPropertyDefault(properties[i]);
+                if (value != null) {
+                    setProperty(properties[i], value);
+                }
             }
         }
-
     } // addComponent(HTMLComponent)
 
     /** Resets the parser configuration. */

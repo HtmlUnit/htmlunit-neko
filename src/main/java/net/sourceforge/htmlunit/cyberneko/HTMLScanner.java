@@ -967,10 +967,12 @@ public class HTMLScanner
 
     /** Returns the value of the specified attribute, ignoring case. */
     protected static String getValue(XMLAttributes attrs, String aname) {
-        final int length = attrs != null ? attrs.getLength() : 0;
-        for (int i = 0; i < length; i++) {
-            if (attrs.getQName(i).equalsIgnoreCase(aname)) {
-                return attrs.getValue(i);
+        if (attrs != null) {
+            final int length = attrs.getLength();
+            for (int i = 0; i < length; i++) {
+                if (attrs.getQName(i).equalsIgnoreCase(aname)) {
+                    return attrs.getValue(i);
+                }
             }
         }
         return null;
@@ -989,6 +991,7 @@ public class HTMLScanner
      *         system identifier is already expanded.
      *
      */
+    @SuppressWarnings("unused")
     public static String expandSystemId(String systemId, String baseSystemId) {
 
         // check for bad parameters id
@@ -997,10 +1000,8 @@ public class HTMLScanner
         }
         // if id already expanded, return
         try {
-            final URI uri = new URI(systemId);
-            if (uri != null) {
-                return systemId;
-            }
+            new URI(systemId);
+            return systemId;
         }
         catch (final URI.MalformedURIException e) {
             // continue on...
@@ -1886,26 +1887,26 @@ public class HTMLScanner
          * Loads a new chunk of data into the buffer and returns the number of
          * characters loaded or -1 if no additional characters were loaded.
          *
-         * @param offset The offset at which new characters should be loaded.
+         * @param loadOffset The offset at which new characters should be loaded.
          */
-        protected int load(int offset) throws IOException {
+        protected int load(int loadOffset) throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(load: ");
             }
             // resize buffer, if needed
-            if (offset == buffer.length) {
+            if (loadOffset == buffer.length) {
                 final int adjust = buffer.length / 4;
                 final char[] array = new char[buffer.length + adjust];
                 System.arraycopy(buffer, 0, array, 0, length);
                 buffer = array;
             }
             // read a block of characters
-            final int count = stream_.read(buffer, offset, buffer.length - offset);
+            final int count = stream_.read(buffer, loadOffset, buffer.length - loadOffset);
             if (count == -1) {
                 endReached_ = true;
             }
-            length = count != -1 ? count + offset : offset;
-            this.offset = offset;
+            length = count != -1 ? count + loadOffset : loadOffset;
+            this.offset = loadOffset;
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")load: ", " -> " + count);
             }
@@ -2025,14 +2026,14 @@ public class HTMLScanner
             return lineNumber_;
         }
 
-        private void resetBuffer(final XMLStringBuffer buffer, final int lineNumber,
+        private void resetBuffer(final XMLStringBuffer xmlBuffer, final int lineNumber,
                 final int columnNumber, final int characterOffset) {
             lineNumber_ = lineNumber;
             columnNumber_ = columnNumber;
             this.characterOffset_ = characterOffset;
-            this.buffer = buffer.ch;
-            this.offset = buffer.offset;
-            this.length = buffer.length;
+            this.buffer = xmlBuffer.ch;
+            this.offset = xmlBuffer.offset;
+            this.length = xmlBuffer.length;
         }
 
         private int getColumnNumber() {
@@ -3237,7 +3238,7 @@ public class HTMLScanner
         private final QName fQName = new QName();
 
         /** A string buffer. */
-        private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
+        private final XMLStringBuffer xmlStringBuffer = new XMLStringBuffer();
 
         //
         // Public methods
@@ -3275,11 +3276,11 @@ public class HTMLScanner
                             }
                             if (c == '&') {
                                 if (fTextarea || fTitle) {
-                                    scanEntityRef(fStringBuffer, true);
+                                    scanEntityRef(xmlStringBuffer, true);
                                     continue;
                                 }
-                                fStringBuffer.clear();
-                                fStringBuffer.append('&');
+                                xmlStringBuffer.clear();
+                                xmlStringBuffer.append('&');
                             }
                             else if (c == -1) {
                                 if (fReportErrors) {
@@ -3289,9 +3290,9 @@ public class HTMLScanner
                             }
                             else {
                                 fCurrentEntity.rewind();
-                                fStringBuffer.clear();
+                                xmlStringBuffer.clear();
                             }
-                            scanCharacters(fStringBuffer, -1);
+                            scanCharacters(xmlStringBuffer, -1);
                             break;
                         } // case STATE_CONTENT
                         case STATE_MARKUP_BRACKET: {
@@ -3319,21 +3320,21 @@ public class HTMLScanner
                                         }
                                           fCurrentEntity.rewind();
                                     }
-                                    fStringBuffer.clear();
-                                    fStringBuffer.append("</");
-                                    fStringBuffer.append(ename);
+                                    xmlStringBuffer.clear();
+                                    xmlStringBuffer.append("</");
+                                    xmlStringBuffer.append(ename);
                                 }
                                 else {
-                                    fStringBuffer.clear();
-                                    fStringBuffer.append("</");
+                                    xmlStringBuffer.clear();
+                                    xmlStringBuffer.append("</");
                                 }
                             }
                             else {
-                                fStringBuffer.clear();
-                                fStringBuffer.append('<');
-                                appendChar(fStringBuffer, c, null);
+                                xmlStringBuffer.clear();
+                                xmlStringBuffer.append('<');
+                                appendChar(xmlStringBuffer, c, null);
                             }
-                            scanCharacters(fStringBuffer, delimiter);
+                            scanCharacters(xmlStringBuffer, delimiter);
                             setScannerState(STATE_CONTENT);
                             break;
                         } // case STATE_MARKUP_BRACKET
@@ -3418,11 +3419,11 @@ public class HTMLScanner
     public class PlainTextScanner implements Scanner {
 
         /** A string buffer. */
-        private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
+        private final XMLStringBuffer xmlStringBuffer = new XMLStringBuffer();
 
         @Override
         public boolean scan(boolean complete) throws IOException {
-            scanCharacters(fStringBuffer);
+            scanCharacters(xmlStringBuffer);
             return false;
         }
 

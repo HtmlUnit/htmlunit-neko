@@ -420,12 +420,15 @@ public class DOMFragmentParser
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
         final Element elementNode = fDocument.createElement(element.rawname);
-        final int count = attrs != null ? attrs.getLength() : 0;
-        for (int i = 0; i < count; i++) {
-            final String aname = attrs.getQName(i);
-            final String avalue = attrs.getValue(i);
-            if (XMLChar.isValidName(aname)) {
-                elementNode.setAttribute(aname, avalue);
+
+        if (attrs != null) {
+            final int count = attrs.getLength();
+            for (int i = 0; i < count; i++) {
+                final String aname = attrs.getQName(i);
+                final String avalue = attrs.getValue(i);
+                if (XMLChar.isValidName(aname)) {
+                    elementNode.setAttribute(aname, avalue);
+                }
             }
         }
         fCurrentNode.appendChild(elementNode);
