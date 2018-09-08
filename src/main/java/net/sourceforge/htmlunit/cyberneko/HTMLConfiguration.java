@@ -237,7 +237,7 @@ public class HTMLConfiguration
         setProperty(NAMES_ELEMS, "upper");
         setProperty(NAMES_ATTRS, "lower");
         setProperty(ERROR_REPORTER, fErrorReporter);
-    } // <init>()
+    }
 
     protected HTMLScanner createDocumentScanner() {
         return new HTMLScanner(this);
@@ -265,7 +265,7 @@ public class HTMLConfiguration
      */
     public void pushInputSource(XMLInputSource inputSource) {
         fDocumentScanner.pushInputSource(inputSource);
-    } // pushInputSource(XMLInputSource)
+    }
 
     /**
      * <font color="red">EXPERIMENTAL: may change in next release</font><br/>
@@ -277,7 +277,7 @@ public class HTMLConfiguration
      */
     public void evaluateInputSource(XMLInputSource inputSource) {
         fDocumentScanner.evaluateInputSource(inputSource);
-    } // evaluateInputSource(XMLInputSource)
+    }
 
     // XMLParserConfiguration methods
     //
@@ -292,7 +292,7 @@ public class HTMLConfiguration
             final HTMLComponent component = fHTMLComponents.get(i);
             component.setFeature(featureId, state);
         }
-    } // setFeature(String,boolean)
+    }
 
     /** Sets a property. */
     @Override
@@ -316,7 +316,7 @@ public class HTMLConfiguration
             final HTMLComponent component = fHTMLComponents.get(i);
             component.setProperty(propertyId, value);
         }
-    } // setProperty(String,Object)
+    }
 
     /** Sets the document handler. */
     @Override
@@ -325,61 +325,61 @@ public class HTMLConfiguration
         if (handler instanceof HTMLTagBalancingListener) {
             fTagBalancer.setTagBalancingListener((HTMLTagBalancingListener) handler);
         }
-    } // setDocumentHandler(XMLDocumentHandler)
+    }
 
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
-    } // getDocumentHandler():XMLDocumentHandler
+    }
 
     /** Sets the DTD handler. */
     @Override
     public void setDTDHandler(XMLDTDHandler handler) {
         fDTDHandler = handler;
-    } // setDTDHandler(XMLDTDHandler)
+    }
 
     /** Returns the DTD handler. */
     @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
-    } // getDTDHandler():XMLDTDHandler
+    }
 
     /** Sets the DTD content model handler. */
     @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
         fDTDContentModelHandler = handler;
-    } // setDTDContentModelHandler(XMLDTDContentModelHandler)
+    }
 
     /** Returns the DTD content model handler. */
     @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler;
-    } // getDTDContentModelHandler():XMLDTDContentModelHandler
+    }
 
     /** Sets the error handler. */
     @Override
     public void setErrorHandler(XMLErrorHandler handler) {
         fErrorHandler = handler;
-    } // setErrorHandler(XMLErrorHandler)
+    }
 
     /** Returns the error handler. */
     @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
-    } // getErrorHandler():XMLErrorHandler
+    }
 
     /** Sets the entity resolver. */
     @Override
     public void setEntityResolver(XMLEntityResolver resolver) {
         fEntityResolver = resolver;
-    } // setEntityResolver(XMLEntityResolver)
+    }
 
     /** Returns the entity resolver. */
     @Override
     public XMLEntityResolver getEntityResolver() {
         return fEntityResolver;
-    } // getEntityResolver():XMLEntityResolver
+    }
 
     /** Sets the locale. */
     @Override
@@ -388,20 +388,20 @@ public class HTMLConfiguration
             locale = Locale.getDefault();
         }
         fLocale = locale;
-    } // setLocale(Locale)
+    }
 
     /** Returns the locale. */
     @Override
     public Locale getLocale() {
         return fLocale;
-    } // getLocale():Locale
+    }
 
     /** Parses a document. */
     @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
         setInputSource(source);
         parse(true);
-    } // parse(XMLInputSource)
+    }
 
     //
     // XMLPullParserConfiguration methods
@@ -428,7 +428,7 @@ public class HTMLConfiguration
         fCloseStream = inputSource.getByteStream() == null &&
                        inputSource.getCharacterStream() == null;
         fDocumentScanner.setInputSource(inputSource);
-    } // setInputSource(XMLInputSource)
+    }
 
     /**
      * Parses the document in a pull parsing fashion.
@@ -463,7 +463,7 @@ public class HTMLConfiguration
             cleanup();
             throw e;
         }
-    } // parse(boolean):boolean
+    }
 
     /**
      * If the application decides to terminate parsing before the xml document
@@ -473,7 +473,7 @@ public class HTMLConfiguration
     @Override
     public void cleanup() {
         fDocumentScanner.cleanup(fCloseStream);
-    } // cleanup()
+    }
 
     //
     // Protected methods
@@ -510,7 +510,7 @@ public class HTMLConfiguration
                 }
             }
         }
-    } // addComponent(HTMLComponent)
+    }
 
     /** Resets the parser configuration. */
     protected void reset() throws XMLConfigurationException {
@@ -543,8 +543,7 @@ public class HTMLConfiguration
             }
         }
         lastSource.setDocumentHandler(fDocumentHandler);
-
-    } // reset()
+    }
 
     //
     // Interfaces
@@ -608,7 +607,7 @@ public class HTMLConfiguration
                 }
             }
             return formatSimpleMessage(key, args);
-        } // formatMessage(String,Object[]):String
+        }
 
         /** Reports a warning. */
         @Override
@@ -617,7 +616,7 @@ public class HTMLConfiguration
             if (fErrorHandler != null) {
                 fErrorHandler.warning(ERROR_DOMAIN, key, createException(key, args));
             }
-        } // reportWarning(String,Object[])
+        }
 
         /** Reports an error. */
         @Override
@@ -626,7 +625,7 @@ public class HTMLConfiguration
             if (fErrorHandler != null) {
                 fErrorHandler.error(ERROR_DOMAIN, key, createException(key, args));
             }
-        } // reportError(String,Object[])
+        }
 
         //
         // Protected methods
@@ -636,7 +635,7 @@ public class HTMLConfiguration
         protected XMLParseException createException(String key, Object[] args) {
             final String message = formatMessage(key, args);
             return new XMLParseException(fDocumentScanner, message);
-        } // createException(String,Object[]):XMLParseException
+        }
 
         /** Format simple message. */
         protected String formatSimpleMessage(String key, Object[] args) {
@@ -654,8 +653,6 @@ public class HTMLConfiguration
                 }
             }
             return str.toString();
-        } // formatSimpleMessage(String,
-
-    } // class ErrorReporter
-
-} // class HTMLConfiguration
+        }
+    }
+}

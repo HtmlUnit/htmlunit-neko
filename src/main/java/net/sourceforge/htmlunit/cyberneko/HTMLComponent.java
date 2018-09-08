@@ -49,5 +49,4 @@ public interface HTMLComponent
      */
     @Override
     public Object getPropertyDefault(String propertyId);
-
-} // interface HTMLComponent
+}

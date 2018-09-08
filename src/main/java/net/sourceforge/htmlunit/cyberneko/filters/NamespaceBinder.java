@@ -180,7 +180,7 @@ public class NamespaceBinder
     @Override
     public String[] getRecognizedFeatures() {
         return merge(super.getRecognizedFeatures(), RECOGNIZED_FEATURES);
-    } // getRecognizedFeatures():String[]
+    }
 
     /**
      * Returns the default state for a feature, or null if this
@@ -195,7 +195,7 @@ public class NamespaceBinder
             }
         }
         return super.getFeatureDefault(featureId);
-    } // getFeatureDefault(String):Boolean
+    }
 
     /**
      * Returns a list of property identifiers that are recognized by
@@ -205,7 +205,7 @@ public class NamespaceBinder
     @Override
     public String[] getRecognizedProperties() {
         return merge(super.getRecognizedProperties(), RECOGNIZED_PROPERTIES);
-    } // getRecognizedProperties():String[]
+    }
 
     /**
      * Returns the default value for a property, or null if this
@@ -220,7 +220,7 @@ public class NamespaceBinder
             }
         }
         return super.getPropertyDefault(propertyId);
-    } // getPropertyDefault(String):Object
+    }
 
     /**
      * Resets the component. The component can query the component manager
@@ -248,8 +248,7 @@ public class NamespaceBinder
 
         // initialize state
         fNamespaceContext.reset();
-
-    } // reset(XMLComponentManager)
+    }
 
     //
     // XMLDocumentHandler methods
@@ -264,8 +263,7 @@ public class NamespaceBinder
         // perform default handling
         // NOTE: using own namespace context
         super.startDocument(locator,encoding,fNamespaceContext,augs);
-
-    } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
+    }
 
     /** Start element. */
     @Override
@@ -280,8 +278,7 @@ public class NamespaceBinder
 
         // perform default handling
         super.startElement(element, attrs, augs);
-
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Empty element. */
     @Override
@@ -301,8 +298,7 @@ public class NamespaceBinder
         if (fNamespaces) {
             fNamespaceContext.popContext();
         }
-
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** End element. */
     @Override
@@ -321,8 +317,7 @@ public class NamespaceBinder
         if (fNamespaces) {
             fNamespaceContext.popContext();
         }
-
-    } // endElement(QName,Augmentations)
+    }
 
     //
     // Protected static methods
@@ -335,7 +330,7 @@ public class NamespaceBinder
             qname.prefix = qname.rawname.substring(0,index);
             qname.localpart  = qname.rawname.substring(index+1);
         }
-    } // splitQName(QName)
+    }
 
     /**
      * Converts HTML names string value to constant value.
@@ -348,7 +343,7 @@ public class NamespaceBinder
         if (value.equals("lower")) { return NAMES_LOWERCASE; }
         if (value.equals("upper")) { return NAMES_UPPERCASE; }
         return NAMES_NO_CHANGE;
-    } // getNamesValue(String):short
+    }
 
     /** Modifies the given name based on the specified mode. */
     protected static final String modifyName(String name, short mode) {
@@ -357,7 +352,7 @@ public class NamespaceBinder
             case NAMES_LOWERCASE: return name.toLowerCase(Locale.ENGLISH);
         }
         return name;
-    } // modifyName(String,short):String
+    }
 
     //
     // Protected methods
@@ -456,7 +451,7 @@ public class NamespaceBinder
                 attrs.setName(i, fQName);
             }
         }
-    } // bindNamespaces(QName,XMLAttributes)
+    }
 
     //
     // Classes
@@ -492,7 +487,7 @@ public class NamespaceBinder
             pushContext();
             declarePrefix("xml", NamespaceContext.XML_URI);
             declarePrefix("xmlns", NamespaceContext.XMLNS_URI);
-        } // <init>()
+        }
 
         //
         // NamespaceContext methods
@@ -510,24 +505,24 @@ public class NamespaceBinder
                 }
             }
             return null;
-        } // getURI(String):String
+        }
 
         /** Get declared prefix count. */
         @Override
         public int getDeclaredPrefixCount() {
             return fLevels[fTop] - fLevels[fTop-1];
-        } // getDeclaredPrefixCount():int
+        }
 
         /** Get declared prefix at. */
         @Override
         public String getDeclaredPrefixAt(int index) {
             return fEntries[fLevels[fTop-1] + index].prefix;
-        } // getDeclaredPrefixAt(int):String
+        }
 
         /** Get parent context. */
         public NamespaceContext getParentContext() {
             return this;
-        } // getParentContext():NamespaceContext
+        }
 
         // since Xerces #.#.# (new XNI namespaces)
 
@@ -535,7 +530,7 @@ public class NamespaceBinder
         @Override
         public void reset() {
             fLevels[fTop = 1] = fLevels[fTop-1];
-        } // reset()
+        }
 
         /** Push context. */
         @Override
@@ -546,7 +541,7 @@ public class NamespaceBinder
                 fLevels = iarray;
             }
             fLevels[fTop] = fLevels[fTop-1];
-        } // pushContext()
+        }
 
         /** Pop context. */
         @Override
@@ -554,7 +549,7 @@ public class NamespaceBinder
             if (fTop > 1) {
                 fTop--;
             }
-        } // popContext()
+        }
 
         /** Declare prefix. */
         @Override
@@ -574,7 +569,7 @@ public class NamespaceBinder
             }
             fEntries[fLevels[fTop]++] = entry;
             return true;
-        } // declarePrefix(String,String):boolean
+        }
 
         /** Get prefix. */
         @Override
@@ -586,7 +581,7 @@ public class NamespaceBinder
                 }
             }
             return null;
-        } // getPrefix(String):String
+        }
 
         /** Get all prefixes. */
         @Override
@@ -599,7 +594,7 @@ public class NamespaceBinder
                 }
             }
             return prefixes.elements();
-        } // getAllPrefixes():Enumeration
+        }
 
         //
         // Classes
@@ -626,10 +621,7 @@ public class NamespaceBinder
             public Entry(String prefix, String uri) {
                 this.prefix = prefix;
                 this.uri = uri;
-            } // <init>(String,String)
-
-        } // class Entry
-
-    } // class NamespaceSupport
-
-} // class NamespaceBinder
+            }
+        }
+    }
+}

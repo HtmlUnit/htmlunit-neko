@@ -109,7 +109,7 @@ public class Writer
      */
     public Writer() {
         this(System.out);
-    } // <init>()
+    }
 
     /**
      * Creates a writer with the specified output stream using UTF-8
@@ -117,7 +117,7 @@ public class Writer
      */
     public Writer(OutputStream stream) {
         this(stream, "UTF8");
-    } // <init>(OutputStream)
+    }
 
     /** Creates a writer with the specified output stream and encoding. */
     public Writer(OutputStream stream, String encoding) {
@@ -127,12 +127,12 @@ public class Writer
         catch (final UnsupportedEncodingException e) {
             throw new RuntimeException("JVM must have "+encoding+" decoder");
         }
-    } // <init>(OutputStream,String)
+    }
 
     /** Creates a writer with the specified Java Writer. */
     public Writer(java.io.Writer writer) {
         out = new PrintWriter(writer);
-    } // <init>(java.io.Writer)
+    }
 
     //
     // XMLDocumentHandler methods
@@ -145,7 +145,7 @@ public class Writer
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext, Augmentations augs) throws XNIException {
         fStringBuffer.clear();
-    } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
+    }
 
     /** End document. */
     @Override
@@ -172,7 +172,7 @@ public class Writer
             out.println(standalone);
         }
         out.flush();
-    } // xmlDecl(String,String,String,Augmentations)
+    }
 
     /** Doctype declaration. */
     @Override
@@ -195,7 +195,7 @@ public class Writer
             out.println();
         }
         out.flush();
-    } // doctypeDecl(String,String,String,Augmentations)
+    }
 
     /** Processing instruction. */
     @Override
@@ -210,7 +210,7 @@ public class Writer
         }
         out.println();
         out.flush();
-    } // processingInstruction(String,XMLString,Augmentations)
+    }
 
     /** Comment. */
     @Override
@@ -221,7 +221,7 @@ public class Writer
         print(text.toString());
         out.println();
         out.flush();
-    } // comment(XMLString,Augmentations)
+    }
 
     /** Start element. */
     @Override
@@ -254,7 +254,7 @@ public class Writer
         }
         out.println();
         out.flush();
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** End element. */
     @Override
@@ -265,14 +265,14 @@ public class Writer
         out.print(element.rawname);
         out.println();
         out.flush();
-    } // endElement(QName,Augmentations)
+    }
 
     /** Empty element. */
     @Override
     public void emptyElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
-    } // emptyElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Characters. */
     @Override
@@ -283,13 +283,13 @@ public class Writer
         }
         fInCharacters = true;
         fStringBuffer.append(text);
-    } // characters(XMLString,Augmentations)
+    }
 
     /** Ignorable whitespace. */
     @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
         characters(text, augs);
-    } // ignorableWhitespace(XMLString,Augmentations)
+    }
 
     @Override
     public void startCDATA(Augmentations augs) throws XNIException {
@@ -321,7 +321,7 @@ public class Writer
         out.println();
         out.flush();
         fStringBuffer.clear();
-    } // chars()
+    }
 
     /** Prints the specified string. */
     protected void print(String s) {
@@ -352,7 +352,7 @@ public class Writer
                 }
             }
         }
-    } // print(String)
+    }
 
     /**
      * Print out the HTML augmentations for the given augs.  Prints nothing if
@@ -381,7 +381,7 @@ public class Writer
                 out.print(']');
             }
         }
-    } // doAugs(Augmentations)
+    }
 
     /**
      * Store the HTML augmentations for the given augs in temporary variables
@@ -396,7 +396,7 @@ public class Writer
             fCharactersBeginColumn = evInfo.getBeginColumnNumber();
             fCharactersBeginCharacterOffset = evInfo.getBeginCharacterOffset();
         }
-    } // storeCharactersStart(Augmentations)
+    }
 
     /**
      * Store the HTML augmentations for the given augs in temporary variables
@@ -411,7 +411,7 @@ public class Writer
             fCharactersEndColumn = evInfo.getEndColumnNumber();
             fCharactersEndCharacterOffset = evInfo.getEndCharacterOffset();
         }
-    } // storeCharactersEnd(Augmentations)
+    }
 
     /**
      * Print out the HTML augmentation values for the current block of
@@ -434,7 +434,7 @@ public class Writer
             out.print(fCharactersEndCharacterOffset);
             out.print(']');
         }
-    } // doCharactersAugs()
+    }
 
     //
     // Protected static methods
@@ -464,7 +464,7 @@ public class Writer
                 auris[index] = tu;
             }
         }
-    } // sortAttrNames(XMLAttributes,String[])
+    }
 
     //
     // MAIN
@@ -483,7 +483,6 @@ public class Writer
                 new org.apache.xerces.xni.parser.XMLInputSource(null, element, null);
             parser.parse(source);
         }
-    } // main(String[])
-
-} // class Writer
+    }
+}
 

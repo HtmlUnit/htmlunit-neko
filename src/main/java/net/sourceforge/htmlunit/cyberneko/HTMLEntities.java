@@ -83,7 +83,7 @@ public class HTMLEntities {
     public static int get(String name) {
         final String value = ENTITIES.get(name);
         return value != null ? value.charAt(0) : -1;
-    } // get(String):char
+    }
 
     /**
      * Returns the name associated to the given character or null if
@@ -91,7 +91,7 @@ public class HTMLEntities {
      */
     public static String get(int c) {
         return SEITITNE.get(c);
-    } // get(int):String
+    }
 
     //
     // Private static methods
@@ -105,7 +105,7 @@ public class HTMLEntities {
         catch (final IOException e) {
             System.err.println("error: unable to load resource \""+filename+"\"");
         }
-    } // load0(String)
+    }
 
     //
     // Classes
@@ -140,5 +140,4 @@ public class HTMLEntities {
             }
         }
     }
-
-} // class HTMLEntities
+}

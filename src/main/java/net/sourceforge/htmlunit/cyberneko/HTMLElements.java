@@ -523,8 +523,7 @@ public class HTMLElements {
         for (final Element element : elementsMap.values()) {
             defineParents(element);
         }
-
-    } // <clinit>()
+    }
 
     public void setElement(Element element) {
         elementsMap.put(element.code, element);
@@ -552,7 +551,7 @@ public class HTMLElements {
      */
     public final Element getElement(final short code) {
         return elementsMap.get(code);
-    } // getElement(short):Element
+    }
 
     /**
      * Returns the element information for the specified element name.
@@ -567,7 +566,7 @@ public class HTMLElements {
             element.parentCodes = NO_SUCH_ELEMENT.parentCodes;
         }
         return element;
-    } // getElement(String):Element
+    }
 
     /**
      * Returns the element information for the specified element name.
@@ -582,8 +581,7 @@ public class HTMLElements {
             }
         }
         return element;
-
-    } // getElement(String):Element
+    }
 
     //
     // Classes
@@ -656,7 +654,7 @@ public class HTMLElements {
         public Element(final short code, final String name, final int flags,
                 final short parent, final short[] closes) {
             this(code, name, flags, new short[]{parent}, (short)-1, closes);
-        } // <init>(short,String,int,short,short[]);
+        }
 
         /**
          * Constructs an element object.
@@ -670,7 +668,7 @@ public class HTMLElements {
         public Element(final short code, final String name, final int flags,
                 final short parent, final short bounds, final short[] closes) {
             this(code, name, flags, new short[]{parent}, bounds, closes);
-        } // <init>(short,String,int,short,short,short[])
+        }
 
         /**
          * Constructs an element object.
@@ -684,7 +682,7 @@ public class HTMLElements {
         public Element(final short code, final String name, final int flags,
                 final short[] parents, final short[] closes) {
             this(code, name, flags, parents, (short)-1, closes);
-        } // <init>(short,String,int,short[],short[])
+        }
 
         /**
          * Constructs an element object.
@@ -704,7 +702,7 @@ public class HTMLElements {
             this.parent = null;
             this.bounds = bounds;
             this.closes = closes;
-        } // <init>(short,String,int,short[],short,short[])
+        }
 
         //
         // Public methods
@@ -713,22 +711,22 @@ public class HTMLElements {
         /** Returns true if this element is an inline element. */
         public final boolean isInline() {
             return (flags & INLINE) != 0;
-        } // isInline():boolean
+        }
 
         /** Returns true if this element is a block element. */
         public final boolean isBlock() {
             return (flags & BLOCK) != 0;
-        } // isBlock():boolean
+        }
 
         /** Returns true if this element is an empty element. */
         public final boolean isEmpty() {
             return (flags & EMPTY) != 0;
-        } // isEmpty():boolean
+        }
 
         /** Returns true if this element is a container element. */
         public final boolean isContainer() {
             return (flags & CONTAINER) != 0;
-        } // isContainer():boolean
+        }
 
         /**
          * Returns true if this element is special -- if its content
@@ -736,7 +734,7 @@ public class HTMLElements {
          */
         public final boolean isSpecial() {
             return (flags & SPECIAL) != 0;
-        } // isSpecial():boolean
+        }
 
         /**
          * Returns true if this element can close the specified Element.
@@ -752,8 +750,7 @@ public class HTMLElements {
                 }
             }
             return false;
-
-        } // closes(short):boolean
+        }
 
         //
         // Object methods
@@ -763,7 +760,7 @@ public class HTMLElements {
         @Override
         public int hashCode() {
             return name.hashCode();
-        } // hashCode():int
+        }
 
         /** Returns true if the objects are equal. */
         @Override
@@ -772,7 +769,7 @@ public class HTMLElements {
                 return name.equals(((Element)o).name);
             }
             return false;
-        } // equals(Object):boolean
+        }
 
         /**
          * Provides a simple representation to make debugging easier
@@ -796,7 +793,7 @@ public class HTMLElements {
             }
             return false;
         }
-    } // class Element
+    }
 
     /** Unsynchronized list of elements. */
     public static class ElementList {
@@ -823,8 +820,6 @@ public class HTMLElements {
                 data = newarray;
             }
             data[size++] = element;
-        } // addElement(Element)
-
-    } // class Element
-
-} // class HTMLElements
+        }
+    }
+}

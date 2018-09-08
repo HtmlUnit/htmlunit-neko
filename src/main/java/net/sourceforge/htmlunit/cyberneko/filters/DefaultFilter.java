@@ -62,33 +62,29 @@ public class DefaultFilter
     @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
-    } // setDocumentHandler(XMLDocumentHandler)
-
-    // @since Xerces 2.1.0
+    }
 
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
-    } // getDocumentHandler():XMLDocumentHandler
+    }
 
     /** Sets the document source. */
     @Override
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
-    } // setDocumentSource(XMLDocumentSource)
+    }
 
     /** Returns the document source. */
     @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
-    } // getDocumentSource():XMLDocumentSource
+    }
 
     //
     // XMLDocumentHandler methods
     //
-
-    // since Xerces-J 2.2.0
 
     /** Start document. */
     @Override
@@ -98,7 +94,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
         }
-    } // startDocument(XMLLocator,String,Augmentations)
+    }
 
     // old methods
 
@@ -109,7 +105,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.xmlDecl(version, encoding, standalone, augs);
         }
-    } // xmlDecl(String,String,String,Augmentations)
+    }
 
     /** Doctype declaration. */
     @Override
@@ -118,7 +114,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.doctypeDecl(root, publicId, systemId, augs);
         }
-    } // doctypeDecl(String,String,String,Augmentations)
+    }
 
     /** Comment. */
     @Override
@@ -127,7 +123,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.comment(text, augs);
         }
-    } // comment(XMLString,Augmentations)
+    }
 
     /** Processing instruction. */
     @Override
@@ -136,7 +132,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.processingInstruction(target, data, augs);
         }
-    } // processingInstruction(String,XMLString,Augmentations)
+    }
 
     /** Start element. */
     @Override
@@ -145,7 +141,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.startElement(element, attributes, augs);
         }
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Empty element. */
     @Override
@@ -154,7 +150,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.emptyElement(element, attributes, augs);
         }
-    } // emptyElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Characters. */
     @Override
@@ -163,7 +159,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.characters(text, augs);
         }
-    } // characters(XMLString,Augmentations)
+    }
 
     /** Ignorable whitespace. */
     @Override
@@ -172,7 +168,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.ignorableWhitespace(text, augs);
         }
-    } // ignorableWhitespace(XMLString,Augmentations)
+    }
 
     /** Start general entity. */
     @Override
@@ -181,7 +177,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.startGeneralEntity(name, id, encoding, augs);
         }
-    } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
+    }
 
     /** Text declaration. */
     @Override
@@ -190,7 +186,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.textDecl(version, encoding, augs);
         }
-    } // textDecl(String,String,Augmentations)
+    }
 
     /** End general entity. */
     @Override
@@ -199,7 +195,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.endGeneralEntity(name, augs);
         }
-    } // endGeneralEntity(String,Augmentations)
+    }
 
     /** Start CDATA section. */
     @Override
@@ -207,7 +203,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.startCDATA(augs);
         }
-    } // startCDATA(Augmentations)
+    }
 
     /** End CDATA section. */
     @Override
@@ -215,7 +211,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.endCDATA(augs);
         }
-    } // endCDATA(Augmentations)
+    }
 
     /** End element. */
     @Override
@@ -224,7 +220,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.endElement(element, augs);
         }
-    } // endElement(QName,Augmentations)
+    }
 
     /** End document. */
     @Override
@@ -232,7 +228,7 @@ public class DefaultFilter
         if (fDocumentHandler != null) {
             fDocumentHandler.endDocument(augs);
         }
-    } // endDocument(Augmentations)
+    }
 
     //
     // HTMLComponent methods
@@ -246,7 +242,7 @@ public class DefaultFilter
     @Override
     public String[] getRecognizedFeatures() {
         return null;
-    } // getRecognizedFeatures():String[]
+    }
 
     /**
      * Returns the default state for a feature, or null if this
@@ -256,7 +252,7 @@ public class DefaultFilter
     @Override
     public Boolean getFeatureDefault(String featureId) {
         return null;
-    } // getFeatureDefault(String):Boolean
+    }
 
     /**
      * Returns a list of property identifiers that are recognized by
@@ -266,7 +262,7 @@ public class DefaultFilter
     @Override
     public String[] getRecognizedProperties() {
         return null;
-    } // getRecognizedProperties():String[]
+    }
 
     /**
      * Returns the default state for a property, or null if this
@@ -276,7 +272,7 @@ public class DefaultFilter
     @Override
     public Object getPropertyDefault(String propertyId) {
         return null;
-    } // getPropertyDefault(String):Object
+    }
 
     /**
      * Resets the component. The component can query the component manager
@@ -290,7 +286,7 @@ public class DefaultFilter
     @Override
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
-    } // reset(XMLComponentManager)
+    }
 
     /**
      * Sets the state of a feature. This method is called by the component
@@ -311,7 +307,7 @@ public class DefaultFilter
     @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
-    } // setFeature(String,boolean)
+    }
 
     /**
      * Sets the value of a property. This method is called by the component
@@ -332,7 +328,7 @@ public class DefaultFilter
     @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
-    } // setProperty(String,Object)
+    }
 
     //
     // Protected static methods
@@ -361,7 +357,5 @@ public class DefaultFilter
         System.arraycopy(array2, 0, array3, array1.length, array2.length);
 
         return array3;
-
-    } // merge(String[],String[]):String[]
-
-} // class DefaultFilter
+    }
+}

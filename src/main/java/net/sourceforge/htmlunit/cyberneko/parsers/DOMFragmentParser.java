@@ -133,7 +133,7 @@ public class DOMFragmentParser
         fParserConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
         fParserConfiguration.setFeature(DOCUMENT_FRAGMENT, true);
         fParserConfiguration.setDocumentHandler(this);
-    } // <init>()
+    }
 
     //
     // Public methods
@@ -143,7 +143,7 @@ public class DOMFragmentParser
     public void parse(String systemId, DocumentFragment fragment)
         throws SAXException, IOException {
         parse(new InputSource(systemId), fragment);
-    } // parse(String,DocumentFragment)
+    }
 
     /** Parses a document fragment. */
     public void parse(InputSource source, DocumentFragment fragment)
@@ -173,8 +173,7 @@ public class DOMFragmentParser
             }
             throw new SAXParseException(e.getMessage(), null);
         }
-
-    } // parse(InputSource,DocumentFragment)
+    }
 
     /**
      * Allow an application to register an error event handler.
@@ -196,7 +195,7 @@ public class DOMFragmentParser
      */
     public void setErrorHandler(ErrorHandler errorHandler) {
         fParserConfiguration.setErrorHandler(new ErrorHandlerWrapper(errorHandler));
-    } // setErrorHandler(ErrorHandler)
+    }
 
     /**
      * Return the current error handler.
@@ -220,8 +219,7 @@ public class DOMFragmentParser
             // do nothing
         }
         return errorHandler;
-
-    } // getErrorHandler():ErrorHandler
+    }
 
     /**
      * Set the state of any feature in a SAX2 parser.  The parser
@@ -250,8 +248,7 @@ public class DOMFragmentParser
             }
             throw new SAXNotSupportedException(message);
         }
-
-    } // setFeature(String,boolean)
+    }
 
     /**
      * Query the state of a feature.
@@ -280,8 +277,7 @@ public class DOMFragmentParser
             }
             throw new SAXNotSupportedException(message);
         }
-
-    } // getFeature(String):boolean
+    }
 
     /**
      * Set the value of any property in a SAX2 parser.  The parser
@@ -311,8 +307,7 @@ public class DOMFragmentParser
             }
             throw new SAXNotSupportedException(message);
         }
-
-    } // setProperty(String,Object)
+    }
 
     /**
      * Query the value of a property.
@@ -346,8 +341,7 @@ public class DOMFragmentParser
             }
             throw new SAXNotSupportedException(message);
         }
-
-    } // getProperty(String):Object
+    }
 
     //
     // XMLDocumentHandler methods
@@ -357,19 +351,19 @@ public class DOMFragmentParser
     @Override
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
-    } // setDocumentSource(XMLDocumentSource)
+    }
 
     /** Returns the document source. */
     @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
-    } // getDocumentSource():XMLDocumentSource
+    }
 
     /** Start document. */
     public void startDocument(XMLLocator locator, String encoding,
                               Augmentations augs) throws XNIException {
         startDocument(locator, encoding, null, augs);
-    } // startDocument(XMLLocator,String,Augmentations)
+    }
 
     // since Xerces 2.2.0
 
@@ -379,20 +373,20 @@ public class DOMFragmentParser
                               NamespaceContext nscontext,
                               Augmentations augs) throws XNIException {
         fInCDATASection = false;
-    } // startDocument(XMLLocator,String,NamespaceContext,Augmentations)
+    }
 
     /** XML declaration. */
     @Override
     public void xmlDecl(String version, String encoding,
                         String standalone, Augmentations augs)
         throws XNIException {
-    } // xmlDecl(String,String,String,Augmentations)
+    }
 
     /** Document type declaration. */
     @Override
     public void doctypeDecl(String root, String pubid, String sysid,
                             Augmentations augs) throws XNIException {
-    } // doctypeDecl(String,String,String,Augmentations)
+    }
 
     /** Processing instruction. */
     @Override
@@ -405,7 +399,7 @@ public class DOMFragmentParser
             final ProcessingInstruction pi = fDocument.createProcessingInstruction(target, s);
             fCurrentNode.appendChild(pi);
         }
-    } // processingInstruction(String,XMLString,Augmentations)
+    }
 
     /** Comment. */
     @Override
@@ -413,7 +407,7 @@ public class DOMFragmentParser
         throws XNIException {
         final Comment comment = fDocument.createComment(text.toString());
         fCurrentNode.appendChild(comment);
-    } // comment(XMLString,Augmentations)
+    }
 
     /** Start element. */
     @Override
@@ -433,7 +427,7 @@ public class DOMFragmentParser
         }
         fCurrentNode.appendChild(elementNode);
         fCurrentNode = elementNode;
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Empty element. */
     @Override
@@ -441,7 +435,7 @@ public class DOMFragmentParser
                              Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
-    } // emptyElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Characters. */
     @Override
@@ -471,14 +465,14 @@ public class DOMFragmentParser
             }
         }
 
-    } // characters(XMLString,Augmentations)
+    }
 
     /** Ignorable whitespace. */
     @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs)
         throws XNIException {
         characters(text, augs);
-    } // ignorableWhitespace(XMLString,Augmentations)
+    }
 
     /** Start general entity. */
     @Override
@@ -488,50 +482,50 @@ public class DOMFragmentParser
         final EntityReference entityRef = fDocument.createEntityReference(name);
         fCurrentNode.appendChild(entityRef);
         fCurrentNode = entityRef;
-    } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
+    }
 
     /** Text declaration. */
     @Override
     public void textDecl(String version, String encoding,
                          Augmentations augs) throws XNIException {
-    } // textDecl(String,String,Augmentations)
+    }
 
     /** End general entity. */
     @Override
     public void endGeneralEntity(String name, Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
-    } // endGeneralEntity(String,Augmentations)
+    }
 
     /** Start CDATA section. */
     @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = true;
-    } // startCDATA(Augmentations)
+    }
 
     /** End CDATA section. */
     @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         fInCDATASection = false;
-    } // endCDATA(Augmentations)
+    }
 
     /** End element. */
     @Override
     public void endElement(QName element, Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
-    } // endElement(QName,Augmentations)
+    }
 
     /** End document. */
     @Override
     public void endDocument(Augmentations augs) throws XNIException {
-    } // endDocument(Augmentations)
+    }
 
     //
     // DEBUG
     //
 
-    /***
+    /*
     public static void print(Node node) {
         short type = node.getNodeType();
         switch (type) {
@@ -583,6 +577,5 @@ public class DOMFragmentParser
             print(fragment);
         }
     }
-    /***/
-
-} // class DOMFragmentParser
+    */
+}

@@ -37,6 +37,5 @@ public class SAXParser
     /** Default constructor. */
     public SAXParser() {
         super(new HTMLConfiguration());
-    } // <init>()
-
-} // class SAXParser
+    }
+}

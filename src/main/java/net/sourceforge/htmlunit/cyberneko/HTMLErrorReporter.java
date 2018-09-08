@@ -52,5 +52,4 @@ public interface HTMLErrorReporter {
 
     /** Reports an error. */
     public void reportError(String key, Object[] args) throws XMLParseException;
-
-} // interface HTMLErrorReporter
+}

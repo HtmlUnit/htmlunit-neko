@@ -51,7 +51,7 @@ public class UTF8BOMSkipper
     /** Constructs a UTF-8 BOM skipper. */
     public UTF8BOMSkipper(InputStream stream) {
         super(stream);
-    } // <init>(InputStream)
+    }
 
     //
     // InputStream methods
@@ -86,8 +86,7 @@ public class UTF8BOMSkipper
 
         // return next char
         return super.read();
-
-    } // read():int
+    }
 
     /** Reads bytes into specified buffer and returns total bytes read. */
     @Override
@@ -105,14 +104,13 @@ public class UTF8BOMSkipper
         }
 
         return super.read(buffer, offset, length);
-
-    } // read(byte[],int,int):int
+    }
 
     /** Mark is not supported for this input stream. */
     @Override
     public boolean markSupported() {
         return false;
-    } // markSupported():boolean
+    }
 
     /** Returns the number of bytes available. */
     @Override
@@ -121,6 +119,5 @@ public class UTF8BOMSkipper
             return fFirst3Bytes.length - fOffset;
         }
         return super.available();
-    } // available():int
-
-} // class UTF8BOMSkipper
+    }
+}

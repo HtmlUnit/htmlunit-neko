@@ -309,7 +309,7 @@ public class HTMLTagBalancer
             }
         }
         return null;
-    } // getFeatureDefault(String):Boolean
+    }
 
     /** Returns the default state for a property. */
     @Override
@@ -321,7 +321,7 @@ public class HTMLTagBalancer
             }
         }
         return null;
-    } // getPropertyDefault(String):Object
+    }
 
     //
     // XMLComponent methods
@@ -331,13 +331,13 @@ public class HTMLTagBalancer
     @Override
     public String[] getRecognizedFeatures() {
         return RECOGNIZED_FEATURES;
-    } // getRecognizedFeatures():String[]
+    }
 
     /** Returns recognized properties. */
     @Override
     public String[] getRecognizedProperties() {
         return RECOGNIZED_PROPERTIES;
-    } // getRecognizedProperties():String[]
+    }
 
     /** Resets the component. */
     @Override
@@ -370,7 +370,7 @@ public class HTMLTagBalancer
         fSeenFramesetElement = false;
         fSeenCharacters = false;
 
-    } // reset(XMLComponentManager)
+    }
 
     /** Sets a feature. */
     @Override
@@ -390,7 +390,7 @@ public class HTMLTagBalancer
             return;
         }
 
-    } // setFeature(String,boolean)
+    }
 
     /** Sets a property. */
     @Override
@@ -407,7 +407,7 @@ public class HTMLTagBalancer
             return;
         }
 
-    } // setProperty(String,Object)
+    }
 
     //
     // XMLDocumentSource methods
@@ -417,7 +417,7 @@ public class HTMLTagBalancer
     @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
-    } // setDocumentHandler(XMLDocumentHandler)
+    }
 
     // @since Xerces 2.1.0
 
@@ -425,7 +425,7 @@ public class HTMLTagBalancer
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
-    } // getDocumentHandler():XMLDocumentHandler
+    }
 
     //
     // XMLDocumentHandler methods
@@ -458,7 +458,7 @@ public class HTMLTagBalancer
             fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
         }
 
-    } // startDocument(XMLLocator,String,Augmentations)
+    }
 
     // old methods
 
@@ -469,7 +469,7 @@ public class HTMLTagBalancer
         if (!fSeenAnything && fDocumentHandler != null) {
             fDocumentHandler.xmlDecl(version, encoding, standalone, augs);
         }
-    } // xmlDecl(String,String,String,Augmentations)
+    }
 
     /** Doctype declaration. */
     @Override
@@ -490,7 +490,7 @@ public class HTMLTagBalancer
                 fDocumentHandler.doctypeDecl(rootElementName, publicId, systemId, augs);
             }
         }
-    } // doctypeDecl(String,String,String,Augmentations)
+    }
 
     /** End document. */
     @Override
@@ -538,7 +538,7 @@ public class HTMLTagBalancer
             fDocumentHandler.endDocument(augs);
         }
 
-    } // endDocument(Augmentations)
+    }
 
     /**
      * Consume elements that have been buffered, like </body></html> that are first consumed
@@ -562,7 +562,7 @@ public class HTMLTagBalancer
         if (fDocumentHandler != null) {
             fDocumentHandler.comment(text, augs);
         }
-    } // comment(XMLString,Augmentations)
+    }
 
     private void consumeEarlyTextIfNeeded() {
         if (!lostText_.isEmpty()) {
@@ -582,7 +582,7 @@ public class HTMLTagBalancer
         if (fDocumentHandler != null) {
             fDocumentHandler.processingInstruction(target, data, augs);
         }
-    } // processingInstruction(String,XMLString,Augmentations)
+    }
 
     /** Start element. */
     @Override
@@ -801,7 +801,7 @@ public class HTMLTagBalancer
         if (elementCode == HTMLElements.BODY) {
             lostText_.refeed(this);
         }
-    } // startElement(QName,XMLAttributes,Augmentations)
+    }
 
     /**
      * Forces an element start, taking care to set the information to allow startElement to "see" that's
@@ -835,7 +835,7 @@ public class HTMLTagBalancer
                 || (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)) {
             endElement(element, augs);
         }
-    } // emptyElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Start entity. */
     @Override
@@ -877,7 +877,7 @@ public class HTMLTagBalancer
             fDocumentHandler.startGeneralEntity(name, id, encoding, augs);
         }
 
-    } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
+    }
 
     /**
      * Generates a missing <body> (which creates missing <head> when needed)
@@ -906,7 +906,7 @@ public class HTMLTagBalancer
             fDocumentHandler.textDecl(version, encoding, augs);
         }
 
-    } // textDecl(String,String,Augmentations)
+    }
 
     /** End entity. */
     @Override
@@ -922,7 +922,7 @@ public class HTMLTagBalancer
             fDocumentHandler.endGeneralEntity(name, augs);
         }
 
-    } // endGeneralEntity(String,Augmentations)
+    }
 
     /** Start CDATA section. */
     @Override
@@ -941,7 +941,7 @@ public class HTMLTagBalancer
             fDocumentHandler.startCDATA(augs);
         }
 
-    } // startCDATA(Augmentations)
+    }
 
     /** End CDATA section. */
     @Override
@@ -957,7 +957,7 @@ public class HTMLTagBalancer
             fDocumentHandler.endCDATA(augs);
         }
 
-    } // endCDATA(Augmentations)
+    }
 
     /** Characters. */
     @Override
@@ -1022,14 +1022,14 @@ public class HTMLTagBalancer
             fDocumentHandler.characters(text, augs);
         }
 
-    } // characters(XMLString,Augmentations)
+    }
 
     /** Ignorable whitespace. */
     @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs)
         throws XNIException {
         characters(text, augs);
-    } // ignorableWhitespace(XMLString,Augmentations)
+    }
 
     /** End element. */
     @Override
@@ -1149,7 +1149,7 @@ public class HTMLTagBalancer
             }
         }
 
-    } // endElement(QName,Augmentations)
+    }
 
     // @since Xerces 2.1.0
 
@@ -1157,13 +1157,13 @@ public class HTMLTagBalancer
     @Override
     public void setDocumentSource(XMLDocumentSource source) {
         fDocumentSource = source;
-    } // setDocumentSource(XMLDocumentSource)
+    }
 
     /** Returns the document source. */
     @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
-    } // getDocumentSource():XMLDocumentSource
+    }
 
     //
     // Protected methods
@@ -1179,20 +1179,20 @@ public class HTMLTagBalancer
             }
         }
         return htmlConfiguration_.htmlElements_.getElement(name);
-    } // getElement(String):HTMLElements.Element
+    }
 
     /** Call document handler start element. */
     protected final void callStartElement(QName element, XMLAttributes attrs,
                                           Augmentations augs)
         throws XNIException {
         fDocumentHandler.startElement(element, attrs, augs);
-    } // callStartElement(QName,XMLAttributes,Augmentations)
+    }
 
     /** Call document handler end element. */
     protected final void callEndElement(QName element, Augmentations augs)
         throws XNIException {
         fDocumentHandler.endElement(element, augs);
-    } // callEndElement(QName,Augmentations)
+    }
 
     /**
      * Returns the depth of the open tag associated with the specified
@@ -1224,7 +1224,7 @@ public class HTMLTagBalancer
             }
         }
         return depth;
-    } // getElementDepth(HTMLElements.Element)
+    }
 
     /**
      * Returns the depth of the open tag associated with the specified
@@ -1247,13 +1247,13 @@ public class HTMLTagBalancer
             }
         }
         return -1;
-    } // getParentDepth(HTMLElements.Element[],short):int
+    }
 
     /** Returns a set of empty attributes. */
     protected final XMLAttributes emptyAttributes() {
         fEmptyAttrs.removeAllAttributes();
         return fEmptyAttrs;
-    } // emptyAttributes():XMLAttributes
+    }
 
     /** Returns an augmentations object with a synthesized item added. */
     protected final Augmentations synthesizedAugs() {
@@ -1264,7 +1264,7 @@ public class HTMLTagBalancer
             augs.putItem(AUGMENTATIONS, SYNTHESIZED_ITEM);
         }
         return augs;
-    } // synthesizedAugs():Augmentations
+    }
 
     //
     // Protected static methods
@@ -1277,7 +1277,7 @@ public class HTMLTagBalancer
             case NAMES_LOWERCASE: return name.toLowerCase(Locale.ENGLISH);
         }
         return name;
-    } // modifyName(String,short):String
+    }
 
     /**
      * Converts HTML names string value to constant value.
@@ -1294,7 +1294,7 @@ public class HTMLTagBalancer
             return NAMES_UPPERCASE;
         }
         return NAMES_NO_CHANGE;
-    } // getNamesValue(String):short
+    }
 
     //
     // Classes
@@ -1344,7 +1344,7 @@ public class HTMLTagBalancer
          */
         public Info(HTMLElements.Element element, QName qname) {
             this(element, qname, null);
-        } // <init>(HTMLElements.Element,QName)
+        }
 
         /**
          * Creates an element information object.
@@ -1377,7 +1377,7 @@ public class HTMLTagBalancer
                     this.attributes = newattrs;
                 }
             }
-        } // <init>(HTMLElements.Element,QName,XMLAttributes)
+        }
 
         /**
          * Simple representation to make debugging easier
@@ -1386,7 +1386,7 @@ public class HTMLTagBalancer
         public String toString() {
             return super.toString() + qname;
         }
-    } // class Info
+    }
 
     /** Unsynchronized stack of element information. */
     public static class InfoStack {
@@ -1413,17 +1413,17 @@ public class HTMLTagBalancer
                 data = newarray;
             }
             data[top++] = info;
-        } // push(Info)
+        }
 
         /** Peeks at the top of the stack. */
         public Info peek() {
             return data[top-1];
-        } // peek():Info
+        }
 
         /** Pops the top item off of the stack. */
         public Info pop() {
             return data[--top];
-        } // pop():Info
+        }
 
         /**
          * Simple representation to make debugging easier
@@ -1439,9 +1439,7 @@ public class HTMLTagBalancer
             sb.append(")");
             return sb.toString();
         }
-
-
-    } // class InfoStack
+    }
 
     void setTagBalancingListener(final HTMLTagBalancingListener tagBalancingListener) {
         this.tagBalancingListener = tagBalancingListener;
@@ -1476,4 +1474,4 @@ public class HTMLTagBalancer
             augs_ = (augs == null) ? null : new HTMLAugmentations(augs);
         }
     }
-} // class HTMLTagBalancer
+}

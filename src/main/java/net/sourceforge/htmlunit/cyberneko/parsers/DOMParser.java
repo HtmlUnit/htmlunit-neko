@@ -55,10 +55,9 @@ public class DOMParser
         catch (final org.xml.sax.SAXNotSupportedException e) {
             throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not supported");
         }
-        /*** extending AbstractDOMParser ***
+        /** extending AbstractDOMParser ***
         fConfiguration.setProperty("http://apache.org/xml/properties/dom/document-class-name",
                                    "org.apache.html.dom.HTMLDocumentImpl");
-        /***/
-    } // <init>()
-
-} // class DOMParser
+        */
+    }
+}
