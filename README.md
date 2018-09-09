@@ -57,7 +57,7 @@ This part is intended for committer who are packaging a release.
   - release the package and wait until it is processed
 
 * Create the version on Github
-    * login to Github and open project https://github.com/HtmlUnit/htmlunit-cssparser
+    * login to Github and open project https://github.com/HtmlUnit/htmlunit-neko
     * click Releases > Draft new release
     * fill the tag and title field with the release number (e.g. 1.1.0)
     * append 
