@@ -78,8 +78,10 @@ This part is intended for committer who are packaging a release.
 
 ## Authors
 
-* **RBRi**
-* all the contributors to CSSParser
+* **Andy Clark** (author of CyberNeko)
+* **Marc Guillemot** (CyberNeko and NekoHtml)
+* **Ahmed Ashour** (NekoHtml)
+* **RBRi** (NekoHtml)
 
 ## License
 
