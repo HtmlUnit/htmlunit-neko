@@ -2952,8 +2952,15 @@ public class HTMLScanner
                 if (fReportErrors) {
                     fErrorReporter.reportError("HTML1011", null);
                 }
-                empty[0] = skipMarkup(false);
-                return false;
+
+                // check if the next char is '=' and handle this according to the spec
+                skipSpaces();
+                if (!fCurrentEntity.hasNext() || '=' != fCurrentEntity.getNextChar()) {
+                    fCurrentEntity.rewind();
+                    empty[0] = skipMarkup(false);
+                    return false;
+                }
+                aname = '=' + scanName(false);
             }
             if (!skippedSpaces && fReportErrors) {
                 fErrorReporter.reportError("HTML1013", new Object[] { aname });
