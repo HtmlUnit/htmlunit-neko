@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  * A SAX parser for HTML documents.
  *
  * @author Andy Clark
- *
- * @version $Id: SAXParser.java,v 1.4 2005/02/14 03:56:54 andyc Exp $
  */
 public class SAXParser
     extends AbstractSAXParser {

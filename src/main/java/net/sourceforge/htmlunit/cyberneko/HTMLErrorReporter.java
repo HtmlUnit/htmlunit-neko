@@ -35,8 +35,6 @@ import org.apache.xerces.xni.parser.XMLParseException;
  * All reported errors are within the domain "http://cyberneko.org/html".
  *
  * @author Andy Clark
- *
- * @version $Id: HTMLErrorReporter.java,v 1.4 2005/02/14 03:56:54 andyc Exp $
  */
 public interface HTMLErrorReporter {
 

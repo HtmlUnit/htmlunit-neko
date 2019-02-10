@@ -63,8 +63,6 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  * A DOM parser for HTML fragments.
  *
  * @author Andy Clark
- *
- * @version $Id: DOMFragmentParser.java,v 1.8 2005/02/14 03:56:54 andyc Exp $
  */
 public class DOMFragmentParser
     implements XMLDocumentHandler {

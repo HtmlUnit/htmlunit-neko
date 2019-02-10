@@ -27,8 +27,6 @@ import java.util.Map;
  * @author Ahmed Ashour
  * @author Marc Guillemot
  * @author Ronald Brill
- *
- * @version $Id: HTMLElements.java,v 1.12 2005/02/14 07:16:59 andyc Exp $
  */
 public class HTMLElements {
 

@@ -17,7 +17,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link HTMLTagBalancingListener}.
  * @author Marc Guillemot
- * @version $Id: HTMLTagBalancingListenerTest.java 320 2013-01-29 07:46:36Z mguillem $
  */
 public class HTMLTagBalancingListenerTest extends TestCase {
 

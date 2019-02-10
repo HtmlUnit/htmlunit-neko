@@ -91,8 +91,6 @@ import org.apache.xerces.xni.parser.XMLInputSource;
  * @author Andy Clark
  * @author Marc Guillemot
  * @author Ahmed Ashour
- *
- * @version $Id: HTMLScanner.java,v 1.19 2005/06/14 05:52:37 andyc Exp $
  */
 public class HTMLScanner
     implements XMLDocumentScanner, XMLLocator, HTMLComponent {

@@ -74,8 +74,6 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  * @see HTMLErrorReporter
  *
  * @author Andy Clark
- *
- * @version $Id: HTMLConfiguration.java,v 1.9 2005/02/14 03:56:54 andyc Exp $
  */
 public class HTMLConfiguration
     extends ParserConfigurationSettings

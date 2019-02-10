@@ -38,8 +38,6 @@ import net.sourceforge.htmlunit.cyberneko.HTMLComponent;
  * simplify the development of new document filters.
  *
  * @author Andy Clark
- *
- * @version $Id: DefaultFilter.java,v 1.7 2005/02/14 03:56:54 andyc Exp $
  */
 public class DefaultFilter
     implements XMLDocumentFilter, HTMLComponent {

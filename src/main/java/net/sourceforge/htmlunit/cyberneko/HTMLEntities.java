@@ -28,8 +28,6 @@ import java.util.Properties;
  * Pre-defined HTML entities.
  *
  * @author Andy Clark
- *
- * @version $Id: HTMLEntities.java,v 1.5 2005/02/14 03:56:54 andyc Exp $
  */
 public class HTMLEntities {
 

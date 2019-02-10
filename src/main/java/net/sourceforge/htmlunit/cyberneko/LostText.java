@@ -26,8 +26,6 @@ import org.apache.xerces.xni.XMLString;
  * Container for text that should be hold and re-feed later like text before &lt;html&gt; that will be re-feed
  * in &lt;body&gt;
  * @author Marc Guillemot
- *
- * @version $Id: LostText.java 226 2009-02-09 20:48:44Z mguillem $
  */
 class LostText
 {

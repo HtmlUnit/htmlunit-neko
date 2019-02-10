@@ -24,8 +24,6 @@ import org.apache.xerces.xni.parser.XMLComponent;
  * and properties to be queried.
  *
  * @author Andy Clark
- *
- * @version $Id: HTMLComponent.java,v 1.4 2005/02/14 03:56:54 andyc Exp $
  */
 public interface HTMLComponent
     extends XMLComponent {

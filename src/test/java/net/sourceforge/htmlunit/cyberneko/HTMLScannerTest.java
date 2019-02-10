@@ -23,7 +23,6 @@ import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
  * Unit tests for {@link HTMLScanner}.
  * @author Marc Guillemot
  * @author Ahmed Ashour
- * @version $Id: HTMLScanner.java,v 1.19 2005/06/14 05:52:37 andyc Exp $
  */
 public class HTMLScannerTest extends TestCase {
 

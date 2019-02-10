@@ -42,8 +42,6 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  * </ul>
  *
  * @author Andy Clark
- *
- * @version $Id: NamespaceBinder.java,v 1.8 2005/05/30 00:19:28 andyc Exp $
  */
 public class NamespaceBinder
     extends DefaultFilter {

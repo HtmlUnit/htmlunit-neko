@@ -69,8 +69,6 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  *
  * @author Andy Clark
  * @author Marc Guillemot
- *
- * @version $Id: HTMLTagBalancer.java,v 1.20 2005/02/14 04:06:22 andyc Exp $
  */
 public class HTMLTagBalancer
     implements XMLDocumentFilter, HTMLComponent {

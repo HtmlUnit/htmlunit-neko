@@ -14,8 +14,6 @@ import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
  * Unit tests for {@link HTMLTagBalancer}'s property {@link HTMLTagBalancer#FRAGMENT_CONTEXT_STACK}.
  *
  * @author Marc Guillemot
- * @version $Id: HTMLTagBalancingListenerTest.java 145 2008-03-17 18:18:33Z
- *          mguillem $
  */
 public class FragmentContextStackTest extends TestCase {
 

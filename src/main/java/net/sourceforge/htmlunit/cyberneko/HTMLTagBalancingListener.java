@@ -29,7 +29,6 @@ import org.apache.xerces.xni.XMLDocumentHandler;
  * <li>activate the tag balancing feature</li>
  * </ul>
  * @author Marc Guillemot
- * @version $Id: HTMLTagBalancingListener.java 260 2009-09-02 08:26:01Z mguillem $
  */
 public interface HTMLTagBalancingListener
 {

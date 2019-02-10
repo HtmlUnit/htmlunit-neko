@@ -21,8 +21,6 @@ package net.sourceforge.htmlunit.cyberneko;
  * application through the XNI pipeline.
  *
  * @author Andy Clark
- *
- * @version $Id: HTMLEventInfo.java,v 1.4 2005/02/14 03:56:54 andyc Exp $
  */
 public interface HTMLEventInfo {
 
