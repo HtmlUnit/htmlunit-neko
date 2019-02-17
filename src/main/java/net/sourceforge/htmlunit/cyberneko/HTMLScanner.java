@@ -86,7 +86,7 @@ import org.apache.xerces.xni.parser.XMLInputSource;
  * </ul>
  *
  * @see HTMLElements
- * @see HTMLEntities
+ * @see HTMLNamedEntitiesParserGenerator
  *
  * @author Andy Clark
  * @author Marc Guillemot
@@ -1338,6 +1338,64 @@ public class HTMLScanner
         throws IOException {
         str.clear();
         str.append('&');
+
+        int nextChar = fCurrentEntity.read();
+        if ('#' == nextChar) {
+            fCurrentEntity.rewind();
+        }
+        else {
+            str.append((char) nextChar);
+            HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
+            while(nextChar > 0 && parser.parse(nextChar)) {
+                nextChar = fCurrentEntity.read();
+                str.append((char) nextChar);
+            }
+
+            final String match = parser.getMatch();
+            if (match != null) {
+                fCurrentEntity.rewind(parser.getRewindCount());
+
+                if (parser.endsWithSemicolon()) {
+                    str.clear();
+                    str.append(match);
+                }
+                else {
+                    if (fReportErrors) {
+                        fErrorReporter.reportWarning("HTML1004", null);
+                    }
+
+                    if (content) {
+                        str.clear();
+                        str.append(match);
+                    }
+                    else {
+                        // look ahead
+                        final String consumed = str.toString();
+                        nextChar = consumed.charAt(parser.getMatchLength() + 1);
+                        if ('=' == nextChar
+                                || '0' <= nextChar && nextChar <= '9'
+                                || 'A' <= nextChar && nextChar <= 'Z'
+                                || 'a' <= nextChar && nextChar <= 'z') {
+                            str.clear();
+                            str.append(consumed.substring(0, parser.getMatchLength() + 1));
+                        }
+                        else {
+                            str.clear();
+                            str.append(match);
+                        }
+                    }
+                }
+            }
+            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                fEndLineNumber = fCurrentEntity.getLineNumber();
+                fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                fDocumentHandler.characters(str, locationAugs());
+            }
+            return -1;
+        }
+
+        // org code
         boolean endsWithSemicolon = false;
         while (true) {
             final int c = fCurrentEntity.read();
@@ -1421,7 +1479,8 @@ public class HTMLScanner
             return value;
         }
 
-        final int c = HTMLEntities.get(name);
+        // final int c = HTMLNamedEntitiesParserGenerator.get(name);
+        final int c = -1;
         // in attributes, some incomplete entities should be recognized, not all
         // TODO: investigate to find which ones (there are differences between browsers)
         // in a first time, consider only those that behave the same in FF and IE
@@ -1437,23 +1496,6 @@ public class HTMLScanner
                 fDocumentHandler.characters(str, locationAugs());
             }
             return -1;
-        }
-        if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-            fEndLineNumber = fCurrentEntity.getLineNumber();
-            fEndColumnNumber = fCurrentEntity.getColumnNumber();
-            fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-            final boolean notify = fNotifyHtmlBuiltinRefs || (fNotifyXmlBuiltinRefs && builtinXmlRef(name));
-            if (notify) {
-                final XMLResourceIdentifier id = resourceId();
-                final String encoding = null;
-                fDocumentHandler.startGeneralEntity(name, id, encoding, locationAugs());
-            }
-            str.clear();
-            appendChar(str, c, null);
-            fDocumentHandler.characters(str, locationAugs());
-            if (notify) {
-                fDocumentHandler.endGeneralEntity(name, locationAugs());
-            }
         }
         return c;
     }

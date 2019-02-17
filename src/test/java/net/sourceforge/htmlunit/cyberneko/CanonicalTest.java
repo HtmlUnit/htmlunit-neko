@@ -70,7 +70,7 @@ public class CanonicalTest extends TestCase {
                 if (file.isDirectory() && !"canonical".equals(name)) {
                     file.listFiles(this);
                 }
-                else if (name.startsWith("test-dupli") && name.endsWith(".html")) {
+                else if (name.startsWith("test") && name.endsWith(".html")) {
                     dataFiles.add(file);
                 }
                 return false; // we don't care to listFiles' result
