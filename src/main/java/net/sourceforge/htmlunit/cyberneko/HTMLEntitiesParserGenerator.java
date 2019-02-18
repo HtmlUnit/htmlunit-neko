@@ -29,10 +29,10 @@ import java.util.Properties;
  * @author Andy Clark
  * @author Ronald Brill
  */
-public class HTMLNamedEntitiesParserGenerator {
+public class HTMLEntitiesParserGenerator {
 
     private static final class State {
-        private static int idGen = HTMLNamedEntitiesParser.STATE_START;
+        private static int idGen = HTMLEntitiesParser.STATE_START;
 
         int id;
         String switchCode;
@@ -60,7 +60,7 @@ public class HTMLNamedEntitiesParserGenerator {
         }
 
         String start = "";
-        List<State> states = new LinkedList<HTMLNamedEntitiesParserGenerator.State>();
+        List<State> states = new LinkedList<HTMLEntitiesParserGenerator.State>();
         switchChar(entities, mapped, start, states);
 
         int splitter = 1000;
@@ -170,7 +170,7 @@ public class HTMLNamedEntitiesParserGenerator {
 
     /** Loads the entity values in the specified resource. */
     private static void load0(final Properties props, final String filename) {
-        try (InputStream stream = HTMLNamedEntitiesParserGenerator.class.getResourceAsStream(filename)) {
+        try (InputStream stream = HTMLEntitiesParserGenerator.class.getResourceAsStream(filename)) {
             props.load(stream);
         }
         catch (final IOException e) {

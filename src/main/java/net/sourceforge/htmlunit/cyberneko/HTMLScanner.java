@@ -86,7 +86,7 @@ import org.apache.xerces.xni.parser.XMLInputSource;
  * </ul>
  *
  * @see HTMLElements
- * @see HTMLNamedEntitiesParserGenerator
+ * @see HTMLEntitiesParserGenerator
  *
  * @author Andy Clark
  * @author Marc Guillemot
@@ -1341,12 +1341,12 @@ public class HTMLScanner
 
         int nextChar = fCurrentEntity.read();
         if ('#' == nextChar) {
-            fCurrentEntity.rewind();
-        }
-        else {
+            // fCurrentEntity.rewind();
             str.append((char) nextChar);
-            HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
-            while(nextChar > 0 && parser.parse(nextChar)) {
+            HTMLEntitiesParser parser = new HTMLEntitiesParser();
+            nextChar = fCurrentEntity.read();
+            str.append((char) nextChar);
+            while(nextChar > 0 && parser.parseNumeric(nextChar)) {
                 nextChar = fCurrentEntity.read();
                 str.append((char) nextChar);
             }
@@ -1354,150 +1354,67 @@ public class HTMLScanner
             final String match = parser.getMatch();
             if (match != null) {
                 fCurrentEntity.rewind(parser.getRewindCount());
+                str.clear();
+                str.append(match);
+            }
+            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                fEndLineNumber = fCurrentEntity.getLineNumber();
+                fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                fDocumentHandler.characters(str, locationAugs());
+            }
+            return -1;
+        }
 
-                if (parser.endsWithSemicolon()) {
+        str.append((char) nextChar);
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        while(nextChar > 0 && parser.parse(nextChar)) {
+            nextChar = fCurrentEntity.read();
+            str.append((char) nextChar);
+        }
+
+        final String match = parser.getMatch();
+        if (match != null) {
+            fCurrentEntity.rewind(parser.getRewindCount());
+
+            if (parser.endsWithSemicolon()) {
+                str.clear();
+                str.append(match);
+            }
+            else {
+                if (fReportErrors) {
+                    fErrorReporter.reportWarning("HTML1004", null);
+                }
+
+                if (content) {
                     str.clear();
                     str.append(match);
                 }
                 else {
-                    if (fReportErrors) {
-                        fErrorReporter.reportWarning("HTML1004", null);
+                    // look ahead
+                    final String consumed = str.toString();
+                    nextChar = consumed.charAt(parser.getMatchLength() + 1);
+                    if ('=' == nextChar
+                            || '0' <= nextChar && nextChar <= '9'
+                            || 'A' <= nextChar && nextChar <= 'Z'
+                            || 'a' <= nextChar && nextChar <= 'z') {
+                        str.clear();
+                        str.append(consumed.substring(0, parser.getMatchLength() + 1));
                     }
-
-                    if (content) {
+                    else {
                         str.clear();
                         str.append(match);
                     }
-                    else {
-                        // look ahead
-                        final String consumed = str.toString();
-                        nextChar = consumed.charAt(parser.getMatchLength() + 1);
-                        if ('=' == nextChar
-                                || '0' <= nextChar && nextChar <= '9'
-                                || 'A' <= nextChar && nextChar <= 'Z'
-                                || 'a' <= nextChar && nextChar <= 'z') {
-                            str.clear();
-                            str.append(consumed.substring(0, parser.getMatchLength() + 1));
-                        }
-                        else {
-                            str.clear();
-                            str.append(match);
-                        }
-                    }
                 }
-            }
-            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                fEndLineNumber = fCurrentEntity.getLineNumber();
-                fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(str, locationAugs());
-            }
-            return -1;
-        }
-
-        // org code
-        boolean endsWithSemicolon = false;
-        while (true) {
-            final int c = fCurrentEntity.read();
-            if (c == ';') {
-                str.append(';');
-                endsWithSemicolon = true;
-                break;
-            }
-            else if (c == -1) {
-                break;
-            }
-            else if (!ENTITY_CHARS.get(c) && c != '#') {
-                fCurrentEntity.rewind();
-                break;
-            }
-            appendChar(str, c, null);
-        }
-
-        if (!endsWithSemicolon) {
-            if (fReportErrors) {
-                fErrorReporter.reportWarning("HTML1004", null);
             }
         }
-        if (str.length == 1) {
-            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                fEndLineNumber = fCurrentEntity.getLineNumber();
-                fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(str, locationAugs());
-            }
-            return -1;
+        if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
+            fEndLineNumber = fCurrentEntity.getLineNumber();
+            fEndColumnNumber = fCurrentEntity.getColumnNumber();
+            fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+            fDocumentHandler.characters(str, locationAugs());
         }
-
-        final String name;
-        if (endsWithSemicolon)
-            name = str.toString().substring(1, str.length -1);
-        else
-            name = str.toString().substring(1);
-
-        if (name.startsWith("#")) {
-            int value = -1;
-            try {
-                if (name.startsWith("#x") || name.startsWith("#X")) {
-                    value = Integer.parseInt(name.substring(2), 16);
-                }
-                else {
-                    value = Integer.parseInt(name.substring(1));
-                }
-                /* PATCH: Asgeir Asgeirsson */
-                if (fFixWindowsCharRefs && fIso8859Encoding) {
-                    value = fixWindowsCharacter(value);
-                }
-                if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                    fEndLineNumber = fCurrentEntity.getLineNumber();
-                    fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                    fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                    if (fNotifyCharRefs) {
-                        final XMLResourceIdentifier id = resourceId();
-                        final String encoding = null;
-                        fDocumentHandler.startGeneralEntity(name, id, encoding, locationAugs());
-                    }
-                    str.clear();
-                    appendChar(str, value, name);
-                    fDocumentHandler.characters(str, locationAugs());
-                    if (fNotifyCharRefs) {
-                        fDocumentHandler.endGeneralEntity(name, locationAugs());
-                    }
-                }
-            }
-            catch (final NumberFormatException e) {
-                if (fReportErrors) {
-                    fErrorReporter.reportError("HTML1005", new Object[]{name});
-                }
-                if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                    fEndLineNumber = fCurrentEntity.getLineNumber();
-                    fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                    fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                    fDocumentHandler.characters(str, locationAugs());
-                }
-            }
-            return value;
-        }
-
-        // final int c = HTMLNamedEntitiesParserGenerator.get(name);
-        final int c = -1;
-        // in attributes, some incomplete entities should be recognized, not all
-        // TODO: investigate to find which ones (there are differences between browsers)
-        // in a first time, consider only those that behave the same in FF and IE
-        final boolean invalidEntityInAttribute = !content && !endsWithSemicolon && c > 256;
-        if (c == -1 || invalidEntityInAttribute) {
-            if (fReportErrors) {
-                fErrorReporter.reportWarning("HTML1006", new Object[]{name});
-            }
-            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                fEndLineNumber = fCurrentEntity.getLineNumber();
-                fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(str, locationAugs());
-            }
-            return -1;
-        }
-        return c;
+        return -1;
     }
 
     /** Returns true if the specified text is present and is skipped. */

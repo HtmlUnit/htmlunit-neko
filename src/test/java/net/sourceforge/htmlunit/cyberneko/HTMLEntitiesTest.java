@@ -3,13 +3,13 @@ package net.sourceforge.htmlunit.cyberneko;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for {@link HTMLNamedEntitiesParserGenerator}.
+ * Unit tests for {@link HTMLEntitiesParserGenerator}.
  * @author Ronald Brill
  */
 public class HTMLEntitiesTest extends TestCase {
 
     public void testParseEuml() throws Exception {
-        HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml ";
         int i = 0;
@@ -22,7 +22,7 @@ public class HTMLEntitiesTest extends TestCase {
     }
 
     public void testParseEuml_() throws Exception {
-        HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml; ";
         int i = 0;
@@ -35,7 +35,7 @@ public class HTMLEntitiesTest extends TestCase {
     }
 
     public void testParseEumlX() throws Exception {
-        HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumlX";
         int i = 0;
@@ -48,7 +48,7 @@ public class HTMLEntitiesTest extends TestCase {
     }
 
     public void testParseEumX() throws Exception {
-        HTMLNamedEntitiesParser parser = new HTMLNamedEntitiesParser();
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumX";
         int i = 0;
@@ -58,5 +58,18 @@ public class HTMLEntitiesTest extends TestCase {
         assertNull(parser.getMatch());
         assertEquals(4, parser.getRewindCount());
         assertFalse(parser.endsWithSemicolon());
+    }
+
+    public void testParseEuro() throws Exception {
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+
+        String input = "x80;";
+        int i = 0;
+        while(parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u20ac", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
     }
 }

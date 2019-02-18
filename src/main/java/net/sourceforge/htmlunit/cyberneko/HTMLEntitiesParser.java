@@ -27,13 +27,19 @@ package net.sourceforge.htmlunit.cyberneko;
  *
  * @author Ronald Brill
  */
-public class HTMLNamedEntitiesParser {
+public class HTMLEntitiesParser {
     public static final int STATE_START = 0;
     private static final int STATE_ENDS_WITH_SEMICOLON = -2;
+
+    private static final int STATE_HEXADECIMAL_CHAR = -102;
+    private static final int STATE_DECIMAL_CHAR = -104;
+
+    private static final int STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING = -105;
 
     private int state;
     private int consumedCount;
     private String match;
+    private int code;
     private int matchLength;
 
     public String getMatch() {
@@ -52,8 +58,232 @@ public class HTMLNamedEntitiesParser {
         return STATE_ENDS_WITH_SEMICOLON == state;
     }
 
-    public HTMLNamedEntitiesParser() {
+    public HTMLEntitiesParser() {
         state = STATE_START;
+    }
+
+    public void setMatchFromCode() {
+        // If the number is 0x00, then this is a null-character-reference parse error. Set the character reference code to 0xFFFD.
+        if (0x00 == code) {
+            match = "\uFFFD";
+            matchLength = consumedCount;
+            return;
+        }
+
+        // If the number is greater than 0x10FFFF, then this is a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
+        if (code > 0x10FFFF) {
+            match = "\uFFFD";
+            matchLength = consumedCount;
+            return;
+        }
+
+        // If the number is a surrogate, then this is a surrogate-character-reference parse error. Set the character reference code to 0xFFFD
+        if (Character.isSurrogate((char) code)) {
+            match = "\uFFFD";
+            return;
+        }
+
+        // If the number is a noncharacter, then this is a noncharacter-character-reference parse error.
+
+        // If the number is 0x0D, or a control that's not ASCII whitespace, then this is a control-character-reference parse error.
+
+        // If the number is one of the numbers in the first column of the following table, then find the row with that number in the first column,
+        // and set the character reference code to the number in the second column of that row.
+        switch (code) {
+            case 0x80:
+                match = "\u20AC";
+                matchLength = consumedCount;
+                return;
+
+            case 0x82:
+                match = "\u201A";
+                matchLength = consumedCount;
+                return;
+
+            case 0x83:
+                match = "\u0192";
+                matchLength = consumedCount;
+                return;
+
+            case 0x84:
+                match = "\u201E";
+                matchLength = consumedCount;
+                return;
+
+            case 0x85:
+                match = "\u2026";
+                matchLength = consumedCount;
+                return;
+
+            case 0x86:
+                match = "\u2020";
+                matchLength = consumedCount;
+                return;
+
+            case 0x87:
+                match = "\u2021";
+                matchLength = consumedCount;
+                return;
+
+            case 0x88:
+                match = "\u02C6";
+                matchLength = consumedCount;
+                return;
+
+            case 0x89:
+                match = "\u2030";
+                matchLength = consumedCount;
+                return;
+
+            case 0x8A:
+                match = "\u0160";
+                matchLength = consumedCount;
+                return;
+
+            case 0x8B:
+                match = "\u2039";
+                matchLength = consumedCount;
+                return;
+
+            case 0x8C:
+                match = "\u0152";
+                matchLength = consumedCount;
+                return;
+
+            case 0x8E:
+                match = "\u017D";
+                matchLength = consumedCount;
+                return;
+
+            case 0x91:
+                match = "\u2018";
+                matchLength = consumedCount;
+                return;
+
+            case 0x92:
+                match = "\u2019";
+                matchLength = consumedCount;
+                return;
+
+            case 0x93:
+                match = "\u201C";
+                matchLength = consumedCount;
+                return;
+
+            case 0x94:
+                match = "\u201D";
+                matchLength = consumedCount;
+                return;
+
+            case 0x95:
+                match = "\u2022";
+                matchLength = consumedCount;
+                return;
+
+            case 0x96:
+                match = "\u2013";
+                matchLength = consumedCount;
+                return;
+
+            case 0x97:
+                match = "\u2014";
+                matchLength = consumedCount;
+                return;
+
+            case 0x98:
+                match = "\u20DC";
+                matchLength = consumedCount;
+                return;
+
+            case 0x99:
+                match = "\u2122";
+                matchLength = consumedCount;
+                return;
+
+            case 0x9A:
+                match = "\u0161";
+                matchLength = consumedCount;
+                return;
+
+            case 0x9B:
+                match = "\u203A";
+                matchLength = consumedCount;
+                return;
+
+            case 0x9C:
+                match = "\u0153";
+                matchLength = consumedCount;
+                return;
+
+            case 0x9E:
+                match = "\u017E";
+                matchLength = consumedCount;
+                return;
+
+            case 0x9F:
+                match = "\u0178";
+                matchLength = consumedCount;
+                return;
+
+            default:
+                break;
+        }
+        match = Character.toString((char) code);
+        matchLength = consumedCount;
+    }
+
+    public boolean parseNumeric(final int current) {
+        consumedCount++;
+        switch (state) {
+            case STATE_START:
+                if ('X' == current || 'x' == current) {
+                    state = STATE_HEXADECIMAL_CHAR;
+                    return true;
+                }
+                if ('0' <= current && current <= '9') {
+                    state = STATE_DECIMAL_CHAR;
+                    code = (code * 10) + current - 0x30;
+                    return true;
+                }
+                break;
+            case STATE_HEXADECIMAL_CHAR:
+                if ('0' <= current && current <= '9') {
+                    code = (code * 16) + current - 0x30;
+                    return true;
+                }
+                if ('A' <= current && current <= 'F') {
+                    code = (code * 16) + current - 0x37;
+                    return true;
+                }
+                if ('a' <= current && current <= 'f') {
+                    code = (code * 16) + current - 0x57;
+                    return true;
+                }
+                if (';' == current) {
+                    setMatchFromCode();
+                    return false;
+                }
+
+                state = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
+                setMatchFromCode();
+                matchLength = consumedCount - 1;
+                break;
+            case STATE_DECIMAL_CHAR:
+                if ('0' <= current && current <= '9') {
+                    code = (code * 10) + current - 0x30;
+                    return true;
+                }
+                if (';' == current) {
+                    setMatchFromCode();
+                    return false;
+                }
+
+                state = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
+                setMatchFromCode();
+                matchLength = consumedCount - 1;
+                break;
+        }
+        return false;
     }
 
     private boolean parse1(final int current) {
