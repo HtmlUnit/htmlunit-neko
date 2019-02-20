@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Generator for the parser HTMLNamedEntitiesParser
+ * Generator for the parser HTMLEntitiesParser.
  *
  * @author Andy Clark
  * @author Ronald Brill

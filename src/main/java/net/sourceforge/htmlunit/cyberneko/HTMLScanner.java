@@ -1340,15 +1340,21 @@ public class HTMLScanner
         str.append('&');
 
         int nextChar = fCurrentEntity.read();
+        if (nextChar == -1) { return returnEntityRefString(str, content); }
+        str.append((char) nextChar);
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+
         if ('#' == nextChar) {
-            // fCurrentEntity.rewind();
-            str.append((char) nextChar);
-            HTMLEntitiesParser parser = new HTMLEntitiesParser();
             nextChar = fCurrentEntity.read();
-            str.append((char) nextChar);
-            while(nextChar > 0 && parser.parseNumeric(nextChar)) {
-                nextChar = fCurrentEntity.read();
+            if (nextChar != -1) {
                 str.append((char) nextChar);
+            }
+
+            while(nextChar != -1 && parser.parseNumeric(nextChar)) {
+                nextChar = fCurrentEntity.read();
+                if (nextChar != -1) {
+                    str.append((char) nextChar);
+                }
             }
 
             final String match = parser.getMatch();
@@ -1357,20 +1363,14 @@ public class HTMLScanner
                 str.clear();
                 str.append(match);
             }
-            if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                fEndLineNumber = fCurrentEntity.getLineNumber();
-                fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(str, locationAugs());
-            }
-            return -1;
+            return returnEntityRefString(str, content);
         }
 
-        str.append((char) nextChar);
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
-        while(nextChar > 0 && parser.parse(nextChar)) {
+        while(nextChar != -1 && parser.parse(nextChar)) {
             nextChar = fCurrentEntity.read();
-            str.append((char) nextChar);
+            if (nextChar != -1) {
+                str.append((char) nextChar);
+            }
         }
 
         final String match = parser.getMatch();
@@ -1408,6 +1408,10 @@ public class HTMLScanner
                 }
             }
         }
+        return returnEntityRefString(str, content);
+    }
+
+    private int returnEntityRefString(final XMLStringBuffer str, final boolean content) {
         if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
             fEndLineNumber = fCurrentEntity.getLineNumber();
             fEndColumnNumber = fCurrentEntity.getColumnNumber();

@@ -18,6 +18,7 @@ package net.sourceforge.htmlunit.cyberneko;
 
 /**
  * Parser for the Pre-defined named HTML entities.
+ * @see https://html.spec.whatwg.org/multipage/parsing.html#character-reference-state
  *
  * From the spec:<br/>
  * Consume the maximum number of characters possible, with the consumed characters matching
@@ -228,7 +229,7 @@ public class HTMLEntitiesParser {
             default:
                 break;
         }
-        match = Character.toString((char) code);
+        match = new String(Character.toChars(code));
         matchLength = consumedCount;
     }
 
