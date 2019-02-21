@@ -51,8 +51,6 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  * <ul>
  * <li>http://cyberneko.org/html/features/augmentations
  * <li>http://cyberneko.org/html/features/report-errors
- * <li>http://cyberneko.org/html/features/report-errors/simple
- * <li>http://cyberneko.org/html/features/balance-tags
  * <li><i>and</i>
  * <li>the features supported by the scanner and tag balancer components.
  * </ul>
@@ -85,20 +83,11 @@ public class HTMLConfiguration
 
     // features
 
-    /** Namespaces. */
-    protected static final String NAMESPACES = "http://xml.org/sax/features/namespaces";
-
     /** Include infoset augmentations. */
     protected static final String AUGMENTATIONS = "http://cyberneko.org/html/features/augmentations";
 
     /** Report errors. */
     protected static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
-
-    /** Simple report format. */
-    protected static final String SIMPLE_ERROR_FORMAT = "http://cyberneko.org/html/features/report-errors/simple";
-
-    /** Balance tags. */
-    protected static final String BALANCE_TAGS = "http://cyberneko.org/html/features/balance-tags";
 
     // properties
 
@@ -206,19 +195,13 @@ public class HTMLConfiguration
         final String VALIDATION = "http://xml.org/sax/features/validation";
         final String[] recognizedFeatures = {
             AUGMENTATIONS,
-            NAMESPACES,
             VALIDATION,
             REPORT_ERRORS,
-            SIMPLE_ERROR_FORMAT,
-            BALANCE_TAGS,
         };
         addRecognizedFeatures(recognizedFeatures);
         setFeature(AUGMENTATIONS, false);
-        setFeature(NAMESPACES, true);
         setFeature(VALIDATION, false);
         setFeature(REPORT_ERRORS, false);
-        setFeature(SIMPLE_ERROR_FORMAT, false);
-        setFeature(BALANCE_TAGS, true);
 
         //
         // properties
@@ -522,16 +505,14 @@ public class HTMLConfiguration
 
         // configure pipeline
         XMLDocumentSource lastSource = fDocumentScanner;
-        if (getFeature(NAMESPACES)) {
-            lastSource.setDocumentHandler(fNamespaceBinder);
-            fNamespaceBinder.setDocumentSource(fTagBalancer);
-            lastSource = fNamespaceBinder;
-        }
-        if (getFeature(BALANCE_TAGS)) {
-            lastSource.setDocumentHandler(fTagBalancer);
-            fTagBalancer.setDocumentSource(fDocumentScanner);
-            lastSource = fTagBalancer;
-        }
+        lastSource.setDocumentHandler(fNamespaceBinder);
+        fNamespaceBinder.setDocumentSource(fTagBalancer);
+        lastSource = fNamespaceBinder;
+
+        lastSource.setDocumentHandler(fTagBalancer);
+        fTagBalancer.setDocumentSource(fDocumentScanner);
+        lastSource = fTagBalancer;
+
         final XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
         if (filters != null) {
             for (final XMLDocumentFilter filter : filters) {
@@ -585,24 +566,22 @@ public class HTMLConfiguration
         /** Format message without reporting error. */
         @Override
         public String formatMessage(String key, Object[] args) {
-            if (!getFeature(SIMPLE_ERROR_FORMAT)) {
-                if (!fLocale.equals(fLastLocale)) {
-                    fErrorMessages = null;
-                    fLastLocale = fLocale;
-                }
-                if (fErrorMessages == null) {
-                    fErrorMessages =
-                        ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages",
-                                                 fLocale);
-                }
-                try {
-                    final String value = fErrorMessages.getString(key);
-                    final String message = MessageFormat.format(value, args);
-                    return message;
-                }
-                catch (final MissingResourceException e) {
-                    // ignore and return a simple format
-                }
+            if (!fLocale.equals(fLastLocale)) {
+                fErrorMessages = null;
+                fLastLocale = fLocale;
+            }
+            if (fErrorMessages == null) {
+                fErrorMessages =
+                    ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages",
+                                             fLocale);
+            }
+            try {
+                final String value = fErrorMessages.getString(key);
+                final String message = MessageFormat.format(value, args);
+                return message;
+            }
+            catch (final MissingResourceException e) {
+                // ignore and return a simple format
             }
             return formatSimpleMessage(key, args);
         }

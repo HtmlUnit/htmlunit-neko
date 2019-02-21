@@ -32,9 +32,7 @@ import org.apache.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 
 /**
- * This filter binds namespaces if namespace processing is turned on
- * by setting the feature "http://xml.org/sax/features/namespaces" is
- * set to <code>true</code>.
+ * This filter binds namespaces.
  * <p>
  * This configuration recognizes the following features:
  * <ul>
@@ -63,9 +61,6 @@ public class NamespaceBinder
 
     // features
 
-    /** Namespaces. */
-    protected static final String NAMESPACES = "http://xml.org/sax/features/namespaces";
-
     /** Override namespace binding URI. */
     protected static final String OVERRIDE_NAMESPACES = "http://cyberneko.org/html/features/override-namespaces";
 
@@ -74,7 +69,6 @@ public class NamespaceBinder
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
-        NAMESPACES,
         OVERRIDE_NAMESPACES,
         INSERT_NAMESPACES,
     };
@@ -127,9 +121,6 @@ public class NamespaceBinder
     //
 
     // features
-
-    /** Namespaces. */
-    protected boolean fNamespaces;
 
     /** Namespace prefixes. */
     protected boolean fNamespacePrefixes;
@@ -235,7 +226,6 @@ public class NamespaceBinder
         super.reset(manager);
 
         // features
-        fNamespaces = manager.getFeature(NAMESPACES);
         fOverrideNamespaces = manager.getFeature(OVERRIDE_NAMESPACES);
         fInsertNamespaces = manager.getFeature(INSERT_NAMESPACES);
 
@@ -269,10 +259,8 @@ public class NamespaceBinder
                              Augmentations augs) throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
-            fNamespaceContext.pushContext();
-            bindNamespaces(element, attrs);
-        }
+        fNamespaceContext.pushContext();
+        bindNamespaces(element, attrs);
 
         // perform default handling
         super.startElement(element, attrs, augs);
@@ -284,18 +272,14 @@ public class NamespaceBinder
                              Augmentations augs) throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
-            fNamespaceContext.pushContext();
-            bindNamespaces(element, attrs);
-        }
+        fNamespaceContext.pushContext();
+        bindNamespaces(element, attrs);
 
         // perform default handling
         super.emptyElement(element, attrs, augs);
 
         // pop context
-        if (fNamespaces) {
-            fNamespaceContext.popContext();
-        }
+        fNamespaceContext.popContext();
     }
 
     /** End element. */
@@ -304,17 +288,13 @@ public class NamespaceBinder
         throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
-            bindNamespaces(element, null);
-        }
+        bindNamespaces(element, null);
 
         // perform default handling
         super.endElement(element, augs);
 
         // pop context
-        if (fNamespaces) {
-            fNamespaceContext.popContext();
-        }
+        fNamespaceContext.popContext();
     }
 
     //
