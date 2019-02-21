@@ -79,6 +79,9 @@ public class HTMLTagBalancer
 
     // features
 
+    /** Namespaces. */
+    protected static final String NAMESPACES = "http://xml.org/sax/features/namespaces";
+
     /** Include infoset augmentations. */
     protected static final String AUGMENTATIONS = "http://cyberneko.org/html/features/augmentations";
 
@@ -96,6 +99,7 @@ public class HTMLTagBalancer
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
+        NAMESPACES,
         AUGMENTATIONS,
         REPORT_ERRORS,
         DOCUMENT_FRAGMENT_DEPRECATED,
@@ -171,6 +175,9 @@ public class HTMLTagBalancer
     //
 
     // features
+
+    /** Namespaces. */
+    protected boolean fNamespaces;
 
     /** Include infoset augmentations. */
     protected boolean fAugmentations;
@@ -336,6 +343,7 @@ public class HTMLTagBalancer
         throws XMLConfigurationException {
 
         // get features
+        fNamespaces = manager.getFeature(NAMESPACES);
         fAugmentations = manager.getFeature(AUGMENTATIONS);
         fReportErrors = manager.getFeature(REPORT_ERRORS);
         fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT) ||
@@ -1162,7 +1170,7 @@ public class HTMLTagBalancer
     /** Returns an HTML element. */
     protected HTMLElements.Element getElement(final QName elementName) {
         String name = elementName.rawname;
-        if (NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
+        if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
             final int index = name.indexOf(':');
             if (index != -1) {
                 name = name.substring(index+1);
