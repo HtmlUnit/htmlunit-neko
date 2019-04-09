@@ -52,14 +52,12 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  * <li>http://cyberneko.org/html/features/augmentations
  * <li>http://cyberneko.org/html/features/report-errors
  * <li>http://cyberneko.org/html/features/report-errors/simple
- * <li>http://cyberneko.org/html/features/balance-tags
  * <li><i>and</i>
  * <li>the features supported by the scanner and tag balancer components.
  * </ul>
  * <p>
  * This configuration recognizes the following properties:
  * <ul>
- * <li>http://cyberneko.org/html/properties/names/elems
  * <li>http://cyberneko.org/html/properties/names/attrs
  * <li>http://cyberneko.org/html/properties/filters
  * <li>http://cyberneko.org/html/properties/error-reporter
@@ -97,13 +95,7 @@ public class HTMLConfiguration
     /** Simple report format. */
     protected static final String SIMPLE_ERROR_FORMAT = "http://cyberneko.org/html/features/report-errors/simple";
 
-    /** Balance tags. */
-    protected static final String BALANCE_TAGS = "http://cyberneko.org/html/features/balance-tags";
-
     // properties
-
-    /** Modify HTML element names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
 
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
@@ -210,7 +202,6 @@ public class HTMLConfiguration
             VALIDATION,
             REPORT_ERRORS,
             SIMPLE_ERROR_FORMAT,
-            BALANCE_TAGS,
         };
         addRecognizedFeatures(recognizedFeatures);
         setFeature(AUGMENTATIONS, false);
@@ -218,7 +209,6 @@ public class HTMLConfiguration
         setFeature(VALIDATION, false);
         setFeature(REPORT_ERRORS, false);
         setFeature(SIMPLE_ERROR_FORMAT, false);
-        setFeature(BALANCE_TAGS, true);
 
         //
         // properties
@@ -226,13 +216,11 @@ public class HTMLConfiguration
 
         // recognized properties
         final String[] recognizedProperties = {
-            NAMES_ELEMS,
             NAMES_ATTRS,
             FILTERS,
             ERROR_REPORTER,
         };
         addRecognizedProperties(recognizedProperties);
-        setProperty(NAMES_ELEMS, "upper");
         setProperty(NAMES_ATTRS, "lower");
         setProperty(ERROR_REPORTER, fErrorReporter);
     }
@@ -527,11 +515,11 @@ public class HTMLConfiguration
             fNamespaceBinder.setDocumentSource(fTagBalancer);
             lastSource = fNamespaceBinder;
         }
-        if (getFeature(BALANCE_TAGS)) {
-            lastSource.setDocumentHandler(fTagBalancer);
-            fTagBalancer.setDocumentSource(fDocumentScanner);
-            lastSource = fTagBalancer;
-        }
+
+        lastSource.setDocumentHandler(fTagBalancer);
+        fTagBalancer.setDocumentSource(fDocumentScanner);
+        lastSource = fTagBalancer;
+
         final XMLDocumentFilter[] filters = (XMLDocumentFilter[])getProperty(FILTERS);
         if (filters != null) {
             for (final XMLDocumentFilter filter : filters) {

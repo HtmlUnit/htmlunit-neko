@@ -59,7 +59,6 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  * <p>
  * This component recognizes the following properties:
  * <ul>
- * <li>http://cyberneko.org/html/properties/names/elems
  * <li>http://cyberneko.org/html/properties/names/attrs
  * <li>http://cyberneko.org/html/properties/error-reporter
  * <li>http://cyberneko.org/html/properties/balance-tags/current-stack
@@ -119,9 +118,6 @@ public class HTMLTagBalancer
 
     // properties
 
-    /** Modify HTML element names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
-
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
@@ -136,7 +132,6 @@ public class HTMLTagBalancer
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
-        NAMES_ELEMS,
         NAMES_ATTRS,
         ERROR_REPORTER,
         FRAGMENT_CONTEXT_STACK,
@@ -144,7 +139,6 @@ public class HTMLTagBalancer
 
     /** Recognized properties defaults. */
     private static final Object[] RECOGNIZED_PROPERTIES_DEFAULTS = {
-        null,
         null,
         null,
         null,
@@ -198,9 +192,6 @@ public class HTMLTagBalancer
     protected boolean fAllowSelfclosingTags;
 
     // properties
-
-    /** Modify HTML element names. */
-    protected short fNamesElems;
 
     /** Modify HTML attribute names. */
     protected short fNamesAttrs;
@@ -353,7 +344,6 @@ public class HTMLTagBalancer
         fAllowSelfclosingTags = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
 
         // get properties
-        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
         fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fErrorReporter = (HTMLErrorReporter)manager.getProperty(ERROR_REPORTER);
 
@@ -394,11 +384,6 @@ public class HTMLTagBalancer
     @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
-
-        if (propertyId.equals(NAMES_ELEMS)) {
-            fNamesElems = getNamesValue(String.valueOf(value));
-            return;
-        }
 
         if (propertyId.equals(NAMES_ATTRS)) {
             fNamesAttrs = getNamesValue(String.valueOf(value));
@@ -506,11 +491,11 @@ public class HTMLTagBalancer
             if (fDocumentHandler != null) {
                 fSeenRootElementEnd = false;
                 forceStartBody(); // will force <html> and <head></head>
-                final String body = modifyName("body", fNamesElems);
+                final String body = "body";
                 fQName.setValues(null, body, body, null);
                 callEndElement(fQName, synthesizedAugs());
 
-                final String ename = modifyName("html", fNamesElems);
+                final String ename = "html";
                 fQName.setValues(null, ename, ename, null);
                 callEndElement(fQName, synthesizedAugs());
             }
@@ -672,7 +657,6 @@ public class HTMLTagBalancer
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
                 String pname = preferedParent.name;
-                pname = modifyName(pname, fNamesElems);
                 if (fReportErrors) {
                     final String ename = elem.rawname;
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename,pname});
@@ -690,7 +674,7 @@ public class HTMLTagBalancer
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
                     final int depth = getParentDepth(element.parent, element.bounds);
                     if (depth == -1) { // no parent found
-                        final String pname = modifyName(preferedParent.name, fNamesElems);
+                        final String pname = preferedParent.name;
                         final QName qname = createQName(pname);
                         if (fReportErrors) {
                             final String ename = elem.rawname;
@@ -816,7 +800,6 @@ public class HTMLTagBalancer
     }
 
     private QName createQName(String tagName) {
-        tagName = modifyName(tagName, fNamesElems);
         return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
     }
 
@@ -855,8 +838,8 @@ public class HTMLTagBalancer
                 final Info info = fElementStack.peek();
                 if (info.element.code == HTMLElements.HEAD ||
                     info.element.code == HTMLElements.HTML) {
-                    final String hname = modifyName("head", fNamesElems);
-                    final String bname = modifyName("body", fNamesElems);
+                    final String hname = "head";
+                    final String bname = "body";
                     if (fReportErrors) {
                         fErrorReporter.reportWarning("HTML2009", new Object[]{hname,bname});
                     }
@@ -1003,8 +986,8 @@ public class HTMLTagBalancer
                 final Info info = fElementStack.peek();
                 if (info.element.code == HTMLElements.HEAD ||
                     info.element.code == HTMLElements.HTML) {
-                    final String hname = modifyName("head", fNamesElems);
-                    final String bname = modifyName("body", fNamesElems);
+                    final String hname = "head";
+                    final String bname = "body";
                     if (fReportErrors) {
                         fErrorReporter.reportWarning("HTML2009", new Object[]{hname,bname});
                     }
@@ -1123,7 +1106,7 @@ public class HTMLTagBalancer
         for (int i = 0; i < depth; i++) {
             final Info info = fElementStack.pop();
             if (fReportErrors && i < depth - 1) {
-                final String ename = modifyName(element.rawname, fNamesElems);
+                final String ename = element.rawname;
                 final String iname = info.qname.rawname;
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename,iname});
             }
