@@ -1,14 +1,14 @@
-(HTML
-(HEAD
-)HEAD
-(BODY
+(html
+(head
+)head
+(body
 "\n
-(DIV
+(div
 "\n
-(DIV
+(div
 "second div
-)DIV
+)div
 "\n
-)DIV
-)BODY
-)HTML
+)div
+)body
+)html

@@ -1,12 +1,12 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(A
+(a
 Ahref foo"
-(LABEL
+(label
 "hello
-)LABEL
-)A
+)label
+)a
 )BODY
 )HTML

@@ -1,17 +1,17 @@
 (HTML
 (HEAD
-(SCRIPT
+(script
 "\nxhtml script content\n
-)SCRIPT
+)script
 "\n
-(SCRIPT
+(script
 "<!--\nxhtml script content\n-->
-)SCRIPT
+)script
 "\n
 )HEAD
 (BODY
-(H1
+(h1
 "Foo
-)H1
+)h1
 )BODY
 )HTML

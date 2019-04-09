@@ -1,21 +1,21 @@
-(HTML
+(html
 (HEAD
-(META
+(meta
 Acontent no-cache
 Ahttp-equiv Pragma
-)META
+)meta
 "\n\n
-(TITLE
+(title
 "Title
-)TITLE
+)title
 "\n
-(META
+(meta
 Acontent text/html; charset=iso-8859-1
 Ahttp-equiv Content-Type
-)META
+)meta
 "\n
 )HEAD
-(BODY
+(body
 "\n
-)BODY
-)HTML
+)body
+)html

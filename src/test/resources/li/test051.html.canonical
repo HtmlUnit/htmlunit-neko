@@ -1,18 +1,18 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(UL
+(ul
 "\n
-(LI
+(li
 "Item 1\n 
-(P
+(p
 "Paragraph\n
-)P
-)LI
-(LI
+)p
+)li
+(li
 "Item 2\n
-)LI
-)UL
+)li
+)ul
 )BODY
 )HTML

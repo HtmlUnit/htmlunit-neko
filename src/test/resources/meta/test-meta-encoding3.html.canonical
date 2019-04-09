@@ -1,13 +1,13 @@
 (HTML
-(HEAD
+(head
 "\n
-(META
+(meta
 Acontent text/html;charset=iso-2022-cn
 Ahttp-equiv Content-Type
-)META
+)meta
 "\n
-)HEAD
-(BODY
+)head
+(body
 "\n宋体\n\n新\n\n細明體\n\n宋体\n\n浠茇忘�\n\n？\n
-)BODY
+)body
 )HTML

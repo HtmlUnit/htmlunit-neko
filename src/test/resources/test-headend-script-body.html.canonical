@@ -1,11 +1,11 @@
-(HTML
-(HEAD
-(SCRIPT
+(html
+(head
+(script
 Asrc foo.js
-)SCRIPT
-)HEAD
-(BODY
+)script
+)head
+(body
 Aonload doIt()
 "foo
-)BODY
-)HTML
+)body
+)html

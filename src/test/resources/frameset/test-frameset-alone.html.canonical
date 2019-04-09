@@ -1,13 +1,13 @@
 (HTML
-(HEAD
-)HEAD
-(FRAMESET
+(head
+)head
+(frameset
 Acols 100%
 "\n  
-(FRAME
+(frame
 Aid frame1
 Asrc foo
-)FRAME
+)frame
 "\n
-)FRAMESET
+)frameset
 )HTML

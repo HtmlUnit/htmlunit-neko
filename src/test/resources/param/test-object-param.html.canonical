@@ -1,12 +1,12 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(OBJECT
-(PARAM
+(object
+(param
 Aname param1
 Avalue value1
-)PARAM
-)OBJECT
+)param
+)object
 )BODY
 )HTML

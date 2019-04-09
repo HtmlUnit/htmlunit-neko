@@ -37,11 +37,11 @@ public class HTMLTagBalancingListenerTest extends TestCase {
 
        parser.parse(in);
 
-       final String[] expectedMessages = {"start HTML", "start HEAD", "start TITLE", "end TITLE", "end HEAD",
-               "start BODY", "ignored start BODY",
-               "start DIV", "start FORM", "start INPUT", "end INPUT", "end FORM",
-               "end DIV", "ignored end FORM",
-               "end BODY", "end HTML"};
+       final String[] expectedMessages = {"start html", "start head", "start title", "end title", "end head",
+               "start body", "ignored start body",
+               "start div", "start form", "start input", "end input", "end form",
+               "end div", "ignored end form",
+               "end body", "end html"};
 
        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
     }
@@ -59,8 +59,8 @@ public class HTMLTagBalancingListenerTest extends TestCase {
 
        parser.parse(in);
 
-       final String[] expectedMessages = {"start HTML", "start HEAD", "start TITLE", "end TITLE", "end HEAD",
-               "start BODY", "start DIV", "end DIV", "end BODY", "end HTML"};
+       final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
+               "start body", "start div", "end div", "end body", "end HTML"};
 
        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
 

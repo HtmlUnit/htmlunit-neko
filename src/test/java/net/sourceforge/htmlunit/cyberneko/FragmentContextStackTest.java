@@ -20,11 +20,11 @@ public class FragmentContextStackTest extends TestCase {
     private static final String NL = System.lineSeparator();
 
     public void testSimple() throws Exception {
-        final String expected = "(DIV" + NL
-            + "(SPAN" + NL
+        final String expected = "(div" + NL
+            + "(span" + NL
             + "\"hello" + NL
-            + ")SPAN" + NL
-            + ")DIV" + NL;
+            + ")span" + NL
+            + ")div" + NL;
         doTest("<div><span>hello</span>", new String[] { "html", "body" }, expected);
 
         doTest("<div><span>hello</span>", new String[] { "html" }, expected);
@@ -34,11 +34,11 @@ public class FragmentContextStackTest extends TestCase {
     }
 
     public void testTR() throws Exception {
-        String expected = "(TR" + NL
-            + "(TD" + NL
+        String expected = "(tr" + NL
+            + "(td" + NL
             + "\"hello" + NL
-            + ")TD" + NL
-            + ")TR" + NL;
+            + ")td" + NL
+            + ")tr" + NL;
         doTest("<tr><td>hello</td></tr>", new String[] { "html", "body", "table", "tbody" }, expected);
         expected = "(TBODY" + NL
             + expected

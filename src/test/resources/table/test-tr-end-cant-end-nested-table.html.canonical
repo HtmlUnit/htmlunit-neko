@@ -1,32 +1,32 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(TABLE
+(table
 Aid tbl-a
 "\n
 (TBODY
-(TR
-(TD
+(tr
+(td
 "\n
-(TABLE
+(table
 Aid tbl-b
 "\n\n
 (TBODY
-(TR
-(TD
+(tr
+(td
 Aid td-b1
-)TD
-)TR
+)td
+)tr
 "\n
 )TBODY
-)TABLE
+)table
 "\n
-)TD
-)TR
+)td
+)tr
 "\n
 )TBODY
-)TABLE
+)table
 "\n
 )BODY
 )HTML

@@ -1,58 +1,58 @@
-(HTML
-(HEAD
-(TITLE
+(html
+(head
+(title
 "foo
-)TITLE
-)HEAD
-(BODY
+)title
+)head
+(body
 "\n
-(A
+(a
 "Here is an 
-(UNKNOWN
+(unknown
 "unknown element
-)UNKNOWN
+)unknown
 " in some inline text
-)A
+)a
 "\n
-(DIV
+(div
 "and 
-(UNKNOWN
+(unknown
 "here
-)UNKNOWN
+)unknown
 " in some block text
-)DIV
+)div
 "\n
-(P
+(p
 "and 
-(UNKNOWN
+(unknown
 "here
-)UNKNOWN
+)unknown
 " in a paragraph
-)P
+)p
 "\n\n
-(UNKNOWN
+(unknown
 "\n
-(P
+(p
 "containing p tag
-)P
+)p
 "\n
-)UNKNOWN
+)unknown
 "\n
-(UNKNOWN
+(unknown
 "\n
-(A
+(a
 "a tag
-)A
+)a
 "\n
-)UNKNOWN
+)unknown
 "\n
-(UNKNOWN
+(unknown
 "\n
-(DIV
+(div
 "and a div
-)DIV
+)div
 "\n
-)UNKNOWN
+)unknown
 "\n
-)BODY
-)HTML
+)body
+)html

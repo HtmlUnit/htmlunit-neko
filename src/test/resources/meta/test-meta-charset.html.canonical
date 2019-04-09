@@ -1,11 +1,11 @@
 (HTML
 (HEAD
-(META
+(meta
 Acharset UTF-8
-)META
+)meta
 "\n
-(TITLE
+(title
 "Avec à, é et è
-)TITLE
+)title
 )HEAD
 )HTML

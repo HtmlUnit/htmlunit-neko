@@ -1,15 +1,15 @@
-(HTML
-(HEAD
+(html
+(head
 "\n
-(TITLE
+(title
 "Produced ArrayIndexOutOfBoundsException
-)TITLE
+)title
 "\n
-(SCRIPT
+(script
 "\n\n\n-->\n
-)SCRIPT
+)script
 "\n
-)HEAD
-(BODY
-)BODY
-)HTML
+)head
+(body
+)body
+)html

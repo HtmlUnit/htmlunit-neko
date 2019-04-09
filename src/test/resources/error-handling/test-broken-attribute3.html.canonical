@@ -1,11 +1,11 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(INPUT
+(input
 A=' 
 Aname button
-)INPUT
+)input
 "' ='/>' value="detect me">
 )BODY
 )HTML

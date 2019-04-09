@@ -1,15 +1,15 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(DIV
+(div
 Astyle x &notit;
 "not recognized
-)DIV
+)div
 "\n
-(DIV
+(div
 Astyle x ¬#
 "recognized
-)DIV
+)div
 )BODY
 )HTML

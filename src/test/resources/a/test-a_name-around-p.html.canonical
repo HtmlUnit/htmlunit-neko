@@ -1,12 +1,12 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(A
+(a
 Aname foo
-(P
+(p
 "Blah
-)P
-)A
+)p
+)a
 )BODY
 )HTML

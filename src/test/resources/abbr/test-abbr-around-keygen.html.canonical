@@ -1,10 +1,10 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(ABBR
-(KEYGEN
-)KEYGEN
-)ABBR
+(abbr
+(keygen
+)keygen
+)abbr
 )BODY
 )HTML

@@ -1,13 +1,13 @@
 #one\ntwo\n\nthree\n\n\n
 ?target one\ntwo\n\nthree\n\n\n
-(HTML
+(html
 Aattr one two three
-(HEAD
-)HEAD
-(BODY
+(head
+)head
+(body
 "\n[one\ntwo\n\nthree\n\n\n]\n
-(TEXTAREA
+(textarea
 "one\ntwo\n\nthree\n\n\n
-)TEXTAREA
-)BODY
-)HTML
+)textarea
+)body
+)html

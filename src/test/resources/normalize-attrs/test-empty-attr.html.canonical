@@ -1,10 +1,10 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(P
+(p
 Astyle 
 "Content
-)P
+)p
 )BODY
 )HTML

@@ -1,12 +1,12 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(APPLET
-(PARAM
+(applet
+(param
 Aname param1
 Avalue value1
-)PARAM
-)APPLET
+)param
+)applet
 )BODY
 )HTML

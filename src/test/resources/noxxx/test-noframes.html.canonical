@@ -1,13 +1,13 @@
-(HTML
-(NOFRAMES
+(html
+(noframes
 "\n<p>hello\n
-)NOFRAMES
-(HEAD
-)HEAD
-(BODY
+)noframes
+(head
+)head
+(body
 "\n
-(P
+(p
 "hello again\n
-)P
-)BODY
-)HTML
+)p
+)body
+)html

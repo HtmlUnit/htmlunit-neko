@@ -1,10 +1,10 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(ABBR
-(FIELDSET
-)FIELDSET
-)ABBR
+(abbr
+(fieldset
+)fieldset
+)abbr
 )BODY
 )HTML

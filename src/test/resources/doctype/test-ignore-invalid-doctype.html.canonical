@@ -1,8 +1,8 @@
 #doctype
-(HTML
-(HEAD
-)HEAD
-(BODY
+(html
+(head
+)head
+(body
 "stupid
-)BODY
-)HTML
+)body
+)html

@@ -33,7 +33,6 @@ public class TableBodyNamespaceBug extends TestCase {
         final InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
-        conf.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
         final AbstractSAXParser parser = new AbstractSAXParser(conf){};
         parser.setContentHandler(handler);

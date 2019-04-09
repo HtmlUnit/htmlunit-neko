@@ -1,10 +1,10 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(ABBR
-(MARQUEE
-)MARQUEE
-)ABBR
+(abbr
+(marquee
+)marquee
+)abbr
 )BODY
 )HTML

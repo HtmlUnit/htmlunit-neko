@@ -1,15 +1,15 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(DIV
+(div
 # comment 
 "content
-)DIV
+)div
 "\n
-(DIV
+(div
 #comment
 "content
-)DIV
+)div
 )BODY
 )HTML

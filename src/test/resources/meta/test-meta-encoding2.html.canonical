@@ -1,12 +1,12 @@
 (HTML
 (HEAD
-(META
+(meta
 Acontent text/html;charset=EUC_JP
 Ahttp-equiv Content-Type
-)META
+)meta
 "\n
-(TITLE
+(title
 "日本語　ＥＵＣ　Ｔｅｘｔ
-)TITLE
+)title
 )HEAD
 )HTML

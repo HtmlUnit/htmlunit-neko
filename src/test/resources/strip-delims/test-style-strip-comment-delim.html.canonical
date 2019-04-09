@@ -1,13 +1,13 @@
 (HTML
 (HEAD
-(STYLE
+(style
 " first line\nlast line
-)STYLE
+)style
 "\n
 )HEAD
 (BODY
-(H1
+(h1
 "Foo
-)H1
+)h1
 )BODY
 )HTML

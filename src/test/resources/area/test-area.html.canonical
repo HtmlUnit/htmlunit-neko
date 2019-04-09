@@ -1,10 +1,10 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(MAP
-(AREA
-)AREA
-)MAP
+(map
+(area
+)area
+)map
 )BODY
 )HTML

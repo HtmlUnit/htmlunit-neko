@@ -1,17 +1,17 @@
-(HTML
-(HEAD
-)HEAD
-(BODY
+(html
+(head
+)head
+(body
 "\n
-(IFRAME
+(iframe
 Aname testFrame
 Asrc testFrame.html
-)IFRAME
+)iframe
 "\n
-(DIV
+(div
 Aid aButton
 "test text
-)DIV
+)div
 "\n
-)BODY
-)HTML
+)body
+)html

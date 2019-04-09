@@ -57,9 +57,9 @@ public class HTMLScannerTest extends TestCase {
         final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
         parser.parse(source);
 
-        final String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", "(SCRIPT",
-            ")SCRIPT", "~inserting", "(STYLE", "~inserting", "~inserting", ")STYLE", "~inserting",
-            "(DIV", "(SPAN", ")SPAN", "~inserting", ")DIV", "(DIV", "(A", ")A", ")DIV", ")BODY", ")HTML"};
+        final String[] expectedString = {"(html", "(head", "(title", ")title", ")head", "(body", "(script",
+            ")script", "~inserting", "(style", "~inserting", "~inserting", ")style", "~inserting",
+            "(div", "(span", ")span", "~inserting", ")div", "(div", "(a", ")a", ")div", ")body", ")html"};
         assertEquals(Arrays.asList(expectedString), filter.collectedStrings);
     }
 
@@ -81,7 +81,7 @@ public class HTMLScannerTest extends TestCase {
             final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
             parser.parse(source);
 
-            final String[] expectedString = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", ")BODY", ")HTML"};
+            final String[] expectedString = {"(html", "(head", "(title", ")title", ")head", "(body", ")body", ")html"};
             assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings.toString());
         }
         finally {
@@ -121,7 +121,7 @@ public class HTMLScannerTest extends TestCase {
        @Override
        public void endElement(QName element, Augmentations augs) throws XNIException {
            collectedStrings.add(")" + element.rawname);
-           if (element.localpart.equals("SCRIPT")) {
+           if (element.localpart.equalsIgnoreCase("SCRIPT")) {
                // act as if evaluation of document.write would insert the content
                insert("<style type=\"text/css\" id=\"myStyle\">");
                insert("  .nwr {white-space: nowrap;}");

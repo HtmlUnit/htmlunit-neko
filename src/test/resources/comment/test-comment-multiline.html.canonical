@@ -1,11 +1,11 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(DIV
+(div
 "\n
 #\ncomment line1\ncomment line1\n
 "\ncontent
-)DIV
+)div
 )BODY
 )HTML

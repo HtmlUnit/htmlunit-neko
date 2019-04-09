@@ -1,19 +1,19 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
-(INPUT
+(input
 A; 
 Aname Login
 Aonclick javascript: submitForm(this)
 Atype submit
-)INPUT
+)input
 "\n
-(INPUT
+(input
 A? 
 Aname Login
 Aonclick javascript: submitForm(this)
 Atype submit
-)INPUT
+)input
 )BODY
 )HTML

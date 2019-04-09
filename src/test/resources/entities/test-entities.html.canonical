@@ -1,13 +1,13 @@
 (HTML
-(HEAD
-)HEAD
+(head
+)head
 (BODY
 "&unknown1; & &unknown2; &unknown3;
-(BR
-)BR
+(br
+)br
 "\n&##32;
-(BR
-)BR
+(br
+)br
 "\n&unknown1 & &unknown2 &unknown3&
 )BODY
 )HTML

@@ -1,9 +1,9 @@
-(HTML
-(HEAD
-)HEAD
-(BODY
+(html
+(head
+)head
+(body
 "\n
-(FONT
+(font
 "\n
 (TABLE
 "\n
@@ -12,13 +12,13 @@
 "\n
 (TD
 (B
-(FONT
+(font
 "\nRow 1
-)FONT
+)font
 )B
-(FONT
+(font
 ", Cell 1
-)FONT
+)font
 )TD
 "\n
 (TD
@@ -30,10 +30,10 @@
 )TBODY
 )TABLE
 "\n
-(P
+(p
 "Test paragraph 2 (after table)
-)P
-)FONT
+)p
+)font
 "\n
-)BODY
-)HTML
+)body
+)html
