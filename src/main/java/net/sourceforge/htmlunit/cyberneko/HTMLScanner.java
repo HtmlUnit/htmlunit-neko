@@ -2218,8 +2218,9 @@ public class HTMLScanner
 
         private void scanScriptContent() throws IOException {
 
-            final XMLStringBuffer buffer = new XMLStringBuffer();
+            XMLStringBuffer buffer = new XMLStringBuffer();
             boolean waitForEndComment = false;
+            boolean invalidComment = false;
             while (true) {
                 final int c = fCurrentEntity.read();
                 if (c == -1) {
@@ -2237,8 +2238,14 @@ public class HTMLScanner
                         break;
                     }
                 }
-                else if (c == '>' && endsWith(buffer, "--"))  {
+                else if (c == '>')  {
+                    if (endsWith(buffer, "--")) {
                        waitForEndComment = false;
+                    }
+                    if (endsWith(buffer, "--!")) {
+                        invalidComment = true;
+                        waitForEndComment = false;
+                     }
                 }
 
                 if (c == '\r' || c == '\n') {
@@ -2254,7 +2261,12 @@ public class HTMLScanner
             }
 
             if (fScriptStripCommentDelims) {
-                reduceToContent(buffer, "<!--", "-->");
+                if (invalidComment) {
+                    reduceToContent(buffer, "<!--", "--!>");
+                }
+                else {
+                    reduceToContent(buffer, "<!--", "-->");
+                }
             }
             if (fScriptStripCDATADelims) {
                 reduceToContent(buffer, "<![CDATA[", "]]>");
@@ -3814,7 +3826,8 @@ public class HTMLScanner
      }
 
      /**
-     * Indicates if the end comment --> is available, loading further data if needed, without to reset the buffer
+     * Indicates if the end comment --> (or --!>) is available,
+     * loading further data if needed, without to reset the buffer
      */
     private boolean endCommentAvailable() throws IOException {
         int nbCaret = 0;
@@ -3831,6 +3844,10 @@ public class HTMLScanner
             else if (c == '>' && nbCaret >= 2) {
                 fCurrentEntity.restorePosition(originalOffset, originalColumnNumber, originalCharacterOffset);
                 return true;
+            }
+            else if (c == '!' && nbCaret >= 2) {
+                // ignore to support --!> also
+                // maybe we have to emit a warning
             }
             else if (c == '-') {
                 nbCaret++;
