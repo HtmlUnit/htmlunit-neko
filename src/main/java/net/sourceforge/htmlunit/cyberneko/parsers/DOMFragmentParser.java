@@ -137,13 +137,25 @@ public class DOMFragmentParser
     // Public methods
     //
 
-    /** Parses a document fragment. */
+    /**
+     * Parses a document fragment
+     * @param systemId systemId
+     * @param fragment fragment
+     * @throws SAXException in case of sax error
+     * @throws IOException in case of io problems
+     */
     public void parse(String systemId, DocumentFragment fragment)
         throws SAXException, IOException {
         parse(new InputSource(systemId), fragment);
     }
 
-    /** Parses a document fragment. */
+    /**
+     * Parses a document fragment
+     * @param source input source
+     * @param fragment fragment
+     * @throws SAXException in case of sax error
+     * @throws IOException in case of io problems
+     */
     public void parse(InputSource source, DocumentFragment fragment)
         throws SAXException, IOException {
 
@@ -357,7 +369,7 @@ public class DOMFragmentParser
         return fDocumentSource;
     }
 
-    /** Start document. */
+    // Start document.
     public void startDocument(XMLLocator locator, String encoding,
                               Augmentations augs) throws XNIException {
         startDocument(locator, encoding, null, augs);
@@ -365,7 +377,7 @@ public class DOMFragmentParser
 
     // since Xerces 2.2.0
 
-    /** Start document. */
+    // Start document.
     @Override
     public void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext nscontext,
@@ -373,20 +385,20 @@ public class DOMFragmentParser
         fInCDATASection = false;
     }
 
-    /** XML declaration. */
+    // XML declaration.
     @Override
     public void xmlDecl(String version, String encoding,
                         String standalone, Augmentations augs)
         throws XNIException {
     }
 
-    /** Document type declaration. */
+    // Document type declaration.
     @Override
     public void doctypeDecl(String root, String pubid, String sysid,
                             Augmentations augs) throws XNIException {
     }
 
-    /** Processing instruction. */
+    // Processing instruction.
     @Override
     public void processingInstruction(final String target, final XMLString data,
             final Augmentations augs)
@@ -399,7 +411,7 @@ public class DOMFragmentParser
         }
     }
 
-    /** Comment. */
+    // Comment.
     @Override
     public void comment(XMLString text, Augmentations augs)
         throws XNIException {
@@ -407,7 +419,7 @@ public class DOMFragmentParser
         fCurrentNode.appendChild(comment);
     }
 
-    /** Start element. */
+    // Start element.
     @Override
     public void startElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
@@ -427,7 +439,7 @@ public class DOMFragmentParser
         fCurrentNode = elementNode;
     }
 
-    /** Empty element. */
+    // Empty element.
     @Override
     public void emptyElement(QName element, XMLAttributes attrs,
                              Augmentations augs) throws XNIException {
@@ -435,7 +447,7 @@ public class DOMFragmentParser
         endElement(element, augs);
     }
 
-    /** Characters. */
+    // Characters.
     @Override
     public void characters(XMLString text, Augmentations augs)
         throws XNIException {

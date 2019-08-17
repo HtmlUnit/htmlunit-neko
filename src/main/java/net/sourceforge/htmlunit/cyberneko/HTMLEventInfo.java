@@ -30,27 +30,41 @@ public interface HTMLEventInfo {
 
     // location information
 
-    /** Returns the line number of the beginning of this event.*/
+    /**
+     * @return the line number of the beginning of this event.
+     */
     public int getBeginLineNumber();
 
-    /** Returns the column number of the beginning of this event.*/
+    /**
+     * @return the column number of the beginning of this event.
+     */
     public int getBeginColumnNumber();
 
-    /** Returns the character offset of the beginning of this event.*/
+    /**
+     * @return the character offset of the beginning of this event.
+     */
     public int getBeginCharacterOffset();
 
-    /** Returns the line number of the end of this event.*/
+    /**
+     * @return the line number of the end of this event.
+     */
     public int getEndLineNumber();
 
-    /** Returns the column number of the end of this event.*/
+    /**
+     * @return the column number of the end of this event.
+     */
     public int getEndColumnNumber();
 
-    /** Returns the character offset of the end of this event.*/
+    /**
+     * @return the character offset of the end of this event.
+     */
     public int getEndCharacterOffset();
 
     // other information
 
-    /** Returns true if this corresponding event was synthesized. */
+    /**
+     * @return true if this corresponding event was synthesized.
+     */
     public boolean isSynthesized();
 
     /**
@@ -67,37 +81,49 @@ public interface HTMLEventInfo {
 
         // location information
 
-        /** Returns the line number of the beginning of this event.*/
+        /**
+         * @return the line number of the beginning of this event.
+         */
         @Override
         public int getBeginLineNumber() {
             return -1;
         }
 
-        /** Returns the column number of the beginning of this event.*/
+        /**
+         * @return the column number of the beginning of this event.
+         */
         @Override
         public int getBeginColumnNumber() {
             return -1;
         }
 
-        /** Returns the character offset of the beginning of this event.*/
+        /**
+         * @return the character offset of the beginning of this event.
+         */
         @Override
         public int getBeginCharacterOffset() {
             return -1;
         }
 
-        /** Returns the line number of the end of this event.*/
+        /**
+         * @return the line number of the end of this event.
+         */
         @Override
         public int getEndLineNumber() {
             return -1;
         }
 
-        /** Returns the column number of the end of this event.*/
+        /**
+         * @return the column number of the end of this event.
+         */
         @Override
         public int getEndColumnNumber() {
             return -1;
         }
 
-        /** Returns the character offset of the end of this event.*/
+        /**
+         * @return the character offset of the end of this event.
+         */
         @Override
         public int getEndCharacterOffset() {
             return -1;
@@ -105,7 +131,9 @@ public interface HTMLEventInfo {
 
         // other information
 
-        /** Returns true if this corresponding event was synthesized. */
+        /**
+         * @return true if this corresponding event was synthesized.
+         */
         @Override
         public boolean isSynthesized() {
             return true;
@@ -115,7 +143,9 @@ public interface HTMLEventInfo {
         // Object methods
         //
 
-        /** Returns a string representation of this object. */
+        /**
+         * @return a string representation of this object.
+         */
         @Override
         public String toString() {
             return "synthesized";

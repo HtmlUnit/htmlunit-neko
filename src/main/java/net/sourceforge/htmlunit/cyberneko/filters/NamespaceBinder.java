@@ -312,7 +312,7 @@ public class NamespaceBinder
     // Protected static methods
     //
 
-    /** Splits a qualified name. */
+    // Splits a qualified name.
     protected static void splitQName(QName qname) {
         final int index = qname.rawname.indexOf(':');
         if (index != -1) {
@@ -321,20 +321,19 @@ public class NamespaceBinder
         }
     }
 
-    /**
-     * Converts HTML names string value to constant value.
-     *
-     * @see #NAMES_NO_CHANGE
-     * @see #NAMES_LOWERCASE
-     * @see #NAMES_UPPERCASE
-     */
+    //
+    // Converts HTML names string value to constant value.
+    //
+    // @see #NAMES_NO_CHANGE
+    // @see #NAMES_LOWERCASE
+    // @see #NAMES_UPPERCASE
     protected static final short getNamesValue(String value) {
         if (value.equals("lower")) { return NAMES_LOWERCASE; }
         if (value.equals("upper")) { return NAMES_UPPERCASE; }
         return NAMES_NO_CHANGE;
     }
 
-    /** Modifies the given name based on the specified mode. */
+    // Modifies the given name based on the specified mode.
     protected static final String modifyName(String name, short mode) {
         switch (mode) {
             case NAMES_UPPERCASE: return name.toUpperCase(Locale.ENGLISH);
@@ -347,7 +346,7 @@ public class NamespaceBinder
     // Protected methods
     //
 
-    /** Binds namespaces. */
+    // Binds namespaces.
     protected void bindNamespaces(QName element, XMLAttributes attrs) {
 
         // split element qname
@@ -507,7 +506,7 @@ public class NamespaceBinder
             return fEntries[fLevels[fTop-1] + index].prefix;
         }
 
-        /** Get parent context. */
+        // Get parent context.
         public NamespaceContext getParentContext() {
             return this;
         }

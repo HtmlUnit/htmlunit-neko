@@ -254,7 +254,7 @@ public class HTMLConfiguration
     }
 
     /**
-     * <font color="red">EXPERIMENTAL: may change in next release</font><br/>
+     * <font style="color: red">EXPERIMENTAL: may change in next release</font><br>
      * Immediately evaluates an input source and add the new content (e.g.
      * the output written by an embedded script).
      *
@@ -268,7 +268,7 @@ public class HTMLConfiguration
     // XMLParserConfiguration methods
     //
 
-    /** Sets a feature. */
+    // Sets a feature.
     @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
@@ -280,7 +280,7 @@ public class HTMLConfiguration
         }
     }
 
-    /** Sets a property. */
+    // Sets a property.
     @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
@@ -304,7 +304,7 @@ public class HTMLConfiguration
         }
     }
 
-    /** Sets the document handler. */
+    // Sets the document handler.
     @Override
     public void setDocumentHandler(XMLDocumentHandler handler) {
         fDocumentHandler = handler;
@@ -313,43 +313,43 @@ public class HTMLConfiguration
         }
     }
 
-    /** Returns the document handler. */
+    /** @return the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     }
 
-    /** Sets the DTD handler. */
+    // Sets the DTD handler.
     @Override
     public void setDTDHandler(XMLDTDHandler handler) {
         fDTDHandler = handler;
     }
 
-    /** Returns the DTD handler. */
+    /** @return the DTD handler. */
     @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
     }
 
-    /** Sets the DTD content model handler. */
+    // Sets the DTD content model handler.
     @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
         fDTDContentModelHandler = handler;
     }
 
-    /** Returns the DTD content model handler. */
+    /** @return the DTD content model handler. */
     @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler;
     }
 
-    /** Sets the error handler. */
+    // Sets the error handler.
     @Override
     public void setErrorHandler(XMLErrorHandler handler) {
         fErrorHandler = handler;
     }
 
-    /** Returns the error handler. */
+    /** @return the error handler. */
     @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
@@ -465,7 +465,7 @@ public class HTMLConfiguration
     // Protected methods
     //
 
-    /** Adds a component. */
+    // Adds a component.
     protected void addComponent(HTMLComponent component) {
 
         // add component to list
@@ -617,13 +617,13 @@ public class HTMLConfiguration
         // Protected methods
         //
 
-        /** Creates parse exception. */
+        // Creates parse exception.
         protected XMLParseException createException(String key, Object[] args) {
             final String message = formatMessage(key, args);
             return new XMLParseException(fDocumentScanner, message);
         }
 
-        /** Format simple message. */
+        // Format simple message.
         protected String formatSimpleMessage(String key, Object[] args) {
             final StringBuilder str = new StringBuilder();
             str.append(ERROR_DOMAIN);

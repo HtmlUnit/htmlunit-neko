@@ -21,25 +21,20 @@ import org.apache.xerces.xni.XMLAttributes;
 import org.apache.xerces.xni.XMLDocumentHandler;
 
 /**
- * <font color="red">EXPERIMENTAL: may change in next release</font><br/>
+ * <font style="color: red">EXPERIMENTAL: may change in next release</font><br>
  * {@link XMLDocumentHandler} implementing this interface will get notified of elements discarded
  * by the tag balancer when they:
  * <ul>
- * <li>are configured using {@link HTMLConfiguration}</li>
- * <li>activate the tag balancing feature</li>
+ * <li>are configured using {@link HTMLConfiguration}
+ * <li>activate the tag balancing feature
  * </ul>
  * @author Marc Guillemot
  */
 public interface HTMLTagBalancingListener
 {
-    /**
-     * Notifies that the start element has been ignored.
-     */
+    // Notifies that the start element has been ignored.
     void ignoredStartElement(QName elem, XMLAttributes attrs, Augmentations augs);
 
-    /**
-     * Notifies that the end element has been ignored.
-     */
+    // Notifies that the end element has been ignored.
     void ignoredEndElement(QName element, Augmentations augs);
-
 }

@@ -543,7 +543,7 @@ public class HTMLElements {
     //
 
     /**
-     * Returns the element information for the specified element code.
+     * @return the element information for the specified element code.
      *
      * @param code The element code.
      */
@@ -552,7 +552,7 @@ public class HTMLElements {
     }
 
     /**
-     * Returns the element information for the specified element name.
+     * @return the element information for the specified element name.
      *
      * @param ename The element name.
      */
@@ -567,7 +567,7 @@ public class HTMLElements {
     }
 
     /**
-     * Returns the element information for the specified element name.
+     * @return the element information for the specified element name.
      *
      * @param ename The element name.
      * @param element The default element to return if not found.
@@ -661,6 +661,7 @@ public class HTMLElements {
          * @param name The element name.
          * @param flags Informational flags
          * @param parent Natural closing parent name.
+         * @param bounds bounds
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags,
@@ -689,6 +690,7 @@ public class HTMLElements {
          * @param name The element name.
          * @param flags Informational flags
          * @param parents Natural closing parent names.
+         * @param bounds bounds
          * @param closes List of elements this element can close.
          */
         public Element(final short code, final String name, final int flags,
@@ -706,28 +708,36 @@ public class HTMLElements {
         // Public methods
         //
 
-        /** Returns true if this element is an inline element. */
+        /**
+         * @return true if this element is an inline element.
+         */
         public final boolean isInline() {
             return (flags & INLINE) != 0;
         }
 
-        /** Returns true if this element is a block element. */
+        /**
+         * @return true if this element is a block element.
+         */
         public final boolean isBlock() {
             return (flags & BLOCK) != 0;
         }
 
-        /** Returns true if this element is an empty element. */
+        /**
+         * @return true if this element is an empty element.
+         */
         public final boolean isEmpty() {
             return (flags & EMPTY) != 0;
         }
 
-        /** Returns true if this element is a container element. */
+        /**
+         * @return true if this element is a container element.
+         */
         public final boolean isContainer() {
             return (flags & CONTAINER) != 0;
         }
 
         /**
-         * Returns true if this element is special -- if its content
+         * @return true if this element is special -- if its content
          * should be parsed ignoring markup.
          */
         public final boolean isSpecial() {
@@ -735,7 +745,7 @@ public class HTMLElements {
         }
 
         /**
-         * Returns true if this element can close the specified Element.
+         * @return true if this element can close the specified Element.
          *
          * @param tag The element.
          */
@@ -754,13 +764,17 @@ public class HTMLElements {
         // Object methods
         //
 
-        /** Returns a hash code for this object. */
+        /**
+         * @return a hash code for this object.
+         */
         @Override
         public int hashCode() {
             return name.hashCode();
         }
 
-        /** Returns true if the objects are equal. */
+        /**
+         * @return true if the objects are equal.
+         */
         @Override
         public boolean equals(final Object o) {
             if (o instanceof Element) {
@@ -770,7 +784,7 @@ public class HTMLElements {
         }
 
         /**
-         * Provides a simple representation to make debugging easier
+         * @return a simple representation to make debugging easier
          */
         @Override
         public String toString() {
@@ -810,7 +824,10 @@ public class HTMLElements {
         // Public methods
         //
 
-        /** Adds an element to list, resizing if necessary. */
+        /**
+         * Adds an element to list, resizing if necessary.
+         * @param element element
+         */
         public void addElement(final Element element) {
             if (size == data.length) {
                 final Element[] newarray = new Element[size + 20];

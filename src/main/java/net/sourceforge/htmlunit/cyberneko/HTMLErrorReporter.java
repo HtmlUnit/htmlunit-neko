@@ -42,12 +42,25 @@ public interface HTMLErrorReporter {
     // HTMLErrorReporter methods
     //
 
-    /** Format message without reporting error. */
+    /**
+     * Format message without reporting error.
+     * @param key key
+     * @param args args
+     * @return string
+     */
     public String formatMessage(String key, Object[] args);
 
-    /** Reports a warning. */
+    /**
+     * Reports a warning.
+     * @param key key
+     * @param args args
+     */
     public void reportWarning(String key, Object[] args) throws XMLParseException;
 
-    /** Reports an error. */
+    /**
+     * Reports an error.
+     * @param key key
+     * @param args args
+     */
     public void reportError(String key, Object[] args) throws XMLParseException;
 }

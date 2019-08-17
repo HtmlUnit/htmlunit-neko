@@ -125,7 +125,7 @@ public class HTMLTagBalancer
     protected static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";
 
     /**
-     * <font color="red">EXPERIMENTAL: may change in next release</font><br/>
+     * &lt;font color="red"&gt;EXPERIMENTAL: may change in next release&lt;/font&gt;&lt;br/&gt;
      * Name of the property holding the stack of elements in which context a document fragment should be parsed.
      **/
     public static final String FRAGMENT_CONTEXT_STACK = "http://cyberneko.org/html/properties/balance-tags/fragment-context-stack";
@@ -1150,7 +1150,7 @@ public class HTMLTagBalancer
     // Protected methods
     //
 
-    /** Returns an HTML element. */
+    // Returns an HTML element.
     protected HTMLElements.Element getElement(final QName elementName) {
         String name = elementName.rawname;
         if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
@@ -1162,21 +1162,21 @@ public class HTMLTagBalancer
         return htmlConfiguration_.htmlElements_.getElement(name);
     }
 
-    /** Call document handler start element. */
+    // Call document handler start element.
     protected final void callStartElement(QName element, XMLAttributes attrs,
                                           Augmentations augs)
         throws XNIException {
         fDocumentHandler.startElement(element, attrs, augs);
     }
 
-    /** Call document handler end element. */
+    // Call document handler end element.
     protected final void callEndElement(QName element, Augmentations augs)
         throws XNIException {
         fDocumentHandler.endElement(element, augs);
     }
 
     /**
-     * Returns the depth of the open tag associated with the specified
+     * @return the depth of the open tag associated with the specified
      * element name or -1 if no matching element is found.
      *
      * @param element The element.
@@ -1208,10 +1208,11 @@ public class HTMLTagBalancer
     }
 
     /**
-     * Returns the depth of the open tag associated with the specified
+     * @return the depth of the open tag associated with the specified
      * element parent names or -1 if no matching element is found.
      *
      * @param parents The parent elements.
+     * @param bounds bounds
      */
     protected int getParentDepth(HTMLElements.Element[] parents, short bounds) {
         if (parents != null) {
@@ -1230,13 +1231,13 @@ public class HTMLTagBalancer
         return -1;
     }
 
-    /** Returns a set of empty attributes. */
+    // Returns a set of empty attributes.
     protected final XMLAttributes emptyAttributes() {
         fEmptyAttrs.removeAllAttributes();
         return fEmptyAttrs;
     }
 
-    /** Returns an augmentations object with a synthesized item added. */
+    // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         HTMLAugmentations augs = null;
         if (fAugmentations) {
@@ -1251,7 +1252,7 @@ public class HTMLTagBalancer
     // Protected static methods
     //
 
-    /** Modifies the given name based on the specified mode. */
+    // Modifies the given name based on the specified mode.
     protected static final String modifyName(String name, short mode) {
         switch (mode) {
             case NAMES_UPPERCASE: return name.toUpperCase(Locale.ENGLISH);
@@ -1260,13 +1261,11 @@ public class HTMLTagBalancer
         return name;
     }
 
-    /**
-     * Converts HTML names string value to constant value.
-     *
-     * @see #NAMES_NO_CHANGE
-     * @see #NAMES_LOWERCASE
-     * @see #NAMES_UPPERCASE
-     */
+     // Converts HTML names string value to constant value.
+     //
+     // @see #NAMES_NO_CHANGE
+     // @see #NAMES_LOWERCASE
+     // @see #NAMES_UPPERCASE
     protected static final short getNamesValue(String value) {
         if (value.equals("lower")) {
             return NAMES_LOWERCASE;
@@ -1285,7 +1284,7 @@ public class HTMLTagBalancer
      * Element info for each start element. This information is used when
      * closing unbalanced inline elements. For example:
      * <pre>
-     * &lt;i>unbalanced &lt;b>HTML&lt;/i> content&lt;/b>
+     * &lt;i&gt;unbalanced &lt;b&gt;HTML&lt;/i&gt; content&lt;/b&gt;
      * </pre>
      * <p>
      * It seems that it is a waste of processing and memory to copy the
@@ -1322,6 +1321,7 @@ public class HTMLTagBalancer
          * This constructor makes a copy of the element information.
          *
          * @param element The element qualified name.
+         * @param qname qname
          */
         public Info(HTMLElements.Element element, QName qname) {
             this(element, qname, null);
@@ -1335,6 +1335,7 @@ public class HTMLTagBalancer
          *
          * @param element The element qualified name.
          * @param attributes The element attributes.
+         * @param qname qname
          */
         public Info(HTMLElements.Element element,
                     QName qname, XMLAttributes attributes) {
@@ -1386,7 +1387,7 @@ public class HTMLTagBalancer
         // Public methods
         //
 
-        /** Pushes element information onto the stack. */
+        // Pushes element information onto the stack.
         public void push(Info info) {
             if (top == data.length) {
                 final Info[] newarray = new Info[top + 10];
@@ -1396,19 +1397,17 @@ public class HTMLTagBalancer
             data[top++] = info;
         }
 
-        /** Peeks at the top of the stack. */
+        // Peeks at the top of the stack.
         public Info peek() {
             return data[top-1];
         }
 
-        /** Pops the top item off of the stack. */
+        // Pops the top item off of the stack.
         public Info pop() {
             return data[--top];
         }
 
-        /**
-         * Simple representation to make debugging easier
-         */
+        // Simple representation to make debugging easier
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("InfoStack(");

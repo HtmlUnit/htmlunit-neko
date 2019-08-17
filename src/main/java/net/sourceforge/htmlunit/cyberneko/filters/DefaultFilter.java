@@ -335,6 +335,9 @@ public class DefaultFilter
     /**
      * Utility method for merging string arrays for recognized features
      * and recognized properties.
+     * @param array1 array1
+     * @param array2 array2
+     * @return the merged array
      */
     protected static String[] merge(String[] array1, String[] array2) {
 
