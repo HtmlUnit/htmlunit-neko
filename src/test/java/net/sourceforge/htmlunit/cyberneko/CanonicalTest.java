@@ -103,12 +103,22 @@ public class CanonicalTest extends TestCase {
             if (!canonicalFile.exists()) {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
-            final String canonicalLines = getCanonical(canonicalFile);
 
-            assertEquals(dataFile.toString(), canonicalLines, dataLines);
+            File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented");
+            if (nyiFile.exists()) {
+                try {
+                    assertEquals(dataFile.toString(), getCanonical(canonicalFile), dataLines);
+                    fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
+                }
+                catch (final AssertionFailedError e) {
+                    // expected
+                }
+                assertEquals("NYI: " + dataFile.toString(), getCanonical(nyiFile), dataLines);
+            } else {
+                assertEquals(dataFile.toString(), getCanonical(canonicalFile), dataLines);
+            }
         }
-        catch (final AssertionFailedError e)
-        {
+        catch (final AssertionFailedError e) {
             final File output = new File(outputDir, dataFile.getName());
             try (final PrintWriter pw = new PrintWriter(new FileOutputStream(output))) {
                 pw.print(dataLines);
