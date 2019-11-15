@@ -19,6 +19,7 @@ package net.sourceforge.htmlunit.cyberneko;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Collection of HTML element information.
@@ -181,7 +182,10 @@ public class HTMLElements {
     /** No such element. */
     public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
 
-    public final Map<Short, Element> elementsMap = new HashMap<>();
+    public final Map<Short, Element> elementsByCode = new HashMap<>(256);
+
+    public final Map<String, Element> elementsByName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
     //
     // Static initializer
     //
@@ -510,21 +514,23 @@ public class HTMLElements {
         for (final Element[] elements : elementsArray) {
             if (elements != null) {
                 for (final Element element : elements) {
-                    elementsMap.put(element.code, element);
+                    elementsByCode.put(element.code, element);
+                    elementsByName.put(element.name, element);
                 }
             }
         }
 
-        elementsMap.put(NO_SUCH_ELEMENT.code, NO_SUCH_ELEMENT);
+        elementsByCode.put(NO_SUCH_ELEMENT.code, NO_SUCH_ELEMENT);
 
         // initialize cross references to parent elements
-        for (final Element element : elementsMap.values()) {
+        for (final Element element : elementsByCode.values()) {
             defineParents(element);
         }
     }
 
     public void setElement(Element element) {
-        elementsMap.put(element.code, element);
+        elementsByCode.put(element.code, element);
+        elementsByName.put(element.name, element);
         defineParents(element);
     }
 
@@ -532,7 +538,7 @@ public class HTMLElements {
         if (element.parentCodes != null) {
             element.parent = new Element[element.parentCodes.length];
             for (int j = 0; j < element.parentCodes.length; j++) {
-                element.parent[j] = elementsMap.get(element.parentCodes[j]);
+                element.parent[j] = elementsByCode.get(element.parentCodes[j]);
             }
             element.parentCodes = null;
         }
@@ -548,7 +554,7 @@ public class HTMLElements {
      * @param code The element code.
      */
     public final Element getElement(final short code) {
-        return elementsMap.get(code);
+        return elementsByCode.get(code);
     }
 
     /**
@@ -573,12 +579,7 @@ public class HTMLElements {
      * @param element The default element to return if not found.
      */
     public final Element getElement(final String ename, final Element element) {
-        for (final Element e : elementsMap.values()) {
-            if (e.name.equalsIgnoreCase(ename)) {
-                return e;
-            }
-        }
-        return element;
+        return elementsByName.getOrDefault(ename, element);
     }
 
     //
