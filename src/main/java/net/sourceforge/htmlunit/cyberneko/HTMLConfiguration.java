@@ -24,7 +24,6 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.xerces.util.DefaultErrorHandler;
 import org.apache.xerces.util.ParserConfigurationSettings;
 import org.apache.xerces.xni.XMLDTDContentModelHandler;
 import org.apache.xerces.xni.XMLDTDHandler;
@@ -129,7 +128,7 @@ public class HTMLConfiguration
     protected XMLDTDContentModelHandler fDTDContentModelHandler;
 
     /** Error handler. */
-    protected XMLErrorHandler fErrorHandler = new DefaultErrorHandler();
+    protected XMLErrorHandler fErrorHandler;
 
     // other settings
 
