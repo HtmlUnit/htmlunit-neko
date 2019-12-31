@@ -57,6 +57,7 @@ import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
  * <p>
  * This configuration recognizes the following properties:
  * <ul>
+ * <li>http://cyberneko.org/html/properties/names/elems
  * <li>http://cyberneko.org/html/properties/names/attrs
  * <li>http://cyberneko.org/html/properties/filters
  * <li>http://cyberneko.org/html/properties/error-reporter
@@ -95,6 +96,9 @@ public class HTMLConfiguration
     protected static final String SIMPLE_ERROR_FORMAT = "http://cyberneko.org/html/features/report-errors/simple";
 
     // properties
+
+    /** Modify HTML element names: { "upper", "lower", "default" }. */
+    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
 
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
@@ -215,11 +219,13 @@ public class HTMLConfiguration
 
         // recognized properties
         final String[] recognizedProperties = {
+            NAMES_ELEMS,
             NAMES_ATTRS,
             FILTERS,
             ERROR_REPORTER,
         };
         addRecognizedProperties(recognizedProperties);
+        setProperty(NAMES_ELEMS, "default");
         setProperty(NAMES_ATTRS, "lower");
         setProperty(ERROR_REPORTER, fErrorReporter);
     }

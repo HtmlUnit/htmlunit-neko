@@ -88,6 +88,9 @@ public class NamespaceBinder
 
     // properties
 
+    /** Modify HTML element names: { "upper", "lower", "default" }. */
+    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
+
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
@@ -96,12 +99,14 @@ public class NamespaceBinder
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = new String[] {
+        NAMES_ELEMS,
         NAMES_ATTRS,
         NAMESPACES_URI,
     };
 
     /** Property defaults. */
     private static final Object[] PROPERTY_DEFAULTS = {
+        null,
         null,
         XHTML_1_0_URI,
     };
@@ -136,6 +141,9 @@ public class NamespaceBinder
     protected boolean fInsertNamespaces;
 
     // properties
+
+    /** Modify HTML element names. */
+    protected short fNamesElems;
 
     /** Modify HTML attribute names. */
     protected short fNamesAttrs;
@@ -232,6 +240,7 @@ public class NamespaceBinder
         fInsertNamespaces = manager.getFeature(INSERT_NAMESPACES);
 
         // get properties
+        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
         fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fNamespacesURI = String.valueOf(manager.getProperty(NAMESPACES_URI));
 
@@ -370,6 +379,7 @@ public class NamespaceBinder
                     // re-case parts and set them back into attributes
                     if (anamelen > 5) {
                         aprefix = modifyName(aprefix, NAMES_LOWERCASE);
+                        alocal = modifyName(alocal, fNamesElems);
                         aname = aprefix + ':' + alocal;
                     }
                     else {

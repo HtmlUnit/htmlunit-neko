@@ -77,6 +77,7 @@ import org.apache.xerces.xni.parser.XMLInputSource;
  * <p>
  * This component recognizes the following properties:
  * <ul>
+ * <li>http://cyberneko.org/html/properties/names/elems
  * <li>http://cyberneko.org/html/properties/names/attrs
  * <li>http://cyberneko.org/html/properties/default-encoding
  * <li>http://cyberneko.org/html/properties/error-reporter
@@ -257,6 +258,9 @@ public class HTMLScanner
 
     // properties
 
+    /** Modify HTML element names: { "upper", "lower", "default" }. */
+    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
+
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
@@ -274,6 +278,7 @@ public class HTMLScanner
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
+        NAMES_ELEMS,
         NAMES_ATTRS,
         DEFAULT_ENCODING,
         ERROR_REPORTER,
@@ -283,6 +288,7 @@ public class HTMLScanner
 
     /** Recognized properties defaults. */
     private static final Object[] RECOGNIZED_PROPERTIES_DEFAULTS = {
+        null,
         null,
         "Windows-1252",
         null,
@@ -415,6 +421,9 @@ public class HTMLScanner
     protected boolean fAllowSelfclosingTags;
 
     // properties
+
+    /** Modify HTML element names. */
+    protected short fNamesElems;
 
     /** Modify HTML attribute names. */
     protected short fNamesAttrs;
@@ -766,6 +775,7 @@ public class HTMLScanner
         fAllowSelfclosingTags = manager.getFeature(ALLOW_SELFCLOSING_TAGS);
 
         // get properties
+        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
         fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fDefaultIANAEncoding = String.valueOf(manager.getProperty(DEFAULT_ENCODING));
         fErrorReporter = (HTMLErrorReporter)manager.getProperty(ERROR_REPORTER);
@@ -822,6 +832,11 @@ public class HTMLScanner
     @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
+
+        if (propertyId.equals(NAMES_ELEMS)) {
+            fNamesElems = getNamesValue(String.valueOf(value));
+            return;
+        }
 
         if (propertyId.equals(NAMES_ATTRS)) {
             fNamesAttrs = getNamesValue(String.valueOf(value));
@@ -1189,6 +1204,9 @@ public class HTMLScanner
                 if (fReportErrors) {
                     fErrorReporter.reportError("HTML1014", null);
                 }
+            }
+            else {
+                root = modifyName(root, fNamesElems);
             }
             if (skipSpaces()) {
                 if (skip("PUBLIC", false)) {
@@ -2134,6 +2152,7 @@ public class HTMLScanner
                             }
                             if (fInsertDoctype && fDocumentHandler != null) {
                                 String root = htmlConfiguration_.htmlElements_.getElement(HTMLElements.HTML).name;
+                                root = modifyName(root, fNamesElems);
                                 final String pubid = fDoctypePubid;
                                 final String sysid = fDoctypeSysid;
                                 fDocumentHandler.doctypeDecl(root, pubid, sysid,
@@ -2702,6 +2721,7 @@ public class HTMLScanner
                 }
                 return null;
             }
+            ename = modifyName(ename, fNamesElems);
             fAttributes.removeAllAttributes();
             final int beginLineNumber = fBeginLineNumber;
             final int beginColumnNumber = fBeginColumnNumber;
@@ -3135,6 +3155,7 @@ public class HTMLScanner
             }
             skipMarkup(false);
             if (ename != null) {
+                ename = modifyName(ename, fNamesElems);
                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                     fQName.setValues(null, ename, ename, null);
                     if (DEBUG_CALLBACKS) {
@@ -3259,6 +3280,7 @@ public class HTMLScanner
                                 if (ename != null) {
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
+                                            ename = modifyName(ename, fNamesElems);
                                             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                                                 fQName.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {

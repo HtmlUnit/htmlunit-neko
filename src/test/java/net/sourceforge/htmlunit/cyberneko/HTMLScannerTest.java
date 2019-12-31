@@ -202,4 +202,43 @@ public class HTMLScannerTest extends TestCase {
             }
         }
     }
+
+    /**
+     * @throws Exception
+     */
+    public void testElementNameNormalization() throws Exception {
+        // not set
+        final String string = "<HTML><Head><tiTLE>foo</tiTLE></hEaD><Body></BOdy></htMl>";
+
+        HTMLConfiguration parser = new HTMLConfiguration();
+        EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expectedString = {"(HTML", "(Head", "(tiTLE", ")tiTLE", ")Head", "(Body", ")Body", ")HTML"};
+        assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings.toString());
+
+        // upper
+        parser = new HTMLConfiguration();
+        filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expectedStringUpper = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", ")BODY", ")HTML"};
+        assertEquals(Arrays.asList(expectedStringUpper).toString(), filter.collectedStrings.toString());
+
+        // upper
+        parser = new HTMLConfiguration();
+        filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expectedStringLower = {"(html", "(head", "(title", ")title", ")head", "(body", ")body", ")html"};
+        assertEquals(Arrays.asList(expectedStringLower).toString(), filter.collectedStrings.toString());
+    }
 }
