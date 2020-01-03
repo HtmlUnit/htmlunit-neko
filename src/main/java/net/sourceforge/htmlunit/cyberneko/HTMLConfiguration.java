@@ -259,7 +259,7 @@ public class HTMLConfiguration
     }
 
     /**
-     * <font style="color: red">EXPERIMENTAL: may change in next release</font><br>
+     * <span style="color: red">EXPERIMENTAL: may change in next release</span><br>
      * Immediately evaluates an input source and add the new content (e.g.
      * the output written by an embedded script).
      *
