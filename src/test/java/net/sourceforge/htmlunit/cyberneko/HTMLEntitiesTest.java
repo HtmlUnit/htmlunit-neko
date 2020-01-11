@@ -42,6 +42,8 @@ public class HTMLEntitiesTest extends TestCase {
         while(parser.parse(input.charAt(i))) {
             i++;
         }
+
+		// valid without semicolon at end
         assertEquals("\u00CB", parser.getMatch());
         assertEquals(1, parser.getRewindCount());
         assertFalse(parser.endsWithSemicolon());
@@ -60,6 +62,21 @@ public class HTMLEntitiesTest extends TestCase {
         assertFalse(parser.endsWithSemicolon());
     }
 
+    public void testParseEuroLt() throws Exception {
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+
+        String input = "euro<";
+        int i = 0;
+        while(parser.parse(input.charAt(i))) {
+            i++;
+        }
+
+		// not valid without semicolon at end
+        assertNull(parser.getMatch());
+        assertEquals(5, parser.getRewindCount());
+        assertFalse(parser.endsWithSemicolon());
+    }
+
     public void testParseEuro() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
@@ -71,5 +88,18 @@ public class HTMLEntitiesTest extends TestCase {
 
         assertEquals("\u20ac", parser.getMatch());
         assertEquals(0, parser.getRewindCount());
+    }
+
+    public void testParseEuroMissingSemicolon() throws Exception {
+        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+
+        String input = "x80<";
+        int i = 0;
+        while(parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u20ac", parser.getMatch());
+        assertEquals(1, parser.getRewindCount());
     }
 }

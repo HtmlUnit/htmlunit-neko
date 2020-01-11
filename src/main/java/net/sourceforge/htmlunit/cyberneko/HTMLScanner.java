@@ -1355,7 +1355,17 @@ public class HTMLScanner
             }
 
             final String match = parser.getMatch();
-            if (match != null) {
+            if (match == null) {
+                // do not eat a lessThan char at end
+                // otherwise the tag handling gets confused
+                if (nextChar == '<') {
+                    fCurrentEntity.rewind(1);
+                    final String trim = str.toString();
+                    str.clear();
+                    str.append(trim.substring(0, trim.length() - 1));
+                }
+            }
+            else {
                 fCurrentEntity.rewind(parser.getRewindCount());
                 str.clear();
                 str.append(match);
@@ -1371,7 +1381,17 @@ public class HTMLScanner
         }
 
         final String match = parser.getMatch();
-        if (match != null) {
+        if (match == null) {
+            // do not eat a lessThan char at end
+            // otherwise the tag handling gets confused
+            if (nextChar == '<') {
+                fCurrentEntity.rewind(1);
+                final String trim = str.toString();
+                str.clear();
+                str.append(trim.substring(0, trim.length() - 1));
+            }
+        }
+        else {
             fCurrentEntity.rewind(parser.getRewindCount());
 
             if (parser.endsWithSemicolon()) {
