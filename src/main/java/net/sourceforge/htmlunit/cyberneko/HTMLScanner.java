@@ -1356,13 +1356,12 @@ public class HTMLScanner
 
             final String match = parser.getMatch();
             if (match == null) {
-                // do not eat a lessThan char at end
-                // otherwise the tag handling gets confused
-                if (nextChar == '<') {
-                    fCurrentEntity.rewind(1);
-                    final String trim = str.toString();
+                // we can't rewind if at EOF
+                if (nextChar != -1) {
+                    final String consumed = str.toString();
+                    fCurrentEntity.rewind(consumed.length() - 1);
                     str.clear();
-                    str.append(trim.substring(0, trim.length() - 1));
+                    str.append('&');
                 }
             }
             else {
@@ -1382,13 +1381,12 @@ public class HTMLScanner
 
         final String match = parser.getMatch();
         if (match == null) {
-            // do not eat a lessThan char at end
-            // otherwise the tag handling gets confused
-            if (nextChar == '<') {
-                fCurrentEntity.rewind(1);
-                final String trim = str.toString();
+            // we can't rewind if at EOF
+            if (nextChar != -1) {
+                final String consumed = str.toString();
+                fCurrentEntity.rewind(consumed.length() - 1);
                 str.clear();
-                str.append(trim.substring(0, trim.length() - 1));
+                str.append('&');
             }
         }
         else {
