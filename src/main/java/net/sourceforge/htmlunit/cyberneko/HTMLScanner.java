@@ -1336,19 +1336,21 @@ public class HTMLScanner
         str.clear();
         str.append('&');
 
-        int nextChar = fCurrentEntity.read();
+        // use readPreservingBufferContent inside this method to be sure we can rewind
+
+        int nextChar = readPreservingBufferContent();
         if (nextChar == -1) { return returnEntityRefString(str, content); }
         str.append((char) nextChar);
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         if ('#' == nextChar) {
-            nextChar = fCurrentEntity.read();
+            nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
             }
 
             while(nextChar != -1 && parser.parseNumeric(nextChar)) {
-                nextChar = fCurrentEntity.read();
+                nextChar = readPreservingBufferContent();
                 if (nextChar != -1) {
                     str.append((char) nextChar);
                 }
@@ -1356,13 +1358,10 @@ public class HTMLScanner
 
             final String match = parser.getMatch();
             if (match == null) {
-                // we can't rewind if at EOF
-                if (nextChar != -1) {
-                    final String consumed = str.toString();
-                    fCurrentEntity.rewind(consumed.length() - 1);
-                    str.clear();
-                    str.append('&');
-                }
+                final String consumed = str.toString();
+                fCurrentEntity.rewind(consumed.length() - 1);
+                str.clear();
+                str.append('&');
             }
             else {
                 fCurrentEntity.rewind(parser.getRewindCount());
@@ -1373,7 +1372,7 @@ public class HTMLScanner
         }
 
         while(nextChar != -1 && parser.parse(nextChar)) {
-            nextChar = fCurrentEntity.read();
+            nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
             }
@@ -1381,13 +1380,10 @@ public class HTMLScanner
 
         final String match = parser.getMatch();
         if (match == null) {
-            // we can't rewind if at EOF
-            if (nextChar != -1) {
-                final String consumed = str.toString();
-                fCurrentEntity.rewind(consumed.length() - 1);
-                str.clear();
-                str.append('&');
-            }
+            final String consumed = str.toString();
+            fCurrentEntity.rewind(consumed.length() - 1);
+            str.clear();
+            str.append('&');
         }
         else {
             fCurrentEntity.rewind(parser.getRewindCount());
@@ -1743,7 +1739,7 @@ public class HTMLScanner
          *
          * @throws IOException Thrown if I/O error occurs.
          */
-        public boolean scan(boolean complete) throws IOException;
+        boolean scan(boolean complete) throws IOException;
     }
 
     //
@@ -1975,6 +1971,7 @@ public class HTMLScanner
             characterOffset_--;
             columnNumber_--;
         }
+
         private void rewind(int i) {
             offset -= i;
             characterOffset_ -= i;
