@@ -1057,10 +1057,12 @@ System.out.println("base '" + base + "'");
              uri = new URI(base, id);
         }
         catch (final URI.MalformedURIException e) {
+e.printStackTrace();
             // let it go through
         }
 
         if (uri == null) {
+System.out.println("systemId '" + systemId + "'");
             return systemId;
         }
 System.out.println("uri '" + uri + "'");
