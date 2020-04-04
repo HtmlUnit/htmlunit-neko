@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.BitSet;
 import java.util.Locale;
 import java.util.Stack;
@@ -1096,6 +1097,13 @@ System.out.println("uri '" + uri + "'");
             else if (ch1 == '/' && str.charAt(0) == '/') {
                 str = "file:" + str;
             }
+        }
+
+        // encode to be able to deal with e.g. blanks in paths
+        try {
+            str = URLEncoder.encode(str, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // let it go through
         }
 
         // done
