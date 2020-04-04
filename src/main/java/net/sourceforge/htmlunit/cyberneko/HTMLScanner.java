@@ -988,8 +988,10 @@ public class HTMLScanner
      */
     @SuppressWarnings("unused")
     public static String expandSystemId(String systemId, String baseSystemId) {
+System.out.println("expandSystemId '" + systemId + "',  '" + baseSystemId + "'");
+System.out.println("user.dir '" + System.getProperty("user.dir") + "'");
 
-        // check for bad parameters id
+// check for bad parameters id
         if (systemId == null || systemId.length() == 0) {
             return systemId;
         }
@@ -1010,6 +1012,7 @@ public class HTMLScanner
         try {
             if (baseSystemId == null || baseSystemId.length() == 0 ||
                 baseSystemId.equals(systemId)) {
+
                 String dir;
                 try {
                     dir = fixURI(System.getProperty("user.dir"));
