@@ -5,7 +5,40 @@ This is the code repository of the HTML parser used by HtmlUnit.
 For a long time HtmlUnit uses the CyberNeko HTML Parser (http://nekohtml.sourceforge.net/). But because the development
 seems to end somewhere around 2014 we started our own fork that now has many improvements.
 
-## Getting Started
+### Project News
+[HtmlUnit@Twitter][3]
+
+### Latest release Version 2.39.0 / April 4, 2020
+
+For maven, you would add:
+
+    <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>neko-htmlunit</artifactId>
+        <version>2.39.0</version>
+    </dependency>
+
+### Latest CI build
+The latest builds are available from our
+[Jenkins CI build server][2]
+
+If you use maven please add:
+
+    <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>neko-htmlunit</artifactId>
+        <version>2.40.0-SNAPSHOT</version>
+    </dependency>
+
+You have to add the sonatype snapshot repository to your pom distributionManagement section also:
+
+    <snapshotRepository>
+        <id>sonatype-nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+
+
+## Start NekoHtml Development 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -41,7 +74,7 @@ This part is intended for committer who are packaging a release.
 
 * Check all your files are checked in
 * Execute "mvn clean test" to be sure all tests are passing
-* Update the version number in pom.xml
+* Update the version number in pom.xml and readme.md
 * Execute "mvn clean test" to be sure all tests are passing
 * Commit the changes
 
@@ -90,3 +123,7 @@ This project is licensed under the Apache 2.0 License
 ## Acknowledgments
 
 Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino in the past.
+
+
+[2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
+[3]: https://twitter.com/HtmlUnit "https://twitter.com/HtmlUnit"
