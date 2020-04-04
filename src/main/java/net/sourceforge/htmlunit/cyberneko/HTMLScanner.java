@@ -1101,7 +1101,7 @@ System.out.println("uri '" + uri + "'");
 
         // deal with blanks in paths
         // maybe we have to do better uri encoding here
-        str = str.replaceAll("", "%20");
+        str = str.replaceAll(" ", "%20");
 
         // done
         return str;
