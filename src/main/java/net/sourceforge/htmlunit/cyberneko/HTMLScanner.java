@@ -1024,6 +1024,7 @@ System.out.println("new URI(systemId) '" + systemId + "'");
                 if (!dir.endsWith("/")) {
                     dir = dir + "/";
                 }
+System.out.println("dir '" + dir + "'");
                 base = new URI("file", "", dir, null, null);
             }
             else {
