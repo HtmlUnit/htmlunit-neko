@@ -1059,7 +1059,6 @@ public class HTMLScanner
              uri = new URI(base, id);
         }
         catch (final URI.MalformedURIException e) {
-e.printStackTrace();
             // let it go through
         }
 
