@@ -1051,6 +1051,8 @@ System.out.println("user.dir '" + System.getProperty("user.dir") + "'");
                     }
                 }
              }
+System.out.println("base '" + base + "'");
+
              // expand id
              uri = new URI(base, id);
         }
@@ -1061,6 +1063,7 @@ System.out.println("user.dir '" + System.getProperty("user.dir") + "'");
         if (uri == null) {
             return systemId;
         }
+System.out.println("uri '" + uri + "'");
         return uri.toString();
     }
 
