@@ -998,6 +998,7 @@ System.out.println("user.dir '" + System.getProperty("user.dir") + "'");
         // if id already expanded, return
         try {
             new URI(systemId);
+System.out.println("new URI(systemId) '" + systemId + "'");
             return systemId;
         }
         catch (final URI.MalformedURIException e) {
