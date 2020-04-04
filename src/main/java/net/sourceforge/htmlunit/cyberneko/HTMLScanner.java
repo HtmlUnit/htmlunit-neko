@@ -988,17 +988,14 @@ public class HTMLScanner
      */
     @SuppressWarnings("unused")
     public static String expandSystemId(String systemId, String baseSystemId) {
-System.out.println("expandSystemId '" + systemId + "',  '" + baseSystemId + "'");
-System.out.println("user.dir '" + System.getProperty("user.dir") + "'");
 
-// check for bad parameters id
+        // check for bad parameters id
         if (systemId == null || systemId.length() == 0) {
             return systemId;
         }
         // if id already expanded, return
         try {
             new URI(systemId);
-System.out.println("new URI(systemId) '" + systemId + "'");
             return systemId;
         }
         catch (final URI.MalformedURIException e) {
@@ -1016,7 +1013,10 @@ System.out.println("new URI(systemId) '" + systemId + "'");
 
                 String dir;
                 try {
-                    dir = fixURI(System.getProperty("user.dir"));
+                    dir = fixURI(System.getProperty("user.dir"))
+                            // deal with blanks in paths; maybe we have to do better uri encoding here
+                            .replaceAll(" ", "%20");
+
                 }
                 catch (final SecurityException se) {
                     dir = "";
@@ -1024,7 +1024,6 @@ System.out.println("new URI(systemId) '" + systemId + "'");
                 if (!dir.endsWith("/")) {
                     dir = dir + "/";
                 }
-System.out.println("dir '" + dir + "'");
                 base = new URI("file", "", dir, null, null);
             }
             else {
@@ -1034,7 +1033,9 @@ System.out.println("dir '" + dir + "'");
                 catch (final URI.MalformedURIException e) {
                     String dir;
                     try {
-                        dir = fixURI(System.getProperty("user.dir"));
+                        dir = fixURI(System.getProperty("user.dir"))
+                                // deal with blanks in paths; maybe we have to do better uri encoding here
+                                .replaceAll(" ", "%20");
                     }
                     catch (final SecurityException se) {
                         dir = "";
@@ -1053,7 +1054,6 @@ System.out.println("dir '" + dir + "'");
                     }
                 }
              }
-System.out.println("base '" + base + "'");
 
              // expand id
              uri = new URI(base, id);
@@ -1064,10 +1064,8 @@ e.printStackTrace();
         }
 
         if (uri == null) {
-System.out.println("systemId '" + systemId + "'");
             return systemId;
         }
-System.out.println("uri '" + uri + "'");
         return uri.toString();
     }
 
@@ -1098,10 +1096,6 @@ System.out.println("uri '" + uri + "'");
                 str = "file:" + str;
             }
         }
-
-        // deal with blanks in paths
-        // maybe we have to do better uri encoding here
-        str = str.replaceAll(" ", "%20");
 
         // done
         return str;
