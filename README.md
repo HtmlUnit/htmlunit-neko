@@ -8,26 +8,29 @@ seems to end somewhere around 2014 we started our own fork that now has many imp
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.39.0 / April 4, 2020
+### Latest release Version 2.40.0 / May 2, 2020
 
 For maven, you would add:
 
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.39.0</version>
+        <version>2.40.0</version>
     </dependency>
 
 ### Latest CI build
 The latest builds are available from our
 [Jenkins CI build server][2]
 
+[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
+
+
 If you use maven please add:
 
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.40.0-SNAPSHOT</version>
+        <version>2.41.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
