@@ -53,6 +53,10 @@ public class FragmentContextStackTest extends TestCase {
         doTest("hello</span>world", new String[] { "html", "body", "div", "span" }, expected);
     }
 
+    public void testFragmentShouldNotCloseContextStackPHack() throws Exception {
+        doTest("<p>hello world</p>", new String[] { "html", "body", "p" }, "(p\r\n\"hello world\r\n)p");
+    }
+
     private static void doTest(final String html, final String[] contextStack,
             final String expected) throws Exception {
         final DOMParser parser = new DOMParser();

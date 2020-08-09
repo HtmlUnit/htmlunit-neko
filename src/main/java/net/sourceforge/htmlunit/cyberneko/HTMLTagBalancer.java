@@ -741,7 +741,7 @@ public class HTMLTagBalancer
         }
         if (element.closes != null) {
             int length = fElementStack.top;
-            for (int i = length - 1; i >= 0; i--) {
+            for (int i = length - 1; i >= fragmentContextStackSize_; i--) {
                 Info info = fElementStack.data[i];
 
                 // does it close the element we're looking at?
