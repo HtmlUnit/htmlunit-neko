@@ -54,7 +54,15 @@ public class FragmentContextStackTest extends TestCase {
     }
 
     public void testFragmentShouldNotCloseContextStackPHack() throws Exception {
-        doTest("<p>hello world</p>", new String[] { "html", "body", "p" }, "(p\r\n\"hello world\r\n)p");
+        doTest("<p>hello world</p>", new String[] { "html", "body", "p" }, ")null\r\n(p\r\n\"hello world\r\n)p");
+        doTest("<p>hello world", new String[] { "html", "body", "p" }, ")null\r\n(p\r\n\"hello world\r\n)p");
+
+        doTest("<p>hello world</p>", new String[] { "html", "body", "p", "span"}, ")null\r\n)null\r\n(p\r\n\"hello world\r\n)p");
+    }
+
+    public void testFragmentShouldNotCloseSelect() throws Exception {
+        doTest("<select><option>Two</option></select>", new String[] { "html", "body", "select" },
+                ")null\r\n(select\r\n(option\r\n\"Two\r\n)option\r\n)select");
     }
 
     private static void doTest(final String html, final String[] contextStack,
