@@ -662,6 +662,26 @@ public class HTMLTagBalancer
         }
         else if (elementCode == HTMLElements.UNKNOWN) {
             consumeBufferedEndElements();
+        } else if (elementCode == HTMLElements.TABLE) {
+            // check if inside another table
+            //    tables are only valid inside td/caption
+            //    otherwise close the surrounding table
+            for (int i = fElementStack.top - 1; i >= 0; i--) {
+                final Info info = fElementStack.data[i];
+                if (info.element.code == HTMLElements.TD
+                        || info.element.code == HTMLElements.CAPTION) {
+                    break;
+                }
+                if (info.element.code == HTMLElements.TR
+                        || info.element.code == HTMLElements.THEAD
+                        || info.element.code == HTMLElements.TBODY
+                        || info.element.code == HTMLElements.TFOOT
+                        || info.element.code == HTMLElements.TABLE) {
+                    final QName head = createQName("table");
+                    endElement(head, synthesizedAugs());
+                    break;
+                }
+            }
         }
 
         // check proper parent

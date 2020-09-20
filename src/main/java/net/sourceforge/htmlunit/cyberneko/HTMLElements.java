@@ -467,7 +467,7 @@ public class HTMLElements {
             // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
             new Element(TABLE, "TABLE", Element.BLOCK|Element.CONTAINER, BODY, new short[]{SVG}),
             // TBODY O O (TR)+
-            new Element(TBODY, "TBODY", 0, TABLE, new short[]{THEAD,TBODY,TFOOT,TD,TH,TR,COLGROUP}),
+            new Element(TBODY, "TBODY", 0, TABLE, new short[]{FORM,THEAD,TBODY,TFOOT,TD,TH,TR,COLGROUP}),
             // TD - O (%flow;)*
             new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD,TH}),
 
@@ -483,7 +483,7 @@ public class HTMLElements {
             // TITLE - - (#PCDATA) -(%head.misc;)
             new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD,BODY}, null),
             // TR - O (TH|TD)+
-            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{TD,TH,TR,COLGROUP,DIV}),
+            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{FORM,TD,TH,TR,COLGROUP,DIV}),
 
             new Element(TRACK, "TRACK", Element.EMPTY, HEAD, null),
             // TT - - (%inline;)*

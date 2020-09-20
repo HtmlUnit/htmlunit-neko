@@ -1,0 +1,20 @@
+(HTML
+(head
+)head
+(BODY
+(table
+(form
+)form
+(TBODY
+(tr
+(td
+(input
+Atype submit
+Avalue Submit
+)input
+)td
+)tr
+)TBODY
+)table
+)BODY
+)HTML
