@@ -8,14 +8,14 @@ seems to end somewhere around 2014 we started our own fork that now has many imp
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.45.0 / November 7, 2020
+### Latest release Version 2.46.0 / January 2, 2021
 
 For maven, you would add:
 
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.45.0</version>
+        <version>2.46.0</version>
     </dependency>
 
 ### Latest CI build
@@ -30,7 +30,7 @@ If you use maven please add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.46.0-SNAPSHOT</version>
+        <version>2.47.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
@@ -68,8 +68,8 @@ mvn test
 
 ## Contributing
 
-TODO
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Pull Requests and and all other Community Contributions are essential for open source software.
+Every contribution - from bug reports to feature requests, typos to full new features - are greatly appreciated.
 
 ## Deployment and Versioning
 
