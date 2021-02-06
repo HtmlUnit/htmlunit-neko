@@ -5,7 +5,7 @@ This is the code repository of the HTML parser used by HtmlUnit.
 For a long time HtmlUnit uses the CyberNeko HTML Parser (http://nekohtml.sourceforge.net/). But because the development
 seems to end somewhere around 2014 we started our own fork that now has many improvements.
 
-[:heart: Sponsor](https://github.com/sponsors/rbri)
+:heart: [Sponsor](https://github.com/sponsors/rbri)
 
 ### Project News
 [HtmlUnit@Twitter][3]
