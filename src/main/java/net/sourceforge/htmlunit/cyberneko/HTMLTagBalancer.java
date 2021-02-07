@@ -664,11 +664,12 @@ public class HTMLTagBalancer
             consumeBufferedEndElements();
         } else if (elementCode == HTMLElements.TABLE) {
             // check if inside another table
-            //    tables are only valid inside td/caption
+            //    tables are only valid inside td/th/caption
             //    otherwise close the surrounding table
             for (int i = fElementStack.top - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (info.element.code == HTMLElements.TD
+                        || info.element.code == HTMLElements.TH
                         || info.element.code == HTMLElements.CAPTION) {
                     break;
                 }
