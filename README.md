@@ -10,14 +10,14 @@ seems to end somewhere around 2014 we started our own fork that now has many imp
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.50.0 / May 16, 2021
+### Latest release Version 2.51.0 / July 04, 2021
 
 For maven, you would add:
 
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.50.0</version>
+        <version>2.51.0</version>
     </dependency>
 
 ### Latest CI build
