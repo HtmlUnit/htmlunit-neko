@@ -188,6 +188,9 @@ public class HTMLTagBalancer
     /** Document fragment balancing only. */
     protected boolean fDocumentFragment;
 
+    /** Template document fragment balancing only. */
+    protected boolean fTemplateFragment;
+
     /** Ignore outside content. */
     protected boolean fIgnoreOutsideContent;
 
@@ -367,7 +370,7 @@ public class HTMLTagBalancer
         fSeenBodyElementEnd = false;
         fSeenFramesetElement = false;
         fSeenCharacters = false;
-
+        fTemplateFragment = false;
     }
 
     /** Sets a feature. */
@@ -387,7 +390,6 @@ public class HTMLTagBalancer
             fIgnoreOutsideContent = state;
             return;
         }
-
     }
 
     /** Sets a property. */
@@ -404,7 +406,6 @@ public class HTMLTagBalancer
             fNamesAttrs = getNamesValue(String.valueOf(value));
             return;
         }
-
     }
 
     //
@@ -601,6 +602,10 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
+        if (elementCode == HTMLElements.TEMPLATE) {
+            fTemplateFragment = true;
+        }
+
         // the creation of some elements like TABLE or SELECT can't be forced. Any others?
         if (isForcedCreation && (elementCode == HTMLElements.TABLE || elementCode == HTMLElements.SELECT)) {
             return; // don't accept creation
@@ -690,6 +695,9 @@ public class HTMLTagBalancer
             final HTMLElements.Element preferedParent = element.parent[0];
             if (fDocumentFragment && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
                 // nothing, don't force HEAD or BODY creation for a document fragment
+            }
+            else if (fTemplateFragment) {
+                // nothing, don't force/check parent for the direct template children
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
                 String pname = preferedParent.name;
@@ -1065,10 +1073,16 @@ public class HTMLTagBalancer
 
         // get element information
         final HTMLElements.Element elem = getElement(element);
+        final short elementCode = elem.code;
+
+        if (elementCode == HTMLElements.TEMPLATE) {
+            fTemplateFragment = false;
+        }
+
 
         // if we consider outside content, just buffer </body> and </html> to consider them at the very end
         if (!fIgnoreOutsideContent &&
-            (elem.code == HTMLElements.BODY || elem.code == HTMLElements.HTML)) {
+            (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
             for (final Iterator<String> it = discardedStartElements.iterator(); it.hasNext();) {
                 if (element.rawname.equals(it.next())) {
                     it.remove();
@@ -1081,17 +1095,17 @@ public class HTMLTagBalancer
         }
 
         // accept only frame and frameset within frameset
-        if (fSeenFramesetElement && elem.code != HTMLElements.FRAME && elem.code != HTMLElements.FRAMESET) {
+        if (fSeenFramesetElement && elementCode != HTMLElements.FRAME && elementCode != HTMLElements.FRAMESET) {
             notifyDiscardedEndElement(element, augs);
             return;
         }
 
         // check for end of document
-        if (elem.code == HTMLElements.HTML) {
+        if (elementCode == HTMLElements.HTML) {
             fSeenRootElementEnd = true;
         }
         else if (fIgnoreOutsideContent) {
-            if (elem.code == HTMLElements.BODY) {
+            if (elementCode == HTMLElements.BODY) {
                 fSeenBodyElementEnd = true;
             }
             else if (fSeenBodyElementEnd) {
@@ -1099,13 +1113,13 @@ public class HTMLTagBalancer
                 return;
             }
         }
-        else if (elem.code == HTMLElements.FORM) {
+        else if (elementCode == HTMLElements.FORM) {
             fOpenedForm = false;
         }
-        else if (elem.code == HTMLElements.SVG) {
+        else if (elementCode == HTMLElements.SVG) {
             fOpenedSvg = false;
         }
-        else if (elem.code == HTMLElements.HEAD && !forcedEndElement) {
+        else if (elementCode == HTMLElements.HEAD && !forcedEndElement) {
             // consume </head> first when <body> is reached to retrieve content lost between </head> and <body>
             endElementsBuffer_.add(new ElementEntry(element, augs));
             return;
@@ -1114,11 +1128,11 @@ public class HTMLTagBalancer
         // empty element
         final int depth = getElementDepth(elem);
         if (depth == -1) {
-            if (elem.code == HTMLElements.P) {
+            if (elementCode == HTMLElements.P) {
                 forceStartElement(element, emptyAttributes(), synthesizedAugs());
                 endElement(element, augs);
             }
-            else if (elem.code == HTMLElements.BR) {
+            else if (elementCode == HTMLElements.BR) {
                 forceStartElement(element, emptyAttributes(), synthesizedAugs());
             }
             else if (!elem.isEmpty()) {
