@@ -12,28 +12,29 @@ import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * Unit test for <a href="http://sourceforge.net/support/tracker.php?aid=2799585">Bug 2799585</a>.
+ * Unit test for <a href="https://sourceforge.net/p/nekohtml/bugs/126/">Bug 126</a>.
+ *
  * @author Charles Yates
- * @author Marc Guillemot
  * @author Ronald Brill
  */
-public class HeadNamespaceBug {
+public class TableBodyNamespaceBugTest {
 
     /**
-     * Ensure that the inserted head element has the right namespace
-     */
+    * Ensure that the inserted tbody element has the right namespace
+    */
     @Test
     public void headNamespace() throws Exception {
-        final int[] nbTags = {0};
+       final int[] nbTags = {0};
         final ContentHandler handler = new DefaultHandler() {
             @Override
             public void startElement(final String ns, final String name, final String qName, final Attributes atts) {
-                assertEquals("http://www.w3.org/1999/xhtml:" + name, ns + ":" + name);
-                ++nbTags[0];
+               assertEquals("http://www.w3.org/1999/xhtml:" + name, ns + ":" + name);
+               System.out.println(ns + ":" + name);
+               ++nbTags[0];
             }
         };
         final InputSource source = new InputSource();
-        source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body/></html>".getBytes()));
+        source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
         final AbstractSAXParser parser = new AbstractSAXParser(conf){};
@@ -41,6 +42,6 @@ public class HeadNamespaceBug {
         parser.parse(source);
 
         // to be sure that test doesn't pass just because handler has never been called
-        assertEquals(3, nbTags[0]);
+        assertEquals(6, nbTags[0]);
     }
 }
