@@ -16,6 +16,9 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -36,11 +39,9 @@ import org.apache.xerces.impl.Version;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xni.parser.XMLParserConfiguration;
-
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -49,19 +50,19 @@ import junit.framework.TestSuite;
  * @author Andy Clark
  * @author Marc Guillemot
  * @author Ahmed Ashour
+ * @author Ronald Brill
  */
-public class CanonicalTest extends TestCase {
+public class CanonicalTest {
 
     private static final File dataDir = new File("src/test/resources");
     private static final File canonicalDir = new File("src/test/resources/canonical");
     private static final File outputDir = new File("target/data/output/" + Version.getVersion());
-    private final File dataFile;
 
-    public static Test suite() throws Exception {
+    @TestFactory
+    public Iterable<DynamicTest> suite() throws Exception {
         System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 
-        final TestSuite suite = new TestSuite();
         final List<File> dataFiles = new ArrayList<>();
         dataDir.listFiles(new FileFilter() {
             @Override
@@ -78,20 +79,16 @@ public class CanonicalTest extends TestCase {
         });
         Collections.sort(dataFiles);
 
+        List<DynamicTest> tests = new ArrayList<>();
         for (int i=0; i < dataFiles.size(); i++) {
-            suite.addTest(new CanonicalTest(dataFiles.get(i)));
+            // suite.addTest(new CanonicalTest(dataFiles.get(i)));
+            final File dataFile = dataFiles.get(i);
+            tests.add(DynamicTest.dynamicTest(dataFile.getName() + " [" + Version.getVersion() + "]", () -> runTest(dataFile)));
         }
-        return suite;
+        return tests;
     }
 
-    CanonicalTest(final File dataFile) throws Exception {
-        super(dataFile.getName() + " [" + Version.getVersion() + "]");
-        this.dataFile = dataFile;
-    }
-
-
-    @Override
-    protected void runTest() throws Exception {
+    protected void runTest(File dataFile) throws Exception {
         final String dataLines = getResult(dataFile);
         try
         {
@@ -107,15 +104,15 @@ public class CanonicalTest extends TestCase {
             File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented");
             if (nyiFile.exists()) {
                 try {
-                    assertEquals(dataFile.toString(), getCanonical(canonicalFile), dataLines);
+                    assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
                     fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
                 }
                 catch (final AssertionFailedError e) {
                     // expected
                 }
-                assertEquals("NYI: " + dataFile.toString(), getCanonical(nyiFile), dataLines);
+                assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile.toString());
             } else {
-                assertEquals(dataFile.toString(), getCanonical(canonicalFile), dataLines);
+                assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {

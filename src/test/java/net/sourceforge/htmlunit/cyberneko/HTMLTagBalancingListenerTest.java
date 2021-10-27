@@ -1,5 +1,7 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,16 +13,17 @@ import org.apache.xerces.xni.QName;
 import org.apache.xerces.xni.XMLAttributes;
 import org.apache.xerces.xni.XNIException;
 import org.apache.xerces.xni.parser.XMLInputSource;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HTMLTagBalancingListener}.
  * @author Marc Guillemot
+ * @author Ronald Brill
  */
-public class HTMLTagBalancingListenerTest extends TestCase {
+public class HTMLTagBalancingListenerTest {
 
-   public void testIgnoredTags() throws Exception {
+   @Test
+   public void ignoredTags() throws Exception {
        final String string = "<html><head><title>foo</title></head>"
            + "<body>"
            + "<body onload='alert(123)'>"
@@ -50,7 +53,8 @@ public class HTMLTagBalancingListenerTest extends TestCase {
     * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17
     * @throws Exception
     */
-   public void testReuse() throws Exception {
+   @Test
+   public void reuse() throws Exception {
        final String string = "<head><title>title</title></head><body><div>hello</div></body>";
 
        final TestParser parser = new TestParser();

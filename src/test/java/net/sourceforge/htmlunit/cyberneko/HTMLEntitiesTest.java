@@ -1,18 +1,24 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.apache.xerces.xni.parser.XMLInputSource;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HTMLEntitiesParserGenerator}.
  * @author Ronald Brill
  */
-public class HTMLEntitiesTest extends TestCase {
+public class HTMLEntitiesTest {
 
-    public void testParseEuml() throws Exception {
+    @Test
+    public void parseEuml() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml ";
@@ -25,7 +31,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertFalse(parser.endsWithSemicolon());
     }
 
-    public void testParseEuml_() throws Exception {
+    @Test
+    public void parseEuml_() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml; ";
@@ -38,7 +45,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertTrue(parser.endsWithSemicolon());
     }
 
-    public void testParseEumlX() throws Exception {
+    @Test
+    public void parseEumlX() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumlX";
@@ -53,7 +61,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertFalse(parser.endsWithSemicolon());
     }
 
-    public void testParseEumX() throws Exception {
+    @Test
+    public void parseEumX() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumX";
@@ -66,7 +75,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertFalse(parser.endsWithSemicolon());
     }
 
-    public void testParseEuroLt() throws Exception {
+    @Test
+    public void parseEuroLt() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "euro<";
@@ -81,7 +91,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertFalse(parser.endsWithSemicolon());
     }
 
-    public void testParseEuro() throws Exception {
+    @Test
+    public void parseEuro() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "x80;";
@@ -94,7 +105,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertEquals(0, parser.getRewindCount());
     }
 
-    public void testParseEuroMissingSemicolon() throws Exception {
+    @Test
+    public void parseEuroMissingSemicolon() throws Exception {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "x80<";
@@ -107,7 +119,8 @@ public class HTMLEntitiesTest extends TestCase {
         assertEquals(1, parser.getRewindCount());
     }
 
-    public void testRewind() throws Exception {
+    @Test
+    public void rewind() throws Exception {
         HTMLConfiguration htmlConfiguration = new HTMLConfiguration();
         String content = "<html blah=\"" +
             "funfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfun" +

@@ -7,22 +7,24 @@ import java.io.InputStream;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 
 /**
  * Unit tests for {@link Writer}.
  *
  * @author Marc Guillemot
+ * @author Ronald Brill
  */
-public class WriterTest extends TestCase {
+public class WriterTest {
 
     /**
      * Regression test for bug: writer changed attribute value causing NPE in 2nd writer.
      * http://sourceforge.net/support/tracker.php?aid=2815779
      */
-    public void testEmptyAttribute() throws Exception {
+    @Test
+    public void emptyAttribute() throws Exception {
 
         final String content = "<html><head>"
             + "<meta name='COPYRIGHT' content='SOMEONE' />"

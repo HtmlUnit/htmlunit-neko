@@ -1,8 +1,11 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.StringReader;
 
 import org.apache.html.dom.HTMLDocumentImpl;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
@@ -11,33 +14,36 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 
-import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMFragmentParser;
 
 /**
  * Unit tests for {@link DOMFragmentParser}.
  * @author Marc Guillemot
+ * @author Ronald Brill
  *
  */
-public class DOMFragmentParserTest extends TestCase {
+public class DOMFragmentParserTest {
     /**
      * See <a href="https://sourceforge.net/p/nekohtml/bugs/154/">Bug 154</a>.
      */
-    public void testAttrEndingWithCRAtEndOfStream() throws Exception {
+    @Test
+    public void attrEndingWithCRAtEndOfStream() throws Exception {
         // TODO doTest("<a href=\"\r", "<A href=\"&#xa;\"/>");
     }
 
     /**
      * See <a href="http://sourceforge.net/support/tracker.php?aid=2828553">Bug 2828553</a>.
      */
-    public void testInvalidProcessingInstruction() throws Exception {
+    @Test
+    public void invalidProcessingInstruction() throws Exception {
         doTest("<html><?9 ?></html>", "<HTML/>");
     }
 
     /**
      * See <a href="http://sourceforge.net/support/tracker.php?aid=2828534">Bug 2828534</a>.
      */
-    public void testInvalidAttributeName() throws Exception {
+    @Test
+    public void invalidAttributeName() throws Exception {
         doTest("<html 9='id'></html>", "<HTML/>");
     }
 
@@ -79,7 +85,8 @@ public class DOMFragmentParserTest extends TestCase {
      * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17
      * @throws Exception
      */
-    public void testInstanceReuse() throws Exception {
+    @Test
+    public void instanceReuse() throws Exception {
         final String s = "<html><body><frame><frameset></frameset></html>";
 
         final DOMFragmentParser parser = new DOMFragmentParser();

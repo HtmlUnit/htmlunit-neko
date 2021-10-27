@@ -1,27 +1,29 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 
 import org.apache.xerces.parsers.AbstractSAXParser;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
-import junit.framework.TestCase;
-
 /**
  * Unit test for <a href="http://sourceforge.net/support/tracker.php?aid=2799585">Bug 2799585</a>.
  * @author Charles Yates
  * @author Marc Guillemot
- *
+ * @author Ronald Brill
  */
-public class HeadNamespaceBug extends TestCase {
+public class HeadNamespaceBug {
 
     /**
      * Ensure that the inserted head element has the right namespace
      */
-    public void testHeadNamespace() throws Exception {
+    @Test
+    public void headNamespace() throws Exception {
         final int[] nbTags = {0};
         final ContentHandler handler = new DefaultHandler() {
             @Override

@@ -1,10 +1,13 @@
 package net.sourceforge.htmlunit.cyberneko;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.xerces.impl.Version;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -12,16 +15,16 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.Locator2;
 
-import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.parsers.SAXParser;
 
 /**
  * Regression test for <a href="http://sourceforge.net/tracker/?func=detail&atid=952178&aid=3381270&group_id=195122">Bug 3381270</a>.
  * @author Marc Guillemot
- * @version $Revision: 291 $
+ * @author Ronald Brill
  */
-public class LocatorEncodingTest extends TestCase  {
+public class LocatorEncodingTest {
 
+    @Test
     public void test() throws SAXException, IOException {
         if (Version.getVersion().startsWith("Xerces-J 2.2") || Version.getVersion().startsWith("Xerces-J 2.3")) {
             return; // this test makes sense only for more recent Xerces versions

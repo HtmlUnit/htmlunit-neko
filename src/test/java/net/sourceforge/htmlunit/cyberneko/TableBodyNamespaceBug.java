@@ -1,14 +1,15 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.ByteArrayInputStream;
 
 import org.apache.xerces.parsers.AbstractSAXParser;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
-
-import junit.framework.TestCase;
 
 /**
  * Unit test for <a href="https://sourceforge.net/p/nekohtml/bugs/126/">Bug 126</a>.
@@ -16,11 +17,13 @@ import junit.framework.TestCase;
  * @author Charles Yates
  * @author Ronald Brill
  */
-public class TableBodyNamespaceBug extends TestCase {
-   /**
+public class TableBodyNamespaceBug {
+
+    /**
     * Ensure that the inserted tbody element has the right namespace
     */
-    public void testHeadNamespace() throws Exception {
+    @Test
+    public void headNamespace() throws Exception {
        final int[] nbTags = {0};
         final ContentHandler handler = new DefaultHandler() {
             @Override

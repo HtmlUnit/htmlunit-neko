@@ -1,5 +1,9 @@
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -15,18 +19,20 @@ import org.apache.xerces.xni.XNIException;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
 import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
  * Unit tests for {@link HTMLScanner}.
  * @author Marc Guillemot
  * @author Ahmed Ashour
+ * @author Ronald Brill
  */
-public class HTMLScannerTest extends TestCase {
+public class HTMLScannerTest {
 
-    public void testisEncodingCompatible() throws Exception {
+    @Test
+    public void isEncodingCompatible() throws Exception {
         final HTMLScanner scanner = new HTMLScanner(new HTMLConfiguration());
         assertTrue(scanner.isEncodingCompatible("ISO-8859-1","ISO-8859-1"));
         assertTrue(scanner.isEncodingCompatible("UTF-8","UTF-8"));
@@ -39,7 +45,8 @@ public class HTMLScannerTest extends TestCase {
         assertFalse(scanner.isEncodingCompatible("UTF-16","Cp1252"));
     }
 
-    public void testEvaluateInputSource() throws Exception {
+    @Test
+    public void evaluateInputSource() throws Exception {
         final String string = "<html><head><title>foo</title></head>"
             + "<body>"
             + "<script id='myscript'>"
@@ -68,7 +75,8 @@ public class HTMLScannerTest extends TestCase {
      * see issue https://sourceforge.net/tracker/?func=detail&atid=952178&aid=3544334&group_id=195122
      * @throws Exception
      */
-    public void testLocale() throws Exception {
+    @Test
+    public void locale() throws Exception {
         final Locale originalLocale = Locale.getDefault();
         try {
             Locale.setDefault(new Locale("tr", "TR"));
@@ -94,7 +102,8 @@ public class HTMLScannerTest extends TestCase {
      * Following test caused NPE with release 1.9.11.
      * Regression test for [ 2503982 ] NPE when parsing from a CharacterStream
      */
-    public void testChangeEncodingWithReader() throws Exception {
+    @Test
+    public void changeEncodingWithReader() throws Exception {
         final String string = "<?xml version='1.0' encoding='UTF-8'?><html><head><title>foo</title></head>"
             + "</body></html>";
 
@@ -138,9 +147,10 @@ public class HTMLScannerTest extends TestCase {
             fConfiguration.evaluateInputSource(source);
        }
 
-   }
+    }
 
-    public void testReduceToContent() throws Exception {
+    @Test
+    public void reduceToContent() throws Exception {
         XMLStringBuffer buffer = new XMLStringBuffer("<!-- hello-->");
 
         HTMLScanner.reduceToContent(buffer, "<!--", "-->");
@@ -167,7 +177,8 @@ public class HTMLScannerTest extends TestCase {
      * Regression test for bug 2933989.
      * @throws Exception
      */
-    public void testInfiniteLoop() throws Exception {
+    @Test
+    public void infiniteLoop() throws Exception {
         final StringBuffer buffer = new StringBuffer();
         buffer.append("<html>\n");
         for (int x = 0; x <= 2005; x++) {
@@ -206,7 +217,8 @@ public class HTMLScannerTest extends TestCase {
     /**
      * @throws Exception
      */
-    public void testElementNameNormalization() throws Exception {
+    @Test
+    public void elementNameNormalization() throws Exception {
         // not set
         final String string = "<HTML><Head><tiTLE>foo</tiTLE></hEaD><Body></BOdy></htMl>";
 

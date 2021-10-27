@@ -5,23 +5,28 @@
  */
 package net.sourceforge.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.apache.xerces.xni.QName;
 import org.apache.xerces.xni.parser.XMLDocumentFilter;
 import org.apache.xerces.xni.parser.XMLInputSource;
-import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
 
-public class GeneralTest extends TestCase {
+/**
+ * @author Ronald Brill
+ */
+public class GeneralTest {
 
     private static final String NL = System.lineSeparator();
     private static final String[] FEATURES = {"http://cyberneko.org/html/features/augmentations"};
 
-    public void testNewlineInAttributeCrLf() throws Exception {
+    @Test
+    public void newlineInAttributeCrLf() throws Exception {
         final String expected =
             "[synth](HTML" + NL
             + "[synth](head" + NL
@@ -39,7 +44,8 @@ public class GeneralTest extends TestCase {
                 FEATURES);
     }
 
-    public void testNewlineInAttributeLf() throws Exception {
+    @Test
+    public void newlineInAttributeLf() throws Exception {
         final String expected =
             "[synth](HTML" + NL
             + "[synth](head" + NL
@@ -57,7 +63,8 @@ public class GeneralTest extends TestCase {
                 FEATURES);
     }
 
-    public void testNewlineInPiCrLf() throws Exception {
+    @Test
+    public void newlineInPiCrLf() throws Exception {
         final String expected =
             "[synth](HTML" + NL
             + "[synth](head" + NL
@@ -73,7 +80,8 @@ public class GeneralTest extends TestCase {
                 FEATURES);
     }
 
-    public void testNewlineInPiLf() throws Exception {
+    @Test
+    public void newlineInPiLf() throws Exception {
         final String expected =
             "[synth](HTML" + NL
             + "[synth](head" + NL
@@ -108,7 +116,7 @@ public class GeneralTest extends TestCase {
         final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
         parser.parse(in);
 
-        Assert.assertEquals(expected.trim(), out.toString().trim());
+        assertEquals(expected.trim(), out.toString().trim());
     }
 
     private static QName[] toQNames(final String[] tags) {
@@ -119,5 +127,4 @@ public class GeneralTest extends TestCase {
 
         return qnames;
     }
-
 }
