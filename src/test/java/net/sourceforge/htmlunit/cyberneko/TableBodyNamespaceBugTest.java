@@ -29,7 +29,6 @@ public class TableBodyNamespaceBugTest {
             @Override
             public void startElement(final String ns, final String name, final String qName, final Attributes atts) {
                assertEquals("http://www.w3.org/1999/xhtml:" + name, ns + ":" + name);
-               System.out.println(ns + ":" + name);
                ++nbTags[0];
             }
         };

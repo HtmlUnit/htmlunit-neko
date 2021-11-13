@@ -60,7 +60,7 @@ public class CanonicalTest {
 
     @TestFactory
     public Iterable<DynamicTest> suite() throws Exception {
-        System.out.println(canonicalDir.getAbsolutePath());
+        // System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 
         final List<File> dataFiles = new ArrayList<>();
