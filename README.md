@@ -5,6 +5,8 @@ This is the code repository of the HTML parser used by HtmlUnit.
 For a long time HtmlUnit uses the CyberNeko HTML Parser (http://nekohtml.sourceforge.net/). But because the development
 seems to end somewhere around 2014 we started our own fork that now has many improvements.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit)
+
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
 ### Project News
@@ -43,7 +45,7 @@ You have to add the sonatype snapshot repository to your pom distributionManagem
     </snapshotRepository>
 
 
-## Start NekoHtml Development 
+## Start NekoHtml Development
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
