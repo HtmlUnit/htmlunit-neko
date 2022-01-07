@@ -527,6 +527,7 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2001", new Object[]{ename});
                 }
                 if (fDocumentHandler != null) {
+                    addBodyIfNeeded(info.element.code);
                     callEndElement(info.qname, synthesizedAugs());
                 }
             }
@@ -637,7 +638,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
-                forceStartElement(head, null, synthesizedAugs());
+                forceStartElement(head, emptyAttributes(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -647,7 +648,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
-                forceStartElement(head, null, synthesizedAugs());
+                forceStartElement(head, emptyAttributes(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -707,7 +708,7 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename,pname});
                 }
                 final QName qname = createQName(pname);
-                final boolean parentCreated = forceStartElement(qname, null, synthesizedAugs());
+                final boolean parentCreated = forceStartElement(qname, emptyAttributes(), synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
                         notifyDiscardedStartElement(elem, attrs, augs);
@@ -725,7 +726,7 @@ public class HTMLTagBalancer
                             final String ename = elem.rawname;
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename,pname});
                         }
-                        final boolean parentCreated = forceStartElement(qname, null, synthesizedAugs());
+                        final boolean parentCreated = forceStartElement(qname, emptyAttributes(), synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -917,7 +918,7 @@ public class HTMLTagBalancer
         if (fReportErrors) {
             fErrorReporter.reportWarning("HTML2006", new Object[]{body.localpart});
         }
-        forceStartElement(body, null, synthesizedAugs());
+        forceStartElement(body, emptyAttributes(), synthesizedAugs());
     }
 
     /** Text declaration. */
@@ -1166,6 +1167,7 @@ public class HTMLTagBalancer
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename,iname});
             }
             if (fDocumentHandler != null) {
+                addBodyIfNeeded(info.element.code);
                 // PATCH: Marc-Andr� Morissette
                 callEndElement(info.qname, i < depth - 1 ? synthesizedAugs() : augs);
             }
@@ -1222,6 +1224,21 @@ public class HTMLTagBalancer
                                           Augmentations augs)
         throws XNIException {
         fDocumentHandler.startElement(element, attrs, augs);
+    }
+
+    private void addBodyIfNeeded(short element) {
+        if (!fDocumentFragment && !fSeenFramesetElement && element == HTMLElements.HTML) {
+            if (!fSeenHeadElement) {
+                final QName head = createQName("head");
+                callStartElement(head, emptyAttributes(), synthesizedAugs());
+                callEndElement(head, synthesizedAugs());
+            }
+            if (!fSeenBodyElement) {
+                final QName body = createQName("body");
+                callStartElement(body, emptyAttributes(), synthesizedAugs());
+                callEndElement(body, synthesizedAugs());
+            }
+        }
     }
 
     // Call document handler end element.
