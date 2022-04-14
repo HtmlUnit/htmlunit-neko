@@ -39,10 +39,17 @@ If you use maven please add:
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
 
-    <snapshotRepository>
-        <id>sonatype-nexus-snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+    <repository>
+        <id>OSS Sonatype snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </snapshots>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+    </repository>
 
 
 ## Start NekoHtml Development
