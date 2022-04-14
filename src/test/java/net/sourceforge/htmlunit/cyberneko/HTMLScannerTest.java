@@ -253,4 +253,22 @@ public class HTMLScannerTest {
         final String[] expectedStringLower = {"(html", "(head", "(title", ")title", ")head", "(body", ")body", ")html"};
         assertEquals(Arrays.asList(expectedStringLower).toString(), filter.collectedStrings.toString());
     }
+
+    /**
+     * Regression test for an oom exception in versions < 2.60.
+     * @throws Exception
+     */
+    @Test
+    public void invalidProcessingInstruction() throws Exception {
+        final String string = "<!--?><?a/";
+
+        final HTMLConfiguration parser = new HTMLConfiguration();
+        final EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
+        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings.toString());
+    }
 }
