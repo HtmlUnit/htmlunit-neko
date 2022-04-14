@@ -1163,12 +1163,6 @@ public class HTMLScanner
     // Protected methods
     //
 
-    // i/o
-    // Reads a single character.
-    protected int read() throws IOException {
-        return fCurrentEntity.read();
-    }
-
 
     // debugging
 
@@ -1289,7 +1283,7 @@ public class HTMLScanner
             }
             return str.toString();
         }
-           fCurrentEntity.rewind();
+        fCurrentEntity.rewind();
         return null;
     }
 
@@ -2062,15 +2056,15 @@ public class HTMLScanner
                             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
                             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
                             final int c = fCurrentEntity.read();
+                            if (c == -1) {
+                                throw new EOFException();
+                            }
                             if (c == '<') {
                                 setScannerState(STATE_MARKUP_BRACKET);
                                 next = true;
                             }
                             else if (c == '&') {
                                 scanEntityRef(fStringBuffer, true);
-                            }
-                            else if (c == -1) {
-                                throw new EOFException();
                             }
                             else {
                                 fCurrentEntity.rewind();
@@ -2080,6 +2074,17 @@ public class HTMLScanner
                         }
                         case STATE_MARKUP_BRACKET: {
                             final int c = fCurrentEntity.read();
+                            if (c == -1) {
+                                if (fReportErrors) {
+                                    fErrorReporter.reportError("HTML1003", null);
+                                }
+                                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                                    fStringBuffer.clear();
+                                    fStringBuffer.append('<');
+                                    fDocumentHandler.characters(fStringBuffer, null);
+                                }
+                                throw new EOFException();
+                            }
                             if (c == '!') {
                                 // process some strange self closing comments first
                                 if (skip("--->", false)
@@ -2112,17 +2117,6 @@ public class HTMLScanner
                             }
                             else if (c == '/') {
                                 scanEndElement();
-                            }
-                            else if (c == -1) {
-                                if (fReportErrors) {
-                                    fErrorReporter.reportError("HTML1003", null);
-                                }
-                                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
-                                    fStringBuffer.clear();
-                                    fStringBuffer.append('<');
-                                    fDocumentHandler.characters(fStringBuffer, null);
-                                }
-                                throw new EOFException();
                             }
                             else {
                                 fCurrentEntity.rewind();
@@ -2533,7 +2527,13 @@ public class HTMLScanner
             int c = -1;
             OUTER: while (true) {
                 c = fCurrentEntity.read();
-                if (c == cend) {
+                if (c == -1) {
+                    if (fReportErrors) {
+                        fErrorReporter.reportError("HTML1007", null);
+                    }
+                    break;
+                }
+                else if (c == cend) {
                     int count = 1;
                     while (true) {
                         c = fCurrentEntity.read();
@@ -2576,12 +2576,6 @@ public class HTMLScanner
                     }
                     continue;
                 }
-                else if (c == -1) {
-                    if (fReportErrors) {
-                        fErrorReporter.reportError("HTML1007", null);
-                    }
-                    break;
-                }
                 appendChar(buffer, c, null);
             }
             return c == -1;
@@ -2601,9 +2595,15 @@ public class HTMLScanner
             if (target != null && !target.equalsIgnoreCase("xml")) {
                 while (true) {
                     int c = fCurrentEntity.read();
+                    if (c == -1) {
+                        break;
+                    }
                     if (c == '\r' || c == '\n') {
                         if (c == '\r') {
                             c = fCurrentEntity.read();
+                            if (c == -1) {
+                                break;
+                            }
                             if (c != '\n') {
                                 fCurrentEntity.offset--;
                                 fCurrentEntity.characterOffset_--;
@@ -2611,9 +2611,6 @@ public class HTMLScanner
                         }
                         fCurrentEntity.incLine();
                         continue;
-                    }
-                    if (c == -1) {
-                        break;
                     }
                     if (c != ' ' && c != '\t') {
                         fCurrentEntity.rewind();
@@ -2623,6 +2620,9 @@ public class HTMLScanner
                 fStringBuffer.clear();
                 while (true) {
                     int c = fCurrentEntity.read();
+                    if (c == -1) {
+                        break;
+                    }
                     if (c == '?' || c == '/') {
                         final char c0 = (char)c;
                         c = fCurrentEntity.read();
@@ -2637,6 +2637,9 @@ public class HTMLScanner
                         fStringBuffer.append('\n');
                         if (c == '\r') {
                             c = fCurrentEntity.read();
+                            if (c == -1) {
+                                break;
+                            }
                             if (c != '\n') {
                                 fCurrentEntity.offset--;
                                 fCurrentEntity.characterOffset_--;
@@ -2644,9 +2647,6 @@ public class HTMLScanner
                         }
                         fCurrentEntity.incLine();
                         continue;
-                    }
-                    else if (c == -1) {
-                        break;
                     }
                     else if (c =='>') {
                         // invalid procession instruction, handle as comment
@@ -3032,17 +3032,17 @@ public class HTMLScanner
                     fCurrentEntity.rewind();
                     while (true) {
                         c = fCurrentEntity.read();
-                        // Xiaowei/Ac: Fix for <a href=/broken/>...</a>
-                        if (Character.isWhitespace((char)c) || c == '>') {
-                            //fCharOffset--;
-                            fCurrentEntity.rewind();
-                            break;
-                        }
                         if (c == -1) {
                             if (fReportErrors) {
                                 fErrorReporter.reportError("HTML1007", null);
                             }
                             throw new EOFException();
+                        }
+                        // Xiaowei/Ac: Fix for <a href=/broken/>...</a>
+                        if (Character.isWhitespace((char)c) || c == '>') {
+                            //fCharOffset--;
+                            fCurrentEntity.rewind();
+                            break;
                         }
                         if (c == '&') {
                             final int ce = scanEntityRef(fStringBuffer2, false);
@@ -3269,6 +3269,12 @@ public class HTMLScanner
                             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
                             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
                             final int c = fCurrentEntity.read();
+                            if (c == -1) {
+                                if (fReportErrors) {
+                                    fErrorReporter.reportError("HTML1007", null);
+                                }
+                                throw new EOFException();
+                            }
                             if (c == '<') {
                                 setScannerState(STATE_MARKUP_BRACKET);
                                 continue;
@@ -3280,12 +3286,6 @@ public class HTMLScanner
                                 }
                                 xmlStringBuffer.clear();
                                 xmlStringBuffer.append('&');
-                            }
-                            else if (c == -1) {
-                                if (fReportErrors) {
-                                    fErrorReporter.reportError("HTML1007", null);
-                                }
-                                throw new EOFException();
                             }
                             else {
                                 fCurrentEntity.rewind();
