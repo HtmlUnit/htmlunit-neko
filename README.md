@@ -12,16 +12,17 @@ seems to end somewhere around 2014 we started our own fork that now has many imp
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.61.0 / April 18, 2022
+### Latest release Version 2.62.0 / June 01, 2022
 
-#### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to version 2.61.0.
+#### CVE-2022-29546
+#### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to version 2.62.0.
 
 For maven, you would add:
 
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.61.0</version>
+        <version>2.62.0</version>
     </dependency>
 
 ### Latest CI build
@@ -36,7 +37,7 @@ If you use maven please add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.62.0-SNAPSHOT</version>
+        <version>2.63.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
