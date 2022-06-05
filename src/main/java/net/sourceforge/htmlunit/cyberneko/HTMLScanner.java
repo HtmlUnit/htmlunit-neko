@@ -2947,6 +2947,9 @@ public class HTMLScanner
             }
             else if (c == '<') {
                 fCurrentEntity.rewind();
+                if(fReportErrors) {
+                    fErrorReporter.reportError("HTML1016", null);
+                }
                 return false;
             }
             fCurrentEntity.rewind();
