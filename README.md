@@ -2,8 +2,8 @@
 
 This is the code repository of the HTML parser used by HtmlUnit.
 
-For a long time HtmlUnit uses the CyberNeko HTML Parser (http://nekohtml.sourceforge.net/). But because the development
-seems to end somewhere around 2014 we started our own fork that now has many improvements.
+HtmlUnit has been using CyberNeko HTML parser (http://nekohtml.sourceforge.net/) for a long time.
+But since the development was discontinued around 2014, we started our own fork, which now has many improvements.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit)
 
@@ -12,7 +12,7 @@ seems to end somewhere around 2014 we started our own fork that now has many imp
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.65.0 / October 02, 2022
+### Latest release Version 2.66.0 / October 22, 2022
 
 #### CVE-2022-29546
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -22,10 +22,10 @@ For maven, you would add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.65.0</version>
+        <version>2.66.0</version>
     </dependency>
 
-### Latest CI build
+### Last CI build
 The latest builds are available from our
 [Jenkins CI build server][2]
 
@@ -37,7 +37,7 @@ If you use maven please add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.65.0-SNAPSHOT</version>
+        <version>2.67.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
