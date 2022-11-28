@@ -35,10 +35,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.xerces.impl.Version;
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import net.sourceforge.htmlunit.xerces.impl.Version;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.opentest4j.AssertionFailedError;

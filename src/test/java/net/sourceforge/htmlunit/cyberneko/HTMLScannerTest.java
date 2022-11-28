@@ -11,14 +11,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.xerces.util.XMLStringBuffer;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;

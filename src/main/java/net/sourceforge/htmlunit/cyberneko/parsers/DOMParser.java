@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  */
 public class DOMParser
     /***/
-    extends org.apache.xerces.parsers.DOMParser {
+    extends net.sourceforge.htmlunit.xerces.parsers.DOMParser {
     /***
     // NOTE: It would be better to extend from AbstractDOMParser but
     //       most users will find it easier if the API is just like the
@@ -45,7 +45,7 @@ public class DOMParser
         /*** extending DOMParser ***/
         try {
             setProperty("http://apache.org/xml/properties/dom/document-class-name",
-                                       "org.apache.html.dom.HTMLDocumentImpl");
+                                       "net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl");
         }
         catch (final org.xml.sax.SAXNotRecognizedException e) {
             throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not recognized");
@@ -55,7 +55,7 @@ public class DOMParser
         }
         /** extending AbstractDOMParser ***
         fConfiguration.setProperty("http://apache.org/xml/properties/dom/document-class-name",
-                                   "org.apache.html.dom.HTMLDocumentImpl");
+                                   "net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl");
         */
     }
 }

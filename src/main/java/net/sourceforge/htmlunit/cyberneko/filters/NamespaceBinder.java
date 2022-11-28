@@ -20,14 +20,14 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Vector;
 
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.NamespaceContext;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLLocator;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLComponentManager;
-import org.apache.xerces.xni.parser.XMLConfigurationException;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 

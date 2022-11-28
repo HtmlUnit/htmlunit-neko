@@ -16,7 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
-import org.apache.xerces.xni.parser.XMLParseException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
 /**
  * Defines an error reporter for reporting HTML errors. There is no such

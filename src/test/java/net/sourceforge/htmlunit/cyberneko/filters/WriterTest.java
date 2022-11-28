@@ -4,9 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;

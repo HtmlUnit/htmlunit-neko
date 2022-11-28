@@ -18,9 +18,9 @@ package net.sourceforge.htmlunit.cyberneko;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.XMLDocumentHandler;
-import org.apache.xerces.xni.XMLString;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
+import net.sourceforge.htmlunit.xerces.xni.XMLString;
 
 /**
  * Container for text that should be hold and re-feed later like text before &lt;html&gt; that will be re-feed

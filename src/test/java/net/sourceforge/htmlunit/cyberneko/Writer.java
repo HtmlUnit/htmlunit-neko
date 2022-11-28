@@ -22,14 +22,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.xerces.util.XMLStringBuffer;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.NamespaceContext;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLLocator;
-import org.apache.xerces.xni.XMLString;
-import org.apache.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
+import net.sourceforge.htmlunit.xerces.xni.XMLString;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
 
 import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
@@ -472,15 +472,15 @@ public class Writer
 
     /** Main program. */
     public static void main(String[] argv) throws Exception {
-        final org.apache.xerces.xni.parser.XMLDocumentFilter[] filters = {
+        final net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter[] filters = {
             new Writer(),
         };
-        final org.apache.xerces.xni.parser.XMLParserConfiguration parser =
+        final net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration parser =
             new net.sourceforge.htmlunit.cyberneko.HTMLConfiguration();
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
         for (final String element : argv) {
-            final org.apache.xerces.xni.parser.XMLInputSource source =
-                new org.apache.xerces.xni.parser.XMLInputSource(null, element, null);
+            final net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource source =
+                new net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource(null, element, null);
             parser.parse(source);
         }
     }

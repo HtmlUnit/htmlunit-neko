@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import org.apache.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 /**

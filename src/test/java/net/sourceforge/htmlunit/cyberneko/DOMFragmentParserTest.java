@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringReader;
 
-import org.apache.html.dom.HTMLDocumentImpl;
+import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;

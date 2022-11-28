@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.xerces.parsers.AbstractSAXParser;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 /**

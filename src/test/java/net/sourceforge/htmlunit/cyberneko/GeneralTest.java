@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;

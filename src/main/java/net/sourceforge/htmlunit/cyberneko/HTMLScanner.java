@@ -28,25 +28,25 @@ import java.util.BitSet;
 import java.util.Locale;
 import java.util.Stack;
 
-import org.apache.xerces.util.EncodingMap;
-import org.apache.xerces.util.NamespaceSupport;
-import org.apache.xerces.util.URI;
-import org.apache.xerces.util.XMLAttributesImpl;
-import org.apache.xerces.util.XMLResourceIdentifierImpl;
-import org.apache.xerces.util.XMLStringBuffer;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.NamespaceContext;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLDocumentHandler;
-import org.apache.xerces.xni.XMLLocator;
-import org.apache.xerces.xni.XMLResourceIdentifier;
-import org.apache.xerces.xni.XMLString;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLComponentManager;
-import org.apache.xerces.xni.parser.XMLConfigurationException;
-import org.apache.xerces.xni.parser.XMLDocumentScanner;
-import org.apache.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.util.EncodingMap;
+import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
+import net.sourceforge.htmlunit.xerces.util.URI;
+import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
+import net.sourceforge.htmlunit.xerces.util.XMLResourceIdentifierImpl;
+import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
+import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
+import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
+import net.sourceforge.htmlunit.xerces.xni.XMLString;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * A simple HTML scanner. This scanner makes no attempt to balance tags

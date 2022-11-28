@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import org.apache.xerces.impl.Version;
+import net.sourceforge.htmlunit.xerces.impl.Version;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

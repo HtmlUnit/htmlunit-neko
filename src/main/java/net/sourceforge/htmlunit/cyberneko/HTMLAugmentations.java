@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.cyberneko;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.apache.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 
 /**
  * This class is here to overcome the XNI changes to the

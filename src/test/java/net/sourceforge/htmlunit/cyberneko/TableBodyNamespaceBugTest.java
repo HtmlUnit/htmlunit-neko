@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 
-import org.apache.xerces.parsers.AbstractSAXParser;
+import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

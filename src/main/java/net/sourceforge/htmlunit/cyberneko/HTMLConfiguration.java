@@ -24,19 +24,19 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.xerces.util.ParserConfigurationSettings;
-import org.apache.xerces.xni.XMLDTDContentModelHandler;
-import org.apache.xerces.xni.XMLDTDHandler;
-import org.apache.xerces.xni.XMLDocumentHandler;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLConfigurationException;
-import org.apache.xerces.xni.parser.XMLDocumentFilter;
-import org.apache.xerces.xni.parser.XMLDocumentSource;
-import org.apache.xerces.xni.parser.XMLEntityResolver;
-import org.apache.xerces.xni.parser.XMLErrorHandler;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParseException;
-import org.apache.xerces.xni.parser.XMLPullParserConfiguration;
+import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
+import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
+import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
+import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
 
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 

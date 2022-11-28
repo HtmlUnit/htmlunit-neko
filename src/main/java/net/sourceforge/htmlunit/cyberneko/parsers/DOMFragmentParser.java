@@ -23,24 +23,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
-import org.apache.xerces.impl.Constants;
-import org.apache.xerces.util.ErrorHandlerWrapper;
-import org.apache.xerces.util.XMLChar;
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.NamespaceContext;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLDocumentHandler;
-import org.apache.xerces.xni.XMLLocator;
-import org.apache.xerces.xni.XMLResourceIdentifier;
-import org.apache.xerces.xni.XMLString;
-import org.apache.xerces.xni.XNIException;
-import org.apache.xerces.xni.parser.XMLConfigurationException;
-import org.apache.xerces.xni.parser.XMLDocumentSource;
-import org.apache.xerces.xni.parser.XMLErrorHandler;
-import org.apache.xerces.xni.parser.XMLInputSource;
-import org.apache.xerces.xni.parser.XMLParseException;
-import org.apache.xerces.xni.parser.XMLParserConfiguration;
+import net.sourceforge.htmlunit.xerces.impl.Constants;
+import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
+import net.sourceforge.htmlunit.xerces.util.XMLChar;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
+import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
+import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
+import net.sourceforge.htmlunit.xerces.xni.XMLString;
+import net.sourceforge.htmlunit.xerces.xni.XNIException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -578,7 +578,7 @@ public class DOMFragmentParser
 
     public static void main(String[] argv) throws Exception {
         DOMFragmentParser parser = new DOMFragmentParser();
-        HTMLDocument document = new org.apache.html.dom.HTMLDocumentImpl();
+        HTMLDocument document = new net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl();
         for (int i = 0; i < argv.length; i++) {
             String sysid = argv[i];
             System.err.println("# "+sysid);

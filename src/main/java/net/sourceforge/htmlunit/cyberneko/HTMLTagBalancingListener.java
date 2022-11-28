@@ -15,10 +15,10 @@
  */
 package net.sourceforge.htmlunit.cyberneko;
 
-import org.apache.xerces.xni.Augmentations;
-import org.apache.xerces.xni.QName;
-import org.apache.xerces.xni.XMLAttributes;
-import org.apache.xerces.xni.XMLDocumentHandler;
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 
 /**
  * <span style="color: red">EXPERIMENTAL: may change in next release</span><br>
