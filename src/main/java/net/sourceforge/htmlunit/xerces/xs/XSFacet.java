@@ -26,12 +26,12 @@ public interface XSFacet extends XSObject {
      * The name of the facet, e.g. <code>FACET_LENGTH, FACET_TOTALDIGITS</code>
      *  (see <code>XSSimpleTypeDefinition</code>). 
      */
-    public short getFacetKind();
+    short getFacetKind();
 
     /**
      * A value of this facet. 
      */
-    public String getLexicalFacetValue();
+    String getLexicalFacetValue();
 
     /**
      * If this facet is length, minLength, maxLength, totalDigits, or
@@ -40,7 +40,7 @@ public interface XSFacet extends XSObject {
      * getActualFacetValue() to get the BigInteger representation. For all other
      * facets, return 0.
      */
-    public int getIntFacetValue();
+    int getIntFacetValue();
 
     /**
      * If this facet is minInclusive, maxInclusive, minExclusive, or
@@ -49,21 +49,21 @@ public interface XSFacet extends XSObject {
      * return a BigInteger representation of the value. If this facet is
      * whiteSpace, then return the String representation of the facet.
      */
-    public Object getActualFacetValue();
+    Object getActualFacetValue();
 
     /**
      * [Facets]: check whether a facet is fixed. 
      */
-    public boolean getFixed();
+    boolean getFixed();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. If not null
      * then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

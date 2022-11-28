@@ -30,34 +30,34 @@ import java.util.Locale;
  */
 public interface ValidationContext {
     // whether to validate against facets
-    public boolean needFacetChecking();
+    boolean needFacetChecking();
 
     // whether to do extra id/idref/entity checking
-    public boolean needExtraChecking();
+    boolean needExtraChecking();
 
     // whether we need to normalize the value that is passed!
-    public boolean needToNormalize();
+    boolean needToNormalize();
 
     // are namespaces relevant in this context?
-    public boolean useNamespaces();
+    boolean useNamespaces();
 
     // entity
-    public boolean isEntityDeclared (String name);
-    public boolean isEntityUnparsed (String name);
+    boolean isEntityDeclared (String name);
+    boolean isEntityUnparsed (String name);
 
     // id
-    public boolean isIdDeclared (String name);
-    public void    addId(String name);
+    boolean isIdDeclared (String name);
+    void    addId(String name);
 
     // idref
-    public void addIdRef(String name);
+    void addIdRef(String name);
 
     // get symbol from symbol table
-    public String getSymbol (String symbol);
+    String getSymbol (String symbol);
 
     // qname
-    public String getURI(String prefix);
+    String getURI(String prefix);
     
     // Locale
-    public Locale getLocale();
+    Locale getLocale();
 }

@@ -62,9 +62,9 @@ public class CoreDOMImplementationImpl
     // validator pools
     private static final int SIZE = 2;
 
-    private SoftReference schemaValidators[] = new SoftReference[SIZE];
-    private SoftReference xml10DTDValidators[] = new SoftReference[SIZE];
-    private SoftReference xml11DTDValidators[] = new SoftReference[SIZE];
+    private SoftReference[] schemaValidators = new SoftReference[SIZE];
+    private SoftReference[] xml10DTDValidators = new SoftReference[SIZE];
+    private SoftReference[] xml11DTDValidators = new SoftReference[SIZE];
 
     private int freeSchemaValidatorIndex = -1;
     private int freeXML10DTDValidatorIndex = -1;
@@ -74,8 +74,8 @@ public class CoreDOMImplementationImpl
     private int xml10DTDValidatorsCurrentSize = SIZE;
     private int xml11DTDValidatorsCurrentSize = SIZE;
 
-    private SoftReference xml10DTDLoaders[] = new SoftReference[SIZE];
-    private SoftReference xml11DTDLoaders[] = new SoftReference[SIZE];
+    private SoftReference[] xml10DTDLoaders = new SoftReference[SIZE];
+    private SoftReference[] xml11DTDLoaders = new SoftReference[SIZE];
 
     private int freeXML10DTDLoaderIndex = -1;
     private int freeXML11DTDLoaderIndex = -1;
@@ -136,7 +136,7 @@ public class CoreDOMImplementationImpl
 
                 // Check if the DOM XPath implementation implements
                 // the interface org.w3c.dom.XPathEvaluator
-                Class interfaces[] = xpathClass.getInterfaces();
+                Class[] interfaces = xpathClass.getInterfaces();
                 for (Class anInterface : interfaces) {
                     if (anInterface.getName().equals(
                             "org.w3c.dom.xpath.XPathEvaluator")) {
@@ -318,7 +318,7 @@ public class CoreDOMImplementationImpl
 
 	                // Check if the DOM XPath implementation implements
 	                // the interface org.w3c.dom.XPathEvaluator
-	                Class interfaces[] = xpathClass.getInterfaces();
+	                Class[] interfaces = xpathClass.getInterfaces();
                     for (Class anInterface : interfaces) {
                         if (anInterface.getName().equals(
                                 "org.w3c.dom.xpath.XPathEvaluator")) {
@@ -494,7 +494,7 @@ public class CoreDOMImplementationImpl
 	        if (schemaValidators.length == freeSchemaValidatorIndex) {
 	            // resize size of the validators
 	            schemaValidatorsCurrentSize += SIZE;
-	            SoftReference newarray[] =  new SoftReference[schemaValidatorsCurrentSize];
+	            SoftReference[] newarray =  new SoftReference[schemaValidatorsCurrentSize];
 	            System.arraycopy(schemaValidators, 0, newarray, 0, schemaValidators.length);
 	            schemaValidators = newarray;
 	        }

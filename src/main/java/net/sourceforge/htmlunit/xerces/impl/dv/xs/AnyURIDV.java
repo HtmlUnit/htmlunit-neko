@@ -21,6 +21,8 @@ import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.util.URI;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Represent the schema type "anyURI"
  *
@@ -69,11 +71,11 @@ public class AnyURIDV extends TypeValidator {
     }
 
     // which ASCII characters need to be escaped
-    private static boolean gNeedEscaping[] = new boolean[128];
+    private static boolean[] gNeedEscaping = new boolean[128];
     // the first hex character if a character needs to be escaped
-    private static char gAfterEscaping1[] = new char[128];
+    private static char[] gAfterEscaping1 = new char[128];
     // the second hex character if a character needs to be escaped
-    private static char gAfterEscaping2[] = new char[128];
+    private static char[] gAfterEscaping2 = new char[128];
     private static char[] gHexChs = {'0', '1', '2', '3', '4', '5', '6', '7',
                                      '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
     // initialize the above 3 arrays
@@ -127,12 +129,7 @@ public class AnyURIDV extends TypeValidator {
             // get UTF-8 bytes for the remaining sub-string
             byte[] bytes = null;
             byte b;
-            try {
-                bytes = anyURI.substring(i).getBytes("UTF-8");
-            } catch (java.io.UnsupportedEncodingException e) {
-                // should never happen
-                return anyURI;
-            }
+            bytes = anyURI.substring(i).getBytes(StandardCharsets.UTF_8);
             len = bytes.length;
 
             // for each byte

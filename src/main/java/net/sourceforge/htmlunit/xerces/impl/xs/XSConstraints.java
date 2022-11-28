@@ -1311,7 +1311,7 @@ public class XSConstraints {
         int count1= dChildren.size();
         int count2 = bChildren.size();
 
-        boolean foundIt[] = new boolean[count2];
+        boolean[] foundIt = new boolean[count2];
 
         label: for (int i = 0; i<count1; i++) {
             XSParticleDecl particle1 = (XSParticleDecl)dChildren.elementAt(i);

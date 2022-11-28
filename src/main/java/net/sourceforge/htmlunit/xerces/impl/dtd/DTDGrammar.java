@@ -123,31 +123,31 @@ public class DTDGrammar
     private int fElementDeclCount = 0;
 
     /** Element declaration name. */
-    private QName fElementDeclName[][] = new QName[INITIAL_CHUNK_COUNT][];
+    private QName[][] fElementDeclName = new QName[INITIAL_CHUNK_COUNT][];
 
     /** 
      * Element declaration type. 
      * @see XMLElementDecl
      */
-    private short fElementDeclType[][] = new short[INITIAL_CHUNK_COUNT][];
+    private short[][] fElementDeclType = new short[INITIAL_CHUNK_COUNT][];
 
     /** 
      * Element declaration content spec index. This index value is used
      * to refer to the content spec information tables.
      */
-    private int fElementDeclContentSpecIndex[][] = new int[INITIAL_CHUNK_COUNT][];
+    private int[][] fElementDeclContentSpecIndex = new int[INITIAL_CHUNK_COUNT][];
 
     /** 
      * Element declaration content model validator. This validator is
      * constructed from the content spec nodes.
      */
-    private ContentModelValidator fElementDeclContentModelValidator[][] = new ContentModelValidator[INITIAL_CHUNK_COUNT][];
+    private ContentModelValidator[][] fElementDeclContentModelValidator = new ContentModelValidator[INITIAL_CHUNK_COUNT][];
 
     /** First attribute declaration of an element declaration. */
-    private int fElementDeclFirstAttributeDeclIndex[][] = new int[INITIAL_CHUNK_COUNT][];
+    private int[][] fElementDeclFirstAttributeDeclIndex = new int[INITIAL_CHUNK_COUNT][];
 
     /** Last attribute declaration of an element declaration. */
-    private int fElementDeclLastAttributeDeclIndex[][] = new int[INITIAL_CHUNK_COUNT][];
+    private int[][] fElementDeclLastAttributeDeclIndex = new int[INITIAL_CHUNK_COUNT][];
 
     // attribute declarations
 
@@ -155,7 +155,7 @@ public class DTDGrammar
     private int fAttributeDeclCount = 0 ;
 
     /** Attribute declaration name. */
-    private QName fAttributeDeclName[][] = new QName[INITIAL_CHUNK_COUNT][];
+    private QName[][] fAttributeDeclName = new QName[INITIAL_CHUNK_COUNT][];
 
     // is this grammar immutable?  (fully constructed and not changeable)
     private boolean fIsImmutable = false;
@@ -164,15 +164,15 @@ public class DTDGrammar
      * Attribute declaration type.
      * @see XMLAttributeDecl
      */
-    private short fAttributeDeclType[][] = new short[INITIAL_CHUNK_COUNT][];
+    private short[][] fAttributeDeclType = new short[INITIAL_CHUNK_COUNT][];
 
     /** Attribute declaration enumeration values. */
-    private String[] fAttributeDeclEnumeration[][] = new String[INITIAL_CHUNK_COUNT][][];
-    private short fAttributeDeclDefaultType[][] = new short[INITIAL_CHUNK_COUNT][];
-    private DatatypeValidator fAttributeDeclDatatypeValidator[][] = new DatatypeValidator[INITIAL_CHUNK_COUNT][];
-    private String fAttributeDeclDefaultValue[][] = new String[INITIAL_CHUNK_COUNT][];
-    private String fAttributeDeclNonNormalizedDefaultValue[][] = new String[INITIAL_CHUNK_COUNT][];
-    private int fAttributeDeclNextAttributeDeclIndex[][] = new int[INITIAL_CHUNK_COUNT][];
+    private String[][][] fAttributeDeclEnumeration = new String[INITIAL_CHUNK_COUNT][][];
+    private short[][] fAttributeDeclDefaultType = new short[INITIAL_CHUNK_COUNT][];
+    private DatatypeValidator[][] fAttributeDeclDatatypeValidator = new DatatypeValidator[INITIAL_CHUNK_COUNT][];
+    private String[][] fAttributeDeclDefaultValue = new String[INITIAL_CHUNK_COUNT][];
+    private String[][] fAttributeDeclNonNormalizedDefaultValue = new String[INITIAL_CHUNK_COUNT][];
+    private int[][] fAttributeDeclNextAttributeDeclIndex = new int[INITIAL_CHUNK_COUNT][];
 
     // content specs
 
@@ -181,14 +181,14 @@ public class DTDGrammar
     // the index of the head node of the content spec tree. 
 
     private int fContentSpecCount = 0;
-    private short fContentSpecType[][] = new short[INITIAL_CHUNK_COUNT][];
-    private Object fContentSpecValue[][] = new Object[INITIAL_CHUNK_COUNT][];
-    private Object fContentSpecOtherValue[][] = new Object[INITIAL_CHUNK_COUNT][];
+    private short[][] fContentSpecType = new short[INITIAL_CHUNK_COUNT][];
+    private Object[][] fContentSpecValue = new Object[INITIAL_CHUNK_COUNT][];
+    private Object[][] fContentSpecOtherValue = new Object[INITIAL_CHUNK_COUNT][];
 
     // entities
 
     private int fEntityCount = 0;
-    private String fEntityName[][] = new String[INITIAL_CHUNK_COUNT][];
+    private String[][] fEntityName = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fEntityValue = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fEntityPublicId = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fEntitySystemId = new String[INITIAL_CHUNK_COUNT][];
@@ -200,7 +200,7 @@ public class DTDGrammar
     // notations
 
     private int fNotationCount = 0;
-    private String fNotationName[][] = new String[INITIAL_CHUNK_COUNT][];
+    private String[][] fNotationName = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fNotationPublicId = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fNotationSystemId = new String[INITIAL_CHUNK_COUNT][];
     private String[][] fNotationBaseSystemId = new String[INITIAL_CHUNK_COUNT][];
@@ -269,13 +269,13 @@ public class DTDGrammar
     // additional fields(columns) for the element Decl pool in the Grammar
 
     /** flag if the elementDecl is External. */
-    private int fElementDeclIsExternal[][] = new int[INITIAL_CHUNK_COUNT][];
+    private int[][] fElementDeclIsExternal = new int[INITIAL_CHUNK_COUNT][];
 
 
     // additional fields(columns) for the attribute Decl pool in the Grammar
 
     /** flag if the AttributeDecl is External. */
-    private int fAttributeDeclIsExternal[][] = new int[INITIAL_CHUNK_COUNT][];
+    private int[][] fAttributeDeclIsExternal = new int[INITIAL_CHUNK_COUNT][];
 
     // for mixedElement method
 
@@ -2534,56 +2534,56 @@ public class DTDGrammar
 
     // resize chunks
 
-    private static byte[][] resize(byte array[][], int newsize) {
-        byte newarray[][] = new byte[newsize][];
+    private static byte[][] resize(byte[][] array, int newsize) {
+        byte[][] newarray = new byte[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
    
-    private static short[][] resize(short array[][], int newsize) {
-        short newarray[][] = new short[newsize][];
+    private static short[][] resize(short[][] array, int newsize) {
+        short[][] newarray = new short[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static int[][] resize(int array[][], int newsize) {
-        int newarray[][] = new int[newsize][];
+    private static int[][] resize(int[][] array, int newsize) {
+        int[][] newarray = new int[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static DatatypeValidator[][] resize(DatatypeValidator array[][], int newsize) {
-        DatatypeValidator newarray[][] = new DatatypeValidator[newsize][];
+    private static DatatypeValidator[][] resize(DatatypeValidator[][] array, int newsize) {
+        DatatypeValidator[][] newarray = new DatatypeValidator[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static ContentModelValidator[][] resize(ContentModelValidator array[][], int newsize) {
-        ContentModelValidator newarray[][] = new ContentModelValidator[newsize][];
+    private static ContentModelValidator[][] resize(ContentModelValidator[][] array, int newsize) {
+        ContentModelValidator[][] newarray = new ContentModelValidator[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static Object[][] resize(Object array[][], int newsize) {
-        Object newarray[][] = new Object[newsize][];
+    private static Object[][] resize(Object[][] array, int newsize) {
+        Object[][] newarray = new Object[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static QName[][] resize(QName array[][], int newsize) {
-        QName newarray[][] = new QName[newsize][];
+    private static QName[][] resize(QName[][] array, int newsize) {
+        QName[][] newarray = new QName[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static String[][] resize(String array[][], int newsize) {
-        String newarray[][] = new String[newsize][];
+    private static String[][] resize(String[][] array, int newsize) {
+        String[][] newarray = new String[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static String[][][] resize(String array[][][], int newsize) {
-        String newarray[][][] = new String[newsize] [][];
+    private static String[][][] resize(String[][][] array, int newsize) {
+        String[][][] newarray = new String[newsize] [][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }

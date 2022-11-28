@@ -42,6 +42,6 @@ public interface ContentModelValidator {
      *         of children, then the specified children are valid but additional
      *         content is required to reach a valid ending state.
      */
-    public int validate(QName[] children, int offset, int length);
+    int validate(QName[] children, int offset, int length);
 
 } // interface ContentModelValidator

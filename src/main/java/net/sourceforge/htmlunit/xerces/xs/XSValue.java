@@ -25,24 +25,24 @@ public interface XSValue {
     /**
      * The schema normalized value.
      */
-    public String getNormalizedValue();
+    String getNormalizedValue();
 
     /**
      * The actual value. <code>null</code> if the value is in error. 
      */
-    public Object getActualValue();
+    Object getActualValue();
 
     /**
      * The declared simple type definition used to validate this value.
      * It can be a union type.
      */
-    public XSSimpleTypeDefinition getTypeDefinition();
+    XSSimpleTypeDefinition getTypeDefinition();
 
     /**
      * If the declared simple type definition is a union, return the member
      * type actually used to validate the value. Otherwise null.
      */
-    public XSSimpleTypeDefinition getMemberTypeDefinition();
+    XSSimpleTypeDefinition getMemberTypeDefinition();
 
     /**
      * If <code>getTypeDefinition()</code> returns a list type whose item type
@@ -50,7 +50,7 @@ public interface XSValue {
      * as the value list, for simple types that actually validated
      * the corresponding item in the value. 
      */
-    public XSObjectList getMemberTypeDefinitions();
+    XSObjectList getMemberTypeDefinitions();
 
     /**
      * The actual value built-in datatype, e.g. 
@@ -62,7 +62,7 @@ public interface XSValue {
      * of the list or list of union type definitions use 
      * <code>itemValueTypes()</code>.
      */
-    public short getActualValueType();
+    short getActualValueType();
 
     /**
      * In the case the actual value represents a list, i.e. the 
@@ -92,6 +92,6 @@ public interface XSValue {
      * , and the <code>itemValueTypes</code> is an array of size 3 with the 
      * following values: <code>INTEGER_DT, INTEGER_DT, STRING_DT</code>. 
      */
-    public ShortList getListValueTypes();
+    ShortList getListValueTypes();
 
 }

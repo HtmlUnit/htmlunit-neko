@@ -28,7 +28,7 @@ public interface ShortList extends List {
      *  The number of <code>unsigned short</code>s in the list. The range of 
      * valid child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
 
     /**
      *  Checks if the <code>unsigned short</code> <code>item</code> is a 
@@ -38,7 +38,7 @@ public interface ShortList extends List {
      * @return  True if this list contains the <code>unsigned short</code> 
      *   <code>item</code>. 
      */
-    public boolean contains(short item);
+    boolean contains(short item);
 
     /**
      *  Returns the <code>index</code>th item in the collection. The index 
@@ -50,7 +50,7 @@ public interface ShortList extends List {
      *   INDEX_SIZE_ERR: if <code>index</code> is greater than or equal to the 
      *   number of objects in the list.
      */
-    public short item(int index)
+    short item(int index)
                       throws XSException;
 
 }

@@ -31,25 +31,25 @@ public interface XMLLocator {
     //
     
     /** Returns the public identifier. */
-    public String getPublicId();
+    String getPublicId();
     
     /** Returns the literal system identifier. */
-    public String getLiteralSystemId();
+    String getLiteralSystemId();
     
     /** Returns the base system identifier. */
-    public String getBaseSystemId();
+    String getBaseSystemId();
     
     /** Returns the expanded system identifier. */
-    public String getExpandedSystemId();
+    String getExpandedSystemId();
     
     /** Returns the line number, or <code>-1</code> if no line number is available. */
-    public int getLineNumber();
+    int getLineNumber();
   
     /** Returns the column number, or <code>-1</code> if no column number is available. */
-    public int getColumnNumber();
+    int getColumnNumber();
     
     /** Returns the character offset, or <code>-1</code> if no character offset is available. */
-    public int getCharacterOffset();
+    int getCharacterOffset();
 
     /** 
      * Returns the encoding of the current entity.  
@@ -59,7 +59,7 @@ public interface XMLLocator {
      * having been specified on the XMLInputSource, the parser
      * will make an initial "guess" which could be in error. 
      */
-    public String getEncoding();
+    String getEncoding();
     
     /** 
      * Returns the XML version of the current entity. This will normally be the
@@ -71,7 +71,7 @@ public interface XMLLocator {
      * final once the XML or text declaration has been read or once it has been
      * determined that there is no such declaration.
      */
-    public String getXMLVersion();
+    String getXMLVersion();
 
 
 } // interface XMLLocator

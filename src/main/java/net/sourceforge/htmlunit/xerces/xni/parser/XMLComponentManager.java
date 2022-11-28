@@ -45,7 +45,7 @@ public interface XMLComponentManager {
      * 
      * @throws XMLConfigurationException Thrown on configuration error.
      */
-    public boolean getFeature(String featureId)
+    boolean getFeature(String featureId)
         throws XMLConfigurationException;
 
     /**
@@ -55,7 +55,7 @@ public interface XMLComponentManager {
      * 
     * @throws XMLConfigurationException Thrown on configuration error.
      */
-    public Object getProperty(String propertyId)
+    Object getProperty(String propertyId)
         throws XMLConfigurationException;
 
 } // interface XMLComponentManager

@@ -64,7 +64,7 @@ public interface XMLPullParserConfiguration
      *
      * @see #parse(boolean)
      */
-    public void setInputSource(XMLInputSource inputSource)
+    void setInputSource(XMLInputSource inputSource)
         throws XMLConfigurationException, IOException;
 
     /**
@@ -83,13 +83,13 @@ public interface XMLPullParserConfiguration
      *
      * @see #setInputSource
      */
-    public boolean parse(boolean complete) throws XNIException, IOException;
+    boolean parse(boolean complete) throws XNIException, IOException;
 
     /**
      * If the application decides to terminate parsing before the xml document
      * is fully parsed, the application should call this method to free any
      * resource allocated during parsing. For example, close all opened streams.
      */
-    public void cleanup();
+    void cleanup();
     
 } // interface XMLPullParserConfiguration

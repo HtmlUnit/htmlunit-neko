@@ -1993,7 +1993,7 @@ public class XMLDTDValidator
         if (fPerformValidation) {
             // push current length onto stack
             if (fElementChildrenOffsetStack.length <= fElementDepth) {
-                int newarray[] = new int[fElementChildrenOffsetStack.length * 2];
+                int[] newarray = new int[fElementChildrenOffsetStack.length * 2];
                 System.arraycopy(fElementChildrenOffsetStack, 0, newarray, 0, fElementChildrenOffsetStack.length);
                 fElementChildrenOffsetStack = newarray;
             }
@@ -2041,7 +2041,7 @@ public class XMLDTDValidator
         if (fPerformValidation) {
             int elementIndex = fCurrentElementIndex;
             if (elementIndex != -1 && fCurrentContentSpecType != -1) {
-                QName children[] = fElementChildren;
+                QName[] children = fElementChildren;
                 int childrenOffset = fElementChildrenOffsetStack[fElementDepth + 1] + 1;
                 int childrenLength = fElementChildrenLength - childrenOffset;
                 int result = checkContent(elementIndex, 

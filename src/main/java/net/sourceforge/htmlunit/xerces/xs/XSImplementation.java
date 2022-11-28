@@ -29,7 +29,7 @@ public interface XSImplementation {
      * A list containing the versions of XML Schema documents recognized by 
      * this <code>XSImplemenation</code>.
      */
-    public StringList getRecognizedVersions();
+    StringList getRecognizedVersions();
 
 
     /**
@@ -44,7 +44,7 @@ public interface XSImplementation {
      *   NOT_SUPPORTED_ERR: Raised if the implementation does not support one 
      *   of the specified versions.
      */
-    public XSLoader createXSLoader(StringList versions)
+    XSLoader createXSLoader(StringList versions)
                                    throws XSException;
     
     /**
@@ -52,13 +52,13 @@ public interface XSImplementation {
      * @param values the array containing the <code>String</code> values that will be placed in the list.
      * @return an immutable <code>StringList</code> from the given array of <code>String</code>s.
      */
-    public StringList createStringList(String[] values);
+    StringList createStringList(String[] values);
     
     /**
      * Creates an immutable <code>LSInputList</code> from the given array of <code>LSInput</code>s.
      * @param values the array containing the <code>LSInput</code> values that will be placed in the list.
      * @return an immutable <code>LSInputList</code> from the given array of <code>LSInput</code>s.
      */
-    public LSInputList createLSInputList(LSInput[] values);
+    LSInputList createLSInputList(LSInput[] values);
 
 }

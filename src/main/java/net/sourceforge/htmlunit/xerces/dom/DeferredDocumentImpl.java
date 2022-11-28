@@ -88,37 +88,37 @@ public class DeferredDocumentImpl
     protected transient int fNodeCount = 0;
 
     /** Node types. */
-    protected transient int fNodeType[][];
+    protected transient int[][] fNodeType;
 
     /** Node names. */
-    protected transient Object fNodeName[][];
+    protected transient Object[][] fNodeName;
 
     /** Node values. */
-    protected transient Object fNodeValue[][];
+    protected transient Object[][] fNodeValue;
 
     /** Node parents. */
-    protected transient int fNodeParent[][];
+    protected transient int[][] fNodeParent;
 
     /** Node first children. */
-    protected transient int fNodeLastChild[][];
+    protected transient int[][] fNodeLastChild;
 
     /** Node prev siblings. */
-    protected transient int fNodePrevSib[][];
+    protected transient int[][] fNodePrevSib;
 
     /** Node namespace URI. */
-    protected transient Object fNodeURI[][];
+    protected transient Object[][] fNodeURI;
 
     /** Extra data. */
-    protected transient int fNodeExtra[][];
+    protected transient int[][] fNodeExtra;
 
     /** Identifier count. */
     protected transient int fIdCount;
 
     /** Identifier name indexes. */
-    protected transient String fIdName[];
+    protected transient String[] fIdName;
 
     /** Identifier element indexes. */
-    protected transient int fIdElement[];
+    protected transient int[] fIdElement;
 
     /** DOM2: For namespace support in the deferred case.
      */
@@ -1374,11 +1374,11 @@ public class DeferredDocumentImpl
 
         // resize arrays
         if (fIdCount == fIdName.length) {
-            String idName[] = new String[fIdCount * 2];
+            String[] idName = new String[fIdCount * 2];
             System.arraycopy(fIdName, 0, idName, 0, fIdCount);
             fIdName = idName;
 
-            int idElement[] = new int[idName.length];
+            int[] idElement = new int[idName.length];
             System.arraycopy(fIdElement, 0, idElement, 0, fIdCount);
             fIdElement = idElement;
         }
@@ -1873,7 +1873,7 @@ public class DeferredDocumentImpl
      *         of the target value, or -1 if the target value cannot
      *         be found.
      */
-    protected static int binarySearch(final int values[],
+    protected static int binarySearch(final int[] values,
                                       int start, int end, int target) {
 
         if (DEBUG_IDS) {
@@ -1928,7 +1928,7 @@ public class DeferredDocumentImpl
         }
     }
     /** Creates the specified chunk in the given array of chunks. */
-    private final void createChunk(int data[][], int chunk) {
+    private final void createChunk(int[][] data, int chunk) {
         data[chunk] = new int[CHUNK_SIZE + 1];
         System.arraycopy(INIT_ARRAY, 0, data[chunk], 0, CHUNK_SIZE);
     }
@@ -1937,7 +1937,7 @@ public class DeferredDocumentImpl
         int fCount;
     }
 
-    private final void createChunk(Object data[][], int chunk) {
+    private final void createChunk(Object[][] data, int chunk) {
         data[chunk] = new Object[CHUNK_SIZE + 1];
         data[chunk][CHUNK_SIZE] = new RefCount();
     }
@@ -1947,7 +1947,7 @@ public class DeferredDocumentImpl
      *
      * @return Returns the old value.
      */
-    private final int setChunkIndex(int data[][], int value,
+    private final int setChunkIndex(int[][] data, int value,
                                     int chunk, int index) {
         if (value == -1) {
             return clearChunkIndex(data, chunk, index);
@@ -1965,7 +1965,7 @@ public class DeferredDocumentImpl
         dataChunk[index] = value;
         return ovalue;
     }
-    private final String setChunkValue(Object data[][], Object value,
+    private final String setChunkValue(Object[][] data, Object value,
                                        int chunk, int index) {
         if (value == null) {
             return clearChunkValue(data, chunk, index);
@@ -1988,10 +1988,10 @@ public class DeferredDocumentImpl
     /**
      * Returns the specified value in the given data at the chunk and index.
      */
-    private final int getChunkIndex(int data[][], int chunk, int index) {
+    private final int getChunkIndex(int[][] data, int chunk, int index) {
         return data[chunk] != null ? data[chunk][index] : -1;
     }
-    private final String getChunkValue(Object data[][], int chunk, int index) {
+    private final String getChunkValue(Object[][] data, int chunk, int index) {
         return data[chunk] != null ? (String) data[chunk][index] : null;
     }
     private final String getNodeValue(int chunk, int index) {
@@ -2016,7 +2016,7 @@ public class DeferredDocumentImpl
      *
      * @return Returns the old value.
      */
-    private final int clearChunkIndex(int data[][], int chunk, int index) {
+    private final int clearChunkIndex(int[][] data, int chunk, int index) {
         int value = data[chunk] != null ? data[chunk][index] : -1;
         if (value != -1) {
             data[chunk][CHUNK_SIZE]--;
@@ -2027,7 +2027,7 @@ public class DeferredDocumentImpl
         }
         return value;
     }
-    private final String clearChunkValue(Object data[][],
+    private final String clearChunkValue(Object[][] data,
                                          int chunk, int index) {
         String value = data[chunk] != null ? (String)data[chunk][index] : null;
         if (value != null) {
@@ -2065,7 +2065,7 @@ public class DeferredDocumentImpl
     } // putIdentifier0(String,Element)
 
     /** Prints the ID array. */
-    private static void print(int values[], int start, int end,
+    private static void print(int[] values, int start, int end,
                               int middle, int target) {
 
         if (DEBUG_IDS) {
@@ -2102,7 +2102,7 @@ public class DeferredDocumentImpl
         //
 
         /** Data. */
-        private int data[];
+        private int[] data;
 
         /** Size. */
         private int size;
@@ -2143,7 +2143,7 @@ public class DeferredDocumentImpl
                 data = new int[newsize + 15];
             }
             else if (newsize > data.length) {
-                int newdata[] = new int[newsize + 15];
+                int[] newdata = new int[newsize + 15];
                 System.arraycopy(data, 0, newdata, 0, data.length);
                 data = newdata;
             }

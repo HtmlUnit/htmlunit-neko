@@ -69,18 +69,18 @@ public class XSDFACM
      * actual validation.  Note tat since either XSElementDecl or XSParticleDecl object
      * can live here, we've got to use an Object.
      */
-    private Object fElemMap[] = null;
+    private Object[] fElemMap = null;
 
     /**
      * This is a map of whether the element map contains information
      * related to ANY models.
      */
-    private int fElemMapType[] = null;
+    private int[] fElemMapType = null;
 
     /**
      * id of the unique input symbol
      */
-    private int fElemMapId[] = null;
+    private int[] fElemMapId = null;
     
     /** The element map size. */
     private int fElemMapSize = 0;
@@ -90,14 +90,14 @@ public class XSDFACM
      * fTransTableSize states in the DFA) that indicates whether that
      * state is a final state.
      */
-    private boolean fFinalStateFlags[] = null;
+    private boolean[] fFinalStateFlags = null;
 
     /**
      * The list of follow positions for each NFA position (i.e. for each
      * non-epsilon leaf node.) This is only used during the building of
      * the DFA, and is let go afterwards.
      */
-    private CMStateSet fFollowList[] = null;
+    private CMStateSet[] fFollowList = null;
 
     /**
      * This is the head node of our intermediate representation. It is
@@ -117,10 +117,10 @@ public class XSDFACM
      * An array of non-epsilon leaf nodes, which is used during the DFA
      * build operation, then dropped.
      */
-    private XSCMLeaf fLeafList[] = null;
+    private XSCMLeaf[] fLeafList = null;
 
     /** Array mapping ANY types to the leaf list. */
-    private int fLeafListType[] = null;
+    private int[] fLeafListType = null;
 
     /**
      * This is the transition table that is the main by product of all
@@ -134,7 +134,7 @@ public class XSDFACM
      * The fElemMap array handles mapping from element indexes to
      * positions in the second dimension of the transition table.
      */
-    private int fTransTable[][] = null;
+    private int[][] fTransTable = null;
     
     /**
      * Array containing occurence information for looping states 
@@ -1037,7 +1037,7 @@ public class XSDFACM
         // store the conflict results between any two elements in fElemMap
         // 0: not compared; -1: no conflict; 1: conflict
         // initialize the conflict table (all 0 initially)
-        byte conflictTable[][] = new byte[fElemMapSize][fElemMapSize];
+        byte[][] conflictTable = new byte[fElemMapSize][fElemMapSize];
 
         // for each state, check whether it has overlap transitions
         for (int i = 0; i < fTransTable.length && fTransTable[i] != null; i++) {

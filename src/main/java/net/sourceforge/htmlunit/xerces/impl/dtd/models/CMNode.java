@@ -141,4 +141,4 @@ public abstract class CMNode
      * more compact representation (for purposes of UPA).
      */
     private boolean fCompactedForUPA = false;    
-};
+}

@@ -57,7 +57,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startDocumentFragment(XMLLocator locator,
+    void startDocumentFragment(XMLLocator locator,
                                       NamespaceContext namespaceContext,
                                       Augmentations augmentations) 
         throws XNIException;
@@ -80,7 +80,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startGeneralEntity(String name, 
+    void startGeneralEntity(String name,
                                    XMLResourceIdentifier identifier,
                                    String encoding,
                                    Augmentations augmentations) throws XNIException;
@@ -103,7 +103,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void textDecl(String version, String encoding,
+    void textDecl(String version, String encoding,
                          Augmentations augmentations) throws XNIException;
 
     /**
@@ -118,7 +118,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endGeneralEntity(String name, Augmentations augmentations) 
+    void endGeneralEntity(String name, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -130,7 +130,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by application to signal an error.
      */
-    public void comment(XMLString text, Augmentations augmentations) 
+    void comment(XMLString text, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -151,7 +151,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void processingInstruction(String target, XMLString data,
+    void processingInstruction(String target, XMLString data,
                                       Augmentations augmentations)
         throws XNIException;
 
@@ -165,7 +165,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startElement(QName element, XMLAttributes attributes,
+    void startElement(QName element, XMLAttributes attributes,
                              Augmentations augmentations) throws XNIException;
 
     /**
@@ -178,7 +178,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void emptyElement(QName element, XMLAttributes attributes,
+    void emptyElement(QName element, XMLAttributes attributes,
                              Augmentations augmentations) throws XNIException;
 
     /**
@@ -190,7 +190,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void characters(XMLString text, Augmentations augmentations) 
+    void characters(XMLString text, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -207,7 +207,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void ignorableWhitespace(XMLString text,
+    void ignorableWhitespace(XMLString text,
                                     Augmentations augmentations) 
         throws XNIException;
 
@@ -220,7 +220,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endElement(QName element, Augmentations augmentations) 
+    void endElement(QName element, Augmentations augmentations)
         throws XNIException;
 
     /** 
@@ -231,7 +231,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startCDATA(Augmentations augmentations) throws XNIException;
+    void startCDATA(Augmentations augmentations) throws XNIException;
 
     /**
      * The end of a CDATA section. 
@@ -241,7 +241,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endCDATA(Augmentations augmentations) throws XNIException;
+    void endCDATA(Augmentations augmentations) throws XNIException;
 
     /**
      * The end of the document fragment.
@@ -251,7 +251,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endDocumentFragment(Augmentations augmentations) 
+    void endDocumentFragment(Augmentations augmentations)
         throws XNIException;
 
 } // interface XMLDocumentFragmentHandler

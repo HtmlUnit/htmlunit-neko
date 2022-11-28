@@ -49,8 +49,8 @@ public class XSAllCM implements XSCMValidator {
     // Data
     //
 
-    private final XSElementDecl fAllElements[];
-    private final boolean fIsOptionalElement[];
+    private final XSElementDecl[] fAllElements;
+    private final boolean[] fIsOptionalElement;
     private final boolean fHasOptionalContent;
     private int fNumElements = 0;
 

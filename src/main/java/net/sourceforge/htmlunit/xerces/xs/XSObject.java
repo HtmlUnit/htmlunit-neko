@@ -26,7 +26,7 @@ public interface XSObject {
      *  The <code>type</code> of this object, i.e. 
      * <code>ELEMENT_DECLARATION</code>. 
      */
-    public short getType();
+    short getType();
 
     /**
      * The name of type <code>NCName</code>, as defined in XML Namespaces, of 
@@ -37,19 +37,19 @@ public interface XSObject {
      * is distinct from the name of every named type and the name of every 
      * other anonymous type.
      */
-    public String getName();
+    String getName();
 
     /**
      *  The [target namespace] of this object, or <code>null</code> if it is 
      * unspecified. 
      */
-    public String getNamespace();
+    String getNamespace();
 
     /**
      * A namespace schema information item corresponding to the target 
      * namespace of the component, if it is globally declared; or 
      * <code>null</code> otherwise.
      */
-    public XSNamespaceItem getNamespaceItem();
+    XSNamespaceItem getNamespaceItem();
 
 }

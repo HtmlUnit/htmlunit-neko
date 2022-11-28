@@ -25,6 +25,6 @@ public interface AttributePSVI extends ItemPSVI {
      * [attribute declaration]: An item isomorphic to the declaration 
      * component itself. 
      */
-    public XSAttributeDeclaration getAttributeDeclaration();
+    XSAttributeDeclaration getAttributeDeclaration();
 
 }

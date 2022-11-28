@@ -67,13 +67,13 @@ public interface XMLAttributes {
      * @see #setNonNormalizedValue
      * @see #setSpecified
      */
-    public int addAttribute(QName attrName, String attrType, String attrValue);
+    int addAttribute(QName attrName, String attrType, String attrValue);
 
     /** 
      * Removes all of the attributes. This method will also remove all
      * entities associated to the attributes.
      */
-    public void removeAllAttributes();
+    void removeAllAttributes();
 
     /**
      * Removes the attribute at the specified index.
@@ -83,7 +83,7 @@ public interface XMLAttributes {
      * 
      * @param attrIndex The attribute index.
      */
-    public void removeAttributeAt(int attrIndex);
+    void removeAttributeAt(int attrIndex);
 
     /**
      * Returns the number of attributes in the list.
@@ -97,7 +97,7 @@ public interface XMLAttributes {
      * @see #getType(int)
      * @see #getValue(int)
      */
-    public int getLength();
+    int getLength();
 
     /**
      * Look up the index of an attribute by XML 1.0 qualified name.
@@ -107,7 +107,7 @@ public interface XMLAttributes {
      * @return The index of the attribute, or -1 if it does not
      *         appear in the list.
      */
-    public int getIndex(String qName);
+    int getIndex(String qName);
 
     /**
      * Look up the index of an attribute by Namespace name.
@@ -119,7 +119,7 @@ public interface XMLAttributes {
      * @return The index of the attribute, or -1 if it does not
      *         appear in the list.
      */
-    public int getIndex(String uri, String localPart);
+    int getIndex(String uri, String localPart);
 
     /**
      * Sets the name of the attribute at the specified index.
@@ -127,7 +127,7 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      * @param attrName  The new attribute name.
      */
-    public void setName(int attrIndex, QName attrName);
+    void setName(int attrIndex, QName attrName);
 
     /**
      * Sets the fields in the given QName structure with the values
@@ -136,14 +136,14 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      * @param attrName  The attribute name structure to fill in.
      */
-    public void getName(int attrIndex, QName attrName);
+    void getName(int attrIndex, QName attrName);
 
     /**
      * Returns the prefix of the attribute at the specified index.
      *
      * @param index The index of the attribute.
      */
-    public String getPrefix(int index);
+    String getPrefix(int index);
 
     /**
      * Look up an attribute's Namespace URI by index.
@@ -156,7 +156,7 @@ public interface XMLAttributes {
      *
      * @see #getLength
      */
-    public String getURI(int index);
+    String getURI(int index);
     
     /**
      * Look up an attribute's local name by index.
@@ -169,7 +169,7 @@ public interface XMLAttributes {
      *
      * @see #getLength
      */
-    public String getLocalName(int index);
+    String getLocalName(int index);
 
     /**
      * Look up an attribute's XML 1.0 qualified name by index.
@@ -182,7 +182,7 @@ public interface XMLAttributes {
      *
      * @see #getLength
      */
-    public String getQName(int index);
+    String getQName(int index);
 
     /**
      * Sets the type of the attribute at the specified index.
@@ -197,7 +197,7 @@ public interface XMLAttributes {
      *                  parenthesis and suffixed by a close parenthesis.
      *                  For example: "(true|false)".
      */
-    public void setType(int attrIndex, String attrType);
+    void setType(int attrIndex, String attrType);
 
     /**
      * Look up an attribute's type by index.
@@ -221,7 +221,7 @@ public interface XMLAttributes {
      *
      * @see #getLength
      */
-    public String getType(int index);
+    String getType(int index);
 
     /**
      * Look up an attribute's type by XML 1.0 qualified name.
@@ -235,7 +235,7 @@ public interface XMLAttributes {
      *         attribute is not in the list or if qualified names
      *         are not available.
      */
-    public String getType(String qName);
+    String getType(String qName);
 
     /**
      * Look up an attribute's type by Namespace name.
@@ -251,7 +251,7 @@ public interface XMLAttributes {
      *         attribute is not in the list or if Namespace
      *         processing is not being performed.
      */
-    public String getType(String uri, String localName);
+    String getType(String uri, String localName);
 
     /**
      * Sets the value of the attribute at the specified index. This
@@ -262,7 +262,7 @@ public interface XMLAttributes {
      *
      * @see #setNonNormalizedValue
      */
-    public void setValue(int attrIndex, String attrValue);
+    void setValue(int attrIndex, String attrValue);
 
     /**
      * Look up an attribute's value by index.
@@ -279,7 +279,7 @@ public interface XMLAttributes {
      *
      * @see #getLength
      */
-    public String getValue(int index);
+    String getValue(int index);
 
     /**
      * Look up an attribute's value by XML 1.0 qualified name.
@@ -293,7 +293,7 @@ public interface XMLAttributes {
      *         attribute is not in the list or if qualified names
      *         are not available.
      */
-    public String getValue(String qName);
+    String getValue(String qName);
 
     /**
      * Look up an attribute's value by Namespace name.
@@ -308,7 +308,7 @@ public interface XMLAttributes {
      * @return The attribute value as a string, or null if the
      *         attribute is not in the list.
      */
-    public String getValue(String uri, String localName);
+    String getValue(String uri, String localName);
 
     /**
      * Sets the non-normalized value of the attribute at the specified
@@ -317,7 +317,7 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      * @param attrValue The new non-normalized attribute value.
      */
-    public void setNonNormalizedValue(int attrIndex, String attrValue);
+    void setNonNormalizedValue(int attrIndex, String attrValue);
 
     /**
      * Returns the non-normalized value of the attribute at the specified
@@ -326,7 +326,7 @@ public interface XMLAttributes {
      *
      * @param attrIndex The attribute index.
      */
-    public String getNonNormalizedValue(int attrIndex);
+    String getNonNormalizedValue(int attrIndex);
 
     /**
      * Sets whether an attribute is specified in the instance document
@@ -336,14 +336,14 @@ public interface XMLAttributes {
      * @param specified True if the attribute is specified in the instance
      *                  document.
      */
-    public void setSpecified(int attrIndex, boolean specified);
+    void setSpecified(int attrIndex, boolean specified);
 
     /**
      * Returns true if the attribute is specified in the instance document.
      *
      * @param attrIndex The attribute index.
      */
-    public boolean isSpecified(int attrIndex);
+    boolean isSpecified(int attrIndex);
 
 
     /**
@@ -352,7 +352,7 @@ public interface XMLAttributes {
      * @param attributeIndex The attribute index.
      * @return Augmentations
      */
-    public Augmentations getAugmentations (int attributeIndex);
+    Augmentations getAugmentations (int attributeIndex);
 
     /**
      * Look up an augmentation by namespace name.
@@ -362,7 +362,7 @@ public interface XMLAttributes {
      * @param localPart
      * @return Augmentations
      */
-    public Augmentations getAugmentations (String uri, String localPart);
+    Augmentations getAugmentations (String uri, String localPart);
 
 
     /**
@@ -374,7 +374,7 @@ public interface XMLAttributes {
      * @return Augmentations
      *
      */
-    public Augmentations getAugmentations(String qName);
+    Augmentations getAugmentations(String qName);
 
 
     /**
@@ -383,7 +383,7 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      * @param augs      The augmentations.
      */
-    public void setAugmentations(int attrIndex, Augmentations augs);
+    void setAugmentations(int attrIndex, Augmentations augs);
 
 
 } // interface XMLAttributes

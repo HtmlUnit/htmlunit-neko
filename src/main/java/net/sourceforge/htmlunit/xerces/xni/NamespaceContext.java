@@ -43,14 +43,14 @@ public interface NamespaceContext {
      * The XML Namespace ("http://www.w3.org/XML/1998/namespace"). This is
      * the Namespace URI that is automatically mapped to the "xml" prefix.
      */
-    public final static String XML_URI = "http://www.w3.org/XML/1998/namespace".intern();
+    String XML_URI = "http://www.w3.org/XML/1998/namespace".intern();
 
     /**
      * XML Information Set REC
      * all namespace attributes (including those named xmlns, 
      * whose [prefix] property has no value) have a namespace URI of http://www.w3.org/2000/xmlns/
      */
-    public final static String XMLNS_URI = "http://www.w3.org/2000/xmlns/".intern();
+    String XMLNS_URI = "http://www.w3.org/2000/xmlns/".intern();
 
     //
     // NamespaceContext methods
@@ -67,7 +67,7 @@ public interface NamespaceContext {
      *
      * @see #popContext
      */
-    public void pushContext();
+    void pushContext();
 
    /**
      * Revert to the previous Namespace context.
@@ -82,7 +82,7 @@ public interface NamespaceContext {
      *
      * @see #pushContext
      */
-    public void popContext();
+   void popContext();
 
     /**
      * Declare a Namespace prefix.
@@ -106,7 +106,7 @@ public interface NamespaceContext {
      * @see #getURI
      * @see #getDeclaredPrefixAt
      */
-    public boolean declarePrefix(String prefix, String uri);
+    boolean declarePrefix(String prefix, String uri);
     
 
     /**
@@ -121,7 +121,7 @@ public interface NamespaceContext {
      * @return The associated Namespace URI, or null if the prefix
      *         is undeclared in this context.
      */
-    public String getURI(String prefix);
+    String getURI(String prefix);
     
     /**
      * Look up a namespace URI and get one of the mapped prefix.
@@ -139,18 +139,18 @@ public interface NamespaceContext {
      *
      * @see #getPrefix
      */
-    public String getPrefix(String uri);
+    String getPrefix(String uri);
     
     /**
      * Return a count of locally declared prefixes, including
      * the default prefix if bound.
      */
-    public int getDeclaredPrefixCount();
+    int getDeclaredPrefixCount();
 
     /** 
      * Returns the prefix at the specified index in the current context.
      */
-    public String getDeclaredPrefixAt(int index);
+    String getDeclaredPrefixAt(int index);
 
 	/**
 	 * Return an enumeration of all prefixes whose declarations are active 
@@ -158,7 +158,7 @@ public interface NamespaceContext {
      * that have not been overridden.
 	 * @return Enumeration
 	 */
-    public Enumeration getAllPrefixes();
+    Enumeration getAllPrefixes();
     
     /**
      * Reset this Namespace support object for reuse.
@@ -169,7 +169,7 @@ public interface NamespaceContext {
      * <p>Note that implementations of this method need to ensure that
      * the declaration of the prefixes "xmlns" and "xml" are available.</p>
      */
-    public void reset();
+    void reset();
     
 
 

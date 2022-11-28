@@ -48,7 +48,7 @@ public interface Augmentations {
      * @return the previous value of the specified key in the Augmentations structure,
      *         or <code>null</code> if it did not have one.
      */
-    public Object putItem (String key, Object item);
+    Object putItem (String key, Object item);
 
 
     /**
@@ -59,7 +59,7 @@ public interface Augmentations {
      * @return the value to which the key is mapped in the Augmentations structure;
      *         <code>null</code> if the key is not mapped to any value.
      */
-    public Object getItem(String key);
+    Object getItem(String key);
     
     
     /**
@@ -69,19 +69,19 @@ public interface Augmentations {
      * @return the previous value of the specified key in the Augmentations structure,
      *         or <code>null</code> if it did not have one.
      */
-    public Object removeItem (String key);
+    Object removeItem (String key);
 
     
     /**
      * Returns an enumeration of the keys in the Augmentations structure
      *
      */
-    public Enumeration keys ();
+    Enumeration keys ();
 
 
     /**
      * Remove all objects from the Augmentations structure.
      */
-    public void removeAllItems ();
+    void removeAllItems ();
 
 }

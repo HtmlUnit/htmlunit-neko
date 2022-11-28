@@ -110,7 +110,7 @@ public interface XMLParserConfiguration
      *                         from a byte stream or character stream
      *                         supplied by the parser.
      */
-    public void parse(XMLInputSource inputSource) 
+    void parse(XMLInputSource inputSource)
         throws XNIException, IOException;
 
     // generic configuration
@@ -122,7 +122,7 @@ public interface XMLParserConfiguration
      * @param featureIds An array of the additional feature identifiers 
      *                   to be recognized.
      */
-    public void addRecognizedFeatures(String[] featureIds);
+    void addRecognizedFeatures(String[] featureIds);
 
     /**
      * Sets the state of a feature. This method is called by the parser
@@ -134,7 +134,7 @@ public interface XMLParserConfiguration
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
-    public void setFeature(String featureId, boolean state)
+    void setFeature(String featureId, boolean state)
         throws XMLConfigurationException;
 
     /**
@@ -145,7 +145,7 @@ public interface XMLParserConfiguration
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
-    public boolean getFeature(String featureId)
+    boolean getFeature(String featureId)
         throws XMLConfigurationException;
 
     /**
@@ -155,7 +155,7 @@ public interface XMLParserConfiguration
      * @param propertyIds An array of the additional property identifiers 
      *                    to be recognized.
      */
-    public void addRecognizedProperties(String[] propertyIds);
+    void addRecognizedProperties(String[] propertyIds);
 
     /**
      * Sets the value of a property. This method is called by the parser
@@ -167,7 +167,7 @@ public interface XMLParserConfiguration
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
-    public void setProperty(String propertyId, Object value)
+    void setProperty(String propertyId, Object value)
         throws XMLConfigurationException;
 
     /**
@@ -178,7 +178,7 @@ public interface XMLParserConfiguration
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
-    public Object getProperty(String propertyId)
+    Object getProperty(String propertyId)
         throws XMLConfigurationException;
 
     // handlers
@@ -188,40 +188,40 @@ public interface XMLParserConfiguration
      *
      * @param errorHandler The error resolver.
      */
-    public void setErrorHandler(XMLErrorHandler errorHandler);
+    void setErrorHandler(XMLErrorHandler errorHandler);
 
     /** Returns the registered error handler. */
-    public XMLErrorHandler getErrorHandler();
+    XMLErrorHandler getErrorHandler();
 
     /**
      * Sets the document handler to receive information about the document.
      * 
      * @param documentHandler The document handler.
      */
-    public void setDocumentHandler(XMLDocumentHandler documentHandler);
+    void setDocumentHandler(XMLDocumentHandler documentHandler);
 
     /** Returns the registered document handler. */
-    public XMLDocumentHandler getDocumentHandler();
+    XMLDocumentHandler getDocumentHandler();
 
     /**
      * Sets the DTD handler.
      * 
      * @param dtdHandler The DTD handler.
      */
-    public void setDTDHandler(XMLDTDHandler dtdHandler);
+    void setDTDHandler(XMLDTDHandler dtdHandler);
 
     /** Returns the registered DTD handler. */
-    public XMLDTDHandler getDTDHandler();
+    XMLDTDHandler getDTDHandler();
 
     /**
      * Sets the DTD content model handler.
      * 
      * @param dtdContentModelHandler The DTD content model handler.
      */
-    public void setDTDContentModelHandler(XMLDTDContentModelHandler dtdContentModelHandler);
+    void setDTDContentModelHandler(XMLDTDContentModelHandler dtdContentModelHandler);
 
     /** Returns the registered DTD content model handler. */
-    public XMLDTDContentModelHandler getDTDContentModelHandler();
+    XMLDTDContentModelHandler getDTDContentModelHandler();
 
     // other settings
 
@@ -230,10 +230,10 @@ public interface XMLParserConfiguration
      *
      * @param entityResolver The new entity resolver.
      */
-    public void setEntityResolver(XMLEntityResolver entityResolver);
+    void setEntityResolver(XMLEntityResolver entityResolver);
 
     /** Returns the registered entity resolver. */
-    public XMLEntityResolver getEntityResolver();
+    XMLEntityResolver getEntityResolver();
 
     /**
      * Set the locale to use for messages.
@@ -243,9 +243,9 @@ public interface XMLParserConfiguration
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
-    public void setLocale(Locale locale) throws XNIException;
+    void setLocale(Locale locale) throws XNIException;
 
     /** Returns the locale. */
-    public Locale getLocale();
+    Locale getLocale();
 
 } // interface XMLParserConfiguration

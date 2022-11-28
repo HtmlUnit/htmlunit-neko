@@ -62,7 +62,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void startDocument(XMLLocator locator, String encoding, 
+    void startDocument(XMLLocator locator, String encoding,
                               NamespaceContext namespaceContext,
                               Augmentations augs) 
         throws XNIException;
@@ -81,7 +81,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void xmlDecl(String version, String encoding, String standalone, Augmentations augs)
+    void xmlDecl(String version, String encoding, String standalone, Augmentations augs)
         throws XNIException;
 
     /**
@@ -98,7 +98,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs)
+    void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs)
         throws XNIException;
 
     /**
@@ -110,7 +110,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by application to signal an error.
      */
-    public void comment(XMLString text, Augmentations augs) throws XNIException;
+    void comment(XMLString text, Augmentations augs) throws XNIException;
 
     /**
      * A processing instruction. Processing instructions consist of a
@@ -130,7 +130,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void processingInstruction(String target, XMLString data, Augmentations augs)
+    void processingInstruction(String target, XMLString data, Augmentations augs)
         throws XNIException;
 
     /**
@@ -143,7 +143,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
+    void startElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException;
 
     /**
@@ -156,7 +156,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
+    void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException;
 
     /**
@@ -176,7 +176,7 @@ public interface XMLDocumentHandler {
      *                 
      * @exception XNIException Thrown by handler to signal an error.
      */
-    public void startGeneralEntity(String name, 
+    void startGeneralEntity(String name,
                                    XMLResourceIdentifier identifier,
                                    String encoding,
                                    Augmentations augs) throws XNIException;
@@ -199,7 +199,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void textDecl(String version, String encoding, Augmentations augs) throws XNIException;
+    void textDecl(String version, String encoding, Augmentations augs) throws XNIException;
 
     /**
      * This method notifies the end of a general entity.
@@ -213,7 +213,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void endGeneralEntity(String name, Augmentations augs) throws XNIException;
+    void endGeneralEntity(String name, Augmentations augs) throws XNIException;
 
     /**
      * Character content.
@@ -224,7 +224,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void characters(XMLString text, Augmentations augs) throws XNIException;
+    void characters(XMLString text, Augmentations augs) throws XNIException;
 
     /**
      * Ignorable whitespace. For this method to be called, the document
@@ -240,7 +240,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException;
+    void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException;
 
     /**
      * The end of an element.
@@ -251,7 +251,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void endElement(QName element, Augmentations augs) throws XNIException;
+    void endElement(QName element, Augmentations augs) throws XNIException;
 
     /**
      * The start of a CDATA section.
@@ -261,7 +261,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void startCDATA(Augmentations augs) throws XNIException;
+    void startCDATA(Augmentations augs) throws XNIException;
 
     /**
      * The end of a CDATA section.
@@ -271,7 +271,7 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void endCDATA(Augmentations augs) throws XNIException;
+    void endCDATA(Augmentations augs) throws XNIException;
 
     /**
      * The end of the document.
@@ -281,14 +281,14 @@ public interface XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void endDocument(Augmentations augs) throws XNIException;
+    void endDocument(Augmentations augs) throws XNIException;
 
 
     /** Sets the document source. */
-    public void setDocumentSource(XMLDocumentSource source);
+    void setDocumentSource(XMLDocumentSource source);
 
 
     /** Returns the document source. */
-    public XMLDocumentSource getDocumentSource();
+    XMLDocumentSource getDocumentSource();
 
 } // interface XMLDocumentHandler

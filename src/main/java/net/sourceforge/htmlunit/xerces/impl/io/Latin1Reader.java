@@ -121,7 +121,7 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
-    public int read(char ch[], int offset, int length) throws IOException {
+    public int read(char[] ch, int offset, int length) throws IOException {
         if (length > fBuffer.length) {
             length = fBuffer.length;
         }

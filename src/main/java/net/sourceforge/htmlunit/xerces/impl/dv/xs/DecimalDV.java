@@ -242,7 +242,7 @@ public class DecimalDV extends TypeValidator {
                 return intDigits > val.intDigits ? 1 : -1;
             int ret = ivalue.compareTo(val.ivalue);
             if (ret != 0)
-                return ret > 0 ? 1 : -1;;
+                return ret > 0 ? 1 : -1;
             ret = fvalue.compareTo(val.fvalue);
             return ret == 0 ? 0 : (ret > 0 ? 1 : -1);
         }

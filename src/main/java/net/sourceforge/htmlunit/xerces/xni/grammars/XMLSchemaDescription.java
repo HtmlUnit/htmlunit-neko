@@ -34,28 +34,28 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * Indicate that the current schema document is &lt;include&gt;d by another
      * schema document.
      */
-    public final static short CONTEXT_INCLUDE   = 0;
+    short CONTEXT_INCLUDE   = 0;
     /**
      * Indicate that the current schema document is &lt;redefine&gt;d by another
      * schema document.
      */
-    public final static short CONTEXT_REDEFINE  = 1;
+    short CONTEXT_REDEFINE  = 1;
     /**
      * Indicate that the current schema document is &lt;import&gt;ed by another
      * schema document.
      */
-    public final static short CONTEXT_IMPORT    = 2;
+    short CONTEXT_IMPORT    = 2;
     /**
      * Indicate that the current schema document is being preparsed.
      */
-    public final static short CONTEXT_PREPARSE  = 3;
+    short CONTEXT_PREPARSE  = 3;
     /**
      * Indicate that the parse of the current schema document is triggered
      * by xsi:schemaLocation/noNamespaceSchemaLocation attribute(s) in the
      * instance document. This value is only used if we don't defer the loading
      * of schema documents.
      */
-    public final static short CONTEXT_INSTANCE  = 4;
+    short CONTEXT_INSTANCE  = 4;
     /**
      * Indicate that the parse of the current schema document is triggered by
      * the occurrence of an element whose namespace is the target namespace
@@ -63,7 +63,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * loading of schema documents until a component from that namespace is
      * referenced from the instance.
      */
-    public final static short CONTEXT_ELEMENT   = 5;
+    short CONTEXT_ELEMENT   = 5;
     /**
      * Indicate that the parse of the current schema document is triggered by
      * the occurrence of an attribute whose namespace is the target namespace
@@ -71,7 +71,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * loading of schema documents until a component from that namespace is
      * referenced from the instance.
      */
-    public final static short CONTEXT_ATTRIBUTE = 6;
+    short CONTEXT_ATTRIBUTE = 6;
     /**
      * Indicate that the parse of the current schema document is triggered by
      * the occurrence of an "xsi:type" attribute, whose value (a QName) has
@@ -79,7 +79,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * This value is only used if we do defer the loading of schema documents
      * until a component from that namespace is referenced from the instance.
      */
-    public final static short CONTEXT_XSITYPE   = 7;
+    short CONTEXT_XSITYPE   = 7;
 
     /**
      * Get the context. The returned value is one of the pre-defined
@@ -87,7 +87,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  the value indicating the context
      */
-    public short getContextType();
+    short getContextType();
 
     /**
      * If the context is "include" or "redefine", then return the target
@@ -96,7 +96,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  the expected/enclosing target namespace
      */
-    public String getTargetNamespace();
+    String getTargetNamespace();
 
     /**
      * For import and references from the instance document, it's possible to
@@ -105,8 +105,8 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  an array of all location hints associated to the expected
      *          target namespace
-     */          
-    public String[] getLocationHints();
+     */
+    String[] getLocationHints();
 
     /**
      * If a call is triggered by an element/attribute/xsi:type in the instance,
@@ -115,7 +115,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  the name of the triggering component
      */
-    public QName getTriggeringComponent();
+    QName getTriggeringComponent();
 
     /**
      * If a call is triggered by an attribute or xsi:type, then this method
@@ -123,7 +123,7 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  the name of the enclosing element
      */
-    public QName getEnclosingElementName();
+    QName getEnclosingElementName();
     
     /**
      * If a call is triggered by an element/attribute/xsi:type in the instance,
@@ -131,6 +131,6 @@ public interface XMLSchemaDescription extends XMLGrammarDescription {
      * 
      * @return  all attributes of the triggering/enclosing element
      */
-    public XMLAttributes getAttributes();
+    XMLAttributes getAttributes();
     
 } // XSDDescription

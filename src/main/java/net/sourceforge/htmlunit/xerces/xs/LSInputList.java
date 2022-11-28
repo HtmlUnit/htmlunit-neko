@@ -31,7 +31,7 @@ public interface LSInputList extends List {
      *  The number of <code>LSInput</code>s in the list. The range of valid 
      * child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
 
     /**
      *  Returns the <code>index</code>th item in the collection or 
@@ -42,6 +42,6 @@ public interface LSInputList extends List {
      *   position in the <code>LSInputList</code>, or <code>null</code> if 
      *   the index specified is not valid. 
      */
-    public LSInput item(int index);
+    LSInput item(int index);
 
 }

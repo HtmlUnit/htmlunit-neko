@@ -168,7 +168,7 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
-    public int read(char ch[], int offset, int length) throws IOException {
+    public int read(char[] ch, int offset, int length) throws IOException {
         int byteLength = length << ((fEncoding >= 4)?2:1);
         if (byteLength > fBuffer.length) {
             byteLength = fBuffer.length;

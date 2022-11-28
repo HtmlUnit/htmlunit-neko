@@ -73,9 +73,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public Writer getCharacterStream(){
         return fCharStream;
-     };
+     }
 
-   /**
+    /**
     * An attribute of a language and binding dependent type that represents a
     * writable stream of bytes. If the application knows the character encoding
     * of the byte stream, it should set the encoding attribute. Setting the
@@ -85,9 +85,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public void setCharacterStream(Writer characterStream){
         fCharStream = characterStream;
-    };
+    }
 
-   /**
+    /**
     * Depending on the language binding in use, this attribute may not be
     * available. An attribute of a language and binding dependent type that
     * represents a writable stream to which 16-bit units can be output. The
@@ -97,9 +97,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public OutputStream getByteStream(){
         return fByteStream;
-    };
+    }
 
-   /**
+    /**
     * Depending on the language binding in use, this attribute may not be
     * available. An attribute of a language and binding dependent type that
     * represents a writable stream to which 16-bit units can be output. The
@@ -109,9 +109,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public void setByteStream(OutputStream byteStream){
         fByteStream = byteStream;
-    };
+    }
 
-   /**
+    /**
     * The system identifier, a URI reference [IETF RFC 2396], for this output
     *  destination. If the application knows the character encoding of the
     *  object pointed to by the system identifier, it can set the encoding
@@ -122,9 +122,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public String getSystemId(){
         return fSystemId;
-    };
+    }
 
-   /**
+    /**
     * The system identifier, a URI reference [IETF RFC 2396], for this output
     *  destination. If the application knows the character encoding of the
     *  object pointed to by the system identifier, it can set the encoding
@@ -135,9 +135,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public void setSystemId(String systemId){
         fSystemId = systemId;
-    };
+    }
 
-   /**
+    /**
     * The character encoding, if known. The encoding must be a string
     * acceptable for an XML encoding declaration ([XML 1.0] section 4.3.3
     * "Character Encoding in Entities"). This attribute has no effect when the
@@ -150,9 +150,9 @@ public class DOMOutputImpl implements LSOutput {
 
     public String getEncoding(){
         return fEncoding;
-    };
+    }
 
-   /**
+    /**
     * The character encoding, if known. The encoding must be a string
     * acceptable for an XML encoding declaration ([XML 1.0] section 4.3.3
     * "Character Encoding in Entities"). This attribute has no effect when the
@@ -165,6 +165,6 @@ public class DOMOutputImpl implements LSOutput {
 
     public void setEncoding(String encoding){
         fEncoding = encoding;
-    };
+    }
 
 }//DOMOutputImpl

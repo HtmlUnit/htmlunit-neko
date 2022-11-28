@@ -25,26 +25,26 @@ public interface XSElementDeclaration extends XSTerm {
      * [type definition]: either a simple type definition or a complex type 
      * definition. 
      */
-    public XSTypeDefinition getTypeDefinition();
+    XSTypeDefinition getTypeDefinition();
 
     /**
      * [scope]. One of <code>SCOPE_GLOBAL</code>, <code>SCOPE_LOCAL</code>, or 
      * <code>SCOPE_ABSENT</code>. If the scope is local, then the 
      * <code>enclosingCTDefinition</code> is present. 
      */
-    public short getScope();
+    short getScope();
 
     /**
      * The complex type definition for locally scoped declarations (see 
      * <code>scope</code>), otherwise <code>null</code> if no such 
      * definition exists. 
      */
-    public XSComplexTypeDefinition getEnclosingCTDefinition();
+    XSComplexTypeDefinition getEnclosingCTDefinition();
 
     /**
      * [Value constraint]: one of <code>VC_NONE, VC_DEFAULT, VC_FIXED</code>. 
      */
-    public short getConstraintType();
+    short getConstraintType();
 
     /**
      * [Value constraint]: the constraint value with respect to the [type 
@@ -52,7 +52,7 @@ public interface XSElementDeclaration extends XSTerm {
      * 
      * @deprecated Use getValueConstraintValue().getNormalizedValue() instead
      */
-    public String getConstraintValue();
+    String getConstraintValue();
 
     /**
      * Value Constraint: Binding specific actual constraint value or 
@@ -64,7 +64,7 @@ public interface XSElementDeclaration extends XSTerm {
      * 
      * @deprecated Use getValueConstraintValue().getActualValue() instead
      */
-    public Object getActualVC()
+    Object getActualVC()
                                             throws XSException;
 
     /**
@@ -83,7 +83,7 @@ public interface XSElementDeclaration extends XSTerm {
      * 
      * @deprecated Use getValueConstraintValue().getActualValueType() instead
      */
-    public short getActualVCType()
+    short getActualVCType()
                                             throws XSException;
 
     /**
@@ -101,13 +101,13 @@ public interface XSElementDeclaration extends XSTerm {
      * 
      * @deprecated Use getValueConstraintValue().getListValueTypes() instead
      */
-    public ShortList getItemValueTypes()
+    ShortList getItemValueTypes()
                                             throws XSException;
 
     /**
      * The actual value of the default or fixed value constraint.
      */
-    public XSValue getValueConstraintValue();
+    XSValue getValueConstraintValue();
 
     /**
      *  If nillable is true, then an element may also be valid if it carries 
@@ -117,19 +117,19 @@ public interface XSElementDeclaration extends XSTerm {
      * element content despite a <code>content type</code> which would 
      * otherwise require content. 
      */
-    public boolean getNillable();
+    boolean getNillable();
 
     /**
      * identity-constraint definitions: a set of constraint definitions if it 
      * exists, otherwise an empty <code>XSNamedMap</code>. 
      */
-    public XSNamedMap getIdentityConstraints();
+    XSNamedMap getIdentityConstraints();
 
     /**
      * [substitution group affiliation]: a top-level element definition if it 
      * exists, otherwise <code>null</code>. 
      */
-    public XSElementDeclaration getSubstitutionGroupAffiliation();
+    XSElementDeclaration getSubstitutionGroupAffiliation();
 
     /**
      * Convenience method that checks if <code>exclusion</code> is a 
@@ -140,7 +140,7 @@ public interface XSElementDeclaration extends XSTerm {
      * @return True if <code>exclusion</code> is a part of the substitution 
      *   group exclusion subset. 
      */
-    public boolean isSubstitutionGroupExclusion(short exclusion);
+    boolean isSubstitutionGroupExclusion(short exclusion);
 
     /**
      *  [substitution group exclusions]: the returned value is a bit 
@@ -148,7 +148,7 @@ public interface XSElementDeclaration extends XSTerm {
      * <code>DERIVATION_EXTENSION, DERIVATION_RESTRICTION</code>} or 
      * <code>DERIVATION_NONE</code>. 
      */
-    public short getSubstitutionGroupExclusions();
+    short getSubstitutionGroupExclusions();
 
     /**
      * Convenience method that checks if <code>disallowed</code> is a 
@@ -160,7 +160,7 @@ public interface XSElementDeclaration extends XSTerm {
      * @return True if <code>disallowed</code> is a part of the substitution 
      *   group exclusion subset. 
      */
-    public boolean isDisallowedSubstitution(short disallowed);
+    boolean isDisallowedSubstitution(short disallowed);
 
     /**
      *  [disallowed substitutions]: the returned value is a bit combination of 
@@ -169,21 +169,21 @@ public interface XSElementDeclaration extends XSTerm {
      * } corresponding to substitutions disallowed by this 
      * <code>XSElementDeclaration</code> or <code>DERIVATION_NONE</code>. 
      */
-    public short getDisallowedSubstitutions();
+    short getDisallowedSubstitutions();
 
     /**
      * {abstract} A boolean. 
      */
-    public boolean getAbstract();
+    boolean getAbstract();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. If not null
      * then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

@@ -58,7 +58,7 @@ public interface ExternalSubsetResolver
      * @throws IOException  Thrown if resolved entity stream cannot be
      *                      opened or some other i/o error occurs.
      */
-    public XMLInputSource getExternalSubset(XMLDTDDescription grammarDescription)
+    XMLInputSource getExternalSubset(XMLDTDDescription grammarDescription)
         throws XNIException, IOException;
 
 } // interface ExternalSubsetResolver

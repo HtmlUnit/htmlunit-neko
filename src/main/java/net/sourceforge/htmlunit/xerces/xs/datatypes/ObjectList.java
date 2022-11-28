@@ -32,7 +32,7 @@ public interface ObjectList extends List {
      * The number of <code>Object</code>s in the list. The range of 
      * valid child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
     
     /**
      * Checks if the <code>Object</code> <code>item</code> is a 
@@ -42,7 +42,7 @@ public interface ObjectList extends List {
      * @return  True if this list contains the <code>Object</code> 
      *   <code>item</code>. 
      */
-    public boolean contains(Object item);
+    boolean contains(Object item);
     
     /**
      * Returns the <code>index</code>th item in the collection or 
@@ -54,6 +54,6 @@ public interface ObjectList extends List {
      *   the index specified is not valid - greater than or equal to the
      *   number of items in the list or less than zero. 
      */
-    public Object item(int index);
+    Object item(int index);
     
 }

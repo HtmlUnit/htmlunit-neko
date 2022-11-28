@@ -35,7 +35,7 @@ public interface RevalidationHandler extends XMLDocumentFilter {
      * @param augs   Augmentations
      * @return True if data is whitespace only
      */
-    public boolean characterData(String data, Augmentations augs);
+    boolean characterData(String data, Augmentations augs);
     
 
 } // interface DOMRevalidationHandler

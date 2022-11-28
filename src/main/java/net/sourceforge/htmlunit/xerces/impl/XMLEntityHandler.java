@@ -55,7 +55,7 @@ public interface XMLEntityHandler {
      * 
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startEntity(String name, 
+    void startEntity(String name,
                             XMLResourceIdentifier identifier,
                             String encoding, Augmentations augs) throws XNIException;
 
@@ -69,6 +69,6 @@ public interface XMLEntityHandler {
      * 
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endEntity(String name, Augmentations augs) throws XNIException;
+    void endEntity(String name, Augmentations augs) throws XNIException;
 
 } // interface XMLEntityHandler

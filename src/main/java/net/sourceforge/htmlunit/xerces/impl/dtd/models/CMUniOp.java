@@ -97,5 +97,5 @@ public class CMUniOp extends CMNode
     //      unary operation.
     // -------------------------------------------------------------------
     private final CMNode fChild;
-};
+}
 

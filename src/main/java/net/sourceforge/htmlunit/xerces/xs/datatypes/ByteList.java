@@ -34,7 +34,7 @@ public interface ByteList extends List {
      * The number of <code>byte</code>s in the list. The range of 
      * valid child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
     
     /**
      * Checks if the <code>byte</code> <code>item</code> is a 
@@ -44,7 +44,7 @@ public interface ByteList extends List {
      * @return  True if this list contains the <code>byte</code> 
      *   <code>item</code>. 
      */
-    public boolean contains(byte item);
+    boolean contains(byte item);
     
     /**
      * Returns the <code>index</code>th item in the collection. The index 
@@ -56,10 +56,10 @@ public interface ByteList extends List {
      *   INDEX_SIZE_ERR: if <code>index</code> is greater than or equal to the 
      *   number of objects in the list or less than zero.
      */
-    public byte item(int index) throws XSException;
+    byte item(int index) throws XSException;
     
     /**
      * Construct and return a byte array for bytes contained in this list.
      */
-    public byte[] toByteArray();
+    byte[] toByteArray();
 }

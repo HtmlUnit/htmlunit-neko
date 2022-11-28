@@ -27,7 +27,7 @@ public interface XSModel {
      * name, but if there are components that do not have a target namespace
      * , <code>null</code> is included in this list. 
      */
-    public StringList getNamespaces();
+    StringList getNamespaces();
 
     /**
      * A set of namespace schema information information items (of type 
@@ -37,7 +37,7 @@ public interface XSModel {
      * in the schema had no target namespace. For more information see 
      * schema information. 
      */
-    public XSNamespaceItemList getNamespaceItems();
+    XSNamespaceItemList getNamespaceItems();
 
     /**
      * Returns a list of top-level components, i.e. element declarations, 
@@ -54,7 +54,7 @@ public interface XSModel {
      *   <code>objectType</code> or an empty <code>XSNamedMap</code> if no 
      *   such definitions exist. 
      */
-    public XSNamedMap getComponents(short objectType);
+    XSNamedMap getComponents(short objectType);
 
     /**
      * Convenience method. Returns a list of top-level component declarations 
@@ -70,14 +70,14 @@ public interface XSModel {
      *   <code>objectType</code> and defined in the specified 
      *   <code>namespace</code> or an empty <code>XSNamedMap</code>. 
      */
-    public XSNamedMap getComponentsByNamespace(short objectType, 
+    XSNamedMap getComponentsByNamespace(short objectType,
                                                String namespace);
 
     /**
      *  [annotations]: a set of annotations if it exists, otherwise an empty 
      * <code>XSObjectList</code>. 
      */
-    public XSObjectList getAnnotations();
+    XSObjectList getAnnotations();
 
     /**
      * Convenience method. Returns a top-level element declaration. 
@@ -87,7 +87,7 @@ public interface XSModel {
      * @return A top-level element declaration or <code>null</code> if such a 
      *   declaration does not exist. 
      */
-    public XSElementDeclaration getElementDeclaration(String name, 
+    XSElementDeclaration getElementDeclaration(String name,
                                                       String namespace);
 
     /**
@@ -98,7 +98,7 @@ public interface XSModel {
      * @return A top-level attribute declaration or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSAttributeDeclaration getAttributeDeclaration(String name, 
+    XSAttributeDeclaration getAttributeDeclaration(String name,
                                                           String namespace);
 
     /**
@@ -110,7 +110,7 @@ public interface XSModel {
      * @return An <code>XSTypeDefinition</code> or <code>null</code> if such 
      *   a definition does not exist. 
      */
-    public XSTypeDefinition getTypeDefinition(String name, 
+    XSTypeDefinition getTypeDefinition(String name,
                                               String namespace);
 
     /**
@@ -121,7 +121,7 @@ public interface XSModel {
      * @return A top-level attribute group definition or <code>null</code> if 
      *   such a definition does not exist. 
      */
-    public XSAttributeGroupDefinition getAttributeGroup(String name, 
+    XSAttributeGroupDefinition getAttributeGroup(String name,
                                                         String namespace);
 
     /**
@@ -132,7 +132,7 @@ public interface XSModel {
      * @return A top-level model group definition or <code>null</code> if 
      *   such a definition does not exist. 
      */
-    public XSModelGroupDefinition getModelGroupDefinition(String name, 
+    XSModelGroupDefinition getModelGroupDefinition(String name,
                                                           String namespace);
 
     /**
@@ -143,7 +143,7 @@ public interface XSModel {
      * @return A top-level notation declaration or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSNotationDeclaration getNotationDeclaration(String name, 
+    XSNotationDeclaration getNotationDeclaration(String name,
                                                         String namespace);
     
     /**
@@ -154,7 +154,7 @@ public interface XSModel {
      * @return An identity-constraint definition or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSIDCDefinition getIDCDefinition(String name,
+    XSIDCDefinition getIDCDefinition(String name,
                                             String namespace);
     
     /**
@@ -168,6 +168,6 @@ public interface XSModel {
      *  <code>XSObjectList</code> if the substitution group contains 
      *  no members.
      */
-    public XSObjectList getSubstitutionGroup(XSElementDeclaration head);
+    XSObjectList getSubstitutionGroup(XSElementDeclaration head);
 
 }

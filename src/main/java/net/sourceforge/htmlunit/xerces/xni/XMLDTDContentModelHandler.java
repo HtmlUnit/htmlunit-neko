@@ -55,7 +55,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @see #SEPARATOR_SEQUENCE
      */
-    public static final short SEPARATOR_CHOICE = 0;
+    short SEPARATOR_CHOICE = 0;
 
     /**
      * A sequence separator for children content models. This separator 
@@ -70,7 +70,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @see #SEPARATOR_CHOICE
      */
-    public static final short SEPARATOR_SEQUENCE = 1;
+    short SEPARATOR_SEQUENCE = 1;
 
     // occurrence counts
 
@@ -87,7 +87,7 @@ public interface XMLDTDContentModelHandler {
      * @see #OCCURS_ZERO_OR_MORE
      * @see #OCCURS_ONE_OR_MORE
      */
-    public static final short OCCURS_ZERO_OR_ONE = 2;
+    short OCCURS_ZERO_OR_ONE = 2;
 
     /** 
      * This occurrence count limits the element, choice, or sequence in a
@@ -104,7 +104,7 @@ public interface XMLDTDContentModelHandler {
      * @see #OCCURS_ZERO_OR_ONE
      * @see #OCCURS_ONE_OR_MORE
      */
-    public static final short OCCURS_ZERO_OR_MORE = 3;
+    short OCCURS_ZERO_OR_MORE = 3;
 
     /** 
      * This occurrence count limits the element, choice, or sequence in a
@@ -120,7 +120,7 @@ public interface XMLDTDContentModelHandler {
      * @see #OCCURS_ZERO_OR_ONE
      * @see #OCCURS_ZERO_OR_MORE
      */
-    public static final short OCCURS_ONE_OR_MORE = 4;
+    short OCCURS_ONE_OR_MORE = 4;
 
     //
     // XMLDTDContentModelHandler methods
@@ -137,7 +137,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startContentModel(String elementName, Augmentations augmentations)
+    void startContentModel(String elementName, Augmentations augmentations)
         throws XNIException;
 
     /** 
@@ -151,7 +151,7 @@ public interface XMLDTDContentModelHandler {
      * @see #empty
      * @see #startGroup
      */
-    public void any(Augmentations augmentations) throws XNIException;
+    void any(Augmentations augmentations) throws XNIException;
 
     /**
      * A content model of EMPTY.
@@ -164,7 +164,7 @@ public interface XMLDTDContentModelHandler {
      * @see #any
      * @see #startGroup
      */
-    public void empty(Augmentations augmentations) throws XNIException;
+    void empty(Augmentations augmentations) throws XNIException;
 
     /**
      * A start of either a mixed or children content model. A mixed
@@ -180,7 +180,7 @@ public interface XMLDTDContentModelHandler {
      * @see #any
      * @see #empty
      */
-    public void startGroup(Augmentations augmentations) throws XNIException;
+    void startGroup(Augmentations augmentations) throws XNIException;
 
     /**
      * The appearance of "#PCDATA" within a group signifying a
@@ -194,7 +194,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @see #startGroup
      */
-    public void pcdata(Augmentations augmentations) throws XNIException;
+    void pcdata(Augmentations augmentations) throws XNIException;
 
     /**
      * A referenced element in a mixed or children content model.
@@ -205,7 +205,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void element(String elementName, Augmentations augmentations) 
+    void element(String elementName, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -221,7 +221,7 @@ public interface XMLDTDContentModelHandler {
      * @see #SEPARATOR_CHOICE
      * @see #SEPARATOR_SEQUENCE
      */
-    public void separator(short separator, Augmentations augmentations) 
+    void separator(short separator, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -239,7 +239,7 @@ public interface XMLDTDContentModelHandler {
      * @see #OCCURS_ZERO_OR_MORE
      * @see #OCCURS_ONE_OR_MORE
      */
-    public void occurrence(short occurrence, Augmentations augmentations) 
+    void occurrence(short occurrence, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -250,7 +250,7 @@ public interface XMLDTDContentModelHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endGroup(Augmentations augmentations) throws XNIException;
+    void endGroup(Augmentations augmentations) throws XNIException;
 
     /**
      * The end of a content model.
@@ -260,12 +260,12 @@ public interface XMLDTDContentModelHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endContentModel(Augmentations augmentations) throws XNIException;
+    void endContentModel(Augmentations augmentations) throws XNIException;
 
     // set content model source
-    public void setDTDContentModelSource(XMLDTDContentModelSource source);
+    void setDTDContentModelSource(XMLDTDContentModelSource source);
 
     // get content model source
-    public XMLDTDContentModelSource getDTDContentModelSource();
+    XMLDTDContentModelSource getDTDContentModelSource();
 
 } // interface XMLDTDContentModelHandler

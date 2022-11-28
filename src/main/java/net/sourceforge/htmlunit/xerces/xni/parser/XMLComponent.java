@@ -46,7 +46,7 @@ public interface XMLComponent {
      *
      * @throws XNIException Thrown by component on initialization error.
      */
-    public void reset(XMLComponentManager componentManager) 
+    void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException;
 
     /**
@@ -54,7 +54,7 @@ public interface XMLComponent {
      * this component. This method may return null if no features
      * are recognized by this component.
      */
-    public String[] getRecognizedFeatures();
+    String[] getRecognizedFeatures();
 
     /**
      * Sets the state of a feature. This method is called by the component
@@ -72,7 +72,7 @@ public interface XMLComponent {
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
-    public void setFeature(String featureId, boolean state)
+    void setFeature(String featureId, boolean state)
         throws XMLConfigurationException;
 
     /**
@@ -80,7 +80,7 @@ public interface XMLComponent {
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
-    public String[] getRecognizedProperties();
+    String[] getRecognizedProperties();
 
     /**
      * Sets the value of a property. This method is called by the component
@@ -98,7 +98,7 @@ public interface XMLComponent {
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
-    public void setProperty(String propertyId, Object value)
+    void setProperty(String propertyId, Object value)
        throws XMLConfigurationException;
 
     /** 
@@ -110,7 +110,7 @@ public interface XMLComponent {
      *
      * @since Xerces 2.2.0
      */
-    public Boolean getFeatureDefault(String featureId);
+    Boolean getFeatureDefault(String featureId);
 
     /** 
      * Returns the default state for a property, or null if this
@@ -121,6 +121,6 @@ public interface XMLComponent {
      *
      * @since Xerces 2.2.0
      */
-    public Object getPropertyDefault(String propertyId);
+    Object getPropertyDefault(String propertyId);
 
 } // interface XMLComponent

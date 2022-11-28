@@ -28,7 +28,7 @@ public interface StringList extends List {
      *  The number of <code>GenericString</code>s in the list. The range of 
      * valid child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
 
     /**
      *  Checks if the <code>GenericString</code> <code>item</code> is a member 
@@ -38,7 +38,7 @@ public interface StringList extends List {
      * @return  True if this list contains the <code>GenericString</code> 
      *   <code>item</code>. 
      */
-    public boolean contains(String item);
+    boolean contains(String item);
 
     /**
      *  Returns the <code>index</code>th item in the collection or 
@@ -49,6 +49,6 @@ public interface StringList extends List {
      *   position in the <code>StringList</code>, or <code>null</code> if 
      *   the index specified is not valid. 
      */
-    public String item(int index);
+    String item(int index);
 
 }

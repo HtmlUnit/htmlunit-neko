@@ -30,6 +30,6 @@ public interface XMLDTDDescription extends XMLGrammarDescription {
      * 
      * @return  the root name. null if the name is unknown.
      */
-    public String getRootName();
+    String getRootName();
 
 } // interface XMLDTDDescription

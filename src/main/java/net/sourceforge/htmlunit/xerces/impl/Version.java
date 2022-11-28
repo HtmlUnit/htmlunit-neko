@@ -51,7 +51,7 @@ public class Version {
      * Prints out the version number to System.out. This is needed
      * for the build system.
      */
-    public static void main(String argv[]) {
+    public static void main(String[] argv) {
         System.out.println(fVersion);
     }
 

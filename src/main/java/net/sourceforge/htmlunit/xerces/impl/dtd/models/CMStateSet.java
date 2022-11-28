@@ -297,4 +297,4 @@ public class CMStateSet
         }
     }
    /* Optimization(Jan, 2001) */
-};
+}

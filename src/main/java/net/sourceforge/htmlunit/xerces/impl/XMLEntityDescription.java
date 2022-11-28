@@ -36,13 +36,13 @@ public interface XMLEntityDescription extends XMLResourceIdentifier {
      * 
      * @param name the name of the entity
      */
-    public void setEntityName(String name);
+    void setEntityName(String name);
      
     /** 
      * Returns the name of the entity. 
      *
      * @return the name of the entity 
      */
-    public String getEntityName();
+    String getEntityName();
     
 } // XMLEntityDescription

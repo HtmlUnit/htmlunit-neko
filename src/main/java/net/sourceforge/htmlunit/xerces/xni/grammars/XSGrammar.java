@@ -39,7 +39,7 @@ public interface XSGrammar extends Grammar {
      * 
      * @return  an <code>XSModel</code> representing this schema grammar
      */
-    public XSModel toXSModel();
+    XSModel toXSModel();
     
     /**
      * Return an <code>XSModel</code> that represents components in this schema
@@ -48,6 +48,6 @@ public interface XSGrammar extends Grammar {
      * 
      * @return  an <code>XSModel</code> representing these schema grammars
      */
-    public XSModel toXSModel(XSGrammar[] grammars);
+    XSModel toXSModel(XSGrammar[] grammars);
 
 } // interface XSGrammar

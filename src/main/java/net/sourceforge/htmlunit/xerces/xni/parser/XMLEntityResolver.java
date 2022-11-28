@@ -53,7 +53,7 @@ public interface XMLEntityResolver {
      *                      opened or some other i/o error occurs.
      * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier
      */
-    public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier)
+    XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier)
         throws XNIException, IOException;
 
 } // interface XMLEntityResolver

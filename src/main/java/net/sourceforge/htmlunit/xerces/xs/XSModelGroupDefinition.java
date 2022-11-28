@@ -24,16 +24,16 @@ public interface XSModelGroupDefinition extends XSObject {
     /**
      * A model group. 
      */
-    public XSModelGroup getModelGroup();
+    XSModelGroup getModelGroup();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. If not null
      * then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

@@ -43,7 +43,7 @@ public interface FieldActivator {
      * @param identityConstraint The identity constraint.
      * @param initialDepth  the depth at which the selector began matching
      */
-    public void startValueScopeFor(IdentityConstraint identityConstraint,
+    void startValueScopeFor(IdentityConstraint identityConstraint,
             int initialDepth);
 
     /** 
@@ -53,7 +53,7 @@ public interface FieldActivator {
      * @param field The field to activate.
      * @param initialDepth the 0-indexed depth in the instance document at which the Selector began to match.
      */
-    public XPathMatcher activateField(Field field, int initialDepth);
+    XPathMatcher activateField(Field field, int initialDepth);
 
     /**
      * Ends the value scope for the specified identity constraint.
@@ -61,6 +61,6 @@ public interface FieldActivator {
      * @param identityConstraint The identity constraint.
      * @param initialDepth  the 0-indexed depth where the Selector began to match.
      */
-    public void endValueScopeFor(IdentityConstraint identityConstraint, int initialDepth);
+    void endValueScopeFor(IdentityConstraint identityConstraint, int initialDepth);
 
 } // interface FieldActivator

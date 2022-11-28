@@ -284,7 +284,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
-    public int read(char ch[], int offset, int length) throws IOException {
+    public int read(char[] ch, int offset, int length) throws IOException {
 
         // read bytes
         int out = offset;

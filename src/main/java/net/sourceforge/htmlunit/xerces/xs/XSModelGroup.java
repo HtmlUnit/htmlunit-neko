@@ -25,39 +25,39 @@ public interface XSModelGroup extends XSTerm {
     /**
      * This constant value signifies a sequence operator.
      */
-    public static final short COMPOSITOR_SEQUENCE       = 1;
+    short COMPOSITOR_SEQUENCE       = 1;
     /**
      * This constant value signifies a choice operator.
      */
-    public static final short COMPOSITOR_CHOICE         = 2;
+    short COMPOSITOR_CHOICE         = 2;
     /**
      * This content model represents a simplified version of the SGML 
      * &amp;-Connector and is limited to the top-level of any content model. 
      * No element in the all content model may appear more than once.
      */
-    public static final short COMPOSITOR_ALL            = 3;
+    short COMPOSITOR_ALL            = 3;
 
     /**
      * [compositor]: one of all, choice or sequence. The valid constant values 
      * are: 
      * <code>COMPOSITOR_SEQUENCE, COMPOSITOR_CHOICE, COMPOSITOR_ALL</code>. 
      */
-    public short getCompositor();
+    short getCompositor();
 
     /**
      *  A list of [particles] if it exists, otherwise an empty 
      * <code>XSObjectList</code>. 
      */
-    public XSObjectList getParticles();
+    XSObjectList getParticles();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. If not null
      * then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

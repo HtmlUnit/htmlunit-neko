@@ -24,26 +24,26 @@ public interface XSAttributeDeclaration extends XSObject {
     /**
      * [type definition]: A simple type definition. 
      */
-    public XSSimpleTypeDefinition getTypeDefinition();
+    XSSimpleTypeDefinition getTypeDefinition();
 
     /**
      * [scope]. One of <code>SCOPE_GLOBAL</code>, <code>SCOPE_LOCAL</code>, or 
      * <code>SCOPE_ABSENT</code>. If the scope is local, then the 
      * <code>enclosingCTDefinition</code> is present. 
      */
-    public short getScope();
+    short getScope();
 
     /**
      * The complex type definition for locally scoped declarations (see 
      * <code>scope</code>), otherwise <code>null</code> if no such 
      * definition exists. 
      */
-    public XSComplexTypeDefinition getEnclosingCTDefinition();
+    XSComplexTypeDefinition getEnclosingCTDefinition();
 
     /**
      * Value constraint: one of <code>VC_NONE, VC_DEFAULT, VC_FIXED</code>. 
      */
-    public short getConstraintType();
+    short getConstraintType();
 
     /**
      * Value constraint: The constraint value with respect to the [type 
@@ -51,7 +51,7 @@ public interface XSAttributeDeclaration extends XSObject {
      * 
      * @deprecated Use getValueConstraintValue().getNormalizedValue() instead
      */
-    public String getConstraintValue();
+    String getConstraintValue();
 
     /**
      * Value Constraint: Binding specific actual constraint value or 
@@ -63,7 +63,7 @@ public interface XSAttributeDeclaration extends XSObject {
      *  
      *  @deprecated Use getValueConstraintValue().getActualValue() instead
      */
-    public Object getActualVC()
+    Object getActualVC()
                                                         throws XSException;
 
     /**
@@ -82,7 +82,7 @@ public interface XSAttributeDeclaration extends XSObject {
      *  
      *  @deprecated Use getValueConstraintValue().getActualValueType() instead
      */
-    public short getActualVCType()
+    short getActualVCType()
                                                         throws XSException;
 
     /**
@@ -100,22 +100,22 @@ public interface XSAttributeDeclaration extends XSObject {
      *   
      *  @deprecated Use getValueConstraintValue().getListValueTypes() instead
      */
-    public ShortList getItemValueTypes()
+    ShortList getItemValueTypes()
                                                         throws XSException;
 
     /**
      * The actual value of the default or fixed value constraint.
      */
-    public XSValue getValueConstraintValue();
+    XSValue getValueConstraintValue();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. 
      * If not null then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
     
     /**
      * A sequence of [annotations] or an empty  <code>XSObjectList</code>. 
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

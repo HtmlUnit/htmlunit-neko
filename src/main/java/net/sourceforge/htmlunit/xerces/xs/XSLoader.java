@@ -49,7 +49,7 @@ public interface XSLoader {
      * </dl></dd>
      * </dl>
      */
-    public DOMConfiguration getConfig();
+    DOMConfiguration getConfig();
 
     /**
      * Parses the content of XML Schema documents specified as the list of URI 
@@ -58,7 +58,7 @@ public interface XSLoader {
      * @param uriList The list of URI locations.
      * @return An XSModel representing the schema documents.
      */
-    public XSModel loadURIList(StringList uriList);
+    XSModel loadURIList(StringList uriList);
 
     /**
      *  Parses the content of XML Schema documents specified as a list of 
@@ -67,7 +67,7 @@ public interface XSLoader {
      *   Schema documents are to be read. 
      * @return An XSModel representing the schema documents.
      */
-    public XSModel loadInputList(LSInputList is);
+    XSModel loadInputList(LSInputList is);
 
     /**
      * Parse an XML Schema document from a location identified by a URI 
@@ -76,7 +76,7 @@ public interface XSLoader {
      * @param uri The location of the XML Schema document to be read.
      * @return An XSModel representing this schema.
      */
-    public XSModel loadURI(String uri);
+    XSModel loadURI(String uri);
 
     /**
      *  Parse an XML Schema document from a resource identified by a 
@@ -85,6 +85,6 @@ public interface XSLoader {
      *   document is to be read. 
      * @return An XSModel representing this schema.
      */
-    public XSModel load(LSInput is);
+    XSModel load(LSInput is);
 
 }

@@ -24,7 +24,7 @@ public interface XSParticle extends XSObject {
     /**
      * [min occurs]: determines the minimum number of terms that can occur. 
      */
-    public int getMinOccurs();
+    int getMinOccurs();
 
     /**
      *  [max occurs]: determines the maximum number of terms that can occur. 
@@ -33,20 +33,20 @@ public interface XSParticle extends XSObject {
      * <code>maxOccursUnbounded</code> is <code>true</code>, the value of 
      * <code>maxOccurs</code> is unspecified. 
      */
-    public int getMaxOccurs();
+    int getMaxOccurs();
 
     /**
      * [max occurs]: whether the maxOccurs value is unbounded.
      */
-    public boolean getMaxOccursUnbounded();
+    boolean getMaxOccursUnbounded();
 
     /**
      * [term]: one of a model group, a wildcard, or an element declaration. 
      */
-    public XSTerm getTerm();
+    XSTerm getTerm();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

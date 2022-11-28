@@ -76,13 +76,13 @@ public class DFAContentModel
      * of the built DFA information that must be kept around to do the
      * actual validation.
      */
-    private QName fElemMap[] = null;
+    private QName[] fElemMap = null;
 
     /**
      * This is a map of whether the element map contains information 
      * related to ANY models.
      */
-    private int fElemMapType[] = null;
+    private int[] fElemMapType = null;
 
     /** The element map size. */
     private int fElemMapSize = 0;
@@ -102,14 +102,14 @@ public class DFAContentModel
      * fTransTableSize states in the DFA) that indicates whether that
      * state is a final state.
      */
-    private boolean fFinalStateFlags[] = null;
+    private boolean[] fFinalStateFlags = null;
 
     /**
      * The list of follow positions for each NFA position (i.e. for each
      * non-epsilon leaf node.) This is only used during the building of
      * the DFA, and is let go afterwards.
      */
-    private CMStateSet fFollowList[] = null;
+    private CMStateSet[] fFollowList = null;
 
     /**
      * This is the head node of our intermediate representation. It is
@@ -129,10 +129,10 @@ public class DFAContentModel
      * An array of non-epsilon leaf nodes, which is used during the DFA
      * build operation, then dropped.
      */
-    private CMLeaf fLeafList[] = null;
+    private CMLeaf[] fLeafList = null;
 
     /** Array mapping ANY types to the leaf list. */
-    private int fLeafListType[] = null;
+    private int[] fLeafListType = null;
 
     //private ContentLeafNameTypeVector fLeafNameTypeVector = null;
 
@@ -154,7 +154,7 @@ public class DFAContentModel
      * The fElemMap array handles mapping from element indexes to
      * positions in the second dimension of the transition table.
      */
-    private int fTransTable[][] = null;
+    private int[][] fTransTable = null;
 
     /**
      * The number of valid entries in the transition table, and in the other

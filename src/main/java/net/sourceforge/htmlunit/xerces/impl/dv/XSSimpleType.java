@@ -40,11 +40,11 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * Part 2: Datatypes </a>
      */
     /** preserve the white spaces */
-    public static final short WS_PRESERVE = 0;
+    short WS_PRESERVE = 0;
     /** replace the white spaces */
-    public static final short WS_REPLACE  = 1;
+    short WS_REPLACE  = 1;
     /** collapse the white spaces */
-    public static final short WS_COLLAPSE = 2;
+    short WS_COLLAPSE = 2;
 
     /**
      * Constant defined for the primitive built-in simple tpyes.
@@ -52,45 +52,45 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * XML Schema Part 2: Datatypes </a>
      */
     /** "string" type */
-    public static final short PRIMITIVE_STRING        = 1;
+    short PRIMITIVE_STRING        = 1;
     /** "boolean" type */
-    public static final short PRIMITIVE_BOOLEAN       = 2;
+    short PRIMITIVE_BOOLEAN       = 2;
     /** "decimal" type */
-    public static final short PRIMITIVE_DECIMAL       = 3;
+    short PRIMITIVE_DECIMAL       = 3;
     /** "float" type */
-    public static final short PRIMITIVE_FLOAT         = 4;
+    short PRIMITIVE_FLOAT         = 4;
     /** "double" type */
-    public static final short PRIMITIVE_DOUBLE        = 5;
+    short PRIMITIVE_DOUBLE        = 5;
     /** "duration" type */
-    public static final short PRIMITIVE_DURATION      = 6;
+    short PRIMITIVE_DURATION      = 6;
     /** "dataTime" type */
-    public static final short PRIMITIVE_DATETIME      = 7;
+    short PRIMITIVE_DATETIME      = 7;
     /** "time" type */
-    public static final short PRIMITIVE_TIME          = 8;
+    short PRIMITIVE_TIME          = 8;
     /** "date" type */
-    public static final short PRIMITIVE_DATE          = 9;
+    short PRIMITIVE_DATE          = 9;
     /** "gYearMonth" type */
-    public static final short PRIMITIVE_GYEARMONTH    = 10;
+    short PRIMITIVE_GYEARMONTH    = 10;
     /** "gYear" type */
-    public static final short PRIMITIVE_GYEAR         = 11;
+    short PRIMITIVE_GYEAR         = 11;
     /** "gMonthDay" type */
-    public static final short PRIMITIVE_GMONTHDAY     = 12;
+    short PRIMITIVE_GMONTHDAY     = 12;
     /** "gDay" type */
-    public static final short PRIMITIVE_GDAY          = 13;
+    short PRIMITIVE_GDAY          = 13;
     /** "gMonth" type */
-    public static final short PRIMITIVE_GMONTH        = 14;
+    short PRIMITIVE_GMONTH        = 14;
     /** "hexBinary" type */
-    public static final short PRIMITIVE_HEXBINARY     = 15;
+    short PRIMITIVE_HEXBINARY     = 15;
     /** "base64Binary" type */
-    public static final short PRIMITIVE_BASE64BINARY  = 16;
+    short PRIMITIVE_BASE64BINARY  = 16;
     /** "anyURI" type */
-    public static final short PRIMITIVE_ANYURI        = 17;
+    short PRIMITIVE_ANYURI        = 17;
     /** "QName" type */
-    public static final short PRIMITIVE_QNAME         = 18;
+    short PRIMITIVE_QNAME         = 18;
     /** "precisionDecimal" type */
-    public static final short PRIMITIVE_PRECISIONDECIMAL = 19;
+    short PRIMITIVE_PRECISIONDECIMAL = 19;
     /** "NOTATION" type */
-    public static final short PRIMITIVE_NOTATION      = 20;
+    short PRIMITIVE_NOTATION      = 20;
 
     /**
      * return an ID representing the built-in primitive base type.
@@ -100,7 +100,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      *
      * @return   an ID representing the built-in primitive base type
      */
-    public short getPrimitiveKind();
+    short getPrimitiveKind();
 
     /**
      * validate a given string against this simple type.
@@ -111,7 +111,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      *
      * @return              the actual value (QName, Boolean) of the string value
      */
-    public Object validate(String content, ValidationContext context, ValidatedInfo validatedInfo)
+    Object validate(String content, ValidationContext context, ValidatedInfo validatedInfo)
         throws InvalidDatatypeValueException;
 
     /**
@@ -125,7 +125,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      *
      * @return              the actual value (QName, Boolean) of the string value
      */
-    public Object validate(Object content, ValidationContext context, ValidatedInfo validatedInfo)
+    Object validate(Object content, ValidationContext context, ValidatedInfo validatedInfo)
         throws InvalidDatatypeValueException;
 
     /**
@@ -135,7 +135,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * @param validatedInfo used to provide the actual value and member types
      * @exception InvalidDatatypeValueException  exception for invalid values.
      */
-    public void validate(ValidationContext context, ValidatedInfo validatedInfo)
+    void validate(ValidationContext context, ValidatedInfo validatedInfo)
         throws InvalidDatatypeValueException;
 
     /**
@@ -151,7 +151,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * @param context       the validation context
      * @exception InvalidDatatypeFacetException  exception for invalid facet values.
      */
-    public void applyFacets(XSFacets facets, short presentFacet, short fixedFacet, ValidationContext context)
+    void applyFacets(XSFacets facets, short presentFacet, short fixedFacet, ValidationContext context)
         throws InvalidDatatypeFacetException;
 
     /**
@@ -161,7 +161,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * @param value2  the second value
      * @return        true if the two value are equal
      */
-    public boolean isEqual(Object value1, Object value2);
+    boolean isEqual(Object value1, Object value2);
 
     /**
      * Check the order of the two actual values. (May not be supported by all
@@ -188,7 +188,7 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      *
      * @return  whether this simple type is or is derived from ID.
      */
-    public boolean isIDType();
+    boolean isIDType();
 
     /**
      * Return the whitespace corresponding to this datatype.
@@ -197,5 +197,5 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
      * @exception DatatypeException
      *                   union datatypes don't have whitespace facet associated with them
      */
-    public short getWhitespace() throws DatatypeException;
+    short getWhitespace() throws DatatypeException;
 }

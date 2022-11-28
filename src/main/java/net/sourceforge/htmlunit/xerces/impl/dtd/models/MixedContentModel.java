@@ -48,10 +48,10 @@ public class MixedContentModel
     private final int fCount;
 
     /** The list of possible children that we have to accept. */
-    private final QName fChildren[];
+    private final QName[] fChildren;
 
     /** The type of the children to support ANY. */
-    private final int fChildrenType[];
+    private final int[] fChildrenType;
 
     /* this is the EquivClassComparator object */
     //private EquivClassComparator comparator = null;

@@ -32,7 +32,7 @@ public interface XSNamedMap extends Map {
      * The range of valid child object indices is 0 to <code>length-1</code> 
      * inclusive. 
      */
-    public int getLength();
+    int getLength();
 
     /**
      *  Returns the <code>index</code>th item in the collection or 
@@ -43,7 +43,7 @@ public interface XSNamedMap extends Map {
      *   position in the <code>XSObjectList</code>, or <code>null</code> if 
      *   the index specified is not valid. 
      */
-    public XSObject item(int index);
+    XSObject item(int index);
 
     /**
      * Retrieves an <code>XSObject</code> specified by local name and 
@@ -60,7 +60,7 @@ public interface XSNamedMap extends Map {
      *   name and namespace URI, or <code>null</code> if they do not 
      *   identify any object in this map.
      */
-    public XSObject itemByName(String namespace, 
+    XSObject itemByName(String namespace,
                                String localName);
 
 }

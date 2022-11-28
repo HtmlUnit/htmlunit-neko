@@ -37,14 +37,14 @@ public interface XMLDTDValidatorFilter
      * 
      * @return true if the validator has a DTD grammar
      */
-    public boolean hasGrammar();
+    boolean hasGrammar();
 
     /**
      * Return true if validator must validate the document
      * 
      * @return true if validator must validate the document
      */
-    public boolean validate();
+    boolean validate();
 
 
 } // interface XMLDTDValidatorFilter

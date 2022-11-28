@@ -26,5 +26,5 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  */
 public interface XSElementDeclHelper {
 
-    public XSElementDecl getGlobalElementDecl(QName element);
+    XSElementDecl getGlobalElementDecl(QName element);
 }

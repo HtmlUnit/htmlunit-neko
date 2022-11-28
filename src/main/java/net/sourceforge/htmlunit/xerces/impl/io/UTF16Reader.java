@@ -173,7 +173,7 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
-    public int read(char ch[], int offset, int length) throws IOException {
+    public int read(char[] ch, int offset, int length) throws IOException {
         int byteLength = length << 1;
         if (byteLength > fBuffer.length) {
             byteLength = fBuffer.length;
@@ -291,7 +291,7 @@ public final class UTF16Reader
      //
      
      /** Decodes UTF-16BE **/
-     private void processBE(final char ch[], int offset, final int count) {
+     private void processBE(final char[] ch, int offset, final int count) {
          int curPos = 0;
          for (int i = 0; i < count; ++i) {
              final int b0 = fBuffer[curPos++] & 0xff;
@@ -301,7 +301,7 @@ public final class UTF16Reader
      } // processBE(char[],int,int)
      
      /** Decodes UTF-16LE **/
-     private void processLE(final char ch[], int offset, final int count) {
+     private void processLE(final char[] ch, int offset, final int count) {
          int curPos = 0;
          for (int i = 0; i < count; ++i) {
              final int b0 = fBuffer[curPos++] & 0xff;

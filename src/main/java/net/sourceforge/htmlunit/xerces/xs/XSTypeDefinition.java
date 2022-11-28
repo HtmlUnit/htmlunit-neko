@@ -24,21 +24,21 @@ public interface XSTypeDefinition extends XSObject {
     /**
      * The object describes a complex type.
      */
-    public static final short COMPLEX_TYPE              = 15;
+    short COMPLEX_TYPE              = 15;
     /**
      * The object describes a simple type.
      */
-    public static final short SIMPLE_TYPE               = 16;
+    short SIMPLE_TYPE               = 16;
     /**
      * Return whether this type definition is a simple type or complex type.
      */
-    public short getTypeCategory();
+    short getTypeCategory();
 
     /**
      * {base type definition}: either a simple type definition or a complex 
      * type definition. 
      */
-    public XSTypeDefinition getBaseType();
+    XSTypeDefinition getBaseType();
 
     /**
      * {final}. For a complex type definition it is a subset of {extension, 
@@ -49,7 +49,7 @@ public interface XSTypeDefinition extends XSObject {
      * @return True if <code>restriction</code> is in the final set, 
      *   otherwise false.
      */
-    public boolean isFinal(short restriction);
+    boolean isFinal(short restriction);
 
     /**
      * For complex types the returned value is a bit combination of the subset 
@@ -61,13 +61,13 @@ public interface XSTypeDefinition extends XSObject {
      * } corresponding to <code>final</code> set of this type or 
      * <code>DERIVATION_NONE</code>. 
      */
-    public short getFinal();
+    short getFinal();
 
     /**
      *  Convenience attribute. A boolean that specifies if the type definition 
      * is anonymous. 
      */
-    public boolean getAnonymous();
+    boolean getAnonymous();
 
     /**
      * Convenience method which checks if this type is derived from the given 
@@ -80,7 +80,7 @@ public interface XSTypeDefinition extends XSObject {
      *   using only derivation methods from the <code>derivationMethod</code>
      *   . 
      */
-    public boolean derivedFromType(XSTypeDefinition ancestorType, 
+    boolean derivedFromType(XSTypeDefinition ancestorType,
                                    short derivationMethod);
 
     /**
@@ -95,7 +95,7 @@ public interface XSTypeDefinition extends XSObject {
      *   using only derivation methods from the <code>derivationMethod</code>
      *   . 
      */
-    public boolean derivedFrom(String namespace, 
+    boolean derivedFrom(String namespace,
                                String name, 
                                short derivationMethod);
 

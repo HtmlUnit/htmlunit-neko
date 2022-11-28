@@ -35,12 +35,12 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 public interface XSCMValidator {
 
 
-    public static final short FIRST_ERROR = -1;
+    short FIRST_ERROR = -1;
 
     // on subsequent errors the validator should not report
     // an error
     //
-    public static final short SUBSEQUENT_ERROR = -2;
+    short SUBSEQUENT_ERROR = -2;
 
     /**
      * This methods to be called on entering a first element whose type
@@ -48,7 +48,7 @@ public interface XSCMValidator {
      *
      * @return Start state of the content model
      */
-    public int[] startContentModel();
+    int[] startContentModel();
 
 
     /**
@@ -59,7 +59,7 @@ public interface XSCMValidator {
      * @return element decl or wildcard decl that
      *         corresponds to the element from the Schema grammar
      */
-    public Object oneTransition (QName elementName, int[] state, SubstitutionGroupHandler subGroupHandler);
+    Object oneTransition (QName elementName, int[] state, SubstitutionGroupHandler subGroupHandler);
 
 
     /**
@@ -68,7 +68,7 @@ public interface XSCMValidator {
      * @param state  Current state of the content model
      * @return true if the last state was a valid final state
      */
-    public boolean endContentModel (int[] state);
+    boolean endContentModel (int[] state);
 
     /**
      * check whether this content violates UPA constraint.
@@ -76,7 +76,7 @@ public interface XSCMValidator {
      * @param subGroupHandler the substitution group handler
      * @return true if this content model contains other or list wildcard
      */
-    public boolean checkUniqueParticleAttribution(SubstitutionGroupHandler subGroupHandler) throws XMLSchemaException;
+    boolean checkUniqueParticleAttribution(SubstitutionGroupHandler subGroupHandler) throws XMLSchemaException;
 
     /**
      * Check which elements are valid to appear at this point. This method also
@@ -87,7 +87,7 @@ public interface XSCMValidator {
      * @return       a Vector whose entries are instances of
      *               either XSWildcardDecl or XSElementDecl.
      */
-    public Vector whatCanGoHere(int[] state);
+    Vector whatCanGoHere(int[] state);
     
     /**
      * <p>Returns an array containing information about the current repeating term
@@ -106,7 +106,7 @@ public interface XSCMValidator {
      * @param state the current state
      * @return an array containing information about the current repeating term
      */
-    public int [] occurenceInfo(int[] state);
+    int [] occurenceInfo(int[] state);
     
     /**
      * Returns the name of the term (element or wildcard) for the given identifier.
@@ -114,7 +114,7 @@ public interface XSCMValidator {
      * @param termId identifier for the element declaration or wildcard
      * @return the name of the element declaration or wildcard
      */
-    public String getTermName(int termId);
+    String getTermName(int termId);
     
     /**
      * Checks if this content model has had its min/maxOccurs values reduced for
@@ -123,5 +123,5 @@ public interface XSCMValidator {
      * 
      * @return a boolean that says whether this content has been compacted for UPA
      */
-    public boolean isCompactedForUPA();
+    boolean isCompactedForUPA();
 } // XSCMValidator

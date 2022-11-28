@@ -25,15 +25,15 @@ public interface XSAnnotation extends XSObject {
     /**
      * The object type is <code>org.w3c.dom.Element</code>.
      */
-    public static final short W3C_DOM_ELEMENT           = 1;
+    short W3C_DOM_ELEMENT           = 1;
     /**
      * The object type is <code>org.xml.sax.ContentHandler</code>.
      */
-    public static final short SAX_CONTENTHANDLER        = 2;
+    short SAX_CONTENTHANDLER        = 2;
     /**
      * The object type is <code>org.w3c.dom.Document</code>.
      */
-    public static final short W3C_DOM_DOCUMENT          = 3;
+    short W3C_DOM_DOCUMENT          = 3;
 
     /**
      *  Write contents of the annotation to the specified object. If the 
@@ -49,12 +49,12 @@ public interface XSAnnotation extends XSObject {
      * @return  True if the <code>target</code> is a recognized type and 
      *   supported by this implementation, otherwise false. 
      */
-    public boolean writeAnnotation(Object target, 
+    boolean writeAnnotation(Object target,
                                    short targetType);
 
     /**
      * A text representation of the annotation.
      */
-    public String getAnnotationString();
+    String getAnnotationString();
 
 }

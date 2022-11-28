@@ -42,14 +42,14 @@ public interface XMLDTDHandler {
      *
      * @see #CONDITIONAL_IGNORE
      */
-    public static final short CONDITIONAL_INCLUDE = 0;
+    short CONDITIONAL_INCLUDE = 0;
 
     /** 
      * Conditional section: IGNORE.
      *
      * @see #CONDITIONAL_INCLUDE
      */
-    public static final short CONDITIONAL_IGNORE = 1;
+    short CONDITIONAL_IGNORE = 1;
 
     //
     // XMLDTDHandler methods
@@ -69,7 +69,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startDTD(XMLLocator locator, Augmentations augmentations) 
+    void startDTD(XMLLocator locator, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -87,7 +87,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startParameterEntity(String name, 
+    void startParameterEntity(String name,
                                      XMLResourceIdentifier identifier,
                                      String encoding,
                                      Augmentations augmentations) throws XNIException;
@@ -106,7 +106,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void textDecl(String version, String encoding,
+    void textDecl(String version, String encoding,
                          Augmentations augmentations) throws XNIException;
 
     /**
@@ -119,7 +119,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endParameterEntity(String name, Augmentations augmentations) 
+    void endParameterEntity(String name, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -132,7 +132,7 @@ public interface XMLDTDHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-    public void startExternalSubset(XMLResourceIdentifier identifier, 
+    void startExternalSubset(XMLResourceIdentifier identifier,
                                     Augmentations augmentations) 
         throws XNIException;
 
@@ -144,7 +144,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endExternalSubset(Augmentations augmentations) 
+    void endExternalSubset(Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -156,7 +156,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by application to signal an error.
      */
-    public void comment(XMLString text, Augmentations augmentations) 
+    void comment(XMLString text, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -177,7 +177,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void processingInstruction(String target, XMLString data,
+    void processingInstruction(String target, XMLString data,
                                       Augmentations augmentations)
         throws XNIException;
 
@@ -191,7 +191,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void elementDecl(String name, String contentModel,
+    void elementDecl(String name, String contentModel,
                             Augmentations augmentations)
         throws XNIException;
 
@@ -205,7 +205,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startAttlist(String elementName,
+    void startAttlist(String elementName,
                              Augmentations augmentations) throws XNIException;
 
     /**
@@ -233,7 +233,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void attributeDecl(String elementName, String attributeName, 
+    void attributeDecl(String elementName, String attributeName,
                               String type, String[] enumeration, 
                               String defaultType, XMLString defaultValue,
                               XMLString nonNormalizedDefaultValue, Augmentations augmentations)
@@ -247,7 +247,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endAttlist(Augmentations augmentations) throws XNIException;
+    void endAttlist(Augmentations augmentations) throws XNIException;
 
     /**
      * An internal entity declaration.
@@ -265,7 +265,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void internalEntityDecl(String name, XMLString text, 
+    void internalEntityDecl(String name, XMLString text,
                                    XMLString nonNormalizedText,
                                    Augmentations augmentations) 
         throws XNIException;
@@ -283,7 +283,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void externalEntityDecl(String name, 
+    void externalEntityDecl(String name,
                                    XMLResourceIdentifier identifier,
                                    Augmentations augmentations) 
         throws XNIException;
@@ -300,7 +300,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void unparsedEntityDecl(String name, 
+    void unparsedEntityDecl(String name,
                                    XMLResourceIdentifier identifier, 
                                    String notation, Augmentations augmentations) 
         throws XNIException;
@@ -316,7 +316,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void notationDecl(String name, XMLResourceIdentifier identifier,
+    void notationDecl(String name, XMLResourceIdentifier identifier,
                              Augmentations augmentations) throws XNIException;
 
     /**
@@ -332,7 +332,7 @@ public interface XMLDTDHandler {
      * @see #CONDITIONAL_INCLUDE
      * @see #CONDITIONAL_IGNORE
      */
-    public void startConditional(short type, Augmentations augmentations) 
+    void startConditional(short type, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -344,7 +344,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void ignoredCharacters(XMLString text, Augmentations augmentations) 
+    void ignoredCharacters(XMLString text, Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -355,7 +355,7 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endConditional(Augmentations augmentations) throws XNIException;
+    void endConditional(Augmentations augmentations) throws XNIException;
 
     /**
      * The end of the DTD.
@@ -365,12 +365,12 @@ public interface XMLDTDHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endDTD(Augmentations augmentations) throws XNIException;
+    void endDTD(Augmentations augmentations) throws XNIException;
 
     // set the source of this handler
-    public void setDTDSource(XMLDTDSource source);
+    void setDTDSource(XMLDTDSource source);
 
     // return the source from which this handler derives its events
-    public XMLDTDSource getDTDSource();
+    XMLDTDSource getDTDSource();
 
 } // interface XMLDTDHandler

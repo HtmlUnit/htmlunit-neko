@@ -52,7 +52,7 @@ public interface XMLDTDScanner
      *
      * @throws IOException Thrown on i/o error.
      */
-    public void setInputSource(XMLInputSource inputSource) throws IOException;
+    void setInputSource(XMLInputSource inputSource) throws IOException;
 
     /** 
      * Scans the internal subset of the document.
@@ -74,7 +74,7 @@ public interface XMLDTDScanner
      *
      * @return True if there is more to scan, false otherwise.
      */
-    public boolean scanDTDInternalSubset(boolean complete, boolean standalone,
+    boolean scanDTDInternalSubset(boolean complete, boolean standalone,
                                          boolean hasExternalSubset)
         throws IOException, XNIException;
 
@@ -91,7 +91,7 @@ public interface XMLDTDScanner
      *
      * @return True if there is more to scan, false otherwise.
      */
-    public boolean scanDTDExternalSubset(boolean complete) 
+    boolean scanDTDExternalSubset(boolean complete)
         throws IOException, XNIException;
 
 } // interface XMLDTDScanner

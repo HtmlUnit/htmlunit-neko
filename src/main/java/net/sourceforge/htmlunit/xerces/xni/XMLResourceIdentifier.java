@@ -28,35 +28,35 @@ package net.sourceforge.htmlunit.xerces.xni;
 public interface XMLResourceIdentifier {
     
     /** Sets the public identifier. */
-    public void setPublicId(String publicId);
+    void setPublicId(String publicId);
 
     /** Returns the public identifier. */
-    public String getPublicId();
+    String getPublicId();
     
     /** Sets the expanded system identifier. */
-    public void setExpandedSystemId(String systemId);
+    void setExpandedSystemId(String systemId);
     
     /** Returns the expanded system identifier. */
-    public String getExpandedSystemId();
+    String getExpandedSystemId();
     
     /** Sets the literal system identifier. */
-    public void setLiteralSystemId(String systemId);
+    void setLiteralSystemId(String systemId);
      
     /** Returns the literal system identifier. */
-    public String getLiteralSystemId();
+    String getLiteralSystemId();
     
     /** Sets the base URI against which the literal SystemId is to be 
         resolved.*/
-    public void setBaseSystemId(String systemId); 
+    void setBaseSystemId(String systemId);
     
     /** <p> Returns the base URI against which the literal SystemId is to be 
         resolved. </p> */
-    public String getBaseSystemId();
+    String getBaseSystemId();
 
     /** Sets the namespace of the resource. */
-    public void setNamespace(String namespace);
+    void setNamespace(String namespace);
      
     /** Returns the namespace of the resource. */
-    public String getNamespace();
+    String getNamespace();
     
 } // XMLResourceIdentifier

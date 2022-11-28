@@ -26,7 +26,7 @@ public interface XSNamespaceItem {
     /**
      * [schema namespace]: A namespace name or <code>null</code> if absent.
      */
-    public String getSchemaNamespace();
+    String getSchemaNamespace();
 
     /**
      * [schema components]: a list of top-level components, i.e. element 
@@ -43,13 +43,13 @@ public interface XSNamespaceItem {
      *   <code>objectType</code> or an empty <code>XSNamedMap</code> if no 
      *   such definitions exist. 
      */
-    public XSNamedMap getComponents(short objectType);
+    XSNamedMap getComponents(short objectType);
 
     /**
      *  [annotations]: a set of annotations if it exists, otherwise an empty 
      * <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();
+    XSObjectList getAnnotations();
 
     /**
      * Convenience method. Returns a top-level element declaration. 
@@ -57,7 +57,7 @@ public interface XSNamespaceItem {
      * @return A top-level element declaration or <code>null</code> if such a 
      *   declaration does not exist. 
      */
-    public XSElementDeclaration getElementDeclaration(String name);
+    XSElementDeclaration getElementDeclaration(String name);
 
     /**
      * Convenience method. Returns a top-level attribute declaration. 
@@ -65,7 +65,7 @@ public interface XSNamespaceItem {
      * @return A top-level attribute declaration or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSAttributeDeclaration getAttributeDeclaration(String name);
+    XSAttributeDeclaration getAttributeDeclaration(String name);
 
     /**
      * Convenience method. Returns a top-level simple or complex type 
@@ -74,7 +74,7 @@ public interface XSNamespaceItem {
      * @return An <code>XSTypeDefinition</code> or <code>null</code> if such 
      *   a definition does not exist. 
      */
-    public XSTypeDefinition getTypeDefinition(String name);
+    XSTypeDefinition getTypeDefinition(String name);
 
     /**
      * Convenience method. Returns a top-level attribute group definition. 
@@ -82,7 +82,7 @@ public interface XSNamespaceItem {
      * @return A top-level attribute group definition or <code>null</code> if 
      *   such a definition does not exist. 
      */
-    public XSAttributeGroupDefinition getAttributeGroup(String name);
+    XSAttributeGroupDefinition getAttributeGroup(String name);
 
     /**
      * Convenience method. Returns a top-level model group definition. 
@@ -90,7 +90,7 @@ public interface XSNamespaceItem {
      * @return A top-level model group definition definition or 
      *   <code>null</code> if such a definition does not exist. 
      */
-    public XSModelGroupDefinition getModelGroupDefinition(String name);
+    XSModelGroupDefinition getModelGroupDefinition(String name);
 
     /**
      * Convenience method. Returns a top-level notation declaration. 
@@ -98,7 +98,7 @@ public interface XSNamespaceItem {
      * @return A top-level notation declaration or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSNotationDeclaration getNotationDeclaration(String name);
+    XSNotationDeclaration getNotationDeclaration(String name);
 
     /**
      * Convenience method. Returns an identity-constraint definition.
@@ -106,12 +106,12 @@ public interface XSNamespaceItem {
      * @return An identity-constraint definition or <code>null</code> if such 
      *   a declaration does not exist. 
      */
-    public XSIDCDefinition getIDCDefinition(String name);
+    XSIDCDefinition getIDCDefinition(String name);
 
     /**
      * [document location] - a list of location URIs for the documents that 
      * contributed to the <code>XSModel</code>.
      */
-    public StringList getDocumentLocations();
+    StringList getDocumentLocations();
 
 }

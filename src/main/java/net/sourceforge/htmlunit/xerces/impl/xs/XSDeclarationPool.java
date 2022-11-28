@@ -46,31 +46,31 @@ public final class XSDeclarationPool {
     private static final int INITIAL_CHUNK_COUNT = (1 << (10 - CHUNK_SHIFT)); // 2^10 = 1k
 
     /** Element declaration pool*/
-    private XSElementDecl fElementDecl[][] = new XSElementDecl[INITIAL_CHUNK_COUNT][];
+    private XSElementDecl[][] fElementDecl = new XSElementDecl[INITIAL_CHUNK_COUNT][];
     private int fElementDeclIndex = 0;
 
     /** Particle declaration pool */
-    private XSParticleDecl fParticleDecl[][] = new XSParticleDecl[INITIAL_CHUNK_COUNT][];
+    private XSParticleDecl[][] fParticleDecl = new XSParticleDecl[INITIAL_CHUNK_COUNT][];
     private int fParticleDeclIndex = 0;
 
     /** Particle declaration pool */
-    private XSModelGroupImpl fModelGroup[][] = new XSModelGroupImpl[INITIAL_CHUNK_COUNT][];
+    private XSModelGroupImpl[][] fModelGroup = new XSModelGroupImpl[INITIAL_CHUNK_COUNT][];
     private int fModelGroupIndex = 0;
 
     /** Attribute declaration pool */
-    private XSAttributeDecl fAttrDecl[][] = new XSAttributeDecl[INITIAL_CHUNK_COUNT][];
+    private XSAttributeDecl[][] fAttrDecl = new XSAttributeDecl[INITIAL_CHUNK_COUNT][];
     private int fAttrDeclIndex = 0;
 
     /** ComplexType declaration pool */
-    private XSComplexTypeDecl fCTDecl[][] = new XSComplexTypeDecl[INITIAL_CHUNK_COUNT][];
+    private XSComplexTypeDecl[][] fCTDecl = new XSComplexTypeDecl[INITIAL_CHUNK_COUNT][];
     private int fCTDeclIndex = 0;
 
     /** SimpleType declaration pool */
-    private XSSimpleTypeDecl fSTDecl[][] = new XSSimpleTypeDecl[INITIAL_CHUNK_COUNT][];
+    private XSSimpleTypeDecl[][] fSTDecl = new XSSimpleTypeDecl[INITIAL_CHUNK_COUNT][];
     private int fSTDeclIndex = 0;
 
     /** AttributeUse declaration pool */
-    private XSAttributeUseImpl fAttributeUse[][] = new XSAttributeUseImpl[INITIAL_CHUNK_COUNT][];
+    private XSAttributeUseImpl[][] fAttributeUse = new XSAttributeUseImpl[INITIAL_CHUNK_COUNT][];
     private int fAttributeUseIndex = 0;
     
     private SchemaDVFactoryImpl dvFactory;
@@ -190,8 +190,8 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSElementDecl[][] resize(XSElementDecl array[][], int newsize) {
-        XSElementDecl newarray[][] = new XSElementDecl[newsize][];
+    private static XSElementDecl[][] resize(XSElementDecl[][] array, int newsize) {
+        XSElementDecl[][] newarray = new XSElementDecl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
@@ -218,14 +218,14 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSParticleDecl[][] resize(XSParticleDecl array[][], int newsize) {
-        XSParticleDecl newarray[][] = new XSParticleDecl[newsize][];
+    private static XSParticleDecl[][] resize(XSParticleDecl[][] array, int newsize) {
+        XSParticleDecl[][] newarray = new XSParticleDecl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
 
-    private static XSModelGroupImpl[][] resize(XSModelGroupImpl array[][], int newsize) {
-        XSModelGroupImpl newarray[][] = new XSModelGroupImpl[newsize][];
+    private static XSModelGroupImpl[][] resize(XSModelGroupImpl[][] array, int newsize) {
+        XSModelGroupImpl[][] newarray = new XSModelGroupImpl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
@@ -241,8 +241,8 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSAttributeDecl[][] resize(XSAttributeDecl array[][], int newsize) {
-        XSAttributeDecl newarray[][] = new XSAttributeDecl[newsize][];
+    private static XSAttributeDecl[][] resize(XSAttributeDecl[][] array, int newsize) {
+        XSAttributeDecl[][] newarray = new XSAttributeDecl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
@@ -258,8 +258,8 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSAttributeUseImpl[][] resize(XSAttributeUseImpl array[][], int newsize) {
-        XSAttributeUseImpl newarray[][] = new XSAttributeUseImpl[newsize][];
+    private static XSAttributeUseImpl[][] resize(XSAttributeUseImpl[][] array, int newsize) {
+        XSAttributeUseImpl[][] newarray = new XSAttributeUseImpl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
@@ -275,8 +275,8 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSSimpleTypeDecl[][] resize(XSSimpleTypeDecl array[][], int newsize) {
-        XSSimpleTypeDecl newarray[][] = new XSSimpleTypeDecl[newsize][];
+    private static XSSimpleTypeDecl[][] resize(XSSimpleTypeDecl[][] array, int newsize) {
+        XSSimpleTypeDecl[][] newarray = new XSSimpleTypeDecl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
@@ -293,8 +293,8 @@ public final class XSDeclarationPool {
         return true;
     }
 
-    private static XSComplexTypeDecl[][] resize(XSComplexTypeDecl array[][], int newsize) {
-        XSComplexTypeDecl newarray[][] = new XSComplexTypeDecl[newsize][];
+    private static XSComplexTypeDecl[][] resize(XSComplexTypeDecl[][] array, int newsize) {
+        XSComplexTypeDecl[][] newarray = new XSComplexTypeDecl[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }

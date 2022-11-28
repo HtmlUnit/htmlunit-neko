@@ -57,7 +57,7 @@ public interface XMLGrammarPool {
      *  <code>net.sourceforge.htmlunit.xerces.xni.grammars.Grammar</code> interface.
      * @return the set of grammars the validator may put in its "bucket"
      */
-    public Grammar[] retrieveInitialGrammarSet(String grammarType);
+    Grammar[] retrieveInitialGrammarSet(String grammarType);
 
     /** 
      * <p>return the final set of grammars that the validator ended up
@@ -69,7 +69,7 @@ public interface XMLGrammarPool {
      * @param grammars an array containing the set of grammars being
      *  returned; order is not significant.
      */
-    public void cacheGrammars(String grammarType, Grammar[] grammars);
+    void cacheGrammars(String grammarType, Grammar[] grammars);
 
     /** 
      * <p> This method requests that the application retrieve a grammar
@@ -82,23 +82,23 @@ public interface XMLGrammarPool {
      * @return the Grammar corresponding to this description or null if
      *  no such Grammar is known.
      */
-    public Grammar retrieveGrammar(XMLGrammarDescription desc);
+    Grammar retrieveGrammar(XMLGrammarDescription desc);
 
     /**
      * Causes the XMLGrammarPool not to store any grammars when
      * the cacheGrammars(String, Grammar[[]) method is called.
      */
-    public void lockPool();
+    void lockPool();
 
     /**
      * Allows the XMLGrammarPool to store grammars when its cacheGrammars(String, Grammar[])
      * method is called.  This is the default state of the object.
      */
-    public void unlockPool();
+    void unlockPool();
 
     /**
      * Removes all grammars from the pool.
      */
-    public void clear();
+    void clear();
 } // XMLGrammarPool
 

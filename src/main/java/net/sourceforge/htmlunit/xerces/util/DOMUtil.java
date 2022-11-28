@@ -487,7 +487,7 @@ public class DOMUtil {
     } // getNextSiblingdElementNS(Node,String,String):Element
     
     /** Finds and returns the first child node with the given name. */
-    public static Element getFirstChildElement(Node parent, String elemNames[]) {
+    public static Element getFirstChildElement(Node parent, String[] elemNames) {
         
         // search for node
         Node child = parent.getFirstChild();
@@ -508,7 +508,7 @@ public class DOMUtil {
     } // getFirstChildElement(Node,String[]):Element
     
     /** Finds and returns the last child node with the given name. */
-    public static Element getLastChildElement(Node parent, String elemNames[]) {
+    public static Element getLastChildElement(Node parent, String[] elemNames) {
         
         // search for node
         Node child = parent.getLastChild();
@@ -529,7 +529,7 @@ public class DOMUtil {
     } // getLastChildElement(Node,String[]):Element
     
     /** Finds and returns the next sibling node with the given name. */
-    public static Element getNextSiblingElement(Node node, String elemNames[]) {
+    public static Element getNextSiblingElement(Node node, String[] elemNames) {
         
         // search for node
         Node sibling = node.getNextSibling();

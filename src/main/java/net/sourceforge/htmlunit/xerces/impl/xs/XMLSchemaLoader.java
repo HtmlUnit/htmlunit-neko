@@ -507,7 +507,7 @@ XSLoader, DOMConfiguration {
      * @throws XNIException when a condition arises (such as a FatalError) that requires parsing
      *                          of the entity be terminated
      */
-    public void loadGrammar(XMLInputSource source[]) 
+    public void loadGrammar(XMLInputSource[] source)
     throws IOException, XNIException {
         int numSource = source.length;
         for (XMLInputSource xmlInputSource : source) {

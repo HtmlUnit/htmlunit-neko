@@ -28,6 +28,6 @@ public interface XSFloat {
     /**
      * @return a float value
      */
-    public float getValue();
+    float getValue();
     
 }

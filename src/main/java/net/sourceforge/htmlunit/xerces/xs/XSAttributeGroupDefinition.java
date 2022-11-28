@@ -25,21 +25,21 @@ public interface XSAttributeGroupDefinition extends XSObject {
      * A set of [attribute uses] if it exists, otherwise an empty 
      * <code>XSObjectList</code>. 
      */
-    public XSObjectList getAttributeUses();
+    XSObjectList getAttributeUses();
 
     /**
      * A [wildcard] if it exists, otherwise <code>null</code>. 
      */
-    public XSWildcard getAttributeWildcard();
+    XSWildcard getAttributeWildcard();
 
     /**
      * An annotation if it exists, otherwise <code>null</code>. If not null
      * then the first [annotation] from the sequence of annotations.
      */
-    public XSAnnotation getAnnotation();
+    XSAnnotation getAnnotation();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

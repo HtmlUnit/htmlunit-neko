@@ -44,7 +44,7 @@ public interface XMLGrammarLoader {
      * this XMLGrammarLoader.  This method may return null if no features
      * are recognized.
      */
-    public String[] getRecognizedFeatures();
+    String[] getRecognizedFeatures();
 
     /**
      * Returns the state of a feature.
@@ -53,7 +53,7 @@ public interface XMLGrammarLoader {
      * 
      * @throws XMLConfigurationException Thrown on configuration error.
      */
-    public boolean getFeature(String featureId) 
+    boolean getFeature(String featureId)
             throws XMLConfigurationException;
 
     /**
@@ -65,7 +65,7 @@ public interface XMLGrammarLoader {
      * @throws XMLConfigurationException Thrown when a feature is not
      *                  recognized or cannot be set.
      */
-    public void setFeature(String featureId,
+    void setFeature(String featureId,
                 boolean state) throws XMLConfigurationException;
 
     /**
@@ -73,7 +73,7 @@ public interface XMLGrammarLoader {
      * this XMLGrammarLoader.  This method may return null if no properties
      * are recognized.
      */
-    public String[] getRecognizedProperties();
+    String[] getRecognizedProperties();
 
     /**
      * Returns the state of a property.
@@ -82,7 +82,7 @@ public interface XMLGrammarLoader {
      * 
      * @throws XMLConfigurationException Thrown on configuration error.
      */
-    public Object getProperty(String propertyId) 
+    Object getProperty(String propertyId)
             throws XMLConfigurationException;
 
     /**
@@ -94,7 +94,7 @@ public interface XMLGrammarLoader {
      * @throws XMLConfigurationException Thrown when a property is not
      *                  recognized or cannot be set.
      */
-    public void setProperty(String propertyId,
+    void setProperty(String propertyId,
                 Object state) throws XMLConfigurationException;
 
     /**
@@ -105,30 +105,30 @@ public interface XMLGrammarLoader {
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
-    public void setLocale(Locale locale); 
+    void setLocale(Locale locale);
 
     /** Return the Locale the XMLGrammarLoader is using. */
-    public Locale getLocale();
+    Locale getLocale();
 
     /**
      * Sets the error handler.
      *
      * @param errorHandler The error handler.
      */
-    public void setErrorHandler(XMLErrorHandler errorHandler);
+    void setErrorHandler(XMLErrorHandler errorHandler);
 
     /** Returns the registered error handler.  */
-    public XMLErrorHandler getErrorHandler();
+    XMLErrorHandler getErrorHandler();
 
     /**
      * Sets the entity resolver.
      *
      * @param entityResolver The new entity resolver.
      */
-    public void setEntityResolver(XMLEntityResolver entityResolver);
+    void setEntityResolver(XMLEntityResolver entityResolver);
 
     /** Returns the registered entity resolver.  */
-    public XMLEntityResolver getEntityResolver();
+    XMLEntityResolver getEntityResolver();
 
     /**
      * Returns a Grammar object by parsing the contents of the
@@ -140,7 +140,7 @@ public interface XMLGrammarLoader {
      *          XNIException    When a condition arises (such as a FatalError) that requires parsing
      *                              of the entity be terminated.
      */
-    public Grammar loadGrammar(XMLInputSource source)
+    Grammar loadGrammar(XMLInputSource source)
         throws IOException, XNIException;
 } // XMLGrammarLoader
 

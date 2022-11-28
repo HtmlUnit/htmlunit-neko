@@ -286,7 +286,7 @@ public class XMLContentSpec {
          *
          * @return Returns true if the contentSpecIndex was found.
          */
-        public boolean getContentSpec(int contentSpecIndex, XMLContentSpec contentSpec);
+        boolean getContentSpec(int contentSpecIndex, XMLContentSpec contentSpec);
 
     } // interface Provider
 

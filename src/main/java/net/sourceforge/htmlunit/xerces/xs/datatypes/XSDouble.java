@@ -28,6 +28,6 @@ public interface XSDouble {
     /**
      * @return a double value
      */
-    public double getValue();
+    double getValue();
     
 }

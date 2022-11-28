@@ -38,7 +38,7 @@ public interface HTMLComponent
      * feature.
      */
     @Override
-    public Boolean getFeatureDefault(String featureId);
+    Boolean getFeatureDefault(String featureId);
 
     /**
      * Returns the default state for a property, or null if this
@@ -46,5 +46,5 @@ public interface HTMLComponent
      * property.
      */
     @Override
-    public Object getPropertyDefault(String propertyId);
+    Object getPropertyDefault(String propertyId);
 }

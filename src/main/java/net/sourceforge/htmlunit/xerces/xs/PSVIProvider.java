@@ -55,7 +55,7 @@ public interface PSVIProvider {
      *   choose to provide all the PSVI properties in the scope of the 
      *   method that reports the end of an element. 
      */
-    public ElementPSVI getElementPSVI();
+    ElementPSVI getElementPSVI();
 
     /**
      * Provides <code>AttributePSVI</code> given the index of an attribute 
@@ -69,7 +69,7 @@ public interface PSVIProvider {
      * @param index The attribute index. 
      * @return The post schema validation properties of the attribute.
      */
-    public AttributePSVI getAttributePSVI(int index);
+    AttributePSVI getAttributePSVI(int index);
 
     /**
      * Provides <code>AttributePSVI</code> given the namespace name and the 
@@ -84,7 +84,7 @@ public interface PSVIProvider {
      * @param localname The local name of an attribute. 
      * @return The post schema validation properties of the attribute.
      */
-    public AttributePSVI getAttributePSVIByName(String uri, 
+    AttributePSVI getAttributePSVIByName(String uri,
                                                 String localname);
 
 }

@@ -518,7 +518,7 @@ extends ParentNode implements Document  {
                 
                 // Check if the DOM XPath implementation implements
                 // the interface org.w3c.dom.XPathEvaluator
-                Class interfaces[] = xpathClass.getInterfaces();
+                Class[] interfaces = xpathClass.getInterfaces();
                 for (Class anInterface : interfaces) {
                     if (anInterface.getName().equals(
                             "org.w3c.dom.xpath.XPathEvaluator")) {

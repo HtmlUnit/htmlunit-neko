@@ -26,25 +26,25 @@ public interface XSAttributeUse extends XSObject {
      * requires an appropriate attribute information item to be present, or 
      * merely allows it. 
      */
-    public boolean getRequired();
+    boolean getRequired();
 
     /**
      * [attribute declaration]: provides the attribute declaration itself, 
      * which will in turn determine the simple type definition used. 
      */
-    public XSAttributeDeclaration getAttrDeclaration();
+    XSAttributeDeclaration getAttrDeclaration();
 
     /**
      * Value Constraint: one of default, fixed, or none.
      */
-    public short getConstraintType();
+    short getConstraintType();
 
     /**
      * Value Constraint: The constraint value, otherwise <code>null</code>. 
      * 
      * @deprecated Use getValueConstraintValue().getNormalizedValue() instead
      */
-    public String getConstraintValue();
+    String getConstraintValue();
 
     /**
      * Value Constraint: Binding specific actual constraint value or 
@@ -56,7 +56,7 @@ public interface XSAttributeUse extends XSObject {
      * 
      * @deprecated Use getValueConstraintValue().getActualValue() instead
      */
-    public Object getActualVC()
+    Object getActualVC()
                                        throws XSException;
 
     /**
@@ -75,7 +75,7 @@ public interface XSAttributeUse extends XSObject {
      * 
      * @deprecated Use getValueConstraintValue().getActualValueType() instead
      */
-    public short getActualVCType()
+    short getActualVCType()
                                        throws XSException;
 
     /**
@@ -93,16 +93,16 @@ public interface XSAttributeUse extends XSObject {
      * 
      * @deprecated Use getValueConstraintValue().getListValueTypes() instead
      */
-    public ShortList getItemValueTypes()
+    ShortList getItemValueTypes()
                                        throws XSException;
 
     /**
      * The actual value of the default or fixed value constraint.
      */
-    public XSValue getValueConstraintValue();
+    XSValue getValueConstraintValue();
 
     /**
      * A sequence of [annotations] or an empty <code>XSObjectList</code>.
      */
-    public XSObjectList getAnnotations();    
+    XSObjectList getAnnotations();
 }

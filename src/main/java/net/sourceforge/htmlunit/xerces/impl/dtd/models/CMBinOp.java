@@ -145,5 +145,5 @@ public class CMBinOp extends CMNode
     // -------------------------------------------------------------------
     private final CMNode fLeftChild;
     private final CMNode fRightChild;
-};
+}
 

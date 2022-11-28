@@ -33,46 +33,46 @@ public interface HTMLEventInfo {
     /**
      * @return the line number of the beginning of this event.
      */
-    public int getBeginLineNumber();
+    int getBeginLineNumber();
 
     /**
      * @return the column number of the beginning of this event.
      */
-    public int getBeginColumnNumber();
+    int getBeginColumnNumber();
 
     /**
      * @return the character offset of the beginning of this event.
      */
-    public int getBeginCharacterOffset();
+    int getBeginCharacterOffset();
 
     /**
      * @return the line number of the end of this event.
      */
-    public int getEndLineNumber();
+    int getEndLineNumber();
 
     /**
      * @return the column number of the end of this event.
      */
-    public int getEndColumnNumber();
+    int getEndColumnNumber();
 
     /**
      * @return the character offset of the end of this event.
      */
-    public int getEndCharacterOffset();
+    int getEndCharacterOffset();
 
     // other information
 
     /**
      * @return true if this corresponding event was synthesized.
      */
-    public boolean isSynthesized();
+    boolean isSynthesized();
 
     /**
      * Synthesized infoset item.
      *
      * @author Andy Clark
      */
-    public static class SynthesizedItem
+    class SynthesizedItem
         implements HTMLEventInfo {
 
         //

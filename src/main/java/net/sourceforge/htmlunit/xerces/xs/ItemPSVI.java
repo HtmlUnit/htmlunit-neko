@@ -26,46 +26,46 @@ public interface ItemPSVI {
      * Validity value indicating that validation has either not been performed 
      * or that a strict assessment of validity could not be performed. 
      */
-    public static final short VALIDITY_NOTKNOWN         = 0;
+    short VALIDITY_NOTKNOWN         = 0;
     /**
      * Validity value indicating that validation has been strictly assessed 
      * and the item in question is invalid according to the rules of schema 
      * validation. 
      */
-    public static final short VALIDITY_INVALID          = 1;
+    short VALIDITY_INVALID          = 1;
     /**
      * Validation status indicating that schema validation has been performed 
      * and the item in question is valid according to the rules of schema 
      * validation. 
      */
-    public static final short VALIDITY_VALID            = 2;
+    short VALIDITY_VALID            = 2;
     /**
      * Validation status indicating that schema validation has been performed 
      * and the item in question has specifically been skipped. 
      */
-    public static final short VALIDATION_NONE           = 0;
+    short VALIDATION_NONE           = 0;
     /**
      * Validation status indicating that schema validation has been performed 
      * on the item in question under the rules of lax validation. 
      */
-    public static final short VALIDATION_PARTIAL        = 1;
+    short VALIDATION_PARTIAL        = 1;
     /**
      * Validation status indicating that full schema validation has been 
      * performed on the item. 
      */
-    public static final short VALIDATION_FULL           = 2;
+    short VALIDATION_FULL           = 2;
     
     /**
      * Returns a reference to an immutable instance with the same data
      * that this instance of <code>ItemPSVI</code> currently has.
      */
-    public ItemPSVI constant();
+    ItemPSVI constant();
     
     /** 
      * Returns <code>true</code> if this specific instance of
      * <code>ItemPSVI</code> is immutable, otherwise <code>false</code>.
      */
-    public boolean isConstant();
+    boolean isConstant();
     
     /**
      * The nearest ancestor element information item with a 
@@ -73,7 +73,7 @@ public interface ItemPSVI {
      * itself if it has such a property). For more information refer to 
      * element validation context and attribute validation context . 
      */
-    public String getValidationContext();
+    String getValidationContext();
 
     /**
      * <code>[validity]</code>: determines the validity of the schema item 
@@ -81,7 +81,7 @@ public interface ItemPSVI {
      * of the constants: <code>VALIDITY_NOTKNOWN</code>, 
      * <code>VALIDITY_INVALID</code> or <code>VALIDITY_VALID</code>. 
      */
-    public short getValidity();
+    short getValidity();
 
     /**
      * <code>[validation attempted]</code>: determines the extent to which 
@@ -89,14 +89,14 @@ public interface ItemPSVI {
      * constants: <code>VALIDATION_NONE</code>, 
      * <code>VALIDATION_PARTIAL</code> or <code>VALIDATION_FULL</code>. 
      */
-    public short getValidationAttempted();
+    short getValidationAttempted();
 
     /**
      * <code>[schema error code]</code>: a list of error codes generated from 
      * the validation attempt or an empty <code>StringList</code> if no 
      * errors occurred during the validation attempt. 
      */
-    public StringList getErrorCodes();
+    StringList getErrorCodes();
     
     /**
      * A list of error messages generated from the validation attempt or
@@ -104,7 +104,7 @@ public interface ItemPSVI {
      * validation attempt. The indices of error messages in this list are 
      * aligned with those in the <code>[schema error code]</code> list.
      */
-    public StringList getErrorMessages();
+    StringList getErrorMessages();
 
     /**
      * <code>[schema normalized value]</code>: the normalized value of this 
@@ -112,7 +112,7 @@ public interface ItemPSVI {
      * 
      * @deprecated Use getSchemaValue().getNormalizedValue() instead
      */
-    public String getSchemaNormalizedValue();
+    String getSchemaNormalizedValue();
 
     /**
      * <code>[schema normalized value]</code>: Binding specific actual value 
@@ -123,7 +123,7 @@ public interface ItemPSVI {
      * 
      * @deprecated Use getSchemaValue().getActualValue() instead
      */
-    public Object getActualNormalizedValue()
+    Object getActualNormalizedValue()
                                    throws XSException;
 
     /**
@@ -142,7 +142,7 @@ public interface ItemPSVI {
      *   
      *  @deprecated Use getSchemaValue().getActualValueType() instead
      */
-    public short getActualNormalizedValueType()
+    short getActualNormalizedValueType()
                                    throws XSException;
 
     /**
@@ -178,7 +178,7 @@ public interface ItemPSVI {
      *  
      *  @deprecated Use getSchemaValue().getListValueTypes() instead
      */
-    public ShortList getItemValueTypes()
+    ShortList getItemValueTypes()
                                    throws XSException;
 
     /**
@@ -187,13 +187,13 @@ public interface ItemPSVI {
      * this item doesn't have a simple-typed value, the behavior of this method
      * is not specified.
      */
-    public XSValue getSchemaValue();
+    XSValue getSchemaValue();
     
     /**
      * <code>[type definition]</code>: an item isomorphic to the type 
      * definition used to validate the schema item. 
      */
-    public XSTypeDefinition getTypeDefinition();
+    XSTypeDefinition getTypeDefinition();
 
     /**
      * <code>[member type definition]</code>: if and only if that type 
@@ -203,20 +203,20 @@ public interface ItemPSVI {
      * member of the union's {member type definitions} which actually 
      * validated the schema item's normalized value. 
      */
-    public XSSimpleTypeDefinition getMemberTypeDefinition();
+    XSSimpleTypeDefinition getMemberTypeDefinition();
 
     /**
      * <code>[schema default]</code>: the canonical lexical representation of 
      * the declaration's {value constraint} value. For more information 
      * refer to element schema default and attribute schema default. 
      */
-    public String getSchemaDefault();
+    String getSchemaDefault();
 
     /**
      * <code>[schema specified]</code>: if true, the value was specified in 
      * the schema. If false, the value comes from the infoset. For more 
      * information refer to element specified and attribute specified. 
      */
-    public boolean getIsSchemaSpecified();
+    boolean getIsSchemaSpecified();
 
 }

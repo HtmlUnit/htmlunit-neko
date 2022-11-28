@@ -29,7 +29,7 @@ public interface XSObjectList extends List {
      *  The number of <code>XSObjects</code> in the list. The range of valid 
      * child object indices is 0 to <code>length-1</code> inclusive. 
      */
-    public int getLength();
+    int getLength();
 
     /**
      *  Returns the <code>index</code>th item in the collection or 
@@ -40,6 +40,6 @@ public interface XSObjectList extends List {
      *   position in the <code>XSObjectList</code>, or <code>null</code> if 
      *   the index specified is not valid. 
      */
-    public XSObject item(int index);
+    XSObject item(int index);
 
 }

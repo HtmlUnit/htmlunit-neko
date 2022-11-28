@@ -49,6 +49,6 @@ public interface Grammar {
      * get the <code>XMLGrammarDescription</code> associated with this
      * object
      */
-    public XMLGrammarDescription getGrammarDescription ();
+    XMLGrammarDescription getGrammarDescription ();
 } // interface Grammar
 

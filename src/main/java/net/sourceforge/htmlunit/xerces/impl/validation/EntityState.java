@@ -35,7 +35,7 @@ public interface EntityState {
      * @param name
      * @return true if name is a declared entity
      */
-    public boolean isEntityDeclared (String name);
+    boolean isEntityDeclared (String name);
 
     /**
      * Query method to check if entity is unparsed.
@@ -43,5 +43,5 @@ public interface EntityState {
      * @param name
      * @return true if name is an unparsed entity
      */
-    public boolean isEntityUnparsed (String name);
+    boolean isEntityUnparsed (String name);
 }

@@ -57,7 +57,7 @@ public interface ValueStore {
      * @param valueType Type of the value to add.
      * @param itemValueType If the value is a list, a list of types for each of the values in the list.
      */
-    public void addValue(Field field, boolean mayMatch, Object actualValue, short valueType, ShortList itemValueType);
+    void addValue(Field field, boolean mayMatch, Object actualValue, short valueType, ShortList itemValueType);
 
     /**
      * Since the valueStore will have access to an error reporter, this
@@ -65,7 +65,7 @@ public interface ValueStore {
      * @param key  the key of the localized error message
      * @param args  the list of arguments for substitution.
      */
-    public void reportError(String key, Object[] args);
+    void reportError(String key, Object[] args);
     
 
 } // interface ValueStore

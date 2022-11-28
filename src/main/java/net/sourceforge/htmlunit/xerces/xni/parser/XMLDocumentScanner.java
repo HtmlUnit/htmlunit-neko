@@ -52,7 +52,7 @@ public interface XMLDocumentScanner
      *
      * @throws IOException Thrown on i/o error.
      */
-    public void setInputSource(XMLInputSource inputSource) throws IOException;
+    void setInputSource(XMLInputSource inputSource) throws IOException;
 
     /** 
      * Scans a document.
@@ -67,7 +67,7 @@ public interface XMLDocumentScanner
      *
      * @return True if there is more to scan, false otherwise.
      */
-    public boolean scanDocument(boolean complete)
+    boolean scanDocument(boolean complete)
         throws IOException, XNIException;
 
 } // interface XMLDocumentScanner

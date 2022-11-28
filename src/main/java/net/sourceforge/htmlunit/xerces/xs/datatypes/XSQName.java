@@ -27,10 +27,10 @@ public interface XSQName {
     /**
      * @return net.sourceforge.htmlunit.xerces.xni.QName class instance
      */
-    public net.sourceforge.htmlunit.xerces.xni.QName getXNIQName();
+    net.sourceforge.htmlunit.xerces.xni.QName getXNIQName();
     
     /**
      * @return javax.xml.namespace.QName class instance
      */
-    public javax.xml.namespace.QName getJAXPQName();
+    javax.xml.namespace.QName getJAXPQName();
 }

@@ -52,7 +52,7 @@ public interface MessageFormatter {
      * @throws MissingResourceException Thrown if the message with the
      *                                  specified key cannot be found.
      */
-    public String formatMessage(Locale locale, String key, Object[] arguments)
+    String formatMessage(Locale locale, String key, Object[] arguments)
         throws MissingResourceException;
 
 } // interface MessageFormatter
