@@ -18,13 +18,7 @@
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 
 import javax.xml.XMLConstants;
 
@@ -4104,8 +4098,7 @@ public class XMLSchemaValidator
             else if (fItemValueTypesLength++ == 0) {
                 fItemValueType = itemValueType;
             }
-            else if (!(fItemValueType == itemValueType ||
-                    (fItemValueType != null && fItemValueType.equals(itemValueType)))) {
+            else if (!(Objects.equals(fItemValueType, itemValueType))) {
                 fUseItemValueTypeVector = true;
                 if (fItemValueTypes == null) {
                     fItemValueTypes = new Vector(fItemValueTypesLength * 2);
@@ -4128,8 +4121,7 @@ public class XMLSchemaValidator
             if (fUseItemValueTypeVector) {
                 return fItemValueTypes.contains(value);
             }
-            return fItemValueType == value || 
-                (fItemValueType != null && fItemValueType.equals(value));
+            return Objects.equals(fItemValueType, value);
         }
 
     } // class ValueStoreBase

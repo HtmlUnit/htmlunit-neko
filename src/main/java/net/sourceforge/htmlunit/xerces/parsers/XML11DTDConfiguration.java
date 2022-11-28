@@ -668,15 +668,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
         try {
             setInputSource(source);
             parse(true);
-        } catch (XNIException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;
@@ -724,15 +716,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
                 // resets and sets the pipeline.
                 fVersionDetector.startDocumentParsing((XMLEntityHandler) fCurrentScanner, version);
                 fInputSource = null;
-            } catch (XNIException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            } catch (IOException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            } catch (RuntimeException ex) {
+            } catch (RuntimeException | IOException ex) {
                 if (PRINT_EXCEPTION_STACK_TRACE)
                     ex.printStackTrace();
                 throw ex;
@@ -745,15 +729,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
         try {
             return fCurrentScanner.scanDocument(complete);
-        } catch (XNIException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;

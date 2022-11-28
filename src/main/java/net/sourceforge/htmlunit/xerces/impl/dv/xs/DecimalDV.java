@@ -244,7 +244,7 @@ public class DecimalDV extends TypeValidator {
             if (ret != 0)
                 return ret > 0 ? 1 : -1;
             ret = fvalue.compareTo(val.fvalue);
-            return ret == 0 ? 0 : (ret > 0 ? 1 : -1);
+            return Integer.compare(ret, 0);
         }
         private String canonical;
         public synchronized String toString() {

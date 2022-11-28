@@ -596,23 +596,11 @@ public class SchemaParsingConfig extends BasicParserConfiguration
                 // resets and sets the pipeline.
                 fVersionDetector.startDocumentParsing((XMLEntityHandler) fCurrentScanner, version);
                 fInputSource = null;
-            } 
-            catch (XNIException ex) {
+            } catch (RuntimeException | IOException ex) {
                 if (PRINT_EXCEPTION_STACK_TRACE)
                     ex.printStackTrace();
                 throw ex;
-            } 
-            catch (IOException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            } 
-            catch (RuntimeException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 if (PRINT_EXCEPTION_STACK_TRACE)
                     ex.printStackTrace();
                 throw new XNIException(ex);
@@ -621,23 +609,11 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         
         try {
             return fCurrentScanner.scanDocument(complete);
-        } 
-        catch (XNIException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;
-        } 
-        catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } 
-        catch (RuntimeException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw new XNIException(ex);
@@ -677,23 +653,11 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         try {
             setInputSource(source);
             parse(true);
-        } 
-        catch (XNIException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;
-        } 
-        catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }
-        catch (RuntimeException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }              
-        catch (Exception ex) {
+        } catch (Exception ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw new XNIException(ex);

@@ -467,23 +467,11 @@ public class NonValidatingConfiguration
                 reset();
                 fScanner.setInputSource(fInputSource);
                 fInputSource = null;
-            } 
-            catch (XNIException ex) {
+            } catch (RuntimeException | IOException ex) {
                 if (PRINT_EXCEPTION_STACK_TRACE)
                     ex.printStackTrace();
                 throw ex;
-            } 
-            catch (IOException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            } 
-            catch (RuntimeException ex) {
-                if (PRINT_EXCEPTION_STACK_TRACE)
-                    ex.printStackTrace();
-                throw ex;
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 if (PRINT_EXCEPTION_STACK_TRACE)
                     ex.printStackTrace();
                 throw new XNIException(ex);
@@ -492,23 +480,11 @@ public class NonValidatingConfiguration
 
         try {
             return fScanner.scanDocument(complete);
-        } 
-        catch (XNIException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;
-        } 
-        catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        } 
-        catch (RuntimeException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw new XNIException(ex);
@@ -548,23 +524,11 @@ public class NonValidatingConfiguration
         try {
             setInputSource(source);
             parse(true);
-        } 
-        catch (XNIException ex) {
+        } catch (RuntimeException | IOException ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw ex;
-        } 
-        catch (IOException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }
-        catch (RuntimeException ex) {
-            if (PRINT_EXCEPTION_STACK_TRACE)
-                ex.printStackTrace();
-            throw ex;
-        }              
-        catch (Exception ex) {
+        } catch (Exception ex) {
             if (PRINT_EXCEPTION_STACK_TRACE)
                 ex.printStackTrace();
             throw new XNIException(ex);

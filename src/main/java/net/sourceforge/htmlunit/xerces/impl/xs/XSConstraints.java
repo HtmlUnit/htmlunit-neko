@@ -685,7 +685,7 @@ public class XSConstraints {
                         addElementToParticleVector(dChildren, xsElementDecl);
                     }
                     addElementToParticleVector(dChildren, dElement);
-                    Collections.sort(dChildren, ELEMENT_PARTICLE_COMPARATOR);
+                    dChildren.sort(ELEMENT_PARTICLE_COMPARATOR);
 
                     // Set the handler to null, to indicate that we've finished handling
                     // substitution groups for this particle.
@@ -738,7 +738,7 @@ public class XSConstraints {
                         addElementToParticleVector(bChildren, xsElementDecl);
                     }
                     addElementToParticleVector(bChildren, bElement);
-                    Collections.sort(bChildren, ELEMENT_PARTICLE_COMPARATOR);
+                    bChildren.sort(ELEMENT_PARTICLE_COMPARATOR);
                     // Set the handler to null, to indicate that we've finished handling
                     // substitution groups for this particle.
                     bSGHandler = null;

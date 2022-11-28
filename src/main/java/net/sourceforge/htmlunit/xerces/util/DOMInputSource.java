@@ -60,14 +60,12 @@ public final class DOMInputSource extends XMLInputSource {
             // If the DOM implementation is DOM Level 2 
             // then a NoSuchMethodError will be thrown.
             // Just ignore it.
-            catch (NoSuchMethodError e) {
+            catch (NoSuchMethodError | Exception e) {
                 return null;
             }
             // There was a failure for some other reason
             // Ignore it as well.
-            catch (Exception e) {
-                return null;
-            }
+
         }
         return null;
     }

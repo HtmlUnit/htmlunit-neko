@@ -17,12 +17,7 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.util;
 
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -193,7 +188,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
     }
     
     static boolean isEqual(String one, String two) {
-        return (one != null) ? one.equals(two) : (two == null);
+        return Objects.equals(one, two);
     }
     
     /*
@@ -279,8 +274,8 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
                 Map.Entry e = (Map.Entry) o;
                 Object otherKey = e.getKey();
                 Object otherValue = e.getValue();
-                return (key == null ? otherKey == null : key.equals(otherKey)) &&
-                    (value == null ? otherValue == null : value.equals(otherValue));
+                return (Objects.equals(key, otherKey)) &&
+                    (Objects.equals(value, otherValue));
             }
             return false;
         }

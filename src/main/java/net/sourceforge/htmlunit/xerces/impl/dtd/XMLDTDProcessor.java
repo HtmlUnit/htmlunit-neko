@@ -351,9 +351,7 @@ public class XMLDTDProcessor
         }
         try {
             fValidator = (XMLDTDValidator) componentManager.getProperty(DTD_VALIDATOR);
-        } catch (XMLConfigurationException e) {
-            fValidator = null;
-        } catch (ClassCastException e) {
+        } catch (XMLConfigurationException | ClassCastException e) {
             fValidator = null;
         }
         // we get our grammarBucket from the validator...
