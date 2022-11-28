@@ -1306,39 +1306,6 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * DOM Level 3 WD - Experimental.
-     * Save the document or the given node and all its descendants to a string
-     * (i.e. serialize the document or node).
-     * <br>The parameters used in the <code>LSSerializer</code> interface are
-     * assumed to have their default values when invoking this method.
-     * <br> The result of a call to this method is the same the result of a
-     * call to <code>LSSerializer.writeToString</code> with the document as
-     * the node to write.
-     * @param node Specifies what to serialize, if this parameter is
-     *   <code>null</code> the whole document is serialized, if it's
-     *   non-null the given node is serialized.
-     * @return The serialized document or <code>null</code> in case an error
-     *   occurred.
-     * @exception DOMException
-     *   WRONG_DOCUMENT_ERR: Raised if the node passed in as the node
-     *   parameter is from an other document.
-     */
-    public String saveXML(Node node)
-    throws DOMException {
-        if ( errorChecking && node != null &&
-            this != node.getOwnerDocument() ) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
-            throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
-        }
-        DOMImplementationLS domImplLS = (DOMImplementationLS)DOMImplementationImpl.getDOMImplementation();
-        LSSerializer xmlWriter = domImplLS.createLSSerializer();
-        if (node == null) {
-            node = this;
-        }
-        return xmlWriter.writeToString(node);
-    }
-
-    /**
      * Sets whether the DOM implementation generates mutation events
      * upon operations.
      */

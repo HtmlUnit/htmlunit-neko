@@ -23,7 +23,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
 import net.sourceforge.htmlunit.xerces.parsers.DOMParserImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
-import net.sourceforge.htmlunit.xml.serialize.DOMSerializerImpl;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -54,7 +53,7 @@ import org.w3c.dom.ls.LSSerializer;
  * @since PR-DOM-Level-1-19980818.
  */
 public class CoreDOMImplementationImpl
-	implements DOMImplementation, DOMImplementationLS {
+	implements DOMImplementation {
 
     //
     // Data
@@ -406,32 +405,6 @@ public class CoreDOMImplementationImpl
 		}
 	}
 
-    /**
-     * DOM Level 3 LS CR - Experimental.
-     * Create a new <code>LSSerializer</code> object.
-     * @return The newly created <code>LSSerializer</code> object.
-     * <p ><b>Note:</b>    By default, the newly created
-     * <code>LSSerializer</code> has no <code>DOMErrorHandler</code>,
-     * i.e. the value of the <code>"error-handler"</code> configuration
-     * parameter is <code>null</code>. However, implementations may
-     * provide a default error handler at creation time. In that case, the
-     * initial value of the <code>"error-handler"</code> configuration
-     * parameter on the new created <code>LSSerializer</code> contains a
-     * reference to the default error handler.
-     */
-    public LSSerializer createLSSerializer() {
-        try {
-            Class serializerClass = ObjectFactory.findProviderClass(
-                "org.apache.xml.serializer.dom3.LSSerializerImpl",
-                ObjectFactory.findClassLoader(), true);
-            return (LSSerializer) serializerClass.newInstance();
-        }
-        catch (Exception e) {}
-        // Fall back to Xerces' deprecated serializer if
-        // the Xalan based serializer is unavailable.
-        return new DOMSerializerImpl();
-    }
-
 	/**
 	 * DOM Level 3 LS CR - Experimental.
 	 * Create a new empty input source.
@@ -708,5 +681,4 @@ public class CoreDOMImplementationImpl
         }
         XMLDTDLoader loader;
     }
-
 } // class DOMImplementationImpl
