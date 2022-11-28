@@ -26,10 +26,6 @@ import java.util.Locale;
 import java.util.Stack;
 import java.util.Vector;
 
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

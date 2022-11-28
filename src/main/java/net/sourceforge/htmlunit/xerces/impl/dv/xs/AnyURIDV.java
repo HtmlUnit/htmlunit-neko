@@ -17,11 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.impl.dv.xs;
 
+import java.nio.charset.StandardCharsets;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.util.URI;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * Represent the schema type "anyURI"

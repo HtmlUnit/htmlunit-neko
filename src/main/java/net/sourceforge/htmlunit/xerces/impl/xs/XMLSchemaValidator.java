@@ -18,7 +18,14 @@
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Stack;
+import java.util.Vector;
 
 import javax.xml.XMLConstants;
 

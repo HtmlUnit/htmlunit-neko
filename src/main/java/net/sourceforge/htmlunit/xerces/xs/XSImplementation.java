@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.xs;
 
-import org.w3c.dom.ls.LSInput;
-
 /**
  * This interface allows one to retrieve an instance of <code>XSLoader</code>.
  * This interface should be implemented on the same object that implements

@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
