@@ -20,6 +20,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Vector;
 
+import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
@@ -28,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-
-import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 
 /**
  * This filter binds namespaces if namespace processing is turned on

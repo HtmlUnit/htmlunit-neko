@@ -17,9 +17,10 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
+import org.w3c.dom.DOMException;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.xs.XSSimpleTypeDecl;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
-import org.w3c.dom.DOMException;
 
 /**
  * AttrNSImpl inherits from AttrImpl and adds namespace support. 

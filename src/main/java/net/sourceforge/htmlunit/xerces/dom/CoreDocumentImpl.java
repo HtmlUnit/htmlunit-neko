@@ -28,10 +28,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import net.sourceforge.htmlunit.xerces.util.URI;
-import net.sourceforge.htmlunit.xerces.util.XML11Char;
-import net.sourceforge.htmlunit.xerces.util.XMLChar;
-import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
@@ -53,8 +49,11 @@ import org.w3c.dom.Text;
 import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSSerializer;
+
+import net.sourceforge.htmlunit.xerces.util.URI;
+import net.sourceforge.htmlunit.xerces.util.XML11Char;
+import net.sourceforge.htmlunit.xerces.util.XMLChar;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 
 /**
  * The Document interface represents the entire HTML or XML document.

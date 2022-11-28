@@ -17,10 +17,11 @@
 package net.sourceforge.htmlunit.html.dom;
     
 
-import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.html.HTMLDOMImplementation;
 import org.w3c.dom.html.HTMLDocument;
+
+import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
 
 
 /**

@@ -17,9 +17,10 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import org.xml.sax.Locator;
 import org.xml.sax.ext.Locator2;
+
+import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 
 /**
  * Wraps {@link XMLLocator} and make it look like a SAX {@link Locator}.  

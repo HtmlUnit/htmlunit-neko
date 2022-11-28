@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
+import org.w3c.dom.TypeInfo;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.impl.dv.xs.XSSimpleTypeDecl;
 import net.sourceforge.htmlunit.xerces.impl.xs.models.CMBuilder;
@@ -31,7 +33,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSParticle;
 import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
-import org.w3c.dom.TypeInfo;
 
 /**
  * The XML representation for a complexType

@@ -17,13 +17,14 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaGrammar;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSElementDecl;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.IdentityConstraint;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.UniqueOrKey;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
-import org.w3c.dom.Element;
 
 /**
  * This class contains code that is used to traverse both <key>s and

@@ -18,6 +18,9 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.models;
 
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.dtd.models.CMNode;

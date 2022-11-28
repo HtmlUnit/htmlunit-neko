@@ -17,16 +17,13 @@
 
 package net.sourceforge.htmlunit.xerces.impl.dv.xs;
 
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 
 /**
  * Validator for &lt;gYear&gt; datatype (W3C Schema Datatypes)
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani
  * @author Gopal Sharma, SUN Microsystem Inc.
@@ -68,7 +65,7 @@ public class YearDV extends AbstractDateTimeDV {
             start = 1;
         }
         int sign = findUTCSign(str, start, len);
-        
+
         final int length = ((sign == -1) ? len : sign) - start;
         if (length < 4) {
             throw new RuntimeException("Year must have 'CCYY' format");
@@ -76,7 +73,7 @@ public class YearDV extends AbstractDateTimeDV {
         else if (length > 4 && str.charAt(start) == '0') {
             throw new RuntimeException("Leading zeros are required if the year value would otherwise have fewer than four digits; otherwise they are forbidden");
         }
-        
+
         if (sign == -1) {
             date.year=parseIntYear(str, len);
         }
@@ -94,7 +91,7 @@ public class YearDV extends AbstractDateTimeDV {
 
         //save unnormalized values
         saveUnnormalized(date);
-        
+
         if ( date.utc!=0 && date.utc!='Z' ) {
             normalize(date);
         }
@@ -113,13 +110,6 @@ public class YearDV extends AbstractDateTimeDV {
         append(message, date.year, 4);
         append(message, (char)date.utc, 0);
         return message.toString();
-    }
-    
-    protected XMLGregorianCalendar getXMLGregorianCalendar(DateTimeData date) {
-        return datatypeFactory.newXMLGregorianCalendar(date.unNormYear, DatatypeConstants.FIELD_UNDEFINED, 
-                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, 
-                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, 
-                date.hasTimeZone() ? date.timezoneHr * 60 + date.timezoneMin : DatatypeConstants.FIELD_UNDEFINED);
     }
 }
 

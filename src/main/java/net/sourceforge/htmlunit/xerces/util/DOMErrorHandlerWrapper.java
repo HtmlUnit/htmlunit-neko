@@ -20,16 +20,17 @@ package net.sourceforge.htmlunit.xerces.util;
 import java.io.PrintWriter;
 import java.util.Hashtable;
 
+import org.w3c.dom.DOMError;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.DOMLocator;
+import org.w3c.dom.Node;
+
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMLocatorImpl;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
-import org.w3c.dom.DOMError;
-import org.w3c.dom.DOMErrorHandler;
-import org.w3c.dom.DOMLocator;
-import org.w3c.dom.Node;
 
 /**
  * This class handles DOM errors .

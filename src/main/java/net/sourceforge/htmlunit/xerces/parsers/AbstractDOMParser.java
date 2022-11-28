@@ -20,6 +20,23 @@ package net.sourceforge.htmlunit.xerces.parsers;
 import java.util.Locale;
 import java.util.Stack;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.Comment;
+import org.w3c.dom.DOMError;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
+import org.w3c.dom.EntityReference;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
+import org.w3c.dom.ls.LSParserFilter;
+import org.w3c.dom.traversal.NodeFilter;
+import org.xml.sax.SAXException;
+
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
 import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
@@ -53,22 +70,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
 import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.Attr;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.Comment;
-import org.w3c.dom.DOMError;
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentType;
-import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
-import org.w3c.dom.ls.LSParserFilter;
-import org.w3c.dom.traversal.NodeFilter;
-import org.xml.sax.SAXException;
 
 /**
  * This is the base class of all DOM parsers. It implements the XNI

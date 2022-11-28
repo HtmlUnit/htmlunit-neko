@@ -20,6 +20,17 @@ package net.sourceforge.htmlunit.xerces.parsers;
 import java.io.CharConversionException;
 import java.io.IOException;
 
+import org.w3c.dom.Node;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.EntityResolver2;
+import org.xml.sax.helpers.LocatorImpl;
+
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
@@ -35,16 +46,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.w3c.dom.Node;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.ext.EntityResolver2;
-import org.xml.sax.helpers.LocatorImpl;
 
 /**
  * This is the main Xerces DOM parser class. It uses the abstract DOM

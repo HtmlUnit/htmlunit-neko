@@ -23,13 +23,14 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 
 /**

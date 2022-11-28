@@ -23,6 +23,22 @@ import java.util.Locale;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMError;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMStringList;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.ls.LSException;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSParser;
+import org.w3c.dom.ls.LSParserFilter;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.w3c.dom.traversal.NodeFilter;
+import org.xml.sax.SAXException;
+
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.DOMStringListImpl;
@@ -52,20 +68,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMError;
-import org.w3c.dom.DOMErrorHandler;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMStringList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.ls.LSException;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSParser;
-import org.w3c.dom.ls.LSParserFilter;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.w3c.dom.traversal.NodeFilter;
 
 /**
  * This is Xerces DOM Builder class. It uses the abstract DOM

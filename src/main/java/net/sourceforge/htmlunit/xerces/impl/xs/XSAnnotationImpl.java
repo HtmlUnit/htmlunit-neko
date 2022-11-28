@@ -19,18 +19,19 @@ package net.sourceforge.htmlunit.xerces.impl.xs;
 import java.io.IOException;
 import java.io.StringReader;
 
-import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
-import net.sourceforge.htmlunit.xerces.parsers.DOMParser;
-import net.sourceforge.htmlunit.xerces.parsers.SAXParser;
-import net.sourceforge.htmlunit.xerces.xs.XSAnnotation;
-import net.sourceforge.htmlunit.xerces.xs.XSConstants;
-import net.sourceforge.htmlunit.xerces.xs.XSNamespaceItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
+import net.sourceforge.htmlunit.xerces.parsers.DOMParser;
+import net.sourceforge.htmlunit.xerces.parsers.SAXParser;
+import net.sourceforge.htmlunit.xerces.xs.XSAnnotation;
+import net.sourceforge.htmlunit.xerces.xs.XSConstants;
+import net.sourceforge.htmlunit.xerces.xs.XSNamespaceItem;
 
 /**
  * This is an implementation of the XSAnnotation schema component.

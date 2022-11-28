@@ -21,6 +21,10 @@ import java.io.CharConversionException;
 import java.io.EOFException;
 import java.io.IOException;
 
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDDescription;
 import net.sourceforge.htmlunit.xerces.impl.io.MalformedByteSequenceException;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;

@@ -17,9 +17,10 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import org.w3c.dom.DOMError;
 import org.w3c.dom.DOMLocator;
+
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
 
 /**

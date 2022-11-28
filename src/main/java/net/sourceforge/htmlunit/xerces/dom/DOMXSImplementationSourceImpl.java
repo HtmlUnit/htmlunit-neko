@@ -19,9 +19,10 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 import java.util.ArrayList;
 
-import net.sourceforge.htmlunit.xerces.impl.xs.XSImplementationImpl;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DOMImplementationList;
+
+import net.sourceforge.htmlunit.xerces.impl.xs.XSImplementationImpl;
 
 /**
  * Allows to retrieve <code>XSImplementation</code>, DOM Level 3 Core and LS implementations

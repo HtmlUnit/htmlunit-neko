@@ -17,10 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import net.sourceforge.htmlunit.xerces.util.URI;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Notation;
+
+import net.sourceforge.htmlunit.xerces.util.URI;
 
 /**
  * Notations are how the Document Type Description (DTD) records hints

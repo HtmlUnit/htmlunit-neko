@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.xpath.XPathException;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.Field;
@@ -24,7 +26,6 @@ import net.sourceforge.htmlunit.xerces.impl.xs.identity.IdentityConstraint;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.Selector;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
-import org.w3c.dom.Element;
 
 /**
  * This class contains code that all three IdentityConstraint

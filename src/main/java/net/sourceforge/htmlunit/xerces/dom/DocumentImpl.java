@@ -28,10 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-import net.sourceforge.htmlunit.xerces.dom.events.EventImpl;
-import net.sourceforge.htmlunit.xerces.dom.events.MouseEventImpl;
-import net.sourceforge.htmlunit.xerces.dom.events.MutationEventImpl;
-import net.sourceforge.htmlunit.xerces.dom.events.UIEventImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
@@ -51,6 +47,11 @@ import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 import org.w3c.dom.traversal.TreeWalker;
+
+import net.sourceforge.htmlunit.xerces.dom.events.EventImpl;
+import net.sourceforge.htmlunit.xerces.dom.events.MouseEventImpl;
+import net.sourceforge.htmlunit.xerces.dom.events.MutationEventImpl;
+import net.sourceforge.htmlunit.xerces.dom.events.UIEventImpl;
 
 
 /**

@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidatedInfo;
 import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
@@ -34,7 +36,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.Element;
 
 /**
  * The attribute declaration schema component traverser.

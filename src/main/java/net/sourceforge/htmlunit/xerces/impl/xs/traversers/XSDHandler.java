@@ -30,6 +30,15 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
@@ -69,8 +78,8 @@ import net.sourceforge.htmlunit.xerces.util.StAXInputSource;
 import net.sourceforge.htmlunit.xerces.util.StAXLocationWrapper;
 import net.sourceforge.htmlunit.xerces.util.SymbolHash;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
-import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
+import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
@@ -100,14 +109,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTerm;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 
 /**

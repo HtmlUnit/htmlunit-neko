@@ -20,6 +20,8 @@ package net.sourceforge.htmlunit.xerces.impl.xs;
 import java.lang.ref.SoftReference;
 import java.util.Vector;
 
+import org.xml.sax.SAXException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.dv.SchemaDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidatedInfo;
@@ -56,7 +58,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
-import org.xml.sax.SAXException;
 
 /**
  * This class is to hold all schema component declaration that are declared

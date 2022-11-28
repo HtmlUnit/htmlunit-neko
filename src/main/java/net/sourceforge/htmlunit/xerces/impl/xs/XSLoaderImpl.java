@@ -17,6 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMStringList;
+import org.w3c.dom.ls.LSInput;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.util.XSGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.grammars.Grammar;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
@@ -30,10 +35,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSModel;
 import net.sourceforge.htmlunit.xerces.xs.XSNamedMap;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMStringList;
-import org.w3c.dom.ls.LSInput;
 
 /**
  * <p>An implementation of XSLoader which wraps XMLSchemaLoader.</p>

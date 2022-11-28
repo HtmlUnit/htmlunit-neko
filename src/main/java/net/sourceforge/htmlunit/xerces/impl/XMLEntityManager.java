@@ -37,6 +37,10 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.io.ASCIIReader;
 import net.sourceforge.htmlunit.xerces.impl.io.Latin1Reader;
 import net.sourceforge.htmlunit.xerces.impl.io.UCSReader;

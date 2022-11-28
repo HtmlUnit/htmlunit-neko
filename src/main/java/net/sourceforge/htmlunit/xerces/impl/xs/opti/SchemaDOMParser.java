@@ -19,6 +19,8 @@ package net.sourceforge.htmlunit.xerces.impl.xs.opti;
 
 import java.io.IOException;
 
+import org.w3c.dom.Document;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
@@ -35,7 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.w3c.dom.Document;
 
 /**
  * @xerces.internal  

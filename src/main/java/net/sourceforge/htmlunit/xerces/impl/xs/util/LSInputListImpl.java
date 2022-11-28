@@ -20,8 +20,9 @@ package net.sourceforge.htmlunit.xerces.impl.xs.util;
 import java.lang.reflect.Array;
 import java.util.AbstractList;
 
-import net.sourceforge.htmlunit.xerces.xs.LSInputList;
 import org.w3c.dom.ls.LSInput;
+
+import net.sourceforge.htmlunit.xerces.xs.LSInputList;
 
 /**
  * Contains a list of LSInputs.

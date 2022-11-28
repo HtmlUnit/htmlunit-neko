@@ -26,9 +26,10 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
+import org.w3c.dom.NamedNodeMap;
+
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.NamedNodeMap;
 
 /**
  * DeferredElementNSImpl is to ElementNSImpl, what DeferredElementImpl is to

@@ -19,6 +19,9 @@ package net.sourceforge.htmlunit.xerces.impl.dtd;
 
 import java.util.Iterator;
 
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;

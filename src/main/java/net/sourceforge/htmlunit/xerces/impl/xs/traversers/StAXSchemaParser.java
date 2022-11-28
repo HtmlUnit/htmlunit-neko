@@ -31,6 +31,8 @@ import javax.xml.stream.events.ProcessingInstruction;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import org.w3c.dom.Document;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.opti.SchemaDOMParser;
 import net.sourceforge.htmlunit.xerces.util.JAXPNamespaceContextWrapper;
 import net.sourceforge.htmlunit.xerces.util.StAXLocationWrapper;
@@ -42,7 +44,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import org.w3c.dom.Document;
 
 /**
  * <p>StAXSchemaParser reads StAX events, converts them into XNI events

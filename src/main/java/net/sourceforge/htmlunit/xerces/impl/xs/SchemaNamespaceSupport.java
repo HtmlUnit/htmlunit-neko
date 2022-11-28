@@ -17,17 +17,18 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 /**
  * This class customizes the behaviour of the util.NamespaceSupport

@@ -23,6 +23,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMStringList;
+import org.w3c.dom.ls.LSResourceResolver;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
@@ -46,11 +52,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMErrorHandler;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMStringList;
-import org.w3c.dom.ls.LSResourceResolver;
 
 /**
  * Xerces implementation of DOMConfiguration that maintains a table of recognized parameters.

@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.identity;
 
+import org.xml.sax.SAXException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.xpath.XPath;
 import net.sourceforge.htmlunit.xerces.util.IntStack;
@@ -25,7 +27,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
 import net.sourceforge.htmlunit.xerces.xs.ShortList;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.xml.sax.SAXException;
 
 /**
  * XPath matcher.

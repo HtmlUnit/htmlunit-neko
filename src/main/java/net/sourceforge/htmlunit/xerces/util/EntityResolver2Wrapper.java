@@ -21,15 +21,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.ext.EntityResolver2;
+
 import net.sourceforge.htmlunit.xerces.impl.ExternalSubsetResolver;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityDescription;
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLDTDDescription;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.ext.EntityResolver2;
 
 /**
  * <p>This class wraps a SAX entity resolver (EntityResolver2) in an XNI entity resolver.</p>

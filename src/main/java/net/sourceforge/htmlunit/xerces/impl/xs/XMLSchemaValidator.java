@@ -28,6 +28,9 @@ import java.util.Vector;
 
 import javax.xml.XMLConstants;
 
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
@@ -55,10 +58,10 @@ import net.sourceforge.htmlunit.xerces.impl.xs.util.XS10TypeHelper;
 import net.sourceforge.htmlunit.xerces.util.AugmentationsImpl;
 import net.sourceforge.htmlunit.xerces.util.IntStack;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
+import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
-import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;

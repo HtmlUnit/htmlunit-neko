@@ -20,6 +20,11 @@ package net.sourceforge.htmlunit.xerces.impl;
 import java.util.Hashtable;
 import java.util.Locale;
 
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.util.DefaultErrorHandler;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerProxy;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
@@ -30,7 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
-import org.xml.sax.ErrorHandler;
 
 /**
  * This class is a common element of all parser configurations and is

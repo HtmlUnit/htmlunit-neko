@@ -17,13 +17,14 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  * This class wraps a SAX error handler in an XNI error handler.

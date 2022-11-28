@@ -16,6 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko.filters;
 
+import net.sourceforge.htmlunit.cyberneko.HTMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
@@ -29,8 +30,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
-
-import net.sourceforge.htmlunit.cyberneko.HTMLComponent;
 
 /**
  * This class implements a filter that simply passes document

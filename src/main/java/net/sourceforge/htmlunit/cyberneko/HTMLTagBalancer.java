@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import net.sourceforge.htmlunit.cyberneko.HTMLElements.Element;
+import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -35,9 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
-
-import net.sourceforge.htmlunit.cyberneko.HTMLElements.Element;
-import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 
 /**
  * Balances tags in an HTML document. This component receives document events

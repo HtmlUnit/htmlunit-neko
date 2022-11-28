@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaGrammar;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSAnnotationImpl;
@@ -27,7 +29,6 @@ import net.sourceforge.htmlunit.xerces.impl.xs.util.XSObjectListImpl;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.xs.XSObject;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
-import org.w3c.dom.Element;
 
 /**
  * @xerces.internal  

@@ -17,8 +17,9 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.w3c.dom.Node;
+
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * <p>An <code>XMLInputSource</code> analogue to <code>javax.xml.transform.dom.DOMSource</code>.</p>

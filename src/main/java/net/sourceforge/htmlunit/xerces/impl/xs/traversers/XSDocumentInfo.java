@@ -20,14 +20,15 @@ package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.validation.ValidationState;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaNamespaceSupport;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
 import net.sourceforge.htmlunit.xerces.impl.xs.XMLSchemaException;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.XInt;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Objects of this class hold all information pecular to a

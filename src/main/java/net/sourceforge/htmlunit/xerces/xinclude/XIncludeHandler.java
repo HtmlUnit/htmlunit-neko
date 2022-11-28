@@ -25,6 +25,9 @@ import java.util.Locale;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
@@ -37,12 +40,12 @@ import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SecurityManager;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.URI;
+import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLLocatorWrapper;
 import net.sourceforge.htmlunit.xerces.util.XMLResourceIdentifierImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
-import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;

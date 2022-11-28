@@ -21,6 +21,26 @@ import java.io.CharConversionException;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.xml.sax.AttributeList;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.DTDHandler;
+import org.xml.sax.DocumentHandler;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Parser;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.ext.Attributes2;
+import org.xml.sax.ext.DeclHandler;
+import org.xml.sax.ext.EntityResolver2;
+import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.ext.Locator2;
+import org.xml.sax.ext.Locator2Impl;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
 import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
@@ -45,25 +65,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
 import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
 import net.sourceforge.htmlunit.xerces.xs.PSVIProvider;
-import org.xml.sax.AttributeList;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.DTDHandler;
-import org.xml.sax.DocumentHandler;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Parser;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.ext.Attributes2;
-import org.xml.sax.ext.DeclHandler;
-import org.xml.sax.ext.EntityResolver2;
-import org.xml.sax.ext.LexicalHandler;
-import org.xml.sax.ext.Locator2;
-import org.xml.sax.ext.Locator2Impl;
 
 /**
  * This is the base class of all SAX parsers. It implements both the

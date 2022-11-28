@@ -19,14 +19,15 @@ package net.sourceforge.htmlunit.html.dom;
 
 import java.util.Vector;
 
-import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
-import net.sourceforge.htmlunit.xerces.dom.ProcessingInstructionImpl;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLDocument;
 import org.xml.sax.AttributeList;
 import org.xml.sax.DocumentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+
+import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
+import net.sourceforge.htmlunit.xerces.dom.ProcessingInstructionImpl;
 
 
 /**

@@ -20,16 +20,17 @@ package net.sourceforge.htmlunit.xerces.impl.xs.opti;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
-import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
-import net.sourceforge.htmlunit.xerces.xni.QName;
-import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
-import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
+import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
+import net.sourceforge.htmlunit.xerces.xni.XMLString;
 
 /**
  * @xerces.internal  

@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import net.sourceforge.htmlunit.xerces.util.URI;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
@@ -26,6 +25,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.w3c.dom.TypeInfo;
+
+import net.sourceforge.htmlunit.xerces.util.URI;
 
 /**
  * Elements represent most of the "markup" and structure of the

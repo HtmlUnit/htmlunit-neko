@@ -20,6 +20,8 @@ package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 import java.util.Locale;
 import java.util.Vector;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.XSFacets;
 import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
@@ -45,7 +47,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSAttributeUse;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.Element;
 
 /**
  * Class <code>XSDAbstractTraverser</code> serves as the base class for all

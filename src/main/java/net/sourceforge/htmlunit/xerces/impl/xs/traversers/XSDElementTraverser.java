@@ -19,6 +19,9 @@ package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
 import java.util.Locale;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidatedInfo;
 import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaGrammar;
@@ -38,8 +41,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSConstants;
 import net.sourceforge.htmlunit.xerces.xs.XSObject;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Element;
 
 /**
  * The element declaration schema component traverser.

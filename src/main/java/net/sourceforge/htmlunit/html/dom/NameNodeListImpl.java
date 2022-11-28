@@ -17,11 +17,12 @@
 
 package net.sourceforge.htmlunit.html.dom;
 
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import net.sourceforge.htmlunit.xerces.dom.DeepNodeListImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * This class implements the DOM's NodeList behavior for

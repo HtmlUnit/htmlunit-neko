@@ -19,9 +19,6 @@ package net.sourceforge.htmlunit.xerces.util;
 
 import java.util.Hashtable;
 
-import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
-import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
-import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -29,6 +26,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.ls.LSException;
+
+import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
+import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
+import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 
 /**
  * Some useful utility methods.

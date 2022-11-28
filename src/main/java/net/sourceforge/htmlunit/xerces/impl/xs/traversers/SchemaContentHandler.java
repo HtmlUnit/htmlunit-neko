@@ -17,6 +17,14 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Document;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.LocatorImpl;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.opti.SchemaDOMParser;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
 import net.sourceforge.htmlunit.xerces.util.SAXLocatorWrapper;
@@ -29,13 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
-import org.w3c.dom.Document;
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.LocatorImpl;
 
 /**
  * <p>SchemaContentHandler converts SAX events into XNI 

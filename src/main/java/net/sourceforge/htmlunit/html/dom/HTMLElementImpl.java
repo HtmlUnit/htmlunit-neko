@@ -18,12 +18,13 @@ package net.sourceforge.htmlunit.html.dom;
 
 import java.util.Locale;
 
-import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLElement;
 import org.w3c.dom.html.HTMLFormElement;
+
+import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 
 /**
  * Implements an HTML-specific element, an {@link org.w3c.dom.Element} that

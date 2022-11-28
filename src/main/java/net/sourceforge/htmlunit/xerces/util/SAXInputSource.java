@@ -20,9 +20,10 @@ package net.sourceforge.htmlunit.xerces.util;
 import java.io.InputStream;
 import java.io.Reader;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
+
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * <p>An <code>XMLInputSource</code> analogue to <code>javax.xml.transform.sax.SAXSource</code>.</p>

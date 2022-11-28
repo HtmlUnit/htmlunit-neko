@@ -17,10 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import org.xml.sax.AttributeList;
 import org.xml.sax.ext.Attributes2;
+
+import net.sourceforge.htmlunit.xerces.impl.Constants;
+import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 
 /**
  * Wraps {@link XMLAttributes} and makes it look like

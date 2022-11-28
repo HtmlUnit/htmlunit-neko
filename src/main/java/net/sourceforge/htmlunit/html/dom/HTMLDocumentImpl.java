@@ -22,8 +22,6 @@ import java.lang.reflect.Constructor;
 import java.util.Hashtable;
 import java.util.Locale;
 
-import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
-import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
@@ -38,6 +36,9 @@ import org.w3c.dom.html.HTMLFrameSetElement;
 import org.w3c.dom.html.HTMLHeadElement;
 import org.w3c.dom.html.HTMLHtmlElement;
 import org.w3c.dom.html.HTMLTitleElement;
+
+import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
+import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 
 /**
  * Implements an HTML document. Provides access to the top level element in the

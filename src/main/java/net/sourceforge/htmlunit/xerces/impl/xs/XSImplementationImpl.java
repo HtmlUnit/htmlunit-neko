@@ -17,6 +17,9 @@
 
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.ls.LSInput;
+
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.PSVIDOMImplementationImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.LSInputListImpl;
@@ -26,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xs.StringList;
 import net.sourceforge.htmlunit.xerces.xs.XSException;
 import net.sourceforge.htmlunit.xerces.xs.XSImplementation;
 import net.sourceforge.htmlunit.xerces.xs.XSLoader;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.ls.LSInput;
 
 /**
  * Implements XSImplementation interface that allows one to retrieve an instance of <code>XSLoader</code>. 

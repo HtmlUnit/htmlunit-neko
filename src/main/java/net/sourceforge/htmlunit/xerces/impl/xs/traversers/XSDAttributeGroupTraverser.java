@@ -16,6 +16,8 @@
  */
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaGrammar;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaSymbols;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSAnnotationImpl;
@@ -25,7 +27,6 @@ import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
-import org.w3c.dom.Element;
 
 /**
  * The attribute group definition schema component traverser.

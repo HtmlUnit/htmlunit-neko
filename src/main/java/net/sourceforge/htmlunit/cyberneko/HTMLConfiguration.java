@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
@@ -37,8 +38,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
-
-import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 
 /**
  * An XNI-based parser configuration that can be used to parse HTML

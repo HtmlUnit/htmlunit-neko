@@ -21,6 +21,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Comment;
+import org.w3c.dom.DOMError;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
+import org.w3c.dom.Entity;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
@@ -48,19 +62,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
 import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Comment;
-import org.w3c.dom.DOMError;
-import org.w3c.dom.DOMErrorHandler;
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentType;
-import org.w3c.dom.Element;
-import org.w3c.dom.Entity;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
 
 /**
  * This class adds implementation for normalizeDocument method.

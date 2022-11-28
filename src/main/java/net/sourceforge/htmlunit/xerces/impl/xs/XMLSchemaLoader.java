@@ -31,6 +31,15 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.WeakHashMap;
 
+import org.w3c.dom.DOMConfiguration;
+import org.w3c.dom.DOMError;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMStringList;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.InputSource;
+
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.DOMStringListImpl;
@@ -49,8 +58,8 @@ import net.sourceforge.htmlunit.xerces.util.DefaultErrorHandler;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
-import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
+import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.Grammar;
@@ -68,14 +77,6 @@ import net.sourceforge.htmlunit.xerces.xs.LSInputList;
 import net.sourceforge.htmlunit.xerces.xs.StringList;
 import net.sourceforge.htmlunit.xerces.xs.XSLoader;
 import net.sourceforge.htmlunit.xerces.xs.XSModel;
-import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMError;
-import org.w3c.dom.DOMErrorHandler;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMStringList;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.xml.sax.InputSource;
 
 /**
  * This class implements xni.grammars.XMLGrammarLoader.

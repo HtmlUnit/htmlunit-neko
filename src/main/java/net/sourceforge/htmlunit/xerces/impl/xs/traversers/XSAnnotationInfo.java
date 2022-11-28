@@ -16,8 +16,9 @@
  */
 package net.sourceforge.htmlunit.xerces.impl.xs.traversers;
 
-import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 import org.w3c.dom.Element;
+
+import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 
 /**
  * Objects of this class contain the textual representation of

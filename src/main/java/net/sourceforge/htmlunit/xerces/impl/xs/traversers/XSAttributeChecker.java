@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
+
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.impl.xs.SchemaGrammar;
@@ -39,8 +42,6 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Element;
 
 /**
  * Class <code>XSAttributeCheck</code> is used to check the validity of attributes

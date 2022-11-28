@@ -17,16 +17,13 @@
 
 package net.sourceforge.htmlunit.xerces.impl.dv.xs;
 
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 
 /**
  * Validator for &lt;gYearMonth&gt; datatype (W3C Schema Datatypes)
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani
  * @author Gopal Sharma, SUN Microsystem Inc.
@@ -72,7 +69,7 @@ public class YearMonthDV extends AbstractDateTimeDV{
 
         //save unnormalized values
         saveUnnormalized(date);
-        
+
         if ( date.utc!=0 && date.utc!='Z' ) {
             normalize(date);
         }
@@ -87,13 +84,6 @@ public class YearMonthDV extends AbstractDateTimeDV{
         append(message, date.month, 2);
         append(message, (char)date.utc, 0);
         return message.toString();
-    }
-    
-    protected XMLGregorianCalendar getXMLGregorianCalendar(DateTimeData date) {
-        return datatypeFactory.newXMLGregorianCalendar(date.unNormYear, date.unNormMonth, DatatypeConstants.FIELD_UNDEFINED, 
-                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, 
-                DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, 
-                date.hasTimeZone() ? date.timezoneHr * 60 + date.timezoneMin : DatatypeConstants.FIELD_UNDEFINED);
     }
 }
 

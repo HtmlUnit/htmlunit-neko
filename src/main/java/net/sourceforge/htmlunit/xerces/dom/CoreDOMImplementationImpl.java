@@ -18,11 +18,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 import java.lang.ref.SoftReference;
 
-import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
-import net.sourceforge.htmlunit.xerces.parsers.DOMParserImpl;
-import net.sourceforge.htmlunit.xerces.util.XMLChar;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -32,7 +27,12 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSParser;
-import org.w3c.dom.ls.LSSerializer;
+
+import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
+import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
+import net.sourceforge.htmlunit.xerces.parsers.DOMParserImpl;
+import net.sourceforge.htmlunit.xerces.util.XMLChar;
+import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 
 /**
  * The DOMImplementation class is description of a particular

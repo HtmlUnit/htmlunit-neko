@@ -23,6 +23,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.w3c.dom.CDATASection;
+import org.w3c.dom.Comment;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.Element;
+import org.w3c.dom.EntityReference;
+import org.w3c.dom.Node;
+import org.w3c.dom.ProcessingInstruction;
+import org.w3c.dom.Text;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
+
+import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
@@ -41,23 +58,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.w3c.dom.CDATASection;
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
-import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
-import org.w3c.dom.Node;
-import org.w3c.dom.ProcessingInstruction;
-import org.w3c.dom.Text;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.SAXParseException;
-
-import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 
 /**
  * A DOM parser for HTML fragments.

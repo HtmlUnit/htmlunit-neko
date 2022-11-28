@@ -16,9 +16,8 @@
 
 package net.sourceforge.htmlunit.cyberneko.parsers;
 
-import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
-
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
+import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
 
 /**
  * A SAX parser for HTML documents.

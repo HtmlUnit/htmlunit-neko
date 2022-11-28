@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.w3c.dom.TypeInfo;
+
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeException;
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeFacetException;
@@ -51,7 +53,6 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
-import org.w3c.dom.TypeInfo;
 
 /**
  * @xerces.internal

@@ -17,10 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 
 /**
  * Wraps {@link XMLErrorHandler} and make it look like a SAX {@link ErrorHandler}.  
