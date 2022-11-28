@@ -1033,14 +1033,14 @@ public class XSAttributeChecker {
         // traverse all attributes
         int length = attrs.length;
         Attr sattr = null;
-        for (int i = 0; i < length; i++) {
-            sattr = attrs[i];
+        for (Attr attr : attrs) {
+            sattr = attr;
             // get the attribute name/value
             //String attrName = DOMUtil.getLocalName(sattr);
             String attrName = sattr.getName();
             String attrURI = DOMUtil.getNamespaceURI(sattr);
             String attrVal = DOMUtil.getValue(sattr);
-            
+
             if (attrName.startsWith("xml")) {
                 String attrPrefix = DOMUtil.getPrefix(sattr);
                 // we don't want to add namespace declarations to the non-schema attributes
@@ -1063,15 +1063,14 @@ public class XSAttributeChecker {
                 // attributes with schema namespace are not allowed
                 // and not allowed on "document" and "appInfo"
                 if (attrURI.equals(SchemaSymbols.URI_SCHEMAFORSCHEMA)) {
-                    reportSchemaError ("s4s-att-not-allowed", new Object[] {elName, attrName}, element);
-                }
-                else {
-                    if(attrValues[ATTIDX_NONSCHEMA] == null) {
+                    reportSchemaError("s4s-att-not-allowed", new Object[]{elName, attrName}, element);
+                } else {
+                    if (attrValues[ATTIDX_NONSCHEMA] == null) {
                         // these are usually small
-                        attrValues[ATTIDX_NONSCHEMA] = new Vector(4,2);
+                        attrValues[ATTIDX_NONSCHEMA] = new Vector(4, 2);
                     }
-                    ((Vector)attrValues[ATTIDX_NONSCHEMA]).addElement(attrName);
-                    ((Vector)attrValues[ATTIDX_NONSCHEMA]).addElement(attrVal);
+                    ((Vector) attrValues[ATTIDX_NONSCHEMA]).addElement(attrName);
+                    ((Vector) attrValues[ATTIDX_NONSCHEMA]).addElement(attrVal);
                     // for attributes from other namespace
                     // store them in a list, and TRY to validate them after
                     // schema traversal (because it's "lax")
@@ -1080,15 +1079,15 @@ public class XSAttributeChecker {
                     // String attrRName = attrURI + "," + attrName;
                     // Vector values = (Vector)fNonSchemaAttrs.get(attrRName);
                     // if (values == null) {
-                        // values = new Vector();
-                        // values.addElement(attrName);
-                        // values.addElement(elName);
-                        // values.addElement(attrVal);
-                        // fNonSchemaAttrs.put(attrRName, values);
+                    // values = new Vector();
+                    // values.addElement(attrName);
+                    // values.addElement(elName);
+                    // values.addElement(attrVal);
+                    // fNonSchemaAttrs.put(attrRName, values);
                     // }
                     // else {
-                        // values.addElement(elName);
-                        // values.addElement(attrVal);
+                    // values.addElement(elName);
+                    // values.addElement(attrVal);
                     // }
                 }
                 continue;
@@ -1097,9 +1096,9 @@ public class XSAttributeChecker {
             // check whether this attribute is allowed
             OneAttr oneAttr = attrList.get(attrName);
             if (oneAttr == null) {
-                reportSchemaError ("s4s-att-not-allowed",
-                                   new Object[] {elName, attrName},
-                                   element);
+                reportSchemaError("s4s-att-not-allowed",
+                        new Object[]{elName, attrName},
+                        element);
                 continue;
             }
 
@@ -1113,28 +1112,27 @@ public class XSAttributeChecker {
                 // xpath values are validated in xpath parser
                 if (oneAttr.dvIndex >= 0) {
                     if (oneAttr.dvIndex != DT_STRING &&
-                        oneAttr.dvIndex != DT_XPATH &&
-                        oneAttr.dvIndex != DT_XPATH1) {
+                            oneAttr.dvIndex != DT_XPATH &&
+                            oneAttr.dvIndex != DT_XPATH1) {
                         XSSimpleType dv = fExtraDVs[oneAttr.dvIndex];
                         Object avalue = dv.validate(attrVal, schemaDoc.fValidationContext, null);
                         // kludge to handle chameleon includes/redefines...
                         if (oneAttr.dvIndex == DT_QNAME) {
-                            QName qname = (QName)avalue;
-                            if(qname.prefix == XMLSymbols.EMPTY_STRING && qname.uri == null && schemaDoc.fIsChameleonSchema)
+                            QName qname = (QName) avalue;
+                            if (qname.prefix == XMLSymbols.EMPTY_STRING && qname.uri == null && schemaDoc.fIsChameleonSchema)
                                 qname.uri = schemaDoc.fTargetNamespace;
                         }
                         attrValues[oneAttr.valueIndex] = avalue;
                     } else {
                         attrValues[oneAttr.valueIndex] = attrVal;
                     }
-                }
-                else {
+                } else {
                     attrValues[oneAttr.valueIndex] = validate(attrValues, attrName, attrVal, oneAttr.dvIndex, schemaDoc);
                 }
             } catch (InvalidDatatypeValueException ide) {
-                reportSchemaError ("s4s-att-invalid-value",
-                                   new Object[] {elName, attrName, ide.getMessage()},
-                                   element);
+                reportSchemaError("s4s-att-invalid-value",
+                        new Object[]{elName, attrName, ide.getMessage()},
+                        element);
                 if (oneAttr.dfltValue != null)
                     //attrValues.put(attrName, oneAttr.dfltValue);
                     attrValues[oneAttr.valueIndex] = oneAttr.dfltValue;
@@ -1149,15 +1147,13 @@ public class XSAttributeChecker {
 
         // apply default values
         OneAttr[] reqAttrs = attrList.values;
-        for (int i = 0; i < reqAttrs.length; i++) {
-            OneAttr oneAttr = reqAttrs[i];
-
+        for (OneAttr oneAttr : reqAttrs) {
             // if the attribute didn't apprear, and
             // if the attribute is optional with default value, apply it
             if (oneAttr.dfltValue != null && !fSeen[oneAttr.valueIndex]) {
                 //attrValues.put(oneAttr.name, oneAttr.dfltValue);
                 attrValues[oneAttr.valueIndex] = oneAttr.dfltValue;
-                fromDefault |= (1<<oneAttr.valueIndex);
+                fromDefault |= (1 << oneAttr.valueIndex);
             }
         }
 
@@ -1700,8 +1696,8 @@ public class XSAttributeChecker {
         int length = attrs.length;
         Attr sattr = null;
         String rawname, prefix, uri;
-        for (int i = 0; i < length; i++) {
-            sattr = attrs[i];
+        for (Attr attr : attrs) {
+            sattr = attr;
             rawname = DOMUtil.getName(sattr);
             prefix = null;
             if (rawname.equals(XMLSymbols.PREFIX_XMLNS))
@@ -1710,7 +1706,7 @@ public class XSAttributeChecker {
                 prefix = fSymbolTable.addSymbol(DOMUtil.getLocalName(sattr));
             if (prefix != null) {
                 uri = fSymbolTable.addSymbol(DOMUtil.getValue(sattr));
-                nsSupport.declarePrefix(prefix, uri.length()!=0 ? uri : null);
+                nsSupport.declarePrefix(prefix, uri.length() != 0 ? uri : null);
             }
         }
     }

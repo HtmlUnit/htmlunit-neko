@@ -1426,8 +1426,8 @@ public class XMLDTDValidator
                     found = false;
                 }
                 else
-                    for (int i = 0; i < enumVals.length; i++) {
-                        if (attValue == enumVals[i] || attValue.equals(enumVals[i])) {
+                    for (String enumVal : enumVals) {
+                        if (attValue == enumVal || attValue.equals(enumVal)) {
                             found = true;
                             break;
                         }
@@ -1436,8 +1436,8 @@ public class XMLDTDValidator
                 if (!found) {
                     StringBuilder enumValueString = new StringBuilder();
                     if (enumVals != null)
-                        for (int i = 0; i < enumVals.length; i++) {
-                            enumValueString.append(enumVals[i]+" ");
+                        for (String enumVal : enumVals) {
+                            enumValueString.append(enumVal + " ");
                         }
                     fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN, 
                                                "MSG_ATTRIBUTE_VALUE_NOT_IN_LIST",
@@ -1564,9 +1564,28 @@ public class XMLDTDValidator
 
         fBuffer.setLength(0);
         attrValue.getChars(0, attrValue.length(), attValue, 0);
-        for (int i = 0; i < attValue.length; i++) {
+        /*** BUG #3512 ***
+         int entityCount = attributes.getEntityCount(index);
+         for (int j = 0;  j < entityCount; j++) {
+         int offset = attributes.getEntityOffset(index, j);
+         int length = attributes.getEntityLength(index, j);
+         if (offset <= i-eaten+1) {
+         if (offset+length >= i-eaten+1) {
+         if (length > 0)
+         length--;
+         }
+         }
+         else {
+         if (offset > 0)
+         offset--;
+         }
+         attributes.setEntityOffset(index, j, offset);
+         attributes.setEntityLength(index, j, length);
+         }
+         /***/
+        for (char c : attValue) {
 
-            if (attValue[i] == ' ') {
+            if (c == ' ') {
 
                 // now the tricky part
                 if (readingNonSpace) {
@@ -1576,40 +1595,38 @@ public class XMLDTDValidator
 
                 if (spaceStart && !leadingSpace) {
                     spaceStart = false;
-                    fBuffer.append(attValue[i]);
+                    fBuffer.append(c);
                     count++;
-                }
-                else {
+                } else {
                     if (leadingSpace || !spaceStart) {
-                        eaten ++;
+                        eaten++;
                         /*** BUG #3512 ***
-                        int entityCount = attributes.getEntityCount(index);
-                        for (int j = 0;  j < entityCount; j++) {
-                            int offset = attributes.getEntityOffset(index, j);
-                            int length = attributes.getEntityLength(index, j);
-                            if (offset <= i-eaten+1) {
-                                if (offset+length >= i-eaten+1) {
-                                    if (length > 0)
-                                        length--;
-                                }
-                            } 
-                            else {
-                                if (offset > 0)
-                                    offset--;
-                            }
-                            attributes.setEntityOffset(index, j, offset);
-                            attributes.setEntityLength(index, j, length);
-                        }
-                        /***/
+                         int entityCount = attributes.getEntityCount(index);
+                         for (int j = 0;  j < entityCount; j++) {
+                         int offset = attributes.getEntityOffset(index, j);
+                         int length = attributes.getEntityLength(index, j);
+                         if (offset <= i-eaten+1) {
+                         if (offset+length >= i-eaten+1) {
+                         if (length > 0)
+                         length--;
+                         }
+                         }
+                         else {
+                         if (offset > 0)
+                         offset--;
+                         }
+                         attributes.setEntityOffset(index, j, offset);
+                         attributes.setEntityLength(index, j, length);
+                         }
+                         /***/
                     }
                 }
 
-            }
-            else {
+            } else {
                 readingNonSpace = true;
                 spaceStart = false;
                 leadingSpace = false;
-                fBuffer.append(attValue[i]);
+                fBuffer.append(c);
                 count++;
             }
         }

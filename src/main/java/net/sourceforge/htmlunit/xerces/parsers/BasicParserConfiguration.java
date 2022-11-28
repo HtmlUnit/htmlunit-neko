@@ -264,8 +264,7 @@ public abstract class BasicParserConfiguration
 
         // set default values
         if (recognizedFeatures != null) {
-            for (int i = 0; i < recognizedFeatures.length; i++) {
-                String featureId = recognizedFeatures[i];
+            for (String featureId : recognizedFeatures) {
                 Boolean state = component.getFeatureDefault(featureId);
                 if (state != null) {
                     super.setFeature(featureId, state.booleanValue());
@@ -273,8 +272,7 @@ public abstract class BasicParserConfiguration
             }
         }
         if (recognizedProperties != null) {
-            for (int i = 0; i < recognizedProperties.length; i++) {
-                String propertyId = recognizedProperties[i];
+            for (String propertyId : recognizedProperties) {
                 Object value = component.getPropertyDefault(propertyId);
                 if (value != null) {
                     super.setProperty(propertyId, value);
@@ -441,8 +439,8 @@ public abstract class BasicParserConfiguration
 
         // forward to every component
         int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (Object fComponent : fComponents) {
+            XMLComponent c = (XMLComponent) fComponent;
             c.setFeature(featureId, state);
         }
         // save state if noone "objects"
@@ -461,8 +459,8 @@ public abstract class BasicParserConfiguration
 
         // forward to every component
         int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (Object fComponent : fComponents) {
+            XMLComponent c = (XMLComponent) fComponent;
             c.setProperty(propertyId, value);
         }
 
@@ -499,8 +497,8 @@ public abstract class BasicParserConfiguration
 
         // reset every component
         int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (Object fComponent : fComponents) {
+            XMLComponent c = (XMLComponent) fComponent;
             c.reset(this);
         }
 

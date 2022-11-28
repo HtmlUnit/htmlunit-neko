@@ -238,9 +238,9 @@ public class SubstitutionGroupHandler {
         XSElementDecl[] ret = new XSElementDecl[len];
         // For each of such elements, check whether the derivation methods
         // overlap with "block". If not, add it to the sub group
-        for (int i = 0 ; i < len; i++) {
-            if ((element.fBlock & groupB[i].dMethod) == 0)
-                ret[rlen++] = groupB[i].sub;
+        for (OneSubGroup oneSubGroup : groupB) {
+            if ((element.fBlock & oneSubGroup.dMethod) == 0)
+                ret[rlen++] = oneSubGroup.sub;
         }
         // Resize the array if necessary
         if (rlen < len) {

@@ -39,11 +39,11 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 	}
 	
 	public Node getNamedItem(String name) {
-		for (int i=0; i<attrs.length; i++) {
-    			if (attrs[i].getName().equals(name)) {
-    				return attrs[i];
-    			}
-    		}
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(name)) {
+                return attr;
+            }
+        }
     		return null;
 	}
 	
@@ -59,11 +59,11 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 	}
 	
 	public Node getNamedItemNS(String namespaceURI, String localName) {
-		for (int i=0; i<attrs.length; i++) {
-    			if (attrs[i].getName().equals(localName) && attrs[i].getNamespaceURI().equals(namespaceURI)) {
-    				return attrs[i];
-    			}
-    		}
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(localName) && attr.getNamespaceURI().equals(namespaceURI)) {
+                return attr;
+            }
+        }
     		return null;
 	}
 	

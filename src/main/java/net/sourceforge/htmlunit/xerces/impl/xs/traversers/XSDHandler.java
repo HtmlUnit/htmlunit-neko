@@ -1181,12 +1181,11 @@ public class XSDHandler {
      */
     private void updateImportListWith(SchemaGrammar newGrammar) {
         SchemaGrammar[] schemaGrammars = fGrammarBucket.getGrammars();
-        for (int i = 0; i < schemaGrammars.length; ++i) {
-            SchemaGrammar sg = schemaGrammars[i];
+        for (SchemaGrammar sg : schemaGrammars) {
             if (sg != newGrammar) {
                 Vector importedGrammars = sg.getImportedGrammars();
                 if (importedGrammars != null) {
-                    for (int j=0; j<importedGrammars.size(); j++) {
+                    for (int j = 0; j < importedGrammars.size(); j++) {
                         SchemaGrammar isg = (SchemaGrammar) importedGrammars.elementAt(j);
                         if (null2EmptyString(isg.getTargetNamespace()).equals(null2EmptyString(newGrammar.getTargetNamespace()))) {
                             if (isg != newGrammar) {
@@ -2436,9 +2435,9 @@ public class XSDHandler {
     private Vector expandGrammars(SchemaGrammar[] grammars) {
         Vector currGrammars = new Vector();
 
-        for (int i=0; i<grammars.length; i++) {
-            if (!currGrammars.contains(grammars[i])) {
-                currGrammars.add(grammars[i]);
+        for (SchemaGrammar grammar : grammars) {
+            if (!currGrammars.contains(grammar)) {
+                currGrammars.add(grammar);
             }
         }
 
@@ -2891,9 +2890,9 @@ public class XSDHandler {
     private Vector expandComponents(XSObject[] components, Hashtable dependencies) {
         Vector newComponents = new Vector();
 
-        for (int i=0; i<components.length; i++) {
-            if (!newComponents.contains(components[i])) {
-                newComponents.add(components[i]);
+        for (XSObject xsObject : components) {
+            if (!newComponents.contains(xsObject)) {
+                newComponents.add(xsObject);
             }
         }
 
@@ -4076,8 +4075,8 @@ public class XSDHandler {
                          * then we already have the definitions for the parts relevant
                          * to annotations.
                          */
-                        for (int i = 0; i < schemaGrammars.length; ++i) {
-                            if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(schemaGrammars[i].getTargetNamespace())) {
+                        for (SchemaGrammar schemaGrammar : schemaGrammars) {
+                            if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(schemaGrammar.getTargetNamespace())) {
                                 fInitialGrammarSet = schemaGrammars;
                                 return fInitialGrammarSet;
                             }

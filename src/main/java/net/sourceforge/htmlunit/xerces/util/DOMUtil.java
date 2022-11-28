@@ -493,9 +493,9 @@ public class DOMUtil {
         Node child = parent.getFirstChild();
         while (child != null) {
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
-                    if (child.getNodeName().equals(elemNames[i])) {
-                        return (Element)child;
+                for (String elemName : elemNames) {
+                    if (child.getNodeName().equals(elemName)) {
+                        return (Element) child;
                     }
                 }
             }
@@ -514,9 +514,9 @@ public class DOMUtil {
         Node child = parent.getLastChild();
         while (child != null) {
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
-                    if (child.getNodeName().equals(elemNames[i])) {
-                        return (Element)child;
+                for (String elemName : elemNames) {
+                    if (child.getNodeName().equals(elemName)) {
+                        return (Element) child;
                     }
                 }
             }
@@ -535,9 +535,9 @@ public class DOMUtil {
         Node sibling = node.getNextSibling();
         while (sibling != null) {
             if (sibling.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
-                    if (sibling.getNodeName().equals(elemNames[i])) {
-                        return (Element)sibling;
+                for (String elemName : elemNames) {
+                    if (sibling.getNodeName().equals(elemName)) {
+                        return (Element) sibling;
                     }
                 }
             }
@@ -557,11 +557,11 @@ public class DOMUtil {
         Node child = parent.getFirstChild();
         while (child != null) {
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
+                for (String[] elemName : elemNames) {
                     String uri = child.getNamespaceURI();
-                    if (uri != null && uri.equals(elemNames[i][0]) &&
-                            child.getLocalName().equals(elemNames[i][1])) {
-                        return (Element)child;
+                    if (uri != null && uri.equals(elemName[0]) &&
+                            child.getLocalName().equals(elemName[1])) {
+                        return (Element) child;
                     }
                 }
             }
@@ -581,11 +581,11 @@ public class DOMUtil {
         Node child = parent.getLastChild();
         while (child != null) {
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
+                for (String[] elemName : elemNames) {
                     String uri = child.getNamespaceURI();
-                    if (uri != null && uri.equals(elemNames[i][0]) &&
-                            child.getLocalName().equals(elemNames[i][1])) {
-                        return (Element)child;
+                    if (uri != null && uri.equals(elemName[0]) &&
+                            child.getLocalName().equals(elemName[1])) {
+                        return (Element) child;
                     }
                 }
             }
@@ -605,11 +605,11 @@ public class DOMUtil {
         Node sibling = node.getNextSibling();
         while (sibling != null) {
             if (sibling.getNodeType() == Node.ELEMENT_NODE) {
-                for (int i = 0; i < elemNames.length; i++) {
+                for (String[] elemName : elemNames) {
                     String uri = sibling.getNamespaceURI();
-                    if (uri != null && uri.equals(elemNames[i][0]) &&
-                            sibling.getLocalName().equals(elemNames[i][1])) {
-                        return (Element)sibling;
+                    if (uri != null && uri.equals(elemName[0]) &&
+                            sibling.getLocalName().equals(elemName[1])) {
+                        return (Element) sibling;
                     }
                 }
             }

@@ -60,8 +60,8 @@ public class ByteListImpl extends AbstractList implements ByteList {
      *   <code>item</code>. 
      */
     public boolean contains(byte item) {
-        for (int i = 0; i < data.length; ++i) {
-            if (data[i] == item) {
+        for (byte datum : data) {
+            if (datum == item) {
                 return true;
             }
         }

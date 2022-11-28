@@ -495,8 +495,8 @@ public class AttributeMap extends NamedNodeMapImpl {
                 else {
                     nodes.clear();
                 }
-                for (int i = 0; i < size; ++i) {
-                    NodeImpl n = (NodeImpl) srcnodes.get(i);
+                for (Object srcnode : srcnodes) {
+                    NodeImpl n = (NodeImpl) srcnode;
                     NodeImpl clone = (NodeImpl) n.cloneNode(true);
                     clone.isSpecified(n.isSpecified());
                     nodes.add(clone);

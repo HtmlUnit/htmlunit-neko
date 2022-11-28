@@ -2484,8 +2484,8 @@ public class XMLSchemaValidator
             // return the final set of grammars validator ended up with
             if (fGrammarPool != null) {
                 // Set grammars as immutable
-                for (int k=0; k < grammars.length; k++) {
-                    grammars[k].setImmutable(true);
+                for (SchemaGrammar grammar : grammars) {
+                    grammar.setImmutable(true);
                 }
                 fGrammarPool.cacheGrammars(XMLGrammarDescription.XML_SCHEMA, grammars);
             }
@@ -2773,9 +2773,9 @@ public class XMLSchemaValidator
         String[] hints = new String[length];
         int counter = 0;
 
-        for (int i=0; i<length; i++) {
-            if (!docLocations.contains(locations[i])) {
-                hints[counter++] = locations[i];
+        for (String location : locations) {
+            if (!docLocations.contains(location)) {
+                hints[counter++] = location;
             }
         }
 
@@ -4482,8 +4482,8 @@ public class XMLSchemaValidator
         public void endDocument() {
 
             int count = fValueStores.size();
-            for (int i = 0; i < count; i++) {
-                ValueStoreBase valueStore = (ValueStoreBase) fValueStores.get(i);
+            for (Object fValueStore : fValueStores) {
+                ValueStoreBase valueStore = (ValueStoreBase) fValueStore;
                 valueStore.endDocument();
             }
 

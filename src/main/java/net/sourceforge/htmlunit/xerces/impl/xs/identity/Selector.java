@@ -117,10 +117,10 @@ public class Selector {
                      NamespaceContext context) throws XPathException {
             super(normalize(xpath), symbolTable, context);
             // verify that an attribute is not selected
-            for (int i=0;i<fLocationPaths.length;i++) {
-                net.sourceforge.htmlunit.xerces.impl.xpath.XPath.Axis axis =
-                fLocationPaths[i].steps[fLocationPaths[i].steps.length-1].axis;
-                if (axis.type == XPath.Axis.ATTRIBUTE) {
+            for (LocationPath fLocationPath : fLocationPaths) {
+                Axis axis =
+                        fLocationPath.steps[fLocationPath.steps.length - 1].axis;
+                if (axis.type == Axis.ATTRIBUTE) {
                     throw new XPathException("c-selector-xpath");
                 }
             }

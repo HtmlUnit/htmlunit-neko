@@ -1639,8 +1639,8 @@ public class SchemaGrammar implements XSGrammar, XSNamespaceItem {
 
         int len = grammars.length;
         boolean hasSelf = false;
-        for (int i = 0; i < len; i++) {
-            if (grammars[i] == this) {
+        for (XSGrammar grammar : grammars) {
+            if (grammar == this) {
                 hasSelf = true;
                 break;
             }

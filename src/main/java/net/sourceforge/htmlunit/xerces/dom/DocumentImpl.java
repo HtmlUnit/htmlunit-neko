@@ -900,12 +900,12 @@ public class DocumentImpl
             if (evt.bubbles) {
                 evt.eventPhase = Event.BUBBLING_PHASE;
                 int pvsize = pv.size();
-                for (int j = 0; j < pvsize; j++) {
+                for (Object o : pv) {
                     if (evt.stopPropagation)
                         break;  // Someone set the flag. Phase ends.
 
                     // Handle all bubbling listeners on this node
-                    NodeImpl nn = (NodeImpl) pv.get(j);
+                    NodeImpl nn = (NodeImpl) o;
                     evt.currentTarget = nn;
                     nodeListeners = getEventListeners(nn);
                     if (nodeListeners != null) {
@@ -916,11 +916,10 @@ public class DocumentImpl
                         for (int i = 0; i < nlsize; i++) {
                             LEntry le = (LEntry) nl.elementAt(i);
                             if (!le.useCapture && le.type.equals(evt.type) &&
-                                nodeListeners.contains(le)) {
+                                    nodeListeners.contains(le)) {
                                 try {
                                     le.listener.handleEvent(evt);
-                                }
-                                catch (Exception e) {
+                                } catch (Exception e) {
                                     // All exceptions are ignored.
                                 }
                             }

@@ -96,8 +96,8 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
             int grammarSize = fGrammars.length ;
             Grammar [] tempGrammars = new Grammar[fGrammarCount];
             int pos = 0;
-            for (int i = 0; i < grammarSize; i++) {
-                for (Entry e = fGrammars[i]; e != null; e = e.next) {
+            for (Entry fGrammar : fGrammars) {
+                for (Entry e = fGrammar; e != null; e = e.next) {
                     if (e.desc.getGrammarType().equals(grammarType)) {
                         tempGrammars[pos++] = e.grammar;
                     }

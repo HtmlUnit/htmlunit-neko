@@ -620,28 +620,28 @@ abstract class XSDAbstractTraverser {
     private void checkEnumerationAndMaxLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
         if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() / 2 > xsFacets.maxLength) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode);
                 }
             }
         }
         else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 byte[] decodedVal = Base64.decode(enumVal);
-                if (decodedVal != null && (new String(decodedVal)).length() > xsFacets.maxLength) {                   
-                   reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode);                   
+                if (decodedVal != null && (new String(decodedVal)).length() > xsFacets.maxLength) {
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode);
                 }
             }
         }
         else {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() > xsFacets.maxLength) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode);
                 }
             } 
         }
@@ -653,28 +653,28 @@ abstract class XSDAbstractTraverser {
     private void checkEnumerationAndMinLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
         if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() / 2 < xsFacets.minLength) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode);
                 }
             }
         }
         else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 byte[] decodedVal = Base64.decode(enumVal);
                 if (decodedVal != null && (new String(decodedVal)).length() < xsFacets.minLength) {
-                   reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode);                   
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode);
                 }
             }
         }
         else {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() < xsFacets.minLength) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode);
                 }
             }   
         }
@@ -686,28 +686,28 @@ abstract class XSDAbstractTraverser {
     private void checkEnumerationAndLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
         if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() / 2 != xsFacets.length) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode);
                 }
             }
         }
         else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 byte[] decodedVal = Base64.decode(enumVal);
                 if (decodedVal != null && (new String(decodedVal)).length() != xsFacets.length) {
-                   reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode);
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode);
                 }
             }
         }
         else {
-            for (int enumIdx = 0; enumIdx < enumData.size(); enumIdx++) {
-                String enumVal = ((String)enumData.get(enumIdx));
+            for (Object enumDatum : enumData) {
+                String enumVal = ((String) enumDatum);
                 if (enumVal.length() != xsFacets.length) {
-                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode); 
+                    reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode);
                 }
             }  
         }

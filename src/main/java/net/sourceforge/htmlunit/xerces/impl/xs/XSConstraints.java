@@ -549,8 +549,8 @@ public class XSConstraints {
             if (elem.fScope == XSConstants.SCOPE_GLOBAL) {
                 // Check for subsitution groups.
                 XSElementDecl[] subGroup = sgHandler.getSubstitutionGroup(elem);
-                for (int i = 0; i < subGroup.length; i++) {
-                    findElemInTable(type, subGroup[i], elemDeclHash);
+                for (XSElementDecl xsElementDecl : subGroup) {
+                    findElemInTable(type, xsElementDecl, elemDeclHash);
                 }
             }
             return;
@@ -681,8 +681,8 @@ public class XSConstraints {
 
                     // Fill in the vector of children
                     dChildren = new Vector(subGroup.length+1);
-                    for (int i = 0; i < subGroup.length; i++) {
-                        addElementToParticleVector(dChildren, subGroup[i]);
+                    for (XSElementDecl xsElementDecl : subGroup) {
+                        addElementToParticleVector(dChildren, xsElementDecl);
                     }
                     addElementToParticleVector(dChildren, dElement);
                     Collections.sort(dChildren, ELEMENT_PARTICLE_COMPARATOR);
@@ -734,8 +734,8 @@ public class XSConstraints {
                     bType = XSModelGroupImpl.MODELGROUP_CHOICE;
 
                     bChildren = new Vector(bsubGroup.length+1);
-                    for (int i = 0; i < bsubGroup.length; i++) {
-                        addElementToParticleVector(bChildren, bsubGroup[i]);
+                    for (XSElementDecl xsElementDecl : bsubGroup) {
+                        addElementToParticleVector(bChildren, xsElementDecl);
                     }
                     addElementToParticleVector(bChildren, bElement);
                     Collections.sort(bChildren, ELEMENT_PARTICLE_COMPARATOR);

@@ -112,12 +112,12 @@ public class Field {
             super(fixupXPath(xpath), symbolTable, context);
             
             // verify that only one attribute is selected per branch
-            for (int i=0;i<fLocationPaths.length;i++) {
-                for(int j=0; j<fLocationPaths[i].steps.length; j++) {
-                    net.sourceforge.htmlunit.xerces.impl.xpath.XPath.Axis axis =
-                        fLocationPaths[i].steps[j].axis;
-                    if (axis.type == XPath.Axis.ATTRIBUTE &&
-                            (j < fLocationPaths[i].steps.length-1)) {
+            for (LocationPath fLocationPath : fLocationPaths) {
+                for (int j = 0; j < fLocationPath.steps.length; j++) {
+                    Axis axis =
+                            fLocationPath.steps[j].axis;
+                    if (axis.type == Axis.ATTRIBUTE &&
+                            (j < fLocationPath.steps.length - 1)) {
                         throw new XPathException("c-fields-xpaths");
                     }
                 }

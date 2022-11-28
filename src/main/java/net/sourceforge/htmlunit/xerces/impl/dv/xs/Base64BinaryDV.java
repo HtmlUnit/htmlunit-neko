@@ -82,8 +82,8 @@ public class Base64BinaryDV extends TypeValidator {
         
         public int hashCode() {
             int hash = 0;
-            for (int i = 0; i < data.length; ++i) {
-                hash = hash * 37 + (((int) data[i]) & 0xff);
+            for (byte datum : data) {
+                hash = hash * 37 + (((int) datum) & 0xff);
             }
             return hash;
         }

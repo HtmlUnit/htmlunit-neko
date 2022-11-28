@@ -881,10 +881,10 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 	 */
 	protected void reset() throws XNIException {
 		int count = fComponents.size();
-		for (int i = 0; i < count; i++) {
-			XMLComponent c = (XMLComponent) fComponents.get(i);
-			c.reset(this);
-		}
+        for (Object fComponent : fComponents) {
+            XMLComponent c = (XMLComponent) fComponent;
+            c.reset(this);
+        }
 
 	} // reset()
     
@@ -894,10 +894,10 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 	protected void resetCommon() throws XNIException {
 		// reset common components
 		int count = fCommonComponents.size();
-		for (int i = 0; i < count; i++) {
-			XMLComponent c = (XMLComponent) fCommonComponents.get(i);
-			c.reset(this);
-		}
+        for (Object fCommonComponent : fCommonComponents) {
+            XMLComponent c = (XMLComponent) fCommonComponent;
+            c.reset(this);
+        }
 
 	} // resetCommon()
     
@@ -907,10 +907,10 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 	protected void resetXML11() throws XNIException {
 		// reset every component
 		int count = fXML11Components.size();
-		for (int i = 0; i < count; i++) {			
-			XMLComponent c = (XMLComponent) fXML11Components.get(i);
-			c.reset(this);
-		}
+        for (Object fXML11Component : fXML11Components) {
+            XMLComponent c = (XMLComponent) fXML11Component;
+            c.reset(this);
+        }
 
 	} // resetXML11()
 
@@ -1285,8 +1285,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
         // set default values
         if (recognizedFeatures != null) {
-            for (int i = 0; i < recognizedFeatures.length; ++i) {
-                String featureId = recognizedFeatures[i];
+            for (String featureId : recognizedFeatures) {
                 Boolean state = component.getFeatureDefault(featureId);
                 if (state != null) {
                     // Do not overwrite values already set on the configuration.
@@ -1302,8 +1301,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
             }
         }
         if (recognizedProperties != null) {
-            for (int i = 0; i < recognizedProperties.length; ++i) {
-                String propertyId = recognizedProperties[i];
+            for (String propertyId : recognizedProperties) {
                 Object value = component.getPropertyDefault(propertyId);
                 if (value != null) {
                     // Do not overwrite values already set on the configuration.

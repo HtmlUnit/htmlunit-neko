@@ -510,8 +510,8 @@ XSLoader, DOMConfiguration {
     public void loadGrammar(XMLInputSource source[]) 
     throws IOException, XNIException {
         int numSource = source.length;
-        for (int i = 0; i < numSource; ++i) {
-            loadGrammar(source[i]);
+        for (XMLInputSource xmlInputSource : source) {
+            loadGrammar(xmlInputSource);
         }   
     }
     
@@ -783,17 +783,17 @@ XSLoader, DOMConfiguration {
         Object[] objArr = (Object[]) fJAXPSource;
         // make local vector for storing target namespaces of schemasources specified in object arrays.
         ArrayList jaxpSchemaSourceNamespaces = new ArrayList();
-        for (int i = 0; i < objArr.length; i++) {
-            if (objArr[i] instanceof InputStream ||
-                    objArr[i] instanceof InputSource) {
-                SchemaGrammar g = (SchemaGrammar)fJAXPCache.get(objArr[i]);
+        for (Object o : objArr) {
+            if (o instanceof InputStream ||
+                    o instanceof InputSource) {
+                SchemaGrammar g = (SchemaGrammar) fJAXPCache.get(o);
                 if (g != null) {
                     fGrammarBucket.putGrammar(g);
                     continue;
                 }
             }
             fXSDDescription.reset();
-            xis = xsdToXMLInputSource(objArr[i]);
+            xis = xsdToXMLInputSource(o);
             sid = xis.getSystemId();
             fXSDDescription.fContextType = XSDDescription.CONTEXT_PREPARSE;
             if (sid != null) {
@@ -802,31 +802,29 @@ XSLoader, DOMConfiguration {
                 fXSDDescription.setExpandedSystemId(sid);
                 fXSDDescription.fLocationHints = new String[]{sid};
             }
-            String targetNamespace = null ;
+            String targetNamespace = null;
             // load schema
-            SchemaGrammar grammar = fSchemaHandler.parseSchema(xis,fXSDDescription, locationPairs);
-            
+            SchemaGrammar grammar = fSchemaHandler.parseSchema(xis, fXSDDescription, locationPairs);
+
             if (fIsCheckedFully) {
                 XSConstraints.fullSchemaChecking(fGrammarBucket, fSubGroupHandler, fCMBuilder, fErrorReporter);
-            }                                   
+            }
             if (grammar != null) {
                 targetNamespace = grammar.getTargetNamespace();
                 if (jaxpSchemaSourceNamespaces.contains(targetNamespace)) {
                     // when an array of objects is passed it is illegal to have two schemas that share same namespace.
                     MessageFormatter mf = fErrorReporter.getMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN);
-                    throw new java.lang.IllegalArgumentException(mf.formatMessage(fErrorReporter.getLocale(), 
+                    throw new IllegalArgumentException(mf.formatMessage(fErrorReporter.getLocale(),
                             "jaxp12-schema-source-ns", null));
+                } else {
+                    jaxpSchemaSourceNamespaces.add(targetNamespace);
                 }
-                else {
-                    jaxpSchemaSourceNamespaces.add(targetNamespace) ;
-                }
-                if (objArr[i] instanceof InputStream ||
-                        objArr[i] instanceof InputSource) {
-                    fJAXPCache.put(objArr[i], grammar);
+                if (o instanceof InputStream ||
+                        o instanceof InputSource) {
+                    fJAXPCache.put(o, grammar);
                 }
                 fGrammarBucket.putGrammar(grammar);
-            }
-            else {
+            } else {
                 //REVISIT: What should be the acutal behavior if grammar can't be loaded as specified in schema source?
             }
         }

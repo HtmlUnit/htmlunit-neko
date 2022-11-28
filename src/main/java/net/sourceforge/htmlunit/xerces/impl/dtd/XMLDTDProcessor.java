@@ -931,8 +931,8 @@ public class XMLDTDProcessor
             if (type == XMLSymbols.fNOTATIONSymbol) {
                 // VC: Notation Attributes: all notation names in the
                 //     (attribute) declaration must be declared.
-                for (int i=0; i<enumeration.length; i++) {
-                    fNotationEnumVals.put(enumeration[i], attributeName);
+                for (String s : enumeration) {
+                    fNotationEnumVals.put(s, attributeName);
                 }
 
                 if (fTableOfNOTATIONAttributeNames.containsKey( elementName ) == false) {
@@ -1036,8 +1036,8 @@ public class XMLDTDProcessor
                     if (type == XMLSymbols.fNOTATIONSymbol ||
                         type == XMLSymbols.fENUMERATIONSymbol) {
                         ok = false;
-                        for (int i=0; i<enumeration.length; i++) {
-                            if (defaultValue.equals(enumeration[i])) {
+                        for (String s : enumeration) {
+                            if (defaultValue.equals(s)) {
                                 ok = true;
                             }
                         }

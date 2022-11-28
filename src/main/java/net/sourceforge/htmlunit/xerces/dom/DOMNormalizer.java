@@ -890,23 +890,23 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
             // clone content of the attributes
             attributes.cloneMap(fAttributeList);
-            for (int i = 0; i < fAttributeList.size(); i++) {
-                Attr attr = (Attr) fAttributeList.get(i);
+            for (Object o : fAttributeList) {
+                Attr attr = (Attr) o;
                 fLocator.fRelatedNode = attr;
 
                 if (DEBUG) {
-                    System.out.println("==>[ns-fixup] process attribute: "+attr.getNodeName());
+                    System.out.println("==>[ns-fixup] process attribute: " + attr.getNodeName());
                 }
                 // normalize attribute value
-                attr.normalize();                
-                value = attr.getValue();           
+                attr.normalize();
+                value = attr.getValue();
                 uri = attr.getNamespaceURI();
 
                 // make sure that value is never null.
                 if (value == null) {
                     value = XMLSymbols.EMPTY_STRING;
                 }
-                
+
                 //---------------------------------------
                 // check if value of the attribute is namespace well-formed
                 //---------------------------------------
@@ -914,28 +914,28 @@ public class DOMNormalizer implements XMLDocumentHandler {
                     isAttrValueWF(fErrorHandler, fError, fLocator, attributes, attr, value, fDocument.isXML11Version());
                     if (fDocument.isXMLVersionChanged()) {
                         boolean wellformed;
-                        if (fNamespaceValidation){
+                        if (fNamespaceValidation) {
                             wellformed = CoreDocumentImpl.isValidQName(attr.getPrefix(), attr.getLocalName(), fDocument.isXML11Version());
-                        }
-                        else {
+                        } else {
                             wellformed = CoreDocumentImpl.isXMLName(attr.getNodeName(), fDocument.isXML11Version());
                         }
                         if (!wellformed) {
                             String msg = DOMMessageFormatter.formatMessage(
-                                    DOMMessageFormatter.DOM_DOMAIN, 
-                                    "wf-invalid-character-in-node-name", 
+                                    DOMMessageFormatter.DOM_DOMAIN,
+                                    "wf-invalid-character-in-node-name",
                                     new Object[]{"Attr", attr.getNodeName()});
-                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, 
-                            "wf-invalid-character-in-node-name");
+                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR,
+                                    "wf-invalid-character-in-node-name");
                         }
-                    }           
+                    }
                 }
 
                 if (uri != null) {  // attribute has namespace !=null
                     prefix = attr.getPrefix();
-                    prefix = (prefix == null || 
-                              prefix.length() == 0) ? XMLSymbols.EMPTY_STRING :fSymbolTable.addSymbol(prefix);
-                    /*String localpart =*/ fSymbolTable.addSymbol( attr.getLocalName());
+                    prefix = (prefix == null ||
+                            prefix.length() == 0) ? XMLSymbols.EMPTY_STRING : fSymbolTable.addSymbol(prefix);
+                    /*String localpart =*/
+                    fSymbolTable.addSymbol(attr.getLocalName());
 
                     // ---------------------------------------
                     // skip namespace declarations 
@@ -956,14 +956,14 @@ public class DOMNormalizer implements XMLDocumentHandler {
                     */
                     // XML 1.0 Attribute value normalization
                     //value = normalizeAttributeValue(value, attr);
-                    
+
                     // reset id-attributes
-                    ((AttrImpl)attr).setIdAttribute(false);
+                    ((AttrImpl) attr).setIdAttribute(false);
 
                     uri = fSymbolTable.addSymbol(uri);
 
                     // find if for this prefix a URI was already declared
-                    String declaredURI =  fNamespaceContext.getURI(prefix);
+                    String declaredURI = fNamespaceContext.getURI(prefix);
 
                     if (prefix == XMLSymbols.EMPTY_STRING || declaredURI != uri) {
                         // attribute has no prefix (default namespace decl does not apply to attributes) 
@@ -976,7 +976,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
                         // Find if any prefix for attributes namespace URI is available
                         // in the scope
                         String declaredPrefix = fNamespaceContext.getPrefix(uri);
-                        if (declaredPrefix !=null && declaredPrefix !=XMLSymbols.EMPTY_STRING) {
+                        if (declaredPrefix != null && declaredPrefix != XMLSymbols.EMPTY_STRING) {
 
                             // use the prefix that was found (declared previously for this URI
                             prefix = declaredPrefix;
@@ -990,9 +990,9 @@ public class DOMNormalizer implements XMLDocumentHandler {
                                 // find a prefix following the pattern "NS" +index (starting at 1)
                                 // make sure this prefix is not declared in the current scope.
                                 int counter = 1;
-                                prefix = fSymbolTable.addSymbol(PREFIX +counter++);
-                                while (fLocalNSBinder.getURI(prefix)!=null) {
-                                    prefix = fSymbolTable.addSymbol(PREFIX +counter++);
+                                prefix = fSymbolTable.addSymbol(PREFIX + counter++);
+                                while (fLocalNSBinder.getURI(prefix) != null) {
+                                    prefix = fSymbolTable.addSymbol(PREFIX + counter++);
                                 }
 
                             }
@@ -1010,24 +1010,24 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
                     // XML 1.0 Attribute value normalization
                     //value = normalizeAttributeValue(value, attr);
-                    
+
                     // reset id-attributes
-                    ((AttrImpl)attr).setIdAttribute(false);
+                    ((AttrImpl) attr).setIdAttribute(false);
 
                     if (attr.getLocalName() == null) {
                         // It is an error if document has DOM L1 nodes.
                         if (fNamespaceValidation) {
                             String msg = DOMMessageFormatter.formatMessage(
-                                DOMMessageFormatter.DOM_DOMAIN, 
-                                "NullLocalAttrName", new Object[]{attr.getNodeName()});
-                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_FATAL_ERROR, 
-                                "NullLocalAttrName");
+                                    DOMMessageFormatter.DOM_DOMAIN,
+                                    "NullLocalAttrName", new Object[]{attr.getNodeName()});
+                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_FATAL_ERROR,
+                                    "NullLocalAttrName");
                         } else {
                             String msg = DOMMessageFormatter.formatMessage(
-                                DOMMessageFormatter.DOM_DOMAIN, 
-                                "NullLocalAttrName", new Object[]{attr.getNodeName()});
-                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, 
-                                "NullLocalAttrName");
+                                    DOMMessageFormatter.DOM_DOMAIN,
+                                    "NullLocalAttrName", new Object[]{attr.getNodeName()});
+                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR,
+                                    "NullLocalAttrName");
                         }
                     } else {
                         // uri=null and no colon

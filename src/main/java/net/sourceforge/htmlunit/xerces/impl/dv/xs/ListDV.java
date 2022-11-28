@@ -94,15 +94,15 @@ public class ListDV extends TypeValidator{
         
         public int hashCode() {
             int hash = 0;
-            for (int i = 0; i < data.length; ++i) {
-                hash ^= data[i].hashCode();
+            for (Object datum : data) {
+                hash ^= datum.hashCode();
             }
             return hash;
         }
         
         public boolean contains(Object item) {
-            for (int i = 0;i < data.length; i++) {
-                if (item == data[i]) {
+            for (Object datum : data) {
+                if (item == datum) {
                     return true;
                 }
             }

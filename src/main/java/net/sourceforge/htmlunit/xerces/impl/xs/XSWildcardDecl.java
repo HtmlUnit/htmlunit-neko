@@ -101,8 +101,8 @@ public class XSWildcardDecl implements XSWildcard {
         // 3 The constraint is a set, and the value is identical to one of the members of the set.
         if (fType == NSCONSTRAINT_LIST) {
             int listNum = fNamespaceList.length;
-            for (int i = 0; i < listNum; i++) {
-                if (namespace == fNamespaceList[i])
+            for (String s : fNamespaceList) {
+                if (namespace == s)
                     return true;
             }
         }
@@ -350,9 +350,9 @@ public class XSWildcardDecl implements XSWildcard {
             int listSize = list.length;
             String[] intersect = new String[listSize];
             int newSize = 0;
-            for (int i = 0; i < listSize; i++) {
-                if (list[i] != other[0] && list[i] != ABSENT)
-                    intersect[newSize++] = list[i];
+            for (String s : list) {
+                if (s != other[0] && s != ABSENT)
+                    intersect[newSize++] = s;
             }
 
             intersectWildcard.fType = NSCONSTRAINT_LIST;
@@ -407,8 +407,8 @@ public class XSWildcardDecl implements XSWildcard {
             // and each item in one list must appear in the other one
             // (we are assuming that there are no duplicate items in a list)
             if (fNamespaceList.length == wildcard.fNamespaceList.length) {
-                for (int i=0; i<fNamespaceList.length; i++) {
-                    if (!elementInSet(fNamespaceList[i], wildcard.fNamespaceList))
+                for (String s : fNamespaceList) {
+                    if (!elementInSet(s, wildcard.fNamespaceList))
                         return false;
                 }
                 return true;
@@ -423,9 +423,9 @@ public class XSWildcardDecl implements XSWildcard {
 
         // simple implemention,
         int count = 0;
-        for (int i=0; i<one.length; i++) {
-            if (elementInSet(one[i], theOther))
-                result[count++] = one[i];
+        for (String s : one) {
+            if (elementInSet(s, theOther))
+                result[count++] = s;
         }
 
         String[] result2 = new String[count];
@@ -439,9 +439,9 @@ public class XSWildcardDecl implements XSWildcard {
 
         // simple implemention,
         int count = 0;
-        for (int i=0; i<one.length; i++) {
-            if (!elementInSet(one[i], theOther))
-                result1[count++] = one[i];
+        for (String s : one) {
+            if (!elementInSet(s, theOther))
+                result1[count++] = s;
         }
 
         String[] result2 = new String[count+theOther.length];
@@ -452,8 +452,8 @@ public class XSWildcardDecl implements XSWildcard {
     }
 
     boolean subset2sets(String[] subSet, String[] superSet){
-        for (int i=0; i<subSet.length; i++) {
-            if (!elementInSet(subSet[i], superSet))
+        for (String s : subSet) {
+            if (!elementInSet(s, superSet))
                 return false;
         }
 

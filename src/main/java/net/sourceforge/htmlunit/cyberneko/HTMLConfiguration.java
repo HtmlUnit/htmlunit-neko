@@ -278,8 +278,7 @@ public class HTMLConfiguration
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
         final int size = fHTMLComponents.size();
-        for (int i = 0; i < size; i++) {
-            final HTMLComponent component = fHTMLComponents.get(i);
+        for (final HTMLComponent component : fHTMLComponents) {
             component.setFeature(featureId, state);
         }
     }
@@ -302,8 +301,7 @@ public class HTMLConfiguration
         }
 
         final int size = fHTMLComponents.size();
-        for (int i = 0; i < size; i++) {
-            final HTMLComponent component = fHTMLComponents.get(i);
+        for (final HTMLComponent component : fHTMLComponents) {
             component.setProperty(propertyId, value);
         }
     }
@@ -480,10 +478,10 @@ public class HTMLConfiguration
         addRecognizedFeatures(features);
         if (features != null) {
             final int featureCount = features.length;
-            for (int i = 0; i < featureCount; i++) {
-                final Boolean state = component.getFeatureDefault(features[i]);
+            for (String feature : features) {
+                final Boolean state = component.getFeatureDefault(feature);
                 if (state != null) {
-                    setFeature(features[i], state.booleanValue());
+                    setFeature(feature, state.booleanValue());
                 }
             }
         }
@@ -493,10 +491,10 @@ public class HTMLConfiguration
         addRecognizedProperties(properties);
         if (properties != null) {
             final int propertyCount = properties.length;
-            for (int i = 0; i < propertyCount; i++) {
-                final Object value = component.getPropertyDefault(properties[i]);
+            for (String property : properties) {
+                final Object value = component.getPropertyDefault(property);
                 if (value != null) {
-                    setProperty(properties[i], value);
+                    setProperty(property, value);
                 }
             }
         }
@@ -507,8 +505,7 @@ public class HTMLConfiguration
 
         // reset components
         final int size = fHTMLComponents.size();
-        for (int i = 0; i < size; i++) {
-            final HTMLComponent component = fHTMLComponents.get(i);
+        for (final HTMLComponent component : fHTMLComponents) {
             component.reset(this);
         }
 

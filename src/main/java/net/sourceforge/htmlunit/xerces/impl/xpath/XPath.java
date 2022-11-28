@@ -2005,16 +2005,14 @@ public class XPath {
     /** Main program entry. */
     public static void main(String[] argv) throws Exception {
 
-        for (int i = 0; i < argv.length; i++) {
-            final String expression = argv[i];
-            System.out.println("# XPath expression: \""+expression+'"');
+        for (final String expression : argv) {
+            System.out.println("# XPath expression: \"" + expression + '"');
             try {
                 SymbolTable symbolTable = new SymbolTable();
                 XPath xpath = new XPath(expression, symbolTable, null);
-                System.out.println("expanded xpath: \""+xpath.toString()+'"');
-            }
-            catch (XPathException e) {
-                System.out.println("error: "+e.getMessage());
+                System.out.println("expanded xpath: \"" + xpath.toString() + '"');
+            } catch (XPathException e) {
+                System.out.println("error: " + e.getMessage());
             }
         }
 

@@ -682,10 +682,10 @@ public final class Constants {
         System.out.print(header);
         if (array.length > 0) {
             System.out.println();
-            for (int i = 0; i < array.length; i++) {
+            for (Object o : array) {
                 System.out.print("  ");
                 System.out.print(prefix);
-                System.out.println(array[i]);
+                System.out.println(o);
             }
         }
         else {

@@ -137,9 +137,9 @@ public class CoreDOMImplementationImpl
                 // Check if the DOM XPath implementation implements
                 // the interface org.w3c.dom.XPathEvaluator
                 Class interfaces[] = xpathClass.getInterfaces();
-                for (int i = 0; i < interfaces.length; i++) {
-                    if (interfaces[i].getName().equals(
-                        "org.w3c.dom.xpath.XPathEvaluator")) {
+                for (Class anInterface : interfaces) {
+                    if (anInterface.getName().equals(
+                            "org.w3c.dom.xpath.XPathEvaluator")) {
                         return true;
                     }
                 }
@@ -319,12 +319,12 @@ public class CoreDOMImplementationImpl
 	                // Check if the DOM XPath implementation implements
 	                // the interface org.w3c.dom.XPathEvaluator
 	                Class interfaces[] = xpathClass.getInterfaces();
-	                for (int i = 0; i < interfaces.length; i++) {
-	                    if (interfaces[i].getName().equals(
-	                        "org.w3c.dom.xpath.XPathEvaluator")) {
-	                        return xpathClass.newInstance();
-	                    }
-	                }
+                    for (Class anInterface : interfaces) {
+                        if (anInterface.getName().equals(
+                                "org.w3c.dom.xpath.XPathEvaluator")) {
+                            return xpathClass.newInstance();
+                        }
+                    }
 	            } catch (Exception e) {
 	                return null;
 	            }

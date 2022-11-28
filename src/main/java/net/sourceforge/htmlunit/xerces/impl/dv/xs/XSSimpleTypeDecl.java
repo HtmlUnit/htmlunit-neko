@@ -635,8 +635,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             case VARIETY_LIST:
                 return fItemType.isIDType();
             case VARIETY_UNION:
-                for (int i = 0; i < fMemberTypes.length; i++) {
-                    if (fMemberTypes[i].isIDType())
+                for (XSSimpleTypeDecl fMemberType : fMemberTypes) {
+                    if (fMemberType.isIDType())
                         return true;
                 }
         }
@@ -1912,7 +1912,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
         } else { // (fVariety == VARIETY_UNION)
             final Object _content = (fMemberTypes.length > 1 && content != null) ? content.toString() : content;
-            for (int i = 0; i < fMemberTypes.length; i++) {
+            for (XSSimpleTypeDecl fMemberType : fMemberTypes) {
                 try {
                     // we can't call fMemberType[i].validate(), otherwise checkExtraRules()
                     // will be called twice: once in fMemberType[i].validate, once in
@@ -1920,16 +1920,16 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                     // so we take two steps to get the actual value:
                     // 1. fMemberType[i].getActualValue()
                     // 2. fMemberType[i].chekcFacets()
-                    Object aValue = fMemberTypes[i].getActualValue(_content, context, validatedInfo, true);
+                    Object aValue = fMemberType.getActualValue(_content, context, validatedInfo, true);
                     if (context.needFacetChecking() &&
-                            (fMemberTypes[i].fFacetsDefined != 0 && fMemberTypes[i].fFacetsDefined != FACET_WHITESPACE)) {
-                        fMemberTypes[i].checkFacets(validatedInfo);
+                            (fMemberType.fFacetsDefined != 0 && fMemberType.fFacetsDefined != FACET_WHITESPACE)) {
+                        fMemberType.checkFacets(validatedInfo);
                     }
-                    validatedInfo.memberType = fMemberTypes[i];
+                    validatedInfo.memberType = fMemberType;
                     // Need to set it here or it will become the member type
                     validatedInfo.actualType = this;
                     return aValue;
-                } catch(InvalidDatatypeValueException invalidValue) {
+                } catch (InvalidDatatypeValueException invalidValue) {
                 }
             }
             StringBuffer typesBuffer = new StringBuffer();
@@ -2433,8 +2433,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         }
         else if(fVariety == VARIETY_UNION){
             XSSimpleType[] memberTypes = fMemberTypes;
-            for(int i = 0 ; i < memberTypes.length ; i++){
-                if(!memberTypes[i].getNumeric() ){
+            for (XSSimpleType memberType : memberTypes) {
+                if (!memberType.getNumeric()) {
                     this.fNumeric = false;
                     return;
                 }
@@ -2473,8 +2473,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 ancestorId = getPrimitiveDV(memberTypes[0].fValidationDV);
             }
 
-            for(int i = 0 ; i < memberTypes.length ; i++){
-                if(!memberTypes[i].getBounded() || (ancestorId != getPrimitiveDV(memberTypes[i].fValidationDV)) ){
+            for (XSSimpleTypeDecl memberType : memberTypes) {
+                if (!memberType.getBounded() || (ancestorId != getPrimitiveDV(memberType.fValidationDV))) {
                     this.fBounded = false;
                     return;
                 }
@@ -2530,8 +2530,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         }
         else if(fVariety == VARIETY_UNION){
             XSSimpleType [] memberTypes = fMemberTypes;
-            for(int i = 0 ; i < memberTypes.length ; i++){
-                if(!(memberTypes[i].getFinite()) ){
+            for (XSSimpleType memberType : memberTypes) {
+                if (!(memberType.getFinite())) {
                     this.fFinite = false;
                     return;
                 }

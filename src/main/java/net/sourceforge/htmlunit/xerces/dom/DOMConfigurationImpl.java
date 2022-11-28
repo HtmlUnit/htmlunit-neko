@@ -1107,8 +1107,8 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             fValidationManager.reset();
 
         int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (Object fComponent : fComponents) {
+            XMLComponent c = (XMLComponent) fComponent;
             c.reset(this);
         }
 

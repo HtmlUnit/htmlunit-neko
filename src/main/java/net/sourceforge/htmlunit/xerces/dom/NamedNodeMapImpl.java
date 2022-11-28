@@ -518,10 +518,10 @@ public class NamedNodeMapImpl
 
         if (nodes != null) {
             final int size = nodes.size();
-            for (int i = 0; i < size; ++i) {
-                Node n = (Node)nodes.get(i);
-                if (n==a) return true;
-                if (n==b) return false;
+            for (Object node : nodes) {
+                Node n = (Node) node;
+                if (n == a) return true;
+                if (n == b) return false;
             }
         }
         return false;
@@ -581,8 +581,8 @@ public class NamedNodeMapImpl
         list.clear();
         if (nodes != null) {
             final int size = nodes.size();
-            for (int i = 0; i < size; ++i) {
-                list.add(nodes.get(i));
+            for (Object node : nodes) {
+                list.add(node);
             }
         }
         return list;

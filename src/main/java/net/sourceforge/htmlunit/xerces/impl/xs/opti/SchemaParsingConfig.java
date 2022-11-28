@@ -946,8 +946,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
 
         // set default values
         if (recognizedFeatures != null) {
-            for (int i = 0; i < recognizedFeatures.length; ++i) {
-                String featureId = recognizedFeatures[i];
+            for (String featureId : recognizedFeatures) {
                 Boolean state = component.getFeatureDefault(featureId);
                 if (state != null) {
                     // Do not overwrite values already set on the configuration.
@@ -963,8 +962,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             }
         }
         if (recognizedProperties != null) {
-            for (int i = 0; i < recognizedProperties.length; ++i) {
-                String propertyId = recognizedProperties[i];
+            for (String propertyId : recognizedProperties) {
                 Object value = component.getPropertyDefault(propertyId);
                 if (value != null) {
                     // Do not overwrite values already set on the configuration.

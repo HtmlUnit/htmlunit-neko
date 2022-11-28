@@ -48,8 +48,8 @@ public class XSGrammarPool extends XMLGrammarPoolImpl {
     
     public XSModel toXSModel(short schemaVersion) {
         ArrayList list = new ArrayList();
-        for (int i = 0; i < fGrammars.length; i++) {
-            for (Entry entry = fGrammars[i] ; entry != null ; entry = entry.next) {
+        for (Entry fGrammar : fGrammars) {
+            for (Entry entry = fGrammar; entry != null; entry = entry.next) {
                 if (entry.desc.getGrammarType().equals(XMLGrammarDescription.XML_SCHEMA)) {
                     list.add(entry.grammar);
                 }

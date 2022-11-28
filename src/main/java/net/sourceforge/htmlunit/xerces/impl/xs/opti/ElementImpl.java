@@ -164,10 +164,10 @@ public class ElementImpl extends DefaultElement {
     
     
     public String getAttribute(String name) {
-        
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(name)) {
-                return attrs[i].getValue();
+
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(name)) {
+                return attr.getValue();
             }
         }
         return "";
@@ -175,9 +175,9 @@ public class ElementImpl extends DefaultElement {
     
     
     public Attr getAttributeNode(String name) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(name)) {
-                return attrs[i];
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(name)) {
+                return attr;
             }
         }
         return null;
@@ -185,9 +185,9 @@ public class ElementImpl extends DefaultElement {
     
     
     public String getAttributeNS(String namespaceURI, String localName) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getLocalName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(), namespaceURI)) {
-                return attrs[i].getValue();
+        for (Attr attr : attrs) {
+            if (attr.getLocalName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
+                return attr.getValue();
             }
         }
         return "";
@@ -195,9 +195,9 @@ public class ElementImpl extends DefaultElement {
     
     
     public Attr getAttributeNodeNS(String namespaceURI, String localName) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(), namespaceURI)) {
-                return attrs[i];
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
+                return attr;
             }
         }
         return null;
@@ -205,8 +205,8 @@ public class ElementImpl extends DefaultElement {
     
     
     public boolean hasAttribute(String name) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(name)) {
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(name)) {
                 return true;
             }
         }
@@ -215,8 +215,8 @@ public class ElementImpl extends DefaultElement {
     
     
     public boolean hasAttributeNS(String namespaceURI, String localName) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(), namespaceURI)) {
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
                 return true;
             }
         }
@@ -225,9 +225,9 @@ public class ElementImpl extends DefaultElement {
     
     
     public void setAttribute(String name, String value) {
-        for (int i=0; i<attrs.length; i++) {
-            if (attrs[i].getName().equals(name)) {
-                attrs[i].setValue(value);
+        for (Attr attr : attrs) {
+            if (attr.getName().equals(name)) {
+                attr.setValue(value);
                 return;
             }
         }

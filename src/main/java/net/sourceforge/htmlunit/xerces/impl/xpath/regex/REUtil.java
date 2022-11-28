@@ -216,28 +216,28 @@ public final class REUtil {
                 System.out.println( "Error:Usage: java REUtil -i|-m|-s|-u|-w|-X regularExpression String" );
                 System.exit( 0 );
             }
-            for (int i = 0;  i < argv.length;  i ++) {
-                if (argv[i].length() == 0 || argv[i].charAt(0) != '-') {
+            for (String s : argv) {
+                if (s.length() == 0 || s.charAt(0) != '-') {
                     if (pattern == null)
-                        pattern = argv[i];
+                        pattern = s;
                     else if (target == null)
-                        target = argv[i];
+                        target = s;
                     else
-                        System.err.println("Unnecessary: "+argv[i]);
-                } else if (argv[i].equals("-i")) {
+                        System.err.println("Unnecessary: " + s);
+                } else if (s.equals("-i")) {
                     options += "i";
-                } else if (argv[i].equals("-m")) {
+                } else if (s.equals("-m")) {
                     options += "m";
-                } else if (argv[i].equals("-s")) {
+                } else if (s.equals("-s")) {
                     options += "s";
-                } else if (argv[i].equals("-u")) {
+                } else if (s.equals("-u")) {
                     options += "u";
-                } else if (argv[i].equals("-w")) {
+                } else if (s.equals("-w")) {
                     options += "w";
-                } else if (argv[i].equals("-X")) {
+                } else if (s.equals("-X")) {
                     options += "X";
                 } else {
-                    System.err.println("Unknown option: "+argv[i]);
+                    System.err.println("Unknown option: " + s);
                 }
             }
             RegularExpression reg = new RegularExpression(pattern, options);
