@@ -32,7 +32,7 @@ import net.sourceforge.htmlunit.xerces.util.SymbolHash;
  */
 public class ExtendedSchemaDVFactoryImpl extends BaseSchemaDVFactory {
 
-    static SymbolHash fBuiltInTypes = new SymbolHash();
+    static final SymbolHash fBuiltInTypes = new SymbolHash();
     static {
         createBuiltInTypes();
     }

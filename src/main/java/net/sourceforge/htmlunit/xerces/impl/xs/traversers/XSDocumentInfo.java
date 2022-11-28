@@ -46,7 +46,7 @@ class XSDocumentInfo {
     // Data
     protected SchemaNamespaceSupport fNamespaceSupport;
     protected SchemaNamespaceSupport fNamespaceSupportRoot;
-    protected Stack SchemaNamespaceSupportStack = new Stack();
+    protected final Stack SchemaNamespaceSupportStack = new Stack();
 
     // schema's attributeFormDefault
     protected boolean fAreLocalAttributesQualified;
@@ -65,18 +65,18 @@ class XSDocumentInfo {
     protected boolean fIsChameleonSchema;
 
     // the root of the schema Document tree itself
-    protected Element fSchemaElement;
+    protected final Element fSchemaElement;
 
     // all namespaces that this document can refer to
-    Vector fImportedNS = new Vector();
+    final Vector fImportedNS = new Vector();
     
-    protected ValidationState fValidationContext = new ValidationState();
+    protected final ValidationState fValidationContext = new ValidationState();
 
     SymbolTable fSymbolTable = null;
 
     // attribute checker to which we'll return the attributes 
     // once we've been told that we're done with them
-    protected XSAttributeChecker fAttrChecker;
+    protected final XSAttributeChecker fAttrChecker;
 
     // array of objects on the schema's root element.  This is null
     // once returnSchemaAttrs has been called.

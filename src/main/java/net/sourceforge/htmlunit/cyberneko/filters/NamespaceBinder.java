@@ -604,10 +604,10 @@ public class NamespaceBinder
             //
 
             /** Prefix. */
-            public String prefix;
+            public final String prefix;
 
             /** URI. */
-            public String uri;
+            public final String uri;
 
             //
             // Constructors

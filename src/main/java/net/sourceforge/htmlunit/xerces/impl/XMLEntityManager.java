@@ -1270,7 +1270,7 @@ public class XMLEntityManager
     } // getEntityScanner():XMLEntityScanner
 
     // A stack containing all the open readers
-    protected Stack fReaderStack = new Stack();
+    protected final Stack fReaderStack = new Stack();
 
     /**
      * Close all opened InputStreams and Readers opened by this parser.
@@ -1626,7 +1626,7 @@ public class XMLEntityManager
         }
     }
     
-    private static PrivilegedAction GET_USER_DIR_SYSTEM_PROPERTY = new PrivilegedAction() {
+    private static final PrivilegedAction GET_USER_DIR_SYSTEM_PROPERTY = new PrivilegedAction() {
         public Object run() {
             return System.getProperty("user.dir");
         }
@@ -2665,7 +2665,7 @@ public class XMLEntityManager
         // i/o
 
         /** Input stream. */
-        public InputStream stream;
+        public final InputStream stream;
 
         /** Reader. */
         public Reader reader;
@@ -2673,7 +2673,7 @@ public class XMLEntityManager
         // locator information
 
         /** entity location information */
-        public XMLResourceIdentifier entityLocation;
+        public final XMLResourceIdentifier entityLocation;
 
         /** Line number. */
         public int lineNumber = 1;
@@ -2703,7 +2703,7 @@ public class XMLEntityManager
         public boolean literal;
 
         // whether this is an external or internal scanned entity
-        public boolean isExternal;
+        public final boolean isExternal;
 
         // buffer
 
@@ -2726,7 +2726,7 @@ public class XMLEntityManager
         public boolean mayReadChunks;
         
         /** Character buffer container. */
-        private CharacterBuffer fCharacterBuffer;
+        private final CharacterBuffer fCharacterBuffer;
         
         /** Byte buffer. */
         private byte [] fByteBuffer;
@@ -2976,7 +2976,7 @@ public class XMLEntityManager
         
         private static final int DEFAULT_POOL_SIZE = 3;
         
-        private int fPoolSize;
+        private final int fPoolSize;
         private int fBufferSize;
         private byte[][] fByteBufferPool;
         private int fDepth;
@@ -3050,8 +3050,8 @@ public class XMLEntityManager
         private CharacterBuffer[] fExternalBufferPool;
 
         private int fExternalBufferSize;
-        private int fInternalBufferSize;
-        private int fPoolSize;
+        private final int fInternalBufferSize;
+        private final int fPoolSize;
         
         private int fInternalTop;
         private int fExternalTop;

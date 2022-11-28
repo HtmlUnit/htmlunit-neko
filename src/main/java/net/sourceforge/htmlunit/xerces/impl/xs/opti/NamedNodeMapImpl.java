@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
  */
 public class NamedNodeMapImpl implements NamedNodeMap {
 
-	Attr[] attrs;
+	final Attr[] attrs;
 	
 	public NamedNodeMapImpl(Attr[] attrs) {
 		this.attrs = attrs;

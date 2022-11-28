@@ -505,7 +505,7 @@ public class HTMLScanner
      * as plain text, ignoring markup such as elements and entity references.
      * For example: &lt;SCRIPT&gt; and &lt;COMMENT&gt;.
      */
-    protected SpecialScanner fSpecialScanner = new SpecialScanner();
+    protected final SpecialScanner fSpecialScanner = new SpecialScanner();
 
     // temp vars
 

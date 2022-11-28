@@ -345,7 +345,7 @@ public class XMLSchemaValidator
     //
 
     /** current PSVI element info */
-    protected ElementPSVImpl fCurrentPSVI = new ElementPSVImpl();
+    protected final ElementPSVImpl fCurrentPSVI = new ElementPSVImpl();
 
     // since it is the responsibility of each component to an
     // Augmentations parameter if one is null, to save ourselves from
@@ -400,7 +400,7 @@ public class XMLSchemaValidator
 
         // store error codes; starting position of the errors for each element;
         // number of element (depth); and whether to record error
-        Vector fErrors = new Vector();
+        final Vector fErrors = new Vector();
         int[] fContext = new int[INITIAL_STACK_SIZE];
         int fContextCount;
 
@@ -506,7 +506,7 @@ public class XMLSchemaValidator
 
     // updated during reset
     protected ValidationManager fValidationManager = null;
-    protected ConfigurableValidationState fValidationState = new ConfigurableValidationState();
+    protected final ConfigurableValidationState fValidationState = new ConfigurableValidationState();
     protected XMLGrammarPool fGrammarPool;
 
     // schema location property values
@@ -1281,15 +1281,15 @@ public class XMLSchemaValidator
     private boolean fIDCChecking;
 
     /** temporary validated info */
-    private ValidatedInfo fValidatedInfo = new ValidatedInfo();
+    private final ValidatedInfo fValidatedInfo = new ValidatedInfo();
 
     // used to validate default/fixed values against xsi:type
     // only need to check facets, so we set extraChecking to false (in reset)
-    private ValidationState fState4XsiType = new ValidationState();
+    private final ValidationState fState4XsiType = new ValidationState();
 
     // used to apply default/fixed values
     // only need to check id/idref/entity, so we set checkFacets to false
-    private ValidationState fState4ApplyDefault = new ValidationState();
+    private final ValidationState fState4ApplyDefault = new ValidationState();
 
     // identity constraint information
 
@@ -1307,10 +1307,10 @@ public class XMLSchemaValidator
      * XPath matchers are automatically removed from the stack of
      * active matchers and no longer receive callbacks.
      */
-    protected XPathMatcherStack fMatcherStack = new XPathMatcherStack();
+    protected final XPathMatcherStack fMatcherStack = new XPathMatcherStack();
 
     /** Cache of value stores for identity constraint fields. */
-    protected ValueStoreCache fValueStoreCache = new ValueStoreCache();
+    protected final ValueStoreCache fValueStoreCache = new ValueStoreCache();
 
     //
     // Constructors
@@ -3618,7 +3618,7 @@ public class XMLSchemaValidator
         protected int fMatchersCount;
 
         /** Offset stack for contexts. */
-        protected IntStack fContextStack = new IntStack();
+        protected final IntStack fContextStack = new IntStack();
 
         //
         // Constructors
@@ -3701,7 +3701,7 @@ public class XMLSchemaValidator
         //
 
         /** Identity constraint. */
-        protected IdentityConstraint fIdentityConstraint;
+        protected final IdentityConstraint fIdentityConstraint;
         protected int fFieldCount = 0;
         protected Field[] fFields = null;
         /** current data */

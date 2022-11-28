@@ -202,7 +202,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
     protected XMLDTDScanner fCurrentDTDScanner;
     
     /** Grammar pool. */
-    protected XMLGrammarPool fGrammarPool;
+    protected final XMLGrammarPool fGrammarPool;
     
     /** XML version detector. */
     protected final XMLVersionDetector fVersionDetector;

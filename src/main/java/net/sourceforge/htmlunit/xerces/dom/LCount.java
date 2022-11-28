@@ -42,7 +42,7 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 class LCount 
 { 
-    static java.util.Hashtable lCounts=new java.util.Hashtable();
+    static final java.util.Hashtable lCounts=new java.util.Hashtable();
     public int captures=0,bubbles=0,defaults, total=0;
 
     static LCount lookup(String evtName)

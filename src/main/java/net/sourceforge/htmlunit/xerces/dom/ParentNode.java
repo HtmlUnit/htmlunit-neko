@@ -1021,8 +1021,8 @@ public abstract class ParentNode
         /** Serialization version. */
         private static final long serialVersionUID = 3258126977134310455L;
         
-        Object fData;
-        UserDataHandler fHandler;
+        final Object fData;
+        final UserDataHandler fHandler;
         UserDataRecord(Object data, UserDataHandler handler) {
             fData = data;
             fHandler = handler;

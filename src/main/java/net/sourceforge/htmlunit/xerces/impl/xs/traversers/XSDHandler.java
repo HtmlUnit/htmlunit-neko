@@ -246,27 +246,27 @@ public class XSDHandler {
     // By asking the node for its ownerDocument and looking in
     // XSDocumentInfoRegistry we can easily get the corresponding
     // XSDocumentInfo object.
-    private Hashtable fUnparsedAttributeRegistry = new Hashtable();
-    private Hashtable fUnparsedAttributeGroupRegistry = new Hashtable();
-    private Hashtable fUnparsedElementRegistry = new Hashtable();
-    private Hashtable fUnparsedGroupRegistry = new Hashtable();
-    private Hashtable fUnparsedIdentityConstraintRegistry = new Hashtable();
-    private Hashtable fUnparsedNotationRegistry = new Hashtable();
-    private Hashtable fUnparsedTypeRegistry = new Hashtable();
+    private final Hashtable fUnparsedAttributeRegistry = new Hashtable();
+    private final Hashtable fUnparsedAttributeGroupRegistry = new Hashtable();
+    private final Hashtable fUnparsedElementRegistry = new Hashtable();
+    private final Hashtable fUnparsedGroupRegistry = new Hashtable();
+    private final Hashtable fUnparsedIdentityConstraintRegistry = new Hashtable();
+    private final Hashtable fUnparsedNotationRegistry = new Hashtable();
+    private final Hashtable fUnparsedTypeRegistry = new Hashtable();
     // Compensation for the above hashtables to locate XSDocumentInfo,
     // Since we may take Schema Element directly, so can not get the
     // corresponding XSDocumentInfo object just using above hashtables.
-    private Hashtable fUnparsedAttributeRegistrySub = new Hashtable();
-    private Hashtable fUnparsedAttributeGroupRegistrySub = new Hashtable();
-    private Hashtable fUnparsedElementRegistrySub = new Hashtable();
-    private Hashtable fUnparsedGroupRegistrySub = new Hashtable();
-    private Hashtable fUnparsedIdentityConstraintRegistrySub = new Hashtable();
-    private Hashtable fUnparsedNotationRegistrySub = new Hashtable();
-    private Hashtable fUnparsedTypeRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedAttributeRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedAttributeGroupRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedElementRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedGroupRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedIdentityConstraintRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedNotationRegistrySub = new Hashtable();
+    private final Hashtable fUnparsedTypeRegistrySub = new Hashtable();
 
     // Stores XSDocumentInfo (keyed by component name), to check for duplicate
     // components declared within the same xsd document
-    private Hashtable[] fUnparsedRegistriesExt = new Hashtable[] {
+    private final Hashtable[] fUnparsedRegistriesExt = new Hashtable[] {
         null,
         new Hashtable(), // ATTRIBUTE_TYPE
         new Hashtable(), // ATTRIBUTEGROUP_TYPE
@@ -283,22 +283,22 @@ public class XSDHandler {
     // Basically, the function of this registry is to be a link
     // between the nodes we fetch from calls to the fUnparsed*
     // arrays and the XSDocumentInfos they live in.
-    private Hashtable fXSDocumentInfoRegistry = new Hashtable();
+    private final Hashtable fXSDocumentInfoRegistry = new Hashtable();
 
     // this hashtable is keyed on by XSDocumentInfo objects.  Its values
     // are Vectors containing the XSDocumentInfo objects <include>d,
     // <import>ed or <redefine>d by the key XSDocumentInfo.
-    private Hashtable fDependencyMap = new Hashtable();
+    private final Hashtable fDependencyMap = new Hashtable();
 
     // this hashtable is keyed on by a target namespace.  Its values
     // are Vectors containing namespaces imported by schema documents
     // with the key target namespace.
     // if an imprted schema has absent namespace, the value "null" is stored.
-    private Hashtable fImportMap = new Hashtable();
+    private final Hashtable fImportMap = new Hashtable();
     // all namespaces that imports other namespaces
     // if the importing schema has absent namespace, empty string is stored.
     // (because the key of a hashtable can't be null.)
-    private Vector fAllTNSs = new Vector();
+    private final Vector fAllTNSs = new Vector();
     // stores instance document mappings between namespaces and schema hints
     private Hashtable fLocationPairs = null;
     private static final Hashtable EMPTY_TABLE = new Hashtable();
@@ -330,33 +330,33 @@ public class XSDHandler {
     // schema document.  This combination is used so that the user's
     // EntityResolver can provide a consistent way of identifying a
     // schema document that is included in multiple other schemas.
-    private Hashtable fTraversed = new Hashtable();
+    private final Hashtable fTraversed = new Hashtable();
 
     // this hashtable contains a mapping from Schema Element to its systemId
     // this is useful to resolve a uri relative to the referring document
-    private Hashtable fDoc2SystemId = new Hashtable();
+    private final Hashtable fDoc2SystemId = new Hashtable();
 
     // the primary XSDocumentInfo we were called to parse
     private XSDocumentInfo fRoot = null;
 
     // This hashtable's job is to act as a link between the Schema Element and its
     // XSDocumentInfo object.
-    private Hashtable fDoc2XSDocumentMap = new Hashtable();
+    private final Hashtable fDoc2XSDocumentMap = new Hashtable();
 
     // map between <redefine> elements and the XSDocumentInfo
     // objects that correspond to the documents being redefined.
-    private Hashtable fRedefine2XSDMap = new Hashtable();
+    private final Hashtable fRedefine2XSDMap = new Hashtable();
 
     // map between <redefine> elements and the namespace support
-    private Hashtable fRedefine2NSSupport = new Hashtable();
+    private final Hashtable fRedefine2NSSupport = new Hashtable();
 
     // these objects store a mapping between the names of redefining
     // groups/attributeGroups and the groups/AttributeGroups which
     // they redefine by restriction (implicitly).  It is up to the
     // Group and AttributeGroup traversers to check these restrictions for
     // validity.
-    private Hashtable fRedefinedRestrictedAttributeGroupRegistry = new Hashtable();
-    private Hashtable fRedefinedRestrictedGroupRegistry = new Hashtable();
+    private final Hashtable fRedefinedRestrictedAttributeGroupRegistry = new Hashtable();
+    private final Hashtable fRedefinedRestrictedGroupRegistry = new Hashtable();
 
     // a variable storing whether the last schema document
     // processed (by getSchema) was a duplicate.
@@ -406,7 +406,7 @@ public class XSDHandler {
     XSDWildcardTraverser fWildCardTraverser;
 
     SchemaDVFactory fDVFactory;
-    SchemaDOMParser fSchemaParser;
+    final SchemaDOMParser fSchemaParser;
     SchemaContentHandler fXSContentHandler;
     XML11Configuration fAnnotationValidator;
     XSAnnotationGrammarPool fGrammarBucketAdapter;
@@ -444,13 +444,13 @@ public class XSDHandler {
     private String [][] fKeyrefNamespaceContext = new String[INIT_KEYREF_STACK][1];
 
     // global decls: map from decl name to decl object
-    SymbolHash fGlobalAttrDecls = new SymbolHash(12);
-    SymbolHash fGlobalAttrGrpDecls = new SymbolHash(5);
-    SymbolHash fGlobalElemDecls = new SymbolHash(25);
-    SymbolHash fGlobalGroupDecls = new SymbolHash(5);
-    SymbolHash fGlobalNotationDecls = new SymbolHash(1);
-    SymbolHash fGlobalIDConstraintDecls = new SymbolHash(3);
-    SymbolHash fGlobalTypeDecls = new SymbolHash(25);
+    final SymbolHash fGlobalAttrDecls = new SymbolHash(12);
+    final SymbolHash fGlobalAttrGrpDecls = new SymbolHash(5);
+    final SymbolHash fGlobalElemDecls = new SymbolHash(25);
+    final SymbolHash fGlobalGroupDecls = new SymbolHash(5);
+    final SymbolHash fGlobalNotationDecls = new SymbolHash(1);
+    final SymbolHash fGlobalIDConstraintDecls = new SymbolHash(3);
+    final SymbolHash fGlobalTypeDecls = new SymbolHash(25);
 
     // Constructors
     public XSDHandler(){
@@ -3984,7 +3984,7 @@ public class XSDHandler {
         // if it's visible already than so must be its children
     } // setSchemasVisible(XSDocumentInfo): void
 
-    private SimpleLocator xl = new SimpleLocator();
+    private final SimpleLocator xl = new SimpleLocator();
 
     /**
      * Extract location information from an Element node, and create a
@@ -4162,11 +4162,11 @@ public class XSDHandler {
      * duplicate.
      */
     private static class XSDKey {
-        String systemId;
-        short  referType;
+        final String systemId;
+        final short  referType;
         // for inclue/redefine, this is the enclosing namespace
         // for import/preparse/instance, this is the target namespace
-        String referNS;
+        final String referNS;
 
         XSDKey(String systemId, short referType, String referNS) {
             this.systemId = systemId;

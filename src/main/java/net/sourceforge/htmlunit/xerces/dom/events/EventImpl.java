@@ -41,7 +41,7 @@ public class EventImpl implements Event {
     public boolean initialized = false, bubbles = true, cancelable = false;
     public boolean stopPropagation = false, preventDefault = false;
 
-    protected long timeStamp = System.currentTimeMillis();
+    protected final long timeStamp = System.currentTimeMillis();
 
     /** 
      * The DOM doesn't deal with constructors, so instead we have an

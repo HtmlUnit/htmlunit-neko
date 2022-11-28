@@ -177,10 +177,10 @@ public class SubstitutionGroupHandler {
     // - a Vector, which contains all elements that has this element as their
     //   substitution group affilication
     // - an array of OneSubGroup, which contains its substitution group before block.
-    Hashtable fSubGroupsB = new Hashtable();
+    final Hashtable fSubGroupsB = new Hashtable();
     private static final OneSubGroup[] EMPTY_VECTOR = new OneSubGroup[0];
     // The real substitution groups (after "block")
-    Hashtable fSubGroups = new Hashtable();
+    final Hashtable fSubGroups = new Hashtable();
 
     /**
      * clear the internal registry of substitutionGroup information

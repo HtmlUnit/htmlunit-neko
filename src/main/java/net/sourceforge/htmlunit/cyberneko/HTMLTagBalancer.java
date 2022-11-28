@@ -1373,10 +1373,10 @@ public class HTMLTagBalancer
         //
 
         /** The element. */
-        public HTMLElements.Element element;
+        public final HTMLElements.Element element;
 
         /** The element qualified name. */
-        public QName qname;
+        public final QName qname;
 
         /** The element attributes. */
         public XMLAttributes attributes;

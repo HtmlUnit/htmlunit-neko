@@ -32,8 +32,8 @@ public class TextImpl extends DefaultText {
     // Data
     String fData = null;
     SchemaDOM fSchemaDOM = null;
-    int fRow;
-    int fCol;
+    final int fRow;
+    final int fCol;
 
     public TextImpl(StringBuffer str, SchemaDOM sDOM, int row, int col) {
         fData = str.toString();

@@ -300,7 +300,7 @@ public class XML11Configuration extends ParserConfigurationSettings
     // Data
     //
 
-	protected SymbolTable fSymbolTable;
+	protected final SymbolTable fSymbolTable;
     protected XMLInputSource fInputSource;
     protected final ValidationManager fValidationManager;
 	protected final XMLVersionDetector fVersionDetector;
@@ -394,13 +394,13 @@ public class XML11Configuration extends ParserConfigurationSettings
     //
 
     /** Grammar pool. */
-    protected XMLGrammarPool fGrammarPool;
+    protected final XMLGrammarPool fGrammarPool;
 
     /** Error reporter. */
-    protected XMLErrorReporter fErrorReporter;
+    protected final XMLErrorReporter fErrorReporter;
 
     /** Entity manager. */
-    protected XMLEntityManager fEntityManager;
+    protected final XMLEntityManager fEntityManager;
 
     /** XML Schema Validator. */
     protected XMLSchemaValidator fSchemaValidator;

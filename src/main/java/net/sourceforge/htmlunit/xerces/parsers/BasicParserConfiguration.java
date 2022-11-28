@@ -141,7 +141,7 @@ public abstract class BasicParserConfiguration
     // components (non-configurable)
 
     /** Symbol table. */
-    protected SymbolTable fSymbolTable;
+    protected final SymbolTable fSymbolTable;
 
 
     // data
@@ -150,7 +150,7 @@ public abstract class BasicParserConfiguration
     protected Locale fLocale;
 
     /** Components. */
-    protected ArrayList fComponents;
+    protected final ArrayList fComponents;
 
     // handlers
 

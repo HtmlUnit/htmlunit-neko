@@ -188,7 +188,7 @@ public abstract class AbstractSAXParser
      * some features/properties cannot be set while parsing (e.g.
      * validation and namespaces).
      */
-    protected boolean fParseInProgress = false;
+    protected final boolean fParseInProgress = false;
 
     // track the version of the document being parsed
     protected String fVersion;
@@ -2201,7 +2201,7 @@ public abstract class AbstractSAXParser
         //
 
         /** XML locator. */
-        protected XMLLocator fLocator;
+        protected final XMLLocator fLocator;
 
         //
         // Constructors

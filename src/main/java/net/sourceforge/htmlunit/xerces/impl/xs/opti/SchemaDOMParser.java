@@ -69,7 +69,7 @@ public class SchemaDOMParser extends DefaultXMLDocumentHandler {
     
     SchemaDOM schemaDOM;
     
-    XMLParserConfiguration config;
+    final XMLParserConfiguration config;
     
     //
     // Constructors
@@ -98,9 +98,9 @@ public class SchemaDOMParser extends DefaultXMLDocumentHandler {
     
     // fields for generate-synthetic annotations feature
     private boolean fGenerateSyntheticAnnotation = false;
-    private BooleanStack fHasNonSchemaAttributes = new BooleanStack();
-    private BooleanStack fSawAnnotation = new BooleanStack();
-    private XMLAttributes fEmptyAttr = new XMLAttributesImpl();
+    private final BooleanStack fHasNonSchemaAttributes = new BooleanStack();
+    private final BooleanStack fSawAnnotation = new BooleanStack();
+    private final XMLAttributes fEmptyAttr = new XMLAttributesImpl();
     
     //
     // XMLDocumentHandler methods

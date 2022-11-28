@@ -38,7 +38,7 @@ public class XSException extends RuntimeException {
        super(message);
        this.code = code;
     }
-    public short   code;
+    public final short   code;
     // ExceptionCode
     /**
      * If the implementation does not support the requested type of object or 

@@ -77,14 +77,14 @@ public class CachingParserPool {
      * constructed with is automatically wrapped in a synchronized
      * version for thread-safety.
      */
-    protected SymbolTable fSynchronizedSymbolTable;
+    protected final SymbolTable fSynchronizedSymbolTable;
 
     /** 
      * Grammar pool. The grammar pool that the caching parser pool is
      * constructed with is automatically wrapped in a synchronized
      * version for thread-safety.
      */
-    protected XMLGrammarPool fSynchronizedGrammarPool;
+    protected final XMLGrammarPool fSynchronizedGrammarPool;
 
     /** 
      * Shadow the symbol table for new parser instances. If true,
@@ -102,7 +102,7 @@ public class CachingParserPool {
      * grammar pool. New grammars are added to the shadow grammar
      * pool and are local to the parser instance.
      */
-    protected boolean fShadowGrammarPool = DEFAULT_SHADOW_GRAMMAR_POOL;
+    protected final boolean fShadowGrammarPool = DEFAULT_SHADOW_GRAMMAR_POOL;
 
     //
     // Constructors
@@ -198,7 +198,7 @@ public class CachingParserPool {
         //
 
         /** Main grammar pool. */
-        private XMLGrammarPool fGrammarPool;
+        private final XMLGrammarPool fGrammarPool;
 
         //
         // Constructors
@@ -343,7 +343,7 @@ public class CachingParserPool {
         //
 
         /** Main grammar pool. */
-        private XMLGrammarPool fGrammarPool;
+        private final XMLGrammarPool fGrammarPool;
 
         //
         // Constructors

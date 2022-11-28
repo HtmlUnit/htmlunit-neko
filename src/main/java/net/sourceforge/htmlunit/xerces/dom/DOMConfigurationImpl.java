@@ -227,18 +227,18 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     // components
 
     /** Symbol table. */
-    protected SymbolTable fSymbolTable;
+    protected final SymbolTable fSymbolTable;
 
     /** Components. */
-    protected ArrayList fComponents;
+    protected final ArrayList fComponents;
 
-    protected ValidationManager fValidationManager;
+    protected final ValidationManager fValidationManager;
 
     /** Locale. */
     protected Locale fLocale;
 
     /** Error reporter */
-    protected XMLErrorReporter fErrorReporter;
+    protected final XMLErrorReporter fErrorReporter;
 
     protected final DOMErrorHandlerWrapper fErrorHandlerWrapper =
                 new DOMErrorHandlerWrapper();
@@ -247,10 +247,10 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected DTDDVFactory fCurrentDVFactory;
     
     /** The XML 1.0 Datatype validator factory. */
-    protected DTDDVFactory fDatatypeValidatorFactory;
+    protected final DTDDVFactory fDatatypeValidatorFactory;
     
     /** The XML 1.1 Datatype validator factory. **/
-    protected DTDDVFactory fXML11DatatypeFactory;
+    protected final DTDDVFactory fXML11DatatypeFactory;
 
     // private data
 

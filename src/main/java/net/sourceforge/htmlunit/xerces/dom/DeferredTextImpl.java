@@ -51,7 +51,7 @@ public class DeferredTextImpl
     //
 
     /** Node index. */
-    protected transient int fNodeIndex;
+    protected final transient int fNodeIndex;
 
     //
     // Constructors

@@ -46,7 +46,7 @@ public class RangeImpl implements Range {
     // Data
     //
     
-    private DocumentImpl fDocument;
+    private final DocumentImpl fDocument;
     private Node fStartContainer;
     private Node fEndContainer;
     private int fStartOffset;

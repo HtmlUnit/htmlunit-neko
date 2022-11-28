@@ -164,15 +164,15 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     // 
     // Data
     //
-    protected SymbolTable fSymbolTable;
+    protected final SymbolTable fSymbolTable;
     protected XMLInputSource fInputSource;
-    protected ValidationManager fValidationManager;
-    protected XMLVersionDetector fVersionDetector;
+    protected final ValidationManager fValidationManager;
+    protected final XMLVersionDetector fVersionDetector;
     protected XMLLocator fLocator;
     protected Locale fLocale;
     
     /** XML 1.0 Components. */
-    protected ArrayList fComponents;
+    protected final ArrayList fComponents;
     
     /** XML 1.1. Components. */
     protected ArrayList fXML11Components = null;
@@ -209,16 +209,16 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     //
     
     /** The XML 1.0 Datatype validator factory. */
-    protected DTDDVFactory fDatatypeValidatorFactory;
+    protected final DTDDVFactory fDatatypeValidatorFactory;
     
     /** The XML 1.0 Document scanner that does namespace binding. */
-    protected XMLNSDocumentScannerImpl fNamespaceScanner;
+    protected final XMLNSDocumentScannerImpl fNamespaceScanner;
     
     /** The XML 1.0 Non-namespace implementation of scanner */
     protected XMLDocumentScannerImpl fNonNSScanner;
     
     /** The XML 1.0 DTD scanner. */
-    protected XMLDTDScanner fDTDScanner;
+    protected final XMLDTDScanner fDTDScanner;
     
     //
     // XML 1.1 components
@@ -241,13 +241,13 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     //
     
     /** Grammar pool. */
-    protected XMLGrammarPool fGrammarPool;
+    protected final XMLGrammarPool fGrammarPool;
     
     /** Error reporter. */
-    protected XMLErrorReporter fErrorReporter;
+    protected final XMLErrorReporter fErrorReporter;
     
     /** Entity manager. */
-    protected XMLEntityManager fEntityManager;
+    protected final XMLEntityManager fEntityManager;
     
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;

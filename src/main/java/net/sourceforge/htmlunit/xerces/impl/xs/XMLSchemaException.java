@@ -32,8 +32,8 @@ public class XMLSchemaException extends Exception {
     static final long serialVersionUID = -9096984648537046218L;
     
     // store a datatype error: error code plus the arguments
-    String key;
-    Object[] args;
+    final String key;
+    final Object[] args;
 
     // report an error
     public XMLSchemaException(String key, Object[] args) {

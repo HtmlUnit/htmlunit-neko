@@ -24,15 +24,15 @@ package net.sourceforge.htmlunit.xerces.impl.xpath.regex;
  */
 final class CaseInsensitiveMap {
 
-    private static int CHUNK_SHIFT = 10;           /* 2^10 = 1k */
-    private static int CHUNK_SIZE = (1<<CHUNK_SHIFT);
-    private static int CHUNK_MASK = (CHUNK_SIZE-1);
-    private static int INITIAL_CHUNK_COUNT = 64;   /* up to 0xFFFF */
+    private static final int CHUNK_SHIFT = 10;           /* 2^10 = 1k */
+    private static final int CHUNK_SIZE = (1<<CHUNK_SHIFT);
+    private static final int CHUNK_MASK = (CHUNK_SIZE-1);
+    private static final int INITIAL_CHUNK_COUNT = 64;   /* up to 0xFFFF */
 
     private static int[][][] caseInsensitiveMap;
     
-    private static int LOWER_CASE_MATCH = 1;
-    private static int UPPER_CASE_MATCH = 2;
+    private static final int LOWER_CASE_MATCH = 1;
+    private static final int UPPER_CASE_MATCH = 2;
     
     static {
         buildCaseInsensitiveMap();

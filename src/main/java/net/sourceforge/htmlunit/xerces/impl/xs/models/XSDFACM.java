@@ -164,7 +164,7 @@ public class XSDFACM
      */
     private int fTransTableSize = 0;
 
-    private boolean fIsCompactedForUPA;
+    private final boolean fIsCompactedForUPA;
     
     // temp variables
 

@@ -75,7 +75,7 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
     protected boolean fSpecified = true;
 
     /** Schema value */
-    protected ValidatedInfo fValue = new ValidatedInfo();
+    protected final ValidatedInfo fValue = new ValidatedInfo();
 
     /** validation attempted: none, partial, full */
     protected short fValidationAttempted = AttributePSVI.VALIDATION_NONE;

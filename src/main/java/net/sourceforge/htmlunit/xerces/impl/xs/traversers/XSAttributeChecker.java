@@ -924,14 +924,14 @@ public class XSAttributeChecker {
     protected SymbolTable fSymbolTable = null;
 
     // used to store the mapping from processed element to attributes
-    protected Hashtable fNonSchemaAttrs = new Hashtable();
+    protected final Hashtable fNonSchemaAttrs = new Hashtable();
 
     // temprory vector, used to hold the namespace list
-    protected Vector fNamespaceList = new Vector();
+    protected final Vector fNamespaceList = new Vector();
 
     // whether this attribute appeared in the current element
-    protected boolean[] fSeen = new boolean[ATTIDX_COUNT];
-    private static boolean[] fSeenTemp = new boolean[ATTIDX_COUNT];
+    protected final boolean[] fSeen = new boolean[ATTIDX_COUNT];
+    private static final boolean[] fSeenTemp = new boolean[ATTIDX_COUNT];
 
     // constructor. Sets fErrorReproter and get datatype validators
     public XSAttributeChecker(XSDHandler schemaHandler) {
@@ -1634,7 +1634,7 @@ public class XSAttributeChecker {
     Object[][] fArrayPool = new Object[INIT_POOL_SIZE][ATTIDX_COUNT];
     // used to clear the returned array
     // I think System.arrayCopy is more efficient than setting 35 fields to null
-    private static Object[] fTempArray = new Object[ATTIDX_COUNT];
+    private static final Object[] fTempArray = new Object[ATTIDX_COUNT];
     // current position of the array pool (# of arrays not returned)
     int fPoolPos = 0;
 
@@ -1714,13 +1714,13 @@ public class XSAttributeChecker {
 
 class OneAttr {
     // name of the attribute
-    public String name;
+    public final String name;
     // index of the datatype validator
-    public int dvIndex;
+    public final int dvIndex;
     // whether it's optional, and has default value
-    public int valueIndex;
+    public final int valueIndex;
     // the default value of this attribute
-    public Object dfltValue;
+    public final Object dfltValue;
 
     public OneAttr(String name, int dvIndex, int valueIndex, Object dfltValue) {
         this.name = name;
@@ -1746,7 +1746,7 @@ abstract class Container {
 }
 
 class SmallContainer extends Container {
-    String[] keys;
+    final String[] keys;
     SmallContainer(int size) {
         keys = new String[size];
         values = new OneAttr[size];
@@ -1766,7 +1766,7 @@ class SmallContainer extends Container {
 }
 
 class LargeContainer extends Container {
-    Hashtable items;
+    final Hashtable items;
     LargeContainer(int size) {
         items = new Hashtable(size*2+1);
         values = new OneAttr[size];

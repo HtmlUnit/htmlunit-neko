@@ -909,7 +909,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
 		int year, month, day, hour, minute, utc;
 		double second;
 		int timezoneHr, timezoneMin;
-        private String originalValue;
+        private final String originalValue;
         boolean normalized = true;
 
         int unNormYear;

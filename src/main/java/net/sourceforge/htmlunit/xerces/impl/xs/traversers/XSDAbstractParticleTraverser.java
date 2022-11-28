@@ -379,5 +379,5 @@ abstract class XSDAbstractParticleTraverser extends XSDAbstractTraverser {
     }
     
     // the big particle array to hold all particles in model groups
-    ParticleArray fPArray = new ParticleArray();
+    final ParticleArray fPArray = new ParticleArray();
 }

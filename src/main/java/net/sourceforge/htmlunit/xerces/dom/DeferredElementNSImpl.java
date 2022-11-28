@@ -55,7 +55,7 @@ public class DeferredElementNSImpl
     //
 
     /** Node index. */
-    protected transient int fNodeIndex;
+    protected final transient int fNodeIndex;
 
     //
     // Constructors

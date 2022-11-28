@@ -618,7 +618,7 @@ public final class Constants {
         //
         
         /** Array. */
-        private Object[] array;
+        private final Object[] array;
         
         /** Index. */
         private int index;

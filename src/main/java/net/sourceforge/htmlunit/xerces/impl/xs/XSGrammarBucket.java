@@ -36,7 +36,7 @@ public class XSGrammarBucket {
     /**
      * Hashtable that maps between Namespace and a Grammar
      */
-    Hashtable fGrammarRegistry = new Hashtable();
+    final Hashtable fGrammarRegistry = new Hashtable();
     SchemaGrammar fNoNSGrammar = null;
 
     /**

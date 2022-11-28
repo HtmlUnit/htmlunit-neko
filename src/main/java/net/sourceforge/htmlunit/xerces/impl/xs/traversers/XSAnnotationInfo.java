@@ -33,16 +33,16 @@ import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 final class XSAnnotationInfo {
 
     /** Textual representation of annotation. **/
-    String fAnnotation;
+    final String fAnnotation;
     
     /** Line number of &lt;annotation&gt; element. **/
-    int fLine;
+    final int fLine;
     
     /** Column number of &lt;annotation&gt; element. **/
-    int fColumn;
+    final int fColumn;
     
     /** Character offset of &lt;annotation&gt; element. **/
-    int fCharOffset;
+    final int fCharOffset;
     
     /** Next annotation. **/
     XSAnnotationInfo next;

@@ -150,7 +150,7 @@ public class XMLErrorReporter
     protected Locale fLocale;
 
     /** Mapping of Message formatters for domains. */
-    protected Hashtable fMessageFormatters;
+    protected final Hashtable fMessageFormatters;
 
     /** Error handler. */
     protected XMLErrorHandler fErrorHandler;

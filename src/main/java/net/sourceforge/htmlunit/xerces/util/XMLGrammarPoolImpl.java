@@ -314,7 +314,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * in a linked list.
      */
     protected static final class Entry {
-        public int hash;
+        public final int hash;
         public XMLGrammarDescription desc;
         public Grammar grammar;
         public Entry next;

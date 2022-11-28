@@ -44,13 +44,13 @@ public class NodeIteratorImpl implements NodeIterator {
     //
     
     /** The DocumentImpl which created this iterator, so it can be detached. */
-    private DocumentImpl fDocument;
+    private final DocumentImpl fDocument;
     /** The root. */
-    private Node fRoot;
+    private final Node fRoot;
     /** The whatToShow mask. */
     private int fWhatToShow = NodeFilter.SHOW_ALL;
     /** The NodeFilter reference. */
-    private NodeFilter fNodeFilter;
+    private final NodeFilter fNodeFilter;
     /** If detach is called, the fDetach flag is true, otherwise flase. */
     private boolean fDetach = false;
     
@@ -79,7 +79,7 @@ public class NodeIteratorImpl implements NodeIterator {
     private boolean fForward = true;
     
     /** When TRUE, the children of entites references are returned in the iterator. */
-    private boolean fEntityReferenceExpansion;
+    private final boolean fEntityReferenceExpansion;
     
     // 
     // Constructor

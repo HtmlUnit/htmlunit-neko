@@ -246,15 +246,15 @@ XSLoader, DOMConfiguration {
     private boolean fSettingsChanged = true;
     
     // xml schema parsing
-    private XSDHandler fSchemaHandler;
-    private XSGrammarBucket fGrammarBucket;
+    private final XSDHandler fSchemaHandler;
+    private final XSGrammarBucket fGrammarBucket;
     private XSDeclarationPool fDeclPool = null;
-    private SubstitutionGroupHandler fSubGroupHandler;
-    private CMBuilder fCMBuilder;
-    private XSDDescription fXSDDescription = new XSDDescription();
+    private final SubstitutionGroupHandler fSubGroupHandler;
+    private final CMBuilder fCMBuilder;
+    private final XSDDescription fXSDDescription = new XSDDescription();
     private SchemaDVFactory fDefaultSchemaDVFactory;
     
-    private WeakHashMap fJAXPCache;
+    private final WeakHashMap fJAXPCache;
     private Locale fLocale = Locale.getDefault();
     
     // XSLoader attributes

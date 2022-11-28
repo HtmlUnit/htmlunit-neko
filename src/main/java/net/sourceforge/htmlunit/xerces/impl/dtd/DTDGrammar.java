@@ -112,7 +112,7 @@ public class DTDGrammar
     protected boolean fReadingExternalDTD = false;
 
     /** Symbol table. */
-    private SymbolTable fSymbolTable;
+    private final SymbolTable fSymbolTable;
 
     // The XMLDTDDescription with which this Grammar is associated
     protected XMLDTDDescription fGrammarDescription = null;
@@ -208,13 +208,13 @@ public class DTDGrammar
     // other information
 
     /** Element index mapping table. */
-    private QNameHashtable fElementIndexMap = new QNameHashtable();
+    private final QNameHashtable fElementIndexMap = new QNameHashtable();
 
     /** Entity index mapping table. */
-    private QNameHashtable fEntityIndexMap = new QNameHashtable();
+    private final QNameHashtable fEntityIndexMap = new QNameHashtable();
 
     /** Notation index mapping table. */
-    private QNameHashtable fNotationIndexMap = new QNameHashtable();
+    private final QNameHashtable fNotationIndexMap = new QNameHashtable();
 
     // temp variables
 
@@ -242,13 +242,13 @@ public class DTDGrammar
     private XMLEntityDecl fEntityDecl = new XMLEntityDecl();
 
     /** Simple type. */
-    private XMLSimpleType fSimpleType = new XMLSimpleType();
+    private final XMLSimpleType fSimpleType = new XMLSimpleType();
 
     /** Content spec node. */
-    private XMLContentSpec fContentSpec = new XMLContentSpec();
+    private final XMLContentSpec fContentSpec = new XMLContentSpec();
 
     /** table of XMLElementDecl   */
-    Hashtable   fElementDeclTab     = new Hashtable();
+    final Hashtable   fElementDeclTab     = new Hashtable();
 
     /** Children content model operation stack. */
     private short[] fOpStack = null;
@@ -2648,7 +2648,7 @@ public class DTDGrammar
          */
         private static final class PrimeNumberSequenceGenerator {
             
-            private static int [] PRIMES = {
+            private static final int [] PRIMES = {
                 3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,  59, 
                61,  67,  71,  73,  79,  83,  89,  97, 101, 103, 107, 109, 113, 127, 131, 137, 
               139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 

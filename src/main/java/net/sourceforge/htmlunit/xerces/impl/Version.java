@@ -30,7 +30,7 @@ public class Version {
 
     /** Version string. 
      * @deprecated  getVersion() should be used instead.  */
-    public static String fVersion = "@@VERSION@@";
+    public static final String fVersion = "@@VERSION@@";
 
     private static final String fImmutableVersion = "@@VERSION@@";
 

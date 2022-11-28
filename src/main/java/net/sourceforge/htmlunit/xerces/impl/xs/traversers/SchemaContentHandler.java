@@ -61,7 +61,7 @@ final class SchemaContentHandler implements ContentHandler {
     private final SAXLocatorWrapper fSAXLocatorWrapper = new SAXLocatorWrapper();
     
     /** The namespace context of this document: stores namespaces in scope */
-    private NamespaceSupport fNamespaceContext = new NamespaceSupport();
+    private final NamespaceSupport fNamespaceContext = new NamespaceSupport();
     
     /** Indicate if push NamespaceContest is needed */
     private boolean fNeedPushNSContext;

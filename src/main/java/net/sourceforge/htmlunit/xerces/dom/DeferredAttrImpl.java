@@ -78,7 +78,7 @@ public final class DeferredAttrImpl
     //
 
     /** Node index. */
-    protected transient int fNodeIndex;
+    protected final transient int fNodeIndex;
 
     //
     // Constructors

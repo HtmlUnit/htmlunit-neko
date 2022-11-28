@@ -128,10 +128,10 @@ public class XMLDTDLoader
     protected XMLEntityResolver fEntityResolver;
 
     // the scanner we use to actually read the DTD
-    protected XMLDTDScannerImpl fDTDScanner;
+    protected final XMLDTDScannerImpl fDTDScanner;
 
     // the entity manager the scanner needs.  
-    protected XMLEntityManager fEntityManager;
+    protected final XMLEntityManager fEntityManager;
 
     // what's our Locale?
     protected Locale fLocale;

@@ -272,7 +272,7 @@ public class CMStateSet
     //      When the bit count is < 64 (very common), these hold the bits.
     //      Otherwise, the fByteArray member holds htem.
     // -------------------------------------------------------------------
-    int         fBitCount;
+    final int         fBitCount;
     int         fByteCount;
     int         fBits1;
     int         fBits2;

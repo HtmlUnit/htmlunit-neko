@@ -79,7 +79,7 @@ public class NamedNodeMapImpl
     /** Nodes. */
     protected List nodes;
 
-    protected NodeImpl ownerNode; // the node this map belongs to
+    protected final NodeImpl ownerNode; // the node this map belongs to
 
     //
     // Constructors

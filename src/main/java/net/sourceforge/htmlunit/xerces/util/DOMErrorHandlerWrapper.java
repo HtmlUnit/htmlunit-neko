@@ -285,7 +285,7 @@ public class DOMErrorHandlerWrapper
     private static class DOMErrorTypeMap {
         
         /** Map for converting internal error codes to DOM error types. **/
-        private static Hashtable fgDOMErrorTypeTable;
+        private static final Hashtable fgDOMErrorTypeTable;
         
         static {
             // initialize error type table: internal error codes (represented by domain and key) need to be mapped to a DOM error type.

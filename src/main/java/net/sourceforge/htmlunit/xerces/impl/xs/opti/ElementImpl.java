@@ -38,9 +38,9 @@ public class ElementImpl extends DefaultElement {
     int col;
     int parentRow;
     
-    int line;
-    int column;
-    int charOffset;
+    final int line;
+    final int column;
+    final int charOffset;
     String fAnnotation;
     String fSyntheticAnnotation;
     

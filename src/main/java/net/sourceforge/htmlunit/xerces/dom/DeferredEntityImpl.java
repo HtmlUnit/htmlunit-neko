@@ -69,7 +69,7 @@ public class DeferredEntityImpl
     //
 
     /** Node index. */
-    protected transient int fNodeIndex;
+    protected final transient int fNodeIndex;
 
     //
     // Constructors

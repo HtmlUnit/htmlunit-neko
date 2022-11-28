@@ -164,18 +164,18 @@ public class NonValidatingConfiguration
     // components (non-configurable)
 
     /** Grammar pool. */
-    protected XMLGrammarPool fGrammarPool;
+    protected final XMLGrammarPool fGrammarPool;
 
     /** Datatype validator factory. */
-    protected DTDDVFactory fDatatypeValidatorFactory;
+    protected final DTDDVFactory fDatatypeValidatorFactory;
 
     // components (configurable)
 
     /** Error reporter. */
-    protected XMLErrorReporter fErrorReporter;
+    protected final XMLErrorReporter fErrorReporter;
 
     /** Entity manager. */
-    protected XMLEntityManager fEntityManager;
+    protected final XMLEntityManager fEntityManager;
 
     /** Document scanner. */
     protected XMLDocumentScanner fScanner;
@@ -184,10 +184,10 @@ public class NonValidatingConfiguration
     protected XMLInputSource fInputSource;
 
     /** DTD scanner. */
-    protected XMLDTDScanner fDTDScanner;
+    protected final XMLDTDScanner fDTDScanner;
 
 
-    protected ValidationManager fValidationManager;
+    protected final ValidationManager fValidationManager;
 
     // private data
 

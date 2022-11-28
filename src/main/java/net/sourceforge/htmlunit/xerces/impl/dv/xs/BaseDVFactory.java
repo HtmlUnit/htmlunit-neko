@@ -39,7 +39,7 @@ public class BaseDVFactory extends SchemaDVFactory {
     static final String URI_SCHEMAFORSCHEMA = "http://www.w3.org/2001/XMLSchema";
 
     // there are 27 types. 53 is the closest prime number to 27*2=54.
-    static SymbolHash fBaseTypes = new SymbolHash(53);
+    static final SymbolHash fBaseTypes = new SymbolHash(53);
     static {
         createBuiltInTypes(fBaseTypes);
     }

@@ -103,7 +103,7 @@ public class DOMFragmentParser
     //
 
     /** Parser configuration. */
-    protected XMLParserConfiguration fParserConfiguration;
+    protected final XMLParserConfiguration fParserConfiguration;
 
     /** Document source. */
     protected XMLDocumentSource fDocumentSource;

@@ -83,7 +83,7 @@ public class PSVIElementNSImpl extends ElementNSImpl implements ElementPSVI {
     protected boolean fSpecified = true;
 
     /** Schema value */
-    protected ValidatedInfo fValue = new ValidatedInfo();
+    protected final ValidatedInfo fValue = new ValidatedInfo();
 
     /** http://www.w3.org/TR/xmlschema-1/#e-notation*/
     protected XSNotationDeclaration fNotation = null;

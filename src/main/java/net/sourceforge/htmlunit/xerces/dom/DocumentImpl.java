@@ -618,9 +618,9 @@ public class DocumentImpl
     class LEntry implements Serializable {
 
         private static final long serialVersionUID = -8426757059492421631L;
-        String type;
-        EventListener listener;
-        boolean useCapture;
+        final String type;
+        final EventListener listener;
+        final boolean useCapture;
 	    
         /** NON-DOM INTERNAL: Constructor for Listener list Entry 
          * @param type Event name (NOT event group!) to listen for.

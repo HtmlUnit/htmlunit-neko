@@ -80,10 +80,10 @@ extends StandardParserConfiguration {
     protected XMLNSDocumentScannerImpl fNamespaceScanner;
 
     /** Default Xerces implementation of scanner */
-    protected XMLDocumentScannerImpl fNonNSScanner;
+    protected final XMLDocumentScannerImpl fNonNSScanner;
 
     /** DTD Validator that does not bind namespaces */
-    protected XMLDTDValidator fNonNSDTDValidator;
+    protected final XMLDTDValidator fNonNSDTDValidator;
     
     //
     // Constructors

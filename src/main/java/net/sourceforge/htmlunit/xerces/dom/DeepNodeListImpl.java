@@ -78,8 +78,8 @@ public class DeepNodeListImpl
     // Data
     //
 
-    protected NodeImpl rootNode; // Where the search started
-    protected String tagName;   // Or "*" to mean all-tags-acceptable
+    protected final NodeImpl rootNode; // Where the search started
+    protected final String tagName;   // Or "*" to mean all-tags-acceptable
     protected int changes=0;
     protected ArrayList nodes;
     

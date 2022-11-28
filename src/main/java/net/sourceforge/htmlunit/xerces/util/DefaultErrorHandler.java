@@ -38,7 +38,7 @@ public class DefaultErrorHandler
     //
 
     /** Print writer. */
-    protected PrintWriter fOut;
+    protected final PrintWriter fOut;
 
     //
     // Constructors

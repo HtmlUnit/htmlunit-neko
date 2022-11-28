@@ -853,13 +853,13 @@ public class XPath {
         private int[] fTokens = new int[INITIAL_TOKEN_COUNT];
         private int fTokenCount = 0;    // for writing
 
-        private SymbolTable fSymbolTable;
+        private final SymbolTable fSymbolTable;
 
         // REVISIT: Code something better here. -Ac
-        private java.util.Hashtable fSymbolMapping = new java.util.Hashtable();
+        private final java.util.Hashtable fSymbolMapping = new java.util.Hashtable();
 
         // REVISIT: Code something better here. -Ac
-        private java.util.Hashtable fTokenNames = new java.util.Hashtable();
+        private final java.util.Hashtable fTokenNames = new java.util.Hashtable();
 
         /**
          * Current position in the token list. 
@@ -1279,7 +1279,7 @@ public class XPath {
         //
 
         /** Symbol table. */
-        private SymbolTable fSymbolTable;
+        private final SymbolTable fSymbolTable;
 
         // symbols
 

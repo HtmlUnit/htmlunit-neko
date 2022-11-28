@@ -38,7 +38,7 @@ extends SymbolTable {
     //
 
     /** Main symbol table. */
-    protected SymbolTable fSymbolTable;
+    protected final SymbolTable fSymbolTable;
 
     //
     // Constructors

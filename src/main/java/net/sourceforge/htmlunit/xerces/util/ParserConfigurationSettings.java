@@ -64,7 +64,7 @@ public class ParserConfigurationSettings
     protected HashMap fFeatures;
 
     /** Parent parser configuration settings. */
-    protected XMLComponentManager fParentSettings;
+    protected final XMLComponentManager fParentSettings;
 
     //
     // Constructors

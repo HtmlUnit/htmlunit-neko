@@ -48,7 +48,7 @@ public final class HTTPInputSource extends XMLInputSource {
     protected boolean fFollowRedirects = true;
     
     /** HTTP request properties. **/
-    protected Map fHTTPRequestProperties = new HashMap();
+    protected final Map fHTTPRequestProperties = new HashMap();
     
     //
     // Constructors

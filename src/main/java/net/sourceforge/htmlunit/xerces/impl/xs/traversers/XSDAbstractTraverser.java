@@ -86,7 +86,7 @@ abstract class XSDAbstractTraverser {
     protected boolean               fValidateAnnotations = false;
     
     // used to validate default/fixed attribute values
-    ValidationState fValidationState = new ValidationState();
+    final ValidationState fValidationState = new ValidationState();
     
     XSDAbstractTraverser (XSDHandler handler,
             XSAttributeChecker attrChecker) {
@@ -259,7 +259,7 @@ abstract class XSDAbstractTraverser {
     // the QName simple type used to resolve qnames
     private static final XSSimpleType fQNameDV = (XSSimpleType)SchemaGrammar.SG_SchemaNS.getGlobalTypeDecl(SchemaSymbols.ATTVAL_QNAME);
     // Temp data structures to be re-used in traversing facets
-    private StringBuffer fPattern = new StringBuffer();
+    private final StringBuffer fPattern = new StringBuffer();
     private final XSFacets xsFacets = new XSFacets();
     
     static final class FacetInfo {

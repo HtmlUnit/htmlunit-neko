@@ -511,7 +511,7 @@ final class ObjectFactory {
         //
 
         /** Exception. */
-        private Exception exception;
+        private final Exception exception;
 
         //
         // Constructors

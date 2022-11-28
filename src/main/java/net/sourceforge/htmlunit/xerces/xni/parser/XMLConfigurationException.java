@@ -49,10 +49,10 @@ public class XMLConfigurationException
     //
 
     /** Exception type. */
-    protected short fType;
+    protected final short fType;
 
     /** Identifier. */
-    protected String fIdentifier;
+    protected final String fIdentifier;
 
     //
     // Constructors

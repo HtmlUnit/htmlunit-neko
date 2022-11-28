@@ -50,7 +50,7 @@ public class AttributePSVImpl implements AttributePSVI {
     protected boolean fSpecified = false;
 
     /** Schema value */
-    protected ValidatedInfo fValue = new ValidatedInfo();
+    protected final ValidatedInfo fValue = new ValidatedInfo();
 
     /** validation attempted: none, partial, full */
     protected short fValidationAttempted = AttributePSVI.VALIDATION_NONE;

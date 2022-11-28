@@ -213,7 +213,7 @@ public class AugmentationsImpl implements Augmentations {
 
         final class SmallContainerKeyEnumeration implements Enumeration {
             
-            Object [] enumArray = new Object[fNumEntries];
+            final Object [] enumArray = new Object[fNumEntries];
             int next = 0;
 
             SmallContainerKeyEnumeration() {

@@ -57,8 +57,8 @@ class RegexParser {
     static final int T_XMLSCHEMA_CC_SUBTRACTION = 24; // '-[' in a character class
 
     static class ReferencePosition {
-        int refNumber;
-        int position;
+        final int refNumber;
+        final int position;
         ReferencePosition(int n, int pos) {
             this.refNumber = n;
             this.position = pos;

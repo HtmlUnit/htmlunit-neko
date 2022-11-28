@@ -41,13 +41,13 @@ public class TreeWalkerImpl implements TreeWalker {
     /** The whatToShow mask. */
     int fWhatToShow = NodeFilter.SHOW_ALL;
     /** The NodeFilter reference. */
-    NodeFilter fNodeFilter;
+    final NodeFilter fNodeFilter;
     /** The current Node. */
     Node fCurrentNode;
     /** The root Node. */
-    Node fRoot;
+    final Node fRoot;
     /** Use Node.isSameNode() to check if one node is the same as another. */
-    private boolean fUseIsSameNode;
+    private final boolean fUseIsSameNode;
     
     //
     // Implementation Note: No state is kept except the data above

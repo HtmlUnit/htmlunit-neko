@@ -190,18 +190,18 @@ public class DTDConfiguration
     // components (non-configurable)
 
     /** Grammar pool. */
-    protected XMLGrammarPool fGrammarPool;
+    protected final XMLGrammarPool fGrammarPool;
 
     /** Datatype validator factory. */
-    protected DTDDVFactory fDatatypeValidatorFactory;
+    protected final DTDDVFactory fDatatypeValidatorFactory;
 
     // components (configurable)
 
     /** Error reporter. */
-    protected XMLErrorReporter fErrorReporter;
+    protected final XMLErrorReporter fErrorReporter;
 
     /** Entity manager. */
-    protected XMLEntityManager fEntityManager;
+    protected final XMLEntityManager fEntityManager;
 
     /** Document scanner. */
     protected XMLDocumentScanner fScanner;
@@ -210,18 +210,18 @@ public class DTDConfiguration
     protected XMLInputSource fInputSource;
 
     /** DTD scanner. */
-    protected XMLDTDScanner fDTDScanner;
+    protected final XMLDTDScanner fDTDScanner;
 
     /** DTD Processor . */
-    protected XMLDTDProcessor fDTDProcessor;
+    protected final XMLDTDProcessor fDTDProcessor;
 
     /** DTD Validator. */
-    protected XMLDTDValidator fDTDValidator;
+    protected final XMLDTDValidator fDTDValidator;
 
     /** Namespace binder. */
-    protected XMLNamespaceBinder fNamespaceBinder;
+    protected final XMLNamespaceBinder fNamespaceBinder;
 
-    protected ValidationManager fValidationManager;
+    protected final ValidationManager fValidationManager;
     // state
 
     /** Locator */

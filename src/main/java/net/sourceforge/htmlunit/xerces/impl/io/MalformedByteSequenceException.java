@@ -49,13 +49,13 @@ public final class MalformedByteSequenceException extends CharConversionExceptio
     private Locale fLocale;
     
     /** error domain **/
-    private String fDomain;
+    private final String fDomain;
     
     /** key for the error message **/
-    private String fKey;
+    private final String fKey;
     
     /** replacement arguements for the error message **/
-    private Object[] fArguments;
+    private final Object[] fArguments;
     
     /** message text for this message, initially null **/
     private String fMessage;

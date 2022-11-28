@@ -60,7 +60,7 @@ public class DeferredCDATASectionImpl
     //
 
     /** Node index. */
-    protected transient int fNodeIndex;
+    protected final transient int fNodeIndex;
 
     //
     // Constructors
