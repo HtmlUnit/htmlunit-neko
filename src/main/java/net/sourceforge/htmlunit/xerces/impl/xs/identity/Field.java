@@ -160,7 +160,7 @@ public class Field {
         
         private static String fixupXPath2(String xpath, int offset, final int end) {
        
-            StringBuffer buffer = new StringBuffer(end + 2);
+            StringBuilder buffer = new StringBuilder(end + 2);
             for (int i = 0; i < offset; ++i) {
                 buffer.append(xpath.charAt(i));
             }

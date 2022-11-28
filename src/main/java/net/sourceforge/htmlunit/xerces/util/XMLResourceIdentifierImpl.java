@@ -202,7 +202,7 @@ public class XMLResourceIdentifierImpl
 
     /** Returns a string representation of this object. */
     public String toString() {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         if (fPublicId != null) {
             str.append(fPublicId);
         }

@@ -54,7 +54,7 @@ public class HTMLOptionElementImpl
     public String getText()
     {
         Node child;
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.

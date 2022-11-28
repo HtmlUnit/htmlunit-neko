@@ -98,7 +98,7 @@ public class CMLeaf
 
     public String toString()
     {
-        StringBuffer strRet = new StringBuffer(fElement.toString());
+        StringBuilder strRet = new StringBuilder(fElement.toString());
         strRet.append(" (");
         strRet.append(fElement.uri);
         strRet.append(',');

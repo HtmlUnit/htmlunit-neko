@@ -720,7 +720,7 @@ public class DOMUtil {
         }
         
         // concatenate children text
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         Node child = node.getFirstChild();
         while (child != null) {
             short type = child.getNodeType();

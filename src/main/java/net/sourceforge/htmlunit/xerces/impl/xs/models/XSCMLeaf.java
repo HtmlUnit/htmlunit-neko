@@ -96,7 +96,7 @@ public class XSCMLeaf
     }
 
     public String toString() {
-        StringBuffer strRet = new StringBuffer(fLeaf.toString());
+        StringBuilder strRet = new StringBuilder(fLeaf.toString());
         if (fPosition >= 0) {
             strRet.append(" (Pos:")
                   .append(Integer.toString(fPosition))

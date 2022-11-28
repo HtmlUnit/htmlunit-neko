@@ -476,7 +476,7 @@ public class XSWildcardDecl implements XSWildcard {
     private String fDescription = null;
     public String toString() {
         if (fDescription == null) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append("WC[");
             switch (fType) {
             case NSCONSTRAINT_ANY:

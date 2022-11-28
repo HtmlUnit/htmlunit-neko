@@ -776,7 +776,7 @@ public class RangeImpl implements Range {
 
     	Node node = fStartContainer;
         Node stopNode = fEndContainer;
-    	StringBuffer sb = new StringBuffer();
+    	StringBuilder sb = new StringBuilder();
     	if (fStartContainer.getNodeType() == Node.TEXT_NODE
     	 || fStartContainer.getNodeType() == Node.CDATA_SECTION_NODE
     	) {

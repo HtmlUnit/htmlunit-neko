@@ -1162,7 +1162,7 @@ class  XSDComplexTypeTraverser extends XSDAbstractParticleTraverser {
         // names of parent nodes
         // The name is quite good for debugging/error purposes, but we may want to
         // revisit how this is done for performance reasons (LM).
-        StringBuffer typeName = new StringBuffer("#AnonType_");
+        StringBuilder typeName = new StringBuilder("#AnonType_");
         Element node = DOMUtil.getParent(complexTypeDecl);
         while (node != null && (node != DOMUtil.getRoot(DOMUtil.getDocument(node)))) {
             typeName.append(node.getAttribute(SchemaSymbols.ATT_NAME));

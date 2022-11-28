@@ -289,7 +289,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
                 ^ (value == null ? 0 : value.hashCode());
         }
         public String toString() {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append(String.valueOf(key));
             buffer.append('=');
             buffer.append(String.valueOf(value));

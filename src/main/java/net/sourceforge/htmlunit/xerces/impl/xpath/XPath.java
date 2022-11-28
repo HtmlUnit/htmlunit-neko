@@ -102,7 +102,7 @@ public class XPath {
 
     /** Returns a string representation of this object. */
     public String toString() {
-        StringBuffer buf=new StringBuffer();
+        StringBuilder buf=new StringBuilder();
         for (int  i=0;i<fLocationPaths.length;i++){
             if (i>0){
                 buf.append('|');
@@ -399,7 +399,7 @@ public class XPath {
 
         /** Returns a string representation of this object. */
         public String toString() {
-            StringBuffer str = new StringBuffer();
+            StringBuilder str = new StringBuilder();
             for (int i = 0; i < steps.length; i++) {
                 if (i > 0	&& (steps[i-1].axis.type!=Axis.DESCENDANT
                     && steps[i].axis.type!=Axis.DESCENDANT) ){

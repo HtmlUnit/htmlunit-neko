@@ -425,7 +425,7 @@ public class SchemaDOM extends DefaultDocument {
     private static String escapeAttValue(String original, int from) {
         int i;
         final int length = original.length();
-        StringBuffer newVal = new StringBuffer(length);
+        StringBuilder newVal = new StringBuilder(length);
         newVal.append(original.substring(0, from));
         for (i = from; i < length; ++i) {
             char currChar = original.charAt(i);

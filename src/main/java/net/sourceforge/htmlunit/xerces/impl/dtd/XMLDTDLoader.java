@@ -469,7 +469,7 @@ public class XMLDTDLoader
                     // To get the DTD scanner to end at the right place we have to fool
                     // it into thinking that it reached the end of the internal subset
                     // in a real document.
-                    StringBuffer buffer = new StringBuffer(internalSubset.length() + 2);
+                    StringBuilder buffer = new StringBuilder(internalSubset.length() + 2);
                     buffer.append(internalSubset).append("]>");
                     XMLInputSource is = new XMLInputSource(null, baseSystemId, 
                             null, new StringReader(buffer.toString()), null);

@@ -59,7 +59,7 @@ public class ListDV extends TypeValidator{
         public synchronized String toString() {
             if (canonical == null) {
                 int len = data.length;
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
                 if (len > 0) {
                     buf.append(data[0].toString());
                 }

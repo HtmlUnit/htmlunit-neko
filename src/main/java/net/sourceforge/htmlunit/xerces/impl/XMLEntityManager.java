@@ -827,7 +827,7 @@ public class XMLEntityManager
                                 ? fCurrentEntity
                                 : (Entity)fEntityStack.elementAt(i);
             if (activeEntity.name == entityName) {
-                StringBuffer path = new StringBuffer(entityName);
+                StringBuilder path = new StringBuilder(entityName);
                 for (int j = i + 1; j < size; j++) {
                     activeEntity = (Entity)fEntityStack.elementAt(j);
                     path.append(" -> ");
@@ -1666,7 +1666,7 @@ public class XMLEntityManager
         userDir = userDir.replace(separator, '/');
 
         int len = userDir.length(), ch;
-        StringBuffer buffer = new StringBuffer(len*3);
+        StringBuilder buffer = new StringBuilder(len*3);
         // change C:/blah to /C:/blah
         if (len >= 2 && userDir.charAt(1) == ':') {
             ch = Character.toUpperCase(userDir.charAt(0));
@@ -1950,7 +1950,7 @@ public class XMLEntityManager
         if (origPath != null && origPath.length() != 0 && origPath.indexOf('%') != -1) {
             // Locate the escape characters
             StringTokenizer tokenizer = new StringTokenizer(origPath, "%");
-            StringBuffer result = new StringBuffer(origPath.length());
+            StringBuilder result = new StringBuilder(origPath.length());
             int size = tokenizer.countTokens();
             result.append(tokenizer.nextToken());
             for(int i = 1; i < size; ++i) {
@@ -2310,7 +2310,7 @@ public class XMLEntityManager
         // handle platform dependent strings
         str = str.replace(java.io.File.separatorChar, '/');
 
-        StringBuffer sb = null;
+        StringBuilder sb = null;
 
         // Windows fix
         if (str.length() >= 2) {
@@ -2319,13 +2319,13 @@ public class XMLEntityManager
             if (ch1 == ':') {
                 char ch0 = Character.toUpperCase(str.charAt(0));
                 if (ch0 >= 'A' && ch0 <= 'Z') {
-                    sb = new StringBuffer(str.length() + 8);
+                    sb = new StringBuilder(str.length() + 8);
                     sb.append("file:///");
                 }
             }
             // change "//blah" to "file://blah"
             else if (ch1 == '/' && str.charAt(0) == '/') {
-                sb = new StringBuffer(str.length() + 5);
+                sb = new StringBuilder(str.length() + 5);
                 sb.append("file:");
             }
         }
@@ -2344,7 +2344,7 @@ public class XMLEntityManager
         // but people who want to use invalid URI's have to pay the price.
         else {
             if (sb == null)
-                sb = new StringBuffer(str.length());
+                sb = new StringBuilder(str.length());
             // put characters before ' ' into the string buffer
             for (int i = 0; i < pos; i++)
                 sb.append(str.charAt(i));
@@ -2898,7 +2898,7 @@ public class XMLEntityManager
         /** Returns a string representation of this object. */
         public String toString() {
             
-            StringBuffer str = new StringBuffer();
+            StringBuilder str = new StringBuilder();
             str.append("name=\"").append(name).append('"');
             str.append(",ch=");
             str.append(ch);

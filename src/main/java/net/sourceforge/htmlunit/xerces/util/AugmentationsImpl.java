@@ -194,7 +194,7 @@ public class AugmentationsImpl implements Augmentations {
         }
 
         public String toString() {
-            StringBuffer buff = new StringBuffer();
+            StringBuilder buff = new StringBuilder();
             buff.append("SmallContainer - fNumEntries == ").append(fNumEntries);
 
             for (int i = 0; i < SIZE_LIMIT*2; i=i+2) {
@@ -273,7 +273,7 @@ public class AugmentationsImpl implements Augmentations {
         }
 
         public String toString() {
-            StringBuffer buff = new StringBuffer();
+            StringBuilder buff = new StringBuilder();
             buff.append("LargeContainer");
             Iterator entries = fAugmentations.entrySet().iterator();
             while (entries.hasNext()) {

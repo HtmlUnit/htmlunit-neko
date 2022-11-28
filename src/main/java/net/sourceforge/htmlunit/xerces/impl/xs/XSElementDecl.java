@@ -135,7 +135,7 @@ public class XSElementDecl implements XSElementDeclaration {
     public String toString() {
         if (fDescription == null) {
             if (fTargetNamespace != null) {
-                StringBuffer buffer = new StringBuffer(
+                StringBuilder buffer = new StringBuilder(
                     fTargetNamespace.length() + 
                     ((fName != null) ? fName.length() : 4) + 3);
                 buffer.append('"');

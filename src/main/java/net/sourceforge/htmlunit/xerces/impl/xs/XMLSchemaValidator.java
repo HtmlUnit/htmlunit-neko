@@ -3591,7 +3591,7 @@ public class XMLSchemaValidator
     }
     
     private String expectedStr(Vector expected) {
-        StringBuffer ret = new StringBuffer("{");
+        StringBuilder ret = new StringBuilder("{");
         int size = expected.size();
         for (int i = 0; i < size; i++) {
             if (i > 0)
@@ -4031,7 +4031,7 @@ public class XMLSchemaValidator
             }
 
             // construct value string
-            StringBuffer str = new StringBuffer();
+            StringBuilder str = new StringBuilder();
             for (int i = 0; i < length; i++) {
                 if (i > 0) {
                     str.append(',');

@@ -68,7 +68,7 @@ final class FilePathToURI {
         path = path.replace(separator, '/');
 
         int len = path.length(), ch;
-        StringBuffer buffer = new StringBuffer(len*3);
+        StringBuilder buffer = new StringBuilder(len*3);
         buffer.append("file://");
         // change C:/blah to /C:/blah
         if (len >= 2 && path.charAt(1) == ':') {

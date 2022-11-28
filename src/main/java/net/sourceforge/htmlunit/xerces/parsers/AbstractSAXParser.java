@@ -928,7 +928,7 @@ public abstract class AbstractSAXParser
                 if (type.equals("NOTATION") || 
                     type.equals("ENUMERATION")) {
 
-                    StringBuffer str = new StringBuffer();
+                    StringBuilder str = new StringBuilder();
                     if (type.equals("NOTATION")) {
                       str.append(type);
                       str.append(" (");

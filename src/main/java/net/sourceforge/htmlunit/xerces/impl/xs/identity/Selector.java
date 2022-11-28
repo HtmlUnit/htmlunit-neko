@@ -135,7 +135,7 @@ public class Selector {
             //       Unless xpath starts with a descendant node -Achille Fokoue
             //      ... or a '.' or a '/' - NG
             //  And we also need to prefix exprs to the right of | with ./ - NG
-            StringBuffer modifiedXPath = new StringBuffer(xpath.length()+5);
+            StringBuilder modifiedXPath = new StringBuilder(xpath.length()+5);
             int unionIndex = -1;
             do {
                 if(!(XMLChar.trim(xpath).startsWith("/") || XMLChar.trim(xpath).startsWith("."))) {

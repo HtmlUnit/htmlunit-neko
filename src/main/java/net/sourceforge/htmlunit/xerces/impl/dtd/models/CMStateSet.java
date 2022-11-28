@@ -72,7 +72,7 @@ public class CMStateSet
     // -------------------------------------------------------------------
     public String toString()
     {
-        StringBuffer strRet = new StringBuffer();
+        StringBuilder strRet = new StringBuilder();
         try
         {
             strRet.append('{');

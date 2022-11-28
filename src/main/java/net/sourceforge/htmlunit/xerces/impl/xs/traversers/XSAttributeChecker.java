@@ -1585,7 +1585,7 @@ public class XSAttributeChecker {
         if (len == 0 || ws == XSSimpleType.WS_PRESERVE)
             return content;
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (ws == XSSimpleType.WS_REPLACE) {
             char ch;
             // when it's replace, just replace #x9, #xa, #xd by #x20

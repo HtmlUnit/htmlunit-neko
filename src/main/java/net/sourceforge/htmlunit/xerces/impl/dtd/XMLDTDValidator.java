@@ -1434,7 +1434,7 @@ public class XMLDTDValidator
                     }
 
                 if (!found) {
-                    StringBuffer enumValueString = new StringBuffer();
+                    StringBuilder enumValueString = new StringBuilder();
                     if (enumVals != null)
                         for (int i = 0; i < enumVals.length; i++) {
                             enumValueString.append(enumVals[i]+" ");
@@ -1803,7 +1803,7 @@ public class XMLDTDValidator
                 return attrDecl.simpleType.list ? XMLSymbols.fENTITIESSymbol : XMLSymbols.fENTITYSymbol;
             }
         case XMLSimpleType.TYPE_ENUMERATION: {
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 buffer.append('(');
                 for (int i=0; i<attrDecl.simpleType.enumeration.length ; i++) {
                     if (i > 0) {

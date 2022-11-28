@@ -464,7 +464,7 @@ public class AttrImpl
         
         if (node == null || data == null)  return (data == null)?"":data;
         
-        StringBuffer value = new StringBuffer(data);
+        StringBuilder value = new StringBuilder(data);
     	while (node != null) {
             if (node.getNodeType()  == Node.ENTITY_REFERENCE_NODE){
                 data = ((EntityReferenceImpl)node).getEntityRefValue();

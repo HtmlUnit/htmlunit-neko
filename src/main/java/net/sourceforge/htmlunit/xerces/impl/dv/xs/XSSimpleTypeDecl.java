@@ -1976,7 +1976,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         if (len == 0 || ws == WS_PRESERVE)
             return content;
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (ws == WS_REPLACE) {
             char ch;
             // when it's replace, just replace #x9, #xa, #xd by #x20

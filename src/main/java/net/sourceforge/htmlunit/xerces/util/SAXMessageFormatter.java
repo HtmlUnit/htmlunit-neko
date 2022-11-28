@@ -80,7 +80,7 @@ public class SAXMessageFormatter {
         if (msg == null) {
             msg = key;
             if (arguments.length > 0) {
-                StringBuffer str = new StringBuffer(msg);
+                StringBuilder str = new StringBuilder(msg);
                 str.append('?');
                 for (int i = 0; i < arguments.length; i++) {
                     if (i > 0) {

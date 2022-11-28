@@ -161,7 +161,7 @@ public class QName
     /** Returns a string representation of this object. */
     public String toString() {
 
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         boolean comma = false;
         if (prefix != null) {
             str.append("prefix=\"").append(prefix).append('"');

@@ -223,7 +223,7 @@ implements EntityReference {
             return value;
           }
           else {
-            StringBuffer buff = new StringBuffer(value);
+            StringBuilder buff = new StringBuilder(value);
             ChildNode next = firstChild.nextSibling;
             while (next != null){   
             

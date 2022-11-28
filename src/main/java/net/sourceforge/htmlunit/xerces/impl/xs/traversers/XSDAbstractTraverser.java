@@ -146,7 +146,7 @@ abstract class XSDAbstractTraverser {
         Vector annotationLocalAttrs = (Vector)parentAttrs[XSAttributeChecker.ATTIDX_NONSCHEMA];
         // optimize for case where there are no local attributes
         if(annotationLocalAttrs != null && !annotationLocalAttrs.isEmpty()) {
-            StringBuffer localStrBuffer = new StringBuffer(64);
+            StringBuilder localStrBuffer = new StringBuilder(64);
             localStrBuffer.append(" ");
             // Vector should contain rawname value pairs
             int i = 0;
@@ -176,7 +176,7 @@ abstract class XSDAbstractTraverser {
                 .append("\" ");
             }
             // and now splice it into place; immediately after the annotation token, for simplicity's sake
-            StringBuffer contentBuffer = new StringBuffer(contents.length() + localStrBuffer.length());
+            StringBuilder contentBuffer = new StringBuilder(contents.length() + localStrBuffer.length());
             int annotationTokenEnd = contents.indexOf(SchemaSymbols.ELT_ANNOTATION);
             // annotation must occur somewhere or we're in big trouble...
             if(annotationTokenEnd == -1) return null;
@@ -209,7 +209,7 @@ abstract class XSDAbstractTraverser {
         Vector annotationLocalAttrs = (Vector)parentAttrs[XSAttributeChecker.ATTIDX_NONSCHEMA];
         // optimize for case where there are no local attributes
         if (annotationLocalAttrs != null && !annotationLocalAttrs.isEmpty()) {
-            StringBuffer localStrBuffer = new StringBuffer(64);
+            StringBuilder localStrBuffer = new StringBuilder(64);
             localStrBuffer.append(" ");
             // Vector should contain rawname value pairs
             int i = 0;
@@ -235,7 +235,7 @@ abstract class XSDAbstractTraverser {
                 .append("\" ");
             }
             // and now splice it into place; immediately after the annotation token, for simplicity's sake
-            StringBuffer contentBuffer = new StringBuffer(contents.length() + localStrBuffer.length());
+            StringBuilder contentBuffer = new StringBuilder(contents.length() + localStrBuffer.length());
             int annotationTokenEnd = contents.indexOf(SchemaSymbols.ELT_ANNOTATION);
             // annotation must occur somewhere or we're in big trouble...
             if(annotationTokenEnd == -1) return null;
@@ -963,7 +963,7 @@ abstract class XSDAbstractTraverser {
     private static String escapeAttValue(String original, int from) {
         int i;
         final int length = original.length();
-        StringBuffer newVal = new StringBuffer(length);
+        StringBuilder newVal = new StringBuilder(length);
         newVal.append(original.substring(0, from));
         for (i = from; i < length; ++i) {
             char currChar = original.charAt(i);

@@ -168,7 +168,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
         // names of parent nodes
         // The name is quite good for debugging/error purposes, but we may want to
         // revisit how this is done for performance reasons (LM).
-        StringBuffer typeName = new StringBuffer("#AnonType_");
+        StringBuilder typeName = new StringBuilder("#AnonType_");
         Element node = DOMUtil.getParent(simpleTypeDecl);
         while (node != null && (node != DOMUtil.getRoot(DOMUtil.getDocument(node)))) {
             typeName.append(node.getAttribute(SchemaSymbols.ATT_NAME));

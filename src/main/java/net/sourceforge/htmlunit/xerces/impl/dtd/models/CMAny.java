@@ -105,7 +105,7 @@ public class CMAny
 
     public String toString()
     {
-        StringBuffer strRet = new StringBuffer();
+        StringBuilder strRet = new StringBuilder();
         strRet.append('(');
         strRet.append("##any:uri=");
         strRet.append(fURI);

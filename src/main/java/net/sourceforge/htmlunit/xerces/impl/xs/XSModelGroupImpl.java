@@ -146,7 +146,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     public String toString() {
     	// REVISIT: Commented code may help to eliminate redundant parentheses (test first before committing)
         if (fDescription == null) {
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (fCompositor == MODELGROUP_ALL)
                 buffer.append("all(");
             else  //if (fMinOccurs != 1 || fMaxOccurs != 1)

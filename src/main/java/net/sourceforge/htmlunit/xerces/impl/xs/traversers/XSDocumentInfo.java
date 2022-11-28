@@ -152,7 +152,7 @@ class XSDocumentInfo {
 
     // some Object methods
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if (fTargetNamespace == null) {
             buf.append("no targetNamspace");
         }

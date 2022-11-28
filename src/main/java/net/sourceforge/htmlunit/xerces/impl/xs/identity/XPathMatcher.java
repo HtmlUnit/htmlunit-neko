@@ -418,7 +418,7 @@ public class XPathMatcher {
         /***
         return fLocationPath.toString();
         /***/
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         String s = super.toString();
         int index2 = s.lastIndexOf('.');
         if (index2 != -1) {
@@ -452,7 +452,7 @@ public class XPathMatcher {
 
     /** Normalizes text. */
     private String normalize(String s) {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         int length = s.length();
         for (int i = 0; i < length; i++) {
             char c = s.charAt(i);

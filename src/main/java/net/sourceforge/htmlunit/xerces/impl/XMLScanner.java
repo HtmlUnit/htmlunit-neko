@@ -1358,7 +1358,7 @@ public abstract class XMLScanner
             
             // character reference must be a valid XML character
             if (isInvalid(value)) {
-            	StringBuffer errorBuf = new StringBuffer(fStringBuffer3.length + 1);
+            	StringBuilder errorBuf = new StringBuilder(fStringBuffer3.length + 1);
                 if (hex) errorBuf.append('x');
                 errorBuf.append(fStringBuffer3.ch, fStringBuffer3.offset, fStringBuffer3.length);
                 reportFatalError("InvalidCharRef",
@@ -1368,7 +1368,7 @@ public abstract class XMLScanner
         catch (NumberFormatException e) {
             // Conversion failed, let -1 value drop through.
             // If we end up here, the character reference was invalid.
-            StringBuffer errorBuf = new StringBuffer(fStringBuffer3.length + 1);
+            StringBuilder errorBuf = new StringBuilder(fStringBuffer3.length + 1);
             if (hex) errorBuf.append('x');
             errorBuf.append(fStringBuffer3.ch, fStringBuffer3.offset, fStringBuffer3.length);
             reportFatalError("InvalidCharRef",
