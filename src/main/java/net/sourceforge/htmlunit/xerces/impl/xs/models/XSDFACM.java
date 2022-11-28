@@ -162,7 +162,7 @@ public class XSDFACM
      * The number of valid entries in the transition table, and in the other
      * related tables such as fFinalStateFlags.
      */
-    private int fTransTableSize = 0;
+    private final int fTransTableSize = 0;
 
     private final boolean fIsCompactedForUPA;
     

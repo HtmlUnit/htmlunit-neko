@@ -1387,7 +1387,7 @@ public abstract class XMLScanner
 
         // char refs notification code
         if (fNotifyCharRefs && value != -1) {
-            String literal = "#" + (hex ? "x" : "") + fStringBuffer3.toString();
+            String literal = "#" + (hex ? "x" : "") + fStringBuffer3;
             if (!fScanningAttribute) {
                 fCharRefLiteral = literal;
             }

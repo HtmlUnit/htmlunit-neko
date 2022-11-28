@@ -146,13 +146,13 @@ class HTMLCollectionImpl
      * values and used by {@link #collectionMatch}. Set by the constructor and
      * determine the collection's use for its life time.
      */
-    private short            _lookingFor;
+    private final short            _lookingFor;
     
     
     /**
      * This is the top level element underneath which the collection exists.
      */
-    private Element            _topLevel;
+    private final Element            _topLevel;
 
 
     /**

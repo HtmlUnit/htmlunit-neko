@@ -88,7 +88,7 @@ public class DFAContentModel
     private int fElemMapSize = 0;
 
     /** Boolean to distinguish Schema Mixed Content */
-    private boolean fMixed;
+    private final boolean fMixed;
 
     /**
      * The NFA position of the special EOC (end of content) node. This
@@ -160,7 +160,7 @@ public class DFAContentModel
      * The number of valid entries in the transition table, and in the other
      * related tables such as fFinalStateFlags.
      */
-    private int fTransTableSize = 0;
+    private final int fTransTableSize = 0;
 
     /**
      * Flag that indicates that even though we have a "complicated"

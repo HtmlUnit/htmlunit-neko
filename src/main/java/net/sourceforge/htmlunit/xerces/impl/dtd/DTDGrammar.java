@@ -233,13 +233,13 @@ public class DTDGrammar
     // for buildSyntaxTree method
 
     private int fLeafCount = 0;
-    private int fEpsilonIndex = -1;
+    private final int fEpsilonIndex = -1;
     
     /** Element declaration. */
     private XMLElementDecl fElementDecl = new XMLElementDecl();
 
     /** Entity declaration. */
-    private XMLEntityDecl fEntityDecl = new XMLEntityDecl();
+    private final XMLEntityDecl fEntityDecl = new XMLEntityDecl();
 
     /** Simple type. */
     private final XMLSimpleType fSimpleType = new XMLSimpleType();

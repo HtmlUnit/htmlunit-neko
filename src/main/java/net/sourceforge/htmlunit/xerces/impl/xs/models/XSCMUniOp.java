@@ -93,6 +93,6 @@ public class XSCMUniOp extends CMNode {
     //      This is the reference to the one child that we have for this
     //      unary operation.
     // -------------------------------------------------------------------
-    private CMNode  fChild;
+    private final CMNode  fChild;
 } // XSCMUniOp
 
