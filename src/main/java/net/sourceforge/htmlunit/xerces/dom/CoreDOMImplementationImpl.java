@@ -337,83 +337,6 @@ public class CoreDOMImplementationImpl
 
 	// DOM L3 LS
 
-	/**
-	 * DOM Level 3 LS CR - Experimental.
-     * Create a new <code>LSParser</code>. The newly constructed parser may
-     * then be configured by means of its <code>DOMConfiguration</code>
-     * object, and used to parse documents by means of its <code>parse</code>
-     *  method.
-     * @param mode  The <code>mode</code> argument is either
-     *   <code>MODE_SYNCHRONOUS</code> or <code>MODE_ASYNCHRONOUS</code>, if
-     *   <code>mode</code> is <code>MODE_SYNCHRONOUS</code> then the
-     *   <code>LSParser</code> that is created will operate in synchronous
-     *   mode, if it's <code>MODE_ASYNCHRONOUS</code> then the
-     *   <code>LSParser</code> that is created will operate in asynchronous
-     *   mode.
-     * @param schemaType  An absolute URI representing the type of the schema
-     *   language used during the load of a <code>Document</code> using the
-     *   newly created <code>LSParser</code>. Note that no lexical checking
-     *   is done on the absolute URI. In order to create a
-     *   <code>LSParser</code> for any kind of schema types (i.e. the
-     *   LSParser will be free to use any schema found), use the value
-     *   <code>null</code>.
-     * <p ><b>Note:</b>    For W3C XML Schema [<a href='http://www.w3.org/TR/2001/REC-xmlschema-1-20010502/'>XML Schema Part 1</a>]
-     *   , applications must use the value
-     *   <code>"http://www.w3.org/2001/XMLSchema"</code>. For XML DTD [<a href='http://www.w3.org/TR/2000/REC-xml-20001006'>XML 1.0</a>],
-     *   applications must use the value
-     *   <code>"http://www.w3.org/TR/REC-xml"</code>. Other Schema languages
-     *   are outside the scope of the W3C and therefore should recommend an
-     *   absolute URI in order to use this method.
-     * @return  The newly created <code>LSParser</code> object. This
-     *   <code>LSParser</code> is either synchronous or asynchronous
-     *   depending on the value of the <code>mode</code> argument.
-     * <p ><b>Note:</b>    By default, the newly created <code>LSParser</code>
-     *    does not contain a <code>DOMErrorHandler</code>, i.e. the value of
-     *   the "<a href='http://www.w3.org/TR/2003/WD-DOM-Level-3-Core-20030609/core.html#parameter-error-handler'>
-     *   error-handler</a>" configuration parameter is <code>null</code>. However, implementations
-     *   may provide a default error handler at creation time. In that case,
-     *   the initial value of the <code>"error-handler"</code> configuration
-     *   parameter on the new created <code>LSParser</code> contains a
-     *   reference to the default error handler.
-     * @exception DOMException
-     *    NOT_SUPPORTED_ERR: Raised if the requested mode or schema type is
-     *   not supported.
-	 */
-    public LSParser createLSParser(short mode, String schemaType)
-		throws DOMException {
-		if (mode != DOMImplementationLS.MODE_SYNCHRONOUS || (schemaType !=null &&
-		   !"http://www.w3.org/2001/XMLSchema".equals(schemaType) &&
-			!"http://www.w3.org/TR/REC-xml".equals(schemaType))) {
-			String msg =
-				DOMMessageFormatter.formatMessage(
-					DOMMessageFormatter.DOM_DOMAIN,
-					"NOT_SUPPORTED_ERR",
-					null);
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
-		}
-		if (schemaType != null
-			&& schemaType.equals("http://www.w3.org/TR/REC-xml")) {
-			return new DOMParserImpl(
-				"net.sourceforge.htmlunit.xerces.parsers.XML11DTDConfiguration",
-				schemaType);
-		}
-		else {
-			// create default parser configuration validating against XMLSchemas
-			return new DOMParserImpl(
-				"net.sourceforge.htmlunit.xerces.parsers.XIncludeAwareParserConfiguration",
-				schemaType);
-		}
-	}
-
-	/**
-	 * DOM Level 3 LS CR - Experimental.
-	 * Create a new empty input source.
-	 * @return  The newly created input object.
-	 */
-	public LSInput createLSInput() {
-		return new DOMInputImpl();
-	}
-
 	//
 	// Protected methods
 	//
@@ -647,19 +570,6 @@ public class CoreDOMImplementationImpl
 	}
 
 	/**
-     * DOM Level 3 LS CR - Experimental.
-	 *
-	 * Create a new empty output destination object where
-	 * <code>LSOutput.characterStream</code>,
-	 * <code>LSOutput.byteStream</code>, <code>LSOutput.systemId</code>,
-	 * <code>LSOutput.encoding</code> are null.
-	 * @return  The newly created output object.
-	 */
-	public LSOutput createLSOutput() {
-	    return new DOMOutputImpl();
-	}
-
-    /**
      * A holder for RevalidationHandlers. This allows us to reuse
      * SoftReferences which haven't yet been cleared by the garbage
      * collector.

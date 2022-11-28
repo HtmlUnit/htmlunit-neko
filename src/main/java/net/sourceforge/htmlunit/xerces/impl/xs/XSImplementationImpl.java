@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,29 +18,26 @@
 package net.sourceforge.htmlunit.xerces.impl.xs;
 
 import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.ls.LSInput;
 
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.PSVIDOMImplementationImpl;
-import net.sourceforge.htmlunit.xerces.impl.xs.util.LSInputListImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.StringListImpl;
-import net.sourceforge.htmlunit.xerces.xs.LSInputList;
 import net.sourceforge.htmlunit.xerces.xs.StringList;
 import net.sourceforge.htmlunit.xerces.xs.XSException;
 import net.sourceforge.htmlunit.xerces.xs.XSImplementation;
 import net.sourceforge.htmlunit.xerces.xs.XSLoader;
 
 /**
- * Implements XSImplementation interface that allows one to retrieve an instance of <code>XSLoader</code>. 
- * This interface should be implemented on the same object that implements 
+ * Implements XSImplementation interface that allows one to retrieve an instance of <code>XSLoader</code>.
+ * This interface should be implemented on the same object that implements
  * DOMImplementation.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @version $Id$
  */
-public class XSImplementationImpl extends PSVIDOMImplementationImpl 
+public class XSImplementationImpl extends PSVIDOMImplementationImpl
  								  implements XSImplementation {
 
     //
@@ -59,16 +56,16 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
     /** NON-DOM: Obtain and return the single shared object */
     public static DOMImplementation getDOMImplementation() {
         return singleton;
-    }  
+    }
 
     //
     // DOMImplementation methods
     //
 
-    /** 
+    /**
      * Test if the DOM implementation supports a specific "feature" --
      * currently meaning language and level thereof.
-     * 
+     *
      * @param feature      The package name of the feature to test.
      * In Level 1, supported values are "HTML" and "XML" (case-insensitive).
      * At this writing, net.sourceforge.htmlunit.xerces.dom supports only XML.
@@ -81,11 +78,11 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
      * feature and version.
      */
     public boolean hasFeature(String feature, String version) {
-    	
+
         return (feature.equalsIgnoreCase("XS-Loader") && (version == null || version.equals("1.0")) ||
 		super.hasFeature(feature, version));
     } // hasFeature(String,String):boolean
-    
+
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSImplementation#createXSLoader(net.sourceforge.htmlunit.xerces.xs.StringList)
      */
@@ -106,15 +103,10 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
     	}
     	return loader;
     }
-    
+
     public StringList createStringList(String[] values) {
         int length = (values != null) ? values.length : 0;
         return (length != 0) ? new StringListImpl((String[]) values.clone(), length) : StringListImpl.EMPTY_LIST;
-    }
-    
-    public LSInputList createLSInputList(LSInput[] values) {
-        int length = (values != null) ? values.length : 0;
-        return (length != 0) ? new LSInputListImpl((LSInput[]) values.clone(), length) : LSInputListImpl.EMPTY_LIST;
     }
 
     /* (non-Javadoc)
