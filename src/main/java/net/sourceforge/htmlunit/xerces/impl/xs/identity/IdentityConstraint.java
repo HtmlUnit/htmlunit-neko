@@ -224,13 +224,13 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
         return new XSObjectListImpl(fAnnotations, fNumAnnotations);
     }
     
-	/**
-	 * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
-	 */
-	public XSNamespaceItem getNamespaceItem() {
+    /**
+     * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
+     */
+    public XSNamespaceItem getNamespaceItem() {
         // REVISIT: implement
-		return null;
-	}
+        return null;
+    }
 
     public void addAnnotation(XSAnnotationImpl annotation) {
         if(annotation == null)

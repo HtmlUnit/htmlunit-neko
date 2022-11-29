@@ -279,8 +279,8 @@ public class CMStateSet
     byte[]      fByteArray;
     /* Optimization(Jan, 2001) */
     public boolean equals(Object o) {
-	if (!(o instanceof CMStateSet)) return false;
-	return isSameSet((CMStateSet)o);
+    if (!(o instanceof CMStateSet)) return false;
+    return isSameSet((CMStateSet)o);
     }
 
     public int hashCode() {

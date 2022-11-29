@@ -87,9 +87,9 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * validation attempt. </p>
      *
      * @param grammarType The type of the grammar, from the
-     *  		  <code>net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription</code>
-     *  		  interface.
-     * @return 		  The set of grammars the validator may put in its "bucket"
+     *            <code>net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription</code>
+     *            interface.
+     * @return           The set of grammars the validator may put in its "bucket"
      */
     public Grammar [] retrieveInitialGrammarSet (String grammarType) {
         synchronized (fGrammars) {
@@ -117,8 +117,8 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * us not to accept any new grammars.</p>
      *
      * @param grammarType The type of the grammars being returned;
-     * @param grammars 	  An array containing the set of grammars being
-     *  		  returned; order is not significant.
+     * @param grammars       An array containing the set of grammars being
+     *            returned; order is not significant.
      */
     public void cacheGrammars(String grammarType, Grammar[] grammars) {
         if(!fPoolIsLocked) {
@@ -145,7 +145,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      *
      * @param desc The description of the Grammar being requested.
      * @return     The Grammar corresponding to this description or null if
-     *  	   no such Grammar is known.
+     *         no such Grammar is known.
      */
     public Grammar retrieveGrammar(XMLGrammarDescription desc) {
         if(DEBUG){

@@ -121,8 +121,8 @@ public class XMLDTDValidator
     protected static final String WARN_ON_DUPLICATE_ATTDEF = 
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ATTDEF_FEATURE; 
     
-	protected static final String PARSER_SETTINGS = 
-		Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;	
+    protected static final String PARSER_SETTINGS = 
+        Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;    
 
 
 
@@ -434,24 +434,24 @@ public class XMLDTDValidator
 
         fRootElement.clear();
 
-		fValidationState.resetIDTables();
-		
-		fGrammarBucket.clear();
-		fElementDepth = -1;                      
-		fElementChildrenLength = 0;
+        fValidationState.resetIDTables();
+        
+        fGrammarBucket.clear();
+        fElementDepth = -1;                      
+        fElementChildrenLength = 0;
         
         boolean parser_settings;
         try {
-        	parser_settings = componentManager.getFeature(PARSER_SETTINGS);  	
+            parser_settings = componentManager.getFeature(PARSER_SETTINGS);      
         }
         catch (XMLConfigurationException e){
-        	parser_settings = true;
+            parser_settings = true;
         }
         
         if (!parser_settings){
-        	// parser settings have not been changed
-			fValidationManager.addValidationState(fValidationState);
-        	return;
+            // parser settings have not been changed
+            fValidationManager.addValidationState(fValidationState);
+            return;
         }
 
         // sax features
@@ -519,7 +519,7 @@ public class XMLDTDValidator
         }
 
         fDatatypeValidatorFactory = (DTDDVFactory)componentManager.getProperty(Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY);
-		init();
+        init();
 
     } // reset(XMLComponentManager)
 

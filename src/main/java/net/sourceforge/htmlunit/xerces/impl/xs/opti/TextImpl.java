@@ -123,7 +123,7 @@ public class TextImpl extends DefaultText {
                                 throws DOMException {
         if(fData == null) return null;
         if(count < 0 || offset < 0 || offset > fData.length()) 
-    	    throw new DOMException(DOMException.INDEX_SIZE_ERR, "parameter error");
+            throw new DOMException(DOMException.INDEX_SIZE_ERR, "parameter error");
         if(offset+count >= fData.length()) 
             return fData.substring(offset);
         return fData.substring(offset, offset+count);

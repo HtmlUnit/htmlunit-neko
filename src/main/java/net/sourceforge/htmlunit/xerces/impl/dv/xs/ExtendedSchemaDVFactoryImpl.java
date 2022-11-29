@@ -44,7 +44,7 @@ public class ExtendedSchemaDVFactoryImpl extends BaseSchemaDVFactory {
         final String YEARMONTHDURATION = "yearMonthDuration";
         final String DAYTIMEDURATION   = "dayTimeDuration";
 
-    	createBuiltInTypes(fBuiltInTypes, XSSimpleTypeDecl.fAnyAtomicType);
+        createBuiltInTypes(fBuiltInTypes, XSSimpleTypeDecl.fAnyAtomicType);
 
         // add anyAtomicType
         fBuiltInTypes.put(ANYATOMICTYPE, XSSimpleTypeDecl.fAnyAtomicType);

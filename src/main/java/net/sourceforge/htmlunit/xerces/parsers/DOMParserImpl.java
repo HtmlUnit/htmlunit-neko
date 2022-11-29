@@ -229,7 +229,7 @@ public class DOMParserImpl
         fConfiguration.setFeature(INCLUDE_COMMENTS_FEATURE, true);
         fConfiguration.setFeature(INCLUDE_IGNORABLE_WHITESPACE, true);
         fConfiguration.setFeature(NAMESPACES, true);
-		
+        
         fConfiguration.setFeature(DYNAMIC_VALIDATION, false);
         fConfiguration.setFeature(CREATE_ENTITY_REF_NODES, false);
         fConfiguration.setFeature(CREATE_CDATA_NODES_FEATURE, false);
@@ -365,7 +365,7 @@ public class DOMParserImpl
      */
     public void setParameter (String name, Object value) throws DOMException {
         // set features
-    	
+        
         if (value instanceof Boolean) {
             boolean state = ((Boolean)value).booleanValue();
             try {
@@ -928,7 +928,7 @@ public class DOMParserImpl
         XMLInputSource source = new XMLInputSource (null, uri, null);
         try {
             currentThread = Thread.currentThread();
-			fBusy = true;
+            fBusy = true;
             parse (source);
             fBusy = false;
             if (abortNow && currentThread.isInterrupted()) {
@@ -982,7 +982,7 @@ public class DOMParserImpl
 
         try {
             currentThread = Thread.currentThread();
-			fBusy = true;
+            fBusy = true;
             parse (xmlInputSource);
             fBusy = false;   
             if (abortNow && currentThread.isInterrupted()) {
@@ -1418,5 +1418,5 @@ public class DOMParserImpl
                     new Object[] { name });
         return new DOMException (DOMException.TYPE_MISMATCH_ERR, msg);
     }
-	
+    
 } // class DOMParserImpl

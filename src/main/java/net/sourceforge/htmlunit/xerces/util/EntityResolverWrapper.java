@@ -83,7 +83,7 @@ public class EntityResolverWrapper
      * Resolves an external parsed entity. If the entity cannot be
      * resolved, this method should return null.
      *
-     * @param resourceIdentifier	contains the physical co-ordinates of the resource to be resolved
+     * @param resourceIdentifier    contains the physical co-ordinates of the resource to be resolved
      *
      * @throws XNIException Thrown on general error.
      * @throws IOException  Thrown if resolved entity stream cannot be

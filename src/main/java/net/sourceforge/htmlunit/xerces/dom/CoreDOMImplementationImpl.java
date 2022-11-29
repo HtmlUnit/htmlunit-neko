@@ -48,7 +48,7 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  * @since PR-DOM-Level-1-19980818.
  */
 public class CoreDOMImplementationImpl
-	implements DOMImplementation {
+    implements DOMImplementation {
 
     //
     // Data
@@ -83,51 +83,51 @@ public class CoreDOMImplementationImpl
     // compareDocumentPosition
     private int docAndDoctypeCounter = 0;
 
-	// static
-	/** Dom implementation singleton. */
-	static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
+    // static
+    /** Dom implementation singleton. */
+    static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
 
-	//
-	// Public methods
-	//
-	/** NON-DOM: Obtain and return the single shared object */
-	public static DOMImplementation getDOMImplementation() {
-		return singleton;
-	}
-	//
-	// DOMImplementation methods
-	//
-	/**
-	 * Test if the DOM implementation supports a specific "feature" --
-	 * currently meaning language and level thereof.
-	 *
-	 * @param feature The package name of the feature to test.
-	 * In Level 1, supported values are "HTML" and "XML" (case-insensitive).
-	 * At this writing, net.sourceforge.htmlunit.xerces.dom supports only XML.
-	 *
-	 * @param version The version number of the feature being tested.
-	 * This is interpreted as "Version of the DOM API supported for the
-	 * specified Feature", and in Level 1 should be "1.0"
-	 *
-	 * @return true iff this implementation is compatible with the specified
-	 * feature and version.
-	 */
-	public boolean hasFeature(String feature, String version) {
+    //
+    // Public methods
+    //
+    /** NON-DOM: Obtain and return the single shared object */
+    public static DOMImplementation getDOMImplementation() {
+        return singleton;
+    }
+    //
+    // DOMImplementation methods
+    //
+    /**
+     * Test if the DOM implementation supports a specific "feature" --
+     * currently meaning language and level thereof.
+     *
+     * @param feature The package name of the feature to test.
+     * In Level 1, supported values are "HTML" and "XML" (case-insensitive).
+     * At this writing, net.sourceforge.htmlunit.xerces.dom supports only XML.
+     *
+     * @param version The version number of the feature being tested.
+     * This is interpreted as "Version of the DOM API supported for the
+     * specified Feature", and in Level 1 should be "1.0"
+     *
+     * @return true iff this implementation is compatible with the specified
+     * feature and version.
+     */
+    public boolean hasFeature(String feature, String version) {
 
-	    boolean anyVersion = version == null || version.length() == 0;
+        boolean anyVersion = version == null || version.length() == 0;
 
-	    // check if Xalan implementation is around and if yes report true for supporting
-	    // XPath API
-	    // if a plus sign "+" is prepended to any feature name, implementations
-	    // are considered in which the specified feature may not be directly
-	    // castable DOMImplementation.getFeature(feature, version). Without a
-	    // plus, only features whose interfaces are directly castable are considered.
-	    if ((feature.equalsIgnoreCase("+XPath"))
-	        && (anyVersion || version.equals("3.0"))) {
-	        try {
-	            Class xpathClass = ObjectFactory.findProviderClass(
-	                "org.apache.xpath.domapi.XPathEvaluatorImpl",
-	                ObjectFactory.findClassLoader(), true);
+        // check if Xalan implementation is around and if yes report true for supporting
+        // XPath API
+        // if a plus sign "+" is prepended to any feature name, implementations
+        // are considered in which the specified feature may not be directly
+        // castable DOMImplementation.getFeature(feature, version). Without a
+        // plus, only features whose interfaces are directly castable are considered.
+        if ((feature.equalsIgnoreCase("+XPath"))
+            && (anyVersion || version.equals("3.0"))) {
+            try {
+                Class xpathClass = ObjectFactory.findProviderClass(
+                    "org.apache.xpath.domapi.XPathEvaluatorImpl",
+                    ObjectFactory.findClassLoader(), true);
 
                 // Check if the DOM XPath implementation implements
                 // the interface org.w3c.dom.XPathEvaluator
@@ -138,56 +138,56 @@ public class CoreDOMImplementationImpl
                         return true;
                     }
                 }
-	        } catch (Exception e) {
-	            return false;
-	        }
-	        return true;
-	    }
-	    if (feature.startsWith("+")) {
-	        feature = feature.substring(1);
-	    }
-	    return (
-	        feature.equalsIgnoreCase("Core")
-	            && (anyVersion
-	                || version.equals("1.0")
-	                || version.equals("2.0")
-	                || version.equals("3.0")))
-	                || (feature.equalsIgnoreCase("XML")
-	            && (anyVersion
-	                || version.equals("1.0")
-	                || version.equals("2.0")
-	                || version.equals("3.0")))
-	                || (feature.equalsIgnoreCase("XMLVersion")
-	            && (anyVersion
-	                || version.equals("1.0")
-	                || version.equals("1.1")))
-	                || (feature.equalsIgnoreCase("LS")
-	            && (anyVersion
-	                || version.equals("3.0")))
-	                || (feature.equalsIgnoreCase("ElementTraversal")
-	            && (anyVersion
-	                || version.equals("1.0")));
-	} // hasFeature(String,String):boolean
+            } catch (Exception e) {
+                return false;
+            }
+            return true;
+        }
+        if (feature.startsWith("+")) {
+            feature = feature.substring(1);
+        }
+        return (
+            feature.equalsIgnoreCase("Core")
+                && (anyVersion
+                    || version.equals("1.0")
+                    || version.equals("2.0")
+                    || version.equals("3.0")))
+                    || (feature.equalsIgnoreCase("XML")
+                && (anyVersion
+                    || version.equals("1.0")
+                    || version.equals("2.0")
+                    || version.equals("3.0")))
+                    || (feature.equalsIgnoreCase("XMLVersion")
+                && (anyVersion
+                    || version.equals("1.0")
+                    || version.equals("1.1")))
+                    || (feature.equalsIgnoreCase("LS")
+                && (anyVersion
+                    || version.equals("3.0")))
+                    || (feature.equalsIgnoreCase("ElementTraversal")
+                && (anyVersion
+                    || version.equals("1.0")));
+    } // hasFeature(String,String):boolean
 
 
-	/**
-	 * Introduced in DOM Level 2. <p>
-	 *
-	 * Creates an empty DocumentType node.
-	 *
-	 * @param qualifiedName The qualified name of the document type to be created.
-	 * @param publicID The document type public identifier.
-	 * @param systemID The document type system identifier.
-	 * @since WD-DOM-Level-2-19990923
-	 */
-	public DocumentType createDocumentType( String qualifiedName,
+    /**
+     * Introduced in DOM Level 2. <p>
+     *
+     * Creates an empty DocumentType node.
+     *
+     * @param qualifiedName The qualified name of the document type to be created.
+     * @param publicID The document type public identifier.
+     * @param systemID The document type system identifier.
+     * @since WD-DOM-Level-2-19990923
+     */
+    public DocumentType createDocumentType( String qualifiedName,
                                     String publicID, String systemID) {
-		// REVISIT: this might allow creation of invalid name for DOCTYPE
-		//          xmlns prefix.
-		//          also there is no way for a user to turn off error checking.
-		checkQName(qualifiedName);
-		return new DocumentTypeImpl(null, qualifiedName, publicID, systemID);
-	}
+        // REVISIT: this might allow creation of invalid name for DOCTYPE
+        //          xmlns prefix.
+        //          also there is no way for a user to turn off error checking.
+        checkQName(qualifiedName);
+        return new DocumentTypeImpl(null, qualifiedName, publicID, systemID);
+    }
 
     final void checkQName(String qname){
         int index = qname.indexOf(':');
@@ -254,89 +254,89 @@ public class CoreDOMImplementationImpl
     }
 
 
-	/**
-	 * Introduced in DOM Level 2. <p>
-	 *
-	 * Creates an XML Document object of the specified type with its document
-	 * element.
-	 *
-	 * @param namespaceURI     The namespace URI of the document
-	 *                         element to create, or null.
-	 * @param qualifiedName    The qualified name of the document
-	 *                         element to create.
-	 * @param doctype          The type of document to be created or null.<p>
-	 *
-	 *                         When doctype is not null, its
-	 *                         Node.ownerDocument attribute is set to
-	 *                         the document being created.
-	 * @return Document        A new Document object.
-	 * @throws DOMException    WRONG_DOCUMENT_ERR: Raised if doctype has
-	 *                         already been used with a different document.
-	 * @since WD-DOM-Level-2-19990923
-	 */
-	public Document createDocument(
-		String namespaceURI,
-		String qualifiedName,
-		DocumentType doctype)
-		throws DOMException {
-		if (doctype != null && doctype.getOwnerDocument() != null) {
-			String msg =
-				DOMMessageFormatter.formatMessage(
-					DOMMessageFormatter.DOM_DOMAIN,
-					"WRONG_DOCUMENT_ERR",
-					null);
-			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
-		}
-		CoreDocumentImpl doc = createDocument(doctype);
-		// If namespaceURI and qualifiedName are null return a Document with no document element.
-		if (qualifiedName != null || namespaceURI != null) {
-		    Element e = doc.createElementNS(namespaceURI, qualifiedName);
-		    doc.appendChild(e);
-		}
-		return doc;
-	}
+    /**
+     * Introduced in DOM Level 2. <p>
+     *
+     * Creates an XML Document object of the specified type with its document
+     * element.
+     *
+     * @param namespaceURI     The namespace URI of the document
+     *                         element to create, or null.
+     * @param qualifiedName    The qualified name of the document
+     *                         element to create.
+     * @param doctype          The type of document to be created or null.<p>
+     *
+     *                         When doctype is not null, its
+     *                         Node.ownerDocument attribute is set to
+     *                         the document being created.
+     * @return Document        A new Document object.
+     * @throws DOMException    WRONG_DOCUMENT_ERR: Raised if doctype has
+     *                         already been used with a different document.
+     * @since WD-DOM-Level-2-19990923
+     */
+    public Document createDocument(
+        String namespaceURI,
+        String qualifiedName,
+        DocumentType doctype)
+        throws DOMException {
+        if (doctype != null && doctype.getOwnerDocument() != null) {
+            String msg =
+                DOMMessageFormatter.formatMessage(
+                    DOMMessageFormatter.DOM_DOMAIN,
+                    "WRONG_DOCUMENT_ERR",
+                    null);
+            throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
+        }
+        CoreDocumentImpl doc = createDocument(doctype);
+        // If namespaceURI and qualifiedName are null return a Document with no document element.
+        if (qualifiedName != null || namespaceURI != null) {
+            Element e = doc.createElementNS(namespaceURI, qualifiedName);
+            doc.appendChild(e);
+        }
+        return doc;
+    }
 
-	protected CoreDocumentImpl createDocument(DocumentType doctype) {
-	    return new CoreDocumentImpl(doctype);
-	}
+    protected CoreDocumentImpl createDocument(DocumentType doctype) {
+        return new CoreDocumentImpl(doctype);
+    }
 
-	/**
-	 * DOM Level 3 WD - Experimental.
-	 */
-	public Object getFeature(String feature, String version) {
-	    if (singleton.hasFeature(feature, version)) {
-	        if ((feature.equalsIgnoreCase("+XPath"))) {
-	            try {
-	                Class xpathClass = ObjectFactory.findProviderClass(
-	                    "org.apache.xpath.domapi.XPathEvaluatorImpl",
-	                    ObjectFactory.findClassLoader(), true);
+    /**
+     * DOM Level 3 WD - Experimental.
+     */
+    public Object getFeature(String feature, String version) {
+        if (singleton.hasFeature(feature, version)) {
+            if ((feature.equalsIgnoreCase("+XPath"))) {
+                try {
+                    Class xpathClass = ObjectFactory.findProviderClass(
+                        "org.apache.xpath.domapi.XPathEvaluatorImpl",
+                        ObjectFactory.findClassLoader(), true);
 
-	                // Check if the DOM XPath implementation implements
-	                // the interface org.w3c.dom.XPathEvaluator
-	                Class[] interfaces = xpathClass.getInterfaces();
+                    // Check if the DOM XPath implementation implements
+                    // the interface org.w3c.dom.XPathEvaluator
+                    Class[] interfaces = xpathClass.getInterfaces();
                     for (Class anInterface : interfaces) {
                         if (anInterface.getName().equals(
                                 "org.w3c.dom.xpath.XPathEvaluator")) {
                             return xpathClass.newInstance();
                         }
                     }
-	            } catch (Exception e) {
-	                return null;
-	            }
-	        } else {
-	            return singleton;
-	        }
-	    }
-	    return null;
-	}
+                } catch (Exception e) {
+                    return null;
+                }
+            } else {
+                return singleton;
+            }
+        }
+        return null;
+    }
 
-	// DOM L3 LS
+    // DOM L3 LS
 
-	//
-	// Protected methods
-	//
-	/** NON-DOM: retrieve validator. */
-	synchronized RevalidationHandler getValidator(String schemaType, String xmlVersion) {
+    //
+    // Protected methods
+    //
+    /** NON-DOM: retrieve validator. */
+    synchronized RevalidationHandler getValidator(String schemaType, String xmlVersion) {
         if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
             // create new validator - we should not attempt
             // to restrict the number of validation handlers being
@@ -402,73 +402,73 @@ public class CoreDOMImplementationImpl
             }
         }
         return null;
-	}
+    }
 
-	/** NON-DOM: release validator */
-	synchronized void releaseValidator(String schemaType, String xmlVersion,
-	        RevalidationHandler validator) {
-	    if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
-	        ++freeSchemaValidatorIndex;
-	        if (schemaValidators.length == freeSchemaValidatorIndex) {
-	            // resize size of the validators
-	            schemaValidatorsCurrentSize += SIZE;
-	            SoftReference[] newarray =  new SoftReference[schemaValidatorsCurrentSize];
-	            System.arraycopy(schemaValidators, 0, newarray, 0, schemaValidators.length);
-	            schemaValidators = newarray;
-	        }
-	        SoftReference ref = schemaValidators[freeSchemaValidatorIndex];
-	        if (ref != null) {
-	            RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-	            if (holder != null) {
-	                holder.handler = validator;
-	                return;
-	            }
-	        }
-	        schemaValidators[freeSchemaValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-	    }
-	    else if (schemaType == XMLGrammarDescription.XML_DTD) {
-	        // release an instance of XML11DTDValidator
-	        if ("1.1".equals(xmlVersion)) {
-	            ++freeXML11DTDValidatorIndex;
-	            if (xml11DTDValidators.length == freeXML11DTDValidatorIndex) {
-	                // resize size of the validators
-	                xml11DTDValidatorsCurrentSize += SIZE;
-	                SoftReference [] newarray = new SoftReference[xml11DTDValidatorsCurrentSize];
-	                System.arraycopy(xml11DTDValidators, 0, newarray, 0, xml11DTDValidators.length);
-	                xml11DTDValidators = newarray;
-	            }
-	            SoftReference ref = xml11DTDValidators[freeXML11DTDValidatorIndex];
-	            if (ref != null) {
-	                RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-	                if (holder != null) {
-	                    holder.handler = validator;
-	                    return;
-	                }
-	            }
-	            xml11DTDValidators[freeXML11DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-	        }
-	        // release an instance of XMLDTDValidator
-	        else {
-	            ++freeXML10DTDValidatorIndex;
-	            if (xml10DTDValidators.length == freeXML10DTDValidatorIndex) {
-	                // resize size of the validators
-	                xml10DTDValidatorsCurrentSize += SIZE;
-	                SoftReference [] newarray = new SoftReference[xml10DTDValidatorsCurrentSize];
-	                System.arraycopy(xml10DTDValidators, 0, newarray, 0, xml10DTDValidators.length);
-	                xml10DTDValidators = newarray;
-	            }
-	            SoftReference ref = xml10DTDValidators[freeXML10DTDValidatorIndex];
-	            if (ref != null) {
-	                RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-	                if (holder != null) {
-	                    holder.handler = validator;
-	                    return;
-	                }
-	            }
-	            xml10DTDValidators[freeXML10DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-	        }
-	    }
-	}
+    /** NON-DOM: release validator */
+    synchronized void releaseValidator(String schemaType, String xmlVersion,
+            RevalidationHandler validator) {
+        if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
+            ++freeSchemaValidatorIndex;
+            if (schemaValidators.length == freeSchemaValidatorIndex) {
+                // resize size of the validators
+                schemaValidatorsCurrentSize += SIZE;
+                SoftReference[] newarray =  new SoftReference[schemaValidatorsCurrentSize];
+                System.arraycopy(schemaValidators, 0, newarray, 0, schemaValidators.length);
+                schemaValidators = newarray;
+            }
+            SoftReference ref = schemaValidators[freeSchemaValidatorIndex];
+            if (ref != null) {
+                RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
+                if (holder != null) {
+                    holder.handler = validator;
+                    return;
+                }
+            }
+            schemaValidators[freeSchemaValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
+        }
+        else if (schemaType == XMLGrammarDescription.XML_DTD) {
+            // release an instance of XML11DTDValidator
+            if ("1.1".equals(xmlVersion)) {
+                ++freeXML11DTDValidatorIndex;
+                if (xml11DTDValidators.length == freeXML11DTDValidatorIndex) {
+                    // resize size of the validators
+                    xml11DTDValidatorsCurrentSize += SIZE;
+                    SoftReference [] newarray = new SoftReference[xml11DTDValidatorsCurrentSize];
+                    System.arraycopy(xml11DTDValidators, 0, newarray, 0, xml11DTDValidators.length);
+                    xml11DTDValidators = newarray;
+                }
+                SoftReference ref = xml11DTDValidators[freeXML11DTDValidatorIndex];
+                if (ref != null) {
+                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
+                    if (holder != null) {
+                        holder.handler = validator;
+                        return;
+                    }
+                }
+                xml11DTDValidators[freeXML11DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
+            }
+            // release an instance of XMLDTDValidator
+            else {
+                ++freeXML10DTDValidatorIndex;
+                if (xml10DTDValidators.length == freeXML10DTDValidatorIndex) {
+                    // resize size of the validators
+                    xml10DTDValidatorsCurrentSize += SIZE;
+                    SoftReference [] newarray = new SoftReference[xml10DTDValidatorsCurrentSize];
+                    System.arraycopy(xml10DTDValidators, 0, newarray, 0, xml10DTDValidators.length);
+                    xml10DTDValidators = newarray;
+                }
+                SoftReference ref = xml10DTDValidators[freeXML10DTDValidatorIndex];
+                if (ref != null) {
+                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
+                    if (holder != null) {
+                        holder.handler = validator;
+                        return;
+                    }
+                }
+                xml10DTDValidators[freeXML10DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
+            }
+        }
+    }
 
     /** NON-DOM: retrieve DTD loader */
     synchronized final XMLDTDLoader getDTDLoader(String xmlVersion) {
@@ -554,17 +554,17 @@ public class CoreDOMImplementationImpl
         }
     }
 
-	/** NON-DOM:  increment document/doctype counter */
-	protected synchronized int assignDocumentNumber() {
-	    return ++docAndDoctypeCounter;
-	}
+    /** NON-DOM:  increment document/doctype counter */
+    protected synchronized int assignDocumentNumber() {
+        return ++docAndDoctypeCounter;
+    }
 
-	/** NON-DOM:  increment document/doctype counter */
-	protected synchronized int assignDocTypeNumber() {
-	    return ++docAndDoctypeCounter;
-	}
+    /** NON-DOM:  increment document/doctype counter */
+    protected synchronized int assignDocTypeNumber() {
+        return ++docAndDoctypeCounter;
+    }
 
-	/**
+    /**
      * A holder for RevalidationHandlers. This allows us to reuse
      * SoftReferences which haven't yet been cleared by the garbage
      * collector.

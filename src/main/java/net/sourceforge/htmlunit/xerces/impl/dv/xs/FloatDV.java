@@ -53,7 +53,7 @@ public class FloatDV extends TypeValidator {
     
     //distinguishes between identity and equality for float datatype
     //0.0 is equal but not identical to -0.0
-    public boolean isIdentical (Object value1, Object value2) {  	 	
+    public boolean isIdentical (Object value1, Object value2) {           
         if (value2 instanceof XFloat) {
             return ((XFloat)value1).isIdentical((XFloat)value2);
         }

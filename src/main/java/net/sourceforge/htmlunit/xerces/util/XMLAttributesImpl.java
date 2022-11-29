@@ -222,7 +222,7 @@ public class XMLAttributesImpl
             }
 
             int bucket = getTableViewBucket(name.rawname); 
-		
+        
             // The chain is stale. 
             // This must be a unique attribute.
             if (fAttributeTableViewChainState[bucket] != fLargeCount) {
@@ -235,7 +235,7 @@ public class XMLAttributesImpl
                     }
                     fAttributes = attributes;
                 }
-			
+            
                 // Update table view.
                 fAttributeTableViewChainState[bucket] = fLargeCount;
                 fAttributes[index].next = null;
@@ -857,7 +857,7 @@ public class XMLAttributesImpl
         if (length <= SIZE_LIMIT) {
             final Attribute[] attributes = fAttributes;
             for (int i = 0; i < length - 1; ++i) {
-            	Attribute att1 = attributes[i];
+                Attribute att1 = attributes[i];
                 for (int j = i + 1; j < length; ++j) {
                     Attribute att2 = attributes[j];
                     if (att1.name.localpart == att2.name.localpart &&
@@ -867,11 +867,11 @@ public class XMLAttributesImpl
                 }
             }
             return null;
-    	}
-    	// If the list is large check duplicates using a hash table.
-    	else {
-    	    return checkManyDuplicatesNS();
-    	}
+        }
+        // If the list is large check duplicates using a hash table.
+        else {
+            return checkManyDuplicatesNS();
+        }
     }
     
     private QName checkManyDuplicatesNS() {
@@ -971,7 +971,7 @@ public class XMLAttributesImpl
         }
         return type;
     }
-	
+    
     /**
      * Returns the position in the table view 
      * where the given attribute name would be hashed.
@@ -1025,7 +1025,7 @@ public class XMLAttributesImpl
         }
         return code;
     } // hash0(String):int
-	
+    
     /**
      * Purges all elements from the table view.
      */

@@ -500,8 +500,8 @@ public class XMLErrorReporter
         //
 
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
-        	final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-        	
+            final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
+            
             //
             // http://apache.org/xml/features/continue-after-fatal-error
             //   Allows the parser to continue after a fatal error.

@@ -322,7 +322,7 @@ public class DOMUtil {
             ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).setReadOnly(true, false);
         }
         else {
-        	hiddenNodes.put(node, "");
+            hiddenNodes.put(node, "");
         }
     } // setHidden(node):void
     

@@ -605,10 +605,10 @@ import java.util.Locale;
   */
   private void initialize(URI p_base, String p_uriSpec)
                          throws MalformedURIException {
-	  
+      
     String uriSpec = p_uriSpec;
     int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
-	
+    
     if (p_base == null && uriSpecLen == 0) {
       throw new MalformedURIException(
                   "Cannot initialize URI with empty parameters.");
@@ -644,7 +644,7 @@ import java.util.Locale;
             
             // Neither 'scheme:' or 'scheme:#fragment' are valid URIs.
             if (colonIdx == uriSpecLen - 1 || uriSpec.charAt(colonIdx+1) == '#') {
-            	throw new MalformedURIException("Scheme specific part cannot be empty.");	
+                throw new MalformedURIException("Scheme specific part cannot be empty.");    
             }
         }
     }
@@ -899,20 +899,20 @@ import java.util.Locale;
     boolean hasPort = false;
     if (index < end) {
       if (p_uriSpec.charAt(start) == '[') {
-      	int bracketIndex = p_uriSpec.indexOf(']', start);
-      	index = (bracketIndex != -1) ? bracketIndex : end;
-      	if (index+1 < end && p_uriSpec.charAt(index+1) == ':') {
-      	  ++index;
-      	  hasPort = true;
-      	}
-      	else {
-      	  index = end;
-      	}
+          int bracketIndex = p_uriSpec.indexOf(']', start);
+          index = (bracketIndex != -1) ? bracketIndex : end;
+          if (index+1 < end && p_uriSpec.charAt(index+1) == ':') {
+            ++index;
+            hasPort = true;
+          }
+          else {
+            index = end;
+          }
       }
       else {
-      	int colonIndex = p_uriSpec.lastIndexOf(':', end);
-      	index = (colonIndex > start) ? colonIndex : end;
-      	hasPort = (index != end);
+          int colonIndex = p_uriSpec.lastIndexOf(':', end);
+          index = (colonIndex > start) ? colonIndex : end;
+          hasPort = (index != end);
       }
     }
     host = p_uriSpec.substring(start, index);
@@ -1028,7 +1028,7 @@ import java.util.Locale;
     int index = 0;
     int end = authority.length();
     char testChar;
-  	
+      
     while (index < end) {
       testChar = authority.charAt(index);
       
@@ -1050,7 +1050,7 @@ import java.util.Locale;
     }
     return true;
   }
-  	
+      
  /**
   * Initialize the path for this URI from a URI string spec.
   *
@@ -1073,9 +1073,9 @@ import java.util.Locale;
 
     // path - everything up to query string or fragment
     if (start < end) {
-    	// RFC 2732 only allows '[' and ']' to appear in the opaque part.
-    	if (getScheme() == null || p_uriSpec.charAt(start) == '/') {
-    	
+        // RFC 2732 only allows '[' and ']' to appear in the opaque part.
+        if (getScheme() == null || p_uriSpec.charAt(start) == '/') {
+        
             // Scan path.
             // abs_path = "/"  path_segments
             // rel_path = rel_segment [ abs_path ]
@@ -1095,9 +1095,9 @@ import java.util.Locale;
                 // Path segments cannot contain '[' or ']' since pchar
                 // production was not changed by RFC 2732.
                 else if (!isPathCharacter(testChar)) {
-      	            if (testChar == '?' || testChar == '#') {
-      	                break;
-      	            }
+                      if (testChar == '?' || testChar == '#') {
+                          break;
+                      }
                     throw new MalformedURIException(
                         "Path contains invalid character: " + testChar);
                 }
@@ -1113,7 +1113,7 @@ import java.util.Locale;
             
                 if (testChar == '?' || testChar == '#') {
                     break;
-      	        }
+                  }
                 
                 // check for valid escape sequence
                 if (testChar == '%') {
@@ -1231,7 +1231,7 @@ import java.util.Locale;
       }
       // Registry based authority.
       else {
-      	schemespec.append(m_regAuthority);
+          schemespec.append(m_regAuthority);
       }
     }
 
@@ -1516,21 +1516,21 @@ import java.util.Locale;
   public void setRegBasedAuthority(String authority) 
     throws MalformedURIException {
 
-  	if (authority == null) {
-  	  m_regAuthority = null;
-  	  return;
-  	}
-	// reg_name = 1*( unreserved | escaped | "$" | "," | 
-	//            ";" | ":" | "@" | "&" | "=" | "+" )
-  	else if (authority.length() < 1 ||
-  	  !isValidRegistryBasedAuthority(authority) ||
-  	  authority.indexOf('/') != -1) {
-      throw new MalformedURIException("Registry based authority is not well formed.");       	
-  	}
-  	m_regAuthority = authority;
-  	m_host = null;
-  	m_userinfo = null;
-  	m_port = -1;
+      if (authority == null) {
+        m_regAuthority = null;
+        return;
+      }
+    // reg_name = 1*( unreserved | escaped | "$" | "," | 
+    //            ";" | ":" | "@" | "&" | "=" | "+" )
+      else if (authority.length() < 1 ||
+        !isValidRegistryBasedAuthority(authority) ||
+        authority.indexOf('/') != -1) {
+      throw new MalformedURIException("Registry based authority is not well formed.");           
+      }
+      m_regAuthority = authority;
+      m_host = null;
+      m_userinfo = null;
+      m_port = -1;
   }
 
  /**
@@ -1830,7 +1830,7 @@ import java.util.Locale;
       // RFC 1034 (Section 3) and RFC 1123 (Section 2.1). According
       // to RFC 1034, hostnames are limited to 255 characters.
       if (addrLength > 255) {
-      	return false;
+          return false;
       }
       
       // domain labels can contain alphanumerics and '-"
@@ -2016,7 +2016,7 @@ import java.util.Locale;
    * string cannot match a valid IPv6 address
    */
   private static int scanHexSequence (String address, int index, int end, int [] counter) {
-  	
+      
       char testChar;
       int numDigits = 0;
       int start = index;
@@ -2025,17 +2025,17 @@ import java.util.Locale;
       // hexseq = hex4 *( ":" hex4)
       // hex4   = 1*4HEXDIG
       for (; index < end; ++index) {
-      	testChar = address.charAt(index);
-      	if (testChar == ':') {
-      	    // IPv6 addresses are 128-bit, so there can be at most eight sections.
-      	    if (numDigits > 0 && ++counter[0] > 8) {
-      	        return -1;
-      	    }
-      	    // This could be '::'.
-      	    if (numDigits == 0 || ((index+1 < end) && address.charAt(index+1) == ':')) {
-      	        return index;
-      	    }
-      	    numDigits = 0;
+          testChar = address.charAt(index);
+          if (testChar == ':') {
+              // IPv6 addresses are 128-bit, so there can be at most eight sections.
+              if (numDigits > 0 && ++counter[0] > 8) {
+                  return -1;
+              }
+              // This could be '::'.
+              if (numDigits == 0 || ((index+1 < end) && address.charAt(index+1) == ':')) {
+                  return index;
+              }
+              numDigits = 0;
         }
         // This might be invalid or an IPv4address. If it's potentially an IPv4address,
         // backup to just after the last valid character that matches hexseq.

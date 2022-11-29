@@ -107,7 +107,7 @@ public class SymbolTable {
     /** The table is rehashed when its size exceeds this threshold.  (The
      * value of this field is (int)(capacity * loadFactor).) */
     protected int fThreshold;
-							 
+                             
     /** The load factor for the SymbolTable. */
     protected float fLoadFactor;
     

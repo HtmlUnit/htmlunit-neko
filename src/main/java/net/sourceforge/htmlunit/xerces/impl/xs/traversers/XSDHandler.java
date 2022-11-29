@@ -536,7 +536,7 @@ public class XSDHandler {
                     referType, null);
         } // DOMInputSource
         else if (is instanceof SAXInputSource) {
-        	schemaRoot = getSchemaDocument(schemaNamespace, (SAXInputSource) is,
+            schemaRoot = getSchemaDocument(schemaNamespace, (SAXInputSource) is,
                     referType == XSDDescription.CONTEXT_PREPARSE,
                     referType, null);
         } // SAXInputSource
@@ -544,7 +544,7 @@ public class XSDHandler {
             schemaRoot = getSchemaDocument((XSInputSource) is, desc);
         } // XSInputSource
         else {
-        	schemaRoot = getSchemaDocument(schemaNamespace, is,
+            schemaRoot = getSchemaDocument(schemaNamespace, is,
                   referType == XSDDescription.CONTEXT_PREPARSE,
                   referType, null);
 
@@ -576,7 +576,7 @@ public class XSDHandler {
         }
 
         if (referType == XSDDescription.CONTEXT_PREPARSE) {
-        	Element schemaElem = schemaRoot;
+            Element schemaElem = schemaRoot;
             schemaNamespace = DOMUtil.getAttrValue(schemaElem, SchemaSymbols.ATT_TARGETNAMESPACE);
             if(schemaNamespace != null && schemaNamespace.length() > 0) {
                 // Since now we've discovered a namespace, we need to update xsd key
@@ -600,7 +600,7 @@ public class XSDHandler {
             XSDKey key = new XSDKey(schemaId, referType, schemaNamespace);
             fTraversed.put(key, schemaRoot);
             if (schemaId != null) {
-            	fDoc2SystemId.put(schemaRoot, schemaId);
+                fDoc2SystemId.put(schemaRoot, schemaId);
             }
         }
 
@@ -774,7 +774,7 @@ public class XSDHandler {
         } catch (XMLSchemaException se) {
             reportSchemaError(ELE_ERROR_CODES[referType],
                     new Object[]{locationHint},
-					  schemaRoot);
+                      schemaRoot);
             return null;
         }
         // targetNamespace="" is not valid, issue a warning, and ignore it
@@ -782,7 +782,7 @@ public class XSDHandler {
                 currSchemaInfo.fTargetNamespace.length() == 0) {
             reportSchemaWarning("EmptyTargetNamespace",
                     new Object[]{locationHint},
-					schemaRoot);
+                    schemaRoot);
             currSchemaInfo.fTargetNamespace = null;
         }
 
@@ -804,7 +804,7 @@ public class XSDHandler {
                 else if (callerTNS != currSchemaInfo.fTargetNamespace) {
                     reportSchemaError(NS_ERROR_CODES[referType][secondIdx],
                             new Object [] {callerTNS, currSchemaInfo.fTargetNamespace},
-							schemaRoot);
+                            schemaRoot);
                     return null;
                 }
             }
@@ -812,7 +812,7 @@ public class XSDHandler {
             else if (referType != XSDDescription.CONTEXT_PREPARSE && callerTNS != currSchemaInfo.fTargetNamespace) {
                 reportSchemaError(NS_ERROR_CODES[referType][secondIdx],
                         new Object [] {callerTNS, currSchemaInfo.fTargetNamespace},
-						schemaRoot);
+                        schemaRoot);
                 return null;
             }
         }
@@ -830,7 +830,7 @@ public class XSDHandler {
                 int secondIdx = 1;
                 reportSchemaError(NS_ERROR_CODES[referType][secondIdx],
                         new Object [] {callerTNS, currSchemaInfo.fTargetNamespace},
-						schemaRoot);
+                        schemaRoot);
                 return null;
             }
         }
@@ -1107,7 +1107,7 @@ public class XSDHandler {
                 newSchemaInfo = newSchemaRoot == null ? null : (XSDocumentInfo)fDoc2XSDocumentMap.get(newSchemaRoot);
             }
             else {
-               	newSchemaInfo = constructTrees(newSchemaRoot, schemaHint, fSchemaGrammarDescription, importCollision);
+                   newSchemaInfo = constructTrees(newSchemaRoot, schemaHint, fSchemaGrammarDescription, importCollision);
             }
 
             if (localName.equals(SchemaSymbols.ELT_REDEFINE) &&
@@ -1329,7 +1329,7 @@ public class XSDHandler {
             } // end for
 
             // now we're done with this one!
-           	DOMUtil.setHidden(currDoc, fHiddenNodes);
+               DOMUtil.setHidden(currDoc, fHiddenNodes);
             // now add the schemas this guy depends on
             Vector currSchemaDepends = (Vector)fDependencyMap.get(currSchemaDoc);
             for (int i = 0; i < currSchemaDepends.size(); i++) {
@@ -1972,7 +1972,7 @@ public class XSDHandler {
             SchemaGrammar keyrefGrammar = fGrammarBucket.getGrammar(keyrefSchemaDoc.fTargetNamespace);
             // need to set <keyref> to hidden before traversing it,
             // because it has global scope
-           	DOMUtil.setHidden(fKeyrefs[i], fHiddenNodes);
+               DOMUtil.setHidden(fKeyrefs[i], fHiddenNodes);
             fKeyrefTraverser.traverse(fKeyrefs[i], fKeyrefElems[i], keyrefSchemaDoc, keyrefGrammar);
         }
     } // end resolveKeyRefs
@@ -3424,7 +3424,7 @@ public class XSDHandler {
                 fSchemaParser.setProperty(ERROR_HANDLER, (currErrorHandler != null) ? currErrorHandler : new DefaultErrorHandler());
                 if (fAnnotationValidator != null) {
                     fAnnotationValidator.setProperty(ERROR_HANDLER, (currErrorHandler != null) ? currErrorHandler : new DefaultErrorHandler());
-            	}
+                }
             }
             Locale currentLocale = fErrorReporter.getLocale();
             if (currentLocale != fSchemaParser.getProperty(LOCALE)) {

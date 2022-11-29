@@ -64,86 +64,86 @@ public class DefaultDocument extends NodeImpl
     //
     
     public DocumentType getDoctype() {
-	return null;
+    return null;
     }
 
 
     public DOMImplementation getImplementation() {
-	return null;
+    return null;
     }
 
 
     public Element getDocumentElement() {
-	return null;
+    return null;
     }
 
 
     public NodeList getElementsByTagName(String tagname) {
-	return null;
+    return null;
     }
 
 
     public NodeList getElementsByTagNameNS(String namespaceURI, String localName) {
-	return null;
+    return null;
     }
 
 
     public Element getElementById(String elementId) {
-	return null;
+    return null;
     }
 
 
     public Node importNode(Node importedNode, boolean deep) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Element createElement(String tagName) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public DocumentFragment createDocumentFragment() {
-	return null;
+    return null;
     }
 
 
     public Text createTextNode(String data) {
-	return null;
+    return null;
     }
 
     public Comment createComment(String data) {
-	return null;
+    return null;
     }
     
 
     public CDATASection createCDATASection(String data) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public ProcessingInstruction createProcessingInstruction(String target, String data) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Attr createAttribute(String name) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public EntityReference createEntityReference(String name) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Element createElementNS(String namespaceURI, String qualifiedName) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Attr createAttributeNS(String namespaceURI, String qualifiedName) throws DOMException {
-	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     // DOM Level 3 methods.
@@ -156,8 +156,8 @@ public class DefaultDocument extends NodeImpl
     public void setInputEncoding(String actualEncoding){
        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
-	*/
-	
+    */
+    
     public String getXmlEncoding(){
         return null;
     }

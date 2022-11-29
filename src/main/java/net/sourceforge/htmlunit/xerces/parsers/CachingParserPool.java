@@ -390,7 +390,7 @@ public class CachingParserPool {
          * 
          * @param grammarType The type of the grammars to be cached.
          * @param grammars    The Grammars that may be cached (unordered, Grammars previously
-         *  		      given to the validator may be included).
+         *                given to the validator may be included).
          */
         public void cacheGrammars(String grammarType, Grammar[] grammars) { 
            // better give both grammars a shot...

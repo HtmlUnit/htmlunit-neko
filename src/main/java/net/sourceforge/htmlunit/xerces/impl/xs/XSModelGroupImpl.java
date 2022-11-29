@@ -144,7 +144,7 @@ public class XSModelGroupImpl implements XSModelGroup {
      */
     private String fDescription = null;
     public String toString() {
-    	// REVISIT: Commented code may help to eliminate redundant parentheses (test first before committing)
+        // REVISIT: Commented code may help to eliminate redundant parentheses (test first before committing)
         if (fDescription == null) {
             StringBuilder buffer = new StringBuilder();
             if (fCompositor == MODELGROUP_ALL)

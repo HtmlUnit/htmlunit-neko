@@ -401,7 +401,7 @@ public class XPath {
         public String toString() {
             StringBuilder str = new StringBuilder();
             for (int i = 0; i < steps.length; i++) {
-                if (i > 0	&& (steps[i-1].axis.type!=Axis.DESCENDANT
+                if (i > 0    && (steps[i-1].axis.type!=Axis.DESCENDANT
                     && steps[i].axis.type!=Axis.DESCENDANT) ){
                     str.append('/');
                 }

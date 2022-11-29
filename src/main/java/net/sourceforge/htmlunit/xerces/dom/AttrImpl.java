@@ -147,7 +147,7 @@ public class AttrImpl
      * method in the Document class.
      */
     protected AttrImpl(CoreDocumentImpl ownerDocument, String name) {
-    	super(ownerDocument);
+        super(ownerDocument);
         this.name = name;
         /** False for default attributes. */
         isSpecified(true);
@@ -232,7 +232,7 @@ public class AttrImpl
         AttrImpl clone = (AttrImpl) super.cloneNode(deep);
 
         // take care of case where there are kids
-    	if (!clone.hasStringValue()) {
+        if (!clone.hasStringValue()) {
 
             // Need to break the association w/ original kids
             clone.value = null;
@@ -274,7 +274,7 @@ public class AttrImpl
      * true.... even if that value equals the default.
      */
     public void setNodeValue(String value) throws DOMException {
-    	setValue(value);
+        setValue(value);
     }
     
     /**
@@ -309,7 +309,7 @@ public class AttrImpl
      * @see #getValue()
      */
     public String getNodeValue() {
-    	return getValue();
+        return getValue();
     }
 
     //
@@ -325,7 +325,7 @@ public class AttrImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	return name;
+        return name;
 
     } // getName():String
 
@@ -404,7 +404,7 @@ public class AttrImpl
         // capture/bubble listeners on the Attr.
         // Note that aggregate events are NOT dispatched here,
         // since we need to combine the remove and insert.
-    	isSpecified(true);
+        isSpecified(true);
         if (ownerDocument.getMutationEvents()) {
             // if there are any event handlers create a real node or
             // reuse the one we synthesized for the remove notifications
@@ -465,7 +465,7 @@ public class AttrImpl
         if (node == null || data == null)  return (data == null)?"":data;
         
         StringBuilder value = new StringBuilder(data);
-    	while (node != null) {
+        while (node != null) {
             if (node.getNodeType()  == Node.ENTITY_REFERENCE_NODE){
                 data = ((EntityReferenceImpl)node).getEntityRefValue();
                 if (data == null) return "";
@@ -475,8 +475,8 @@ public class AttrImpl
                 value.append(node.getNodeValue());
             }
             node = node.nextSibling;
-    	}
-    	return value.toString();
+        }
+        return value.toString();
 
     } // getValue():String
     
@@ -497,7 +497,7 @@ public class AttrImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	return isSpecified();
+        return isSpecified();
 
     } // getSpecified():boolean
 
@@ -581,14 +581,14 @@ public class AttrImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	isSpecified(arg);
+        isSpecified(arg);
 
     } // setSpecified(boolean)
     
-	/**
-	 * NON-DOM: used by the parser
-	 * @param type
-	 */
+    /**
+     * NON-DOM: used by the parser
+     * @param type
+     */
     public void setType (Object type){
         this.type = type;
     }
@@ -599,7 +599,7 @@ public class AttrImpl
 
     /** NON-DOM method for debugging convenience */
     public String toString() {
-    	return getName() + "=" + "\"" + getValue() + "\"";
+        return getName() + "=" + "\"" + getValue() + "\"";
     }
 
     /**
@@ -643,7 +643,7 @@ public class AttrImpl
             synchronizeChildren();
         }
         makeChildNode();
-    	return (Node) value;
+        return (Node) value;
 
     }   // getFirstChild():Node
 
@@ -1087,7 +1087,7 @@ public class AttrImpl
     public boolean isDerivedFrom(String typeNamespaceArg, 
                                  String typeNameArg, 
                                  int derivationMethod) {
-                                 	
+                                     
         return false;
     }
         

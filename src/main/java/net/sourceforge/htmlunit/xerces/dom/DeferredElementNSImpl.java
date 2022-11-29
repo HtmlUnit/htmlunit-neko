@@ -111,7 +111,7 @@ public class DeferredElementNSImpl
             localName = name.substring(index + 1);
         }
 
-	    namespaceURI = ownerDocument.getNodeURI(fNodeIndex);
+        namespaceURI = ownerDocument.getNodeURI(fNodeIndex);
         type = (XSTypeDefinition)ownerDocument.getTypeInfo(fNodeIndex);
 
         // attributes

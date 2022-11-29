@@ -89,7 +89,7 @@ public class DefaultText extends NodeImpl implements Text {
      */
     public void setData(String data)
                             throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /**
@@ -119,7 +119,7 @@ public class DefaultText extends NodeImpl implements Text {
     public String substringData(int offset, 
                                 int count)
                                 throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /**
@@ -132,7 +132,7 @@ public class DefaultText extends NodeImpl implements Text {
      */
     public void appendData(String arg)
                            throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /**
@@ -148,7 +148,7 @@ public class DefaultText extends NodeImpl implements Text {
     public void insertData(int offset, 
                            String arg)
                            throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /**
@@ -169,7 +169,7 @@ public class DefaultText extends NodeImpl implements Text {
     public void deleteData(int offset, 
                            int count)
                            throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /**
@@ -195,7 +195,7 @@ public class DefaultText extends NodeImpl implements Text {
                             int count, 
                             String arg)
                             throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     // Text node methods
@@ -218,7 +218,7 @@ public class DefaultText extends NodeImpl implements Text {
      */
     public Text splitText(int offset)
                           throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
     /** DOM Level 3 CR */

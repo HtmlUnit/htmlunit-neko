@@ -43,7 +43,7 @@ public class XSGrammarPool extends XMLGrammarPoolImpl {
      * @return  an <code>XSModel</code> representing this schema grammar
      */
     public XSModel toXSModel() {
-    	return toXSModel(Constants.SCHEMA_VERSION_1_0);
+        return toXSModel(Constants.SCHEMA_VERSION_1_0);
     }
     
     public XSModel toXSModel(short schemaVersion) {

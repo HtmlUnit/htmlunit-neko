@@ -87,12 +87,12 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class CoreDocumentImpl
 extends ParentNode implements Document  {
 
-	/**TODO::
-	 * 1. Change XML11Char method names similar to XMLChar. That will prevent lot
-	 * of dirty version checking code.
-	 *
-	 * 2. IMO during cloneNode qname/isXMLName check should not be made.
-	 */
+    /**TODO::
+     * 1. Change XML11Char method names similar to XMLChar. That will prevent lot
+     * of dirty version checking code.
+     *
+     * 2. IMO during cloneNode qname/isXMLName check should not be made.
+     */
     //
     // Constants
     //
@@ -454,7 +454,7 @@ extends ParentNode implements Document  {
             || (docElement != null && 
             oldChild.getNodeType() != Node.ELEMENT_NODE && 
             newChild.getNodeType() == Node.ELEMENT_NODE))) {
-            	
+                
             throw new DOMException(
                 DOMException.HIERARCHY_REQUEST_ERR,
                 DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
@@ -1481,7 +1481,7 @@ extends ParentNode implements Document  {
     HashMap reversedIdentifiers)
     throws DOMException {
         Node newnode=null;
-		Hashtable userData = null;
+        Hashtable userData = null;
 
         // Sigh. This doesn't work; too many nodes have private data that
         // would have to be manually tweaked. May be able to add local
@@ -1494,8 +1494,8 @@ extends ParentNode implements Document  {
         //  newnode.ownerDocument=this;
         // }
         // else
-		if(source instanceof NodeImpl)
-			userData = ((NodeImpl)source).getUserDataRecord();
+        if(source instanceof NodeImpl)
+            userData = ((NodeImpl)source).getUserDataRecord();
         int type = source.getNodeType();
         switch (type) {
             case ELEMENT_NODE: {
@@ -1699,8 +1699,8 @@ extends ParentNode implements Document  {
             }
         }
 
-		if(userData != null)
-			callUserDataHandlers(source, newnode, UserDataHandler.NODE_IMPORTED,userData);
+        if(userData != null)
+            callUserDataHandlers(source, newnode, UserDataHandler.NODE_IMPORTED,userData);
 
         // If deep, replicate and attach the kids.
         if (deep) {
@@ -1727,7 +1727,7 @@ extends ParentNode implements Document  {
      **/
     public Node adoptNode(Node source) {
         NodeImpl node;
-		Hashtable userData = null;
+        Hashtable userData = null;
         try {
             node = (NodeImpl) source;
         } catch (ClassCastException e) {
@@ -1779,12 +1779,12 @@ extends ParentNode implements Document  {
                 }
                 //2. specified flag is set to true
                 attr.isSpecified(true);
-				userData = node.getUserDataRecord();
+                userData = node.getUserDataRecord();
 
                 //3. change ownership
                 attr.setOwnerDocument(this);
-				if(userData != null )
-					setUserDataTable(node,userData);
+                if(userData != null )
+                    setUserDataTable(node,userData);
                 break;
             }
             //entity, notation nodes are read only nodes.. so they can't be adopted.
@@ -1803,7 +1803,7 @@ extends ParentNode implements Document  {
                 throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
             }
             case ENTITY_REFERENCE_NODE: {
-				userData = node.getUserDataRecord();
+                userData = node.getUserDataRecord();
                 // remove node from wherever it is
                 Node parent = node.getParentNode();
                 if (parent != null) {
@@ -1816,8 +1816,8 @@ extends ParentNode implements Document  {
                 }
                 // change ownership
                 node.setOwnerDocument(this);
-				if(userData != null)
-					setUserDataTable(node,userData);
+                if(userData != null)
+                    setUserDataTable(node,userData);
                 // set its new replacement value if any
                 if (docType == null) {
                     break;
@@ -1835,7 +1835,7 @@ extends ParentNode implements Document  {
                 break;
             }
             case ELEMENT_NODE: {
-				userData = node.getUserDataRecord();
+                userData = node.getUserDataRecord();
                 // remove node from wherever it is
                 Node parent = node.getParentNode();
                 if (parent != null) {
@@ -1843,14 +1843,14 @@ extends ParentNode implements Document  {
                 }
                 // change ownership
                 node.setOwnerDocument(this);
-				if(userData != null)
-					setUserDataTable(node,userData);
+                if(userData != null)
+                    setUserDataTable(node,userData);
                 // reconcile default attributes
                 ((ElementImpl)node).reconcileDefaultAttributes();
                 break;
             }
             default: {
-				userData = node.getUserDataRecord();
+                userData = node.getUserDataRecord();
                 // remove node from wherever it is
                 Node parent = node.getParentNode();
                 if (parent != null) {
@@ -1858,15 +1858,15 @@ extends ParentNode implements Document  {
                 }
                 // change ownership
                 node.setOwnerDocument(this);
-				if(userData != null)
-					setUserDataTable(node,userData);
+                if(userData != null)
+                    setUserDataTable(node,userData);
             }
         }
 
-		//DOM L3 Core CR
-		//http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core.html#UserDataHandler-ADOPTED
-		if(userData != null)
-			callUserDataHandlers(source, null, UserDataHandler.NODE_ADOPTED,userData);
+        //DOM L3 Core CR
+        //http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core.html#UserDataHandler-ADOPTED
+        if(userData != null)
+            callUserDataHandlers(source, null, UserDataHandler.NODE_ADOPTED,userData);
 
         return node;
     }
@@ -2330,7 +2330,7 @@ extends ParentNode implements Document  {
             return null;
         }
     }
-	
+    
 
     /**
      * Retrieves the object associated to a key on a this node. The object
@@ -2358,7 +2358,7 @@ extends ParentNode implements Document  {
         return null;
     }
 
-	protected Hashtable getUserDataRecord(Node n){
+    protected Hashtable getUserDataRecord(Node n){
         if (userData == null) {
             return null;
         }
@@ -2366,10 +2366,10 @@ extends ParentNode implements Document  {
         if (t == null) {
             return null;
         }
-		return t;
-	}
+        return t;
+    }
     
-	/**
+    /**
      * Remove user data table for the given node.
      * @param n The node this operation applies to.
      * @return The removed table.
@@ -2406,23 +2406,23 @@ extends ParentNode implements Document  {
             return;
         }
         //Hashtable t = (Hashtable) userData.get(n);
-		if(n instanceof NodeImpl){
-			Hashtable t = ((NodeImpl)n).getUserDataRecord();
-			if (t == null || t.isEmpty()) {
-				return;
-			}
-			callUserDataHandlers(n, c, operation,t);
-		}
+        if(n instanceof NodeImpl){
+            Hashtable t = ((NodeImpl)n).getUserDataRecord();
+            if (t == null || t.isEmpty()) {
+                return;
+            }
+            callUserDataHandlers(n, c, operation,t);
+        }
     }
 
-	/**
+    /**
      * Call user data handlers when a node is deleted (finalized)
      * @param n The node this operation applies to.
      * @param c The copy node or null.
      * @param operation The operation - import, clone, or delete.
-	 * @param handlers Data associated with n.
-	*/
-	void callUserDataHandlers(Node n, Node c, short operation, Hashtable userData) {
+     * @param handlers Data associated with n.
+    */
+    void callUserDataHandlers(Node n, Node c, short operation, Hashtable userData) {
         if (userData == null || userData.isEmpty()) {
             return;
         }
@@ -2437,7 +2437,7 @@ extends ParentNode implements Document  {
         }
     }
     
-	/**
+    /**
      * Call user data handlers to let them know the nodes they are related to
      * are being deleted. The alternative would be to do that on Node but
      * because the nodes are used as the keys we have a reference to them that
@@ -2538,7 +2538,7 @@ extends ParentNode implements Document  {
             return;
         }
 
-		// check that both prefix and local part match NCName
+        // check that both prefix and local part match NCName
         boolean validNCName = false;
         if (!xml11Version) {
             validNCName = (prefix == null || XMLChar.isValidNCName(prefix))

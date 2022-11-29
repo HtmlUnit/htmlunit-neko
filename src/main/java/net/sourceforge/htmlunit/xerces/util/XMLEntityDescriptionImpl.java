@@ -30,7 +30,7 @@ import net.sourceforge.htmlunit.xerces.impl.XMLEntityDescription;
 public class XMLEntityDescriptionImpl 
     extends XMLResourceIdentifierImpl
     implements XMLEntityDescription {
-    	
+        
     //
     // Constructors
     //

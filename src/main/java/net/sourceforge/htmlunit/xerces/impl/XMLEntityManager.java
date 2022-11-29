@@ -135,8 +135,8 @@ public class XMLEntityManager
     protected static final String STANDARD_URI_CONFORMANT =
     Constants.XERCES_FEATURE_PREFIX +Constants.STANDARD_URI_CONFORMANT_FEATURE;
     
-	protected static final String PARSER_SETTINGS = 
-		Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;	
+    protected static final String PARSER_SETTINGS = 
+        Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;    
 
     // property identifiers
 
@@ -1231,7 +1231,7 @@ public class XMLEntityManager
         fCurrentEntity = new ScannedEntity(name,
                 new XMLResourceIdentifierImpl(publicId, literalSystemId, baseSystemId, expandedSystemId),
                 stream, reader, fTempByteBuffer, encoding, literal, false, isExternal);
-		fCurrentEntity.setEncodingExternallySpecified(encodingExternallySpecified);
+        fCurrentEntity.setEncodingExternallySpecified(encodingExternallySpecified);
         fEntityScanner.setCurrentEntity(fCurrentEntity);
         fResourceIdentifier.setValues(publicId, literalSystemId, baseSystemId, expandedSystemId);
         return encoding;
@@ -1243,14 +1243,14 @@ public class XMLEntityManager
             if(fXML10EntityScanner == null) {
                 fXML10EntityScanner = new XMLEntityScanner();
             }
-			fXML10EntityScanner.reset(fSymbolTable, this, fErrorReporter);
+            fXML10EntityScanner.reset(fSymbolTable, this, fErrorReporter);
             fEntityScanner = fXML10EntityScanner;
             fEntityScanner.setCurrentEntity(fCurrentEntity);
         } else {
             if(fXML11EntityScanner == null) {
                 fXML11EntityScanner = new XML11EntityScanner();
             }
-			fXML11EntityScanner.reset(fSymbolTable, this, fErrorReporter);
+            fXML11EntityScanner.reset(fSymbolTable, this, fErrorReporter);
             fEntityScanner = fXML11EntityScanner;
             fEntityScanner.setCurrentEntity(fCurrentEntity);
         }
@@ -1306,19 +1306,19 @@ public class XMLEntityManager
      */
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
-        	
-		boolean parser_settings;
-		try {
-				parser_settings = componentManager.getFeature(PARSER_SETTINGS);
-		} catch (XMLConfigurationException e) {
-				parser_settings = true;
-		}
+            
+        boolean parser_settings;
+        try {
+                parser_settings = componentManager.getFeature(PARSER_SETTINGS);
+        } catch (XMLConfigurationException e) {
+                parser_settings = true;
+        }
 
-		if (!parser_settings) {
-			// parser settings have not been changed
-			reset();
-			return;
-		}
+        if (!parser_settings) {
+            // parser settings have not been changed
+            reset();
+            return;
+        }
 
         // sax features
         try {
@@ -1515,7 +1515,7 @@ public class XMLEntityManager
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-        	
+            
             if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() && 
                 propertyId.endsWith(Constants.SYMBOL_TABLE_PROPERTY)) {
                 fSymbolTable = (SymbolTable)value;
@@ -2697,7 +2697,7 @@ public class XMLEntityManager
         /** XML version. **/
         public String xmlVersion = "1.0";
         
-		// status
+        // status
 
         /** True if in a literal.  */
         public boolean literal;

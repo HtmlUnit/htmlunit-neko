@@ -38,7 +38,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSLoader;
  * @version $Id$
  */
 public class XSImplementationImpl extends PSVIDOMImplementationImpl
- 								  implements XSImplementation {
+                                   implements XSImplementation {
 
     //
     // Data
@@ -80,28 +80,28 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
     public boolean hasFeature(String feature, String version) {
 
         return (feature.equalsIgnoreCase("XS-Loader") && (version == null || version.equals("1.0")) ||
-		super.hasFeature(feature, version));
+        super.hasFeature(feature, version));
     } // hasFeature(String,String):boolean
 
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSImplementation#createXSLoader(net.sourceforge.htmlunit.xerces.xs.StringList)
      */
     public XSLoader createXSLoader(StringList versions) throws XSException {
-    	XSLoader loader = new XSLoaderImpl();
-    	if (versions == null){
-			return loader;
-    	}
-    	for (int i=0; i<versions.getLength();i++){
-    		if (!versions.item(i).equals("1.0")){
-				String msg =
-					DOMMessageFormatter.formatMessage(
-						DOMMessageFormatter.DOM_DOMAIN,
-						"FEATURE_NOT_SUPPORTED",
-						new Object[] { versions.item(i) });
-				throw new XSException(XSException.NOT_SUPPORTED_ERR, msg);
-    		}
-    	}
-    	return loader;
+        XSLoader loader = new XSLoaderImpl();
+        if (versions == null){
+            return loader;
+        }
+        for (int i=0; i<versions.getLength();i++){
+            if (!versions.item(i).equals("1.0")){
+                String msg =
+                    DOMMessageFormatter.formatMessage(
+                        DOMMessageFormatter.DOM_DOMAIN,
+                        "FEATURE_NOT_SUPPORTED",
+                        new Object[] { versions.item(i) });
+                throw new XSException(XSException.NOT_SUPPORTED_ERR, msg);
+            }
+        }
+        return loader;
     }
 
     public StringList createStringList(String[] values) {

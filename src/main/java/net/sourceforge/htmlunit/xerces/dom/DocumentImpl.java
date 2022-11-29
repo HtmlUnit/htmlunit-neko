@@ -172,7 +172,7 @@ public class DocumentImpl
         // experimental
         newdoc.mutationEvents = mutationEvents;
 
-    	return newdoc;
+        return newdoc;
 
     } // cloneNode(boolean):Node
 
@@ -277,7 +277,7 @@ public class DocumentImpl
                                        NodeFilter filter,
                                        boolean entityReferenceExpansion)
     {
-    	if (root == null) {
+        if (root == null) {
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
         }
@@ -621,7 +621,7 @@ public class DocumentImpl
         final String type;
         final EventListener listener;
         final boolean useCapture;
-	    
+        
         /** NON-DOM INTERNAL: Constructor for Listener list Entry 
          * @param type Event name (NOT event group!) to listen for.
          * @param listener Who gets called when event is dispatched
@@ -636,7 +636,7 @@ public class DocumentImpl
         }
 
     } // LEntry
-	
+    
     /**
      * Introduced in DOM Level 2. <p> Register an event listener with this
      * Node. A listener may be independently registered as both Capturing and
@@ -659,14 +659,14 @@ public class DocumentImpl
         // Each listener may be registered only once per type per phase.
         // Simplest way to code that is to zap the previous entry, if any.
         removeEventListener(node, type, listener, useCapture);
-	    
+        
         Vector nodeListeners = getEventListeners(node);
         if(nodeListeners == null) {
             nodeListeners = new Vector();
             setEventListeners(node, nodeListeners);
         }
         nodeListeners.addElement(new LEntry(type, listener, useCapture));
-	    
+        
         // Record active listener
         LCount lc = LCount.lookup(type);
         if (useCapture) {
@@ -679,7 +679,7 @@ public class DocumentImpl
         }
 
     } // addEventListener(NodeImpl,String,EventListener,boolean) :void
-	
+    
     /**
      * Introduced in DOM Level 2. <p> Deregister an event listener previously
      * registered with this Node.  A listener must be independently removed
@@ -978,13 +978,13 @@ public class DocumentImpl
      * @param e event to be sent to that node and its subtree
      */
     protected void dispatchingEventToSubtree(Node n, Event e) {
-    	if (n==null) 
-    		return;
-    	
-    	// ***** Recursive implementation. This is excessively expensive,
+        if (n==null) 
+            return;
+        
+        // ***** Recursive implementation. This is excessively expensive,
         // and should be replaced in conjunction with optimization
         // mentioned above.
-    	((NodeImpl) n).dispatchEvent(e);
+        ((NodeImpl) n).dispatchEvent(e);
         if (n.getNodeType() == Node.ELEMENT_NODE) {
             NamedNodeMap a = n.getAttributes();
             for (int i = a.getLength() - 1; i >= 0; --i)
@@ -1020,7 +1020,7 @@ public class DocumentImpl
                                     MutationEvent.MODIFICATION);
         else
             dispatchAggregateEvents(node, null, null, (short) 0);
-	        
+            
     } // dispatchAggregateEvents(NodeImpl,EnclosingAttr) :void
 
     /**
@@ -1134,9 +1134,9 @@ public class DocumentImpl
      */
     void modifyingCharacterData(NodeImpl node, boolean replace) {
         if (mutationEvents) {
-        	if (!replace) {
-        		saveEnclosingAttr(node);
-        	}
+            if (!replace) {
+                saveEnclosingAttr(node);
+            }
         }
     }
 
@@ -1173,11 +1173,11 @@ public class DocumentImpl
      * A method to be called when a character data node has been replaced
      */
     void replacedCharacterData(NodeImpl node, String oldvalue, String value) {
-    	//now that we have finished replacing data, we need to perform the same actions
-    	//that are required after a character data node has been modified
-    	//send the value of false for replace parameter so that mutation
-    	//events if appropriate will be initiated
-    	modifiedCharacterData(node, oldvalue, value, false);
+        //now that we have finished replacing data, we need to perform the same actions
+        //that are required after a character data node has been modified
+        //send the value of false for replace parameter so that mutation
+        //events if appropriate will be initiated
+        modifiedCharacterData(node, oldvalue, value, false);
     }
 
     /**
@@ -1395,9 +1395,9 @@ public class DocumentImpl
      * A method to be called when character data is about to be replaced in the tree.
      */
     void replacingData (NodeImpl node) {
-    	if (mutationEvents) {
+        if (mutationEvents) {
             saveEnclosingAttr(node);
-    	}
+        }
     }
 
     /**
@@ -1473,14 +1473,14 @@ public class DocumentImpl
      * A method to be called when an attribute node has been renamed
      */
     void renamedAttrNode(Attr oldAt, Attr newAt) {
-	// REVISIT: To be implemented!!!
+    // REVISIT: To be implemented!!!
     }
 
     /**
      * A method to be called when an element has been renamed
      */
     void renamedElement(Element oldEl, Element newEl) {
-	// REVISIT: To be implemented!!!
+    // REVISIT: To be implemented!!!
     }
 
 } // class DocumentImpl

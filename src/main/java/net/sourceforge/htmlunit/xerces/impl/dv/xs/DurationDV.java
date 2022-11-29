@@ -31,9 +31,9 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  */
 public class DurationDV extends AbstractDateTimeDV {
 
-	public static final int DURATION_TYPE = 0;
-	public static final int YEARMONTHDURATION_TYPE = 1;
-	public static final int DAYTIMEDURATION_TYPE = 2;
+    public static final int DURATION_TYPE = 0;
+    public static final int YEARMONTHDURATION_TYPE = 1;
+    public static final int DAYTIMEDURATION_TYPE = 2;
     // order-relation on duration is a partial order. The dates below are used to
     // for comparison of 2 durations, based on the fact that
     // duration x and y is x<=y iff s+x<=s+y

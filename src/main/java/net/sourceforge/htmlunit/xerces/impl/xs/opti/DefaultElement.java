@@ -40,7 +40,7 @@ public class DefaultElement extends NodeImpl
     
     
     public DefaultElement(String prefix, String localpart, String rawname, String uri, short nodeType) {
-    	super(prefix, localpart, rawname, uri, nodeType);
+        super(prefix, localpart, rawname, uri, nodeType);
     }
     
     
@@ -50,47 +50,47 @@ public class DefaultElement extends NodeImpl
     
     // getter methods
     public String getTagName() {
-    	return null;
+        return null;
     }
 
 
     public String getAttribute(String name) {
-    	return null;
+        return null;
     }
 
 
     public Attr getAttributeNode(String name) {
-    	return null;
+        return null;
     }
 
 
     public NodeList getElementsByTagName(String name) {
-    	return null;
+        return null;
     }
 
 
     public String getAttributeNS(String namespaceURI, String localName) {
-    	return null;
+        return null;
     }
 
 
     public Attr getAttributeNodeNS(String namespaceURI, String localName) {
-    	return null;
+        return null;
     }
 
 
     public NodeList getElementsByTagNameNS(String namespaceURI, String localName) {
-    	return null;
+        return null;
     }
 
 
     public boolean hasAttribute(String name) {
-    	return false;
+        return false;
     }
 
 
     public boolean hasAttributeNS(String namespaceURI, String localName) {
-    	return false;
+        return false;
     }
     
     public TypeInfo getSchemaTypeInfo(){
@@ -100,37 +100,37 @@ public class DefaultElement extends NodeImpl
 
     // setter methods
     public void setAttribute(String name, String value) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public void removeAttribute(String name) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     
     public Attr setAttributeNode(Attr newAttr) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     
     public void setAttributeNS(String namespaceURI, String qualifiedName, String value) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     
     public void removeAttributeNS(String namespaceURI, String localName) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     
     public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     public void setIdAttributeNode(Attr at, boolean makeId) throws DOMException{
@@ -146,4 +146,4 @@ public class DefaultElement extends NodeImpl
     }
 
 }
-	
+    

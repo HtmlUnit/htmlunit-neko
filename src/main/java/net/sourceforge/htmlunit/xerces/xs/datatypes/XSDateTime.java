@@ -205,7 +205,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @version $Id$
  */
 public interface XSDateTime {
-	
+    
     /**
      * @return years - can be negative for date-time related types;
      *          

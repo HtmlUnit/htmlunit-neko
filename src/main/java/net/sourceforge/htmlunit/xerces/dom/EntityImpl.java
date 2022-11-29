@@ -103,7 +103,7 @@ public class EntityImpl
 
     /** Factory constructor. */
     public EntityImpl(CoreDocumentImpl ownerDoc, String name) {
-    	super(ownerDoc);
+        super(ownerDoc);
         this.name = name;
         isReadOnly(true);
     }
@@ -226,7 +226,7 @@ public class EntityImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	publicId = id;
+        publicId = id;
 
     } // setPublicId(String)
 
@@ -291,7 +291,7 @@ public class EntityImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	systemId = id;
+        systemId = id;
 
     } // setSystemId(String)
 
@@ -305,7 +305,7 @@ public class EntityImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	notationName = name;
+        notationName = name;
 
     } // setNotationName(String)
     

@@ -102,7 +102,7 @@ public class XMLDTDProcessor
     protected static final String WARN_ON_UNDECLARED_ELEMDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_UNDECLARED_ELEMDEF_FEATURE;
         
-	protected static final String PARSER_SETTINGS = 
+    protected static final String PARSER_SETTINGS = 
         Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     // property identifiers
@@ -861,7 +861,7 @@ public class XMLDTDProcessor
 
         if (fValidation) {
         
-                boolean	duplicateAttributeDef = false ;
+                boolean    duplicateAttributeDef = false ;
                                         
                 //Get Grammar index to grammar array
                 DTDGrammar grammar = (fDTDGrammar != null? fDTDGrammar:fGrammarBucket.getActiveGrammar());

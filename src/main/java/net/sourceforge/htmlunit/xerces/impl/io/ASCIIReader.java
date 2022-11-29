@@ -191,14 +191,14 @@ public final class ASCIIReader
      * @exception  IOException  If an I/O error occurs
      */
     public boolean ready() throws IOException {
-	    return false;
+        return false;
     } // ready()
 
     /**
      * Tell whether this stream supports the mark() operation.
      */
     public boolean markSupported() {
-	    return fInputStream.markSupported();
+        return fInputStream.markSupported();
     } // markSupported()
 
     /**
@@ -215,7 +215,7 @@ public final class ASCIIReader
      *                          or if some other I/O error occurs
      */
     public void mark(int readAheadLimit) throws IOException {
-	    fInputStream.mark(readAheadLimit);
+        fInputStream.mark(readAheadLimit);
     } // mark(int)
 
     /**

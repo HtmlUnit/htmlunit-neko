@@ -688,7 +688,7 @@ class Token implements java.io.Serializable {
         /*FEFF..FEFF;*/ "Specials",
         /*FF00..FFEF;*/ "Halfwidth and Fullwidth Forms",
          //missing Specials add manually
-        /*10300..1032F;*/ "Old Italic",		// 84
+        /*10300..1032F;*/ "Old Italic",        // 84
         /*10330..1034F;*/ "Gothic",
         /*10400..1044F;*/ "Deseret",
         /*1D000..1D0FF;*/ "Byzantine Musical Symbols",

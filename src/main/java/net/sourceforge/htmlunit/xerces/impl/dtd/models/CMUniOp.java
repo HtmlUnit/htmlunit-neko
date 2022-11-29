@@ -67,9 +67,9 @@ public class CMUniOp extends CMNode
         //  repetitions. Otherwise, '*' style nodes are always nullable.
         //
         if (type() == XMLContentSpec.CONTENTSPECNODE_ONE_OR_MORE)
-	    return fChild.isNullable();
-	else
-	    return true;
+        return fChild.isNullable();
+    else
+        return true;
     }
 
 

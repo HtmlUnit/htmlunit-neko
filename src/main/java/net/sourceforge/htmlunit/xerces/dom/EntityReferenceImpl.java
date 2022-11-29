@@ -103,7 +103,7 @@ implements EntityReference {
     
 
     /** Entity changes. */
-    //protected int entityChanges = -1;	
+    //protected int entityChanges = -1;    
 
     /** Enable synchronize. */
     //protected boolean fEnableSynchronize = false;
@@ -194,13 +194,13 @@ implements EntityReference {
         baseURI = uri;
     }
     
-	/**
-	 * NON-DOM: compute string representation of the entity reference.
+    /**
+     * NON-DOM: compute string representation of the entity reference.
      * This method is used to retrieve a string value for an attribute node that has child nodes. 
-	 * @return String representing a value of this entity ref. or 
+     * @return String representing a value of this entity ref. or 
      *          null if any node other than EntityReference, Text is encountered
      *          during computation
-	 */
+     */
     protected String getEntityRefValue (){
         if (needsSyncChildren()){
             synchronizeChildren();

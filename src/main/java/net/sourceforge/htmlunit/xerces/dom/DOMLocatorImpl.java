@@ -80,33 +80,33 @@ public class DOMLocatorImpl implements DOMLocator {
    }
 
    public DOMLocatorImpl (int lineNumber, int columnNumber, String uri ){
-	fLineNumber = lineNumber ;
-	fColumnNumber = columnNumber ;
-	fUri = uri;
+    fLineNumber = lineNumber ;
+    fColumnNumber = columnNumber ;
+    fUri = uri;
    } // DOMLocatorImpl (int lineNumber, int columnNumber, String uri )
    
    public DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri ){
-	fLineNumber = lineNumber ;
-	fColumnNumber = columnNumber ;
-	fUri = uri;
-	fUtf16Offset = utf16Offset;
+    fLineNumber = lineNumber ;
+    fColumnNumber = columnNumber ;
+    fUri = uri;
+    fUtf16Offset = utf16Offset;
    } // DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri )
 
    public DOMLocatorImpl (int lineNumber, int columnNumber, int byteoffset, Node relatedData, String uri ){
-	fLineNumber = lineNumber ;
-	fColumnNumber = columnNumber ;
-	fByteOffset = byteoffset ;
-	fRelatedNode = relatedData ;
-	fUri = uri;
+    fLineNumber = lineNumber ;
+    fColumnNumber = columnNumber ;
+    fByteOffset = byteoffset ;
+    fRelatedNode = relatedData ;
+    fUri = uri;
    } // DOMLocatorImpl (int lineNumber, int columnNumber, int offset, Node errorNode, String uri )
 
    public DOMLocatorImpl (int lineNumber, int columnNumber, int byteoffset, Node relatedData, String uri, int utf16Offset ){
-	fLineNumber = lineNumber ;
-	fColumnNumber = columnNumber ;
-	fByteOffset = byteoffset ;
-	fRelatedNode = relatedData ;
-	fUri = uri;
-	fUtf16Offset = utf16Offset;
+    fLineNumber = lineNumber ;
+    fColumnNumber = columnNumber ;
+    fByteOffset = byteoffset ;
+    fRelatedNode = relatedData ;
+    fUri = uri;
+    fUtf16Offset = utf16Offset;
    } // DOMLocatorImpl (int lineNumber, int columnNumber, int offset, Node errorNode, String uri )
 
 
@@ -115,7 +115,7 @@ public class DOMLocatorImpl implements DOMLocator {
    * number available.
    */
    public int getLineNumber(){
- 	return fLineNumber;
+     return fLineNumber;
    }
 
   /**
@@ -123,7 +123,7 @@ public class DOMLocatorImpl implements DOMLocator {
    * number available.
    */
   public int getColumnNumber(){
-	return fColumnNumber;
+    return fColumnNumber;
   }
 
 
@@ -131,7 +131,7 @@ public class DOMLocatorImpl implements DOMLocator {
    * The URI where the error occured, or null if there is no URI available.
    */
   public String getUri(){
-	return fUri;
+    return fUri;
   }
 
 
@@ -145,7 +145,7 @@ public class DOMLocatorImpl implements DOMLocator {
    * if there is no byte offset available
    */
   public int getByteOffset(){
-	return fByteOffset;
+    return fByteOffset;
   }
 
   /**
@@ -154,7 +154,7 @@ public class DOMLocatorImpl implements DOMLocator {
    * is no UTF-16 offset available.
    */
   public int getUtf16Offset(){
-	return fUtf16Offset;
+    return fUtf16Offset;
   }
 
 }// class DOMLocatorImpl

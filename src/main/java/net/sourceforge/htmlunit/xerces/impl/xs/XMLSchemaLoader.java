@@ -1348,7 +1348,7 @@ XSLoader, DOMConfiguration {
 
     }
 
-	XMLInputSource dom2xmlInputSource(LSInput is) {
+    XMLInputSource dom2xmlInputSource(LSInput is) {
         // need to wrap the LSInput with an XMLInputSource
         XMLInputSource xis = null;
 

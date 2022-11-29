@@ -371,7 +371,7 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
         boolean empty = false;
         fAttributes.removeAllAttributes();
         do {
-        	
+            
             // end tag?
             int c = fEntityScanner.peekChar();
             if (c == '>') {

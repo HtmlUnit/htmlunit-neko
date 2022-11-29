@@ -68,13 +68,13 @@ public class HTMLDOMImplementationImpl
     public final HTMLDocument createHTMLDocument( String title )
         throws DOMException
     {
-	HTMLDocument doc;
+    HTMLDocument doc;
 
-	if ( title == null )
-	    throw new NullPointerException( "HTM014 Argument 'title' is null." );
-	doc = new HTMLDocumentImpl();
-	doc.setTitle( title );
-	return doc;
+    if ( title == null )
+        throw new NullPointerException( "HTM014 Argument 'title' is null." );
+    doc = new HTMLDocumentImpl();
+    doc.setTitle( title );
+    return doc;
     }
 
 
@@ -87,7 +87,7 @@ public class HTMLDOMImplementationImpl
      */
     public static HTMLDOMImplementation getHTMLDOMImplementation()
     {
-	return _instance;
+    return _instance;
     }
 
 

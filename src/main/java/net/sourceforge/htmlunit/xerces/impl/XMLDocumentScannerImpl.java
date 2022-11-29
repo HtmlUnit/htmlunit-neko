@@ -280,14 +280,14 @@ public class XMLDocumentScannerImpl
         fScanningDTD = false;
         fExternalSubsetSource = null;
 
-		if (!fParserSettings) {
-			// parser settings have not been changed
-			fNamespaceContext.reset();
-			// setup dispatcher
-			setScannerState(SCANNER_STATE_XML_DECL);
-			setDispatcher(fXMLDeclDispatcher);
-			return;
-		}
+        if (!fParserSettings) {
+            // parser settings have not been changed
+            fNamespaceContext.reset();
+            // setup dispatcher
+            setScannerState(SCANNER_STATE_XML_DECL);
+            setDispatcher(fXMLDeclDispatcher);
+            return;
+        }
 
         // xerces features
         try {
@@ -366,7 +366,7 @@ public class XMLDocumentScannerImpl
         // Xerces properties
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-        	
+            
             if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() && 
                 featureId.endsWith(Constants.LOAD_EXTERNAL_DTD_FEATURE)) {
                 fLoadExternalDTD = state;
@@ -856,7 +856,7 @@ public class XMLDocumentScannerImpl
                                     setScannerState(SCANNER_STATE_DTD_EXTERNAL_DECLS);
                                     setDispatcher(fDTDDispatcher);
                                     return true;
-                                }                       	
+                                }                           
                             }
                             
                             // Send endDTD() call if: 

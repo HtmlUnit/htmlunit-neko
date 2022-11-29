@@ -293,7 +293,7 @@ public class DTDConfiguration
             CONTINUE_AFTER_FATAL_ERROR,
             LOAD_EXTERNAL_DTD,    // from XMLDTDScannerImpl
             //NOTIFY_BUILTIN_REFS,  // from XMLDocumentFragmentScannerImpl
-            //NOTIFY_CHAR_REFS,		// from XMLDocumentFragmentScannerImpl
+            //NOTIFY_CHAR_REFS,        // from XMLDocumentFragmentScannerImpl
             //WARN_ON_DUPLICATE_ENTITYDEF,  // from XMLEntityManager
         };
         addRecognizedFeatures(recognizedFeatures);
@@ -581,48 +581,48 @@ public class DTDConfiguration
     } // reset()
 
     /** Configures the pipeline. */
-	protected void configurePipeline() {
+    protected void configurePipeline() {
 
-		// REVISIT: This should be better designed. In other words, we
-		//          need to figure out what is the best way for people to
-		//          re-use *most* of the standard configuration but do 
-		//          things common things such as remove a component (e.g.
-		//          the validator), insert a new component (e.g. XInclude), 
-		//          etc... -Ac
+        // REVISIT: This should be better designed. In other words, we
+        //          need to figure out what is the best way for people to
+        //          re-use *most* of the standard configuration but do 
+        //          things common things such as remove a component (e.g.
+        //          the validator), insert a new component (e.g. XInclude), 
+        //          etc... -Ac
 
-		// setup document pipeline
-		if (fDTDValidator != null) {
-			fScanner.setDocumentHandler(fDTDValidator);
-			if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
+        // setup document pipeline
+        if (fDTDValidator != null) {
+            fScanner.setDocumentHandler(fDTDValidator);
+            if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
 
-				// filters
-				fDTDValidator.setDocumentHandler(fNamespaceBinder);
-				fDTDValidator.setDocumentSource(fScanner);
-				fNamespaceBinder.setDocumentHandler(fDocumentHandler);
-				fNamespaceBinder.setDocumentSource(fDTDValidator);
-				fLastComponent = fNamespaceBinder;
-			}
-			else {
-				fDTDValidator.setDocumentHandler(fDocumentHandler);
-				fDTDValidator.setDocumentSource(fScanner);
-				fLastComponent = fDTDValidator;
-			}
-		}
-		else {
-			if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
-				fScanner.setDocumentHandler(fNamespaceBinder);
-				fNamespaceBinder.setDocumentHandler(fDocumentHandler);
-				fNamespaceBinder.setDocumentSource(fScanner);
-				fLastComponent = fNamespaceBinder;
-			}
-			else {
-				fScanner.setDocumentHandler(fDocumentHandler);
-				fLastComponent = fScanner;
-			}
-		}
+                // filters
+                fDTDValidator.setDocumentHandler(fNamespaceBinder);
+                fDTDValidator.setDocumentSource(fScanner);
+                fNamespaceBinder.setDocumentHandler(fDocumentHandler);
+                fNamespaceBinder.setDocumentSource(fDTDValidator);
+                fLastComponent = fNamespaceBinder;
+            }
+            else {
+                fDTDValidator.setDocumentHandler(fDocumentHandler);
+                fDTDValidator.setDocumentSource(fScanner);
+                fLastComponent = fDTDValidator;
+            }
+        }
+        else {
+            if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
+                fScanner.setDocumentHandler(fNamespaceBinder);
+                fNamespaceBinder.setDocumentHandler(fDocumentHandler);
+                fNamespaceBinder.setDocumentSource(fScanner);
+                fLastComponent = fNamespaceBinder;
+            }
+            else {
+                fScanner.setDocumentHandler(fDocumentHandler);
+                fLastComponent = fScanner;
+            }
+        }
         
         configureDTDPipeline();
-	} // configurePipeline()
+    } // configurePipeline()
     
     protected void configureDTDPipeline (){
         
@@ -683,7 +683,7 @@ public class DTDConfiguration
 
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-        	
+            
             //
             // http://apache.org/xml/features/validation/dynamic
             //   Allows the parser to validate a document only when it

@@ -27,7 +27,7 @@ import org.w3c.dom.html.HTMLLIElement;
  */
 public class HTMLLIElementImpl
     extends HTMLElementImpl
-	    implements HTMLLIElement
+        implements HTMLLIElement
 {
 
     private static final long serialVersionUID = -8987309345926701831L;

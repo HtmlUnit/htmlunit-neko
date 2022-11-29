@@ -324,7 +324,7 @@ public class StandardParserConfiguration
 
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-        	
+            
             //
             // http://apache.org/xml/features/validation/schema
             //   Lets the user turn Schema validation support on/off.
@@ -395,7 +395,7 @@ public class StandardParserConfiguration
 
         if (propertyId.startsWith(Constants.JAXP_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.JAXP_PROPERTY_PREFIX.length();
-        	
+            
             if (suffixLength == Constants.SCHEMA_SOURCE.length() && 
                 propertyId.endsWith(Constants.SCHEMA_SOURCE)) {
                 return;

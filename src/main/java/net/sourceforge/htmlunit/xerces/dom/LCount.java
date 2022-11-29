@@ -50,6 +50,6 @@ class LCount
         LCount lc=(LCount)lCounts.get(evtName);
         if(lc==null)
             lCounts.put(evtName,(lc=new LCount()));
-        return lc;	        
+        return lc;            
     }
 } // class LCount

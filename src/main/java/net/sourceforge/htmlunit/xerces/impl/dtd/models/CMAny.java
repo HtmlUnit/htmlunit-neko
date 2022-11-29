@@ -112,8 +112,8 @@ public class CMAny
         strRet.append(')');
         if (fPosition >= 0) {
             strRet.append(" (Pos:")
-            	  .append(Integer.toString(fPosition))
-            	  .append(')');
+                  .append(Integer.toString(fPosition))
+                  .append(')');
         }
         return strRet.toString();
     }

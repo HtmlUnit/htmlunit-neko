@@ -41,8 +41,8 @@ public class SchemaDVFactoryImpl extends BaseSchemaDVFactory {
 
     // create all built-in types
     static void createBuiltInTypes() {
-    	createBuiltInTypes(fBuiltInTypes, XSSimpleTypeDecl.fAnySimpleType);
-    	
+        createBuiltInTypes(fBuiltInTypes, XSSimpleTypeDecl.fAnySimpleType);
+        
         // TODO: move specific 1.0 DV implementation from base
     } //createBuiltInTypes()
 

@@ -386,12 +386,12 @@ public class DOMNormalizer implements XMLDocumentHandler {
                                         wellformed = CoreDocumentImpl.isXMLName(node.getNodeName(), fDocument.isXML11Version());
                                     }
                                     if (!wellformed) {
-				                            String msg = DOMMessageFormatter.formatMessage(
-				                              DOMMessageFormatter.DOM_DOMAIN, 
-				                              "wf-invalid-character-in-node-name", 
-				                               new Object[]{"Attr",node.getNodeName()});
-				                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, 
-				                                "wf-invalid-character-in-node-name");
+                                            String msg = DOMMessageFormatter.formatMessage(
+                                              DOMMessageFormatter.DOM_DOMAIN, 
+                                              "wf-invalid-character-in-node-name", 
+                                               new Object[]{"Attr",node.getNodeName()});
+                                            reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, 
+                                                "wf-invalid-character-in-node-name");
                                     }
                                 }           
                             }
@@ -483,7 +483,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
                         fValidationHandler.comment(EMPTY_STRING, null);
                     }         
                 }//end-else if comment node is not to be removed.
-				break;
+                break;
             }
         case Node.ENTITY_REFERENCE_NODE: { 
                 if (DEBUG_ND) {
@@ -662,11 +662,11 @@ public class DOMNormalizer implements XMLDocumentHandler {
                     wellformed = XMLChar.isValidName(target);
                 }
 
-				if (!wellformed) {
-				    String msg = DOMMessageFormatter.formatMessage(
-				        DOMMessageFormatter.DOM_DOMAIN, 
-				        "wf-invalid-character-in-node-name", 
-				        new Object[]{"Element", node.getNodeName()});
+                if (!wellformed) {
+                    String msg = DOMMessageFormatter.formatMessage(
+                        DOMMessageFormatter.DOM_DOMAIN, 
+                        "wf-invalid-character-in-node-name", 
+                        new Object[]{"Element", node.getNodeName()});
                     reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR,  
                         "wf-invalid-character-in-node-name");
                 }        
@@ -782,8 +782,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
                     // Check for invalid namespace declaration:
                     if (fDocument.errorChecking && value.equals(NamespaceContext.XMLNS_URI)) {
-                    	//A null value for locale is passed to formatMessage, 
-                    	//which means that the default locale will be used
+                        //A null value for locale is passed to formatMessage, 
+                        //which means that the default locale will be used
                         fLocator.fRelatedNode = attr;
                         String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.XML_DOMAIN,"CantBindXMLNS",null );
                         reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, "CantBindXMLNS");
@@ -854,7 +854,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
             }
         } else { // Element has no namespace
             if (element.getLocalName() == null) {
-            	
+                
                 //  Error: DOM Level 1 node!
                 if (fNamespaceValidation) {
                     String msg = DOMMessageFormatter.formatMessage(
@@ -869,7 +869,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
                     reportDOMError(fErrorHandler, fError, fLocator, msg, DOMError.SEVERITY_ERROR, 
                     "NullLocalElementName");
                 }
-            	
+                
             } else { // uri=null and no colon (DOM L2 node)
                 uri = fNamespaceContext.getURI(XMLSymbols.EMPTY_STRING);
                 if (uri !=null && uri.length() > 0) {
@@ -1322,7 +1322,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
         if (a instanceof AttrImpl && ((AttrImpl)a).hasStringValue()) {
             isXMLCharWF(errorHandler, error, locator, value, xml11Version);
         } else {
-        	NodeList children = a.getChildNodes(); 
+            NodeList children = a.getChildNodes(); 
             //check each child node of the attribute's value
             for (int j = 0; j < children.getLength(); j++) {
                 Node child = children.item(j);
@@ -1397,8 +1397,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
     
 
 
-	/* REVISIT: remove this method if DOM does not change spec.
-	 * Performs partial XML 1.0 attribute value normalization and replaces
+    /* REVISIT: remove this method if DOM does not change spec.
+     * Performs partial XML 1.0 attribute value normalization and replaces
      * attribute value if the value is changed after the normalization.
      * DOM defines that normalizeDocument acts as if the document was going 
      * through a save and load cycle, given that serializer will not escape
@@ -1410,11 +1410,11 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * references, since '&' will be escaped during serialization and during loading
      * this won't be recognized as entity reference, i.e. attribute value "&foo;" will 
      * be serialized as "&amp;foo;" and thus after loading will be "&foo;" again.
-	 * @param value current attribute value
-	 * @param attr current attribute
-	 * @return String the value (could be original if normalization did not change 
+     * @param value current attribute value
+     * @param attr current attribute
+     * @return String the value (could be original if normalization did not change 
      * the string)
-	 */
+     */
     final String normalizeAttributeValue(String value, Attr attr) {
         if (!attr.getSpecified()){
             // specified attributes should already have a normalized form
@@ -1899,15 +1899,15 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
-	public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
-		throws XNIException {
+    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
+        throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>emptyElement: " +element);
         }
 
-		startElement(element, attributes, augs);
+        startElement(element, attributes, augs);
         endElement(element, augs);
-	}
+    }
 
     /**
      * This method notifies the start of a general entity.

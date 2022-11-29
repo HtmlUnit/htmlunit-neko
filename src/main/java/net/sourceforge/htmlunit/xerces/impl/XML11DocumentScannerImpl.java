@@ -451,7 +451,7 @@ public class XML11DocumentScannerImpl
      */
     protected void normalizeWhitespace(XMLString value) {
         int end = value.offset + value.length;
-	    for (int i = value.offset; i < end; ++i) {
+        for (int i = value.offset; i < end; ++i) {
            int c = value.ch[i];
            if (XMLChar.isSpace(c)) {
                value.ch[i] = ' ';

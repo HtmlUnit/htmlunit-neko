@@ -42,7 +42,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  */
 public interface ExternalSubsetResolver 
     extends XMLEntityResolver {
-	
+    
     //
     // ExternalSubsetResolver methods
     //

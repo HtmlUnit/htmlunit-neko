@@ -93,14 +93,14 @@ public abstract class ChildNode
      */
     public Node cloneNode(boolean deep) {
 
-    	ChildNode newnode = (ChildNode) super.cloneNode(deep);
-    	
+        ChildNode newnode = (ChildNode) super.cloneNode(deep);
+        
         // Need to break the association w/ original kids
-    	newnode.previousSibling = null;
+        newnode.previousSibling = null;
         newnode.nextSibling     = null;
         newnode.isFirstChild(false);
 
-    	return newnode;
+        return newnode;
 
     } // cloneNode(boolean):Node
 

@@ -135,7 +135,7 @@ public class SchemaGrammar implements XSGrammar, XSNamespaceItem {
      *
      * @param targetNamespace
      * @param grammarDesc the XMLGrammarDescription corresponding to this objec
-     * 		at the least a systemId should always be known.
+     *         at the least a systemId should always be known.
      * @param symbolTable   needed for annotation support
      */
     public SchemaGrammar(String targetNamespace, XSDDescription grammarDesc,

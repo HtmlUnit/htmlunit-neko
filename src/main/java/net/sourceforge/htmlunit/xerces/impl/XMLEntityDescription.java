@@ -30,7 +30,7 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
  * @version $Id$
  */
 public interface XMLEntityDescription extends XMLResourceIdentifier {
-	
+    
     /** 
      * Sets the name of the entity.
      * 

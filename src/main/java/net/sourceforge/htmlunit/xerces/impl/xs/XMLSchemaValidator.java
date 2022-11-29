@@ -1937,7 +1937,7 @@ public class XMLSchemaValidator
         if (fSkipValidationDepth >= 0) {
             fElementDepth++;
             if (fAugPSVI)
-            	augs = getEmptyAugs(augs);
+                augs = getEmptyAugs(augs);
             return augs;
         }
 

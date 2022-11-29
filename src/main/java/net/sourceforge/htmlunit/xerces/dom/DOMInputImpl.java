@@ -60,19 +60,19 @@ and Save Specification</a>.
 
 public class DOMInputImpl implements LSInput {
 
-	//
-	// Data
-	//
+    //
+    // Data
+    //
 
-	protected String fPublicId = null;
-	protected String fSystemId = null;
-	protected String fBaseSystemId = null;
+    protected String fPublicId = null;
+    protected String fSystemId = null;
+    protected String fBaseSystemId = null;
 
-	protected InputStream fByteStream = null;
-	protected Reader fCharStream	= null;
-	protected String fData = null;
+    protected InputStream fByteStream = null;
+    protected Reader fCharStream    = null;
+    protected String fData = null;
 
-	protected String fEncoding = null;
+    protected String fEncoding = null;
 
         protected boolean fCertifiedText = false;
 
@@ -102,9 +102,9 @@ public class DOMInputImpl implements LSInput {
     public DOMInputImpl(String publicId, String systemId,
                           String baseSystemId) {
 
-		fPublicId = publicId;
-		fSystemId = systemId;
-		fBaseSystemId = baseSystemId;
+        fPublicId = publicId;
+        fSystemId = systemId;
+        fBaseSystemId = baseSystemId;
 
     } // DOMInputImpl(String,String,String)
 
@@ -128,11 +128,11 @@ public class DOMInputImpl implements LSInput {
                           String baseSystemId, InputStream byteStream,
                           String encoding) {
 
-		fPublicId = publicId;
-		fSystemId = systemId;
-		fBaseSystemId = baseSystemId;
-		fByteStream = byteStream;
-		fEncoding = encoding;
+        fPublicId = publicId;
+        fSystemId = systemId;
+        fBaseSystemId = baseSystemId;
+        fByteStream = byteStream;
+        fEncoding = encoding;
 
     } // DOMInputImpl(String,String,String,InputStream,String)
 
@@ -157,11 +157,11 @@ public class DOMInputImpl implements LSInput {
                           String baseSystemId, Reader charStream,
                           String encoding) {
 
-		fPublicId = publicId;
-		fSystemId = systemId;
-		fBaseSystemId = baseSystemId;
-		fCharStream = charStream;
-		fEncoding = encoding;
+        fPublicId = publicId;
+        fSystemId = systemId;
+        fBaseSystemId = baseSystemId;
+        fCharStream = charStream;
+        fEncoding = encoding;
 
      } // DOMInputImpl(String,String,String,Reader,String)
 
@@ -177,7 +177,7 @@ public class DOMInputImpl implements LSInput {
      * @param baseSystemId The base system identifier. This value should
      *                     always be set to the fully expanded URI of the
      *                     base system identifier, if possible.
-     * @param data		   The String Data.
+     * @param data           The String Data.
      * @param encoding     The original encoding of the byte stream
      *                     used by the reader, if known.
      */
@@ -186,10 +186,10 @@ public class DOMInputImpl implements LSInput {
                           String baseSystemId, String data,
                           String encoding) {
                 fPublicId = publicId;
-		fSystemId = systemId;
-		fBaseSystemId = baseSystemId;
-		fData = data;
-		fEncoding = encoding;
+        fSystemId = systemId;
+        fBaseSystemId = baseSystemId;
+        fData = data;
+        fEncoding = encoding;
      } // DOMInputImpl(String,String,String,String,String)
 
    /**
@@ -204,7 +204,7 @@ public class DOMInputImpl implements LSInput {
      */
 
     public InputStream getByteStream(){
-	return fByteStream;
+    return fByteStream;
     }
 
     /**
@@ -219,7 +219,7 @@ public class DOMInputImpl implements LSInput {
      */
 
      public void setByteStream(InputStream byteStream){
- 	fByteStream = byteStream;
+     fByteStream = byteStream;
      }
 
     /**
@@ -231,7 +231,7 @@ public class DOMInputImpl implements LSInput {
      * identifier.
      */
     public Reader getCharacterStream(){
-	return fCharStream;
+    return fCharStream;
     }
     /**
      *  An attribute of a language-binding dependent type that represents a
@@ -243,7 +243,7 @@ public class DOMInputImpl implements LSInput {
      */
 
      public void setCharacterStream(Reader characterStream){
-	fCharStream = characterStream;
+    fCharStream = characterStream;
      }
 
     /**
@@ -254,7 +254,7 @@ public class DOMInputImpl implements LSInput {
      * to open a URI connection to the system identifier.
      */
     public String getStringData(){
-	return fData;
+    return fData;
     }
 
    /**
@@ -266,7 +266,7 @@ public class DOMInputImpl implements LSInput {
      */
 
      public void setStringData(String stringData){
-		fData = stringData;
+        fData = stringData;
      }
 
     /**
@@ -281,7 +281,7 @@ public class DOMInputImpl implements LSInput {
      */
 
     public String getEncoding(){
-	return fEncoding;
+    return fEncoding;
     }
 
     /**
@@ -295,7 +295,7 @@ public class DOMInputImpl implements LSInput {
      * from a higher level protocol, such as HTTP .
      */
     public void setEncoding(String encoding){
-	fEncoding = encoding;
+    fEncoding = encoding;
     }
 
     /**
@@ -304,7 +304,7 @@ public class DOMInputImpl implements LSInput {
      * provided as part of the location information.
      */
     public String getPublicId(){
-	return fPublicId;
+    return fPublicId;
     }
     /**
      * The public identifier for this input source. The public identifier is
@@ -312,7 +312,7 @@ public class DOMInputImpl implements LSInput {
      * provided as part of the location information.
      */
     public void setPublicId(String publicId){
-	fPublicId = publicId;
+    fPublicId = publicId;
     }
 
     /**
@@ -330,7 +330,7 @@ public class DOMInputImpl implements LSInput {
      * the behavior is implementation dependent.
      */
     public String getSystemId(){
-	return fSystemId;
+    return fSystemId;
     }
     /**
      * The system identifier, a URI reference , for this input source. The
@@ -347,7 +347,7 @@ public class DOMInputImpl implements LSInput {
      * the behavior is implementation dependent.
      */
     public void setSystemId(String systemId){
-	fSystemId = systemId;
+    fSystemId = systemId;
     }
 
     /**
@@ -356,7 +356,7 @@ public class DOMInputImpl implements LSInput {
      * behavior is implementation dependent.
      */
     public String getBaseURI(){
-	return fBaseSystemId;
+    return fBaseSystemId;
     }
     /**
      *  The base URI to be used (see section 5.1.4 in ) for resolving relative
@@ -364,7 +364,7 @@ public class DOMInputImpl implements LSInput {
      * behavior is implementation dependent.
      */
     public void setBaseURI(String baseURI){
-	fBaseSystemId = baseURI;
+    fBaseSystemId = baseURI;
     }
 
     /**

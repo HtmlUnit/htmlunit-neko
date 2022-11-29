@@ -329,7 +329,7 @@ class XSDAttributeTraverser extends XSDAbstractTraverser {
             else {
                 reportSchemaError("src-resolve", new Object[]{typeAtt.rawname, "simpleType definition"}, attrDecl);
                 if (type == null) {
-                	attribute.fUnresolvedTypeName = typeAtt;
+                    attribute.fUnresolvedTypeName = typeAtt;
                 }
             }
         }

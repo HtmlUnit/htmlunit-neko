@@ -208,7 +208,7 @@ public abstract class BasicParserConfiguration
 
         // add default recognized features
         final String[] recognizedFeatures = {
-        	PARSER_SETTINGS,
+            PARSER_SETTINGS,
             VALIDATION,                 
             NAMESPACES, 
             EXTERNAL_GENERAL_ENTITIES,  
@@ -217,10 +217,10 @@ public abstract class BasicParserConfiguration
         addRecognizedFeatures(recognizedFeatures);
         fFeatures.put(PARSER_SETTINGS, Boolean.TRUE);
         // set state for default features
-		fFeatures.put(VALIDATION, Boolean.FALSE);
-		fFeatures.put(NAMESPACES, Boolean.TRUE);
-		fFeatures.put(EXTERNAL_GENERAL_ENTITIES, Boolean.TRUE);
-		fFeatures.put(EXTERNAL_PARAMETER_ENTITIES, Boolean.TRUE);
+        fFeatures.put(VALIDATION, Boolean.FALSE);
+        fFeatures.put(NAMESPACES, Boolean.TRUE);
+        fFeatures.put(EXTERNAL_GENERAL_ENTITIES, Boolean.TRUE);
+        fFeatures.put(EXTERNAL_PARAMETER_ENTITIES, Boolean.TRUE);
 
         // add default recognized properties
         final String[] recognizedProperties = {
@@ -518,8 +518,8 @@ public abstract class BasicParserConfiguration
 
         // special cases
         if (propertyId.startsWith(Constants.SAX_PROPERTY_PREFIX)) {
-            final int suffixLength = propertyId.length() - Constants.SAX_PROPERTY_PREFIX.length();	
-        	
+            final int suffixLength = propertyId.length() - Constants.SAX_PROPERTY_PREFIX.length();    
+            
             //
             // http://xml.org/sax/properties/xml-string
             // Value type: String

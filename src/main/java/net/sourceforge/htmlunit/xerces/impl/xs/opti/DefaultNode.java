@@ -44,67 +44,67 @@ public class DefaultNode implements Node {
     
     // getter methods
     public String getNodeName() {
-    	return null;
+        return null;
     }
 
 
     public String getNodeValue() throws DOMException {
-    	return null;
+        return null;
     }
 
 
     public short getNodeType() {
-    	return -1;
+        return -1;
     }
 
 
     public Node getParentNode() {
-    	return null;
+        return null;
     }
 
 
     public NodeList getChildNodes() {
-    	return null;
+        return null;
     }
 
 
     public Node getFirstChild() {
-    	return null;
+        return null;
     }
 
 
     public Node getLastChild() {
-    	return null;
+        return null;
     }
 
 
     public Node getPreviousSibling() {
-    	return null;
+        return null;
     }
 
 
     public Node getNextSibling() {
-    	return null;
+        return null;
     }
 
 
     public NamedNodeMap getAttributes() {
-    	return null;
+        return null;
     }
 
 
     public Document getOwnerDocument() {
-    	return null;
+        return null;
     }
 
 
     public boolean hasChildNodes() {
-    	return false;
+        return false;
     }
 
 
     public Node cloneNode(boolean deep) {
-    	return null;
+        return null;
     }
 
 
@@ -113,22 +113,22 @@ public class DefaultNode implements Node {
 
 
     public boolean isSupported(String feature, String version) {
-    	return false;
+        return false;
     }
 
 
     public String getNamespaceURI() {
-    	return null;
+        return null;
     }
 
 
     public String getPrefix() {
-    	return null;
+        return null;
     }
 
 
     public String getLocalName() {
-    	return null;
+        return null;
     }
     /** DOM Level 3*/
     public String getBaseURI(){
@@ -138,37 +138,37 @@ public class DefaultNode implements Node {
 
 
     public boolean hasAttributes() {
-    	return false;
+        return false;
     }
     
     // setter methods
     public void setNodeValue(String nodeValue) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Node insertBefore(Node newChild, Node refChild) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Node removeChild(Node oldChild) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public Node appendChild(Node newChild) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
 
 
     public void setPrefix(String prefix) throws DOMException {
-    	throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
     }
     
     public short compareDocumentPosition(Node other){
@@ -213,4 +213,4 @@ public class DefaultNode implements Node {
 
 
 }
-	
+    

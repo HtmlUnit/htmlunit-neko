@@ -46,7 +46,7 @@ public class CommentImpl
 
     /** Factory constructor. */
     public CommentImpl(CoreDocumentImpl ownerDoc, String data) {
-    	super(ownerDoc, data);
+        super(ownerDoc, data);
     }
     
     //

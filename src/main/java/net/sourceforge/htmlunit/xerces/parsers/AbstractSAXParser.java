@@ -2164,7 +2164,7 @@ public abstract class AbstractSAXParser
             }
         }
     }
-	
+    
     //
     // XMLDocumentParser methods
     //
@@ -2344,7 +2344,7 @@ public abstract class AbstractSAXParser
                 fAttributes.getAugmentations(index).getItem(
                 Constants.ATTRIBUTE_DECLARED));
         }
-		
+        
         public boolean isDeclared(String uri, String localName) {
             int index = getIndex(uri, localName);
             if (index == -1) {

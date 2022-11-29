@@ -242,9 +242,9 @@ class HTMLCollectionImpl
             while ( node != null )
             {
                 // If a particular node is an element (could be HTML or XML),
-		// do two things: if it's the one we're looking for, count
-		// another matched element; at any rate, traverse it's
-		// children as well.
+        // do two things: if it's the one we're looking for, count
+        // another matched element; at any rate, traverse it's
+        // children as well.
                 if ( node instanceof Element )
                 {
                     if ( collectionMatch( (Element) node, null ) )
@@ -283,15 +283,15 @@ class HTMLCollectionImpl
         synchronized ( topLevel )
         {
             // Traverse all the childs of the current element in the order
-	    // they appear. Count from the index backwards until you reach
-	    // matching element with an index of zero. Return that element.
+        // they appear. Count from the index backwards until you reach
+        // matching element with an index of zero. Return that element.
             node = topLevel.getFirstChild();
             while ( node != null )
             {
                 // If a particular node is an element (could be HTML or XML),
-		// do two things: if it's the one we're looking for, decrease
-		// the index and if zero, return this node; at any rate,
-		// traverse it's children as well.
+        // do two things: if it's the one we're looking for, decrease
+        // the index and if zero, return this node; at any rate,
+        // traverse it's children as well.
                 if ( node instanceof Element )
                 {
                     if ( collectionMatch( (Element) node, null ) )
@@ -329,14 +329,14 @@ class HTMLCollectionImpl
         synchronized ( topLevel )
         {
             // Traverse all the childs of the current element in the order
-	    // they appear.
+        // they appear.
             node = topLevel.getFirstChild();
             while ( node != null )
             {
                 // If a particular node is an element (could be HTML or XML),
                 // do two things: if it's the one we're looking for, and the
-		// name (id attribute) attribute is the one we're looking for,
-		// return this element; otherwise, traverse it's children.
+        // name (id attribute) attribute is the one we're looking for,
+        // return this element; otherwise, traverse it's children.
                 if ( node instanceof Element )
                 {
                     if ( collectionMatch( (Element) node, name ) )

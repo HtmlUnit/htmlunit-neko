@@ -480,7 +480,7 @@ public class SchemaDOMParser extends DefaultXMLDocumentHandler {
      * @param state
      */
     public void setFeature(String featureId, boolean state){
-    	config.setFeature(featureId, state);
+        config.setFeature(featureId, state);
     }
     
     /**
@@ -515,7 +515,7 @@ public class SchemaDOMParser extends DefaultXMLDocumentHandler {
      * @param er XMLEntityResolver
      */
     public void setEntityResolver(XMLEntityResolver er) {
-    	config.setEntityResolver(er);
+        config.setEntityResolver(er);
     }
     
     /**
@@ -532,14 +532,14 @@ public class SchemaDOMParser extends DefaultXMLDocumentHandler {
      * Reset SchemaParsingConfig
      */
     public void reset() {
-    	((SchemaParsingConfig)config).reset();
+        ((SchemaParsingConfig)config).reset();
     }
     
     /**
      * ResetNodePool on SchemaParsingConfig
      */
     public void resetNodePool() {
-    	((SchemaParsingConfig)config).resetNodePool();
+        ((SchemaParsingConfig)config).resetNodePool();
     }
     
     /**

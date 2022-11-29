@@ -201,13 +201,13 @@ public class DocumentTypeImpl
     /** Clones the node. */
     public Node cloneNode(boolean deep) {
 
-    	DocumentTypeImpl newnode = (DocumentTypeImpl)super.cloneNode(deep);
-    	// NamedNodeMaps must be cloned explicitly, to avoid sharing them.
-    	newnode.entities  = entities.cloneMap(newnode);
-    	newnode.notations = notations.cloneMap(newnode);
-    	newnode.elements  = elements.cloneMap(newnode);
+        DocumentTypeImpl newnode = (DocumentTypeImpl)super.cloneNode(deep);
+        // NamedNodeMaps must be cloned explicitly, to avoid sharing them.
+        newnode.entities  = entities.cloneMap(newnode);
+        newnode.notations = notations.cloneMap(newnode);
+        newnode.elements  = elements.cloneMap(newnode);
 
-    	return newnode;
+        return newnode;
 
     } // cloneNode(boolean):Node
 
@@ -228,10 +228,10 @@ public class DocumentTypeImpl
         // no-op
     }
     
-	/**
-	  * DOM Level 3 WD- Experimental.
-	  * Override inherited behavior from ParentNodeImpl to support deep equal.
-	  */
+    /**
+      * DOM Level 3 WD- Experimental.
+      * Override inherited behavior from ParentNodeImpl to support deep equal.
+      */
     public boolean isEqualNode(Node arg) {
         
         if (!super.isEqualNode(arg)) {
@@ -362,7 +362,7 @@ public class DocumentTypeImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-    	return name;
+        return name;
 
     } // getName():String
 
@@ -392,7 +392,7 @@ public class DocumentTypeImpl
         if (needsSyncChildren()) {
             synchronizeChildren();
             }
-    	return entities;
+        return entities;
     }
 
     /**
@@ -404,7 +404,7 @@ public class DocumentTypeImpl
         if (needsSyncChildren()) {
             synchronizeChildren();
             }
-    	return notations;
+        return notations;
     }
 
     //
@@ -417,7 +417,7 @@ public class DocumentTypeImpl
      * @see NodeImpl#setReadOnly
      */
     public void setReadOnly(boolean readOnly, boolean deep) {
-    	
+        
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
@@ -426,7 +426,7 @@ public class DocumentTypeImpl
         // set read-only property
         elements.setReadOnly(readOnly, true);
         entities.setReadOnly(readOnly, true);
-    	notations.setReadOnly(readOnly, true);
+        notations.setReadOnly(readOnly, true);
 
     } // setReadOnly(boolean,boolean)
     
@@ -438,7 +438,7 @@ public class DocumentTypeImpl
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-    	return elements;
+        return elements;
     }
     
     public Object setUserData(String key,

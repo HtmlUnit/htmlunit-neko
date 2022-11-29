@@ -264,8 +264,8 @@ public class XMLNamespaceBinder
 
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
-        	final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-        	
+            final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
+            
             if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() && 
                 propertyId.endsWith(Constants.SYMBOL_TABLE_PROPERTY)) {
                 fSymbolTable = (SymbolTable)value;
@@ -417,15 +417,15 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-	public void startDocument(XMLLocator locator, String encoding,
+    public void startDocument(XMLLocator locator, String encoding,
                                 NamespaceContext namespaceContext, Augmentations augs)
-		                      throws XNIException {
-		fNamespaceContext = namespaceContext;
+                              throws XNIException {
+        fNamespaceContext = namespaceContext;
 
-		if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
-			fDocumentHandler.startDocument(locator, encoding, namespaceContext, augs);
-		}
-	} // startDocument(XMLLocator,String)
+        if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
+            fDocumentHandler.startDocument(locator, encoding, namespaceContext, augs);
+        }
+    } // startDocument(XMLLocator,String)
 
     /**
      * Notifies of the presence of an XMLDecl line in the document. If

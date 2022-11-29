@@ -32,8 +32,8 @@ import org.w3c.dom.DOMStringList;
  * @author Neil Delima, IBM
  */
 public class DOMStringListImpl implements DOMStringList {
-	
-	// A collection of DOMString values
+    
+    // A collection of DOMString values
     private final ArrayList fStrings;
 
     /** 
@@ -57,30 +57,30 @@ public class DOMStringListImpl implements DOMStringList {
         fStrings = new ArrayList(params);
     }
         
-	/**
-	 * @see org.w3c.dom.DOMStringList#item(int)
-	 */
-	public String item(int index) {
-	    final int length = getLength();
-	    if (index >= 0 && index < length) {
-	        return (String) fStrings.get(index);
-	    }
-	    return null;
-	}
+    /**
+     * @see org.w3c.dom.DOMStringList#item(int)
+     */
+    public String item(int index) {
+        final int length = getLength();
+        if (index >= 0 && index < length) {
+            return (String) fStrings.get(index);
+        }
+        return null;
+    }
 
-	/**
-	 * @see org.w3c.dom.DOMStringList#getLength()
-	 */
-	public int getLength() {
-		return fStrings.size();
-	}
+    /**
+     * @see org.w3c.dom.DOMStringList#getLength()
+     */
+    public int getLength() {
+        return fStrings.size();
+    }
 
-	/**
-	 * @see org.w3c.dom.DOMStringList#contains(String)
-	 */
-	public boolean contains(String param) {
-		return fStrings.contains(param);
-	}
+    /**
+     * @see org.w3c.dom.DOMStringList#contains(String)
+     */
+    public boolean contains(String param) {
+        return fStrings.contains(param);
+    }
 
     /**
      * DOM Internal:

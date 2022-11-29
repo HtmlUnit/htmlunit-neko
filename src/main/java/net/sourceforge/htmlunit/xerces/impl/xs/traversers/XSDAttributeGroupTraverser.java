@@ -63,7 +63,7 @@ class XSDAttributeGroupTraverser extends XSDAbstractTraverser {
         Object[] attrValues = fAttrChecker.checkAttributes(elmNode, false, schemaDoc);
         
         // get attribute
-        QName   refAttr	= (QName)   attrValues[XSAttributeChecker.ATTIDX_REF];
+        QName   refAttr    = (QName)   attrValues[XSAttributeChecker.ATTIDX_REF];
         
         XSAttributeGroupDecl attrGrp = null;
         
@@ -164,7 +164,7 @@ class XSDAttributeGroupTraverser extends XSDAbstractTraverser {
         if(redefinedAttrGrp != null) {
             Object[] errArgs = attrGrp.validRestrictionOf(nameAttr, redefinedAttrGrp);
             if (errArgs != null) {
-                reportSchemaError((String)errArgs[errArgs.length-1], errArgs, child);            	
+                reportSchemaError((String)errArgs[errArgs.length-1], errArgs, child);                
                 reportSchemaError("src-redefine.7.2.2", new Object [] {nameAttr, errArgs[errArgs.length-1]}, child);
             }
         }

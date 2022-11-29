@@ -93,7 +93,7 @@ public class DOMEntityResolverWrapper
      * Resolves an external parsed entity. If the entity cannot be
      * resolved, this method should return null.
      *
-     * @param resourceIdentifier	description of the resource to be resolved
+     * @param resourceIdentifier    description of the resource to be resolved
      * @throws XNIException Thrown on general error.
      * @throws IOException  Thrown if resolved entity stream cannot be
      *                      opened or some other i/o error occurs.

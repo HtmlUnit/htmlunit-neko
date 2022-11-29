@@ -1162,7 +1162,7 @@ public class XMLDTDScannerImpl
                                                     fLiteral, fLiteral2);
             // REVISIT: Should we do anything with the non-normalized
             //          default attribute value? -Ac
-	    // yes--according to bug 5073.  - neilg
+        // yes--according to bug 5073.  - neilg
 
             // call handler
             if (fDTDHandler != null) {

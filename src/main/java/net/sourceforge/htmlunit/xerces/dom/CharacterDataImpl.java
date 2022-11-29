@@ -95,7 +95,7 @@ public abstract class CharacterDataImpl
      * we are not performing a replacement operation  
      */
     protected void setNodeValueInternal (String value) {
-    	setNodeValueInternal(value, false);
+        setNodeValueInternal(value, false);
     }
     
     /** This function added so that we can distinguish whether
@@ -184,7 +184,7 @@ public abstract class CharacterDataImpl
      */
     public void appendData(String data) {
 
-    	if (isReadOnly()) {
+        if (isReadOnly()) {
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
             throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
         }
@@ -213,8 +213,8 @@ public abstract class CharacterDataImpl
      */
     public void deleteData(int offset, int count) 
         throws DOMException {
-    	
-    	internalDeleteData(offset, count, false);
+        
+        internalDeleteData(offset, count, false);
     } // deleteData(int,int)
 
     
@@ -271,7 +271,7 @@ public abstract class CharacterDataImpl
     public void insertData(int offset, String data) 
         throws DOMException {
 
-    	internalInsertData(offset, data, false);
+        internalInsertData(offset, data, false);
         
     } // insertData(int,int)
     

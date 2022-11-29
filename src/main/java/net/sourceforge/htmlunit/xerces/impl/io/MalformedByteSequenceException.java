@@ -96,7 +96,7 @@ public final class MalformedByteSequenceException extends CharConversionExceptio
      * @return the error domain
      */
     public String getDomain () {
-    	return fDomain;
+        return fDomain;
     } // getDomain
     
     /**
@@ -105,7 +105,7 @@ public final class MalformedByteSequenceException extends CharConversionExceptio
      * @return the error key of the error message
      */
     public String getKey () {
-    	return fKey;
+        return fKey;
     } // getKey()
     
     /**
@@ -116,7 +116,7 @@ public final class MalformedByteSequenceException extends CharConversionExceptio
      * or <code>null</code> if none exist
      */
     public Object[] getArguments () {
-    	return fArguments;
+        return fArguments;
     } // getArguments();
     
     /**

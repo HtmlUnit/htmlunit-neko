@@ -373,14 +373,14 @@ public class XMLDocumentFragmentScannerImpl
         fIsEntityDeclaredVC = false;
         fInScanContent = false;
 
-		// setup dispatcher
-		setScannerState(SCANNER_STATE_CONTENT);
-		setDispatcher(fContentDispatcher);
+        // setup dispatcher
+        setScannerState(SCANNER_STATE_CONTENT);
+        setDispatcher(fContentDispatcher);
         
 
         if (fParserSettings) {
             // parser settings have changed. reset them.
-        	
+            
             // xerces features
             try {
                 fNotifyBuiltInRefs = componentManager.getFeature(NOTIFY_BUILTIN_REFS);
@@ -874,7 +874,7 @@ public class XMLDocumentFragmentScannerImpl
         boolean empty = false;
         fAttributes.removeAllAttributes();
         do {
-        	
+            
             // end tag?
             int c = fEntityScanner.peekChar();
             if (c == '>') {
@@ -1096,9 +1096,9 @@ public class XMLDocumentFragmentScannerImpl
                         }
                     }
                     else {
-                    	for (int i = 0; i < brackets; i++) {
-                    	    fStringBuffer.append(']');
-                    	}
+                        for (int i = 0; i < brackets; i++) {
+                            fStringBuffer.append(']');
+                        }
                        fDocumentHandler.characters(fStringBuffer, null);
                     }
                 }

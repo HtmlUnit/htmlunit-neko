@@ -186,13 +186,13 @@ public class TextImpl
      *         return false
      */
     private boolean getWholeTextForward(Node node, StringBuffer buffer, Node parent){
-    	// boolean to indicate whether node is a child of an entity reference
-    	boolean inEntRef = false;
-    	
-    	if (parent!=null) {
-    		inEntRef = parent.getNodeType()==Node.ENTITY_REFERENCE_NODE;
-    	}
-    	
+        // boolean to indicate whether node is a child of an entity reference
+        boolean inEntRef = false;
+        
+        if (parent!=null) {
+            inEntRef = parent.getNodeType()==Node.ENTITY_REFERENCE_NODE;
+        }
+        
         while (node != null) {
             short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
@@ -216,7 +216,7 @@ public class TextImpl
         // text nodes
         if (inEntRef) {
             getWholeTextForward(parent.getNextSibling(), buffer, parent.getParentNode());
-        		return true;
+                return true;
         }
         
         return false;
@@ -233,13 +233,13 @@ public class TextImpl
      *         return false
      */
     private boolean getWholeTextBackward(Node node, StringBuffer buffer, Node parent){
-    	
-    	// boolean to indicate whether node is a child of an entity reference
-    	boolean inEntRef = false;
-    	if (parent!=null) {
-    		inEntRef = parent.getNodeType()==Node.ENTITY_REFERENCE_NODE;
-    	}
-    	
+        
+        // boolean to indicate whether node is a child of an entity reference
+        boolean inEntRef = false;
+        if (parent!=null) {
+            inEntRef = parent.getNodeType()==Node.ENTITY_REFERENCE_NODE;
+        }
+        
         while (node != null) {
             short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
@@ -262,7 +262,7 @@ public class TextImpl
         // check nodes to the left of the parent entity reference node for logically adjacent
         // text nodes
         if (inEntRef) {
-        	getWholeTextBackward(parent.getPreviousSibling(), buffer, parent.getParentNode());
+            getWholeTextBackward(parent.getPreviousSibling(), buffer, parent.getParentNode());
             return true;
         }
         

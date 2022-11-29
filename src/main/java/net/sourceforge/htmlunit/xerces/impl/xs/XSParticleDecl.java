@@ -228,12 +228,12 @@ public class XSParticleDecl implements XSParticle {
         return fValue;
     }
 
-	/**
-	 * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
-	 */
-	public XSNamespaceItem getNamespaceItem() {
-		return null;
-	}
+    /**
+     * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
+     */
+    public XSNamespaceItem getNamespaceItem() {
+        return null;
+    }
 
     /**
      * Optional. Annotations.

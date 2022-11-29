@@ -80,9 +80,9 @@ public abstract class XMLScanner
     /** Feature identifier: notify character references. */
     protected static final String NOTIFY_CHAR_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_CHAR_REFS_FEATURE;
-	
-	protected static final String PARSER_SETTINGS = 
-				Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
+    
+    protected static final String PARSER_SETTINGS = 
+                Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     // property identifiers
 
@@ -123,8 +123,8 @@ public abstract class XMLScanner
     protected boolean fNotifyCharRefs = false;
     
     /** Internal parser-settings feature */
-	protected boolean fParserSettings = true;
-	
+    protected boolean fParserSettings = true;
+    
     // properties
 
     /** Symbol table. */
@@ -217,17 +217,17 @@ public abstract class XMLScanner
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
 
-		try {
-			fParserSettings = componentManager.getFeature(PARSER_SETTINGS);
-		} catch (XMLConfigurationException e) {
-			fParserSettings = true;
-		}
+        try {
+            fParserSettings = componentManager.getFeature(PARSER_SETTINGS);
+        } catch (XMLConfigurationException e) {
+            fParserSettings = true;
+        }
 
-		if (!fParserSettings) {
-			// parser settings have not been changed
-			init();
-			return;
-		}
+        if (!fParserSettings) {
+            // parser settings have not been changed
+            init();
+            return;
+        }
 
         // Xerces properties
         fSymbolTable = (SymbolTable)componentManager.getProperty(SYMBOL_TABLE);
@@ -269,8 +269,8 @@ public abstract class XMLScanner
         
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
-        	final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-        	
+            final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
+            
             if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() && 
                 propertyId.endsWith(Constants.SYMBOL_TABLE_PROPERTY)) {
                 fSymbolTable = (SymbolTable)value;
@@ -794,7 +794,7 @@ public abstract class XMLScanner
         // quote
         int quote = fEntityScanner.peekChar();
         if (quote != '\'' && quote != '"') {
-			reportFatalError("OpenQuoteExpected", new Object[]{eleName,atName});
+            reportFatalError("OpenQuoteExpected", new Object[]{eleName,atName});
         }
 
         fEntityScanner.scanChar();
@@ -933,7 +933,7 @@ public abstract class XMLScanner
                 }
                 else if (c == '<') {
                     reportFatalError("LessthanInAttValue",
-									 new Object[] { eleName, atName });
+                                     new Object[] { eleName, atName });
                     fEntityScanner.scanChar();
                     if (entityDepth == fEntityDepth) {
                         fStringBuffer2.append((char)c);
@@ -973,7 +973,7 @@ public abstract class XMLScanner
                 }
                 else if (c != -1 && isInvalidLiteral(c)) {
                     reportFatalError("InvalidCharInAttValue",
-					new Object[] {eleName, atName, Integer.toString(c, 16)});
+                    new Object[] {eleName, atName, Integer.toString(c, 16)});
                     fEntityScanner.scanChar();
                     if (entityDepth == fEntityDepth) {
                         fStringBuffer2.append((char)c);
@@ -998,7 +998,7 @@ public abstract class XMLScanner
         // quote
         int cquote = fEntityScanner.scanChar();
         if (cquote != quote) {
-			reportFatalError("CloseQuoteExpected", new Object[]{eleName,atName});
+            reportFatalError("CloseQuoteExpected", new Object[]{eleName,atName});
         }
         return nonNormalizedValue.equals(value.ch, value.offset, value.length);
         
@@ -1358,7 +1358,7 @@ public abstract class XMLScanner
             
             // character reference must be a valid XML character
             if (isInvalid(value)) {
-            	StringBuilder errorBuf = new StringBuilder(fStringBuffer3.length + 1);
+                StringBuilder errorBuf = new StringBuilder(fStringBuffer3.length + 1);
                 if (hex) errorBuf.append('x');
                 errorBuf.append(fStringBuffer3.ch, fStringBuffer3.offset, fStringBuffer3.length);
                 reportFatalError("InvalidCharRef",

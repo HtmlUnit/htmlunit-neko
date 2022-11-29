@@ -140,7 +140,7 @@ public class AttrNSImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-		this.name = qualifiedName;
+        this.name = qualifiedName;
         setName(namespaceURI, qualifiedName);
     }
 

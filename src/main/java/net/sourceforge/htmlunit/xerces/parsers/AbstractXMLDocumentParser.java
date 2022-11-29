@@ -505,7 +505,7 @@ public abstract class AbstractXMLDocumentParser
     public void attributeDecl(String elementName, String attributeName, 
                               String type, String[] enumeration, 
                               String defaultType, XMLString defaultValue, 
-			      XMLString nonNormalizedDefaultValue, Augmentations augs)
+                  XMLString nonNormalizedDefaultValue, Augmentations augs)
         throws XNIException {
     } // attributeDecl(String,String,String,String[],String,XMLString, XMLString, Augmentations)
 
@@ -586,7 +586,7 @@ public abstract class AbstractXMLDocumentParser
      * @throws XNIException Thrown by handler to signal an error.
      */
     public void notationDecl(String name, XMLResourceIdentifier identifier, 
-    	Augmentations augs)
+        Augmentations augs)
         throws XNIException {
     } // notationDecl(String,XMLResourceIdentifier, Augmentations)
 

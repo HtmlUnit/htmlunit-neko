@@ -82,7 +82,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
         return newdoc;
 
     } // cloneNode(boolean):Node
-	    
+        
     /**
      * Retrieve information describing the abilities of this particular
      * DOM implementation. Intended to support applications that may be
@@ -144,7 +144,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
     private void writeObject(ObjectOutputStream out)
         throws IOException {
         throw new NotSerializableException(getClass().getName());
-	}
+    }
 
     private void readObject(ObjectInputStream in) 
         throws IOException, ClassNotFoundException {

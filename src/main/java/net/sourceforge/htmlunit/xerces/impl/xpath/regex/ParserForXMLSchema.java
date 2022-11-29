@@ -170,7 +170,7 @@ class ParserForXMLSchema extends RegexParser {
         this.setContext(S_INBRACKETS);
         this.next();                            // '['
         boolean nrange = false;
-        boolean wasDecoded = false;     		// used to detect if the last - was escaped.
+        boolean wasDecoded = false;             // used to detect if the last - was escaped.
         RangeToken base = null;
         RangeToken tok;
         if (this.read() == T_CHAR && this.chardata == '^') {
@@ -185,8 +185,8 @@ class ParserForXMLSchema extends RegexParser {
         int type;
         boolean firstloop = true;
         while ((type = this.read()) != T_EOF) { // Don't use 'cotinue' for this loop.
-        	
-        	wasDecoded = false;
+            
+            wasDecoded = false;
             // single-range | from-to-range | subtraction
             if (type == T_CHAR && this.chardata == ']' && !firstloop) {
                 if (nrange) {
@@ -222,9 +222,9 @@ class ParserForXMLSchema extends RegexParser {
                     break;
                    
                  case '-':
-                 	c = this.decodeEscaped();
-                 	wasDecoded = true;
-                 	break;
+                     c = this.decodeEscaped();
+                     wasDecoded = true;
+                     break;
 
                   default:
                     c = this.decodeEscaped();
@@ -247,7 +247,7 @@ class ParserForXMLSchema extends RegexParser {
                 if (type == T_CHAR) {
                     if (c == '[')  throw this.ex("parser.cc.6", this.offset-2);
                     if (c == ']')  throw this.ex("parser.cc.7", this.offset-2);
-                    if (c == '-' && this.chardata != ']' && !firstloop)  throw this.ex("parser.cc.8", this.offset-2);	// if regex = '[-]' then invalid
+                    if (c == '-' && this.chardata != ']' && !firstloop)  throw this.ex("parser.cc.8", this.offset-2);    // if regex = '[-]' then invalid
                 }
                 if (this.read() != T_CHAR || this.chardata != '-' || c == '-' && !wasDecoded && firstloop) { // Here is no '-'.
                     if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
@@ -261,19 +261,19 @@ class ParserForXMLSchema extends RegexParser {
                     this.next(); // Skips '-'
                     if ((type = this.read()) == T_EOF)  throw this.ex("parser.cc.2", this.offset);
                                                 // c '-' ']' -> '-' is a single-range.
-                    if(type == T_CHAR && this.chardata == ']') {				// if - is at the last position of the group
+                    if(type == T_CHAR && this.chardata == ']') {                // if - is at the last position of the group
                         if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
-                    	    tok.addRange(c, c);
+                            tok.addRange(c, c);
                         }
                         else {
                             addCaseInsensitiveChar(tok, c);
                         }
-                    	tok.addRange('-', '-');
+                        tok.addRange('-', '-');
                     }
                     else if (type == T_XMLSCHEMA_CC_SUBTRACTION) {
                         throw this.ex("parser.cc.8", this.offset-1);
                     } else {
-                    	
+                        
                         int rangeend = this.chardata;
                         if (type == T_CHAR) {
                             if (rangeend == '[')  throw this.ex("parser.cc.6", this.offset-1);

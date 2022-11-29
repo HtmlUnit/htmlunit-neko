@@ -311,7 +311,7 @@ extends XMLDocumentScannerImpl {
      */
     protected boolean scanStartElementAfterName()
         throws IOException, XNIException {
-    	
+        
         // REVISIT - [Q] Why do we need this temp variable? -- mrglavas
         String rawname = fElementQName.rawname;
         if (fBindNamespaces) {
@@ -340,7 +340,7 @@ extends XMLDocumentScannerImpl {
         boolean empty = false;
         fAttributes.removeAllAttributes();
         do {
-        	
+            
             // end tag?
             int c = fEntityScanner.peekChar();
             if (c == '>') {
@@ -516,7 +516,7 @@ extends XMLDocumentScannerImpl {
         else {
             int oldLen = attributes.getLength();
             attrIndex = attributes.addAttribute(fAttributeQName, XMLSymbols.fCDATASymbol, null);
-        	
+            
             // WFC: Unique Att Spec
             if (oldLen == attributes.getLength()) {
                 reportFatalError("AttributeNotUnique",

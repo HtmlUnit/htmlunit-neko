@@ -32,54 +32,54 @@ import org.w3c.dom.Node;
  */
 public class NamedNodeMapImpl implements NamedNodeMap {
 
-	final Attr[] attrs;
-	
-	public NamedNodeMapImpl(Attr[] attrs) {
-		this.attrs = attrs;
-	}
-	
-	public Node getNamedItem(String name) {
+    final Attr[] attrs;
+    
+    public NamedNodeMapImpl(Attr[] attrs) {
+        this.attrs = attrs;
+    }
+    
+    public Node getNamedItem(String name) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(name)) {
                 return attr;
             }
         }
-    		return null;
-	}
-	
-	public Node item(int index) {
-		if (index < 0 && index > getLength()) {
-			return null;
-		}
-		return attrs[index];
-	}
-	
-	public int getLength() {
-		return attrs.length;
-	}
-	
-	public Node getNamedItemNS(String namespaceURI, String localName) {
+            return null;
+    }
+    
+    public Node item(int index) {
+        if (index < 0 && index > getLength()) {
+            return null;
+        }
+        return attrs[index];
+    }
+    
+    public int getLength() {
+        return attrs.length;
+    }
+    
+    public Node getNamedItemNS(String namespaceURI, String localName) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(localName) && attr.getNamespaceURI().equals(namespaceURI)) {
                 return attr;
             }
         }
-    		return null;
-	}
-	
-	public Node setNamedItemNS(Node arg) throws DOMException {
-		throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
-	}
-	
-	public Node setNamedItem(Node arg) throws DOMException {
-		throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
-	}
-	
-	public Node removeNamedItem(String name) throws DOMException {
-		throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
-	}
+            return null;
+    }
+    
+    public Node setNamedItemNS(Node arg) throws DOMException {
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    }
+    
+    public Node setNamedItem(Node arg) throws DOMException {
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    }
+    
+    public Node removeNamedItem(String name) throws DOMException {
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    }
 
-	public Node removeNamedItemNS(String namespaceURI, String localName) throws DOMException {
-		throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
-	}
+    public Node removeNamedItemNS(String namespaceURI, String localName) throws DOMException {
+        throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Method not supported");
+    }
 }

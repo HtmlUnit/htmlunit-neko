@@ -215,7 +215,7 @@ class PrecisionDecimalDV extends TypeValidator {
         
         // To enable comparison - the exponent part of the decimal will be limited
         // to the max value of int.
-        private int compare(XPrecisionDecimal val) {     	
+        private int compare(XPrecisionDecimal val) {         
             
             if(pvalue != 0 || val.pvalue != 0) {
                 if(pvalue == val.pvalue)
@@ -237,7 +237,7 @@ class PrecisionDecimalDV extends TypeValidator {
                             }
                             else
                                 buffer.append('0');
-                        }       				
+                        }                       
                         return compareDecimal(buffer.toString(), val.ivalue, fbuffer.toString(), val.fvalue);
                     }
                     else {
@@ -251,7 +251,7 @@ class PrecisionDecimalDV extends TypeValidator {
                             }
                             else
                                 buffer.append('0');
-                        }       				
+                        }                       
                         return compareDecimal(ivalue, buffer.toString(), fvalue, fbuffer.toString());
                     }
                 }
@@ -355,6 +355,6 @@ class PrecisionDecimalDV extends TypeValidator {
     public boolean isIdentical(Object value1, Object value2) {
         if(!(value2 instanceof XPrecisionDecimal) || !(value1 instanceof XPrecisionDecimal))
             return false;
-        return ((XPrecisionDecimal)value1).isIdentical((XPrecisionDecimal)value2);	
+        return ((XPrecisionDecimal)value1).isIdentical((XPrecisionDecimal)value2);    
     }
 }

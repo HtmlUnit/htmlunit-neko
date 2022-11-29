@@ -196,7 +196,7 @@ public class AttributeMap extends NamedNodeMapImpl {
                 nodes.add(i, arg);
             }
         }
-        //    	changed(true);
+        //        changed(true);
         
         // notify document
         ownerNode.ownerDocument().setAttrNode(argn, previous);
@@ -555,12 +555,12 @@ public class AttributeMap extends NamedNodeMapImpl {
                 AttrImpl d = (AttrImpl) defaults.nodes.get(n);
                 int i = findNamePoint(d.getNodeName(), 0); 
                 if (i < 0) {
-            		i = -1 - i; 
+                    i = -1 - i; 
                     NodeImpl clone = (NodeImpl) d.cloneNode(true);
                     clone.ownerNode = ownerNode;
                     clone.isOwned(true);
                     clone.isSpecified(false);
-            		nodes.add(i, clone);
+                    nodes.add(i, clone);
                 }
             }
         }
