@@ -307,13 +307,13 @@ public class XML11Configuration extends ParserConfigurationSettings
     protected Locale fLocale;
 
     /** XML 1.0 Components. */
-    protected final ArrayList fComponents;
+    protected final ArrayList<XMLComponent> fComponents;
 
     /** XML 1.1. Components. */
-    protected final ArrayList fXML11Components;
+    protected final ArrayList<XMLComponent> fXML11Components;
 
     /** Common components: XMLEntityManager, XMLErrorReporter, XMLSchemaValidator */
-    protected final ArrayList fCommonComponents;
+    protected final ArrayList<XMLComponent> fCommonComponents;
 
     /** The document handler. */
     protected XMLDocumentHandler fDocumentHandler;
@@ -469,19 +469,19 @@ public class XML11Configuration extends ParserConfigurationSettings
 
         // create a vector to hold all the components in use
         // XML 1.0 specialized components
-        fComponents = new ArrayList();
+        fComponents = new ArrayList<>();
         // XML 1.1 specialized components
-        fXML11Components = new ArrayList();
+        fXML11Components = new ArrayList<>();
         // Common components for XML 1.1. and XML 1.0
-        fCommonComponents = new ArrayList();
+        fCommonComponents = new ArrayList<>();
 
         // create storage for recognized features and properties
-        fRecognizedFeatures = new ArrayList();
-        fRecognizedProperties = new ArrayList();
+        fRecognizedFeatures = new ArrayList<>();
+        fRecognizedProperties = new ArrayList<>();
 
         // create table for features and properties
-        fFeatures = new HashMap();
-        fProperties = new HashMap();
+        fFeatures = new HashMap<>();
+        fProperties = new HashMap<>();
 
         // add default recognized features
         final String[] recognizedFeatures =
@@ -925,22 +925,16 @@ public class XML11Configuration extends ParserConfigurationSettings
         throws XMLConfigurationException {
         fConfigUpdated = true;
         // forward to every XML 1.0 component
-        int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (XMLComponent c : fComponents) {
             c.setFeature(featureId, state);
         }
         // forward it to common components
-        count = fCommonComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fCommonComponents.get(i);
+        for (XMLComponent c : fCommonComponents) {
             c.setFeature(featureId, state);
         }
 
         // forward to every XML 1.1 component
-        count = fXML11Components.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fXML11Components.get(i);
+        for (XMLComponent c : fXML11Components) {
             try{
                 c.setFeature(featureId, state);
             }
@@ -988,21 +982,15 @@ public class XML11Configuration extends ParserConfigurationSettings
             setLocale((Locale) value);
         }
         // forward to every XML 1.0 component
-        int count = fComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fComponents.get(i);
+        for (XMLComponent c : fComponents) {
             c.setProperty(propertyId, value);
         }
         // forward it to every common Component
-        count = fCommonComponents.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fCommonComponents.get(i);
+        for (XMLComponent c : fCommonComponents) {
             c.setProperty(propertyId, value);
         }
         // forward it to every XML 1.1 component
-        count = fXML11Components.size();
-        for (int i = 0; i < count; i++) {
-            XMLComponent c = (XMLComponent) fXML11Components.get(i);
+        for (XMLComponent c : fXML11Components) {
             try{
                 c.setProperty(propertyId, value);
             }
@@ -1027,10 +1015,8 @@ public class XML11Configuration extends ParserConfigurationSettings
      * reset all XML 1.0 components before parsing and namespace context
      */
     protected void reset() throws XNIException {
-        int count = fComponents.size();
-        for (Object fComponent : fComponents) {
-            XMLComponent c = (XMLComponent) fComponent;
-            c.reset(this);
+        for (XMLComponent fComponent : fComponents) {
+            fComponent.reset(this);
         }
 
     } // reset()
@@ -1040,10 +1026,8 @@ public class XML11Configuration extends ParserConfigurationSettings
      */
     protected void resetCommon() throws XNIException {
         // reset common components
-        int count = fCommonComponents.size();
-        for (Object fCommonComponent : fCommonComponents) {
-            XMLComponent c = (XMLComponent) fCommonComponent;
-            c.reset(this);
+        for (XMLComponent fCommonComponent : fCommonComponents) {
+            fCommonComponent.reset(this);
         }
 
     } // resetCommon()
@@ -1054,12 +1038,9 @@ public class XML11Configuration extends ParserConfigurationSettings
      */
     protected void resetXML11() throws XNIException {
         // reset every component
-        int count = fXML11Components.size();
-        for (Object fXML11Component : fXML11Components) {
-            XMLComponent c = (XMLComponent) fXML11Component;
-            c.reset(this);
+        for (XMLComponent fXML11Component : fXML11Components) {
+            fXML11Component.reset(this);
         }
-
     } // resetXML11()
 
 

@@ -78,7 +78,7 @@ public class XMLGrammarPreparser {
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
 
     // the "built-in" grammar loaders
-    private static final Hashtable KNOWN_LOADERS = new Hashtable();
+    private static final Hashtable<String, String> KNOWN_LOADERS = new Hashtable<>();
 
     static {
         KNOWN_LOADERS.put(XMLGrammarDescription.XML_SCHEMA,
@@ -86,15 +86,6 @@ public class XMLGrammarPreparser {
         KNOWN_LOADERS.put(XMLGrammarDescription.XML_DTD,
             "net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader");
     }
-
-    /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = {
-        SYMBOL_TABLE,
-        ERROR_REPORTER,
-        ERROR_HANDLER,
-        ENTITY_RESOLVER,
-        GRAMMAR_POOL,
-    };
 
     // Data
     protected final SymbolTable fSymbolTable;
@@ -105,7 +96,7 @@ public class XMLGrammarPreparser {
     protected Locale fLocale;
 
     // Hashtable holding our loaders
-    private final Hashtable fLoaders;
+    private final Hashtable<String, XMLGrammarLoaderContainer> fLoaders;
 
     // The number of times the configuration has been modified.
     private int fModCount = 1;
@@ -127,7 +118,7 @@ public class XMLGrammarPreparser {
     public XMLGrammarPreparser (SymbolTable symbolTable) {
         fSymbolTable = symbolTable;
 
-        fLoaders = new Hashtable();
+        fLoaders = new Hashtable<>();
         fErrorReporter = new XMLErrorReporter();
         setLocale(Locale.getDefault());
         fEntityResolver = new XMLEntityManager();
@@ -153,7 +144,7 @@ public class XMLGrammarPreparser {
         if(loader == null) { // none specified!
             if(KNOWN_LOADERS.containsKey(grammarType)) {
                 // got one; just instantiate it...
-                String loaderName = (String)KNOWN_LOADERS.get(grammarType);
+                String loaderName = KNOWN_LOADERS.get(grammarType);
                 try {
                     ClassLoader cl = ObjectFactory.findClassLoader();
                     XMLGrammarLoader gl = (XMLGrammarLoader)(ObjectFactory.newInstance(loaderName, cl, true));
@@ -189,7 +180,7 @@ public class XMLGrammarPreparser {
     public Grammar preparseGrammar(String type, XMLInputSource
                 is) throws XNIException, IOException {
         if (fLoaders.containsKey(type)) {
-            XMLGrammarLoaderContainer xglc = (XMLGrammarLoaderContainer) fLoaders.get(type);
+            XMLGrammarLoaderContainer xglc = fLoaders.get(type);
             XMLGrammarLoader gl = xglc.loader;
             if (xglc.modCount != fModCount) {
                 // make sure gl's been set up with all the "basic" properties:
@@ -289,7 +280,7 @@ public class XMLGrammarPreparser {
     // it's possible the application may want access to a certain loader to do
     // some custom work.
     public XMLGrammarLoader getLoader(String type) {
-        XMLGrammarLoaderContainer xglc = (XMLGrammarLoaderContainer) fLoaders.get(type);
+        XMLGrammarLoaderContainer xglc = fLoaders.get(type);
         return (xglc != null) ? xglc.loader : null;
     } // getLoader(String):  XMLGrammarLoader
 
@@ -299,9 +290,9 @@ public class XMLGrammarPreparser {
     // by a grammar loader of a particular type, it will have
     // to retrieve that loader and use the loader's setFeature method.
     public void setFeature(String featureId, boolean value) {
-        Enumeration loaders = fLoaders.elements();
+        Enumeration<XMLGrammarLoaderContainer> loaders = fLoaders.elements();
         while (loaders.hasMoreElements()) {
-            XMLGrammarLoader gl = ((XMLGrammarLoaderContainer)loaders.nextElement()).loader;
+            XMLGrammarLoader gl = loaders.nextElement().loader;
             try {
                 gl.setFeature(featureId, value);
             } catch(Exception e) {
@@ -323,9 +314,9 @@ public class XMLGrammarPreparser {
     // <p> <strong>An application should use the explicit method
     // in this class to set "standard" properties like error handler etc.</strong>
     public void setProperty(String propId, Object value) {
-        Enumeration loaders = fLoaders.elements();
+        Enumeration<XMLGrammarLoaderContainer> loaders = fLoaders.elements();
         while (loaders.hasMoreElements()) {
-            XMLGrammarLoader gl = ((XMLGrammarLoaderContainer)loaders.nextElement()).loader;
+            XMLGrammarLoader gl = loaders.nextElement().loader;
             try {
                 gl.setProperty(propId, value);
             } catch(Exception e) {
@@ -341,7 +332,7 @@ public class XMLGrammarPreparser {
     // @param featureId the feature string to query.
     // @return the value of the feature.
     public boolean getFeature(String type, String featureId) {
-        XMLGrammarLoader gl = ((XMLGrammarLoaderContainer)fLoaders.get(type)).loader;
+        XMLGrammarLoader gl = fLoaders.get(type).loader;
         return gl.getFeature(featureId);
     } // getFeature (String, String):  boolean
 
@@ -354,7 +345,7 @@ public class XMLGrammarPreparser {
     // @param propertyId the property string to query.
     // @return the value of the property.
     public Object getProperty(String type, String propertyId) {
-        XMLGrammarLoader gl = ((XMLGrammarLoaderContainer)fLoaders.get(type)).loader;
+        XMLGrammarLoader gl = fLoaders.get(type).loader;
         return gl.getProperty(propertyId);
     } // getProperty(String, String):  Object
 
@@ -371,9 +362,9 @@ public class XMLGrammarPreparser {
     }
 
     private void clearModCounts() {
-        Enumeration loaders = fLoaders.elements();
+        Enumeration<XMLGrammarLoaderContainer> loaders = fLoaders.elements();
         while (loaders.hasMoreElements()) {
-            XMLGrammarLoaderContainer xglc = (XMLGrammarLoaderContainer) loaders.nextElement();
+            XMLGrammarLoaderContainer xglc = loaders.nextElement();
             xglc.modCount = 0;
         }
         fModCount = 1;

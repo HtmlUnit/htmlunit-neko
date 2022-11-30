@@ -277,7 +277,6 @@ public class HTMLConfiguration
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
-        final int size = fHTMLComponents.size();
         for (final HTMLComponent component : fHTMLComponents) {
             component.setFeature(featureId, state);
         }
@@ -300,7 +299,6 @@ public class HTMLConfiguration
             }
         }
 
-        final int size = fHTMLComponents.size();
         for (final HTMLComponent component : fHTMLComponents) {
             component.setProperty(propertyId, value);
         }
@@ -473,7 +471,6 @@ public class HTMLConfiguration
         final String[] features = component.getRecognizedFeatures();
         addRecognizedFeatures(features);
         if (features != null) {
-            final int featureCount = features.length;
             for (String feature : features) {
                 final Boolean state = component.getFeatureDefault(feature);
                 if (state != null) {
@@ -486,7 +483,6 @@ public class HTMLConfiguration
         final String[] properties = component.getRecognizedProperties();
         addRecognizedProperties(properties);
         if (properties != null) {
-            final int propertyCount = properties.length;
             for (String property : properties) {
                 final Object value = component.getPropertyDefault(property);
                 if (value != null) {
@@ -500,7 +496,6 @@ public class HTMLConfiguration
     protected void reset() throws XMLConfigurationException {
 
         // reset components
-        final int size = fHTMLComponents.size();
         for (final HTMLComponent component : fHTMLComponents) {
             component.reset(this);
         }

@@ -33,6 +33,7 @@ import net.sourceforge.htmlunit.xerces.impl.xs.util.XSObjectListImpl;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
+import net.sourceforge.htmlunit.xerces.xs.XSObject;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
@@ -285,12 +286,12 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             }
         }
         // get types from "memberTypes" attribute
-        ArrayList dTValidators = null;
+        ArrayList<XSObject> dTValidators = null;
         XSSimpleType dv = null;
         XSObjectList dvs;
         if (union && memberTypes != null && memberTypes.size() > 0) {
             int size = memberTypes.size();
-            dTValidators = new ArrayList(size);
+            dTValidators = new ArrayList<>(size);
             // for each qname in the list
             for (int i = 0; i < size; i++) {
                 // get the type decl
@@ -325,7 +326,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             }
             else if (union) {
                 if (dTValidators == null) {
-                    dTValidators = new ArrayList(2);
+                    dTValidators = new ArrayList<>(2);
                 }
                 do {
                     // traverse this child to get the member type
@@ -387,7 +388,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
                     annotations == null? null : new XSObjectListImpl(annotations, annotations.length));
         }
         else if (union) {
-            XSSimpleType[] memberDecls = (XSSimpleType[]) dTValidators.toArray(new XSSimpleType[dTValidators.size()]);
+            XSSimpleType[] memberDecls = dTValidators.toArray(new XSSimpleType[dTValidators.size()]);
             newDecl = fSchemaHandler.fDVFactory.createTypeUnion(name, schemaDoc.fTargetNamespace, (short)finalProperty, memberDecls,
                     annotations == null? null : new XSObjectListImpl(annotations, annotations.length));
         }

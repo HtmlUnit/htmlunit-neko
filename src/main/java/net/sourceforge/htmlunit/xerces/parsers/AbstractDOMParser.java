@@ -262,13 +262,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     // data
 
     /** Base uri stack*/
-    protected final Stack fBaseURIStack = new Stack ();
+    protected final Stack<String> fBaseURIStack = new Stack<>();
 
     /** LSParserFilter: tracks the element depth within a rejected subtree. */
     protected int fRejectedElementDepth = 0;
 
     /** LSParserFilter: store depth of skipped elements */
-    protected Stack fSkippedElemStack = null;
+    protected Stack<Boolean> fSkippedElemStack = null;
 
     /** LSParserFilter: true if inside entity reference */
     protected boolean fInEntityRef = false;
@@ -344,7 +344,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             !documentClassName.equals(PSVI_DOCUMENT_CLASS_NAME)) {
             // verify that this class exists and is of the right type
             try {
-                Class _class = ObjectFactory.findProviderClass (documentClassName,
+                Class<?> _class = ObjectFactory.findProviderClass (documentClassName,
                 ObjectFactory.findClassLoader (), true);
                 //if (!_class.isAssignableFrom(Document.class)) {
                 if (!Document.class.isAssignableFrom (_class)) {
@@ -795,18 +795,18 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // use specified document class
                 try {
                     ClassLoader cl = ObjectFactory.findClassLoader();
-                    Class documentClass = ObjectFactory.findProviderClass (fDocumentClassName,
+                    Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName,
                         cl, true);
                     fDocument = (Document)documentClass.newInstance ();
 
                     // if subclass of our own class that's cool too
-                    Class defaultDocClass =
+                    Class<?> defaultDocClass =
                     ObjectFactory.findProviderClass (CORE_DOCUMENT_CLASS_NAME,
                         cl, true);
                     if (defaultDocClass.isAssignableFrom (documentClass)) {
                         fDocumentImpl = (CoreDocumentImpl)fDocument;
 
-                        Class psviDocClass = ObjectFactory.findProviderClass (PSVI_DOCUMENT_CLASS_NAME,
+                        Class<?> psviDocClass = ObjectFactory.findProviderClass (PSVI_DOCUMENT_CLASS_NAME,
                             cl, true);
                         if (psviDocClass.isAssignableFrom (documentClass)) {
                             fStorePSVI = true;
@@ -1823,7 +1823,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         fInDTD = true;
         if (locator != null) {
-            fBaseURIStack.push (locator.getBaseSystemId ());
+            fBaseURIStack.push (locator.getBaseSystemId());
         }
         if (fDeferNodeExpansion || fDocumentImpl != null) {
             fInternalSubset = new StringBuffer (1024);
@@ -1952,7 +1952,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println ("==>internalEntityDecl: "+name);
             if (DEBUG_BASEURI) {
-                System.out.println ("   baseURI:"+ (String)fBaseURIStack.peek ());
+                System.out.println ("   baseURI:" + fBaseURIStack.peek ());
             }
         }
         // internal subset string
@@ -1987,7 +1987,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             EntityImpl entity = (EntityImpl)entities.getNamedItem (name);
             if (entity == null) {
                 entity = (EntityImpl)fDocumentImpl.createEntity (name);
-                entity.setBaseURI ((String)fBaseURIStack.peek ());
+                entity.setBaseURI (fBaseURIStack.peek());
                 entities.setNamedItem (entity);
             }
         }
@@ -2009,7 +2009,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
             if (!found) {
                 int entityIndex =
-                fDeferredDocumentImpl.createDeferredEntity (name, null, null, null, (String)fBaseURIStack.peek ());
+                fDeferredDocumentImpl.createDeferredEntity (name, null, null, null, fBaseURIStack.peek());
                 fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, entityIndex);
             }
         }
