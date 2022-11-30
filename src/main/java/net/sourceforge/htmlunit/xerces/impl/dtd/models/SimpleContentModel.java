@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,9 +39,9 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  * operation with two elements. These are very simple and can be checked
  * in a simple way without a DFA and without the overhead of setting up a
  * DFA for such a simple check.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public class SimpleContentModel
@@ -86,7 +86,7 @@ public class SimpleContentModel
 
     /* this is the EquivClassComparator object */
     //private EquivClassComparator comparator = null;
-    
+
 
     //
     // Constructors
@@ -123,12 +123,12 @@ public class SimpleContentModel
 
     /**
      * Check that the specified content is valid according to this
-     * content model. This method can also be called to do 'what if' 
+     * content model. This method can also be called to do 'what if'
      * testing of content models just to see if they would be valid.
      * <p>
-     * A value of -1 in the children array indicates a PCDATA node. All other 
+     * A value of -1 in the children array indicates a PCDATA node. All other
      * indexes will be positive and represent child elements. The count can be
-     * zero, since some elements have the EMPTY content model and that must be 
+     * zero, since some elements have the EMPTY content model and that must be
      * confirmed.
      *
      * @param children The children of this element.  Each integer is an index within
@@ -144,6 +144,7 @@ public class SimpleContentModel
      *         content is required to reach a valid ending state.
      *
      */
+    @Override
     public int validate(QName[] children, int offset, int length) {
 
         //
@@ -154,11 +155,8 @@ public class SimpleContentModel
         {
             case XMLContentSpec.CONTENTSPECNODE_LEAF :
                 // If there is not a child, then report an error at index 0
-                if (length == 0)
-                    return 0;
-
-                // If the 0th child is not the right kind, report an error at 0
-                if (children[offset].rawname != fFirstChild.rawname) {
+            // If the 0th child is not the right kind, report an error at 0
+                if ((length == 0) || (children[offset].rawname != fFirstChild.rawname)) {
                     return 0;
                 }
 

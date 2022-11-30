@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.models.CMStateSet;
 /**
  * Content model leaf node.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -37,7 +37,7 @@ public class XSCMLeaf
 
     /** This is the leaf: element decl or wildcard decl. */
     private final Object fLeaf;
-    
+
     /**
      * Identify the particle: for UPA checking
      */
@@ -71,7 +71,7 @@ public class XSCMLeaf
     final Object getLeaf() {
         return fLeaf;
     }
-    
+
     final int getParticleId() {
         return fParticleId;
     }
@@ -90,11 +90,13 @@ public class XSCMLeaf
 
     // package
 
+    @Override
     public boolean isNullable() {
         // Leaf nodes are never nullable unless its an epsilon node
         return (fPosition == -1);
     }
 
+    @Override
     public String toString() {
         StringBuilder strRet = new StringBuilder(fLeaf.toString());
         if (fPosition >= 0) {
@@ -107,6 +109,7 @@ public class XSCMLeaf
 
     // protected
 
+    @Override
     protected void calcFirstPos(CMStateSet toSet) {
         // If we are an epsilon node, then the first pos is an empty set
         if (fPosition == -1)
@@ -117,6 +120,7 @@ public class XSCMLeaf
             toSet.setBit(fPosition);
     }
 
+    @Override
     protected void calcLastPos(CMStateSet toSet) {
         // If we are an epsilon node, then the last pos is an empty set
         if (fPosition == -1)

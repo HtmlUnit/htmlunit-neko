@@ -46,6 +46,7 @@ public class DurationDV extends AbstractDateTimeDV {
         new DateTimeData(1903, 3, 1, 0, 0, 0, 'Z', null, true, null),
         new DateTimeData(1903, 7, 1, 0, 0, 0, 'Z', null, true, null)};
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException{
         try{
             return parse(content, DURATION_TYPE);
@@ -195,6 +196,7 @@ public class DurationDV extends AbstractDateTimeDV {
      * If the strict parameter is false, return LESS_THAN if date1 is less than OR equal to date2 and
      * return GREATER_THAN if date1 is greater than OR equal to date2
      */
+    @Override
     protected  short compareDates(DateTimeData date1, DateTimeData date2, boolean strict) {
 
         //REVISIT: this is unoptimazed vs of comparing 2 durations
@@ -320,6 +322,7 @@ public class DurationDV extends AbstractDateTimeDV {
         return duration;
     }
 
+    @Override
     protected double parseSecond(String buffer, int start, int end)
         throws NumberFormatException {
         int dot = -1;
@@ -340,6 +343,7 @@ public class DurationDV extends AbstractDateTimeDV {
         return value;
     }
 
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(30);
         if ( date.year<0 || date.month<0 || date.day<0

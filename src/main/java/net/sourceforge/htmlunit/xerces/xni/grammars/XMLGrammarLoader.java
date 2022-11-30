@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * documents.  Implementations of this interface will know how to load
  * specific types of grammars (e.g., DTD's or schemas); a wrapper
  * will be provided for user applications to interact with these implementations.
- * 
+ *
  * @author Neil Graham, IBM
  * @version $Id$
  */
@@ -48,16 +48,16 @@ public interface XMLGrammarLoader {
 
     /**
      * Returns the state of a feature.
-     * 
+     *
      * @param featureId The feature identifier.
-     * 
+     *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
     boolean getFeature(String featureId)
             throws XMLConfigurationException;
 
     /**
-     * Sets the state of a feature. 
+     * Sets the state of a feature.
      *
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
@@ -77,17 +77,17 @@ public interface XMLGrammarLoader {
 
     /**
      * Returns the state of a property.
-     * 
+     *
      * @param propertyId The property identifier.
-     * 
+     *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
     Object getProperty(String propertyId)
             throws XMLConfigurationException;
 
     /**
-     * Sets the state of a property. 
-     * 
+     * Sets the state of a property.
+     *
      * @param propertyId The property identifier.
      * @param state     The state of the property.
      *

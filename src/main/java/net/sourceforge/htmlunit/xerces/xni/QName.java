@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,32 +31,32 @@ package net.sourceforge.htmlunit.xerces.xni;
  *
  * @version $Id$
  */
-public class QName 
+public class QName
     implements Cloneable {
 
     //
     // Data
     //
 
-    /** 
+    /**
      * The qname prefix. For example, the prefix for the qname "a:foo"
      * is "a".
      */
     public String prefix;
 
-    /** 
+    /**
      * The qname localpart. For example, the localpart for the qname "a:foo"
      * is "foo".
      */
     public String localpart;
 
-    /** 
+    /**
      * The qname rawname. For example, the rawname for the qname "a:foo"
      * is "a:foo".
      */
     public String rawname;
 
-    /** 
+    /**
      * The URI to which the qname prefix is bound. This binding must be
      * performed by a XML Namespaces aware processor.
      */
@@ -87,7 +87,7 @@ public class QName
 
     /**
      * Convenience method to set the values of the qname components.
-     * 
+     *
      * @param qname The qualified name to be copied.
      */
     public void setValues(QName qname) {
@@ -99,13 +99,13 @@ public class QName
 
     /**
      * Convenience method to set the values of the qname components.
-     * 
+     *
      * @param prefix    The qname prefix. (e.g. "a")
      * @param localpart The qname localpart. (e.g. "foo")
      * @param rawname   The qname rawname. (e.g. "a:foo")
      * @param uri       The URI binding. (e.g. "http://foo.com/mybinding")
      */
-    public void setValues(String prefix, String localpart, String rawname, 
+    public void setValues(String prefix, String localpart, String rawname,
                           String uri) {
         this.prefix = prefix;
         this.localpart = localpart;
@@ -126,6 +126,7 @@ public class QName
     //
 
     /** Returns a clone of this object. */
+    @Override
     public Object clone() {
         return new QName(this);
     } // clone():Object
@@ -135,15 +136,17 @@ public class QName
     //
 
     /** Returns the hashcode for this object. */
+    @Override
     public int hashCode() {
         if (uri != null) {
-            return uri.hashCode() + 
+            return uri.hashCode() +
                 ((localpart != null) ? localpart.hashCode() : 0);
         }
         return (rawname != null) ? rawname.hashCode() : 0;
     } // hashCode():int
 
     /** Returns true if the two objects are equal. */
+    @Override
     public boolean equals(Object object) {
         if (object instanceof QName) {
             QName qname = (QName)object;
@@ -159,6 +162,7 @@ public class QName
     } // equals(Object):boolean
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
 
         StringBuilder str = new StringBuilder();

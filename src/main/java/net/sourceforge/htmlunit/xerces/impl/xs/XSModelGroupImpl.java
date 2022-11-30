@@ -27,7 +27,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 /**
  * Store schema model group declaration.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -143,6 +143,7 @@ public class XSModelGroupImpl implements XSModelGroup {
      * get the string description of this particle
      */
     private String fDescription = null;
+    @Override
     public String toString() {
         // REVISIT: Commented code may help to eliminate redundant parentheses (test first before committing)
         if (fDescription == null) {
@@ -178,6 +179,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.MODEL_GROUP;
     }
@@ -186,6 +188,7 @@ public class XSModelGroupImpl implements XSModelGroup {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return null;
     }
@@ -195,6 +198,7 @@ public class XSModelGroupImpl implements XSModelGroup {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return null;
     }
@@ -203,6 +207,7 @@ public class XSModelGroupImpl implements XSModelGroup {
      * {compositor} One of all, choice or sequence. The valid constants values
      * are: ALL, CHOICE, SEQUENCE.
      */
+    @Override
     public short getCompositor() {
         if (fCompositor == MODELGROUP_CHOICE)
             return XSModelGroup.COMPOSITOR_CHOICE;
@@ -215,6 +220,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     /**
      * {particles} A list of particles
      */
+    @Override
     public XSObjectList getParticles() {
         return new XSObjectListImpl(fParticles, fParticleCount);
     }
@@ -222,6 +228,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -229,6 +236,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
@@ -236,6 +244,7 @@ public class XSModelGroupImpl implements XSModelGroup {
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return null;
     }

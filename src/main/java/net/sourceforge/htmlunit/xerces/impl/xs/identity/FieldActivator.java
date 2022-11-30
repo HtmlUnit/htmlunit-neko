@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,21 +23,21 @@ package net.sourceforge.htmlunit.xerces.impl.xs.identity;
  * for activating fields within a specific scope; the caller merely
  * requests the fields to be activated.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Andy Clark, IBM
  *
  * @version $Id$
  */
 public interface FieldActivator {
-    
+
     //
     // FieldActivator methods
     //
 
     /**
-     * Start the value scope for the specified identity constraint. This 
-     * method is called when the selector matches in order to initialize 
+     * Start the value scope for the specified identity constraint. This
+     * method is called when the selector matches in order to initialize
      * the value store.
      *
      * @param identityConstraint The identity constraint.
@@ -46,7 +46,7 @@ public interface FieldActivator {
     void startValueScopeFor(IdentityConstraint identityConstraint,
             int initialDepth);
 
-    /** 
+    /**
      * Request to activate the specified field. This method returns the
      * matcher for the field.
      *

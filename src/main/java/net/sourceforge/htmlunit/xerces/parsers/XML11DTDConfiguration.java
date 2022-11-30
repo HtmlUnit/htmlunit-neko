@@ -453,7 +453,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
         fNamespaceScanner = new XMLNSDocumentScannerImpl();
         fProperties.put(DOCUMENT_SCANNER, fNamespaceScanner);
-        addComponent((XMLComponent) fNamespaceScanner);
+        addComponent(fNamespaceScanner);
 
         fDTDScanner = new XMLDTDScannerImpl();
         fProperties.put(DTD_SCANNER, fDTDScanner);
@@ -461,7 +461,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
         fDTDProcessor = new XMLDTDProcessor();
         fProperties.put(DTD_PROCESSOR, fDTDProcessor);
-        addComponent((XMLComponent) fDTDProcessor);
+        addComponent(fDTDProcessor);
 
         fDTDValidator = new XMLNSDTDValidator();
         fProperties.put(DTD_VALIDATOR, fDTDValidator);
@@ -509,6 +509,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *
      * @see #parse(boolean)
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource)
         throws XMLConfigurationException, IOException {
 
@@ -529,6 +530,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
+    @Override
     public void setLocale(Locale locale) throws XNIException {
         fLocale = locale;
         fErrorReporter.setLocale(locale);
@@ -540,6 +542,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *
      * @param documentHandler   The document handler.
      */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler documentHandler) {
         fDocumentHandler = documentHandler;
         if (fLastComponent != null) {
@@ -551,6 +554,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     } // setDocumentHandler(XMLDocumentHandler)
 
     /** Returns the registered document handler. */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
@@ -560,11 +564,13 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *
      * @param dtdHandler The DTD handler.
      */
+    @Override
     public void setDTDHandler(XMLDTDHandler dtdHandler) {
         fDTDHandler = dtdHandler;
     } // setDTDHandler(XMLDTDHandler)
 
     /** Returns the registered DTD handler. */
+    @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
     } // getDTDHandler():XMLDTDHandler
@@ -574,11 +580,13 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *
      * @param handler The DTD content model handler.
      */
+    @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
         fDTDContentModelHandler = handler;
     } // setDTDContentModelHandler(XMLDTDContentModelHandler)
 
     /** Returns the registered DTD content model handler. */
+    @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler;
     } // getDTDContentModelHandler():XMLDTDContentModelHandler
@@ -590,6 +598,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * @param resolver The new entity resolver. Passing a null value will
      *                 uninstall the currently installed resolver.
      */
+    @Override
     public void setEntityResolver(XMLEntityResolver resolver) {
         fProperties.put(ENTITY_RESOLVER, resolver);
     } // setEntityResolver(XMLEntityResolver)
@@ -601,6 +610,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *         has been registered.
      * @see #setEntityResolver
      */
+    @Override
     public XMLEntityResolver getEntityResolver() {
         return (XMLEntityResolver)fProperties.get(ENTITY_RESOLVER);
     } // getEntityResolver():XMLEntityResolver
@@ -623,6 +633,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *            argument is null.
      * @see #getErrorHandler
      */
+    @Override
     public void setErrorHandler(XMLErrorHandler errorHandler) {
         fProperties.put(ERROR_HANDLER, errorHandler);
     } // setErrorHandler(XMLErrorHandler)
@@ -634,6 +645,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *         has been registered.
      * @see #setErrorHandler
      */
+    @Override
     public XMLErrorHandler getErrorHandler() {
         // REVISIT: Should this be a property?
         return (XMLErrorHandler)fProperties.get(ERROR_HANDLER);
@@ -645,6 +657,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * is fully parsed, the application should call this method to free any
      * resource allocated during parsing. For example, close all opened streams.
      */
+    @Override
     public void cleanup() {
         fEntityManager.closeReaders();
     }
@@ -657,6 +670,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * @exception XNIException Throws exception on XNI error.
      * @exception java.io.IOException Throws exception on i/o error.
      */
+    @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
 
         if (fParseInProgress) {
@@ -684,6 +698,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
     } // parse(InputSource)
 
+    @Override
     public boolean parse(boolean complete) throws XNIException, IOException {
         //
         // reset and configure pipeline and set InputSource.
@@ -753,6 +768,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
             // make this feature special
@@ -776,6 +792,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known.
      */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
         fConfigUpdated = true;
@@ -808,6 +825,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      * @param propertyId
      * @param value
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
         fConfigUpdated = true;
@@ -836,6 +854,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
 
     /** Returns the locale. */
+    @Override
     public Locale getLocale() {
         return fLocale;
     } // getLocale():Locale
@@ -994,8 +1013,8 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
                 fNonNSScanner = new XMLDocumentScannerImpl();
                 fNonNSDTDValidator = new XMLDTDValidator();
                 // add components
-                addComponent((XMLComponent) fNonNSScanner);
-                addComponent((XMLComponent) fNonNSDTDValidator);
+                addComponent(fNonNSScanner);
+                addComponent(fNonNSDTDValidator);
             }
             if (fCurrentScanner != fNonNSScanner) {
                 fCurrentScanner = fNonNSScanner;
@@ -1029,6 +1048,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkFeature(String featureId) throws XMLConfigurationException {
 
         //
@@ -1052,17 +1072,12 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() &&
-                featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) {
-                // REVISIT
-                short type = XMLConfigurationException.NOT_SUPPORTED;
-                throw new XMLConfigurationException(type, featureId);
-            }
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() &&
-                featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE)) {
+            if ((suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() &&
+                featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) || (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() &&
+                featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE))) {
                 // REVISIT
                 short type = XMLConfigurationException.NOT_SUPPORTED;
                 throw new XMLConfigurationException(type, featureId);
@@ -1120,6 +1135,7 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkProperty(String propertyId) throws XMLConfigurationException {
 
         //

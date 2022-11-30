@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,13 +35,13 @@ import net.sourceforge.htmlunit.xerces.util.XML11Char;
  * document as a value of this type; i.e., ID values
  * must uniquely identify the elements which bear
  * them.</P>
- * 
- * @xerces.internal  
- * 
+ *
+ * @xerces.internal
+ *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
  * @author Neil Graham, IBM
- * 
+ *
  * @version $Id$
  */
 public class XML11IDDatatypeValidator extends IDDatatypeValidator {
@@ -54,13 +54,14 @@ public class XML11IDDatatypeValidator extends IDDatatypeValidator {
     /**
      * Checks that "content" string is valid ID value.
      * If invalid a Datatype validation exception is thrown.
-     * 
+     *
      * @param content       the string value that needs to be validated
      * @param context       the validation context
      * @throws InvalidDatatypeException if the content is
      *         invalid according to the rules for the validators
      * @see InvalidDatatypeValueException
      */
+    @Override
     public void validate(String content, ValidationContext context) throws InvalidDatatypeValueException {
 
         //Check if is valid key-[81] EncName ::= [A-Za-z] ([A-Za-z0-9._] | '-')*
@@ -78,9 +79,9 @@ public class XML11IDDatatypeValidator extends IDDatatypeValidator {
         if (context.isIdDeclared(content)) {
             throw new InvalidDatatypeValueException("IDNotUnique", new Object[]{content});
         }
-        
+
         context.addId(content);
     }
-    
+
 }
 

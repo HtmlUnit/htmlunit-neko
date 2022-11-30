@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import net.sourceforge.htmlunit.xerces.xs.StringList;
 /**
  * Contains a list of Strings.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -38,7 +38,7 @@ public final class StringListImpl extends AbstractList implements StringList {
      * An immutable empty list.
      */
     public static final StringListImpl EMPTY_LIST = new StringListImpl(new String[0], 0);
-    
+
     // The array to hold all data
     private final String[] fArray;
     // Number of elements in this list
@@ -49,14 +49,14 @@ public final class StringListImpl extends AbstractList implements StringList {
     private final Vector fVector;
 
     public StringListImpl(Vector v) {
-        fVector = v;        
+        fVector = v;
         fLength = (v == null) ? 0 : v.size();
         fArray = null;
     }
 
     /**
      * Construct an XSObjectList implementation
-     * 
+     *
      * @param array     the data array
      * @param length    the number of elements
      */
@@ -70,18 +70,20 @@ public final class StringListImpl extends AbstractList implements StringList {
      * The number of <code>Objects</code> in the list. The range of valid
      * child node indices is 0 to <code>length-1</code> inclusive.
      */
+    @Override
     public int getLength() {
         return fLength;
     }
 
     /**
-     *  Checks if the <code>GenericString</code> <code>item</code> is a member 
-     * of this list. 
-     * @param item  <code>GenericString</code> whose presence in this list is 
-     *   to be tested. 
-     * @return  True if this list contains the <code>GenericString</code> 
-     *   <code>item</code>. 
+     *  Checks if the <code>GenericString</code> <code>item</code> is a member
+     * of this list.
+     * @param item  <code>GenericString</code> whose presence in this list is
+     *   to be tested.
+     * @return  True if this list contains the <code>GenericString</code>
+     *   <code>item</code>.
      */
+    @Override
     public boolean contains(String item) {
         if (fVector != null) {
             return fVector.contains(item);
@@ -101,6 +103,7 @@ public final class StringListImpl extends AbstractList implements StringList {
         return false;
     }
 
+    @Override
     public String item(int index) {
         if (index < 0 || index >= fLength) {
             return null;
@@ -110,11 +113,12 @@ public final class StringListImpl extends AbstractList implements StringList {
         }
         return fArray[index];
     }
-    
+
     /*
      * List methods
      */
 
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < fLength) {
             if (fVector != null) {
@@ -125,10 +129,12 @@ public final class StringListImpl extends AbstractList implements StringList {
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }
-    
+
+    @Override
     public Object[] toArray() {
         if (fVector != null) {
             return fVector.toArray();
@@ -137,7 +143,8 @@ public final class StringListImpl extends AbstractList implements StringList {
         toArray0(a);
         return a;
     }
-    
+
+    @Override
     public Object[] toArray(Object[] a) {
         if (fVector != null) {
             return fVector.toArray(a);
@@ -153,7 +160,7 @@ public final class StringListImpl extends AbstractList implements StringList {
         }
         return a;
     }
-    
+
     private void toArray0(Object[] a) {
         if (fLength > 0) {
             System.arraycopy(fArray, 0, a, 0, fLength);

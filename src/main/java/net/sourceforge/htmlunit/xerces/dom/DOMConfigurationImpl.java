@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * Xerces implementation of DOMConfiguration that maintains a table of recognized parameters.
- * 
+ *
  * @xerces.internal
  *
  * @author Elena Litani, IBM
@@ -68,7 +68,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     //
     // Constants
     //
-    
+
     protected static final String XML11_DATATYPE_VALIDATOR_FACTORY =
         "net.sourceforge.htmlunit.xerces.impl.dv.dtd.XML11DTDDVFactoryImpl";
 
@@ -84,7 +84,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     protected static final String SCHEMA =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_VALIDATION_FEATURE;
-    
+
     protected static final String SCHEMA_FULL_CHECKING =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_FULL_CHECKING;
 
@@ -93,7 +93,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     protected static final String NORMALIZE_DATA =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_NORMALIZED_VALUE;
-    
+
     /** Feature identifier: send element default value via characters() */
     protected static final String SCHEMA_ELEMENT_DEFAULT =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
@@ -101,41 +101,41 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** sending psvi in the pipeline */
     protected static final String SEND_PSVI =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_AUGMENT_PSVI;
-    
+
     /** Feature: generate synthetic annotations */
-    protected static final String GENERATE_SYNTHETIC_ANNOTATIONS = 
+    protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE;
-    
+
     /** Feature identifier: validate annotations */
     protected static final String VALIDATE_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.VALIDATE_ANNOTATIONS_FEATURE;
-    
+
     /** Feature identifier: honour all schemaLocations */
-    protected static final String HONOUR_ALL_SCHEMALOCATIONS = 
+    protected static final String HONOUR_ALL_SCHEMALOCATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.HONOUR_ALL_SCHEMALOCATIONS_FEATURE;
-    
+
     /** Feature identifier: use grammar pool only */
     protected static final String USE_GRAMMAR_POOL_ONLY =
         Constants.XERCES_FEATURE_PREFIX + Constants.USE_GRAMMAR_POOL_ONLY_FEATURE;
-    
+
     /** Feature identifier: load external DTD. */
     protected static final String DISALLOW_DOCTYPE_DECL_FEATURE =
         Constants.XERCES_FEATURE_PREFIX + Constants.DISALLOW_DOCTYPE_DECL_FEATURE;
-    
+
     /** Feature identifier: balance syntax trees. */
     protected static final String BALANCE_SYNTAX_TREES =
         Constants.XERCES_FEATURE_PREFIX + Constants.BALANCE_SYNTAX_TREES;
-    
+
     /** Feature identifier: warn on duplicate attribute definition. */
     protected static final String WARN_ON_DUPLICATE_ATTDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ATTDEF_FEATURE;
-    
+
     /** Feature identifier: namespace growth */
-    protected static final String NAMESPACE_GROWTH = 
+    protected static final String NAMESPACE_GROWTH =
         Constants.XERCES_FEATURE_PREFIX + Constants.NAMESPACE_GROWTH_FEATURE;
-    
-    protected static final String TOLERATE_DUPLICATES = 
-        Constants.XERCES_FEATURE_PREFIX + Constants.TOLERATE_DUPLICATES_FEATURE;    
+
+    protected static final String TOLERATE_DUPLICATES =
+        Constants.XERCES_FEATURE_PREFIX + Constants.TOLERATE_DUPLICATES_FEATURE;
     // property identifiers
 
     /** Property identifier: entity manager. */
@@ -157,7 +157,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Property id: Grammar pool. */
     protected static final String GRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
-    
+
     /** property identifier: security manager. */
     protected static final String SECURITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SECURITY_MANAGER_PROPERTY;
@@ -177,18 +177,18 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Property identifier: JAXP schema source/ DOM schema-location. */
     protected static final String JAXP_SCHEMA_SOURCE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE;
-    
+
     /** Property identifier: DTD validator. */
     protected final static String DTD_VALIDATOR_PROPERTY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
-    
+
     /** Property identifier: datatype validator factory. */
-    protected static final String DTD_VALIDATOR_FACTORY_PROPERTY = 
+    protected static final String DTD_VALIDATOR_FACTORY_PROPERTY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
     protected static final String VALIDATION_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-    
+
     /** Property identifier: schema location. */
     protected static final String SCHEMA_LOCATION =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_LOCATION;
@@ -196,11 +196,11 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Property identifier: no namespace schema location. */
     protected static final String SCHEMA_NONS_LOCATION =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_NONS_LOCATION;
-    
+
     /** Property identifier: Schema DV Factory */
     protected static final String SCHEMA_DV_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_DV_FACTORY_PROPERTY;
-    
+
     //
     // Data
     //
@@ -242,13 +242,13 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     protected final DOMErrorHandlerWrapper fErrorHandlerWrapper =
                 new DOMErrorHandlerWrapper();
-    
+
     /** Current Datatype validator factory. */
     protected DTDDVFactory fCurrentDVFactory;
-    
+
     /** The XML 1.0 Datatype validator factory. */
     protected final DTDDVFactory fDatatypeValidatorFactory;
-    
+
     /** The XML 1.1 Datatype validator factory. **/
     protected final DTDDVFactory fXML11DatatypeFactory;
 
@@ -383,7 +383,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         fXML11DatatypeFactory = DTDDVFactory.getInstance(XML11_DATATYPE_VALIDATOR_FACTORY);
         fCurrentDVFactory = fDatatypeValidatorFactory;
         setProperty(DTD_VALIDATOR_FACTORY_PROPERTY, fCurrentDVFactory);
-        
+
         XMLEntityManager manager =  new XMLEntityManager();
         setProperty(ENTITY_MANAGER, manager);
         addComponent(manager);
@@ -458,6 +458,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *                         from a byte stream or character stream
      *                         supplied by the parser.
      */
+    @Override
     public void parse(XMLInputSource inputSource)
         throws XNIException, IOException{
         // no-op
@@ -469,11 +470,13 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *
      * @param documentHandler   The document handler.
      */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler documentHandler) {
         fDocumentHandler = documentHandler;
     } // setDocumentHandler(XMLDocumentHandler)
 
     /** Returns the registered document handler. */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
@@ -483,11 +486,13 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *
      * @param dtdHandler The DTD handler.
      */
+    @Override
     public void setDTDHandler(XMLDTDHandler dtdHandler) {
         //no-op
     } // setDTDHandler(XMLDTDHandler)
 
     /** Returns the registered DTD handler. */
+    @Override
     public XMLDTDHandler getDTDHandler() {
         return null;
     } // getDTDHandler():XMLDTDHandler
@@ -497,12 +502,14 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *
      * @param handler The DTD content model handler.
      */
+    @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
         //no-op
 
     } // setDTDContentModelHandler(XMLDTDContentModelHandler)
 
     /** Returns the registered DTD content model handler. */
+    @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return null;
     } // getDTDContentModelHandler():XMLDTDContentModelHandler
@@ -514,6 +521,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * @param resolver The new entity resolver. Passing a null value will
      *                 uninstall the currently installed resolver.
      */
+    @Override
     public void setEntityResolver(XMLEntityResolver resolver) {
         fProperties.put(ENTITY_RESOLVER, resolver);
     } // setEntityResolver(XMLEntityResolver)
@@ -525,6 +533,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *         has been registered.
      * @see #setEntityResolver
      */
+    @Override
     public XMLEntityResolver getEntityResolver() {
         return (XMLEntityResolver)fProperties.get(ENTITY_RESOLVER);
     } // getEntityResolver():XMLEntityResolver
@@ -547,6 +556,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *            argument is null.
      * @see #getErrorHandler
      */
+    @Override
     public void setErrorHandler(XMLErrorHandler errorHandler) {
         if (errorHandler != null) {
             fProperties.put(ERROR_HANDLER, errorHandler);
@@ -560,22 +570,24 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      *         has been registered.
      * @see #setErrorHandler
      */
+    @Override
     public XMLErrorHandler getErrorHandler() {
         return (XMLErrorHandler)fProperties.get(ERROR_HANDLER);
     } // getErrorHandler():XMLErrorHandler
-    
+
     /**
      * Returns the state of a feature.
-     * 
+     *
      * @param featureId The feature identifier.
      * @return true if the feature is supported
-     * 
+     *
      * @throws XMLConfigurationException Thrown for configuration error.
      *                                   In general, components should
      *                                   only throw this exception if
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
         if (featureId.equals(PARSER_SETTINGS)) {
@@ -597,6 +609,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known.
      */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
 
@@ -611,6 +624,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * @param propertyId
      * @param value
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
 
@@ -627,6 +641,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
+    @Override
     public void setLocale(Locale locale) throws XNIException {
         fLocale = locale;
         fErrorReporter.setLocale(locale);
@@ -634,6 +649,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     } // setLocale(Locale)
 
     /** Returns the locale. */
+    @Override
     public Locale getLocale() {
         return fLocale;
     } // getLocale():Locale
@@ -642,6 +658,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * DOM Level 3 WD - Experimental.
      * setParameter
      */
+    @Override
     public void setParameter(String name, Object value) throws DOMException {
         boolean found = true;
 
@@ -726,9 +743,9 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
                 */
             }
-            
+
         }
-        
+
         if (!found || !(value instanceof Boolean))  { // set properties
             found = true;
 
@@ -795,14 +812,14 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                         if (value == null) {
                             setProperty(
                                 Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
-                                null);                          
+                                null);
                         }
                         else if (value.equals(Constants.NS_XMLSCHEMA)) {
                             // REVISIT: when add support to DTD validation
                             setProperty(
                                 Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
                                 Constants.NS_XMLSCHEMA);
-                        }                            
+                        }
                         else if (value.equals(Constants.NS_DTD)) {
                             // Added support for revalidation against DTDs
                             setProperty(Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
@@ -864,6 +881,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * DOM Level 3 WD - Experimental.
      * getParameter
      */
+    @Override
     public Object getParameter(String name) throws DOMException {
 
         // REVISIT: Recognizes DOM L3 default features only.
@@ -896,7 +914,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(Constants.DOM_NAMESPACE_DECLARATIONS)) {
             return (features & NSDECL) != 0 ? Boolean.TRUE : Boolean.FALSE;
-        } 
+        }
         else if (name.equalsIgnoreCase(Constants.DOM_INFOSET)) {
             return (features & INFOSET_MASK) == INFOSET_TRUE_PARAMS ? Boolean.TRUE : Boolean.FALSE;
         }
@@ -912,7 +930,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(Constants.DOM_PSVI)) {
             return (features & PSVI) != 0 ? Boolean.TRUE : Boolean.FALSE;
-        }        
+        }
         else if (name.equalsIgnoreCase(Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
             return Boolean.TRUE;
         }
@@ -962,6 +980,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * the requested value is not supported. This does not change the
      * current value of the parameter itself.
      */
+    @Override
     public boolean canSetParameter(String name, Object value) {
 
         if (value == null){
@@ -1019,7 +1038,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_TYPE)) {
             // REVISIT: should null value be supported?
             // as of now we are only supporting W3C XML Schema and DTD.
-            return ((value instanceof String) && 
+            return ((value instanceof String) &&
                     (value.equals(Constants.NS_XMLSCHEMA) || value.equals(Constants.NS_DTD))) ? true : false;
         }
         else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
@@ -1050,6 +1069,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * can be set by the application. Note that this list can also contain
      * parameter names defined outside this specification.
      */
+    @Override
     public DOMStringList getParameterNames() {
         if (fRecognizedParameters == null){
             ArrayList parameters = new ArrayList();
@@ -1123,6 +1143,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known or supported.
      */
+    @Override
     protected void checkProperty(String propertyId)
         throws XMLConfigurationException {
 
@@ -1177,7 +1198,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected ValidationManager createValidationManager(){
         return new ValidationManager();
     }
-    
+
     protected final void setDTDValidatorFactory(String version) {
         if ("1.1".equals(version)) {
             if (fCurrentDVFactory != fXML11DatatypeFactory) {
@@ -1190,7 +1211,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             setProperty(DTD_VALIDATOR_FACTORY_PROPERTY, fCurrentDVFactory);
         }
     }
-    
+
     private static DOMException newFeatureNotSupportedError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage(
@@ -1199,7 +1220,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                 new Object[] { name });
         return new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
     }
-    
+
     private static DOMException newFeatureNotFoundError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage(
@@ -1208,7 +1229,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                 new Object[] { name });
         return new DOMException(DOMException.NOT_FOUND_ERR, msg);
     }
-    
+
     private static DOMException newTypeMismatchError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage(

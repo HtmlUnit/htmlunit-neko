@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.w3c.dom.DocumentType;
  * The DOM API requires that it be a real object rather than static
  * methods. However, there's nothing that says it can't be a singleton,
  * so that's how I've implemented it.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -52,16 +52,16 @@ public class PSVIDOMImplementationImpl extends DOMImplementationImpl {
     /** NON-DOM: Obtain and return the single shared object */
     public static DOMImplementation getDOMImplementation() {
         return singleton;
-    }  
+    }
 
     //
     // DOMImplementation methods
     //
 
-    /** 
+    /**
      * Test if the DOM implementation supports a specific "feature" --
      * currently meaning language and level thereof.
-     * 
+     *
      * @param feature      The package name of the feature to test.
      * In Level 1, supported values are "HTML" and "XML" (case-insensitive).
      * At this writing, net.sourceforge.htmlunit.xerces.dom supports only XML.
@@ -73,15 +73,17 @@ public class PSVIDOMImplementationImpl extends DOMImplementationImpl {
      * @return    true iff this implementation is compatable with the specified
      * feature and version.
      */
+    @Override
     public boolean hasFeature(String feature, String version) {
         return super.hasFeature(feature, version) ||
                feature.equalsIgnoreCase("psvi");
     } // hasFeature(String,String):boolean
-    
+
     //
     // Protected methods
     //
-    
+
+    @Override
     protected CoreDocumentImpl createDocument(DocumentType doctype) {
         return new PSVIDocumentImpl(doctype);
     }

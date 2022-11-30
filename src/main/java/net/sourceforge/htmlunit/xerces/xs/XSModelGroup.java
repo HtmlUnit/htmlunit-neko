@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,22 +31,22 @@ public interface XSModelGroup extends XSTerm {
      */
     short COMPOSITOR_CHOICE         = 2;
     /**
-     * This content model represents a simplified version of the SGML 
-     * &amp;-Connector and is limited to the top-level of any content model. 
+     * This content model represents a simplified version of the SGML
+     * &amp;-Connector and is limited to the top-level of any content model.
      * No element in the all content model may appear more than once.
      */
     short COMPOSITOR_ALL            = 3;
 
     /**
-     * [compositor]: one of all, choice or sequence. The valid constant values 
-     * are: 
-     * <code>COMPOSITOR_SEQUENCE, COMPOSITOR_CHOICE, COMPOSITOR_ALL</code>. 
+     * [compositor]: one of all, choice or sequence. The valid constant values
+     * are:
+     * <code>COMPOSITOR_SEQUENCE, COMPOSITOR_CHOICE, COMPOSITOR_ALL</code>.
      */
     short getCompositor();
 
     /**
-     *  A list of [particles] if it exists, otherwise an empty 
-     * <code>XSObjectList</code>. 
+     *  A list of [particles] if it exists, otherwise an empty
+     * <code>XSObjectList</code>.
      */
     XSObjectList getParticles();
 

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 
 /**
  * Bare minimum XPath parser.
- * 
+ *
  * @xerces.internal
  *
  * @author Andy Clark, IBM
@@ -101,6 +101,7 @@ public class XPath {
     //
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
         StringBuilder buf=new StringBuilder();
         for (int  i=0;i<fLocationPaths.length;i++){
@@ -119,14 +120,14 @@ public class XPath {
     /**
      * Used by the {@link #parseExpression(NamespaceContext)} method
      * to verify the assumption.
-     * 
+     *
      * If <tt>b</tt> is false, this method throws XPathException
      * to report the error.
      */
     private static void check( boolean b ) throws XPathException {
         if(!b)      throw new XPathException("c-general-xpath");
     }
-    
+
     /**
      * Used by the {@link #parseExpression(NamespaceContext)} method
      * to build a {@link LocationPath} object from the accumulated
@@ -138,10 +139,10 @@ public class XPath {
         Step[] steps = new Step[size];
         stepsVector.copyInto(steps);
         stepsVector.removeAllElements();
-        
+
         return new LocationPath(steps);
     }
-    
+
     /**
      * This method is implemented by using the XPathExprScanner and
      * examining the list of tokens that it returns.
@@ -154,6 +155,7 @@ public class XPath {
 
         // scanner
         XPath.Scanner scanner = new XPath.Scanner(fSymbolTable) {
+            @Override
             protected void addToken(XPath.Tokens tokens, int token)
                 throws XPathException {
                 if (
@@ -178,16 +180,16 @@ public class XPath {
         };
 
         int length = fExpression.length();
-        
+
         boolean success = scanner.scanExpr(fSymbolTable,
                                            xtokens, fExpression, 0, length);
         if(!success)
             throw new XPathException("c-general-xpath");
-        
+
         //fTokens.dumpTokens();
         Vector stepsVector = new Vector();
         ArrayList locationPathsVector= new ArrayList();
-        
+
         // true when the next token should be 'Step' (as defined in
         // the production rule [3] of XML Schema P1 section 3.11.6
         // if false, we are expecting either '|' or '/'.
@@ -260,19 +262,19 @@ public class XPath {
                     // there's really no reason to keep them in LocationPath.
                     // This amounts to shorten "a/././b/./c" to "a/b/c".
                     // Also, the matcher fails to work correctly if XPath
-                    // has those redundant dots. 
+                    // has those redundant dots.
                     if (stepsVector.size()==0) {
                         // build step
                         Axis axis = new Axis(Axis.SELF);
                         NodeTest nodeTest = new NodeTest(NodeTest.NODE);
                         Step step = new Step(axis, nodeTest);
                         stepsVector.addElement(step);
-                        
+
                         if( xtokens.hasMore()
                          && xtokens.peekToken() == XPath.Tokens.EXPRTOKEN_OPERATOR_DOUBLE_SLASH){
                             // consume '//'
-                            xtokens.nextToken();    
-                            
+                            xtokens.nextToken();
+
                             // build step
                             axis = new Axis(Axis.DESCENDANT);
                             nodeTest = new NodeTest(NodeTest.NODE);
@@ -301,11 +303,11 @@ public class XPath {
                     break;
                 }
                 default:
-                    // we should have covered all the tokens that we can possibly see. 
+                    // we should have covered all the tokens that we can possibly see.
                     throw new InternalError();
             }
         }
-        
+
         check(!expectingStep);
 
         locationPathsVector.add(buildLocationPath(stepsVector));
@@ -324,7 +326,7 @@ public class XPath {
         switch(typeToken) {
         case XPath.Tokens.EXPRTOKEN_NAMETEST_ANY:
             return new NodeTest(NodeTest.WILDCARD);
-            
+
         case XPath.Tokens.EXPRTOKEN_NAMETEST_NAMESPACE:
         case XPath.Tokens.EXPRTOKEN_NAMETEST_QNAME:
             // consume QName token
@@ -336,23 +338,23 @@ public class XPath {
             if (prefix != XMLSymbols.EMPTY_STRING && context != null && uri == null) {
                 throw new XPathException("c-general-xpath-ns");
             }
-    
+
             if (typeToken==XPath.Tokens.EXPRTOKEN_NAMETEST_NAMESPACE)
                 return new NodeTest(prefix,uri);
-    
+
             String localpart = xtokens.nextTokenAsString();
             String rawname = prefix != XMLSymbols.EMPTY_STRING
             ? fSymbolTable.addSymbol(prefix+':'+localpart)
             : localpart;
-    
+
             return new NodeTest(new QName(prefix, localpart, rawname, uri));
-        
+
         default:
             throw new XPathException("c-general-xpath");
         }
     }
-    
-    
+
+
     //
     // Classes
     //
@@ -361,7 +363,7 @@ public class XPath {
 
     /**
      * A location path representation for an XPath expression.
-     * 
+     *
      * @xerces.internal
      *
      * @author Andy Clark, IBM
@@ -398,6 +400,7 @@ public class XPath {
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
             for (int i = 0; i < steps.length; i++) {
@@ -420,6 +423,7 @@ public class XPath {
         } // toString():String
 
         /** Returns a clone of this object. */
+        @Override
         public Object clone() {
             return new LocationPath(this);
         } // clone():Object
@@ -428,7 +432,7 @@ public class XPath {
 
     /**
      * A location path step comprised of an axis and node test.
-     * 
+     *
      * @xerces.internal
      *
      * @author Andy Clark, IBM
@@ -467,6 +471,7 @@ public class XPath {
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
             if (axis.type == Axis.SELF) {
                 return ".";
@@ -484,6 +489,7 @@ public class XPath {
         } // toString():String
 
         /** Returns a clone of this object. */
+        @Override
         public Object clone() {
             return new Step(this);
         } // clone():Object
@@ -492,7 +498,7 @@ public class XPath {
 
     /**
      * Axis.
-     * 
+     *
      * @xerces.internal
      *
      * @author Andy Clark, IBM
@@ -542,6 +548,7 @@ public class XPath {
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
             switch (type) {
                 case CHILD: return "child";
@@ -553,6 +560,7 @@ public class XPath {
         } // toString():String
 
         /** Returns a clone of this object. */
+        @Override
         public Object clone() {
             return new Axis(this);
         } // clone():Object
@@ -561,7 +569,7 @@ public class XPath {
 
     /**
      * Node test.
-     * 
+     *
      * @xerces.internal
      *
      * @author Andy Clark, IBM
@@ -626,6 +634,7 @@ public class XPath {
         //
 
         /** Returns a string representation of this object. */
+        @Override
         public String toString() {
 
             switch (type) {
@@ -659,6 +668,7 @@ public class XPath {
         } // toString():String
 
         /** Returns a clone of this object. */
+        @Override
         public Object clone() {
             return new NodeTest(this);
         } // clone():Object
@@ -675,9 +685,9 @@ public class XPath {
 
     /**
      * List of tokens.
-     * 
+     *
      * @xerces.internal
-     * 
+     *
      * @author Glenn Marcy, IBM
      * @author Andy Clark, IBM
      *
@@ -862,10 +872,10 @@ public class XPath {
         private final java.util.Hashtable fTokenNames = new java.util.Hashtable();
 
         /**
-         * Current position in the token list. 
+         * Current position in the token list.
          */
         private int fCurrentTokenIndex;
-        
+
         //
         // Constructors
         //
@@ -973,7 +983,7 @@ public class XPath {
 //        public int getToken(int tokenIndex) {
 //            return fTokens[tokenIndex];
 //        }
-        
+
         /**
          * Resets the current position to the head of the token list.
          */
@@ -985,12 +995,12 @@ public class XPath {
          * returns a valid token.
          */
         public boolean hasMore() {
-            return fCurrentTokenIndex<fTokenCount; 
+            return fCurrentTokenIndex<fTokenCount;
         }
         /**
          * Obtains the token at the current position, then advance
          * the current position by one.
-         * 
+         *
          * If there's no such next token, this method throws
          * <tt>new XPathException("c-general-xpath");</tt>.
          */
@@ -1002,7 +1012,7 @@ public class XPath {
         /**
          * Obtains the token at the current position, without advancing
          * the current position.
-         * 
+         *
          * If there's no such next token, this method throws
          * <tt>new XPathException("c-general-xpath");</tt>.
          */
@@ -1013,9 +1023,9 @@ public class XPath {
         }
         /**
          * Obtains the token at the current position as a String.
-         * 
+         *
          * If there's no current token or if the current token
-         * is not a string token, this method throws 
+         * is not a string token, this method throws
          * <tt>new XPathException("c-general-xpath");</tt>.
          */
         public String nextTokenAsString() throws XPathException {
@@ -1023,7 +1033,7 @@ public class XPath {
             if(s==null)     throw new XPathException("c-general-xpath");
             return s;
         }
-        
+
         public void dumpTokens() {
             //if (DUMP_TOKENS) {
                 for (int i = 0; i < fTokenCount; i++) {
@@ -1210,7 +1220,7 @@ public class XPath {
 
     /**
      * @xerces.internal
-     * 
+     *
      * @author Glenn Marcy, IBM
      * @author Andy Clark, IBM
      *
@@ -1420,7 +1430,7 @@ public class XPath {
                                 break;
                             }
                             ch = data.charAt(currentOffset);
-                        } while (ch == ' ' || ch == 0x0A || ch == 0x09 || ch == 0x0D); 
+                        } while (ch == ' ' || ch == 0x0A || ch == 0x09 || ch == 0x0D);
                         if (currentOffset == endOffset || ch == '|') {
                             addToken(tokens, XPath.Tokens.EXPRTOKEN_PERIOD);
                             starIsMultiplyOperator = true;

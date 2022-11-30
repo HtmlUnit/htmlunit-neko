@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,57 +32,65 @@ public class HTMLHRElementImpl
 
     private static final long serialVersionUID = -4210053417678939270L;
 
+    @Override
     public String getAlign()
     {
         return capitalize( getAttribute( "align" ) );
     }
-    
-    
+
+
+    @Override
     public void setAlign( String align )
     {
         setAttribute( "align", align );
     }
-  
-    
+
+
+    @Override
     public boolean getNoShade()
     {
         return getBinary( "noshade" );
     }
-    
-    
+
+
+    @Override
     public void setNoShade( boolean noShade )
     {
         setAttribute( "noshade", noShade );
     }
 
-    
+
+    @Override
     public String getSize()
     {
         return getAttribute( "size" );
     }
-    
-    
+
+
+    @Override
     public void setSize( String size )
     {
         setAttribute( "size", size );
     }
-  
-  
-      public String getWidth()
+
+
+      @Override
+    public String getWidth()
     {
         return getAttribute( "width" );
     }
-    
-    
+
+
+    @Override
     public void setWidth( String width )
     {
         setAttribute( "width", width );
     }
-    
+
 
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLHRElementImpl( HTMLDocumentImpl owner, String name )

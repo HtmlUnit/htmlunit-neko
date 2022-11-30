@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,33 +24,33 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 
 /**
  * <p>A DTD grammar that produces balanced syntax trees.</p>
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Michael Glavassevich, IBM
  * @version $Id$
  */
 final class BalancedDTDGrammar extends DTDGrammar {
-    
+
     //
     // Data
     //
-    
+
     /** Mixed. */
     private boolean fMixed;
-    
+
     /** Stack depth */
     private int fDepth = 0;
-    
+
     /** Children content model operation stack. */
     private short [] fOpStack = null;
-    
+
     /** Holder for choice/sequence/leaf groups at each depth. */
     private int [][] fGroupIndexStack;
-    
+
     /** Sizes of the allocated portions of each int[] in fGroupIndexStack. */
     private int [] fGroupIndexStackSizes;
-    
+
     //
     // Constructors
     //
@@ -59,11 +59,11 @@ final class BalancedDTDGrammar extends DTDGrammar {
     public BalancedDTDGrammar(SymbolTable symbolTable, XMLDTDDescription desc) {
         super(symbolTable, desc);
     } // BalancedDTDGrammar(SymbolTable,XMLDTDDescription)
-    
+
     //
     // Public methods
     //
-    
+
     /**
      * The start of a content model. Depending on the type of the content
      * model, specific methods may be called between the call to the
@@ -74,13 +74,14 @@ final class BalancedDTDGrammar extends DTDGrammar {
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public final void startContentModel(String elementName, Augmentations augs)
         throws XNIException {
         fDepth = 0;
         initializeContentModelStacks();
         super.startContentModel(elementName, augs);
     } // startContentModel(String)
-    
+
     /**
      * A start of either a mixed or children content model. A mixed
      * content model will immediately be followed by a call to the
@@ -94,12 +95,13 @@ final class BalancedDTDGrammar extends DTDGrammar {
      * @see #any
      * @see #empty
      */
+    @Override
     public final void startGroup(Augmentations augs) throws XNIException {
         ++fDepth;
         initializeContentModelStacks();
         fMixed = false;
     } // startGroup()
-    
+
     /**
      * The appearance of "#PCDATA" within a group signifying a
      * mixed content model. This method will be the first called
@@ -112,6 +114,7 @@ final class BalancedDTDGrammar extends DTDGrammar {
      *
      * @see #startGroup
      */
+    @Override
     public final void pcdata(Augmentations augs) throws XNIException {
         fMixed = true;
     } // pcdata()
@@ -125,6 +128,7 @@ final class BalancedDTDGrammar extends DTDGrammar {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public final void element(String elementName, Augmentations augs) throws XNIException {
         addToCurrentGroup(addUniqueLeafNode(elementName));
     } // element(String)
@@ -141,6 +145,7 @@ final class BalancedDTDGrammar extends DTDGrammar {
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#SEPARATOR_CHOICE
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#SEPARATOR_SEQUENCE
      */
+    @Override
     public final void separator(short separator, Augmentations augs) throws XNIException {
         if (separator == XMLDTDContentModelHandler.SEPARATOR_CHOICE) {
             fOpStack[fDepth] = XMLContentSpec.CONTENTSPECNODE_CHOICE;
@@ -164,15 +169,16 @@ final class BalancedDTDGrammar extends DTDGrammar {
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#OCCURS_ZERO_OR_MORE
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#OCCURS_ONE_OR_MORE
      */
+    @Override
     public final void occurrence(short occurrence, Augmentations augs) throws XNIException {
         if (!fMixed) {
             int currentIndex = fGroupIndexStackSizes[fDepth] - 1;
             if (occurrence == XMLDTDContentModelHandler.OCCURS_ZERO_OR_ONE) {
                 fGroupIndexStack[fDepth][currentIndex] = addContentSpecNode(XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE, fGroupIndexStack[fDepth][currentIndex], -1);
-            } 
+            }
             else if ( occurrence == XMLDTDContentModelHandler.OCCURS_ZERO_OR_MORE) {
                 fGroupIndexStack[fDepth][currentIndex] = addContentSpecNode(XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE, fGroupIndexStack[fDepth][currentIndex], -1);
-            } 
+            }
             else if ( occurrence == XMLDTDContentModelHandler.OCCURS_ONE_OR_MORE) {
                 fGroupIndexStack[fDepth][currentIndex] = addContentSpecNode(XMLContentSpec.CONTENTSPECNODE_ONE_OR_MORE, fGroupIndexStack[fDepth][currentIndex], -1);
             }
@@ -186,13 +192,14 @@ final class BalancedDTDGrammar extends DTDGrammar {
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public final void endGroup(Augmentations augs) throws XNIException {
         final int length = fGroupIndexStackSizes[fDepth];
         final int group = length > 0 ? addContentSpecNodes(0, length - 1) : addUniqueLeafNode(null);
         --fDepth;
         addToCurrentGroup(group);
     } // endGroup()
-    
+
     /**
      * The end of the DTD.
      *
@@ -200,29 +207,31 @@ final class BalancedDTDGrammar extends DTDGrammar {
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public final void endDTD(Augmentations augs) throws XNIException {
         super.endDTD(augs);
         fOpStack = null;
         fGroupIndexStack = null;
         fGroupIndexStackSizes = null;
     } // endDTD()
-    
+
     //
     // Protected methods
     //
-    
+
     /**
      * Adds the content spec to the given element declaration.
      */
+    @Override
     protected final void addContentSpecToElement(XMLElementDecl elementDecl) {
         int contentSpec = fGroupIndexStackSizes[0] > 0 ? fGroupIndexStack[0][0] : -1;
         setContentSpecIndex(fCurrentElementIndex, contentSpec);
     }
-    
+
     //
     // Private methods
     //
-    
+
     /**
      * Creates a subtree from the leaf nodes at the current depth.
      */
@@ -231,11 +240,11 @@ final class BalancedDTDGrammar extends DTDGrammar {
             return fGroupIndexStack[fDepth][begin];
         }
         final int middle = (begin + end) >>> 1;
-        return addContentSpecNode(fOpStack[fDepth], 
-                addContentSpecNodes(begin, middle), 
+        return addContentSpecNode(fOpStack[fDepth],
+                addContentSpecNodes(begin, middle),
                 addContentSpecNodes(middle + 1, end));
     } // addContentSpecNodes(int,int)
-    
+
     /**
      * Initialize the stacks which temporarily hold content models.
      */
@@ -259,10 +268,10 @@ final class BalancedDTDGrammar extends DTDGrammar {
         fOpStack[fDepth] = -1;
         fGroupIndexStackSizes[fDepth] = 0;
     } // initializeContentModelStacks()
-    
+
     /**
      * Add XMLContentSpec to the current group.
-     * 
+     *
      * @param contentSpec handle to the XMLContentSpec to add to the current group
      */
     private void addToCurrentGroup(int contentSpec) {

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 /**
  * Base class of Schema identity constraint.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @version $Id$
@@ -45,7 +45,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
 
     /** target namespace */
     protected final String fNamespace;
-    
+
     /** Identity constraint name. */
     protected final String fIdentityConstraintName;
 
@@ -126,6 +126,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     //
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
         String s = super.toString();
         int index1 = s.lastIndexOf('$');
@@ -163,6 +164,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.IDENTITY_CONSTRAINT;
     }
@@ -171,6 +173,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return fIdentityConstraintName;
     }
@@ -180,6 +183,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return fNamespace;
     }
@@ -187,6 +191,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     /**
      * {identity-constraint category} One of key, keyref or unique.
      */
+    @Override
     public short getCategory() {
         return type;
     }
@@ -194,6 +199,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     /**
      * {selector} A restricted XPath ([XPath]) expression
      */
+    @Override
     public String getSelectorStr() {
         return (fSelector != null) ? fSelector.toString() : null;
     }
@@ -201,6 +207,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     /**
      * {fields} A non-empty list of restricted XPath ([XPath]) expressions.
      */
+    @Override
     public StringList getFieldStrs() {
         String[] strs = new String[fFieldCount];
         for (int i = 0; i < fFieldCount; i++)
@@ -213,6 +220,7 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
      * forbidden otherwise. An identity-constraint definition with
      * {identity-constraint category} equal to key or unique.
      */
+    @Override
     public XSIDCDefinition getRefKey() {
         return null;
     }
@@ -220,13 +228,15 @@ public abstract class IdentityConstraint implements XSIDCDefinition {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return new XSObjectListImpl(fAnnotations, fNumAnnotations);
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         // REVISIT: implement
         return null;

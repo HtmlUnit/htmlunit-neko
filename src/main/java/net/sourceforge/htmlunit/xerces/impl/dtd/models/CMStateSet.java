@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
  *
  * Note that the code that uses this class will never perform operations
  * on sets of different sizes, so that check does not have to be made here.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -43,7 +43,7 @@ public class CMStateSet
     // -------------------------------------------------------------------
     //  Constructors
     // -------------------------------------------------------------------
-    public CMStateSet(int bitCount) 
+    public CMStateSet(int bitCount)
     {
         // Store the required bit count and insure its legal
         fBitCount = bitCount;
@@ -70,6 +70,7 @@ public class CMStateSet
     // -------------------------------------------------------------------
     //  Public inherited methods
     // -------------------------------------------------------------------
+    @Override
     public String toString()
     {
         StringBuilder strRet = new StringBuilder();
@@ -113,7 +114,7 @@ public class CMStateSet
         }
     }
 
-    public final boolean getBit(int bitToGet) 
+    public final boolean getBit(int bitToGet)
     {
         if (bitToGet >= fBitCount)
             throw new RuntimeException("ImplementationMessages.VAL_CMSI");
@@ -188,7 +189,7 @@ public class CMStateSet
         }
     }
 
-    public final void setBit(int bitToSet) 
+    public final void setBit(int bitToSet)
     {
         if (bitToSet >= fBitCount)
             throw new RuntimeException("ImplementationMessages.VAL_CMSI");
@@ -220,12 +221,12 @@ public class CMStateSet
     }
 
 // the XS content models from the schema package -neilg.
-    public final void setTo(CMStateSet srcSet) 
+    public final void setTo(CMStateSet srcSet)
     {
         // They have to be the same size
         if (fBitCount != srcSet.fBitCount)
             throw new RuntimeException("ImplementationMessages.VAL_CMSI");
-        
+
         if (fBitCount < 65)
         {
             fBits1 = srcSet.fBits1;
@@ -278,11 +279,13 @@ public class CMStateSet
     int         fBits2;
     byte[]      fByteArray;
     /* Optimization(Jan, 2001) */
+    @Override
     public boolean equals(Object o) {
     if (!(o instanceof CMStateSet)) return false;
     return isSameSet((CMStateSet)o);
     }
 
+    @Override
     public int hashCode() {
         if (fBitCount < 65)
         {

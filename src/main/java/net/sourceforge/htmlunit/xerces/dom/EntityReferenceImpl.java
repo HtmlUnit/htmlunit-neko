@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,13 +37,13 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * Similarly, non-validating XML processors are not required to read
  * or process entity declarations made in the external subset or
  * declared in external parameter entities. Hence, some applications
- * may not make the replacement value available for Parsed Entities 
+ * may not make the replacement value available for Parsed Entities
  * of these types.
  * <P>
- * EntityReference behaves as a read-only node, and the children of 
+ * EntityReference behaves as a read-only node, and the children of
  * the EntityReference (which reflect those of the Entity, and should
- * also be read-only) give its replacement value, if any. They are 
- * supposed to automagically stay in synch if the DocumentType is 
+ * also be read-only) give its replacement value, if any. They are
+ * supposed to automagically stay in synch if the DocumentType is
  * updated with new values for the Entity.
  * <P>
  * The defined behavior makes efficient storage difficult for the DOM
@@ -71,9 +71,9 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * changes in the Entity. And it can take advantage of the same
  * structure-change-monitoring code I implemented to support
  * DeepNodeList.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
@@ -81,7 +81,7 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
  */
-public class EntityReferenceImpl 
+public class EntityReferenceImpl
 extends ParentNode
 implements EntityReference {
 
@@ -100,10 +100,10 @@ implements EntityReference {
     protected String name;
     /** Base URI*/
     protected String baseURI;
-    
+
 
     /** Entity changes. */
-    //protected int entityChanges = -1;    
+    //protected int entityChanges = -1;
 
     /** Enable synchronize. */
     //protected boolean fEnableSynchronize = false;
@@ -124,10 +124,11 @@ implements EntityReference {
     // Node methods
     //
 
-    /** 
+    /**
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.ENTITY_REFERENCE_NODE;
     }
@@ -135,6 +136,7 @@ implements EntityReference {
     /**
      * Returns the name of the entity referenced
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -143,6 +145,7 @@ implements EntityReference {
     }
 
     /** Clone node. */
+    @Override
     public Node cloneNode(boolean deep) {
         EntityReferenceImpl er = (EntityReferenceImpl)super.cloneNode(deep);
         er.setReadOnly(true, deep);
@@ -153,10 +156,11 @@ implements EntityReference {
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
-     * 
+     *
      * @return The absolute base URI of this node or null.
      * @since DOM Level 3
      */
+    @Override
     public String getBaseURI() {
         if (needsSyncData()) {
             synchronizeData();
@@ -165,7 +169,7 @@ implements EntityReference {
             DocumentType doctype;
             NamedNodeMap entities;
             EntityImpl entDef;
-            if (null != (doctype = getOwnerDocument().getDoctype()) && 
+            if (null != (doctype = getOwnerDocument().getDoctype()) &&
                 null != (entities = doctype.getEntities())) {
 
                 entDef = (EntityImpl)entities.getNamedItem(getNodeName());
@@ -181,8 +185,8 @@ implements EntityReference {
                 // REVISIT: what should happen in this case?
                 return null;
             }
-        }        
-        return baseURI;    
+        }
+        return baseURI;
     }
 
 
@@ -193,11 +197,11 @@ implements EntityReference {
         }
         baseURI = uri;
     }
-    
+
     /**
      * NON-DOM: compute string representation of the entity reference.
-     * This method is used to retrieve a string value for an attribute node that has child nodes. 
-     * @return String representing a value of this entity ref. or 
+     * This method is used to retrieve a string value for an attribute node that has child nodes.
+     * @return String representing a value of this entity ref. or
      *          null if any node other than EntityReference, Text is encountered
      *          during computation
      */
@@ -205,7 +209,7 @@ implements EntityReference {
         if (needsSyncChildren()){
             synchronizeChildren();
         }
-       
+
         String value = "";
         if (firstChild != null){
           if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE){
@@ -218,15 +222,15 @@ implements EntityReference {
              // invalid to have other types of nodes in attr value
             return null;
           }
-          
+
           if (firstChild.nextSibling == null){
             return value;
           }
           else {
             StringBuilder buff = new StringBuilder(value);
             ChildNode next = firstChild.nextSibling;
-            while (next != null){   
-            
+            while (next != null){
+
                 if (next.getNodeType() == Node.ENTITY_REFERENCE_NODE){
                    value = ((EntityReferenceImpl)next).getEntityRefValue();
                 }
@@ -241,9 +245,9 @@ implements EntityReference {
                 next = next.nextSibling;
 
             }
-            return buff.toString();  
-          }   
-        } 
+            return buff.toString();
+          }
+        }
         return "";
     }
 
@@ -253,6 +257,7 @@ implements EntityReference {
      * This doesn't support editing the Entity though, since this only called
      * once for all.
      */
+    @Override
     protected void synchronizeChildren() {
         // no need to synchronize again
         needsSyncChildren(false);
@@ -260,7 +265,7 @@ implements EntityReference {
         DocumentType doctype;
         NamedNodeMap entities;
         EntityImpl entDef;
-        if (null != (doctype = getOwnerDocument().getDoctype()) && 
+        if (null != (doctype = getOwnerDocument().getDoctype()) &&
             null != (entities = doctype.getEntities())) {
 
             entDef = (EntityImpl)entities.getNamedItem(getNodeName());
@@ -283,10 +288,11 @@ implements EntityReference {
 
 
     /**
-     * NON-DOM: sets the node and its children value.     
+     * NON-DOM: sets the node and its children value.
      * <P>
      * Note: make sure that entity reference and its kids could be set readonly.
      */
+    @Override
     public void setReadOnly(boolean readOnly, boolean deep) {
 
         if (needsSyncData()) {
@@ -301,9 +307,9 @@ implements EntityReference {
             for (ChildNode mykid = firstChild;
                  mykid != null;
                  mykid = mykid.nextSibling) {
-                     
+
                 mykid.setReadOnly(readOnly,true);
-                
+
             }
         }
         isReadOnly(readOnly);
@@ -342,12 +348,12 @@ implements EntityReference {
      * contents, we have to turn off the readOnly flag temporarily to do so.
      * When we get around to adding multitasking support, this whole method
      * should probably be an atomic operation.
-     * 
+     *
      * @see DocumentTypeImpl
      * @see EntityImpl
      */
     // The Xerces parser invokes callbacks for startEnityReference
-    // the parsed value of the entity EACH TIME, so it is actually 
+    // the parsed value of the entity EACH TIME, so it is actually
     // easier to create the nodes through the callbacks rather than
     // clone the Entity.
     /***
@@ -359,9 +365,9 @@ implements EntityReference {
         DocumentType doctype;
         NamedNodeMap entities;
         EntityImpl entDef;
-        if (null != (doctype = getOwnerDocument().getDoctype()) && 
+        if (null != (doctype = getOwnerDocument().getDoctype()) &&
             null != (entities = doctype.getEntities())) {
-            
+
             entDef = (EntityImpl)entities.getNamedItem(getNodeName());
 
             // No Entity by this name. If we had a change count, reset it.
@@ -385,7 +391,7 @@ implements EntityReference {
                 for(Node defkid=entDef.getFirstChild();
                     defkid!=null;
                     defkid=defkid.getNextSibling()) {
-                    
+
                     NodeImpl newkid=(NodeImpl) defkid.cloneNode(true);
                     newkid.setReadOnly(true,true);
                     insertBefore(newkid,null);

@@ -34,6 +34,7 @@ public class DayDV extends AbstractDateTimeDV {
     //size without time zone: ---09
     private final static int DAY_SIZE=5;
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         try{
             return parse(content);
@@ -93,6 +94,7 @@ public class DayDV extends AbstractDateTimeDV {
      * @param date   gDay object
      * @return lexical representation of gDay: ---DD with an optional time zone sign
      */
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(6);
         message.append('-');

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,33 +32,37 @@ public class HTMLTextAreaElementImpl
 
     private static final long serialVersionUID = -6737778308542678104L;
 
+    @Override
     public String getDefaultValue()
     {
         // ! NOT FULLY IMPLEMENTED !
         return getAttribute( "default-value" );
     }
-    
-    
+
+
+    @Override
     public void setDefaultValue( String defaultValue )
     {
         // ! NOT FULLY IMPLEMENTED !
         setAttribute( "default-value", defaultValue );
     }
-  
-  
 
+
+
+    @Override
     public String getAccessKey()
     {
         String    accessKey;
-        
+
         // Make sure that the access key is a single character.
         accessKey = getAttribute( "accesskey" );
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
     }
-    
-    
+
+
+    @Override
     public void setAccessKey( String accessKey )
     {
         // Make sure that the access key is a single character.
@@ -67,118 +71,136 @@ public class HTMLTextAreaElementImpl
         setAttribute( "accesskey", accessKey );
     }
 
-    
+
+    @Override
     public int getCols()
     {
         return getInteger( getAttribute( "cols" ) );
     }
-    
-    
+
+
+    @Override
     public void setCols( int cols )
     {
         setAttribute( "cols", String.valueOf( cols ) );
     }
-  
-  
+
+
+    @Override
     public boolean getDisabled()
     {
         return getBinary( "disabled" );
     }
-    
-    
+
+
+    @Override
     public void setDisabled( boolean disabled )
     {
         setAttribute( "disabled", disabled );
     }
 
-    
+
+    @Override
     public String getName()
     {
         return getAttribute( "name" );
     }
-    
-    
+
+
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
-    
+
+    @Override
     public boolean getReadOnly()
     {
         return getBinary( "readonly" );
     }
-    
-    
+
+
+    @Override
     public void setReadOnly( boolean readOnly )
     {
         setAttribute( "readonly", readOnly );
     }
 
-    
-       public int getRows()
+
+       @Override
+    public int getRows()
     {
         return getInteger( getAttribute( "rows" ) );
     }
-    
-    
+
+
+    @Override
     public void setRows( int rows )
     {
         setAttribute( "rows", String.valueOf( rows ) );
     }
 
-  
-       public int getTabIndex()
+
+       @Override
+    public int getTabIndex()
     {
         return getInteger( getAttribute( "tabindex" ) );
     }
-    
-    
+
+
+    @Override
     public void setTabIndex( int tabIndex )
     {
         setAttribute( "tabindex", String.valueOf( tabIndex ) );
     }
 
-  
+
+    @Override
     public String getType()
     {
         return getAttribute( "type" );
     }
 
-    
-      public String getValue()
+
+      @Override
+    public String getValue()
     {
         return getAttribute( "value" );
     }
-    
-    
+
+
+    @Override
     public void setValue( String value )
     {
         setAttribute( "value", value );
     }
 
-    
+
+    @Override
     public void blur()
     {
         // No scripting in server-side DOM. This method is moot.
     }
-    
-    
+
+
+    @Override
     public void focus()
     {
         // No scripting in server-side DOM. This method is moot.
     }
-    
-    
+
+
+    @Override
     public void select()
     {
         // No scripting in server-side DOM. This method is moot.
     }
-    
-      
+
+
       /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLTextAreaElementImpl( HTMLDocumentImpl owner, String name )
@@ -186,6 +208,6 @@ public class HTMLTextAreaElementImpl
         super( owner, name );
     }
 
-  
+
 }
 

@@ -77,6 +77,7 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
      * @return    true iff this implementation is compatable with the specified
      * feature and version.
      */
+    @Override
     public boolean hasFeature(String feature, String version) {
 
         return (feature.equalsIgnoreCase("XS-Loader") && (version == null || version.equals("1.0")) ||
@@ -86,6 +87,7 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSImplementation#createXSLoader(net.sourceforge.htmlunit.xerces.xs.StringList)
      */
+    @Override
     public XSLoader createXSLoader(StringList versions) throws XSException {
         XSLoader loader = new XSLoaderImpl();
         if (versions == null){
@@ -104,14 +106,16 @@ public class XSImplementationImpl extends PSVIDOMImplementationImpl
         return loader;
     }
 
+    @Override
     public StringList createStringList(String[] values) {
         int length = (values != null) ? values.length : 0;
-        return (length != 0) ? new StringListImpl((String[]) values.clone(), length) : StringListImpl.EMPTY_LIST;
+        return (length != 0) ? new StringListImpl(values.clone(), length) : StringListImpl.EMPTY_LIST;
     }
 
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSImplementation#getRecognizedVersions()
      */
+    @Override
     public StringList getRecognizedVersions() {
         StringListImpl list = new StringListImpl(new String[]{"1.0"}, 1);
         return list;

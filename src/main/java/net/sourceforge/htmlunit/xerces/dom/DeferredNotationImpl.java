@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ package net.sourceforge.htmlunit.xerces.dom;
  * See the XML 1.0 spec, sections 4.7 and 2.6, for more info.
  * <P>
  * Level 1 of the DOM does not support editing Notation contents.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -79,6 +79,7 @@ public class DeferredNotationImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -91,6 +92,7 @@ public class DeferredNotationImpl
      * Synchronizes the data. This is special because of the way
      * that the "fast" notation stores its information internally.
      */
+    @Override
     protected void synchronizeData() {
 
         // no need to synchronize again

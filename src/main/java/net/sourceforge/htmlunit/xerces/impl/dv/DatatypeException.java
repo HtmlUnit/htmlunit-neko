@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,8 +25,8 @@ import java.util.ResourceBundle;
  * created from an error message. For Schema types, it needs an error code
  * (as defined in Appendix C of the structure spec), plus an array of arguments,
  * for error message substitution.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -36,7 +36,7 @@ public class DatatypeException extends Exception {
 
     /** Serialization version. */
     static final long serialVersionUID = 1940805832730465578L;
-    
+
     // used to store error code and error substitution arguments
     protected final String key;
     protected final Object[] args;
@@ -71,14 +71,15 @@ public class DatatypeException extends Exception {
     public Object[] getArgs() {
         return args;
     }
-    
+
     /**
      * Overrides this method to get the formatted&localized error message.
-     * 
+     *
      * REVISIT: the system locale is used to load the property file.
      *          do we want to allow the appilcation to specify a
      *          different locale?
      */
+    @Override
     public String getMessage() {
         ResourceBundle resourceBundle = null;
         resourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLSchemaMessages");
@@ -98,7 +99,7 @@ public class DatatypeException extends Exception {
                 msg = resourceBundle.getString("FormatFailed");
                 msg += " " + resourceBundle.getString(key);
             }
-        } 
+        }
 
         return msg;
     }

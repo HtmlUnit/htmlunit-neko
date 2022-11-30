@@ -23,6 +23,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime;
 
 /**
@@ -58,14 +59,16 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
     protected final static int MONTH=01;
     protected final static int DAY = 01;
 
+    @Override
     public short getAllowedFacets(){
-        return ( XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_WHITESPACE | XSSimpleTypeDecl.FACET_ENUMERATION |XSSimpleTypeDecl.FACET_MAXINCLUSIVE |XSSimpleTypeDecl.FACET_MININCLUSIVE | XSSimpleTypeDecl.FACET_MAXEXCLUSIVE  | XSSimpleTypeDecl.FACET_MINEXCLUSIVE  );
+        return ( XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_WHITESPACE | XSSimpleTypeDefinition.FACET_ENUMERATION |XSSimpleTypeDefinition.FACET_MAXINCLUSIVE |XSSimpleTypeDefinition.FACET_MININCLUSIVE | XSSimpleTypeDefinition.FACET_MAXEXCLUSIVE  | XSSimpleTypeDefinition.FACET_MINEXCLUSIVE  );
     }//getAllowedFacets()
 
 
     // distinguishes between identity and equality for date/time values
     // ie: two values representing the same "moment in time" but with different
     // remembered timezones are now equal but not identical.
+    @Override
     public boolean isIdentical (Object value1, Object value2) {
         if (!(value1 instanceof DateTimeData) || !(value2 instanceof DateTimeData)) {
             return false;
@@ -84,6 +87,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
     }//isIdentical()
 
     // the parameters are in compiled form (from getActualValue)
+    @Override
     public int compare (Object value1, Object value2) {
         return compareDates(((DateTimeData)value1),
                 ((DateTimeData)value2), true);
@@ -522,8 +526,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         int i = start;
         do {
             digit = getDigit(buffer.charAt(i));
-            if ( digit < 0 ) throw new NumberFormatException("'" + buffer + "' has wrong format");
-            if ( result < multmin ) throw new NumberFormatException("'" + buffer + "' has wrong format");
+            if ( (digit < 0) || (result < multmin) ) throw new NumberFormatException("'" + buffer + "' has wrong format");
             result *= radix;
             if ( result < limit + digit ) throw new NumberFormatException("'" + buffer + "' has wrong format");
             result -= digit;
@@ -555,8 +558,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         while (i < end)
         {
             digit = getDigit(buffer.charAt(i++));
-            if (digit < 0) throw new NumberFormatException("'" + buffer + "' has wrong format");
-            if (result < multmin) throw new NumberFormatException("'" + buffer + "' has wrong format");
+            if ((digit < 0) || (result < multmin)) throw new NumberFormatException("'" + buffer + "' has wrong format");
             result *= radix;
             if (result < limit + digit) throw new NumberFormatException("'" + buffer + "' has wrong format");
             result -= digit;
@@ -943,11 +945,13 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
             this.type = type;
             this.originalValue = originalValue;
         }
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof DateTimeData))
                 return false;
             return type.compareDates(this, (DateTimeData)obj, true)==0;
         }
+        @Override
         public synchronized String toString() {
             if (canonical == null) {
                 canonical = type.dateToString(this);
@@ -957,6 +961,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getYear()
          */
+        @Override
         public int getYears() {
             if(type instanceof DurationDV)
                 return 0;
@@ -965,6 +970,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getMonth()
          */
+        @Override
         public int getMonths() {
             if(type instanceof DurationDV) {
                 return year*12 + month;
@@ -974,6 +980,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getDay()
          */
+        @Override
         public int getDays() {
             if(type instanceof DurationDV)
                 return 0;
@@ -982,6 +989,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getHour()
          */
+        @Override
         public int getHours() {
             if(type instanceof DurationDV)
                 return 0;
@@ -990,6 +998,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getMinutes()
          */
+        @Override
         public int getMinutes() {
             if(type instanceof DurationDV)
                 return 0;
@@ -998,6 +1007,7 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getSeconds()
          */
+        @Override
         public double getSeconds() {
             if(type instanceof DurationDV) {
                 return day*24*60*60 + hour*60*60 + minute*60 + second;
@@ -1007,30 +1017,35 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#hasTimeZone()
          */
+        @Override
         public boolean hasTimeZone() {
             return utc != 0;
         }
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getTimeZoneHours()
          */
+        @Override
         public int getTimeZoneHours() {
             return timezoneHr;
         }
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getTimeZoneMinutes()
          */
+        @Override
         public int getTimeZoneMinutes() {
             return timezoneMin;
         }
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getLexicalValue()
          */
+        @Override
         public String getLexicalValue() {
             return originalValue;
         }
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#normalize()
          */
+        @Override
         public XSDateTime normalize() {
             if(!normalized) {
                 DateTimeData dt = (DateTimeData)this.clone();
@@ -1042,10 +1057,12 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#isNormalized()
          */
+        @Override
         public boolean isNormalized() {
             return normalized;
         }
 
+        @Override
         public Object clone() {
             DateTimeData dt = new DateTimeData(this.year, this.month, this.day, this.hour,
                         this.minute, this.second, this.utc, this.originalValue, this.normalized, this.type);
@@ -1065,12 +1082,14 @@ public abstract class AbstractDateTimeDV extends TypeValidator {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getXMLGregorianCalendar()
          */
+        @Override
         public XMLGregorianCalendar getXMLGregorianCalendar() {
             return type.getXMLGregorianCalendar(this);
         }
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.datatypes.XSDateTime#getDuration()
          */
+        @Override
         public Duration getDuration() {
             return type.getDuration(this);
         }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,165 +32,191 @@ public class HTMLImageElementImpl
 
     private static final long serialVersionUID = 1424360710977241315L;
 
+    @Override
     public String getLowSrc()
     {
         return getAttribute( "lowsrc" );
     }
-    
-    
+
+
+    @Override
     public void setLowSrc( String lowSrc )
     {
         setAttribute( "lowsrc", lowSrc );
     }
 
-  
-       public String getSrc()
+
+       @Override
+    public String getSrc()
     {
         return getAttribute( "src" );
     }
-    
-    
+
+
+    @Override
     public void setSrc( String src )
     {
         setAttribute( "src", src );
     }
 
-    
-      public String getName()
+
+      @Override
+    public String getName()
     {
         return getAttribute( "name" );
     }
-    
-    
+
+
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
-    
+
+    @Override
     public String getAlign()
     {
         return capitalize( getAttribute( "align" ) );
     }
-    
-    
+
+
+    @Override
     public void setAlign( String align )
     {
         setAttribute( "align", align );
     }
-  
-    
+
+
+    @Override
     public String getAlt()
     {
         return getAttribute( "alt" );
     }
-    
-    
+
+
+    @Override
     public void setAlt( String alt )
     {
         setAttribute( "alt", alt );
     }
 
-    
+
+    @Override
     public String getBorder()
     {
         return getAttribute( "border" );
     }
-    
-    
+
+
+    @Override
     public void setBorder( String border )
     {
         setAttribute( "border", border );
     }
 
-  
-      public String getHeight()
+
+      @Override
+    public String getHeight()
     {
         return getAttribute( "height" );
     }
-    
-    
+
+
+    @Override
     public void setHeight( String height )
     {
         setAttribute( "height", height );
     }
 
-    
+
+    @Override
     public String getHspace()
     {
         return getAttribute( "hspace" );
     }
-    
-    
+
+
+    @Override
     public void setHspace( String hspace )
     {
         setAttribute( "hspace", hspace );
     }
-    
-  
+
+
+    @Override
     public boolean getIsMap()
     {
         return getBinary( "ismap" );
     }
-    
-    
+
+
+    @Override
     public void setIsMap( boolean isMap )
     {
         setAttribute( "ismap", isMap );
     }
 
-    
+
+    @Override
     public String getLongDesc()
     {
         return getAttribute( "longdesc" );
     }
-    
-    
+
+
+    @Override
     public void setLongDesc( String longDesc )
     {
         setAttribute( "longdesc", longDesc );
     }
-    
-  
+
+
+    @Override
     public String getUseMap()
     {
         return getAttribute( "useMap" );
     }
-    
-    
+
+
+    @Override
     public void setUseMap( String useMap )
     {
         setAttribute( "useMap", useMap );
     }
-    
 
+
+    @Override
     public String getVspace()
     {
         return getAttribute( "vspace" );
     }
-    
-    
+
+
+    @Override
     public void setVspace( String vspace )
     {
         setAttribute( "vspace", vspace );
     }
 
-  
-      public String getWidth()
+
+      @Override
+    public String getWidth()
     {
         return getAttribute( "width" );
     }
-    
-    
+
+
+    @Override
     public void setWidth( String width )
     {
         setAttribute( "width", width );
     }
 
-    
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLImageElementImpl( HTMLDocumentImpl owner, String name )

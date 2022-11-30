@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,10 +33,10 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
  * DeferredElementNSImpl is to ElementNSImpl, what DeferredElementImpl is to
- * ElementImpl. 
- * 
+ * ElementImpl.
+ *
  * @xerces.internal
- * 
+ *
  * @see DeferredElementImpl
  */
 public class DeferredElementNSImpl
@@ -78,6 +78,7 @@ public class DeferredElementNSImpl
     //
 
     /** Returns the node index. */
+    @Override
     public final int getNodeIndex() {
         return fNodeIndex;
     }
@@ -87,6 +88,7 @@ public class DeferredElementNSImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected final void synchronizeData() {
 
         // no need to sync in the future
@@ -106,7 +108,7 @@ public class DeferredElementNSImpl
         int index = name.indexOf(':');
         if (index < 0) {
             localName = name;
-        } 
+        }
         else {
             localName = name.substring(index + 1);
         }
@@ -122,7 +124,7 @@ public class DeferredElementNSImpl
             boolean seenSchemaDefault = false;
             do {
                 AttrImpl attr = (AttrImpl) ownerDocument.getNodeObject(attrIndex);
-                // Take special care of schema defaulted attributes. Calling the 
+                // Take special care of schema defaulted attributes. Calling the
                 // non-namespace aware setAttributeNode() method could overwrite
                 // another attribute with the same local name.
                 if (!attr.getSpecified() && (seenSchemaDefault ||
@@ -150,6 +152,7 @@ public class DeferredElementNSImpl
      * the two structures in sync. The problem gets worse when
      * editing the tree -- this makes it a lot easier.
      */
+    @Override
     protected final void synchronizeChildren() {
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) ownerDocument();

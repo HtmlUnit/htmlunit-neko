@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -203,6 +203,7 @@ public class DOMInputImpl implements LSInput {
      * will override any encoding specified in the XML declaration itself.
      */
 
+    @Override
     public InputStream getByteStream(){
     return fByteStream;
     }
@@ -218,7 +219,8 @@ public class DOMInputImpl implements LSInput {
      * will override any encoding specified in the XML declaration itself.
      */
 
-     public void setByteStream(InputStream byteStream){
+     @Override
+    public void setByteStream(InputStream byteStream){
      fByteStream = byteStream;
      }
 
@@ -230,6 +232,7 @@ public class DOMInputImpl implements LSInput {
      * stream and will not attempt to open a URI connection to the system
      * identifier.
      */
+    @Override
     public Reader getCharacterStream(){
     return fCharStream;
     }
@@ -242,7 +245,8 @@ public class DOMInputImpl implements LSInput {
      * identifier.
      */
 
-     public void setCharacterStream(Reader characterStream){
+     @Override
+    public void setCharacterStream(Reader characterStream){
     fCharStream = characterStream;
      }
 
@@ -253,6 +257,7 @@ public class DOMInputImpl implements LSInput {
      * ignore the character stream and the byte stream and will not attempt
      * to open a URI connection to the system identifier.
      */
+    @Override
     public String getStringData(){
     return fData;
     }
@@ -265,7 +270,8 @@ public class DOMInputImpl implements LSInput {
      * to open a URI connection to the system identifier.
      */
 
-     public void setStringData(String stringData){
+     @Override
+    public void setStringData(String stringData){
         fData = stringData;
      }
 
@@ -280,6 +286,7 @@ public class DOMInputImpl implements LSInput {
      * from a higher level protocol, such as HTTP .
      */
 
+    @Override
     public String getEncoding(){
     return fEncoding;
     }
@@ -294,6 +301,7 @@ public class DOMInputImpl implements LSInput {
      * the XML claration or the Text Declaration, or an encoding obtained
      * from a higher level protocol, such as HTTP .
      */
+    @Override
     public void setEncoding(String encoding){
     fEncoding = encoding;
     }
@@ -303,6 +311,7 @@ public class DOMInputImpl implements LSInput {
      * always optional: if the application writer includes one, it will be
      * provided as part of the location information.
      */
+    @Override
     public String getPublicId(){
     return fPublicId;
     }
@@ -311,6 +320,7 @@ public class DOMInputImpl implements LSInput {
      * always optional: if the application writer includes one, it will be
      * provided as part of the location information.
      */
+    @Override
     public void setPublicId(String publicId){
     fPublicId = publicId;
     }
@@ -329,6 +339,7 @@ public class DOMInputImpl implements LSInput {
      * <br>If the system ID is a relative URI reference (see section 5 in ),
      * the behavior is implementation dependent.
      */
+    @Override
     public String getSystemId(){
     return fSystemId;
     }
@@ -346,6 +357,7 @@ public class DOMInputImpl implements LSInput {
      * <br>If the system ID is a relative URI reference (see section 5 in ),
      * the behavior is implementation dependent.
      */
+    @Override
     public void setSystemId(String systemId){
     fSystemId = systemId;
     }
@@ -355,6 +367,7 @@ public class DOMInputImpl implements LSInput {
      * URIs to absolute URIs. If the baseURI is itself a relative URI, the
      * behavior is implementation dependent.
      */
+    @Override
     public String getBaseURI(){
     return fBaseSystemId;
     }
@@ -363,6 +376,7 @@ public class DOMInputImpl implements LSInput {
      * URIs to absolute URIs. If the baseURI is itself a relative URI, the
      * behavior is implementation dependent.
      */
+    @Override
     public void setBaseURI(String baseURI){
     fBaseSystemId = baseURI;
     }
@@ -372,6 +386,7 @@ public class DOMInputImpl implements LSInput {
       * in [<a href='http://www.w3.org/TR/2002/CR-xml11-20021015/'>XML 1.1</a>]) when
       * parsing [<a href='http://www.w3.org/TR/2002/CR-xml11-20021015/'>XML 1.1</a>].
       */
+    @Override
     public boolean getCertifiedText(){
       return fCertifiedText;
     }
@@ -382,6 +397,7 @@ public class DOMInputImpl implements LSInput {
       * parsing [<a href='http://www.w3.org/TR/2002/CR-xml11-20021015/'>XML 1.1</a>].
       */
 
+    @Override
     public void setCertifiedText(boolean certifiedText){
       fCertifiedText = certifiedText;
     }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,9 +27,9 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 
 /**
  * <p>A UTF-8 reader.</p>
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Andy Clark, IBM
  *
  * @version $Id$
@@ -112,7 +112,7 @@ public final class UTF8Reader
             MessageFormatter messageFormatter, Locale locale) {
         this(inputStream, new byte[size], messageFormatter, locale);
     } // <init>(InputStream, int, MessageFormatter, Locale)
-    
+
     /**
      * Constructs a UTF-8 reader from the specified input stream,
      * buffer and MessageFormatter.
@@ -147,6 +147,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read() throws IOException {
 
         // decode character
@@ -191,7 +192,7 @@ public final class UTF8Reader
                 if (b1 == -1) {
                     expectedByte(2, 3);
                 }
-                if ((b1 & 0xC0) != 0x80 
+                if ((b1 & 0xC0) != 0x80
                     || (b0 == 0xED && b1 >= 0xA0)
                     || ((b0 & 0x0F) == 0 && (b1 & 0x20) == 0)) {
                     invalidByte(2, 3, b1);
@@ -284,6 +285,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read(char[] ch, int offset, int length) throws IOException {
 
         // read bytes
@@ -294,7 +296,7 @@ public final class UTF8Reader
             if (length > fBuffer.length) {
                 length = fBuffer.length;
             }
-            
+
             // handle surrogate
             if (fSurrogate != -1) {
                 ch[out++] = (char)fSurrogate;
@@ -400,7 +402,7 @@ public final class UTF8Reader
                     }
                     count++;
                 }
-                if ((b1 & 0xC0) != 0x80 
+                if ((b1 & 0xC0) != 0x80
                     || (b0 == 0xED && b1 >= 0xA0)
                     || ((b0 & 0x0F) == 0 && (b1 & 0x20) == 0)) {
                     if (out > offset) {
@@ -585,6 +587,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public long skip(long n) throws IOException {
 
         long remaining = n;
@@ -614,6 +617,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public boolean ready() throws IOException {
         return false;
     } // ready()
@@ -621,6 +625,7 @@ public final class UTF8Reader
     /**
      * Tell whether this stream supports the mark() operation.
      */
+    @Override
     public boolean markSupported() {
         return false;
     } // markSupported()
@@ -638,6 +643,7 @@ public final class UTF8Reader
      * @exception  IOException  If the stream does not support mark(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void mark(int readAheadLimit) throws IOException {
         throw new IOException(fFormatter.formatMessage(fLocale, "OperationNotSupported", new Object[]{"mark()", "UTF-8"}));
     } // mark(int)
@@ -655,6 +661,7 @@ public final class UTF8Reader
      *                          or if the stream does not support reset(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
         fOffset = 0;
         fSurrogate = -1;
@@ -667,6 +674,7 @@ public final class UTF8Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         fInputStream.close();
     } // close()
@@ -694,7 +702,7 @@ public final class UTF8Reader
         throw new MalformedByteSequenceException(fFormatter,
             fLocale,
             XMLMessageFormatter.XML_DOMAIN,
-            "InvalidByte", 
+            "InvalidByte",
             new Object [] {Integer.toString(position), Integer.toString(count)});
 
     } // invalidByte(int,int,int)
@@ -705,7 +713,7 @@ public final class UTF8Reader
         throw new MalformedByteSequenceException(fFormatter,
             fLocale,
             XMLMessageFormatter.XML_DOMAIN,
-            "InvalidHighSurrogate", 
+            "InvalidHighSurrogate",
             new Object[] {Integer.toHexString(uuuuu)});
 
     } // invalidSurrogate(int)

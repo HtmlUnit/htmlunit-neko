@@ -86,6 +86,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
      * </dl></dd>
      * </dl>
      */
+    @Override
     public DOMConfiguration getConfig() {
         return this;
     }
@@ -97,6 +98,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
      * @param uriList The list of URI locations.
      * @return An XSModel representing the schema documents.
      */
+    @Override
     public XSModel loadURIList(StringList uriList) {
         int length = uriList.getLength();
         try {
@@ -119,6 +121,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
      * @param uri The location of the XML Schema document to be read.
      * @return An XSModel representing this schema.
      */
+    @Override
     public XSModel loadURI(String uri) {
         try {
             fGrammarPool.clear();
@@ -151,6 +154,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#setParameter(java.lang.String, java.lang.Object)
      */
+    @Override
     public void setParameter(String name, Object value) throws DOMException {
         fSchemaLoader.setParameter(name, value);
     }
@@ -158,6 +162,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#getParameter(java.lang.String)
      */
+    @Override
     public Object getParameter(String name) throws DOMException {
         return fSchemaLoader.getParameter(name);
     }
@@ -165,6 +170,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#canSetParameter(java.lang.String, java.lang.Object)
      */
+    @Override
     public boolean canSetParameter(String name, Object value) {
         return fSchemaLoader.canSetParameter(name, value);
     }
@@ -172,6 +178,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#getParameterNames()
      */
+    @Override
     public DOMStringList getParameterNames() {
         return fSchemaLoader.getParameterNames();
     }
@@ -185,6 +192,7 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
 
         public XSGrammarMerger () {}
 
+        @Override
         public void putGrammar(Grammar grammar) {
             SchemaGrammar cachedGrammar =
                 toSchemaGrammar(super.getGrammar(grammar.getGrammarDescription()));
@@ -278,18 +286,22 @@ public final class XSLoaderImpl implements XSLoader, DOMConfiguration {
 
         }
 
+        @Override
         public boolean containsGrammar(XMLGrammarDescription desc) {
             return false;
         }
 
+        @Override
         public Grammar getGrammar(XMLGrammarDescription desc) {
             return null;
         }
 
+        @Override
         public Grammar retrieveGrammar(XMLGrammarDescription desc) {
             return null;
         }
 
+        @Override
         public Grammar [] retrieveInitialGrammarSet (String grammarType) {
             return new Grammar[0];
         }

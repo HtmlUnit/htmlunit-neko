@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
  * Implements the entity scanner methods.
  *
  * @xerces.internal
- * 
+ *
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
  * @version $Id$
@@ -44,12 +44,13 @@ public class XMLEntityScanner implements XMLLocator {
     // constants
     private static final boolean DEBUG_ENCODINGS = false;
     private static final boolean DEBUG_BUFFER = false;
-    
+
     /**
      * To signal the end of the document entity, this exception will be thrown.
      */
     private static final EOFException END_OF_DOCUMENT_ENTITY = new EOFException() {
         private static final long serialVersionUID = 980337771224675268L;
+        @Override
         public Throwable fillInStackTrace() {
             return this;
         }
@@ -87,6 +88,7 @@ public class XMLEntityScanner implements XMLLocator {
      * Returns the base system identifier of the currently scanned
      * entity, or null if none is available.
      */
+    @Override
     public final String getBaseSystemId() {
         return (fCurrentEntity != null && fCurrentEntity.entityLocation != null) ? fCurrentEntity.entityLocation.getExpandedSystemId() : null;
     } // getBaseSystemId():String
@@ -165,7 +167,7 @@ public class XMLEntityScanner implements XMLLocator {
         }
 
     } // setEncoding(String)
-    
+
     /**
      * Sets the XML version. This method is used by the
      * scanners to report the value of the version pseudo-attribute
@@ -973,10 +975,10 @@ public class XMLEntityScanner implements XMLLocator {
         //          performance. -Ac
         //
         //          Currently, this method is called for scanning CDATA
-        //          sections, comments,  and processing instruction data. 
+        //          sections, comments,  and processing instruction data.
         //          So if this code is updated to NOT buffer, the scanning
-        //          code for comments and processing instructions will 
-        //          need to be updated to do its own buffering. The code 
+        //          code for comments and processing instructions will
+        //          need to be updated to do its own buffering. The code
         //          for CDATA sections is safe as-is. -Ac
 
         boolean found = false;
@@ -1014,7 +1016,7 @@ public class XMLEntityScanner implements XMLLocator {
         if (fCurrentEntity.position > fCurrentEntity.count - delimLen) {
             // something must be wrong with the input:  e.g., file ends in an unterminated comment
             int length = fCurrentEntity.count - fCurrentEntity.position;
-            buffer.append (fCurrentEntity.ch, fCurrentEntity.position, length); 
+            buffer.append (fCurrentEntity.ch, fCurrentEntity.position, length);
             fCurrentEntity.columnNumber += fCurrentEntity.count;
             fCurrentEntity.baseCharOffset += (fCurrentEntity.position - fCurrentEntity.startPosition);
             fCurrentEntity.position = fCurrentEntity.count;
@@ -1127,7 +1129,7 @@ public class XMLEntityScanner implements XMLLocator {
                 fCurrentEntity.position--;
                 int length = fCurrentEntity.position - offset;
                 fCurrentEntity.columnNumber += length - newlines;
-                buffer.append(fCurrentEntity.ch, offset, length); 
+                buffer.append(fCurrentEntity.ch, offset, length);
                 return true;
             }
         }
@@ -1312,9 +1314,9 @@ public class XMLEntityScanner implements XMLLocator {
 
     /**
      * Skips space characters appearing immediately on the input that would
-     * match non-terminal S (0x09, 0x0A, 0x0D, 0x20) before end of line 
-     * normalization is performed. This is useful when scanning structures 
-     * such as the XMLDecl and TextDecl that can only contain US-ASCII 
+     * match non-terminal S (0x09, 0x0A, 0x0D, 0x20) before end of line
+     * normalization is performed. This is useful when scanning structures
+     * such as the XMLDecl and TextDecl that can only contain US-ASCII
      * characters.
      * <p>
      * <strong>Note:</strong> The characters are consumed only if they would
@@ -1446,7 +1448,7 @@ public class XMLEntityScanner implements XMLLocator {
                 // REVISIT: Can a string to be skipped cross an
                 //          entity boundary? -Ac
                 if (load(i + 1, false)) {
-                    fCurrentEntity.startPosition -= i + 1; 
+                    fCurrentEntity.startPosition -= i + 1;
                     fCurrentEntity.position -= i + 1;
                     if (DEBUG_BUFFER) {
                         System.out.print(")skipString, \""+s+"\": ");
@@ -1481,6 +1483,7 @@ public class XMLEntityScanner implements XMLLocator {
      * @return A string containing the public identifier, or
      *         null if none is available.
      */
+    @Override
     public final String getPublicId() {
         return (fCurrentEntity != null && fCurrentEntity.entityLocation != null) ? fCurrentEntity.entityLocation.getPublicId() : null;
     } // getPublicId():String
@@ -1498,6 +1501,7 @@ public class XMLEntityScanner implements XMLLocator {
      * @return A string containing the expanded system identifier, or null
      *         if none is available.
      */
+    @Override
     public final String getExpandedSystemId() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.entityLocation != null &&
@@ -1522,6 +1526,7 @@ public class XMLEntityScanner implements XMLLocator {
      * @return A string containing the literal system identifier, or null
      *         if none is available.
      */
+    @Override
     public final String getLiteralSystemId() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.entityLocation != null &&
@@ -1548,12 +1553,13 @@ public class XMLEntityScanner implements XMLLocator {
      * in the document entity or external parsed entity where the
      * markup triggering the event appears.
      * <p>
-     * If possible, the line position of the first character after the 
+     * If possible, the line position of the first character after the
      * text associated with the document event should be provided.
      * The first line in the document is line 1.
      *
      * @return The line number, or -1 if none is available.
      */
+    @Override
     public final int getLineNumber() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.isExternal()) {
@@ -1581,12 +1587,13 @@ public class XMLEntityScanner implements XMLLocator {
      * in the document entity or external parsed entity where the
      * markup triggering the event appears.
      * <p>
-     * If possible, the line position of the first character after the 
+     * If possible, the line position of the first character after the
      * text associated with the document event should be provided.
      * The first column in each line is column 1.
      *
      * @return The column number, or -1 if none is available.
      */
+    @Override
     public final int getColumnNumber() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.isExternal()) {
@@ -1600,7 +1607,7 @@ public class XMLEntityScanner implements XMLLocator {
 
         return -1;
     } // getColumnNumber():int
-    
+
     /**
      * Returns the character offset where the current document event ends.
      * <p>
@@ -1613,11 +1620,12 @@ public class XMLEntityScanner implements XMLLocator {
      * in the document entity or external parsed entity where the
      * markup triggering the event appears.
      * <p>
-     * If possible, the character offset of the first character after the 
+     * If possible, the character offset of the first character after the
      * text associated with the document event should be provided.
      *
      * @return The character offset, or -1 if none is available.
      */
+    @Override
     public final int getCharacterOffset() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.isExternal()) {
@@ -1628,18 +1636,19 @@ public class XMLEntityScanner implements XMLLocator {
                 return fCurrentEntity.getCharacterOffset();
             }
         }
-        
+
         return -1;
     } // getCharacterOffset():int
-    
-    /** 
-     * Returns the encoding of the current entity.  
+
+    /**
+     * Returns the encoding of the current entity.
      * Note that, for a given entity, this value can only be
      * considered final once the encoding declaration has been read (or once it
      * has been determined that there is no such declaration) since, no encoding
      * having been specified on the XMLInputSource, the parser
-     * will make an initial "guess" which could be in error. 
+     * will make an initial "guess" which could be in error.
      */
+    @Override
     public final String getEncoding() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.isExternal()) {
@@ -1652,17 +1661,18 @@ public class XMLEntityScanner implements XMLLocator {
         }
         return null;
     } // getEncoding():String
-    
+
     /**
      * Returns the XML version of the current entity. This will normally be the
      * value from the XML or text declaration or defaulted by the parser. Note that
-     * that this value may be different than the version of the processing rules 
+     * that this value may be different than the version of the processing rules
      * applied to the current entity. For instance, an XML 1.1 document may refer to
-     * XML 1.0 entities. In such a case the rules of XML 1.1 are applied to the entire 
+     * XML 1.0 entities. In such a case the rules of XML 1.1 are applied to the entire
      * document. Also note that, for a given entity, this value can only be considered
      * final once the XML or text declaration has been read or once it has been
      * determined that there is no such declaration.
      */
+    @Override
     public final String getXMLVersion() {
         if (fCurrentEntity != null) {
             if (fCurrentEntity.isExternal()) {
@@ -1675,7 +1685,7 @@ public class XMLEntityScanner implements XMLLocator {
         }
         return null;
     } // getXMLVersion():String
-    
+
     // allow entity manager to tell us what the current entityis:
     public final void setCurrentEntity(XMLEntityManager.ScannedEntity ent) {
         fCurrentEntity = ent;
@@ -1683,7 +1693,7 @@ public class XMLEntityScanner implements XMLLocator {
 
     // set buffer size:
     public final void setBufferSize(int size) {
-        // REVISIT: Buffer size passed to entity scanner 
+        // REVISIT: Buffer size passed to entity scanner
         // was not being kept in synch with the actual size
         // of the buffers in each scanned entity. If any
         // of the buffers were actually resized, it was possible
@@ -1692,7 +1702,7 @@ public class XMLEntityScanner implements XMLLocator {
         // the current buffer size. Conceivably the buffer size passed
         // to entity scanner could be used to determine a minimum size
         // for resizing, if doubling its size is smaller than this
-        // minimum. -- mrglavas 
+        // minimum. -- mrglavas
         fBufferSize = size;
     }
 
@@ -1777,11 +1787,11 @@ public class XMLEntityScanner implements XMLLocator {
         return entityChanged;
 
     } // load(int, boolean):boolean
-    
+
     /**
      * This method is invoked to increase the size of the current entity's
      * buffer if an XML name being scanned is too large to fit within
-     * the buffer at its current size. 
+     * the buffer at its current size.
      */
     final void resizeBuffer(int offset, int length) {
         char[] tmp = new char[fCurrentEntity.ch.length << 1];

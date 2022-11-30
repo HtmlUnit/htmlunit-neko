@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -63,9 +63,9 @@ public class DOMParser
     //
     // Constants
     //
-    
+
     // features
-    
+
     /** Feature identifier: EntityResolver2. */
     protected static final String USE_ENTITY_RESOLVER2 =
         Constants.SAX_FEATURE_PREFIX + Constants.USE_ENTITY_RESOLVER2_FEATURE;
@@ -85,13 +85,13 @@ public class DOMParser
         SYMBOL_TABLE,
         XMLGRAMMAR_POOL,
     };
-    
+
     //
     // Data
     //
-    
+
     // features
-    
+
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
 
@@ -178,8 +178,8 @@ public class DOMParser
                 locatorImpl.setSystemId(e.getExpandedSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
                 locatorImpl.setColumnNumber(e.getColumnNumber());
-                throw (ex == null) ? 
-                        new SAXParseException(e.getMessage(), locatorImpl) : 
+                throw (ex == null) ?
+                        new SAXParseException(e.getMessage(), locatorImpl) :
                         new SAXParseException(e.getMessage(), locatorImpl, ex);
             }
             if (ex instanceof SAXException) {
@@ -242,8 +242,8 @@ public class DOMParser
                 locatorImpl.setSystemId(e.getExpandedSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
                 locatorImpl.setColumnNumber(e.getColumnNumber());
-                throw (ex == null) ? 
-                        new SAXParseException(e.getMessage(), locatorImpl) : 
+                throw (ex == null) ?
+                        new SAXParseException(e.getMessage(), locatorImpl) :
                         new SAXParseException(e.getMessage(), locatorImpl, ex);
             }
             if (ex instanceof SAXException) {
@@ -328,7 +328,7 @@ public class DOMParser
                         ((EntityResolverWrapper) xmlEntityResolver).getEntityResolver();
                 }
                 else if (xmlEntityResolver instanceof EntityResolver2Wrapper) {
-                    entityResolver = 
+                    entityResolver =
                         ((EntityResolver2Wrapper) xmlEntityResolver).getEntityResolver();
                 }
             }
@@ -420,7 +420,7 @@ public class DOMParser
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            
+
             // http://xml.org/sax/features/use-entity-resolver2
             //   controls whether the methods of an object implementing
             //   org.xml.sax.ext.EntityResolver2 will be used by the parser.
@@ -433,23 +433,23 @@ public class DOMParser
                 }
                 return;
             }
-            
+
             //
             // Default handling
             //
-            
+
             fConfiguration.setFeature(featureId, state);
         }
         catch (XMLConfigurationException e) {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "feature-not-supported", new Object [] {identifier}));
             }
         }
@@ -482,23 +482,23 @@ public class DOMParser
             if (featureId.equals(USE_ENTITY_RESOLVER2)) {
                 return fUseEntityResolver2;
             }
-            
+
             //
             // Default handling
             //
-            
+
             return fConfiguration.getFeature(featureId);
         }
         catch (XMLConfigurationException e) {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "feature-not-supported", new Object [] {identifier}));
             }
         }
@@ -530,12 +530,12 @@ public class DOMParser
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "property-not-supported", new Object [] {identifier}));
             }
         }
@@ -584,19 +584,19 @@ public class DOMParser
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(), 
+                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                     "property-not-supported", new Object [] {identifier}));
             }
         }
 
     } // getProperty(String):Object
-    
-    /** 
+
+    /**
      * Returns this parser's XMLParserConfiguration.
      */
     public XMLParserConfiguration getXMLParserConfiguration() {

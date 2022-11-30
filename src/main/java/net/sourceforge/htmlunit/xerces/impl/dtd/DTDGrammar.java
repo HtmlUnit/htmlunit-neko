@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,7 +50,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
  * A DTD grammar. This class implements the XNI handler interfaces
  * for DTD information so that it can build the appropriate validation
  * structures automatically from the callbacks.
- * 
+ *
  * @xerces.internal
  *
  * @author Eric Ye, IBM
@@ -60,7 +60,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
  *
  * @version $Id$
  */
-public class DTDGrammar 
+public class DTDGrammar
     implements XMLDTDHandler, XMLDTDContentModelHandler, EntityState, Grammar {
 
     //
@@ -125,19 +125,19 @@ public class DTDGrammar
     /** Element declaration name. */
     private QName[][] fElementDeclName = new QName[INITIAL_CHUNK_COUNT][];
 
-    /** 
-     * Element declaration type. 
+    /**
+     * Element declaration type.
      * @see XMLElementDecl
      */
     private short[][] fElementDeclType = new short[INITIAL_CHUNK_COUNT][];
 
-    /** 
+    /**
      * Element declaration content spec index. This index value is used
      * to refer to the content spec information tables.
      */
     private int[][] fElementDeclContentSpecIndex = new int[INITIAL_CHUNK_COUNT][];
 
-    /** 
+    /**
      * Element declaration content model validator. This validator is
      * constructed from the content spec nodes.
      */
@@ -160,7 +160,7 @@ public class DTDGrammar
     // is this grammar immutable?  (fully constructed and not changeable)
     private boolean fIsImmutable = false;
 
-    /** 
+    /**
      * Attribute declaration type.
      * @see XMLAttributeDecl
      */
@@ -176,9 +176,9 @@ public class DTDGrammar
 
     // content specs
 
-    // here saves the content spec binary trees for element decls, 
-    // each element with a content model will hold a pointer which is 
-    // the index of the head node of the content spec tree. 
+    // here saves the content spec binary trees for element decls,
+    // each element with a content model will hold a pointer which is
+    // the index of the head node of the content spec tree.
 
     private int fContentSpecCount = 0;
     private short[][] fContentSpecType = new short[INITIAL_CHUNK_COUNT][];
@@ -223,7 +223,7 @@ public class DTDGrammar
 
     /** Temporary qualified name. */
     private final QName fQName = new QName();
-    
+
     /** Temporary qualified name. */
     private final QName fQName2 = new QName();
 
@@ -234,7 +234,7 @@ public class DTDGrammar
 
     private int fLeafCount = 0;
     private final int fEpsilonIndex = -1;
-    
+
     /** Element declaration. */
     private XMLElementDecl fElementDecl = new XMLElementDecl();
 
@@ -296,6 +296,7 @@ public class DTDGrammar
     // Grammar methods
 
     // return the XMLDTDDescription object with which this is associated
+    @Override
     public XMLGrammarDescription getGrammarDescription() {
         return fGrammarDescription;
     } // getGrammarDescription():  XMLGrammarDescription
@@ -372,6 +373,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startDTD(XMLLocator locator, Augmentations augs) throws XNIException {
         //Initialize stack
         fOpStack = null;
@@ -399,6 +401,7 @@ public class DTDGrammar
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startParameterEntity(String name,
                                      XMLResourceIdentifier identifier,
                                      String encoding,
@@ -423,6 +426,7 @@ public class DTDGrammar
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startExternalSubset(XMLResourceIdentifier identifier,
                                     Augmentations augs) throws XNIException {
         fReadingExternalDTD = true;
@@ -442,6 +446,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endParameterEntity(String name, Augmentations augs) throws XNIException {
 
         fPEDepth--;
@@ -457,6 +462,7 @@ public class DTDGrammar
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endExternalSubset(Augmentations augs) throws XNIException {
         fReadingExternalDTD = false;
     } // endExternalSubset(Augmentations)
@@ -470,6 +476,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void elementDecl(String name, String contentModel, Augmentations augs)
         throws XNIException {
 
@@ -490,9 +497,9 @@ public class DTDGrammar
         }
 
         XMLElementDecl elementDecl       = new XMLElementDecl();
-        
+
         fQName.setValues(null, name, name, null);
-       
+
         elementDecl.name.setValues(fQName);
 
         elementDecl.contentModelValidator = null;
@@ -558,12 +565,13 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void attributeDecl(String elementName, String attributeName,
                               String type, String[] enumeration,
                               String defaultType, XMLString defaultValue,
                               XMLString nonNormalizedDefaultValue, Augmentations augs) throws XNIException {
 
-        if ( this.fElementDeclTab.containsKey( (String) elementName) ) {
+        if ( this.fElementDeclTab.containsKey( elementName) ) {
             //if ElementDecl has already being created in the Grammar then remove from table,
             //this.fElementDeclTab.remove( (String) elementName );
         }
@@ -585,7 +593,7 @@ public class DTDGrammar
 
         //Get Grammar index to grammar array
         int elementIndex       = getElementDeclIndex(elementName);
-        
+
         //return, when more than one definition is provided for the same attribute of given element type
         //only the first declaration is binding and later declarations are ignored
         if (getAttributeDeclIndex(elementIndex, attributeName) != -1) {
@@ -678,6 +686,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void internalEntityDecl(String name, XMLString text,
                                    XMLString nonNormalizedText,
                                    Augmentations augs) throws XNIException {
@@ -708,6 +717,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void externalEntityDecl(String name,
                                    XMLResourceIdentifier identifier,
                                    Augmentations augs) throws XNIException {
@@ -738,6 +748,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void unparsedEntityDecl(String name, XMLResourceIdentifier identifier,
                                    String notation,
                                    Augmentations augs) throws XNIException {
@@ -767,6 +778,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void notationDecl(String name, XMLResourceIdentifier identifier,
                              Augmentations augs) throws XNIException {
 
@@ -788,6 +800,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endDTD(Augmentations augs) throws XNIException {
         fIsImmutable = true;
         // make sure our description contains useful stuff...
@@ -808,11 +821,13 @@ public class DTDGrammar
     } // endDTD()
 
     // sets the source of this handler
+    @Override
     public void setDTDSource(XMLDTDSource source) {
         fDTDSource = source;
     } // setDTDSource(XMLDTDSource)
 
     // returns the source of this handler
+    @Override
     public XMLDTDSource getDTDSource() {
         return fDTDSource;
     } // getDTDSource():  XMLDTDSource
@@ -833,6 +848,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void textDecl(String version, String encoding, Augmentations augs)
         throws XNIException {}
 
@@ -844,6 +860,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by application to signal an error.
      */
+    @Override
     public void comment(XMLString text, Augmentations augs) throws XNIException {}
 
     /**
@@ -863,6 +880,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void processingInstruction(String target, XMLString data,
                                       Augmentations augs) throws XNIException {}
 
@@ -875,6 +893,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startAttlist(String elementName, Augmentations augs)
         throws XNIException {}
 
@@ -884,6 +903,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endAttlist(Augmentations augs) throws XNIException {}
 
     /**
@@ -898,6 +918,7 @@ public class DTDGrammar
      * @see XMLDTDHandler#CONDITIONAL_INCLUDE
      * @see XMLDTDHandler#CONDITIONAL_IGNORE
      */
+    @Override
     public void startConditional(short type, Augmentations augs)
         throws XNIException {}
 
@@ -908,6 +929,7 @@ public class DTDGrammar
      * @param augs Additional information that may include infoset
      *                      augmentations.
      */
+    @Override
     public void ignoredCharacters(XMLString text, Augmentations augs)
         throws XNIException {}
 
@@ -917,6 +939,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endConditional(Augmentations augs) throws XNIException {}
 
     //
@@ -924,11 +947,13 @@ public class DTDGrammar
     //
 
     // set content model source
+    @Override
     public void setDTDContentModelSource(XMLDTDContentModelSource source) {
         fDTDContentModelSource = source;
     }
 
     // get content model source
+    @Override
     public XMLDTDContentModelSource getDTDContentModelSource() {
         return fDTDContentModelSource;
     }
@@ -943,6 +968,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startContentModel(String elementName, Augmentations augs)
         throws XNIException {
 
@@ -968,6 +994,7 @@ public class DTDGrammar
      * @see #any
      * @see #empty
      */
+    @Override
     public void startGroup(Augmentations augs) throws XNIException {
         fDepth++;
         initializeContentModelStack();
@@ -986,6 +1013,7 @@ public class DTDGrammar
      *
      * @see #startGroup
      */
+    @Override
     public void pcdata(Augmentations augs) throws XNIException {
         fMixed = true;
     } // pcdata()
@@ -999,6 +1027,7 @@ public class DTDGrammar
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void element(String elementName, Augmentations augs) throws XNIException {
         if (fMixed) {
             if (fNodeIndexStack[fDepth] == -1 ) {
@@ -1027,6 +1056,7 @@ public class DTDGrammar
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#SEPARATOR_CHOICE
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#SEPARATOR_SEQUENCE
      */
+    @Override
     public void separator(short separator, Augmentations augs) throws XNIException {
 
         if (!fMixed) {
@@ -1061,6 +1091,7 @@ public class DTDGrammar
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#OCCURS_ZERO_OR_MORE
      * @see net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler#OCCURS_ONE_OR_MORE
      */
+    @Override
     public void occurrence(short occurrence, Augmentations augs) throws XNIException {
 
         if (!fMixed) {
@@ -1082,6 +1113,7 @@ public class DTDGrammar
      *                      augmentations.
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endGroup(Augmentations augs) throws XNIException {
 
         if (!fMixed) {
@@ -1106,6 +1138,7 @@ public class DTDGrammar
      * @see #empty
      * @see #startGroup
      */
+    @Override
     public void any(Augmentations augs) throws XNIException {}
 
     /**
@@ -1118,6 +1151,7 @@ public class DTDGrammar
      * @see #any
      * @see #startGroup
      */
+    @Override
     public void empty(Augmentations augs) throws XNIException {}
 
     /**
@@ -1127,6 +1161,7 @@ public class DTDGrammar
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endContentModel(Augmentations augs) throws XNIException {}
 
     //
@@ -1157,19 +1192,19 @@ public class DTDGrammar
     /**
      * Returns the next index of the element declaration following the
      * specified element declaration.
-     * 
+     *
      * @param elementDeclIndex The element declaration index.
      */
     public int getNextElementDeclIndex(int elementDeclIndex) {
-        return elementDeclIndex < fElementDeclCount - 1 
+        return elementDeclIndex < fElementDeclCount - 1
              ? elementDeclIndex + 1 : -1;
     } // getNextElementDeclIndex(int):int
 
     /**
      * getElementDeclIndex
-     * 
-     * @param elementDeclName 
-     * 
+     *
+     * @param elementDeclName
+     *
      * @return index of the elementDeclName in scope
      */
     public int getElementDeclIndex(String elementDeclName) {
@@ -1177,14 +1212,14 @@ public class DTDGrammar
         //System.out.println("getElementDeclIndex("+elementDeclName+") -> "+mapping);
         return mapping;
     } // getElementDeclIndex(String):int
-   
+
     /** Returns the element decl index.
      * @param elementDeclQName qualilfied name of the element
      */
     public int getElementDeclIndex(QName elementDeclQName) {
         return getElementDeclIndex(elementDeclQName.rawname);
     } // getElementDeclIndex(QName):int
-   
+
         /** make separate function for getting contentSpecType of element.
       * we can avoid setting of the element values.
         */
@@ -1196,7 +1231,7 @@ public class DTDGrammar
 
         int chunk = elementIndex >> CHUNK_SHIFT;
         int index = elementIndex &  CHUNK_MASK;
-            
+
         if(fElementDeclType[chunk][index] == -1){
             return -1 ;
                 }
@@ -1208,13 +1243,13 @@ public class DTDGrammar
 
     /**
      * getElementDecl
-     * 
-     * @param elementDeclIndex 
+     *
+     * @param elementDeclIndex
      * @param elementDecl The values of this structure are set by this call.
-     * 
-     * @return True if find the element, False otherwise. 
+     *
+     * @return True if find the element, False otherwise.
      */
-    public boolean getElementDecl(int elementDeclIndex, 
+    public boolean getElementDecl(int elementDeclIndex,
                                   XMLElementDecl elementDecl) {
 
         if (elementDeclIndex < 0 || elementDeclIndex >= fElementDeclCount) {
@@ -1238,7 +1273,7 @@ public class DTDGrammar
         if (elementDecl.type == XMLElementDecl.TYPE_CHILDREN || elementDecl.type == XMLElementDecl.TYPE_MIXED) {
             elementDecl.contentModelValidator = getElementContentModelValidator(elementDeclIndex);
         }
-              
+
         elementDecl.simpleType.datatypeValidator = null;
         elementDecl.simpleType.defaultType       = -1;
         elementDecl.simpleType.defaultValue      = null;
@@ -1246,7 +1281,7 @@ public class DTDGrammar
         return true;
 
     } // getElementDecl(int,XMLElementDecl):boolean
-    
+
     QName getElementDeclName(int elementDeclIndex) {
         if (elementDeclIndex < 0 || elementDeclIndex >= fElementDeclCount) {
             return null;
@@ -1260,9 +1295,9 @@ public class DTDGrammar
 
     /**
      * getFirstAttributeDeclIndex
-     * 
-     * @param elementDeclIndex 
-     * 
+     *
+     * @param elementDeclIndex
+     *
      * @return index of the first attribute for element declaration elementDeclIndex
      */
     public int getFirstAttributeDeclIndex(int elementDeclIndex) {
@@ -1274,9 +1309,9 @@ public class DTDGrammar
 
     /**
      * getNextAttributeDeclIndex
-     * 
-     * @param attributeDeclIndex 
-     * 
+     *
+     * @param attributeDeclIndex
+     *
      * @return index of the next attribute of the attribute at attributeDeclIndex
      */
     public int getNextAttributeDeclIndex(int attributeDeclIndex) {
@@ -1288,10 +1323,10 @@ public class DTDGrammar
 
     /**
      * getAttributeDecl
-     * 
-     * @param attributeDeclIndex 
+     *
+     * @param attributeDeclIndex
      * @param attributeDecl The values of this structure are set by this call.
-     * 
+     *
      * @return true if getAttributeDecl was able to fill in the value of attributeDecl
      */
     public boolean getAttributeDecl(int attributeDeclIndex, XMLAttributeDecl attributeDecl) {
@@ -1317,8 +1352,8 @@ public class DTDGrammar
         attributeDecl.simpleType.setValues(attributeType,fAttributeDeclName[chunk][index].localpart,
                                            fAttributeDeclEnumeration[chunk][index],
                                            isList, fAttributeDeclDefaultType[chunk][index],
-                                           fAttributeDeclDefaultValue[chunk][index], 
-                                           fAttributeDeclNonNormalizedDefaultValue[chunk][index], 
+                                           fAttributeDeclDefaultValue[chunk][index],
+                                           fAttributeDeclNonNormalizedDefaultValue[chunk][index],
                                            fAttributeDeclDatatypeValidator[chunk][index]);
         return true;
 
@@ -1344,9 +1379,9 @@ public class DTDGrammar
 
     /**
      * getEntityDeclIndex
-     * 
-     * @param entityDeclName 
-     * 
+     *
+     * @param entityDeclName
+     *
      * @return the index of the EntityDecl
      */
     public int getEntityDeclIndex(String entityDeclName) {
@@ -1359,10 +1394,10 @@ public class DTDGrammar
 
     /**
      * getEntityDecl
-     * 
-     * @param entityDeclIndex 
-     * @param entityDecl 
-     * 
+     *
+     * @param entityDeclIndex
+     * @param entityDecl
+     *
      * @return true if getEntityDecl was able to fill entityDecl with the contents of the entity
      * with index entityDeclIndex
      */
@@ -1387,9 +1422,9 @@ public class DTDGrammar
 
     /**
      * getNotationDeclIndex
-     * 
-     * @param notationDeclName 
-     * 
+     *
+     * @param notationDeclName
+     *
      * @return the index if found a notation with the name, otherwise -1.
      */
     public int getNotationDeclIndex(String notationDeclName) {
@@ -1402,11 +1437,11 @@ public class DTDGrammar
 
     /**
      * getNotationDecl
-     * 
-     * @param notationDeclIndex 
-     * @param notationDecl 
-     * 
-     * @return return true of getNotationDecl can fill notationDecl with information about 
+     *
+     * @param notationDeclIndex
+     * @param notationDecl
+     *
+     * @return return true of getNotationDecl can fill notationDecl with information about
      * the notation at notationDeclIndex.
      */
     public boolean getNotationDecl(int notationDeclIndex, XMLNotationDecl notationDecl) {
@@ -1416,7 +1451,7 @@ public class DTDGrammar
         int chunk = notationDeclIndex >> CHUNK_SHIFT;
         int index = notationDeclIndex & CHUNK_MASK;
 
-        notationDecl.setValues(fNotationName[chunk][index], 
+        notationDecl.setValues(fNotationName[chunk][index],
                                fNotationPublicId[chunk][index],
                                fNotationSystemId[chunk][index],
                                fNotationBaseSystemId[chunk][index]);
@@ -1427,10 +1462,10 @@ public class DTDGrammar
 
     /**
      * getContentSpec
-     * 
-     * @param contentSpecIndex 
+     *
+     * @param contentSpecIndex
      * @param contentSpec
-     * 
+     *
      * @return true if find the requested contentSpec node, false otherwise
      */
     public boolean getContentSpec(int contentSpecIndex, XMLContentSpec contentSpec) {
@@ -1445,9 +1480,9 @@ public class DTDGrammar
         contentSpec.otherValue = fContentSpecOtherValue[chunk][index];
         return true;
     }
-    
+
     /**
-     * Returns the index to the content spec for the given element 
+     * Returns the index to the content spec for the given element
      * declaration, or <code>-1</code> if the element declaration
      * index was invalid.
      */
@@ -1511,11 +1546,11 @@ public class DTDGrammar
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE  ||
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE ) {
                         str.append('(' );
-                        appendContentSpec(contentSpec, str, 
+                        appendContentSpec(contentSpec, str,
                                           true, parentContentSpecType );
                         str.append(')');
                     } else {
-                        appendContentSpec(contentSpec, str, 
+                        appendContentSpec(contentSpec, str,
                                           true, parentContentSpecType );
                     }
                     str.append('?');
@@ -1537,7 +1572,7 @@ public class DTDGrammar
                             str.append("##any");
                         }
                         else {
-                            appendContentSpec(contentSpec, str, 
+                            appendContentSpec(contentSpec, str,
                                               true, parentContentSpecType );
                         }
                         str.append(')');
@@ -1545,11 +1580,11 @@ public class DTDGrammar
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE  ||
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE ) {
                         str.append('(' );
-                        appendContentSpec(contentSpec, str, 
+                        appendContentSpec(contentSpec, str,
                                           true, parentContentSpecType );
                         str.append(')');
                     } else {
-                        appendContentSpec(contentSpec, str, 
+                        appendContentSpec(contentSpec, str,
                                           true, parentContentSpecType );
                     }
                     str.append('*');
@@ -1578,7 +1613,7 @@ public class DTDGrammar
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE  ||
                         nextContentSpec == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE ) {
                         str.append('(' );
-                        appendContentSpec(contentSpec, str, 
+                        appendContentSpec(contentSpec, str,
                                           true, parentContentSpecType );
                         str.append(')');
                     } else {
@@ -1590,7 +1625,7 @@ public class DTDGrammar
                 }
                 case XMLContentSpec.CONTENTSPECNODE_CHOICE:
                 case XMLContentSpec.CONTENTSPECNODE_SEQ: {
-                    appendContentSpec(contentSpec, str, 
+                    appendContentSpec(contentSpec, str,
                                       true, parentContentSpecType );
                     break;
                 }
@@ -1659,7 +1694,7 @@ public class DTDGrammar
     //
     // Protected methods
     //
-    
+
     /**
      * Adds the content spec to the given element declaration.
      */
@@ -1682,9 +1717,9 @@ public class DTDGrammar
 
     /**
      * getElementContentModelValidator
-     * 
-     * @param elementDeclIndex 
-     * 
+     *
+     * @param elementDeclIndex
+     *
      * @return its ContentModelValidator if any.
      */
     protected ContentModelValidator getElementContentModelValidator(int elementDeclIndex) {
@@ -1705,7 +1740,7 @@ public class DTDGrammar
         }
 
         // Get the type of content this element has
-        int contentSpecIndex = fElementDeclContentSpecIndex[chunk][index]; 
+        int contentSpecIndex = fElementDeclContentSpecIndex[chunk][index];
 
         /***
         if ( contentSpecIndex == -1 )
@@ -1725,7 +1760,7 @@ public class DTDGrammar
             contentSpecTree(contentSpecIndex, contentSpec, children);
             contentModel = new MixedContentModel(children.qname,
                                                  children.type,
-                                                 0, children.length, 
+                                                 0, children.length,
                                                  false);
         } else if (contentType == XMLElementDecl.TYPE_CHILDREN) {
             //  This method will create an optimal model for the complexity
@@ -1751,8 +1786,8 @@ public class DTDGrammar
       int chunk = fElementDeclCount >> CHUNK_SHIFT;
       int index = fElementDeclCount & CHUNK_MASK;
       ensureElementDeclCapacity(chunk);
-      fElementDeclName[chunk][index]                    = new QName(); 
-      fElementDeclType[chunk][index]                    = -1;  
+      fElementDeclName[chunk][index]                    = new QName();
+      fElementDeclType[chunk][index]                    = -1;
       fElementDeclContentModelValidator[chunk][index]   = null;
       fElementDeclFirstAttributeDeclIndex[chunk][index] = -1;
       fElementDeclLastAttributeDeclIndex[chunk][index]  = -1;
@@ -1767,11 +1802,11 @@ public class DTDGrammar
       int     index       = elementDeclIndex &  CHUNK_MASK;
 
       fElementDeclName[chunk][index].setValues(elementDecl.name);
-      fElementDeclType[chunk][index]                  = elementDecl.type; 
+      fElementDeclType[chunk][index]                  = elementDecl.type;
 
       fElementDeclContentModelValidator[chunk][index] = elementDecl.contentModelValidator;
-         
-      if (elementDecl.simpleType.list  == true ) {
+
+      if (elementDecl.simpleType.list ) {
          fElementDeclType[chunk][index] |= LIST_FLAG;
       }
 
@@ -1796,7 +1831,7 @@ public class DTDGrammar
 
       fElementDeclFirstAttributeDeclIndex[chunk][index] = newFirstAttrIndex;
    }
-   
+
    protected void setContentSpecIndex(int elementDeclIndex, int contentSpecIndex){
 
       if (elementDeclIndex < 0 || elementDeclIndex >= fElementDeclCount) {
@@ -1830,7 +1865,7 @@ public class DTDGrammar
    protected void setAttributeDecl(int elementDeclIndex, int attributeDeclIndex,
                                    XMLAttributeDecl attributeDecl) {
       int attrChunk = attributeDeclIndex >> CHUNK_SHIFT;
-      int attrIndex = attributeDeclIndex &  CHUNK_MASK; 
+      int attrIndex = attributeDeclIndex &  CHUNK_MASK;
       fAttributeDeclName[attrChunk][attrIndex].setValues(attributeDecl.name);
       fAttributeDeclType[attrChunk][attrIndex]  =  attributeDecl.simpleType.type;
 
@@ -1916,7 +1951,7 @@ public class DTDGrammar
 
        fEntityIndexMap.put(entityDecl.name, entityDeclIndex);
    }
-   
+
    protected int createNotationDecl() {
        int chunk = fNotationCount >> CHUNK_SHIFT;
        ensureNotationDeclCapacity(chunk);
@@ -2037,7 +2072,7 @@ public class DTDGrammar
     // Private methods
     //
 
-    private void appendContentSpec(XMLContentSpec contentSpec, 
+    private void appendContentSpec(XMLContentSpec contentSpec,
                                    StringBuffer str, boolean parens,
                                    int parentContentSpecType ) {
 
@@ -2066,7 +2101,7 @@ public class DTDGrammar
                     str.append('(');
                     appendContentSpec(contentSpec, str, true, thisContentSpec );
                     str.append(')');
-                } 
+                }
                 else {
                     getContentSpec(((int[])contentSpec.value)[0], contentSpec);
                     appendContentSpec( contentSpec, str, true, thisContentSpec );
@@ -2082,7 +2117,7 @@ public class DTDGrammar
                     str.append('(');
                     appendContentSpec(contentSpec, str, true, thisContentSpec);
                     str.append(')' );
-                } 
+                }
                 else {
                     getContentSpec(((int[])contentSpec.value)[0], contentSpec);
                     appendContentSpec(contentSpec, str, true, thisContentSpec);
@@ -2177,7 +2212,7 @@ public class DTDGrammar
      * it creates the standard DFA style model.
      */
     private synchronized ContentModelValidator createChildModel(int contentSpecIndex) {
-        
+
         //
         //  Get the content spec node for the element we are working on.
         //  This will tell us what kind of node it is, which tells us what
@@ -2206,7 +2241,7 @@ public class DTDGrammar
             //  simple content model.
             //
 
-            fQName.setValues(null, (String)contentSpec.value, 
+            fQName.setValues(null, (String)contentSpec.value,
                               (String)contentSpec.value, (String)contentSpec.otherValue);
             return new SimpleContentModel(contentSpec.type, fQName, null);
         } else if ((contentSpec.type == XMLContentSpec.CONTENTSPECNODE_CHOICE)
@@ -2227,9 +2262,9 @@ public class DTDGrammar
                 //  Its a simple choice or sequence, so we can do a simple
                 //  content model for it.
                 //
-                fQName.setValues(null, (String)contentSpecLeft.value, 
+                fQName.setValues(null, (String)contentSpecLeft.value,
                                   (String)contentSpecLeft.value, (String)contentSpecLeft.otherValue);
-                fQName2.setValues(null, (String)contentSpecRight.value, 
+                fQName2.setValues(null, (String)contentSpecRight.value,
                                   (String)contentSpecRight.value, (String)contentSpecRight.otherValue);
                 return new SimpleContentModel(contentSpec.type, fQName, fQName2);
             }
@@ -2243,14 +2278,14 @@ public class DTDGrammar
             //
             XMLContentSpec contentSpecLeft = new XMLContentSpec();
             getContentSpec(((int[])contentSpec.value)[0], contentSpecLeft);
-    
+
             if (contentSpecLeft.type == XMLContentSpec.CONTENTSPECNODE_LEAF) {
                 //
                 //  It is, so we can create a simple content model here that
                 //  will check for this repetition. We pass -1 for the unused
                 //  right node.
                 //
-                fQName.setValues(null, (String)contentSpecLeft.value, 
+                fQName.setValues(null, (String)contentSpecLeft.value,
                                   (String)contentSpecLeft.value, (String)contentSpecLeft.otherValue);
                 return new SimpleContentModel(contentSpec.type, fQName, null);
             }
@@ -2274,7 +2309,7 @@ public class DTDGrammar
 
     } // createChildModel(int):ContentModelValidator
 
-    private final CMNode buildSyntaxTree(int startNode, 
+    private final CMNode buildSyntaxTree(int startNode,
                                          XMLContentSpec contentSpec) {
 
         // We will build a node at this level for the new tree
@@ -2301,10 +2336,10 @@ public class DTDGrammar
             //  storing it. This makes the positions zero based since we
             //  store first and then increment.
             //
-            fQName.setValues(null, (String)contentSpec.value, 
+            fQName.setValues(null, (String)contentSpec.value,
                               (String)contentSpec.value, (String)contentSpec.otherValue);
             nodeRet = new CMLeaf(fQName, fLeafCount++);
-        } 
+        }
         else {
             //
             //  Its not a leaf, so we have to recurse its left and maybe right
@@ -2322,15 +2357,15 @@ public class DTDGrammar
 
                 nodeRet = new CMBinOp( contentSpec.type, buildSyntaxTree(leftNode, contentSpec)
                                        , buildSyntaxTree(rightNode, contentSpec));
-            } 
+            }
             else if (contentSpec.type == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE) {
                 nodeRet = new CMUniOp( contentSpec.type, buildSyntaxTree(leftNode, contentSpec));
-            } 
+            }
             else if (contentSpec.type == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE
                   || contentSpec.type == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE
                   || contentSpec.type == XMLContentSpec.CONTENTSPECNODE_ONE_OR_MORE) {
                 nodeRet = new CMUniOp(contentSpec.type, buildSyntaxTree(leftNode, contentSpec));
-            } 
+            }
             else {
                 throw new RuntimeException("ImplementationMessages.VAL_CST");
             }
@@ -2338,18 +2373,18 @@ public class DTDGrammar
         // And return our new node for this level
         return nodeRet;
     }
-   
+
     /**
      * Build a vector of valid QNames from Content Spec
      * table.
-     * 
+     *
      * @param contentSpecIndex
      *               Content Spec index
      * @param vectorQName
      *               Array of QName
      * @exception RuntimeException
      */
-    private void contentSpecTree(int contentSpecIndex, 
+    private void contentSpecTree(int contentSpecIndex,
                                  XMLContentSpec contentSpec,
                                  ChildrenList children) {
 
@@ -2371,8 +2406,8 @@ public class DTDGrammar
             }
 
             // save values and return length
-            children.qname[children.length] = new QName(null, (String)contentSpec.value, 
-                                                     (String) contentSpec.value, 
+            children.qname[children.length] = new QName(null, (String)contentSpec.value,
+                                                     (String) contentSpec.value,
                                                      (String) contentSpec.otherValue);
             children.type[children.length] = contentSpec.type;
             children.length++;
@@ -2383,12 +2418,12 @@ public class DTDGrammar
         //  Its not a leaf, so we have to recurse its left and maybe right
         //  nodes. Save both values before we recurse and trash the node.
         //
-        final int leftNode = contentSpec.value != null 
+        final int leftNode = contentSpec.value != null
                            ? ((int[])(contentSpec.value))[0] : -1;
         int rightNode = -1 ;
-        if (contentSpec.otherValue != null ) 
+        if (contentSpec.otherValue != null )
             rightNode = ((int[])(contentSpec.otherValue))[0];
-        else 
+        else
             return;
 
         if (contentSpec.type == XMLContentSpec.CONTENTSPECNODE_CHOICE ||
@@ -2467,7 +2502,7 @@ public class DTDGrammar
         fAttributeDeclNextAttributeDeclIndex[chunk] = new int[CHUNK_SIZE];
         return;
     }
-   
+
     private void ensureEntityDeclCapacity(int chunk) {
         if (chunk >= fEntityName.length) {
             fEntityName = resize(fEntityName, fEntityName.length * 2);
@@ -2493,7 +2528,7 @@ public class DTDGrammar
         fEntityInExternal[chunk] = new byte[CHUNK_SIZE];
         return;
     }
-      
+
     private void ensureNotationDeclCapacity(int chunk) {
         if (chunk >= fNotationName.length) {
             fNotationName = resize(fNotationName, fNotationName.length * 2);
@@ -2539,7 +2574,7 @@ public class DTDGrammar
         System.arraycopy(array, 0, newarray, 0, array.length);
         return newarray;
     }
-   
+
     private static short[][] resize(short[][] array, int newsize) {
         short[][] newarray = new short[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
@@ -2591,16 +2626,16 @@ public class DTDGrammar
     //
     // Classes
     //
-    
+
     /**
      * Children list for <code>contentSpecTree</code> method.
-     * 
+     *
      * @xerces.internal
      *
      * @author Eric Ye, IBM
      */
     private static class ChildrenList {
-       
+
         //
         // Data
         //
@@ -2617,11 +2652,11 @@ public class DTDGrammar
 
         /** Left and right children types. */
         public int[] type = new int[2];
-        
+
         //
         // Constructors
         //
-        
+
         public ChildrenList () {}
 
     } // class ChildrenList
@@ -2633,43 +2668,43 @@ public class DTDGrammar
     /**
      * A simple Hashtable implementation that takes a tuple (String, String)
      * as the key and a int as value.
-     * 
+     *
      * @xerces.internal
      *
      * @author Eric Ye, IBM
      * @author Andy Clark, IBM
      */
     protected static final class QNameHashtable {
-        
+
         /**
          * Fills an array with a random sequence of prime numbers.
-         * 
+         *
          * @xerces.internal
          */
         private static final class PrimeNumberSequenceGenerator {
-            
+
             private static final int [] PRIMES = {
-                3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,  59, 
-               61,  67,  71,  73,  79,  83,  89,  97, 101, 103, 107, 109, 113, 127, 131, 137, 
-              139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 
-              229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 
-              317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 
-              421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 
-              521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 
+                3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,  59,
+               61,  67,  71,  73,  79,  83,  89,  97, 101, 103, 107, 109, 113, 127, 131, 137,
+              139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227,
+              229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313,
+              317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419,
+              421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509,
+              521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617,
               619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727};
-            
+
             static void generateSequence(int[] arrayToFill) {
                 Random r = new Random();
                 for (int i = 0; i < arrayToFill.length; ++i) {
                     arrayToFill[i] = PRIMES[r.nextInt(PRIMES.length)];
-                }  
+                }
             }
         }
-    
+
         //
         // Constants
         //
-    
+
         /** Initial bucket size (4). */
         private static final int INITIAL_BUCKET_SIZE = 4;
 
@@ -2677,10 +2712,10 @@ public class DTDGrammar
         //       that we get a better distribution for hashing. -Ac
         /** Hashtable size (101). */
         private static final int HASHTABLE_SIZE = 101;
-        
+
         /** Maximum hash collisions per bucket for a table with load factor == 1. */
         private static final int MAX_HASH_COLLISIONS = 40;
-        
+
         private static final int MULTIPLIERS_SIZE = 1 << 5;
         private static final int MULTIPLIERS_MASK = MULTIPLIERS_SIZE - 1;
 
@@ -2688,13 +2723,13 @@ public class DTDGrammar
         // Data
         //
         private Object[][] fHashTable = new Object[HASHTABLE_SIZE][];
-        
+
         /** actual table size **/
         private int fTableSize = HASHTABLE_SIZE;
 
         /** The total number of entries in the hash table. */
         private int fCount = 0;
-        
+
         /**
          * Array of randomly selected hash function multipliers or <code>null</code>
          * if the default String.hashCode() function should be used.
@@ -2783,14 +2818,14 @@ public class DTDGrammar
             return -1;
 
         } // get(int,String,String)
-        
+
         public int hash(String symbol) {
             if (fHashMultipliers == null) {
                 return symbol.hashCode();
             }
             return hash0(symbol);
         } // hash(String):int
-        
+
         private int hash0(String symbol) {
             int code = 0;
             final int length = symbol.length();
@@ -2800,11 +2835,11 @@ public class DTDGrammar
             }
             return code;
         } // hash0(String):int
-        
+
         private void rehash() {
             rehashCommon(fHashTable.length * 2 + 1);
         } // rehash()
-        
+
         private void rebalance() {
             if (fHashMultipliers == null) {
                 fHashMultipliers = new int[MULTIPLIERS_SIZE];
@@ -2812,17 +2847,17 @@ public class DTDGrammar
             PrimeNumberSequenceGenerator.generateSequence(fHashMultipliers);
             rehashCommon(fHashTable.length);
         } // rebalance()
-        
+
         private void rehashCommon(final int newCapacity) {
-            
+
             final int oldCapacity = fHashTable.length;
             final Object[][] oldTable = fHashTable;
 
             final Object[][] newTable = new Object[newCapacity][];
-            
+
             fHashTable = newTable;
             fTableSize = fHashTable.length;
-            
+
             for (int i = 0; i < oldCapacity; ++i) {
                 final Object[] oldBucket = oldTable[i];
                 if (oldBucket != null) {
@@ -2832,10 +2867,10 @@ public class DTDGrammar
                     for (int j = 0; j < oldCount; ++j) {
                         final String key = (String) oldBucket[k];
                         final Object value = oldBucket[k+1];
-                        
+
                         final int hash = (hash(key) & 0x7FFFFFFF) % fTableSize;
                         Object[] bucket = fHashTable[hash];
-                        
+
                         if (bucket == null) {
                             if (oldBucketReused) {
                                 bucket = new Object[1 + 2*INITIAL_BUCKET_SIZE];
@@ -2866,9 +2901,9 @@ public class DTDGrammar
                         }
                         k += 2;
                     }
-                } 
+                }
             }
-            
+
         } // rehashCommon(int)
 
     }  // class QNameHashtable
@@ -2876,10 +2911,12 @@ public class DTDGrammar
     //
     // EntityState methods
     //
+    @Override
     public boolean isEntityDeclared (String name){
         return (getEntityDeclIndex(name)!=-1)?true:false;
     }
 
+    @Override
     public boolean isEntityUnparsed (String name){
         int entityIndex = getEntityDeclIndex(name);
         if (entityIndex >-1) {
@@ -2888,6 +2925,6 @@ public class DTDGrammar
             //for unparsed entity notation!=null
             return (fEntityNotation[chunk][index]!=null)?true:false;
         }
-        return false; 
+        return false;
     }
 } // class DTDGrammar

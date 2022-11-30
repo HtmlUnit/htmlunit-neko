@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 /**
  * This allows the validator to correctlyhandle XML 1.1
  * documents.
- * 
+ *
  * @xerces.internal
  *
  * @author Neil Graham
@@ -51,6 +51,7 @@ public class XML11DTDValidator extends XMLDTDValidator {
     // overridden so that this class has access to the same
     // grammarBucket as the corresponding DTDProcessor
     // will try and use...
+    @Override
     public void reset(XMLComponentManager manager) {
         XMLDTDValidator curr = null;
         if((curr = (XMLDTDValidator)manager.getProperty(DTD_VALIDATOR_PROPERTY)) != null &&
@@ -60,6 +61,7 @@ public class XML11DTDValidator extends XMLDTDValidator {
         super.reset(manager);
     } //reset(XMLComponentManager)
 
+    @Override
     protected void init() {
         if(fValidation || fDynamicValidation) {
             super.init();

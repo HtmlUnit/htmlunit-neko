@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -87,7 +87,7 @@ import net.sourceforge.htmlunit.xerces.util.IntStack;
  *       but entire string matching.
  *
  * </dl>
- * 
+ *
  * <hr width="50%">
  * <h3>Syntax</h3>
  * <table border="1" bgcolor="#ddeeff">
@@ -201,7 +201,7 @@ import net.sourceforge.htmlunit.xerces.util.IntStack;
  *       <dt class="REGEX"><kbd>[</kbd><var>R<sub>1</sub>R<sub>2</sub>...</var><kbd>-[</kbd><var>R<sub>n</sub>R<sub>n+1</sub>...</var><kbd>]]</kbd> (with an <a href="#X_OPTION">"X" option</a>)</dt>
  *       <dd>Character class subtraction for the XML Schema.
  *           You can use this syntax when you specify an <a href="#X_OPTION">"X" option</a>.
- *           
+ *
  *       <dt class="REGEX"><kbd>\d</kbd>
  *       <dd class="REGEX">Equivalent to <kbd>[0-9]</kbd>.
  *       <dd>When <a href="#U_OPTION">a "u" option</a> is set, it is equivalent to
@@ -320,7 +320,7 @@ import net.sourceforge.htmlunit.xerces.util.IntStack;
  * after <code><a href="#matches(java.lang.String, net.sourceforge.htmlunit.xerces.utils.regex.Match)">matches(String,Match)</a></code>.
  * The 0th group means whole of this regular expression.
  * The <VAR>N</VAR>th gorup is the inside of the <VAR>N</VAR>th left parenthesis.
- * 
+ *
  *   <p>For instance, a regular expression is
  *   "<FONT color=blue><KBD> *([^&lt;:]*) +&lt;([^&gt;]*)&gt; *</KBD></FONT>"
  *   and target text is
@@ -479,14 +479,14 @@ import net.sourceforge.htmlunit.xerces.util.IntStack;
  * </ul>
  *
  * <hr width="50%">
- * 
+ *
  * @xerces.internal
  *
  * @author TAMURA Kent &lt;kent@trl.ibm.co.jp&gt;
  * @version $Id$
  */
 public class RegularExpression implements java.io.Serializable {
-    
+
     private static final long serialVersionUID = 6242499334195006401L;
 
     static final boolean DEBUG = false;
@@ -1009,7 +1009,7 @@ public class RegularExpression implements java.io.Serializable {
                 if (0 <= (matchEnd = this.match(con, this.operations,
                                                 matchStart, 1, this.options))) {
                         break;
-                }                
+                }
             }
         }
 
@@ -1053,7 +1053,7 @@ public class RegularExpression implements java.io.Serializable {
                     retValue = isSet(opts, XMLSCHEMA_MODE) && offset != con.limit ? -1 : offset;
                 }
                 else {
-                   retValue = -1; 
+                   retValue = -1;
                 }
                 returned = true;
             }
@@ -1194,7 +1194,7 @@ public class RegularExpression implements java.io.Serializable {
                             returned = true;
                             break;
                         }
-                        
+
                         con.closureContexts[id].addOffset(offset);
                     }
                     // fall through
@@ -1374,7 +1374,7 @@ public class RegularExpression implements java.io.Serializable {
                         }
                     }
                     break;
-                    
+
                 case Op.LOOKAHEAD:
                 case Op.LOOKBEHIND:
                     {
@@ -1490,7 +1490,7 @@ public class RegularExpression implements java.io.Serializable {
             break;
 
         case 'b':
-            if (con.length == 0) 
+            if (con.length == 0)
                 return false;
             {
                 int after = getWordType(target, con.start, con.limit, offset, opts);
@@ -1512,8 +1512,7 @@ public class RegularExpression implements java.io.Serializable {
             break;
 
         case '<':
-            if (con.length == 0 || offset == con.limit)  return false;
-            if (getWordType(target, con.start, con.limit, offset, opts) != WT_LETTER
+            if (con.length == 0 || offset == con.limit || getWordType(target, con.start, con.limit, offset, opts) != WT_LETTER
                 || getPreviousWordType(target, con.start, con.limit, offset, opts) != WT_OTHER)
                 return false;
             break;
@@ -1525,7 +1524,7 @@ public class RegularExpression implements java.io.Serializable {
                 return false;
             break;
         } // switch anchor type
-        
+
         return true;
     }
 
@@ -1750,23 +1749,25 @@ public class RegularExpression implements java.io.Serializable {
         abstract boolean regionMatches(boolean ignoreCase, int offset, int limit, String part, int partlen);
         abstract boolean regionMatches(boolean ignoreCase, int offset, int limit, int offset2, int partlen);
     }
-    
+
     static final class StringTarget extends ExpressionTarget {
-        
+
         private String target;
-        
+
         StringTarget(String target) {
             this.target = target;
         }
-        
+
         final void resetTarget(String target) {
             this.target = target;
         }
-        
+
+        @Override
         final char charAt(int index) {
             return target.charAt(index);
         }
-        
+
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit,
                               String part, int partlen) {
             if (limit-offset < partlen) {
@@ -1775,6 +1776,7 @@ public class RegularExpression implements java.io.Serializable {
             return (ignoreCase) ? target.regionMatches(true, offset, part, 0, partlen) : target.regionMatches(offset, part, 0, partlen);
         }
 
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit,
                                     int offset2, int partlen) {
             if (limit-offset < partlen) {
@@ -1784,23 +1786,25 @@ public class RegularExpression implements java.io.Serializable {
                                 : target.regionMatches(offset, target, offset2, partlen);
         }
     }
-    
+
     static final class CharArrayTarget extends ExpressionTarget {
-        
+
         char[] target;
-        
+
         CharArrayTarget(char[] target) {
-            this.target = target; 
+            this.target = target;
         }
 
         final void resetTarget(char[] target) {
             this.target = target;
         }
 
+        @Override
         char charAt(int index) {
             return target[index];
         }
-        
+
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit,
                 String part, int partlen) {
             if (offset < 0 || limit-offset < partlen)  {
@@ -1840,6 +1844,7 @@ public class RegularExpression implements java.io.Serializable {
             return true;
         }
 
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit, int offset2, int partlen) {
             if (offset < 0 || limit-offset < partlen) {
                 return false;
@@ -1880,19 +1885,21 @@ public class RegularExpression implements java.io.Serializable {
 
     static final class CharacterIteratorTarget extends ExpressionTarget {
         CharacterIterator target;
-        
+
         CharacterIteratorTarget(CharacterIterator target) {
-            this.target = target; 
+            this.target = target;
         }
 
         final void resetTarget(CharacterIterator target) {
             this.target = target;
         }
 
+        @Override
         final char charAt(int index) {
             return target.setIndex(index);
         }
 
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit,
                 String part, int partlen) {
             if (offset < 0 || limit-offset < partlen)  {
@@ -1901,7 +1908,7 @@ public class RegularExpression implements java.io.Serializable {
             return (ignoreCase) ? regionMatchesIgnoreCase(offset, limit, part, partlen)
                                 : regionMatches(offset, limit, part, partlen);
         }
-        
+
         private final boolean regionMatches(int offset, int limit, String part, int partlen) {
             int i = 0;
             while (partlen-- > 0) {
@@ -1911,7 +1918,7 @@ public class RegularExpression implements java.io.Serializable {
             }
             return true;
         }
-        
+
         private final boolean regionMatchesIgnoreCase(int offset, int limit, String part, int partlen) {
             int i = 0;
             while (partlen-- > 0) {
@@ -1932,6 +1939,7 @@ public class RegularExpression implements java.io.Serializable {
             return true;
         }
 
+        @Override
         final boolean regionMatches(boolean ignoreCase, int offset, int limit, int offset2, int partlen) {
             if (offset < 0 || limit-offset < partlen) {
                 return false;
@@ -1972,10 +1980,10 @@ public class RegularExpression implements java.io.Serializable {
     }
 
     static final class ClosureContext {
-        
+
         int[] offsets = new int[4];
         int currentIndex = 0;
-        
+
         boolean contains(int offset) {
             for (int i=0; i<currentIndex;++i) {
                 if (offsets[i] == offset) {
@@ -1984,7 +1992,7 @@ public class RegularExpression implements java.io.Serializable {
             }
             return false;
         }
-        
+
         void reset() {
             currentIndex = 0;
         }
@@ -1996,17 +2004,17 @@ public class RegularExpression implements java.io.Serializable {
             }
             offsets[currentIndex++] = offset;
         }
-        
+
         private int[] expandOffsets() {
             final int len = offsets.length;
             final int newLen = len << 1;
             int[] newOffsets = new int[newLen];
-            
+
             System.arraycopy(offsets, 0, newOffsets, 0, currentIndex);
             return newOffsets;
         }
     }
-    
+
     static final class Context {
         int start;
         int limit;
@@ -2014,8 +2022,8 @@ public class RegularExpression implements java.io.Serializable {
         Match match;
         boolean inuse = false;
         ClosureContext[] closureContexts;
-        
-        private StringTarget stringTarget; 
+
+        private StringTarget stringTarget;
         private CharArrayTarget charArrayTarget;
         private CharacterIteratorTarget characterIteratorTarget;
 
@@ -2251,7 +2259,7 @@ public class RegularExpression implements java.io.Serializable {
     public RegularExpression(String regex, String options) throws ParseException {
         this.setPattern(regex, options);
     }
-    
+
     /**
      * Creates a new RegularExpression instance with options.
      *
@@ -2277,7 +2285,7 @@ public class RegularExpression implements java.io.Serializable {
     public void setPattern(String newPattern) throws ParseException {
         this.setPattern(newPattern, Locale.getDefault());
     }
-    
+
     public void setPattern(String newPattern, Locale locale) throws ParseException {
         this.setPattern(newPattern, this.options, locale);
     }
@@ -2300,7 +2308,7 @@ public class RegularExpression implements java.io.Serializable {
     public void setPattern(String newPattern, String options) throws ParseException {
         this.setPattern(newPattern, options, Locale.getDefault());
     }
-    
+
     public void setPattern(String newPattern, String options, Locale locale) throws ParseException {
         this.setPattern(newPattern, REUtil.parseOptions(options), locale);
     }
@@ -2315,6 +2323,7 @@ public class RegularExpression implements java.io.Serializable {
     /**
      * Represents this instence in String.
      */
+    @Override
     public String toString() {
         return this.tokentree.toString(this.options);
     }
@@ -2334,9 +2343,9 @@ public class RegularExpression implements java.io.Serializable {
     /**
      *  Return true if patterns are the same and the options are equivalent.
      */
+    @Override
     public boolean equals(Object obj) {
-        if (obj == null)  return false;
-        if (!(obj instanceof RegularExpression))
+        if ((obj == null) || !(obj instanceof RegularExpression))
             return false;
         RegularExpression r = (RegularExpression)obj;
         return this.regex.equals(r.regex) && this.options == r.options;
@@ -2349,6 +2358,7 @@ public class RegularExpression implements java.io.Serializable {
     /**
      *
      */
+    @Override
     public int hashCode() {
         return (this.regex+"/"+this.getOptions()).hashCode();
     }
@@ -2423,8 +2433,7 @@ public class RegularExpression implements java.io.Serializable {
 
     private static final boolean isWordChar(int ch) { // Legacy word characters
         if (ch == '_')  return true;
-        if (ch < '0')  return false;
-        if (ch > 'z')  return false;
+        if ((ch < '0') || (ch > 'z'))  return false;
         if (ch <= '9')  return true;
         if (ch < 'A')  return false;
         if (ch <= 'Z')  return true;

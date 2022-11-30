@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 /**
  * A simple ASCII byte reader. This is an optimized reader for reading
  * byte streams that only contain 7-bit ASCII characters.
- * 
+ *
  * @xerces.internal
  *
  * @author Andy Clark, IBM
@@ -66,8 +66,8 @@ public final class ASCIIReader
     // Constructors
     //
 
-    /** 
-     * Constructs an ASCII reader from the specified input stream 
+    /**
+     * Constructs an ASCII reader from the specified input stream
      * using the default buffer size.
      *
      * @param inputStream The input stream.
@@ -79,8 +79,8 @@ public final class ASCIIReader
         this(inputStream, DEFAULT_BUFFER_SIZE, messageFormatter, locale);
     } // <init>(InputStream, MessageFormatter, Locale)
 
-    /** 
-     * Constructs an ASCII reader from the specified input stream 
+    /**
+     * Constructs an ASCII reader from the specified input stream
      * and buffer size.
      *
      * @param inputStream The input stream.
@@ -92,8 +92,8 @@ public final class ASCIIReader
             MessageFormatter messageFormatter, Locale locale) {
         this(inputStream, new byte[size], messageFormatter, locale);
     } // <init>(InputStream, int, MessageFormatter, Locale)
-    
-    /** 
+
+    /**
      * Constructs an ASCII reader from the specified input stream and buffer.
      *
      * @param inputStream The input stream.
@@ -126,11 +126,12 @@ public final class ASCIIReader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read() throws IOException {
         int b0 = fInputStream.read();
         if (b0 >= 0x80) {
-            throw new MalformedByteSequenceException(fFormatter, 
-                fLocale, XMLMessageFormatter.XML_DOMAIN, 
+            throw new MalformedByteSequenceException(fFormatter,
+                fLocale, XMLMessageFormatter.XML_DOMAIN,
                 "InvalidASCII", new Object [] {Integer.toString(b0)});
         }
         return b0;
@@ -150,6 +151,7 @@ public final class ASCIIReader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read(char[] ch, int offset, int length) throws IOException {
         if (length > fBuffer.length) {
             length = fBuffer.length;
@@ -177,6 +179,7 @@ public final class ASCIIReader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public long skip(long n) throws IOException {
         return fInputStream.skip(n);
     } // skip(long):long
@@ -190,6 +193,7 @@ public final class ASCIIReader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public boolean ready() throws IOException {
         return false;
     } // ready()
@@ -197,6 +201,7 @@ public final class ASCIIReader
     /**
      * Tell whether this stream supports the mark() operation.
      */
+    @Override
     public boolean markSupported() {
         return fInputStream.markSupported();
     } // markSupported()
@@ -214,6 +219,7 @@ public final class ASCIIReader
      * @exception  IOException  If the stream does not support mark(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void mark(int readAheadLimit) throws IOException {
         fInputStream.mark(readAheadLimit);
     } // mark(int)
@@ -231,6 +237,7 @@ public final class ASCIIReader
      *                          or if the stream does not support reset(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
         fInputStream.reset();
     } // reset()
@@ -242,7 +249,8 @@ public final class ASCIIReader
      *
      * @exception  IOException  If an I/O error occurs
      */
-     public void close() throws IOException {
+     @Override
+    public void close() throws IOException {
          fInputStream.close();
      } // close()
 

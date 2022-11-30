@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * <li> After successfully validating an
  * instance, the validator should make any new grammars it has compiled
  * available to this object using the <code>cacheGrammars</code>
- * method; for ease of implementation it may make other Grammars it holds references to as well (i.e., 
+ * method; for ease of implementation it may make other Grammars it holds references to as well (i.e.,
  * it may return some grammars that were retrieved from the GrammarPool in earlier operations). </li> </ul> </p>
  *
  * @author Neil Graham, IBM
@@ -50,8 +50,8 @@ public interface XMLGrammarPool {
 
     /**
      * <p> retrieve the initial known set of grammars. this method is
-     * called by a validator before the validation starts. the application 
-     * can provide an initial set of grammars available to the current 
+     * called by a validator before the validation starts. the application
+     * can provide an initial set of grammars available to the current
      * validation attempt. </p>
      * @param grammarType the type of the grammar, from the
      *  <code>net.sourceforge.htmlunit.xerces.xni.grammars.Grammar</code> interface.
@@ -59,9 +59,9 @@ public interface XMLGrammarPool {
      */
     Grammar[] retrieveInitialGrammarSet(String grammarType);
 
-    /** 
+    /**
      * <p>return the final set of grammars that the validator ended up
-     * with.  
+     * with.
      * This method is called after the
      * validation finishes. The application may then choose to cache some
      * of the returned grammars. </p>
@@ -71,7 +71,7 @@ public interface XMLGrammarPool {
      */
     void cacheGrammars(String grammarType, Grammar[] grammars);
 
-    /** 
+    /**
      * <p> This method requests that the application retrieve a grammar
      * corresponding to the given GrammarIdentifier from its cache.
      * If it cannot do so it must return null; the parser will then

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@ import org.w3c.dom.Node;
 /**
  * ChildNode inherits from NodeImpl and adds the capability of being a child by
  * having references to its previous and next siblings.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @version $Id$
  */
@@ -36,11 +36,11 @@ public abstract class ChildNode
 
     /** Serialization version. */
     static final long serialVersionUID = -6112455738802414002L;
-    
+
     //
     // Data
     //
-    
+
     /** Previous sibling. */
     protected ChildNode previousSibling;
 
@@ -91,10 +91,11 @@ public abstract class ChildNode
      * is read-only, to permit applications using only the DOM API to obtain
      * editable copies of locked portions of the tree.
      */
+    @Override
     public Node cloneNode(boolean deep) {
 
         ChildNode newnode = (ChildNode) super.cloneNode(deep);
-        
+
         // Need to break the association w/ original kids
         newnode.previousSibling = null;
         newnode.nextSibling     = null;
@@ -107,6 +108,7 @@ public abstract class ChildNode
     /**
      * Returns the parent node of this node
      */
+    @Override
     public Node getParentNode() {
         // if we have an owner, ownerNode is our parent, otherwise it's
         // our ownerDocument and we don't have a parent
@@ -116,6 +118,7 @@ public abstract class ChildNode
     /*
      * same as above but returns internal type
      */
+    @Override
     final NodeImpl parentNode() {
         // if we have an owner, ownerNode is our parent, otherwise it's
         // our ownerDocument and we don't have a parent
@@ -123,11 +126,13 @@ public abstract class ChildNode
     }
 
     /** The next child of this node's parent, or null if none */
+    @Override
     public Node getNextSibling() {
         return nextSibling;
     }
 
     /** The previous child of this node's parent, or null if none */
+    @Override
     public Node getPreviousSibling() {
         // if we are the firstChild, previousSibling actually refers to our
         // parent's lastChild, but we hide that
@@ -137,6 +142,7 @@ public abstract class ChildNode
     /*
      * same as above but returns internal type
      */
+    @Override
     final ChildNode previousSibling() {
         // if we are the firstChild, previousSibling actually refers to our
         // parent's lastChild, but we hide that

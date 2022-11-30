@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
  * The XML representation for a NOTATION declaration
  * schema component is a global &lt;notation&gt; element information item
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Rahul Srivastava, Sun Microsystems Inc.
  * @version $Id$
@@ -46,14 +46,15 @@ public class XSNotationDecl implements XSNotationDeclaration {
 
     // optional annotation
     public XSObjectList fAnnotations = null;
-    
-    // The namespace schema information item corresponding to the target namespace 
+
+    // The namespace schema information item corresponding to the target namespace
     // of the notation declaration, if it is globally declared; or null otherwise.
     private XSNamespaceItem fNamespaceItem = null;
 
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.NOTATION_DECLARATION;
     }
@@ -62,6 +63,7 @@ public class XSNotationDecl implements XSNotationDeclaration {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return fName;
     }
@@ -71,6 +73,7 @@ public class XSNotationDecl implements XSNotationDeclaration {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return fTargetNamespace;
     }
@@ -78,14 +81,16 @@ public class XSNotationDecl implements XSNotationDeclaration {
     /**
      * Optional if {public identifier} is present. A URI reference.
      */
+    @Override
     public String getSystemId() {
         return fSystemId;
     }
 
     /**
      * Optional if {system identifier} is present. A public identifier,
-     * as defined in [XML 1.0 (Second Edition)]. 
+     * as defined in [XML 1.0 (Second Edition)].
      */
+    @Override
     public String getPublicId() {
         return fPublicId;
     }
@@ -93,6 +98,7 @@ public class XSNotationDecl implements XSNotationDeclaration {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -100,6 +106,7 @@ public class XSNotationDecl implements XSNotationDeclaration {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
@@ -107,6 +114,7 @@ public class XSNotationDecl implements XSNotationDeclaration {
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return fNamespaceItem;
     }

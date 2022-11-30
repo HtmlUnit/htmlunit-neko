@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 /**
  * An XMLLocator implementation used for schema error reporting.
  *
- * @xerces.internal 
- * 
+ * @xerces.internal
+ *
  * @author Sandy Gao, IBM
  * @version $Id$
  */
@@ -34,18 +34,18 @@ public final class SimpleLocator implements XMLLocator {
     private int line;
     private int column;
     private int charOffset;
-    
+
     public SimpleLocator() {
     }
-    
+
     public SimpleLocator(String lsid, String esid, int line, int column) {
         this(lsid, esid, line, column, -1);
     }
-    
+
     public void setValues(String lsid, String esid, int line, int column) {
         setValues(lsid, esid, line, column, -1);
     }
-    
+
     public SimpleLocator(String lsid, String esid, int line, int column, int offset) {
         this.line = line;
         this.column = column;
@@ -53,7 +53,7 @@ public final class SimpleLocator implements XMLLocator {
         this.esid = esid;
         charOffset = offset;
     }
-    
+
     public void setValues(String lsid, String esid, int line, int column, int offset) {
         this.line = line;
         this.column = column;
@@ -61,31 +61,38 @@ public final class SimpleLocator implements XMLLocator {
         this.esid = esid;
         charOffset = offset;
     }
-    
+
+    @Override
     public int getLineNumber() {
         return line;
     }
-    
+
+    @Override
     public int getColumnNumber() {
         return column;
     }
-    
+
+    @Override
     public int getCharacterOffset() {
         return charOffset;
     }
-    
+
+    @Override
     public String getPublicId() {
         return null;
     }
-    
+
+    @Override
     public String getExpandedSystemId() {
         return esid;
     }
-    
+
+    @Override
     public String getLiteralSystemId() {
         return lsid;
     }
-    
+
+    @Override
     public String getBaseSystemId() {
         return null;
     }
@@ -93,50 +100,52 @@ public final class SimpleLocator implements XMLLocator {
     public void setColumnNumber(int col) {
         this.column = col;
     }
-    
+
     public void setLineNumber(int line) {
         this.line = line;
     }
-    
+
     public void setCharacterOffset(int offset) {
         charOffset = offset;
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setBaseSystemId(String)
      */
     public void setBaseSystemId(String systemId) {}
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setExpandedSystemId(String)
      */
     public void setExpandedSystemId(String systemId) {
         esid = systemId;
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setLiteralSystemId(String)
      */
     public void setLiteralSystemId(String systemId) {
         lsid = systemId;
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setPublicId(String)
      */
     public void setPublicId(String publicId) {}
-    
-    /** 
-     * Returns the encoding of the current entity.  
+
+    /**
+     * Returns the encoding of the current entity.
      * Since these locators are used in the construction of
      * XMLParseExceptions, which know nothing about encodings, there is
-     * no point in having this object deal intelligently 
+     * no point in having this object deal intelligently
      * with encoding information.
      */
+    @Override
     public String getEncoding() {
         return null;
     }
-    
+
+    @Override
     public String getXMLVersion() {
         return null;
     }

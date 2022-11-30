@@ -50,6 +50,7 @@ public class NameNodeListImpl
      * need to resort to recursion. NOTE THAT only Element nodes are matched
      * since we're specifically supporting getElementsByTagName().
      */
+    @Override
     protected Node nextMatchingElementAfter(Node current) {
 
         Node next;

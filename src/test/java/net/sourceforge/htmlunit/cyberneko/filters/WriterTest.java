@@ -4,12 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
+import net.sourceforge.htmlunit.cyberneko.Writer;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * Unit tests for {@link Writer}.

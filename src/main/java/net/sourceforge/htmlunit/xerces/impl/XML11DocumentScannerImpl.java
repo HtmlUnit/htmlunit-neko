@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -83,6 +83,7 @@ public class XML11DocumentScannerImpl
      *
      * @return Returns the next character on the stream.
      */
+    @Override
     protected int scanContent() throws IOException, XNIException {
 
         XMLString content = fString;
@@ -135,23 +136,24 @@ public class XML11DocumentScannerImpl
     /**
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
-     * 
+     *
      * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
-     * @param nonNormalizedValue The XMLString to fill in with the 
+     * @param nonNormalizedValue The XMLString to fill in with the
      *                           non-normalized value.
      * @param atName The name of the attribute being parsed (for error msgs).
-     * @param checkEntities true if undeclared entities should be reported as VC violation,  
+     * @param checkEntities true if undeclared entities should be reported as VC violation,
      *                      false if undeclared entities should be reported as WFC violation.
      * @param eleName The name of element to which this attribute belongs.
      *
      * @return true if the non-normalized and normalized value are the same
-     * 
+     *
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      **/
-    protected boolean scanAttributeValue(XMLString value, 
+    @Override
+    protected boolean scanAttributeValue(XMLString value,
                                       XMLString nonNormalizedValue,
                                       String atName,
                                       boolean checkEntities,String eleName)
@@ -171,7 +173,7 @@ public class XML11DocumentScannerImpl
             System.out.println("** scanLiteral -> \""
                                + value.toString() + "\"");
         }
-        
+
         int fromIndex = 0;
         if (c == quote && (fromIndex = isUnchangedByNormalization(value)) == -1) {
             /** Both the non-normalized and normalized attribute values are equal. **/
@@ -376,12 +378,12 @@ public class XML11DocumentScannerImpl
     // XMLScanner methods
     //
     // NOTE:  this is a carbon copy of the code in XML11DTDScannerImpl;
-    // we need to override these methods in both places.  
+    // we need to override these methods in both places.
     // this needs to be refactored!!!  - NG
     /**
      * Scans public ID literal.
      *
-     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'" 
+     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
      * [13] PubidChar::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]
      *
      * The returned string is normalized according to the following rule,
@@ -397,6 +399,7 @@ public class XML11DocumentScannerImpl
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it at
      * the time of calling is lost.
      */
+    @Override
     protected boolean scanPubidLiteral(XMLString literal)
         throws IOException, XNIException
     {
@@ -444,11 +447,12 @@ public class XML11DocumentScannerImpl
         }
         return dataok;
    }
-   
+
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
+    @Override
     protected void normalizeWhitespace(XMLString value) {
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
@@ -458,11 +462,12 @@ public class XML11DocumentScannerImpl
            }
        }
     }
-    
+
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
+    @Override
     protected void normalizeWhitespace(XMLString value, int fromIndex) {
         int end = value.offset + value.length;
         for (int i = value.offset + fromIndex; i < end; ++i) {
@@ -472,14 +477,15 @@ public class XML11DocumentScannerImpl
             }
         }
     }
-    
+
     /**
      * Checks whether this string would be unchanged by normalization.
-     * 
+     *
      * @return -1 if the value would be unchanged by normalization,
      * otherwise the index of the first whitespace character which
      * would be transformed.
      */
+    @Override
     protected int isUnchangedByNormalization(XMLString value) {
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
@@ -494,53 +500,61 @@ public class XML11DocumentScannerImpl
     // returns true if the given character is not
     // valid with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isInvalid(int value) {
-        return (XML11Char.isXML11Invalid(value)); 
-    } // isInvalid(int):  boolean 
+        return (XML11Char.isXML11Invalid(value));
+    } // isInvalid(int):  boolean
 
     // returns true if the given character is not
-    // valid or may not be used outside a character reference 
+    // valid or may not be used outside a character reference
     // with respect to the version of XML understood by this scanner.
+    @Override
     protected boolean isInvalidLiteral(int value) {
-        return (!XML11Char.isXML11ValidLiteral(value)); 
+        return (!XML11Char.isXML11ValidLiteral(value));
     } // isInvalidLiteral(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameChar with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNameChar(int value) {
-        return (XML11Char.isXML11Name(value)); 
+        return (XML11Char.isXML11Name(value));
     } // isValidNameChar(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameStartChar with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNameStartChar(int value) {
-        return (XML11Char.isXML11NameStart(value)); 
+        return (XML11Char.isXML11NameStart(value));
     } // isValidNameStartChar(int):  boolean
-    
+
     // returns true if the given character is
     // a valid NCName character with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNCName(int value) {
         return (XML11Char.isXML11NCName(value));
     } // isValidNCName(int):  boolean
-    
-    // returns true if the given character is 
-    // a valid high surrogate for a nameStartChar 
-    // with respect to the version of XML understood 
+
+    // returns true if the given character is
+    // a valid high surrogate for a nameStartChar
+    // with respect to the version of XML understood
     // by this scanner.
+    @Override
     protected boolean isValidNameStartHighSurrogate(int value) {
-        return XML11Char.isXML11NameHighSurrogate(value); 
+        return XML11Char.isXML11NameHighSurrogate(value);
     } // isValidNameStartHighSurrogate(int):  boolean
 
+    @Override
     protected boolean versionSupported(String version) {
         return (version.equals("1.1") || version.equals("1.0"));
     } // versionSupported(String):  boolean
-    
+
     // returns the error message key for unsupported
     // versions of XML with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected String getVersionNotSupportedKey () {
         return "VersionNotSupported11";
     } // getVersionNotSupportedKey: String

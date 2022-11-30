@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * A parsing exception. This exception is different from the standard
  * XNI exception in that it stores the location in the document (or
  * its entities) where the exception occurred.
- * 
+ *
  * @author Andy Clark, IBM
  *
  * @version $Id$
@@ -34,7 +34,7 @@ public class XMLParseException
 
     /** Serialization version. */
     static final long serialVersionUID = 1732959359448549967L;
-    
+
     //
     // Data
     //
@@ -53,10 +53,10 @@ public class XMLParseException
 
     /** Line number. */
     protected int fLineNumber = -1;
-    
+
     /** Column number. */
     protected int fColumnNumber = -1;
-    
+
     /** Character offset. */
     protected int fCharacterOffset = -1;
 
@@ -126,7 +126,7 @@ public class XMLParseException
     public int getColumnNumber() {
         return fColumnNumber;
     } // getRowNumber():int
-    
+
     /** Returns the character offset. */
     public int getCharacterOffset() {
         return fCharacterOffset;
@@ -137,6 +137,7 @@ public class XMLParseException
     //
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
 
         StringBuilder str = new StringBuilder();

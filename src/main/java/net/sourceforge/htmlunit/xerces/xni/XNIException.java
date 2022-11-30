@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@ package net.sourceforge.htmlunit.xerces.xni;
  * can be constructed with an error message or used to wrap another
  * exception object.
  * <p>
- * <strong>Note:</strong> By extending the Java 
- * <code>RuntimeException</code>, XNI handlers and components are 
+ * <strong>Note:</strong> By extending the Java
+ * <code>RuntimeException</code>, XNI handlers and components are
  * not required to catch XNI exceptions but may explicitly catch
  * them, if so desired.
  *
@@ -31,12 +31,12 @@ package net.sourceforge.htmlunit.xerces.xni;
  *
  * @version $Id$
  */
-public class XNIException 
+public class XNIException
     extends RuntimeException {
 
     /** Serialization version. */
     static final long serialVersionUID = 9019819772686063775L;
-    
+
     //
     // Data
     //
@@ -49,7 +49,7 @@ public class XNIException
     //
 
     /**
-     * Constructs an XNI exception with a message. 
+     * Constructs an XNI exception with a message.
      *
      * @param message The exception message.
      */
@@ -58,7 +58,7 @@ public class XNIException
     } // <init>(String)
 
     /**
-     * Constructs an XNI exception with a wrapped exception. 
+     * Constructs an XNI exception with a wrapped exception.
      *
      * @param exception The wrapped exception.
      */
@@ -68,7 +68,7 @@ public class XNIException
     } // <init>(Exception)
 
     /**
-     * Constructs an XNI exception with a message and wrapped exception. 
+     * Constructs an XNI exception with a message and wrapped exception.
      *
      * @param message The exception message.
      * @param exception The wrapped exception.
@@ -86,19 +86,20 @@ public class XNIException
     public Exception getException() {
         return fException != this ? fException : null;
     } // getException():Exception
-    
+
     /**
      * Initializes the cause of this <code>XNIException</code>.
      * The value must be an instance of <code>Exception</code> or
      * <code>null</code>.
-     * 
+     *
      * @param throwable the cause
      * @return this exception
-     * 
+     *
      * @throws IllegalStateException if a cause has already been set
      * @throws IllegalArgumentException if the cause is this exception
      * @throws ClassCastException if the cause is not assignable to <code>Exception</code>
      */
+    @Override
     public synchronized Throwable initCause(Throwable throwable) {
         if (fException != this) {
             // TODO: Add error message.
@@ -111,8 +112,9 @@ public class XNIException
         fException = (Exception) throwable;
         return this;
     } // initCause(Throwable):Throwable
-    
+
     /** Returns the cause of this <code>XNIException</code>. */
+    @Override
     public Throwable getCause() {
         return getException();
     } // getCause():Throwable

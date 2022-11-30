@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.w3c.dom.Node;
  *
  * @version $Id$
  */
-public class ElementDefinitionImpl 
+public class ElementDefinitionImpl
     extends ParentNode {
 
     //
@@ -40,7 +40,7 @@ public class ElementDefinitionImpl
 
     /** Serialization version. */
     static final long serialVersionUID = -8373890672670022714L;
-    
+
     //
     // Data
     //
@@ -66,10 +66,11 @@ public class ElementDefinitionImpl
     // Node methods
     //
 
-    /** 
+    /**
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return NodeImpl.ELEMENT_DEFINITION_NODE;
     }
@@ -77,6 +78,7 @@ public class ElementDefinitionImpl
     /**
      * Returns the element definition name
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -87,6 +89,7 @@ public class ElementDefinitionImpl
     /**
      * Replicate this object.
      */
+    @Override
     public Node cloneNode(boolean deep) {
 
         ElementDefinitionImpl newnode =
@@ -104,9 +107,10 @@ public class ElementDefinitionImpl
      * representing the defaults. In a more serious implementation, it would
      * contain AttributeDefinitionImpl objects for all declared Attributes,
      * indicating which are Default, DefaultFixed, Implicit and/or Required.
-     * 
+     *
      * @return org.w3c.dom.NamedNodeMap containing org.w3c.dom.Attribute
      */
+    @Override
     public NamedNodeMap getAttributes() {
 
         if (needsSyncChildren()) {

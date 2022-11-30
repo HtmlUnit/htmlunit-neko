@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,18 +26,18 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLSchemaDescription;
 /**
  * All information specific to XML Schema grammars.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @author Neeraj Bajaj, SUN Microsystems.
  *
  * @version $Id$
  */
-public class XSDDescription extends XMLResourceIdentifierImpl 
+public class XSDDescription extends XMLResourceIdentifierImpl
                 implements XMLSchemaDescription {
     // used to indicate what triggered the call
     /**
-     * Indicate that this description was just initialized. 
+     * Indicate that this description was just initialized.
      */
     public final static short CONTEXT_INITIALIZE = -1;
     /**
@@ -91,18 +91,19 @@ public class XSDDescription extends XMLResourceIdentifierImpl
      */
     public final static short CONTEXT_XSITYPE   = 7;
 
-    // REVISIT: write description of these fields    
+    // REVISIT: write description of these fields
     protected short fContextType;
     protected String [] fLocationHints ;
     protected QName fTriggeringComponent;
     protected QName fEnclosedElementName;
     protected XMLAttributes  fAttributes;
-        
+
     /**
      * the type of the grammar (e.g., DTD or XSD);
-     *  
+     *
      * @see net.sourceforge.htmlunit.xerces.xni.grammars.Grammar
      */
+    @Override
     public String getGrammarType() {
         return XMLGrammarDescription.XML_SCHEMA;
     }
@@ -110,9 +111,10 @@ public class XSDDescription extends XMLResourceIdentifierImpl
     /**
      * Get the context. The returned value is one of the pre-defined
      * CONTEXT_xxx constants.
-     * 
+     *
      * @return  the value indicating the context
      */
+    @Override
     public short getContextType() {
         return fContextType ;
     }
@@ -121,9 +123,10 @@ public class XSDDescription extends XMLResourceIdentifierImpl
      * If the context is "include" or "redefine", then return the target
      * namespace of the enclosing schema document; otherwise, the expected
      * target namespace of this document.
-     * 
+     *
      * @return  the expected/enclosing target namespace
      */
+    @Override
     public String getTargetNamespace() {
         return fNamespace;
     }
@@ -132,10 +135,11 @@ public class XSDDescription extends XMLResourceIdentifierImpl
      * For import and references from the instance document, it's possible to
      * have multiple hints for one namespace. So this method returns an array,
      * which contains all location hints.
-     * 
+     *
      * @return  an array of all location hints associated to the expected
      *          target namespace
-     */          
+     */
+    @Override
     public String[] getLocationHints() {
         return fLocationHints ;
     }
@@ -144,9 +148,10 @@ public class XSDDescription extends XMLResourceIdentifierImpl
      * If a call is triggered by an element/attribute/xsi:type in the instance,
      * this call returns the name of such triggering component: the name of
      * the element/attribute, or the value of the xsi:type.
-     * 
+     *
      * @return  the name of the triggering component
      */
+    @Override
     public QName getTriggeringComponent() {
         return fTriggeringComponent ;
     }
@@ -154,37 +159,40 @@ public class XSDDescription extends XMLResourceIdentifierImpl
     /**
      * If a call is triggered by an attribute or xsi:type, then this mehtod
      * returns the enclosing element of such element.
-     * 
+     *
      * @return  the name of the enclosing element
      */
+    @Override
     public QName getEnclosingElementName() {
         return fEnclosedElementName ;
     }
-    
+
     /**
      * If a call is triggered by an element/attribute/xsi:type in the instance,
      * this call returns all attribute of such element (or enclosing element).
-     * 
+     *
      * @return  all attributes of the tiggering/enclosing element
      */
+    @Override
     public XMLAttributes getAttributes() {
         return fAttributes;
     }
-    
+
     public boolean fromInstance() {
         return fContextType == CONTEXT_ATTRIBUTE ||
                fContextType == CONTEXT_ELEMENT ||
                fContextType == CONTEXT_INSTANCE ||
                fContextType == CONTEXT_XSITYPE;
     }
-    
+
     /**
-     * Compares this grammar with the given grammar. Currently, we compare 
+     * Compares this grammar with the given grammar. Currently, we compare
      * the target namespaces.
-     * 
+     *
      * @param descObj The description of the grammar to be compared with
      * @return        True if they are equal, else false
      */
+    @Override
     public boolean equals(Object descObj) {
         if(!(descObj instanceof XMLSchemaDescription)) return false;
         XMLSchemaDescription desc = (XMLSchemaDescription)descObj;
@@ -193,16 +201,17 @@ public class XSDDescription extends XMLResourceIdentifierImpl
         else // fNamespace == null
             return desc.getTargetNamespace() == null;
     }
-    
+
     /**
      * Returns the hash code of this grammar
-     * 
+     *
      * @return The hash code
      */
+    @Override
     public int hashCode() {
          return (fNamespace == null) ? 0 : fNamespace.hashCode();
     }
-    
+
     public void setContextType(short contextType){
         fContextType = contextType ;
     }
@@ -227,9 +236,9 @@ public class XSDDescription extends XMLResourceIdentifierImpl
     }
 
     public void setAttributes(XMLAttributes attributes){
-        fAttributes = attributes ;    
+        fAttributes = attributes ;
     }
-    
+
     /**
      *  resets all the fields
      */
@@ -239,9 +248,9 @@ public class XSDDescription extends XMLResourceIdentifierImpl
         fLocationHints  = null ;
         fTriggeringComponent = null ;
         fEnclosedElementName = null ;
-        fAttributes = null ;    
+        fAttributes = null ;
     }
-    
+
     public XSDDescription makeClone() {
         XSDDescription desc = new XSDDescription();
         desc.fAttributes = this.fAttributes;
@@ -256,5 +265,5 @@ public class XSDDescription extends XMLResourceIdentifierImpl
         desc.fTriggeringComponent = this.fTriggeringComponent;
         return desc;
     }
-    
+
 } // XSDDescription

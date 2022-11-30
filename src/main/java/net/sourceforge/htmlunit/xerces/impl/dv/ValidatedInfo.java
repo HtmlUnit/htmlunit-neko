@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,8 +28,8 @@ import net.sourceforge.htmlunit.xerces.xs.XSValue;
 /**
  * Class to get the information back after content is validated. This info
  * would be filled by validate().
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  *
@@ -96,7 +96,7 @@ public class ValidatedInfo implements XSValue {
         this.memberTypes = null;
         this.itemValueTypes = null;
     }
-    
+
     /**
      * Return a string representation of the value. If there is an actual
      * value, use toString; otherwise, use the normalized value.
@@ -109,7 +109,7 @@ public class ValidatedInfo implements XSValue {
             return actualValue.toString();
         }
     }
-    
+
     /**
      * Returns true if the two ValidatedInfo objects can be compared in the same
      * value space.
@@ -117,7 +117,7 @@ public class ValidatedInfo implements XSValue {
     public static boolean isComparable(ValidatedInfo info1, ValidatedInfo info2) {
         final short primitiveType1 = convertToPrimitiveKind(info1.actualValueType);
         final short primitiveType2 = convertToPrimitiveKind(info2.actualValueType);
-        if (primitiveType1 != primitiveType2) {    
+        if (primitiveType1 != primitiveType2) {
             return (primitiveType1 == XSConstants.ANYSIMPLETYPE_DT && primitiveType2 == XSConstants.STRING_DT ||
                     primitiveType1 == XSConstants.STRING_DT && primitiveType2 == XSConstants.ANYSIMPLETYPE_DT);
         }
@@ -143,7 +143,7 @@ public class ValidatedInfo implements XSValue {
         }
         return true;
     }
-    
+
     /**
      * Returns the primitive type of the given type.
      * @param valueType A value type as defined in XSConstants.
@@ -167,19 +167,23 @@ public class ValidatedInfo implements XSValue {
     }
 
     // XSValue methods
-    
+
+    @Override
     public Object getActualValue() {
         return actualValue;
     }
 
+    @Override
     public short getActualValueType() {
         return actualValueType;
     }
 
+    @Override
     public ShortList getListValueTypes() {
         return itemValueTypes == null ? ShortListImpl.EMPTY_LIST : itemValueTypes;
     }
 
+    @Override
     public XSObjectList getMemberTypeDefinitions() {
         if (memberTypes == null) {
             return XSObjectListImpl.EMPTY_LIST;
@@ -187,14 +191,17 @@ public class ValidatedInfo implements XSValue {
         return new XSObjectListImpl(memberTypes, memberTypes.length);
     }
 
+    @Override
     public String getNormalizedValue() {
         return normalizedValue;
     }
 
+    @Override
     public XSSimpleTypeDefinition getTypeDefinition() {
         return actualType;
     }
-    
+
+    @Override
     public XSSimpleTypeDefinition getMemberTypeDefinition() {
         return memberType;
     }

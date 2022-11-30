@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,14 +49,14 @@ import org.w3c.dom.Node;
  * the Entity. Since the DOM explicitly decided not to deal with this,
  * _any_ answer will involve a non-DOM operation, and this is the
  * simplest solution.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Elena Litani, IBM
  * @version $Id$
  * @since PR-DOM-Level-1-19980818.
  */
-public class EntityImpl 
+public class EntityImpl
     extends ParentNode
     implements Entity {
 
@@ -66,7 +66,7 @@ public class EntityImpl
 
     /** Serialization version. */
     static final long serialVersionUID = -3575760943444303423L;
-    
+
     //
     // Data
     //
@@ -86,7 +86,7 @@ public class EntityImpl
 
     /** Input Encoding */
     protected String inputEncoding;
-    
+
     /** Version */
     protected String version;
 
@@ -107,15 +107,16 @@ public class EntityImpl
         this.name = name;
         isReadOnly(true);
     }
-    
+
     //
     // Node methods
     //
 
-    /** 
+    /**
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.ENTITY_NODE;
     }
@@ -123,6 +124,7 @@ public class EntityImpl
     /**
      * Returns the entity name
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -131,6 +133,7 @@ public class EntityImpl
     }
 
     /** Clone node. */
+    @Override
     public Node cloneNode(boolean deep) {
         EntityImpl newentity = (EntityImpl)super.cloneNode(deep);
         newentity.setReadOnly(true, deep);
@@ -141,12 +144,13 @@ public class EntityImpl
     // Entity methods
     //
 
-    /** 
+    /**
      * The public identifier associated with the entity. If not specified,
-     * this will be null. 
+     * this will be null.
      */
+    @Override
     public String getPublicId() {
-        
+
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -154,10 +158,11 @@ public class EntityImpl
 
     } // getPublicId():String
 
-    /** 
+    /**
      * The system identifier associated with the entity. If not specified,
-     * this will be null. 
+     * this will be null.
      */
+    @Override
     public String getSystemId() {
 
         if (needsSyncData()) {
@@ -167,10 +172,11 @@ public class EntityImpl
 
     } // getSystemId():String
 
-    /** 
+    /**
       * DOM Level 3 WD - experimental
-      * the version number of this entity, when it is an external parsed entity. 
+      * the version number of this entity, when it is an external parsed entity.
       */
+    @Override
     public String getXmlVersion() {
 
        if (needsSyncData()) {
@@ -182,9 +188,10 @@ public class EntityImpl
 
 
     /**
-     * DOM Level 3 WD - experimental 
-     * the encoding of this entity, when it is an external parsed entity. 
+     * DOM Level 3 WD - experimental
+     * the encoding of this entity, when it is an external parsed entity.
      */
+    @Override
     public String getXmlEncoding() {
 
        if (needsSyncData()) {
@@ -199,12 +206,13 @@ public class EntityImpl
 
 
 
-    /** 
+    /**
      * Unparsed entities -- which contain non-XML data -- have a
      * "notation name" which tells applications how to deal with them.
      * Parsed entities, which <em>are</em> in XML format, don't need this and
-     * set it to null.  
+     * set it to null.
      */
+    @Override
     public String getNotationName() {
 
         if (needsSyncData()) {
@@ -222,7 +230,7 @@ public class EntityImpl
      * DOM Level 2: The public identifier associated with the entity. If not specified,
      * this will be null. */
     public void setPublicId(String id) {
-        
+
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -231,9 +239,9 @@ public class EntityImpl
     } // setPublicId(String)
 
     /**
-     * NON-DOM 
-     * encoding - An attribute specifying, as part of the text declaration, 
-     * the encoding of this entity, when it is an external parsed entity. 
+     * NON-DOM
+     * encoding - An attribute specifying, as part of the text declaration,
+     * the encoding of this entity, when it is an external parsed entity.
      * This is null otherwise
      *
      */
@@ -246,19 +254,20 @@ public class EntityImpl
 
 
     /**
-     * An attribute specifying the encoding used for this entity at the tiome 
-     * of parsing, when it is an external parsed entity. This is 
-     * <code>null</code> if it an entity from the internal subset or if it 
+     * An attribute specifying the encoding used for this entity at the tiome
+     * of parsing, when it is an external parsed entity. This is
+     * <code>null</code> if it an entity from the internal subset or if it
      * is not known..
      * @since DOM Level 3
      */
+    @Override
     public String getInputEncoding(){
         if (needsSyncData()) {
             synchronizeData();
         }
         return inputEncoding;
     }
-    
+
     /**
      * NON-DOM, used to set the input encoding.
      */
@@ -269,13 +278,13 @@ public class EntityImpl
         this.inputEncoding = inputEncoding;
     }
 
-    /** 
+    /**
       * NON-DOM
-      * version - An attribute specifying, as part of the text declaration, 
-      * the version number of this entity, when it is an external parsed entity. 
+      * version - An attribute specifying, as part of the text declaration,
+      * the version number of this entity, when it is an external parsed entity.
       * This is null otherwise
       */
-    public void setXmlVersion(String value) {       
+    public void setXmlVersion(String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -285,7 +294,7 @@ public class EntityImpl
 
     /**
      * DOM Level 2: The system identifier associated with the entity. If not
-     * specified, this will be null. 
+     * specified, this will be null.
      */
     public void setSystemId(String id) {
         if (needsSyncData()) {
@@ -295,30 +304,31 @@ public class EntityImpl
 
     } // setSystemId(String)
 
-    /** 
+    /**
      * DOM Level 2: Unparsed entities -- which contain non-XML data -- have a
      * "notation name" which tells applications how to deal with them.
      * Parsed entities, which <em>are</em> in XML format, don't need this and
-     * set it to null.  
+     * set it to null.
      */
-    public void setNotationName(String name) {        
+    public void setNotationName(String name) {
         if (needsSyncData()) {
             synchronizeData();
         }
         notationName = name;
 
     } // setNotationName(String)
-    
+
 
 
     /**
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
-     * 
+     *
      * @return The absolute base URI of this node or null.
      * @since DOM Level 3
      */
+    @Override
     public String getBaseURI() {
 
         if (needsSyncData()) {

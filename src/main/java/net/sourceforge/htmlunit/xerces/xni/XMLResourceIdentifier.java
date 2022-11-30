@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,37 +26,37 @@ package net.sourceforge.htmlunit.xerces.xni;
  */
 
 public interface XMLResourceIdentifier {
-    
+
     /** Sets the public identifier. */
     void setPublicId(String publicId);
 
     /** Returns the public identifier. */
     String getPublicId();
-    
+
     /** Sets the expanded system identifier. */
     void setExpandedSystemId(String systemId);
-    
+
     /** Returns the expanded system identifier. */
     String getExpandedSystemId();
-    
+
     /** Sets the literal system identifier. */
     void setLiteralSystemId(String systemId);
-     
+
     /** Returns the literal system identifier. */
     String getLiteralSystemId();
-    
-    /** Sets the base URI against which the literal SystemId is to be 
+
+    /** Sets the base URI against which the literal SystemId is to be
         resolved.*/
     void setBaseSystemId(String systemId);
-    
-    /** <p> Returns the base URI against which the literal SystemId is to be 
+
+    /** <p> Returns the base URI against which the literal SystemId is to be
         resolved. </p> */
     String getBaseSystemId();
 
     /** Sets the namespace of the resource. */
     void setNamespace(String namespace);
-     
+
     /** Returns the namespace of the resource. */
     String getNamespace();
-    
+
 } // XMLResourceIdentifier

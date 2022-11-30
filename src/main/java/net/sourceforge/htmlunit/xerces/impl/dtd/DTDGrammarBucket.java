@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  * filled from the GrammarPool when the DTDValidator is invoked on a
  * document, and, if a new DTD grammar is parsed, the new set will be
  * offered back to the GrammarPool for possible inclusion.
- * 
+ *
  * @xerces.internal
  *
  * @author Neil Graham, IBM
@@ -70,7 +70,7 @@ public class DTDGrammarBucket {
     /**
      * Puts the specified grammar into the grammar pool and associate it to
      * a root element name (this being internal, the lack of generality is irrelevant).
-     * 
+     *
      * @param grammar     The grammar.
      */
     public void putGrammar(DTDGrammar grammar) {
@@ -80,7 +80,7 @@ public class DTDGrammarBucket {
 
     // retrieve a DTDGrammar given an XMLDTDDescription
     public DTDGrammar getGrammar(XMLGrammarDescription desc) {
-        return (DTDGrammar)(fGrammars.get((XMLDTDDescription)desc));
+        return (DTDGrammar)(fGrammars.get(desc));
     } // putGrammar(DTDGrammar)
 
     public void clear() {

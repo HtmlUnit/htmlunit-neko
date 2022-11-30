@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,19 +19,19 @@ package net.sourceforge.htmlunit.xerces.util;
 
 /**
  * All internalized xml symbols. They can be compared using "==".
- * 
+ *
  * @author Sandy Gao, IBM
  * @version $Id$
  */
 public class XMLSymbols {
-    
+
     // public constructor.
     public XMLSymbols(){}
-    
+
     //==========================
     // Commonly used strings
     //==========================
-    
+
     /**
      * The empty string.
      */
@@ -40,7 +40,7 @@ public class XMLSymbols {
     //==========================
     // Namespace prefixes/uris
     //==========================
-    
+
     /**
      * The internalized "xml" prefix.
      */
@@ -54,7 +54,7 @@ public class XMLSymbols {
     //==========================
     // DTD symbols
     //==========================
-    
+
     /** Symbol: "ANY". */
     public static final String fANYSymbol = "ANY".intern();
 
@@ -96,6 +96,6 @@ public class XMLSymbols {
 
     /** Symbol: "#FIXED". */
     public static final String fFIXEDSymbol = "#FIXED".intern();
-    
-    
+
+
 }

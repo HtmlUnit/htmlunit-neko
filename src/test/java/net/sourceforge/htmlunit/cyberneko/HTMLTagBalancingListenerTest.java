@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HTMLTagBalancingListener}.

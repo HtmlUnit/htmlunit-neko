@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,8 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
  * class. It provides extra information XSSimpleTypeDecl requires from each
  * type: allowed facets, converting String to actual value, check equality,
  * comparison, etc.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -38,8 +38,9 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
  * @version $Id$
  */
 public abstract class TypeValidator {
-    
+
     private static final boolean USE_CODE_POINT_COUNT_FOR_STRING_LENGTH = AccessController.doPrivileged(new PrivilegedAction() {
+        @Override
         public Object run() {
             try {
                 return Boolean.getBoolean("net.sourceforge.htmlunit.xerces.impl.dv.xs.useCodePointCountForStringLength") ? Boolean.TRUE : Boolean.FALSE;
@@ -74,11 +75,11 @@ public abstract class TypeValidator {
     public static final short EQUAL         = 0;
     public static final short GREATER_THAN  = 1;
     public static final short INDETERMINATE = 2;
-    
+
     // where there is distinction between identity and equality, this method
     // will be overwritten
-    // checks whether the two values are identical; for ex, this distinguishes 
-    // -0.0 from 0.0 
+    // checks whether the two values are identical; for ex, this distinguishes
+    // -0.0 from 0.0
     public boolean isIdentical (Object value1, Object value2) {
         return value1.equals(value2);
     }
@@ -113,7 +114,7 @@ public abstract class TypeValidator {
     public int getFractionDigits(Object value) {
         return -1;
     }
-    
+
     // Returns the length of the string in Unicode code points.
     private int getCodePointLength(String value) {
         // Count the number of surrogate pairs, and subtract them from
@@ -137,11 +138,11 @@ public abstract class TypeValidator {
     public static final boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';
     }
-    
+
     // if the character is in the range 0x30 ~ 0x39, return its int value (0~9),
     // otherwise, return -1
     public static final int getDigit(char ch) {
         return isDigit(ch) ? ch - '0' : -1;
     }
-    
+
 } // interface TypeValidator

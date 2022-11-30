@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * @see EntityResolver
  *
  * @author Andy Clark, IBM
- * 
+ *
  * @version $Id$
  */
 public class EntityResolverWrapper
@@ -78,7 +78,7 @@ public class EntityResolverWrapper
     //
     // XMLEntityResolver methods
     //
-    
+
     /**
      * Resolves an external parsed entity. If the entity cannot be
      * resolved, this method should return null.
@@ -89,6 +89,7 @@ public class EntityResolverWrapper
      * @throws IOException  Thrown if resolved entity stream cannot be
      *                      opened or some other i/o error occurs.
      */
+    @Override
     public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier)
         throws XNIException, IOException {
 

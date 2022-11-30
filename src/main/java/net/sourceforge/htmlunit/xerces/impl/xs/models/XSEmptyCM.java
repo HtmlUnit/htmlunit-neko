@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  *
  * This model validated on the way in.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Lisa Martin, IBM
@@ -43,7 +43,7 @@ public class XSEmptyCM implements XSCMValidator {
 
     // start the content model: did not see any children
     private static final short STATE_START = 0;
-    
+
     private static final Vector EMPTY = new Vector(0);
 
     //
@@ -60,6 +60,7 @@ public class XSEmptyCM implements XSCMValidator {
      *
      * @return Start state of the content model
      */
+    @Override
     public int[] startContentModel(){
         return (new int[] {STATE_START});
     }
@@ -73,6 +74,7 @@ public class XSEmptyCM implements XSCMValidator {
      * @param subGroupHandler the substitution group handler
      * @return element index corresponding to the element from the Schema grammar
      */
+    @Override
     public Object oneTransition (QName elementName, int[] currentState, SubstitutionGroupHandler subGroupHandler){
 
         // error state
@@ -92,6 +94,7 @@ public class XSEmptyCM implements XSCMValidator {
      * @param currentState Current state of the content model
      * @return true if the last state was a valid final state
      */
+    @Override
     public boolean endContentModel (int[] currentState){
         boolean isFinal =  false;
         int state = currentState[0];
@@ -113,6 +116,7 @@ public class XSEmptyCM implements XSCMValidator {
      * @param subGroupHandler the substitution group handler
      * @return true if this content model contains other or list wildcard
      */
+    @Override
     public boolean checkUniqueParticleAttribution(SubstitutionGroupHandler subGroupHandler) throws XMLSchemaException {
         return false;
     }
@@ -121,23 +125,27 @@ public class XSEmptyCM implements XSCMValidator {
      * Check which elements are valid to appear at this point. This method also
      * works if the state is in error, in which case it returns what should
      * have been seen.
-     * 
+     *
      * @param state  the current state
      * @return       a Vector whose entries are instances of
      *               either XSWildcardDecl or XSElementDecl.
      */
+    @Override
     public Vector whatCanGoHere(int[] state) {
         return EMPTY;
     }
-    
+
+    @Override
     public int [] occurenceInfo(int[] state) {
         return null;
     }
-    
+
+    @Override
     public String getTermName(int termId) {
         return null;
     }
-    
+
+    @Override
     public boolean isCompactedForUPA() {
         return false;
     }

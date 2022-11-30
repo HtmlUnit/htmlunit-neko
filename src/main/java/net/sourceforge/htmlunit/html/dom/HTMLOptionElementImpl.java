@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,25 +37,28 @@ public class HTMLOptionElementImpl
 
     private static final long serialVersionUID = -4486774554137530907L;
 
+    @Override
     public boolean getDefaultSelected()
     {
         // ! NOT FULLY IMPLEMENTED !
         return getBinary( "default-selected" );
     }
-    
-    
+
+
+    @Override
     public void setDefaultSelected( boolean defaultSelected )
     {
         // ! NOT FULLY IMPLEMENTED !
         setAttribute( "default-selected", defaultSelected );
     }
 
-  
+
+    @Override
     public String getText()
     {
         Node child;
         StringBuilder text = new StringBuilder();
-        
+
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
@@ -68,13 +71,13 @@ public class HTMLOptionElementImpl
         }
         return text.toString();
     }
-    
-    
+
+
     public void setText( String text )
     {
         Node    child;
         Node    next;
-        
+
         // Delete all the nodes and replace them with a single Text node.
         // This is the only approach that can handle comments and other nodes.
         child = getFirstChild();
@@ -86,14 +89,15 @@ public class HTMLOptionElementImpl
         }
         insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
     }
-    
-    
+
+
+    @Override
     public int getIndex()
     {
         Node        parent;
         NodeList    options;
         int            i;
-        
+
         // Locate the parent SELECT. Note that this OPTION might be inside a
         // OPTGROUP inside the SELECT. Or it might not have a parent SELECT.
         // Everything is possible. If no parent is found, return -1.
@@ -112,14 +116,14 @@ public class HTMLOptionElementImpl
         }
         return -1;
     }
-    
-    
+
+
     public void setIndex( int index )
     {
         Node        parent;
         NodeList    options;
         Node        item;
-        
+
         // Locate the parent SELECT. Note that this OPTION might be inside a
         // OPTGROUP inside the SELECT. Or it might not have a parent SELECT.
         // Everything is possible. If no parent is found, just return.
@@ -144,59 +148,67 @@ public class HTMLOptionElementImpl
             }
         }
     }
-  
-  
+
+
+    @Override
     public boolean getDisabled()
     {
         return getBinary( "disabled" );
     }
-    
-    
+
+
+    @Override
     public void setDisabled( boolean disabled )
     {
         setAttribute( "disabled", disabled );
     }
 
-    
-      public String getLabel()
+
+      @Override
+    public String getLabel()
     {
         return capitalize( getAttribute( "label" ) );
     }
-    
-    
+
+
+    @Override
     public void setLabel( String label )
     {
         setAttribute( "label", label );
     }
 
-    
+
+    @Override
     public boolean getSelected()
     {
         return getBinary( "selected" );
     }
-  
-  
+
+
+    @Override
     public void setSelected( boolean selected )
     {
         setAttribute( "selected", selected );
     }
-    
-        
+
+
+    @Override
     public String getValue()
     {
         return getAttribute( "value" );
     }
-    
-    
+
+
+    @Override
     public void setValue( String value )
     {
         setAttribute( "value", value );
     }
 
-    
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLOptionElementImpl( HTMLDocumentImpl owner, String name )

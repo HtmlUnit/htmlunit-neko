@@ -4058,6 +4058,7 @@ public class XSDHandler {
         private XSGrammarBucket fGrammarBucket;
         private Grammar [] fInitialGrammarSet;
 
+        @Override
         public Grammar[] retrieveInitialGrammarSet(String grammarType) {
             if (grammarType == XMLGrammarDescription.XML_SCHEMA) {
                 if (fInitialGrammarSet == null) {
@@ -4088,10 +4089,12 @@ public class XSDHandler {
             return new Grammar[0];
         }
 
+        @Override
         public void cacheGrammars(String grammarType, Grammar[] grammars) {
 
         }
 
+        @Override
         public Grammar retrieveGrammar(XMLGrammarDescription desc) {
             if (desc.getGrammarType() == XMLGrammarDescription.XML_SCHEMA) {
                 final String tns = ((XMLSchemaDescription) desc).getTargetNamespace();
@@ -4113,10 +4116,13 @@ public class XSDHandler {
             fInitialGrammarSet = null;
         }
 
+        @Override
         public void lockPool() {}
 
+        @Override
         public void unlockPool() {}
 
+        @Override
         public void clear() {}
     }
 
@@ -4170,12 +4176,14 @@ public class XSDHandler {
             this.referNS = referNS;
         }
 
+        @Override
         public int hashCode() {
             // according to the description at the beginning of this class,
             // we use the hashcode of the namespace as the hashcoe of this key.
             return referNS == null ? 0 : referNS.hashCode();
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof XSDKey)) {
                 return false;
@@ -4190,11 +4198,8 @@ public class XSDHandler {
             }**/
 
             // condition 2: same namespace
-            if (referNS != key.referNS)
-                return false;
-
             // condition 3: same non-null location
-            if (systemId == null || !systemId.equals(key.systemId)) {
+            if ((referNS != key.referNS) || systemId == null || !systemId.equals(key.systemId)) {
                 return false;
             }
 

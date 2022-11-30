@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLContentSpec;
 
 /**
  * Content model Uni-Op node.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -31,7 +31,7 @@ public class CMUniOp extends CMNode
     // -------------------------------------------------------------------
     //  Constructors
     // -------------------------------------------------------------------
-    public CMUniOp(int type, CMNode childNode) 
+    public CMUniOp(int type, CMNode childNode)
     {
         super(type);
 
@@ -60,7 +60,8 @@ public class CMUniOp extends CMNode
     // -------------------------------------------------------------------
     //  Package, inherited methods
     // -------------------------------------------------------------------
-    public boolean isNullable() 
+    @Override
+    public boolean isNullable()
     {
         //
         //  For debugging purposes, make sure we got rid of all non '*'
@@ -76,13 +77,15 @@ public class CMUniOp extends CMNode
     // -------------------------------------------------------------------
     //  Protected, inherited methods
     // -------------------------------------------------------------------
-    protected void calcFirstPos(CMStateSet toSet) 
+    @Override
+    protected void calcFirstPos(CMStateSet toSet)
     {
         // Its just based on our child node's first pos
         toSet.setTo(fChild.firstPos());
     }
 
-    protected void calcLastPos(CMStateSet toSet) 
+    @Override
+    protected void calcLastPos(CMStateSet toSet)
     {
         // Its just based on our child node's last pos
         toSet.setTo(fChild.lastPos());

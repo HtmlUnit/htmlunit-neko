@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,33 +32,37 @@ public class HTMLModElementImpl
 
     private static final long serialVersionUID = 6424581972706750120L;
 
+    @Override
     public String getCite()
     {
         return getAttribute( "cite" );
     }
-    
-    
+
+
+    @Override
     public void setCite( String cite )
     {
         setAttribute( "cite", cite );
     }
-    
-    
-      public String getDateTime()
+
+
+      @Override
+    public String getDateTime()
     {
         return getAttribute( "datetime" );
     }
-    
-    
+
+
+    @Override
     public void setDateTime( String dateTime )
     {
         setAttribute( "datetime", dateTime );
     }
-    
+
 
     /**
      * Constructor requires owner document and tag name.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLModElementImpl( HTMLDocumentImpl owner, String name )

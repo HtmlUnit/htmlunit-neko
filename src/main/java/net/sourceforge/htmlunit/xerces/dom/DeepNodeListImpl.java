@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -65,13 +65,13 @@ import org.w3c.dom.NodeList;
  * <P>
  * NOTE: Level 2 of the DOM will probably _not_ use NodeList for its
  * extended search mechanisms, partly for the reasons just discussed.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
  */
-public class DeepNodeListImpl 
+public class DeepNodeListImpl
     implements NodeList {
 
     //
@@ -82,7 +82,7 @@ public class DeepNodeListImpl
     protected final String tagName;   // Or "*" to mean all-tags-acceptable
     protected int changes=0;
     protected ArrayList nodes;
-    
+
     protected String nsName;
     protected boolean enableNS = false;
 
@@ -95,7 +95,7 @@ public class DeepNodeListImpl
         this.rootNode = rootNode;
         this.tagName  = tagName;
         nodes = new ArrayList();
-    }  
+    }
 
     /** Constructor for Namespace support. */
     public DeepNodeListImpl(NodeImpl rootNode,
@@ -104,28 +104,30 @@ public class DeepNodeListImpl
         this.nsName = (nsName != null && nsName.length() != 0) ? nsName : null;
         enableNS = true;
     }
-    
+
     //
     // NodeList methods
     //
 
     /** Returns the length of the node list. */
+    @Override
     public int getLength() {
         // Preload all matching elements. (Stops when we run out of subtree!)
         item(java.lang.Integer.MAX_VALUE);
         return nodes.size();
-    }  
+    }
 
     /** Returns the node at the specified index. */
+    @Override
     public Node item(int index) {
         Node thisNode;
 
         // Tree changed. Do it all from scratch!
         if (rootNode.changes() != changes) {
-            nodes   = new ArrayList();     
+            nodes   = new ArrayList();
             changes = rootNode.changes();
         }
-    
+
         // In the cache
         final int currentSize = nodes.size();
         if (index < currentSize) {
@@ -133,15 +135,15 @@ public class DeepNodeListImpl
         }
         // Not yet seen
         else {
-    
+
             // Pick up where we left off (Which may be the beginning)
-            if (currentSize == 0) { 
+            if (currentSize == 0) {
                 thisNode = rootNode;
             }
             else {
                 thisNode = (NodeImpl)(nodes.get(currentSize - 1));
             }
-    
+
             // Add nodes up to the one we're looking for
             while (thisNode != null && index >= nodes.size()) {
                 thisNode = nextMatchingElementAfter(thisNode);
@@ -151,7 +153,7 @@ public class DeepNodeListImpl
             }
 
             // Either what we want, or null (not avail.)
-            return thisNode;           
+            return thisNode;
         }
 
     } // item(int):Node
@@ -160,7 +162,7 @@ public class DeepNodeListImpl
     // Protected methods (might be overridden by an extending DOM)
     //
 
-    /** 
+    /**
      * Iterative tree-walker. When you have a Parent link, there's often no
      * need to resort to recursion. NOTE THAT only Element nodes are matched
      * since we're specifically supporting getElementsByTagName().
@@ -194,7 +196,7 @@ public class DeepNodeListImpl
 
             // Have we found an Element with the right tagName?
             // ("*" matches anything.)
-            if (current != rootNode 
+            if (current != rootNode
                 && current != null
                 && current.getNodeType() ==  Node.ELEMENT_NODE) {
             if (!enableNS) {
@@ -204,7 +206,7 @@ public class DeepNodeListImpl
                 return current;
                 }
             } else {
-                // DOM2: Namespace logic. 
+                // DOM2: Namespace logic.
                 if (tagName.equals("*")) {
                 if (nsName != null && nsName.equals("*")) {
                     return current;

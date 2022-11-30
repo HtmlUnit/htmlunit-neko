@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,7 +51,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  * Implements XSModel:  a read-only interface that represents an XML Schema,
  * which could be components from different namespaces.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -90,7 +90,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     private final SymbolHash fGrammarMap;
     // a map from element declaration to its substitution group
     private final SymbolHash fSubGroupMap;
-    
+
     // store a certain kind of components from all namespaces
     private final XSNamedMap[] fGlobalComponents;
     // store a certain kind of components from one namespace
@@ -100,14 +100,14 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     private final StringList fNamespacesList;
     // store all annotations
     private XSObjectList fAnnotations = null;
-    
+
     // whether there is any IDC in this XSModel
     private final boolean fHasIDC;
-    
+
    /**
     * Construct an XSModelImpl, by storing some grammars and grammars imported
     * by them to this object.
-    * 
+    *
     * @param grammars   the array of schema grammars
     */
     public XSModelImpl(SchemaGrammar[] grammars) {
@@ -170,10 +170,10 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
                 }
             }
         }
-        
+
         fNamespaces = namespaces;
         fGrammarList = grammarList;
-        
+
         boolean hasIDC = false;
         // establish the mapping from namespace to grammars
         fGrammarMap = new SymbolHash(len*2);
@@ -184,17 +184,17 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
                 hasIDC = true;
             }
         }
-        
+
         fHasIDC = hasIDC;
         fGrammarCount = len;
         fGlobalComponents = new XSNamedMap[MAX_COMP_IDX+1];
         fNSComponents = new XSNamedMap[len][MAX_COMP_IDX+1];
         fNamespacesList = new StringListImpl(fNamespaces, fGrammarCount);
-        
+
         // build substitution groups
         fSubGroupMap = buildSubGroups();
     }
-    
+
     private SymbolHash buildSubGroups_Org() {
         SubstitutionGroupHandler sgHandler = new SubstitutionGroupHandler(null);
         for (int i = 0 ; i < fGrammarCount; i++) {
@@ -209,12 +209,12 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         for (int i = 0; i < len; i++) {
             head = (XSElementDecl)elements.item(i);
             subGroup = sgHandler.getSubstitutionGroup(head);
-            subGroupMap.put(head, subGroup.length > 0 ? 
+            subGroupMap.put(head, subGroup.length > 0 ?
                     new XSObjectListImpl(subGroup, subGroup.length) : XSObjectListImpl.EMPTY_LIST);
         }
         return subGroupMap;
     }
-    
+
     private SymbolHash buildSubGroups() {
         SubstitutionGroupHandler sgHandler = new SubstitutionGroupHandler(null);
         for (int i = 0 ; i < fGrammarCount; i++) {
@@ -229,12 +229,12 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         for (int i = 0; i < len; i++) {
             head = (XSElementDecl)elements.item(i);
             subGroup = sgHandler.getSubstitutionGroup(head);
-            subGroupMap.put(head, subGroup.length > 0 ? 
+            subGroupMap.put(head, subGroup.length > 0 ?
                     new XSObjectListImpl(subGroup, subGroup.length) : XSObjectListImpl.EMPTY_LIST);
         }
         return subGroupMap;
     }
-    
+
     private XSObjectListImpl getGlobalElements() {
         final SymbolHash[] tables = new SymbolHash[fGrammarCount];
         int length = 0;
@@ -243,13 +243,13 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
             tables[i] = fGrammarList[i].fAllGlobalElemDecls;
             length += tables[i].getLength();
         }
-        
+
         if (length == 0) {
             return XSObjectListImpl.EMPTY_LIST;
         }
 
         final XSObject[] components = new XSObject[length];
-        
+
         int start = 0;
         for (int i = 0; i < fGrammarCount; i++) {
             tables[i].getValues(components, start);
@@ -258,48 +258,51 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
 
         return new XSObjectListImpl(components, length);
     }
-    
+
     /**
      * Convenience method. Returns a list of all namespaces that belong to
      * this schema.
      * @return A list of all namespaces that belong to this schema or
      *   <code>null</code> if all components don't have a targetNamespace.
      */
+    @Override
     public StringList getNamespaces() {
         return fNamespacesList;
     }
 
     /**
-     * A set of namespace schema information information items (of type 
-     * <code>XSNamespaceItem</code>), one for each namespace name which 
-     * appears as the target namespace of any schema component in the schema 
-     * used for that assessment, and one for absent if any schema component 
-     * in the schema had no target namespace. For more information see 
-     * schema information. 
+     * A set of namespace schema information information items (of type
+     * <code>XSNamespaceItem</code>), one for each namespace name which
+     * appears as the target namespace of any schema component in the schema
+     * used for that assessment, and one for absent if any schema component
+     * in the schema had no target namespace. For more information see
+     * schema information.
      */
+    @Override
     public XSNamespaceItemList getNamespaceItems() {
         return this;
     }
 
     /**
-     * Returns a list of top-level components, i.e. element declarations, 
-     * attribute declarations, etc. 
-     * @param objectType The type of the declaration, i.e. 
-     *   <code>ELEMENT_DECLARATION</code>. Note that 
-     *   <code>XSTypeDefinition.SIMPLE_TYPE</code> and 
-     *   <code>XSTypeDefinition.COMPLEX_TYPE</code> can also be used as the 
-     *   <code>objectType</code> to retrieve only complex types or simple 
+     * Returns a list of top-level components, i.e. element declarations,
+     * attribute declarations, etc.
+     * @param objectType The type of the declaration, i.e.
+     *   <code>ELEMENT_DECLARATION</code>. Note that
+     *   <code>XSTypeDefinition.SIMPLE_TYPE</code> and
+     *   <code>XSTypeDefinition.COMPLEX_TYPE</code> can also be used as the
+     *   <code>objectType</code> to retrieve only complex types or simple
      *   types, instead of all types.
-     * @return  A list of top-level definitions of the specified type in 
-     *   <code>objectType</code> or an empty <code>XSNamedMap</code> if no 
-     *   such definitions exist. 
+     * @return  A list of top-level definitions of the specified type in
+     *   <code>objectType</code> or an empty <code>XSNamedMap</code> if no
+     *   such definitions exist.
      */
+    @Override
     public synchronized XSNamedMap getComponents(short objectType) {
         if (objectType <= 0 || objectType > MAX_COMP_IDX ||
             !GLOBAL_COMP[objectType]) {
             return XSNamedMapImpl.EMPTY_MAP;
         }
-        
+
         SymbolHash[] tables = new SymbolHash[fGrammarCount];
         // get all hashtables from all namespaces for this type of components
         if (fGlobalComponents[objectType] == null) {
@@ -340,29 +343,30 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
                 fGlobalComponents[objectType] = new XSNamedMapImpl(fNamespaces, tables, fGrammarCount);
             }
         }
-        
+
         return fGlobalComponents[objectType];
     }
 
     /**
-     * Convenience method. Returns a list of top-level component declarations 
-     * that are defined within the specified namespace, i.e. element 
-     * declarations, attribute declarations, etc. 
-     * @param objectType The type of the declaration, i.e. 
+     * Convenience method. Returns a list of top-level component declarations
+     * that are defined within the specified namespace, i.e. element
+     * declarations, attribute declarations, etc.
+     * @param objectType The type of the declaration, i.e.
      *   <code>ELEMENT_DECLARATION</code>.
-     * @param namespace The namespace to which the declaration belongs or 
+     * @param namespace The namespace to which the declaration belongs or
      *   <code>null</code> (for components with no target namespace).
-     * @return  A list of top-level definitions of the specified type in 
-     *   <code>objectType</code> and defined in the specified 
-     *   <code>namespace</code> or an empty <code>XSNamedMap</code>. 
+     * @return  A list of top-level definitions of the specified type in
+     *   <code>objectType</code> and defined in the specified
+     *   <code>namespace</code> or an empty <code>XSNamedMap</code>.
      */
+    @Override
     public synchronized XSNamedMap getComponentsByNamespace(short objectType,
                                                             String namespace) {
         if (objectType <= 0 || objectType > MAX_COMP_IDX ||
             !GLOBAL_COMP[objectType]) {
             return XSNamedMapImpl.EMPTY_MAP;
         }
-        
+
         // try to find the grammar
         int i = 0;
         if (namespace != null) {
@@ -375,14 +379,14 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         else {
             for (; i < fGrammarCount; ++i) {
                 if (fNamespaces[i] == null) {
-                    break; 
+                    break;
                 }
             }
         }
         if (i == fGrammarCount) {
             return XSNamedMapImpl.EMPTY_MAP;
         }
-        
+
         // get the hashtable for this type of components
         if (fNSComponents[i][objectType] == null) {
             SymbolHash table = null;
@@ -411,7 +415,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
                 table = fGrammarList[i].fGlobalIDConstraintDecls;
                 break;
             }
-            
+
             // for complex/simple types, create a special implementation,
             // which take specific types out of the hash table
             if (objectType == XSTypeDefinition.COMPLEX_TYPE ||
@@ -422,7 +426,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
                 fNSComponents[i][objectType] = new XSNamedMapImpl(namespace, table);
             }
         }
-        
+
         return fNSComponents[i][objectType];
     }
 
@@ -434,6 +438,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return An <code>XSTypeDefinition</code> or null if such definition
      *   does not exist.
      */
+    @Override
     public XSTypeDefinition getTypeDefinition(String name,
                                               String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -469,6 +474,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return A top-level attribute declaration or null if such declaration
      *   does not exist.
      */
+    @Override
     public XSAttributeDeclaration getAttributeDeclaration(String name,
                                                    String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -503,6 +509,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return A top-level element declaration or null if such declaration
      *   does not exist.
      */
+    @Override
     public XSElementDeclaration getElementDeclaration(String name,
                                                String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -537,6 +544,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return A top-level attribute group definition or null if such
      *   definition does not exist.
      */
+    @Override
     public XSAttributeGroupDefinition getAttributeGroup(String name,
                                                         String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -545,7 +553,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         }
         return (XSAttributeGroupDefinition)sg.fGlobalAttrGrpDecls.get(name);
     }
-    
+
     /**
      * Convenience method. Returns a top-level attribute group definition.
      * @param name The name of the definition.
@@ -572,6 +580,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return A top-level model group definition definition or null if such
      *         definition does not exist.
      */
+    @Override
     public XSModelGroupDefinition getModelGroupDefinition(String name,
                                                           String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -580,7 +589,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         }
         return (XSModelGroupDefinition)sg.fGlobalGroupDecls.get(name);
     }
-    
+
     /**
      * Convenience method. Returns a top-level model group definition.
      *
@@ -608,6 +617,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * @return A top-level model group definition definition or null if such
      *         definition does not exist.
      */
+    @Override
     public XSIDCDefinition getIDCDefinition(String name, String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
         if (sg == null) {
@@ -615,7 +625,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         }
         return (XSIDCDefinition)sg.fGlobalIDConstraintDecls.get(name);
     }
-    
+
     /**
      * Convenience method. Returns a top-level model group definition.
      *
@@ -638,6 +648,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSModel#getNotationDeclaration(String, String)
      */
+    @Override
     public XSNotationDeclaration getNotationDeclaration(String name,
                                                  String namespace) {
         SchemaGrammar sg = (SchemaGrammar)fGrammarMap.get(null2EmptyString(namespace));
@@ -658,9 +669,10 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     }
 
     /**
-     *  [annotations]: a set of annotations if it exists, otherwise an empty 
-     * <code>XSObjectList</code>. 
+     *  [annotations]: a set of annotations if it exists, otherwise an empty
+     * <code>XSObjectList</code>.
      */
+    @Override
     public synchronized XSObjectList getAnnotations() {
         if (fAnnotations != null) {
             return fAnnotations;
@@ -691,7 +703,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     private static final String null2EmptyString(String str) {
         return str == null ? XMLSymbols.EMPTY_STRING : str;
     }
-    
+
     /**
      * REVISIT: to expose identity constraints from XSModel.
      * For now, we only expose whether there are any IDCs.
@@ -708,47 +720,51 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
      * or an empty <code>XSObjectList</code> if the substitution group
      * contains no members.
      * @param head The substitution group head.
-     * @return A list containing the members of the substitution group 
-     *  for the given <code>XSElementDeclaration</code> or an empty 
-     *  <code>XSObjectList</code> if the substitution group contains 
+     * @return A list containing the members of the substitution group
+     *  for the given <code>XSElementDeclaration</code> or an empty
+     *  <code>XSObjectList</code> if the substitution group contains
      *  no members.
      */
+    @Override
     public XSObjectList getSubstitutionGroup(XSElementDeclaration head) {
         return (XSObjectList)fSubGroupMap.get(head);
     }
-    
+
     //
     // XSNamespaceItemList methods
-    // 
+    //
 
     /**
-     * The number of <code>XSNamespaceItem</code>s in the list. The range of 
-     * valid child object indices is 0 to <code>length-1</code> inclusive. 
+     * The number of <code>XSNamespaceItem</code>s in the list. The range of
+     * valid child object indices is 0 to <code>length-1</code> inclusive.
      */
+    @Override
     public int getLength() {
         return fGrammarCount;
     }
 
     /**
-     * Returns the <code>index</code>th item in the collection or 
-     * <code>null</code> if <code>index</code> is greater than or equal to 
-     * the number of objects in the list. The index starts at 0. 
-     * @param index  index into the collection. 
-     * @return  The <code>XSNamespaceItem</code> at the <code>index</code>th 
-     *   position in the <code>XSNamespaceItemList</code>, or 
-     *   <code>null</code> if the index specified is not valid. 
+     * Returns the <code>index</code>th item in the collection or
+     * <code>null</code> if <code>index</code> is greater than or equal to
+     * the number of objects in the list. The index starts at 0.
+     * @param index  index into the collection.
+     * @return  The <code>XSNamespaceItem</code> at the <code>index</code>th
+     *   position in the <code>XSNamespaceItemList</code>, or
+     *   <code>null</code> if the index specified is not valid.
      */
+    @Override
     public XSNamespaceItem item(int index) {
         if (index < 0 || index >= fGrammarCount) {
             return null;
         }
         return fGrammarList[index];
     }
-    
+
     //
     // java.util.List methods
     //
 
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < fGrammarCount) {
             return fGrammarList[index];
@@ -756,35 +772,41 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }
-    
+
+    @Override
     public Iterator iterator() {
         return listIterator0(0);
     }
-    
+
+    @Override
     public ListIterator listIterator() {
         return listIterator0(0);
     }
-    
+
+    @Override
     public ListIterator listIterator(int index) {
         if (index >= 0 && index < fGrammarCount) {
             return listIterator0(index);
         }
         throw new IndexOutOfBoundsException("Index: " + index);
     }
-    
+
     private ListIterator listIterator0(int index) {
         return new XSNamespaceItemListIterator(index);
     }
-    
+
+    @Override
     public Object[] toArray() {
         Object[] a = new Object[fGrammarCount];
         toArray0(a);
         return a;
     }
-    
+
+    @Override
     public Object[] toArray(Object[] a) {
         if (a.length < fGrammarCount) {
             Class arrayClass = a.getClass();
@@ -797,48 +819,57 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
         }
         return a;
     }
-    
+
     private void toArray0(Object[] a) {
         if (fGrammarCount > 0) {
             System.arraycopy(fGrammarList, 0, a, 0, fGrammarCount);
         }
     }
-    
+
     private final class XSNamespaceItemListIterator implements ListIterator {
         private int index;
         public XSNamespaceItemListIterator(int index) {
             this.index = index;
         }
+        @Override
         public boolean hasNext() {
             return (index < fGrammarCount);
         }
+        @Override
         public Object next() {
             if (index < fGrammarCount) {
                 return fGrammarList[index++];
             }
             throw new NoSuchElementException();
         }
+        @Override
         public boolean hasPrevious() {
             return (index > 0);
         }
+        @Override
         public Object previous() {
             if (index > 0) {
                 return fGrammarList[--index];
             }
             throw new NoSuchElementException();
         }
+        @Override
         public int nextIndex() {
             return index;
         }
+        @Override
         public int previousIndex() {
             return index - 1;
         }
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void set(Object o) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void add(Object o) {
             throw new UnsupportedOperationException();
         }

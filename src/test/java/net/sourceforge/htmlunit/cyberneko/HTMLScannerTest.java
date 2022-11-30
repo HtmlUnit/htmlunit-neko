@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.junit.jupiter.api.Test;
+
+import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.QName;
@@ -19,9 +22,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import org.junit.jupiter.api.Test;
-
-import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
  * Unit tests for {@link HTMLScanner}.

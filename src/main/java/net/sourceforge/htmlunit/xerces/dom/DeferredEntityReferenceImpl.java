@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,13 +30,13 @@ package net.sourceforge.htmlunit.xerces.dom;
  * Similarly, non-validating XML processors are not required to read
  * or process entity declarations made in the external subset or
  * declared in external parameter entities. Hence, some applications
- * may not make the replacement value available for Parsed Entities 
+ * may not make the replacement value available for Parsed Entities
  * of these types.
  * <P>
- * EntityReference behaves as a read-only node, and the children of 
+ * EntityReference behaves as a read-only node, and the children of
  * the EntityReference (which reflect those of the Entity, and should
- * also be read-only) give its replacement value, if any. They are 
- * supposed to automagically stay in synch if the DocumentType is 
+ * also be read-only) give its replacement value, if any. They are
+ * supposed to automagically stay in synch if the DocumentType is
  * updated with new values for the Entity.
  * <P>
  * The defined behavior makes efficient storage difficult for the DOM
@@ -64,14 +64,14 @@ package net.sourceforge.htmlunit.xerces.dom;
  * changes in the Entity. And it can take advantage of the same
  * structure-change-monitoring code I implemented to support
  * DeepNodeList.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
  */
-public class DeferredEntityReferenceImpl 
-    extends EntityReferenceImpl 
+public class DeferredEntityReferenceImpl
+    extends EntityReferenceImpl
     implements DeferredNode {
 
     //
@@ -80,7 +80,7 @@ public class DeferredEntityReferenceImpl
 
     /** Serialization version. */
     static final long serialVersionUID = 390319091370032223L;
-    
+
     //
     // Data
     //
@@ -93,7 +93,7 @@ public class DeferredEntityReferenceImpl
     //
 
     /**
-     * This is the deferred constructor. Only the fNodeIndex is given here. 
+     * This is the deferred constructor. Only the fNodeIndex is given here.
      * All other data, can be requested from the ownerDocument via the index.
      */
     DeferredEntityReferenceImpl(DeferredDocumentImpl ownerDocument,
@@ -110,6 +110,7 @@ public class DeferredEntityReferenceImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -118,10 +119,11 @@ public class DeferredEntityReferenceImpl
     // Protected methods
     //
 
-    /** 
+    /**
      * Synchronize the entity data. This is special because of the way
      * that the "fast" version stores the information.
      */
+    @Override
     protected void synchronizeData() {
 
         // no need to sychronize again
@@ -132,10 +134,11 @@ public class DeferredEntityReferenceImpl
             (DeferredDocumentImpl)this.ownerDocument;
         name = ownerDocument.getNodeName(fNodeIndex);
         baseURI = ownerDocument.getNodeValue(fNodeIndex);
-        
+
     } // synchronizeData()
 
     /** Synchronize the children. */
+    @Override
     protected void synchronizeChildren() {
 
         // no need to synchronize again

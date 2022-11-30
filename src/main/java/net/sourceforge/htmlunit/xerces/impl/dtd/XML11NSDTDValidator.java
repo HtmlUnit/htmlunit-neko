@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/grammar-pool</li>
  *  <li>http://apache.org/xml/properties/internal/datatype-validator-factory</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Elena Litani, IBM
@@ -63,6 +63,7 @@ public class XML11NSDTDValidator extends XML11DTDValidator {
     private final QName fAttributeQName = new QName();
 
     /** Bind namespaces */
+    @Override
     protected final void startNamespaceScope(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
 
@@ -131,8 +132,8 @@ public class XML11NSDTDValidator extends XML11DTDValidator {
 
                 prefix = localpart != XMLSymbols.PREFIX_XMLNS ? localpart : XMLSymbols.EMPTY_STRING;
 
-                // Declare prefix in context. Removing the association between a prefix and a 
-                // namespace name is permitted in XML 1.1, so if the uri value is the empty string, 
+                // Declare prefix in context. Removing the association between a prefix and a
+                // namespace name is permitted in XML 1.1, so if the uri value is the empty string,
                 // the prefix is being unbound. -- mrglavas
                 fNamespaceContext.declarePrefix(prefix, uri.length() != 0 ? uri : null);
             }
@@ -198,6 +199,7 @@ public class XML11NSDTDValidator extends XML11DTDValidator {
     } // startNamespaceScope(QName,XMLAttributes)
 
     /** Handles end element. */
+    @Override
     protected void endNamespaceScope(QName element, Augmentations augs, boolean isEmpty)
         throws XNIException {
 

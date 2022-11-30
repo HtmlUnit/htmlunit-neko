@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,9 +41,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  */
 public class ParserConfigurationSettings
     implements XMLComponentManager {
-        
-    protected static final String PARSER_SETTINGS = 
-            Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;    
+
+    protected static final String PARSER_SETTINGS =
+            Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     //
     // Data
@@ -102,7 +102,7 @@ public class ParserConfigurationSettings
      * Allows a parser to add parser specific features to be recognized
      * and managed by the parser configuration.
      *
-     * @param featureIds An array of the additional feature identifiers 
+     * @param featureIds An array of the additional feature identifiers
      *                   to be recognized.
      */
     public void addRecognizedFeatures(String[] featureIds) {
@@ -144,7 +144,7 @@ public class ParserConfigurationSettings
      * Allows a parser to add parser specific properties to be recognized
      * and managed by the parser configuration.
      *
-     * @param propertyIds An array of the additional property identifiers 
+     * @param propertyIds An array of the additional property identifiers
      *                    to be recognized.
      */
     public void addRecognizedProperties(String[] propertyIds) {
@@ -162,9 +162,9 @@ public class ParserConfigurationSettings
 
     /**
      * setProperty
-     * 
-     * @param propertyId 
-     * @param value 
+     *
+     * @param propertyId
+     * @param value
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known.
      */
@@ -183,16 +183,17 @@ public class ParserConfigurationSettings
 
     /**
      * Returns the state of a feature.
-     * 
+     *
      * @param featureId The feature identifier.
          * @return true if the feature is supported
-     * 
+     *
      * @throws XMLConfigurationException Thrown for configuration error.
      *                                   In general, components should
      *                                   only throw this exception if
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
 
@@ -208,16 +209,17 @@ public class ParserConfigurationSettings
 
     /**
      * Returns the value of a property.
-     * 
+     *
      * @param propertyId The property identifier.
          * @return the value of the property
-     * 
+     *
      * @throws XMLConfigurationException Thrown for configuration error.
      *                                   In general, components should
      *                                   only throw this exception if
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public Object getProperty(String propertyId)
         throws XMLConfigurationException {
 

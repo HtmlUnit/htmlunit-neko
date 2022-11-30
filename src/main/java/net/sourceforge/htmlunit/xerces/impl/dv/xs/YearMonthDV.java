@@ -38,6 +38,7 @@ public class YearMonthDV extends AbstractDateTimeDV{
      * @param  content The lexical representation of gYearMonth
      * @return a valid and normalized gYearMonth object
      */
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException{
         try{
             return parse(content);
@@ -77,6 +78,7 @@ public class YearMonthDV extends AbstractDateTimeDV{
         return date;
     }
 
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(25);
         append(message, date.year, 4);

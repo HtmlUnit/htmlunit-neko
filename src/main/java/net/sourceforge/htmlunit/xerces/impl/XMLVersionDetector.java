@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,11 +32,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 /**
  * This class scans the version of the document to determine
  * which scanner to use: XML 1.1 or XML 1.0.
- * The version is scanned using XML 1.1. scanner.  
- * 
+ * The version is scanned using XML 1.1. scanner.
+ *
  * @xerces.internal
- * 
- * @author Neil Graham, IBM 
+ *
+ * @author Neil Graham, IBM
  * @author Elena Litani, IBM
  * @version $Id$
  */
@@ -51,15 +51,15 @@ public class XMLVersionDetector {
     // property identifiers
 
     /** Property identifier: symbol table. */
-    protected static final String SYMBOL_TABLE = 
+    protected static final String SYMBOL_TABLE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY;
 
     /** Property identifier: error reporter. */
-    protected static final String ERROR_REPORTER = 
+    protected static final String ERROR_REPORTER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_REPORTER_PROPERTY;
 
     /** Property identifier: entity manager. */
-    protected static final String ENTITY_MANAGER = 
+    protected static final String ENTITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
 
     //
@@ -83,12 +83,12 @@ public class XMLVersionDetector {
 
     protected String fEncoding = null;
 
-    private final char [] fExpectedVersionString = {'<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's', 
+    private final char [] fExpectedVersionString = {'<', '?', 'x', 'm', 'l', ' ', 'v', 'e', 'r', 's',
                     'i', 'o', 'n', '=', ' ', ' ', ' ', ' ', ' '};
 
     /**
-     * 
-     * 
+     *
+     *
      * @param componentManager The component manager.
      *
      * @throws XNIException Throws exception if required features and
@@ -121,23 +121,23 @@ public class XMLVersionDetector {
         }
         // Make sure the locator used by the error reporter is the current entity scanner.
         fErrorReporter.setDocumentLocator(fEntityManager.getEntityScanner());
-        
+
         // Note: above we reset fEntityScanner in the entity manager, thus in startEntity
         // in each scanner fEntityScanner field must be reset to reflect the change.
-        // 
+        //
         fEntityManager.setEntityHandler(scanner);
-        
-        scanner.startEntity(fXMLSymbol, fEntityManager.getCurrentResourceIdentifier(), fEncoding, null);        
+
+        scanner.startEntity(fXMLSymbol, fEntityManager.getCurrentResourceIdentifier(), fEncoding, null);
     }
 
 
     /**
-     * This methods scans the XML declaration to find out the version 
+     * This methods scans the XML declaration to find out the version
      * (and provisional encoding)  of the document.
      * The scanning is doing using XML 1.1 scanner.
      * @param inputSource
-     * @return short - Constants.XML_VERSION_1_1 if document version 1.1, 
-     *                  otherwise Constants.XML_VERSION_1_0 
+     * @return short - Constants.XML_VERSION_1_1 if document version 1.1,
+     *                  otherwise Constants.XML_VERSION_1_0
      * @throws IOException
      */
     public short determineDocVersion(XMLInputSource inputSource) throws IOException {
@@ -173,7 +173,7 @@ public class XMLVersionDetector {
             for (int versionPos = 0; versionPos < XML11_VERSION.length; versionPos++) {
                 fExpectedVersionString[15 + versionPos] = (char) scanner.scanChar();
             }
-            // REVISIT:  should we check whether this equals quoteChar? 
+            // REVISIT:  should we check whether this equals quoteChar?
             fExpectedVersionString[18] = (char) scanner.scanChar();
             fixupCurrentEntity(fEntityManager, fExpectedVersionString, 19);
             int matched = 0;
@@ -181,13 +181,13 @@ public class XMLVersionDetector {
                 if (fExpectedVersionString[15 + matched] != XML11_VERSION[matched])
                     break;
             }
-            return (matched == XML11_VERSION.length) ? 
+            return (matched == XML11_VERSION.length) ?
                     Constants.XML_VERSION_1_1 :
                     Constants.XML_VERSION_1_0;
         }
         // encoding errors
         catch (MalformedByteSequenceException e) {
-            fErrorReporter.reportError(e.getDomain(), e.getKey(), 
+            fErrorReporter.reportError(e.getDomain(), e.getKey(),
                 e.getArguments(), XMLErrorReporter.SEVERITY_FATAL_ERROR, e);
             return Constants.XML_VERSION_ERROR;
         }
@@ -212,7 +212,7 @@ public class XMLVersionDetector {
 
     // This method prepends "length" chars from the char array,
     // from offset 0, to the manager's fCurrentEntity.ch.
-    private void fixupCurrentEntity(XMLEntityManager manager, 
+    private void fixupCurrentEntity(XMLEntityManager manager,
                 char [] scannedChars, int length) {
         XMLEntityManager.ScannedEntity currentEntity = manager.getCurrentEntity();
         if(currentEntity.count-currentEntity.position+length > currentEntity.ch.length) {
@@ -227,7 +227,7 @@ public class XMLVersionDetector {
             currentEntity.count += length-currentEntity.position;
         } else {
             // have to reintroduce some whitespace so this parses:
-            for(int i=length; i<currentEntity.position; i++) 
+            for(int i=length; i<currentEntity.position; i++)
                 currentEntity.ch[i]=' ';
         }
         // prepend contents...

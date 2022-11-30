@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,8 +30,8 @@ import org.w3c.dom.Node;
  *
  * @version $Id$
  */
-public class DeferredElementDefinitionImpl 
-    extends ElementDefinitionImpl 
+public class DeferredElementDefinitionImpl
+    extends ElementDefinitionImpl
     implements DeferredNode {
 
     //
@@ -40,7 +40,7 @@ public class DeferredElementDefinitionImpl
 
     /** Serialization version. */
     static final long serialVersionUID = 6703238199538041591L;
-    
+
     //
     // Data
     //
@@ -59,7 +59,7 @@ public class DeferredElementDefinitionImpl
     DeferredElementDefinitionImpl(DeferredDocumentImpl ownerDocument,
                                   int nodeIndex) {
         super(ownerDocument, null);
-        
+
         fNodeIndex = nodeIndex;
         needsSyncData(true);
         needsSyncChildren(true);
@@ -71,6 +71,7 @@ public class DeferredElementDefinitionImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -80,6 +81,7 @@ public class DeferredElementDefinitionImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected void synchronizeData() {
 
         // no need to sync in the future
@@ -93,6 +95,7 @@ public class DeferredElementDefinitionImpl
     } // synchronizeData()
 
     /** Synchronizes the default attribute values. */
+    @Override
     protected void synchronizeChildren() {
 
         // we don't want to generate any event for this so turn them off

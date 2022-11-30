@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,9 +24,9 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
 
 /**
  * Contains a list of Objects.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public final class ObjectListImpl extends AbstractList implements ObjectList {
@@ -35,10 +35,10 @@ public final class ObjectListImpl extends AbstractList implements ObjectList {
      * An immutable empty list.
      */
     public static final ObjectListImpl EMPTY_LIST = new ObjectListImpl(new Object[0], 0);
-    
+
     // The array to hold all data
     private final Object[] fArray;
-    
+
     // Number of elements in this list
     private final int fLength;
 
@@ -47,10 +47,12 @@ public final class ObjectListImpl extends AbstractList implements ObjectList {
         fLength = length;
     }
 
+    @Override
     public int getLength() {
         return fLength;
     }
-    
+
+    @Override
     public boolean contains(Object item) {
         if (item == null) {
             for (int i = 0; i < fLength; i++) {
@@ -66,17 +68,19 @@ public final class ObjectListImpl extends AbstractList implements ObjectList {
         }
         return false;
     }
-    
+
+    @Override
     public Object item(int index) {
         if (index < 0 || index >= fLength) {
             return null;
         }
         return fArray[index];
     }
-    
+
     /*
      * List methods
      */
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < fLength) {
             return fArray[index];
@@ -84,16 +88,19 @@ public final class ObjectListImpl extends AbstractList implements ObjectList {
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }
-    
+
+    @Override
     public Object[] toArray() {
         Object[] a = new Object[fLength];
         toArray0(a);
         return a;
     }
-    
+
+    @Override
     public Object[] toArray(Object[] a) {
         if (a.length < fLength) {
             Class arrayClass = a.getClass();

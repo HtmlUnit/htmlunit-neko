@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.impl.xs.XSParticleDecl;
  *
  * Content model Uni-Op node.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -60,6 +60,7 @@ public class XSCMUniOp extends CMNode {
     // -------------------------------------------------------------------
     //  Package, inherited methods
     // -------------------------------------------------------------------
+    @Override
     public boolean isNullable() {
         //
         //  For debugging purposes, make sure we got rid of all non '*'
@@ -75,11 +76,13 @@ public class XSCMUniOp extends CMNode {
     // -------------------------------------------------------------------
     //  Protected, inherited methods
     // -------------------------------------------------------------------
+    @Override
     protected void calcFirstPos(CMStateSet toSet) {
         // Its just based on our child node's first pos
         toSet.setTo(fChild.firstPos());
     }
 
+    @Override
     protected void calcLastPos(CMStateSet toSet) {
         // Its just based on our child node's last pos
         toSet.setTo(fChild.lastPos());

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSException;
 /**
  * Contains a list of shorts.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -37,7 +37,7 @@ public final class ShortListImpl extends AbstractList implements ShortList {
      * An immutable empty list.
      */
     public static final ShortListImpl EMPTY_LIST = new ShortListImpl(new short[0], 0);
-    
+
     // The array to hold all data
     private final short[] fArray;
     // Number of elements in this list
@@ -45,7 +45,7 @@ public final class ShortListImpl extends AbstractList implements ShortList {
 
     /**
      * Construct an XSObjectList implementation
-     * 
+     *
      * @param array     the data array
      * @param length    the number of elements
      */
@@ -58,18 +58,20 @@ public final class ShortListImpl extends AbstractList implements ShortList {
      * The number of <code>Objects</code> in the list. The range of valid
      * child node indices is 0 to <code>length-1</code> inclusive.
      */
+    @Override
     public int getLength() {
         return fLength;
     }
 
     /**
-     *  Checks if the <code>unsigned short</code> <code>item</code> is a 
-     * member of this list. 
-     * @param item  <code>unsigned short</code> whose presence in this list 
-     *   is to be tested. 
-     * @return  True if this list contains the <code>unsigned short</code> 
-     *   <code>item</code>. 
+     *  Checks if the <code>unsigned short</code> <code>item</code> is a
+     * member of this list.
+     * @param item  <code>unsigned short</code> whose presence in this list
+     *   is to be tested.
+     * @return  True if this list contains the <code>unsigned short</code>
+     *   <code>item</code>.
      */
+    @Override
     public boolean contains(short item) {
         for (int i = 0; i < fLength; i++) {
             if (fArray[i] == item) {
@@ -78,20 +80,22 @@ public final class ShortListImpl extends AbstractList implements ShortList {
         }
         return false;
     }
-    
+
+    @Override
     public short item(int index) throws XSException {
         if (index < 0 || index >= fLength) {
             throw new XSException(XSException.INDEX_SIZE_ERR, null);
         }
         return fArray[index];
     }
-    
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null || !(obj instanceof ShortList)) {
             return false;
         }
         ShortList rhs = (ShortList)obj;
-        
+
         if (fLength != rhs.getLength()) {
             return false;
         }
@@ -102,11 +106,12 @@ public final class ShortListImpl extends AbstractList implements ShortList {
         }
         return true;
     }
-    
+
     /*
      * List methods
      */
 
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < fLength) {
             return new Short(fArray[index]);
@@ -114,6 +119,7 @@ public final class ShortListImpl extends AbstractList implements ShortList {
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }

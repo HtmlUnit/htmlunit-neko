@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,9 +32,9 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  * So, all we have to do is to keep an array of the possible children and
  * validate by just looking up each child being validated by looking it up
  * in the list.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public class MixedContentModel
@@ -55,8 +55,8 @@ public class MixedContentModel
 
     /* this is the EquivClassComparator object */
     //private EquivClassComparator comparator = null;
-    
-    /** 
+
+    /**
      * True if mixed content model is ordered. DTD mixed content models
      * are <em>always</em> unordered.
      */
@@ -92,15 +92,15 @@ public class MixedContentModel
     // ContentModelValidator methods
     //
 
-    
+
     /**
      * Check that the specified content is valid according to this
-     * content model. This method can also be called to do 'what if' 
+     * content model. This method can also be called to do 'what if'
      * testing of content models just to see if they would be valid.
      * <p>
-     * A value of -1 in the children array indicates a PCDATA node. All other 
+     * A value of -1 in the children array indicates a PCDATA node. All other
      * indexes will be positive and represent child elements. The count can be
-     * zero, since some elements have the EMPTY content model and that must be 
+     * zero, since some elements have the EMPTY content model and that must be
      * confirmed.
      *
      * @param children The children of this element.  Each integer is an index within
@@ -116,8 +116,9 @@ public class MixedContentModel
      *         content is required to reach a valid ending state.
      *
      */
+    @Override
     public int validate(QName[] children, int offset, int length) {
-        
+
         // must match order
         if (fOrdered) {
             int inIndex = 0;
@@ -152,7 +153,7 @@ public class MixedContentModel
                         return outIndex;
                     }
                 }
-                
+
                 // advance index
                 inIndex++;
             }
@@ -164,11 +165,11 @@ public class MixedContentModel
             {
                 // Get the current child out of the source index
                 final QName curChild = children[offset + outIndex];
-    
+
                 // If its PCDATA, then we just accept that
                 if (curChild.localpart == null)
                     continue;
-    
+
                 // And try to find it in our list
                 int inIndex = 0;
                 for (; inIndex < fCount; inIndex++)

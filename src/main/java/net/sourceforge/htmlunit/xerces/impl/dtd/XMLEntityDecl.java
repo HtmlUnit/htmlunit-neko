@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.xerces.impl.dtd;
 
 /**
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public class XMLEntityDecl {
@@ -59,35 +59,35 @@ public class XMLEntityDecl {
 
     /**
      * setValues
-     * 
-     * @param name 
-     * @param publicId 
-     * @param systemId 
-     * @param baseSystemId 
-     * @param notation 
-     * @param isPE 
+     *
+     * @param name
+     * @param publicId
+     * @param systemId
+     * @param baseSystemId
+     * @param notation
+     * @param isPE
      * @param inExternal
      */
-    public void setValues(String name, String publicId, String systemId, 
-                          String baseSystemId, String notation, 
+    public void setValues(String name, String publicId, String systemId,
+                          String baseSystemId, String notation,
                           boolean isPE, boolean inExternal) {
         setValues(name, publicId, systemId, baseSystemId, notation, null, isPE, inExternal);
     }
 
     /**
      * setValues
-     * 
-     * @param name 
-     * @param publicId 
-     * @param systemId 
-     * @param baseSystemId 
+     *
+     * @param name
+     * @param publicId
+     * @param systemId
+     * @param baseSystemId
      * @param value
-     * @param notation 
-     * @param isPE 
+     * @param notation
+     * @param isPE
      * @param inExternal
      */
-    public void setValues(String name, String publicId, String systemId, 
-                          String baseSystemId, String notation, 
+    public void setValues(String name, String publicId, String systemId,
+                          String baseSystemId, String notation,
                           String value, boolean isPE, boolean inExternal) {
         this.name         = name;
         this.publicId     = publicId;

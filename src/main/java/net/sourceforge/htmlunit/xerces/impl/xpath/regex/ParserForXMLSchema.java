@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import java.util.Locale;
 
 /**
  * A regular expression parser for the XML Schema.
- * 
+ *
  * @xerces.internal
  *
  * @author TAMURA Kent &lt;kent@trl.ibm.co.jp&gt;
@@ -37,56 +37,72 @@ class ParserForXMLSchema extends RegexParser {
         super(locale);
     }
 
+    @Override
     Token processCaret() throws ParseException {
         this.next();
         return Token.createChar('^');
     }
+    @Override
     Token processDollar() throws ParseException {
         this.next();
         return Token.createChar('$');
      }
+    @Override
     Token processLookahead() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processNegativelookahead() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processLookbehind() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processNegativelookbehind() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_A() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_Z() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_z() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_b() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_B() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_lt() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_gt() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processStar(Token tok) throws ParseException {
         this.next();
         return Token.createClosure(tok);
     }
+    @Override
     Token processPlus(Token tok) throws ParseException {
         // X+ -> XX*
         this.next();
         return Token.createConcat(tok, Token.createClosure(tok));
     }
+    @Override
     Token processQuestion(Token tok) throws ParseException {
         // X? -> X|
         this.next();
@@ -95,9 +111,11 @@ class ParserForXMLSchema extends RegexParser {
         par.addChild(Token.createEmpty());
         return par;
     }
+    @Override
     boolean checkQuestion(int off) {
         return false;
     }
+    @Override
     Token processParen() throws ParseException {
         this.next();
         Token tok = Token.createParen(this.parseRegex(), 0);
@@ -105,44 +123,56 @@ class ParserForXMLSchema extends RegexParser {
         this.next();                            // Skips ')'
         return tok;
     }
+    @Override
     Token processParen2() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processCondition() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processModifiers() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processIndependent() throws ParseException {
         throw ex("parser.process.1", this.offset);
     }
+    @Override
     Token processBacksolidus_c() throws ParseException {
         this.next();
         return this.getTokenForShorthand('c');
     }
+    @Override
     Token processBacksolidus_C() throws ParseException {
         this.next();
         return this.getTokenForShorthand('C');
     }
+    @Override
     Token processBacksolidus_i() throws ParseException {
         this.next();
         return this.getTokenForShorthand('i');
     }
+    @Override
     Token processBacksolidus_I() throws ParseException {
         this.next();
         return this.getTokenForShorthand('I');
     }
+    @Override
     Token processBacksolidus_g() throws ParseException {
         throw this.ex("parser.process.1", this.offset-2);
     }
+    @Override
     Token processBacksolidus_X() throws ParseException {
         throw ex("parser.process.1", this.offset-2);
     }
+    @Override
     Token processBackreference() throws ParseException {
         throw ex("parser.process.1", this.offset-4);
     }
 
+    @Override
     int processCIinCharacterClass(RangeToken tok, int c) {
         tok.mergeRanges(this.getTokenForShorthand(c));
         return -1;
@@ -166,6 +196,7 @@ class ParserForXMLSchema extends RegexParser {
      * @param useNrage Ignored.
      * @return This returns no NrageToken.
      */
+    @Override
     protected RangeToken parseCharacterClass(boolean useNrange) throws ParseException {
         this.setContext(S_INBRACKETS);
         this.next();                            // '['
@@ -185,7 +216,7 @@ class ParserForXMLSchema extends RegexParser {
         int type;
         boolean firstloop = true;
         while ((type = this.read()) != T_EOF) { // Don't use 'cotinue' for this loop.
-            
+
             wasDecoded = false;
             // single-range | from-to-range | subtraction
             if (type == T_CHAR && this.chardata == ']' && !firstloop) {
@@ -211,7 +242,7 @@ class ParserForXMLSchema extends RegexParser {
                     c = this.processCIinCharacterClass(tok, c);
                     if (c < 0)  end = true;
                     break;
-                    
+
                   case 'p':
                   case 'P':
                     int pstart = this.offset;
@@ -220,7 +251,7 @@ class ParserForXMLSchema extends RegexParser {
                     tok.mergeRanges(tok2);
                     end = true;
                     break;
-                   
+
                  case '-':
                      c = this.decodeEscaped();
                      wasDecoded = true;
@@ -273,7 +304,7 @@ class ParserForXMLSchema extends RegexParser {
                     else if (type == T_XMLSCHEMA_CC_SUBTRACTION) {
                         throw this.ex("parser.cc.8", this.offset-1);
                     } else {
-                        
+
                         int rangeend = this.chardata;
                         if (type == T_CHAR) {
                             if (rangeend == '[')  throw this.ex("parser.cc.6", this.offset-1);
@@ -308,10 +339,12 @@ class ParserForXMLSchema extends RegexParser {
         return tok;
     }
 
+    @Override
     protected RangeToken parseSetOperations() throws ParseException {
         throw this.ex("parser.process.1", this.offset);
     }
- 
+
+    @Override
     Token getTokenForShorthand(int ch) {
         switch (ch) {
           case 'd':
@@ -338,6 +371,7 @@ class ParserForXMLSchema extends RegexParser {
             throw new RuntimeException("Internal Error: shorthands: \\u"+Integer.toString(ch, 16));
         }
     }
+    @Override
     int decodeEscaped() throws ParseException {
         if (this.read() != T_BACKSOLIDUS)  throw ex("parser.next.1", this.offset-1);
         int c = this.chardata;
@@ -386,7 +420,7 @@ class ParserForXMLSchema extends RegexParser {
 
             /*
              * \w is defined by the XML Schema specification to be:
-             * [#x0000-#x10FFFF]-[\p{P}\p{Z}\p{C}] (all characters except the set of "punctuation", "separator" and "other" characters) 
+             * [#x0000-#x10FFFF]-[\p{P}\p{Z}\p{C}] (all characters except the set of "punctuation", "separator" and "other" characters)
              */
             tok = Token.createRange();
             tok.mergeRanges(Token.getRange("P", true));

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,8 +22,8 @@ import net.sourceforge.htmlunit.xerces.util.SymbolHash;
 
 /**
  * the factory to create/return built-in schema 1.0 DVs and create user-defined DVs
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -34,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.util.SymbolHash;
 public class SchemaDVFactoryImpl extends BaseSchemaDVFactory {
 
     static final SymbolHash fBuiltInTypes = new SymbolHash();
-    
+
     static {
         createBuiltInTypes();
     }
@@ -42,7 +42,7 @@ public class SchemaDVFactoryImpl extends BaseSchemaDVFactory {
     // create all built-in types
     static void createBuiltInTypes() {
         createBuiltInTypes(fBuiltInTypes, XSSimpleTypeDecl.fAnySimpleType);
-        
+
         // TODO: move specific 1.0 DV implementation from base
     } //createBuiltInTypes()
 
@@ -57,6 +57,7 @@ public class SchemaDVFactoryImpl extends BaseSchemaDVFactory {
      * @param name  the name of the datatype
      * @return      the datatype validator of the given name
      */
+    @Override
     public XSSimpleType getBuiltInType(String name) {
         return (XSSimpleType)fBuiltInTypes.get(name);
     }
@@ -67,8 +68,9 @@ public class SchemaDVFactoryImpl extends BaseSchemaDVFactory {
      *
      * @return      a hashtable which contains all built-in simple types
      */
+    @Override
     public SymbolHash getBuiltInTypes() {
-        return (SymbolHash)fBuiltInTypes.makeClone();
+        return fBuiltInTypes.makeClone();
     }
 
 }//SchemaDVFactoryImpl

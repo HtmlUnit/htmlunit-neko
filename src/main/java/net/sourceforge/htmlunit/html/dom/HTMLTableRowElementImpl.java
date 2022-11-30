@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,10 +39,11 @@ public class HTMLTableRowElementImpl
 
     private static final long serialVersionUID = 5409562635656244263L;
 
+    @Override
     public int getRowIndex()
     {
         Node    parent;
-        
+
         parent = getParentNode();
         if ( parent instanceof HTMLTableSectionElement ) {
             parent = parent.getParentNode();
@@ -52,12 +53,12 @@ public class HTMLTableRowElementImpl
         }
         return -1;
     }
-    
-    
+
+
     public void setRowIndex( int rowIndex )
     {
         Node    parent;
-        
+
         parent = getParentNode();
         if ( parent instanceof HTMLTableSectionElement ) {
             parent = parent.getParentNode();
@@ -67,35 +68,36 @@ public class HTMLTableRowElementImpl
         }
     }
 
-  
+
+    @Override
     public int getSectionRowIndex()
     {
         Node    parent;
-        
+
         parent = getParentNode();
         if ( parent instanceof HTMLTableSectionElement ) {
             return getRowIndex( parent );
         }
         return -1;
     }
-    
-    
+
+
     public void setSectionRowIndex( int sectionRowIndex )
     {
         Node    parent;
-        
+
         parent = getParentNode();
         if ( parent instanceof HTMLTableSectionElement ) {
             ( (HTMLTableSectionElementImpl) parent ).insertRowX( sectionRowIndex, this );
         }
     }
-  
-  
+
+
     int getRowIndex( Node parent )
     {
         NodeList    rows;
         int            i;
-        
+
         // Use getElementsByTagName() which creates a snapshot of all the
         // TR elements under the TABLE/section. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
@@ -108,7 +110,8 @@ public class HTMLTableRowElementImpl
         return -1;
     }
 
-  
+
+    @Override
     public HTMLCollection  getCells()
     {
         if ( _cells == null ) {
@@ -116,13 +119,13 @@ public class HTMLTableRowElementImpl
         }
         return _cells;
     }
-    
-    
+
+
     public void setCells( HTMLCollection cells )
     {
         Node    child;
         int        i;
-        
+
         child = getFirstChild();
         while ( child != null ) {
             removeChild( child );
@@ -137,12 +140,13 @@ public class HTMLTableRowElementImpl
         }
     }
 
-  
+
+    @Override
     public HTMLElement insertCell( int index )
     {
         Node        child;
         HTMLElement    newCell;
-        
+
         newCell = new HTMLTableCellElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TD" );
         child = getFirstChild();
         while ( child != null ) {
@@ -158,12 +162,13 @@ public class HTMLTableRowElementImpl
         appendChild( newCell );
         return newCell;
     }
-    
-    
+
+
+    @Override
     public void deleteCell( int index )
     {
         Node    child;
-        
+
         child = getFirstChild();
         while ( child != null ) {
             if ( child instanceof HTMLTableCellElement ) {
@@ -177,35 +182,40 @@ public class HTMLTableRowElementImpl
         }
     }
 
-  
+
+    @Override
     public String getAlign()
     {
         return capitalize( getAttribute( "align" ) );
     }
-    
-    
+
+
+    @Override
     public void setAlign( String align )
     {
         setAttribute( "align", align );
     }
 
-    
+
+    @Override
     public String getBgColor()
     {
         return getAttribute( "bgcolor" );
     }
-    
-    
+
+
+    @Override
     public void setBgColor( String bgColor )
     {
         setAttribute( "bgcolor", bgColor );
     }
 
-  
+
+    @Override
     public String getCh()
     {
         String    ch;
-        
+
         // Make sure that the access key is a single character.
         ch = getAttribute( "char" );
         if ( ch != null && ch.length() > 1 ) {
@@ -213,8 +223,9 @@ public class HTMLTableRowElementImpl
         }
         return ch;
     }
-    
-    
+
+
+    @Override
     public void setCh( String ch )
     {
         // Make sure that the access key is a single character.
@@ -224,53 +235,58 @@ public class HTMLTableRowElementImpl
         setAttribute( "char", ch );
     }
 
-    
+
+    @Override
     public String getChOff()
     {
         return getAttribute( "charoff" );
     }
-    
-    
+
+
+    @Override
     public void setChOff( String chOff )
     {
         setAttribute( "charoff", chOff );
     }
-  
-  
+
+
+    @Override
     public String getVAlign()
     {
         return capitalize( getAttribute( "valign" ) );
     }
-    
-    
+
+
+    @Override
     public void setVAlign( String vAlign )
     {
         setAttribute( "valign", vAlign );
     }
-    
+
     /**
      * Explicit implementation of cloneNode() to ensure that cache used
      * for getCells() gets cleared.
      */
+    @Override
     public Node cloneNode( boolean deep ) {
         HTMLTableRowElementImpl clonedNode = (HTMLTableRowElementImpl)super.cloneNode( deep );
         clonedNode._cells = null;
         return clonedNode;
     }
-    
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLTableRowElementImpl( HTMLDocumentImpl owner, String name )
     {
         super( owner, name );
     }
-  
-  
+
+
     HTMLCollection    _cells;
 
-  
+
 }
 

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,9 +24,9 @@ import java.util.ResourceBundle;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 
 /**
- * XMLMessageFormatter provides error messages for the XML 1.0 Recommendation and for 
+ * XMLMessageFormatter provides error messages for the XML 1.0 Recommendation and for
  * the Namespaces Recommendation
- * 
+ *
  * @xerces.internal
  *
  * @author Eric Ye, IBM
@@ -43,7 +43,7 @@ public class XMLMessageFormatter implements MessageFormatter {
     // private objects to cache the locale and resource bundle
     private Locale fLocale = null;
     private ResourceBundle fResourceBundle = null;
-    
+
     //
     // MessageFormatter methods
     //
@@ -51,21 +51,22 @@ public class XMLMessageFormatter implements MessageFormatter {
     /**
      * Formats a message with the specified arguments using the given
      * locale information.
-     * 
+     *
      * @param locale    The locale of the message.
      * @param key       The message key.
      * @param arguments The message replacement text arguments. The order
      *                  of the arguments must match that of the placeholders
      *                  in the actual message.
-     * 
+     *
      * @return Returns the formatted message.
      *
      * @throws MissingResourceException Thrown if the message with the
      *                                  specified key cannot be found.
      */
-    public String formatMessage(Locale locale, String key, Object[] arguments) 
+    @Override
+    public String formatMessage(Locale locale, String key, Object[] arguments)
         throws MissingResourceException {
-        
+
         if (locale == null) {
             locale = Locale.getDefault();
         }
@@ -74,7 +75,7 @@ public class XMLMessageFormatter implements MessageFormatter {
             // memorize the most-recent locale
             fLocale = locale;
         }
-        
+
         // format message
         String msg;
         try {
@@ -82,12 +83,12 @@ public class XMLMessageFormatter implements MessageFormatter {
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                } 
+                }
                 catch (Exception e) {
                     msg = fResourceBundle.getString("FormatFailed");
                     msg += " " + fResourceBundle.getString(key);
                 }
-            } 
+            }
         }
 
         // error

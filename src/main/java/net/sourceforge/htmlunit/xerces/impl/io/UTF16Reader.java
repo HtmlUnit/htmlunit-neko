@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,23 +27,23 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 
 /**
  * <p>A UTF-16 reader. Can also be used for UCS-2 (i.e. ISO-10646-UCS-2).</p>
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Michael Glavassevich, IBM
  *
  * @version $Id$
  */
-public final class UTF16Reader 
+public final class UTF16Reader
     extends Reader {
-    
+
     //
     // Constants
     //
 
     /** Default byte buffer size (4096). */
     public static final int DEFAULT_BUFFER_SIZE = 4096;
-    
+
     //
     // Data
     //
@@ -53,46 +53,46 @@ public final class UTF16Reader
 
     /** Byte buffer. */
     protected final byte[] fBuffer;
-    
+
     /** Endianness. */
     protected final boolean fIsBigEndian;
-    
+
     // message formatter; used to produce localized exception messages
     private final MessageFormatter fFormatter;
 
     // Locale to use for messages
     private final Locale fLocale;
-    
+
     //
     // Constructors
     //
 
-    /** 
-     * Constructs a UTF-16 reader from the specified input stream 
+    /**
+     * Constructs a UTF-16 reader from the specified input stream
      * using the default buffer size. Primarily for testing.
      *
      * @param inputStream The input stream.
      * @param isBigEndian The byte order.
      */
     public UTF16Reader(InputStream inputStream, boolean isBigEndian) {
-        this(inputStream, DEFAULT_BUFFER_SIZE, isBigEndian, 
+        this(inputStream, DEFAULT_BUFFER_SIZE, isBigEndian,
                 new XMLMessageFormatter(), Locale.getDefault());
     } // <init>(InputStream, boolean)
-    
-    /** 
-     * Constructs a UTF-16 reader from the specified input stream 
+
+    /**
+     * Constructs a UTF-16 reader from the specified input stream
      * using the default buffer size and the given MessageFormatter.
      *
      * @param inputStream The input stream.
      * @param isBigEndian The byte order.
      */
-    public UTF16Reader(InputStream inputStream, boolean isBigEndian, 
+    public UTF16Reader(InputStream inputStream, boolean isBigEndian,
             MessageFormatter messageFormatter, Locale locale) {
         this(inputStream, DEFAULT_BUFFER_SIZE, isBigEndian, messageFormatter, locale);
     } // <init>(InputStream, boolean, MessageFormatter, Locale)
-    
-    /** 
-     * Constructs a UTF-16 reader from the specified input stream 
+
+    /**
+     * Constructs a UTF-16 reader from the specified input stream
      * and buffer size and given MessageFormatter.
      *
      * @param inputStream       The input stream.
@@ -101,13 +101,13 @@ public final class UTF16Reader
      * @param messageFormatter  Given MessageFormatter
      * @param locale            Locale to use for messages
      */
-    public UTF16Reader(InputStream inputStream, int size, boolean isBigEndian, 
+    public UTF16Reader(InputStream inputStream, int size, boolean isBigEndian,
             MessageFormatter messageFormatter, Locale locale) {
         this(inputStream, new byte[size], isBigEndian, messageFormatter, locale);
     } // <init>(InputStream, int, boolean, MessageFormatter, Locale)
-    
-    /** 
-     * Constructs a UTF-16 reader from the specified input stream, 
+
+    /**
+     * Constructs a UTF-16 reader from the specified input stream,
      * buffer and MessageFormatter.
      *
      * @param inputStream       The input stream.
@@ -116,7 +116,7 @@ public final class UTF16Reader
      * @param messageFormatter  Given MessageFormatter
      * @param locale            Locale to use for messages
      */
-    public UTF16Reader(InputStream inputStream, byte [] buffer, boolean isBigEndian, 
+    public UTF16Reader(InputStream inputStream, byte [] buffer, boolean isBigEndian,
             MessageFormatter messageFormatter, Locale locale) {
         fInputStream = inputStream;
         fBuffer = buffer;
@@ -124,11 +124,11 @@ public final class UTF16Reader
         fFormatter = messageFormatter;
         fLocale = locale;
     } // <init>(InputStream, byte[], boolean, MessageFormatter, Locale)
-    
+
     //
     // Reader methods
     //
-    
+
     /**
      * Read a single character.  This method will block until a character is
      * available, an I/O error occurs, or the end of the stream is reached.
@@ -142,6 +142,7 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read() throws IOException {
         final int b0 = fInputStream.read();
         if (b0 == -1) {
@@ -173,6 +174,7 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read(char[] ch, int offset, int length) throws IOException {
         int byteLength = length << 1;
         if (byteLength > fBuffer.length) {
@@ -210,6 +212,7 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public long skip(long n) throws IOException {
         long bytesSkipped = fInputStream.skip(n << 1);
         if ((bytesSkipped & 1) != 0) {
@@ -231,6 +234,7 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public boolean ready() throws IOException {
         return false;
     } // ready()
@@ -238,6 +242,7 @@ public final class UTF16Reader
     /**
      * Tell whether this stream supports the mark() operation.
      */
+    @Override
     public boolean markSupported() {
         return false;
     } // markSupported()
@@ -255,6 +260,7 @@ public final class UTF16Reader
      * @exception  IOException  If the stream does not support mark(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void mark(int readAheadLimit) throws IOException {
         throw new IOException(fFormatter.formatMessage(fLocale, "OperationNotSupported", new Object[]{"mark()", "UTF-16"}));
     } // mark(int)
@@ -272,6 +278,7 @@ public final class UTF16Reader
      *                          or if the stream does not support reset(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
     } // reset()
 
@@ -282,14 +289,15 @@ public final class UTF16Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
-     public void close() throws IOException {
+     @Override
+    public void close() throws IOException {
          fInputStream.close();
      } // close()
-     
+
      //
      // Private methods
      //
-     
+
      /** Decodes UTF-16BE **/
      private void processBE(final char[] ch, int offset, final int count) {
          int curPos = 0;
@@ -299,7 +307,7 @@ public final class UTF16Reader
              ch[offset++] = (char) ((b0 << 8) | b1);
          }
      } // processBE(char[],int,int)
-     
+
      /** Decodes UTF-16LE **/
      private void processLE(final char[] ch, int offset, final int count) {
          int curPos = 0;

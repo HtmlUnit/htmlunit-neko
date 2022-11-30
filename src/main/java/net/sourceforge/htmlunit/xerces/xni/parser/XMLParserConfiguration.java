@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *   Call the <code>reset</code> method on each component before parsing.
  *   This is only required if the configuration is re-using existing
  *   components that conform to the <code>XMLComponent</code> interface.
- *   If the configuration uses all custom parts, then it is free to 
+ *   If the configuration uses all custom parts, then it is free to
  *   implement everything as it sees fit as long as it follows the
  *   other guidelines.
  *  </li>
@@ -62,8 +62,8 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *   Pass the same unique String references for all symbols that are
  *   propagated to the registered handlers. Symbols include, but may not
  *   be limited to, the names of elements and attributes (including their
- *   uri, prefix, and localpart). This is suggested but not an absolute 
- *   must. However, the standard parser components may require access to 
+ *   uri, prefix, and localpart). This is suggested but not an absolute
+ *   must. However, the standard parser components may require access to
  *   the same symbol table for creation of unique symbol references to be
  *   propagated in the XNI pipeline.
  *  </li>
@@ -95,16 +95,16 @@ public interface XMLParserConfiguration
      * document.
      * <p>
      * This method is synchronous: it will not return until parsing
-     * has ended.  If a client application wants to terminate 
+     * has ended.  If a client application wants to terminate
      * parsing early, it should throw an exception.
      * <p>
      * When this method returns, all characters streams and byte streams
      * opened by the parser are closed.
-     * 
+     *
      * @param inputSource The input source for the top-level of the
      *                    XML document.
      *
-     * @exception XNIException Any XNI exception, possibly wrapping 
+     * @exception XNIException Any XNI exception, possibly wrapping
      *                         another exception.
      * @exception IOException  An IO exception from the parser, possibly
      *                         from a byte stream or character stream
@@ -119,7 +119,7 @@ public interface XMLParserConfiguration
      * Allows a parser to add parser specific features to be recognized
      * and managed by the parser configuration.
      *
-     * @param featureIds An array of the additional feature identifiers 
+     * @param featureIds An array of the additional feature identifiers
      *                   to be recognized.
      */
     void addRecognizedFeatures(String[] featureIds);
@@ -127,7 +127,7 @@ public interface XMLParserConfiguration
     /**
      * Sets the state of a feature. This method is called by the parser
      * and gets propagated to components in this parser configuration.
-     * 
+     *
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
@@ -139,12 +139,13 @@ public interface XMLParserConfiguration
 
     /**
      * Returns the state of a feature.
-     * 
+     *
      * @param featureId The feature identifier.
-     * 
+     *
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
+    @Override
     boolean getFeature(String featureId)
         throws XMLConfigurationException;
 
@@ -152,7 +153,7 @@ public interface XMLParserConfiguration
      * Allows a parser to add parser specific properties to be recognized
      * and managed by the parser configuration.
      *
-     * @param propertyIds An array of the additional property identifiers 
+     * @param propertyIds An array of the additional property identifiers
      *                    to be recognized.
      */
     void addRecognizedProperties(String[] propertyIds);
@@ -160,7 +161,7 @@ public interface XMLParserConfiguration
     /**
      * Sets the value of a property. This method is called by the parser
      * and gets propagated to components in this parser configuration.
-     * 
+     *
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
@@ -172,12 +173,13 @@ public interface XMLParserConfiguration
 
     /**
      * Returns the value of a property.
-     * 
+     *
      * @param propertyId The property identifier.
-     * 
+     *
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
      */
+    @Override
     Object getProperty(String propertyId)
         throws XMLConfigurationException;
 
@@ -195,7 +197,7 @@ public interface XMLParserConfiguration
 
     /**
      * Sets the document handler to receive information about the document.
-     * 
+     *
      * @param documentHandler The document handler.
      */
     void setDocumentHandler(XMLDocumentHandler documentHandler);
@@ -205,7 +207,7 @@ public interface XMLParserConfiguration
 
     /**
      * Sets the DTD handler.
-     * 
+     *
      * @param dtdHandler The DTD handler.
      */
     void setDTDHandler(XMLDTDHandler dtdHandler);
@@ -215,7 +217,7 @@ public interface XMLParserConfiguration
 
     /**
      * Sets the DTD content model handler.
-     * 
+     *
      * @param dtdContentModelHandler The DTD content model handler.
      */
     void setDTDContentModelHandler(XMLDTDContentModelHandler dtdContentModelHandler);

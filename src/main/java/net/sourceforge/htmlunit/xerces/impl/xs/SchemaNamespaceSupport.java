@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,17 +33,17 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 /**
  * This class customizes the behaviour of the util.NamespaceSupport
  * class in order to easily implement some features that we need for
- * efficient schema handling.  It will not be generally useful.  
+ * efficient schema handling.  It will not be generally useful.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  *
  * @version $Id$
  */
-public class SchemaNamespaceSupport 
+public class SchemaNamespaceSupport
     extends NamespaceSupport {
-    
+
     private SchemaRootContext fSchemaRootContext = null;
 
     public SchemaNamespaceSupport (Element schemaRoot, SymbolTable symbolTable) {
@@ -68,7 +68,7 @@ public class SchemaNamespaceSupport
             fContext = new int[fCurrentContext+1];
         System.arraycopy(nSupport.fContext, 0, fContext, 0, fCurrentContext+1);
     } // end constructor
-    
+
     /**
      * This method takes a set of Strings, as stored in a
      * NamespaceSupport object, and "fools" the object into thinking
@@ -95,7 +95,7 @@ public class SchemaNamespaceSupport
         fNamespaceSize = newSize;
     } // setEffectiveContext(String):void
 
-    /** 
+    /**
      * This method returns an array of Strings, as would be stored in
      * a NamespaceSupport object.  This array contains all
      * declarations except those at the global level.
@@ -120,14 +120,15 @@ public class SchemaNamespaceSupport
     } // getEffectiveLocalContext():String
 
     // This method removes from this object all the namespaces
-    // returned by getEffectiveLocalContext. 
+    // returned by getEffectiveLocalContext.
     public void makeGlobal() {
         if (fCurrentContext >= 3) {
             fCurrentContext = 3;
             fNamespaceSize = fContext[3];
         }
     } // makeGlobal
-    
+
+    @Override
     public String getURI(String prefix) {
         String uri = super.getURI(prefix);
         if (uri == null && fSchemaRootContext != null) {
@@ -135,25 +136,25 @@ public class SchemaNamespaceSupport
                 fSchemaRootContext.fillNamespaceContext();
                 fSchemaRootContext.fDOMContextBuilt = true;
             }
-            if (fSchemaRootContext.fNamespaceSize > 0 && 
+            if (fSchemaRootContext.fNamespaceSize > 0 &&
                 !containsPrefix(prefix)) {
                 uri = fSchemaRootContext.getURI(prefix);
             }
         }
         return uri;
     }
-    
+
     /**
-     * This class keeps track of the namespace bindings 
+     * This class keeps track of the namespace bindings
      * declared on ancestors of the schema root.
      */
     static final class SchemaRootContext {
-        
+
         //
         // Data
         //
 
-        /** 
+        /**
          * Namespace binding information. This array is composed of a
          * series of tuples containing the namespace binding information:
          * &lt;prefix, uri&gt;.
@@ -162,27 +163,27 @@ public class SchemaNamespaceSupport
 
         /** The size of the namespace information array. */
         int fNamespaceSize = 0;
-        
-        /** 
-         * Flag indicating whether the namespace context 
+
+        /**
+         * Flag indicating whether the namespace context
          * has been from the root node's ancestors.
          */
         boolean fDOMContextBuilt = false;
-        
+
         /** Schema root. **/
         private final Element fSchemaRoot;
-        
+
         /** Symbol table. **/
         private final SymbolTable fSymbolTable;
-        
+
         /** Temporary storage for attribute QNames. **/
         private final QName fAttributeQName = new QName();
-        
+
         SchemaRootContext(Element schemaRoot, SymbolTable symbolTable) {
             fSchemaRoot = schemaRoot;
             fSymbolTable = symbolTable;
         }
-        
+
         void fillNamespaceContext() {
             if (fSchemaRoot != null) {
                 Node currentNode = fSchemaRoot.getParentNode();
@@ -210,13 +211,13 @@ public class SchemaNamespaceSupport
                                 }
                             }
                         }
-                        
+
                     }
                     currentNode = currentNode.getParentNode();
                 }
             }
         }
-        
+
         String getURI(String prefix) {
             // find prefix in the DOM context
             for (int i = 0; i < fNamespaceSize; i += 2) {
@@ -227,8 +228,8 @@ public class SchemaNamespaceSupport
             // prefix not found
             return null;
         }
-        
-        private void declarePrefix(String prefix, String uri) {           
+
+        private void declarePrefix(String prefix, String uri) {
             // resize array, if needed
             if (fNamespaceSize == fNamespace.length) {
                 String[] namespacearray = new String[fNamespaceSize * 2];
@@ -240,7 +241,7 @@ public class SchemaNamespaceSupport
             fNamespace[fNamespaceSize++] = prefix;
             fNamespace[fNamespaceSize++] = uri;
         }
-        
+
         private void fillQName(QName toFill, Node node) {
             final String prefix = node.getPrefix();
             final String localName = node.getLocalName();
@@ -248,9 +249,9 @@ public class SchemaNamespaceSupport
             final String namespace = node.getNamespaceURI();
             toFill.prefix = (prefix != null) ? fSymbolTable.addSymbol(prefix) : XMLSymbols.EMPTY_STRING;
             toFill.localpart = (localName != null) ? fSymbolTable.addSymbol(localName) : XMLSymbols.EMPTY_STRING;
-            toFill.rawname = (rawName != null) ? fSymbolTable.addSymbol(rawName) : XMLSymbols.EMPTY_STRING; 
+            toFill.rawname = (rawName != null) ? fSymbolTable.addSymbol(rawName) : XMLSymbols.EMPTY_STRING;
             toFill.uri = (namespace != null && namespace.length() > 0) ? fSymbolTable.addSymbol(namespace) : null;
         }
     }
-    
+
 } // class NamespaceSupport

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,11 +20,12 @@ package net.sourceforge.htmlunit.xerces.impl.dv.xs;
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 
 /**
  * Represent the schema type "ID"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -33,10 +34,12 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
  */
 public class IDDV extends TypeValidator{
 
+    @Override
     public short getAllowedFacets(){
-        return (XSSimpleTypeDecl.FACET_LENGTH | XSSimpleTypeDecl.FACET_MINLENGTH | XSSimpleTypeDecl.FACET_MAXLENGTH | XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_ENUMERATION | XSSimpleTypeDecl.FACET_WHITESPACE );
+        return (XSSimpleTypeDefinition.FACET_LENGTH | XSSimpleTypeDefinition.FACET_MINLENGTH | XSSimpleTypeDefinition.FACET_MAXLENGTH | XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_ENUMERATION | XSSimpleTypeDefinition.FACET_WHITESPACE );
     }
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         if (!XMLChar.isValidNCName(content)) {
             throw new InvalidDatatypeValueException("cvc-datatype-valid.1.2.1", new Object[]{content, "NCName"});
@@ -44,6 +47,7 @@ public class IDDV extends TypeValidator{
         return content;
     }
 
+    @Override
     public void checkExtraRules(Object value, ValidationContext context) throws InvalidDatatypeValueException {
         String content = (String)value;
         if (context.isIdDeclared(content))

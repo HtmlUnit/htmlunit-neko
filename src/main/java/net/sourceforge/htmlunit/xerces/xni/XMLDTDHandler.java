@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,13 +38,13 @@ public interface XMLDTDHandler {
     //
 
     /**
-     * Conditional section: INCLUDE. 
+     * Conditional section: INCLUDE.
      *
      * @see #CONDITIONAL_IGNORE
      */
     short CONDITIONAL_INCLUDE = 0;
 
-    /** 
+    /**
      * Conditional section: IGNORE.
      *
      * @see #CONDITIONAL_INCLUDE
@@ -59,9 +59,9 @@ public interface XMLDTDHandler {
      * The start of the DTD.
      *
      * @param locator  The document locator, or null if the document
-     *                 location cannot be reported during the parsing of 
+     *                 location cannot be reported during the parsing of
      *                 the document DTD. However, it is <em>strongly</em>
-     *                 recommended that a locator be supplied that can 
+     *                 recommended that a locator be supplied that can
      *                 at least report the base system identifier of the
      *                 DTD.
      * @param augmentations Additional information that may include infoset
@@ -75,7 +75,7 @@ public interface XMLDTDHandler {
     /**
      * This method notifies of the start of a parameter entity. The parameter
      * entity name start with a '%' character.
-     * 
+     *
      * @param name     The name of the parameter entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -98,7 +98,7 @@ public interface XMLDTDHandler {
      * <p>
      * <strong>Note:</strong> This method is only called for external
      * parameter entities referenced in the DTD.
-     * 
+     *
      * @param version  The XML version, or null if not specified.
      * @param encoding The IANA encoding name of the entity.
      * @param augmentations Additional information that may include infoset
@@ -112,7 +112,7 @@ public interface XMLDTDHandler {
     /**
      * This method notifies the end of a parameter entity. Parameter entity
      * names begin with a '%' character.
-     * 
+     *
      * @param name The name of the parameter entity.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -124,7 +124,7 @@ public interface XMLDTDHandler {
 
     /**
      * The start of the DTD external subset.
-     * 
+     *
      * @param identifier The resource identifier.
      * @param augmentations
      *                   Additional information that may include infoset
@@ -133,7 +133,7 @@ public interface XMLDTDHandler {
      *                   Thrown by handler to signal an error.
      */
     void startExternalSubset(XMLResourceIdentifier identifier,
-                                    Augmentations augmentations) 
+                                    Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -149,7 +149,7 @@ public interface XMLDTDHandler {
 
     /**
      * A comment.
-     * 
+     *
      * @param text The text in the comment.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -169,7 +169,7 @@ public interface XMLDTDHandler {
      * element attributes but are <strong>not</strong> parsed or presented
      * to the application as anything other than text. The application is
      * responsible for parsing the data.
-     * 
+     *
      * @param target The target.
      * @param data   The data or null if none specified.
      * @param augmentations Additional information that may include infoset
@@ -183,7 +183,7 @@ public interface XMLDTDHandler {
 
     /**
      * An element declaration.
-     * 
+     *
      * @param name         The name of the element.
      * @param contentModel The element content model.
      * @param augmentations Additional information that may include infoset
@@ -197,7 +197,7 @@ public interface XMLDTDHandler {
 
     /**
      * The start of an attribute list.
-     * 
+     *
      * @param elementName The name of the element that this attribute
      *                    list is associated with.
      * @param augmentations Additional information that may include infoset
@@ -210,13 +210,13 @@ public interface XMLDTDHandler {
 
     /**
      * An attribute declaration.
-     * 
+     *
      * @param elementName   The name of the element that this attribute
      *                      is associated with.
      * @param attributeName The name of the attribute.
      * @param type          The attribute type. This value will be one of
      *                      the following: "CDATA", "ENTITY", "ENTITIES",
-     *                      "ENUMERATION", "ID", "IDREF", "IDREFS", 
+     *                      "ENUMERATION", "ID", "IDREF", "IDREFS",
      *                      "NMTOKEN", "NMTOKENS", or "NOTATION".
      * @param enumeration   If the type has the value "ENUMERATION" or
      *                      "NOTATION", this array holds the allowed attribute
@@ -226,7 +226,7 @@ public interface XMLDTDHandler {
      *                      "#REQUIRED", or null.
      * @param defaultValue  The attribute default value, or null if no
      *                      default value is specified.
-     * @param nonNormalizedDefaultValue  The attribute default value with no normalization 
+     * @param nonNormalizedDefaultValue  The attribute default value with no normalization
      *                      performed, or null if no default value is specified.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -234,7 +234,7 @@ public interface XMLDTDHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     void attributeDecl(String elementName, String attributeName,
-                              String type, String[] enumeration, 
+                              String type, String[] enumeration,
                               String defaultType, XMLString defaultValue,
                               XMLString nonNormalizedDefaultValue, Augmentations augmentations)
         throws XNIException;
@@ -251,13 +251,13 @@ public interface XMLDTDHandler {
 
     /**
      * An internal entity declaration.
-     * 
+     *
      * @param name The name of the entity. Parameter entity names start with
-     *             '%', whereas the name of a general entity is just the 
+     *             '%', whereas the name of a general entity is just the
      *             entity name.
      * @param text The value of the entity.
      * @param nonNormalizedText The non-normalized value of the entity. This
-     *             value contains the same sequence of characters that was in 
+     *             value contains the same sequence of characters that was in
      *             the internal entity declaration, without any entity
      *             references expanded.
      * @param augmentations Additional information that may include infoset
@@ -267,16 +267,16 @@ public interface XMLDTDHandler {
      */
     void internalEntityDecl(String name, XMLString text,
                                    XMLString nonNormalizedText,
-                                   Augmentations augmentations) 
+                                   Augmentations augmentations)
         throws XNIException;
 
     /**
      * An external entity declaration.
-     * 
+     *
      * @param name     The name of the entity. Parameter entity names start
      *                 with '%', whereas the name of a general entity is just
      *                 the entity name.
-     * @param identifier    An object containing all location information 
+     * @param identifier    An object containing all location information
      *                      pertinent to this external entity.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -285,14 +285,14 @@ public interface XMLDTDHandler {
      */
     void externalEntityDecl(String name,
                                    XMLResourceIdentifier identifier,
-                                   Augmentations augmentations) 
+                                   Augmentations augmentations)
         throws XNIException;
 
     /**
      * An unparsed entity declaration.
-     * 
+     *
      * @param name     The name of the entity.
-     * @param identifier    An object containing all location information 
+     * @param identifier    An object containing all location information
      *                      pertinent to this unparsed entity declaration.
      * @param notation The name of the notation.
      * @param augmentations Additional information that may include infoset
@@ -301,15 +301,15 @@ public interface XMLDTDHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     void unparsedEntityDecl(String name,
-                                   XMLResourceIdentifier identifier, 
-                                   String notation, Augmentations augmentations) 
+                                   XMLResourceIdentifier identifier,
+                                   String notation, Augmentations augmentations)
         throws XNIException;
 
     /**
      * A notation declaration
-     * 
+     *
      * @param name     The name of the notation.
-     * @param identifier    An object containing all location information 
+     * @param identifier    An object containing all location information
      *                      pertinent to this notation.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -321,7 +321,7 @@ public interface XMLDTDHandler {
 
     /**
      * The start of a conditional section.
-     * 
+     *
      * @param type The type of the conditional section. This value will
      *             either be CONDITIONAL_INCLUDE or CONDITIONAL_IGNORE.
      * @param augmentations Additional information that may include infoset

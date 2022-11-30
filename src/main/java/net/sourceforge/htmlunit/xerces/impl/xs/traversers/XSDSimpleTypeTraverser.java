@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,6 +34,7 @@ import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
@@ -68,29 +69,29 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  *   Content: (annotation?, (simpleType*))
  * </union>
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems, Inc.
  * @author Sandy Gao, IBM
- * 
+ *
  * @version $Id$
  */
 class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
-    
+
     // whether the type being parsed is a S4S built-in type.
     private boolean fIsBuiltIn = false;
-    
+
     XSDSimpleTypeTraverser (XSDHandler handler,
             XSAttributeChecker gAttrCheck) {
         super(handler, gAttrCheck);
     }
-    
+
     //return qualified name of simpleType or empty string if error occured
     XSSimpleType traverseGlobal(Element elmNode,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         // General Attribute Checking
         Object[] attrValues = fAttrChecker.checkAttributes(elmNode, true, schemaDoc);
         String nameAtt = (String)attrValues[XSAttributeChecker.ATTIDX_NAME];
@@ -99,13 +100,13 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
         }
         XSSimpleType type = traverseSimpleTypeDecl(elmNode, attrValues, schemaDoc, grammar);
         fAttrChecker.returnAttrArray(attrValues, schemaDoc);
-        
+
         // if it's a global type without a name, return null
         if (nameAtt == null) {
             reportSchemaError("s4s-att-must-appear", new Object[]{SchemaSymbols.ELT_SIMPLETYPE, SchemaSymbols.ATT_NAME}, elmNode);
             type = null;
         }
-        
+
         // don't add global components without name to the grammar
         if (type != null) {
             if (grammar.getGlobalTypeDecl(type.getName()) == null) {
@@ -114,7 +115,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
 
             // also add it to extended map
             final String loc = fSchemaHandler.schemaDocument2SystemId(schemaDoc);
-            final XSTypeDefinition type2 = grammar.getGlobalTypeDecl(type.getName(), loc);  
+            final XSTypeDefinition type2 = grammar.getGlobalTypeDecl(type.getName(), loc);
             if (type2 == null) {
                 grammar.addGlobalSimpleTypeDecl(type, loc);
             }
@@ -132,11 +133,11 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
 
         return type;
     }
-    
+
     XSSimpleType traverseLocal(Element elmNode,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         // General Attribute Checking
         Object[] attrValues = fAttrChecker.checkAttributes(elmNode, false, schemaDoc);
         String name = genAnonTypeName(elmNode);
@@ -145,25 +146,25 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             ((XSSimpleTypeDecl)type).setAnonymous(true);
         }
         fAttrChecker.returnAttrArray(attrValues, schemaDoc);
-        
+
         return type;
     }
-    
+
     private XSSimpleType traverseSimpleTypeDecl(Element simpleTypeDecl,
             Object[] attrValues,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         // get name and final values
         String name = (String)attrValues[XSAttributeChecker.ATTIDX_NAME];
         return getSimpleType(name, simpleTypeDecl, attrValues, schemaDoc, grammar);
     }
-    
+
     /*
      * Generate a name for an anonymous type
      */
     private String genAnonTypeName(Element simpleTypeDecl) {
-        
+
         // Generate a unique name for the anonymous type by concatenating together the
         // names of parent nodes
         // The name is quite good for debugging/error purposes, but we may want to
@@ -297,7 +298,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
                         XSConstants.DERIVATION_UNION, schemaDoc);
                 if (dv != null) {
                     // if it's a union, expand it
-                    if (dv.getVariety() == XSSimpleType.VARIETY_UNION) {
+                    if (dv.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) {
                         dvs = dv.getMemberTypes();
                         for (int j = 0; j < dvs.getLength(); j++)
                             dTValidators.add(dvs.item(j));
@@ -331,12 +332,12 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
                     dv = traverseLocal(content, schemaDoc, grammar);
                     if (dv != null) {
                         // if it's a union, expand it
-                        if (dv.getVariety() == XSSimpleType.VARIETY_UNION) {
+                        if (dv.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) {
                             dvs = dv.getMemberTypes();
                             for (int j = 0; j < dvs.getLength(); j++) {
                                 dTValidators.add(dvs.item(j));
                             }
-                        } 
+                        }
                         else {
                             dTValidators.add(dv);
                         }
@@ -378,7 +379,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
         // create the simple type based on the "base" type
         XSSimpleType newDecl = null;
         if (restriction) {
-            newDecl = fSchemaHandler.fDVFactory.createTypeRestriction(name, schemaDoc.fTargetNamespace, (short)finalProperty, baseValidator, 
+            newDecl = fSchemaHandler.fDVFactory.createTypeRestriction(name, schemaDoc.fTargetNamespace, (short)finalProperty, baseValidator,
                     annotations == null? null : new XSObjectListImpl(annotations, annotations.length));
         }
         else if (list) {
@@ -394,14 +395,14 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
         if (restriction && content != null) {
             FacetInfo fi = traverseFacets(content, newDecl, baseValidator, schemaDoc);
             content = fi.nodeAfterFacets;
-            
+
             try {
                 fValidationState.setNamespaceSupport(schemaDoc.fNamespaceSupport);
                 newDecl.applyFacets(fi.facetdata, fi.fPresentFacets, fi.fFixedFacets, fValidationState);
             } catch (InvalidDatatypeFacetException ex) {
                 reportSchemaError(ex.getKey(), ex.getArgs(), child);
                 // Recreate the type, ignoring the facets
-                newDecl = fSchemaHandler.fDVFactory.createTypeRestriction(name, schemaDoc.fTargetNamespace, (short)finalProperty, baseValidator, 
+                newDecl = fSchemaHandler.fDVFactory.createTypeRestriction(name, schemaDoc.fTargetNamespace, (short)finalProperty, baseValidator,
                         annotations == null? null : new XSObjectListImpl(annotations, annotations.length));
             }
         }
@@ -421,7 +422,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
         // return the new type
         return newDecl;
     }
-    
+
     //@param: elm - top element
     //@param: baseTypeStr - type (base/itemType/memberTypes)
     //@param: baseRefContext:  whether the caller is using this type as a base for restriction, union or list
@@ -433,7 +434,7 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             XSDocumentInfo schemaDoc) {
         if (baseTypeStr == null)
             return null;
-        
+
         XSTypeDefinition baseType = (XSTypeDefinition)fSchemaHandler.getGlobalDecl(schemaDoc, XSDHandler.TYPEDECL_TYPE, baseTypeStr, elm);
         if (baseType == null) {
             return null;
@@ -467,10 +468,10 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             }
             return null;
         }
-        
+
         return (XSSimpleType)baseType;
     }
-    
+
     // check whethe the type denoted by the name and namespace is a S4S
     // built-in type. update fIsBuiltIn at the same time.
     private final boolean checkBuiltIn(String name, String namespace) {
@@ -480,24 +481,24 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             fIsBuiltIn = true;
         return fIsBuiltIn;
     }
-    
+
     // find if a datatype validator is a list or has list datatype member.
     private boolean isListDatatype(XSSimpleType validator) {
-        if (validator.getVariety() == XSSimpleType.VARIETY_LIST)
+        if (validator.getVariety() == XSSimpleTypeDefinition.VARIETY_LIST)
             return true;
-        
-        if (validator.getVariety() == XSSimpleType.VARIETY_UNION) {
+
+        if (validator.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) {
             XSObjectList temp = validator.getMemberTypes();
             for (int i = 0; i < temp.getLength(); i++) {
-                if (((XSSimpleType)temp.item(i)).getVariety() == XSSimpleType.VARIETY_LIST) {
+                if (((XSSimpleType)temp.item(i)).getVariety() == XSSimpleTypeDefinition.VARIETY_LIST) {
                     return true;
                 }
             }
         }
-        
+
         return false;
     }//isListDatatype(XSSimpleTypeDecl):boolean
-    
+
     private XSSimpleType errorType(String name, String namespace, short refType) {
         XSSimpleType stringType = (XSSimpleType)SchemaGrammar.SG_SchemaNS.getTypeDefinition("string");
         switch (refType) {
@@ -511,8 +512,8 @@ class XSDSimpleTypeTraverser extends XSDAbstractTraverser {
             return fSchemaHandler.fDVFactory.createTypeUnion(name, namespace, (short)0,
                     new XSSimpleType[]{stringType}, null);
         }
-        
+
         return null;
     }
-    
+
 }//class XSDSimpleTypeTraverser

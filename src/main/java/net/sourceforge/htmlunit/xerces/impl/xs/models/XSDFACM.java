@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,6 +31,7 @@ import net.sourceforge.htmlunit.xerces.impl.xs.XSModelGroupImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSParticleDecl;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSWildcardDecl;
 import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
 
 /**
  * DFAContentModel is the implementation of XSCMValidator that does
@@ -38,7 +39,7 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  * the conversion from the regular expression to the DFA that
  * it then uses in its validation algorithm.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -81,7 +82,7 @@ public class XSDFACM
      * id of the unique input symbol
      */
     private int[] fElemMapId = null;
-    
+
     /** The element map size. */
     private int fElemMapSize = 0;
 
@@ -135,9 +136,9 @@ public class XSDFACM
      * positions in the second dimension of the transition table.
      */
     private int[][] fTransTable = null;
-    
+
     /**
-     * Array containing occurence information for looping states 
+     * Array containing occurence information for looping states
      * which use counters to check minOccurs/maxOccurs.
      */
     private Occurence [] fCountingStates = null;
@@ -150,10 +151,11 @@ public class XSDFACM
             maxOccurs = leaf.getMaxOccurs();
             this.elemIndex = elemIndex;
         }
+        @Override
         public String toString() {
-            return "minOccurs=" + minOccurs 
-                + ";maxOccurs=" + 
-                ((maxOccurs != SchemaSymbols.OCCURRENCE_UNBOUNDED) 
+            return "minOccurs=" + minOccurs
+                + ";maxOccurs=" +
+                ((maxOccurs != SchemaSymbols.OCCURRENCE_UNBOUNDED)
                         ? Integer.toString(maxOccurs) : "unbounded");
         }
     }
@@ -165,7 +167,7 @@ public class XSDFACM
     private final int fTransTableSize = 0;
 
     private final boolean fIsCompactedForUPA;
-    
+
     // temp variables
 
     //
@@ -182,7 +184,7 @@ public class XSDFACM
      */
 
    public XSDFACM(CMNode syntaxTree, int leafCount) {
-   
+
         // Store away our index and pools in members
         fLeafCount = leafCount;
         fIsCompactedForUPA = syntaxTree.isCompactedForUPA();
@@ -247,6 +249,7 @@ public class XSDFACM
      *
      * @exception RuntimeException thrown on error
      */
+    @Override
     public Object oneTransition(QName curElem, int[] state, SubstitutionGroupHandler subGroupHandler) {
         int curState = state[0];
 
@@ -289,12 +292,12 @@ public class XSDFACM
             state[0] = XSCMValidator.FIRST_ERROR;
             return findMatchingDecl(curElem, subGroupHandler);
         }
-        
+
         if (fCountingStates != null) {
             Occurence o = fCountingStates[curState];
             if (o != null) {
                 if (curState == nextState) {
-                    if (++state[2] > o.maxOccurs && 
+                    if (++state[2] > o.maxOccurs &&
                         o.maxOccurs != SchemaSymbols.OCCURRENCE_UNBOUNDED) {
                         // It's likely that we looped too many times on the current state
                         // however it's possible that we actually matched another particle
@@ -314,14 +317,14 @@ public class XSDFACM
                         //  <xs:any namespace="##any" processContents="skip"/>
                         // </xs:sequence>
                         //
-                        // In the DFA there will be two transitions from the current state which 
+                        // In the DFA there will be two transitions from the current state which
                         // allow "foo". Note that this is not a UPA violation. The ambiguity of which
-                        // transition to take is resolved by the current value of the counter. Since 
+                        // transition to take is resolved by the current value of the counter. Since
                         // we've already seen enough instances of the first "foo" perhaps there is
                         // another element declaration or wildcard deeper in the element map which
                         // matches.
                         return findMatchingDecl(curElem, state, subGroupHandler, elemIndex);
-                    }  
+                    }
                 }
                 else if (state[2] < o.minOccurs) {
                     // not enough loops on the current state.
@@ -343,7 +346,7 @@ public class XSDFACM
                 if (o != null) {
                     // Entering a new counting state. Reset the counter.
                     // If we've already seen one instance of the looping
-                    // particle set the counter to 1, otherwise set it 
+                    // particle set the counter to 1, otherwise set it
                     // to 0.
                     state[2] = (elemIndex == o.elemIndex) ? 1 : 0;
                 }
@@ -373,13 +376,13 @@ public class XSDFACM
 
         return null;
     } // findMatchingDecl(QName, SubstitutionGroupHandler): Object
-    
-    Object findMatchingDecl(QName curElem, int[] state, SubstitutionGroupHandler subGroupHandler, int elemIndex) {    
-        
+
+    Object findMatchingDecl(QName curElem, int[] state, SubstitutionGroupHandler subGroupHandler, int elemIndex) {
+
         int curState = state[0];
         int nextState = 0;
         Object matchingDecl = null;
-        
+
         while (++elemIndex < fElemMapSize) {
             nextState = fTransTable[curState][elemIndex];
             if (nextState == -1)
@@ -398,34 +401,36 @@ public class XSDFACM
                 }
             }
         }
-        
+
         // if we still can't find a match, set the state to FIRST_ERROR and return null
         if (elemIndex == fElemMapSize) {
             state[1] = state[0];
             state[0] = XSCMValidator.FIRST_ERROR;
             return findMatchingDecl(curElem, subGroupHandler);
         }
-        
-        // if we found a match, set the next state and reset the 
+
+        // if we found a match, set the next state and reset the
         // counter if the next state is a counting state.
         state[0] = nextState;
         final Occurence o = fCountingStates[nextState];
         if (o != null) {
             state[2] = (elemIndex == o.elemIndex) ? 1 : 0;
-        } 
+        }
         return matchingDecl;
     } // findMatchingDecl(QName, int[], SubstitutionGroupHandler, int): Object
 
     // This method returns the start states of the content model.
+    @Override
     public int[] startContentModel() {
         // [0] : the current state
-        // [1] : if [0] is an error state then the 
+        // [1] : if [0] is an error state then the
         //       last valid state before the error
         // [2] : occurence counter for counting states
         return new int [3];
     } // startContentModel():int[]
 
     // this method returns whether the last state was a valid final state
+    @Override
     public boolean endContentModel(int[] state) {
         final int curState = state[0];
         if (fFinalStateFlags[curState]) {
@@ -791,9 +796,9 @@ public class XSDFACM
                 }
             }
         }
-        
+
         //
-        // Fill in the occurence information for each looping state 
+        // Fill in the occurence information for each looping state
         // if we're using counters.
         //
         if (elemOccurenceMap != null) {
@@ -1032,6 +1037,7 @@ public class XSDFACM
      * @param subGroupHandler the substitution group handler
      * @return true if this content model contains other or list wildcard
      */
+    @Override
     public boolean checkUniqueParticleAttribution(SubstitutionGroupHandler subGroupHandler) throws XMLSchemaException {
         // Unique Particle Attribution
         // store the conflict results between any two elements in fElemMap
@@ -1054,8 +1060,8 @@ public class XSDFACM
                                     // If "i" is a counting state and exactly one of the transitions
                                     // loops back to "i" then the two particles do not overlap if
                                     // minOccurs == maxOccurs.
-                                    if (o != null && 
-                                        fTransTable[i][j] == i ^ fTransTable[i][k] == i && 
+                                    if (o != null &&
+                                        fTransTable[i][j] == i ^ fTransTable[i][k] == i &&
                                         o.minOccurs == o.maxOccurs) {
                                         conflictTable[j][k] = (byte) -1;
                                         continue;
@@ -1090,8 +1096,8 @@ public class XSDFACM
         for (int i = 0; i < fElemMapSize; i++) {
             if (fElemMapType[i] == XSParticleDecl.PARTICLE_WILDCARD) {
                 XSWildcardDecl wildcard = (XSWildcardDecl)fElemMap[i];
-                if (wildcard.fType == XSWildcardDecl.NSCONSTRAINT_LIST ||
-                    wildcard.fType == XSWildcardDecl.NSCONSTRAINT_NOT) {
+                if (wildcard.fType == XSWildcard.NSCONSTRAINT_LIST ||
+                    wildcard.fType == XSWildcard.NSCONSTRAINT_NOT) {
                     return true;
                 }
             }
@@ -1104,16 +1110,17 @@ public class XSDFACM
      * Check which elements are valid to appear at this point. This method also
      * works if the state is in error, in which case it returns what should
      * have been seen.
-     * 
+     *
      * @param state  the current state
      * @return       a Vector whose entries are instances of
      *               either XSWildcardDecl or XSElementDecl.
      */
+    @Override
     public Vector whatCanGoHere(int[] state) {
         int curState = state[0];
         if (curState < 0)
             curState = state[1];
-        Occurence o = (fCountingStates != null) ? 
+        Occurence o = (fCountingStates != null) ?
                 fCountingStates[curState] : null;
         int count = state[2];
 
@@ -1138,11 +1145,12 @@ public class XSDFACM
                     }
                 }
                 ret.addElement(fElemMap[elemIndex]);
-            }  
+            }
         }
         return ret;
     }
-    
+
+    @Override
     public int [] occurenceInfo(int[] state) {
         if (fCountingStates != null) {
             int curState = state[0];
@@ -1161,12 +1169,14 @@ public class XSDFACM
         }
         return null;
     }
-    
+
+    @Override
     public String getTermName(int termId) {
         Object term = fElemMap[termId];
         return (term != null) ? term.toString() : null;
     }
-        
+
+    @Override
     public boolean isCompactedForUPA() {
         return fIsCompactedForUPA;
     }

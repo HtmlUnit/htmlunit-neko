@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 /**
  * The entity handler interface defines methods to report information
  * about the start and end of entities.
- * 
+ *
  * @xerces.internal
  *
  * @see net.sourceforge.htmlunit.xerces.impl.XMLEntityScanner
@@ -40,10 +40,10 @@ public interface XMLEntityHandler {
     //
 
     /**
-     * This method notifies of the start of an entity. The DTD has the 
-     * pseudo-name of "[dtd]" parameter entity names start with '%'; and 
+     * This method notifies of the start of an entity. The DTD has the
+     * pseudo-name of "[dtd]" parameter entity names start with '%'; and
      * general entities are just specified by their name.
-     * 
+     *
      * @param name     The name of the entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -52,7 +52,7 @@ public interface XMLEntityHandler {
      *                 internal entities or a document entity that is
      *                 parsed from a java.io.Reader).
      * @param augs     Additional information that may include infoset augmentations
-     * 
+     *
      * @throws XNIException Thrown by handler to signal an error.
      */
     void startEntity(String name,
@@ -61,12 +61,12 @@ public interface XMLEntityHandler {
 
     /**
      * This method notifies the end of an entity. The DTD has the pseudo-name
-     * of "[dtd]" parameter entity names start with '%'; and general entities 
+     * of "[dtd]" parameter entity names start with '%'; and general entities
      * are just specified by their name.
-     * 
+     *
      * @param name The name of the entity.
      * @param augs Additional information that may include infoset augmentations
-     * 
+     *
      * @throws XNIException Thrown by handler to signal an error.
      */
     void endEntity(String name, Augmentations augs) throws XNIException;

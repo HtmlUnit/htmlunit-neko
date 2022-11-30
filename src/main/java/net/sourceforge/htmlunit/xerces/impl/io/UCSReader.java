@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
-/** 
+/**
  * Reader for UCS-2 and UCS-4 encodings.
  * (i.e., encodings from ISO-10646-UCS-(2|4)).
- * 
+ *
  * @xerces.internal
  *
  * @author Neil Graham, IBM
@@ -37,10 +37,10 @@ public final class UCSReader extends Reader {
     // Constants
     //
 
-    /** 
+    /**
      * Default byte buffer size (8192, larger than that of ASCIIReader
      * since it's reasonable to surmise that the average UCS-4-encoded
-     * file should be 4 times as large as the average ASCII-encoded file). 
+     * file should be 4 times as large as the average ASCII-encoded file).
      */
     public static final int DEFAULT_BUFFER_SIZE = 8192;
 
@@ -66,8 +66,8 @@ public final class UCSReader extends Reader {
     // Constructors
     //
 
-    /** 
-     * Constructs a UCS reader from the specified input stream 
+    /**
+     * Constructs a UCS reader from the specified input stream
      * using the default buffer size.  The Endian-ness and whether this is
      * UCS-2 or UCS-4 needs also to be known in advance.
      *
@@ -78,8 +78,8 @@ public final class UCSReader extends Reader {
         this(inputStream, DEFAULT_BUFFER_SIZE, encoding);
     } // <init>(InputStream, short)
 
-    /** 
-     * Constructs a UCS reader from the specified input stream 
+    /**
+     * Constructs a UCS reader from the specified input stream
      * and buffer size.  The Endian-ness and whether this is
      * UCS-2 or UCS-4 needs also to be known in advance.
      *
@@ -90,9 +90,9 @@ public final class UCSReader extends Reader {
     public UCSReader(InputStream inputStream, int size, short encoding) {
         this(inputStream, new byte[size], encoding);
     } // <init>(InputStream,int,short)
-    
-    /** 
-     * Constructs a UCS reader from the specified input stream 
+
+    /**
+     * Constructs a UCS reader from the specified input stream
      * and buffer.  The Endian-ness and whether this is
      * UCS-2 or UCS-4 needs also to be known in advance.
      *
@@ -123,7 +123,8 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
-    public int read() throws IOException { 
+    @Override
+    public int read() throws IOException {
         int b0 = fInputStream.read() & 0xff;
         if (b0 == 0xff) {
             return -1;
@@ -168,6 +169,7 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read(char[] ch, int offset, int length) throws IOException {
         int byteLength = length << ((fEncoding >= 4)?2:1);
         if (byteLength > fBuffer.length) {
@@ -190,7 +192,7 @@ public final class UCSReader extends Reader {
                 fBuffer[count+i] = (byte)charRead;
             }
             count += numToRead;
-        } 
+        }
         else {
             int numToRead = count & 1;
             if (numToRead != 0) {
@@ -198,7 +200,7 @@ public final class UCSReader extends Reader {
                 int charRead = fInputStream.read();
                 if (charRead == -1) { // end of input; something likely went wrong!A  Pad buffer with nulls.
                     fBuffer[count] = 0;
-                } 
+                }
                 else {
                     fBuffer[count] = (byte)charRead;
                 }
@@ -221,7 +223,7 @@ public final class UCSReader extends Reader {
                 else {
                     ch[offset+i] = (char)((b3<<24)+(b2<<16)+(b1<<8)+b0);
                 }
-            } 
+            }
             else { // UCS-2
                 if (fEncoding == UCS2BE) {
                     ch[offset+i] = (char)((b0<<8)+b1);
@@ -244,6 +246,7 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public long skip(long n) throws IOException {
         // charWidth will represent the number of bits to move
         // n leftward to get num of bytes to skip, and then move the result rightward
@@ -266,6 +269,7 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public boolean ready() throws IOException {
         return false;
     } // ready()
@@ -273,6 +277,7 @@ public final class UCSReader extends Reader {
     /**
      * Tell whether this stream supports the mark() operation.
      */
+    @Override
     public boolean markSupported() {
         return fInputStream.markSupported();
     } // markSupported()
@@ -290,6 +295,7 @@ public final class UCSReader extends Reader {
      * @exception  IOException  If the stream does not support mark(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void mark(int readAheadLimit) throws IOException {
         fInputStream.mark(readAheadLimit);
     } // mark(int)
@@ -307,6 +313,7 @@ public final class UCSReader extends Reader {
      *                          or if the stream does not support reset(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
         fInputStream.reset();
     } // reset()
@@ -318,7 +325,8 @@ public final class UCSReader extends Reader {
      *
      * @exception  IOException  If an I/O error occurs
      */
-     public void close() throws IOException {
+     @Override
+    public void close() throws IOException {
          fInputStream.close();
      } // close()
 

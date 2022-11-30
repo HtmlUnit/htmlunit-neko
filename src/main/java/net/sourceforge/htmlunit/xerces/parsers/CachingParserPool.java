@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
  * on the parser pool.
  * <p>
  * <strong>Note:</strong> There is a performance penalty for using
- * a caching parser pool due to thread safety. Access to the symbol 
+ * a caching parser pool due to thread safety. Access to the symbol
  * table and grammar pool must be synchronized to ensure the safe
  * operation of the symbol table and grammar pool.
  * <p>
@@ -72,21 +72,21 @@ public class CachingParserPool {
     // Data
     //
 
-    /** 
+    /**
      * Symbol table. The symbol table that the caching parser pool is
      * constructed with is automatically wrapped in a synchronized
      * version for thread-safety.
      */
     protected final SymbolTable fSynchronizedSymbolTable;
 
-    /** 
+    /**
      * Grammar pool. The grammar pool that the caching parser pool is
      * constructed with is automatically wrapped in a synchronized
      * version for thread-safety.
      */
     protected final XMLGrammarPool fSynchronizedGrammarPool;
 
-    /** 
+    /**
      * Shadow the symbol table for new parser instances. If true,
      * new parser instances use shadow copies of the main symbol
      * table and are not allowed to add new symbols to the main
@@ -95,7 +95,7 @@ public class CachingParserPool {
      */
     protected boolean fShadowSymbolTable = DEFAULT_SHADOW_SYMBOL_TABLE;
 
-    /** 
+    /**
      * Shadow the grammar pool for new parser instances. If true,
      * new parser instances use shadow copies of the main grammar
      * pool and are not allowed to add new grammars to the main
@@ -116,7 +116,7 @@ public class CachingParserPool {
     /**
      * Constructs a caching parser pool with the specified symbol table
      * and grammar pool.
-     * 
+     *
      * @param symbolTable The symbol table.
      * @param grammarPool The grammar pool.
      */
@@ -141,11 +141,11 @@ public class CachingParserPool {
 
     // setters and getters
 
-    /** 
+    /**
      * Sets whether new parser instance receive shadow copies of the
      * main symbol table.
      *
-     * @param shadow If true, new parser instances use shadow copies 
+     * @param shadow If true, new parser instances use shadow copies
      *               of the main symbol table and are not allowed to
      *               add new symbols to the main symbol table. New
      *               symbols are added to the shadow symbol table and
@@ -218,6 +218,7 @@ public class CachingParserPool {
         // REVISIT:  does this need to be synchronized since it's just reading?
         // @param grammarType type of the grammars to be retrieved.
         // @return the initial grammar set the validator may place in its "bucket"
+        @Override
         public Grammar [] retrieveInitialGrammarSet(String grammarType ) {
             synchronized (fGrammarPool) {
                 return fGrammarPool.retrieveInitialGrammarSet(grammarType);
@@ -228,6 +229,7 @@ public class CachingParserPool {
         // REVISIT:  does this need to be synchronized since it's just reading?
         // @param gDesc description of the grammar to be retrieved
         // @return Grammar corresponding to gDesc, or null if none exists.
+        @Override
         public Grammar retrieveGrammar(XMLGrammarDescription gDesc) {
             synchronized (fGrammarPool) {
                 return fGrammarPool.retrieveGrammar(gDesc);
@@ -239,6 +241,7 @@ public class CachingParserPool {
         // @param grammarType The type of the grammars to be cached.
         // @param grammars the Grammars that may be cached (unordered, Grammars previously
         //  given to the validator may be included).
+        @Override
         public void cacheGrammars(String grammarType, Grammar[] grammars) {
             synchronized (fGrammarPool) {
                 fGrammarPool.cacheGrammars(grammarType, grammars);
@@ -246,6 +249,7 @@ public class CachingParserPool {
         } // cacheGrammars(String, Grammar[]);
 
         /** lock the grammar pool */
+        @Override
         public void lockPool() {
             synchronized (fGrammarPool) {
                 fGrammarPool.lockPool();
@@ -253,6 +257,7 @@ public class CachingParserPool {
         } // lockPool()
 
         /** clear the grammar pool */
+        @Override
         public void clear() {
             synchronized (fGrammarPool) {
                 fGrammarPool.clear();
@@ -260,6 +265,7 @@ public class CachingParserPool {
         } // lockPool()
 
         /** unlock the grammar pool */
+        @Override
         public void unlockPool() {
             synchronized (fGrammarPool) {
                 fGrammarPool.unlockPool();
@@ -272,7 +278,7 @@ public class CachingParserPool {
          */
         /**
          * Puts the specified grammar into the grammar pool.
-         * 
+         *
          * @param key Key to associate with grammar.
          * @param grammar Grammar object.
          */
@@ -286,7 +292,7 @@ public class CachingParserPool {
 
         /**
          * Returns the grammar associated to the specified key.
-         * 
+         *
          * @param key The key of the grammar.
          */
         /**********
@@ -300,7 +306,7 @@ public class CachingParserPool {
         /**
          * Removes the grammar associated to the specified key from the
          * grammar pool and returns the removed grammar.
-         * 
+         *
          * @param key The key of the grammar.
          */
         /**********
@@ -361,10 +367,11 @@ public class CachingParserPool {
         /**
          * Retrieve the initial set of grammars for the validator to work with.
          * REVISIT:  does this need to be synchronized since it's just reading?
-         * 
+         *
          * @param grammarType Type of the grammars to be retrieved.
          * @return            The initial grammar set the validator may place in its "bucket"
          */
+        @Override
         public Grammar [] retrieveInitialGrammarSet(String grammarType ) {
             Grammar [] grammars = super.retrieveInitialGrammarSet(grammarType);
             if (grammars != null) return grammars;
@@ -378,21 +385,23 @@ public class CachingParserPool {
          * @param gDesc Description of the grammar to be retrieved
          * @return      Grammar corresponding to gDesc, or null if none exists.
          */
+        @Override
         public Grammar retrieveGrammar(XMLGrammarDescription gDesc) {
             Grammar g = super.retrieveGrammar(gDesc);
             if(g != null) return g;
             return fGrammarPool.retrieveGrammar(gDesc);
         } // retrieveGrammar(XMLGrammarDesc):  Grammar
 
-        /** 
+        /**
          * Give the grammarPool the option of caching these grammars.
          * This certainly must be synchronized.
-         * 
+         *
          * @param grammarType The type of the grammars to be cached.
          * @param grammars    The Grammars that may be cached (unordered, Grammars previously
          *                given to the validator may be included).
          */
-        public void cacheGrammars(String grammarType, Grammar[] grammars) { 
+        @Override
+        public void cacheGrammars(String grammarType, Grammar[] grammars) {
            // better give both grammars a shot...
            super.cacheGrammars(grammarType, grammars);
            fGrammarPool.cacheGrammars(grammarType, grammars);
@@ -400,9 +409,10 @@ public class CachingParserPool {
 
         /**
          * Returns the grammar associated to the specified description.
-         * 
+         *
          * @param desc The description of the grammar.
          */
+        @Override
         public Grammar getGrammar(XMLGrammarDescription desc) {
 
             if (super.containsGrammar(desc)) {
@@ -418,6 +428,7 @@ public class CachingParserPool {
          *
          * @param desc The description of the grammar.
          */
+        @Override
         public boolean containsGrammar(XMLGrammarDescription desc) {
             return super.containsGrammar(desc);
         } // containsGrammar(XMLGrammarDescription):boolean

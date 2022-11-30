@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 
 /**
- * Namespace support for XML document handlers. This class doesn't 
+ * Namespace support for XML document handlers. This class doesn't
  * perform any error checking and assumes that all strings passed
  * as arguments to methods are unique symbols. The SymbolTable class
  * can be used for this purpose.
@@ -38,7 +38,7 @@ public class NamespaceSupport implements NamespaceContext {
     // Data
     //
 
-    /** 
+    /**
      * Namespace binding information. This array is composed of a
      * series of tuples containing the namespace binding information:
      * &lt;prefix, uri&gt;. The default size can be set to anything
@@ -52,10 +52,10 @@ public class NamespaceSupport implements NamespaceContext {
     /** The top of the namespace information array. */
     protected int fNamespaceSize;
 
-    // NOTE: The constructor depends on the initial context size 
+    // NOTE: The constructor depends on the initial context size
     //       being at least 1. -Ac
 
-    /** 
+    /**
      * Context indexes. This array contains indexes into the namespace
      * information array. The index at the current context is the start
      * index of declared namespace bindings and runs to the size of the
@@ -67,9 +67,9 @@ public class NamespaceSupport implements NamespaceContext {
 
     /** The current context. */
     protected int fCurrentContext;
-    
+
     protected String[] fPrefixes = new String[16];
-    
+
     //
     // Constructors
     //
@@ -78,7 +78,7 @@ public class NamespaceSupport implements NamespaceContext {
     public NamespaceSupport() {
     } // <init>()
 
-    /** 
+    /**
      * Constructs a namespace context object and initializes it with
      * the prefixes declared in the specified context.
      */
@@ -97,10 +97,11 @@ public class NamespaceSupport implements NamespaceContext {
     //
     // Public methods
     //
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#reset()
      */
+    @Override
     public void reset() {
 
         // reset namespace and context info
@@ -122,6 +123,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#pushContext()
      */
+    @Override
     public void pushContext() {
 
         // extend the array, if necessary
@@ -140,6 +142,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#popContext()
      */
+    @Override
     public void popContext() {
         fNamespaceSize = fContext[fCurrentContext--];
     } // popContext()
@@ -147,6 +150,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#declarePrefix(String, String)
      */
+    @Override
     public boolean declarePrefix(String prefix, String uri) {
         // ignore "xml" and "xmlns" prefixes
         if (prefix == XMLSymbols.PREFIX_XML || prefix == XMLSymbols.PREFIX_XMLNS) {
@@ -185,8 +189,9 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getURI(String)
      */
+    @Override
     public String getURI(String prefix) {
-        
+
         // find prefix in current context
         for (int i = fNamespaceSize; i > 0; i -= 2) {
             if (fNamespace[i - 2] == prefix) {
@@ -203,6 +208,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getPrefix(String)
      */
+    @Override
     public String getPrefix(String uri) {
 
         // find uri in current context
@@ -222,6 +228,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getDeclaredPrefixCount()
      */
+    @Override
     public int getDeclaredPrefixCount() {
         return (fNamespaceSize - fContext[fCurrentContext]) / 2;
     } // getDeclaredPrefixCount():int
@@ -229,6 +236,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getDeclaredPrefixAt(int)
      */
+    @Override
     public String getDeclaredPrefixAt(int index) {
         return fNamespace[fContext[fCurrentContext] + index * 2];
     } // getDeclaredPrefixAt(int):String
@@ -236,22 +244,23 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getAllPrefixes()
      */
+    @Override
     public Enumeration getAllPrefixes() {
         int count = 0;
         if (fPrefixes.length < (fNamespace.length/2)) {
-            // resize prefix array          
+            // resize prefix array
             String[] prefixes = new String[fNamespaceSize];
             fPrefixes = prefixes;
         }
         String prefix = null;
         boolean unique = true;
         for (int i = 2; i < (fNamespaceSize-2); i += 2) {
-            prefix = fNamespace[i + 2];            
+            prefix = fNamespace[i + 2];
             for (int k=0;k<count;k++){
                 if (fPrefixes[k]==prefix){
                     unique = false;
                     break;
-                }               
+                }
             }
             if (unique){
                 fPrefixes[count++] = prefix;
@@ -260,17 +269,17 @@ public class NamespaceSupport implements NamespaceContext {
         }
         return new Prefixes(fPrefixes, count);
     }
-    
+
     /*
      * non-NamespaceContext methods
      */
-    
-    /** 
+
+    /**
      * Checks whether a binding or unbinding for
      * the given prefix exists in the context.
-     * 
-     * @param prefix The prefix to look up. 
-     * 
+     *
+     * @param prefix The prefix to look up.
+     *
      * @return true if the given prefix exists in the context
      */
     public boolean containsPrefix(String prefix) {
@@ -281,16 +290,16 @@ public class NamespaceSupport implements NamespaceContext {
                 return true;
             }
         }
-        
+
         // prefix not found
         return false;
     }
-    
+
     protected final class Prefixes implements Enumeration {
         private final String[] prefixes;
         private int counter = 0;
         private int size = 0;
-               
+
         /**
          * Constructor for Prefixes.
          */
@@ -302,28 +311,31 @@ public class NamespaceSupport implements NamespaceContext {
        /**
          * @see java.util.Enumeration#hasMoreElements()
          */
-        public boolean hasMoreElements() {           
+        @Override
+        public boolean hasMoreElements() {
             return (counter< size);
         }
 
         /**
          * @see java.util.Enumeration#nextElement()
          */
+        @Override
         public Object nextElement() {
             if (counter< size){
                 return fPrefixes[counter++];
             }
             throw new NoSuchElementException("Illegal access to Namespace prefixes enumeration.");
         }
-        
+
+        @Override
         public String toString(){
             StringBuilder buf = new StringBuilder();
             for (int i=0;i<size;i++){
                 buf.append(prefixes[i]);
                 buf.append(' ');
             }
-                
-            return buf.toString(); 
+
+            return buf.toString();
         }
 
 }

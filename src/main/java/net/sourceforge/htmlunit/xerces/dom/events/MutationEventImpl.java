@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,15 +22,15 @@ import org.w3c.dom.events.MutationEvent;
 
 /**
  * An implementation of the DOM Level 2 <code>MutationEvent</code> interface.
- * 
- * @xerces.internal 
- * 
+ *
+ * @xerces.internal
+ *
  * @version $Id$
  */
-public class MutationEventImpl 
-    extends EventImpl 
+public class MutationEventImpl
+    extends EventImpl
     implements MutationEvent {
-    
+
     Node relatedNode = null;
     String prevValue = null;
     String newValue = null;
@@ -49,58 +49,64 @@ public class MutationEventImpl
     public static final String DOM_ATTR_MODIFIED = "DOMAttrModified";
     public static final String DOM_CHARACTER_DATA_MODIFIED = "DOMCharacterDataModified";
 
-    /** 
+    /**
      * @return the name of the Attr which
-     * changed, for DOMAttrModified events. 
+     * changed, for DOMAttrModified events.
      * Undefined for others.
      */
+    @Override
     public String getAttrName() {
         return attrName;
     }
 
     /**
-     * <code>attrChange</code> indicates the type of change which triggered 
+     * <code>attrChange</code> indicates the type of change which triggered
      * the DOMAttrModified event. The values can be <code>MODIFICATION</code>
-     * , <code>ADDITION</code>, or <code>REMOVAL</code>. 
+     * , <code>ADDITION</code>, or <code>REMOVAL</code>.
      */
+    @Override
     public short getAttrChange() {
         return attrChange;
     }
 
-    /** 
+    /**
      * @return the new string value of the Attr for DOMAttrModified events, or
      * of the CharacterData node for DOMCharDataModifed events.
      * Undefined for others.
      */
+    @Override
     public String getNewValue() {
         return newValue;
     }
 
-    /** 
+    /**
      * @return the previous string value of the Attr for DOMAttrModified events, or
      * of the CharacterData node for DOMCharDataModifed events.
      * Undefined for others.
      */
+    @Override
     public String getPrevValue() {
         return prevValue;
     }
 
-    /** 
+    /**
      * @return a Node related to this event, other than the target that the
      * node was dispatched to. For DOMNodeRemoved, it is the node which
-     * was removed. 
+     * was removed.
      * No other uses are currently defined.
      */
+    @Override
     public Node getRelatedNode() {
         return relatedNode;
     }
 
-    /** 
+    /**
      * Initialize a mutation event, or overwrite the event's current
-     * settings with new values of the parameters. 
+     * settings with new values of the parameters.
      */
-    public void initMutationEvent(String typeArg, boolean canBubbleArg, 
-            boolean cancelableArg, Node relatedNodeArg, String prevValueArg, 
+    @Override
+    public void initMutationEvent(String typeArg, boolean canBubbleArg,
+            boolean cancelableArg, Node relatedNodeArg, String prevValueArg,
             String newValueArg, String attrNameArg, short attrChangeArg) {
         relatedNode = relatedNodeArg;
         prevValue = prevValueArg;

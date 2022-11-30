@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import org.w3c.dom.ProcessingInstruction;
  * are most common in XML, but they are supported in HTML as well.
  *
  * This class inherits from CharacterDataImpl to reuse its setNodeValue method.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -68,6 +68,7 @@ public class ProcessingInstructionImpl
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.PROCESSING_INSTRUCTION_NODE;
     }
@@ -75,6 +76,7 @@ public class ProcessingInstructionImpl
     /**
      * Returns the target
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -97,6 +99,7 @@ public class ProcessingInstructionImpl
      * <p>
      * Note that getNodeName is aliased to getTarget.
      */
+    @Override
     public String getTarget() {
         if (needsSyncData()) {
             synchronizeData();
@@ -109,10 +112,11 @@ public class ProcessingInstructionImpl
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
-     * 
+     *
      * @return The absolute base URI of this node or null.
      * @since DOM Level 3
      */
+    @Override
     public String getBaseURI() {
 
         if (needsSyncData()) {

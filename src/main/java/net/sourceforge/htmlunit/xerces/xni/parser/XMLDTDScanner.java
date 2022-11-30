@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * <p>
  * If the parser configuration uses a DTD scanner that implements
  * this interface, components should be able to query the scanner
- * instance from the component manager using the following property 
+ * instance from the component manager using the following property
  * identifier:
  * <blockquote>
  *  "http://apache.org/xml/properties/internal/dtd-scanner"
@@ -38,15 +38,15 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *
  * @version $Id$
  */
-public interface XMLDTDScanner 
+public interface XMLDTDScanner
     extends XMLDTDSource, XMLDTDContentModelSource {
 
     //
     // XMLDTDScanner methods
     //
 
-    /** 
-     * Sets the input source. 
+    /**
+     * Sets the input source.
      *
      * @param inputSource The input source or null.
      *
@@ -54,7 +54,7 @@ public interface XMLDTDScanner
      */
     void setInputSource(XMLInputSource inputSource) throws IOException;
 
-    /** 
+    /**
      * Scans the internal subset of the document.
      *
      * @param complete True if the scanner should scan the document

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,7 +50,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/grammar-pool</li>
  *  <li>http://apache.org/xml/properties/internal/datatype-validator-factory</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Elena Litani, IBM
@@ -64,9 +64,10 @@ public class XMLNSDTDValidator
     private final QName fAttributeQName = new QName();
 
     /** Bind namespaces */
+    @Override
     protected final void startNamespaceScope (QName element, XMLAttributes attributes,
                                       Augmentations augs) throws XNIException {
-        
+
         // add new namespace context
         fNamespaceContext.pushContext();
 
@@ -76,7 +77,7 @@ public class XMLNSDTDValidator
                                        new Object[]{element.rawname},
                                        XMLErrorReporter.SEVERITY_FATAL_ERROR);
         }
-        
+
         // search for new namespace bindings
         int length = attributes.getLength();
         for (int i = 0; i < length; i++) {
@@ -97,7 +98,7 @@ public class XMLNSDTDValidator
                                                new Object[]{attributes.getQName(i)},
                                                XMLErrorReporter.SEVERITY_FATAL_ERROR);
                 }
-                
+
                 // 2. the namespace for "xmlns" can't be bound to any prefix
                 if (uri == NamespaceContext.XMLNS_URI) {
                     fErrorReporter.reportError(XMLMessageFormatter.XMLNS_DOMAIN,
@@ -105,7 +106,7 @@ public class XMLNSDTDValidator
                                                new Object[]{attributes.getQName(i)},
                                                XMLErrorReporter.SEVERITY_FATAL_ERROR);
                 }
-                
+
                 // 3. "xml" can't be bound to any other namespace than it's own
                 if (localpart == XMLSymbols.PREFIX_XML) {
                     if (uri != NamespaceContext.XML_URI) {
@@ -205,6 +206,7 @@ public class XMLNSDTDValidator
 
 
     /** Handles end element. */
+    @Override
     protected void endNamespaceScope(QName element, Augmentations augs, boolean isEmpty)
         throws XNIException {
 
@@ -226,5 +228,5 @@ public class XMLNSDTDValidator
         fNamespaceContext.popContext();
 
     } // endNamespaceScope(QName,boolean)
-    
+
 }

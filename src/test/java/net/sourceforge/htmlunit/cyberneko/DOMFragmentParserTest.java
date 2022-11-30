@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringReader;
 
-import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
@@ -15,6 +14,7 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMFragmentParser;
+import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 
 /**
  * Unit tests for {@link DOMFragmentParser}.

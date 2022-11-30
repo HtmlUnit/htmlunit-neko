@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.w3c.dom.DocumentType;
  * The DOM API requires that it be a real object rather than static
  * methods. However, there's nothing that says it can't be a singleton,
  * so that's how I've implemented it.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -75,6 +75,7 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl
      * @return    true iff this implementation is compatable with the
      * specified feature and version.
      */
+    @Override
     public boolean hasFeature(String feature, String version) {
 
         boolean result = super.hasFeature(feature, version);
@@ -97,11 +98,12 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl
         }
         return result;
     } // hasFeature(String,String):boolean
-    
+
     //
     // Protected methods
     //
-    
+
+    @Override
     protected CoreDocumentImpl createDocument(DocumentType doctype) {
         return new DocumentImpl(doctype);
     }

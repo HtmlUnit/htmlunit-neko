@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import java.util.Vector;
 
 /**
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 class Op {
@@ -30,7 +30,7 @@ class Op {
     static final int RANGE = 3;                 // [a-zA-Z]
     static final int NRANGE = 4;                // [^a-zA-Z]
     static final int ANCHOR = 5;                // ^ $ ...
-    static final int STRING = 6;                // literal String 
+    static final int STRING = 6;                // literal String
     static final int CLOSURE = 7;               // X*
     static final int NONGREEDYCLOSURE = 8;      // X*?
     static final int QUESTION = 9;              // X?
@@ -141,7 +141,7 @@ class Op {
         throw new RuntimeException("Internal Error: type="+this.type);
     }
                                                 // ModifierOp
-    int getData() {                             // CharOp  for CHAR, BACKREFERENCE, CAPTURE, ANCHOR, 
+    int getData() {                             // CharOp  for CHAR, BACKREFERENCE, CAPTURE, ANCHOR,
         throw new RuntimeException("Internal Error: type="+this.type);
     }
     int getData2() {                            // ModifierOp
@@ -161,6 +161,7 @@ class Op {
             super(type);
             this.charData = data;
         }
+        @Override
         int getData() {
             return this.charData;
         }
@@ -176,9 +177,11 @@ class Op {
         void addElement(Op op) {
             this.branches.addElement(op);
         }
+        @Override
         int size() {
             return this.branches.size();
         }
+        @Override
         Op elementAt(int index) {
             return (Op)this.branches.elementAt(index);
         }
@@ -193,6 +196,7 @@ class Op {
         void setChild(Op child) {
             this.child = child;
         }
+        @Override
         Op getChild() {
             return this.child;
         }
@@ -206,9 +210,11 @@ class Op {
             this.v1 = v1;
             this.v2 = v2;
         }
+        @Override
         int getData() {
             return this.v1;
         }
+        @Override
         int getData2() {
             return this.v2;
         }
@@ -220,6 +226,7 @@ class Op {
             super(type);
             this.tok = tok;
         }
+        @Override
         RangeToken getToken() {
             return (RangeToken)this.tok;
         }
@@ -231,6 +238,7 @@ class Op {
             super(type);
             this.string = literal;
         }
+        @Override
         String getString() {
             return this.string;
         }

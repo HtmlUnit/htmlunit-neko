@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,75 +23,78 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
- * @xerces.internal  
- * 
+ * @xerces.internal
+ *
  * @author Rahul Srivastava, Sun Microsystems Inc.
  * @author Sandy Gao, IBM
  *
  * @version $Id$
  */
 public class ElementImpl extends DefaultElement {
-    
+
     SchemaDOM schemaDOM;
     Attr[] attrs;
     int row;
     int col;
     int parentRow;
-    
+
     final int line;
     final int column;
     final int charOffset;
     String fAnnotation;
     String fSyntheticAnnotation;
-    
+
     public ElementImpl(int line, int column, int offset) {
         row = -1;
         col = -1;
         parentRow = -1;
         nodeType = Node.ELEMENT_NODE;
-        
+
         this.line = line;
         this.column = column;
         charOffset = offset;
     }
-    
+
     public ElementImpl(int line, int column) {
         this(line, column, -1);
     }
-    
-    
+
+
     public ElementImpl(String prefix, String localpart, String rawname,
             String uri, int line, int column, int offset) {
         super(prefix, localpart, rawname, uri, Node.ELEMENT_NODE);
         row = -1;
         col = -1;
         parentRow = -1;
-        
+
         this.line = line;
         this.column = column;
         charOffset = offset;
     }
-    
+
     public ElementImpl(String prefix, String localpart, String rawname,
             String uri, int line, int column) {
         this(prefix, localpart, rawname, uri, line, column, -1);
     }
-    
-    
+
+
     //
     // org.w3c.dom.Node methods
     //
-    
+
+    @Override
     public Document getOwnerDocument() {
         return schemaDOM;
     }
-    
-    
+
+
+    @Override
     public Node getParentNode() {
         return schemaDOM.relations[row][0];
     }
-    
-    
+
+
+    @Override
     public boolean hasChildNodes() {
         if (parentRow == -1) {
             return false;
@@ -100,16 +103,18 @@ public class ElementImpl extends DefaultElement {
             return true;
         }
     }
-    
-    
+
+
+    @Override
     public Node getFirstChild() {
         if (parentRow == -1) {
             return null;
         }
         return schemaDOM.relations[parentRow][1];
     }
-    
-    
+
+
+    @Override
     public Node getLastChild() {
         if (parentRow == -1) {
             return null;
@@ -125,44 +130,50 @@ public class ElementImpl extends DefaultElement {
         }
         return schemaDOM.relations[parentRow][i-1];
     }
-    
-    
+
+
+    @Override
     public Node getPreviousSibling() {
         if (col == 1) {
             return null;
         }
         return schemaDOM.relations[row][col-1];
     }
-    
-    
+
+
+    @Override
     public Node getNextSibling() {
         if (col == schemaDOM.relations[row].length-1) {
             return null;
         }
         return schemaDOM.relations[row][col+1];
     }
-    
-    
+
+
+    @Override
     public NamedNodeMap getAttributes() {
         return new NamedNodeMapImpl(attrs);
     }
-    
-    
+
+
+    @Override
     public boolean hasAttributes() {
         return (attrs.length == 0 ? false : true);
     }
-    
-    
-    
+
+
+
     //
     // org.w3c.dom.Element methods
     //
-    
+
+    @Override
     public String getTagName() {
         return rawname;
     }
-    
-    
+
+
+    @Override
     public String getAttribute(String name) {
 
         for (Attr attr : attrs) {
@@ -172,8 +183,9 @@ public class ElementImpl extends DefaultElement {
         }
         return "";
     }
-    
-    
+
+
+    @Override
     public Attr getAttributeNode(String name) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(name)) {
@@ -182,8 +194,9 @@ public class ElementImpl extends DefaultElement {
         }
         return null;
     }
-    
-    
+
+
+    @Override
     public String getAttributeNS(String namespaceURI, String localName) {
         for (Attr attr : attrs) {
             if (attr.getLocalName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
@@ -192,8 +205,9 @@ public class ElementImpl extends DefaultElement {
         }
         return "";
     }
-    
-    
+
+
+    @Override
     public Attr getAttributeNodeNS(String namespaceURI, String localName) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
@@ -202,8 +216,9 @@ public class ElementImpl extends DefaultElement {
         }
         return null;
     }
-    
-    
+
+
+    @Override
     public boolean hasAttribute(String name) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(name)) {
@@ -212,8 +227,9 @@ public class ElementImpl extends DefaultElement {
         }
         return false;
     }
-    
-    
+
+
+    @Override
     public boolean hasAttributeNS(String namespaceURI, String localName) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(localName) && nsEquals(attr.getNamespaceURI(), namespaceURI)) {
@@ -222,8 +238,9 @@ public class ElementImpl extends DefaultElement {
         }
         return false;
     }
-    
-    
+
+
+    @Override
     public void setAttribute(String name, String value) {
         for (Attr attr : attrs) {
             if (attr.getName().equals(name)) {
@@ -232,30 +249,30 @@ public class ElementImpl extends DefaultElement {
             }
         }
     }
-    
+
     /** Returns the line number. */
     public int getLineNumber() {
         return line;
     }
-    
+
     /** Returns the column number. */
     public int getColumnNumber() {
         return column;
     }
-    
+
     /** Returns the character offset. */
     public int getCharacterOffset() {
         return charOffset;
     }
-    
+
     public String getAnnotation() {
         return fAnnotation;
     }
-    
+
     public String getSyntheticAnnotation() {
         return fSyntheticAnnotation;
     }
-    
+
     /**
      * Compares two namespace URIs with an extra case for null entries
      */
@@ -267,5 +284,5 @@ public class ElementImpl extends DefaultElement {
             return nsURI_1.equals(nsURI_2);
         }
     }
-    
+
 }

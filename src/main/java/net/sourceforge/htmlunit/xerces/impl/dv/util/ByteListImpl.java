@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,40 +25,42 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ByteList;
 /**
  * Implementation of <code>net.sourceforge.htmlunit.xerces.xs.datatypes.ByteList</code>.
  *
- * @xerces.internal 
- * 
+ * @xerces.internal
+ *
  * @author Ankit Pasricha, IBM
- * 
+ *
  * @version $Id$
  */
 public class ByteListImpl extends AbstractList implements ByteList {
 
     // actually data stored in a byte array
     protected final byte[] data;
-    
+
     // canonical representation of the data
     protected String canonical;
-    
+
     public ByteListImpl(byte[] data) {
         this.data = data;
     }
-    
+
     /**
-     * The number of <code>byte</code>s in the list. The range of 
-     * valid child object indices is 0 to <code>length-1</code> inclusive. 
+     * The number of <code>byte</code>s in the list. The range of
+     * valid child object indices is 0 to <code>length-1</code> inclusive.
      */
+    @Override
     public int getLength() {
         return data.length;
     }
 
     /**
-     * Checks if the <code>byte</code> <code>item</code> is a 
-     * member of this list. 
-     * @param item  <code>byte</code> whose presence in this list 
-     *   is to be tested. 
-     * @return  True if this list contains the <code>byte</code> 
-     *   <code>item</code>. 
+     * Checks if the <code>byte</code> <code>item</code> is a
+     * member of this list.
+     * @param item  <code>byte</code> whose presence in this list
+     *   is to be tested.
+     * @return  True if this list contains the <code>byte</code>
+     *   <code>item</code>.
      */
+    @Override
     public boolean contains(byte item) {
         for (byte datum : data) {
             if (datum == item) {
@@ -69,28 +71,30 @@ public class ByteListImpl extends AbstractList implements ByteList {
     }
 
     /**
-     * Returns the <code>index</code>th item in the collection. The index 
-     * starts at 0. 
-     * @param index  index into the collection. 
-     * @return  The <code>byte</code> at the <code>index</code>th 
-     *   position in the <code>ByteList</code>. 
+     * Returns the <code>index</code>th item in the collection. The index
+     * starts at 0.
+     * @param index  index into the collection.
+     * @return  The <code>byte</code> at the <code>index</code>th
+     *   position in the <code>ByteList</code>.
      * @exception XSException
-     *   INDEX_SIZE_ERR: if <code>index</code> is greater than or equal to the 
+     *   INDEX_SIZE_ERR: if <code>index</code> is greater than or equal to the
      *   number of objects in the list.
      */
-    public byte item(int index) 
+    @Override
+    public byte item(int index)
         throws XSException {
-        
+
         if(index < 0 || index > data.length - 1) {
             throw new XSException(XSException.INDEX_SIZE_ERR, null);
         }
         return data[index];
     }
-    
+
     /*
      * List methods
      */
 
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < data.length) {
             return new Byte(data[index]);
@@ -98,10 +102,12 @@ public class ByteListImpl extends AbstractList implements ByteList {
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }
-    
+
+    @Override
     public byte[] toByteArray() {
         byte[] ret = new byte[data.length];
         System.arraycopy(data, 0, ret, 0, data.length);

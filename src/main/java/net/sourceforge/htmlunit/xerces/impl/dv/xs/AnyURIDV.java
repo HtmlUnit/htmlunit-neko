@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,11 +22,12 @@ import java.nio.charset.StandardCharsets;
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.util.URI;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 
 /**
  * Represent the schema type "anyURI"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -45,12 +46,14 @@ public class AnyURIDV extends TypeValidator {
         BASE_URI = uri;
     }
 
+    @Override
     public short getAllowedFacets(){
-        return (XSSimpleTypeDecl.FACET_LENGTH | XSSimpleTypeDecl.FACET_MINLENGTH | XSSimpleTypeDecl.FACET_MAXLENGTH | XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_ENUMERATION | XSSimpleTypeDecl.FACET_WHITESPACE );
+        return (XSSimpleTypeDefinition.FACET_LENGTH | XSSimpleTypeDefinition.FACET_MINLENGTH | XSSimpleTypeDefinition.FACET_MAXLENGTH | XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_ENUMERATION | XSSimpleTypeDefinition.FACET_WHITESPACE );
     }
 
     // before we return string we have to make sure it is correct URI as per spec.
     // for some types (string and derived), they just return the string itself
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         // check 3.2.17.c0 must: URI (rfc 2396/2723)
         try {

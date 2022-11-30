@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.xs.ShortList;
 
 
 /**
- * Interface for storing values associated to an identity constraint. 
+ * Interface for storing values associated to an identity constraint.
  * Each value stored corresponds to a field declared for the identity
  * constraint. One instance of an object implementing this interface
  * is created for each identity constraint per element declaration in
@@ -29,24 +29,24 @@ import net.sourceforge.htmlunit.xerces.xs.ShortList;
  * constraint.
  * <p>
  * <strong>Note:</strong> The component performing identity constraint
- * collection and validation is responsible for providing an 
+ * collection and validation is responsible for providing an
  * implementation of this interface. The component is also responsible
  * for performing the necessary checks required by each type of identity
  * constraint.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Andy Clark, IBM
  *
  * @version $Id$
  */
 public interface ValueStore {
-    
+
     //
     // ValueStore methods
     //
 
-    /** 
+    /**
      * Adds the specified value to the value store.
      *
      * @param field The field associated to the value. This reference
@@ -66,6 +66,6 @@ public interface ValueStore {
      * @param args  the list of arguments for substitution.
      */
     void reportError(String key, Object[] args);
-    
+
 
 } // interface ValueStore

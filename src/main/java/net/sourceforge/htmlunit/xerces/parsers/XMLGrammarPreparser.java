@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -106,7 +106,7 @@ public class XMLGrammarPreparser {
 
     // Hashtable holding our loaders
     private final Hashtable fLoaders;
-    
+
     // The number of times the configuration has been modified.
     private int fModCount = 1;
 
@@ -251,7 +251,7 @@ public class XMLGrammarPreparser {
      */
     public void setEntityResolver(XMLEntityResolver entityResolver) {
         if (fEntityResolver != entityResolver) {
-            // Overflow. We actually need to reset the 
+            // Overflow. We actually need to reset the
             // modCount on every XMLGrammarLoaderContainer.
             if (++fModCount < 0) {
                 clearModCounts();
@@ -272,7 +272,7 @@ public class XMLGrammarPreparser {
      */
     public void setGrammarPool(XMLGrammarPool grammarPool) {
         if (fGrammarPool != grammarPool) {
-            // Overflow. We actually need to reset the 
+            // Overflow. We actually need to reset the
             // modCount on every XMLGrammarLoaderContainer.
             if (++fModCount < 0) {
                 clearModCounts();
@@ -357,9 +357,9 @@ public class XMLGrammarPreparser {
         XMLGrammarLoader gl = ((XMLGrammarLoaderContainer)fLoaders.get(type)).loader;
         return gl.getProperty(propertyId);
     } // getProperty(String, String):  Object
-    
-    /** 
-     * Container for an XMLGrammarLoader. Also holds the modCount 
+
+    /**
+     * Container for an XMLGrammarLoader. Also holds the modCount
      * that the XMLGrammarPreparser had the last time it was used.
      */
     static class XMLGrammarLoaderContainer {
@@ -369,7 +369,7 @@ public class XMLGrammarPreparser {
             this.loader = loader;
         }
     }
-    
+
     private void clearModCounts() {
         Enumeration loaders = fLoaders.elements();
         while (loaders.hasMoreElements()) {
@@ -378,5 +378,5 @@ public class XMLGrammarPreparser {
         }
         fModCount = 1;
     }
-    
+
 } // class XMLGrammarPreparser

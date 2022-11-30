@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
  * The XML representation for a wildcard declaration
  * schema component is an &lt;any&gt; or &lt;anyAttribute&gt; element information item
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
@@ -51,7 +51,7 @@ public class XSWildcardDecl implements XSWildcard {
     public String[] fNamespaceList;
 
     // optional annotation
-    public XSObjectList fAnnotations = null;  
+    public XSObjectList fAnnotations = null;
 
     // I'm trying to implement the following constraint exactly as what the
     // spec describes. Sometimes it seems redundant, and sometimes there seems
@@ -171,10 +171,10 @@ public class XSWildcardDecl implements XSWildcard {
      * Check whether this wildcard has a weaker process contents than the super.
      */
     public boolean weakerProcessContents(XSWildcardDecl superWildcard) {
-        return fProcessContents == XSWildcardDecl.PC_LAX &&
-               superWildcard.fProcessContents == XSWildcardDecl.PC_STRICT ||
-               fProcessContents == XSWildcardDecl.PC_SKIP &&
-               superWildcard.fProcessContents != XSWildcardDecl.PC_SKIP;
+        return fProcessContents == XSWildcard.PC_LAX &&
+               superWildcard.fProcessContents == XSWildcard.PC_STRICT ||
+               fProcessContents == XSWildcard.PC_SKIP &&
+               superWildcard.fProcessContents != XSWildcard.PC_SKIP;
     }
 
     /**
@@ -474,6 +474,7 @@ public class XSWildcardDecl implements XSWildcard {
      * get the string description of this wildcard
      */
     private String fDescription = null;
+    @Override
     public String toString() {
         if (fDescription == null) {
             StringBuilder buffer = new StringBuilder();
@@ -510,10 +511,11 @@ public class XSWildcardDecl implements XSWildcard {
 
         return fDescription;
     }
-    
+
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.WILDCARD;
     }
@@ -522,6 +524,7 @@ public class XSWildcardDecl implements XSWildcard {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return null;
     }
@@ -531,6 +534,7 @@ public class XSWildcardDecl implements XSWildcard {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return null;
     }
@@ -538,6 +542,7 @@ public class XSWildcardDecl implements XSWildcard {
     /**
      * Namespace constraint: A constraint type: any, not, list.
      */
+    @Override
     public short getConstraintType() {
         return fType;
     }
@@ -548,6 +553,7 @@ public class XSWildcardDecl implements XSWildcard {
      * <code>constraintType</code> NOT_NSCONSTRAINT, the list contains
      * disallowed namespaces.
      */
+    @Override
     public StringList getNsConstraintList() {
         return new StringListImpl(fNamespaceList, fNamespaceList == null ? 0 : fNamespaceList.length);
     }
@@ -556,6 +562,7 @@ public class XSWildcardDecl implements XSWildcard {
      * {process contents} One of skip, lax or strict. Valid constants values
      * are: PC_SKIP, PC_LAX, PC_STRICT.
      */
+    @Override
     public short getProcessContents() {
         return fProcessContents;
     }
@@ -565,9 +572,9 @@ public class XSWildcardDecl implements XSWildcard {
      */
     public String getProcessContentsAsString() {
         switch (fProcessContents) {
-            case XSWildcardDecl.PC_SKIP: return "skip";
-            case XSWildcardDecl.PC_LAX: return "lax";
-            case XSWildcardDecl.PC_STRICT: return "strict";
+            case XSWildcard.PC_SKIP: return "skip";
+            case XSWildcard.PC_LAX: return "lax";
+            case XSWildcard.PC_STRICT: return "strict";
             default: return "invalid value";
         }
     }
@@ -575,6 +582,7 @@ public class XSWildcardDecl implements XSWildcard {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -582,6 +590,7 @@ public class XSWildcardDecl implements XSWildcard {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
@@ -589,6 +598,7 @@ public class XSWildcardDecl implements XSWildcard {
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return null;
     }

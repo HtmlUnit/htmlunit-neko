@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,7 @@ package net.sourceforge.htmlunit.xerces.dom;
  * Namespaces. DeferredAttrNSImpl, which inherits from AttrNSImpl, does.
  * @see DeferredAttrNSImpl
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
@@ -102,6 +102,7 @@ public final class DeferredAttrImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -111,6 +112,7 @@ public final class DeferredAttrImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected void synchronizeData() {
 
         // no need to sync in the future
@@ -125,7 +127,7 @@ public final class DeferredAttrImpl
         isIdAttribute((extra & ID) != 0);
 
         int extraNode = ownerDocument.getLastChild(fNodeIndex);
-        type = ownerDocument.getTypeInfo(extraNode);        
+        type = ownerDocument.getTypeInfo(extraNode);
     } // synchronizeData()
 
     /**
@@ -134,6 +136,7 @@ public final class DeferredAttrImpl
      * the two structures in sync. The problem gets worse when
      * editing the tree -- this makes it a lot easier.
      */
+    @Override
     protected void synchronizeChildren() {
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) ownerDocument();

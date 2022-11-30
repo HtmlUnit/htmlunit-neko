@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLContentSpec;
 
 /**
  * Content model Bin-Op node.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -31,7 +31,7 @@ public class CMBinOp extends CMNode
     // -------------------------------------------------------------------
     //  Constructors
     // -------------------------------------------------------------------
-    public CMBinOp(int type, CMNode leftNode, CMNode rightNode) 
+    public CMBinOp(int type, CMNode leftNode, CMNode rightNode)
     {
         super(type);
 
@@ -65,7 +65,8 @@ public class CMBinOp extends CMNode
     // -------------------------------------------------------------------
     //  Package, inherited methods
     // -------------------------------------------------------------------
-    public boolean isNullable() 
+    @Override
+    public boolean isNullable()
     {
         //
         //  If its an alternation, then if either child is nullable then
@@ -84,7 +85,8 @@ public class CMBinOp extends CMNode
     // -------------------------------------------------------------------
     //  Protected, inherited methods
     // -------------------------------------------------------------------
-    protected void calcFirstPos(CMStateSet toSet) 
+    @Override
+    protected void calcFirstPos(CMStateSet toSet)
     {
         if (type() == XMLContentSpec.CONTENTSPECNODE_CHOICE)
         {
@@ -109,7 +111,8 @@ public class CMBinOp extends CMNode
         }
     }
 
-    protected void calcLastPos(CMStateSet toSet) 
+    @Override
+    protected void calcLastPos(CMStateSet toSet)
     {
         if (type() == XMLContentSpec.CONTENTSPECNODE_CHOICE)
         {

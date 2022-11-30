@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTerm;
 /**
  * Store schema particle declaration.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -46,7 +46,7 @@ public class XSParticleDecl implements XSParticle {
 
     // type of the particle
     public short fType = PARTICLE_EMPTY;
-    
+
     // term of the particle
     // for PARTICLE_ELEMENT : the element decl
     // for PARTICLE_WILDCARD: the wildcard decl
@@ -58,7 +58,7 @@ public class XSParticleDecl implements XSParticle {
     // maximum occurrence of this particle
     public int fMaxOccurs = 1;
     // optional annotation
-    public XSObjectList fAnnotations = null;  
+    public XSObjectList fAnnotations = null;
 
     // clone this decl
     public XSParticleDecl makeClone() {
@@ -71,7 +71,7 @@ public class XSParticleDecl implements XSParticle {
         particle.fAnnotations = fAnnotations;
         return particle;
     }
-    
+
     /**
      * 3.9.6 Schema Component Constraint: Particle Emptiable
      * whether this particle is emptible
@@ -85,7 +85,7 @@ public class XSParticleDecl implements XSParticle {
         if (fType == PARTICLE_EMPTY)
              return true;
         if (fType == PARTICLE_ELEMENT || fType == PARTICLE_WILDCARD)
-            return false; 
+            return false;
 
         return ((XSModelGroupImpl)fValue).isEmpty();
     }
@@ -113,9 +113,7 @@ public class XSParticleDecl implements XSParticle {
         }
         if (fType == PARTICLE_MODELGROUP) {
             int max = ((XSModelGroupImpl)fValue).maxEffectiveTotalRange();
-            if (max == SchemaSymbols.OCCURRENCE_UNBOUNDED)
-                return SchemaSymbols.OCCURRENCE_UNBOUNDED;
-            if (max != 0 && fMaxOccurs == SchemaSymbols.OCCURRENCE_UNBOUNDED)
+            if ((max == SchemaSymbols.OCCURRENCE_UNBOUNDED) || (max != 0 && fMaxOccurs == SchemaSymbols.OCCURRENCE_UNBOUNDED))
                 return SchemaSymbols.OCCURRENCE_UNBOUNDED;
             return max * fMaxOccurs;
         }
@@ -126,6 +124,7 @@ public class XSParticleDecl implements XSParticle {
      * get the string description of this particle
      */
     private String fDescription = null;
+    @Override
     public String toString() {
         if (fDescription == null) {
             StringBuffer buffer = new StringBuffer();
@@ -179,6 +178,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.PARTICLE;
     }
@@ -187,6 +187,7 @@ public class XSParticleDecl implements XSParticle {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return null;
     }
@@ -196,6 +197,7 @@ public class XSParticleDecl implements XSParticle {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return null;
     }
@@ -203,6 +205,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * {min occurs} determines the minimum number of terms that can occur.
      */
+    @Override
     public int getMinOccurs() {
         return fMinOccurs;
     }
@@ -210,6 +213,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * {max occurs} whether the maxOccurs value is unbounded.
      */
+    @Override
     public boolean getMaxOccursUnbounded() {
         return fMaxOccurs == SchemaSymbols.OCCURRENCE_UNBOUNDED;
     }
@@ -217,6 +221,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * {max occurs} determines the maximum number of terms that can occur.
      */
+    @Override
     public int getMaxOccurs() {
         return fMaxOccurs;
     }
@@ -224,6 +229,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * {term} One of a model group, a wildcard, or an element declaration.
      */
+    @Override
     public XSTerm getTerm() {
         return fValue;
     }
@@ -231,6 +237,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return null;
     }
@@ -238,6 +245,7 @@ public class XSParticleDecl implements XSParticle {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }

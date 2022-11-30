@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.xerces.impl.xpath.regex;
 
 /**
  * This class represents a character class such as [a-z] or a period.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
@@ -27,7 +27,7 @@ package net.sourceforge.htmlunit.xerces.impl.xpath.regex;
 final class RangeToken extends Token implements java.io.Serializable {
 
     private static final long serialVersionUID = -553983121197679934L;
-    
+
     int[] ranges;
     boolean sorted;
     boolean compacted;
@@ -41,6 +41,7 @@ final class RangeToken extends Token implements java.io.Serializable {
     }
 
                                                 // for RANGE or NRANGE
+    @Override
     protected void addRange(int start, int end) {
         this.icaseCache = null;
         //System.err.println("Token#addRange(): "+start+" "+end);
@@ -91,10 +92,9 @@ final class RangeToken extends Token implements java.io.Serializable {
         this.compacted = true;
     }
 
+    @Override
     protected void sortRanges() {
-        if (this.isSorted())
-            return;
-        if (this.ranges == null)
+        if (this.isSorted() || (this.ranges == null))
             return;
         //System.err.println("Do sorting: "+this.ranges.length);
 
@@ -121,11 +121,10 @@ final class RangeToken extends Token implements java.io.Serializable {
     /**
      * this.ranges is sorted.
      */
+    @Override
     protected void compactRanges() {
         boolean DEBUG = false;
-        if (this.ranges == null || this.ranges.length <= 2)
-            return;
-        if (this.isCompacted())
+        if (this.ranges == null || this.ranges.length <= 2 || this.isCompacted())
             return;
         int base = 0;                           // Index of writing point
         int target = 0;                         // Index of processing point
@@ -193,6 +192,7 @@ final class RangeToken extends Token implements java.io.Serializable {
         this.setCompacted();
     }
 
+    @Override
     protected void mergeRanges(Token token) {
         RangeToken tok = (RangeToken)token;
         this.sortRanges();
@@ -226,6 +226,7 @@ final class RangeToken extends Token implements java.io.Serializable {
         this.ranges = result;
     }
 
+    @Override
     protected void subtractRanges(Token token) {
         if (token.type == NRANGE) {
             this.intersectRanges(token);
@@ -319,6 +320,7 @@ final class RangeToken extends Token implements java.io.Serializable {
     /**
      * @param tok Ignore whether it is NRANGE or not.
      */
+    @Override
     protected void intersectRanges(Token token) {
         RangeToken tok = (RangeToken)token;
         if (tok.ranges == null || this.ranges == null)
@@ -444,7 +446,7 @@ final class RangeToken extends Token implements java.io.Serializable {
     synchronized RangeToken getCaseInsensitiveToken() {
         if (this.icaseCache != null)
             return this.icaseCache;
-            
+
         RangeToken uppers = this.type == Token.RANGE ? Token.createRange() : Token.createNRange();
         for (int i = 0;  i < this.ranges.length;  i += 2) {
             for (int ch = this.ranges[i];  ch <= this.ranges[i+1];  ch ++) {
@@ -487,6 +489,7 @@ final class RangeToken extends Token implements java.io.Serializable {
         System.err.println("");
     }
 
+    @Override
     boolean match(int ch) {
         if (this.map == null)  this.createMap();
         boolean ret;
@@ -525,7 +528,7 @@ final class RangeToken extends Token implements java.io.Serializable {
                 for (int j = s; j <= e && j < MAPSIZE; j++) {
                     map[j/32] |= 1<<(j&0x1f); // s&0x1f : 0-31
                 }
-            } 
+            }
             else {
                 nonMapIndex = i;
                 break;
@@ -540,6 +543,7 @@ final class RangeToken extends Token implements java.io.Serializable {
         //for (int i = 0;  i < asize;  i ++)  System.err.println("Map: "+Integer.toString(this.map[i], 16));
     }
 
+    @Override
     public String toString(int options) {
         String ret;
         if (this.type == RANGE) {
@@ -560,7 +564,7 @@ final class RangeToken extends Token implements java.io.Serializable {
                         sb.append(escapeCharInCharClass(this.ranges[i]));
                     } else {
                         sb.append(escapeCharInCharClass(this.ranges[i]));
-                        sb.append((char)'-');
+                        sb.append('-');
                         sb.append(escapeCharInCharClass(this.ranges[i+1]));
                     }
                 }

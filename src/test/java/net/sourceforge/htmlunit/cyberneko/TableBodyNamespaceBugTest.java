@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 
-import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
+
+import net.sourceforge.htmlunit.xerces.parsers.AbstractSAXParser;
 
 /**
  * Unit test for <a href="https://sourceforge.net/p/nekohtml/bugs/126/">Bug 126</a>.

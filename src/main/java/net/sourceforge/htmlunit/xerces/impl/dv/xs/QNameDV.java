@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,12 +21,13 @@ import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.XSQName;
 
 /**
  * Represent the schema type "QName" and "NOTATION"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -37,10 +38,12 @@ public class QNameDV extends TypeValidator {
 
     private static final String EMPTY_STRING = "".intern();
 
+    @Override
     public short getAllowedFacets() {
-        return (XSSimpleTypeDecl.FACET_LENGTH | XSSimpleTypeDecl.FACET_MINLENGTH | XSSimpleTypeDecl.FACET_MAXLENGTH | XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_ENUMERATION | XSSimpleTypeDecl.FACET_WHITESPACE);
+        return (XSSimpleTypeDefinition.FACET_LENGTH | XSSimpleTypeDefinition.FACET_MINLENGTH | XSSimpleTypeDefinition.FACET_MAXLENGTH | XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_ENUMERATION | XSSimpleTypeDefinition.FACET_WHITESPACE);
     }
 
+    @Override
     public Object getActualValue(String content, ValidationContext context)
         throws InvalidDatatypeValueException {
 
@@ -57,10 +60,7 @@ public class QNameDV extends TypeValidator {
         }
 
         // both prefix (if any) a nd localpart must be valid NCName
-        if (prefix.length() > 0 && !XMLChar.isValidNCName(prefix))
-            throw new InvalidDatatypeValueException("cvc-datatype-valid.1.2.1", new Object[]{content, "QName"});
-
-        if(!XMLChar.isValidNCName(localpart))
+        if((prefix.length() > 0 && !XMLChar.isValidNCName(prefix)) || !XMLChar.isValidNCName(localpart))
             throw new InvalidDatatypeValueException("cvc-datatype-valid.1.2.1", new Object[]{content, "QName"});
 
         // resove prefix to a uri, report an error if failed
@@ -74,6 +74,7 @@ public class QNameDV extends TypeValidator {
 
     // REVISIT: qname and notation shouldn't support length facets.
     //          now we just return the length of the rawname
+    @Override
     public int getDataLength(Object value) {
         return ((XQName)value).rawname.length();
     }
@@ -88,6 +89,7 @@ public class QNameDV extends TypeValidator {
         } // <init>(String,String,String,String)
 
         /** Returns true if the two objects are equal. */
+        @Override
         public boolean equals(Object object) {
             if (object instanceof QName) {
                 QName qname = (QName)object;
@@ -96,12 +98,15 @@ public class QNameDV extends TypeValidator {
             return false;
         } // equals(Object):boolean
 
+        @Override
         public String toString() {
             return rawname;
         }
+        @Override
         public javax.xml.namespace.QName getJAXPQName() {
             return new javax.xml.namespace.QName(uri, localpart, prefix);
         }
+        @Override
         public QName getXNIQName() {
             return this;
         }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,13 +57,13 @@ import org.w3c.dom.Text;
  * acts as the parent of these nodes so that the user can use the
  * standard methods from the Node interface, such as insertBefore()
  * and appendChild().
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
  */
-public class DocumentFragmentImpl 
+public class DocumentFragmentImpl
     extends ParentNode
     implements DocumentFragment {
 
@@ -73,7 +73,7 @@ public class DocumentFragmentImpl
 
     /** Serialization version. */
     static final long serialVersionUID = -7596449967279236746L;
-    
+
     //
     // Constructors
     //
@@ -81,8 +81,8 @@ public class DocumentFragmentImpl
     /** Factory constructor. */
     public DocumentFragmentImpl(CoreDocumentImpl ownerDoc) {
         super(ownerDoc);
-    }  
-  
+    }
+
     /** Constructor for serialization. */
     public DocumentFragmentImpl() {}
 
@@ -90,24 +90,27 @@ public class DocumentFragmentImpl
     // Node methods
     //
 
-    /** 
+    /**
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.DOCUMENT_FRAGMENT_NODE;
     }
 
     /** Returns the node name. */
+    @Override
     public String getNodeName() {
         return "#document-fragment";
     }
-    
+
     /**
      * Override default behavior to call normalize() on this Node's
      * children. It is up to implementors or Node to override normalize()
      * to take action.
      */
+    @Override
     public void normalize() {
         // No need to normalize if already normalized.
         if (isNormalized()) {

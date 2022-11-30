@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 
 /**
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public class XMLSimpleType {
@@ -100,18 +100,18 @@ public class XMLSimpleType {
 
     /**
      * setValues
-     * 
-     * @param type 
-     * @param name 
-     * @param enumeration 
-     * @param list 
-     * @param defaultType 
-     * @param defaultValue 
+     *
+     * @param type
+     * @param name
+     * @param enumeration
+     * @param list
+     * @param defaultType
+     * @param defaultValue
      * @param nonNormalizedDefaultValue
-     * @param datatypeValidator 
+     * @param datatypeValidator
      */
-    public void setValues(short type, String name, String[] enumeration, 
-                          boolean list, short defaultType, 
+    public void setValues(short type, String name, String[] enumeration,
+                          boolean list, short defaultType,
                           String defaultValue, String nonNormalizedDefaultValue,
                           DatatypeValidator datatypeValidator) {
 

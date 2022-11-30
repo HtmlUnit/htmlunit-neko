@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,7 +59,7 @@ public interface XMLDocumentFragmentHandler {
      */
     void startDocumentFragment(XMLLocator locator,
                                       NamespaceContext namespaceContext,
-                                      Augmentations augmentations) 
+                                      Augmentations augmentations)
         throws XNIException;
 
     /**
@@ -67,7 +67,7 @@ public interface XMLDocumentFragmentHandler {
      * <p>
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
-     * 
+     *
      * @param name     The name of the general entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -95,7 +95,7 @@ public interface XMLDocumentFragmentHandler {
      * <p>
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
-     * 
+     *
      * @param version  The XML version, or null if not specified.
      * @param encoding The IANA encoding name of the entity.
      * @param augmentations Additional information that may include infoset
@@ -111,7 +111,7 @@ public interface XMLDocumentFragmentHandler {
      * <p>
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
-     * 
+     *
      * @param name The name of the general entity.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -123,7 +123,7 @@ public interface XMLDocumentFragmentHandler {
 
     /**
      * A comment.
-     * 
+     *
      * @param text The text in the comment.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -143,7 +143,7 @@ public interface XMLDocumentFragmentHandler {
      * element attributes but are <strong>not</strong> parsed or presented
      * to the application as anything other than text. The application is
      * responsible for parsing the data.
-     * 
+     *
      * @param target The target.
      * @param data   The data or null if none specified.
      * @param augmentations Additional information that may include infoset
@@ -157,7 +157,7 @@ public interface XMLDocumentFragmentHandler {
 
     /**
      * The start of an element.
-     * 
+     *
      * @param element    The name of the element.
      * @param attributes The element attributes.
      * @param augmentations Additional information that may include infoset
@@ -170,7 +170,7 @@ public interface XMLDocumentFragmentHandler {
 
     /**
      * An empty element.
-     * 
+     *
      * @param element    The name of the element.
      * @param attributes The element attributes.
      * @param augmentations Additional information that may include infoset
@@ -183,7 +183,7 @@ public interface XMLDocumentFragmentHandler {
 
     /**
      * Character content.
-     * 
+     *
      * @param text The content.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -200,7 +200,7 @@ public interface XMLDocumentFragmentHandler {
      * example, the validator can determine if a length of whitespace
      * characters in the document are ignorable based on the element
      * content model.
-     * 
+     *
      * @param text The ignorable whitespace.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -208,12 +208,12 @@ public interface XMLDocumentFragmentHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     void ignorableWhitespace(XMLString text,
-                                    Augmentations augmentations) 
+                                    Augmentations augmentations)
         throws XNIException;
 
     /**
      * The end of an element.
-     * 
+     *
      * @param element The name of the element.
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -223,8 +223,8 @@ public interface XMLDocumentFragmentHandler {
     void endElement(QName element, Augmentations augmentations)
         throws XNIException;
 
-    /** 
-     * The start of a CDATA section. 
+    /**
+     * The start of a CDATA section.
      *
      * @param augmentations Additional information that may include infoset
      *                      augmentations.
@@ -234,7 +234,7 @@ public interface XMLDocumentFragmentHandler {
     void startCDATA(Augmentations augmentations) throws XNIException;
 
     /**
-     * The end of a CDATA section. 
+     * The end of a CDATA section.
      *
      * @param augmentations Additional information that may include infoset
      *                      augmentations.

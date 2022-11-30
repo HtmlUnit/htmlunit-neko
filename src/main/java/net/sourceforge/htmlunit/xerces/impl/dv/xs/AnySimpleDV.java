@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 /**
  * Represent the schema type "anySimpleType"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -32,11 +32,13 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  */
 public class AnySimpleDV extends TypeValidator {
 
+    @Override
     public short getAllowedFacets() {
         // anySimpleType doesn't allow any facet, not even whiteSpace
         return 0;
     }
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         return content;
     }

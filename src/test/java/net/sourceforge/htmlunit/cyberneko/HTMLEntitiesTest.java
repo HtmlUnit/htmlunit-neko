@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
+
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * Unit tests for {@link HTMLEntitiesParserGenerator}.

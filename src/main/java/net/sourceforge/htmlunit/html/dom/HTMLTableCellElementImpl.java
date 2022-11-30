@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,12 +34,13 @@ public class HTMLTableCellElementImpl
 
     private static final long serialVersionUID = -2406518157464313922L;
 
+    @Override
     public int getCellIndex()
     {
         Node    parent;
         Node    child;
         int        index;
-        
+
         parent = getParentNode();
         index = 0;
         if ( parent instanceof HTMLTableRowElement )
@@ -58,13 +59,13 @@ public class HTMLTableCellElementImpl
         }
         return -1;
     }
-    
-    
+
+
     public void setCellIndex( int cellIndex )
     {
         Node    parent;
         Node    child;
-        
+
         parent = getParentNode();
         if ( parent instanceof HTMLTableRowElement )
         {
@@ -87,66 +88,76 @@ public class HTMLTableCellElementImpl
         parent.appendChild( this );
     }
 
-  
+
+    @Override
     public String getAbbr()
     {
         return getAttribute( "abbr" );
     }
-    
-    
+
+
+    @Override
     public void setAbbr( String abbr )
     {
         setAttribute( "abbr", abbr );
     }
 
-  
+
+    @Override
     public String getAlign()
     {
         return capitalize( getAttribute( "align" ) );
     }
-    
-    
+
+
+    @Override
     public void setAlign( String align )
     {
         setAttribute( "align", align );
     }
-  
-    
+
+
+    @Override
     public String getAxis()
     {
         return getAttribute( "axis" );
     }
-    
-    
+
+
+    @Override
     public void setAxis( String axis )
     {
         setAttribute( "axis", axis );
     }
-    
+
+    @Override
     public String getBgColor()
     {
         return getAttribute( "bgcolor" );
     }
-    
-    
+
+
+    @Override
     public void setBgColor( String bgColor )
     {
         setAttribute( "bgcolor", bgColor );
     }
 
-  
+
+    @Override
     public String getCh()
     {
         String    ch;
-        
+
         // Make sure that the access key is a single character.
         ch = getAttribute( "char" );
         if ( ch != null && ch.length() > 1 )
             ch = ch.substring( 0, 1 );
         return ch;
     }
-    
-    
+
+
+    @Override
     public void setCh( String ch )
     {
         // Make sure that the access key is a single character.
@@ -155,117 +166,135 @@ public class HTMLTableCellElementImpl
         setAttribute( "char", ch );
     }
 
-    
+
+    @Override
     public String getChOff()
     {
         return getAttribute( "charoff" );
     }
-    
-    
+
+
+    @Override
     public void setChOff( String chOff )
     {
         setAttribute( "charoff", chOff );
     }
-  
-  
+
+
+    @Override
     public int getColSpan()
     {
         return getInteger( getAttribute( "colspan" ) );
     }
-    
-    
+
+
+    @Override
     public void setColSpan( int colspan )
     {
         setAttribute( "colspan", String.valueOf( colspan ) );
     }
-    
-    
+
+
+    @Override
     public String getHeaders()
     {
         return getAttribute( "headers" );
     }
-    
-    
+
+
+    @Override
     public void setHeaders( String headers )
     {
         setAttribute( "headers", headers );
     }
-  
-  
+
+
+    @Override
     public String getHeight()
     {
         return getAttribute( "height" );
     }
-    
-    
+
+
+    @Override
     public void setHeight( String height )
     {
         setAttribute( "height", height );
     }
 
-  
-      public boolean getNoWrap()
+
+      @Override
+    public boolean getNoWrap()
     {
         return getBinary( "nowrap" );
     }
-    
-    
+
+
+    @Override
     public void setNoWrap( boolean noWrap )
     {
         setAttribute( "nowrap", noWrap );
     }
 
+    @Override
     public int getRowSpan()
     {
         return getInteger( getAttribute( "rowspan" ) );
     }
-    
-    
+
+
+    @Override
     public void setRowSpan( int rowspan )
     {
         setAttribute( "rowspan", String.valueOf( rowspan ) );
     }
-  
-    
+
+
+    @Override
     public String getScope()
     {
         return getAttribute( "scope" );
     }
-    
-    
+
+
+    @Override
     public void setScope( String scope )
     {
         setAttribute( "scope", scope );
     }
-  
-  
+
+
+    @Override
     public String getVAlign()
     {
         return capitalize( getAttribute( "valign" ) );
     }
-    
-    
+
+
+    @Override
     public void setVAlign( String vAlign )
     {
         setAttribute( "valign", vAlign );
     }
 
-  
-      public String getWidth()
+
+      @Override
+    public String getWidth()
     {
         return getAttribute( "width" );
     }
-    
-    
+
+
+    @Override
     public void setWidth( String width )
     {
         setAttribute( "width", width );
     }
 
-    
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLTableCellElementImpl( HTMLDocumentImpl owner, String name )
@@ -273,6 +302,6 @@ public class HTMLTableCellElementImpl
         super( owner, name );
     }
 
-  
+
 }
 

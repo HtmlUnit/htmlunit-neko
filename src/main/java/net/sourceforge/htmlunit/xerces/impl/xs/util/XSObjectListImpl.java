@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,55 +29,64 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 /**
  * Contains a list of XSObjects.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
  * @version $Id$
  */
 public class XSObjectListImpl extends AbstractList implements XSObjectList {
-    
+
     /**
      * An immutable empty list.
      */
     public static final XSObjectListImpl EMPTY_LIST = new XSObjectListImpl(new XSObject[0], 0);
     private static final ListIterator EMPTY_ITERATOR = new ListIterator() {
+        @Override
         public boolean hasNext() {
             return false;
         }
+        @Override
         public Object next() {
             throw new NoSuchElementException();
         }
+        @Override
         public boolean hasPrevious() {
             return false;
         }
+        @Override
         public Object previous() {
             throw new NoSuchElementException();
         }
+        @Override
         public int nextIndex() {
             return 0;
         }
+        @Override
         public int previousIndex() {
             return -1;
         }
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void set(Object object) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void add(Object object) {
             throw new UnsupportedOperationException();
         }
     };
-    
+
     private static final int DEFAULT_SIZE = 4;
 
     // The array to hold all data
     private XSObject[] fArray = null;
     // Number of elements in this list
     private int fLength = 0;
-    
+
     public XSObjectListImpl() {
         fArray = new XSObject[DEFAULT_SIZE];
         fLength = 0;
@@ -85,7 +94,7 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
 
     /**
      * Construct an XSObjectList implementation
-     * 
+     *
      * @param array     the data array
      * @param length    the number of elements
      */
@@ -98,6 +107,7 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
      * The number of <code>XSObjects</code> in the list. The range of valid
      * child node indices is 0 to <code>length-1</code> inclusive.
      */
+    @Override
     public int getLength() {
         return fLength;
     }
@@ -111,6 +121,7 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
      *   <code>XSObjectList</code>, or <code>null</code> if that is not a
      *   valid index.
      */
+    @Override
     public XSObject item(int index) {
         if (index < 0 || index >= fLength) {
             return null;
@@ -126,28 +137,30 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
         fArray = null;
         fLength = 0;
     }
-    
+
     public void addXSObject(XSObject object) {
-       if (fLength == fArray.length) {  
+       if (fLength == fArray.length) {
            XSObject[] temp = new XSObject[fLength + 4];
            System.arraycopy(fArray, 0, temp, 0, fLength);
            fArray = temp;
        }
        fArray[fLength++] = object;
     }
-    
+
     public void addXSObject(int index, XSObject object) {
         fArray[index] = object;
     }
-    
+
     /*
      * List methods
      */
-    
+
+    @Override
     public boolean contains(Object value) {
         return (value == null) ? containsNull() : containsObject(value);
     }
 
+    @Override
     public Object get(int index) {
         if (index >= 0 && index < fLength) {
             return fArray[index];
@@ -155,29 +168,33 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
         throw new IndexOutOfBoundsException("Index: " + index);
     }
 
+    @Override
     public int size() {
         return getLength();
     }
-    
+
+    @Override
     public Iterator iterator() {
         return listIterator0(0);
     }
-    
+
+    @Override
     public ListIterator listIterator() {
         return listIterator0(0);
     }
-    
+
+    @Override
     public ListIterator listIterator(int index) {
         if (index >= 0 && index < fLength) {
             return listIterator0(index);
         }
         throw new IndexOutOfBoundsException("Index: " + index);
     }
-    
+
     private ListIterator listIterator0(int index) {
         return fLength == 0 ? EMPTY_ITERATOR : new XSObjectListIterator(index);
     }
-    
+
     private boolean containsObject(Object value) {
         for (int i = fLength - 1; i >= 0; --i) {
             if (value.equals(fArray[i])) {
@@ -186,7 +203,7 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
         }
         return false;
     }
-    
+
     private boolean containsNull() {
         for (int i = fLength - 1; i >= 0; --i) {
             if (fArray[i] == null) {
@@ -195,13 +212,15 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
         }
         return false;
     }
-    
+
+    @Override
     public Object[] toArray() {
         Object[] a = new Object[fLength];
         toArray0(a);
         return a;
     }
-    
+
+    @Override
     public Object[] toArray(Object[] a) {
         if (a.length < fLength) {
             Class arrayClass = a.getClass();
@@ -214,48 +233,57 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
         }
         return a;
     }
-    
+
     private void toArray0(Object[] a) {
         if (fLength > 0) {
             System.arraycopy(fArray, 0, a, 0, fLength);
         }
     }
-    
+
     private final class XSObjectListIterator implements ListIterator {
         private int index;
         public XSObjectListIterator(int index) {
             this.index = index;
         }
+        @Override
         public boolean hasNext() {
             return (index < fLength);
         }
+        @Override
         public Object next() {
             if (index < fLength) {
                 return fArray[index++];
             }
             throw new NoSuchElementException();
         }
+        @Override
         public boolean hasPrevious() {
             return (index > 0);
         }
+        @Override
         public Object previous() {
             if (index > 0) {
                 return fArray[--index];
             }
             throw new NoSuchElementException();
         }
+        @Override
         public int nextIndex() {
             return index;
         }
+        @Override
         public int previousIndex() {
             return index - 1;
         }
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void set(Object o) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public void add(Object o) {
             throw new UnsupportedOperationException();
         }

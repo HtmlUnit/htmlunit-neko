@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -30,8 +31,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-
-import net.sourceforge.htmlunit.cyberneko.filters.DefaultFilter;
 
 /**
  * This class implements an filter to output "canonical" files for

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
 /**
  * The class used to pass all facets to {@link XSSimpleType#applyFacets}.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -101,9 +101,9 @@ public class XSFacets {
      * value of minExclusive facet.
      */
     public String minExclusive;
-    
-    
-   
+
+
+
     public XSAnnotation lengthAnnotation;
     public XSAnnotation minLengthAnnotation;
     public XSAnnotation maxLengthAnnotation;
@@ -116,7 +116,7 @@ public class XSFacets {
     public XSAnnotation maxExclusiveAnnotation;
     public XSAnnotation minInclusiveAnnotation;
     public XSAnnotation minExclusiveAnnotation;
-    
+
     public void reset(){
         lengthAnnotation = null;
         minLengthAnnotation = null;

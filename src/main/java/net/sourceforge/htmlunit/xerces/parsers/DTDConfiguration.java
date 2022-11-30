@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,11 +49,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * to DTD-centric validation. Since
  * the Xerces2 reference implementation document and DTD scanner
  * implementations are capable of acting as pull parsers, this
- * configuration implements the 
+ * configuration implements the
  * <code>XMLPullParserConfiguration</code> interface.
  * <p>
  * In addition to the features and properties recognized by the base
- * parser configuration, this class recognizes these additional 
+ * parser configuration, this class recognizes these additional
  * features and properties:
  * <ul>
  * <li>Features
@@ -83,7 +83,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * @version $Id$
  */
 public class DTDConfiguration
-    extends BasicParserConfiguration 
+    extends BasicParserConfiguration
     implements XMLPullParserConfiguration {
 
     //
@@ -99,17 +99,17 @@ public class DTDConfiguration
     /** Feature identifier: warn on duplicate entity definition. */
     protected static final String WARN_ON_DUPLICATE_ENTITYDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ENTITYDEF_FEATURE;
-    
+
     /** Feature identifier: warn on undeclared element definition. */
     protected static final String WARN_ON_UNDECLARED_ELEMDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_UNDECLARED_ELEMDEF_FEATURE;
-    
+
     /** Feature identifier: allow Java encodings. */
-    protected static final String ALLOW_JAVA_ENCODINGS = 
+    protected static final String ALLOW_JAVA_ENCODINGS =
         Constants.XERCES_FEATURE_PREFIX + Constants.ALLOW_JAVA_ENCODINGS_FEATURE;
-    
+
     /** Feature identifier: continue after fatal error. */
-    protected static final String CONTINUE_AFTER_FATAL_ERROR = 
+    protected static final String CONTINUE_AFTER_FATAL_ERROR =
         Constants.XERCES_FEATURE_PREFIX + Constants.CONTINUE_AFTER_FATAL_ERROR_FEATURE;
 
     /** Feature identifier: load external DTD. */
@@ -119,40 +119,40 @@ public class DTDConfiguration
     /** Feature identifier: notify built-in refereces. */
     protected static final String NOTIFY_BUILTIN_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_BUILTIN_REFS_FEATURE;
-    
+
     /** Feature identifier: notify character refereces. */
     protected static final String NOTIFY_CHAR_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_CHAR_REFS_FEATURE;
-    
+
 
     // property identifiers
 
     /** Property identifier: error reporter. */
-    protected static final String ERROR_REPORTER = 
+    protected static final String ERROR_REPORTER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_REPORTER_PROPERTY;
 
     /** Property identifier: entity manager. */
-    protected static final String ENTITY_MANAGER = 
+    protected static final String ENTITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
-    
+
     /** Property identifier document scanner: */
-    protected static final String DOCUMENT_SCANNER = 
+    protected static final String DOCUMENT_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_SCANNER_PROPERTY;
 
     /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER = 
+    protected static final String DTD_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
 
     /** Property identifier: grammar pool. */
-    protected static final String XMLGRAMMAR_POOL = 
+    protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
-    
+
     /** Property identifier: DTD loader. */
-    protected static final String DTD_PROCESSOR = 
+    protected static final String DTD_PROCESSOR =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_PROCESSOR_PROPERTY;
 
     /** Property identifier: DTD validator. */
-    protected static final String DTD_VALIDATOR = 
+    protected static final String DTD_VALIDATOR =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
 
     /** Property identifier: namespace binder. */
@@ -160,12 +160,12 @@ public class DTDConfiguration
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
 
     /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY = 
+    protected static final String DATATYPE_VALIDATOR_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
     protected static final String VALIDATION_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-    
+
     /** Property identifier: JAXP schema language / DOM schema-type. */
     protected static final String JAXP_SCHEMA_LANGUAGE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE;
@@ -173,7 +173,7 @@ public class DTDConfiguration
     /** Property identifier: JAXP schema source/ DOM schema-location. */
     protected static final String JAXP_SCHEMA_SOURCE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE;
-    
+
     /** Property identifier: locale. */
     protected static final String LOCALE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.LOCALE_PROPERTY;
@@ -227,7 +227,7 @@ public class DTDConfiguration
     /** Locator */
     protected XMLLocator fLocator;
 
-    /** 
+    /**
      * True if a parse is in progress. This state is needed because
      * some features/properties cannot be set while parsing (e.g.
      * validation and namespaces).
@@ -243,8 +243,8 @@ public class DTDConfiguration
         this(null, null, null);
     } // <init>()
 
-    /** 
-     * Constructs a parser configuration using the specified symbol table. 
+    /**
+     * Constructs a parser configuration using the specified symbol table.
      *
      * @param symbolTable The symbol table to use.
      */
@@ -256,7 +256,7 @@ public class DTDConfiguration
      * Constructs a parser configuration using the specified symbol table and
      * grammar pool.
      * <p>
-     * <strong>REVISIT:</strong> 
+     * <strong>REVISIT:</strong>
      * Grammar pool will be updated when the new validation engine is
      * implemented.
      *
@@ -272,7 +272,7 @@ public class DTDConfiguration
      * Constructs a parser configuration using the specified symbol table,
      * grammar pool, and parent settings.
      * <p>
-     * <strong>REVISIT:</strong> 
+     * <strong>REVISIT:</strong>
      * Grammar pool will be updated when the new validation engine is
      * implemented.
      *
@@ -310,14 +310,14 @@ public class DTDConfiguration
 
         // add default recognized properties
         final String[] recognizedProperties = {
-            ERROR_REPORTER,             
-            ENTITY_MANAGER, 
+            ERROR_REPORTER,
+            ENTITY_MANAGER,
             DOCUMENT_SCANNER,
             DTD_SCANNER,
             DTD_PROCESSOR,
             DTD_VALIDATOR,
             NAMESPACE_BINDER,
-            XMLGRAMMAR_POOL,   
+            XMLGRAMMAR_POOL,
             DATATYPE_VALIDATOR_FACTORY,
             VALIDATION_MANAGER,
             JAXP_SCHEMA_SOURCE,
@@ -371,7 +371,7 @@ public class DTDConfiguration
             setProperty(NAMESPACE_BINDER, fNamespaceBinder);
             addComponent(fNamespaceBinder);
         }
-        
+
         fDatatypeValidatorFactory = createDatatypeValidatorFactory();
         if (fDatatypeValidatorFactory != null) {
             setProperty(DATATYPE_VALIDATOR_FACTORY,
@@ -403,7 +403,8 @@ public class DTDConfiguration
     //
     // Public methods
     //
-    
+
+    @Override
     public Object getProperty(String propertyId)
         throws XMLConfigurationException {
         if (LOCALE.equals(propertyId)) {
@@ -412,6 +413,7 @@ public class DTDConfiguration
         return super.getProperty(propertyId);
     }
 
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
         if (LOCALE.equals(propertyId)) {
@@ -428,6 +430,7 @@ public class DTDConfiguration
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
+    @Override
     public void setLocale(Locale locale) throws XNIException {
         super.setLocale(locale);
         fErrorReporter.setLocale(locale);
@@ -444,23 +447,24 @@ public class DTDConfiguration
      *
      * @param inputSource The document's input source.
      *
-     * @exception XMLConfigurationException Thrown if there is a 
+     * @exception XMLConfigurationException Thrown if there is a
      *                        configuration error when initializing the
      *                        parser.
      * @exception IOException Thrown on I/O error.
      *
      * @see #parse(boolean)
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource)
         throws XMLConfigurationException, IOException {
-        
+
         // REVISIT: this method used to reset all the components and
         //          construct the pipeline. Now reset() is called
         //          in parse (boolean) just before we parse the document
         //          Should this method still throw exceptions..?
 
         fInputSource = inputSource;
-        
+
     } // setInputSource(XMLInputSource)
 
     /**
@@ -471,7 +475,7 @@ public class DTDConfiguration
      *
      * @return True if there is more document to parse.
      *
-     * @exception XNIException Any XNI exception, possibly wrapping 
+     * @exception XNIException Any XNI exception, possibly wrapping
      *                         another exception.
      * @exception IOException  An IO exception from the parser, possibly
      *                         from a byte stream or character stream
@@ -479,6 +483,7 @@ public class DTDConfiguration
      *
      * @see #setInputSource
      */
+    @Override
     public boolean parse(boolean complete) throws XNIException, IOException {
         //
         // reset and configure pipeline and set InputSource.
@@ -518,10 +523,11 @@ public class DTDConfiguration
      * is fully parsed, the application should call this method to free any
      * resource allocated during parsing. For example, close all opened streams.
      */
+    @Override
     public void cleanup() {
         fEntityManager.closeReaders();
     }
-    
+
     //
     // XMLParserConfiguration methods
     //
@@ -534,6 +540,7 @@ public class DTDConfiguration
      * @exception XNIException Throws exception on XNI error.
      * @exception java.io.IOException Throws exception on i/o error.
      */
+    @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
 
         if (fParseInProgress) {
@@ -565,12 +572,13 @@ public class DTDConfiguration
     //
     // Protected methods
     //
-    
-    /** 
-     * Reset all components before parsing. 
+
+    /**
+     * Reset all components before parsing.
      *
      * @throws XNIException Thrown if an error occurs during initialization.
      */
+    @Override
     protected void reset() throws XNIException {
 
         if (fValidationManager != null)
@@ -585,9 +593,9 @@ public class DTDConfiguration
 
         // REVISIT: This should be better designed. In other words, we
         //          need to figure out what is the best way for people to
-        //          re-use *most* of the standard configuration but do 
+        //          re-use *most* of the standard configuration but do
         //          things common things such as remove a component (e.g.
-        //          the validator), insert a new component (e.g. XInclude), 
+        //          the validator), insert a new component (e.g. XInclude),
         //          etc... -Ac
 
         // setup document pipeline
@@ -620,15 +628,15 @@ public class DTDConfiguration
                 fLastComponent = fScanner;
             }
         }
-        
+
         configureDTDPipeline();
     } // configurePipeline()
-    
+
     protected void configureDTDPipeline (){
-        
+
         // setup dtd pipeline
         if (fDTDScanner != null) {
-            fProperties.put(DTD_SCANNER, fDTDScanner);          
+            fProperties.put(DTD_SCANNER, fDTDScanner);
             if (fDTDProcessor != null) {
                 fProperties.put(DTD_PROCESSOR, fDTDProcessor);
                 fDTDScanner.setDTDHandler(fDTDProcessor);
@@ -674,6 +682,7 @@ public class DTDConfiguration
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkFeature(String featureId)
         throws XMLConfigurationException {
 
@@ -683,14 +692,14 @@ public class DTDConfiguration
 
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-            
+
             //
             // http://apache.org/xml/features/validation/dynamic
             //   Allows the parser to validate a document only when it
             //   contains a grammar. Validation is turned on/off based
             //   on each document instance, automatically.
             //
-            if (suffixLength == Constants.DYNAMIC_VALIDATION_FEATURE.length() && 
+            if (suffixLength == Constants.DYNAMIC_VALIDATION_FEATURE.length() &&
                 featureId.endsWith(Constants.DYNAMIC_VALIDATION_FEATURE)) {
                 return;
             }
@@ -698,17 +707,12 @@ public class DTDConfiguration
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() &&
-                featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) {
-                // REVISIT
-                short type = XMLConfigurationException.NOT_SUPPORTED;
-                throw new XMLConfigurationException(type, featureId);
-            }
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() && 
-                featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE)) {
+            if ((suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() &&
+                featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) || (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() &&
+                featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE))) {
                 // REVISIT
                 short type = XMLConfigurationException.NOT_SUPPORTED;
                 throw new XMLConfigurationException(type, featureId);
@@ -716,14 +720,14 @@ public class DTDConfiguration
             //
             // http://apache.org/xml/features/validation/nonvalidating/load-dtd-grammar
             //
-            if (suffixLength == Constants.LOAD_DTD_GRAMMAR_FEATURE.length() && 
+            if (suffixLength == Constants.LOAD_DTD_GRAMMAR_FEATURE.length() &&
                 featureId.endsWith(Constants.LOAD_DTD_GRAMMAR_FEATURE)) {
                 return;
             }
             //
             // http://apache.org/xml/features/validation/nonvalidating/load-external-dtd
             //
-            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() && 
+            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() &&
                 featureId.endsWith(Constants.LOAD_EXTERNAL_DTD_FEATURE)) {
                 return;
             }
@@ -731,7 +735,7 @@ public class DTDConfiguration
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.VALIDATE_DATATYPES_FEATURE.length() && 
+            if (suffixLength == Constants.VALIDATE_DATATYPES_FEATURE.length() &&
                 featureId.endsWith(Constants.VALIDATE_DATATYPES_FEATURE)) {
                 short type = XMLConfigurationException.NOT_SUPPORTED;
                 throw new XMLConfigurationException(type, featureId);
@@ -759,6 +763,7 @@ public class DTDConfiguration
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkProperty(String propertyId)
         throws XMLConfigurationException {
 
@@ -769,7 +774,7 @@ public class DTDConfiguration
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
 
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() && 
+            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
                 propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
                 return;
             }

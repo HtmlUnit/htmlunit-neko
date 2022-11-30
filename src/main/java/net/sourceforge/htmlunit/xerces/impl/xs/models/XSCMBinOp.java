@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,8 +24,8 @@ import net.sourceforge.htmlunit.xerces.impl.xs.XSModelGroupImpl;
 /**
  *
  * Content model Bin-Op node.
- * 
- * @xerces.internal  
+ *
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -34,7 +34,7 @@ public class XSCMBinOp extends CMNode {
     // -------------------------------------------------------------------
     //  Constructors
     // -------------------------------------------------------------------
-    public XSCMBinOp(int type, CMNode leftNode, CMNode rightNode) 
+    public XSCMBinOp(int type, CMNode leftNode, CMNode rightNode)
     {
         super(type);
 
@@ -65,6 +65,7 @@ public class XSCMBinOp extends CMNode {
     // -------------------------------------------------------------------
     //  Package, inherited methods
     // -------------------------------------------------------------------
+    @Override
     public boolean isNullable() {
         //
         //  If its an alternation, then if either child is nullable then
@@ -83,6 +84,7 @@ public class XSCMBinOp extends CMNode {
     // -------------------------------------------------------------------
     //  Protected, inherited methods
     // -------------------------------------------------------------------
+    @Override
     protected void calcFirstPos(CMStateSet toSet) {
         if (type() == XSModelGroupImpl.MODELGROUP_CHOICE) {
             // Its the the union of the first positions of our children.
@@ -104,6 +106,7 @@ public class XSCMBinOp extends CMNode {
         }
     }
 
+    @Override
     protected void calcLastPos(CMStateSet toSet) {
         if (type() == XSModelGroupImpl.MODELGROUP_CHOICE) {
             // Its the the union of the first positions of our children.

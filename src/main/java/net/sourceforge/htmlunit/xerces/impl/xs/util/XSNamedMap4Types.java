@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 /**
  * Contains the map between qnames and XSObject's.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -34,10 +34,10 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
 
     // the type of component stored here: complex or simple type
     private final short fType;
-    
+
     /**
      * Construct an XSNamedMap implementation for one namespace
-     * 
+     *
      * @param namespace the namespace to which the components belong
      * @param map       the map from local names to components
      * @param type      the type of components
@@ -49,7 +49,7 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
 
     /**
      * Construct an XSNamedMap implementation for a list of namespaces
-     * 
+     *
      * @param namespaces the namespaces to which the components belong
      * @param maps       the maps from local names to components
      * @param num        the number of namespaces
@@ -65,6 +65,7 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
      * range of valid child node indices is 0 to <code>length-1</code>
      * inclusive.
      */
+    @Override
     public synchronized int getLength() {
         if (fLength == -1) {
             // first get the number of components for all types
@@ -103,6 +104,7 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
      *   name and namespace URI, or <code>null</code> if they do not
      *   identify any <code>XSObject</code> in this map.
      */
+    @Override
     public XSObject itemByName(String namespace, String localName) {
         for (int i = 0; i < fNSNum; i++) {
             if (isEqual(namespace, fNamespaces[i])) {
@@ -127,6 +129,7 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
      *   in the <code>XSNamedMap</code>, or <code>null</code> if that is
      *   not a valid index.
      */
+    @Override
     public synchronized XSObject item(int index) {
         if (fArray == null) {
             getLength();
@@ -136,5 +139,5 @@ public final class XSNamedMap4Types extends XSNamedMapImpl {
         }
         return fArray[index];
     }
-    
+
 } // class XSNamedMapImpl

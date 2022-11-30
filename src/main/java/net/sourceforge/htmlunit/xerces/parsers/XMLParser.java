@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,11 +52,11 @@ public abstract class XMLParser {
     // properties
 
     /** Property identifier: entity resolver. */
-    protected static final String ENTITY_RESOLVER = 
+    protected static final String ENTITY_RESOLVER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
 
     /** Property identifier: error handler. */
-    protected static final String ERROR_HANDLER = 
+    protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
     /** Recognized properties. */
@@ -101,13 +101,13 @@ public abstract class XMLParser {
      * @exception XNIException
      * @exception java.io.IOException
      */
-    public void parse(XMLInputSource inputSource) 
+    public void parse(XMLInputSource inputSource)
         throws XNIException, IOException {
 
         reset();
         fConfiguration.parse(inputSource);
 
-    } // parse(XMLInputSource) 
+    } // parse(XMLInputSource)
 
     //
     // Protected methods

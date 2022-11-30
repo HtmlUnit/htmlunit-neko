@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ package net.sourceforge.htmlunit.xerces.impl.xs;
 /**
  * This exception might be thrown by any constraint checking method.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  *
@@ -30,7 +30,7 @@ public class XMLSchemaException extends Exception {
 
     /** Serialization version. */
     static final long serialVersionUID = -9096984648537046218L;
-    
+
     // store a datatype error: error code plus the arguments
     final String key;
     final Object[] args;

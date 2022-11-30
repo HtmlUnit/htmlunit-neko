@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import java.lang.ref.SoftReference;
  * that have no references to them can be garbage collected when memory is needed.  Thus, in
  * documents with very very large numbers of unique strings, using this SymbolTable will prevent
  * an out of memory error from occurring.
- * 
+ *
  * @see SymbolTable
  *
  * @author Peter McCracken, IBM
@@ -49,13 +49,13 @@ public class SoftReferenceSymbolTable extends SymbolTable {
     protected SREntry[] fBuckets = null;
 
     private final ReferenceQueue fReferenceQueue;
-    
+
     //
     // Constructors
     //
-    
+
     /**
-     * Constructs a new, empty SymbolTable with the specified initial 
+     * Constructs a new, empty SymbolTable with the specified initial
      * capacity and the specified load factor.
      *
      * @param      initialCapacity   the initial capacity of the SymbolTable.
@@ -70,19 +70,19 @@ public class SoftReferenceSymbolTable extends SymbolTable {
          * memory used by the field in the base class.
          */
         super(1, loadFactor);
-        
+
         if (initialCapacity < 0) {
             throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
         }
-        
+
         if (loadFactor <= 0 || Float.isNaN(loadFactor)) {
             throw new IllegalArgumentException("Illegal Load: " + loadFactor);
         }
-        
+
         if (initialCapacity == 0) {
             initialCapacity = 1;
         }
-        
+
         fLoadFactor = loadFactor;
         fTableSize = initialCapacity;
         fBuckets = new SREntry[fTableSize];
@@ -103,10 +103,10 @@ public class SoftReferenceSymbolTable extends SymbolTable {
     public SoftReferenceSymbolTable(int initialCapacity) {
         this(initialCapacity, 0.75f);
     }
-    
+
     /**
      * Constructs a new, empty SymbolTable with a default initial capacity (101)
-     * and load factor, which is <tt>0.75</tt>. 
+     * and load factor, which is <tt>0.75</tt>.
      */
     public SoftReferenceSymbolTable() {
         this(TABLE_SIZE, 0.75f);
@@ -124,6 +124,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
      *
      * @param symbol The new symbol.
      */
+    @Override
     public String addSymbol(String symbol) {
         clean();
         // search for identical symbol
@@ -141,7 +142,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
         }
         return addSymbol0(symbol, bucket, collisionCount);
     } // addSymbol(String):String
-    
+
     private String addSymbol0(String symbol, int bucket, int collisionCount) {
         if (fCount >= fThreshold) {
             // Rehash the table if the threshold is exceeded
@@ -154,7 +155,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
             rebalance();
             bucket = hash(symbol) % fTableSize;
         }
-        
+
         // add new entry
         symbol = symbol.intern();
         SREntry entry = new SREntry(symbol, fBuckets[bucket], bucket, fReferenceQueue);
@@ -173,6 +174,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
      * @param offset The offset into the buffer of the new symbol.
      * @param length The length of the new symbol in the buffer.
      */
+    @Override
     public String addSymbol(char[] buffer, int offset, int length) {
         clean();
         // search for identical symbol
@@ -196,7 +198,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
         }
         return addSymbol0(buffer, offset, length, bucket, collisionCount);
     } // addSymbol(char[],int,int):String
-    
+
     private String addSymbol0(char[] buffer, int offset, int length, int bucket, int collisionCount) {
         if (fCount >= fThreshold) {
             // Rehash the table if the threshold is exceeded
@@ -209,7 +211,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
             rebalance();
             bucket = hash(buffer, offset, length) % fTableSize;
         }
-        
+
         // add new entry
         String symbol = new String(buffer, offset, length).intern();
         SREntry entry = new SREntry(symbol, buffer, offset, length, fBuckets[bucket], bucket, fReferenceQueue);
@@ -219,20 +221,21 @@ public class SoftReferenceSymbolTable extends SymbolTable {
     } // addSymbol0(char[],int,int,int,int):String
 
     /**
-     * Increases the capacity of and internally reorganizes this 
-     * SymbolTable, in order to accommodate and access its entries more 
-     * efficiently.  This method is called automatically when the 
-     * number of keys in the SymbolTable exceeds this hashtable's capacity 
-     * and load factor. 
+     * Increases the capacity of and internally reorganizes this
+     * SymbolTable, in order to accommodate and access its entries more
+     * efficiently.  This method is called automatically when the
+     * number of keys in the SymbolTable exceeds this hashtable's capacity
+     * and load factor.
      */
+    @Override
     protected void rehash() {
         rehashCommon(fBuckets.length * 2 + 1);
     }
-    
+
     /**
-     * Reduces the capacity of and internally reorganizes this 
+     * Reduces the capacity of and internally reorganizes this
      * SymbolTable, in order to accommodate and access its entries in
-     * a more memory efficient way. This method is called automatically when 
+     * a more memory efficient way. This method is called automatically when
      * the number of keys in the SymbolTable drops below 25% of this
      * hashtable's load factor (as a result of SoftReferences which have
      * been cleared).
@@ -240,13 +243,14 @@ public class SoftReferenceSymbolTable extends SymbolTable {
     protected void compact() {
         rehashCommon(((int) (fCount / fLoadFactor)) * 2 + 1);
     }
-    
+
     /**
      * Randomly selects a new hash function and reorganizes this SymbolTable
-     * in order to more evenly distribute its entries across the table. This 
-     * method is called automatically when the number keys in one of the 
+     * in order to more evenly distribute its entries across the table. This
+     * method is called automatically when the number keys in one of the
      * SymbolTable's buckets exceeds the given collision threshold.
      */
+    @Override
     protected void rebalance() {
         if (fHashMultipliers == null) {
             fHashMultipliers = new int[MULTIPLIERS_SIZE];
@@ -254,9 +258,9 @@ public class SoftReferenceSymbolTable extends SymbolTable {
         PrimeNumberSequenceGenerator.generateSequence(fHashMultipliers);
         rehashCommon(fBuckets.length);
     }
-    
+
     private void rehashCommon(final int newCapacity) {
-        
+
         final int oldCapacity = fBuckets.length;
         final SREntry[] oldTable = fBuckets;
         final SREntry[] newTable = new SREntry[newCapacity];
@@ -296,6 +300,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
      *
      * @param symbol The symbol to look for.
      */
+    @Override
     public boolean containsSymbol(String symbol) {
 
         // search for identical symbol
@@ -328,6 +333,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
      * @param offset The offset into the buffer.
      * @param length The length of the symbol in the buffer.
      */
+    @Override
     public boolean containsSymbol(char[] buffer, int offset, int length) {
 
         // search for identical symbol
@@ -366,7 +372,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
             --fCount;
         }
     }
-    
+
     /**
      * Removes stale symbols from the table.
      */
@@ -385,7 +391,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
             }
         }
     }
-        
+
     //
     // Classes
     //
@@ -393,7 +399,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
     /**
      * This class is a symbol table entry. Each entry acts as a node
      * in a doubly-linked list.
-     * 
+     *
      * The "SR" stands for SoftReference.
      */
     protected static final class SREntry extends SoftReference {
@@ -406,7 +412,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
 
         /** The bucket this entry is contained in; -1 if it has been removed from the table. */
         public int bucket;
-        
+
         //
         // Constructors
         //
@@ -428,7 +434,7 @@ public class SoftReferenceSymbolTable extends SymbolTable {
             super(new SREntryData(internedSymbol, ch, offset, length), q);
             initialize(next, bucket);
         }
-        
+
         private void initialize(SREntry next, int bucket) {
             this.next = next;
             if (next != null) {

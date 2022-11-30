@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 /**
  * To store and validate information about substitutionGroup
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -59,12 +59,8 @@ public class SubstitutionGroupHandler {
 
         // if the exemplar is not a global element decl, then it's not possible
         // to be substituted by another element.
-        if (exemplar.fScope != XSConstants.SCOPE_GLOBAL) {
-            return null;
-        }
-
         // if the decl blocks substitution, return false
-        if ((exemplar.fBlock & XSConstants.DERIVATION_SUBSTITUTION) != 0) {
+        if ((exemplar.fScope != XSConstants.SCOPE_GLOBAL) || ((exemplar.fBlock & XSConstants.DERIVATION_SUBSTITUTION) != 0)) {
             return null;
         }
 
@@ -90,7 +86,7 @@ public class SubstitutionGroupHandler {
         if (element == exemplar) {
             return true;
         }
-        
+
         // 2 All of the following must be true:
         // 2.1 The blocking constraint does not contain substitution.
         if ((blockingConstraint & XSConstants.DERIVATION_SUBSTITUTION) != 0) {
@@ -110,11 +106,11 @@ public class SubstitutionGroupHandler {
         // 2.3 The set of all {derivation method}s involved in the derivation of D's {type definition} from C's {type definition} does not intersect with the union of the blocking constraint, C's {prohibited substitutions} (if C is complex, otherwise the empty set) and the {prohibited substitutions} (respectively the empty set) of any intermediate {type definition}s in the derivation of D's {type definition} from C's {type definition}.
         // prepare the combination of {derivation method} and
         // {disallowed substitution}
-        return typeDerivationOK(element.fType, exemplar.fType, blockingConstraint);   
+        return typeDerivationOK(element.fType, exemplar.fType, blockingConstraint);
     }
-    
+
     private boolean typeDerivationOK(XSTypeDefinition derived, XSTypeDefinition base, short blockingConstraint) {
-        
+
         short devMethod = 0, blockConstraint = blockingConstraint;
 
         // "derived" should be derived from "base"
@@ -225,12 +221,12 @@ public class SubstitutionGroupHandler {
         Object subGroup = fSubGroups.get(element);
         if (subGroup != null)
             return (XSElementDecl[])subGroup;
-        
+
         if ((element.fBlock & XSConstants.DERIVATION_SUBSTITUTION) != 0) {
             fSubGroups.put(element, EMPTY_GROUP);
             return EMPTY_GROUP;
         }
-        
+
         // Otherwise, get all potential sub group elements
         // (without considering "block" on this element
         OneSubGroup[] groupB = getSubGroupB(element, new OneSubGroup());
@@ -263,11 +259,11 @@ public class SubstitutionGroupHandler {
             fSubGroupsB.put(element, EMPTY_VECTOR);
             return EMPTY_VECTOR;
         }
-        
+
         // we've already calculated the element, just return.
         if (subGroup instanceof OneSubGroup[])
             return (OneSubGroup[])subGroup;
-        
+
         // we only have the *direct* substitutions
         Vector group = (Vector)subGroup, newGroup = new Vector();
         OneSubGroup[] group1;
@@ -303,7 +299,7 @@ public class SubstitutionGroupHandler {
         }
         // Store the potential sub group
         fSubGroupsB.put(element, ret);
-        
+
         return ret;
     }
 
@@ -326,7 +322,7 @@ public class SubstitutionGroupHandler {
         // No derivation relation, or blocked, return false
         if (typed != typeb || (dMethod & bMethod) != 0)
             return false;
-        
+
         // Remember the derivation methods and blocks, return true.
         methods.dMethod = dMethod;
         methods.bMethod = bMethod;

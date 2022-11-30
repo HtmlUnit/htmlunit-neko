@@ -112,6 +112,7 @@ public class CoreDOMImplementationImpl
      * @return true iff this implementation is compatible with the specified
      * feature and version.
      */
+    @Override
     public boolean hasFeature(String feature, String version) {
 
         boolean anyVersion = version == null || version.length() == 0;
@@ -180,6 +181,7 @@ public class CoreDOMImplementationImpl
      * @param systemID The document type system identifier.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public DocumentType createDocumentType( String qualifiedName,
                                     String publicID, String systemID) {
         // REVISIT: this might allow creation of invalid name for DOCTYPE
@@ -274,6 +276,7 @@ public class CoreDOMImplementationImpl
      *                         already been used with a different document.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public Document createDocument(
         String namespaceURI,
         String qualifiedName,
@@ -303,6 +306,7 @@ public class CoreDOMImplementationImpl
     /**
      * DOM Level 3 WD - Experimental.
      */
+    @Override
     public Object getFeature(String feature, String version) {
         if (singleton.hasFeature(feature, version)) {
             if ((feature.equalsIgnoreCase("+XPath"))) {

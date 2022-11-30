@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
  * The XML representation for a group declaration
  * schema component is a global &lt;group&gt; element information item
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @version $Id$
@@ -44,13 +44,14 @@ public class XSGroupDecl implements XSModelGroupDefinition {
     public XSModelGroupImpl fModelGroup = null;
     // optional annotations
     public XSObjectList fAnnotations = null;
-    // The namespace schema information item corresponding to the target namespace 
+    // The namespace schema information item corresponding to the target namespace
     // of the model group definition, if it is globally declared; or null otherwise.
     private XSNamespaceItem fNamespaceItem = null;
 
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.MODEL_GROUP_DEFINITION;
     }
@@ -59,6 +60,7 @@ public class XSGroupDecl implements XSModelGroupDefinition {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return fName;
     }
@@ -68,6 +70,7 @@ public class XSGroupDecl implements XSModelGroupDefinition {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return fTargetNamespace;
     }
@@ -75,6 +78,7 @@ public class XSGroupDecl implements XSModelGroupDefinition {
     /**
      * {model group} A model group.
      */
+    @Override
     public XSModelGroup getModelGroup() {
         return fModelGroup;
     }
@@ -82,6 +86,7 @@ public class XSGroupDecl implements XSModelGroupDefinition {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -89,13 +94,15 @@ public class XSGroupDecl implements XSModelGroupDefinition {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return fNamespaceItem;
     }

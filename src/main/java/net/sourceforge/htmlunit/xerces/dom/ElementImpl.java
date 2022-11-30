@@ -128,6 +128,7 @@ public class ElementImpl
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.ELEMENT_NODE;
     }
@@ -135,6 +136,7 @@ public class ElementImpl
     /**
      * Returns the element name
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -148,6 +150,7 @@ public class ElementImpl
      * ever have Attributes, but they want to allow folks to "blindly" operate
      * on the tree as a set of Nodes.
      */
+    @Override
     public NamedNodeMap getAttributes() {
 
         if (needsSyncData()) {
@@ -167,6 +170,7 @@ public class ElementImpl
      *
      * @see org.w3c.dom.Node#cloneNode(boolean)
      */
+    @Override
     public Node cloneNode(boolean deep) {
 
         ElementImpl newnode = (ElementImpl) super.cloneNode(deep);
@@ -182,6 +186,7 @@ public class ElementImpl
      * DOM Level 3 WD - Experimental.
      * Retrieve baseURI
      */
+    @Override
     public String getBaseURI() {
 
         if (needsSyncData()) {
@@ -247,6 +252,7 @@ public class ElementImpl
      * NON-DOM
      * set the ownerDocument of this node, its children, and its attributes
      */
+    @Override
     protected void setOwnerDocument(CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
         if (attributes != null) {
@@ -267,6 +273,7 @@ public class ElementImpl
      * returns the "flattened" string obtained from Attribute.getValue().
      * If you need the structure information, see getAttributeNode().
      */
+    @Override
     public String getAttribute(String name) {
 
         if (needsSyncData()) {
@@ -288,6 +295,7 @@ public class ElementImpl
      * <p>
      * If no matching attribute is available, returns null.
      */
+    @Override
     public Attr getAttributeNode(String name) {
 
         if (needsSyncData()) {
@@ -316,6 +324,7 @@ public class ElementImpl
      *
      * @see DeepNodeListImpl
      */
+    @Override
     public NodeList getElementsByTagName(String tagname) {
         return new DeepNodeListImpl(this,tagname);
     }
@@ -327,6 +336,7 @@ public class ElementImpl
      * This is case-preserving in XML. HTML should uppercasify it on the
      * way in.
      */
+    @Override
     public String getTagName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -348,6 +358,7 @@ public class ElementImpl
      * Text -- is considered "markup" and will _not_ be merged either with
      * normal Text or with other CDATASections.
      */
+    @Override
     public void normalize() {
         // No need to normalize if already normalized.
         if (isNormalized()) {
@@ -420,6 +431,7 @@ public class ElementImpl
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
      * readonly.
      */
+    @Override
     public void removeAttribute(String name) {
 
         if (ownerDocument.errorChecking && isReadOnly()) {
@@ -456,6 +468,7 @@ public class ElementImpl
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
      * readonly.
      */
+    @Override
     public Attr removeAttributeNode(Attr oldAttr)
         throws DOMException {
 
@@ -496,6 +509,7 @@ public class ElementImpl
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
      * readonly.
      */
+    @Override
     public void setAttribute(String name, String value) {
 
         if (ownerDocument.errorChecking && isReadOnly()) {
@@ -541,6 +555,7 @@ public class ElementImpl
      * @throws DOMException(INUSE_ATTRIBUTE_ERR) if the Attribute object
      * has already been assigned to another Element.
      */
+    @Override
     public Attr setAttributeNode(Attr newAttr)
         throws DOMException
         {
@@ -589,6 +604,7 @@ public class ElementImpl
      *                      does not have a specified or default value.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public String getAttributeNS(String namespaceURI, String localName) {
 
         if (needsSyncData()) {
@@ -645,7 +661,8 @@ public class ElementImpl
      *                          namespaceURI is null or an empty string.
      * @since WD-DOM-Level-2-19990923
      */
-     public void setAttributeNS(String namespaceURI,String qualifiedName,
+     @Override
+    public void setAttributeNS(String namespaceURI,String qualifiedName,
                                   String value) {
         if (ownerDocument.errorChecking && isReadOnly()) {
             String msg =
@@ -720,6 +737,7 @@ public class ElementImpl
      *                          node is readonly.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public void removeAttributeNS(String namespaceURI, String localName) {
 
         if (ownerDocument.errorChecking && isReadOnly()) {
@@ -750,6 +768,7 @@ public class ElementImpl
      *                      URI or null if there is no such attribute.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public Attr getAttributeNodeNS(String namespaceURI, String localName){
 
         if (needsSyncData()) {
@@ -789,6 +808,7 @@ public class ElementImpl
      *                  them in other elements.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public Attr setAttributeNodeNS(Attr newAttr)
         throws DOMException
         {
@@ -851,6 +871,7 @@ public class ElementImpl
     /**
      * Introduced in DOM Level 2.
      */
+    @Override
     public boolean hasAttributes() {
         if (needsSyncData()) {
             synchronizeData();
@@ -861,6 +882,7 @@ public class ElementImpl
     /**
      * Introduced in DOM Level 2.
      */
+    @Override
     public boolean hasAttribute(String name) {
         return getAttributeNode(name) != null;
     }
@@ -868,6 +890,7 @@ public class ElementImpl
     /**
      * Introduced in DOM Level 2.
      */
+    @Override
     public boolean hasAttributeNS(String namespaceURI, String localName) {
         return getAttributeNodeNS(namespaceURI, localName) != null;
     }
@@ -890,6 +913,7 @@ public class ElementImpl
      *                     Elements.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public NodeList getElementsByTagNameNS(String namespaceURI,
                                            String localName) {
         return new DeepNodeListImpl(this, namespaceURI, localName);
@@ -900,6 +924,7 @@ public class ElementImpl
      * Override inherited behavior from NodeImpl and ParentNode to check on
      * attributes
      */
+    @Override
     public boolean isEqualNode(Node arg) {
         if (!super.isEqualNode(arg)) {
             return false;
@@ -938,6 +963,7 @@ public class ElementImpl
     /**
      * DOM Level 3: register the given attribute node as an ID attribute
      */
+    @Override
     public void setIdAttributeNode(Attr at, boolean makeId) {
         if (needsSyncData()) {
             synchronizeData();
@@ -967,6 +993,7 @@ public class ElementImpl
     /**
      * DOM Level 3: register the given attribute node as an ID attribute
      */
+    @Override
     public void setIdAttribute(String name, boolean makeId) {
         if (needsSyncData()) {
             synchronizeData();
@@ -1006,6 +1033,7 @@ public class ElementImpl
     /**
      * DOM Level 3: register the given attribute node as an ID attribute
      */
+    @Override
     public void setIdAttributeNS(String namespaceURI, String localName,
                                     boolean makeId) {
         if (needsSyncData()) {
@@ -1045,13 +1073,15 @@ public class ElementImpl
     /**
      * @see org.w3c.dom.TypeInfo#getTypeName()
      */
-     public String getTypeName() {
+     @Override
+    public String getTypeName() {
         return null;
      }
 
     /**
      * @see org.w3c.dom.TypeInfo#getTypeNamespace()
      */
+    @Override
     public String getTypeNamespace() {
         return null;
     }
@@ -1071,6 +1101,7 @@ public class ElementImpl
      * @return boolean True if the type is derived by restriciton for the
      *         reference type
      */
+    @Override
     public boolean isDerivedFrom(String typeNamespaceArg,
                                  String typeNameArg,
                                  int derivationMethod) {
@@ -1082,6 +1113,7 @@ public class ElementImpl
      * Method getSchemaTypeInfo.
      * @return TypeInfo
      */
+    @Override
     public TypeInfo getSchemaTypeInfo(){
         if(needsSyncData()) {
             synchronizeData();
@@ -1097,6 +1129,7 @@ public class ElementImpl
      * NON-DOM: Subclassed to flip the attributes' readonly switch as well.
      * @see NodeImpl#setReadOnly
      */
+    @Override
     public void setReadOnly(boolean readOnly, boolean deep) {
         super.setReadOnly(readOnly,deep);
         if (attributes != null) {
@@ -1111,6 +1144,7 @@ public class ElementImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected void synchronizeData() {
 
         // no need to sync in the future

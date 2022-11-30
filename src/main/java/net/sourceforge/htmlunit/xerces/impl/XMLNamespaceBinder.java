@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,7 +52,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *  <li>http://apache.org/xml/properties/internal/symbol-table</li>
  *  <li>http://apache.org/xml/properties/internal/error-reporter</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Andy Clark, IBM
@@ -199,6 +199,7 @@ public class XMLNamespaceBinder
      *                      SAXNotRecognizedException or a
      *                      SAXNotSupportedException.
      */
+    @Override
     public void reset(XMLComponentManager componentManager)
         throws XNIException {
 
@@ -221,8 +222,9 @@ public class XMLNamespaceBinder
      * this component. This method may return null if no features
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedFeatures() {
-        return (String[])(RECOGNIZED_FEATURES.clone());
+        return (RECOGNIZED_FEATURES.clone());
     } // getRecognizedFeatures():String[]
 
     /**
@@ -240,6 +242,7 @@ public class XMLNamespaceBinder
      * @throws SAXNotSupportedException The component should not throw
      *                                  this exception.
      */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
     } // setFeature(String,boolean)
@@ -249,8 +252,9 @@ public class XMLNamespaceBinder
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedProperties() {
-        return (String[])(RECOGNIZED_PROPERTIES.clone());
+        return (RECOGNIZED_PROPERTIES.clone());
     } // getRecognizedProperties():String[]
 
     /**
@@ -259,18 +263,19 @@ public class XMLNamespaceBinder
      * @param propertyId
      * @param value
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
 
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-            
-            if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() && 
+
+            if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() &&
                 propertyId.endsWith(Constants.SYMBOL_TABLE_PROPERTY)) {
                 fSymbolTable = (SymbolTable)value;
             }
-            else if (suffixLength == Constants.ERROR_REPORTER_PROPERTY.length() && 
+            else if (suffixLength == Constants.ERROR_REPORTER_PROPERTY.length() &&
                 propertyId.endsWith(Constants.ERROR_REPORTER_PROPERTY)) {
                 fErrorReporter = (XMLErrorReporter)value;
             }
@@ -279,7 +284,7 @@ public class XMLNamespaceBinder
 
     } // setProperty(String,Object)
 
-    /** 
+    /**
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -288,6 +293,7 @@ public class XMLNamespaceBinder
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         for (int i = 0; i < RECOGNIZED_FEATURES.length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
@@ -297,15 +303,16 @@ public class XMLNamespaceBinder
         return null;
     } // getFeatureDefault(String):Boolean
 
-    /** 
+    /**
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
-     * property. 
+     * property.
      *
      * @param propertyId The property identifier.
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         for (int i = 0; i < RECOGNIZED_PROPERTIES.length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -320,11 +327,13 @@ public class XMLNamespaceBinder
     //
 
     /** Sets the document handler to receive information about the document. */
+    @Override
     public void setDocumentHandler(XMLDocumentHandler documentHandler) {
         fDocumentHandler = documentHandler;
     } // setDocumentHandler(XMLDocumentHandler)
 
     /** Returns the document handler */
+    @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // setDocumentHandler(XMLDocumentHandler)
@@ -335,11 +344,13 @@ public class XMLNamespaceBinder
     //
 
     /** Sets the document source */
+    @Override
     public void setDocumentSource(XMLDocumentSource source){
         fDocumentSource = source;
     } // setDocumentSource
 
     /** Returns the document source */
+    @Override
     public XMLDocumentSource getDocumentSource (){
         return fDocumentSource;
     } // getDocumentSource
@@ -350,7 +361,7 @@ public class XMLNamespaceBinder
      * <p>
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
-     * 
+     *
      * @param name     The name of the general entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -359,12 +370,13 @@ public class XMLNamespaceBinder
      *                 internal entities or a document entity that is
      *                 parsed from a java.io.Reader).
      * @param augs     Additional information that may include infoset augmentations
-     *                 
+     *
      * @exception XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startGeneralEntity(String name,
                                    XMLResourceIdentifier identifier,
-                                   String encoding, Augmentations augs) 
+                                   String encoding, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.startGeneralEntity(name, identifier, encoding, augs);
@@ -388,6 +400,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void textDecl(String version, String encoding, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
@@ -417,6 +430,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startDocument(XMLLocator locator, String encoding,
                                 NamespaceContext namespaceContext, Augmentations augs)
                               throws XNIException {
@@ -440,6 +454,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void xmlDecl(String version, String encoding, String standalone, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
@@ -459,6 +474,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void doctypeDecl(String rootElement,
                             String publicId, String systemId, Augmentations augs)
         throws XNIException {
@@ -475,6 +491,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by application to signal an error.
      */
+    @Override
     public void comment(XMLString text, Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.comment(text, augs);
@@ -498,6 +515,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void processingInstruction(String target, XMLString data, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
@@ -521,6 +539,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
 
@@ -543,6 +562,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
         throws XNIException {
 
@@ -564,6 +584,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void characters(XMLString text, Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.characters(text, augs);
@@ -583,6 +604,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.ignorableWhitespace(text, augs);
@@ -597,6 +619,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endElement(QName element, Augmentations augs) throws XNIException {
 
         if (fNamespaces) {
@@ -614,6 +637,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startCDATA(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.startCDATA(augs);
@@ -626,6 +650,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endCDATA(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.endCDATA(augs);
@@ -638,6 +663,7 @@ public class XMLNamespaceBinder
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endDocument(Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.endDocument(augs);
@@ -649,13 +675,14 @@ public class XMLNamespaceBinder
      * <p>
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
-     * 
+     *
      * @param name   The name of the entity.
      * @param augs   Additional information that may include infoset augmentations
-     *               
+     *
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
+    @Override
     public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
         if (fDocumentHandler != null && !fOnlyPassPrefixMappingEvents) {
             fDocumentHandler.endGeneralEntity(name, augs);
@@ -680,7 +707,7 @@ public class XMLNamespaceBinder
                                        new Object[]{element.rawname},
                                        XMLErrorReporter.SEVERITY_FATAL_ERROR);
         }
-        
+
         // search for new namespace bindings
         int length = attributes.getLength();
         for (int i = 0; i < length; i++) {
@@ -701,7 +728,7 @@ public class XMLNamespaceBinder
                                                new Object[]{attributes.getQName(i)},
                                                XMLErrorReporter.SEVERITY_FATAL_ERROR);
                 }
-                
+
                 // 2. the namespace for "xmlns" can't be bound to any prefix
                 if (uri == NamespaceContext.XMLNS_URI) {
                     fErrorReporter.reportError(XMLMessageFormatter.XMLNS_DOMAIN,
@@ -709,7 +736,7 @@ public class XMLNamespaceBinder
                                                new Object[]{attributes.getQName(i)},
                                                XMLErrorReporter.SEVERITY_FATAL_ERROR);
                 }
-                
+
                 // 3. "xml" can't be bound to any other namespace than it's own
                 if (localpart == XMLSymbols.PREFIX_XML) {
                     if (uri != NamespaceContext.XML_URI) {
@@ -848,7 +875,7 @@ public class XMLNamespaceBinder
     // returns true iff the given prefix is bound to "" *and*
     // this is disallowed by the version of XML namespaces in use.
     protected boolean prefixBoundToNullURI(String uri, String localpart) {
-        return (uri == XMLSymbols.EMPTY_STRING && localpart != XMLSymbols.PREFIX_XMLNS); 
+        return (uri == XMLSymbols.EMPTY_STRING && localpart != XMLSymbols.PREFIX_XMLNS);
     } // prefixBoundToNullURI(String, String):  boolean
 
 } // class XMLNamespaceBinder

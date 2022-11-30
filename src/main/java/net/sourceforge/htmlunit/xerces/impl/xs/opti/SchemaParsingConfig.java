@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,222 +47,222 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
 
 /**
- * @xerces.internal  
- * 
+ * @xerces.internal
+ *
  * @author Rahul Srivastava, Sun Microsystems Inc.
  *
  * @version $Id$
  */
-public class SchemaParsingConfig extends BasicParserConfiguration 
+public class SchemaParsingConfig extends BasicParserConfiguration
     implements XMLPullParserConfiguration {
-    
+
     //
     // Constants
     //
-    
+
     protected final static String XML11_DATATYPE_VALIDATOR_FACTORY =
         "net.sourceforge.htmlunit.xerces.impl.dv.dtd.XML11DTDDVFactoryImpl";
-    
+
     // feature identifiers
-    
+
     /** Feature identifier: warn on duplicate attribute definition. */
     protected static final String WARN_ON_DUPLICATE_ATTDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ATTDEF_FEATURE;
-    
+
     /** Feature identifier: warn on duplicate entity definition. */
     //  protected static final String WARN_ON_DUPLICATE_ENTITYDEF = Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ENTITYDEF_FEATURE;
-    
+
     /** Feature identifier: warn on undeclared element definition. */
     protected static final String WARN_ON_UNDECLARED_ELEMDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_UNDECLARED_ELEMDEF_FEATURE;
-    
+
     /** Feature identifier: allow Java encodings. */
-    protected static final String ALLOW_JAVA_ENCODINGS = 
+    protected static final String ALLOW_JAVA_ENCODINGS =
         Constants.XERCES_FEATURE_PREFIX + Constants.ALLOW_JAVA_ENCODINGS_FEATURE;
-    
+
     /** Feature identifier: continue after fatal error. */
-    protected static final String CONTINUE_AFTER_FATAL_ERROR = 
+    protected static final String CONTINUE_AFTER_FATAL_ERROR =
         Constants.XERCES_FEATURE_PREFIX + Constants.CONTINUE_AFTER_FATAL_ERROR_FEATURE;
-    
+
     /** Feature identifier: load external DTD. */
     protected static final String LOAD_EXTERNAL_DTD =
         Constants.XERCES_FEATURE_PREFIX + Constants.LOAD_EXTERNAL_DTD_FEATURE;
-    
+
     /** Feature identifier: notify built-in refereces. */
     protected static final String NOTIFY_BUILTIN_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_BUILTIN_REFS_FEATURE;
-    
+
     /** Feature identifier: notify character refereces. */
     protected static final String NOTIFY_CHAR_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_CHAR_REFS_FEATURE;
-    
+
     /** Feature identifier: expose schema normalized value */
     protected static final String NORMALIZE_DATA =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_NORMALIZED_VALUE;
-    
+
     /** Feature identifier: send element default value via characters() */
     protected static final String SCHEMA_ELEMENT_DEFAULT =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
-    
+
     /** Feature identifier: generate synthetic annotations. */
-    protected static final String GENERATE_SYNTHETIC_ANNOTATIONS = 
+    protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE;
-    
-    
+
+
     // property identifiers
-    
+
     /** Property identifier: error reporter. */
-    protected static final String ERROR_REPORTER = 
+    protected static final String ERROR_REPORTER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_REPORTER_PROPERTY;
-    
+
     /** Property identifier: entity manager. */
-    protected static final String ENTITY_MANAGER = 
+    protected static final String ENTITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
-    
+
     /** Property identifier document scanner: */
-    protected static final String DOCUMENT_SCANNER = 
+    protected static final String DOCUMENT_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_SCANNER_PROPERTY;
-    
+
     /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER = 
+    protected static final String DTD_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
-    
+
     /** Property identifier: grammar pool. */
-    protected static final String XMLGRAMMAR_POOL = 
+    protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
-    
+
     /** Property identifier: DTD validator. */
-    protected static final String DTD_VALIDATOR = 
+    protected static final String DTD_VALIDATOR =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
-    
+
     /** Property identifier: namespace binder. */
     protected static final String NAMESPACE_BINDER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
-    
+
     /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY = 
+    protected static final String DATATYPE_VALIDATOR_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
-    
+
     protected static final String VALIDATION_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-    
+
     /** Property identifier: XML Schema validator. */
     protected static final String SCHEMA_VALIDATOR =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_VALIDATOR_PROPERTY;
-    
+
     /** Property identifier: locale. */
     protected static final String LOCALE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.LOCALE_PROPERTY;
-    
-    
+
+
     // debugging
-    
+
     /** Set to true and recompile to print exception stack trace. */
     private static final boolean PRINT_EXCEPTION_STACK_TRACE = false;
-    
+
     //
     // Data
     //
-    
+
     //
     // XML 1.0 components
     //
-    
+
     /** The XML 1.0 Datatype validator factory. */
     protected final DTDDVFactory fDatatypeValidatorFactory;
-    
+
     /** The XML 1.0 Document scanner. */
     protected final XMLNSDocumentScannerImpl fNamespaceScanner;
-    
+
     /** The XML 1.0 DTD scanner. */
     protected final XMLDTDScannerImpl fDTDScanner;
-    
+
     //
     // XML 1.1 components
     //
-    
+
     /** The XML 1.1 Datatype validator factory. */
     protected DTDDVFactory fXML11DatatypeFactory = null;
-    
+
     /** The XML 1.1 Document scanner. */
     protected XML11NSDocumentScannerImpl fXML11NSDocScanner = null;
-    
+
     /** The XML 1.1 DTD scanner. **/
     protected XML11DTDScannerImpl fXML11DTDScanner = null;
-    
+
     // common components (non-configurable)
-    
+
     /** Current Datatype validator factory. */
     protected DTDDVFactory fCurrentDVFactory;
-    
+
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;
-    
+
     /** Current DTD scanner. */
     protected XMLDTDScanner fCurrentDTDScanner;
-    
+
     /** Grammar pool. */
     protected final XMLGrammarPool fGrammarPool;
-    
+
     /** XML version detector. */
     protected final XMLVersionDetector fVersionDetector;
-    
+
     // common components (configurable)
-    
+
     /** Error reporter. */
     protected final XMLErrorReporter fErrorReporter;
-    
+
     /** Entity manager. */
     protected final XMLEntityManager fEntityManager;
-    
+
     /** Input Source */
     protected XMLInputSource fInputSource;
-    
+
     protected final ValidationManager fValidationManager;
     // state
-    
+
     /** Locator */
     protected XMLLocator fLocator;
-    
-    /** 
+
+    /**
      * True if a parse is in progress. This state is needed because
      * some features/properties cannot be set while parsing (e.g.
      * validation and namespaces).
      */
     protected boolean fParseInProgress = false;
-    
-    /** 
-     * fConfigUpdated is set to true if there has been any change to the configuration settings, 
+
+    /**
+     * fConfigUpdated is set to true if there has been any change to the configuration settings,
      * i.e a feature or a property was changed.
      */
     protected boolean fConfigUpdated = false;
-    
+
     /** Flag indiciating whether XML11 components have been initialized. */
     private boolean f11Initialized = false;
-    
+
     //
     // Constructors
     //
-    
+
     /** Default constructor. */
     public SchemaParsingConfig() {
         this(null, null, null);
     } // <init>()
-    
-    /** 
-     * Constructs a parser configuration using the specified symbol table. 
+
+    /**
+     * Constructs a parser configuration using the specified symbol table.
      *
      * @param symbolTable The symbol table to use.
      */
     public SchemaParsingConfig(SymbolTable symbolTable) {
         this(symbolTable, null, null);
     } // <init>(SymbolTable)
-    
+
     /**
      * Constructs a parser configuration using the specified symbol table and
      * grammar pool.
      * <p>
-     * <strong>REVISIT:</strong> 
+     * <strong>REVISIT:</strong>
      * Grammar pool will be updated when the new validation engine is
      * implemented.
      *
@@ -273,12 +273,12 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             XMLGrammarPool grammarPool) {
         this(symbolTable, grammarPool, null);
     } // <init>(SymbolTable,XMLGrammarPool)
-    
+
     /**
      * Constructs a parser configuration using the specified symbol table,
      * grammar pool, and parent settings.
      * <p>
-     * <strong>REVISIT:</strong> 
+     * <strong>REVISIT:</strong>
      * Grammar pool will be updated when the new validation engine is
      * implemented.
      *
@@ -290,7 +290,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             XMLGrammarPool grammarPool,
             XMLComponentManager parentSettings) {
         super(symbolTable, parentSettings);
-        
+
         // add default recognized features
         final String[] recognizedFeatures = {
             PARSER_SETTINGS, WARN_ON_DUPLICATE_ATTDEF,   WARN_ON_UNDECLARED_ELEMDEF,
@@ -310,93 +310,94 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         fFeatures.put(NOTIFY_BUILTIN_REFS, Boolean.FALSE);
         fFeatures.put(NOTIFY_CHAR_REFS, Boolean.FALSE);
         fFeatures.put(GENERATE_SYNTHETIC_ANNOTATIONS, Boolean.FALSE);
-        
+
         // add default recognized properties
         final String[] recognizedProperties = {
-            ERROR_REPORTER,             
-            ENTITY_MANAGER, 
+            ERROR_REPORTER,
+            ENTITY_MANAGER,
             DOCUMENT_SCANNER,
             DTD_SCANNER,
             DTD_VALIDATOR,
             NAMESPACE_BINDER,
-            XMLGRAMMAR_POOL,   
+            XMLGRAMMAR_POOL,
             DATATYPE_VALIDATOR_FACTORY,
             VALIDATION_MANAGER,
             GENERATE_SYNTHETIC_ANNOTATIONS,
             LOCALE
         };
         addRecognizedProperties(recognizedProperties);
-        
+
         fGrammarPool = grammarPool;
         if (fGrammarPool != null) {
             setProperty(XMLGRAMMAR_POOL, fGrammarPool);
         }
-        
+
         fEntityManager = new XMLEntityManager();
         fProperties.put(ENTITY_MANAGER, fEntityManager);
         addComponent(fEntityManager);
-        
+
         fErrorReporter = new XMLErrorReporter();
         fErrorReporter.setDocumentLocator(fEntityManager.getEntityScanner());
         fProperties.put(ERROR_REPORTER, fErrorReporter);
         addComponent(fErrorReporter);
-        
+
         fNamespaceScanner = new XMLNSDocumentScannerImpl();
         fProperties.put(DOCUMENT_SCANNER, fNamespaceScanner);
         addRecognizedParamsAndSetDefaults(fNamespaceScanner);
-        
+
         fDTDScanner = new XMLDTDScannerImpl();
         fProperties.put(DTD_SCANNER, fDTDScanner);
         addRecognizedParamsAndSetDefaults(fDTDScanner);
-        
+
         fDatatypeValidatorFactory = DTDDVFactory.getInstance();
         fProperties.put(DATATYPE_VALIDATOR_FACTORY,
                 fDatatypeValidatorFactory);
-        
+
         fValidationManager = new ValidationManager();
         fProperties.put(VALIDATION_MANAGER, fValidationManager);
-        
+
         fVersionDetector = new XMLVersionDetector();
-        
+
         // add message formatters
         if (fErrorReporter.getMessageFormatter(XMLMessageFormatter.XML_DOMAIN) == null) {
             XMLMessageFormatter xmft = new XMLMessageFormatter();
             fErrorReporter.putMessageFormatter(XMLMessageFormatter.XML_DOMAIN, xmft);
             fErrorReporter.putMessageFormatter(XMLMessageFormatter.XMLNS_DOMAIN, xmft);
         }
-        
+
         if (fErrorReporter.getMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN) == null) {
             XSMessageFormatter xmft = new XSMessageFormatter();
             fErrorReporter.putMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN, xmft);
         }
-        
+
         // set locale
         try {
-            setLocale(Locale.getDefault()); 
+            setLocale(Locale.getDefault());
         }
         catch (XNIException e) {
             // do nothing
             // REVISIT: What is the right thing to do? -Ac
         }
-        
+
     } // <init>(SymbolTable,XMLGrammarPool)
-    
+
     //
     // Public methods
     //
-    
+
     /**
      * Returns the state of a feature.
-     * 
+     *
      * @param featureId The feature identifier.
      * @return true if the feature is supported
-     * 
+     *
      * @throws XMLConfigurationException Thrown for configuration error.
      *                                   In general, components should
      *                                   only throw this exception if
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
         // make this feature special
@@ -406,7 +407,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         return super.getFeature(featureId);
 
     } // getFeature(String):boolean
-    
+
     /**
      * Set the state of a feature.
      *
@@ -420,15 +421,16 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known.
      */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
-        
+
         fConfigUpdated = true;
-        
+
         // forward to every XML 1.0 component
         fNamespaceScanner.setFeature(featureId, state);
         fDTDScanner.setFeature(featureId, state);
-        
+
         // forward to every XML 1.1 component
         if (f11Initialized) {
             try {
@@ -442,24 +444,25 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             // ignore the exception
             catch (Exception e) {}
         }
-        
+
         // save state if noone "objects"
         super.setFeature(featureId, state);
 
     } // setFeature(String,boolean)
-    
+
     /**
      * Returns the value of a property.
-     * 
+     *
      * @param propertyId The property identifier.
      * @return the value of the property
-     * 
+     *
      * @throws XMLConfigurationException Thrown for configuration error.
      *                                   In general, components should
      *                                   only throw this exception if
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     public Object getProperty(String propertyId)
         throws XMLConfigurationException {
         if (LOCALE.equals(propertyId)) {
@@ -467,25 +470,26 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         }
         return super.getProperty(propertyId);
     }
-    
+
     /**
      * setProperty
-     * 
-     * @param propertyId 
-     * @param value 
+     *
+     * @param propertyId
+     * @param value
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
-        
+
         fConfigUpdated = true;
         if (LOCALE.equals(propertyId)) {
             setLocale((Locale) value);
         }
-        
+
         // forward to every XML 1.0 component
         fNamespaceScanner.setProperty(propertyId, value);
         fDTDScanner.setProperty(propertyId, value);
-        
+
         // forward to every XML 1.1 component
         if (f11Initialized) {
             try {
@@ -504,7 +508,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         super.setProperty(propertyId, value);
 
     } // setProperty(String,Object)
-    
+
     /**
      * Set the locale to use for messages.
      *
@@ -513,41 +517,43 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
+    @Override
     public void setLocale(Locale locale) throws XNIException {
         super.setLocale(locale);
         fErrorReporter.setLocale(locale);
     } // setLocale(Locale)
-    
+
     //
     // XMLPullParserConfiguration methods
     //
-    
+
     // parsing
-    
+
     /**
      * Sets the input source for the document to parse.
      *
      * @param inputSource The document's input source.
      *
-     * @exception XMLConfigurationException Thrown if there is a 
+     * @exception XMLConfigurationException Thrown if there is a
      *                        configuration error when initializing the
      *                        parser.
      * @exception IOException Thrown on I/O error.
      *
      * @see #parse(boolean)
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource)
     throws XMLConfigurationException, IOException {
-        
+
         // REVISIT: this method used to reset all the components and
         //          construct the pipeline. Now reset() is called
         //          in parse (boolean) just before we parse the document
         //          Should this method still throw exceptions..?
-        
+
         fInputSource = inputSource;
-        
+
     } // setInputSource(XMLInputSource)
-    
+
     /**
      * Parses the document in a pull parsing fashion.
      *
@@ -556,7 +562,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      *
      * @return True if there is more document to parse.
      *
-     * @exception XNIException Any XNI exception, possibly wrapping 
+     * @exception XNIException Any XNI exception, possibly wrapping
      *                         another exception.
      * @exception IOException  An IO exception from the parser, possibly
      *                         from a byte stream or character stream
@@ -564,6 +570,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      *
      * @see #setInputSource
      */
+    @Override
     public boolean parse(boolean complete) throws XNIException, IOException {
         //
         // reset and configure pipeline and set InputSource.
@@ -589,7 +596,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
                 else {
                    return false;
                 }
-                
+
                 // mark configuration as fixed
                 fConfigUpdated = false;
 
@@ -606,7 +613,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
                 throw new XNIException(ex);
             }
         }
-        
+
         try {
             return fCurrentScanner.scanDocument(complete);
         } catch (RuntimeException | IOException ex) {
@@ -618,22 +625,23 @@ public class SchemaParsingConfig extends BasicParserConfiguration
                 ex.printStackTrace();
             throw new XNIException(ex);
         }
-        
+
     } // parse(boolean):boolean
-    
+
     /**
      * If the application decides to terminate parsing before the xml document
      * is fully parsed, the application should call this method to free any
      * resource allocated during parsing. For example, close all opened streams.
      */
+    @Override
     public void cleanup() {
         fEntityManager.closeReaders();
     }
-    
+
     //
     // XMLParserConfiguration methods
     //
-    
+
     /**
      * Parses the specified input source.
      *
@@ -642,14 +650,15 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      * @exception XNIException Throws exception on XNI error.
      * @exception java.io.IOException Throws exception on i/o error.
      */
+    @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
-        
+
         if (fParseInProgress) {
             // REVISIT - need to add new error message
             throw new XNIException("FWK005 parse may not be called while parsing.");
         }
         fParseInProgress = true;
-        
+
         try {
             setInputSource(source);
             parse(true);
@@ -667,34 +676,35 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             // close all streams opened by xerces
             this.cleanup();
         }
-        
+
     } // parse(InputSource)
-    
+
     //
     // Protected methods
     //
-    
-    /** 
-     * Reset all components before parsing. 
+
+    /**
+     * Reset all components before parsing.
      *
      * @throws XNIException Thrown if an error occurs during initialization.
      */
+    @Override
     public void reset() throws XNIException {
-        
+
         // initialize the common components
         super.reset();
-        
+
     } // reset()
-    
+
     /** Configures the XML 1.0 pipeline. */
     protected void configurePipeline() {
-        
+
         if (fCurrentDVFactory != fDatatypeValidatorFactory) {
             fCurrentDVFactory = fDatatypeValidatorFactory;
             // use XML 1.0 datatype library
             setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
         }
-        
+
         // setup document pipeline
         if (fCurrentScanner != fNamespaceScanner) {
             fCurrentScanner = fNamespaceScanner;
@@ -705,7 +715,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             fDocumentHandler.setDocumentSource(fNamespaceScanner);
         }
         fLastComponent = fNamespaceScanner;
-        
+
         // setup dtd pipeline
         if (fCurrentDTDScanner != fDTDScanner) {
             fCurrentDTDScanner = fDTDScanner;
@@ -718,19 +728,19 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
         if (fDTDContentModelHandler != null) {
             fDTDContentModelHandler.setDTDContentModelSource(fDTDScanner);
-        } 
-        
+        }
+
     } // configurePipeline()
-    
+
     /** Configures the XML 1.1 pipeline. */
     protected void configureXML11Pipeline() {
-        
+
         if (fCurrentDVFactory != fXML11DatatypeFactory) {
             fCurrentDVFactory = fXML11DatatypeFactory;
             // use XML 1.1 datatype library
             setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
         }
-        
+
         // setup document pipeline
         if (fCurrentScanner != fXML11NSDocScanner) {
             fCurrentScanner = fXML11NSDocScanner;
@@ -741,7 +751,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             fDocumentHandler.setDocumentSource(fXML11NSDocScanner);
         }
         fLastComponent = fXML11NSDocScanner;
-        
+
         // setup dtd pipeline
         if (fCurrentDTDScanner != fXML11DTDScanner) {
             fCurrentDTDScanner = fXML11DTDScanner;
@@ -754,12 +764,12 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         fXML11DTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
         if (fDTDContentModelHandler != null) {
             fDTDContentModelHandler.setDTDContentModelSource(fXML11DTDScanner);
-        } 
-        
+        }
+
     } // configureXML11Pipeline()
-    
+
     // features and properties
-    
+
     /**
      * Check a feature. If feature is know and supported, this method simply
      * returns. Otherwise, the appropriate exception is thrown.
@@ -772,40 +782,36 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkFeature(String featureId)
         throws XMLConfigurationException {
-        
+
         //
         // Xerces Features
         //
-        
+
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-            
+
             //
             // http://apache.org/xml/features/validation/dynamic
             //   Allows the parser to validate a document only when it
             //   contains a grammar. Validation is turned on/off based
             //   on each document instance, automatically.
             //
-            if (suffixLength == Constants.DYNAMIC_VALIDATION_FEATURE.length() && 
+            if (suffixLength == Constants.DYNAMIC_VALIDATION_FEATURE.length() &&
                     featureId.endsWith(Constants.DYNAMIC_VALIDATION_FEATURE)) {
                 return;
             }
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() && 
-                    featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) {
-                // REVISIT
-                short type = XMLConfigurationException.NOT_SUPPORTED;
-                throw new XMLConfigurationException(type, featureId);
-            }
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
-            if (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() && 
-                    featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE)) {
+            if ((suffixLength == Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE.length() &&
+                    featureId.endsWith(Constants.DEFAULT_ATTRIBUTE_VALUES_FEATURE)) || (suffixLength == Constants.VALIDATE_CONTENT_MODELS_FEATURE.length() &&
+                    featureId.endsWith(Constants.VALIDATE_CONTENT_MODELS_FEATURE))) {
                 // REVISIT
                 short type = XMLConfigurationException.NOT_SUPPORTED;
                 throw new XMLConfigurationException(type, featureId);
@@ -813,18 +819,18 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             //
             // http://apache.org/xml/features/validation/nonvalidating/load-dtd-grammar
             //
-            if (suffixLength == Constants.LOAD_DTD_GRAMMAR_FEATURE.length() && 
+            if (suffixLength == Constants.LOAD_DTD_GRAMMAR_FEATURE.length() &&
                     featureId.endsWith(Constants.LOAD_DTD_GRAMMAR_FEATURE)) {
                 return;
             }
             //
             // http://apache.org/xml/features/validation/nonvalidating/load-external-dtd
             //
-            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() && 
+            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() &&
                     featureId.endsWith(Constants.LOAD_EXTERNAL_DTD_FEATURE)) {
                 return;
             }
-            
+
             //
             // http://apache.org/xml/features/validation/default-attribute-values
             //
@@ -834,15 +840,15 @@ public class SchemaParsingConfig extends BasicParserConfiguration
                 throw new XMLConfigurationException(type, featureId);
             }
         }
-        
+
         //
         // Not recognized
         //
-        
+
         super.checkFeature(featureId);
-        
+
     } // checkFeature(String)
-    
+
     /**
      * Check a property. If the property is know and supported, this method
      * simply returns. Otherwise, the appropriate exception is thrown.
@@ -856,39 +862,40 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      *                                   it is <strong>really</strong>
      *                                   a critical error.
      */
+    @Override
     protected void checkProperty(String propertyId)
         throws XMLConfigurationException {
-        
+
         //
         // Xerces Properties
         //
-        
+
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-            
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() && 
+
+            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
                     propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
                 return;
             }
         }
-        
+
         if (propertyId.startsWith(Constants.JAXP_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.JAXP_PROPERTY_PREFIX.length();
-            
-            if (suffixLength == Constants.SCHEMA_SOURCE.length() && 
+
+            if (suffixLength == Constants.SCHEMA_SOURCE.length() &&
                     propertyId.endsWith(Constants.SCHEMA_SOURCE)) {
                 return;
             }
         }
-        
+
         //
         // Not recognized
         //
-        
+
         super.checkProperty(propertyId);
-        
+
     } // checkProperty(String)
-    
+
     /**
      * Adds all of the component's recognized features and properties
      * to the list of default recognized features and properties, and
@@ -899,11 +906,11 @@ public class SchemaParsingConfig extends BasicParserConfiguration
      * and properties will be added to the configuration
      */
     private void addRecognizedParamsAndSetDefaults(XMLComponent component) {
-        
+
         // register component's recognized features
         String[] recognizedFeatures = component.getRecognizedFeatures();
         addRecognizedFeatures(recognizedFeatures);
-        
+
         // register component's recognized properties
         String[] recognizedProperties = component.getRecognizedProperties();
         addRecognizedProperties(recognizedProperties);
@@ -942,7 +949,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             }
         }
     }
-    
+
     /**
      * Reset all XML 1.0 components before parsing
      */
@@ -951,7 +958,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         fNamespaceScanner.reset(this);
         fDTDScanner.reset(this);
     } // resetXML10()
-    
+
     /**
      * Reset all XML 1.1 components before parsing
      */
@@ -960,17 +967,17 @@ public class SchemaParsingConfig extends BasicParserConfiguration
         fXML11NSDocScanner.reset(this);
         fXML11DTDScanner.reset(this);
     } // resetXML11()
-    
+
     //
     // other methods
     //
-    
+
     /** */
     public void resetNodePool() {
         // REVISIT: to implement: introduce a node pool to reuse DTM nodes.
         //          reset this pool here.
     }
-    
+
     private void initXML11Components() {
         if (!f11Initialized) {
             // create datatype factory
@@ -983,7 +990,7 @@ public class SchemaParsingConfig extends BasicParserConfiguration
             // setup XML 1.1. document pipeline - namespace aware
             fXML11NSDocScanner = new XML11NSDocumentScannerImpl();
             addRecognizedParamsAndSetDefaults(fXML11NSDocScanner);
-                
+
             f11Initialized = true;
         }
     }

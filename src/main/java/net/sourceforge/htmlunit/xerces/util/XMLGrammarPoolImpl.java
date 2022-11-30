@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -91,6 +91,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      *            interface.
      * @return           The set of grammars the validator may put in its "bucket"
      */
+    @Override
     public Grammar [] retrieveInitialGrammarSet (String grammarType) {
         synchronized (fGrammars) {
             int grammarSize = fGrammars.length ;
@@ -120,6 +121,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * @param grammars       An array containing the set of grammars being
      *            returned; order is not significant.
      */
+    @Override
     public void cacheGrammars(String grammarType, Grammar[] grammars) {
         if(!fPoolIsLocked) {
             for (int i = 0; i < grammars.length; i++) {
@@ -147,6 +149,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * @return     The Grammar corresponding to this description or null if
      *         no such Grammar is known.
      */
+    @Override
     public Grammar retrieveGrammar(XMLGrammarDescription desc) {
         if(DEBUG){
             System.out.println("RETRIEVING GRAMMAR FROM THE APPLICATION WITH FOLLOWING DESCRIPTION :");
@@ -260,6 +263,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
     /* <p> Sets this grammar pool to a "locked" state--i.e.,
      * no new grammars will be added until it is "unlocked".
      */
+    @Override
     public void lockPool() {
         fPoolIsLocked = true;
     } // lockPool()
@@ -268,6 +272,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * new grammars will be added when putGrammar or cacheGrammars
      * are called.
      */
+    @Override
     public void unlockPool() {
         fPoolIsLocked = false;
     } // unlockPool()
@@ -276,6 +281,7 @@ public class XMLGrammarPoolImpl implements XMLGrammarPool {
      * <p>This method clears the pool-i.e., removes references
      * to all the grammars in it.</p>
      */
+    @Override
     public void clear() {
         for (int i=0; i<fGrammars.length; i++) {
             if(fGrammars[i] != null) {

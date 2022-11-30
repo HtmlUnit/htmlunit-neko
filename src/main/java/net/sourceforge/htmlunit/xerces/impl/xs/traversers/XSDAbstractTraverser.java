@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,7 +53,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  * other <code>XSD???Traverser</code>s. It holds the common data and provides
  * a unified way to initialize these data.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
@@ -62,9 +62,9 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  * @version $Id$
  */
 abstract class XSDAbstractTraverser {
-    
+
     protected static final String NO_NAME      = "(no name)";
-    
+
     // Flags for checkOccurrences to indicate any special
     // restrictions on minOccurs and maxOccurs relating to "all".
     //    NOT_ALL_CONTEXT    - not processing an <all>
@@ -72,28 +72,28 @@ abstract class XSDAbstractTraverser {
     //    GROUP_REF_WITH_ALL - processing <group> reference that contained <all>
     //    CHILD_OF_GROUP     - processing a child of a model group definition
     //    PROCESSING_ALL_GP  - processing an <all> group itself
-    
+
     protected static final int NOT_ALL_CONTEXT    = 0;
     protected static final int PROCESSING_ALL_EL  = 1;
     protected static final int GROUP_REF_WITH_ALL = 2;
     protected static final int CHILD_OF_GROUP     = 4;
     protected static final int PROCESSING_ALL_GP  = 8;
-    
+
     //Shared data
     protected XSDHandler            fSchemaHandler = null;
     protected SymbolTable           fSymbolTable = null;
     protected XSAttributeChecker    fAttrChecker = null;
     protected boolean               fValidateAnnotations = false;
-    
+
     // used to validate default/fixed attribute values
     final ValidationState fValidationState = new ValidationState();
-    
+
     XSDAbstractTraverser (XSDHandler handler,
             XSAttributeChecker attrChecker) {
         fSchemaHandler = handler;
         fAttrChecker = attrChecker;
     }
-    
+
     void reset(SymbolTable symbolTable, boolean validateAnnotations, Locale locale) {
         fSymbolTable = symbolTable;
         fValidateAnnotations = validateAnnotations;
@@ -101,7 +101,7 @@ abstract class XSDAbstractTraverser {
         fValidationState.setSymbolTable(symbolTable);
         fValidationState.setLocale(locale);
     }
-    
+
     // traverse the annotation declaration
     // REVISIT: how to pass the parentAttrs? as DOM attributes?
     //          as name/value pairs (string)? in parsed form?
@@ -111,13 +111,13 @@ abstract class XSDAbstractTraverser {
         // General Attribute Checking
         Object[] attrValues = fAttrChecker.checkAttributes(annotationDecl, isGlobal, schemaDoc);
         fAttrChecker.returnAttrArray(attrValues, schemaDoc);
-        
+
         String contents = DOMUtil.getAnnotation(annotationDecl);
         Element child = DOMUtil.getFirstChildElement(annotationDecl);
         if (child != null) {
             do {
                 String name = DOMUtil.getLocalName(child);
-                
+
                 // the only valid children of "annotation" are
                 // "appinfo" and "documentation"
                 if (!((name.equals(SchemaSymbols.ELT_APPINFO)) ||
@@ -131,7 +131,7 @@ abstract class XSDAbstractTraverser {
                     attrValues = fAttrChecker.checkAttributes(child, true, schemaDoc);
                     fAttrChecker.returnAttrArray(attrValues, schemaDoc);
                 }
-                
+
                 child = DOMUtil.getNextSiblingElement(child);
             }
             while (child != null);
@@ -139,7 +139,7 @@ abstract class XSDAbstractTraverser {
         // if contents was null, must have been some kind of error;
         // nothing to contribute to PSVI
         if (contents == null) return null;
-        
+
         // find the grammar; fSchemaHandler must be known!
         SchemaGrammar grammar = fSchemaHandler.getGrammar(schemaDoc.fTargetNamespace);
         // fish out local attributes passed from parent
@@ -195,14 +195,14 @@ abstract class XSDAbstractTraverser {
             }
             return new XSAnnotationImpl(contents, grammar);
         }
-        
+
     }
-    
+
     XSAnnotationImpl traverseSyntheticAnnotation(Element annotationParent, String initialContent,
             Object[] parentAttrs, boolean isGlobal, XSDocumentInfo schemaDoc) {
-        
+
         String contents = initialContent;
-        
+
         // find the grammar; fSchemaHandler must be known!
         SchemaGrammar grammar = fSchemaHandler.getGrammar(schemaDoc.fTargetNamespace);
         // fish out local attributes passed from parent
@@ -255,20 +255,20 @@ abstract class XSDAbstractTraverser {
             return new XSAnnotationImpl(contents, grammar);
         }
     }
-    
+
     // the QName simple type used to resolve qnames
     private static final XSSimpleType fQNameDV = (XSSimpleType)SchemaGrammar.SG_SchemaNS.getGlobalTypeDecl(SchemaSymbols.ATTVAL_QNAME);
     // Temp data structures to be re-used in traversing facets
     private final StringBuffer fPattern = new StringBuffer();
     private final XSFacets xsFacets = new XSFacets();
-    
+
     static final class FacetInfo {
-        
+
         final XSFacets facetdata;
         final Element nodeAfterFacets;
         final short fPresentFacets;
         final short fFixedFacets;
-        
+
         FacetInfo(XSFacets facets, Element nodeAfterFacets, short presentFacets, short fixedFacets) {
             facetdata = facets;
             this.nodeAfterFacets = nodeAfterFacets;
@@ -276,26 +276,26 @@ abstract class XSDAbstractTraverser {
             fFixedFacets = fixedFacets;
         }
     }
-    
+
     FacetInfo traverseFacets(Element content,
             XSTypeDefinition typeDef,
             XSSimpleType baseValidator,
             XSDocumentInfo schemaDoc) {
-        
+
         short facetsPresent = 0 ;
-        short facetsFixed = 0; // facets that have fixed="true"        
+        short facetsFixed = 0; // facets that have fixed="true"
         String facet;
         boolean hasQName = containsQName(baseValidator);
         Vector enumData = null;
         XSObjectListImpl enumAnnotations = null;
         XSObjectListImpl patternAnnotations = null;
-        Vector enumNSDecls = hasQName ? new Vector() : null;       
+        Vector enumNSDecls = hasQName ? new Vector() : null;
         int currentFacet = 0;
         xsFacets.reset();
         boolean seenPattern = false;
         Element contextNode = (Element)content.getParentNode();
         boolean hasLengthFacet = false, hasMinLengthFacet = false, hasMaxLengthFacet = false;
-        while (content != null) {           
+        while (content != null) {
             // General Attribute Checking
             Object[] attrs = null;
             facet = DOMUtil.getLocalName(content);
@@ -310,12 +310,12 @@ abstract class XSDAbstractTraverser {
                     content = DOMUtil.getNextSiblingElement(content);
                     continue;
                 }
-                
+
                 NamespaceSupport nsDecls = (NamespaceSupport)attrs[XSAttributeChecker.ATTIDX_ENUMNSDECLS];
-                
+
                 // for NOTATION types, need to check whether there is a notation
                 // declared with the same name as the enumeration value.
-                if (baseValidator.getVariety() == XSSimpleType.VARIETY_ATOMIC &&
+                if (baseValidator.getVariety() == XSSimpleTypeDefinition.VARIETY_ATOMIC &&
                         baseValidator.getPrimitiveKind() == XSSimpleType.PRIMITIVE_NOTATION) {
                     // need to use the namespace context returned from checkAttributes
                     schemaDoc.fValidationContext.setNamespaceSupport(nsDecls);
@@ -348,7 +348,7 @@ abstract class XSDAbstractTraverser {
                 if (hasQName)
                     enumNSDecls.addElement(nsDecls);
                 Element child = DOMUtil.getFirstChildElement( content );
-                
+
                 if (child != null &&
                     DOMUtil.getLocalName(child).equals(SchemaSymbols.ELT_ANNOTATION)) {
                     // traverse annotation if any
@@ -376,7 +376,7 @@ abstract class XSDAbstractTraverser {
                     content = DOMUtil.getNextSiblingElement(content);
                     continue;
                 }
-                
+
                 seenPattern = true;
                 if (fPattern.length() == 0) {
                     fPattern.append(patternVal);
@@ -412,41 +412,41 @@ abstract class XSDAbstractTraverser {
             }
             else {
                 if (facet.equals(SchemaSymbols.ELT_MINLENGTH)) {
-                    currentFacet = XSSimpleType.FACET_MINLENGTH;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MINLENGTH;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_MAXLENGTH)) {
-                    currentFacet = XSSimpleType.FACET_MAXLENGTH;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MAXLENGTH;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_MAXEXCLUSIVE)) {
-                    currentFacet = XSSimpleType.FACET_MAXEXCLUSIVE;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MAXEXCLUSIVE;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_MAXINCLUSIVE)) {
-                    currentFacet = XSSimpleType.FACET_MAXINCLUSIVE;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MAXINCLUSIVE;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_MINEXCLUSIVE)) {
-                    currentFacet = XSSimpleType.FACET_MINEXCLUSIVE;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MINEXCLUSIVE;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_MININCLUSIVE)) {
-                    currentFacet = XSSimpleType.FACET_MININCLUSIVE;
+                    currentFacet = XSSimpleTypeDefinition.FACET_MININCLUSIVE;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_TOTALDIGITS)) {
-                    currentFacet = XSSimpleType.FACET_TOTALDIGITS;
+                    currentFacet = XSSimpleTypeDefinition.FACET_TOTALDIGITS;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_FRACTIONDIGITS)) {
-                    currentFacet = XSSimpleType.FACET_FRACTIONDIGITS;
+                    currentFacet = XSSimpleTypeDefinition.FACET_FRACTIONDIGITS;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_WHITESPACE)) {
-                    currentFacet = XSSimpleType.FACET_WHITESPACE;
+                    currentFacet = XSSimpleTypeDefinition.FACET_WHITESPACE;
                 }
                 else if (facet.equals(SchemaSymbols.ELT_LENGTH)) {
-                    currentFacet = XSSimpleType.FACET_LENGTH;
+                    currentFacet = XSSimpleTypeDefinition.FACET_LENGTH;
                 }
                 else {
                     break;   // a non-facet
                 }
-                
+
                 attrs = fAttrChecker.checkAttributes(content, false, schemaDoc);
-                
+
                 // check for duplicate facets
                 if ((facetsPresent & currentFacet) != 0) {
                     // Ignore this facet, to avoid corrupting the previous facet
@@ -455,7 +455,7 @@ abstract class XSDAbstractTraverser {
                     content = DOMUtil.getNextSiblingElement(content);
                     continue;
                 }
-                
+
                 // The facet can't be used if the value is missing. Ignore
                 // this facet element.
                 if (attrs[XSAttributeChecker.ATTIDX_VALUE] == null) {
@@ -470,48 +470,48 @@ abstract class XSDAbstractTraverser {
                     content = DOMUtil.getNextSiblingElement(content);
                     continue;
                 }
-                
+
                 facetsPresent |= currentFacet;
                 // check for fixed facet
                 if (((Boolean)attrs[XSAttributeChecker.ATTIDX_FIXED]).booleanValue()) {
                     facetsFixed |= currentFacet;
                 }
                 switch (currentFacet) {
-                case XSSimpleType.FACET_MINLENGTH:
+                case XSSimpleTypeDefinition.FACET_MINLENGTH:
                     xsFacets.minLength = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).intValue();
                     hasMinLengthFacet = true;
                     break;
-                case XSSimpleType.FACET_MAXLENGTH:
+                case XSSimpleTypeDefinition.FACET_MAXLENGTH:
                     xsFacets.maxLength = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).intValue();
                     hasMaxLengthFacet = true;
                     break;
-                case XSSimpleType.FACET_MAXEXCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MAXEXCLUSIVE:
                     xsFacets.maxExclusive = (String)attrs[XSAttributeChecker.ATTIDX_VALUE];
                     break;
-                case XSSimpleType.FACET_MAXINCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MAXINCLUSIVE:
                     xsFacets.maxInclusive = (String)attrs[XSAttributeChecker.ATTIDX_VALUE];
                     break;
-                case XSSimpleType.FACET_MINEXCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MINEXCLUSIVE:
                     xsFacets.minExclusive = (String)attrs[XSAttributeChecker.ATTIDX_VALUE];
                     break;
-                case XSSimpleType.FACET_MININCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MININCLUSIVE:
                     xsFacets.minInclusive = (String)attrs[XSAttributeChecker.ATTIDX_VALUE];
                     break;
-                case XSSimpleType.FACET_TOTALDIGITS:
+                case XSSimpleTypeDefinition.FACET_TOTALDIGITS:
                     xsFacets.totalDigits = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).intValue();
                     break;
-                case XSSimpleType.FACET_FRACTIONDIGITS:
+                case XSSimpleTypeDefinition.FACET_FRACTIONDIGITS:
                     xsFacets.fractionDigits = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).intValue();
                     break;
-                case XSSimpleType.FACET_WHITESPACE:
+                case XSSimpleTypeDefinition.FACET_WHITESPACE:
                     xsFacets.whiteSpace = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).shortValue();
                     break;
-                case XSSimpleType.FACET_LENGTH:
+                case XSSimpleTypeDefinition.FACET_LENGTH:
                     xsFacets.length = ((XInt)attrs[XSAttributeChecker.ATTIDX_VALUE]).intValue();
                     hasLengthFacet = true;
                     break;
                 }
-                
+
                 Element child = DOMUtil.getFirstChildElement( content );
                 XSAnnotationImpl annotation = null;
                 if (child != null &&
@@ -527,34 +527,34 @@ abstract class XSDAbstractTraverser {
                     }
                }
                 switch (currentFacet) {
-                case XSSimpleType.FACET_MINLENGTH:
+                case XSSimpleTypeDefinition.FACET_MINLENGTH:
                     xsFacets.minLengthAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_MAXLENGTH:
+                case XSSimpleTypeDefinition.FACET_MAXLENGTH:
                     xsFacets.maxLengthAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_MAXEXCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MAXEXCLUSIVE:
                     xsFacets.maxExclusiveAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_MAXINCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MAXINCLUSIVE:
                     xsFacets.maxInclusiveAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_MINEXCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MINEXCLUSIVE:
                     xsFacets.minExclusiveAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_MININCLUSIVE:
+                case XSSimpleTypeDefinition.FACET_MININCLUSIVE:
                     xsFacets.minInclusiveAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_TOTALDIGITS:
+                case XSSimpleTypeDefinition.FACET_TOTALDIGITS:
                     xsFacets.totalDigitsAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_FRACTIONDIGITS:
+                case XSSimpleTypeDefinition.FACET_FRACTIONDIGITS:
                     xsFacets.fractionDigitsAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_WHITESPACE:
+                case XSSimpleTypeDefinition.FACET_WHITESPACE:
                     xsFacets.whiteSpaceAnnotation = annotation;
                 break;
-                case XSSimpleType.FACET_LENGTH:
+                case XSSimpleTypeDefinition.FACET_LENGTH:
                     xsFacets.lengthAnnotation = annotation;
                 break;
                 }
@@ -566,19 +566,19 @@ abstract class XSDAbstractTraverser {
             content = DOMUtil.getNextSiblingElement(content);
         }
         if (enumData !=null) {
-            facetsPresent |= XSSimpleType.FACET_ENUMERATION;
+            facetsPresent |= XSSimpleTypeDefinition.FACET_ENUMERATION;
             xsFacets.enumeration = enumData;
             xsFacets.enumNSDecls = enumNSDecls;
             xsFacets.enumAnnotations = enumAnnotations;
         }
         if (seenPattern) {
-            facetsPresent |= XSSimpleType.FACET_PATTERN;
+            facetsPresent |= XSSimpleTypeDefinition.FACET_PATTERN;
             xsFacets.pattern = fPattern.toString();
             xsFacets.patternAnnotations = patternAnnotations;
         }
-        
+
         fPattern.setLength(0);
-        
+
         // check if length, minLength and maxLength facets contradict with enumeration facets.
         // currently considers the case when the baseValidator is a built-in type.
         if (enumData != null) {
@@ -592,16 +592,16 @@ abstract class XSDAbstractTraverser {
               checkEnumerationAndMaxLengthInconsistency(baseValidator, enumData, contextNode, getSchemaTypeName(typeDef));
            }
         }
-        
+
         return new FacetInfo(xsFacets, content, facetsPresent, facetsFixed);
     }
-    
+
     /*
      * Get name of an XSD type definition as a string value (which will typically be the value of "name" attribute of a
      * type definition, or an internal name determined by the validator for anonymous types).
      */
     public static String getSchemaTypeName(XSTypeDefinition typeDefn) {
-        
+
         String typeNameStr = "";
         if (typeDefn instanceof XSSimpleTypeDefinition) {
             typeNameStr = ((XSSimpleTypeDecl) typeDefn).getTypeName();
@@ -609,16 +609,16 @@ abstract class XSDAbstractTraverser {
         else {
             typeNameStr = ((XSComplexTypeDecl) typeDefn).getTypeName();
         }
-        
+
         return typeNameStr;
-        
+
     } // getSchemaTypeName
-    
+
     /*
      * Check whether values of xs:maxLength and xs:enumeration are consistent. Report a warning message if they are not.
      */
     private void checkEnumerationAndMaxLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
-        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -627,7 +627,7 @@ abstract class XSDAbstractTraverser {
                 }
             }
         }
-        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -643,7 +643,7 @@ abstract class XSDAbstractTraverser {
                 if (enumVal.length() > xsFacets.maxLength) {
                     reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MAXLENGTH, typeName}, contextNode);
                 }
-            } 
+            }
         }
     } // checkEnumerationAndMaxLengthInconsistency
 
@@ -651,7 +651,7 @@ abstract class XSDAbstractTraverser {
      * Check whether values of xs:minLength and xs:enumeration are consistent. Report a warning message if they are not.
      */
     private void checkEnumerationAndMinLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
-        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -660,7 +660,7 @@ abstract class XSDAbstractTraverser {
                 }
             }
         }
-        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -676,7 +676,7 @@ abstract class XSDAbstractTraverser {
                 if (enumVal.length() < xsFacets.minLength) {
                     reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_MINLENGTH, typeName}, contextNode);
                 }
-            }   
+            }
         }
     } // checkEnumerationAndMinLengthInconsistency
 
@@ -684,7 +684,7 @@ abstract class XSDAbstractTraverser {
      * Check whether values of xs:length and xs:enumeration are consistent. Report a warning message if they are not.
      */
     private void checkEnumerationAndLengthInconsistency(XSSimpleType baseValidator, Vector enumData, Element contextNode, String typeName) {
-        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
             SchemaSymbols.ATTVAL_HEXBINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -693,7 +693,7 @@ abstract class XSDAbstractTraverser {
                 }
             }
         }
-        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) && 
+        else if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(baseValidator.getNamespace()) &&
                  SchemaSymbols.ATTVAL_BASE64BINARY.equals(baseValidator.getName())) {
             for (Object enumDatum : enumData) {
                 String enumVal = ((String) enumDatum);
@@ -709,22 +709,22 @@ abstract class XSDAbstractTraverser {
                 if (enumVal.length() != xsFacets.length) {
                     reportSchemaWarning("FacetsContradict", new Object[]{enumVal, SchemaSymbols.ELT_LENGTH, typeName}, contextNode);
                 }
-            }  
+            }
         }
     } // checkEnumerationAndLengthInconsistency
-    
-    
+
+
     // return whether QName/NOTATION is part of the given type
     private boolean containsQName(XSSimpleType type) {
-        if (type.getVariety() == XSSimpleType.VARIETY_ATOMIC) {
+        if (type.getVariety() == XSSimpleTypeDefinition.VARIETY_ATOMIC) {
             short primitive = type.getPrimitiveKind();
             return (primitive == XSSimpleType.PRIMITIVE_QNAME ||
                     primitive == XSSimpleType.PRIMITIVE_NOTATION);
         }
-        else if (type.getVariety() == XSSimpleType.VARIETY_LIST) {
+        else if (type.getVariety() == XSSimpleTypeDefinition.VARIETY_LIST) {
             return containsQName((XSSimpleType)type.getItemType());
         }
-        else if (type.getVariety() == XSSimpleType.VARIETY_UNION) {
+        else if (type.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) {
             XSObjectList members = type.getMemberTypes();
             for (int i = 0; i < members.getLength(); i++) {
                 if (containsQName((XSSimpleType)members.item(i)))
@@ -733,7 +733,7 @@ abstract class XSDAbstractTraverser {
         }
         return false;
     }
-    
+
     //
     // Traverse a set of attribute and attribute group elements
     // Needed by complexType and attributeGroup traversal
@@ -742,13 +742,13 @@ abstract class XSDAbstractTraverser {
     Element traverseAttrsAndAttrGrps(Element firstAttr, XSAttributeGroupDecl attrGrp,
             XSDocumentInfo schemaDoc, SchemaGrammar grammar,
             XSComplexTypeDecl enclosingCT) {
-        
+
         Element child=null;
         XSAttributeGroupDecl tempAttrGrp = null;
         XSAttributeUseImpl tempAttrUse = null;
         XSAttributeUse otherUse = null;
         String childName;
-        
+
         for (child=firstAttr; child!=null; child=DOMUtil.getNextSiblingElement(child)) {
             childName = DOMUtil.getLocalName(child);
             if (childName.equals(SchemaSymbols.ELT_ATTRIBUTE)) {
@@ -809,7 +809,7 @@ abstract class XSDAbstractTraverser {
                         reportSchemaError(code, new Object[]{name, oneAttrUse.fAttrDecl.getName()}, child);
                     }
                 }
-                
+
                 if (tempAttrGrp.fAttributeWC != null) {
                     if (attrGrp.fAttributeWC == null) {
                         attrGrp.fAttributeWC = tempAttrGrp.fAttributeWC;
@@ -829,7 +829,7 @@ abstract class XSDAbstractTraverser {
             else
                 break;
         } // for
-        
+
         if (child != null) {
             childName = DOMUtil.getLocalName(child);
             if (childName.equals(SchemaSymbols.ELT_ANYATTRIBUTE)) {
@@ -851,50 +851,50 @@ abstract class XSDAbstractTraverser {
                 child = DOMUtil.getNextSiblingElement(child);
             }
         }
-        
+
         // Success
         return child;
-        
+
     }
-    
+
     void reportSchemaError (String key, Object[] args, Element ele) {
         fSchemaHandler.reportSchemaError(key, args, ele);
     }
-    
+
     void reportSchemaWarning (String key, Object[] args, Element ele) {
         fSchemaHandler.reportSchemaWarning(key, args, ele);
     }
-    
+
     /**
      * Element/Attribute traversers call this method to check whether
      * the type is NOTATION without enumeration facet
      */
     void checkNotationType(String refName, XSTypeDefinition typeDecl, Element elem) {
         if (typeDecl.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE &&
-                ((XSSimpleType)typeDecl).getVariety() == XSSimpleType.VARIETY_ATOMIC &&
+                ((XSSimpleType)typeDecl).getVariety() == XSSimpleTypeDefinition.VARIETY_ATOMIC &&
                 ((XSSimpleType)typeDecl).getPrimitiveKind() == XSSimpleType.PRIMITIVE_NOTATION) {
-            if ((((XSSimpleType)typeDecl).getDefinedFacets() & XSSimpleType.FACET_ENUMERATION) == 0) {
+            if ((((XSSimpleType)typeDecl).getDefinedFacets() & XSSimpleTypeDefinition.FACET_ENUMERATION) == 0) {
                 reportSchemaError("enumeration-required-notation", new Object[]{typeDecl.getName(), refName, DOMUtil.getLocalName(elem)}, elem);
             }
         }
     }
-    
+
     // Checks constraints for minOccurs, maxOccurs
     protected XSParticleDecl checkOccurrences(XSParticleDecl particle,
             String particleName, Element parent,
             int allContextFlags,
             long defaultVals) {
-        
+
         int min = particle.fMinOccurs;
         int max = particle.fMaxOccurs;
         boolean defaultMin = (defaultVals & (1 << XSAttributeChecker.ATTIDX_MINOCCURS)) != 0;
         boolean defaultMax = (defaultVals & (1 << XSAttributeChecker.ATTIDX_MAXOCCURS)) != 0;
-        
+
         boolean processingAllEl = ((allContextFlags & PROCESSING_ALL_EL) != 0);
         boolean processingAllGP = ((allContextFlags & PROCESSING_ALL_GP) != 0);
         boolean groupRefWithAll = ((allContextFlags & GROUP_REF_WITH_ALL) != 0);
         boolean isGroupChild    = ((allContextFlags & CHILD_OF_GROUP) != 0);
-        
+
         // Neither minOccurs nor maxOccurs may be specified
         // for the child of a model group definition.
         if (isGroupChild) {
@@ -909,13 +909,13 @@ abstract class XSDAbstractTraverser {
                 max = 1;
             }
         }
-        
+
         // If minOccurs=maxOccurs=0, no component is specified
         if (min == 0 && max== 0) {
             particle.fType = XSParticleDecl.PARTICLE_EMPTY;
             return null;
         }
-        
+
         // For the elements referenced in an <all>, minOccurs attribute
         // must be zero or one, and maxOccurs attribute must be one.
         // For a complex type definition that contains an <all> or a
@@ -939,13 +939,13 @@ abstract class XSDAbstractTraverser {
                 max = 1;
             }
         }
-        
+
         particle.fMinOccurs = min;
         particle.fMaxOccurs = max;
-        
+
         return particle;
     }
-    
+
     private static String processAttValue(String original) {
         final int length = original.length();
         // normally, nothing will happen
@@ -958,7 +958,7 @@ abstract class XSDAbstractTraverser {
         }
         return original;
     }
-    
+
     // this is not terribly performant!
     private static String escapeAttValue(String original, int from) {
         int i;
@@ -969,7 +969,7 @@ abstract class XSDAbstractTraverser {
             char currChar = original.charAt(i);
             if (currChar == '"') {
                 newVal.append("&quot;");
-            } 
+            }
             else if (currChar == '<') {
                 newVal.append("&lt;");
             }

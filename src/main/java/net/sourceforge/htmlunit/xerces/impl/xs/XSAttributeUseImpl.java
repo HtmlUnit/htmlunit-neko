@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSValue;
  * The XML representation for an attribute use
  * schema component is a local &lt;attribute&gt; element information item
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @version $Id$
@@ -48,7 +48,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
     public ValidatedInfo fDefault = null;
     // optional annotation
     public XSObjectList fAnnotations = null;
-    
+
     public void reset(){
         fDefault = null;
         fAttrDecl = null;
@@ -60,6 +60,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.ATTRIBUTE_USE;
     }
@@ -68,6 +69,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return null;
     }
@@ -77,6 +79,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return null;
     }
@@ -86,6 +89,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
      * requires an appropriate attribute information item to be present, or
      * merely allows it.
      */
+    @Override
     public boolean getRequired() {
         return fUse == SchemaSymbols.USE_REQUIRED;
     }
@@ -94,6 +98,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
      * {attribute declaration} provides the attribute declaration itself,
      * which will in turn determine the simple type definition used.
      */
+    @Override
     public XSAttributeDeclaration getAttrDeclaration() {
         return fAttrDecl;
     }
@@ -101,6 +106,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
     /**
      * Value Constraint: one of default, fixed.
      */
+    @Override
     public short getConstraintType() {
         return fConstraintType;
     }
@@ -109,6 +115,7 @@ public class XSAttributeUseImpl implements XSAttributeUse {
      * Value Constraint: The actual value (with respect to the {type
      * definition}).
      */
+    @Override
     public String getConstraintValue() {
         // REVISIT: SCAPI: what's the proper representation
         return getConstraintType() == XSConstants.VC_NONE ?
@@ -119,28 +126,33 @@ public class XSAttributeUseImpl implements XSAttributeUse {
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return null;
     }
 
+    @Override
     public Object getActualVC() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
                fDefault.actualValue;
     }
 
+    @Override
     public short getActualVCType() {
         return getConstraintType() == XSConstants.VC_NONE ?
                XSConstants.UNAVAILABLE_DT :
                fDefault.actualValueType;
     }
 
+    @Override
     public ShortList getItemValueTypes() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
                fDefault.itemValueTypes;
     }
 
+    @Override
     public XSValue getValueConstraintValue() {
         return fDefault;
     }
@@ -148,8 +160,9 @@ public class XSAttributeUseImpl implements XSAttributeUse {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
-    
+
 } // class XSAttributeUseImpl

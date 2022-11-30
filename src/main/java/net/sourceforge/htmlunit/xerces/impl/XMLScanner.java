@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,14 +44,14 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  * This component requires the following features and properties from the
  * component manager that uses it:
  * <ul>
- *  <li>http://xml.org/sax/features/validation</li> 
+ *  <li>http://xml.org/sax/features/validation</li>
  *  <li>http://xml.org/sax/features/namespaces</li>
  *  <li>http://apache.org/xml/features/scanner/notify-char-refs</li>
  *  <li>http://apache.org/xml/properties/internal/symbol-table</li>
  *  <li>http://apache.org/xml/properties/internal/error-reporter</li>
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Andy Clark, IBM
@@ -60,7 +60,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  *
  * @version $Id$
  */
-public abstract class XMLScanner 
+public abstract class XMLScanner
     implements XMLComponent {
 
     //
@@ -74,28 +74,28 @@ public abstract class XMLScanner
         Constants.SAX_FEATURE_PREFIX + Constants.VALIDATION_FEATURE;
 
     /** Feature identifier: namespaces. */
-    protected static final String NAMESPACES = 
+    protected static final String NAMESPACES =
         Constants.SAX_FEATURE_PREFIX + Constants.NAMESPACES_FEATURE;
 
     /** Feature identifier: notify character references. */
     protected static final String NOTIFY_CHAR_REFS =
         Constants.XERCES_FEATURE_PREFIX + Constants.NOTIFY_CHAR_REFS_FEATURE;
-    
-    protected static final String PARSER_SETTINGS = 
+
+    protected static final String PARSER_SETTINGS =
                 Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     // property identifiers
 
     /** Property identifier: symbol table. */
-    protected static final String SYMBOL_TABLE = 
+    protected static final String SYMBOL_TABLE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY;
 
     /** Property identifier: error reporter. */
-    protected static final String ERROR_REPORTER = 
+    protected static final String ERROR_REPORTER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_REPORTER_PROPERTY;
 
     /** Property identifier: entity manager. */
-    protected static final String ENTITY_MANAGER = 
+    protected static final String ENTITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
 
     // debugging
@@ -106,25 +106,25 @@ public abstract class XMLScanner
     //
     // Data
     //
-    
+
 
     // features
 
-    /** 
+    /**
      * Validation. This feature identifier is:
      * http://xml.org/sax/features/validation
      */
     protected boolean fValidation = false;
-    
+
     /** Namespaces. */
     protected boolean fNamespaces;
 
     /** Character references notification. */
     protected boolean fNotifyCharRefs = false;
-    
+
     /** Internal parser-settings feature */
     protected boolean fParserSettings = true;
-    
+
     // properties
 
     /** Symbol table. */
@@ -184,7 +184,7 @@ public abstract class XMLScanner
     // NOTE: These objects are private to help prevent accidental modification
     //       of values by a subclass. If there were protected *and* the sub-
     //       modified the values, it would be difficult to track down the real
-    //       cause of the bug. By making these private, we avoid this 
+    //       cause of the bug. By making these private, we avoid this
     //       possibility.
 
     /** String. */
@@ -207,13 +207,14 @@ public abstract class XMLScanner
     //
 
     /**
-     * 
-     * 
+     *
+     *
      * @param componentManager The component manager.
      *
      * @throws SAXException Throws exception if required features and
      *                      properties cannot be found.
      */
+    @Override
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
 
@@ -253,33 +254,34 @@ public abstract class XMLScanner
         catch (XMLConfigurationException e) {
             fNotifyCharRefs = false;
         }
-        
+
         init();
 
     } // reset(XMLComponentManager)
 
     /**
      * Sets the value of a property during parsing.
-     * 
-     * @param propertyId 
-     * @param value 
+     *
+     * @param propertyId
+     * @param value
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
-        
+
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-            
-            if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() && 
+
+            if (suffixLength == Constants.SYMBOL_TABLE_PROPERTY.length() &&
                 propertyId.endsWith(Constants.SYMBOL_TABLE_PROPERTY)) {
                 fSymbolTable = (SymbolTable)value;
             }
-            else if (suffixLength == Constants.ERROR_REPORTER_PROPERTY.length() && 
+            else if (suffixLength == Constants.ERROR_REPORTER_PROPERTY.length() &&
                 propertyId.endsWith(Constants.ERROR_REPORTER_PROPERTY)) {
                 fErrorReporter = (XMLErrorReporter)value;
             }
-            else if (suffixLength == Constants.ENTITY_MANAGER_PROPERTY.length() && 
+            else if (suffixLength == Constants.ENTITY_MANAGER_PROPERTY.length() &&
                 propertyId.endsWith(Constants.ENTITY_MANAGER_PROPERTY)) {
                 fEntityManager = (XMLEntityManager)value;
             }
@@ -290,22 +292,23 @@ public abstract class XMLScanner
     /*
      * Sets the feature of the scanner.
      */
+    @Override
     public void setFeature(String featureId, boolean value)
         throws XMLConfigurationException {
-            
+
         if (VALIDATION.equals(featureId)) {
             fValidation = value;
         } else if (NOTIFY_CHAR_REFS.equals(featureId)) {
             fNotifyCharRefs = value;
         }
     }
-    
+
     /*
      * Gets the state of the feature of the scanner.
      */
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
-            
+
         if (VALIDATION.equals(featureId)) {
             return fValidation;
         } else if (NOTIFY_CHAR_REFS.equals(featureId)) {
@@ -313,7 +316,7 @@ public abstract class XMLScanner
         }
         throw new XMLConfigurationException(XMLConfigurationException.NOT_RECOGNIZED, featureId);
     }
-    
+
     //
     // Protected methods
     //
@@ -355,7 +358,7 @@ public abstract class XMLScanner
      * at the time of calling is lost.
      */
     protected void scanXMLDeclOrTextDecl(boolean scanningTextDecl,
-                                         String[] pseudoAttributeValues) 
+                                         String[] pseudoAttributeValues)
         throws IOException, XNIException {
 
         // pseudo-attribute values
@@ -397,7 +400,7 @@ public abstract class XMLScanner
                         version = fString.toString();
                         state = STATE_ENCODING;
                         if (!versionSupported(version)) {
-                            reportFatalError(getVersionNotSupportedKey(), 
+                            reportFatalError(getVersionNotSupportedKey(),
                                              new Object[]{version});
                         }
                     }
@@ -477,14 +480,14 @@ public abstract class XMLScanner
             sawSpace = fEntityScanner.skipDeclSpaces();
         }
         // restore original literal value
-        if(currLiteral) 
+        if(currLiteral)
             currEnt.literal = true;
         // REVISIT: should we remove this error reporting?
         if (scanningTextDecl && state != STATE_DONE) {
             reportFatalError("MorePseudoAttributes", null);
         }
-        
-        // If there is no data in the xml or text decl then we fail to report error 
+
+        // If there is no data in the xml or text decl then we fail to report error
         // for version or encoding info above.
         if (scanningTextDecl) {
             if (!dataFoundForTarget && encoding == null) {
@@ -505,7 +508,7 @@ public abstract class XMLScanner
             reportFatalError("XMLDeclUnterminated", null);
 
         }
-        
+
         // fill in return array
         pseudoAttributeValues[0] = version;
         pseudoAttributeValues[1] = encoding;
@@ -517,10 +520,10 @@ public abstract class XMLScanner
      * Scans a pseudo attribute.
      *
      * @param scanningTextDecl True if scanning this pseudo-attribute for a
-     *                         TextDecl; false if scanning XMLDecl. This 
+     *                         TextDecl; false if scanning XMLDecl. This
      *                         flag is needed to report the correct type of
      *                         error.
-     * @param value            The string to fill in with the attribute 
+     * @param value            The string to fill in with the attribute
      *                         value.
      *
      * @return The name of the attribute
@@ -528,11 +531,11 @@ public abstract class XMLScanner
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      */
-    public String scanPseudoAttribute(boolean scanningTextDecl, 
-                                      XMLString value) 
+    public String scanPseudoAttribute(boolean scanningTextDecl,
+                                      XMLString value)
         throws IOException, XNIException {
 
-        // REVISIT: This method is used for generic scanning of 
+        // REVISIT: This method is used for generic scanning of
         // pseudo attributes, but since there are only three such
         // attributes: version, encoding, and standalone there are
         // for performant ways of scanning them. Every decl must
@@ -599,11 +602,11 @@ public abstract class XMLScanner
         return name;
 
     } // scanPseudoAttribute(XMLString):String
-    
+
     /**
      * Scans the name of a pseudo attribute. The only legal names
      * in XML 1.0/1.1 documents are 'version', 'encoding' and 'standalone'.
-     * 
+     *
      * @return the name of the pseudo attribute or <code>null</code>
      * if a legal pseudo attribute name could not be scanned.
      */
@@ -628,7 +631,7 @@ public abstract class XMLScanner
         }
         return null;
     } // scanPseudoAttributeName()
-    
+
     /**
      * Scans a processing instruction.
      * <p>
@@ -661,7 +664,7 @@ public abstract class XMLScanner
 
     /**
      * Scans a processing data. This is needed to handle the situation
-     * where a document starts with a processing instruction whose 
+     * where a document starts with a processing instruction whose
      * target name <em>starts with</em> "xml". (e.g. xmlfoo)
      *
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it
@@ -670,7 +673,7 @@ public abstract class XMLScanner
      * @param target The PI target
      * @param data The string to fill in with the data
      */
-    protected void scanPIData(String target, XMLString data) 
+    protected void scanPIData(String target, XMLString data)
         throws IOException, XNIException {
 
         // check target
@@ -691,7 +694,7 @@ public abstract class XMLScanner
                 return;
             }
             else {
-                if(fNamespaces && fEntityScanner.peekChar() == ':') { 
+                if(fNamespaces && fEntityScanner.peekChar() == ':') {
                     fEntityScanner.scanChar();
                     XMLStringBuffer colonName = new XMLStringBuffer(target);
                     colonName.append(':');
@@ -755,10 +758,10 @@ public abstract class XMLScanner
                 }
                 else if (isInvalidLiteral(c)) {
                     reportFatalError("InvalidCharInComment",
-                                     new Object[] { Integer.toHexString(c) }); 
+                                     new Object[] { Integer.toHexString(c) });
                     fEntityScanner.scanChar();
                 }
-            } 
+            }
         }
         if (!fEntityScanner.skipChar('>')) {
             reportFatalError("DashDashInComment", null);
@@ -769,23 +772,23 @@ public abstract class XMLScanner
     /**
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
-     * 
+     *
      * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
-     * @param nonNormalizedValue The XMLString to fill in with the 
+     * @param nonNormalizedValue The XMLString to fill in with the
      *                           non-normalized value.
      * @param atName The name of the attribute being parsed (for error msgs).
-     * @param checkEntities true if undeclared entities should be reported as VC violation,  
+     * @param checkEntities true if undeclared entities should be reported as VC violation,
      *                      false if undeclared entities should be reported as WFC violation.
      * @param eleName The name of element to which this attribute belongs.
      *
      * @return true if the non-normalized and normalized value are the same
-     * 
+     *
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      **/
-    protected boolean scanAttributeValue(XMLString value, 
+    protected boolean scanAttributeValue(XMLString value,
                                       XMLString nonNormalizedValue,
                                       String atName,
                                       boolean checkEntities,String eleName)
@@ -805,7 +808,7 @@ public abstract class XMLScanner
             System.out.println("** scanLiteral -> \""
                                + value.toString() + "\"");
         }
-        
+
         int fromIndex = 0;
         if (c == quote && (fromIndex = isUnchangedByNormalization(value)) == -1) {
             /** Both the non-normalized and normalized attribute values are equal. **/
@@ -1001,7 +1004,7 @@ public abstract class XMLScanner
             reportFatalError("CloseQuoteExpected", new Object[]{eleName,atName});
         }
         return nonNormalizedValue.equals(value.ch, value.offset, value.length);
-        
+
     } // scanAttributeValue()
 
 
@@ -1063,7 +1066,7 @@ public abstract class XMLScanner
                     }
                     else if (isInvalidLiteral(c)) {
                         reportFatalError("InvalidCharInSystemID",
-                                new Object[] { Integer.toHexString(c) }); 
+                                new Object[] { Integer.toHexString(c) });
                         fEntityScanner.scanChar();
                     }
                 } while (fEntityScanner.scanLiteral(quote, ident) != quote);
@@ -1085,7 +1088,7 @@ public abstract class XMLScanner
     /**
      * Scans public ID literal.
      *
-     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'" 
+     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
      * [13] PubidChar::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]
      *
      * The returned string is normalized according to the following rule,
@@ -1157,9 +1160,9 @@ public abstract class XMLScanner
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
             int c = value.ch[i];
-            // Performance: For XML 1.0 documents take advantage of 
-            // the fact that the only legal characters below 0x20 
-            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've 
+            // Performance: For XML 1.0 documents take advantage of
+            // the fact that the only legal characters below 0x20
+            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've
             // already determined the well-formedness of these
             // characters it is sufficient (and safe) to check
             // against 0x20. -- mrglavas
@@ -1168,7 +1171,7 @@ public abstract class XMLScanner
             }
         }
     }
-    
+
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
@@ -1177,9 +1180,9 @@ public abstract class XMLScanner
         int end = value.offset + value.length;
         for (int i = value.offset + fromIndex; i < end; ++i) {
             int c = value.ch[i];
-            // Performance: For XML 1.0 documents take advantage of 
-            // the fact that the only legal characters below 0x20 
-            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've 
+            // Performance: For XML 1.0 documents take advantage of
+            // the fact that the only legal characters below 0x20
+            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've
             // already determined the well-formedness of these
             // characters it is sufficient (and safe) to check
             // against 0x20. -- mrglavas
@@ -1188,10 +1191,10 @@ public abstract class XMLScanner
             }
         }
     }
-    
+
     /**
      * Checks whether this string would be unchanged by normalization.
-     * 
+     *
      * @return -1 if the value would be unchanged by normalization,
      * otherwise the index of the first whitespace character which
      * would be transformed.
@@ -1200,9 +1203,9 @@ public abstract class XMLScanner
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
             int c = value.ch[i];
-            // Performance: For XML 1.0 documents take advantage of 
-            // the fact that the only legal characters below 0x20 
-            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've 
+            // Performance: For XML 1.0 documents take advantage of
+            // the fact that the only legal characters below 0x20
+            // are 0x09 (TAB), 0x0A (LF) and 0x0D (CR). Since we've
             // already determined the well-formedness of these
             // characters it is sufficient (and safe) to check
             // against 0x20. -- mrglavas
@@ -1219,10 +1222,10 @@ public abstract class XMLScanner
 
     /**
      * This method notifies of the start of an entity. The document entity
-     * has the pseudo-name of "[xml]" the DTD has the pseudo-name of "[dtd]" 
+     * has the pseudo-name of "[xml]" the DTD has the pseudo-name of "[dtd]"
      * parameter entity names start with '%'; and general entities are just
      * specified by their name.
-     * 
+     *
      * @param name     The name of the entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -1234,7 +1237,7 @@ public abstract class XMLScanner
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startEntity(String name, 
+    public void startEntity(String name,
                             XMLResourceIdentifier identifier,
                             String encoding, Augmentations augs) throws XNIException {
 
@@ -1247,10 +1250,10 @@ public abstract class XMLScanner
 
     /**
      * This method notifies the end of an entity. The document entity has
-     * the pseudo-name of "[xml]" the DTD has the pseudo-name of "[dtd]" 
+     * the pseudo-name of "[xml]" the DTD has the pseudo-name of "[dtd]"
      * parameter entity names start with '%'; and general entities are just
      * specified by their name.
-     * 
+     *
      * @param name The name of the entity.
      * @param augs Additional information that may include infoset augmentations
      *
@@ -1280,7 +1283,7 @@ public abstract class XMLScanner
      *
      * @return the character value or (-1) on conversion failure
      */
-    protected int scanCharReferenceValue(XMLStringBuffer buf, XMLStringBuffer buf2) 
+    protected int scanCharReferenceValue(XMLStringBuffer buf, XMLStringBuffer buf2)
         throws IOException, XNIException {
 
         // scan hexadecimal value
@@ -1290,7 +1293,7 @@ public abstract class XMLScanner
             hex = true;
             fStringBuffer3.clear();
             boolean digit = true;
-            
+
             int c = fEntityScanner.peekChar();
             digit = (c >= '0' && c <= '9') ||
                     (c >= 'a' && c <= 'f') ||
@@ -1299,7 +1302,7 @@ public abstract class XMLScanner
                 if (buf2 != null) { buf2.append((char)c); }
                 fEntityScanner.scanChar();
                 fStringBuffer3.append((char)c);
-                
+
                 do {
                     c = fEntityScanner.peekChar();
                     digit = (c >= '0' && c <= '9') ||
@@ -1321,14 +1324,14 @@ public abstract class XMLScanner
         else {
             fStringBuffer3.clear();
             boolean digit = true;
-            
+
             int c = fEntityScanner.peekChar();
             digit = c >= '0' && c <= '9';
             if (digit) {
                 if (buf2 != null) { buf2.append((char)c); }
                 fEntityScanner.scanChar();
                 fStringBuffer3.append((char)c);
-                
+
                 do {
                     c = fEntityScanner.peekChar();
                     digit = c >= '0' && c <= '9';
@@ -1349,13 +1352,13 @@ public abstract class XMLScanner
             reportFatalError("SemicolonRequiredInCharRef", null);
         }
         if (buf2 != null) { buf2.append(';'); }
-        
+
         // convert string to number
         int value = -1;
         try {
             value = Integer.parseInt(fStringBuffer3.toString(),
                                      hex ? 16 : 10);
-            
+
             // character reference must be a valid XML character
             if (isInvalid(value)) {
                 StringBuilder errorBuf = new StringBuilder(fStringBuffer3.length + 1);
@@ -1392,7 +1395,7 @@ public abstract class XMLScanner
                 fCharRefLiteral = literal;
             }
         }
-                
+
         return value;
     }
 
@@ -1400,49 +1403,49 @@ public abstract class XMLScanner
     // valid with respect to the version of
     // XML understood by this scanner.
     protected boolean isInvalid(int value) {
-        return (XMLChar.isInvalid(value)); 
+        return (XMLChar.isInvalid(value));
     } // isInvalid(int):  boolean
 
     // returns true if the given character is not
-    // valid or may not be used outside a character reference 
+    // valid or may not be used outside a character reference
     // with respect to the version of XML understood by this scanner.
     protected boolean isInvalidLiteral(int value) {
-        return (XMLChar.isInvalid(value)); 
+        return (XMLChar.isInvalid(value));
     } // isInvalidLiteral(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameChar with respect to the version of
     // XML understood by this scanner.
     protected boolean isValidNameChar(int value) {
-        return (XMLChar.isName(value)); 
+        return (XMLChar.isName(value));
     } // isValidNameChar(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameStartChar with respect to the version of
     // XML understood by this scanner.
     protected boolean isValidNameStartChar(int value) {
-        return (XMLChar.isNameStart(value)); 
+        return (XMLChar.isNameStart(value));
     } // isValidNameStartChar(int):  boolean
-    
+
     // returns true if the given character is
     // a valid NCName character with respect to the version of
     // XML understood by this scanner.
     protected boolean isValidNCName(int value) {
         return (XMLChar.isNCName(value));
     } // isValidNCName(int):  boolean
-    
-    // returns true if the given character is 
-    // a valid high surrogate for a nameStartChar 
-    // with respect to the version of XML understood 
+
+    // returns true if the given character is
+    // a valid high surrogate for a nameStartChar
+    // with respect to the version of XML understood
     // by this scanner.
     protected boolean isValidNameStartHighSurrogate(int value) {
-        return false; 
+        return false;
     } // isValidNameStartHighSurrogate(int):  boolean
-    
+
     protected boolean versionSupported(String version ) {
         return version.equals("1.0");
     } // version Supported
-    
+
     // returns the error message key for unsupported
     // versions of XML with respect to the version of
     // XML understood by this scanner.
@@ -1477,7 +1480,7 @@ public abstract class XMLScanner
         // supplemental character must be a valid XML character
         if (isInvalid(c)) {
             reportFatalError("InvalidCharInContent",
-                             new Object[]{Integer.toString(c, 16)}); 
+                             new Object[]{Integer.toString(c, 16)});
             return false;
         }
 
@@ -1501,12 +1504,12 @@ public abstract class XMLScanner
     }
 
     // private methods
-    private void init() { 
-        fEntityScanner = null;       
+    private void init() {
+        fEntityScanner = null;
         // initialize vars
         fEntityDepth = 0;
         fReportEntity = true;
         fResourceIdentifier.clear();
-    } 
+    }
 
 } // class XMLScanner

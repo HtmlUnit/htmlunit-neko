@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,11 +34,12 @@ public class HTMLTitleElementImpl
 
     private static final long serialVersionUID = 879646303512367875L;
 
+    @Override
     public String getText()
     {
         Node child;
         StringBuilder text = new StringBuilder();
-        
+
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
@@ -51,13 +52,14 @@ public class HTMLTitleElementImpl
         }
         return text.toString();
     }
-    
-    
+
+
+    @Override
     public void setText( String text )
     {
         Node    child;
         Node    next;
-        
+
         // Delete all the nodes and replace them with a single Text node.
         // This is the only approach that can handle comments and other nodes.
         child = getFirstChild();
@@ -70,10 +72,10 @@ public class HTMLTitleElementImpl
         insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
     }
 
-        
+
       /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLTitleElementImpl( HTMLDocumentImpl owner, String name )
@@ -81,6 +83,6 @@ public class HTMLTitleElementImpl
         super( owner, name );
     }
 
-  
+
 }
 

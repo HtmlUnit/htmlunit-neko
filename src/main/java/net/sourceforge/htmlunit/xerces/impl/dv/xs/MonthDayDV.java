@@ -42,6 +42,7 @@ public class MonthDayDV extends AbstractDateTimeDV {
      * @param  content The lexical representation of gMonthDay
      * @return a valid and normalized gMonthDay object
      */
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         try{
             return parse(content);
@@ -105,6 +106,7 @@ public class MonthDayDV extends AbstractDateTimeDV {
      * @param date   gmonthDay object
      * @return lexical representation of month: --MM-DD with an optional time zone sign
      */
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(8);
         message.append('-');

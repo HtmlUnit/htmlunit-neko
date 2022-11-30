@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import net.sourceforge.htmlunit.xerces.util.SymbolTable;
  * namespace bindings and other settings on the <schema/> element
  * affect the contents of that schema document alone.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -69,19 +69,19 @@ class XSDocumentInfo {
 
     // all namespaces that this document can refer to
     final Vector fImportedNS = new Vector();
-    
+
     protected final ValidationState fValidationContext = new ValidationState();
 
     SymbolTable fSymbolTable = null;
 
-    // attribute checker to which we'll return the attributes 
+    // attribute checker to which we'll return the attributes
     // once we've been told that we're done with them
     protected final XSAttributeChecker fAttrChecker;
 
     // array of objects on the schema's root element.  This is null
     // once returnSchemaAttrs has been called.
     protected Object [] fSchemaAttrs;
-    
+
     // list of annotations contained in the schema document. This is null
     // once removeAnnotations has been called.
     protected XSAnnotationInfo fAnnotations = null;
@@ -90,7 +90,7 @@ class XSDocumentInfo {
     // to avoid memory leaks!
     XSDocumentInfo (Element schemaRoot, XSAttributeChecker attrChecker, SymbolTable symbolTable)
                     throws XMLSchemaException {
-        
+
         fSchemaElement = schemaRoot;
         fNamespaceSupport = new SchemaNamespaceSupport(schemaRoot, symbolTable);
         fNamespaceSupport.reset();
@@ -151,6 +151,7 @@ class XSDocumentInfo {
     }
 
     // some Object methods
+    @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         if (fTargetNamespace == null) {
@@ -174,11 +175,11 @@ class XSDocumentInfo {
     public void addAllowedNS(String namespace) {
         fImportedNS.addElement(namespace == null ? "" : namespace);
     }
-    
+
     public boolean isAllowedNS(String namespace) {
         return fImportedNS.contains(namespace == null ? "" : namespace);
     }
-    
+
     // store whether we have reported an error about that this document
     // can't access components from the given namespace
     private Vector fReportedTNS = null;
@@ -205,22 +206,22 @@ class XSDocumentInfo {
         fAttrChecker.returnAttrArray (fSchemaAttrs, null);
         fSchemaAttrs = null;
     }
-    
+
     // adds an annotation to the list of annotations
     void addAnnotation(XSAnnotationInfo info) {
         info.next = fAnnotations;
         fAnnotations = info;
     }
-    
+
     // returns the list of annotations conatined in the
     // schema document or null if the document contained no annotations.
     XSAnnotationInfo getAnnotations() {
         return fAnnotations;
     }
-    
+
     // removes reference to annotation list
     void removeAnnotations() {
         fAnnotations = null;
     }
-    
+
 } // XSDocumentInfo

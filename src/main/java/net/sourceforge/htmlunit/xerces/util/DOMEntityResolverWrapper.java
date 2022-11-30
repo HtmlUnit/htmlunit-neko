@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * @see LSResourceResolver
  *
  * @author Gopal Sharma, SUN MicroSystems Inc.
- * @author Elena Litani, IBM 
+ * @author Elena Litani, IBM
  * @author Ramesh Mandava, Sun Microsystems
  * @version $Id$
  */
@@ -52,7 +52,7 @@ public class DOMEntityResolverWrapper
 
     /** XML 1.0 type constant according to DOM L3 LS CR spec "http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107" */
     private static final String XML_TYPE = "http://www.w3.org/TR/REC-xml";
-    
+
     /** XML Schema constant according to DOM L3 LS CR spec "http://www.w3.org/TR/2003/CR-DOM-Level-3-LS-20031107" */
     private static final String XSD_TYPE = "http://www.w3.org/2001/XMLSchema";
 
@@ -88,7 +88,7 @@ public class DOMEntityResolverWrapper
     //
     // XMLEntityResolver methods
     //
-    
+
     /**
      * Resolves an external parsed entity. If the entity cannot be
      * resolved, this method should return null.
@@ -98,6 +98,7 @@ public class DOMEntityResolverWrapper
      * @throws IOException  Thrown if resolved entity stream cannot be
      *                      opened or some other i/o error occurs.
      */
+    @Override
     public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier)
         throws XNIException, IOException {
         // resolve entity using DOM entity resolver
@@ -131,15 +132,15 @@ public class DOMEntityResolverWrapper
                  * An LSParser looks at inputs specified in LSInput in
                  * the following order: characterStream, byteStream,
                  * stringData, systemId, publicId.
-                 */          
+                 */
                 XMLInputSource xmlInputSource =
                     new XMLInputSource(publicId, systemId, baseSystemId);
-                
+
                 if (charStream != null) {
                     xmlInputSource.setCharacterStream(charStream);
                 }
                 else if (byteStream != null) {
-                    xmlInputSource.setByteStream((InputStream) byteStream);
+                    xmlInputSource.setByteStream(byteStream);
                 }
                 else if (data != null && data.length() != 0) {
                     xmlInputSource.setCharacterStream(new StringReader(data));
@@ -153,7 +154,7 @@ public class DOMEntityResolverWrapper
         return null;
 
     } // resolveEntity(String,String,String):XMLInputSource
-    
+
     /** Determines the type of resource being resolved **/
     private String getType(XMLResourceIdentifier resourceIdentifier) {
         if (resourceIdentifier instanceof XMLGrammarDescription) {
@@ -164,5 +165,5 @@ public class DOMEntityResolverWrapper
         }
         return XML_TYPE;
     } // getType(XMLResourceIdentifier):String
-    
+
 } // DOMEntityResolverWrapper

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,18 +32,20 @@ public class HTMLButtonElementImpl
 
     private static final long serialVersionUID = -753685852948076730L;
 
+    @Override
     public String getAccessKey()
     {
         String    accessKey;
-        
+
         // Make sure that the access key is a single character.
         accessKey = getAttribute( "accesskey" );
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
     }
-    
-    
+
+
+    @Override
     public void setAccessKey( String accessKey )
     {
         // Make sure that the access key is a single character.
@@ -52,31 +54,36 @@ public class HTMLButtonElementImpl
         setAttribute( "accesskey", accessKey );
     }
 
-    
+
+    @Override
     public boolean getDisabled()
     {
         return getBinary( "disabled" );
     }
-    
-    
+
+
+    @Override
     public void setDisabled( boolean disabled )
     {
         setAttribute( "disabled", disabled );
     }
 
 
+    @Override
     public String getName()
     {
         return getAttribute( "name" );
     }
-    
-    
+
+
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
-    
+
+    @Override
     public int getTabIndex()
     {
         try
@@ -88,42 +95,46 @@ public class HTMLButtonElementImpl
             return 0;
         }
     }
-    
-    
+
+
+    @Override
     public void setTabIndex( int tabIndex )
     {
         setAttribute( "tabindex", String.valueOf( tabIndex ) );
     }
 
-    
+
+    @Override
     public String getType()
     {
         return capitalize( getAttribute( "type" ) );
     }
 
-    
-      public String getValue()
+
+      @Override
+    public String getValue()
     {
         return getAttribute( "value" );
     }
-    
-    
+
+
+    @Override
     public void setValue( String value )
     {
         setAttribute( "value", value );
     }
-    
-    
+
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLButtonElementImpl( HTMLDocumentImpl owner, String name )
     {
         super( owner, name );
     }
-  
-  
+
+
 }
 

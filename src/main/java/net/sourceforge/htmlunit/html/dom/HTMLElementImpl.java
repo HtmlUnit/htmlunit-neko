@@ -60,42 +60,52 @@ public class HTMLElementImpl
         super( owner, tagName.toUpperCase(Locale.ENGLISH) );
     }
 
+    @Override
     public String getId() {
         return getAttribute( "id" );
     }
 
+    @Override
     public void setId( String id ) {
         setAttribute( "id", id );
     }
 
+    @Override
     public String getTitle() {
         return getAttribute( "title" );
     }
 
+    @Override
     public void setTitle( String title ) {
         setAttribute( "title", title );
     }
 
+    @Override
     public String getLang() {
         return getAttribute( "lang" );
     }
 
+    @Override
     public void setLang( String lang ) {
         setAttribute( "lang", lang );
     }
 
+    @Override
     public String getDir() {
         return getAttribute( "dir" );
     }
 
+    @Override
     public void setDir( String dir ) {
         setAttribute( "dir", dir );
     }
 
+    @Override
     public String getClassName() {
         return getAttribute( "class" );
     }
 
+    @Override
     public void setClassName( String className ) {
         setAttribute( "class", className );
     }
@@ -147,10 +157,12 @@ public class HTMLElementImpl
         }
     }
 
+    @Override
     public Attr getAttributeNode( String attrName ) {
         return super.getAttributeNode( attrName.toLowerCase(Locale.ENGLISH) );
     }
 
+    @Override
     public Attr getAttributeNodeNS( String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
@@ -159,10 +171,12 @@ public class HTMLElementImpl
         return super.getAttributeNode( localName.toLowerCase(Locale.ENGLISH) );
     }
 
+    @Override
     public String getAttribute( String attrName ) {
         return super.getAttribute( attrName.toLowerCase(Locale.ENGLISH) );
     }
 
+    @Override
     public String getAttributeNS( String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
@@ -171,10 +185,12 @@ public class HTMLElementImpl
         return super.getAttribute( localName.toLowerCase(Locale.ENGLISH) );
     }
 
+    @Override
     public final NodeList getElementsByTagName( String tagName ) {
         return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH) );
     }
 
+    @Override
     public final NodeList getElementsByTagNameNS( String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {

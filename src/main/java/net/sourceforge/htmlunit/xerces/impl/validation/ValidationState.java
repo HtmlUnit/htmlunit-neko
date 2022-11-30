@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 /**
  * Implementation of the ValidationContext interface. Used to establish an
  * environment for simple type validation.
- * 
+ *
  * @xerces.internal
  *
  * @author Elena Litani, IBM
@@ -134,30 +134,36 @@ public class ValidationState implements ValidationContext {
     //
 
     // whether to do extra id/idref/entity checking
+    @Override
     public boolean needExtraChecking() {
         return fExtraChecking;
     }
 
     // whether to validate against facets
+    @Override
     public boolean needFacetChecking() {
         return fFacetChecking;
     }
 
+    @Override
     public boolean needToNormalize (){
         return fNormalize;
     }
 
+    @Override
     public boolean useNamespaces() {
         return fNamespaces;
     }
 
     // entity
+    @Override
     public boolean isEntityDeclared (String name) {
         if (fEntityState !=null) {
             return fEntityState.isEntityDeclared(getSymbol(name));
         }
         return false;
     }
+    @Override
     public boolean isEntityUnparsed (String name) {
         if (fEntityState !=null) {
             return fEntityState.isEntityUnparsed(getSymbol(name));
@@ -166,19 +172,23 @@ public class ValidationState implements ValidationContext {
     }
 
     // id
+    @Override
     public boolean isIdDeclared(String name) {
         return fIdTable.containsKey(name);
     }
+    @Override
     public void addId(String name) {
         fIdTable.put(name, fNullValue);
     }
 
     // idref
+    @Override
     public void addIdRef(String name) {
         fIdRefTable.put(name, fNullValue);
     }
     // get symbols
 
+    @Override
     public String getSymbol (String symbol) {
         if (fSymbolTable != null)
             return fSymbolTable.addSymbol(symbol);
@@ -189,19 +199,21 @@ public class ValidationState implements ValidationContext {
         return symbol.intern();
     }
     // qname, notation
+    @Override
     public String getURI(String prefix) {
         if (fNamespaceContext !=null) {
             return fNamespaceContext.getURI(prefix);
         }
         return null;
     }
-    
+
     // Locale
-    
+
     public void setLocale(Locale locale) {
         fLocale = locale;
     }
-    
+
+    @Override
     public Locale getLocale() {
         return fLocale;
     }

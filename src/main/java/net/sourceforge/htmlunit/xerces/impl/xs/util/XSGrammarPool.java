@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,9 +29,9 @@ import net.sourceforge.htmlunit.xerces.xs.XSModel;
 /**
  * Add a method that return an <code>XSModel</code> that represents components in
  * the schema grammars in this pool implementation.
- * 
- * @xerces.internal  
- * 
+ *
+ * @xerces.internal
+ *
  * @version $Id$
  */
 public class XSGrammarPool extends XMLGrammarPoolImpl {
@@ -45,7 +45,7 @@ public class XSGrammarPool extends XMLGrammarPoolImpl {
     public XSModel toXSModel() {
         return toXSModel(Constants.SCHEMA_VERSION_1_0);
     }
-    
+
     public XSModel toXSModel(short schemaVersion) {
         ArrayList list = new ArrayList();
         for (Entry fGrammar : fGrammars) {
@@ -62,7 +62,7 @@ public class XSGrammarPool extends XMLGrammarPoolImpl {
         SchemaGrammar[] gs = (SchemaGrammar[])list.toArray(new SchemaGrammar[size]);
         return toXSModel(gs, schemaVersion);
     }
-    
+
     protected XSModel toXSModel(SchemaGrammar[] grammars, short schemaVersion) {
         return new XSModelImpl(grammars, schemaVersion);
     }

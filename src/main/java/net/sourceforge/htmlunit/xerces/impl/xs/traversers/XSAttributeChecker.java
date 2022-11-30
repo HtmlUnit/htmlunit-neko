@@ -1186,7 +1186,7 @@ public class XSAttributeChecker {
         // To validate these types, we don't actually need to normalize the
         // strings. We only need to remove the whitespace from both ends.
         // In some special cases (list types), StringTokenizer can correctly
-        // process the un-normalized whitespace.        
+        // process the un-normalized whitespace.
 
         String value = XMLChar.trim(ivalue);
         Object retValue = null;
@@ -1751,10 +1751,12 @@ class SmallContainer extends Container {
         keys = new String[size];
         values = new OneAttr[size];
     }
+    @Override
     void put(String key, OneAttr value) {
         keys[pos] = key;
         values[pos++] = value;
     }
+    @Override
     OneAttr get(String key) {
         for (int i = 0; i < pos; i++) {
             if (keys[i].equals(key)) {
@@ -1771,10 +1773,12 @@ class LargeContainer extends Container {
         items = new Hashtable(size*2+1);
         values = new OneAttr[size];
     }
+    @Override
     void put(String key, OneAttr value) {
         items.put(key, value);
         values[pos++] = value;
     }
+    @Override
     OneAttr get(String key) {
         OneAttr ret = (OneAttr)items.get(key);
         return ret;

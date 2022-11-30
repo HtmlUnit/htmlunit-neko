@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,8 +34,8 @@ import net.sourceforge.htmlunit.xerces.dom.ProcessingInstructionImpl;
  * This is a SAX document handler that is used to build an HTML document.
  * It can build a document from any SAX parser, but is specifically tuned
  * for working with the OpenXML HTML parser.
- * 
- * 
+ *
+ *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@openxml.org">Assaf Arkin</a>
  */
@@ -48,8 +48,8 @@ public class HTMLBuilder
      * The document that is being built.
      */
     protected HTMLDocumentImpl    _document;
-    
-    
+
+
     /**
      * The current node in the document into which elements, text and
      * other nodes will be inserted. This starts as the document itself
@@ -72,14 +72,15 @@ public class HTMLBuilder
     private boolean         _done = true;
 
 
-    /**    
+    /**
      * The document is only created the same time as the document element, however, certain
      * nodes may precede the document element (comment and PI), and they are accumulated
      * in this vector.
      */
     protected Vector         _preRootNodes;
 
-    
+
+    @Override
     public void startDocument()
         throws SAXException
     {
@@ -90,6 +91,7 @@ public class HTMLBuilder
     }
 
 
+    @Override
     public void endDocument()
         throws SAXException
     {
@@ -102,12 +104,13 @@ public class HTMLBuilder
     }
 
 
+    @Override
     public synchronized void startElement( String tagName, AttributeList attrList )
         throws SAXException
     {
         ElementImpl elem;
         int         i;
-        
+
     if ( tagName == null )
         throw new SAXException( "HTM004 Argument 'tagName' is null." );
 
@@ -129,7 +132,7 @@ public class HTMLBuilder
             _document.insertBefore( (Node) _preRootNodes.elementAt( i ), elem );
         _preRootNodes = null;
         }
-         
+
     }
     else
     {
@@ -150,7 +153,8 @@ public class HTMLBuilder
         }
     }
 
-    
+
+    @Override
     public void endElement( String tagName )
         throws SAXException
     {
@@ -176,7 +180,8 @@ public class HTMLBuilder
         _current.appendChild( _document.createTextNode(text) );
     }
 
-    
+
+    @Override
     public void characters( char[] text, int start, int length )
         throws SAXException
     {
@@ -184,19 +189,21 @@ public class HTMLBuilder
             throw new SAXException( "HTM010 State error: character data found outside of root element." );
         _current.appendChild( _document.createTextNode(new String(text, start, length)) );
     }
-    
-    
+
+
+    @Override
     public void ignorableWhitespace( char[] text, int start, int length )
         throws SAXException
-    {        
+    {
         if ( ! _ignoreWhitespace )
             _current.appendChild( _document.createTextNode(new String(text, start, length)) );
      }
-    
-    
+
+
+    @Override
     public void processingInstruction( String target, String instruction )
         throws SAXException
-    {        
+    {
     // Processing instruction may appear before the document element (in fact, before the
     // document has been created, or after the document element has been closed.
         if ( _current == null && _document == null )
@@ -211,14 +218,15 @@ public class HTMLBuilder
     else
         _current.appendChild( _document.createProcessingInstruction(target, instruction) );
     }
-    
-    
+
+
     public HTMLDocument getHTMLDocument()
     {
         return _document;
     }
 
-    
+
+    @Override
     public void setDocumentLocator( Locator locator )
     {
         // ignored

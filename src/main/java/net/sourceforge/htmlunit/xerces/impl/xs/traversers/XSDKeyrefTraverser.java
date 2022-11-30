@@ -26,11 +26,12 @@ import net.sourceforge.htmlunit.xerces.impl.xs.identity.IdentityConstraint;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.KeyRef;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.UniqueOrKey;
 import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xs.XSIDCDefinition;
 
 /**
  * This class contains code that is used to traverse <keyref>s.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -69,8 +70,8 @@ class XSDKeyrefTraverser extends XSDAbstractIDConstraintTraverser {
         // if ret == null, we've already reported an error in getGlobalDecl
         // we report an error only when ret != null, and the return type keyref
         if (ret != null) {
-            if (ret.getCategory() == IdentityConstraint.IC_KEY ||
-                ret.getCategory() == IdentityConstraint.IC_UNIQUE) {
+            if (ret.getCategory() == XSIDCDefinition.IC_KEY ||
+                ret.getCategory() == XSIDCDefinition.IC_UNIQUE) {
                 key = (UniqueOrKey)ret;
             } else {
                 reportSchemaError("src-resolve", new Object[]{kName.rawname, "identity constraint key/unique"}, krElem);
@@ -100,7 +101,7 @@ class XSDKeyrefTraverser extends XSDAbstractIDConstraintTraverser {
 
                 // also add it to extended map
                 final String loc = fSchemaHandler.schemaDocument2SystemId(schemaDoc);
-                final IdentityConstraint idc = grammar.getIDConstraintDecl(keyRef.getIdentityConstraintName(), loc); 
+                final IdentityConstraint idc = grammar.getIDConstraintDecl(keyRef.getIdentityConstraintName(), loc);
                 if (idc  == null) {
                     grammar.addIDConstraintDecl(element, keyRef, loc);
                 }

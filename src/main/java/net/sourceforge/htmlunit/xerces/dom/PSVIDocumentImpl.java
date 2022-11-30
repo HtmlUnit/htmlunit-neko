@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,15 +34,15 @@ import org.w3c.dom.UserDataHandler;
 /**
  * Our own document implementation, which knows how to create an element
  * with PSVI information.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Sandy Gao, IBM
- * 
+ *
  * @version $Id$
  */
 public class PSVIDocumentImpl extends DocumentImpl {
-   
+
     /** Serialization version. */
     static final long serialVersionUID = -8822220250676434522L;
 
@@ -60,7 +60,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
     public PSVIDocumentImpl(DocumentType doctype) {
         super(doctype);
     }
-    
+
     /**
      * Deep-clone a document, including fixing ownerDoc for the cloned
      * children. Note that this requires bypassing the WRONG_DOCUMENT_ERR
@@ -70,6 +70,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
      * @return org.w3c.dom.Node
      * @param deep boolean, iff true replicate children
      */
+    @Override
     public Node cloneNode(boolean deep) {
 
         PSVIDocumentImpl newdoc = new PSVIDocumentImpl();
@@ -82,13 +83,14 @@ public class PSVIDocumentImpl extends DocumentImpl {
         return newdoc;
 
     } // cloneNode(boolean):Node
-        
+
     /**
      * Retrieve information describing the abilities of this particular
      * DOM implementation. Intended to support applications that may be
      * using DOMs retrieved from several different sources, potentially
      * with different underlying representations.
      */
+    @Override
     public DOMImplementation getImplementation() {
         // Currently implemented as a singleton, since it's hardcoded
         // information anyway.
@@ -98,6 +100,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
     /**
      * Create an element with PSVI information
      */
+    @Override
     public Element createElementNS(String namespaceURI, String qualifiedName)
         throws DOMException {
         return new PSVIElementNSImpl(this, namespaceURI, qualifiedName);
@@ -106,6 +109,7 @@ public class PSVIDocumentImpl extends DocumentImpl {
     /**
      * Create an element with PSVI information
      */
+    @Override
     public Element createElementNS(String namespaceURI, String qualifiedName,
                                    String localpart) throws DOMException {
         return new PSVIElementNSImpl(this, namespaceURI, qualifiedName, localpart);
@@ -114,41 +118,44 @@ public class PSVIDocumentImpl extends DocumentImpl {
     /**
      * Create an attribute with PSVI information
      */
+    @Override
     public Attr createAttributeNS(String namespaceURI, String qualifiedName)
         throws DOMException {
         return new PSVIAttrNSImpl(this, namespaceURI, qualifiedName);
-    } 
-    
+    }
+
     /**
      * Create an attribute with PSVI information
      */
+    @Override
     public Attr createAttributeNS(String namespaceURI, String qualifiedName,
                                   String localName) throws DOMException {
         return new PSVIAttrNSImpl(this, namespaceURI, qualifiedName, localName);
-    } 
-    
+    }
+
     /**
-     * 
-     * The configuration used when <code>Document.normalizeDocument</code> is 
-     * invoked. 
+     *
+     * The configuration used when <code>Document.normalizeDocument</code> is
+     * invoked.
      * @since DOM Level 3
      */
+    @Override
     public DOMConfiguration getDomConfig(){
         super.getDomConfig();
         return fConfiguration;
     }
-    
+
     // REVISIT: Forbid serialization of PSVI DOM until
     // we support object serialization of grammars -- mrglavas
-    
+
     private void writeObject(ObjectOutputStream out)
         throws IOException {
         throw new NotSerializableException(getClass().getName());
     }
 
-    private void readObject(ObjectInputStream in) 
+    private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
         throw new NotSerializableException(getClass().getName());
     }
-    
+
 } // class PSVIDocumentImpl

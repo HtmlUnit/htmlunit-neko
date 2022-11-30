@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,9 +33,9 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  * The qualified name is the node name, and we store localName which is also
  * used in all queries. On the other hand we recompute the prefix when
  * necessary.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Elena litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems
  * @version $Id$
@@ -132,13 +132,13 @@ public class ElementNSImpl
         else {
             prefix = qname.substring(0, colon1);
             localName = qname.substring(colon2 + 1);
-            
+
             //NAMESPACE_ERR:
             //1. if the qualifiedName has a prefix and the namespaceURI is null,
-            
+
             //2. or if the qualifiedName has a prefix that is "xml" and the namespaceURI
             //is different from " http://www.w3.org/XML/1998/namespace"
-            
+
             if (ownerDocument.errorChecking) {
                 if( namespaceURI == null || ( prefix.equals("xml") && !namespaceURI.equals(NamespaceContext.XML_URI) )){
                     String msg =
@@ -148,7 +148,7 @@ public class ElementNSImpl
                                 null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
-                
+
                 ownerDocument.checkQName(prefix, localName);
                 ownerDocument.checkDOMNSErr(prefix, namespaceURI);
             }
@@ -209,6 +209,7 @@ public class ElementNSImpl
      * from the Document interface, this is null.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public String getNamespaceURI()
     {
         if (needsSyncData()) {
@@ -227,6 +228,7 @@ public class ElementNSImpl
      *
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public String getPrefix()
     {
 
@@ -252,6 +254,7 @@ public class ElementNSImpl
      * @exception DOMException
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public void setPrefix(String prefix)
         throws DOMException
     {
@@ -297,6 +300,7 @@ public class ElementNSImpl
      * Returns the local part of the qualified name of this node.
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public String getLocalName()
     {
         if (needsSyncData()) {
@@ -304,11 +308,12 @@ public class ElementNSImpl
         }
         return localName;
     }
-    
+
     /**
      * NON-DOM
      * Returns the xml:base attribute.
      */
+    @Override
     protected Attr getXMLBaseAttribute() {
         return (Attr) attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace", "base");
     } // getXMLBaseAttribute():Attr
@@ -316,6 +321,7 @@ public class ElementNSImpl
     /**
      * @see org.w3c.dom.TypeInfo#getTypeName()
      */
+    @Override
     public String getTypeName() {
         if (type !=null){
             if (type instanceof XSSimpleTypeDecl) {
@@ -330,6 +336,7 @@ public class ElementNSImpl
     /**
      * @see org.w3c.dom.TypeInfo#getTypeNamespace()
      */
+    @Override
     public String getTypeNamespace() {
         if (type !=null){
             return type.getNamespace();
@@ -341,18 +348,19 @@ public class ElementNSImpl
      * Introduced in DOM Level 2. <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
-     * 
-     * @param typeNamespaceArg 
+     *
+     * @param typeNamespaceArg
      *        The namspace of the ancestor type declaration
      * @param typeNameArg
      *        The name of the ancestor type declaration
      * @param derivationMethod
      *        The derivation method
-     * 
+     *
      * @return boolean True if the type is derived by restriciton for the
      *         reference type
      */
-    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, 
+    @Override
+    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg,
             int derivationMethod) {
         if(needsSyncData()) {
             synchronizeData();
@@ -367,7 +375,7 @@ public class ElementNSImpl
             }
         }
         return false;
-    }    
+    }
 
     /**
      * NON-DOM: setting type used by the DOM parser

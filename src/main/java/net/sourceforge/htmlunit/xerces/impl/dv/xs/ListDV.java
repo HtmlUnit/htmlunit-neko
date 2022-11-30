@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,12 +21,13 @@ import java.util.AbstractList;
 
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
 
 /**
  * Represent the schema list types
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -35,17 +36,20 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
  */
 public class ListDV extends TypeValidator{
 
+    @Override
     public short getAllowedFacets(){
-          return (XSSimpleTypeDecl.FACET_LENGTH | XSSimpleTypeDecl.FACET_MINLENGTH | XSSimpleTypeDecl.FACET_MAXLENGTH | XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_ENUMERATION | XSSimpleTypeDecl.FACET_WHITESPACE );
+          return (XSSimpleTypeDefinition.FACET_LENGTH | XSSimpleTypeDefinition.FACET_MINLENGTH | XSSimpleTypeDefinition.FACET_MAXLENGTH | XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_ENUMERATION | XSSimpleTypeDefinition.FACET_WHITESPACE );
     }
 
     // this method should never be called: XSSimpleTypeDecl is responsible for
     // calling the item type for the convertion
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException{
         return content;
     }
 
     // length of a list type is the number of items in the list
+    @Override
     public int getDataLength(Object value) {
         return ((ListData)value).getLength();
     }
@@ -56,6 +60,7 @@ public class ListDV extends TypeValidator{
         public ListData(Object[] data) {
             this.data = data;
         }
+        @Override
         public synchronized String toString() {
             if (canonical == null) {
                 int len = data.length;
@@ -71,27 +76,30 @@ public class ListDV extends TypeValidator{
             }
             return canonical;
         }
+        @Override
         public int getLength() {
             return data.length;
         }
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof ListData))
                 return false;
             Object[] odata = ((ListData)obj).data;
-    
+
             int count = data.length;
             if (count != odata.length)
                 return false;
-    
+
             for (int i = 0 ; i < count ; i++) {
                 if (!data[i].equals(odata[i]))
                     return false;
             }//end of loop
-    
+
             //everything went fine.
             return true;
         }
-        
+
+        @Override
         public int hashCode() {
             int hash = 0;
             for (Object datum : data) {
@@ -99,7 +107,8 @@ public class ListDV extends TypeValidator{
             }
             return hash;
         }
-        
+
+        @Override
         public boolean contains(Object item) {
             for (Object datum : data) {
                 if (item == datum) {
@@ -108,25 +117,28 @@ public class ListDV extends TypeValidator{
             }
             return false;
         }
-        
+
+        @Override
         public Object item(int index) {
             if (index < 0 || index >= data.length) {
                 return null;
             }
             return data[index];
         }
-        
+
         /*
          * List methods
          */
-        
+
+        @Override
         public Object get(int index) {
             if (index >= 0 && index < data.length) {
                 return data[index];
             }
             throw new IndexOutOfBoundsException("Index: " + index);
         }
-        
+
+        @Override
         public int size() {
             return getLength();
         }

@@ -33,119 +33,139 @@ public class HTMLIFrameElementImpl
 
     private static final long serialVersionUID = 2393622754706230429L;
 
+    @Override
     public String getAlign()
     {
         return capitalize( getAttribute( "align" ) );
     }
 
 
+    @Override
     public void setAlign( String align )
     {
         setAttribute( "align", align );
     }
 
 
+    @Override
     public String getFrameBorder()
     {
         return getAttribute( "frameborder" );
     }
 
 
+    @Override
     public void setFrameBorder( String frameBorder )
     {
         setAttribute( "frameborder", frameBorder );
     }
 
 
+    @Override
     public String getHeight()
     {
         return getAttribute( "height" );
     }
 
 
+    @Override
     public void setHeight( String height )
     {
         setAttribute( "height", height );
     }
 
+    @Override
     public String getLongDesc()
     {
         return getAttribute( "longdesc" );
     }
 
 
+    @Override
     public void setLongDesc( String longDesc )
     {
         setAttribute( "longdesc", longDesc );
     }
 
 
+    @Override
     public String getMarginHeight()
     {
         return getAttribute( "marginheight" );
     }
 
 
+    @Override
     public void setMarginHeight( String marginHeight )
     {
         setAttribute( "marginheight", marginHeight );
     }
 
 
+    @Override
     public String getMarginWidth()
     {
         return getAttribute( "marginwidth" );
     }
 
 
+    @Override
     public void setMarginWidth( String marginWidth )
     {
         setAttribute( "marginwidth", marginWidth );
     }
 
 
-      public String getName()
+      @Override
+    public String getName()
     {
         return getAttribute( "name" );
     }
 
 
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
 
+    @Override
     public String getScrolling()
     {
         return capitalize( getAttribute( "scrolling" ) );
     }
 
 
+    @Override
     public void setScrolling( String scrolling )
     {
         setAttribute( "scrolling", scrolling );
     }
 
 
-       public String getSrc()
+       @Override
+    public String getSrc()
     {
         return getAttribute( "src" );
     }
 
 
+    @Override
     public void setSrc( String src )
     {
         setAttribute( "src", src );
     }
 
 
-      public String getWidth()
+      @Override
+    public String getWidth()
     {
         return getAttribute( "width" );
     }
 
 
+    @Override
     public void setWidth( String width )
     {
         setAttribute( "width", width );

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSValue;
  * The XML representation for an element declaration
  * schema component is an &lt;element&gt; element information item
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Sandy Gao, IBM
@@ -76,7 +76,7 @@ public class XSElementDecl implements XSElementDeclaration {
     static final int INITIAL_SIZE = 2;
     int fIDCPos = 0;
     IdentityConstraint[] fIDConstraints = new IdentityConstraint[INITIAL_SIZE];
-    // The namespace schema information item corresponding to the target namespace 
+    // The namespace schema information item corresponding to the target namespace
     // of the element declaration, if it is globally declared; or null otherwise.
     private XSNamespaceItem fNamespaceItem = null;
 
@@ -132,11 +132,12 @@ public class XSElementDecl implements XSElementDeclaration {
      * get the string description of this element
      */
     private String fDescription = null;
+    @Override
     public String toString() {
         if (fDescription == null) {
             if (fTargetNamespace != null) {
                 StringBuilder buffer = new StringBuilder(
-                    fTargetNamespace.length() + 
+                    fTargetNamespace.length() +
                     ((fName != null) ? fName.length() : 4) + 3);
                 buffer.append('"');
                 buffer.append(fTargetNamespace);
@@ -155,6 +156,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * get the hash code
      */
+    @Override
     public int hashCode() {
         int code = fName.hashCode();
         if (fTargetNamespace != null)
@@ -165,6 +167,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * whether two decls are the same
      */
+    @Override
     public boolean equals(Object o) {
         return o == this;
     }
@@ -195,6 +198,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.ELEMENT_DECLARATION;
     }
@@ -203,6 +207,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return fName;
     }
@@ -212,6 +217,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return fTargetNamespace;
     }
@@ -219,6 +225,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * Either a simple type definition or a complex type definition.
      */
+    @Override
     public XSTypeDefinition getTypeDefinition() {
         return fType;
     }
@@ -230,6 +237,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * determined when they are used in the construction of complex type
      * definitions.
      */
+    @Override
     public short getScope() {
         return fScope;
     }
@@ -239,6 +247,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * complex type definition identified by the <code>scope</code>
      * property.
      */
+    @Override
     public XSComplexTypeDefinition getEnclosingCTDefinition() {
         return fEnclosingCT;
     }
@@ -246,6 +255,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * A value constraint: one of default, fixed.
      */
+    @Override
     public short getConstraintType() {
         return (short)(fMiscFlags & CONSTRAINT_MASK);
     }
@@ -254,6 +264,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * A value constraint: The actual value (with respect to the {type
      * definition})
      */
+    @Override
     public String getConstraintValue() {
         // REVISIT: SCAPI: what's the proper representation
         return getConstraintType() == XSConstants.VC_NONE ?
@@ -268,6 +279,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * (see xsi:nil (2.6.2)) even if it has no text or element content
      * despite a {content type} which would otherwise require content.
      */
+    @Override
     public boolean getNillable() {
         return ((fMiscFlags & NILLABLE) != 0);
     }
@@ -275,6 +287,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * {identity-constraint definitions} A set of constraint definitions.
      */
+    @Override
     public XSNamedMap getIdentityConstraints() {
         return new XSNamedMapImpl(fIDConstraints, fIDCPos);
     }
@@ -283,6 +296,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * {substitution group affiliation} Optional. A top-level element
      * definition.
      */
+    @Override
     public XSElementDeclaration getSubstitutionGroupAffiliation() {
         return fSubGroup;
     }
@@ -295,6 +309,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * @return True if <code>exclusion</code> is a part of the substitution
      *   group exclusion subset.
      */
+    @Override
     public boolean isSubstitutionGroupExclusion(short exclusion) {
         return (fFinal & exclusion) != 0;
     }
@@ -307,6 +322,7 @@ public class XSElementDecl implements XSElementDeclaration {
      *
      * @return A bit flag representing {extension, restriction} or NONE.
      */
+    @Override
     public short getSubstitutionGroupExclusions() {
         return fFinal;
     }
@@ -319,6 +335,7 @@ public class XSElementDecl implements XSElementDeclaration {
      * @return True if <code>disallowed</code> is a part of the substitution
      *   group exclusion subset.
      */
+    @Override
     public boolean isDisallowedSubstitution(short disallowed) {
         return (fBlock & disallowed) != 0;
     }
@@ -328,6 +345,7 @@ public class XSElementDecl implements XSElementDeclaration {
      *
      * @return A bit flag representing {substitution, extension, restriction} or NONE.
      */
+    @Override
     public short getDisallowedSubstitutions() {
         return fBlock;
     }
@@ -335,6 +353,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * {abstract} A boolean.
      */
+    @Override
     public boolean getAbstract() {
         return ((fMiscFlags & ABSTRACT) != 0);
     }
@@ -342,6 +361,7 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -349,14 +369,16 @@ public class XSElementDecl implements XSElementDeclaration {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
-    
+
 
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return fNamespaceItem;
     }
@@ -365,24 +387,28 @@ public class XSElementDecl implements XSElementDeclaration {
         fNamespaceItem = namespaceItem;
     }
 
+    @Override
     public Object getActualVC() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
                fDefault.actualValue;
     }
 
+    @Override
     public short getActualVCType() {
         return getConstraintType() == XSConstants.VC_NONE ?
                XSConstants.UNAVAILABLE_DT :
                fDefault.actualValueType;
     }
 
+    @Override
     public ShortList getItemValueTypes() {
         return getConstraintType() == XSConstants.VC_NONE ?
                null :
                fDefault.itemValueTypes;
     }
 
+    @Override
     public XSValue getValueConstraintValue() {
         return fDefault;
     }

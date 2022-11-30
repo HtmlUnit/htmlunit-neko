@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,6 +71,7 @@ public class DOMOutputImpl implements LSOutput {
     * declaration in the data.
     */
 
+    @Override
     public Writer getCharacterStream(){
         return fCharStream;
      }
@@ -83,6 +84,7 @@ public class DOMOutputImpl implements LSOutput {
     * declaration in the data.
     */
 
+    @Override
     public void setCharacterStream(Writer characterStream){
         fCharStream = characterStream;
     }
@@ -95,6 +97,7 @@ public class DOMOutputImpl implements LSOutput {
     *  Amendment 1 of [ISO/IEC 10646]).
     */
 
+    @Override
     public OutputStream getByteStream(){
         return fByteStream;
     }
@@ -107,6 +110,7 @@ public class DOMOutputImpl implements LSOutput {
     *  Amendment 1 of [ISO/IEC 10646]).
     */
 
+    @Override
     public void setByteStream(OutputStream byteStream){
         fByteStream = byteStream;
     }
@@ -120,6 +124,7 @@ public class DOMOutputImpl implements LSOutput {
     *  implementation dependent.
     */
 
+    @Override
     public String getSystemId(){
         return fSystemId;
     }
@@ -133,6 +138,7 @@ public class DOMOutputImpl implements LSOutput {
     *  implementation dependent.
     */
 
+    @Override
     public void setSystemId(String systemId){
         fSystemId = systemId;
     }
@@ -148,6 +154,7 @@ public class DOMOutputImpl implements LSOutput {
     * [IETF RFC 2616].
     */
 
+    @Override
     public String getEncoding(){
         return fEncoding;
     }
@@ -163,6 +170,7 @@ public class DOMOutputImpl implements LSOutput {
     * [IETF RFC 2616].
     */
 
+    @Override
     public void setEncoding(String encoding){
         fEncoding = encoding;
     }

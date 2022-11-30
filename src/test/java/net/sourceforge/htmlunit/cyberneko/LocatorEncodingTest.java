@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import net.sourceforge.htmlunit.xerces.impl.Version;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -16,6 +15,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.Locator2;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.SAXParser;
+import net.sourceforge.htmlunit.xerces.impl.Version;
 
 /**
  * Regression test for <a href="http://sourceforge.net/tracker/?func=detail&atid=952178&aid=3381270&group_id=195122">Bug 3381270</a>.

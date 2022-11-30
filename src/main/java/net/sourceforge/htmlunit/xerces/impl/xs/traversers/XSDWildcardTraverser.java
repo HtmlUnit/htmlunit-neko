@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,7 +50,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
  *   Content: (annotation?)
  * &lt;/anyAttribute&gt;
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Rahul Srivastava, Sun Microsystems Inc.
  * @author Sandy Gao, IBM
@@ -58,7 +58,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
  * @version $Id$
  */
 class XSDWildcardTraverser extends XSDAbstractTraverser {
-    
+
     /**
      * constructor
      *
@@ -70,8 +70,8 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
             XSAttributeChecker gAttrCheck) {
         super(handler, gAttrCheck);
     }
-    
-    
+
+
     /**
      * Traverse &lt;any&gt;
      *
@@ -83,11 +83,11 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
     XSParticleDecl traverseAny(Element elmNode,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         // General Attribute Checking for elmNode
         Object[] attrValues = fAttrChecker.checkAttributes(elmNode, false, schemaDoc);
         XSWildcardDecl wildcard = traverseWildcardDecl(elmNode, attrValues, schemaDoc, grammar);
-        
+
         // for <any>, need to create a new particle to reflect the min/max values
         XSParticleDecl particle = null;
         if (wildcard != null) {
@@ -96,7 +96,7 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
             if (max != 0) {
                 if (fSchemaHandler.fDeclPool !=null) {
                     particle = fSchemaHandler.fDeclPool.getParticleDecl();
-                } else {        
+                } else {
                     particle = new XSParticleDecl();
                 }
                 particle.fType = XSParticleDecl.PARTICLE_WILDCARD;
@@ -106,13 +106,13 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
                 particle.fAnnotations = wildcard.fAnnotations;
             }
         }
-        
+
         fAttrChecker.returnAttrArray(attrValues, schemaDoc);
-        
+
         return particle;
     }
-    
-    
+
+
     /**
      * Traverse &lt;anyAttribute&gt;
      *
@@ -124,16 +124,16 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
     XSWildcardDecl traverseAnyAttribute(Element elmNode,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         // General Attribute Checking for elmNode
         Object[] attrValues = fAttrChecker.checkAttributes(elmNode, false, schemaDoc);
         XSWildcardDecl wildcard = traverseWildcardDecl(elmNode, attrValues, schemaDoc, grammar);
         fAttrChecker.returnAttrArray(attrValues, schemaDoc);
-        
+
         return wildcard;
     }
-    
-    
+
+
     /**
      *
      * @param  elmNode
@@ -146,7 +146,7 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
             Object[] attrValues,
             XSDocumentInfo schemaDoc,
             SchemaGrammar grammar) {
-        
+
         //get all attributes
         XSWildcardDecl wildcard = new XSWildcardDecl();
         // namespace type
@@ -157,7 +157,7 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
         // process contents
         XInt processContentsAttr = (XInt) attrValues[XSAttributeChecker.ATTIDX_PROCESSCONTENTS];
         wildcard.fProcessContents = processContentsAttr.shortValue();
-        
+
         //check content
         Element child = DOMUtil.getFirstChildElement(elmNode);
         XSAnnotationImpl annotation = null;
@@ -173,7 +173,7 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
                     annotation = traverseSyntheticAnnotation(elmNode, text, attrValues, false, schemaDoc);
                 }
             }
-            
+
             if (child != null) {
                 reportSchemaError("s4s-elt-must-match.1", new Object[]{"wildcard", "(annotation?)", DOMUtil.getLocalName(child)}, elmNode);
             }
@@ -192,9 +192,9 @@ class XSDWildcardTraverser extends XSDAbstractTraverser {
             annotations = XSObjectListImpl.EMPTY_LIST;
         }
         wildcard.fAnnotations = annotations;
-        
+
         return wildcard;
-        
+
     } // traverseWildcardDecl
-    
+
 } // XSDWildcardTraverser

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,20 +20,20 @@ package net.sourceforge.htmlunit.xerces.dom.events;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventTarget;
 
-/**  
+/**
  * EventImpl is an implementation of the basic "generic" DOM Level 2 Event
  * object. It may be subclassed by more specialized event sets.
  * Note that in our implementation, events are re-dispatchable (dispatch
  * clears the stopPropagation and preventDefault flags before it starts);
  * I believe that is the DOM's intent but I don't see an explicit statement
  * to this effect.
- *   
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @version $Id$
  */
 public class EventImpl implements Event {
-    
+
     public String type = null;
     public EventTarget target;
     public EventTarget currentTarget;
@@ -43,7 +43,7 @@ public class EventImpl implements Event {
 
     protected final long timeStamp = System.currentTimeMillis();
 
-    /** 
+    /**
      * The DOM doesn't deal with constructors, so instead we have an
      * initializer call to set most of the read-only fields. The
      * others are set, and reset, by the event subsystem during dispatch.
@@ -53,7 +53,8 @@ public class EventImpl implements Event {
      * initializations overwrite the event with new values of their
      * parameters.
      */
-    public void initEvent(String eventTypeArg, boolean canBubbleArg, 
+    @Override
+    public void initEvent(String eventTypeArg, boolean canBubbleArg,
             boolean cancelableArg) {
         type = eventTypeArg;
         bubbles = canBubbleArg;
@@ -61,74 +62,83 @@ public class EventImpl implements Event {
         initialized = true;
     }
 
-    /** 
+    /**
      * @return true iff this Event is of a class and type which supports
      * bubbling. In the generic case, this is True.
      */
+    @Override
     public boolean getBubbles() {
         return bubbles;
     }
 
-    /** 
+    /**
      * @return true iff this Event is of a class and type which (a) has a
      * Default Behavior in this DOM, and (b)allows cancellation (blocking)
      * of that behavior. In the generic case, this is False.
      */
+    @Override
     public boolean getCancelable() {
         return cancelable;
     }
 
-    /** 
+    /**
      * @return the Node (EventTarget) whose EventListeners are currently
      * being processed. During capture and bubble phases, this may not be
-     * the target node. 
+     * the target node.
      */
+    @Override
     public EventTarget getCurrentTarget() {
         return currentTarget;
     }
 
-    /** 
-     * @return the current processing phase for this event -- 
+    /**
+     * @return the current processing phase for this event --
      * CAPTURING_PHASE, AT_TARGET, BUBBLING_PHASE. (There may be
-     * an internal DEFAULT_PHASE as well, but the users won't see it.) 
+     * an internal DEFAULT_PHASE as well, but the users won't see it.)
      */
+    @Override
     public short getEventPhase() {
         return eventPhase;
     }
 
-    /** 
+    /**
      * @return the EventTarget (Node) to which the event was originally
      * dispatched.
      */
+    @Override
     public EventTarget getTarget() {
         return target;
     }
 
-    /** 
+    /**
      * @return event name as a string
      */
+    @Override
     public String getType() {
         return type;
     }
 
+    @Override
     public long getTimeStamp() {
         return timeStamp;
     }
 
-    /** 
+    /**
      * Causes exit from in-progress event dispatch before the next
-     * currentTarget is selected. Replaces the preventBubble() and 
-     * preventCapture() methods which were present in early drafts; 
-     * they may be reintroduced in future levels of the DOM. 
+     * currentTarget is selected. Replaces the preventBubble() and
+     * preventCapture() methods which were present in early drafts;
+     * they may be reintroduced in future levels of the DOM.
      */
+    @Override
     public void stopPropagation() {
         stopPropagation = true;
     }
 
-    /** 
+    /**
      * Prevents any default processing built into the target node from
      * occurring.
      */
+    @Override
     public void preventDefault() {
         preventDefault = true;
     }

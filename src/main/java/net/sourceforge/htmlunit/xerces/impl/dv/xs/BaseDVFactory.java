@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,11 +23,12 @@ import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.util.SymbolHash;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 
 /**
  * the factory to create/return built-in schema DVs and create user-defined DVs
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -55,6 +56,7 @@ public class BaseDVFactory extends SchemaDVFactory {
      * @param name  the name of the datatype
      * @return      the datatype validator of the given name
      */
+    @Override
     public XSSimpleType getBuiltInType(String name) {
         return (XSSimpleType)fBaseTypes.get(name);
     }
@@ -65,8 +67,9 @@ public class BaseDVFactory extends SchemaDVFactory {
      *
      * @return      a hashtable which contains all built-in simple types
      */
+    @Override
     public SymbolHash getBuiltInTypes() {
-        return (SymbolHash)fBaseTypes.makeClone();
+        return fBaseTypes.makeClone();
     }
 
     /**
@@ -80,6 +83,7 @@ public class BaseDVFactory extends SchemaDVFactory {
      * @param annotations       set of annotations
      * @return                  the newly created simple type
      */
+    @Override
     public XSSimpleType createTypeRestriction(String name, String targetNamespace,
                                               short finalSet, XSSimpleType base, XSObjectList annotations) {
         return new XSSimpleTypeDecl((XSSimpleTypeDecl)base, name, targetNamespace, finalSet, false, annotations);
@@ -96,6 +100,7 @@ public class BaseDVFactory extends SchemaDVFactory {
      * @param annotations       set of annotations
      * @return                  the newly created simple type
      */
+    @Override
     public XSSimpleType createTypeList(String name, String targetNamespace,
                                        short finalSet, XSSimpleType itemType,
                                        XSObjectList annotations) {
@@ -113,6 +118,7 @@ public class BaseDVFactory extends SchemaDVFactory {
      * @param annotations       set of annotations
      * @return                  the newly created simple type
      */
+    @Override
     public XSSimpleType createTypeUnion(String name, String targetNamespace,
                                         short finalSet, XSSimpleType[] memberTypes,
                                         XSObjectList annotations) {
@@ -158,89 +164,89 @@ public class BaseDVFactory extends SchemaDVFactory {
 
         XSSimpleTypeDecl anySimpleType = XSSimpleTypeDecl.fAnySimpleType;
         types.put(ANYSIMPLETYPE, anySimpleType);
-        XSSimpleTypeDecl stringDV = new XSSimpleTypeDecl(anySimpleType, STRING, XSSimpleTypeDecl.DV_STRING, XSSimpleType.ORDERED_FALSE, false, false, false, true, XSConstants.STRING_DT);
+        XSSimpleTypeDecl stringDV = new XSSimpleTypeDecl(anySimpleType, STRING, XSSimpleTypeDecl.DV_STRING, XSSimpleTypeDefinition.ORDERED_FALSE, false, false, false, true, XSConstants.STRING_DT);
         types.put(STRING, stringDV);
-        types.put(BOOLEAN, new XSSimpleTypeDecl(anySimpleType, BOOLEAN, XSSimpleTypeDecl.DV_BOOLEAN, XSSimpleType.ORDERED_FALSE, false, true, false, true, XSConstants.BOOLEAN_DT));
-        XSSimpleTypeDecl decimalDV = new XSSimpleTypeDecl(anySimpleType, DECIMAL, XSSimpleTypeDecl.DV_DECIMAL, XSSimpleType.ORDERED_TOTAL, false, false, true, true, XSConstants.DECIMAL_DT);
+        types.put(BOOLEAN, new XSSimpleTypeDecl(anySimpleType, BOOLEAN, XSSimpleTypeDecl.DV_BOOLEAN, XSSimpleTypeDefinition.ORDERED_FALSE, false, true, false, true, XSConstants.BOOLEAN_DT));
+        XSSimpleTypeDecl decimalDV = new XSSimpleTypeDecl(anySimpleType, DECIMAL, XSSimpleTypeDecl.DV_DECIMAL, XSSimpleTypeDefinition.ORDERED_TOTAL, false, false, true, true, XSConstants.DECIMAL_DT);
         types.put(DECIMAL, decimalDV);
 
-        types.put(ANYURI, new XSSimpleTypeDecl(anySimpleType, ANYURI, XSSimpleTypeDecl.DV_ANYURI, XSSimpleType.ORDERED_FALSE, false, false, false, true, XSConstants.ANYURI_DT));
-        types.put(BASE64BINARY, new XSSimpleTypeDecl(anySimpleType, BASE64BINARY, XSSimpleTypeDecl.DV_BASE64BINARY, XSSimpleType.ORDERED_FALSE, false, false, false, true, XSConstants.BASE64BINARY_DT));
-        types.put(DATETIME, new XSSimpleTypeDecl(anySimpleType, DATETIME, XSSimpleTypeDecl.DV_DATETIME, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.DATETIME_DT));
-        types.put(TIME, new XSSimpleTypeDecl(anySimpleType, TIME, XSSimpleTypeDecl.DV_TIME, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.TIME_DT));
-        types.put(DATE, new XSSimpleTypeDecl(anySimpleType, DATE, XSSimpleTypeDecl.DV_DATE, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.DATE_DT));
-        types.put(YEARMONTH, new XSSimpleTypeDecl(anySimpleType, YEARMONTH, XSSimpleTypeDecl.DV_GYEARMONTH, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.GYEARMONTH_DT));
-        types.put(YEAR, new XSSimpleTypeDecl(anySimpleType, YEAR, XSSimpleTypeDecl.DV_GYEAR, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.GYEAR_DT));
-        types.put(MONTHDAY, new XSSimpleTypeDecl(anySimpleType, MONTHDAY, XSSimpleTypeDecl.DV_GMONTHDAY, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.GMONTHDAY_DT));
-        types.put(DAY, new XSSimpleTypeDecl(anySimpleType, DAY, XSSimpleTypeDecl.DV_GDAY, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.GDAY_DT));
-        types.put(MONTH, new XSSimpleTypeDecl(anySimpleType, MONTH, XSSimpleTypeDecl.DV_GMONTH, XSSimpleType.ORDERED_PARTIAL, false, false, false, true, XSConstants.GMONTH_DT));
+        types.put(ANYURI, new XSSimpleTypeDecl(anySimpleType, ANYURI, XSSimpleTypeDecl.DV_ANYURI, XSSimpleTypeDefinition.ORDERED_FALSE, false, false, false, true, XSConstants.ANYURI_DT));
+        types.put(BASE64BINARY, new XSSimpleTypeDecl(anySimpleType, BASE64BINARY, XSSimpleTypeDecl.DV_BASE64BINARY, XSSimpleTypeDefinition.ORDERED_FALSE, false, false, false, true, XSConstants.BASE64BINARY_DT));
+        types.put(DATETIME, new XSSimpleTypeDecl(anySimpleType, DATETIME, XSSimpleTypeDecl.DV_DATETIME, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.DATETIME_DT));
+        types.put(TIME, new XSSimpleTypeDecl(anySimpleType, TIME, XSSimpleTypeDecl.DV_TIME, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.TIME_DT));
+        types.put(DATE, new XSSimpleTypeDecl(anySimpleType, DATE, XSSimpleTypeDecl.DV_DATE, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.DATE_DT));
+        types.put(YEARMONTH, new XSSimpleTypeDecl(anySimpleType, YEARMONTH, XSSimpleTypeDecl.DV_GYEARMONTH, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.GYEARMONTH_DT));
+        types.put(YEAR, new XSSimpleTypeDecl(anySimpleType, YEAR, XSSimpleTypeDecl.DV_GYEAR, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.GYEAR_DT));
+        types.put(MONTHDAY, new XSSimpleTypeDecl(anySimpleType, MONTHDAY, XSSimpleTypeDecl.DV_GMONTHDAY, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.GMONTHDAY_DT));
+        types.put(DAY, new XSSimpleTypeDecl(anySimpleType, DAY, XSSimpleTypeDecl.DV_GDAY, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.GDAY_DT));
+        types.put(MONTH, new XSSimpleTypeDecl(anySimpleType, MONTH, XSSimpleTypeDecl.DV_GMONTH, XSSimpleTypeDefinition.ORDERED_PARTIAL, false, false, false, true, XSConstants.GMONTH_DT));
 
-        XSSimpleTypeDecl integerDV = new XSSimpleTypeDecl(decimalDV, INTEGER, XSSimpleTypeDecl.DV_INTEGER, XSSimpleType.ORDERED_TOTAL, false, false, true, true, XSConstants.INTEGER_DT);
+        XSSimpleTypeDecl integerDV = new XSSimpleTypeDecl(decimalDV, INTEGER, XSSimpleTypeDecl.DV_INTEGER, XSSimpleTypeDefinition.ORDERED_TOTAL, false, false, true, true, XSConstants.INTEGER_DT);
         types.put(INTEGER, integerDV);
 
         facets.maxInclusive = "0";
         XSSimpleTypeDecl nonPositiveDV = new XSSimpleTypeDecl(integerDV, NONPOSITIVEINTEGER, URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.NONPOSITIVEINTEGER_DT);
-        nonPositiveDV.applyFacets1(facets , XSSimpleType.FACET_MAXINCLUSIVE, (short)0);
+        nonPositiveDV.applyFacets1(facets , XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0);
         types.put(NONPOSITIVEINTEGER, nonPositiveDV);
 
         facets.maxInclusive = "-1";
         XSSimpleTypeDecl negativeDV = new XSSimpleTypeDecl(nonPositiveDV, NEGATIVEINTEGER, URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.NEGATIVEINTEGER_DT);
-        negativeDV.applyFacets1(facets , XSSimpleType.FACET_MAXINCLUSIVE, (short)0);
+        negativeDV.applyFacets1(facets , XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0);
         types.put(NEGATIVEINTEGER, negativeDV);
 
         facets.maxInclusive = "9223372036854775807";
         facets.minInclusive = "-9223372036854775808";
         XSSimpleTypeDecl longDV = new XSSimpleTypeDecl(integerDV, LONG, URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.LONG_DT);
-        longDV.applyFacets1(facets , (short)(XSSimpleType.FACET_MAXINCLUSIVE | XSSimpleType.FACET_MININCLUSIVE), (short)0 );
+        longDV.applyFacets1(facets , (short)(XSSimpleTypeDefinition.FACET_MAXINCLUSIVE | XSSimpleTypeDefinition.FACET_MININCLUSIVE), (short)0 );
         types.put(LONG, longDV);
 
 
         facets.maxInclusive = "2147483647";
         facets.minInclusive =  "-2147483648";
         XSSimpleTypeDecl intDV = new XSSimpleTypeDecl(longDV, INT, URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.INT_DT);
-        intDV.applyFacets1(facets, (short)(XSSimpleType.FACET_MAXINCLUSIVE | XSSimpleType.FACET_MININCLUSIVE), (short)0 );
+        intDV.applyFacets1(facets, (short)(XSSimpleTypeDefinition.FACET_MAXINCLUSIVE | XSSimpleTypeDefinition.FACET_MININCLUSIVE), (short)0 );
         types.put(INT, intDV);
 
         facets.maxInclusive = "32767";
         facets.minInclusive = "-32768";
         XSSimpleTypeDecl shortDV = new XSSimpleTypeDecl(intDV, SHORT , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.SHORT_DT);
-        shortDV.applyFacets1(facets, (short)(XSSimpleType.FACET_MAXINCLUSIVE | XSSimpleType.FACET_MININCLUSIVE), (short)0 );
+        shortDV.applyFacets1(facets, (short)(XSSimpleTypeDefinition.FACET_MAXINCLUSIVE | XSSimpleTypeDefinition.FACET_MININCLUSIVE), (short)0 );
         types.put(SHORT, shortDV);
 
         facets.maxInclusive = "127";
         facets.minInclusive = "-128";
         XSSimpleTypeDecl byteDV = new XSSimpleTypeDecl(shortDV, BYTE , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.BYTE_DT);
-        byteDV.applyFacets1(facets, (short)(XSSimpleType.FACET_MAXINCLUSIVE | XSSimpleType.FACET_MININCLUSIVE), (short)0 );
+        byteDV.applyFacets1(facets, (short)(XSSimpleTypeDefinition.FACET_MAXINCLUSIVE | XSSimpleTypeDefinition.FACET_MININCLUSIVE), (short)0 );
         types.put(BYTE, byteDV);
 
         facets.minInclusive =  "0" ;
         XSSimpleTypeDecl nonNegativeDV = new XSSimpleTypeDecl(integerDV, NONNEGATIVEINTEGER , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.NONNEGATIVEINTEGER_DT);
-        nonNegativeDV.applyFacets1(facets, XSSimpleType.FACET_MININCLUSIVE, (short)0 );
+        nonNegativeDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MININCLUSIVE, (short)0 );
         types.put(NONNEGATIVEINTEGER, nonNegativeDV);
 
         facets.maxInclusive = "18446744073709551615" ;
         XSSimpleTypeDecl unsignedLongDV = new XSSimpleTypeDecl(nonNegativeDV, UNSIGNEDLONG , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.UNSIGNEDLONG_DT);
-        unsignedLongDV.applyFacets1(facets, XSSimpleType.FACET_MAXINCLUSIVE, (short)0 );
+        unsignedLongDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0 );
         types.put(UNSIGNEDLONG, unsignedLongDV);
 
         facets.maxInclusive = "4294967295" ;
         XSSimpleTypeDecl unsignedIntDV = new XSSimpleTypeDecl(unsignedLongDV, UNSIGNEDINT , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.UNSIGNEDINT_DT);
-        unsignedIntDV.applyFacets1(facets, XSSimpleType.FACET_MAXINCLUSIVE, (short)0 );
+        unsignedIntDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0 );
         types.put(UNSIGNEDINT, unsignedIntDV);
 
         facets.maxInclusive = "65535" ;
         XSSimpleTypeDecl unsignedShortDV = new XSSimpleTypeDecl(unsignedIntDV, UNSIGNEDSHORT , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.UNSIGNEDSHORT_DT);
-        unsignedShortDV.applyFacets1(facets, XSSimpleType.FACET_MAXINCLUSIVE, (short)0 );
+        unsignedShortDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0 );
         types.put(UNSIGNEDSHORT, unsignedShortDV);
 
         facets.maxInclusive = "255" ;
         XSSimpleTypeDecl unsignedByteDV = new XSSimpleTypeDecl(unsignedShortDV, UNSIGNEDBYTE , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.UNSIGNEDBYTE_DT);
-        unsignedByteDV.applyFacets1(facets, XSSimpleType.FACET_MAXINCLUSIVE, (short)0 );
+        unsignedByteDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MAXINCLUSIVE, (short)0 );
         types.put(UNSIGNEDBYTE, unsignedByteDV);
 
         facets.minInclusive = "1" ;
         XSSimpleTypeDecl positiveIntegerDV = new XSSimpleTypeDecl(nonNegativeDV, POSITIVEINTEGER , URI_SCHEMAFORSCHEMA, (short)0, false, null, XSConstants.POSITIVEINTEGER_DT);
-        positiveIntegerDV.applyFacets1(facets, XSSimpleType.FACET_MININCLUSIVE, (short)0 );
+        positiveIntegerDV.applyFacets1(facets, XSSimpleTypeDefinition.FACET_MININCLUSIVE, (short)0 );
         types.put(POSITIVEINTEGER, positiveIntegerDV);
     }//createBuiltInTypes(SymbolHash)
 

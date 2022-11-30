@@ -60,7 +60,7 @@ public class HTMLEntitiesParserGenerator {
         }
 
         String start = "";
-        List<State> states = new LinkedList<HTMLEntitiesParserGenerator.State>();
+        List<State> states = new LinkedList<>();
         switchChar(entities, mapped, start, states);
 
         int splitter = 1000;

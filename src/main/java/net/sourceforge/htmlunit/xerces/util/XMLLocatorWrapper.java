@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,36 +21,38 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 
 /**
  * <p>A light wrapper around an <code>XMLLocator</code>.</p>
- * 
+ *
  * @author Michael Glavassevich, IBM
- * 
+ *
  * @version $Id$
  */
 public final class XMLLocatorWrapper implements XMLLocator {
-    
+
     private XMLLocator fLocator = null;
-    
+
     public XMLLocatorWrapper() {}
-    
+
     public void setLocator(XMLLocator locator) {
         fLocator = locator;
     }
-    
+
     public XMLLocator getLocator() {
         return fLocator;
     }
-    
+
     /*
      * XMLLocator methods
      */
-    
+
+    @Override
     public String getPublicId() {
         if (fLocator != null) {
             return fLocator.getPublicId();
         }
         return null;
     }
-    
+
+    @Override
     public String getLiteralSystemId() {
         if (fLocator != null) {
             return fLocator.getLiteralSystemId();
@@ -58,6 +60,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public String getBaseSystemId() {
         if (fLocator != null) {
             return fLocator.getBaseSystemId();
@@ -65,6 +68,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public String getExpandedSystemId() {
         if (fLocator != null) {
             return fLocator.getExpandedSystemId();
@@ -72,6 +76,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public int getLineNumber() {
         if (fLocator != null) {
             return fLocator.getLineNumber();
@@ -79,6 +84,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return -1;
     }
 
+    @Override
     public int getColumnNumber() {
         if (fLocator != null) {
             return fLocator.getColumnNumber();
@@ -86,6 +92,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return -1;
     }
 
+    @Override
     public int getCharacterOffset() {
         if (fLocator != null) {
             return fLocator.getCharacterOffset();
@@ -93,6 +100,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return -1;
     }
 
+    @Override
     public String getEncoding() {
         if (fLocator != null) {
             return fLocator.getEncoding();
@@ -100,6 +108,7 @@ public final class XMLLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public String getXMLVersion() {
         if (fLocator != null) {
             return fLocator.getXMLVersion();

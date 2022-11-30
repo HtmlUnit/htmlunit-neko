@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,8 +35,8 @@ import org.w3c.dom.Node;
  * Most notably, absolutely no provision was made for storing
  * and using Element and Attribute information. Nor was the linkage
  * between Entities and Entity References nailed down solidly.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
@@ -81,6 +81,7 @@ public class DeferredDocumentTypeImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -90,6 +91,7 @@ public class DeferredDocumentTypeImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected void synchronizeData() {
 
         // no need to sync in the future
@@ -108,8 +110,9 @@ public class DeferredDocumentTypeImpl
     } // synchronizeData()
 
     /** Synchronizes the entities, notations, and elements. */
+    @Override
     protected void synchronizeChildren() {
-        
+
         // we don't want to generate any event for this so turn them off
         boolean orig = ownerDocument().getMutationEvents();
         ownerDocument().setMutationEvents(false);

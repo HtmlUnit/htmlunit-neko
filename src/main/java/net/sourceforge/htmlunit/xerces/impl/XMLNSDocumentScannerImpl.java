@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,7 +56,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  *  <li>http://apache.org/xml/properties/internal/dtd-scanner</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Elena Litani, IBM
@@ -79,12 +79,12 @@ extends XMLDocumentScannerImpl {
 
     /** DTD validator */
     private XMLDTDValidatorFilter fDTDValidator;
-    
-    /** 
+
+    /**
      * Saw spaces after element name or between attributes.
-     * 
+     *
      * This is reserved for the case where scanning of a start element spans
-     * several methods, as is the case when scanning the start of a root element 
+     * several methods, as is the case when scanning the start of a root element
      * where a DTD external subset may be read after scanning the element name.
      */
     private boolean fSawSpace;
@@ -121,6 +121,7 @@ extends XMLDocumentScannerImpl {
      * @return True if element is empty. (i.e. It matches
      *          production [44].
      */
+    @Override
     protected boolean scanStartElement()
     throws IOException, XNIException {
         if (DEBUG_CONTENT_SCANNING) System.out.println(">>> scanStartElementNS()");
@@ -238,7 +239,7 @@ extends XMLDocumentScannerImpl {
                     // checkDuplicates(fAttributeQName, fAttributes);
                 }
             }
-            
+
             if (length > 1) {
                 QName name = fAttributes.checkDuplicatesNS();
                 if (name != null) {
@@ -251,7 +252,7 @@ extends XMLDocumentScannerImpl {
                     else {
                         fErrorReporter.reportError(XMLMessageFormatter.XMLNS_DOMAIN,
                                                    "AttributeNotUnique",
-                                                   new Object[]{fElementQName.rawname, name.rawname}, 
+                                                   new Object[]{fElementQName.rawname, name.rawname},
                                                    XMLErrorReporter.SEVERITY_FATAL_ERROR);
                     }
                 }
@@ -290,10 +291,11 @@ extends XMLDocumentScannerImpl {
     } // scanStartElement():boolean
 
     /**
-     * Scans the name of an element in a start or empty tag. 
-     * 
+     * Scans the name of an element in a start or empty tag.
+     *
      * @see #scanStartElement()
      */
+    @Override
     protected void scanStartElementName ()
         throws IOException, XNIException {
         // Note: namespace processing is on by default
@@ -305,13 +307,14 @@ extends XMLDocumentScannerImpl {
 
     /**
      * Scans the remainder of a start or empty tag after the element name.
-     * 
+     *
      * @see #scanStartElement
      * @return True if element is empty.
      */
+    @Override
     protected boolean scanStartElementAfterName()
         throws IOException, XNIException {
-        
+
         // REVISIT - [Q] Why do we need this temp variable? -- mrglavas
         String rawname = fElementQName.rawname;
         if (fBindNamespaces) {
@@ -340,7 +343,7 @@ extends XMLDocumentScannerImpl {
         boolean empty = false;
         fAttributes.removeAllAttributes();
         do {
-            
+
             // end tag?
             int c = fEntityScanner.peekChar();
             if (c == '>') {
@@ -362,7 +365,7 @@ extends XMLDocumentScannerImpl {
 
             // attributes
             scanAttribute(fAttributes);
-            
+
             // spaces
             fSawSpace = fEntityScanner.skipSpaces();
 
@@ -424,7 +427,7 @@ extends XMLDocumentScannerImpl {
                     // checkDuplicates(fAttributeQName, fAttributes);
                 }
             }
-            
+
             if (length > 1) {
                 QName name = fAttributes.checkDuplicatesNS();
                 if (name != null) {
@@ -437,7 +440,7 @@ extends XMLDocumentScannerImpl {
                     else {
                         fErrorReporter.reportError(XMLMessageFormatter.XMLNS_DOMAIN,
                                                    "AttributeNotUnique",
-                                                   new Object[]{fElementQName.rawname, name.rawname}, 
+                                                   new Object[]{fElementQName.rawname, name.rawname},
                                                    XMLErrorReporter.SEVERITY_FATAL_ERROR);
                     }
                 }
@@ -508,7 +511,7 @@ extends XMLDocumentScannerImpl {
 
         // content
         int attrIndex;
-       
+
         if (fBindNamespaces) {
             attrIndex = attributes.getLength();
             attributes.addAttributeNS(fAttributeQName, XMLSymbols.fCDATASymbol, null);
@@ -516,7 +519,7 @@ extends XMLDocumentScannerImpl {
         else {
             int oldLen = attributes.getLength();
             attrIndex = attributes.addAttribute(fAttributeQName, XMLSymbols.fCDATASymbol, null);
-            
+
             // WFC: Unique Att Spec
             if (oldLen == attributes.getLength()) {
                 reportFatalError("AttributeNotUnique",
@@ -528,7 +531,7 @@ extends XMLDocumentScannerImpl {
         // Scan attribute value and return true if the non-normalized and normalized value are the same
         boolean isSameNormalizedAttr = scanAttributeValue(this.fTempString, fTempString2,
                 fAttributeQName.rawname, fIsEntityDeclaredVC, fCurrentElement.rawname);
-        
+
         String value = fTempString.toString();
         attributes.setValue(attrIndex, value);
         // If the non-normalized and normalized value are the same, avoid creating a new string.
@@ -539,7 +542,7 @@ extends XMLDocumentScannerImpl {
 
         // record namespace declarations if any.
         if (fBindNamespaces) {
-            
+
             String localpart = fAttributeQName.localpart;
             String prefix = fAttributeQName.prefix != null
                             ? fAttributeQName.prefix : XMLSymbols.EMPTY_STRING;
@@ -631,6 +634,7 @@ extends XMLDocumentScannerImpl {
      *
      * @return The element depth.
      */
+    @Override
     protected int scanEndElement() throws IOException, XNIException {
         if (DEBUG_CONTENT_SCANNING) System.out.println(">>> scanEndElement()");
 
@@ -682,6 +686,7 @@ extends XMLDocumentScannerImpl {
     } // scanEndElement():int
 
 
+    @Override
     public void reset(XMLComponentManager componentManager)
     throws XMLConfigurationException {
 
@@ -691,6 +696,7 @@ extends XMLDocumentScannerImpl {
     }
 
     /** Creates a content dispatcher. */
+    @Override
     protected Dispatcher createContentDispatcher() {
         return new NSContentDispatcher();
     } // createContentDispatcher():Dispatcher
@@ -700,7 +706,7 @@ extends XMLDocumentScannerImpl {
      */
     protected final class NSContentDispatcher
         extends ContentDispatcher {
-        
+
         /**
          * Scan for root element hook. This method is a hook for
          * subclasses to add code that handles scanning for the root
@@ -714,9 +720,10 @@ extends XMLDocumentScannerImpl {
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
          */
+        @Override
         protected boolean scanRootElementHook()
             throws IOException, XNIException {
-       
+
             if (fExternalSubsetResolver != null && !fSeenDoctypeDecl
                 && !fDisallowDoctype && (fValidation || fLoadExternalDTD)) {
                 scanStartElementName();
@@ -739,9 +746,9 @@ extends XMLDocumentScannerImpl {
             return false;
 
         } // scanRootElementHook():boolean
-        
+
         /**
-         * Re-configures pipeline by removing the DTD validator 
+         * Re-configures pipeline by removing the DTD validator
          * if no DTD grammar exists. If no validator exists in the
          * pipeline or there is no DTD grammar, namespace binding
          * is performed by the scanner in the enclosing class.

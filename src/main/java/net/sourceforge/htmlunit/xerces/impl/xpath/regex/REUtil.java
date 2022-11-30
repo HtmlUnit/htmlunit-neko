@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import java.text.CharacterIterator;
 
 /**
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 public final class REUtil {
@@ -110,25 +110,25 @@ public final class REUtil {
     static final String createOptionString(int options) {
         StringBuilder sb = new StringBuilder(9);
         if ((options & RegularExpression.PROHIBIT_FIXED_STRING_OPTIMIZATION) != 0)
-            sb.append((char)'F');
+            sb.append('F');
         if ((options & RegularExpression.PROHIBIT_HEAD_CHARACTER_OPTIMIZATION) != 0)
-            sb.append((char)'H');
+            sb.append('H');
         if ((options & RegularExpression.XMLSCHEMA_MODE) != 0)
-            sb.append((char)'X');
+            sb.append('X');
         if ((options & RegularExpression.IGNORE_CASE) != 0)
-            sb.append((char)'i');
+            sb.append('i');
         if ((options & RegularExpression.MULTIPLE_LINES) != 0)
-            sb.append((char)'m');
+            sb.append('m');
         if ((options & RegularExpression.SINGLE_LINE) != 0)
-            sb.append((char)'s');
+            sb.append('s');
         if ((options & RegularExpression.USE_UNICODE_CATEGORY) != 0)
-            sb.append((char)'u');
+            sb.append('u');
         if ((options & RegularExpression.UNICODE_WORD_BOUNDARY) != 0)
-            sb.append((char)'w');
+            sb.append('w');
         if ((options & RegularExpression.EXTENDED_COMMENT) != 0)
-            sb.append((char)'x');
+            sb.append('x');
         if ((options & RegularExpression.SPECIAL_COMMA) != 0)
-            sb.append((char)',');
+            sb.append(',');
         return sb.toString().intern();
     }
 
@@ -167,7 +167,7 @@ public final class REUtil {
                     buffer.append((char)next);
                     offset ++;
                 } else {                        // Other escaped character.
-                    buffer.append((char)'\\');
+                    buffer.append('\\');
                     buffer.append((char)next);
                     offset ++;
                 }
@@ -184,7 +184,7 @@ public final class REUtil {
                     else if (next == '^' && offset + 1 < len) {
                         next = regex.charAt(offset + 1);
                         if (next == '[' || next ==']') {
-                            buffer.append((char)'^');
+                            buffer.append('^');
                             buffer.append((char)next);
                             offset += 2;
                         }
@@ -343,7 +343,7 @@ public final class REUtil {
                     buffer = new StringBuilder(i+(len-i)*2);
                     if (i > 0)  buffer.append(literal.substring(0, i));
                 }
-                buffer.append((char)'\\');
+                buffer.append('\\');
                 buffer.append((char)ch);
             } else if (buffer != null)
                 buffer.append((char)ch);

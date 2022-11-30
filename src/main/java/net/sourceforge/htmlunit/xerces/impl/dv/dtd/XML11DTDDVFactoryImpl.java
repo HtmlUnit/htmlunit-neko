@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,8 +25,8 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 
 /**
  * the factory to create/return built-in XML 1.1 DVs and create user-defined DVs
- * 
- * @xerces.internal  
+ *
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  *
@@ -39,11 +39,12 @@ public class XML11DTDDVFactoryImpl extends DTDDVFactoryImpl {
     /**
      * return a dtd type of the given name
      * This will call the super class if and only if it does not
-     * recognize the passed-in name.  
+     * recognize the passed-in name.
      *
      * @param name  the name of the datatype
      * @return      the datatype validator of the given name
      */
+    @Override
     public DatatypeValidator getBuiltInDV(String name) {
         if(fXML11BuiltInTypes.get(name) != null) {
             return (DatatypeValidator)fXML11BuiltInTypes.get(name);
@@ -57,6 +58,7 @@ public class XML11DTDDVFactoryImpl extends DTDDVFactoryImpl {
      *
      * @return      a hashtable which contains all datatypes
      */
+    @Override
     public Hashtable getBuiltInTypes() {
         Hashtable toReturn = (Hashtable)fBuiltInTypes.clone();
         Iterator entries = fXML11BuiltInTypes.entrySet().iterator();

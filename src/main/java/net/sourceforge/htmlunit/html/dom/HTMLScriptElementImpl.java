@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,11 +34,12 @@ public class HTMLScriptElementImpl
 
     private static final long serialVersionUID = 5090330049085326558L;
 
+    @Override
     public String getText()
     {
         Node child;
         StringBuilder text = new StringBuilder();
-        
+
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
@@ -51,13 +52,14 @@ public class HTMLScriptElementImpl
         }
         return text.toString();
     }
-    
-    
+
+
+    @Override
     public void setText( String text )
     {
         Node    child;
         Node    next;
-        
+
         // Delete all the nodes and replace them with a single Text node.
         // This is the only approach that can handle comments and other nodes.
         child = getFirstChild();
@@ -70,81 +72,93 @@ public class HTMLScriptElementImpl
         insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
     }
 
-    
-       public String getHtmlFor()
+
+       @Override
+    public String getHtmlFor()
     {
         return getAttribute( "for" );
     }
-    
-    
+
+
+    @Override
     public void setHtmlFor( String htmlFor )
     {
         setAttribute( "for", htmlFor );
     }
 
-    
-       public String getEvent()
+
+       @Override
+    public String getEvent()
     {
         return getAttribute( "event" );
     }
-    
-    
+
+
+    @Override
     public void setEvent( String event )
     {
         setAttribute( "event", event );
     }
-    
-       public String getCharset()
+
+       @Override
+    public String getCharset()
     {
         return getAttribute( "charset" );
     }
-    
-    
+
+
+    @Override
     public void setCharset( String charset )
     {
         setAttribute( "charset", charset );
     }
 
-    
+
+    @Override
     public boolean getDefer()
     {
         return getBinary( "defer" );
     }
-    
-    
+
+
+    @Override
     public void setDefer( boolean defer )
     {
         setAttribute( "defer", defer );
     }
 
-  
-       public String getSrc()
+
+       @Override
+    public String getSrc()
     {
         return getAttribute( "src" );
     }
-    
-    
+
+
+    @Override
     public void setSrc( String src )
     {
         setAttribute( "src", src );
     }
 
-  
+
+    @Override
     public String getType()
     {
         return getAttribute( "type" );
     }
-    
-    
+
+
+    @Override
     public void setType( String type )
     {
         setAttribute( "type", type );
     }
-    
-    
+
+
       /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLScriptElementImpl( HTMLDocumentImpl owner, String name )
@@ -152,6 +166,6 @@ public class HTMLScriptElementImpl
         super( owner, name );
     }
 
-  
+
 }
 

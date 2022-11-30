@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSValue;
  * nil, specified, normalized value, member type, validity, error codes,
  * default
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani IBM
  * @version $Id$
@@ -52,12 +52,12 @@ public class ElementPSVImpl implements ElementPSVI {
     /** type of element, could be xsi:type */
     protected XSTypeDefinition fTypeDecl = null;
 
-    /** true if clause 3.2 of Element Locally Valid (Element) (3.3.4) 
-      * is satisfied, otherwise false 
+    /** true if clause 3.2 of Element Locally Valid (Element) (3.3.4)
+      * is satisfied, otherwise false
       */
     protected boolean fNil = false;
 
-    /** true if the element value was provided by the schema; false otherwise. 
+    /** true if the element value was provided by the schema; false otherwise.
      */
     protected boolean fSpecified = false;
 
@@ -78,18 +78,18 @@ public class ElementPSVImpl implements ElementPSVI {
 
     /** validation context: could be QName or XPath expression*/
     protected String fValidationContext = null;
-    
+
     /** deferred XSModel **/
     protected SchemaGrammar[] fGrammars = null;
 
     /** the schema information property */
     protected XSModel fSchemaInformation = null;
-    
+
     /** true if this object is immutable **/
     protected boolean fIsConstant;
-    
+
     public ElementPSVImpl() {}
-    
+
     public ElementPSVImpl(boolean isConstant, ElementPSVI elementPSVI) {
         fDeclaration = elementPSVI.getElementDeclaration();
         fTypeDecl = elementPSVI.getTypeDefinition();
@@ -122,24 +122,26 @@ public class ElementPSVImpl implements ElementPSVI {
         }
         fIsConstant = isConstant;
     }
-    
+
     //
     // ElementPSVI methods
     //
-    
+
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#constant()
      */
+    @Override
     public ItemPSVI constant() {
         if (isConstant()) {
             return this;
         }
         return new ElementPSVImpl(true, this);
     }
-    
+
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#isConstant()
      */
+    @Override
     public boolean isConstant() {
         return fIsConstant;
     }
@@ -150,6 +152,7 @@ public class ElementPSVImpl implements ElementPSVI {
      * @return The canonical lexical representation of the declaration's {value constraint} value.
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_default>XML Schema Part 1: Structures [schema default]</a>
      */
+    @Override
     public String getSchemaDefault() {
         return fDeclaration == null ? null : fDeclaration.getConstraintValue();
     }
@@ -161,15 +164,17 @@ public class ElementPSVImpl implements ElementPSVI {
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_normalized_value>XML Schema Part 1: Structures [schema normalized value]</a>
      * @return the normalized value of this item after validation
      */
+    @Override
     public String getSchemaNormalizedValue() {
         return fValue.getNormalizedValue();
     }
 
     /**
-     * [schema specified] 
+     * [schema specified]
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-schema_specified">XML Schema Part 1: Structures [schema specified]</a>
      * @return true - value was specified in schema, false - value comes from the infoset
      */
+    @Override
     public boolean getIsSchemaSpecified() {
         return fSpecified;
     }
@@ -180,6 +185,7 @@ public class ElementPSVImpl implements ElementPSVI {
      * @return return the [validation attempted] property. The possible values are
      *         NO_VALIDATION, PARTIAL_VALIDATION and FULL_VALIDATION
      */
+    @Override
     public short getValidationAttempted() {
         return fValidationAttempted;
     }
@@ -191,6 +197,7 @@ public class ElementPSVImpl implements ElementPSVI {
      * @return return the [validity] property. Possible values are:
      *         UNKNOWN_VALIDITY, INVALID_VALIDITY, VALID_VALIDITY
      */
+    @Override
     public short getValidity() {
         return fValidity;
     }
@@ -201,19 +208,21 @@ public class ElementPSVImpl implements ElementPSVI {
      *
      * @return Array of error codes
      */
+    @Override
     public StringList getErrorCodes() {
         if (fErrors == null || fErrors.length == 0) {
             return StringListImpl.EMPTY_LIST;
         }
         return new PSVIErrorList(fErrors, true);
     }
-    
+
     /**
      * A list of error messages generated from the validation attempt or
-     * an empty <code>StringList</code> if no errors occurred during the 
-     * validation attempt. The indices of error messages in this list are 
+     * an empty <code>StringList</code> if no errors occurred during the
+     * validation attempt. The indices of error messages in this list are
      * aligned with those in the <code>[schema error code]</code> list.
      */
+    @Override
     public StringList getErrorMessages() {
         if (fErrors == null || fErrors.length == 0) {
             return StringListImpl.EMPTY_LIST;
@@ -222,6 +231,7 @@ public class ElementPSVImpl implements ElementPSVI {
     }
 
     // This is the only information we can provide in a pipeline.
+    @Override
     public String getValidationContext() {
         return fValidationContext;
     }
@@ -231,37 +241,41 @@ public class ElementPSVImpl implements ElementPSVI {
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-nil>XML Schema Part 1: Structures [nil]</a>
      * @return true if clause 3.2 of Element Locally Valid (Element) (3.3.4) above is satisfied, otherwise false
      */
+    @Override
     public boolean getNil() {
         return fNil;
     }
 
     /**
-     * [notation] 
+     * [notation]
      * @see <a href="http://www.w3.org/TR/xmlschema-1/#e-notation>XML Schema Part 1: Structures [notation]</a>
-     * @return The notation declaration. 
+     * @return The notation declaration.
      */
+    @Override
     public XSNotationDeclaration getNotation() {
         return fNotation;
     }
 
     /**
      * An item isomorphic to the type definition used to validate this element.
-     * 
+     *
      * @return  a type declaration
      */
+    @Override
     public XSTypeDefinition getTypeDefinition() {
         return fTypeDecl;
     }
-    
+
     /**
      * If and only if that type definition is a simple type definition
      * with {variety} union, or a complex type definition whose {content type}
      * is a simple thype definition with {variety} union, then an item isomorphic
      * to that member of the union's {member type definitions} which actually
      * validated the element item's normalized value.
-     * 
+     *
      * @return  a simple type declaration
      */
+    @Override
     public XSSimpleTypeDefinition getMemberTypeDefinition() {
         return fValue.getMemberTypeDefinition();
     }
@@ -269,9 +283,10 @@ public class ElementPSVImpl implements ElementPSVI {
     /**
      * An item isomorphic to the element declaration used to validate
      * this element.
-     * 
+     *
      * @return  an element declaration
      */
+    @Override
     public XSElementDeclaration getElementDeclaration() {
         return fDeclaration;
     }
@@ -282,16 +297,18 @@ public class ElementPSVImpl implements ElementPSVI {
      * @return The schema information property if it's the validation root,
      *         null otherwise.
      */
+    @Override
     public synchronized XSModel getSchemaInformation() {
         if (fSchemaInformation == null && fGrammars != null) {
             fSchemaInformation = new XSModelImpl(fGrammars);
         }
         return fSchemaInformation;
     }
-    
+
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#getActualNormalizedValue()
      */
+    @Override
     public Object getActualNormalizedValue() {
         return fValue.getActualValue();
     }
@@ -299,6 +316,7 @@ public class ElementPSVImpl implements ElementPSVI {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#getActualNormalizedValueType()
      */
+    @Override
     public short getActualNormalizedValueType() {
         return fValue.getActualValueType();
     }
@@ -306,6 +324,7 @@ public class ElementPSVImpl implements ElementPSVI {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#getItemValueTypes()
      */
+    @Override
     public ShortList getItemValueTypes() {
         return fValue.getListValueTypes();
     }
@@ -313,10 +332,11 @@ public class ElementPSVImpl implements ElementPSVI {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.ItemPSVI#getSchemaValue()
      */
+    @Override
     public XSValue getSchemaValue() {
         return fValue;
     }
-    
+
     /**
      * Reset() should be called in validator startElement(..) method.
      */
@@ -326,13 +346,13 @@ public class ElementPSVImpl implements ElementPSVI {
         fNil = false;
         fSpecified = false;
         fNotation = null;
-        fValidationAttempted = ElementPSVI.VALIDATION_NONE;
-        fValidity = ElementPSVI.VALIDITY_NOTKNOWN;
+        fValidationAttempted = ItemPSVI.VALIDATION_NONE;
+        fValidity = ItemPSVI.VALIDITY_NOTKNOWN;
         fErrors = null;
         fValidationContext = null;
         fValue.reset();
     }
-    
+
     public void copySchemaInformationTo(ElementPSVImpl target) {
         target.fGrammars = fGrammars;
         target.fSchemaInformation = fSchemaInformation;

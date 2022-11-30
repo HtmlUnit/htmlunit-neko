@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -95,10 +95,10 @@ public class DOMParserImpl
     /** XML Schema validation */
     protected static final String XMLSCHEMA =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_VALIDATION_FEATURE;
-    
+
     /** XML Schema full checking */
     protected static final String XMLSCHEMA_FULL_CHECKING =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_FULL_CHECKING;    
+        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_FULL_CHECKING;
 
     /** Dynamic validation */
     protected static final String DYNAMIC_VALIDATION =
@@ -111,17 +111,17 @@ public class DOMParserImpl
     /** Feature identifier: disallow docType Decls. */
     protected static final String DISALLOW_DOCTYPE_DECL_FEATURE =
         Constants.XERCES_FEATURE_PREFIX + Constants.DISALLOW_DOCTYPE_DECL_FEATURE;
-    
+
     /** Feature identifier: honour all schemaLocations */
-    protected static final String HONOUR_ALL_SCHEMALOCATIONS = 
+    protected static final String HONOUR_ALL_SCHEMALOCATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.HONOUR_ALL_SCHEMALOCATIONS_FEATURE;
 
     /** Feature identifier: namespace growth */
-    protected static final String NAMESPACE_GROWTH = 
+    protected static final String NAMESPACE_GROWTH =
         Constants.XERCES_FEATURE_PREFIX + Constants.NAMESPACE_GROWTH_FEATURE;
 
     /** Feature identifier: tolerate duplicates */
-    protected static final String TOLERATE_DUPLICATES = 
+    protected static final String TOLERATE_DUPLICATES =
         Constants.XERCES_FEATURE_PREFIX + Constants.TOLERATE_DUPLICATES_FEATURE;
 
     // internal properties
@@ -171,10 +171,10 @@ public class DOMParserImpl
         if (schemaType != null) {
             if (schemaType.equals (Constants.NS_DTD)) {
                 //Schema validation is false by default and hence there is no
-                //need to set it to false here.  Also, schema validation is  
-                //not a recognized feature for DTDConfiguration's and so 
-                //setting this feature here would result in a Configuration 
-                //Exception.            
+                //need to set it to false here.  Also, schema validation is
+                //not a recognized feature for DTDConfiguration's and so
+                //setting this feature here would result in a Configuration
+                //Exception.
                 fConfiguration.setProperty (
                 Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
                 Constants.NS_DTD);
@@ -229,7 +229,7 @@ public class DOMParserImpl
         fConfiguration.setFeature(INCLUDE_COMMENTS_FEATURE, true);
         fConfiguration.setFeature(INCLUDE_IGNORABLE_WHITESPACE, true);
         fConfiguration.setFeature(NAMESPACES, true);
-        
+
         fConfiguration.setFeature(DYNAMIC_VALIDATION, false);
         fConfiguration.setFeature(CREATE_ENTITY_REF_NODES, false);
         fConfiguration.setFeature(CREATE_CDATA_NODES_FEATURE, false);
@@ -252,7 +252,7 @@ public class DOMParserImpl
             fConfiguration.setFeature ( NORMALIZE_DATA, false );
         }
         catch (XMLConfigurationException exc) {}
-    
+
     } // <init>(XMLParserConfiguration)
 
     /**
@@ -292,13 +292,14 @@ public class DOMParserImpl
      *
      * @throws SAXException Thrown on initialization error.
      */
+    @Override
     public void reset () {
         super.reset();
-        
+
         // get state of namespace-declarations parameter.
-        fNamespaceDeclarations = 
+        fNamespaceDeclarations =
             fConfiguration.getFeature(Constants.DOM_NAMESPACE_DECLARATIONS);
-                
+
         // DOM Filter
         if (fNullFilterInUse) {
             fDOMFilter = null;
@@ -317,36 +318,39 @@ public class DOMParserImpl
     // DOMParser methods
     //
 
+    @Override
     public DOMConfiguration getDomConfig (){
         return this;
     }
 
     /**
-     * When a filter is provided, the implementation will call out to the 
-     * filter as it is constructing the DOM tree structure. The filter can 
-     * choose to remove elements from the document being constructed, or to 
-     * terminate the parsing early. 
-     * <br> The filter is invoked after the operations requested by the 
-     * <code>DOMConfiguration</code> parameters have been applied. For 
+     * When a filter is provided, the implementation will call out to the
+     * filter as it is constructing the DOM tree structure. The filter can
+     * choose to remove elements from the document being constructed, or to
+     * terminate the parsing early.
+     * <br> The filter is invoked after the operations requested by the
+     * <code>DOMConfiguration</code> parameters have been applied. For
      * example, if "<a href='http://www.w3.org/TR/DOM-Level-3-Core/core.html#parameter-validate'>
-     * validate</a>" is set to <code>true</code>, the validation is done before invoking the 
-     * filter. 
+     * validate</a>" is set to <code>true</code>, the validation is done before invoking the
+     * filter.
      */
+    @Override
     public LSParserFilter getFilter () {
         return !fNullFilterInUse ? fDOMFilter : null;
     }
 
     /**
-     * When a filter is provided, the implementation will call out to the 
-     * filter as it is constructing the DOM tree structure. The filter can 
-     * choose to remove elements from the document being constructed, or to 
-     * terminate the parsing early. 
-     * <br> The filter is invoked after the operations requested by the 
-     * <code>DOMConfiguration</code> parameters have been applied. For 
+     * When a filter is provided, the implementation will call out to the
+     * filter as it is constructing the DOM tree structure. The filter can
+     * choose to remove elements from the document being constructed, or to
+     * terminate the parsing early.
+     * <br> The filter is invoked after the operations requested by the
+     * <code>DOMConfiguration</code> parameters have been applied. For
      * example, if "<a href='http://www.w3.org/TR/DOM-Level-3-Core/core.html#parameter-validate'>
-     * validate</a>" is set to <code>true</code>, the validation is done before invoking the 
-     * filter. 
+     * validate</a>" is set to <code>true</code>, the validation is done before invoking the
+     * filter.
      */
+    @Override
     public void setFilter (LSParserFilter filter) {
         if (fBusy && filter == null && fDOMFilter != null) {
             fNullFilterInUse = true;
@@ -363,9 +367,10 @@ public class DOMParserImpl
     /**
      * Set parameters and properties
      */
+    @Override
     public void setParameter (String name, Object value) throws DOMException {
         // set features
-        
+
         if (value instanceof Boolean) {
             boolean state = ((Boolean)value).booleanValue();
             try {
@@ -396,7 +401,7 @@ public class DOMParserImpl
                 else if (name.equalsIgnoreCase (Constants.DOM_INFOSET)) {
                     // Setting false has no effect.
                     if (state) {
-                        // true: namespaces, namespace-declarations, 
+                        // true: namespaces, namespace-declarations,
                         // comments, element-content-whitespace
                         fConfiguration.setFeature(NAMESPACES, true);
                         fConfiguration.setFeature(Constants.DOM_NAMESPACE_DECLARATIONS, true);
@@ -456,7 +461,7 @@ public class DOMParserImpl
                     // Constants.DOM_SPLIT_CDATA feature,
                     // or any Xerces feature
                     String normalizedName;
-                    // The honour-all-schemaLocations feature is 
+                    // The honour-all-schemaLocations feature is
                     // mixed case so requires special treatment.
                     if (name.equalsIgnoreCase(HONOUR_ALL_SCHEMALOCATIONS)) {
                         normalizedName = HONOUR_ALL_SCHEMALOCATIONS;
@@ -594,10 +599,10 @@ public class DOMParserImpl
                     return;
                 }
                 catch (XMLConfigurationException e) {}
-                
+
                 // If this is a boolean parameter a type mismatch should be thrown.
                 try {
-                    // The honour-all-schemaLocations feature is 
+                    // The honour-all-schemaLocations feature is
                     // mixed case so requires special treatment.
                     if (name.equalsIgnoreCase(HONOUR_ALL_SCHEMALOCATIONS)) {
                         normalizedName = HONOUR_ALL_SCHEMALOCATIONS;
@@ -610,10 +615,10 @@ public class DOMParserImpl
                     }
                     fConfiguration.getFeature(normalizedName);
                     throw newTypeMismatchError(name);
-                    
+
                 }
                 catch (XMLConfigurationException e) {}
-                
+
                 // Parameter is not recognized
                 throw newFeatureNotFoundError(name);
             }
@@ -623,6 +628,7 @@ public class DOMParserImpl
     /**
      * Look up the value of a feature or a property.
      */
+    @Override
     public Object getParameter (String name) throws DOMException {
         if (name.equalsIgnoreCase (Constants.DOM_COMMENTS)) {
             return (fConfiguration.getFeature (INCLUDE_COMMENTS_FEATURE))
@@ -732,8 +738,8 @@ public class DOMParserImpl
         else {
             // This could be a recognized feature or property.
             String normalizedName;
-            
-            // The honour-all-schemaLocations feature is 
+
+            // The honour-all-schemaLocations feature is
             // mixed case so requires special treatment.
             if (name.equalsIgnoreCase(HONOUR_ALL_SCHEMALOCATIONS)) {
                 normalizedName = HONOUR_ALL_SCHEMALOCATIONS;
@@ -748,26 +754,27 @@ public class DOMParserImpl
                 normalizedName = name.toLowerCase(Locale.ENGLISH);
             }
             try {
-                return fConfiguration.getFeature(normalizedName) 
+                return fConfiguration.getFeature(normalizedName)
                     ? Boolean.TRUE : Boolean.FALSE;
             }
             catch (XMLConfigurationException e) {}
-            
+
             // This isn't a feature; perhaps it's a property
             try {
                 return fConfiguration.getProperty(normalizedName);
             }
             catch (XMLConfigurationException e) {}
-            
+
             throw newFeatureNotFoundError(name);
         }
     }
 
+    @Override
     public boolean canSetParameter (String name, Object value) {
         if (value == null) {
             return true;
         }
-        
+
         if (value instanceof Boolean) {
             boolean state = ((Boolean)value).booleanValue();
             if ( name.equalsIgnoreCase (Constants.DOM_SUPPORTED_MEDIATYPES_ONLY)
@@ -801,7 +808,7 @@ public class DOMParserImpl
             // Recognize Xerces features.
             try {
                 String normalizedName;
-                // The honour-all-schemaLocations feature is 
+                // The honour-all-schemaLocations feature is
                 // mixed case so requires special treatment.
                 if (name.equalsIgnoreCase(HONOUR_ALL_SCHEMALOCATIONS)) {
                     normalizedName = HONOUR_ALL_SCHEMALOCATIONS;
@@ -851,7 +858,7 @@ public class DOMParserImpl
             else if (name.equalsIgnoreCase (DOCUMENT_CLASS_NAME)) {
                 return true;
             }
-            
+
             // Recognize Xerces properties.
             try {
                 fConfiguration.getProperty(name.toLowerCase(Locale.ENGLISH));
@@ -871,43 +878,44 @@ public class DOMParserImpl
      * can be set by the application. Note that this list can also contain
      * parameter names defined outside this specification.
      */
+    @Override
     public DOMStringList getParameterNames () {
         if (fRecognizedParameters == null){
             ArrayList parameters = new ArrayList();
-            
+
             // REVISIT: add Xerces recognized properties/features
             parameters.add(Constants.DOM_NAMESPACES);
             parameters.add(Constants.DOM_CDATA_SECTIONS);
             parameters.add(Constants.DOM_CANONICAL_FORM);
             parameters.add(Constants.DOM_NAMESPACE_DECLARATIONS);
             parameters.add(Constants.DOM_SPLIT_CDATA);
-            
+
             parameters.add(Constants.DOM_ENTITIES);
             parameters.add(Constants.DOM_VALIDATE_IF_SCHEMA);
             parameters.add(Constants.DOM_VALIDATE);
             parameters.add(Constants.DOM_DATATYPE_NORMALIZATION);
-            
+
             parameters.add(Constants.DOM_CHARSET_OVERRIDES_XML_ENCODING);
             parameters.add(Constants.DOM_CHECK_CHAR_NORMALIZATION);
             parameters.add(Constants.DOM_SUPPORTED_MEDIATYPES_ONLY);
             parameters.add(Constants.DOM_IGNORE_UNKNOWN_CHARACTER_DENORMALIZATIONS);
-            
+
             parameters.add(Constants.DOM_NORMALIZE_CHARACTERS);
             parameters.add(Constants.DOM_WELLFORMED);
             parameters.add(Constants.DOM_INFOSET);
             parameters.add(Constants.DOM_DISALLOW_DOCTYPE);
             parameters.add(Constants.DOM_ELEMENT_CONTENT_WHITESPACE);
             parameters.add(Constants.DOM_COMMENTS);
-            
+
             parameters.add(Constants.DOM_ERROR_HANDLER);
             parameters.add(Constants.DOM_RESOURCE_RESOLVER);
             parameters.add(Constants.DOM_SCHEMA_LOCATION);
             parameters.add(Constants.DOM_SCHEMA_TYPE);
-            
+
             fRecognizedParameters = new DOMStringListImpl(parameters);
-            
+
         }
-        
+
         return fRecognizedParameters;
     }
 
@@ -917,6 +925,7 @@ public class DOMParserImpl
      * behavior is not defined by this specification.
      *
      */
+    @Override
     public Document parseURI (String uri) throws LSException {
 
         //If DOMParser insstance is already busy parsing another document when this
@@ -932,7 +941,7 @@ public class DOMParserImpl
             parse (source);
             fBusy = false;
             if (abortNow && currentThread.isInterrupted()) {
-                //reset interrupt state 
+                //reset interrupt state
                 abortNow = false;
                 Thread.interrupted();
             }
@@ -972,6 +981,7 @@ public class DOMParserImpl
      * <code>LSInput</code>.
      *
      */
+    @Override
     public Document parse (LSInput is) throws LSException {
 
         // need to wrap the LSInput with an XMLInputSource
@@ -984,9 +994,9 @@ public class DOMParserImpl
             currentThread = Thread.currentThread();
             fBusy = true;
             parse (xmlInputSource);
-            fBusy = false;   
+            fBusy = false;
             if (abortNow && currentThread.isInterrupted()) {
-                //reset interrupt state 
+                //reset interrupt state
                 abortNow = false;
                 Thread.interrupted();
             }
@@ -1047,6 +1057,7 @@ public class DOMParserImpl
      *   HIERARCHY_REQUEST_ERR: Thrown if this action results in an invalid
      *   hierarchy (i.e. a Document with more than one document element).
      */
+    @Override
     public Node parseWithContext (LSInput is, Node cnode,
     short action) throws DOMException, LSException {
         // REVISIT: need to implement.
@@ -1084,12 +1095,12 @@ public class DOMParserImpl
             "UTF-16");
         }
         // otherwise, just use the public/system/base Ids
-        else if ((is.getSystemId() != null && is.getSystemId().length() > 0) || 
+        else if ((is.getSystemId() != null && is.getSystemId().length() > 0) ||
             (is.getPublicId() != null && is.getPublicId().length() > 0)) {
             xis = new XMLInputSource (is.getPublicId (), is.getSystemId (),
             is.getBaseURI ());
         }
-        else { 
+        else {
             // all inputs are null
             if (fErrorHandler != null) {
                 DOMErrorImpl error = new DOMErrorImpl();
@@ -1106,6 +1117,7 @@ public class DOMParserImpl
     /**
      * @see org.w3c.dom.ls.LSParser#getAsync()
      */
+    @Override
     public boolean getAsync () {
         return false;
     }
@@ -1113,6 +1125,7 @@ public class DOMParserImpl
     /**
      * @see org.w3c.dom.ls.LSParser#getBusy()
      */
+    @Override
     public boolean getBusy () {
         return fBusy;
     }
@@ -1120,6 +1133,7 @@ public class DOMParserImpl
     /**
      * @see org.w3c.dom.ls.LSParser#abort()
      */
+    @Override
     public void abort () {
         // If parse operation is in progress then reset it
         if (fBusy) {
@@ -1136,7 +1150,7 @@ public class DOMParserImpl
                     throw Abort.INSTANCE;
                 }
                 currentThread.interrupt();
-            }               
+            }
         }
         return; // If not busy then this is noop
     }
@@ -1153,6 +1167,7 @@ public class DOMParserImpl
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startElement (QName element, XMLAttributes attributes, Augmentations augs) {
         // namespace declarations parameter has no effect if namespaces is false.
         if (!fNamespaceDeclarations && fNamespaceAware) {
@@ -1166,232 +1181,284 @@ public class DOMParserImpl
         }
         super.startElement(element, attributes, augs);
     }
-    
+
     static final class NullLSParserFilter implements LSParserFilter {
         static final NullLSParserFilter INSTANCE = new NullLSParserFilter();
         private NullLSParserFilter() {}
+        @Override
         public short acceptNode(Node nodeArg) {
             return LSParserFilter.FILTER_ACCEPT;
         }
+        @Override
         public int getWhatToShow() {
             return NodeFilter.SHOW_ALL;
         }
+        @Override
         public short startElement(Element elementArg) {
             return LSParserFilter.FILTER_ACCEPT;
         }
     }
-    
+
     private static final class AbortHandler implements XMLDocumentHandler, XMLDTDHandler, XMLDTDContentModelHandler {
 
         private XMLDocumentSource documentSource;
         private XMLDTDContentModelSource dtdContentSource;
         private XMLDTDSource dtdSource;
 
+        @Override
         public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void comment(XMLString text, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startGeneralEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void textDecl(String version, String encoding, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void characters(XMLString text, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endElement(QName element, Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startCDATA(Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endCDATA(Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endDocument(Augmentations augs) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void setDocumentSource(XMLDocumentSource source) {
             documentSource = source;
         }
 
+        @Override
         public XMLDocumentSource getDocumentSource() {
             return documentSource;
         }
 
+        @Override
         public void startDTD(XMLLocator locator, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startParameterEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endParameterEntity(String name, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startExternalSubset(XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endExternalSubset(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void elementDecl(String name, String contentModel, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startAttlist(String elementName, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void attributeDecl(String elementName, String attributeName, String type, String[] enumeration, String defaultType, XMLString defaultValue, XMLString nonNormalizedDefaultValue, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endAttlist(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void internalEntityDecl(String name, XMLString text, XMLString nonNormalizedText, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void externalEntityDecl(String name, XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void unparsedEntityDecl(String name, XMLResourceIdentifier identifier, String notation, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void notationDecl(String name, XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startConditional(short type, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void ignoredCharacters(XMLString text, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endConditional(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endDTD(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void setDTDSource(XMLDTDSource source) {
             dtdSource = source;
         }
 
+        @Override
         public XMLDTDSource getDTDSource() {
             return dtdSource;
         }
 
+        @Override
         public void startContentModel(String elementName, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void any(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void empty(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void startGroup(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void pcdata(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void element(String elementName, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void separator(short separator, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void occurrence(short occurrence, Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endGroup(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void endContentModel(Augmentations augmentations) throws XNIException {
             throw Abort.INSTANCE;
         }
 
+        @Override
         public void setDTDContentModelSource(XMLDTDContentModelSource source) {
             dtdContentSource = source;
         }
 
+        @Override
         public XMLDTDContentModelSource getDTDContentModelSource() {
             return dtdContentSource;
-        }  
+        }
     }
-    
+
     private static DOMException newInvalidStateError() {
-        String msg = 
+        String msg =
             DOMMessageFormatter.formatMessage (
                     DOMMessageFormatter.DOM_DOMAIN,
                     "INVALID_STATE_ERR", null);
         throw new DOMException ( DOMException.INVALID_STATE_ERR, msg);
     }
-    
+
     private static DOMException newFeatureNotSupportedError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage (
@@ -1400,7 +1467,7 @@ public class DOMParserImpl
                     new Object[] { name });
         return new DOMException (DOMException.NOT_SUPPORTED_ERR, msg);
     }
-    
+
     private static DOMException newFeatureNotFoundError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage (
@@ -1409,7 +1476,7 @@ public class DOMParserImpl
                     new Object[] { name });
         return new DOMException (DOMException.NOT_FOUND_ERR, msg);
     }
-    
+
     private static DOMException newTypeMismatchError(String name) {
         String msg =
             DOMMessageFormatter.formatMessage (
@@ -1418,5 +1485,5 @@ public class DOMParserImpl
                     new Object[] { name });
         return new DOMException (DOMException.TYPE_MISMATCH_ERR, msg);
     }
-    
+
 } // class DOMParserImpl

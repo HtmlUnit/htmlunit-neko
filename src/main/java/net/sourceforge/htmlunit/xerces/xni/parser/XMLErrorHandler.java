@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -86,12 +86,12 @@ public interface XMLErrorHandler {
      * handler fails to throw an exception, the continuing operation of
      * the parser is undetermined.
      *
-     * @param domain    The domain of the fatal error. The domain can be 
+     * @param domain    The domain of the fatal error. The domain can be
      *                  any string but is suggested to be a valid URI. The
      *                  domain can be used to conveniently specify a web
      *                  site location of the relevant specification or
      *                  document pertaining to this fatal error.
-     * @param key       The fatal error key. This key can be any string 
+     * @param key       The fatal error key. This key can be any string
      *                  and is implementation dependent.
      * @param exception Exception.
      *

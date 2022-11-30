@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ package net.sourceforge.htmlunit.xerces.util;
 
 public final class SynchronizedSymbolTable
     extends SymbolTable {
-        
+
     //
     // Data
     //
@@ -44,7 +44,7 @@ public final class SynchronizedSymbolTable
     /** Constructs a synchronized symbol table. */
     public SynchronizedSymbolTable(SymbolTable symbolTable) {
         fSymbolTable = symbolTable;
-    } // <init>(SymbolTable) 
+    } // <init>(SymbolTable)
 
     // construct synchronized symbol table of default size
     public SynchronizedSymbolTable() {
@@ -59,15 +59,16 @@ public final class SynchronizedSymbolTable
     //
     // SymbolTable methods
     //
-        
+
     /**
      * Adds the specified symbol to the symbol table and returns a
-     * reference to the unique symbol. If the symbol already exists, 
+     * reference to the unique symbol. If the symbol already exists,
      * the previous symbol reference is returned instead, in order
      * guarantee that symbol references remain unique.
-     * 
+     *
      * @param symbol The new symbol.
      */
+    @Override
     public String addSymbol(String symbol) {
 
         synchronized (fSymbolTable) {
@@ -78,14 +79,15 @@ public final class SynchronizedSymbolTable
 
     /**
      * Adds the specified symbol to the symbol table and returns a
-     * reference to the unique symbol. If the symbol already exists, 
+     * reference to the unique symbol. If the symbol already exists,
      * the previous symbol reference is returned instead, in order
      * guarantee that symbol references remain unique.
-     * 
+     *
      * @param buffer The buffer containing the new symbol.
      * @param offset The offset into the buffer of the new symbol.
      * @param length The length of the new symbol in the buffer.
      */
+    @Override
     public String addSymbol(char[] buffer, int offset, int length) {
 
         synchronized (fSymbolTable) {
@@ -94,12 +96,13 @@ public final class SynchronizedSymbolTable
 
     } // addSymbol(char[],int,int):String
 
-    /** 
+    /**
      * Returns true if the symbol table already contains the specified
      * symbol.
      *
      * @param symbol The symbol to look for.
      */
+    @Override
     public boolean containsSymbol(String symbol) {
 
         synchronized (fSymbolTable) {
@@ -108,7 +111,7 @@ public final class SynchronizedSymbolTable
 
     } // containsSymbol(String):boolean
 
-    /** 
+    /**
      * Returns true if the symbol table already contains the specified
      * symbol.
      *
@@ -116,6 +119,7 @@ public final class SynchronizedSymbolTable
      * @param offset The offset into the buffer.
      * @param length The length of the symbol in the buffer.
      */
+    @Override
     public boolean containsSymbol(char[] buffer, int offset, int length) {
 
         synchronized (fSymbolTable) {

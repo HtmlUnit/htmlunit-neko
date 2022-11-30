@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -141,6 +141,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized Element getDocumentElement()
     {
         Node    html;
@@ -255,6 +256,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized String getTitle()
     {
         HTMLElement head;
@@ -275,6 +277,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized void setTitle( String newTitle )
     {
         HTMLElement head;
@@ -303,6 +306,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized HTMLElement getBody()
     {
         Node    html;
@@ -349,6 +353,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized void setBody( HTMLElement newBody )
     {
         Node    html;
@@ -399,6 +404,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public synchronized Element getElementById( String elementId )
     {
         Element idElement = super.getElementById(elementId);
@@ -409,18 +415,21 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public NodeList getElementsByName( String elementName )
     {
         return new NameNodeListImpl( this, elementName );
     }
 
 
+    @Override
     public final NodeList getElementsByTagName( String tagName )
     {
         return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH) );
     }
 
 
+    @Override
     public final NodeList getElementsByTagNameNS( String namespaceURI,
                                                   String localName )
     {
@@ -444,6 +453,7 @@ public class HTMLDocumentImpl
      * @throws DOMException INVALID_CHARACTER_ERR: Raised if the specified
      *                      name contains an invalid character.
      */
+    @Override
     public Element createElementNS(String namespaceURI, String qualifiedName,
                                    String localpart)
         throws DOMException
@@ -451,6 +461,7 @@ public class HTMLDocumentImpl
         return createElementNS(namespaceURI, qualifiedName);
     }
 
+    @Override
     public Element createElementNS( String namespaceURI, String qualifiedName )
     {
         if ( namespaceURI == null || namespaceURI.length() == 0 ) {
@@ -460,6 +471,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public Element createElement( String tagName )
         throws DOMException
     {
@@ -510,13 +522,15 @@ public class HTMLDocumentImpl
      * @throws DOMException(INVALID_NAME_ERR) if the attribute name
      *   is not acceptable
      */
+    @Override
     public Attr createAttribute( String name )
         throws DOMException
     {
         return super.createAttribute( name.toLowerCase(Locale.ENGLISH) );
     }
 
-    
+
+    @Override
     public String getReferrer()
     {
         // Information not available on server side.
@@ -524,6 +538,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public String getDomain()
     {
         // Information not available on server side.
@@ -531,6 +546,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public String getURL()
     {
         // Information not available on server side.
@@ -538,6 +554,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public String getCookie()
     {
         // Information not available on server side.
@@ -545,12 +562,14 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public void setCookie( String cookie )
     {
         // Information not available on server side.
     }
 
 
+    @Override
     public HTMLCollection getImages()
     {
         // For more information see HTMLCollection#collectionMatch
@@ -560,6 +579,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public HTMLCollection getApplets()
     {
         // For more information see HTMLCollection#collectionMatch
@@ -569,6 +589,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public HTMLCollection getLinks()
     {
         // For more information see HTMLCollection#collectionMatch
@@ -578,6 +599,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public HTMLCollection getForms()
     {
         // For more information see HTMLCollection#collectionMatch
@@ -587,6 +609,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public HTMLCollection getAnchors()
     {
         // For more information see HTMLCollection#collectionMatch
@@ -596,6 +619,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public void open()
     {
         // When called an in-memory is prepared. The document tree is still
@@ -605,6 +629,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public void close()
     {
         // ! NOT IMPLEMENTED, REQUIRES PARSER !
@@ -615,6 +640,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public void write( String text )
     {
         // Write a string into the in-memory writer.
@@ -623,6 +649,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public void writeln( String text )
     {
         // Write a line into the in-memory writer.
@@ -631,6 +658,7 @@ public class HTMLDocumentImpl
     }
 
 
+    @Override
     public Node cloneNode( boolean deep )
     {
         HTMLDocumentImpl newdoc = new HTMLDocumentImpl();
@@ -638,25 +666,26 @@ public class HTMLDocumentImpl
         cloneNode(newdoc, deep);
         return newdoc;
     }
-    
-    
+
+
     /* (non-Javadoc)
      * @see CoreDocumentImpl#canRenameElements()
      */
+    @Override
     protected boolean canRenameElements(String newNamespaceURI, String newNodeName, ElementImpl el) {
         if (el.getNamespaceURI() != null) {
             // element is not HTML:
             // can be renamed if not changed to HTML
             return newNamespaceURI != null;
         }
-        
+
         // check whether a class change is required
         Class newClass = (Class) _elementTypesHTML.get(newNodeName.toUpperCase(Locale.ENGLISH));
         Class oldClass = (Class) _elementTypesHTML.get(el.getTagName());
         return newClass == oldClass;
     }
 
-    
+
     /**
      * Recursive method retreives an element by its <code>id</code> attribute.
      * Called by {@link #getElementById(String)}.

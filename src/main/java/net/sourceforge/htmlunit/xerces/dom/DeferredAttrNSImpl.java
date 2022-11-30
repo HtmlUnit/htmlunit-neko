@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,10 +26,10 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 /**
  * DeferredAttrNSImpl is to AttrNSImpl, what DeferredAttrImpl is to
- * AttrImpl. 
- * 
+ * AttrImpl.
+ *
  * @xerces.internal
- * 
+ *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
  * @version $Id$
@@ -75,6 +75,7 @@ public final class DeferredAttrNSImpl
     //
 
     /** Returns the node index. */
+    @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
@@ -84,6 +85,7 @@ public final class DeferredAttrNSImpl
     //
 
     /** Synchronizes the data (name and value) for fast nodes. */
+    @Override
     protected void synchronizeData() {
 
         // no need to sync in the future
@@ -98,7 +100,7 @@ public final class DeferredAttrNSImpl
         int index = name.indexOf(':');
         if (index < 0) {
             localName = name;
-        } 
+        }
         else {
             localName = name.substring(index + 1);
         }
@@ -108,7 +110,7 @@ public final class DeferredAttrNSImpl
         isIdAttribute((extra & ID) != 0);
 
         namespaceURI = ownerDocument.getNodeURI(fNodeIndex);
-        
+
         int extraNode = ownerDocument.getLastChild(fNodeIndex);
         type = ownerDocument.getTypeInfo(extraNode);
     } // synchronizeData()
@@ -119,6 +121,7 @@ public final class DeferredAttrNSImpl
      * the two structures in sync. The problem gets worse when
      * editing the tree -- this makes it a lot easier.
      */
+    @Override
     protected void synchronizeChildren() {
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) ownerDocument();

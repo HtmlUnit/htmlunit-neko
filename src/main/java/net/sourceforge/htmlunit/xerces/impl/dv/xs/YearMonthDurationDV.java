@@ -31,6 +31,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  */
 class YearMonthDurationDV extends DurationDV {
 
+    @Override
     public Object getActualValue(String content, ValidationContext context)
         throws InvalidDatatypeValueException {
         try {

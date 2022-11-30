@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,31 +35,35 @@ public class HTMLSelectElementImpl
     implements HTMLSelectElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = -6998282711006968187L; 
+    private static final long serialVersionUID = -6998282711006968187L;
 
+    @Override
     public String getType()
     {
         return getAttribute( "type" );
     }
 
-    
-      public String getValue()
+
+      @Override
+    public String getValue()
     {
         return getAttribute( "value" );
     }
-    
-    
+
+
+    @Override
     public void setValue( String value )
     {
         setAttribute( "value", value );
     }
 
-    
+
+    @Override
     public int getSelectedIndex()
     {
         NodeList    options;
         int            i;
-        
+
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
@@ -71,13 +75,14 @@ public class HTMLSelectElementImpl
                 return i;
         return -1;
     }
-    
-    
+
+
+    @Override
     public void setSelectedIndex( int selectedIndex )
     {
         NodeList    options;
         int            i;
-        
+
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
@@ -88,92 +93,106 @@ public class HTMLSelectElementImpl
             ( (HTMLOptionElementImpl) options.item( i ) ).setSelected( i == selectedIndex );
     }
 
-  
+
+    @Override
     public HTMLCollection getOptions()
     {
         if ( _options == null )
             _options = new HTMLCollectionImpl( this, HTMLCollectionImpl.OPTION );
         return _options;
     }
-    
 
+
+    @Override
     public int getLength()
     {
         return getOptions().getLength();
     }
-    
-    
+
+
+    @Override
     public boolean getDisabled()
     {
         return getBinary( "disabled" );
     }
-    
-    
+
+
+    @Override
     public void setDisabled( boolean disabled )
     {
         setAttribute( "disabled", disabled );
     }
 
-    
-      public boolean getMultiple()
+
+      @Override
+    public boolean getMultiple()
     {
         return getBinary( "multiple" );
     }
-    
-    
+
+
+    @Override
     public void setMultiple( boolean multiple )
     {
         setAttribute( "multiple", multiple );
     }
 
-  
-      public String getName()
+
+      @Override
+    public String getName()
     {
         return getAttribute( "name" );
     }
-    
-    
+
+
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
-    
+
+    @Override
     public int getSize()
     {
         return getInteger( getAttribute( "size" ) );
     }
-    
-    
+
+
+    @Override
     public void setSize( int size )
     {
         setAttribute( "size", String.valueOf( size ) );
     }
 
-  
+
+    @Override
     public int getTabIndex()
     {
         return getInteger( getAttribute( "tabindex" ) );
     }
-    
-    
+
+
+    @Override
     public void setTabIndex( int tabIndex )
     {
         setAttribute( "tabindex", String.valueOf( tabIndex ) );
     }
 
-    
+
+    @Override
     public void add( HTMLElement element, HTMLElement before )
     {
         insertBefore( element, before );
     }
-  
-  
+
+
+    @Override
     public void remove( int index )
     {
         NodeList    options;
         Node        removed;
-        
+
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
@@ -185,13 +204,15 @@ public class HTMLSelectElementImpl
             removed.getParentNode().removeChild ( removed );
     }
 
-  
+
+    @Override
     public void               blur()
     {
         // No scripting in server-side DOM. This method is moot.
     }
-      
-      
+
+
+    @Override
     public void               focus()
     {
         // No scripting in server-side DOM. This method is moot.
@@ -201,23 +222,25 @@ public class HTMLSelectElementImpl
      * Explicit implementation of getChildNodes() to avoid problems with
      * overriding the getLength() method hidden in the super class.
      */
+    @Override
     public NodeList getChildNodes() {
         return getChildNodesUnoptimized();
     }
-    
+
     /**
      * Explicit implementation of cloneNode() to ensure that cache used
      * for getOptions() gets cleared.
      */
+    @Override
     public Node cloneNode(boolean deep) {
         HTMLSelectElementImpl clonedNode = (HTMLSelectElementImpl)super.cloneNode( deep );
         clonedNode._options = null;
         return clonedNode;
     }
-  
+
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLSelectElementImpl( HTMLDocumentImpl owner, String name )
@@ -227,7 +250,7 @@ public class HTMLSelectElementImpl
 
 
     private HTMLCollection    _options;
-  
-  
+
+
 }
 

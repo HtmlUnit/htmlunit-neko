@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,14 +40,14 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * See the XML 1.0 spec, sections 4.7 and 2.6, for more info.
  * <P>
  * Level 1 of the DOM does not support editing Notation contents.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
  * @since  PR-DOM-Level-1-19980818.
  */
-public class NotationImpl 
-    extends NodeImpl 
+public class NotationImpl
+    extends NodeImpl
     implements Notation {
 
     //
@@ -56,7 +56,7 @@ public class NotationImpl
 
     /** Serialization version. */
     static final long serialVersionUID = -764632195890658402L;
-    
+
     //
     // Data
     //
@@ -82,15 +82,16 @@ public class NotationImpl
         super(ownerDoc);
         this.name = name;
     }
-    
+
     //
     // Node methods
     //
 
-    /** 
+    /**
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
+    @Override
     public short getNodeType() {
         return Node.NOTATION_NODE;
     }
@@ -98,6 +99,7 @@ public class NotationImpl
     /**
      * Returns the notation name
      */
+    @Override
     public String getNodeName() {
         if (needsSyncData()) {
             synchronizeData();
@@ -111,8 +113,9 @@ public class NotationImpl
 
     /**
      * The Public Identifier for this Notation. If no public identifier
-     * was specified, this will be null.  
+     * was specified, this will be null.
      */
+    @Override
     public String getPublicId() {
 
         if (needsSyncData()) {
@@ -124,8 +127,9 @@ public class NotationImpl
 
     /**
      * The System Identifier for this Notation. If no system identifier
-     * was specified, this will be null.  
+     * was specified, this will be null.
      */
+    @Override
     public String getSystemId() {
 
         if (needsSyncData()) {
@@ -139,9 +143,9 @@ public class NotationImpl
     // Public methods
     //
 
-    /** 
+    /**
      * NON-DOM: The Public Identifier for this Notation. If no public
-     * identifier was specified, this will be null.  
+     * identifier was specified, this will be null.
      */
     public void setPublicId(String id) {
 
@@ -157,9 +161,9 @@ public class NotationImpl
 
     } // setPublicId(String)
 
-    /** 
+    /**
      * NON-DOM: The System Identifier for this Notation. If no system
-     * identifier was specified, this will be null.  
+     * identifier was specified, this will be null.
      */
     public void setSystemId(String id) {
 
@@ -174,16 +178,17 @@ public class NotationImpl
         systemId = id;
 
     } // setSystemId(String)
-    
+
 
     /**
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
-     * 
+     *
      * @return The absolute base URI of this node or null.
      * @since DOM Level 3
      */
+    @Override
     public String getBaseURI() {
         if (needsSyncData()) {
             synchronizeData();

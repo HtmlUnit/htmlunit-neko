@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ package net.sourceforge.htmlunit.xerces.impl.dv.util;
  * data. You need the data that you will encode/decode
  * already on a byte arrray.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Jeffrey Rodriguez
  * @author Sandy Gao
@@ -77,8 +77,8 @@ public final class  Base64 {
 
         for (int i = 52,  j = 0; i<=61; i++, j++)
             lookUpBase64Alphabet[i] = (char)('0' + j);
-        lookUpBase64Alphabet[62] = (char)'+';
-        lookUpBase64Alphabet[63] = (char)'/';
+        lookUpBase64Alphabet[62] = '+';
+        lookUpBase64Alphabet[63] = '/';
 
     }
 
@@ -113,7 +113,7 @@ public final class  Base64 {
         if (lengthDataBits == 0) {
             return "";
         }
-        
+
         int      fewerThan24bits   = lengthDataBits%TWENTYFOURBITGROUP;
         int      numberTriplets    = lengthDataBits/TWENTYFOURBITGROUP;
         int      numberQuartet     = fewerThan24bits != 0 ? numberTriplets+1 : numberTriplets;
@@ -203,7 +203,7 @@ public final class  Base64 {
         char[] base64Data = encoded.toCharArray();
         // remove white spaces
         int len = removeWhiteSpace(base64Data);
-        
+
         if (len%FOURBYTE != 0) {
             return null;//should be divisible by four
         }
@@ -285,7 +285,7 @@ public final class  Base64 {
 
     /**
      * remove WhiteSpace from MIME containing encoded Base64 data.
-     * 
+     *
      * @param data  the byte array of base64 data (with WS)
      * @return      the new length
      */

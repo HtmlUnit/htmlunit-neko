@@ -38,6 +38,7 @@ public class TimeDV extends AbstractDateTimeDV {
      * @param  content The lexical representation of time
      * @return a valid and normalized time object
      */
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException{
         try{
             return parse(content);
@@ -87,6 +88,7 @@ public class TimeDV extends AbstractDateTimeDV {
      * @param date   time object
      * @return lexical representation of time: hh:mm:ss.sss with an optional time zone sign
      */
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(16);
         append(message, date.hour, 2);

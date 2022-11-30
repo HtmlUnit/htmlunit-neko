@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -53,9 +53,9 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * likely to lead to a dead lock condition. Therefore, there is a chance of the
  * document being changed as results are fetched; in all likelihood, the results
  * might be out dated, but not erroneous.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLCollection
@@ -71,61 +71,61 @@ class HTMLCollectionImpl
      * have a <code>name</code> attribute.
      */
     static final short        ANCHOR = 1;
-    
-    
+
+
     /**
      * Request collection of all forms in document: &lt;FORM&gt; elements.
      */
     static final short        FORM = 2;
-    
-    
+
+
     /**
      * Request collection of all images in document: &lt;IMG&gt; elements.
      */
     static final short        IMAGE = 3;
-    
-    
+
+
     /**
      * Request collection of all Applets in document: &lt;APPLET&gt; and
      * &lt;OBJECT&gt; elements (&lt;OBJECT&gt; must contain an Applet).
      */
     static final short        APPLET = 4;
-    
-    
+
+
     /**
      * Request collection of all links in document: &lt;A&gt; and &lt;AREA&gt;
      * elements (must have a <code>href</code> attribute).
      */
     static final short        LINK = 5;
-    
-    
+
+
     /**
      * Request collection of all options in selection: &lt;OPTION&gt; elements in
      * &lt;SELECT&gt; or &lt;OPTGROUP&gt;.
      */
     static final short        OPTION = 6;
-    
-    
+
+
     /**
      * Request collection of all rows in table: &lt;TR&gt; elements in table or
      * table section.
      */
     static final short        ROW = 7;
 
-    
+
     /**
      * Request collection of all form elements: &lt;INPUT&gt;, &lt;BUTTON&gt;,
      * &lt;SELECT&gt;, and &lt;TEXTAREA&gt; elements inside form &lt;FORM&gt;.
      */
     static final short        ELEMENT = 8;
-    
-    
+
+
     /**
      * Request collection of all areas in map: &lt;AREA&gt; element in &lt;MAP&gt;
      * (non recursive).
      */
     static final short        AREA = -1;
-    
+
 
     /**
      * Request collection of all table bodies in table: &lt;TBODY&gt; element in
@@ -133,22 +133,22 @@ class HTMLCollectionImpl
      */
     static final short        TBODY = -2;
 
-    
+
     /**
      * Request collection of all cells in row: &lt;TD&gt; and &lt;TH&gt;
      * elements in &lt;TR&gt; (non recursive).
      */
     static final short        CELL = -3;
 
-    
+
     /**
      * Indicates what this collection is looking for. Holds one of the enumerated
      * values and used by {@link #collectionMatch}. Set by the constructor and
      * determine the collection's use for its life time.
      */
     private final short            _lookingFor;
-    
-    
+
+
     /**
      * This is the top level element underneath which the collection exists.
      */
@@ -159,7 +159,7 @@ class HTMLCollectionImpl
      * Construct a new collection that retrieves element of the specific type
      * (<code>lookingFor</code>) from the specific document portion
      * (<code>topLevel</code>).
-     * 
+     *
      * @param topLevel The element underneath which the collection exists
      * @param lookingFor Code indicating what elements to look for
      */
@@ -170,14 +170,15 @@ class HTMLCollectionImpl
         _topLevel = topLevel;
        _lookingFor = lookingFor;
     }
-  
-  
+
+
     /**
      * Returns the length of the collection. This method might traverse the
      * entire document tree.
-     * 
+     *
      * @return Length of the collection
      */
+    @Override
     public final int getLength()
     {
         // Call recursive function on top-level element.
@@ -189,10 +190,11 @@ class HTMLCollectionImpl
      * Retrieves the indexed node from the collection. Nodes are numbered in
      * tree order - depth-first traversal order. This method might traverse
      * the entire document tree.
-     * 
+     *
      * @param index The index of the node to return
      * @return The specified node or null if no such node found
      */
+    @Override
     public final Node item( int index )
     {
         if ( index < 0 )
@@ -200,17 +202,18 @@ class HTMLCollectionImpl
         // Call recursive function on top-level element.
         return item( _topLevel, new CollectionIndex( index ) );
     }
-    
-    
+
+
     /**
      * Retrieves the named node from the collection. The name is matched case
      * sensitive against the <TT>id</TT> attribute of each element in the
      * collection, returning the first match. The tree is traversed in
      * depth-first order. This method might traverse the entire document tree.
-     * 
+     *
      * @param name The name of the node to return
      * @return The specified node or null if no such node found
      */
+    @Override
     public final Node namedItem( String name )
     {
         if ( name == null )
@@ -218,13 +221,13 @@ class HTMLCollectionImpl
         // Call recursive function on top-level element.
         return namedItem( _topLevel, name );
     }
-    
-    
+
+
     /**
      * Recursive function returns the number of elements of a particular type
      * that exist under the top level element. This is a recursive function
      * and the top level element is passed along.
-     * 
+     *
      * @param topLevel Top level element from which to scan
      * @return Number of elements
      */
@@ -232,7 +235,7 @@ class HTMLCollectionImpl
     {
         int        length;
         Node    node;
-    
+
         synchronized ( topLevel )
         {
             // Always count from zero and traverse all the childs of the
@@ -252,13 +255,13 @@ class HTMLCollectionImpl
                     else if ( recurse() )
                         length += getLength( (Element) node );
                 }
-                node = node.getNextSibling(); 
+                node = node.getNextSibling();
             }
         }
         return length;
     }
-    
-        
+
+
     /**
      * Recursive function returns the numbered element of a particular type
      * that exist under the top level element. This is a recursive function
@@ -269,7 +272,7 @@ class HTMLCollectionImpl
      * for any like element found. Since integers are only passed by value,
      * this function makes use of a separate class ({@link CollectionIndex})
      * to hold that index.
-     * 
+     *
      * @param topLevel Top level element from which to scan
      * @param index The index of the item to retreive
      * @return Number of elements
@@ -306,17 +309,17 @@ class HTMLCollectionImpl
                             return result;
                     }
                 }
-                node = node.getNextSibling(); 
+                node = node.getNextSibling();
             }
         }
         return null;
     }
-    
-    
+
+
     /**
      * Recursive function returns an element of a particular type with the
      * specified name (<TT>id</TT> attribute).
-     * 
+     *
      * @param topLevel Top level element from which to scan
      * @param name The named element to look for
      * @return The first named element found
@@ -348,26 +351,26 @@ class HTMLCollectionImpl
                             return result;
                     }
                 }
-                node = node.getNextSibling(); 
+                node = node.getNextSibling();
             }
             return node;
         }
     }
-    
-    
+
+
     /**
      * Returns true if scanning methods should iterate through the collection.
      * When looking for elements in the document, recursing is needed to traverse
      * the full document tree. When looking inside a specific element (e.g. for a
      * cell inside a row), recursing can lead to erroneous results.
-     * 
+     *
      * @return True if methods should recurse to traverse entire tree
      */
     protected boolean recurse()
     {
         return _lookingFor > 0;
     }
-    
+
 
     /**
      * Determines if current element matches based on what we're looking for.
@@ -375,7 +378,7 @@ class HTMLCollectionImpl
      * element is the one we're looking for, return true. If the name is also
      * specified, the name must match the <code>id</code> attribute
      * (match <code>name</code> first for anchors).
-     * 
+     *
      * @param elem The current element
      * @param name The identifier name or null
      * @return The element matches what we're looking for
@@ -383,7 +386,7 @@ class HTMLCollectionImpl
     protected boolean collectionMatch( Element elem, String name )
     {
         boolean    match;
-        
+
         synchronized ( elem )
         {
             // Begin with no matching. Depending on what we're looking for,
@@ -448,7 +451,7 @@ class HTMLCollectionImpl
                 match = ( elem instanceof HTMLTableCellElement );
                 break;
             }
-        
+
             // If element type was matched and a name was specified, must also match
             // the name against either the 'id' or the 'name' attribute. The 'name'
             // attribute is relevant only for <A> elements for backward compatibility.
@@ -465,7 +468,7 @@ class HTMLCollectionImpl
         return match;
     }
 
-    
+
 }
 
 
@@ -475,26 +478,26 @@ class HTMLCollectionImpl
  * passed by value, this class servers to pass the index into each recursion
  * by reference. It encompasses all the operations that need be performed on
  * the index, although direct access is possible.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @see CollectionImpl#item
  */
 class CollectionIndex
 {
-    
-    
+
+
     /**
      * Returns the current index.
-     * 
+     *
      * @return Current index
      */
     int getIndex()
     {
         return _index;
     }
-    
-    
+
+
     /**
      * Decrements the index by one.
      */
@@ -502,35 +505,35 @@ class CollectionIndex
     {
         -- _index;
     }
-    
-    
+
+
     /**
      * Returns true if index is zero (or negative).
-     * 
+     *
      * @return True if index is zero
      */
     boolean isZero()
     {
         return _index <= 0;
     }
-    
-    
+
+
     /**
      * Constructs a new index with the specified initial value. The index will
      * then be decremeneted until it reaches zero.
-     * 
+     *
      * @param index The initial value
      */
     CollectionIndex( int index )
     {
         _index = index;
     }
-    
-    
+
+
     /**
      * Holds the actual value that is passed by reference using this class.
      */
     private int        _index;
-    
+
 
 }

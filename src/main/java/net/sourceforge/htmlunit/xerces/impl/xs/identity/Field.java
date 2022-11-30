@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,12 +25,13 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xs.ShortList;
 import net.sourceforge.htmlunit.xerces.xs.XSComplexTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
+import net.sourceforge.htmlunit.xerces.xs.XSIDCDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
  * Schema identity constraint field.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @version $Id$
@@ -53,7 +54,7 @@ public class Field {
     //
 
     /** Constructs a field. */
-    public Field(Field.XPath xpath, 
+    public Field(Field.XPath xpath,
                  IdentityConstraint identityConstraint) {
         fXPath = xpath;
         fIdentityConstraint = identityConstraint;
@@ -62,7 +63,7 @@ public class Field {
     //
     // Public methods
     //
-    
+
     /** Returns the field XPath. */
     public net.sourceforge.htmlunit.xerces.impl.xpath.XPath getXPath() {
         return fXPath;
@@ -85,6 +86,7 @@ public class Field {
     //
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
         return fXPath.toString();
     } // toString():String
@@ -106,11 +108,11 @@ public class Field {
         //
 
         /** Constructs a field XPath expression. */
-        public XPath(String xpath, 
+        public XPath(String xpath,
                      SymbolTable symbolTable,
                      NamespaceContext context) throws XPathException {
             super(fixupXPath(xpath), symbolTable, context);
-            
+
             // verify that only one attribute is selected per branch
             for (LocationPath fLocationPath : fLocationPaths) {
                 for (int j = 0; j < fLocationPath.steps.length; j++) {
@@ -123,17 +125,17 @@ public class Field {
                 }
             }
         } // <init>(String,SymbolTable,NamespacesContext)
-        
+
         /** Fixup XPath expression. Avoid creating a new String if possible. */
         private static String fixupXPath(String xpath) {
-            
+
             final int end = xpath.length();
             int offset = 0;
             boolean whitespace = true;
             char c;
-            
+
             // NOTE: We have to prefix the field XPath with "./" in
-            //       order to handle selectors such as "@attr" that 
+            //       order to handle selectors such as "@attr" that
             //       select the attribute because the fields could be
             //       relative to the selector element. -Ac
             //       Unless xpath starts with a descendant node -Achille Fokoue
@@ -155,20 +157,20 @@ public class Field {
                 }
             }
             return xpath;
-            
+
         } // fixupXPath(String):String
-        
+
         private static String fixupXPath2(String xpath, int offset, final int end) {
-       
+
             StringBuilder buffer = new StringBuilder(end + 2);
             for (int i = 0; i < offset; ++i) {
                 buffer.append(xpath.charAt(i));
             }
             buffer.append("./");
-            
+
             boolean whitespace = false;
             char c;
-            
+
             for (; offset < end; ++offset) {
                 c = xpath.charAt(offset);
                 if (whitespace) {
@@ -188,7 +190,7 @@ public class Field {
                 buffer.append(c);
             }
             return buffer.toString();
-            
+
         } // fixupXPath2(String, int, int):String
 
     } // class XPath
@@ -207,7 +209,7 @@ public class Field {
 
         /** Value store for data values. */
         protected final ValueStore fStore;
-        
+
         /** A flag indicating whether the field is allowed to match a value. */
         protected boolean fMayMatch = true;
 
@@ -229,11 +231,12 @@ public class Field {
          * This method is called when the XPath handler matches the
          * XPath expression.
          */
+        @Override
         protected void matched(Object actualValue, short valueType, ShortList itemValueType, boolean isNil) {
             super.matched(actualValue, valueType, itemValueType, isNil);
-            if(isNil && (fIdentityConstraint.getCategory() == IdentityConstraint.IC_KEY)) {
+            if(isNil && (fIdentityConstraint.getCategory() == XSIDCDefinition.IC_KEY)) {
                 String code = "KeyMatchesNillable";
-                fStore.reportError(code, 
+                fStore.reportError(code,
                     new Object[]{fIdentityConstraint.getElementName(), fIdentityConstraint.getIdentityConstraintName()});
             }
             fStore.addValue(Field.this, fMayMatch, actualValue, convertToPrimitiveKind(valueType), convertToPrimitiveKind(itemValueType));
@@ -284,8 +287,9 @@ public class Field {
             return itemValueType;
         }
 
+        @Override
         protected void handleContent(XSTypeDefinition type, boolean nillable, Object actualValue, short valueType, ShortList itemValueType) {
-            if (type == null || 
+            if (type == null ||
                type.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE &&
                ((XSComplexTypeDefinition) type).getContentType()
                 != XSComplexTypeDefinition.CONTENTTYPE_SIMPLE) {
@@ -294,7 +298,7 @@ public class Field {
                     fStore.reportError( "cvc-id.3", new Object[] {
                             fIdentityConstraint.getName(),
                             fIdentityConstraint.getElementName()});
-                
+
             }
             fMatchedString = actualValue;
             matched(fMatchedString, valueType, itemValueType, nillable);

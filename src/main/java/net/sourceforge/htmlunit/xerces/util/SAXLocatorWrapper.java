@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,40 +25,42 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 /**
  * <p>A light wrapper around a SAX locator. This is useful
  * when bridging between SAX and XNI components.</p>
- * 
+ *
  * @author Michael Glavassevich, IBM
- * 
+ *
  * @version $Id$
  */
 public final class SAXLocatorWrapper implements XMLLocator {
-    
+
     private Locator fLocator = null;
     private Locator2 fLocator2 = null;
-    
+
     public SAXLocatorWrapper() {}
-    
+
     public void setLocator(Locator locator) {
         fLocator = locator;
         if (locator instanceof Locator2 || locator == null) {
             fLocator2 = (Locator2) locator;
         }
     }
-    
+
     public Locator getLocator() {
         return fLocator;
     }
-    
+
     /*
      * XMLLocator methods
      */
-    
+
+    @Override
     public String getPublicId() {
         if (fLocator != null) {
             return fLocator.getPublicId();
         }
         return null;
     }
-    
+
+    @Override
     public String getLiteralSystemId() {
         if (fLocator != null) {
             return fLocator.getSystemId();
@@ -66,14 +68,17 @@ public final class SAXLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public String getBaseSystemId() {
         return null;
     }
 
+    @Override
     public String getExpandedSystemId() {
         return getLiteralSystemId();
     }
 
+    @Override
     public int getLineNumber() {
         if (fLocator != null) {
             return fLocator.getLineNumber();
@@ -81,6 +86,7 @@ public final class SAXLocatorWrapper implements XMLLocator {
         return -1;
     }
 
+    @Override
     public int getColumnNumber() {
         if (fLocator != null) {
             return fLocator.getColumnNumber();
@@ -88,10 +94,12 @@ public final class SAXLocatorWrapper implements XMLLocator {
         return -1;
     }
 
+    @Override
     public int getCharacterOffset() {
         return -1;
     }
 
+    @Override
     public String getEncoding() {
         if (fLocator2 != null) {
             return fLocator2.getEncoding();
@@ -99,11 +107,12 @@ public final class SAXLocatorWrapper implements XMLLocator {
         return null;
     }
 
+    @Override
     public String getXMLVersion() {
         if (fLocator2 != null) {
             return fLocator2.getXMLVersion();
         }
         return null;
     }
-    
+
 } // SAXLocatorWrapper

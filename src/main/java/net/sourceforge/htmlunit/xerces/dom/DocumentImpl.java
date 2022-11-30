@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,7 +76,7 @@ import net.sourceforge.htmlunit.xerces.dom.events.UIEventImpl;
  * <p>
  * <b>Note:</b> When any node in the document is serialized, the
  * entire document is serialized along with it.
- * 
+ *
  * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
@@ -103,13 +103,13 @@ public class DocumentImpl
 
     /** Node Iterators */
     protected transient List iterators;
-    
+
     /** Reference queue for cleared Node Iterator references */
     protected transient ReferenceQueue iteratorReferenceQueue;
 
     /** Ranges */
     protected transient List ranges;
-    
+
     /** Reference queue for cleared Range references */
     protected transient ReferenceQueue rangeReferenceQueue;
 
@@ -163,6 +163,7 @@ public class DocumentImpl
      * @return org.w3c.dom.Node
      * @param deep boolean, iff true replicate children
      */
+    @Override
     public Node cloneNode(boolean deep) {
 
         DocumentImpl newdoc = new DocumentImpl();
@@ -182,6 +183,7 @@ public class DocumentImpl
      * using DOMs retrieved from several different sources, potentially
      * with different underlying representations.
      */
+    @Override
     public DOMImplementation getImplementation() {
         // Currently implemented as a singleton, since it's hardcoded
         // information anyway.
@@ -221,12 +223,13 @@ public class DocumentImpl
      *                                 EntityReference nodes
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public NodeIterator createNodeIterator(Node root,
                                            int whatToShow,
                                            NodeFilter filter,
                                            boolean entityReferenceExpansion)
     {
-        
+
         if (root == null) {
                   String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
                   throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
@@ -272,6 +275,7 @@ public class DocumentImpl
      *                                 EntityReference nodes
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public TreeWalker createTreeWalker(Node root,
                                        int whatToShow,
                                        NodeFilter filter,
@@ -289,7 +293,7 @@ public class DocumentImpl
     // Not DOM Level 2. Support DocumentTraversal methods.
     //
 
-    /** 
+    /**
      * This is not called by the developer client. The
      * developer client uses the detach() function on the
      * NodeIterator itself. <p>
@@ -298,8 +302,7 @@ public class DocumentImpl
      */
     void removeNodeIterator(NodeIterator nodeIterator) {
 
-        if (nodeIterator == null) return;
-        if (iterators == null) return;
+        if ((nodeIterator == null) || (iterators == null)) return;
 
         removeStaleIteratorReferences();
         Iterator i = iterators.iterator();
@@ -312,17 +315,17 @@ public class DocumentImpl
             // Remove stale reference from the list.
             else if (iterator == null) {
                 i.remove();
-            } 
+            }
         }
     }
-    
+
     /**
      * Remove stale iterator references from the iterator list.
      */
     private void removeStaleIteratorReferences() {
         removeStaleReferences(iteratorReferenceQueue, iterators);
     }
-    
+
     /**
      * Remove stale references from the given list.
      */
@@ -352,6 +355,7 @@ public class DocumentImpl
     //
     /**
      */
+    @Override
     public Range createRange() {
 
         if (ranges == null) {
@@ -367,15 +371,14 @@ public class DocumentImpl
         return range;
 
     }
-    
+
     /** Not a client function. Called by Range.detach(),
      *  so a Range can remove itself from the list of
      *  Ranges.
      */
     void removeRange(Range range) {
 
-        if (range == null) return;
-        if (ranges == null) return;
+        if ((range == null) || (ranges == null)) return;
 
         removeStaleRangeReferences();
         Iterator i = ranges.iterator();
@@ -388,7 +391,7 @@ public class DocumentImpl
             // Remove stale reference from the list.
             else if (otherRange == null) {
                 i.remove();
-            } 
+            }
         }
     }
 
@@ -396,13 +399,14 @@ public class DocumentImpl
      * A method to be called when some text was changed in a text node,
      * so that live objects can be notified.
      */
+    @Override
     void replacedText(CharacterDataImpl node) {
         // notify ranges
         if (ranges != null) {
             notifyRangesReplacedText(node);
         }
     }
-    
+
     private void notifyRangesReplacedText(CharacterDataImpl node) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -422,13 +426,14 @@ public class DocumentImpl
      * A method to be called when some text was deleted from a text node,
      * so that live objects can be notified.
      */
+    @Override
     void deletedText(CharacterDataImpl node, int offset, int count) {
         // notify ranges
         if (ranges != null) {
             notifyRangesDeletedText(node, offset, count);
         }
     }
-    
+
     private void notifyRangesDeletedText(CharacterDataImpl node, int offset, int count) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -448,13 +453,14 @@ public class DocumentImpl
      * A method to be called when some text was inserted into a text node,
      * so that live objects can be notified.
      */
+    @Override
     void insertedText(CharacterDataImpl node, int offset, int count) {
         // notify ranges
         if (ranges != null) {
             notifyRangesInsertedText(node, offset, count);
         }
     }
-    
+
     private void notifyRangesInsertedText(CharacterDataImpl node, int offset, int count) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -480,7 +486,7 @@ public class DocumentImpl
             notifyRangesSplitData(node, newNode, offset);
         }
     }
-    
+
     private void notifyRangesSplitData(Node node, Node newNode, int offset) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -495,7 +501,7 @@ public class DocumentImpl
             }
         }
     }
-    
+
     /**
      * Remove stale range references from the range list.
      */
@@ -526,8 +532,9 @@ public class DocumentImpl
      * does not support the type of Event interface requested
      * @since WD-DOM-Level-2-19990923
      */
+    @Override
     public Event createEvent(String type) throws DOMException {
-        if (type.equalsIgnoreCase("Events") || 
+        if (type.equalsIgnoreCase("Events") ||
                 "Event".equals(type)) {
             return new EventImpl();
         }
@@ -553,6 +560,7 @@ public class DocumentImpl
      * Sets whether the DOM implementation generates mutation events
      * upon operations.
      */
+    @Override
     void setMutationEvents(boolean set) {
         mutationEvents = set;
     }
@@ -560,6 +568,7 @@ public class DocumentImpl
     /**
      * Returns true if the DOM implementation generates mutation events.
      */
+    @Override
     boolean getMutationEvents() {
         return mutationEvents;
     }
@@ -611,7 +620,7 @@ public class DocumentImpl
      * are hung from the nodeListeners Vector.
      * <p>
      * I considered using two vectors -- one for capture,
-     * one for bubble -- but decided that since the list of listeners 
+     * one for bubble -- but decided that since the list of listeners
      * is probably short in most cases, it might not be worth spending
      * the space. ***** REVISIT WHEN WE HAVE MORE EXPERIENCE.
      */
@@ -621,8 +630,8 @@ public class DocumentImpl
         final String type;
         final EventListener listener;
         final boolean useCapture;
-        
-        /** NON-DOM INTERNAL: Constructor for Listener list Entry 
+
+        /** NON-DOM INTERNAL: Constructor for Listener list Entry
          * @param type Event name (NOT event group!) to listen for.
          * @param listener Who gets called when event is dispatched
          * @param useCaptue True iff listener is registered on
@@ -636,7 +645,7 @@ public class DocumentImpl
         }
 
     } // LEntry
-    
+
     /**
      * Introduced in DOM Level 2. <p> Register an event listener with this
      * Node. A listener may be independently registered as both Capturing and
@@ -648,6 +657,7 @@ public class DocumentImpl
      * @param useCapture True iff listener is registered on
      *  capturing phase rather than at-target or bubbling
      */
+    @Override
     protected void addEventListener(NodeImpl node, String type,
                                     EventListener listener, boolean useCapture)
     {
@@ -655,18 +665,18 @@ public class DocumentImpl
         // a listener to dispatch to
         if (type == null || type.length() == 0 || listener == null)
             return;
-      
+
         // Each listener may be registered only once per type per phase.
         // Simplest way to code that is to zap the previous entry, if any.
         removeEventListener(node, type, listener, useCapture);
-        
+
         Vector nodeListeners = getEventListeners(node);
         if(nodeListeners == null) {
             nodeListeners = new Vector();
             setEventListeners(node, nodeListeners);
         }
         nodeListeners.addElement(new LEntry(type, listener, useCapture));
-        
+
         // Record active listener
         LCount lc = LCount.lookup(type);
         if (useCapture) {
@@ -679,7 +689,7 @@ public class DocumentImpl
         }
 
     } // addEventListener(NodeImpl,String,EventListener,boolean) :void
-    
+
     /**
      * Introduced in DOM Level 2. <p> Deregister an event listener previously
      * registered with this Node.  A listener must be independently removed
@@ -691,6 +701,7 @@ public class DocumentImpl
      * @param useCapture True iff listener is registered on
      *  capturing phase rather than at-target or bubbling
      */
+    @Override
     protected void removeEventListener(NodeImpl node, String type,
                                        EventListener listener,
                                        boolean useCapture)
@@ -702,12 +713,12 @@ public class DocumentImpl
         if (nodeListeners == null)
             return;
 
-        // Note that addListener has previously ensured that 
+        // Note that addListener has previously ensured that
         // each listener may be registered only once per type per phase.
         // count-down is OK for deletions!
         for (int i = nodeListeners.size() - 1; i >= 0; --i) {
             LEntry le = (LEntry) nodeListeners.elementAt(i);
-            if (le.useCapture == useCapture && le.listener == listener && 
+            if (le.useCapture == useCapture && le.listener == listener &&
                 le.type.equals(type)) {
                 nodeListeners.removeElementAt(i);
                 // Storage management: Discard empty listener lists
@@ -730,6 +741,7 @@ public class DocumentImpl
         }
     } // removeEventListener(NodeImpl,String,EventListener,boolean) :void
 
+    @Override
     protected void copyEventListeners(NodeImpl src, NodeImpl tgt) {
         Vector nodeListeners = getEventListeners(src);
         if (nodeListeners == null) {
@@ -740,27 +752,27 @@ public class DocumentImpl
 
     /**
      * Introduced in DOM Level 2. <p>
-     * Distribution engine for DOM Level 2 Events. 
+     * Distribution engine for DOM Level 2 Events.
      * <p>
      * Event propagation runs as follows:
      * <ol>
      * <li>Event is dispatched to a particular target node, which invokes
      *   this code. Note that the event's stopPropagation flag is
-     *   cleared when dispatch begins; thereafter, if it has 
+     *   cleared when dispatch begins; thereafter, if it has
      *   been set before processing of a node commences, we instead
      *   immediately advance to the DEFAULT phase.
      * <li>The node's ancestors are established as destinations for events.
-     *   For capture and bubble purposes, node ancestry is determined at 
-     *   the time dispatch starts. If an event handler alters the document 
-     *   tree, that does not change which nodes will be informed of the event. 
-     * <li>CAPTURING_PHASE: Ancestors are scanned, root to target, for 
-     *   Capturing listeners. If found, they are invoked (see below). 
-     * <li>AT_TARGET: 
+     *   For capture and bubble purposes, node ancestry is determined at
+     *   the time dispatch starts. If an event handler alters the document
+     *   tree, that does not change which nodes will be informed of the event.
+     * <li>CAPTURING_PHASE: Ancestors are scanned, root to target, for
+     *   Capturing listeners. If found, they are invoked (see below).
+     * <li>AT_TARGET:
      *   Event is dispatched to NON-CAPTURING listeners on the
      *   target node. Note that capturing listeners on this node are _not_
      *   invoked.
      * <li>BUBBLING_PHASE: Ancestors are scanned, target to root, for
-     *   non-capturing listeners. 
+     *   non-capturing listeners.
      * <li>Default processing: Some DOMs have default behaviors bound to
      *   specific nodes. If this DOM does, and if the event's preventDefault
      *   flag has not been set, we now return to the target node and process
@@ -774,7 +786,7 @@ public class DocumentImpl
      * <p>
      * If an event handler itself causes events to be dispatched, they are
      * processed synchronously, before processing resumes
-     * on the event which triggered them. Please be aware that this may 
+     * on the event which triggered them. Please be aware that this may
      * result in events arriving at listeners "out of order" relative
      * to the actual sequence of requests.
      * <p>
@@ -783,14 +795,15 @@ public class DocumentImpl
      * I believe the DOM's intent is that event objects be redispatchable,
      * though it isn't stated in those terms.
      * @param node node to dispatch to
-     * @param event the event object to be dispatched to 
+     * @param event the event object to be dispatched to
      *              registered EventListeners
      * @return true if the event's <code>preventDefault()</code>
      *              method was invoked by an EventListener; otherwise false.
     */
+    @Override
     protected boolean dispatchEvent(NodeImpl node, Event event) {
         if (event == null) return false;
-        
+
         // Can't use anyone else's implementation, since there's no public
         // API for setting the event's processing-state fields.
         EventImpl evt = (EventImpl)event;
@@ -801,7 +814,7 @@ public class DocumentImpl
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "UNSPECIFIED_EVENT_TYPE_ERR", null);
             throw new EventException(EventException.UNSPECIFIED_EVENT_TYPE_ERR, msg);
         }
-        
+
         // If nobody is listening for this event, discard immediately
         LCount lc = LCount.lookup(evt.getType());
         if (lc.total == 0)
@@ -814,12 +827,12 @@ public class DocumentImpl
         evt.target = node;
         evt.stopPropagation = false;
         evt.preventDefault = false;
-        
+
         // Capture pre-event parentage chain, not including target;
         // use pre-event-dispatch ancestors even if event handlers mutate
         // document and change the target's context.
         // Note that this is parents ONLY; events do not
-        // cross the Attr/Element "blood/brain barrier". 
+        // cross the Attr/Element "blood/brain barrier".
         // DOMAttrModified. which looks like an exception,
         // is issued to the Element rather than the Attr
         // and causes a _second_ DOMSubtreeModified in the Element's
@@ -832,11 +845,11 @@ public class DocumentImpl
             p = n;
             n = n.getParentNode();
         }
-        
+
         // CAPTURING_PHASE:
         if (lc.captures > 0) {
             evt.eventPhase = Event.CAPTURING_PHASE;
-            // Ancestors are scanned, root to target, for 
+            // Ancestors are scanned, root to target, for
             // Capturing listeners.
             for (int j = pv.size() - 1; j >= 0; --j) {
                 if (evt.stopPropagation)
@@ -865,8 +878,8 @@ public class DocumentImpl
                 }
             }
         }
-        
-        
+
+
         // Both AT_TARGET and BUBBLE use non-capturing listeners.
         if (lc.bubbles > 0) {
             // AT_TARGET PHASE: Event is dispatched to NON-CAPTURING listeners
@@ -928,7 +941,7 @@ public class DocumentImpl
                 }
             }
         }
-        
+
         // DEFAULT PHASE: Some DOMs have default behaviors bound to specific
         // nodes. If this DOM does, and if the event's preventDefault flag has
         // not been set, we now return to the target node and process its
@@ -940,7 +953,7 @@ public class DocumentImpl
             // DO_DEFAULT_OPERATION
         }
 
-        return evt.preventDefault;        
+        return evt.preventDefault;
     } // dispatchEvent(NodeImpl,Event) :boolean
 
     /**
@@ -950,7 +963,7 @@ public class DocumentImpl
      * <p>
      * Similar to code in dispatchingEventToSubtree however this method
      * is only used on the target node and does not start a dispatching chain
-     * on the sibling of the target node as this is not part of the subtree 
+     * on the sibling of the target node as this is not part of the subtree
      * ***** At the moment I'm being sloppy and using the normal
      * capture dispatcher on every node. This could be optimized hugely
      * by writing a capture engine that tracks our position in the tree to
@@ -959,7 +972,7 @@ public class DocumentImpl
      * @param e event to be sent to that node and its subtree
      */
     protected void dispatchEventToSubtree(Node n, Event e) {
-        
+
         ((NodeImpl) n).dispatchEvent(e);
         if (n.getNodeType() == Node.ELEMENT_NODE) {
             NamedNodeMap a = n.getAttributes();
@@ -967,20 +980,20 @@ public class DocumentImpl
                 dispatchingEventToSubtree(a.item(i), e);
         }
         dispatchingEventToSubtree(n.getFirstChild(), e);
-        
+
     } // dispatchEventToSubtree(NodeImpl,Node,Event) :void
 
 
     /**
      * Dispatches event to the target node's descendents recursively
-     * 
+     *
      * @param n node to dispatch to
      * @param e event to be sent to that node and its subtree
      */
     protected void dispatchingEventToSubtree(Node n, Event e) {
-        if (n==null) 
+        if (n==null)
             return;
-        
+
         // ***** Recursive implementation. This is excessively expensive,
         // and should be replaced in conjunction with optimization
         // mentioned above.
@@ -990,13 +1003,13 @@ public class DocumentImpl
             for (int i = a.getLength() - 1; i >= 0; --i)
                 dispatchingEventToSubtree(a.item(i), e);
         }
-        dispatchingEventToSubtree(n.getFirstChild(), e);   
+        dispatchingEventToSubtree(n.getFirstChild(), e);
         dispatchingEventToSubtree(n.getNextSibling(), e);
     }
-    
+
     /**
      * NON-DOM INTERNAL: Return object for getEnclosingAttr. Carries
-     * (two values, the Attr node affected (if any) and its previous 
+     * (two values, the Attr node affected (if any) and its previous
      * string value. Simple struct, no methods.
      */
     class EnclosingAttr implements Serializable {
@@ -1020,7 +1033,7 @@ public class DocumentImpl
                                     MutationEvent.MODIFICATION);
         else
             dispatchAggregateEvents(node, null, null, (short) 0);
-            
+
     } // dispatchAggregateEvents(NodeImpl,EnclosingAttr) :void
 
     /**
@@ -1030,10 +1043,10 @@ public class DocumentImpl
      * mutation operation, even if that involves multiple changes to
      * the DOM.
      * For example, if a DOM operation makes multiple changes to a single
-     * Attr before returning, it would be nice to generate only one 
+     * Attr before returning, it would be nice to generate only one
      * DOMAttrModified, and multiple changes over larger scope but within
-     * a recognizable single subtree might want to generate only one 
-     * DOMSubtreeModified, sent to their lowest common ancestor. 
+     * a recognizable single subtree might want to generate only one
+     * DOMSubtreeModified, sent to their lowest common ancestor.
      * <p>
      * To manage this, use the "internal" versions of insert and remove
      * with MUTATION_LOCAL, then make an explicit call to this routine
@@ -1069,7 +1082,7 @@ public class DocumentImpl
             }
         }
         // DOMSubtreeModified gets sent to the lowest common root of a
-        // set of changes. 
+        // set of changes.
         // "This event is dispatched after all other events caused by the
         // mutation have been fired."
         LCount lc = LCount.lookup(MutationEventImpl.DOM_SUBTREE_MODIFIED);
@@ -1101,7 +1114,7 @@ public class DocumentImpl
     protected void saveEnclosingAttr(NodeImpl node) {
         savedEnclosingAttr = null;
         // MUTATION PREPROCESSING AND PRE-EVENTS:
-        // If we're within the scope of an Attr and DOMAttrModified 
+        // If we're within the scope of an Attr and DOMAttrModified
         // was requested, we need to preserve its previous value for
         // that event.
         LCount lc = LCount.lookup(MutationEventImpl.DOM_ATTR_MODIFIED);
@@ -1132,6 +1145,7 @@ public class DocumentImpl
     /**
      * A method to be called when a character data node has been modified
      */
+    @Override
     void modifyingCharacterData(NodeImpl node, boolean replace) {
         if (mutationEvents) {
             if (!replace) {
@@ -1143,12 +1157,13 @@ public class DocumentImpl
     /**
      * A method to be called when a character data node has been modified
      */
+    @Override
     void modifiedCharacterData(NodeImpl node, String oldvalue, String value, boolean replace) {
         if (mutationEvents) {
             mutationEventsModifiedCharacterData(node, oldvalue, value, replace);
         }
     }
-    
+
     private void mutationEventsModifiedCharacterData(NodeImpl node, String oldvalue, String value, boolean replace) {
         if (!replace) {
             // MUTATION POST-EVENTS:
@@ -1162,16 +1177,17 @@ public class DocumentImpl
                                     oldvalue, value, null, (short) 0);
                 dispatchEvent(node, me);
             }
-        
+
             // Subroutine: Transmit DOMAttrModified and DOMSubtreeModified,
             // if required. (Common to most kinds of mutation)
             dispatchAggregateEvents(node, savedEnclosingAttr);
         } // End mutation postprocessing
     }
-    
+
     /**
      * A method to be called when a character data node has been replaced
      */
+    @Override
     void replacedCharacterData(NodeImpl node, String oldvalue, String value) {
         //now that we have finished replacing data, we need to perform the same actions
         //that are required after a character data node has been modified
@@ -1183,6 +1199,7 @@ public class DocumentImpl
     /**
      * A method to be called when a node is about to be inserted in the tree.
      */
+    @Override
     void insertingNode(NodeImpl node, boolean replace) {
         if (mutationEvents) {
             if (!replace) {
@@ -1194,17 +1211,18 @@ public class DocumentImpl
     /**
      * A method to be called when a node has been inserted in the tree.
      */
+    @Override
     void insertedNode(NodeImpl node, NodeImpl newInternal, boolean replace) {
         if (mutationEvents) {
             mutationEventsInsertedNode(node, newInternal, replace);
         }
-        
+
         // notify the range of insertions
         if (ranges != null) {
             notifyRangesInsertedNode(newInternal);
-        }        
+        }
     }
-    
+
     private void mutationEventsInsertedNode(NodeImpl node, NodeImpl newInternal, boolean replace) {
         // MUTATION POST-EVENTS:
         // "Local" events (non-aggregated)
@@ -1256,7 +1274,7 @@ public class DocumentImpl
             dispatchAggregateEvents(node, savedEnclosingAttr);
         }
     }
-    
+
     private void notifyRangesInsertedNode(NodeImpl newInternal) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -1275,6 +1293,7 @@ public class DocumentImpl
     /**
      * A method to be called when a node is about to be removed from the tree.
      */
+    @Override
     void removingNode(NodeImpl node, NodeImpl oldChild, boolean replace) {
 
         // notify iterators
@@ -1290,9 +1309,9 @@ public class DocumentImpl
         // mutation events
         if (mutationEvents) {
             mutationEventsRemovingNode(node, oldChild, replace);
-        } 
+        }
     }
-    
+
     private void notifyIteratorsRemovingNode(NodeImpl oldChild) {
         removeStaleIteratorReferences();
         final Iterator i = iterators.iterator();
@@ -1307,7 +1326,7 @@ public class DocumentImpl
             }
         }
     }
-    
+
     private void notifyRangesRemovingNode(NodeImpl oldChild) {
         removeStaleRangeReferences();
         final Iterator i = ranges.iterator();
@@ -1322,10 +1341,10 @@ public class DocumentImpl
             }
         }
     }
-    
+
     private void mutationEventsRemovingNode(NodeImpl node, NodeImpl oldChild, boolean replace) {
         // MUTATION PREPROCESSING AND PRE-EVENTS:
-        // If we're within the scope of an Attr and DOMAttrModified 
+        // If we're within the scope of an Attr and DOMAttrModified
         // was requested, we need to preserve its previous value for
         // that event.
         if (!replace) {
@@ -1371,6 +1390,7 @@ public class DocumentImpl
     /**
      * A method to be called when a node has been removed from the tree.
      */
+    @Override
     void removedNode(NodeImpl node, boolean replace) {
         if (mutationEvents) {
             // MUTATION POST-EVENTS:
@@ -1385,15 +1405,17 @@ public class DocumentImpl
     /**
      * A method to be called when a node is about to be replaced in the tree.
      */
+    @Override
     void replacingNode(NodeImpl node) {
         if (mutationEvents) {
             saveEnclosingAttr(node);
         }
     }
-    
+
     /**
      * A method to be called when character data is about to be replaced in the tree.
      */
+    @Override
     void replacingData (NodeImpl node) {
         if (mutationEvents) {
             saveEnclosingAttr(node);
@@ -1403,6 +1425,7 @@ public class DocumentImpl
     /**
      * A method to be called when a node has been replaced in the tree.
      */
+    @Override
     void replacedNode(NodeImpl node) {
         if (mutationEvents) {
             dispatchAggregateEvents(node, savedEnclosingAttr);
@@ -1412,6 +1435,7 @@ public class DocumentImpl
     /**
      * A method to be called when an attribute value has been modified
      */
+    @Override
     void modifiedAttrValue(AttrImpl attr, String oldvalue) {
         if (mutationEvents) {
             // MUTATION POST-EVENTS:
@@ -1423,6 +1447,7 @@ public class DocumentImpl
     /**
      * A method to be called when an attribute node has been set
      */
+    @Override
     void setAttrNode(AttrImpl attr, AttrImpl previous) {
         if (mutationEvents) {
             // MUTATION POST-EVENTS:
@@ -1441,6 +1466,7 @@ public class DocumentImpl
     /**
      * A method to be called when an attribute node has been removed
      */
+    @Override
     void removedAttrNode(AttrImpl attr, NodeImpl oldOwner, String name) {
         // We can't use the standard dispatchAggregate, since it assumes
         // that the Attr is still attached to an owner. This code is
@@ -1449,7 +1475,7 @@ public class DocumentImpl
             mutationEventsRemovedAttrNode(attr, oldOwner, name);
         }
     }
-    
+
     private void mutationEventsRemovedAttrNode(AttrImpl attr, NodeImpl oldOwner, String name) {
         // If we have to send DOMAttrModified (determined earlier),
         // do so.
@@ -1467,11 +1493,12 @@ public class DocumentImpl
         // Note that only the Element needs to be informed; the
         // Attr's subtree has not been changed by this operation.
         dispatchAggregateEvents(oldOwner, null, null, (short) 0);
-    }  
+    }
 
     /**
      * A method to be called when an attribute node has been renamed
      */
+    @Override
     void renamedAttrNode(Attr oldAt, Attr newAt) {
     // REVISIT: To be implemented!!!
     }
@@ -1479,6 +1506,7 @@ public class DocumentImpl
     /**
      * A method to be called when an element has been renamed
      */
+    @Override
     void renamedElement(Element oldEl, Element newEl) {
     // REVISIT: To be implemented!!!
     }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,9 +23,9 @@ import java.util.Vector;
 
 /**
  * A class used to hold the internal schema grammar set for the current instance
- * 
- * @xerces.internal  
- * 
+ *
+ * @xerces.internal
+ *
  * @author Sandy Gao, IBM
  * @version $Id$
  */
@@ -91,12 +91,12 @@ public class XSGrammarBucket {
         // get all imported grammars, and make a copy of the Vector, so that
         // we can recursively process the grammars, and add distinct ones
         // to the same vector
-        Vector currGrammars = (Vector)grammar.getImportedGrammars();
+        Vector currGrammars = grammar.getImportedGrammars();
         if (currGrammars == null) {
             putGrammar(grammar);
             return true;
         }
-        
+
         Vector grammars = ((Vector)currGrammars.clone());
         SchemaGrammar sg1, sg2;
         Vector gs;
@@ -142,7 +142,7 @@ public class XSGrammarBucket {
      * @param grammar        the grammar to put in the registry
      * @param deep           whether to add imported grammars
      * @param ignoreConflict whether to ignore grammars that already exist in the grammar
-     *                       bucket or not - including 'grammar' parameter. 
+     *                       bucket or not - including 'grammar' parameter.
      * @return               whether the process succeeded
      */
     public boolean putGrammar(SchemaGrammar grammar, boolean deep, boolean ignoreConflict) {
@@ -155,7 +155,7 @@ public class XSGrammarBucket {
         if (sg == null) {
             putGrammar(grammar);
         }
-        
+
         // not adding the imported grammars
         if (!deep) {
             return true;
@@ -164,11 +164,11 @@ public class XSGrammarBucket {
         // get all imported grammars, and make a copy of the Vector, so that
         // we can recursively process the grammars, and add distinct ones
         // to the same vector
-        Vector currGrammars = (Vector)grammar.getImportedGrammars();
+        Vector currGrammars = grammar.getImportedGrammars();
         if (currGrammars == null) {
             return true;
         }
-        
+
         Vector grammars = ((Vector)currGrammars.clone());
         SchemaGrammar sg1, sg2;
         Vector gs;

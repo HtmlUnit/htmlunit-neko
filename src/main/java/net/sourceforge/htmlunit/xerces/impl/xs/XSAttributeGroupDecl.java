@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,8 +30,8 @@ import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
 /**
  * The XML representation for an attribute group declaration
  * schema component is a global &lt;attributeGroup&gt; element information item
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
@@ -56,10 +56,10 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
 
     // optional annotation
     public XSObjectList fAnnotations;
-    
+
     protected XSObjectListImpl fAttrUses = null;
-    
-    // The namespace schema information item corresponding to the target namespace 
+
+    // The namespace schema information item corresponding to the target namespace
     // of the attribute group definition, if it is globally declared; or null otherwise.
     private XSNamespaceItem fNamespaceItem = null;
 
@@ -160,9 +160,9 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
      * If an error is found, an Object[] is returned. This contains the arguments for the error message
      * describing the error. The last element in the array (at index arr.length - 1) is the the error code.
      * Returns null if there is no error.
-     * 
+     *
      * REVISIT: is there a better way of returning the appropriate information for the error?
-     * 
+     *
      * @param typeName the name of the type containing this attribute group, used for error reporting purposes
      * @param baseGroup the XSAttributeGroupDecl that is the base we are checking against
      */
@@ -322,7 +322,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
         // reset attribute uses
         for (int i=0;i<fAttrUseNum;i++) {
             fAttributeUses[i] = null;
-        } 
+        }
         fAttrUseNum = 0;
         fAttributeWC = null;
         fAnnotations = null;
@@ -333,6 +333,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
     /**
      * Get the type of the object, i.e ELEMENT_DECLARATION.
      */
+    @Override
     public short getType() {
         return XSConstants.ATTRIBUTE_GROUP;
     }
@@ -341,6 +342,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
      * The <code>name</code> of this <code>XSObject</code> depending on the
      * <code>XSObject</code> type.
      */
+    @Override
     public String getName() {
         return fName;
     }
@@ -350,6 +352,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
      * unspecified.  defines how a namespace URI is attached to schema
      * components.
      */
+    @Override
     public String getNamespace() {
         return fTargetNamespace;
     }
@@ -357,6 +360,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
     /**
      * {attribute uses} A set of attribute uses.
      */
+    @Override
     public XSObjectList getAttributeUses() {
         if (fAttrUses == null) {
             if (fAttrUseNum > 0) {
@@ -372,6 +376,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
     /**
      * {attribute wildcard} Optional. A wildcard.
      */
+    @Override
     public XSWildcard getAttributeWildcard() {
         return fAttributeWC;
     }
@@ -379,6 +384,7 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
     /**
      * Optional. Annotation.
      */
+    @Override
     public XSAnnotation getAnnotation() {
         return (fAnnotations != null) ? (XSAnnotation) fAnnotations.item(0) : null;
     }
@@ -386,13 +392,15 @@ public class XSAttributeGroupDecl implements XSAttributeGroupDefinition {
     /**
      * Optional. Annotations.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return fNamespaceItem;
     }

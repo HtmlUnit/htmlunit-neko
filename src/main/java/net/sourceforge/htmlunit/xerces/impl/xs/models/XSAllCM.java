@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 /**
  * XSAllCM implements XSCMValidator and handles &lt;all&gt;.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Pavani Mukthipudi, Sun Microsystems Inc.
  * @version $Id$
@@ -82,6 +82,7 @@ public class XSAllCM implements XSCMValidator {
      *
      * @return Start state of the content model
      */
+    @Override
     public int[] startContentModel() {
 
         int[] state = new int[fNumElements + 1];
@@ -111,6 +112,7 @@ public class XSAllCM implements XSCMValidator {
      * @param currentState  Current state
      * @return an element decl object
      */
+    @Override
     public Object oneTransition (QName elementName, int[] currentState, SubstitutionGroupHandler subGroupHandler) {
 
         // error state
@@ -121,7 +123,7 @@ public class XSAllCM implements XSCMValidator {
 
         // seen child
         currentState[0] = STATE_CHILD;
-        
+
         Object matchingDecl = null;
 
         for (int i = 0; i < fNumElements; i++) {
@@ -149,6 +151,7 @@ public class XSAllCM implements XSCMValidator {
      * @param currentState  Current state of the content model
      * @return true if the last state was a valid final state
      */
+    @Override
     public boolean endContentModel (int[] currentState) {
 
         int state = currentState[0];
@@ -178,6 +181,7 @@ public class XSAllCM implements XSCMValidator {
      * @param subGroupHandler the substitution group handler
      * @return true if this content model contains other or list wildcard
      */
+    @Override
     public boolean checkUniqueParticleAttribution(SubstitutionGroupHandler subGroupHandler) throws XMLSchemaException {
         // check whether there is conflict between any two leaves
         for (int i = 0; i < fNumElements; i++) {
@@ -197,11 +201,12 @@ public class XSAllCM implements XSCMValidator {
      * Check which elements are valid to appear at this point. This method also
      * works if the state is in error, in which case it returns what should
      * have been seen.
-     * 
+     *
      * @param state  the current state
      * @return       a Vector whose entries are instances of
      *               either XSWildcardDecl or XSElementDecl.
      */
+    @Override
     public Vector whatCanGoHere(int[] state) {
         Vector ret = new Vector();
         for (int i = 0; i < fNumElements; i++) {
@@ -212,15 +217,18 @@ public class XSAllCM implements XSCMValidator {
         }
         return ret;
     }
-    
+
+    @Override
     public int [] occurenceInfo(int[] state) {
         return null;
     }
-    
+
+    @Override
     public String getTermName(int termId) {
         return null;
     }
 
+    @Override
     public boolean isCompactedForUPA() {
         return false;
     }

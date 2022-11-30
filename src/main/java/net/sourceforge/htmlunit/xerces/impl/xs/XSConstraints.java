@@ -30,13 +30,16 @@ import net.sourceforge.htmlunit.xerces.impl.xs.models.XSCMValidator;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.SimpleLocator;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.XSObjectListImpl;
 import net.sourceforge.htmlunit.xerces.util.SymbolHash;
+import net.sourceforge.htmlunit.xerces.xs.XSComplexTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSConstants;
 import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
+import net.sourceforge.htmlunit.xerces.xs.XSWildcard;
 
 /**
  * Constraints shared by traversers and validator
- * 
+ *
  * @xerces.internal
  *
  * @author Sandy Gao, IBM
@@ -69,9 +72,10 @@ public class XSConstraints {
         }
         return fEmptyParticle;
     }
-    
+
     private static final Comparator ELEMENT_PARTICLE_COMPARATOR = new Comparator() {
 
+        @Override
         public int compare(Object o1, Object o2) {
             XSParticleDecl pDecl1 = (XSParticleDecl) o1;
             XSParticleDecl pDecl2 = (XSParticleDecl) o2;
@@ -132,7 +136,7 @@ public class XSConstraints {
             }
             return checkSimpleDerivation((XSSimpleType)derived,
                     (XSSimpleType)base, block);
-        } 
+        }
         else {
             return checkComplexDerivation((XSComplexTypeDecl)derived, base, block);
         }
@@ -159,7 +163,7 @@ public class XSConstraints {
             else
                 return false;
         }
-        return checkSimpleDerivation((XSSimpleType)derived,
+        return checkSimpleDerivation(derived,
                 (XSSimpleType)base, block);
     }
 
@@ -171,7 +175,7 @@ public class XSConstraints {
         // if derived is anyType, then it's valid only if base is anyType too
         if (derived == SchemaGrammar.fAnyType)
             return derived == base;
-        return checkComplexDerivation((XSComplexTypeDecl)derived, base, block);
+        return checkComplexDerivation(derived, base, block);
     }
 
     /**
@@ -194,24 +198,21 @@ public class XSConstraints {
         // 2.2 One of the following must be true:
         // 2.2.1 D's base type definition is B.
         XSSimpleType directBase = (XSSimpleType)derived.getBaseType();
-        if (directBase == base)
-            return true;
-
         // 2.2.2 D's base type definition is not the simple ur-type definition and is validly derived from B given the subset, as defined by this constraint.
-        if (directBase != SchemaGrammar.fAnySimpleType &&
-                checkSimpleDerivation(directBase, base, block)) {
+        if ((directBase == base) || (directBase != SchemaGrammar.fAnySimpleType &&
+                checkSimpleDerivation(directBase, base, block))) {
             return true;
         }
 
         // 2.2.3 D's {variety} is list or union and B is the simple ur-type definition.
-        if ((derived.getVariety() == XSSimpleType.VARIETY_LIST ||
-                derived.getVariety() == XSSimpleType.VARIETY_UNION) &&
+        if ((derived.getVariety() == XSSimpleTypeDefinition.VARIETY_LIST ||
+                derived.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) &&
                 base == SchemaGrammar.fAnySimpleType) {
             return true;
         }
 
         // 2.2.4 B's {variety} is union and D is validly derived from a type definition in B's {member type definitions} given the subset, as defined by this constraint.
-        if (base.getVariety() == XSSimpleType.VARIETY_UNION) {
+        if (base.getVariety() == XSSimpleTypeDefinition.VARIETY_UNION) {
             XSObjectList subUnionMemberDV = base.getMemberTypes();
             int subUnionSize = subUnionMemberDV.getLength();
             for (int i=0; i<subUnionSize; i++) {
@@ -296,11 +297,11 @@ public class XSConstraints {
             XSComplexTypeDecl ctype = (XSComplexTypeDecl)type;
             // 2.2 The appropriate case among the following must be true:
             // 2.2.1 If the {content type} is a simple type definition, then the string must be valid with respect to that simple type definition as defined by String Valid (3.14.4).
-            if (ctype.fContentType == XSComplexTypeDecl.CONTENTTYPE_SIMPLE) {
+            if (ctype.fContentType == XSComplexTypeDefinition.CONTENTTYPE_SIMPLE) {
                 dv = ctype.fXSSimpleType;
             }
             // 2.2.2 If the {content type} is mixed, then the {content type}'s particle must be emptiable as defined by Particle Emptiable (3.9.6).
-            else if (ctype.fContentType == XSComplexTypeDecl.CONTENTTYPE_MIXED) {
+            else if (ctype.fContentType == XSComplexTypeDefinition.CONTENTTYPE_MIXED) {
                 if (!((XSParticleDecl)ctype.getParticle()).emptiable())
                     return null;
             }
@@ -587,7 +588,7 @@ public class XSConstraints {
     }
 
     // Check that a given particle is a valid restriction of a base particle.
-    // 
+    //
     // IHR: 2006/11/17
     // Returns a boolean indicating if there has been expansion of substitution group
     // in the bParticle.
@@ -1101,7 +1102,7 @@ public class XSConstraints {
             // get simple type
             boolean isSimple = false;
             if (dElement.fType.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE ||
-                    ((XSComplexTypeDecl)dElement.fType).fContentType == XSComplexTypeDecl.CONTENTTYPE_SIMPLE) {
+                    ((XSComplexTypeDecl)dElement.fType).fContentType == XSComplexTypeDefinition.CONTENTTYPE_SIMPLE) {
                 isSimple = true;
             }
 
@@ -1490,7 +1491,7 @@ public class XSConstraints {
         // if the intersection of the two wildcard is not empty list
         XSWildcardDecl intersect = wildcard1.performIntersectionWith(wildcard2, wildcard1.fProcessContents);
         if (intersect == null ||
-                intersect.fType != XSWildcardDecl.NSCONSTRAINT_LIST ||
+                intersect.fType != XSWildcard.NSCONSTRAINT_LIST ||
                 intersect.fNamespaceList.length != 0) {
             return true;
         }
@@ -1506,19 +1507,19 @@ public class XSConstraints {
                 return overlapUPA((XSElementDecl)decl1,
                         (XSElementDecl)decl2,
                         sgHandler);
-            } 
+            }
             else {
                 return overlapUPA((XSElementDecl)decl1,
                         (XSWildcardDecl)decl2,
                         sgHandler);
             }
-        } 
+        }
         else {
             if (decl2 instanceof XSElementDecl) {
                 return overlapUPA((XSElementDecl)decl2,
                         (XSWildcardDecl)decl1,
                         sgHandler);
-            } 
+            }
             else {
                 return overlapUPA((XSWildcardDecl)decl1,
                         (XSWildcardDecl)decl2);

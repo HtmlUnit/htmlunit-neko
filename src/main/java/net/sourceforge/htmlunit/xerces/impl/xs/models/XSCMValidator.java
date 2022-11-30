@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 /**
  * Note: State of the content model is stored in the validator
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @author Elena Litani, IBM
@@ -82,18 +82,18 @@ public interface XSCMValidator {
      * Check which elements are valid to appear at this point. This method also
      * works if the state is in error, in which case it returns what should
      * have been seen.
-     * 
+     *
      * @param state  the current state
      * @return       a Vector whose entries are instances of
      *               either XSWildcardDecl or XSElementDecl.
      */
     Vector whatCanGoHere(int[] state);
-    
+
     /**
      * <p>Returns an array containing information about the current repeating term
      * or <code>null</code> if no occurrence counting was being performed at the
      * current state.</p>
-     * 
+     *
      * <p>If an array is returned it will have a length == 4 and will contain:
      *  <ul>
      *   <li>a[0] :: min occurs</li>
@@ -102,25 +102,25 @@ public interface XSCMValidator {
      *   <li>a[3] :: identifier for the repeating term</li>
      *  </ul>
      * </p>
-     * 
+     *
      * @param state the current state
      * @return an array containing information about the current repeating term
      */
     int [] occurenceInfo(int[] state);
-    
+
     /**
      * Returns the name of the term (element or wildcard) for the given identifier.
-     * 
+     *
      * @param termId identifier for the element declaration or wildcard
      * @return the name of the element declaration or wildcard
      */
     String getTermName(int termId);
-    
+
     /**
      * Checks if this content model has had its min/maxOccurs values reduced for
      * purposes of speeding up UPA.  If so, this content model should not be used
      * for any purpose other than checking unique particle attribution
-     * 
+     *
      * @return a boolean that says whether this content has been compacted for UPA
      */
     boolean isCompactedForUPA();

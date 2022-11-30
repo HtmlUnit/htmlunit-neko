@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,12 +34,12 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  * strings that match the NCName production.
  * The value space of ENTITY is scoped to a specific
  * instance document.</P>
- * 
- * @xerces.internal  
+ *
+ * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- * 
+ *
  * @version $Id$
  */
 public class ENTITYDatatypeValidator implements DatatypeValidator {
@@ -51,18 +51,19 @@ public class ENTITYDatatypeValidator implements DatatypeValidator {
     /**
      * Checks that "content" string is valid ID value.
      * If invalid a Datatype validation exception is thrown.
-     * 
+     *
      * @param content       the string value that needs to be validated
      * @param context       the validation context
      * @throws InvalidDatatypeException if the content is
      *         invalid according to the rules for the validators
      * @see InvalidDatatypeValueException
      */
+    @Override
     public void validate(String content, ValidationContext context) throws InvalidDatatypeValueException {
 
         if (!context.isEntityUnparsed(content))
             throw new InvalidDatatypeValueException("ENTITYNotUnparsed", new Object[]{content});
-            
+
     }
-    
+
 }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,7 +59,7 @@ import org.w3c.dom.UserDataHandler;
  *
  * <p><b>WARNING</b>: Some of the code here is partially duplicated in
  * AttrImpl, be careful to keep these two classes in sync!
- * 
+ *
  * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
@@ -122,8 +122,9 @@ public abstract class ParentNode
      * is read-only, to permit applications using only the DOM API to obtain
      * editable copies of locked portions of the tree.
      */
+    @Override
     public Node cloneNode(boolean deep) {
-        
+
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
@@ -156,6 +157,7 @@ public abstract class ParentNode
      * whose context the Node was created). The Node may or may not
      * currently be part of that Document's actual contents.
      */
+    @Override
     public Document getOwnerDocument() {
         return ownerDocument;
     }
@@ -164,6 +166,7 @@ public abstract class ParentNode
      * same as above but returns internal type and this one is not overridden
      * by CoreDocumentImpl to return null
      */
+    @Override
     CoreDocumentImpl ownerDocument() {
         return ownerDocument;
     }
@@ -172,6 +175,7 @@ public abstract class ParentNode
      * NON-DOM
      * set the ownerDocument of this node and its children
      */
+    @Override
     protected void setOwnerDocument(CoreDocumentImpl doc) {
         if (needsSyncChildren()) {
             synchronizeChildren();
@@ -188,6 +192,7 @@ public abstract class ParentNode
      * Test whether this node has any children. Convenience shorthand
      * for (Node.getFirstChild()!=null)
      */
+    @Override
     public boolean hasChildNodes() {
         if (needsSyncChildren()) {
             synchronizeChildren();
@@ -208,6 +213,7 @@ public abstract class ParentNode
      * provide their own getChildNodes() support. Other DOMs may solve this
      * differently.
      */
+    @Override
     public NodeList getChildNodes() {
 
         if (needsSyncChildren()) {
@@ -218,6 +224,7 @@ public abstract class ParentNode
     } // getChildNodes():NodeList
 
     /** The first child of this Node, or null if none. */
+    @Override
     public Node getFirstChild() {
 
         if (needsSyncChildren()) {
@@ -228,6 +235,7 @@ public abstract class ParentNode
     }   // getFirstChild():Node
 
     /** The last child of this Node, or null if none. */
+    @Override
     public Node getLastChild() {
 
         if (needsSyncChildren()) {
@@ -277,18 +285,19 @@ public abstract class ParentNode
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
      * read-only.
      */
-    public Node insertBefore(Node newChild, Node refChild) 
+    @Override
+    public Node insertBefore(Node newChild, Node refChild)
         throws DOMException {
         // Tail-call; optimizer should be able to do good things with.
         return internalInsertBefore(newChild, refChild, false);
     } // insertBefore(Node,Node):Node
-     
+
     /** NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
      * to control which mutation events are spawned. This version of the
      * insertBefore operation allows us to do so. It is not intended
      * for use by application programs.
      */
-    Node internalInsertBefore(Node newChild, Node refChild, boolean replace) 
+    Node internalInsertBefore(Node newChild, Node refChild, boolean replace)
         throws DOMException {
 
         boolean errorChecking = ownerDocument.errorChecking;
@@ -317,7 +326,7 @@ public abstract class ParentNode
 
                     if (!ownerDocument.isKidOK(this, kid)) {
                         throw new DOMException(
-                              DOMException.HIERARCHY_REQUEST_ERR, 
+                              DOMException.HIERARCHY_REQUEST_ERR,
                               DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
                     }
                 }
@@ -344,15 +353,15 @@ public abstract class ParentNode
         if (errorChecking) {
             if (isReadOnly()) {
                 throw new DOMException(
-                              DOMException.NO_MODIFICATION_ALLOWED_ERR, 
+                              DOMException.NO_MODIFICATION_ALLOWED_ERR,
                               DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
             }
             if (newChild.getOwnerDocument() != ownerDocument && newChild != ownerDocument) {
-                throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, 
+                throw new DOMException(DOMException.WRONG_DOCUMENT_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null));
             }
             if (!ownerDocument.isKidOK(this, newChild)) {
-                throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, 
+                throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
             }
             // refChild must be a child of this node (or null)
@@ -370,7 +379,7 @@ public abstract class ParentNode
                 treeSafe = newChild != a;
             }
             if(!treeSafe) {
-                throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, 
+                throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
             }
         }
@@ -471,12 +480,13 @@ public abstract class ParentNode
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
      * read-only.
      */
-    public Node removeChild(Node oldChild) 
+    @Override
+    public Node removeChild(Node oldChild)
         throws DOMException {
         // Tail-call, should be optimizable
         return internalRemoveChild(oldChild, false);
     } // removeChild(Node) :Node
-     
+
     /** NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
      * to control which mutation events are spawned. This version of the
      * removeChild operation allows us to do so. It is not intended
@@ -489,11 +499,11 @@ public abstract class ParentNode
         if (ownerDocument.errorChecking) {
             if (isReadOnly()) {
                 throw new DOMException(
-                            DOMException.NO_MODIFICATION_ALLOWED_ERR, 
+                            DOMException.NO_MODIFICATION_ALLOWED_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
             }
             if (oldChild != null && oldChild.getParentNode() != this) {
-                throw new DOMException(DOMException.NOT_FOUND_ERR, 
+                throw new DOMException(DOMException.NOT_FOUND_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
             }
         }
@@ -502,7 +512,7 @@ public abstract class ParentNode
 
         // notify document
         ownerDocument.removingNode(this, oldInternal, replace);
-        
+
         // Save previous sibling for normalization checking.
         final ChildNode oldPreviousSibling = oldInternal.previousSibling();
 
@@ -585,11 +595,12 @@ public abstract class ParentNode
      * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
      * read-only.
      */
+    @Override
     public Node replaceChild(Node newChild, Node oldChild)
         throws DOMException {
         // If Mutation Events are being generated, this operation might
-        // throw aggregate events twice when modifying an Attr -- once 
-        // on insertion and once on removal. DOM Level 2 does not specify 
+        // throw aggregate events twice when modifying an Attr -- once
+        // on insertion and once on removal. DOM Level 2 does not specify
         // this as either desirable or undesirable, but hints that
         // aggregations should be issued only once per user request.
 
@@ -611,6 +622,7 @@ public abstract class ParentNode
      * Get Node text content
      * @since DOM Level 3
      */
+    @Override
     public String getTextContent() throws DOMException {
         Node child = getFirstChild();
         if (child != null) {
@@ -626,6 +638,7 @@ public abstract class ParentNode
     }
 
     // internal method taking a StringBuffer in parameter
+    @Override
     void getTextContent(StringBuffer buf) throws DOMException {
         Node child = getFirstChild();
         while (child != null) {
@@ -641,13 +654,14 @@ public abstract class ParentNode
         return child.getNodeType() != Node.COMMENT_NODE &&
             child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE &&
             (child.getNodeType() != Node.TEXT_NODE ||
-             ((TextImpl) child).isIgnorableWhitespace() == false);
+             !((TextImpl) child).isIgnorableWhitespace());
     }
 
     /*
      * Set Node text content
      * @since DOM Level 3
      */
+    @Override
     public void setTextContent(String textContent)
         throws DOMException {
         // get rid of any existing children
@@ -713,6 +727,7 @@ public abstract class ParentNode
      * NodeList method: Count the immediate children of this node
      * @return int
      */
+    @Override
     public int getLength() {
         return nodeListGetLength();
     }
@@ -790,6 +805,7 @@ public abstract class ParentNode
      * @return org.w3c.dom.Node
      * @param index int
      */
+    @Override
     public Node item(int index) {
         return nodeListItem(index);
     } // item(int):Node
@@ -814,13 +830,15 @@ public abstract class ParentNode
                 /**
                  * @see NodeList.getLength()
                  */
+                @Override
                 public int getLength() {
                     return nodeListGetLength();
                 } // getLength():int
-                
+
                 /**
                  * @see NodeList.item(int)
                  */
+                @Override
                 public Node item(int index) {
                     return nodeListItem(index);
                 } // item(int):Node
@@ -836,6 +854,7 @@ public abstract class ParentNode
      * children. It is up to implementors or Node to override normalize()
      * to take action.
      */
+    @Override
     public void normalize() {
         // No need to normalize if already normalized.
         if (isNormalized()) {
@@ -855,6 +874,7 @@ public abstract class ParentNode
      * DOM Level 3 WD- Experimental.
      * Override inherited behavior from NodeImpl to support deep equal.
      */
+    @Override
     public boolean isEqualNode(Node arg) {
         if (!super.isEqualNode(arg)) {
             return false;
@@ -889,6 +909,7 @@ public abstract class ParentNode
      * Note: this will not change the state of an EntityReference or its
      * children, which are always read-only.
      */
+    @Override
     public void setReadOnly(boolean readOnly, boolean deep) {
 
         super.setReadOnly(readOnly, deep);
@@ -1020,7 +1041,7 @@ public abstract class ParentNode
     class UserDataRecord implements Serializable {
         /** Serialization version. */
         private static final long serialVersionUID = 3258126977134310455L;
-        
+
         final Object fData;
         final UserDataHandler fHandler;
         UserDataRecord(Object data, UserDataHandler handler) {

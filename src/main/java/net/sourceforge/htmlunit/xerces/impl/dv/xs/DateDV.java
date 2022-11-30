@@ -32,6 +32,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  */
 public class DateDV extends DateTimeDV {
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         try{
             return parse(content);
@@ -48,6 +49,7 @@ public class DateDV extends DateTimeDV {
      * @return normalized dateTime representation
      * @exception SchemaDateTimeException Invalid lexical representation
      */
+    @Override
     protected DateTimeData parse(String str) throws SchemaDateTimeException {
         DateTimeData date = new DateTimeData(str, this);
         int len = str.length();
@@ -68,6 +70,7 @@ public class DateDV extends DateTimeDV {
         return date;
     }
 
+    @Override
     protected String dateToString(DateTimeData date) {
         StringBuffer message = new StringBuffer(25);
         append(message, date.year, 4);

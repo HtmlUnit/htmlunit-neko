@@ -25,12 +25,13 @@ import net.sourceforge.htmlunit.xerces.impl.xs.XSElementDecl;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.IdentityConstraint;
 import net.sourceforge.htmlunit.xerces.impl.xs.identity.UniqueOrKey;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
+import net.sourceforge.htmlunit.xerces.xs.XSIDCDefinition;
 
 /**
  * This class contains code that is used to traverse both <key>s and
  * <unique>s.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @version $Id$
@@ -61,9 +62,9 @@ class XSDUniqueOrKeyTraverser extends XSDAbstractIDConstraintTraverser {
 
         UniqueOrKey uniqueOrKey = null;
         if(DOMUtil.getLocalName(uElem).equals(SchemaSymbols.ELT_UNIQUE)) {
-            uniqueOrKey = new UniqueOrKey(schemaDoc.fTargetNamespace, uName, element.fName, IdentityConstraint.IC_UNIQUE);
+            uniqueOrKey = new UniqueOrKey(schemaDoc.fTargetNamespace, uName, element.fName, XSIDCDefinition.IC_UNIQUE);
         } else {
-            uniqueOrKey = new UniqueOrKey(schemaDoc.fTargetNamespace, uName, element.fName, IdentityConstraint.IC_KEY);
+            uniqueOrKey = new UniqueOrKey(schemaDoc.fTargetNamespace, uName, element.fName, XSIDCDefinition.IC_KEY);
         }
         // it's XSDElementTraverser's job to ensure that there's no
         // duplication (or if there is that restriction is involved
@@ -78,7 +79,7 @@ class XSDUniqueOrKeyTraverser extends XSDAbstractIDConstraintTraverser {
             }
 
             final String loc = fSchemaHandler.schemaDocument2SystemId(schemaDoc);
-            final IdentityConstraint idc = grammar.getIDConstraintDecl(uniqueOrKey.getIdentityConstraintName(), loc);  
+            final IdentityConstraint idc = grammar.getIDConstraintDecl(uniqueOrKey.getIdentityConstraintName(), loc);
             if (idc == null) {
                 grammar.addIDConstraintDecl(element, uniqueOrKey, loc);
             }
@@ -87,7 +88,7 @@ class XSDUniqueOrKeyTraverser extends XSDAbstractIDConstraintTraverser {
             if (fSchemaHandler.fTolerateDuplicates) {
                 if (idc != null) {
                     if (idc instanceof UniqueOrKey) {
-                        uniqueOrKey = (UniqueOrKey) uniqueOrKey;
+                        uniqueOrKey = uniqueOrKey;
                     }
                 }
                 fSchemaHandler.addIDConstraintDecl(uniqueOrKey);

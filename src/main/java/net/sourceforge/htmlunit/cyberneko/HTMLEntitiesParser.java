@@ -65,14 +65,8 @@ public class HTMLEntitiesParser {
 
     public void setMatchFromCode() {
         // If the number is 0x00, then this is a null-character-reference parse error. Set the character reference code to 0xFFFD.
-        if (0x00 == code) {
-            match = "\uFFFD";
-            matchLength = consumedCount;
-            return;
-        }
-
         // If the number is greater than 0x10FFFF, then this is a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
-        if (code > 0x10FFFF) {
+        if ((0x00 == code) || (code > 0x10FFFF)) {
             match = "\uFFFD";
             matchLength = consumedCount;
             return;

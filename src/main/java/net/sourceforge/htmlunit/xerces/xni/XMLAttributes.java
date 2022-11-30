@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,9 +18,9 @@
 package net.sourceforge.htmlunit.xerces.xni;
 
 /**
- * The XMLAttributes interface defines a collection of attributes for 
+ * The XMLAttributes interface defines a collection of attributes for
  * an element. In the parser, the document source would scan the entire
- * start element and collect the attributes. The attributes are 
+ * start element and collect the attributes. The attributes are
  * communicated to the document handler in the startElement method.
  * <p>
  * The attributes are read-write so that subsequent stages in the document
@@ -50,18 +50,18 @@ public interface XMLAttributes {
      * <strong>Note:</strong> If an attribute of the same name already
      * exists, the old values for the attribute are replaced by the new
      * values.
-     * 
+     *
      * @param attrName  The attribute name.
      * @param attrType  The attribute type. The type name is determined by
      *                  the type specified for this attribute in the DTD.
      *                  For example: "CDATA", "ID", "NMTOKEN", etc. However,
      *                  attributes of type enumeration will have the type
      *                  value specified as the pipe ('|') separated list of
-     *                  the enumeration values prefixed by an open 
+     *                  the enumeration values prefixed by an open
      *                  parenthesis and suffixed by a close parenthesis.
      *                  For example: "(true|false)".
      * @param attrValue The attribute value.
-     * 
+     *
      * @return Returns the attribute index.
      *
      * @see #setNonNormalizedValue
@@ -69,7 +69,7 @@ public interface XMLAttributes {
      */
     int addAttribute(QName attrName, String attrType, String attrValue);
 
-    /** 
+    /**
      * Removes all of the attributes. This method will also remove all
      * entities associated to the attributes.
      */
@@ -80,7 +80,7 @@ public interface XMLAttributes {
      * <p>
      * <strong>Note:</strong> This operation changes the indexes of all
      * attributes following the attribute at the specified index.
-     * 
+     *
      * @param attrIndex The attribute index.
      */
     void removeAttributeAt(int attrIndex);
@@ -123,7 +123,7 @@ public interface XMLAttributes {
 
     /**
      * Sets the name of the attribute at the specified index.
-     * 
+     *
      * @param attrIndex The attribute index.
      * @param attrName  The new attribute name.
      */
@@ -132,7 +132,7 @@ public interface XMLAttributes {
     /**
      * Sets the fields in the given QName structure with the values
      * of the attribute name at the specified index.
-     * 
+     *
      * @param attrIndex The attribute index.
      * @param attrName  The attribute name structure to fill in.
      */
@@ -157,7 +157,7 @@ public interface XMLAttributes {
      * @see #getLength
      */
     String getURI(int index);
-    
+
     /**
      * Look up an attribute's local name by index.
      *
@@ -186,14 +186,14 @@ public interface XMLAttributes {
 
     /**
      * Sets the type of the attribute at the specified index.
-     * 
+     *
      * @param attrIndex The attribute index.
      * @param attrType  The attribute type. The type name is determined by
      *                  the type specified for this attribute in the DTD.
      *                  For example: "CDATA", "ID", "NMTOKEN", etc. However,
      *                  attributes of type enumeration will have the type
      *                  value specified as the pipe ('|') separated list of
-     *                  the enumeration values prefixed by an open 
+     *                  the enumeration values prefixed by an open
      *                  parenthesis and suffixed by a close parenthesis.
      *                  For example: "(true|false)".
      */
@@ -256,7 +256,7 @@ public interface XMLAttributes {
     /**
      * Sets the value of the attribute at the specified index. This
      * method will overwrite the non-normalized value of the attribute.
-     * 
+     *
      * @param attrIndex The attribute index.
      * @param attrValue The new attribute value.
      *
@@ -348,7 +348,7 @@ public interface XMLAttributes {
 
     /**
      * Look up an augmentation by attribute's index.
-     * 
+     *
      * @param attributeIndex The attribute index.
      * @return Augmentations
      */
@@ -356,7 +356,7 @@ public interface XMLAttributes {
 
     /**
      * Look up an augmentation by namespace name.
-     * 
+     *
      * @param uri       The Namespace URI, or the empty string if
      *                  the name has no Namespace URI.
      * @param localPart
@@ -379,7 +379,7 @@ public interface XMLAttributes {
 
     /**
      * Sets the augmentations of the attribute at the specified index.
-     * 
+     *
      * @param attrIndex The attribute index.
      * @param augs      The augmentations.
      */

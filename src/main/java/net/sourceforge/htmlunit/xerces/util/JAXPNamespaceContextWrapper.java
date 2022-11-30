@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,53 +29,54 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 
 /**
  * <p>A read-only XNI wrapper around a JAXP NamespaceContext.</p>
- * 
+ *
  * @author Michael Glavassevich, IBM
- * 
+ *
  * @version $Id$
  */
 public final class JAXPNamespaceContextWrapper implements NamespaceContext {
-    
+
     private javax.xml.namespace.NamespaceContext fNamespaceContext;
     private SymbolTable fSymbolTable;
     private List fPrefixes;
     private final Vector fAllPrefixes = new Vector();
-    
+
     private int[] fContext = new int[8];
     private int fCurrentContext;
-    
+
     public JAXPNamespaceContextWrapper(SymbolTable symbolTable) {
         setSymbolTable(symbolTable);
     }
-    
+
     public void setNamespaceContext(javax.xml.namespace.NamespaceContext context) {
         fNamespaceContext = context;
     }
-    
+
     public javax.xml.namespace.NamespaceContext getNamespaceContext() {
         return fNamespaceContext;
     }
-    
+
     public void setSymbolTable(SymbolTable symbolTable) {
         fSymbolTable = symbolTable;
     }
-    
+
     public SymbolTable getSymbolTable() {
         return fSymbolTable;
     }
-    
+
     public void setDeclaredPrefixes(List prefixes) {
         fPrefixes = prefixes;
     }
-    
+
     public List getDeclaredPrefixes() {
         return fPrefixes;
     }
-    
+
     /*
      * NamespaceContext methods
      */
-    
+
+    @Override
     public String getURI(String prefix) {
         if (fNamespaceContext != null) {
             String uri = fNamespaceContext.getNamespaceURI(prefix);
@@ -86,6 +87,7 @@ public final class JAXPNamespaceContextWrapper implements NamespaceContext {
         return null;
     }
 
+    @Override
     public String getPrefix(String uri) {
         if (fNamespaceContext != null) {
             if (uri == null) {
@@ -99,13 +101,15 @@ public final class JAXPNamespaceContextWrapper implements NamespaceContext {
         }
         return null;
     }
-    
+
+    @Override
     public Enumeration getAllPrefixes() {
-        // There may be duplicate prefixes in the list so we 
+        // There may be duplicate prefixes in the list so we
         // first transfer them to a set to ensure uniqueness.
         return Collections.enumeration(new TreeSet(fAllPrefixes));
     }
 
+    @Override
     public void pushContext() {
         // extend the array, if necessary
         if (fCurrentContext + 1 == fContext.length) {
@@ -120,22 +124,27 @@ public final class JAXPNamespaceContextWrapper implements NamespaceContext {
         }
     }
 
+    @Override
     public void popContext() {
         fAllPrefixes.setSize(fContext[fCurrentContext--]);
     }
 
+    @Override
     public boolean declarePrefix(String prefix, String uri) {
         return true;
     }
 
+    @Override
     public int getDeclaredPrefixCount() {
         return (fPrefixes != null) ? fPrefixes.size() : 0;
     }
 
+    @Override
     public String getDeclaredPrefixAt(int index) {
         return (String) fPrefixes.get(index);
     }
 
+    @Override
     public void reset() {
         fCurrentContext = 0;
         fContext[fCurrentContext] = 0;

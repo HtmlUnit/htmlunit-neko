@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 /**
  * This class is responsible for scanning the declarations found
  * in the internal and external subsets of a DTD in an XML document.
- * The scanner acts as the sources for the DTD information which is 
+ * The scanner acts as the sources for the DTD information which is
  * communicated to the DTD handlers.
  * <p>
  * This component requires the following features and properties from the
@@ -41,7 +41,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/error-reporter</li>
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
@@ -56,7 +56,7 @@ public class XML11DTDScannerImpl
 
     /** String buffer. */
     private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
-    
+
     //
     // Constructors
     //
@@ -84,7 +84,7 @@ public class XML11DTDScannerImpl
     /**
      * Scans public ID literal.
      *
-     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'" 
+     * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
      * [13] PubidChar::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]
      *
      * The returned string is normalized according to the following rule,
@@ -100,6 +100,7 @@ public class XML11DTDScannerImpl
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it at
      * the time of calling is lost.
      */
+    @Override
     protected boolean scanPubidLiteral(XMLString literal)
         throws IOException, XNIException
     {
@@ -147,11 +148,12 @@ public class XML11DTDScannerImpl
         }
         return dataok;
    }
-   
+
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
+    @Override
     protected void normalizeWhitespace(XMLString value) {
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
@@ -161,11 +163,12 @@ public class XML11DTDScannerImpl
             }
         }
     }
-    
+
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
+    @Override
     protected void normalizeWhitespace(XMLString value, int fromIndex) {
         int end = value.offset + value.length;
         for (int i = value.offset + fromIndex; i < end; ++i) {
@@ -175,14 +178,15 @@ public class XML11DTDScannerImpl
             }
         }
     }
-    
+
     /**
      * Checks whether this string would be unchanged by normalization.
-     * 
+     *
      * @return -1 if the value would be unchanged by normalization,
      * otherwise the index of the first whitespace character which
      * would be transformed.
      */
+    @Override
     protected int isUnchangedByNormalization(XMLString value) {
         int end = value.offset + value.length;
         for (int i = value.offset; i < end; ++i) {
@@ -197,56 +201,64 @@ public class XML11DTDScannerImpl
     // returns true if the given character is not
     // valid with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isInvalid(int value) {
-        return (!XML11Char.isXML11Valid(value)); 
+        return (!XML11Char.isXML11Valid(value));
     } // isInvalid(int):  boolean
 
     // returns true if the given character is not
-    // valid or may not be used outside a character reference 
+    // valid or may not be used outside a character reference
     // with respect to the version of XML understood by this scanner.
+    @Override
     protected boolean isInvalidLiteral(int value) {
-        return (!XML11Char.isXML11ValidLiteral(value)); 
+        return (!XML11Char.isXML11ValidLiteral(value));
     } // isInvalidLiteral(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameChar with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNameChar(int value) {
-        return (XML11Char.isXML11Name(value)); 
+        return (XML11Char.isXML11Name(value));
     } // isValidNameChar(int):  boolean
 
-    // returns true if the given character is 
+    // returns true if the given character is
     // a valid nameStartChar with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNameStartChar(int value) {
-        return (XML11Char.isXML11NameStart(value)); 
+        return (XML11Char.isXML11NameStart(value));
     } // isValidNameStartChar(int):  boolean
-    
+
     // returns true if the given character is
     // a valid NCName character with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected boolean isValidNCName(int value) {
         return (XML11Char.isXML11NCName(value));
     } // isValidNCName(int):  boolean
-    
-    // returns true if the given character is 
-    // a valid high surrogate for a nameStartChar 
-    // with respect to the version of XML understood 
+
+    // returns true if the given character is
+    // a valid high surrogate for a nameStartChar
+    // with respect to the version of XML understood
     // by this scanner.
+    @Override
     protected boolean isValidNameStartHighSurrogate(int value) {
-        return XML11Char.isXML11NameHighSurrogate(value); 
+        return XML11Char.isXML11NameHighSurrogate(value);
     } // isValidNameStartHighSurrogate(int):  boolean
 
     // note that, according to 4.3.4 of the XML 1.1 spec, XML 1.1
     // documents may invoke 1.0 entities; thus either version decl (or none!)
     // is allowed to appear in this context
+    @Override
     protected boolean versionSupported(String version) {
         return version.equals("1.1") || version.equals ("1.0");
     } // versionSupported(String):  boolean
-    
+
     // returns the error message key for unsupported
     // versions of XML with respect to the version of
     // XML understood by this scanner.
+    @Override
     protected String getVersionNotSupportedKey () {
         return "VersionNotSupported11";
     } // getVersionNotSupportedKey: String

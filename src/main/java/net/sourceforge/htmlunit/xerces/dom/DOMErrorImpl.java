@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,22 +25,22 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
 /**
  * <code>DOMErrorImpl</code> is an implementation that describes an error.
- * <strong>Note:</strong> The error object that describes the error 
- * might be reused by Xerces implementation, across multiple calls to the 
+ * <strong>Note:</strong> The error object that describes the error
+ * might be reused by Xerces implementation, across multiple calls to the
  * handleEvent method on DOMErrorHandler interface.
- * 
- * 
+ *
+ *
  * <p>See also the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document Object Model (DOM) Level 3 Core Specification</a>.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Gopal Sharma, SUN Microsystems Inc.
  * @author Elena Litani, IBM
  *
  * @version $Id$
  */
 
-// REVISIT: the implementation of ErrorReporter. 
+// REVISIT: the implementation of ErrorReporter.
 //          we probably should not pass XMLParseException
 //
 
@@ -56,14 +56,14 @@ public class DOMErrorImpl implements DOMError {
     public Exception fException = null;
     public String fType;
     public Object fRelatedData;
-   
+
 
 
     //
     // Constructors
     //
 
-    /** Default constructor. */    
+    /** Default constructor. */
     public DOMErrorImpl () {
     }
 
@@ -75,10 +75,11 @@ public class DOMErrorImpl implements DOMError {
     }
 
     /**
-     * The severity of the error, either <code>SEVERITY_WARNING</code>, 
+     * The severity of the error, either <code>SEVERITY_WARNING</code>,
      * <code>SEVERITY_ERROR</code>, or <code>SEVERITY_FATAL_ERROR</code>.
      */
 
+    @Override
     public short getSeverity() {
         return fSeverity;
     }
@@ -87,6 +88,7 @@ public class DOMErrorImpl implements DOMError {
      * An implementation specific string describing the error that occured.
      */
 
+    @Override
     public String getMessage() {
         return fMessage;
     }
@@ -95,6 +97,7 @@ public class DOMErrorImpl implements DOMError {
      * The location of the error.
      */
 
+    @Override
     public DOMLocator getLocation() {
         return fLocator;
     }
@@ -110,23 +113,26 @@ public class DOMErrorImpl implements DOMError {
 
 
     /**
-     * The related platform dependent exception if any.exception is a reserved 
-     * word, we need to rename it.Change to "relatedException". (F2F 26 Sep 
+     * The related platform dependent exception if any.exception is a reserved
+     * word, we need to rename it.Change to "relatedException". (F2F 26 Sep
      * 2001)
      */
+    @Override
     public Object getRelatedException(){
         return fException;
     }
 
     public void reset(){
-        fSeverity = DOMError.SEVERITY_WARNING; 
+        fSeverity = DOMError.SEVERITY_WARNING;
         fException = null;
     }
-    
+
+    @Override
     public String getType(){
         return fType;
     }
-    
+
+    @Override
     public Object getRelatedData(){
         return fRelatedData;
     }

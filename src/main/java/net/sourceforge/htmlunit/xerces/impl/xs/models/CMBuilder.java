@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,12 @@ import net.sourceforge.htmlunit.xerces.impl.xs.XSDeclarationPool;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSElementDecl;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSModelGroupImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.XSParticleDecl;
+import net.sourceforge.htmlunit.xerces.xs.XSComplexTypeDefinition;
 
 /**
  * This class constructs content models for a given grammar.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Sandy Gao, IBM
@@ -70,8 +71,8 @@ public class CMBuilder {
         // for complex type with empty or simple content,
         // there is no content model validator
         short contentType = typeDecl.getContentType();
-        if (contentType == XSComplexTypeDecl.CONTENTTYPE_SIMPLE ||
-            contentType == XSComplexTypeDecl.CONTENTTYPE_EMPTY) {
+        if (contentType == XSComplexTypeDefinition.CONTENTTYPE_SIMPLE ||
+            contentType == XSComplexTypeDefinition.CONTENTTYPE_EMPTY) {
             return null;
         }
 
@@ -143,7 +144,7 @@ public class CMBuilder {
 
         int maxOccurs = particle.fMaxOccurs;
         int minOccurs = particle.fMinOccurs;
-        
+
         boolean compactedForUPA = false;
         if (forUPA) {
             // When doing UPA, we reduce the size of the minOccurs/maxOccurs values to make
@@ -163,7 +164,7 @@ public class CMBuilder {
                 compactedForUPA = true;
             }
         }
-        
+
         short type = particle.fType;
         CMNode nodeRet = null;
 
@@ -213,7 +214,7 @@ public class CMBuilder {
             }
             // (task 2) expand occurrence values
             if (nodeRet != null) {
-                // when the group is "choice" and the group has one or more empty children, 
+                // when the group is "choice" and the group has one or more empty children,
                 // we need to create a zero-or-one (optional) node for the non-empty particles.
                 if (group.fCompositor == XSModelGroupImpl.MODELGROUP_CHOICE && count < group.fParticleCount) {
                     nodeRet = fNodeFactory.getCMUniOpNode(XSParticleDecl.PARTICLE_ZERO_OR_ONE, nodeRet);
@@ -324,10 +325,10 @@ public class CMBuilder {
 
         return node;
     }
-    
-    // A special version of buildSyntaxTree() which builds a compact syntax tree 
+
+    // A special version of buildSyntaxTree() which builds a compact syntax tree
     // containing compound leaf nodes which carry occurence information. This method
-    // for building the syntax tree is chosen over buildSyntaxTree() when 
+    // for building the syntax tree is chosen over buildSyntaxTree() when
     // useRepeatingLeafNodes() returns true.
     private CMNode buildCompactSyntaxTree(XSParticleDecl particle) {
         int maxOccurs = particle.fMaxOccurs;
@@ -346,7 +347,7 @@ public class CMBuilder {
             }
             else {
                 CMNode temp = null;
-                
+
                 // when the model group is a choice of more than one particles, but
                 // only one of the particle is not empty, (for example
                 // <choice>
@@ -372,7 +373,7 @@ public class CMBuilder {
                     }
                 }
                 if (nodeRet != null) {
-                    // when the group is "choice" and the group has one or more empty children, 
+                    // when the group is "choice" and the group has one or more empty children,
                     // we need to create a zero-or-one (optional) node for the non-empty particles.
                     if (group.fCompositor == XSModelGroupImpl.MODELGROUP_CHOICE && count < group.fParticleCount) {
                         nodeRet = fNodeFactory.getCMUniOpNode(XSParticleDecl.PARTICLE_ZERO_OR_ONE, nodeRet);
@@ -382,7 +383,7 @@ public class CMBuilder {
         }
         return nodeRet;
     }
-    
+
     private CMNode buildCompactSyntaxTree2(XSParticleDecl particle, int minOccurs, int maxOccurs) {
         // Convert element and wildcard particles to leaf nodes. Wrap repeating particles in a CMUniOpNode.
         CMNode nodeRet = null;
@@ -405,7 +406,7 @@ public class CMBuilder {
             nodeRet = fNodeFactory.getCMUniOpNode(XSParticleDecl.PARTICLE_ONE_OR_MORE, nodeRet);
         }
         else {
-            // {n,m}: Instead of expanding this out, create a compound leaf node which carries the 
+            // {n,m}: Instead of expanding this out, create a compound leaf node which carries the
             // occurence information and wrap it in the appropriate CMUniOpNode.
             nodeRet = fNodeFactory.getCMRepeatingLeafNode(particle.fType, particle.fValue, minOccurs, maxOccurs, fParticleCount++, fLeafCount++);
             if (minOccurs == 0) {
@@ -417,21 +418,21 @@ public class CMBuilder {
         }
         return nodeRet;
     }
-    
+
     // This method checks if this particle can be transformed into a compact syntax
     // tree containing compound leaf nodes which carry occurence information. Currently
-    // it returns true if each model group has minOccurs/maxOccurs == 1 or 
+    // it returns true if each model group has minOccurs/maxOccurs == 1 or
     // contains only one element/wildcard particle with minOccurs/maxOccurs == 1.
     private boolean useRepeatingLeafNodes(XSParticleDecl particle) {
         int maxOccurs = particle.fMaxOccurs;
         int minOccurs = particle.fMinOccurs;
         short type = particle.fType;
-        
+
         if (type == XSParticleDecl.PARTICLE_MODELGROUP) {
             XSModelGroupImpl group = (XSModelGroupImpl) particle.fValue;
             if (minOccurs != 1 || maxOccurs != 1) {
                 if (group.fParticleCount == 1) {
-                    XSParticleDecl particle2 = (XSParticleDecl) group.fParticles[0];
+                    XSParticleDecl particle2 = group.fParticles[0];
                     short type2 = particle2.fType;
                     return ((type2 == XSParticleDecl.PARTICLE_ELEMENT ||
                             type2 == XSParticleDecl.PARTICLE_WILDCARD) &&

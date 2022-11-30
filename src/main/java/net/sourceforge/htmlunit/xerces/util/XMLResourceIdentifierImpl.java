@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,11 +20,11 @@ package net.sourceforge.htmlunit.xerces.util;
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 
 /**
- * The XMLResourceIdentifierImpl class is an implementation of the 
+ * The XMLResourceIdentifierImpl class is an implementation of the
  * XMLResourceIdentifier interface which defines the location identity
  * of a resource.
  *
- * @author Andy Clark 
+ * @author Andy Clark
  *
  * @version $Id$
  */
@@ -120,26 +120,31 @@ public class XMLResourceIdentifierImpl
     } // clear()
 
     /** Sets the public identifier. */
+    @Override
     public void setPublicId(String publicId) {
         fPublicId = publicId;
     } // setPublicId(String)
 
     /** Sets the literal system identifier. */
+    @Override
     public void setLiteralSystemId(String literalSystemId) {
         fLiteralSystemId = literalSystemId;
     } // setLiteralSystemId(String)
 
     /** Sets the base system identifier. */
+    @Override
     public void setBaseSystemId(String baseSystemId) {
         fBaseSystemId = baseSystemId;
     } // setBaseSystemId(String)
 
     /** Sets the expanded system identifier. */
+    @Override
     public void setExpandedSystemId(String expandedSystemId) {
         fExpandedSystemId = expandedSystemId;
     } // setExpandedSystemId(String)
 
     /** Sets the namespace of the resource. */
+    @Override
     public void setNamespace(String namespace) {
         fNamespace = namespace;
     } // setNamespace(String)
@@ -149,28 +154,33 @@ public class XMLResourceIdentifierImpl
     //
 
     /** Returns the public identifier. */
+    @Override
     public String getPublicId() {
         return fPublicId;
     } // getPublicId():String
 
     /** Returns the literal system identifier. */
+    @Override
     public String getLiteralSystemId() {
         return fLiteralSystemId;
     } // getLiteralSystemId():String
 
-    /** 
+    /**
      * Returns the base URI against which the literal SystemId is to be resolved.
      */
+    @Override
     public String getBaseSystemId() {
         return fBaseSystemId;
     } // getBaseSystemId():String
 
     /** Returns the expanded system identifier. */
+    @Override
     public String getExpandedSystemId() {
         return fExpandedSystemId;
     } // getExpandedSystemId():String
 
     /** Returns the namespace of the resource. */
+    @Override
     public String getNamespace() {
         return fNamespace;
     } // getNamespace():String
@@ -180,6 +190,7 @@ public class XMLResourceIdentifierImpl
     //
 
     /** Returns a hash code for this object. */
+    @Override
     public int hashCode() {
         int code = 0;
         if (fPublicId != null) {
@@ -201,6 +212,7 @@ public class XMLResourceIdentifierImpl
     } // hashCode():int
 
     /** Returns a string representation of this object. */
+    @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         if (fPublicId != null) {

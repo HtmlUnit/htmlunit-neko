@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,12 +22,12 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 
 /**
  * Content model leaf node.
- * 
+ *
  * @xerces.internal
  *
  * @version $Id$
  */
-public class CMLeaf 
+public class CMLeaf
     extends CMNode {
 
     //
@@ -90,12 +90,14 @@ public class CMLeaf
 
     // package
 
-    public boolean isNullable() 
+    @Override
+    public boolean isNullable()
     {
         // Leaf nodes are never nullable unless its an epsilon node
         return (fPosition == -1);
     }
 
+    @Override
     public String toString()
     {
         StringBuilder strRet = new StringBuilder(fElement.toString());
@@ -114,7 +116,8 @@ public class CMLeaf
 
     // protected
 
-    protected void calcFirstPos(CMStateSet toSet) 
+    @Override
+    protected void calcFirstPos(CMStateSet toSet)
     {
         // If we are an epsilon node, then the first pos is an empty set
         if (fPosition == -1)
@@ -125,7 +128,8 @@ public class CMLeaf
             toSet.setBit(fPosition);
     }
 
-    protected void calcLastPos(CMStateSet toSet) 
+    @Override
+    protected void calcLastPos(CMStateSet toSet)
     {
         // If we are an epsilon node, then the last pos is an empty set
         if (fPosition == -1)

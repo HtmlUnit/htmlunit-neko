@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,27 +23,27 @@ import java.util.ResourceBundle;
 
 /**
  * Used to format DOM error messages, using the system locale.
- * 
+ *
  * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @version $Id$
  */
 public class DOMMessageFormatter {
-    
+
     public static final String DOM_DOMAIN = "http://www.w3.org/dom/DOMTR";
     public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
     public static final String SERIALIZER_DOMAIN = "http://apache.org/xml/serializer";
-    
+
     private static ResourceBundle domResourceBundle = null;
     private static ResourceBundle xmlResourceBundle = null;
     private static ResourceBundle serResourceBundle = null;
     private static Locale locale = null;
-    
+
     DOMMessageFormatter() {
         locale = Locale.getDefault();
     }
-    
+
     /**
      * Formats a message with the specified arguments using the given
      * locale information.
@@ -87,7 +87,7 @@ public class DOMMessageFormatter {
             msg = resourceBundle.getString("BadMessageKey");
             throw new MissingResourceException(key, msg, key);
         }
-        
+
         // no message
         if (msg == null) {
             msg = key;
@@ -102,10 +102,10 @@ public class DOMMessageFormatter {
                 }
             }
         }
-        
+
         return msg;
     }
-    
+
     static ResourceBundle getResourceBundle(String domain) {
         if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
             return domResourceBundle;
@@ -118,7 +118,7 @@ public class DOMMessageFormatter {
         }
         return null;
     }
-    
+
     /**
      * Initialize Message Formatter.
      */
@@ -131,7 +131,7 @@ public class DOMMessageFormatter {
         serResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLSerializerMessages", _locale);
         xmlResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages", _locale);
     }
-    
+
     /**
      * Set Locale to be used by the formatter.
      * @param dlocale

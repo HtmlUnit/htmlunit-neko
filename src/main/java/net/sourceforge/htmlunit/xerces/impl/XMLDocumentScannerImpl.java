@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,7 +60,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  *  <li>http://apache.org/xml/properties/internal/dtd-scanner</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Glenn Marcy, IBM
@@ -120,7 +120,7 @@ public class XMLDocumentScannerImpl
     /** property identifier:  NamespaceContext */
     protected static final String NAMESPACE_CONTEXT =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_CONTEXT_PROPERTY;
-        
+
 
 
     // recognized features and properties
@@ -218,10 +218,10 @@ public class XMLDocumentScannerImpl
 
     /** String buffer. */
     private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
-    
+
     /** External subset source. */
     private XMLInputSource fExternalSubsetSource = null;
-    
+
     /** A DTD Description. */
     private final XMLDTDDescription fDTDDescription = new XMLDTDDescription(null, null, null, null, null);
 
@@ -243,6 +243,7 @@ public class XMLDocumentScannerImpl
      *
      * @throws IOException Thrown on i/o error.
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource) throws IOException {
         fEntityManager.setEntityHandler(this);
         fEntityManager.startDocumentEntity(inputSource);
@@ -267,6 +268,7 @@ public class XMLDocumentScannerImpl
      *                      SAXNotRecognizedException or a
      *                      SAXNotSupportedException.
      */
+    @Override
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
 
@@ -320,7 +322,7 @@ public class XMLDocumentScannerImpl
             fNamespaceContext = new NamespaceSupport();
         }
         fNamespaceContext.reset();
-        
+
         // setup dispatcher
         setScannerState(SCANNER_STATE_XML_DECL);
         setDispatcher(fXMLDeclDispatcher);
@@ -332,6 +334,7 @@ public class XMLDocumentScannerImpl
      * this component. This method may return null if no features
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedFeatures() {
         String[] featureIds = super.getRecognizedFeatures();
         int length = featureIds != null ? featureIds.length : 0;
@@ -358,6 +361,7 @@ public class XMLDocumentScannerImpl
      * @throws SAXNotSupportedException The component should not throw
      *                                  this exception.
      */
+    @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
 
@@ -366,13 +370,13 @@ public class XMLDocumentScannerImpl
         // Xerces properties
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
-            
-            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() && 
+
+            if (suffixLength == Constants.LOAD_EXTERNAL_DTD_FEATURE.length() &&
                 featureId.endsWith(Constants.LOAD_EXTERNAL_DTD_FEATURE)) {
                 fLoadExternalDTD = state;
                 return;
             }
-            else if (suffixLength == Constants.DISALLOW_DOCTYPE_DECL_FEATURE.length() && 
+            else if (suffixLength == Constants.DISALLOW_DOCTYPE_DECL_FEATURE.length() &&
                 featureId.endsWith(Constants.DISALLOW_DOCTYPE_DECL_FEATURE)) {
                 fDisallowDoctype = state;
                 return;
@@ -386,6 +390,7 @@ public class XMLDocumentScannerImpl
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedProperties() {
         String[] propertyIds = super.getRecognizedProperties();
         int length = propertyIds != null ? propertyIds.length : 0;
@@ -412,6 +417,7 @@ public class XMLDocumentScannerImpl
      * @throws SAXNotSupportedException The component should not throw
      *                                  this exception.
      */
+    @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
 
@@ -420,12 +426,12 @@ public class XMLDocumentScannerImpl
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-            
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() && 
+
+            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
                 propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
                 fDTDScanner = (XMLDTDScanner)value;
             }
-            if (suffixLength == Constants.NAMESPACE_CONTEXT_PROPERTY.length() && 
+            if (suffixLength == Constants.NAMESPACE_CONTEXT_PROPERTY.length() &&
                 propertyId.endsWith(Constants.NAMESPACE_CONTEXT_PROPERTY)) {
                 if (value != null) {
                     fNamespaceContext = (NamespaceContext)value;
@@ -437,7 +443,7 @@ public class XMLDocumentScannerImpl
 
     } // setProperty(String,Object)
 
-    /** 
+    /**
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -446,6 +452,7 @@ public class XMLDocumentScannerImpl
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
 
         for (int i = 0; i < RECOGNIZED_FEATURES.length; i++) {
@@ -456,15 +463,16 @@ public class XMLDocumentScannerImpl
         return super.getFeatureDefault(featureId);
     } // getFeatureDefault(String):Boolean
 
-    /** 
+    /**
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
-     * property. 
+     * property.
      *
      * @param propertyId The property identifier.
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         for (int i = 0; i < RECOGNIZED_PROPERTIES.length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -493,6 +501,7 @@ public class XMLDocumentScannerImpl
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startEntity(String name,
                             XMLResourceIdentifier identifier,
                             String encoding, Augmentations augs) throws XNIException {
@@ -502,7 +511,7 @@ public class XMLDocumentScannerImpl
         // prepare to look for a TextDecl if external general entity
         if (!name.equals("[xml]") && fEntityScanner.isExternal()) {
             setScannerState(SCANNER_STATE_TEXT_DECL);
-        } 
+        }
 
         // call handler
         if (fDocumentHandler != null && name.equals("[xml]")) {
@@ -520,6 +529,7 @@ public class XMLDocumentScannerImpl
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endEntity(String name, Augmentations augs) throws XNIException {
 
         super.endEntity(name, augs);
@@ -538,6 +548,7 @@ public class XMLDocumentScannerImpl
     // dispatcher factory methods
 
     /** Creates a content dispatcher. */
+    @Override
     protected Dispatcher createContentDispatcher() {
         return new ContentDispatcher();
     } // createContentDispatcher():Dispatcher
@@ -568,7 +579,7 @@ public class XMLDocumentScannerImpl
         }
 
         fHasExternalDTD = fDoctypeSystemId != null;
-        
+
         // Attempt to locate an external subset with an external subset resolver.
         if (!fHasExternalDTD && fExternalSubsetResolver != null) {
             fDTDDescription.setValues(null, null, fEntityManager.getCurrentResourceIdentifier().getExpandedSystemId(), null);
@@ -612,6 +623,7 @@ public class XMLDocumentScannerImpl
     //
 
     /** Returns the scanner state name. */
+    @Override
     protected String getScannerStateName(int state) {
 
         switch (state) {
@@ -654,6 +666,7 @@ public class XMLDocumentScannerImpl
          * @throws IOException  Thrown on i/o error.
          * @throws XNIException Thrown on parse error.
          */
+        @Override
         public boolean dispatch(boolean complete)
             throws IOException, XNIException {
 
@@ -697,7 +710,7 @@ public class XMLDocumentScannerImpl
             }
             // encoding errors
             catch (MalformedByteSequenceException e) {
-                fErrorReporter.reportError(e.getDomain(), e.getKey(), 
+                fErrorReporter.reportError(e.getDomain(), e.getKey(),
                     e.getArguments(), XMLErrorReporter.SEVERITY_FATAL_ERROR, e);
                 return false;
             }
@@ -745,6 +758,7 @@ public class XMLDocumentScannerImpl
          * @throws IOException  Thrown on i/o error.
          * @throws XNIException Thrown on parse error.
          */
+        @Override
         public boolean dispatch(boolean complete)
             throws IOException, XNIException {
 
@@ -828,18 +842,18 @@ public class XMLDocumentScannerImpl
                             }
                             fSeenDoctypeDecl = true;
 
-                            // scanDoctypeDecl() sends XNI doctypeDecl event that 
+                            // scanDoctypeDecl() sends XNI doctypeDecl event that
                             // in SAX is converted to startDTD() event.
                             if (scanDoctypeDecl()) {
                                 setScannerState(SCANNER_STATE_DTD_INTERNAL_DECLS);
                                 setDispatcher(fDTDDispatcher);
                                 return true;
                             }
-                            
+
                             // handle external subset
                             if (fDoctypeSystemId != null) {
                                 fIsEntityDeclaredVC = !fStandalone;
-                                if (((fValidation || fLoadExternalDTD) 
+                                if (((fValidation || fLoadExternalDTD)
                                     && (fValidationManager == null || !fValidationManager.isCachedDTD()))) {
                                     setScannerState(SCANNER_STATE_DTD_EXTERNAL);
                                     setDispatcher(fDTDDispatcher);
@@ -848,7 +862,7 @@ public class XMLDocumentScannerImpl
                             }
                             else if (fExternalSubsetSource != null) {
                                 fIsEntityDeclaredVC = !fStandalone;
-                                if (((fValidation || fLoadExternalDTD) 
+                                if (((fValidation || fLoadExternalDTD)
                                     && (fValidationManager == null || !fValidationManager.isCachedDTD()))) {
                                     // This handles the case of a DOCTYPE that had neither an internal subset or an external subset.
                                     fDTDScanner.setInputSource(fExternalSubsetSource);
@@ -856,14 +870,14 @@ public class XMLDocumentScannerImpl
                                     setScannerState(SCANNER_STATE_DTD_EXTERNAL_DECLS);
                                     setDispatcher(fDTDDispatcher);
                                     return true;
-                                }                           
+                                }
                             }
-                            
-                            // Send endDTD() call if: 
+
+                            // Send endDTD() call if:
                             // a) systemId is null or if an external subset resolver could not locate an external subset.
                             // b) "load-external-dtd" and validation are false
                             // c) DTD grammar is cached
-                                
+
                             // in XNI this results in 3 events:  doctypeDecl, startDTD, endDTD
                             // in SAX this results in 2 events: startDTD, endDTD
                             fDTDScanner.setInputSource(null);
@@ -890,7 +904,7 @@ public class XMLDocumentScannerImpl
             }
             // encoding errors
             catch (MalformedByteSequenceException e) {
-                fErrorReporter.reportError(e.getDomain(), e.getKey(), 
+                fErrorReporter.reportError(e.getDomain(), e.getKey(),
                     e.getArguments(), XMLErrorReporter.SEVERITY_FATAL_ERROR, e);
                 return false;
             }
@@ -939,6 +953,7 @@ public class XMLDocumentScannerImpl
          * @throws IOException  Thrown on i/o error.
          * @throws XNIException Thrown on parse error.
          */
+        @Override
         public boolean dispatch(boolean complete)
             throws IOException, XNIException {
             fEntityManager.setEntityHandler(null);
@@ -988,7 +1003,7 @@ public class XMLDocumentScannerImpl
                                 else {
                                     fIsEntityDeclaredVC = fEntityManager.hasPEReferences() && !fStandalone;
                                 }
-                                
+
                                 // break out of this dispatcher.
                                 setScannerState(SCANNER_STATE_PROLOG);
                                 setDispatcher(fPrologDispatcher);
@@ -1028,7 +1043,7 @@ public class XMLDocumentScannerImpl
             }
             // encoding errors
             catch (MalformedByteSequenceException e) {
-                fErrorReporter.reportError(e.getDomain(), e.getKey(), 
+                fErrorReporter.reportError(e.getDomain(), e.getKey(),
                     e.getArguments(), XMLErrorReporter.SEVERITY_FATAL_ERROR, e);
                 return false;
             }
@@ -1084,6 +1099,7 @@ public class XMLDocumentScannerImpl
          * @return True if the "DOCTYPE" was scanned; false if "DOCTYPE"
          *          was not scanned.
          */
+        @Override
         protected boolean scanForDoctypeHook()
             throws IOException, XNIException {
 
@@ -1108,6 +1124,7 @@ public class XMLDocumentScannerImpl
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
          */
+        @Override
         protected boolean elementDepthIsZeroHook()
             throws IOException, XNIException {
 
@@ -1129,10 +1146,11 @@ public class XMLDocumentScannerImpl
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
          */
+        @Override
         protected boolean scanRootElementHook()
             throws IOException, XNIException {
 
-            if (fExternalSubsetResolver != null && !fSeenDoctypeDecl 
+            if (fExternalSubsetResolver != null && !fSeenDoctypeDecl
                 && !fDisallowDoctype && (fValidation || fLoadExternalDTD)) {
                 scanStartElementName();
                 resolveExternalSubsetAndRead();
@@ -1158,6 +1176,7 @@ public class XMLDocumentScannerImpl
          * However, when scanning a full XML document, an end of file
          * is always premature.
          */
+        @Override
         protected void endOfFileHook(EOFException e)
             throws IOException, XNIException {
 
@@ -1166,25 +1185,25 @@ public class XMLDocumentScannerImpl
             //throw e;
 
         } // endOfFileHook()
-        
+
         /**
          * <p>Attempt to locate an external subset for a document that does not otherwise
          * have one. If an external subset is located, then it is scanned.</p>
          */
         protected void resolveExternalSubsetAndRead()
             throws IOException, XNIException {
-            
+
             fDTDDescription.setValues(null, null, fEntityManager.getCurrentResourceIdentifier().getExpandedSystemId(), null);
             fDTDDescription.setRootName(fElementQName.rawname);
             XMLInputSource src = fExternalSubsetResolver.getExternalSubset(fDTDDescription);
-            
+
             if (src != null) {
                 fDoctypeName = fElementQName.rawname;
                 fDoctypePublicId = src.getPublicId();
                 fDoctypeSystemId = src.getSystemId();
                 // call document handler
                 if (fDocumentHandler != null) {
-                    // This inserts a doctypeDecl event into the stream though no 
+                    // This inserts a doctypeDecl event into the stream though no
                     // DOCTYPE existed in the instance document.
                     fDocumentHandler.doctypeDecl(fDoctypeName, fDoctypePublicId, fDoctypeSystemId, null);
                 }
@@ -1231,6 +1250,7 @@ public class XMLDocumentScannerImpl
          * @throws IOException  Thrown on i/o error.
          * @throws XNIException Thrown on parse error.
          */
+        @Override
         public boolean dispatch(boolean complete)
             throws IOException, XNIException {
 
@@ -1323,7 +1343,7 @@ public class XMLDocumentScannerImpl
             }
             // encoding errors
             catch (MalformedByteSequenceException e) {
-                fErrorReporter.reportError(e.getDomain(), e.getKey(), 
+                fErrorReporter.reportError(e.getDomain(), e.getKey(),
                     e.getArguments(), XMLErrorReporter.SEVERITY_FATAL_ERROR, e);
                 return false;
             }

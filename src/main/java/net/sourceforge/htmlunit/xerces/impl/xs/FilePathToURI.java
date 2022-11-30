@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @xerces.internal
- * 
+ *
  * @version $Id$
  */
 final class FilePathToURI {
@@ -55,7 +55,7 @@ final class FilePathToURI {
             gAfterEscaping2[ch] = gHexChs[ch & 0xf];
         }
     }
-    
+
     private FilePathToURI() {}
 
     // To escape a file path to a URI, by using %HH to represent
@@ -97,7 +97,7 @@ final class FilePathToURI {
                 buffer.append((char)ch);
             }
         }
-        
+
         // we saw some non-ascii character
         if (i < len) {
             // get UTF-8 bytes for the remaining sub-string

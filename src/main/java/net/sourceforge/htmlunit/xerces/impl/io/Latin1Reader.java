@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,23 +23,23 @@ import java.io.Reader;
 
 /**
  * <p>Reader for the ISO-8859-1 encoding.</p>
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Michael Glavassevich, IBM
- * 
+ *
  * @version $Id$
  */
-public final class Latin1Reader 
+public final class Latin1Reader
     extends Reader {
-    
+
     //
     // Constants
     //
 
     /** Default byte buffer size (2048). */
     public static final int DEFAULT_BUFFER_SIZE = 2048;
-    
+
     //
     // Data
     //
@@ -49,13 +49,13 @@ public final class Latin1Reader
 
     /** Byte buffer. */
     protected final byte[] fBuffer;
-    
+
     //
     // Constructors
     //
 
-    /** 
-     * Constructs an ISO-8859-1 reader from the specified input stream 
+    /**
+     * Constructs an ISO-8859-1 reader from the specified input stream
      * using the default buffer size.
      *
      * @param inputStream The input stream.
@@ -63,9 +63,9 @@ public final class Latin1Reader
     public Latin1Reader(InputStream inputStream) {
         this(inputStream, DEFAULT_BUFFER_SIZE);
     } // <init>(InputStream)
-    
-    /** 
-     * Constructs an ISO-8859-1 reader from the specified input stream 
+
+    /**
+     * Constructs an ISO-8859-1 reader from the specified input stream
      * and buffer size.
      *
      * @param inputStream The input stream.
@@ -74,8 +74,8 @@ public final class Latin1Reader
     public Latin1Reader(InputStream inputStream, int size) {
         this(inputStream, new byte[size]);
     } // <init>(InputStream, int)
-    
-    /** 
+
+    /**
      * Constructs an ISO-8859-1 reader from the specified input stream and buffer.
      *
      * @param inputStream The input stream.
@@ -85,11 +85,11 @@ public final class Latin1Reader
         fInputStream = inputStream;
         fBuffer = buffer;
     } // <init>(InputStream, byte[])
-    
+
     //
     // Reader methods
     //
-    
+
     /**
      * Read a single character. This method will block until a character is
      * available, an I/O error occurs, or the end of the stream is reached.
@@ -103,6 +103,7 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read() throws IOException {
         return fInputStream.read();
     } // read():int
@@ -121,6 +122,7 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public int read(char[] ch, int offset, int length) throws IOException {
         if (length > fBuffer.length) {
             length = fBuffer.length;
@@ -142,6 +144,7 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public long skip(long n) throws IOException {
         return fInputStream.skip(n);
     } // skip(long):long
@@ -155,6 +158,7 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
+    @Override
     public boolean ready() throws IOException {
         return false;
     } // ready()
@@ -162,6 +166,7 @@ public final class Latin1Reader
     /**
      * Tell whether this stream supports the mark() operation.
      */
+    @Override
     public boolean markSupported() {
         return fInputStream.markSupported();
     } // markSupported()
@@ -179,6 +184,7 @@ public final class Latin1Reader
      * @exception  IOException  If the stream does not support mark(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void mark(int readAheadLimit) throws IOException {
         fInputStream.mark(readAheadLimit);
     } // mark(int)
@@ -196,6 +202,7 @@ public final class Latin1Reader
      *                          or if the stream does not support reset(),
      *                          or if some other I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
         fInputStream.reset();
     } // reset()
@@ -207,7 +214,8 @@ public final class Latin1Reader
      *
      * @exception  IOException  If an I/O error occurs
      */
-     public void close() throws IOException {
+     @Override
+    public void close() throws IOException {
          fInputStream.close();
      } // close()
 

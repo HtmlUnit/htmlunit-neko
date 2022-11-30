@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,8 +24,8 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 
 /**
  * the factory to create/return built-in schema DVs and create user-defined DVs
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -44,6 +44,7 @@ public class DTDDVFactoryImpl extends DTDDVFactory {
      * @param name  the name of the datatype
      * @return      the datatype validator of the given name
      */
+    @Override
     public DatatypeValidator getBuiltInDV(String name) {
         return (DatatypeValidator)fBuiltInTypes.get(name);
     }
@@ -53,6 +54,7 @@ public class DTDDVFactoryImpl extends DTDDVFactory {
      *
      * @return      a hashtable which contains all datatypes
      */
+    @Override
     public Hashtable getBuiltInTypes() {
         return (Hashtable)fBuiltInTypes.clone();
     }

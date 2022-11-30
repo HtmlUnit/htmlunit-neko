@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,12 +19,13 @@ package net.sourceforge.htmlunit.xerces.impl.dv.xs;
 
 import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 import net.sourceforge.htmlunit.xerces.xs.datatypes.XSFloat;
 
 /**
  * Represent the schema type "float"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -33,11 +34,13 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.XSFloat;
  */
 public class FloatDV extends TypeValidator {
 
+    @Override
     public short getAllowedFacets(){
-        return ( XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_WHITESPACE | XSSimpleTypeDecl.FACET_ENUMERATION |XSSimpleTypeDecl.FACET_MAXINCLUSIVE |XSSimpleTypeDecl.FACET_MININCLUSIVE | XSSimpleTypeDecl.FACET_MAXEXCLUSIVE  | XSSimpleTypeDecl.FACET_MINEXCLUSIVE  );
+        return ( XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_WHITESPACE | XSSimpleTypeDefinition.FACET_ENUMERATION |XSSimpleTypeDefinition.FACET_MAXINCLUSIVE |XSSimpleTypeDefinition.FACET_MININCLUSIVE | XSSimpleTypeDefinition.FACET_MAXEXCLUSIVE  | XSSimpleTypeDefinition.FACET_MINEXCLUSIVE  );
     }//getAllowedFacets()
 
     //convert a String to Float form, we have to take care of cases specified in spec like INF, -INF and NaN
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         try{
             return new XFloat(content);
@@ -47,13 +50,15 @@ public class FloatDV extends TypeValidator {
     }//getActualValue()
 
     // Can't call Float#compareTo method, because it's introduced in jdk 1.2
+    @Override
     public int compare(Object value1, Object value2){
         return ((XFloat)value1).compareTo((XFloat)value2);
     }//compare()
-    
+
     //distinguishes between identity and equality for float datatype
     //0.0 is equal but not identical to -0.0
-    public boolean isIdentical (Object value1, Object value2) {           
+    @Override
+    public boolean isIdentical (Object value1, Object value2) {
         if (value2 instanceof XFloat) {
             return ((XFloat)value1).isIdentical((XFloat)value2);
         }
@@ -81,6 +86,7 @@ public class FloatDV extends TypeValidator {
             }
         }
 
+        @Override
         public boolean equals(Object val) {
             if (val == this)
                 return true;
@@ -90,31 +96,29 @@ public class FloatDV extends TypeValidator {
             XFloat oval = (XFloat)val;
 
             // NOTE: we don't distinguish 0.0 from -0.0
-            if (value == oval.value)
-                return true;
-
-            if (value != value && oval.value != oval.value)
+            if ((value == oval.value) || (value != value && oval.value != oval.value))
                 return true;
 
             return false;
         }
-        
+
+        @Override
         public int hashCode() {
             // This check is necessary because floatToIntBits(+0) != floatToIntBits(-0)
             return (value == 0f) ? 0 : Float.floatToIntBits(value);
         }
-        
+
         // NOTE: 0.0 is equal but not identical to -0.0
         public boolean isIdentical (XFloat val) {
             if (val == this) {
                 return true;
             }
-            
+
             if (value == val.value) {
-                return (value != 0.0f || 
+                return (value != 0.0f ||
                     (Float.floatToIntBits(value) == Float.floatToIntBits(val.value)));
             }
-            
+
             if (value != value && val.value != val.value)
                 return true;
 
@@ -136,7 +140,7 @@ public class FloatDV extends TypeValidator {
                 return 0;
 
             // one of the 2 values or both is/are NaN(s)
-            
+
             if (value != value) {
                 // this = NaN = other
                 if (oval != oval)
@@ -150,6 +154,7 @@ public class FloatDV extends TypeValidator {
         }
 
         private String canonical;
+        @Override
         public synchronized String toString() {
             if (canonical == null) {
                 if (value == Float.POSITIVE_INFINITY)
@@ -230,7 +235,8 @@ public class FloatDV extends TypeValidator {
             }
             return canonical;
         }
-        
+
+        @Override
         public float getValue() {
             return value;
         }

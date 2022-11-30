@@ -56,7 +56,7 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
 
 /**
  * @xerces.internal
- *  
+ *
  * @author Sandy Gao, IBM
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  *
@@ -183,7 +183,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
     // XML Schema 1.1 type constants
     public static final short YEARMONTHDURATION_DT      = 46;
-    public static final short DAYTIMEDURATION_DT        = 47;   
+    public static final short DAYTIMEDURATION_DT        = 47;
     public static final short PRECISIONDECIMAL_DT       = 48;
     public static final short ANYATOMICTYPE_DT          = 49;
 
@@ -195,50 +195,62 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     static final int DERIVATION_LIST = 8;
 
     static final ValidationContext fEmptyContext = new ValidationContext() {
+        @Override
         public boolean needFacetChecking() {
             return true;
         }
+        @Override
         public boolean needExtraChecking() {
             return false;
         }
+        @Override
         public boolean needToNormalize() {
             return true;
         }
+        @Override
         public boolean useNamespaces () {
             return true;
         }
+        @Override
         public boolean isEntityDeclared (String name) {
             return false;
         }
+        @Override
         public boolean isEntityUnparsed (String name) {
             return false;
         }
+        @Override
         public boolean isIdDeclared (String name) {
             return false;
         }
+        @Override
         public void addId(String name) {
         }
+        @Override
         public void addIdRef(String name) {
         }
+        @Override
         public String getSymbol (String symbol) {
             return symbol.intern();
         }
+        @Override
         public String getURI(String prefix) {
             return null;
         }
+        @Override
         public Locale getLocale() {
             return Locale.getDefault();
         }
     };
 
     protected static TypeValidator[] getGDVs() {
-        return (TypeValidator[])gDVs.clone();
+        return gDVs.clone();
     }
     private TypeValidator[] fDVs = gDVs;
     protected void setDVs(TypeValidator[] dvs) {
         fDVs = dvs;
     }
-    
+
     // this will be true if this is a static XSSimpleTypeDecl
     // and hence must remain immutable (i.e., applyFacets
     // may not be permitted to have any effect).
@@ -310,8 +322,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     private boolean fFinite;
     private boolean fBounded;
     private boolean fNumeric;
-    
-    // The namespace schema information item corresponding to the target namespace 
+
+    // The namespace schema information item corresponding to the target namespace
     // of the simple type definition, if it is globally declared; or null otherwise.
     private XSNamespaceItem fNamespaceItem = null;
 
@@ -334,7 +346,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             validateDV == DV_ANYATOMICTYPE ||
             validateDV == DV_STRING) {
             fWhiteSpace = WS_PRESERVE;
-        } 
+        }
         else {
             fWhiteSpace = WS_COLLAPSE;
             fFixedFacet = FACET_WHITESPACE;
@@ -431,7 +443,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         fAnnotations = annotations;
 
         fVariety = VARIETY_LIST;
-        fItemType = (XSSimpleTypeDecl)itemType;
+        fItemType = itemType;
         fValidationDV = DV_LIST;
         fFacetsDefined = FACET_WHITESPACE;
         fFixedFacet = FACET_WHITESPACE;
@@ -541,7 +553,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         fAnnotations = annotations;
 
         fVariety = VARIETY_LIST;
-        fItemType = (XSSimpleTypeDecl)itemType;
+        fItemType = itemType;
         fValidationDV = DV_LIST;
         fFacetsDefined = FACET_WHITESPACE;
         fFixedFacet = FACET_WHITESPACE;
@@ -587,47 +599,58 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         return this;
     }
 
+    @Override
     public short getType () {
         return XSConstants.TYPE_DEFINITION;
     }
 
+    @Override
     public short getTypeCategory () {
         return SIMPLE_TYPE;
     }
 
+    @Override
     public String getName() {
         return getAnonymous()?null:fTypeName;
     }
 
+    @Override
     public String getTypeName() {
         return fTypeName;
     }
 
+    @Override
     public String getNamespace() {
         return fTargetNamespace;
     }
 
+    @Override
     public short getFinal(){
         return fFinalSet;
     }
 
+    @Override
     public boolean isFinal(short derivation) {
         return (fFinalSet & derivation) != 0;
     }
 
+    @Override
     public XSTypeDefinition getBaseType(){
         return fBase;
     }
 
+    @Override
     public boolean getAnonymous() {
         return fAnonymous || (fTypeName == null);
     }
 
+    @Override
     public short getVariety(){
         // for anySimpleType, return absent variaty
         return fValidationDV == DV_ANYSIMPLETYPE ? VARIETY_ABSENT : fVariety;
     }
 
+    @Override
     public boolean isIDType(){
         switch (fVariety) {
             case VARIETY_ATOMIC:
@@ -643,6 +666,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         return false;
     }
 
+    @Override
     public short getWhitespace() throws DatatypeException{
         if (fVariety == VARIETY_UNION) {
             throw new DatatypeException("dt-whitespace", new Object[]{fTypeName});
@@ -650,6 +674,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         return fWhiteSpace;
     }
 
+    @Override
     public short getPrimitiveKind() {
         if (fVariety == VARIETY_ATOMIC && fValidationDV != DV_ANYSIMPLETYPE) {
             if (fValidationDV == DV_ID || fValidationDV == DV_IDREF || fValidationDV == DV_ENTITY) {
@@ -676,6 +701,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * derived from. For example, if this simple type is a built-in derived
      * type integer the <code>INTEGER_DV</code> is returned.
      */
+    @Override
     public short getBuiltInKind() {
         return this.fBuiltInKind;
     }
@@ -685,6 +711,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * built-in primitive datatype definition or the simple ur-type
      * definition) is available, otherwise <code>null</code>.
      */
+    @Override
     public XSSimpleTypeDefinition getPrimitiveType() {
         if (fVariety == VARIETY_ATOMIC && fValidationDV != DV_ANYSIMPLETYPE) {
             XSSimpleTypeDecl pri = this;
@@ -704,6 +731,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * union simple type definition) is available, otherwise
      * <code>null</code>.
      */
+    @Override
     public XSSimpleTypeDefinition getItemType() {
         if (fVariety == VARIETY_LIST) {
             return fItemType;
@@ -719,6 +747,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * non-empty sequence of simple type definitions) is available,
      * otherwise an empty <code>XSObjectList</code>.
      */
+    @Override
     public XSObjectList getMemberTypes() {
         if (fVariety == VARIETY_UNION) {
             return new XSObjectListImpl(fMemberTypes, fMemberTypes.length);
@@ -731,6 +760,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * If <restriction> is chosen
      */
+    @Override
     public void applyFacets(XSFacets facets, short presentFacet, short fixedFacet, ValidationContext context)
     throws InvalidDatatypeFacetException {
         if (context == null) {
@@ -1169,11 +1199,11 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                         // fBase.length, minLength and maxLength defined
                         reportError("length-minLength-maxLength.1.1", new Object[]{fTypeName, Integer.toString(fBase.fLength), Integer.toString(fMinLength)});
                     }
-                    if ((fBase.fFacetsDefined & FACET_MINLENGTH) == 0){ 
-                        reportError("length-minLength-maxLength.1.2.a", new Object[]{fTypeName});  
+                    if ((fBase.fFacetsDefined & FACET_MINLENGTH) == 0){
+                        reportError("length-minLength-maxLength.1.2.a", new Object[]{fTypeName});
                     }
                     if (fMinLength != fBase.fMinLength){
-                        reportError("length-minLength-maxLength.1.2.b", new Object[]{fTypeName, Integer.toString(fMinLength), Integer.toString(fBase.fMinLength)}); 
+                        reportError("length-minLength-maxLength.1.2.b", new Object[]{fTypeName, Integer.toString(fMinLength), Integer.toString(fBase.fMinLength)});
                     }
                 }
                 if ((fFacetsDefined & FACET_MAXLENGTH) != 0){
@@ -1181,11 +1211,11 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                         // fBase.length, minLength and maxLength defined
                         reportError("length-minLength-maxLength.2.1", new Object[]{fTypeName, Integer.toString(fBase.fLength), Integer.toString(fMaxLength)});
                     }
-                    if ((fBase.fFacetsDefined & FACET_MAXLENGTH) == 0){ 
-                        reportError("length-minLength-maxLength.2.2.a", new Object[]{fTypeName});  
+                    if ((fBase.fFacetsDefined & FACET_MAXLENGTH) == 0){
+                        reportError("length-minLength-maxLength.2.2.a", new Object[]{fTypeName});
                     }
                     if (fMaxLength != fBase.fMaxLength){
-                        reportError("length-minLength-maxLength.2.2.b", new Object[]{fTypeName, Integer.toString(fMaxLength), Integer.toString(fBase.fBase.fMaxLength)}); 
+                        reportError("length-minLength-maxLength.2.2.b", new Object[]{fTypeName, Integer.toString(fMaxLength), Integer.toString(fBase.fBase.fMaxLength)});
                     }
                 }
             }
@@ -1535,6 +1565,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * validate a value, and return the compiled form
      */
+    @Override
     public Object validate(String content, ValidationContext context, ValidatedInfo validatedInfo) throws InvalidDatatypeValueException {
 
         if (context == null)
@@ -1586,6 +1617,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * validate a value, and return the compiled form
      */
+    @Override
     public Object validate(Object content, ValidationContext context, ValidatedInfo validatedInfo) throws InvalidDatatypeValueException {
 
         if (context == null)
@@ -1612,6 +1644,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * @param context       the validation context
      * @param validatedInfo used to provide the actual value and member types
      */
+    @Override
     public void validate(ValidationContext context, ValidatedInfo validatedInfo)
         throws InvalidDatatypeValueException {
 
@@ -1947,7 +1980,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 if(decl.fEnumeration != null) {
                     typesBuffer.append(" : ");
                     decl.appendEnumString(typesBuffer);
-                }             
+                }
             }
             throw new InvalidDatatypeValueException("cvc-datatype-valid.1.2.3",
                     new Object[]{content, fTypeName, typesBuffer.toString()});
@@ -1955,6 +1988,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
     }//getActualValue()
 
+    @Override
     public boolean isEqual(Object value1, Object value2) {
         if (value1 == null) {
             return false;
@@ -2096,6 +2130,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      *  Fundamental Facet: ordered.
      */
+    @Override
     public short getOrdered() {
         return fOrdered;
     }
@@ -2103,6 +2138,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Fundamental Facet: bounded.
      */
+    @Override
     public boolean getBounded(){
         return fBounded;
     }
@@ -2110,6 +2146,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Fundamental Facet: cardinality.
      */
+    @Override
     public boolean getFinite(){
         return fFinite;
     }
@@ -2117,6 +2154,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Fundamental Facet: numeric.
      */
+    @Override
     public boolean getNumeric(){
         return fNumeric;
     }
@@ -2127,6 +2165,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * @param facetName  The name of the facet.
      * @return  True if the facet is defined, false otherwise.
      */
+    @Override
     public boolean isDefinedFacet(short facetName) {
         if (fValidationDV == DV_ANYSIMPLETYPE ||
             fValidationDV == DV_ANYATOMICTYPE) {
@@ -2148,6 +2187,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * [facets]: all facets defined on this type. The value is a bit
      * combination of FACET_XXX constants of all defined facets.
      */
+    @Override
     public short getDefinedFacets() {
         if (fValidationDV == DV_ANYSIMPLETYPE ||
             fValidationDV == DV_ANYATOMICTYPE) {
@@ -2168,6 +2208,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * @param facetName  The name of the facet.
      * @return  True if the facet is fixed, false otherwise.
      */
+    @Override
     public boolean isFixedFacet(short facetName) {
         if ((fFixedFacet & facetName) != 0)
             return true;
@@ -2179,6 +2220,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * [facets]: all defined facets for this type which are fixed.
      */
+    @Override
     public short getFixedFacets() {
         if (fValidationDV == DV_INTEGER)
             return (short)(fFixedFacet | FACET_FRACTIONDIGITS);
@@ -2197,6 +2239,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * @return A value of the facet specified in <code>facetName</code> for
      *   this simple type definition or <code>null</code>.
      */
+    @Override
     public String getLexicalFacetValue(short facetName) {
         switch (facetName) {
             case FACET_LENGTH:
@@ -2234,6 +2277,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * A list of enumeration values if it exists, otherwise an empty
      * <code>StringList</code>.
      */
+    @Override
     public StringList getLexicalEnumeration() {
         if (fLexicalEnumeration == null){
             if (fEnumeration == null)
@@ -2254,9 +2298,11 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     public ObjectList getActualEnumeration() {
         if (fActualEnumeration == null) {
             fActualEnumeration = new AbstractObjectList() {
+                @Override
                 public int getLength() {
                     return (fEnumeration != null) ? fEnumerationSize : 0;
                 }
+                @Override
                 public boolean contains(Object item) {
                     if (fEnumeration == null) {
                         return false;
@@ -2268,6 +2314,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                     }
                     return false;
                 }
+                @Override
                 public Object item(int index) {
                     if (index < 0 || index >= getLength()) {
                         return null;
@@ -2289,9 +2336,11 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 return null;
             }
             fEnumerationItemTypeList = new AbstractObjectList() {
+                @Override
                 public int getLength() {
                     return (fEnumeration != null) ? fEnumerationSize : 0;
                 }
+                @Override
                 public boolean contains(Object item) {
                     if (fEnumeration == null || !(item instanceof ShortList))
                         return false;
@@ -2300,6 +2349,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                             return true;
                     return false;
                 }
+                @Override
                 public Object item(int index) {
                     if (index < 0 || index >= getLength()) {
                         return null;
@@ -2329,6 +2379,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * A list of pattern values if it exists, otherwise an empty
      * <code>StringList</code>.
      */
+    @Override
     public StringList getLexicalPattern() {
         if (fPatternType == SPECIAL_PATTERN_NONE && fValidationDV != DV_INTEGER && fPatternStr == null)
             return StringListImpl.EMPTY_LIST;
@@ -2366,6 +2417,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * [annotations]: a set of annotations for this simple type component if
      * it exists, otherwise an empty <code>XSObjectList</code>.
      */
+    @Override
     public XSObjectList getAnnotations() {
         return (fAnnotations != null) ? fAnnotations : XSObjectListImpl.EMPTY_LIST;
     }
@@ -2558,6 +2610,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
     }//getPrimitiveDV()
 
+    @Override
     public boolean derivedFromType(XSTypeDefinition ancestor, short derivation) {
         // REVISIT: implement according to derivation
 
@@ -2583,6 +2636,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         return type == ancestor;
     }
 
+    @Override
     public boolean derivedFrom(String ancestorNS, String ancestorName, short derivation) {
         // REVISIT: implement according to derivation
 
@@ -2601,7 +2655,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 ((ancestorNS == null && type.getNamespace() == null) ||
                         (ancestorNS != null && ancestorNS.equals(type.getNamespace())))) &&   // compare with ancestor
                         type != fAnySimpleType) {  // reached anySimpleType
-            type = (XSTypeDefinition)type.getBaseType();
+            type = type.getBaseType();
         }
 
         return type != fAnySimpleType;
@@ -2611,15 +2665,15 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * Checks if a type is derived from another by restriction, given the name
      * and namespace. See:
      * http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
-     * 
+     *
      * @param ancestorNS
      *            The namspace of the ancestor type declaration
      * @param ancestorName
      *            The name of the ancestor type declaration
      * @param derivationMethod
      *            The derivation method
-     * 
-     * @return boolean True if the ancestor type is derived from the reference type by the specifiied derivation method. 
+     *
+     * @return boolean True if the ancestor type is derived from the reference type by the specifiied derivation method.
      */
     public boolean isDOMDerivedFrom(String ancestorNS, String ancestorName, int derivationMethod) {
 
@@ -2630,7 +2684,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         // ancestor is anyType, return true
         if (SchemaSymbols.URI_SCHEMAFORSCHEMA.equals(ancestorNS)
                 && SchemaSymbols.ATTVAL_ANYTYPE.equals(ancestorName)
-                && (((derivationMethod  & DERIVATION_RESTRICTION) != 0) 
+                && (((derivationMethod  & DERIVATION_RESTRICTION) != 0)
                         || (derivationMethod  == DERIVATION_ANY))) {
             return true;
         }
@@ -2659,17 +2713,17 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         // extension
         if (((derivationMethod & DERIVATION_EXTENSION) != 0)
                 && (((derivationMethod & DERIVATION_RESTRICTION) == 0)
-                        && ((derivationMethod & DERIVATION_LIST) == 0) 
+                        && ((derivationMethod & DERIVATION_LIST) == 0)
                         && ((derivationMethod & DERIVATION_UNION) == 0))) {
             return false;
         }
 
         // If the value of the parameter is 0 i.e. no bit (corresponding to
-        // restriction, list, extension or union) is set to 1 for the 
-        // derivationMethod parameter.   
+        // restriction, list, extension or union) is set to 1 for the
+        // derivationMethod parameter.
         if (((derivationMethod & DERIVATION_EXTENSION) == 0)
                 && (((derivationMethod & DERIVATION_RESTRICTION) == 0)
-                        && ((derivationMethod & DERIVATION_LIST) == 0) 
+                        && ((derivationMethod & DERIVATION_LIST) == 0)
                         && ((derivationMethod & DERIVATION_UNION) == 0))) {
             return isDerivedByAny(ancestorNS, ancestorName, this);
         }
@@ -2681,14 +2735,14 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Checks if a type is derived from another by any combination of restriction, list ir union. See:
      * http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
-     * 
+     *
      * @param ancestorNS
      *            The namspace of the ancestor type declaration
      * @param ancestorName
      *            The name of the ancestor type declaration
      * @param type
      *            The reference type definition
-     * 
+     *
      * @return boolean True if the type is derived by restriciton for the reference type
      */
     private boolean isDerivedByAny(String ancestorNS, String ancestorName,
@@ -2701,7 +2755,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
             // If the ancestor type is reached or is the same as this type.
             if ((ancestorName.equals(type.getName()))
-                    && ((ancestorNS == null && type.getNamespace() == null) 
+                    && ((ancestorNS == null && type.getNamespace() == null)
                             || (ancestorNS != null && ancestorNS.equals(type.getNamespace())))) {
                 derivedFrom = true;
                 break;
@@ -2735,17 +2789,17 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     }
 
     /**
-     * DOM Level 3 
+     * DOM Level 3
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
-     * 
+     *
      * @param ancestorNS
      *            The namspace of the ancestor type declaration
      * @param ancestorName
      *            The name of the ancestor type declaration
      * @param type
      *            The reference type definition
-     * 
+     *
      * @return boolean True if the type is derived by restriciton for the
      *         reference type
      */
@@ -2753,8 +2807,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         XSTypeDefinition oldType = null;
         while (type != null && type != oldType) {
             if ((ancestorName.equals(type.getName()))
-                    && ((ancestorNS != null && ancestorNS.equals(type.getNamespace())) 
-                            || (type.getNamespace() == null && ancestorNS == null))) { 
+                    && ((ancestorNS != null && ancestorNS.equals(type.getNamespace()))
+                            || (type.getNamespace() == null && ancestorNS == null))) {
 
                 return true;
             }
@@ -2768,16 +2822,16 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Checks if a type is derived from another by list. See:
      * http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
-     * 
+     *
      * @param ancestorNS
      *            The namspace of the ancestor type declaration
      * @param ancestorName
      *            The name of the ancestor type declaration
      * @param type
      *            The reference type definition
-     * 
+     *
      * @return boolean True if the type is derived by list for the reference type
-     */    
+     */
     private boolean isDerivedByList (String ancestorNS, String ancestorName, XSTypeDefinition type) {
         // If the variety is union
         if (type !=null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_LIST) {
@@ -2791,7 +2845,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 // T2 is derived from the other type definition by DERIVATION_RESTRICTION
                 if (isDerivedByRestriction(ancestorNS, ancestorName, itemType)) {
                     return true;
-                } 
+                }
             }
         }
         return false;
@@ -2800,16 +2854,16 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * Checks if a type is derived from another by union.  See:
      * http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
-     * 
+     *
      * @param ancestorNS
      *            The namspace of the ancestor type declaration
      * @param ancestorName
      *            The name of the ancestor type declaration
      * @param type
      *            The reference type definition
-     * 
+     *
      * @return boolean True if the type is derived by union for the reference type
-     */    
+     */
     private boolean isDerivedByUnion (String ancestorNS, String ancestorName, XSTypeDefinition type) {
 
         // If the variety is union
@@ -2824,9 +2878,9 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                     // T2 is derived from the other type definition by DERIVATION_RESTRICTION
                     if (isDerivedByRestriction(ancestorNS, ancestorName,(XSSimpleTypeDefinition)memberTypes.item(i))) {
                         return true;
-                    } 
+                    }
                 }
-            }   
+            }
         }
         return false;
     }
@@ -2840,46 +2894,58 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * Validation context used to validate facet values.
      */
     static final ValidationContext fDummyContext = new ValidationContext() {
+        @Override
         public boolean needFacetChecking() {
             return true;
         }
 
+        @Override
         public boolean needExtraChecking() {
             return false;
         }
+        @Override
         public boolean needToNormalize() {
             return false;
         }
+        @Override
         public boolean useNamespaces() {
             return true;
         }
 
+        @Override
         public boolean isEntityDeclared(String name) {
             return false;
         }
 
+        @Override
         public boolean isEntityUnparsed(String name) {
             return false;
         }
 
+        @Override
         public boolean isIdDeclared(String name) {
             return false;
         }
 
+        @Override
         public void addId(String name) {
         }
 
+        @Override
         public void addIdRef(String name) {
         }
 
+        @Override
         public String getSymbol (String symbol) {
             return symbol.intern();
         }
 
+        @Override
         public String getURI(String prefix) {
             return null;
         }
-        
+
+        @Override
         public Locale getLocale() {
             return Locale.getDefault();
         }
@@ -2894,7 +2960,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     static final class ValidationContextImpl implements ValidationContext {
 
         final ValidationContext fExternal;
-        
+
         ValidationContextImpl(ValidationContext external) {
             fExternal = external;
         }
@@ -2904,45 +2970,56 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             fNSContext = nsContext;
         }
 
+        @Override
         public boolean needFacetChecking() {
             return fExternal.needFacetChecking();
         }
 
+        @Override
         public boolean needExtraChecking() {
             return fExternal.needExtraChecking();
         }
+        @Override
         public boolean needToNormalize() {
             return fExternal.needToNormalize();
         }
         // schema validation is predicated upon namespaces
+        @Override
         public boolean useNamespaces() {
             return true;
         }
 
+        @Override
         public boolean isEntityDeclared (String name) {
             return fExternal.isEntityDeclared(name);
         }
 
+        @Override
         public boolean isEntityUnparsed (String name) {
             return fExternal.isEntityUnparsed(name);
         }
 
+        @Override
         public boolean isIdDeclared (String name) {
             return fExternal.isIdDeclared(name);
         }
 
+        @Override
         public void addId(String name) {
             fExternal.addId(name);
         }
 
+        @Override
         public void addIdRef(String name) {
             fExternal.addIdRef(name);
         }
 
+        @Override
         public String getSymbol (String symbol) {
             return fExternal.getSymbol(symbol);
         }
 
+        @Override
         public String getURI(String prefix) {
             if (fNSContext == null) {
                 return fExternal.getURI(prefix);
@@ -2951,7 +3028,8 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
                 return fNSContext.getURI(prefix);
             }
         }
-        
+
+        @Override
         public Locale getLocale() {
             return fExternal.getLocale();
         }
@@ -3012,14 +3090,15 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
         // REVISIT: reset for fundamental facets
     }
-    
+
     /**
      * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
      */
+    @Override
     public XSNamespaceItem getNamespaceItem() {
         return fNamespaceItem;
     }
-    
+
     public void setNamespaceItem(XSNamespaceItem namespaceItem) {
         fNamespaceItem = namespaceItem;
     }
@@ -3027,6 +3106,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString() {
         return this.fTargetNamespace+"," +this.fTypeName;
     }
@@ -3037,6 +3117,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
      * retrieve values for <code>enumeration</code> and <code>pattern</code>
      * facets.
      */
+    @Override
     public XSObjectList getFacets() {
         if (fFacets == null &&
                 (fFacetsDefined != 0 || fValidationDV == DV_INTEGER)) {
@@ -3171,6 +3252,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         return (fFacets != null) ? fFacets : XSObjectListImpl.EMPTY_LIST;
     }
 
+    @Override
     public XSObject getFacet(int facetType) {
         if (facetType == FACET_ENUMERATION || facetType == FACET_PATTERN) {
             XSObjectList list = getMultiValueFacets();
@@ -3192,11 +3274,12 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         }
         return null;
     }
-    
+
     /**
      *  A list of enumeration and pattern constraining facets if it exists,
      * otherwise an empty <code>XSObjectList</code>.
      */
+    @Override
     public XSObjectList getMultiValueFacets() {
         if (fMultiValueFacets == null &&
                 ((fFacetsDefined & FACET_ENUMERATION) != 0 ||
@@ -3258,7 +3341,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         final int ivalue;
         Object avalue;
         final boolean fixed;
-        final XSObjectList annotations;  
+        final XSObjectList annotations;
 
         public XSFacetImpl(short kind, String svalue, int ivalue, Object avalue, boolean fixed, XSAnnotation annotation) {
             this.kind = kind;
@@ -3270,7 +3353,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             if (annotation != null) {
                 this.annotations = new XSObjectListImpl();
                 ((XSObjectListImpl)this.annotations).addXSObject(annotation);
-            } 
+            }
             else {
                 this.annotations =  XSObjectListImpl.EMPTY_LIST;
             }
@@ -3278,24 +3361,26 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#getAnnotation()
          */
         /**
          * Optional. Annotation.
          */
+        @Override
         public XSAnnotation getAnnotation() {
             return (XSAnnotation) annotations.item(0);
         }
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#getAnnotations()
          */
         /**
          * Optional. Annotations.
          */
+        @Override
         public XSObjectList getAnnotations() {
             return annotations;
         }
@@ -3303,6 +3388,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#getFacetKind()
          */
+        @Override
         public short getFacetKind() {
             return kind;
         }
@@ -3310,10 +3396,12 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#getLexicalFacetValue()
          */
+        @Override
         public String getLexicalFacetValue() {
             return svalue;
         }
 
+        @Override
         public Object getActualFacetValue() {
             if (avalue == null) {
                 if (kind == FACET_WHITESPACE) {
@@ -3326,14 +3414,16 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             }
             return avalue;
         }
-        
+
+        @Override
         public int getIntFacetValue() {
             return ivalue;
         }
-        
+
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#isFixed()
          */
+        @Override
         public boolean getFixed() {
             return fixed;
         }
@@ -3341,6 +3431,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getName()
          */
+        @Override
         public String getName() {
             return null;
         }
@@ -3348,6 +3439,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespace()
          */
+        @Override
         public String getNamespace() {
             return null;
         }
@@ -3355,6 +3447,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
          */
+        @Override
         public XSNamespaceItem getNamespaceItem() {
             // REVISIT: implement
             return null;
@@ -3363,6 +3456,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getType()
          */
+        @Override
         public short getType() {
             return XSConstants.FACET;
         }
@@ -3380,18 +3474,20 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
             this.svalues = svalues;
             this.avalues = avalues;
             this.annotations = (annotations != null) ? annotations : XSObjectListImpl.EMPTY_LIST;
-        }        
+        }
 
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSFacet#getFacetKind()
          */
+        @Override
         public short getFacetKind() {
             return kind;
-        }    
+        }
 
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSMultiValueFacet#getAnnotations()
          */
+        @Override
         public XSObjectList getAnnotations() {
             return annotations;
         }
@@ -3399,17 +3495,20 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSMultiValueFacet#getLexicalFacetValues()
          */
+        @Override
         public StringList getLexicalFacetValues() {
             return svalues;
         }
 
+        @Override
         public ObjectList getEnumerationValues() {
             return avalues;
         }
-        
+
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getName()
          */
+        @Override
         public String getName() {
             return null;
         }
@@ -3417,6 +3516,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespace()
          */
+        @Override
         public String getNamespace() {
             return null;
         }
@@ -3424,6 +3524,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getNamespaceItem()
          */
+        @Override
         public XSNamespaceItem getNamespaceItem() {
             // REVISIT: implement
             return null;
@@ -3432,27 +3533,32 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         /* (non-Javadoc)
          * @see net.sourceforge.htmlunit.xerces.xs.XSObject#getType()
          */
+        @Override
         public short getType() {
             return XSConstants.MULTIVALUE_FACET;
         }
     }
-    
+
     private static abstract class AbstractObjectList extends AbstractList implements ObjectList {
+        @Override
         public Object get(int index) {
             if (index >= 0 && index < getLength()) {
                 return item(index);
             }
             throw new IndexOutOfBoundsException("Index: " + index);
         }
+        @Override
         public int size() {
             return getLength();
         }
     }
 
+    @Override
     public String getTypeNamespace() {
         return getNamespace();
     }
 
+    @Override
     public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, int derivationMethod) {
         return isDOMDerivedFrom(typeNamespaceArg, typeNameArg, derivationMethod);
     }

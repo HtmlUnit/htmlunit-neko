@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -164,6 +164,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         private static final long serialVersionUID = 1687848994976808490L;
         static final Abort INSTANCE = new Abort();
         private Abort() {}
+        @Override
         public Throwable fillInStackTrace() {
             return this;
         }
@@ -274,7 +275,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** Attribute QName. */
     private final QName fAttrQName = new QName();
-    
+
     /** Document locator. */
     private XMLLocator fLocator;
 
@@ -377,8 +378,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public Document getDocument () {
         return fDocument;
     } // getDocument():Document
-    
-    /** 
+
+    /**
      * Drops all references to the last DOM which was built by this parser.
      */
     public final void dropDocumentReferences() {
@@ -401,6 +402,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws SAXException Thrown on initialization error.
      */
+    @Override
     public void reset () throws XNIException {
         super.reset ();
 
@@ -483,6 +485,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @exception XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startGeneralEntity (String name,
     XMLResourceIdentifier identifier,
     String encoding, Augmentations augs)
@@ -573,6 +576,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void textDecl (String version, String encoding, Augmentations augs) throws XNIException {
         if (fInDTD){
             return;
@@ -599,6 +603,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by application to signal an error.
      */
+    @Override
     public void comment (XMLString text, Augmentations augs) throws XNIException {
         if (fInDTD) {
             if (fInternalSubset != null && !fInDTDExternalSubset) {
@@ -672,6 +677,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void processingInstruction (String target, XMLString data, Augmentations augs)
     throws XNIException {
 
@@ -753,6 +759,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startDocument (XMLLocator locator, String encoding,
     NamespaceContext namespaceContext, Augmentations augs)
     throws XNIException {
@@ -860,6 +867,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void xmlDecl (String version, String encoding, String standalone,
     Augmentations augs)
     throws XNIException {
@@ -893,6 +901,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void doctypeDecl (String rootElement,
     String publicId, String systemId, Augmentations augs)
     throws XNIException {
@@ -923,6 +932,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startElement (QName element, XMLAttributes attributes, Augmentations augs)
     throws XNIException {
         if (DEBUG_EVENTS) {
@@ -949,10 +959,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
                 attr.setValue (attrValue);
                 boolean specified = attributes.isSpecified(i);
-                // Take special care of schema defaulted attributes. Calling the 
+                // Take special care of schema defaulted attributes. Calling the
                 // non-namespace aware setAttributeNode() method could overwrite
                 // another attribute with the same local name.
-                if (!specified && (seenSchemaDefault || (fAttrQName.uri != null && 
+                if (!specified && (seenSchemaDefault || (fAttrQName.uri != null &&
                     fAttrQName.uri != NamespaceContext.XMLNS_URI && fAttrQName.prefix == null))) {
                     el.setAttributeNodeNS(attr);
                     seenSchemaDefault = true;
@@ -1053,7 +1063,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                                 fSkippedElemStack.push(Boolean.TRUE);
                                 return;
                             }
-                        default : 
+                        default :
                             {
                                 if (!fSkippedElemStack.isEmpty()) {
                                     fSkippedElemStack.push(Boolean.FALSE);
@@ -1073,7 +1083,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // Need to loop in reverse order so that the attributes
             // are processed in document order when the DOM is expanded.
             for (int i = attrCount - 1; i >= 0; --i) {
-                
+
                 // set type information
                 AttributePSVI attrPSVI = (AttributePSVI)attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_PSVI);
                 boolean id = false;
@@ -1134,6 +1144,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void emptyElement (QName element, XMLAttributes attributes, Augmentations augs)
     throws XNIException {
 
@@ -1150,6 +1161,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void characters (XMLString text, Augmentations augs) throws XNIException {
 
         if (DEBUG_EVENTS) {
@@ -1249,6 +1261,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void ignorableWhitespace (XMLString text, Augmentations augs) throws XNIException {
 
         if (!fIncludeIgnorableWhitespace || fFilterReject) {
@@ -1287,6 +1300,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endElement (QName element, Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println ("==>endElement ("+element.rawname+")");
@@ -1400,6 +1414,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startCDATA (Augmentations augs) throws XNIException {
 
         fInCDATASection = true;
@@ -1419,6 +1434,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endCDATA (Augmentations augs) throws XNIException {
 
         fInCDATASection = false;
@@ -1473,6 +1489,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endDocument (Augmentations augs) throws XNIException {
 
         if (!fDeferNodeExpansion) {
@@ -1509,6 +1526,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception XNIException
      *                   Thrown by handler to signal an error.
      */
+    @Override
     public void endGeneralEntity (String name, Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println ("==>endGeneralEntity: ("+name+")");
@@ -1793,6 +1811,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startDTD (XMLLocator locator, Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println ("==>startDTD");
@@ -1820,6 +1839,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endDTD (Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println ("==>endDTD()");
@@ -1855,6 +1875,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @see #CONDITIONAL_INCLUDE
      * @see #CONDITIONAL_IGNORE
      */
+    @Override
     public void startConditional (short type, Augmentations augs) throws XNIException  {
     } // startConditional(short)
 
@@ -1866,6 +1887,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endConditional (Augmentations augs) throws XNIException {
     } // endConditional()
 
@@ -1878,6 +1900,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startExternalSubset (XMLResourceIdentifier identifier,
     Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
@@ -1899,6 +1922,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endExternalSubset (Augmentations augs) throws XNIException {
         fInDTDExternalSubset = false;
         fBaseURIStack.pop ();
@@ -1920,6 +1944,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void internalEntityDecl (String name, XMLString text,
     XMLString nonNormalizedText,
     Augmentations augs) throws XNIException {
@@ -2004,6 +2029,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void externalEntityDecl (String name, XMLResourceIdentifier identifier,
     Augmentations augs) throws XNIException {
 
@@ -2100,6 +2126,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startParameterEntity (String name,
     XMLResourceIdentifier identifier,
     String encoding,
@@ -2111,8 +2138,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 System.out.println ("   baseURI:"+ identifier.getBaseSystemId ());
             }
         }
-        if (augs != null && fInternalSubset != null && 
-            !fInDTDExternalSubset && 
+        if (augs != null && fInternalSubset != null &&
+            !fInDTDExternalSubset &&
             Boolean.TRUE.equals(augs.getItem(Constants.ENTITY_SKIPPED))) {
             fInternalSubset.append(name).append(";\n");
         }
@@ -2130,6 +2157,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endParameterEntity (String name, Augmentations augs) throws XNIException {
 
         if (DEBUG_EVENTS) {
@@ -2150,6 +2178,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void unparsedEntityDecl (String name, XMLResourceIdentifier identifier,
     String notation, Augmentations augs)
     throws XNIException {
@@ -2238,6 +2267,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void notationDecl (String name, XMLResourceIdentifier identifier,
     Augmentations augs) throws XNIException {
 
@@ -2311,6 +2341,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void ignoredCharacters (XMLString text, Augmentations augs) throws XNIException {
     } // ignoredCharacters(XMLString, Augmentations)
 
@@ -2325,6 +2356,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void elementDecl (String name, String contentModel, Augmentations augs)
     throws XNIException {
 
@@ -2364,6 +2396,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void attributeDecl (String elementName, String attributeName,
     String type, String[] enumeration,
     String defaultType, XMLString defaultValue,
@@ -2518,6 +2551,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void startAttlist (String elementName, Augmentations augs) throws XNIException {
     } // startAttlist(String)
 
@@ -2530,6 +2564,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
+    @Override
     public void endAttlist (Augmentations augs) throws XNIException {
     } // endAttlist()
 

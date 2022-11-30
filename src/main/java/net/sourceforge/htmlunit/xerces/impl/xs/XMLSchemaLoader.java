@@ -350,8 +350,9 @@ XSLoader, DOMConfiguration {
      * this XMLGrammarLoader.  This method may return null if no features
      * are recognized.
      */
+    @Override
     public String[] getRecognizedFeatures() {
-        return (String[])(RECOGNIZED_FEATURES.clone());
+        return (RECOGNIZED_FEATURES.clone());
     } // getRecognizedFeatures():  String[]
 
     /**
@@ -361,6 +362,7 @@ XSLoader, DOMConfiguration {
      *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
+    @Override
     public boolean getFeature(String featureId)
     throws XMLConfigurationException {
         return fLoaderConfig.getFeature(featureId);
@@ -375,6 +377,7 @@ XSLoader, DOMConfiguration {
      * @throws XMLConfigurationException Thrown when a feature is not
      *                  recognized or cannot be set.
      */
+    @Override
     public void setFeature(String featureId,
             boolean state) throws XMLConfigurationException {
         fSettingsChanged = true;
@@ -392,8 +395,9 @@ XSLoader, DOMConfiguration {
      * this XMLGrammarLoader.  This method may return null if no properties
      * are recognized.
      */
+    @Override
     public String[] getRecognizedProperties() {
-        return (String[])(RECOGNIZED_PROPERTIES.clone());
+        return (RECOGNIZED_PROPERTIES.clone());
     } // getRecognizedProperties():  String[]
 
     /**
@@ -403,6 +407,7 @@ XSLoader, DOMConfiguration {
      *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
+    @Override
     public Object getProperty(String propertyId)
     throws XMLConfigurationException {
         return fLoaderConfig.getProperty(propertyId);
@@ -417,6 +422,7 @@ XSLoader, DOMConfiguration {
      * @throws XMLConfigurationException Thrown when a property is not
      *                  recognized or cannot be set.
      */
+    @Override
     public void setProperty(String propertyId,
             Object state) throws XMLConfigurationException {
         fSettingsChanged = true;
@@ -456,12 +462,14 @@ XSLoader, DOMConfiguration {
      * @exception XNIException Thrown if the parser does not support the
      *                         specified locale.
      */
+    @Override
     public void setLocale(Locale locale) {
         fLocale = locale;
         fErrorReporter.setLocale(locale);
     } // setLocale(Locale)
 
     /** Return the Locale the XMLGrammarLoader is using. */
+    @Override
     public Locale getLocale() {
         return fLocale;
     } // getLocale():  Locale
@@ -471,11 +479,13 @@ XSLoader, DOMConfiguration {
      *
      * @param errorHandler The error handler.
      */
+    @Override
     public void setErrorHandler(XMLErrorHandler errorHandler) {
         fErrorReporter.setProperty(ERROR_HANDLER, errorHandler);
     } // setErrorHandler(XMLErrorHandler)
 
     /** Returns the registered error handler.  */
+    @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorReporter.getErrorHandler();
     } // getErrorHandler():  XMLErrorHandler
@@ -485,6 +495,7 @@ XSLoader, DOMConfiguration {
      *
      * @param entityResolver The new entity resolver.
      */
+    @Override
     public void setEntityResolver(XMLEntityResolver entityResolver) {
         fUserEntityResolver = entityResolver;
         fLoaderConfig.setProperty(ENTITY_RESOLVER, entityResolver);
@@ -492,6 +503,7 @@ XSLoader, DOMConfiguration {
     } // setEntityResolver(XMLEntityResolver)
 
     /** Returns the registered entity resolver.  */
+    @Override
     public XMLEntityResolver getEntityResolver() {
         return fUserEntityResolver;
     } // getEntityResolver():  XMLEntityResolver
@@ -524,6 +536,7 @@ XSLoader, DOMConfiguration {
      *          XNIException    When a condition arises (such as a FatalError) that requires parsing
      *                              of the entity be terminated.
      */
+    @Override
     public Grammar loadGrammar(XMLInputSource source)
     throws IOException, XNIException {
 
@@ -941,6 +954,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent#getFeatureDefault(java.lang.String)
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         if (featureId.equals(AUGMENT_PSVI)){
             return Boolean.TRUE;
@@ -951,6 +965,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent#getPropertyDefault(java.lang.String)
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         // TODO Auto-generated method stub
         return null;
@@ -959,6 +974,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent#reset(net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager)
      */
+    @Override
     public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
 
         fGrammarBucket.reset();
@@ -1117,6 +1133,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSLoader#getConfig()
      */
+    @Override
     public DOMConfiguration getConfig() {
         return this;
     }
@@ -1137,6 +1154,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSLoader#loadURI(java.lang.String)
      */
+    @Override
     public XSModel loadURI(String uri) {
         try {
             Grammar g = loadGrammar(new XMLInputSource(null, uri, null));
@@ -1151,6 +1169,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.xs.XSLoader#loadURIList(net.sourceforge.htmlunit.xerces.xs.StringList)
      */
+    @Override
     public XSModel loadURIList(StringList uriList) {
         int length = uriList.getLength();
         SchemaGrammar[] gs = new SchemaGrammar[length];
@@ -1179,6 +1198,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#canSetParameter(java.lang.String, java.lang.Object)
      */
+    @Override
     public boolean canSetParameter(String name, Object value) {
         if(value instanceof Boolean){
             if (name.equals(Constants.DOM_VALIDATE) ||
@@ -1215,6 +1235,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#getParameter(java.lang.String)
      */
+    @Override
     public Object getParameter(String name) throws DOMException {
 
         if (name.equals(Constants.DOM_ERROR_HANDLER)){
@@ -1246,6 +1267,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#getParameterNames()
      */
+    @Override
     public DOMStringList getParameterNames() {
         if (fRecognizedParameters == null){
             ArrayList v = new ArrayList();
@@ -1277,6 +1299,7 @@ XSLoader, DOMConfiguration {
     /* (non-Javadoc)
      * @see net.sourceforge.htmlunit.xerces.dom3.DOMConfiguration#setParameter(java.lang.String, java.lang.Object)
      */
+    @Override
     public void setParameter(String name, Object value) throws DOMException {
         if (value instanceof Boolean) {
             boolean state = ((Boolean) value).booleanValue();
@@ -1389,6 +1412,7 @@ XSLoader, DOMConfiguration {
     }
 
     // Implements XSElementDeclHelper interface
+    @Override
     public XSElementDecl getGlobalElementDecl(QName element) {
         SchemaGrammar sGrammar = fGrammarBucket.getGrammar(element.uri);
         if (sGrammar != null) {

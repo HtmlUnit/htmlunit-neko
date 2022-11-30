@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,8 +23,8 @@ import java.util.Hashtable;
  * The factory to create and return DTD types. The implementation should
  * store the created datatypes in static data, so that they can be shared by
  * multiple parser instance, and multiple threads.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  *
@@ -58,7 +58,7 @@ public abstract class DTDDVFactory {
             // if the class name is not specified, use the default one
             return (DTDDVFactory)
                 (ObjectFactory.newInstance(factoryClass, ObjectFactory.findClassLoader(), true));
-        } 
+        }
         catch (ClassCastException e) {
             throw new DVFactoryException("DTD factory class " + factoryClass + " does not extend from DTDDVFactory.");
         }

@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,24 +27,24 @@ import org.w3c.dom.TypeInfo;
 
 /**
  * This class represents a single attribute.
- * 
- * @xerces.internal 
+ *
+ * @xerces.internal
  *
  * @author Rahul Srivastava, Sun Microsystems Inc.
  *
  * @version $Id$
  */
-public class AttrImpl extends NodeImpl 
+public class AttrImpl extends NodeImpl
                       implements Attr {
 
     Element element;
     String value;
-    
+
     /** Default Constructor */
     public AttrImpl() {
         nodeType = Node.ATTRIBUTE_NODE;
     }
-    
+
     /**
      * Constructs an attribute.
      *
@@ -60,51 +60,61 @@ public class AttrImpl extends NodeImpl
         this.element = element;
         this.value = value;
     }
-    
+
+    @Override
     public String getName() {
         return rawname;
     }
-    
+
+    @Override
     public boolean getSpecified() {
         return true;
     }
-    
+
+    @Override
     public String getValue() {
         return value;
     }
-    
+
+    @Override
     public String getNodeValue() {
         return getValue();
     }
-    
+
+    @Override
     public Element getOwnerElement() {
         return element;
     }
-    
+
+    @Override
     public Document getOwnerDocument() {
         return element.getOwnerDocument();
     }
-    
+
+    @Override
     public void setValue(String value) throws DOMException {
         this.value = value;
     }
-    
+
     /**
-     * @since DOM Level 3 
+     * @since DOM Level 3
      */
+    @Override
     public boolean isId(){
         return false;
     }
-    
+
     /**
      * Method getSchemaTypeInfo.
      * @return TypeInfo
      */
+    @Override
     public TypeInfo getSchemaTypeInfo(){
       return null;
     }
-    
+
     /** NON-DOM method for debugging convenience */
+    @Override
     public String toString() {
         return getName() + "=" + "\"" + getValue() + "\"";
     }

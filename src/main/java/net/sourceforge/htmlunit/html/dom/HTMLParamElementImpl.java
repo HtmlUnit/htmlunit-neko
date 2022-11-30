@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,48 +32,56 @@ public class HTMLParamElementImpl
 
     private static final long serialVersionUID = -8513050483880341412L;
 
+    @Override
     public String getName()
     {
         return getAttribute( "name" );
     }
-    
-    
+
+
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
-  
-  
+
+
+    @Override
     public String getType()
     {
         return getAttribute( "type" );
     }
-    
-    
+
+
+    @Override
     public void setType( String type )
     {
         setAttribute( "type", type );
     }
-    
-    
-      public String getValue()
+
+
+      @Override
+    public String getValue()
     {
         return getAttribute( "value" );
     }
-    
-    
+
+
+    @Override
     public void setValue( String value )
     {
         setAttribute( "value", value );
     }
 
-    
-      public String getValueType()
+
+      @Override
+    public String getValueType()
     {
         return capitalize( getAttribute( "valuetype" ) );
     }
-    
-    
+
+
+    @Override
     public void setValueType( String valueType )
     {
         setAttribute( "valuetype", valueType );
@@ -82,7 +90,7 @@ public class HTMLParamElementImpl
 
     /**
      * Constructor requires owner document.
-     * 
+     *
      * @param owner The owner HTML document
      */
     public HTMLParamElementImpl( HTMLDocumentImpl owner, String name )
@@ -90,6 +98,6 @@ public class HTMLParamElementImpl
         super( owner, name );
     }
 
-  
+
 }
 

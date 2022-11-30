@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,8 +27,8 @@ import net.sourceforge.htmlunit.xerces.impl.dv.xs.XSSimpleTypeDecl;
  * declarations to the pool.
  * Note: The cashing mechanism is not implemented yet.
  *
- * @xerces.internal 
- * 
+ * @xerces.internal
+ *
  * @author Elena Litani, IBM
  * @version $Id$
  */
@@ -72,7 +72,7 @@ public final class XSDeclarationPool {
     /** AttributeUse declaration pool */
     private XSAttributeUseImpl[][] fAttributeUse = new XSAttributeUseImpl[INITIAL_CHUNK_COUNT][];
     private int fAttributeUseIndex = 0;
-    
+
     private SchemaDVFactoryImpl dvFactory;
     public void setDVFactory(SchemaDVFactoryImpl dvFactory) {
         this.dvFactory = dvFactory;
@@ -118,7 +118,7 @@ public final class XSDeclarationPool {
         return fAttributeUse[chunk][index];
 
     }
-    
+
     public final XSComplexTypeDecl getComplexTypeDecl(){
         int     chunk       = fCTDeclIndex >> CHUNK_SHIFT;
         int     index       = fCTDeclIndex &  CHUNK_MASK;
@@ -145,7 +145,7 @@ public final class XSDeclarationPool {
         fSTDeclIndex++;
         return fSTDecl[chunk][index];
 
-    } 
+    }
 
     public final XSParticleDecl getParticleDecl(){
         int     chunk       = fParticleDeclIndex >> CHUNK_SHIFT;
@@ -233,7 +233,7 @@ public final class XSDeclarationPool {
     private boolean ensureAttrDeclCapacity(int chunk) {
         if (chunk >= fAttrDecl.length) {
             fAttrDecl = resize(fAttrDecl, fAttrDecl.length * 2);
-        } else if (fAttrDecl[chunk] != null) {            
+        } else if (fAttrDecl[chunk] != null) {
             return false;
         }
 

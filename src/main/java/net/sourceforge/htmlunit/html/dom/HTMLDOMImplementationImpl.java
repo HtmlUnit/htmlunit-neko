@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 package net.sourceforge.htmlunit.html.dom;
-    
+
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.html.HTMLDOMImplementation;
@@ -29,9 +29,9 @@ import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
  * of any particular instance of the document object model. This class is
  * unconstructable, the only way to obtain an instance of a DOM implementation
  * is by calling the static method {@link #getDOMImplementation}.
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.DOMImplementation
@@ -65,6 +65,7 @@ public class HTMLDOMImplementationImpl
      * @param title The document title text
      * @return New HTML document
      */
+    @Override
     public final HTMLDocument createHTMLDocument( String title )
         throws DOMException
     {

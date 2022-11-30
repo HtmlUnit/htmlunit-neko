@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObject;
 /**
  * Contains the map between qnames and XSObject's.
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Sandy Gao, IBM
  * @author Michael Glavassevich, IBM
@@ -48,7 +48,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
      * An immutable empty map.
      */
     public static final XSNamedMapImpl EMPTY_MAP = new XSNamedMapImpl(new XSObject[0], 0);
-    
+
     // components of these namespaces are stored in this map
     final String[] fNamespaces;
     // number of namespaces
@@ -63,10 +63,10 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
     int fLength = -1;
     // Set of Map.Entry<QName,XSObject> for the java.util.Map methods
     private Set fEntrySet = null;
-    
+
     /**
      * Construct an XSNamedMap implementation for one namespace
-     * 
+     *
      * @param namespace the namespace to which the components belong
      * @param map       the map from local names to components
      */
@@ -78,7 +78,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
 
     /**
      * Construct an XSNamedMap implementation for a list of namespaces
-     * 
+     *
      * @param namespaces the namespaces to which the components belong
      * @param maps       the maps from local names to components
      * @param num        the number of namespaces
@@ -91,7 +91,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
 
     /**
      * Construct an XSNamedMap implementation one namespace from an array
-     * 
+     *
      * @param array     containing all components
      * @param length    number of components
      */
@@ -115,10 +115,11 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
     }
 
     /**
-     * The number of <code>XSObjects</code> in the <code>XSObjectList</code>. 
-     * The range of valid child object indices is 0 to <code>length-1</code> 
-     * inclusive. 
+     * The number of <code>XSObjects</code> in the <code>XSObjectList</code>.
+     * The range of valid child object indices is 0 to <code>length-1</code>
+     * inclusive.
      */
+    @Override
     public synchronized int getLength() {
         if (fLength == -1) {
             fLength = 0;
@@ -130,20 +131,21 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
     }
 
     /**
-     * Retrieves an <code>XSObject</code> specified by local name and 
+     * Retrieves an <code>XSObject</code> specified by local name and
      * namespace URI.
-     * <br>Per XML Namespaces, applications must use the value <code>null</code> as the 
-     * <code>namespace</code> parameter for methods if they wish to specify 
+     * <br>Per XML Namespaces, applications must use the value <code>null</code> as the
+     * <code>namespace</code> parameter for methods if they wish to specify
      * no namespace.
-     * @param namespace The namespace URI of the <code>XSObject</code> to 
-     *   retrieve, or <code>null</code> if the <code>XSObject</code> has no 
-     *   namespace. 
-     * @param localName The local name of the <code>XSObject</code> to 
+     * @param namespace The namespace URI of the <code>XSObject</code> to
+     *   retrieve, or <code>null</code> if the <code>XSObject</code> has no
+     *   namespace.
+     * @param localName The local name of the <code>XSObject</code> to
      *   retrieve.
-     * @return A <code>XSObject</code> (of any type) with the specified local 
-     *   name and namespace URI, or <code>null</code> if they do not 
+     * @return A <code>XSObject</code> (of any type) with the specified local
+     *   name and namespace URI, or <code>null</code> if they do not
      *   identify any object in this map.
      */
+    @Override
     public XSObject itemByName(String namespace, String localName) {
         for (int i = 0; i < fNSNum; i++) {
             if (isEqual(namespace, fNamespaces[i])) {
@@ -168,14 +170,15 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
     }
 
     /**
-     * Returns the <code>index</code>th item in the collection or 
-     * <code>null</code> if <code>index</code> is greater than or equal to 
-     * the number of objects in the list. The index starts at 0. 
-     * @param index  index into the collection. 
-     * @return  The <code>XSObject</code> at the <code>index</code>th 
-     *   position in the <code>XSObjectList</code>, or <code>null</code> if 
-     *   the index specified is not valid. 
+     * Returns the <code>index</code>th item in the collection or
+     * <code>null</code> if <code>index</code> is greater than or equal to
+     * the number of objects in the list. The index starts at 0.
+     * @param index  index into the collection.
+     * @return  The <code>XSObject</code> at the <code>index</code>th
+     *   position in the <code>XSObjectList</code>, or <code>null</code> if
+     *   the index specified is not valid.
      */
+    @Override
     public synchronized XSObject item(int index) {
         if (fArray == null) {
             // calculate the total number of elements
@@ -192,19 +195,21 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
         }
         return fArray[index];
     }
-    
+
     static boolean isEqual(String one, String two) {
         return Objects.equals(one, two);
     }
-    
+
     /*
      * java.util.Map methods
      */
-    
+
+    @Override
     public boolean containsKey(Object key) {
         return (get(key) != null);
     }
-    
+
+    @Override
     public Object get(Object key) {
         if (key instanceof QName) {
             final QName name = (QName) key;
@@ -217,11 +222,13 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
         }
         return null;
     }
-    
+
+    @Override
     public int size() {
         return getLength();
     }
 
+    @Override
     public synchronized Set entrySet() {
         // Defer creation of the entry set until it is actually needed.
         if (fEntrySet == null) {
@@ -233,23 +240,28 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
             }
             // Create a view of this immutable map.
             fEntrySet = new AbstractSet() {
+                @Override
                 public Iterator iterator() {
                     return new Iterator() {
                         private int index = 0;
+                        @Override
                         public boolean hasNext() {
                             return (index < length);
                         }
+                        @Override
                         public Object next() {
                             if (index < length) {
                                 return entries[index++];
                             }
                             throw new NoSuchElementException();
                         }
+                        @Override
                         public void remove() {
                             throw new UnsupportedOperationException();
                         }
                     };
                 }
+                @Override
                 public int size() {
                     return length;
                 }
@@ -257,7 +269,7 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
         }
         return fEntrySet;
     }
-    
+
     /** An entry in the XSNamedMap. **/
     private static final class XSNamedMapEntry implements Map.Entry {
         private final QName key;
@@ -266,15 +278,19 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
             this.key = key;
             this.value = value;
         }
+        @Override
         public Object getKey() {
             return key;
         }
+        @Override
         public Object getValue() {
             return value;
         }
+        @Override
         public Object setValue(Object value) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public boolean equals(Object o) {
             if (o instanceof Map.Entry) {
                 Map.Entry e = (Map.Entry) o;
@@ -285,10 +301,12 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
             }
             return false;
         }
+        @Override
         public int hashCode() {
-            return (key == null ? 0 : key.hashCode()) 
+            return (key == null ? 0 : key.hashCode())
                 ^ (value == null ? 0 : value.hashCode());
         }
+        @Override
         public String toString() {
             StringBuilder buffer = new StringBuilder();
             buffer.append(String.valueOf(key));
@@ -297,5 +315,5 @@ public class XSNamedMapImpl extends AbstractMap implements XSNamedMap {
             return buffer.toString();
         }
     }
-    
+
 } // class XSNamedMapImpl

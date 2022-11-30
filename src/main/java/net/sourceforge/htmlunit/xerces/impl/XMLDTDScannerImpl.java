@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 /**
  * This class is responsible for scanning the declarations found
  * in the internal and external subsets of a DTD in an XML document.
- * The scanner acts as the sources for the DTD information which is 
+ * The scanner acts as the sources for the DTD information which is
  * communicated to the DTD handlers.
  * <p>
  * This component requires the following features and properties from the
@@ -51,7 +51,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/error-reporter</li>
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
- * 
+ *
  * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
@@ -81,7 +81,7 @@ public class XMLDTDScannerImpl
     protected static final int SCANNER_STATE_MARKUP_DECL = 2;
 
     // recognized features and properties
-    
+
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
         VALIDATION,
@@ -144,8 +144,8 @@ public class XMLDTDScannerImpl
     /** Start DTD called. */
     private boolean fStartDTDCalled;
 
-    /** 
-     * Stack of content operators (either '|' or ',') in children 
+    /**
+     * Stack of content operators (either '|' or ',') in children
      * content.
      */
     private int[] fContentStack = new int[5];
@@ -221,13 +221,14 @@ public class XMLDTDScannerImpl
     // XMLDTDScanner methods
     //
 
-    /** 
-     * Sets the input source. 
+    /**
+     * Sets the input source.
      *
      * @param inputSource The input source or null.
      *
      * @throws IOException Thrown on i/o error.
      */
+    @Override
     public void setInputSource(XMLInputSource inputSource) throws IOException {
         if (inputSource == null) {
             // no system id was available
@@ -254,7 +255,8 @@ public class XMLDTDScannerImpl
      *
      * @return True if there is more to scan, false otherwise.
      */
-    public boolean scanDTDExternalSubset(boolean complete) 
+    @Override
+    public boolean scanDTDExternalSubset(boolean complete)
         throws IOException, XNIException {
 
         fEntityManager.setEntityHandler(this);
@@ -285,7 +287,7 @@ public class XMLDTDScannerImpl
 
     } // scanDTDExternalSubset(boolean):boolean
 
-    /** 
+    /**
      * Scans the internal subset of the document.
      *
      * @param complete True if the scanner should scan the document
@@ -305,6 +307,7 @@ public class XMLDTDScannerImpl
      *
      * @return True if there is more to scan, false otherwise.
      */
+    @Override
     public boolean scanDTDInternalSubset(boolean complete, boolean standalone,
                                          boolean hasExternalSubset)
         throws IOException, XNIException {
@@ -325,7 +328,7 @@ public class XMLDTDScannerImpl
         do {
             if (!scanDecls(complete)) {
                 // call handler
-                if (fDTDHandler != null && hasExternalSubset == false) {
+                if (fDTDHandler != null && !hasExternalSubset) {
                     fDTDHandler.endDTD(null);
                 }
                 // we're done, set starting state for external subset
@@ -345,18 +348,20 @@ public class XMLDTDScannerImpl
 
     /**
      * reset
-     * 
-     * @param componentManager 
+     *
+     * @param componentManager
      */
+    @Override
     public void reset(XMLComponentManager componentManager)
         throws XMLConfigurationException {
-        
+
         super.reset(componentManager);
         init();
 
     } // reset(XMLComponentManager)
 
     // this is made for something like XMLDTDLoader--XMLComponentManager-free operation...
+    @Override
     public void reset() {
         super.reset();
         init();
@@ -367,8 +372,9 @@ public class XMLDTDScannerImpl
      * this component. This method may return null if no features
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedFeatures() {
-        return (String[])(RECOGNIZED_FEATURES.clone());
+        return (RECOGNIZED_FEATURES.clone());
     } // getRecognizedFeatures():String[]
 
     /**
@@ -376,11 +382,12 @@ public class XMLDTDScannerImpl
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
+    @Override
     public String[] getRecognizedProperties() {
-        return (String[])(RECOGNIZED_PROPERTIES.clone());
+        return (RECOGNIZED_PROPERTIES.clone());
     } // getRecognizedProperties():String[]
 
-    /** 
+    /**
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -389,6 +396,7 @@ public class XMLDTDScannerImpl
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Boolean getFeatureDefault(String featureId) {
         for (int i = 0; i < RECOGNIZED_FEATURES.length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
@@ -398,15 +406,16 @@ public class XMLDTDScannerImpl
         return null;
     } // getFeatureDefault(String):Boolean
 
-    /** 
+    /**
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
-     * property. 
+     * property.
      *
      * @param propertyId The property identifier.
      *
      * @since Xerces 2.2.0
      */
+    @Override
     public Object getPropertyDefault(String propertyId) {
         for (int i = 0; i < RECOGNIZED_PROPERTIES.length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -422,18 +431,20 @@ public class XMLDTDScannerImpl
 
     /**
      * setDTDHandler
-     * 
-     * @param dtdHandler 
+     *
+     * @param dtdHandler
      */
+    @Override
     public void setDTDHandler(XMLDTDHandler dtdHandler) {
         fDTDHandler = dtdHandler;
     } // setDTDHandler(XMLDTDHandler)
 
     /**
      * getDTDHandler
-     * 
+     *
      * @return the XMLDTDHandler
      */
+    @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
     } // getDTDHandler():  XMLDTDHandler
@@ -444,9 +455,10 @@ public class XMLDTDScannerImpl
 
     /**
      * setDTDContentModelHandler
-     * 
-     * @param dtdContentModelHandler 
+     *
+     * @param dtdContentModelHandler
      */
+    @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler
                                           dtdContentModelHandler) {
         fDTDContentModelHandler = dtdContentModelHandler;
@@ -454,9 +466,10 @@ public class XMLDTDScannerImpl
 
     /**
      * getDTDContentModelHandler
-     * 
-     * @return XMLDTDContentModelHandler 
+     *
+     * @return XMLDTDContentModelHandler
      */
+    @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler ;
     } // setDTDContentModelHandler
@@ -466,10 +479,10 @@ public class XMLDTDScannerImpl
     //
 
     /**
-     * This method notifies of the start of an entity. The DTD has the 
-     * pseudo-name of "[dtd]" parameter entity names start with '%'; and 
+     * This method notifies of the start of an entity. The DTD has the
+     * pseudo-name of "[dtd]" parameter entity names start with '%'; and
      * general entities are just specified by their name.
-     * 
+     *
      * @param name     The name of the entity.
      * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
@@ -481,7 +494,8 @@ public class XMLDTDScannerImpl
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void startEntity(String name, 
+    @Override
+    public void startEntity(String name,
                             XMLResourceIdentifier identifier,
                             String encoding, Augmentations augs) throws XNIException {
 
@@ -515,21 +529,22 @@ public class XMLDTDScannerImpl
 
     /**
      * This method notifies the end of an entity. The DTD has the pseudo-name
-     * of "[dtd]" parameter entity names start with '%'; and general entities 
+     * of "[dtd]" parameter entity names start with '%'; and general entities
      * are just specified by their name.
-     * 
+     *
      * @param name The name of the entity.
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    public void endEntity(String name, Augmentations augs) 
+    @Override
+    public void endEntity(String name, Augmentations augs)
         throws XNIException {
 
         super.endEntity(name, augs);
 
         // if there is no data after the doctype
-        //  
+        //
         if (fScannerState == SCANNER_STATE_END_OF_INPUT)
             return;
 
@@ -630,10 +645,10 @@ public class XMLDTDScannerImpl
      *
      * @param name The name of the parameter entity to start (without the '%')
      * @param literal Whether this is happening within a literal
-     * 
+     *
      * @return The name of the parameter entity (with the '%')
      */
-    protected String startPE(String name, boolean literal) 
+    protected String startPE(String name, boolean literal)
         throws IOException, XNIException {
         int depth = fPEDepth;
         String pName = "%"+name;
@@ -642,7 +657,7 @@ public class XMLDTDScannerImpl
             fEntityManager.notifyHasPEReferences();
         }
         if (fValidation && !fEntityManager.isDeclaredEntity(pName)) {
-            fErrorReporter.reportError( XMLMessageFormatter.XML_DOMAIN,"EntityNotDeclared", 
+            fErrorReporter.reportError( XMLMessageFormatter.XML_DOMAIN,"EntityNotDeclared",
                                         new Object[]{name}, XMLErrorReporter.SEVERITY_ERROR);
         }
         fEntityManager.startEntity(fSymbolTable.addSymbol(pName),
@@ -655,8 +670,8 @@ public class XMLDTDScannerImpl
         return pName;
     }
 
-    /** 
-     * Dispatch an XML "event".              
+    /**
+     * Dispatch an XML "event".
      *
      * @return true if a TextDecl was scanned.
      *
@@ -664,7 +679,7 @@ public class XMLDTDScannerImpl
      * @throws XNIException Thrown on parse error.
      *
      */
-    protected final boolean scanTextDecl() 
+    protected final boolean scanTextDecl()
         throws IOException, XNIException {
 
         // scan XMLDecl
@@ -675,7 +690,7 @@ public class XMLDTDScannerImpl
             //       whose name starts with "xml" (e.g. "xmlfoo")
             if (isValidNameChar(fEntityScanner.peekChar())) {
                 fStringBuffer.clear();
-                fStringBuffer.append("xml");                
+                fStringBuffer.append("xml");
                 if (fNamespaces) {
                     while (isValidNCName(fEntityScanner.peekChar())) {
                         fStringBuffer.append((char)fEntityScanner.scanChar());
@@ -720,18 +735,19 @@ public class XMLDTDScannerImpl
         fEntityManager.fCurrentEntity.mayReadChunks = true;
 
         return textDecl;
-    
+
     } // scanTextDecl(boolean):boolean
 
     /**
      * Scans a processing data. This is needed to handle the situation
-     * where a document starts with a processing instruction whose 
+     * where a document starts with a processing instruction whose
      * target name <em>starts with</em> "xml". (e.g. xmlfoo)
      *
      * @param target The PI target
      * @param data The string to fill in with the data
      */
-    protected final void scanPIData(String target, XMLString data) 
+    @Override
+    protected final void scanPIData(String target, XMLString data)
         throws IOException, XNIException {
 
         super.scanPIData(target, data);
@@ -772,7 +788,7 @@ public class XMLDTDScannerImpl
      * <p>
      * <pre>
      * [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '>'
-     * [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children  
+     * [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ELEMENT'
@@ -855,7 +871,7 @@ public class XMLDTDScannerImpl
         }
         fReportEntity = true;
         fMarkUpDepth--;
-        
+
         // call handler
         if (fDTDHandler != null) {
             fDTDHandler.elementDecl(name, contentModel, null);
@@ -868,8 +884,8 @@ public class XMLDTDScannerImpl
      * This assumes the content model has been parsed up to #PCDATA and
      * can simply append to fStringBuffer.
      * <pre>
-     * [51]    Mixed    ::=    '(' S? '#PCDATA' (S? '|' S? Name)* S? ')*'  
-     *                       | '(' S? '#PCDATA' S? ')'  
+     * [51]    Mixed    ::=    '(' S? '#PCDATA' (S? '|' S? Name)* S? ')*'
+     *                       | '(' S? '#PCDATA' S? ')'
      * </pre>
      *
      * @param elName The element type name this declaration is about.
@@ -944,10 +960,10 @@ public class XMLDTDScannerImpl
      * scan children content model
      * This assumes it can simply append to fStringBuffer.
      * <pre>
-     * [47]    children  ::=    (choice | seq) ('?' | '*' | '+')? 
-     * [48]    cp        ::=    (Name | choice | seq) ('?' | '*' | '+')? 
+     * [47]    children  ::=    (choice | seq) ('?' | '*' | '+')?
+     * [48]    cp        ::=    (Name | choice | seq) ('?' | '*' | '+')?
      * [49]    choice    ::=    '(' S? cp ( S? '|' S? cp )+ S? ')'
-     * [50]    seq       ::=    '(' S? cp ( S? ',' S? cp )* S? ')' 
+     * [50]    seq       ::=    '(' S? cp ( S? ',' S? cp )* S? ')'
      * </pre>
      *
      * @param elName The element type name this declaration is about.
@@ -1090,8 +1106,8 @@ public class XMLDTDScannerImpl
      * Scans an attlist declaration
      * <p>
      * <pre>
-     * [52]  AttlistDecl    ::=   '&lt;!ATTLIST' S Name AttDef* S? '>' 
-     * [53]  AttDef         ::=   S Name S AttType S DefaultDecl 
+     * [52]  AttlistDecl    ::=   '&lt;!ATTLIST' S Name AttDef* S? '>'
+     * [53]  AttDef         ::=   S Name S AttType S DefaultDecl
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ATTLIST'
@@ -1140,7 +1156,7 @@ public class XMLDTDScannerImpl
             String name = fEntityScanner.scanName();
             if (name == null) {
                 reportFatalError("AttNameRequiredInAttDef",
-                                 new Object[]{elName}); 
+                                 new Object[]{elName});
             }
             // spaces
             if (!skipSeparator(true, !scanningInternalSubset())) {
@@ -1153,12 +1169,12 @@ public class XMLDTDScannerImpl
             // spaces
             if (!skipSeparator(true, !scanningInternalSubset())) {
                 reportFatalError("MSG_SPACE_REQUIRED_BEFORE_DEFAULTDECL_IN_ATTDEF",
-                                 new Object[]{elName, name}); 
+                                 new Object[]{elName, name});
             }
 
             // default decl
             String defaultType = scanAttDefaultDecl(elName, name,
-                                                    type, 
+                                                    type,
                                                     fLiteral, fLiteral2);
             // REVISIT: Should we do anything with the non-normalized
             //          default attribute value? -Ac
@@ -1172,9 +1188,9 @@ public class XMLDTDScannerImpl
                     System.arraycopy(fEnumeration, 0, enumeration,
                                      0, fEnumerationCount);
                 }
-                // Determine whether the default value to be passed should be null. 
+                // Determine whether the default value to be passed should be null.
                 // REVISIT: should probably check whether fLiteral.ch is null instead. LM.
-                if (defaultType!=null && (defaultType.equals("#REQUIRED") || 
+                if (defaultType!=null && (defaultType.equals("#REQUIRED") ||
                                           defaultType.equals("#IMPLIED"))) {
                     fDTDHandler.attributeDecl(elName, name, type, enumeration,
                                               defaultType, null, null, null);
@@ -1200,8 +1216,8 @@ public class XMLDTDScannerImpl
      * Scans an attribute type definition
      * <p>
      * <pre>
-     * [54]  AttType        ::=   StringType | TokenizedType | EnumeratedType  
-     * [55]  StringType     ::=   'CDATA' 
+     * [54]  AttType        ::=   StringType | TokenizedType | EnumeratedType
+     * [55]  StringType     ::=   'CDATA'
      * [56]  TokenizedType  ::=   'ID'
      *                          | 'IDREF'
      *                          | 'IDREFS'
@@ -1209,9 +1225,9 @@ public class XMLDTDScannerImpl
      *                          | 'ENTITIES'
      *                          | 'NMTOKEN'
      *                          | 'NMTOKENS'
-     * [57]  EnumeratedType ::=    NotationType | Enumeration  
+     * [57]  EnumeratedType ::=    NotationType | Enumeration
      * [58]  NotationType ::= 'NOTATION' S '(' S? Name (S? '|' S? Name)* S? ')'
-     * [59]  Enumeration    ::=    '(' S? Nmtoken (S? '|' S? Nmtoken)* S? ')' 
+     * [59]  Enumeration    ::=    '(' S? Nmtoken (S? '|' S? Nmtoken)* S? ')'
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ATTLIST'
@@ -1258,7 +1274,7 @@ public class XMLDTDScannerImpl
             // spaces
             if (!skipSeparator(true, !scanningInternalSubset())) {
                 reportFatalError("MSG_SPACE_REQUIRED_AFTER_NOTATION_IN_NOTATIONTYPE",
-                                 new Object[]{elName, atName}); 
+                                 new Object[]{elName, atName});
             }
             // open paren
             int c = fEntityScanner.scanChar();
@@ -1365,7 +1381,7 @@ public class XMLDTDScannerImpl
                                      new Object[]{elName, atName});
                 }
             }
-            // AttValue 
+            // AttValue
             boolean isVC = !fStandalone  &&  (fSeenExternalDTD || fSeenPEReferences);
             scanAttributeValue(defaultVal, nonNormalizedDefaultVal, atName, isVC, elName);
         }
@@ -1377,14 +1393,14 @@ public class XMLDTDScannerImpl
      * Scans an entity declaration
      * <p>
      * <pre>
-     * [70]    EntityDecl  ::=    GEDecl | PEDecl 
-     * [71]    GEDecl      ::=    '&lt;!ENTITY' S Name S EntityDef S? '>' 
-     * [72]    PEDecl      ::=    '&lt;!ENTITY' S '%' S Name S PEDef S? '>' 
-     * [73]    EntityDef   ::=    EntityValue | (ExternalID NDataDecl?) 
-     * [74]    PEDef       ::=    EntityValue | ExternalID 
-     * [75]    ExternalID  ::=    'SYSTEM' S SystemLiteral 
-     *                          | 'PUBLIC' S PubidLiteral S SystemLiteral  
-     * [76]    NDataDecl   ::=    S 'NDATA' S Name 
+     * [70]    EntityDecl  ::=    GEDecl | PEDecl
+     * [71]    GEDecl      ::=    '&lt;!ENTITY' S Name S EntityDef S? '>'
+     * [72]    PEDecl      ::=    '&lt;!ENTITY' S '%' S Name S PEDef S? '>'
+     * [73]    EntityDef   ::=    EntityValue | (ExternalID NDataDecl?)
+     * [74]    PEDef       ::=    EntityValue | ExternalID
+     * [75]    ExternalID  ::=    'SYSTEM' S SystemLiteral
+     *                          | 'PUBLIC' S PubidLiteral S SystemLiteral
+     * [76]    NDataDecl   ::=    S 'NDATA' S Name
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ENTITY'
@@ -1461,7 +1477,7 @@ public class XMLDTDScannerImpl
         String name = null;
         if(fNamespaces) {
             name = fEntityScanner.scanNCName();
-        } else { 
+        } else {
             name = fEntityScanner.scanName();
         }
         if (name == null) {
@@ -1519,7 +1535,7 @@ public class XMLDTDScannerImpl
         // internal entity
         if (systemId == null) {
             paramEntityRefs = scanEntityValue(fLiteral, fLiteral2);
-            // since we need it's value anyway, let's snag it so it doesn't get corrupted 
+            // since we need it's value anyway, let's snag it so it doesn't get corrupted
             // if a new load takes place before we store the entity values
             fStringBuffer.clear();
             fStringBuffer2.clear();
@@ -1546,13 +1562,13 @@ public class XMLDTDScannerImpl
                 fEntityManager.addUnparsedEntity(name, publicId, systemId, baseSystemId, notation);
             }
             else {
-                fEntityManager.addExternalEntity(name, publicId, systemId, 
+                fEntityManager.addExternalEntity(name, publicId, systemId,
                                                  baseSystemId);
             }
             if (fDTDHandler != null) {
                 fResourceIdentifier.setValues(publicId, systemId, baseSystemId, XMLEntityManager.expandSystemId(systemId, baseSystemId, false));
                 if (notation != null) {
-                    fDTDHandler.unparsedEntityDecl(name, fResourceIdentifier, 
+                    fDTDHandler.unparsedEntityDecl(name, fResourceIdentifier,
                                                    notation, null);
                 }
                 else {
@@ -1563,7 +1579,7 @@ public class XMLDTDScannerImpl
         else {
             fEntityManager.addInternalEntity(name, fStringBuffer.toString(), paramEntityRefs);
             if (fDTDHandler != null) {
-                fDTDHandler.internalEntityDecl(name, fStringBuffer, fStringBuffer2, null); 
+                fDTDHandler.internalEntityDecl(name, fStringBuffer, fStringBuffer2, null);
             }
         }
         fReportEntity = true;
@@ -1572,18 +1588,18 @@ public class XMLDTDScannerImpl
 
     /**
      * <p>Scans an entity value.</p>
-     * 
+     *
      * <p><strong>Note:</strong> This method uses fString, fStringBuffer (through
      * the use of scanCharReferenceValue), and fStringBuffer2, anything in them
      * at the time of calling is lost.</p>
      *
      * @param value The string to fill in with the value.
-     * @param nonNormalizedValue The string to fill in with the 
+     * @param nonNormalizedValue The string to fill in with the
      *                           non-normalized value.
-     *                           
-     * @return Count of direct and indirect references to parameter entities in the value of the entity.              
+     *
+     * @return Count of direct and indirect references to parameter entities in the value of the entity.
      */
-    protected final int scanEntityValue(XMLString value, 
+    protected final int scanEntityValue(XMLString value,
                                         XMLString nonNormalizedValue)
         throws IOException, XNIException
     {
@@ -1699,7 +1715,7 @@ public class XMLDTDScannerImpl
      * <p>
      * <pre>
      * [82] NotationDecl ::= '&lt;!NOTATION' S Name S (ExternalID|PublicID) S? '>'
-     * [83]  PublicID    ::= 'PUBLIC' S PubidLiteral  
+     * [83]  PublicID    ::= 'PUBLIC' S PubidLiteral
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!NOTATION'
@@ -1778,11 +1794,11 @@ public class XMLDTDScannerImpl
      * end of the section if handled by the main loop (scanDecls).
      * <p>
      * <pre>
-     * [61] conditionalSect   ::= includeSect | ignoreSect  
+     * [61] conditionalSect   ::= includeSect | ignoreSect
      * [62] includeSect       ::= '&lt;![' S? 'INCLUDE' S? '[' extSubsetDecl ']]>'
      * [63] ignoreSect   ::= '&lt;![' S? 'IGNORE' S? '[' ignoreSectContents* ']]>'
-     * [64] ignoreSectContents ::= Ignore ('&lt;![' ignoreSectContents ']]>' Ignore)* 
-     * [65] Ignore            ::=    Char* - (Char* ('&lt;![' | ']]>') Char*)  
+     * [64] ignoreSectContents ::= Ignore ('&lt;![' ignoreSectContents ']]>' Ignore)*
+     * [65] Ignore            ::=    Char* - (Char* ('&lt;![' | ']]>') Char*)
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;![' */
@@ -1908,11 +1924,11 @@ public class XMLDTDScannerImpl
 
     } // scanConditionalSect()
 
-    /** 
+    /**
      * Dispatch an XML "event".
      *
      * @param complete True if this method is intended to scan
-     *                 and dispatch as much as possible.                 
+     *                 and dispatch as much as possible.
      *
      * @return True if there is more to scan.
      *
@@ -1922,7 +1938,7 @@ public class XMLDTDScannerImpl
      */
     protected final boolean scanDecls(boolean complete)
             throws IOException, XNIException {
-        
+
         skipSeparator(false, true);
         boolean again = true;
         while (again && fScannerState == SCANNER_STATE_MARKUP_DECL) {
@@ -1946,7 +1962,7 @@ public class XMLDTDScannerImpl
                     }
                     else if (fEntityScanner.skipString("ATTLIST")) {
                         scanAttlistDecl();
-                    }                                               
+                    }
                     else if (fEntityScanner.skipString("ENTITY")) {
                         scanEntityDecl();
                     }
@@ -2123,12 +2139,12 @@ public class XMLDTDScannerImpl
         // set starting state
         setScannerState(SCANNER_STATE_TEXT_DECL);
     }
-    
+
     private int skipInvalidEnumerationValue() throws IOException {
         int c;
         do {
             c = fEntityScanner.scanChar();
-        } 
+        }
         while (c != '|' && c != ')');
         ensureEnumerationSize(fEnumerationCount + 1);
         fEnumeration[fEnumerationCount++] = XMLSymbols.EMPTY_STRING;

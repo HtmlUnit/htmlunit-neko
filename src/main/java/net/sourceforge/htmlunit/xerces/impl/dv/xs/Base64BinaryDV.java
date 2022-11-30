@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,11 +21,12 @@ import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 import net.sourceforge.htmlunit.xerces.impl.dv.util.Base64;
 import net.sourceforge.htmlunit.xerces.impl.dv.util.ByteListImpl;
+import net.sourceforge.htmlunit.xerces.xs.XSSimpleTypeDefinition;
 
 /**
  * Represent the schema type "base64Binary"
  *
- * @xerces.internal 
+ * @xerces.internal
  *
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  * @author Sandy Gao, IBM
@@ -34,10 +35,12 @@ import net.sourceforge.htmlunit.xerces.impl.dv.util.ByteListImpl;
  */
 public class Base64BinaryDV extends TypeValidator {
 
+    @Override
     public short getAllowedFacets(){
-        return (XSSimpleTypeDecl.FACET_LENGTH | XSSimpleTypeDecl.FACET_MINLENGTH | XSSimpleTypeDecl.FACET_MAXLENGTH | XSSimpleTypeDecl.FACET_PATTERN | XSSimpleTypeDecl.FACET_ENUMERATION | XSSimpleTypeDecl.FACET_WHITESPACE );
+        return (XSSimpleTypeDefinition.FACET_LENGTH | XSSimpleTypeDefinition.FACET_MINLENGTH | XSSimpleTypeDefinition.FACET_MAXLENGTH | XSSimpleTypeDefinition.FACET_PATTERN | XSSimpleTypeDefinition.FACET_ENUMERATION | XSSimpleTypeDefinition.FACET_WHITESPACE );
     }
 
+    @Override
     public Object getActualValue(String content, ValidationContext context) throws InvalidDatatypeValueException {
         byte[] decoded = Base64.decode(content);
         if (decoded == null)
@@ -47,6 +50,7 @@ public class Base64BinaryDV extends TypeValidator {
     }
 
     // length of a binary type is the number of bytes
+    @Override
     public int getDataLength(Object value) {
         return ((XBase64)value).getLength();
     }
@@ -59,13 +63,15 @@ public class Base64BinaryDV extends TypeValidator {
         public XBase64(byte[] data) {
             super(data);
         }
+        @Override
         public synchronized String toString() {
             if (canonical == null) {
                 canonical = Base64.encode(data);
             }
             return canonical;
         }
-        
+
+        @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof XBase64))
                 return false;
@@ -79,11 +85,12 @@ public class Base64BinaryDV extends TypeValidator {
             }
             return true;
         }
-        
+
+        @Override
         public int hashCode() {
             int hash = 0;
             for (byte datum : data) {
-                hash = hash * 37 + (((int) datum) & 0xff);
+                hash = hash * 37 + ((datum) & 0xff);
             }
             return hash;
         }

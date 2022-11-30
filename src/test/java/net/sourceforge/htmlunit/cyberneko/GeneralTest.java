@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import net.sourceforge.htmlunit.xerces.xni.QName;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
+import net.sourceforge.htmlunit.xerces.xni.QName;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * @author Ronald Brill

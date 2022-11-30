@@ -33,96 +33,112 @@ public class HTMLFrameElementImpl
 
     private static final long serialVersionUID = 635237057173695984L;
 
+    @Override
     public String getFrameBorder()
     {
         return getAttribute( "frameborder" );
     }
 
 
+    @Override
     public void setFrameBorder( String frameBorder )
     {
         setAttribute( "frameborder", frameBorder );
     }
 
 
+    @Override
     public String getLongDesc()
     {
         return getAttribute( "longdesc" );
     }
 
 
+    @Override
     public void setLongDesc( String longDesc )
     {
         setAttribute( "longdesc", longDesc );
     }
 
 
+    @Override
     public String getMarginHeight()
     {
         return getAttribute( "marginheight" );
     }
 
 
+    @Override
     public void setMarginHeight( String marginHeight )
     {
         setAttribute( "marginheight", marginHeight );
     }
 
 
+    @Override
     public String getMarginWidth()
     {
         return getAttribute( "marginwidth" );
     }
 
 
+    @Override
     public void setMarginWidth( String marginWidth )
     {
         setAttribute( "marginwidth", marginWidth );
     }
 
 
+    @Override
     public String getName()
     {
         return getAttribute( "name" );
     }
 
 
+    @Override
     public void setName( String name )
     {
         setAttribute( "name", name );
     }
 
 
+    @Override
     public boolean getNoResize()
     {
         return getBinary( "noresize" );
     }
 
 
+    @Override
     public void setNoResize( boolean noResize )
     {
         setAttribute( "noresize", noResize );
     }
 
 
+    @Override
     public String getScrolling()
     {
         return capitalize( getAttribute( "scrolling" ) );
     }
 
 
+    @Override
     public void setScrolling( String scrolling )
     {
         setAttribute( "scrolling", scrolling );
     }
 
 
+    @Override
     public String getSrc()
     {
         return getAttribute( "src" );
     }
 
 
+    @Override
     public void setSrc( String src )
     {
         setAttribute( "src", src );
