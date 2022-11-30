@@ -75,7 +75,7 @@ public final class ConfigurableValidationState extends ValidationState {
      *         otherwise, returns the value of the super implementation
      */
     @Override
-    public Iterator checkIDRefID() {
+    public Iterator<String> checkIDRefID() {
         return (fIdIdrefChecking) ? super.checkIDRefID() : null;
     }
 

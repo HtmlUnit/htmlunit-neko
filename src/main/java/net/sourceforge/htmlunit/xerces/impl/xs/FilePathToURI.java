@@ -46,13 +46,10 @@ final class FilePathToURI {
         gAfterEscaping2[0x7f] = 'F';
         char[] escChs = {' ', '<', '>', '#', '%', '"', '{', '}',
                          '|', '\\', '^', '~', '[', ']', '`'};
-        int len = escChs.length;
-        char ch;
         for (char escCh : escChs) {
-            ch = escCh;
-            gNeedEscaping[ch] = true;
-            gAfterEscaping1[ch] = gHexChs[ch >> 4];
-            gAfterEscaping2[ch] = gHexChs[ch & 0xf];
+            gNeedEscaping[escCh] = true;
+            gAfterEscaping1[escCh] = gHexChs[escCh >> 4];
+            gAfterEscaping2[escCh] = gHexChs[escCh & 0xf];
         }
     }
 

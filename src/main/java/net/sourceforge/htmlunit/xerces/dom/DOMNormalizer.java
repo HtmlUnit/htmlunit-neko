@@ -1556,14 +1556,14 @@ public class DOMNormalizer implements XMLDocumentHandler {
         @Override
         public void getName(int attrIndex, QName attrName) {
             if (fAttributes != null) {
-                updateQName((Node)fAttributes.getItem(attrIndex), attrName);
+                updateQName(fAttributes.getItem(attrIndex), attrName);
             }
         }
 
         @Override
         public String getPrefix(int index) {
             if (fAttributes != null) {
-                Node node = (Node) fAttributes.getItem(index);
+                Node node = fAttributes.getItem(index);
                 String prefix = node.getPrefix();
                 prefix = (prefix != null && prefix.length() != 0) ? fSymbolTable.addSymbol(prefix) : null;
                 return prefix;
@@ -1574,7 +1574,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
         @Override
         public String getURI(int index) {
             if (fAttributes != null) {
-                Node node = (Node) fAttributes.getItem(index);
+                Node node = fAttributes.getItem(index);
                 String namespace = node.getNamespaceURI();
                 namespace = (namespace != null) ? fSymbolTable.addSymbol(namespace) : null;
                 return namespace;
@@ -1586,7 +1586,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
         @Override
         public String getLocalName(int index) {
             if (fAttributes != null) {
-                Node node = (Node) fAttributes.getItem(index);
+                Node node = fAttributes.getItem(index);
                 String localName = node.getLocalName();
                 localName = (localName != null) ? fSymbolTable.addSymbol(localName) : null;
                 return localName;
@@ -1597,7 +1597,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
         @Override
         public String getQName(int index) {
             if (fAttributes != null) {
-                Node node = (Node) fAttributes.getItem(index);
+                Node node = fAttributes.getItem(index);
                 String rawname = fSymbolTable.addSymbol(node.getNodeName());
                 return rawname;
             }

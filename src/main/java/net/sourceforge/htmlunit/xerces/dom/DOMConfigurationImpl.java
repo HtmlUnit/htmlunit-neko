@@ -230,7 +230,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected final SymbolTable fSymbolTable;
 
     /** Components. */
-    protected final ArrayList fComponents;
+    protected final ArrayList<XMLComponent> fComponents;
 
     protected final ValidationManager fValidationManager;
 
@@ -372,7 +372,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         fSymbolTable = symbolTable;
 
-        fComponents = new ArrayList();
+        fComponents = new ArrayList<>();
 
         setProperty(SYMBOL_TABLE, fSymbolTable);
         fErrorReporter = new XMLErrorReporter();
@@ -1126,9 +1126,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         if (fValidationManager != null)
             fValidationManager.reset();
 
-        int count = fComponents.size();
-        for (Object fComponent : fComponents) {
-            XMLComponent c = (XMLComponent) fComponent;
+        for (XMLComponent c : fComponents) {
             c.reset(this);
         }
 

@@ -51,8 +51,8 @@ public class ValidationState implements ValidationContext {
     private Locale fLocale                      = null;
 
     //REVISIT: Should replace with a lighter structure.
-    private final HashMap fIdTable    = new HashMap();
-    private final HashMap fIdRefTable = new HashMap();
+    private final HashMap<String, Object> fIdTable    = new HashMap<>();
+    private final HashMap<String, Object> fIdRefTable = new HashMap<>();
     private final static Object fNullValue = new Object();
 
     //
@@ -91,15 +91,15 @@ public class ValidationState implements ValidationContext {
      * otherwise return an iterator for all the IDREF values without
      * a matching ID value.
      */
-    public Iterator checkIDRefID() {
-        HashSet missingIDs = null;
-        Iterator iter = fIdRefTable.keySet().iterator();
+    public Iterator<String> checkIDRefID() {
+        HashSet<String> missingIDs = null;
+        Iterator<String> iter = fIdRefTable.keySet().iterator();
         String key;
         while (iter.hasNext()) {
-            key = (String) iter.next();
+            key = iter.next();
             if (!fIdTable.containsKey(key)) {
                 if (missingIDs == null) {
-                    missingIDs = new HashSet();
+                    missingIDs = new HashSet<>();
                 }
                 missingIDs.add(key);
             }

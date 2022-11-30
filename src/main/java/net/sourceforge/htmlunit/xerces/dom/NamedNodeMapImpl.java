@@ -77,7 +77,7 @@ public class NamedNodeMapImpl
     protected final static short HASDEFAULTS  = 0x1<<2;
 
     /** Nodes. */
-    protected List nodes;
+    protected List<Node> nodes;
 
     protected final NodeImpl ownerNode; // the node this map belongs to
 
@@ -200,7 +200,7 @@ public class NamedNodeMapImpl
         } else {
             i = -1 - i; // Insert point (may be end of list)
             if (null == nodes) {
-                nodes = new ArrayList(5);
+                nodes = new ArrayList<>(5);
             }
             nodes.add(i, arg);
         }
@@ -251,7 +251,7 @@ public class NamedNodeMapImpl
             } else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
-                    nodes = new ArrayList(5);
+                    nodes = new ArrayList<>(5);
                 }
                 nodes.add(i, arg);
             }
@@ -342,12 +342,12 @@ public class NamedNodeMapImpl
     }
 
     protected void cloneContent(NamedNodeMapImpl srcmap) {
-        List srcnodes = srcmap.nodes;
+        List<Node> srcnodes = srcmap.nodes;
         if (srcnodes != null) {
             int size = srcnodes.size();
             if (size != 0) {
                 if (nodes == null) {
-                    nodes = new ArrayList(size);
+                    nodes = new ArrayList<>(size);
                 }
                 else {
                     nodes.clear();
@@ -462,7 +462,7 @@ public class NamedNodeMapImpl
 
             while (first <= last) {
                 i = (first + last) / 2;
-                int test = name.compareTo(((Node)(nodes.get(i))).getNodeName());
+                int test = name.compareTo((nodes.get(i)).getNodeName());
                 if (test == 0) {
                     return i; // Name found
                 }
@@ -524,11 +524,9 @@ public class NamedNodeMapImpl
     protected boolean precedes(Node a, Node b) {
 
         if (nodes != null) {
-            final int size = nodes.size();
-            for (Object node : nodes) {
-                Node n = (Node) node;
-                if (n == a) return true;
-                if (n == b) return false;
+            for (Node node : nodes) {
+                if (node == a) return true;
+                if (node == b) return false;
             }
         }
         return false;
@@ -545,7 +543,7 @@ public class NamedNodeMapImpl
     }
 
 
-    protected Object getItem (int index){
+    protected Node getItem (int index){
         if (nodes != null) {
             return nodes.get(index);
         }
@@ -567,7 +565,7 @@ public class NamedNodeMapImpl
             else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
-                    nodes = new ArrayList(5);
+                    nodes = new ArrayList<>(5);
                 }
                 nodes.add(i, arg);
             }
@@ -581,14 +579,13 @@ public class NamedNodeMapImpl
      * @param list   ArrayList to copy information into.
      * @return A copy of this node named map
      */
-    protected ArrayList cloneMap(ArrayList list) {
+    protected ArrayList<Node> cloneMap(ArrayList<Node> list) {
         if (list == null) {
-            list = new ArrayList(5);
+            list = new ArrayList<>(5);
         }
         list.clear();
         if (nodes != null) {
-            final int size = nodes.size();
-            for (Object node : nodes) {
+            for (Node node : nodes) {
                 list.add(node);
             }
         }
@@ -612,23 +609,22 @@ public class NamedNodeMapImpl
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         if (nodes != null) {
-            // cast to Vector is required
-            nodes = new ArrayList(nodes);
+            nodes = new ArrayList<>(nodes);
         }
     }
 
     private void writeObject(ObjectOutputStream out) throws IOException {
-        List oldNodes = this.nodes;
+        List<Node> oldNodes = nodes;
         try {
             if (oldNodes != null) {
-                this.nodes = new Vector(oldNodes);
+                nodes = new Vector<>(oldNodes);
             }
             out.defaultWriteObject();
         }
         // If the write fails for some reason ensure
         // that we restore the original object.
         finally {
-            this.nodes = oldNodes;
+            nodes = oldNodes;
         }
     }
 

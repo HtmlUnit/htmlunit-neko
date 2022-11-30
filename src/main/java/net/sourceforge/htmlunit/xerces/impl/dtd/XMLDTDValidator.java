@@ -96,9 +96,6 @@ public class XMLDTDValidator
 
     /** Symbol: "&lt;&lt;datatypes>>". */
 
-    /** Top level scope (-1). */
-    private static final int TOP_LEVEL_SCOPE = -1;
-
     // feature identifiers
 
     /** Feature identifier: namespaces. */
@@ -1276,7 +1273,7 @@ public class XMLDTDValidator
 
                     // add attribute
                     fTempQName.setValues(attPrefix, attLocalpart, attRawName, fTempAttDecl.name.uri);
-                    int newAttr = attributes.addAttribute(fTempQName, attType, attValue);
+                    attributes.addAttribute(fTempQName, attType, attValue);
                 }
             }
             // get next att decl in the Grammar for this element
@@ -1310,14 +1307,12 @@ public class XMLDTDValidator
                     }
                 }
             }
-            int attDefIndex = -1;
             int position =
             fDTDGrammar.getFirstAttributeDeclIndex(elementIndex);
             while (position != -1) {
                 fDTDGrammar.getAttributeDecl(position, fTempAttDecl);
                 if (fTempAttDecl.name.rawname == attrRawName) {
                     // found the match att decl,
-                    attDefIndex = position;
                     declared = true;
                     break;
                 }
@@ -1586,32 +1581,11 @@ public class XMLDTDValidator
         boolean leadingSpace = true;
         boolean spaceStart = false;
         boolean readingNonSpace = false;
-        int count = 0;
-        int eaten = 0;
         String attrValue = attributes.getValue(index);
         char[] attValue = new char[attrValue.length()];
 
         fBuffer.setLength(0);
         attrValue.getChars(0, attrValue.length(), attValue, 0);
-        /*** BUG #3512 ***
-         int entityCount = attributes.getEntityCount(index);
-         for (int j = 0;  j < entityCount; j++) {
-         int offset = attributes.getEntityOffset(index, j);
-         int length = attributes.getEntityLength(index, j);
-         if (offset <= i-eaten+1) {
-         if (offset+length >= i-eaten+1) {
-         if (length > 0)
-         length--;
-         }
-         }
-         else {
-         if (offset > 0)
-         offset--;
-         }
-         attributes.setEntityOffset(index, j, offset);
-         attributes.setEntityLength(index, j, length);
-         }
-         /***/
         for (char c : attValue) {
 
             if (c == ' ') {
@@ -1625,62 +1599,15 @@ public class XMLDTDValidator
                 if (spaceStart && !leadingSpace) {
                     spaceStart = false;
                     fBuffer.append(c);
-                    count++;
-                } else {
-                    if (leadingSpace || !spaceStart) {
-                        eaten++;
-                        /*** BUG #3512 ***
-                         int entityCount = attributes.getEntityCount(index);
-                         for (int j = 0;  j < entityCount; j++) {
-                         int offset = attributes.getEntityOffset(index, j);
-                         int length = attributes.getEntityLength(index, j);
-                         if (offset <= i-eaten+1) {
-                         if (offset+length >= i-eaten+1) {
-                         if (length > 0)
-                         length--;
-                         }
-                         }
-                         else {
-                         if (offset > 0)
-                         offset--;
-                         }
-                         attributes.setEntityOffset(index, j, offset);
-                         attributes.setEntityLength(index, j, length);
-                         }
-                         /***/
-                    }
                 }
-
             } else {
                 readingNonSpace = true;
                 spaceStart = false;
                 leadingSpace = false;
                 fBuffer.append(c);
-                count++;
             }
         }
 
-        // check if the last appended character is a space.
-        if (count > 0 && fBuffer.charAt(count-1) == ' ') {
-            fBuffer.setLength(count-1);
-            /*** BUG #3512 ***
-            int entityCount = attributes.getEntityCount(index);
-            for (int j=0;  j < entityCount; j++) {
-                int offset = attributes.getEntityOffset(index, j);
-                int length = attributes.getEntityLength(index, j);
-                if (offset < count-1) {
-                    if (offset+length == count) {
-                        length--;
-                    }
-                }
-                else {
-                    offset--;
-                }
-                attributes.setEntityOffset(index, j, offset);
-                attributes.setEntityLength(index, j, length);
-            }
-            /***/
-        }
         String newValue = fBuffer.toString();
         attributes.setValue(index, newValue);
         return ! attrValue.equals(newValue);
@@ -1739,9 +1666,6 @@ public class XMLDTDValidator
                              int childCount) throws XNIException {
 
         fDTDGrammar.getElementDecl(elementIndex, fTempElementDecl);
-
-        // Get the element name index from the element
-        final String elementType = fCurrentElement.rawname;
 
         // Get out the content spec for this element
         final int contentType = fCurrentContentSpecType;
@@ -1805,18 +1729,6 @@ public class XMLDTDValidator
         return -1;
 
     } // checkContent(int,int,QName[]):int
-
-    /** Returns the content spec type for an element index. */
-    private int getContentSpecType(int elementIndex) {
-
-        int contentSpecType = -1;
-        if (elementIndex > -1) {
-            if (fDTDGrammar.getElementDecl(elementIndex,fTempElementDecl)) {
-                contentSpecType = fTempElementDecl.type;
-            }
-        }
-        return contentSpecType;
-    }
 
     /** Character data in content. */
     private void charDataInContent() {
@@ -2117,7 +2029,7 @@ public class XMLDTDValidator
             //   IDREF and IDREFS attr (V_IDREF0)
             //
             if (fPerformValidation) {
-                Iterator invIdRefs = fValidationState.checkIDRefID();
+                Iterator<String> invIdRefs = fValidationState.checkIDRefID();
                 if (invIdRefs != null) {
                     while (invIdRefs.hasNext()) {
                         fErrorReporter.reportError( XMLMessageFormatter.XML_DOMAIN,
