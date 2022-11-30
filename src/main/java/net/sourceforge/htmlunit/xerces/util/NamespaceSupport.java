@@ -85,9 +85,9 @@ public class NamespaceSupport implements NamespaceContext {
     public NamespaceSupport(NamespaceContext context) {
         pushContext();
         // copy declaration in the context
-        Enumeration prefixes = context.getAllPrefixes();
+        Enumeration<String> prefixes = context.getAllPrefixes();
         while (prefixes.hasMoreElements()){
-            String prefix = (String)prefixes.nextElement();
+            String prefix = prefixes.nextElement();
             String uri = context.getURI(prefix);
             declarePrefix(prefix, uri);
         }
@@ -245,7 +245,7 @@ public class NamespaceSupport implements NamespaceContext {
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getAllPrefixes()
      */
     @Override
-    public Enumeration getAllPrefixes() {
+    public Enumeration<String> getAllPrefixes() {
         int count = 0;
         if (fPrefixes.length < (fNamespace.length/2)) {
             // resize prefix array

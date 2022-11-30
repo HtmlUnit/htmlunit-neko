@@ -380,9 +380,9 @@ public class SchemaDOM extends DefaultDocument {
         }
         // now we have to look through currently in-scope namespaces to see what
         // wasn't declared here
-        Enumeration currPrefixes = namespaceContext.getAllPrefixes();
+        Enumeration<String> currPrefixes = namespaceContext.getAllPrefixes();
         while(currPrefixes.hasMoreElements()) {
-            String prefix = (String)currPrefixes.nextElement();
+            String prefix = currPrefixes.nextElement();
             String uri = namespaceContext.getURI(prefix);
             if (uri == null) {
                 uri = XMLSymbols.EMPTY_STRING;

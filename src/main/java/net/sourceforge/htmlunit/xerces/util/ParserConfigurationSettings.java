@@ -52,16 +52,16 @@ public class ParserConfigurationSettings
     // data
 
     /** Recognized properties. */
-    protected ArrayList fRecognizedProperties;
+    protected ArrayList<String> fRecognizedProperties;
 
     /** Properties. */
-    protected HashMap fProperties;
+    protected HashMap<String, Object> fProperties;
 
     /** Recognized features. */
-    protected ArrayList fRecognizedFeatures;
+    protected ArrayList<String> fRecognizedFeatures;
 
     /** Features. */
-    protected HashMap fFeatures;
+    protected HashMap<String, Boolean> fFeatures;
 
     /** Parent parser configuration settings. */
     protected final XMLComponentManager fParentSettings;
@@ -82,12 +82,12 @@ public class ParserConfigurationSettings
     public ParserConfigurationSettings(XMLComponentManager parent) {
 
         // create storage for recognized features and properties
-        fRecognizedFeatures = new ArrayList();
-        fRecognizedProperties = new ArrayList();
+        fRecognizedFeatures = new ArrayList<>();
+        fRecognizedProperties = new ArrayList<>();
 
         // create table for features and properties
-        fFeatures = new HashMap();
-        fProperties = new HashMap();
+        fFeatures = new HashMap<>();
+        fProperties = new HashMap<>();
 
         // save parent
         fParentSettings = parent;
@@ -197,7 +197,7 @@ public class ParserConfigurationSettings
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
 
-        Boolean state = (Boolean) fFeatures.get(featureId);
+        Boolean state = fFeatures.get(featureId);
 
         if (state == null) {
             checkFeature(featureId);
