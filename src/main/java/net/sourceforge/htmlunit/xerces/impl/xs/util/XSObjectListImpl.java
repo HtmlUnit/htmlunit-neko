@@ -35,7 +35,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSObjectList;
  *
  * @version $Id$
  */
-public class XSObjectListImpl extends AbstractList implements XSObjectList {
+public class XSObjectListImpl extends AbstractList<XSObject> implements XSObjectList {
 
     /**
      * An immutable empty list.
@@ -161,7 +161,7 @@ public class XSObjectListImpl extends AbstractList implements XSObjectList {
     }
 
     @Override
-    public Object get(int index) {
+    public XSObject get(int index) {
         if (index >= 0 && index < fLength) {
             return fArray[index];
         }

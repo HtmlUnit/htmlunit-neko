@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ObjectList;
  *
  * @version $Id$
  */
-public final class ObjectListImpl extends AbstractList implements ObjectList {
+public final class ObjectListImpl extends AbstractList<Object> implements ObjectList {
 
     /**
      * An immutable empty list.

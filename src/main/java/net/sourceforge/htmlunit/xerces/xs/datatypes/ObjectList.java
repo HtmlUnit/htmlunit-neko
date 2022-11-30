@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @version $Id$
  */
-public interface ObjectList extends List {
+public interface ObjectList extends List<Object> {
 
     /**
      * The number of <code>Object</code>s in the list. The range of

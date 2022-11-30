@@ -31,7 +31,7 @@ import net.sourceforge.htmlunit.xerces.xs.datatypes.ByteList;
  *
  * @version $Id$
  */
-public class ByteListImpl extends AbstractList implements ByteList {
+public class ByteListImpl extends AbstractList<Byte> implements ByteList {
 
     // actually data stored in a byte array
     protected final byte[] data;
@@ -95,7 +95,7 @@ public class ByteListImpl extends AbstractList implements ByteList {
      */
 
     @Override
-    public Object get(int index) {
+    public Byte get(int index) {
         if (index >= 0 && index < data.length) {
             return new Byte(data[index]);
         }

@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSException;
  *
  * @version $Id$
  */
-public interface ByteList extends List {
+public interface ByteList extends List<Byte> {
 
     /**
      * The number of <code>byte</code>s in the list. The range of

@@ -30,7 +30,7 @@ import net.sourceforge.htmlunit.xerces.xs.StringList;
  *
  * @version $Id$
  */
-final class PSVIErrorList extends AbstractList implements StringList {
+final class PSVIErrorList extends AbstractList<String> implements StringList {
 
     private final String[] fArray;
     private final int fLength;
@@ -79,7 +79,7 @@ final class PSVIErrorList extends AbstractList implements StringList {
      */
 
     @Override
-    public Object get(int index) {
+    public String get(int index) {
         if (index >= 0 && index < fLength) {
             return fArray[(index << 1) + fOffset];
         }

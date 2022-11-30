@@ -31,7 +31,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSException;
  *
  * @version $Id$
  */
-public final class ShortListImpl extends AbstractList implements ShortList {
+public final class ShortListImpl extends AbstractList<Short> implements ShortList {
 
     /**
      * An immutable empty list.
@@ -112,7 +112,7 @@ public final class ShortListImpl extends AbstractList implements ShortList {
      */
 
     @Override
-    public Object get(int index) {
+    public Short get(int index) {
         if (index >= 0 && index < fLength) {
             return new Short(fArray[index]);
         }

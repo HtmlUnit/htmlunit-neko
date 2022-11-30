@@ -216,14 +216,12 @@ abstract class XSDAbstractTraverser {
             while (i < annotationLocalAttrs.size()) {
                 String rawname = (String)annotationLocalAttrs.elementAt(i++);
                 int colonIndex = rawname.indexOf(':');
-                String prefix, localpart;
+                String prefix;
                 if (colonIndex == -1) {
                     prefix = "";
-                    localpart = rawname;
                 }
                 else {
                     prefix = rawname.substring(0,colonIndex);
-                    localpart = rawname.substring(colonIndex+1);
                 }
                 String uri = schemaDoc.fNamespaceSupport.getURI(fSymbolTable.addSymbol(prefix));
                 localStrBuffer.append(rawname)

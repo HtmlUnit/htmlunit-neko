@@ -23,7 +23,7 @@ import java.util.List;
  *  The <code>StringList</code> is an immutable ordered collection of
  * <code>GenericString</code>.
  */
-public interface StringList extends List {
+public interface StringList extends List<String> {
     /**
      *  The number of <code>GenericString</code>s in the list. The range of
      * valid child object indices is 0 to <code>length-1</code> inclusive.

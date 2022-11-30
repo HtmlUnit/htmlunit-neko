@@ -3539,7 +3539,7 @@ public class XSSimpleTypeDecl implements XSSimpleType, TypeInfo {
         }
     }
 
-    private static abstract class AbstractObjectList extends AbstractList implements ObjectList {
+    private static abstract class AbstractObjectList extends AbstractList<Object> implements ObjectList {
         @Override
         public Object get(int index) {
             if (index >= 0 && index < getLength()) {

@@ -57,7 +57,7 @@ import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
  *
  * @version $Id$
  */
-public final class XSModelImpl extends AbstractList implements XSModel, XSNamespaceItemList {
+public final class XSModelImpl extends AbstractList<XSNamespaceItem> implements XSModel, XSNamespaceItemList {
 
     // the max index / the max value of XSObject type
     private static final short MAX_COMP_IDX = XSTypeDefinition.SIMPLE_TYPE;
@@ -765,7 +765,7 @@ public final class XSModelImpl extends AbstractList implements XSModel, XSNamesp
     //
 
     @Override
-    public Object get(int index) {
+    public XSNamespaceItem get(int index) {
         if (index >= 0 && index < fGrammarCount) {
             return fGrammarList[index];
         }
