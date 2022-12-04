@@ -21,7 +21,6 @@ import java.io.CharConversionException;
 import java.io.IOException;
 import java.util.Locale;
 
-import org.apache.xerces.xs.PSVIProvider;
 import org.xml.sax.AttributeList;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
