@@ -23,7 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidatedInfo;
-import net.sourceforge.htmlunit.xerces.impl.xs.AttributePSVImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.StringListImpl;
 import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
 import net.sourceforge.htmlunit.xerces.xs.ItemPSVI;
@@ -101,7 +100,8 @@ public class PSVIAttrNSImpl extends AttrNSImpl implements AttributePSVI {
      */
     @Override
     public ItemPSVI constant() {
-        return new AttributePSVImpl(true, this);
+        // return new AttributePSVImpl(true, this);
+        return null;
     }
 
     /* (non-Javadoc)

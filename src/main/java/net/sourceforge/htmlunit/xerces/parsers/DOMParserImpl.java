@@ -96,10 +96,6 @@ public class DOMParserImpl
     protected static final String XMLSCHEMA =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_VALIDATION_FEATURE;
 
-    /** XML Schema full checking */
-    protected static final String XMLSCHEMA_FULL_CHECKING =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_FULL_CHECKING;
-
     /** Dynamic validation */
     protected static final String DYNAMIC_VALIDATION =
         Constants.XERCES_FEATURE_PREFIX + Constants.DYNAMIC_VALIDATION_FEATURE;
@@ -434,7 +430,6 @@ public class DOMParserImpl
                     fConfiguration.setFeature (VALIDATION_FEATURE, state);
                     if (fSchemaType != Constants.NS_DTD) {
                         fConfiguration.setFeature (XMLSCHEMA, state);
-                        fConfiguration.setFeature (XMLSCHEMA_FULL_CHECKING, state);
                     }
                     if (state){
                         fConfiguration.setFeature (DYNAMIC_VALIDATION, false);
@@ -553,7 +548,6 @@ public class DOMParserImpl
                         if (value == null) {
                             // turn off schema features
                             fConfiguration.setFeature (XMLSCHEMA, false);
-                            fConfiguration.setFeature (XMLSCHEMA_FULL_CHECKING, false);
                             // map to JAXP schemaLanguage
                             fConfiguration.setProperty ( Constants.JAXP_PROPERTY_PREFIX
                             + Constants.SCHEMA_LANGUAGE,
@@ -563,7 +557,6 @@ public class DOMParserImpl
                         else if (value.equals (Constants.NS_XMLSCHEMA)) {
                             // turn on schema features
                             fConfiguration.setFeature (XMLSCHEMA, true);
-                            fConfiguration.setFeature (XMLSCHEMA_FULL_CHECKING, true);
                             // map to JAXP schemaLanguage
                             fConfiguration.setProperty ( Constants.JAXP_PROPERTY_PREFIX
                             + Constants.SCHEMA_LANGUAGE,
@@ -573,7 +566,6 @@ public class DOMParserImpl
                         else if (value.equals (Constants.NS_DTD)) {
                             // turn off schema features
                             fConfiguration.setFeature (XMLSCHEMA, false);
-                            fConfiguration.setFeature (XMLSCHEMA_FULL_CHECKING, false);
                             // map to JAXP schemaLanguage
                             fConfiguration.setProperty ( Constants.JAXP_PROPERTY_PREFIX
                             + Constants.SCHEMA_LANGUAGE,

@@ -20,8 +20,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 
-import net.sourceforge.htmlunit.xerces.impl.dv.xs.XSSimpleTypeDecl;
-import net.sourceforge.htmlunit.xerces.impl.xs.XSComplexTypeDecl;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
@@ -323,13 +321,6 @@ public class ElementNSImpl
      */
     @Override
     public String getTypeName() {
-        if (type !=null){
-            if (type instanceof XSSimpleTypeDecl) {
-                return ((XSSimpleTypeDecl) type).getTypeName();
-            } else if (type instanceof XSComplexTypeDecl) {
-                return ((XSComplexTypeDecl) type).getTypeName();
-            }
-        }
         return null;
     }
 
@@ -364,15 +355,6 @@ public class ElementNSImpl
             int derivationMethod) {
         if(needsSyncData()) {
             synchronizeData();
-        }
-        if (type != null) {
-            if (type instanceof XSSimpleTypeDecl) {
-                return ((XSSimpleTypeDecl) type).isDOMDerivedFrom(
-                        typeNamespaceArg, typeNameArg, derivationMethod);
-            } else if (type instanceof XSComplexTypeDecl) {
-                return ((XSComplexTypeDecl) type).isDOMDerivedFrom(
-                        typeNamespaceArg, typeNameArg, derivationMethod);
-            }
         }
         return false;
     }

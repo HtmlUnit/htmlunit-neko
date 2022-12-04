@@ -29,7 +29,6 @@ import org.w3c.dom.ls.LSException;
 
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
 import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
-import net.sourceforge.htmlunit.xerces.impl.xs.opti.ElementImpl;
 
 /**
  * Some useful utility methods.
@@ -310,57 +309,36 @@ public class DOMUtil {
 
     // set this Node as being hidden
     public static void setHidden(Node node) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)
-            ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).setReadOnly(true, false);
-        else if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
+        if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
             ((net.sourceforge.htmlunit.xerces.dom.NodeImpl)node).setReadOnly(true, false);
     } // setHidden(node):void
 
     // set this Node as being hidden, overloaded method
     public static void setHidden(Node node, Hashtable hiddenNodes) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl) {
-            ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).setReadOnly(true, false);
-        }
-        else {
-            hiddenNodes.put(node, "");
-        }
+        hiddenNodes.put(node, "");
     } // setHidden(node):void
 
     // set this Node as being visible
     public static void setVisible(Node node) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)
-            ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).setReadOnly(false, false);
-        else if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
+        if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
             ((net.sourceforge.htmlunit.xerces.dom.NodeImpl)node).setReadOnly(false, false);
     } // setVisible(node):void
 
     // set this Node as being visible, overloaded method
     public static void setVisible(Node node, Hashtable hiddenNodes) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl) {
-            ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).setReadOnly(false, false);
-        }
-        else {
-            hiddenNodes.remove(node);
-        }
+        hiddenNodes.remove(node);
     } // setVisible(node):void
 
     // is this node hidden?
     public static boolean isHidden(Node node) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)
-            return ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).getReadOnly();
-        else if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
+        if (node instanceof net.sourceforge.htmlunit.xerces.dom.NodeImpl)
             return ((net.sourceforge.htmlunit.xerces.dom.NodeImpl)node).getReadOnly();
         return false;
     } // isHidden(Node):boolean
 
     // is this node hidden? overloaded method
     public static boolean isHidden(Node node, Hashtable hiddenNodes) {
-        if (node instanceof net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl) {
-            return ((net.sourceforge.htmlunit.xerces.impl.xs.opti.NodeImpl)node).getReadOnly();
-        }
-        else {
-            return hiddenNodes.containsKey(node);
-        }
+        return hiddenNodes.containsKey(node);
     } // isHidden(Node):boolean
 
     /** Finds and returns the first child node with the given name. */
@@ -825,17 +803,11 @@ public class DOMUtil {
 
     // return annotation
     public static String getAnnotation(Node node) {
-        if (node instanceof ElementImpl) {
-            return ((ElementImpl)node).getAnnotation();
-        }
         return null;
     }
 
     // return synthetic annotation
     public static String getSyntheticAnnotation(Node node) {
-        if (node instanceof ElementImpl) {
-            return ((ElementImpl)node).getSyntheticAnnotation();
-        }
         return null;
     }
 

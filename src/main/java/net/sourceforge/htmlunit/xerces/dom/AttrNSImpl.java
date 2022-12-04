@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 import org.w3c.dom.DOMException;
 
-import net.sourceforge.htmlunit.xerces.impl.dv.xs.XSSimpleTypeDecl;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 
 /**
@@ -279,9 +278,6 @@ public class AttrNSImpl
     @Override
     public String getTypeName() {
         if (type !=null){
-            if (type instanceof XSSimpleTypeDecl){
-                return ((XSSimpleTypeDecl)type).getName();
-            }
             return (String)type;
         }
         return null;
@@ -306,12 +302,6 @@ public class AttrNSImpl
     public boolean isDerivedFrom(String typeNamespaceArg,
                                  String typeNameArg,
                                  int derivationMethod) {
-        if (type != null) {
-            if (type instanceof XSSimpleTypeDecl) {
-                return ((XSSimpleTypeDecl) type).isDOMDerivedFrom(
-                        typeNamespaceArg, typeNameArg, derivationMethod);
-            }
-        }
         return false;
     }
 
@@ -321,9 +311,6 @@ public class AttrNSImpl
     @Override
     public String getTypeNamespace() {
         if (type !=null) {
-            if (type instanceof XSSimpleTypeDecl){
-                return ((XSSimpleTypeDecl)type).getNamespace();
-            }
             return DTD_URI;
         }
         return null;

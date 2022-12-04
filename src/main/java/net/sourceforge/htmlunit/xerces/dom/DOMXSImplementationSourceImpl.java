@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DOMImplementationList;
 
-import net.sourceforge.htmlunit.xerces.impl.xs.XSImplementationImpl;
-
 /**
  * Allows to retrieve <code>XSImplementation</code>, DOM Level 3 Core and LS implementations
  * and PSVI implementation.
@@ -54,11 +52,6 @@ public class DOMXSImplementationSourceImpl
         }
         // if not try the PSVIDOMImplementation
         impl = PSVIDOMImplementationImpl.getDOMImplementation();
-        if (testImpl(impl, features)) {
-            return impl;
-        }
-        // if not try the XSImplementation
-        impl = XSImplementationImpl.getDOMImplementation();
         if (testImpl(impl, features)) {
             return impl;
         }
@@ -93,10 +86,6 @@ public class DOMXSImplementationSourceImpl
             implementations.add(impl);
         }
 
-        impl = XSImplementationImpl.getDOMImplementation();
-        if (testImpl(impl, features)) {
-            implementations.add(impl);
-        }
         return new DOMImplementationListImpl(implementations);
     }
 }

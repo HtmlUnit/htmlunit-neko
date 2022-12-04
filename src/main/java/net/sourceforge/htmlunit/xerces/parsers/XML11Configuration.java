@@ -42,8 +42,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLNSDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
-import net.sourceforge.htmlunit.xerces.impl.xs.XMLSchemaValidator;
-import net.sourceforge.htmlunit.xerces.impl.xs.XSMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
@@ -125,14 +123,6 @@ public class XML11Configuration extends ParserConfigurationSettings
     /** Feature identifier: augment PSVI */
     protected static final String SCHEMA_AUGMENT_PSVI =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_AUGMENT_PSVI;
-
-    /** feature identifier: XML Schema validation */
-    protected static final String XMLSCHEMA_VALIDATION =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_VALIDATION_FEATURE;
-
-    /** feature identifier: XML Schema validation -- full checking */
-    protected static final String XMLSCHEMA_FULL_CHECKING =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_FULL_CHECKING;
 
     /** Feature: generate synthetic annotations */
     protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
@@ -402,9 +392,6 @@ public class XML11Configuration extends ParserConfigurationSettings
     /** Entity manager. */
     protected final XMLEntityManager fEntityManager;
 
-    /** XML Schema Validator. */
-    protected XMLSchemaValidator fSchemaValidator;
-
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;
     /** Current Datatype validator factory. */
@@ -495,11 +482,6 @@ public class XML11Configuration extends ParserConfigurationSettings
                 TOLERATE_DUPLICATES, IGNORE_XSI_TYPE,
                 ID_IDREF_CHECKING, IDENTITY_CONSTRAINT_CHECKING,
                 UNPARSED_ENTITY_CHECKING, USE_GRAMMAR_POOL_ONLY,
-                // NOTE: These shouldn't really be here but since the XML Schema
-                //       validator is constructed dynamically, its recognized
-                //       features might not have been set and it would cause a
-                //       not-recognized exception to be thrown. -Ac
-                XMLSCHEMA_VALIDATION, XMLSCHEMA_FULL_CHECKING,
                 EXTERNAL_GENERAL_ENTITIES,
                 EXTERNAL_PARAMETER_ENTITIES,
                 PARSER_SETTINGS,
@@ -1115,31 +1097,6 @@ public class XML11Configuration extends ParserConfigurationSettings
             fLastComponent = fXML11DTDValidator;
         }
 
-        // setup document pipeline
-        if (fFeatures.get(XMLSCHEMA_VALIDATION) == Boolean.TRUE) {
-            // If schema validator was not in the pipeline insert it.
-            if (fSchemaValidator == null) {
-                fSchemaValidator = new XMLSchemaValidator();
-                // add schema component
-                setProperty(SCHEMA_VALIDATOR, fSchemaValidator);
-                addCommonComponent(fSchemaValidator);
-                fSchemaValidator.reset(this);
-                // add schema message formatter
-                if (fErrorReporter.getMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN) == null) {
-                    XSMessageFormatter xmft = new XSMessageFormatter();
-                    fErrorReporter.putMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN, xmft);
-                }
-            }
-
-            fLastComponent.setDocumentHandler(fSchemaValidator);
-            fSchemaValidator.setDocumentSource(fLastComponent);
-            fSchemaValidator.setDocumentHandler(fDocumentHandler);
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fSchemaValidator);
-            }
-            fLastComponent = fSchemaValidator;
-        }
-
     } // configureXML11Pipeline()
 
     /** Configures the pipeline. */
@@ -1207,31 +1164,6 @@ public class XML11Configuration extends ParserConfigurationSettings
                 fDocumentHandler.setDocumentSource(fNonNSDTDValidator);
             }
             fLastComponent = fNonNSDTDValidator;
-        }
-
-        // add XML Schema validator if needed
-        if (fFeatures.get(XMLSCHEMA_VALIDATION) == Boolean.TRUE) {
-            // If schema validator was not in the pipeline insert it.
-            if (fSchemaValidator == null) {
-                fSchemaValidator = new XMLSchemaValidator();
-                // add schema component
-                setProperty(SCHEMA_VALIDATOR, fSchemaValidator);
-                addCommonComponent(fSchemaValidator);
-                fSchemaValidator.reset(this);
-                // add schema message formatter
-                if (fErrorReporter.getMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN) == null) {
-                    XSMessageFormatter xmft = new XSMessageFormatter();
-                    fErrorReporter.putMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN, xmft);
-                }
-
-            }
-            fLastComponent.setDocumentHandler(fSchemaValidator);
-            fSchemaValidator.setDocumentSource(fLastComponent);
-            fSchemaValidator.setDocumentHandler(fDocumentHandler);
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fSchemaValidator);
-            }
-            fLastComponent = fSchemaValidator;
         }
     } // configurePipeline()
 

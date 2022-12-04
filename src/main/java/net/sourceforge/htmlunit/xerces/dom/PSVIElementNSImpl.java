@@ -23,7 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import net.sourceforge.htmlunit.xerces.impl.dv.ValidatedInfo;
-import net.sourceforge.htmlunit.xerces.impl.xs.ElementPSVImpl;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.StringListImpl;
 import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
 import net.sourceforge.htmlunit.xerces.xs.ItemPSVI;
@@ -115,7 +114,8 @@ public class PSVIElementNSImpl extends ElementNSImpl implements ElementPSVI {
      */
     @Override
     public ItemPSVI constant() {
-        return new ElementPSVImpl(true, this);
+        // return new ElementPSVImpl(true, this);
+        return null;
     }
 
     /* (non-Javadoc)

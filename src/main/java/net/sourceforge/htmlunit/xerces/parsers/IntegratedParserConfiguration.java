@@ -21,8 +21,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLNSDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLNSDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.xs.XMLSchemaValidator;
-import net.sourceforge.htmlunit.xerces.impl.xs.XSMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
@@ -204,30 +202,6 @@ extends StandardParserConfiguration {
         }
 
         // setup document pipeline
-        if (fFeatures.get(XMLSCHEMA_VALIDATION) == Boolean.TRUE) {
-            // If schema validator was not in the pipeline insert it.
-            if (fSchemaValidator == null) {
-                fSchemaValidator = new XMLSchemaValidator();
-
-                // add schema component
-                fProperties.put(SCHEMA_VALIDATOR, fSchemaValidator);
-                addComponent(fSchemaValidator);
-                // add schema message formatter
-                if (fErrorReporter.getMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN) == null) {
-                    XSMessageFormatter xmft = new XSMessageFormatter();
-                    fErrorReporter.putMessageFormatter(XSMessageFormatter.SCHEMA_DOMAIN, xmft);
-                }
-
-            }
-
-            fLastComponent.setDocumentHandler(fSchemaValidator);
-            fSchemaValidator.setDocumentSource(fLastComponent);
-            fSchemaValidator.setDocumentHandler(fDocumentHandler);
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fSchemaValidator);
-            }
-            fLastComponent = fSchemaValidator;
-        }
     } // configurePipeline()
 
 
