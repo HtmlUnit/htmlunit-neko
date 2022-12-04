@@ -120,10 +120,6 @@ public class XML11Configuration extends ParserConfigurationSettings
     protected static final String SCHEMA_ELEMENT_DEFAULT =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
 
-    /** Feature identifier: augment PSVI */
-    protected static final String SCHEMA_AUGMENT_PSVI =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_AUGMENT_PSVI;
-
     /** Feature: generate synthetic annotations */
     protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE;
@@ -476,7 +472,7 @@ public class XML11Configuration extends ParserConfigurationSettings
                 CONTINUE_AFTER_FATAL_ERROR, LOAD_EXTERNAL_DTD, // from XMLDTDScannerImpl
                 VALIDATION,
                 NAMESPACES,
-                NORMALIZE_DATA, SCHEMA_ELEMENT_DEFAULT, SCHEMA_AUGMENT_PSVI,
+                NORMALIZE_DATA, SCHEMA_ELEMENT_DEFAULT,
                 GENERATE_SYNTHETIC_ANNOTATIONS, VALIDATE_ANNOTATIONS,
                 HONOUR_ALL_SCHEMALOCATIONS, NAMESPACE_GROWTH,
                 TOLERATE_DUPLICATES, IGNORE_XSI_TYPE,
@@ -497,7 +493,6 @@ public class XML11Configuration extends ParserConfigurationSettings
         fFeatures.put(LOAD_EXTERNAL_DTD, Boolean.TRUE);
         fFeatures.put(SCHEMA_ELEMENT_DEFAULT, Boolean.TRUE);
         fFeatures.put(NORMALIZE_DATA, Boolean.TRUE);
-        fFeatures.put(SCHEMA_AUGMENT_PSVI, Boolean.TRUE);
         fFeatures.put(GENERATE_SYNTHETIC_ANNOTATIONS, Boolean.FALSE);
         fFeatures.put(VALIDATE_ANNOTATIONS, Boolean.FALSE);
         fFeatures.put(HONOUR_ALL_SCHEMALOCATIONS, Boolean.FALSE);

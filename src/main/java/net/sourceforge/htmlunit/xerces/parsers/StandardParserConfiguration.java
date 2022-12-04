@@ -77,10 +77,6 @@ public class StandardParserConfiguration
     Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
 
 
-    /** Feature identifier: augment PSVI */
-    protected static final String SCHEMA_AUGMENT_PSVI =
-    Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_AUGMENT_PSVI;
-
     /** Feature: generate synthetic annotations */
     protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE;
@@ -204,7 +200,6 @@ public class StandardParserConfiguration
         final String[] recognizedFeatures = {
             NORMALIZE_DATA,
             SCHEMA_ELEMENT_DEFAULT,
-            SCHEMA_AUGMENT_PSVI,
             GENERATE_SYNTHETIC_ANNOTATIONS,
             VALIDATE_ANNOTATIONS,
             HONOUR_ALL_SCHEMALOCATIONS,
@@ -220,7 +215,6 @@ public class StandardParserConfiguration
         // set state for default features
         setFeature(SCHEMA_ELEMENT_DEFAULT, true);
         setFeature(NORMALIZE_DATA, true);
-        setFeature(SCHEMA_AUGMENT_PSVI, true);
         setFeature(GENERATE_SYNTHETIC_ANNOTATIONS, false);
         setFeature(VALIDATE_ANNOTATIONS, false);
         setFeature(HONOUR_ALL_SCHEMALOCATIONS, false);

@@ -208,9 +208,6 @@ public final class Constants {
     /** Schema full constraint checking ("validation/schema-full-checking"). */
     public static final String SCHEMA_FULL_CHECKING = "validation/schema-full-checking";
 
-    /** Augment Post-Schema-Validation-Infoset */
-    public static final String SCHEMA_AUGMENT_PSVI = "validation/schema/augment-psvi";
-
     /** Dynamic validation feature ("validation/dynamic"). */
     public static final String DYNAMIC_VALIDATION_FEATURE = "validation/dynamic";
 
@@ -432,12 +429,6 @@ public final class Constants {
     public static final String SCHEMA_DV_FACTORY_PROPERTY = "internal/validation/schema/dv-factory";
 
     // general constants
-
-    /** Element PSVI is stored in augmentations using string "ELEMENT_PSVI" */
-    public final static String ELEMENT_PSVI = "ELEMENT_PSVI";
-
-    /** Attribute PSVI is stored in augmentations using string "ATTRIBUTE_PSVI" */
-    public final static String ATTRIBUTE_PSVI = "ATTRIBUTE_PSVI";
 
     /**
      * Boolean indicating whether an attribute is declared in the DTD is stored

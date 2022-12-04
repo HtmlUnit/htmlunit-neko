@@ -124,9 +124,6 @@ public class DOMParserImpl
     protected static final String SYMBOL_TABLE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY;
 
-    protected static final String PSVI_AUGMENT =
-        Constants.XERCES_FEATURE_PREFIX +Constants.SCHEMA_AUGMENT_PSVI;
-
     //
     // Data
     //

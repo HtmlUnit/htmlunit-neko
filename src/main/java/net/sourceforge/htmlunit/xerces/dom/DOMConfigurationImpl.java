@@ -98,10 +98,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String SCHEMA_ELEMENT_DEFAULT =
         Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
 
-    /** sending psvi in the pipeline */
-    protected static final String SEND_PSVI =
-        Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_AUGMENT_PSVI;
-
     /** Feature: generate synthetic annotations */
     protected static final String GENERATE_SYNTHETIC_ANNOTATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE;
@@ -302,7 +298,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             DYNAMIC_VALIDATION,
             NORMALIZE_DATA,
             SCHEMA_ELEMENT_DEFAULT,
-            SEND_PSVI,
             GENERATE_SYNTHETIC_ANNOTATIONS,
             VALIDATE_ANNOTATIONS,
             HONOUR_ALL_SCHEMALOCATIONS,
@@ -324,7 +319,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         setFeature(NORMALIZE_DATA, false);
         setFeature(SCHEMA_ELEMENT_DEFAULT, false);
         setFeature(XERCES_NAMESPACES, true);
-        setFeature(SEND_PSVI, true);
         setFeature(GENERATE_SYNTHETIC_ANNOTATIONS, false);
         setFeature(VALIDATE_ANNOTATIONS, false);
         setFeature(HONOUR_ALL_SCHEMALOCATIONS, false);
@@ -720,14 +714,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newFeatureNotSupportedError(name);
                 }
             }
-            else if (name.equalsIgnoreCase(SEND_PSVI) ){
-                // REVISIT: turning augmentation of PSVI is not support,
-                // because in this case we won't be able to retrieve element
-                // default value.
-                if (!state) { // false is not supported
-                    throw newFeatureNotSupportedError(name);
-                }
-            }
             else {
                 found = false;
                 /*
@@ -921,9 +907,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                 ) {
             return Boolean.FALSE;
         }
-        else if (name.equalsIgnoreCase(SEND_PSVI)) {
-            return Boolean.TRUE;
-        }
         else if (name.equalsIgnoreCase(Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
             return Boolean.TRUE;
         }
@@ -1010,9 +993,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     ) {
                     return (value.equals(Boolean.TRUE)) ? false : true;
             }//features whose parameter value can not be set to 'false'
-            else if( name.equalsIgnoreCase(Constants.DOM_ELEMENT_CONTENT_WHITESPACE)
-                    || name.equalsIgnoreCase(SEND_PSVI)
-                    ) {
+            else if( name.equalsIgnoreCase(Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
                     return (value.equals(Boolean.TRUE)) ? true : false;
             }// if name is not among the above listed above -- its not recognized. return false
             else {
@@ -1098,7 +1079,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             parameters.add(GRAMMAR_POOL);
             parameters.add(SECURITY_MANAGER);
             parameters.add(SYMBOL_TABLE);
-            parameters.add(SEND_PSVI);
 
             fRecognizedParameters = new DOMStringListImpl(parameters);
 
