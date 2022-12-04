@@ -445,12 +445,6 @@ public class DOMParserImpl
                 else if (name.equalsIgnoreCase (Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
                     fConfiguration.setFeature (INCLUDE_IGNORABLE_WHITESPACE, state);
                 }
-                else if (name.equalsIgnoreCase (Constants.DOM_PSVI)){
-                    //XSModel - turn on PSVI augmentation
-                    fConfiguration.setFeature (PSVI_AUGMENT, true);
-                    fConfiguration.setProperty (DOCUMENT_CLASS_NAME,
-                    "net.sourceforge.htmlunit.xerces.dom.PSVIDocumentImpl");
-                }
                 else {
                     // Constants.DOM_CHARSET_OVERRIDES_XML_ENCODING feature,
                     // Constants.DOM_SPLIT_CDATA feature,

@@ -190,9 +190,6 @@ public final class Constants {
     public static final String DOM_SCHEMA_TYPE = "schema-type";
     public static final String DOM_SCHEMA_LOCATION = "schema-location";
 
-    // XSModel
-    public static final String DOM_PSVI = "psvi";
-
 
     // xerces features
 

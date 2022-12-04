@@ -216,7 +216,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected final static short SPLITCDATA          = 0x1<<4;
     protected final static short COMMENTS            = 0x1<<5;
     protected final static short VALIDATE            = 0x1<<6;
-    protected final static short PSVI                = 0x1<<7;
     protected final static short WELLFORMED          = 0x1<<8;
     protected final static short NSDECL              = 0x1<<9;
 
@@ -729,9 +728,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newFeatureNotSupportedError(name);
                 }
             }
-            else if (name.equalsIgnoreCase(Constants.DOM_PSVI)){
-                  features = (short) (state ? features | PSVI : features & ~PSVI);
-            }
             else {
                 found = false;
                 /*
@@ -927,9 +923,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(SEND_PSVI)) {
             return Boolean.TRUE;
-        }
-        else if (name.equalsIgnoreCase(Constants.DOM_PSVI)) {
-            return (features & PSVI) != 0 ? Boolean.TRUE : Boolean.FALSE;
         }
         else if (name.equalsIgnoreCase(Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
             return Boolean.TRUE;
