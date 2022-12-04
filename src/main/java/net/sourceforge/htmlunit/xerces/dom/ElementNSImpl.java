@@ -21,8 +21,6 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
-import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
-
 
 
 /**
@@ -60,8 +58,6 @@ public class ElementNSImpl
     protected String localName;
 
     /** DOM3: type information */
-    // REVISIT: we are losing the type information in DOM during serialization
-    transient XSTypeDefinition type;
 
     protected ElementNSImpl() {
         super();
@@ -329,9 +325,6 @@ public class ElementNSImpl
      */
     @Override
     public String getTypeNamespace() {
-        if (type !=null){
-            return type.getNamespace();
-        }
         return null;
     }
 
@@ -357,13 +350,5 @@ public class ElementNSImpl
             synchronizeData();
         }
         return false;
-    }
-
-    /**
-     * NON-DOM: setting type used by the DOM parser
-     * @see NodeImpl#setReadOnly
-     */
-    public void setType(XSTypeDefinition type) {
-        this.type = type;
     }
 }

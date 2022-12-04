@@ -1996,11 +1996,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
         if (DEBUG_EVENTS) {
             System.out.println("==>endElement: " + element);
         }
-
-        // DTD; elements have no type.
-        if (fCurrentNode instanceof ElementNSImpl) {
-            ((ElementNSImpl) fCurrentNode).setType(null);
-        }
     }
 
 

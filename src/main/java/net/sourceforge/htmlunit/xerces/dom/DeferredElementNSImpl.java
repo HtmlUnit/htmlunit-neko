@@ -29,7 +29,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 import org.w3c.dom.NamedNodeMap;
 
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
-import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
  * DeferredElementNSImpl is to ElementNSImpl, what DeferredElementImpl is to
@@ -114,7 +113,6 @@ public class DeferredElementNSImpl
         }
 
         namespaceURI = ownerDocument.getNodeURI(fNodeIndex);
-        type = (XSTypeDefinition)ownerDocument.getTypeInfo(fNodeIndex);
 
         // attributes
         setupDefaultAttributes();
