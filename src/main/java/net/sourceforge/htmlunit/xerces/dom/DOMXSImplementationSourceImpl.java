@@ -50,11 +50,6 @@ public class DOMXSImplementationSourceImpl
         if (impl != null){
             return impl;
         }
-        // if not try the PSVIDOMImplementation
-        impl = PSVIDOMImplementationImpl.getDOMImplementation();
-        if (testImpl(impl, features)) {
-            return impl;
-        }
 
         return null;
     }
@@ -79,11 +74,6 @@ public class DOMXSImplementationSourceImpl
         // Add core DOMImplementations
         for (int i = 0; i < list.getLength(); ++i) {
             implementations.add(list.item(i));
-        }
-
-        DOMImplementation impl = PSVIDOMImplementationImpl.getDOMImplementation();
-        if (testImpl(impl, features)) {
-            implementations.add(impl);
         }
 
         return new DOMImplementationListImpl(implementations);

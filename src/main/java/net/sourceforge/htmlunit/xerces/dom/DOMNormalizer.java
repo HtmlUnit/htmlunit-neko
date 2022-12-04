@@ -39,7 +39,6 @@ import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.SimpleLocator;
 import net.sourceforge.htmlunit.xerces.util.AugmentationsImpl;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
@@ -59,9 +58,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
-import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
-import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
-import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
  * This class adds implementation for normalizeDocument method.
@@ -127,9 +123,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     // Validation against namespace aware grammar
     protected boolean fNamespaceValidation = false;
-
-    // Update PSVI information in the tree
-    protected boolean fPSVI = false;
 
     /** The namespace context of this document: stores namespaces in scope */
     protected final NamespaceContext fNamespaceContext = new NamespaceSupport();
@@ -206,9 +199,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
                 fConfiguration.setFeature(DOMConfigurationImpl.SCHEMA_FULL_CHECKING, true);
                 // report fatal error on DOM Level 1 nodes
                 fNamespaceValidation = true;
-
-                // check if we need to fill in PSVI
-                fPSVI = ((fConfiguration.features & DOMConfigurationImpl.PSVI) !=0)?true:false;
             }
             else {
                 schemaType = XMLGrammarDescription.XML_DTD;
@@ -217,7 +207,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
                 }
                 fConfiguration.setDTDValidatorFactory(xmlVersion);
                 fValidationHandler = CoreDOMImplementationImpl.singleton.getValidator(schemaType, xmlVersion);
-                fPSVI = false;
             }
 
             fConfiguration.setFeature(DOMConfigurationImpl.XERCES_VALIDATION, true);
@@ -1861,65 +1850,19 @@ public class DOMNormalizer implements XMLDocumentHandler {
                 // Must be a non-namespace aware DOM Level 1 node.
                 attr = currentElement.getAttributeNode(fAttrQName.rawname);
             }
-            AttributePSVI attrPSVI =
-                (AttributePSVI) attributes.getAugmentations(i).getItem(Constants.ATTRIBUTE_PSVI);
-
-            if (attrPSVI != null) {
-                //REVISIT: instead we should be using augmentations:
-                // to set/retrieve Id attributes
-                XSTypeDefinition decl = attrPSVI.getMemberTypeDefinition();
-                boolean id = false;
-                if (decl != null) {
-                    id = ((XSSimpleType)decl).isIDType();
-                }
-                else {
-                    decl = attrPSVI.getTypeDefinition();
-                    if (decl != null) {
-                        id = ((XSSimpleType)decl).isIDType();
-                    }
-                }
-                if (id) {
-                    ((ElementImpl)currentElement).setIdAttributeNode(attr, true);
-                }
-
-                if (fPSVI) {
-                    ((PSVIAttrNSImpl) attr).setPSVI(attrPSVI);
-                }
-
-                // Updating the TypeInfo for this attribute.
-                ((AttrImpl) attr).setType(decl);
-
-                if ((fConfiguration.features & DOMConfigurationImpl.DTNORMALIZATION) != 0) {
-                    // datatype-normalization
-                    // NOTE: The specified value MUST be set after we set
-                    //       the node value because that turns the "specified"
-                    //       flag to "true" which may overwrite a "false"
-                    //       value from the attribute list.
-                    final String normalizedValue = attrPSVI.getSchemaNormalizedValue();
-                    if (normalizedValue != null) {
-                        boolean specified = attr.getSpecified();
-                        attr.setValue(normalizedValue);
-                        if (!specified) {
-                            ((AttrImpl) attr).setSpecified(specified);
-                        }
-                    }
+            String type = null;
+            boolean isDeclared = Boolean.TRUE.equals(attributes.getAugmentations(i).getItem (Constants.ATTRIBUTE_DECLARED));
+            // For DOM Level 3 TypeInfo, the type name must
+            // be null if this attribute has not been declared
+            // in the DTD.
+            if (isDeclared) {
+                type = attributes.getType(i);
+                if ("ID".equals (type)) {
+                    ((ElementImpl) currentElement).setIdAttributeNode(attr, true);
                 }
             }
-            else { // DTD
-                String type = null;
-                boolean isDeclared = Boolean.TRUE.equals(attributes.getAugmentations(i).getItem (Constants.ATTRIBUTE_DECLARED));
-                // For DOM Level 3 TypeInfo, the type name must
-                // be null if this attribute has not been declared
-                // in the DTD.
-                if (isDeclared) {
-                    type = attributes.getType(i);
-                    if ("ID".equals (type)) {
-                        ((ElementImpl) currentElement).setIdAttributeNode(attr, true);
-                    }
-                }
-                // Updating the TypeInfo for this attribute.
-                ((AttrImpl) attr).setType(type);
-            }
+            // Updating the TypeInfo for this attribute.
+            ((AttrImpl) attr).setType(type);
         }
     }
 
@@ -2054,41 +1997,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
             System.out.println("==>endElement: " + element);
         }
 
-        if (augs != null) {
-            ElementPSVI elementPSVI = (ElementPSVI) augs.getItem(Constants.ELEMENT_PSVI);
-            if (elementPSVI != null) {
-                ElementImpl elementNode = (ElementImpl) fCurrentNode;
-                if (fPSVI) {
-                    ((PSVIElementNSImpl) fCurrentNode).setPSVI(elementPSVI);
-                }
-                // Updating the TypeInfo for this element.
-                if (elementNode instanceof ElementNSImpl) {
-                    XSTypeDefinition type = elementPSVI.getMemberTypeDefinition();
-                    if (type == null) {
-                        type = elementPSVI.getTypeDefinition();
-                    }
-                    ((ElementNSImpl) elementNode).setType(type);
-                }
-                // include element default content (if one is available)
-                String normalizedValue = elementPSVI.getSchemaNormalizedValue();
-                if ((fConfiguration.features & DOMConfigurationImpl.DTNORMALIZATION) != 0) {
-                    if (normalizedValue !=null)
-                        elementNode.setTextContent(normalizedValue);
-                }
-                else {
-                    // NOTE: this is a hack: it is possible that DOM had an empty element
-                    // and validator sent default value using characters(), which we don't
-                    // implement. Thus, here we attempt to add the default value.
-                    String text = elementNode.getTextContent();
-                    if (text.length() == 0) {
-                        // default content could be provided
-                        if (normalizedValue !=null)
-                            elementNode.setTextContent(normalizedValue);
-                    }
-                }
-                return;
-            }
-        }
         // DTD; elements have no type.
         if (fCurrentNode instanceof ElementNSImpl) {
             ((ElementNSImpl) fCurrentNode).setType(null);

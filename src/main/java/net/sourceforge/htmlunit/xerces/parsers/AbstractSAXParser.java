@@ -21,6 +21,7 @@ import java.io.CharConversionException;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.apache.xerces.xs.PSVIProvider;
 import org.xml.sax.AttributeList;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
@@ -62,9 +63,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
-import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
-import net.sourceforge.htmlunit.xerces.xs.PSVIProvider;
 
 /**
  * This is the base class of all SAX parsers. It implements both the
@@ -78,8 +76,7 @@ import net.sourceforge.htmlunit.xerces.xs.PSVIProvider;
  */
 public abstract class AbstractSAXParser
     extends AbstractXMLDocumentParser
-    implements PSVIProvider, // PSVI
-              Parser, XMLReader // SAX1, SAX2
+    implements Parser, XMLReader // SAX1, SAX2
 {
 
     //
@@ -2446,27 +2443,4 @@ public abstract class AbstractSAXParser
         }
 
     } // class AttributesProxy
-
-
-    // PSVIProvider methods
-
-    @Override
-    public ElementPSVI getElementPSVI(){
-        return (fAugmentations != null)?(ElementPSVI)fAugmentations.getItem(Constants.ELEMENT_PSVI):null;
-    }
-
-
-    @Override
-    public AttributePSVI getAttributePSVI(int index){
-
-        return (AttributePSVI)fAttributesProxy.fAttributes.getAugmentations(index).getItem(Constants.ATTRIBUTE_PSVI);
-    }
-
-
-    @Override
-    public AttributePSVI getAttributePSVIByName(String uri,
-                                                String localname){
-        return (AttributePSVI)fAttributesProxy.fAttributes.getAugmentations(uri, localname).getItem(Constants.ATTRIBUTE_PSVI);
-    }
-
 } // class AbstractSAXParser

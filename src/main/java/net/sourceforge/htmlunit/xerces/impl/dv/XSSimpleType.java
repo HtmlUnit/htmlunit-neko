@@ -103,42 +103,6 @@ public interface XSSimpleType extends XSSimpleTypeDefinition {
     short getPrimitiveKind();
 
     /**
-     * validate a given string against this simple type.
-     *
-     * @param content       the string value that needs to be validated
-     * @param context       the validation context
-     * @param validatedInfo used to store validation result
-     *
-     * @return              the actual value (QName, Boolean) of the string value
-     */
-    Object validate(String content, ValidationContext context, ValidatedInfo validatedInfo)
-        throws InvalidDatatypeValueException;
-
-    /**
-     * validate a given string value, represented by content.toString().
-     * note that if content is a StringBuffer, for performance reasons,
-     * it's possible that the content of the string buffer is modified.
-     *
-     * @param content       the string value that needs to be validated
-     * @param context       the validation context
-     * @param validatedInfo used to store validation result
-     *
-     * @return              the actual value (QName, Boolean) of the string value
-     */
-    Object validate(Object content, ValidationContext context, ValidatedInfo validatedInfo)
-        throws InvalidDatatypeValueException;
-
-    /**
-     * Validate an actual value against this simple type.
-     *
-     * @param context       the validation context
-     * @param validatedInfo used to provide the actual value and member types
-     * @exception InvalidDatatypeValueException  exception for invalid values.
-     */
-    void validate(ValidationContext context, ValidatedInfo validatedInfo)
-        throws InvalidDatatypeValueException;
-
-    /**
      * If this type is created from restriction, then some facets can be applied
      * to the simple type. <code>XSFacets</code> is used to pass the value of
      * different facets.

@@ -46,17 +46,12 @@ import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.DocumentTypeImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementDefinitionImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
-import net.sourceforge.htmlunit.xerces.dom.ElementNSImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityReferenceImpl;
 import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
 import net.sourceforge.htmlunit.xerces.dom.NotationImpl;
-import net.sourceforge.htmlunit.xerces.dom.PSVIAttrNSImpl;
-import net.sourceforge.htmlunit.xerces.dom.PSVIDocumentImpl;
-import net.sourceforge.htmlunit.xerces.dom.PSVIElementNSImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.impl.dv.XSSimpleType;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -67,9 +62,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
-import net.sourceforge.htmlunit.xerces.xs.AttributePSVI;
-import net.sourceforge.htmlunit.xerces.xs.ElementPSVI;
-import net.sourceforge.htmlunit.xerces.xs.XSTypeDefinition;
 
 /**
  * This is the base class of all DOM parsers. It implements the XNI
@@ -154,9 +146,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected static final String CORE_DOCUMENT_CLASS_NAME =
     "net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl";
 
-    protected static final String PSVI_DOCUMENT_CLASS_NAME =
-    "net.sourceforge.htmlunit.xerces.dom.PSVIDocumentImpl";
-
     /**
      * If the user stops the process, this exception will be thrown.
      */
@@ -206,9 +195,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** The default Xerces document implementation, if used. */
     protected CoreDocumentImpl fDocumentImpl;
-
-    /** Whether to store PSVI information in DOM tree. */
-    protected boolean fStorePSVI;
 
     /** The document class name to use. */
     protected String  fDocumentClassName;
@@ -340,8 +326,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             documentClassName = DEFAULT_DOCUMENT_CLASS_NAME;
         }
 
-        if (!documentClassName.equals(DEFAULT_DOCUMENT_CLASS_NAME) &&
-            !documentClassName.equals(PSVI_DOCUMENT_CLASS_NAME)) {
+        if (!documentClassName.equals(DEFAULT_DOCUMENT_CLASS_NAME)) {
             // verify that this class exists and is of the right type
             try {
                 Class<?> _class = ObjectFactory.findProviderClass (documentClassName,
@@ -430,7 +415,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // reset dom information
         fDocument = null;
         fDocumentImpl = null;
-        fStorePSVI = false;
         fDocumentType = null;
         fDocumentTypeIndex = -1;
         fDeferredDocumentImpl = null;
@@ -778,19 +762,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // set documentURI
                 fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
             }
-            else if (fDocumentClassName.equals (PSVI_DOCUMENT_CLASS_NAME)) {
-                fDocument = new PSVIDocumentImpl();
-                fDocumentImpl = (CoreDocumentImpl)fDocument;
-                fStorePSVI = true;
-                // REVISIT: when DOM Level 3 is REC rely on Document.support
-                //          instead of specific class
-                // set DOM error checking off
-                fDocumentImpl.setStrictErrorChecking (false);
-                // set actual encoding
-                fDocumentImpl.setInputEncoding (encoding);
-                // set documentURI
-                fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
-            }
             else {
                 // use specified document class
                 try {
@@ -805,12 +776,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                         cl, true);
                     if (defaultDocClass.isAssignableFrom (documentClass)) {
                         fDocumentImpl = (CoreDocumentImpl)fDocument;
-
-                        Class<?> psviDocClass = ObjectFactory.findProviderClass (PSVI_DOCUMENT_CLASS_NAME,
-                            cl, true);
-                        if (psviDocClass.isAssignableFrom (documentClass)) {
-                            fStorePSVI = true;
-                        }
 
                         // REVISIT: when DOM Level 3 is REC rely on
                         //          Document.support instead of specific class
@@ -952,11 +917,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
                 String attrValue = attributes.getValue (i);
 
-                AttributePSVI attrPSVI =(AttributePSVI) attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_PSVI);
-                if (fStorePSVI && attrPSVI != null){
-                    ((PSVIAttrNSImpl) attr).setPSVI (attrPSVI);
-                }
-
                 attr.setValue (attrValue);
                 boolean specified = attributes.isSpecified(i);
                 // Take special care of schema defaulted attributes. Calling the
@@ -979,38 +939,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     Object type = null;
                     boolean id = false;
 
-                    // REVISIT: currently it is possible that someone turns off
-                    // namespaces and turns on xml schema validation
-                    // To avoid classcast exception in AttrImpl check for namespaces
-                    // however the correct solution should probably disallow setting
-                    // namespaces to false when schema processing is turned on.
-                    if (attrPSVI != null && fNamespaceAware) {
-                        // XML Schema
-                        type = attrPSVI.getMemberTypeDefinition ();
-                        if (type == null) {
-                            type = attrPSVI.getTypeDefinition ();
-                            if (type != null) {
-                                id = ((XSSimpleType) type).isIDType ();
-                                attrImpl.setType (type);
-                            }
-                        }
-                        else {
-                            id = ((XSSimpleType) type).isIDType ();
-                            attrImpl.setType (type);
-                        }
+                    // DTD
+                    boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
+                    // For DOM Level 3 TypeInfo, the type name must
+                    // be null if this attribute has not been declared
+                    // in the DTD.
+                    if (isDeclared) {
+                        type = attributes.getType (i);
+                        id = "ID".equals (type);
                     }
-                    else {
-                        // DTD
-                        boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
-                        // For DOM Level 3 TypeInfo, the type name must
-                        // be null if this attribute has not been declared
-                        // in the DTD.
-                        if (isDeclared) {
-                            type = attributes.getType (i);
-                            id = "ID".equals (type);
-                        }
-                        attrImpl.setType (type);
-                    }
+                    attrImpl.setType (type);
 
                     if (id) {
                         ((ElementImpl) el).setIdAttributeNode (attr, true);
@@ -1021,18 +959,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 }
             }
             setCharacterData (false);
-
-            if (augs != null) {
-                ElementPSVI elementPSVI = (ElementPSVI)augs.getItem (Constants.ELEMENT_PSVI);
-                if (elementPSVI != null && fNamespaceAware) {
-                    XSTypeDefinition type = elementPSVI.getMemberTypeDefinition ();
-                    if (type == null) {
-                        type = elementPSVI.getTypeDefinition ();
-                    }
-                    ((ElementNSImpl)el).setType (type);
-                }
-            }
-
 
             // filter nodes
             if (fDOMFilter != null && !fInEntityRef) {
@@ -1085,37 +1011,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             for (int i = attrCount - 1; i >= 0; --i) {
 
                 // set type information
-                AttributePSVI attrPSVI = (AttributePSVI)attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_PSVI);
                 boolean id = false;
 
-                // REVISIT: currently it is possible that someone turns off
-                // namespaces and turns on xml schema validation
-                // To avoid classcast exception in AttrImpl check for namespaces
-                // however the correct solution should probably disallow setting
-                // namespaces to false when schema processing is turned on.
-                if (attrPSVI != null && fNamespaceAware) {
-                    // XML Schema
-                    type = attrPSVI.getMemberTypeDefinition ();
-                    if (type == null) {
-                        type = attrPSVI.getTypeDefinition ();
-                        if (type != null){
-                            id = ((XSSimpleType) type).isIDType ();
-                        }
-                    }
-                    else {
-                        id = ((XSSimpleType) type).isIDType ();
-                    }
-                }
-                else {
-                    // DTD
-                    boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
-                    // For DOM Level 3 TypeInfo, the type name must
-                    // be null if this attribute has not been declared
-                    // in the DTD.
-                    if (isDeclared) {
-                        type = attributes.getType (i);
-                        id = "ID".equals (type);
-                    }
+                // DTD
+                boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
+                // For DOM Level 3 TypeInfo, the type name must
+                // be null if this attribute has not been declared
+                // in the DTD.
+                if (isDeclared) {
+                    type = attributes.getType (i);
+                    id = "ID".equals (type);
                 }
 
                 // create attribute
@@ -1307,26 +1212,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
         if (!fDeferNodeExpansion) {
 
-            // REVISIT: Should this happen after we call the filter?
-            if (augs != null && fDocumentImpl != null && (fNamespaceAware || fStorePSVI)) {
-                ElementPSVI elementPSVI = (ElementPSVI) augs.getItem(Constants.ELEMENT_PSVI);
-                if (elementPSVI != null) {
-                    // Updating TypeInfo. If the declared type is a union the
-                    // [member type definition] will only be available at the
-                    // end of an element.
-                    if (fNamespaceAware) {
-                        XSTypeDefinition type = elementPSVI.getMemberTypeDefinition();
-                        if (type == null) {
-                            type = elementPSVI.getTypeDefinition();
-                        }
-                        ((ElementNSImpl)fCurrentNode).setType(type);
-                    }
-                    if (fStorePSVI) {
-                        ((PSVIElementNSImpl)fCurrentNode).setPSVI (elementPSVI);
-                    }
-                }
-            }
-
             if (fDOMFilter != null) {
                 if (fFilterReject) {
                     if (fRejectedElementDepth-- == 0) {
@@ -1387,19 +1272,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         }
         else {
-            if (augs != null) {
-                ElementPSVI elementPSVI = (ElementPSVI) augs.getItem(Constants.ELEMENT_PSVI);
-                if (elementPSVI != null) {
-                    // Setting TypeInfo. If the declared type is a union the
-                    // [member type definition] will only be available at the
-                    // end of an element.
-                    XSTypeDefinition type = elementPSVI.getMemberTypeDefinition();
-                    if (type == null) {
-                        type = elementPSVI.getTypeDefinition();
-                    }
-                    fDeferredDocumentImpl.setTypeInfo(fCurrentNodeIndex, type);
-                }
-            }
             fCurrentNodeIndex =
                 fDeferredDocumentImpl.getParentNode (fCurrentNodeIndex, false);
         }
