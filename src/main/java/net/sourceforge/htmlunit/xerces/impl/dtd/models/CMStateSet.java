@@ -93,24 +93,6 @@ public class CMStateSet
     }
 
 
-    // -------------------------------------------------------------------
-    //  Package final methods
-    // -------------------------------------------------------------------
-// the XS content models from the schema package -neilg.
-    public final void intersection(CMStateSet setToAnd)
-    {
-        if (fBitCount < 65)
-        {
-            fBits1 &= setToAnd.fBits1;
-            fBits2 &= setToAnd.fBits2;
-        }
-         else
-        {
-            for (int index = fByteCount - 1; index >= 0; index--)
-                fByteArray[index] &= setToAnd.fByteArray[index];
-        }
-    }
-
     public final boolean getBit(int bitToGet)
     {
         if (bitToGet >= fBitCount)

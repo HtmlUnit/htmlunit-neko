@@ -70,22 +70,6 @@ public class XMLResourceIdentifierImpl
                   expandedSystemId, null);
     } // <init>(String,String,String,String)
 
-    /**
-     * Constructs a resource identifier.
-     *
-     * @param publicId The public identifier.
-     * @param literalSystemId The literal system identifier.
-     * @param baseSystemId The base system identifier.
-     * @param expandedSystemId The expanded system identifier.
-     * @param namespace The namespace.
-     */
-    public XMLResourceIdentifierImpl(String publicId, String literalSystemId,
-                                     String baseSystemId, String expandedSystemId,
-                                     String namespace) {
-        setValues(publicId, literalSystemId, baseSystemId,
-                  expandedSystemId, namespace);
-    } // <init>(String,String,String,String,String)
-
     //
     // Public methods
     //

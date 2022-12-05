@@ -33,9 +33,6 @@ public class XMLEntityDescriptionImpl
     // Constructors
     //
 
-    /** Constructs an empty entity description. */
-    public XMLEntityDescriptionImpl() {} // <init>()
-
     /**
      * Constructs an entity description.
      *
@@ -49,21 +46,6 @@ public class XMLEntityDescriptionImpl
                                     String baseSystemId, String expandedSystemId) {
         setDescription(entityName, publicId, literalSystemId, baseSystemId, expandedSystemId);
     } // <init>(String,String,String,String,String)
-
-    /**
-     * Constructs a resource identifier.
-     *
-     * @param entityName The name of the entity.
-     * @param publicId The public identifier.
-     * @param literalSystemId The literal system identifier.
-     * @param baseSystemId The base system identifier.
-     * @param expandedSystemId The expanded system identifier.
-     * @param namespace The namespace.
-     */
-    public XMLEntityDescriptionImpl(String entityName, String publicId, String literalSystemId,
-                                    String baseSystemId, String expandedSystemId, String namespace) {
-        setDescription(entityName, publicId, literalSystemId, baseSystemId, expandedSystemId, namespace);
-    } // <init>(String,String,String,String,String,String)
 
     //
     // Data

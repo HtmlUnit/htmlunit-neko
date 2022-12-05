@@ -24,8 +24,7 @@ package net.sourceforge.htmlunit.xerces.util;
  */
 public class XMLSymbols {
 
-    // public constructor.
-    public XMLSymbols(){}
+    private XMLSymbols(){}
 
     //==========================
     // Commonly used strings
@@ -53,9 +52,6 @@ public class XMLSymbols {
     //==========================
     // DTD symbols
     //==========================
-
-    /** Symbol: "ANY". */
-    public static final String fANYSymbol = "ANY".intern();
 
     /** Symbol: "CDATA". */
     public static final String fCDATASymbol = "CDATA".intern();
@@ -95,6 +91,4 @@ public class XMLSymbols {
 
     /** Symbol: "#FIXED". */
     public static final String fFIXEDSymbol = "#FIXED".intern();
-
-
 }

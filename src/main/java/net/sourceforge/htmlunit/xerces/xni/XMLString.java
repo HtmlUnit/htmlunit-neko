@@ -74,19 +74,6 @@ public class XMLString {
         setValues(ch, offset, length);
     } // <init>(char[],int,int)
 
-    /**
-     * Constructs an XMLString structure with copies of the values in
-     * the given structure.
-     * <p>
-     * <strong>Note:</strong> This does not copy the character array;
-     * only the reference to the array is copied.
-     *
-     * @param string The XMLString to copy.
-     */
-    public XMLString(XMLString string) {
-        setValues(string);
-    } // <init>(XMLString)
-
     //
     // Public methods
     //

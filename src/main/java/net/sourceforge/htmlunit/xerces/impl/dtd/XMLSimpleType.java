@@ -48,12 +48,6 @@ public class XMLSimpleType {
     /** TYPE_NOTATION */
     public static final short TYPE_NOTATION = 6;
 
-    /** TYPE_NAMED */
-    public static final short TYPE_NAMED = 7;
-
-    /** DEFAULT_TYPE_DEFAULT */
-    public static final short DEFAULT_TYPE_DEFAULT = 3;
-
     /** DEFAULT_TYPE_FIXED */
     public static final short DEFAULT_TYPE_FIXED = 1;
 

@@ -70,10 +70,6 @@ public class CMAny
     // Package methods
     //
 
-    final int getType() {
-        return fType;
-    }
-
     final String getURI() {
         return fURI;
     }
@@ -81,11 +77,6 @@ public class CMAny
     final int getPosition()
     {
         return fPosition;
-    }
-
-    final void setPosition(int newPosition)
-    {
-        fPosition = newPosition;
     }
 
     //
