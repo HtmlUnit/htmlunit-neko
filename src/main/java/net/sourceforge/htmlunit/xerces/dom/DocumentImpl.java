@@ -43,10 +43,6 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.MutationEvent;
 import org.w3c.dom.ranges.DocumentRange;
 import org.w3c.dom.ranges.Range;
-import org.w3c.dom.traversal.DocumentTraversal;
-import org.w3c.dom.traversal.NodeFilter;
-import org.w3c.dom.traversal.NodeIterator;
-import org.w3c.dom.traversal.TreeWalker;
 
 import net.sourceforge.htmlunit.xerces.dom.events.EventImpl;
 import net.sourceforge.htmlunit.xerces.dom.events.MouseEventImpl;
@@ -88,7 +84,7 @@ import net.sourceforge.htmlunit.xerces.dom.events.UIEventImpl;
  */
 public class DocumentImpl
     extends CoreDocumentImpl
-    implements DocumentTraversal, DocumentEvent, DocumentRange {
+    implements DocumentEvent, DocumentRange {
 
     //
     // Constants
@@ -100,9 +96,6 @@ public class DocumentImpl
     //
     // Data
     //
-
-    /** Node Iterators */
-    protected transient List iterators;
 
     /** Reference queue for cleared Node Iterator references */
     protected transient ReferenceQueue iteratorReferenceQueue;
@@ -188,142 +181,6 @@ public class DocumentImpl
         // Currently implemented as a singleton, since it's hardcoded
         // information anyway.
         return DOMImplementationImpl.getDOMImplementation();
-    }
-
-    //
-    // DocumentTraversal methods
-    //
-
-    /**
-     * NON-DOM extension:
-     * Create and return a NodeIterator. The NodeIterator is
-     * added to a list of NodeIterators so that it can be
-     * removed to free up the DOM Nodes it references.
-     *
-     * @param root The root of the iterator.
-     * @param whatToShow The whatToShow mask.
-     * @param filter The NodeFilter installed. Null means no filter.
-     */
-    public NodeIterator createNodeIterator(Node root,
-                                           short whatToShow,
-                                           NodeFilter filter)
-    {
-        return createNodeIterator(root, whatToShow, filter, true);
-    }
-
-    /**
-     * Create and return a NodeIterator. The NodeIterator is
-     * added to a list of NodeIterators so that it can be
-     * removed to free up the DOM Nodes it references.
-     *
-     * @param root The root of the iterator.
-     * @param whatToShow The whatToShow mask.
-     * @param filter The NodeFilter installed. Null means no filter.
-     * @param entityReferenceExpansion true to expand the contents of
-     *                                 EntityReference nodes
-     * @since WD-DOM-Level-2-19990923
-     */
-    @Override
-    public NodeIterator createNodeIterator(Node root,
-                                           int whatToShow,
-                                           NodeFilter filter,
-                                           boolean entityReferenceExpansion)
-    {
-
-        if (root == null) {
-                  String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
-                  throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
-        }
-
-        NodeIterator iterator = new NodeIteratorImpl(this,
-                                                     root,
-                                                     whatToShow,
-                                                     filter,
-                                                     entityReferenceExpansion);
-        if (iterators == null) {
-            iterators = new LinkedList();
-            iteratorReferenceQueue = new ReferenceQueue();
-        }
-
-        removeStaleIteratorReferences();
-        iterators.add(new WeakReference(iterator, iteratorReferenceQueue));
-
-        return iterator;
-    }
-
-    /**
-     * NON-DOM extension:
-     * Create and return a TreeWalker.
-     *
-     * @param root The root of the iterator.
-     * @param whatToShow The whatToShow mask.
-     * @param filter The NodeFilter installed. Null means no filter.
-     */
-    public TreeWalker createTreeWalker(Node root,
-                                       short whatToShow,
-                                       NodeFilter filter)
-    {
-        return createTreeWalker(root, whatToShow, filter, true);
-    }
-    /**
-     * Create and return a TreeWalker.
-     *
-     * @param root The root of the iterator.
-     * @param whatToShow The whatToShow mask.
-     * @param filter The NodeFilter installed. Null means no filter.
-     * @param entityReferenceExpansion true to expand the contents of
-     *                                 EntityReference nodes
-     * @since WD-DOM-Level-2-19990923
-     */
-    @Override
-    public TreeWalker createTreeWalker(Node root,
-                                       int whatToShow,
-                                       NodeFilter filter,
-                                       boolean entityReferenceExpansion)
-    {
-        if (root == null) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
-            throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
-        }
-        return new TreeWalkerImpl(root, whatToShow, filter,
-                                  entityReferenceExpansion);
-    }
-
-    //
-    // Not DOM Level 2. Support DocumentTraversal methods.
-    //
-
-    /**
-     * This is not called by the developer client. The
-     * developer client uses the detach() function on the
-     * NodeIterator itself. <p>
-     *
-     * This function is called from the NodeIterator#detach().
-     */
-    void removeNodeIterator(NodeIterator nodeIterator) {
-
-        if ((nodeIterator == null) || (iterators == null)) return;
-
-        removeStaleIteratorReferences();
-        Iterator i = iterators.iterator();
-        while (i.hasNext()) {
-            Object iterator = ((Reference) i.next()).get();
-            if (iterator == nodeIterator) {
-                i.remove();
-                return;
-            }
-            // Remove stale reference from the list.
-            else if (iterator == null) {
-                i.remove();
-            }
-        }
-    }
-
-    /**
-     * Remove stale iterator references from the iterator list.
-     */
-    private void removeStaleIteratorReferences() {
-        removeStaleReferences(iteratorReferenceQueue, iterators);
     }
 
     /**
@@ -1296,11 +1153,6 @@ public class DocumentImpl
     @Override
     void removingNode(NodeImpl node, NodeImpl oldChild, boolean replace) {
 
-        // notify iterators
-        if (iterators != null) {
-            notifyIteratorsRemovingNode(oldChild);
-        }
-
         // notify ranges
         if (ranges != null) {
             notifyRangesRemovingNode(oldChild);
@@ -1309,21 +1161,6 @@ public class DocumentImpl
         // mutation events
         if (mutationEvents) {
             mutationEventsRemovingNode(node, oldChild, replace);
-        }
-    }
-
-    private void notifyIteratorsRemovingNode(NodeImpl oldChild) {
-        removeStaleIteratorReferences();
-        final Iterator i = iterators.iterator();
-        while (i.hasNext()) {
-            NodeIteratorImpl iterator = (NodeIteratorImpl) ((Reference) i.next()).get();
-            if (iterator != null) {
-                iterator.removeNode(oldChild);
-            }
-            // Remove stale reference from the list.
-            else {
-                i.remove();
-            }
         }
     }
 

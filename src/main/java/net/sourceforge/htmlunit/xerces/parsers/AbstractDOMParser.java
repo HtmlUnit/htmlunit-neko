@@ -34,7 +34,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 import org.w3c.dom.ls.LSParserFilter;
-import org.w3c.dom.traversal.NodeFilter;
 import org.xml.sax.SAXException;
 
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
@@ -81,6 +80,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     //
     // Constants
     //
+    private static final int SHOW_ELEMENT = 0x00000001; // NodeFilter.SHOW_ELEMENT;
+    private static final int SHOW_TEXT = 0x00000004; // NodeFilter.SHOW_TEXT;
+    private static final int SHOW_CDATA_SECTION = 0x00000008; // NodeFilter.SHOW_CDATA_SECTION;
+    private static final int SHOW_ENTITY_REFERENCE = 0x00000010; // NodeFilter.SHOW_ENTITY_REFERENCE;
+    private static final int SHOW_PROCESSING_INSTRUCTION = 0x00000040; // NodeFilter.SHOW_PROCESSING_INSTRUCTION;
+    private static final int SHOW_COMMENT = 0x00000080; // NodeFilter.SHOW_COMMENT;
 
     // feature ids
 
@@ -608,7 +613,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             setCharacterData (false);
             fCurrentNode.appendChild (comment);
             if (fDOMFilter !=null && !fInEntityRef &&
-            (fDOMFilter.getWhatToShow () & NodeFilter.SHOW_COMMENT)!= 0) {
+            (fDOMFilter.getWhatToShow () & SHOW_COMMENT)!= 0) {
                 short code = fDOMFilter.acceptNode (comment);
                 switch (code) {
                     case LSParserFilter.FILTER_INTERRUPT:{
@@ -691,7 +696,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             setCharacterData (false);
             fCurrentNode.appendChild (pi);
             if (fDOMFilter !=null && !fInEntityRef &&
-            (fDOMFilter.getWhatToShow () & NodeFilter.SHOW_PROCESSING_INSTRUCTION)!= 0) {
+            (fDOMFilter.getWhatToShow () & SHOW_PROCESSING_INSTRUCTION)!= 0) {
                 short code = fDOMFilter.acceptNode (pi);
                 switch (code) {
                     case LSParserFilter.FILTER_INTERRUPT:{
@@ -1225,7 +1230,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     }
                 }
                 setCharacterData (false);
-                if ((fCurrentNode != fRoot) && !fInEntityRef && (fDOMFilter.getWhatToShow () & NodeFilter.SHOW_ELEMENT)!=0) {
+                if ((fCurrentNode != fRoot) && !fInEntityRef && (fDOMFilter.getWhatToShow () & SHOW_ELEMENT)!=0) {
                     short code = fDOMFilter.acceptNode (fCurrentNode);
                     switch (code) {
                         case LSParserFilter.FILTER_INTERRUPT:{
@@ -1319,7 +1324,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             if (fCurrentCDATASection !=null) {
 
                 if (fDOMFilter !=null && !fInEntityRef &&
-                (fDOMFilter.getWhatToShow () & NodeFilter.SHOW_CDATA_SECTION)!= 0) {
+                (fDOMFilter.getWhatToShow () & SHOW_CDATA_SECTION)!= 0) {
                     short code = fDOMFilter.acceptNode (fCurrentCDATASection);
                     switch (code) {
                         case LSParserFilter.FILTER_INTERRUPT:{
@@ -1440,7 +1445,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 }
 
                 if (fDOMFilter !=null &&
-                (fDOMFilter.getWhatToShow () & NodeFilter.SHOW_ENTITY_REFERENCE)!= 0) {
+                (fDOMFilter.getWhatToShow () & SHOW_ENTITY_REFERENCE)!= 0) {
                     short code = fDOMFilter.acceptNode (fCurrentNode);
                     switch (code) {
                         case LSParserFilter.FILTER_INTERRUPT:{
@@ -2529,7 +2534,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
             if (fDOMFilter !=null && !fInEntityRef) {
                 if ( (child.getNodeType () == Node.TEXT_NODE ) &&
-                ((fDOMFilter.getWhatToShow () & NodeFilter.SHOW_TEXT)!= 0) ) {
+                ((fDOMFilter.getWhatToShow () & SHOW_TEXT)!= 0) ) {
                     short code = fDOMFilter.acceptNode (child);
                     switch (code) {
                         case LSParserFilter.FILTER_INTERRUPT:{

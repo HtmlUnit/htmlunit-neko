@@ -36,7 +36,6 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 import org.w3c.dom.ls.LSParserFilter;
 import org.w3c.dom.ls.LSResourceResolver;
-import org.w3c.dom.traversal.NodeFilter;
 import org.xml.sax.SAXException;
 
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
@@ -1174,7 +1173,7 @@ public class DOMParserImpl
         }
         @Override
         public int getWhatToShow() {
-            return NodeFilter.SHOW_ALL;
+            return 0xFFFFFFFF; // NodeFilter.SHOW_ALL;
         }
         @Override
         public short startElement(Element elementArg) {
