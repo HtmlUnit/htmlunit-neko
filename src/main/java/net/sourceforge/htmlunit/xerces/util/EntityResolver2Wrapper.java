@@ -51,9 +51,6 @@ public class EntityResolver2Wrapper
     // Constructors
     //
 
-    /** Default constructor. */
-    public EntityResolver2Wrapper() {}
-
     /**
      * <p>Creates a new instance wrapping the given SAX entity resolver.</p>
      *

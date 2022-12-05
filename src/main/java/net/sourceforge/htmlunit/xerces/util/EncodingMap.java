@@ -17,7 +17,7 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 /**
  * EncodingMap is a convenience class which handles conversions between
@@ -465,25 +465,18 @@ import java.util.Hashtable;
  *
  * @author TAMURA Kent, IBM
  * @author Andy Clark, IBM
+ *
+ * @author Ronald Brill
  */
 public class EncodingMap {
 
-    //
-    // Data
-    //
-
     /** fIANA2JavaMap */
-    protected final static Hashtable fIANA2JavaMap = new Hashtable();
+    protected final static HashMap<String, String> fIANA2JavaMap = new HashMap<>();
 
     /** fJava2IANAMap */
-    protected final static Hashtable fJava2IANAMap = new Hashtable();
-
-    //
-    // Static initialization
-    //
+    protected final static HashMap<String, String> fJava2IANAMap = new HashMap<>();
 
     static {
-
         // add IANA to Java encoding mappings.
         fIANA2JavaMap.put("BIG5",            "Big5");
         fIANA2JavaMap.put("CSBIG5",            "Big5");
@@ -936,18 +929,9 @@ public class EncodingMap {
         // proposed addition (see above for details):
         fJava2IANAMap.put("CP1047",    "IBM1047");
 
-    } // <clinit>()
+    }
 
-    //
-    // Constructors
-    //
-
-    /** Default constructor. */
-    public EncodingMap() {}
-
-    //
-    // Public static methods
-    //
+    private EncodingMap() {}
 
     /**
      * Returns the Java encoding name for the specified IANA encoding name.
@@ -955,8 +939,8 @@ public class EncodingMap {
      * @param ianaEncoding The IANA encoding name.
      */
     public static String getIANA2JavaMapping(String ianaEncoding) {
-        return (String)fIANA2JavaMap.get(ianaEncoding);
-    } // getIANA2JavaMapping(String):String
+        return fIANA2JavaMap.get(ianaEncoding);
+    }
 
     /**
      * Returns the IANA encoding name for the specified Java encoding name.
@@ -964,7 +948,6 @@ public class EncodingMap {
      * @param javaEncoding The Java encoding name.
      */
     public static String getJava2IANAMapping(String javaEncoding) {
-        return (String)fJava2IANAMap.get(javaEncoding);
-    } // getJava2IANAMapping(String):String
-
-} // class EncodingMap
+        return fJava2IANAMap.get(javaEncoding);
+    }
+}

@@ -76,7 +76,7 @@ public class DeepNodeListImpl
     protected final NodeImpl rootNode; // Where the search started
     protected final String tagName;   // Or "*" to mean all-tags-acceptable
     protected int changes=0;
-    protected ArrayList nodes;
+    protected ArrayList<Node> nodes;
 
     protected String nsName;
     protected boolean enableNS = false;
@@ -89,7 +89,7 @@ public class DeepNodeListImpl
     public DeepNodeListImpl(NodeImpl rootNode, String tagName) {
         this.rootNode = rootNode;
         this.tagName  = tagName;
-        nodes = new ArrayList();
+        nodes = new ArrayList<>();
     }
 
     /** Constructor for Namespace support. */
@@ -119,14 +119,14 @@ public class DeepNodeListImpl
 
         // Tree changed. Do it all from scratch!
         if (rootNode.changes() != changes) {
-            nodes   = new ArrayList();
+            nodes   = new ArrayList<>();
             changes = rootNode.changes();
         }
 
         // In the cache
         final int currentSize = nodes.size();
         if (index < currentSize) {
-            return (Node)nodes.get(index);
+            return nodes.get(index);
         }
         // Not yet seen
         else {
@@ -136,7 +136,7 @@ public class DeepNodeListImpl
                 thisNode = rootNode;
             }
             else {
-                thisNode = (NodeImpl)(nodes.get(currentSize - 1));
+                thisNode = nodes.get(currentSize - 1);
             }
 
             // Add nodes up to the one we're looking for

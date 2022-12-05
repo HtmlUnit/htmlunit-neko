@@ -51,9 +51,6 @@ public class EntityResolverWrapper
     // Constructors
     //
 
-    /** Default constructor. */
-    public EntityResolverWrapper() {}
-
     /** Wraps the specified SAX entity resolver. */
     public EntityResolverWrapper(EntityResolver entityResolver) {
         setEntityResolver(entityResolver);

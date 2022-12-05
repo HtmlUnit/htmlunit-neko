@@ -47,9 +47,6 @@ public class ErrorHandlerWrapper
     // Constructors
     //
 
-    /** Default constructor. */
-    public ErrorHandlerWrapper() {}
-
     /** Wraps the specified SAX error handler. */
     public ErrorHandlerWrapper(ErrorHandler errorHandler) {
         setErrorHandler(errorHandler);

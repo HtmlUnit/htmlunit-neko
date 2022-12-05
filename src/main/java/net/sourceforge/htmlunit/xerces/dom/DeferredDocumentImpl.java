@@ -125,7 +125,7 @@ public class DeferredDocumentImpl
     // private data
     //
     private transient final StringBuffer fBufferStr = new StringBuffer();
-    private transient final ArrayList fStrChunks = new ArrayList();
+    private transient final ArrayList<String> fStrChunks = new ArrayList<>();
 
     //
     // Constructors
@@ -1143,7 +1143,7 @@ public class DeferredDocumentImpl
 
                 // add to the buffer in the correct order.
                 for (int i = chunkCount - 1; i >= 0; i--) {
-                    fBufferStr.append((String)fStrChunks.get(i));
+                    fBufferStr.append(fStrChunks.get(i));
                 }
 
                 value = fBufferStr.toString();
@@ -1169,7 +1169,7 @@ public class DeferredDocumentImpl
                 }
                 // add to the buffer in the correct order.
                 for (int i=fStrChunks.size()-1; i>=0; i--) {
-                     fBufferStr.append((String)fStrChunks.get(i));
+                     fBufferStr.append(fStrChunks.get(i));
                 }
 
                 value = fBufferStr.toString();
