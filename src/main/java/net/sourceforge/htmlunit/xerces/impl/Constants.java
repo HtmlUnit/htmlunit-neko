@@ -164,7 +164,6 @@ public final class Constants {
     public static final String DOM_SUPPORTED_MEDIATYPES_ONLY =
         "supported-media-types-only";
 
-    public static final String DOM_VALIDATE_IF_SCHEMA = "validate-if-schema";
     public static final String DOM_VALIDATE = "validate";
     public static final String DOM_ELEMENT_CONTENT_WHITESPACE =
         "element-content-whitespace";

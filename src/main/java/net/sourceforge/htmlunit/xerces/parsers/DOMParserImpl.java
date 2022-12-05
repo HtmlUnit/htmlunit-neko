@@ -418,13 +418,6 @@ public class DOMParserImpl
                         fConfiguration.setFeature (DYNAMIC_VALIDATION, false);
                     }
                 }
-                else if (name.equalsIgnoreCase (Constants.DOM_VALIDATE_IF_SCHEMA)) {
-                    fConfiguration.setFeature (DYNAMIC_VALIDATION, state);
-                    // Note: validation and dynamic validation are mutually exclusive
-                    if (state){
-                        fConfiguration.setFeature (VALIDATION_FEATURE, false);
-                    }
-                }
                 else if (name.equalsIgnoreCase (Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
                     fConfiguration.setFeature (INCLUDE_IGNORABLE_WHITESPACE, state);
                 }
@@ -624,11 +617,6 @@ public class DOMParserImpl
             ? Boolean.TRUE
             : Boolean.FALSE;
         }
-        else if (name.equalsIgnoreCase (Constants.DOM_VALIDATE_IF_SCHEMA)) {
-            return (fConfiguration.getFeature (DYNAMIC_VALIDATION))
-            ? Boolean.TRUE
-            : Boolean.FALSE;
-        }
         else if (name.equalsIgnoreCase (Constants.DOM_ELEMENT_CONTENT_WHITESPACE)) {
             return (fConfiguration.getFeature (INCLUDE_IGNORABLE_WHITESPACE))
             ? Boolean.TRUE
@@ -768,7 +756,6 @@ public class DOMParserImpl
             || name.equalsIgnoreCase (Constants.DOM_NAMESPACES)
             || name.equalsIgnoreCase (Constants.DOM_NAMESPACE_DECLARATIONS)
             || name.equalsIgnoreCase (Constants.DOM_VALIDATE)
-            || name.equalsIgnoreCase (Constants.DOM_VALIDATE_IF_SCHEMA)
             || name.equalsIgnoreCase (Constants.DOM_ELEMENT_CONTENT_WHITESPACE)
             || name.equalsIgnoreCase (Constants.DOM_XMLDECL)) {
                 return true;
@@ -860,7 +847,6 @@ public class DOMParserImpl
             parameters.add(Constants.DOM_SPLIT_CDATA);
 
             parameters.add(Constants.DOM_ENTITIES);
-            parameters.add(Constants.DOM_VALIDATE_IF_SCHEMA);
             parameters.add(Constants.DOM_VALIDATE);
             parameters.add(Constants.DOM_DATATYPE_NORMALIZATION);
 

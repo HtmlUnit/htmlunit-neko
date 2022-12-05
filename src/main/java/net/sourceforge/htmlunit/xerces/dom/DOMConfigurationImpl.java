@@ -702,7 +702,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             }
             else if (name.equalsIgnoreCase(Constants.DOM_NORMALIZE_CHARACTERS)
                     || name.equalsIgnoreCase(Constants.DOM_CANONICAL_FORM)
-                    || name.equalsIgnoreCase(Constants.DOM_VALIDATE_IF_SCHEMA)
                     || name.equalsIgnoreCase(Constants.DOM_CHECK_CHAR_NORMALIZATION)
                     ) {
                 if (state) { // true is not supported
@@ -902,7 +901,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(Constants.DOM_NORMALIZE_CHARACTERS)
                 || name.equalsIgnoreCase(Constants.DOM_CANONICAL_FORM)
-                || name.equalsIgnoreCase(Constants.DOM_VALIDATE_IF_SCHEMA)
                 || name.equalsIgnoreCase(Constants.DOM_CHECK_CHAR_NORMALIZATION)
                 ) {
             return Boolean.FALSE;
@@ -988,7 +986,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             else if (
                 name.equalsIgnoreCase(Constants.DOM_NORMALIZE_CHARACTERS)
                     || name.equalsIgnoreCase(Constants.DOM_CANONICAL_FORM)
-                    || name.equalsIgnoreCase(Constants.DOM_VALIDATE_IF_SCHEMA)
                     || name.equalsIgnoreCase(Constants.DOM_CHECK_CHAR_NORMALIZATION)
                     ) {
                     return (value.equals(Boolean.TRUE)) ? false : true;
@@ -1062,7 +1059,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             parameters.add(Constants.DOM_INFOSET);
             parameters.add(Constants.DOM_NORMALIZE_CHARACTERS);
             parameters.add(Constants.DOM_CANONICAL_FORM);
-            parameters.add(Constants.DOM_VALIDATE_IF_SCHEMA);
             parameters.add(Constants.DOM_CHECK_CHAR_NORMALIZATION);
             parameters.add(Constants.DOM_WELLFORMED);
 
