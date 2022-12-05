@@ -52,7 +52,6 @@ import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.AugmentationsImpl;
 import net.sourceforge.htmlunit.xerces.util.EncodingMap;
 import net.sourceforge.htmlunit.xerces.util.HTTPInputSource;
-import net.sourceforge.htmlunit.xerces.util.SecurityManager;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.URI;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
@@ -160,10 +159,6 @@ public class XMLEntityManager
     protected static final String BUFFER_SIZE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.BUFFER_SIZE_PROPERTY;
 
-    /** property identifier: security manager. */
-    protected static final String SECURITY_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SECURITY_MANAGER_PROPERTY;
-
     // recognized features and properties
 
     /** Recognized features. */
@@ -193,7 +188,6 @@ public class XMLEntityManager
         ENTITY_RESOLVER,
         VALIDATION_MANAGER,
         BUFFER_SIZE,
-        SECURITY_MANAGER,
     };
 
     /** Property defaults. */
@@ -303,10 +297,6 @@ public class XMLEntityManager
      */
     protected int fBufferSize = DEFAULT_BUFFER_SIZE;
 
-    // stores defaults for entity expansion limit if it has
-    // been set on the configuration.
-    protected SecurityManager fSecurityManager = null;
-
     /**
      * True if the document entity is standalone. This should really
      * only be set by the document source (e.g. XMLDocumentScanner).
@@ -337,12 +327,6 @@ public class XMLEntityManager
 
     /** XML 1.1 entity scanner. */
     protected XMLEntityScanner fXML11EntityScanner;
-
-    // entity expansion limit (contains useful data if and only if
-    // fSecurityManager is non-null)
-    protected int fEntityExpansionLimit = 0;
-    // entity currently being expanded:
-    protected int fEntityExpansionCount = 0;
 
     // entities
 
@@ -946,25 +930,6 @@ public class XMLEntityManager
 
         String encoding = setupCurrentEntity(name, xmlInputSource, literal, isExternal);
 
-        // when entity expansion limit is set by the Application, we need to
-        // check for the entity expansion limit set by the parser, if number of entity
-        // expansions exceeds the entity expansion limit, parser will throw fatal error.
-        // Note that this is intentionally unbalanced; it counts
-        // the number of expansions *per document*.
-        if (fSecurityManager != null) {
-            fEntityExpansionCount += getParamEntityRefCount(name);
-            if (fEntityExpansionCount++ > fEntityExpansionLimit) {
-                fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                        "EntityExpansionLimitExceeded",
-                        new Object[]{new Integer(fEntityExpansionLimit) },
-                        XMLErrorReporter.SEVERITY_FATAL_ERROR );
-                // is there anything better to do than reset the counter?
-                // at least one can envision debugging applications where this might
-                // be useful...
-                fEntityExpansionCount = 0;
-            }
-        }
-
         // call handler
         if (fEntityHandler != null) {
             fEntityHandler.startEntity(name, fResourceIdentifier, encoding, null);
@@ -1379,12 +1344,6 @@ public class XMLEntityManager
         catch (XMLConfigurationException e) {
             fValidationManager = null;
         }
-        try {
-            fSecurityManager = (SecurityManager)componentManager.getProperty(SECURITY_MANAGER);
-        }
-        catch (XMLConfigurationException e) {
-            fSecurityManager = null;
-        }
 
         // reset general state
         reset();
@@ -1395,14 +1354,11 @@ public class XMLEntityManager
     // a class acting as a component manager but not
     // implementing that interface for whatever reason.
     public void reset() {
-        fEntityExpansionLimit = (fSecurityManager != null)?fSecurityManager.getEntityExpansionLimit():0;
-
         // initialize state
         fStandalone = false;
         fHasPEReferences = false;
         fEntities.clear();
         fEntityStack.removeAllElements();
-        fEntityExpansionCount = 0;
 
         fCurrentEntity = null;
         // reset scanner
@@ -1548,11 +1504,6 @@ public class XMLEntityManager
                     fLargeByteBufferPool.setBufferSize(fBufferSize << 1);
                     fCharacterBufferPool.setExternalBufferSize(fBufferSize);
                 }
-            }
-            if (suffixLength == Constants.SECURITY_MANAGER_PROPERTY.length() &&
-                propertyId.endsWith(Constants.SECURITY_MANAGER_PROPERTY)) {
-                fSecurityManager = (SecurityManager)value;
-                fEntityExpansionLimit = (fSecurityManager != null)?fSecurityManager.getEntityExpansionLimit():0;
             }
         }
 

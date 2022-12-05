@@ -154,10 +154,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String GRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
 
-    /** property identifier: security manager. */
-    protected static final String SECURITY_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SECURITY_MANAGER_PROPERTY;
-
     /** Property identifier: error handler. */
     protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
@@ -340,7 +336,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             ENTITY_MANAGER,
             VALIDATION_MANAGER,
             GRAMMAR_POOL,
-            SECURITY_MANAGER,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
             SCHEMA_LOCATION,
@@ -841,14 +836,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newTypeMismatchError(name);
                 }
             }
-            else if (name.equalsIgnoreCase (SECURITY_MANAGER)) {
-                if (value instanceof net.sourceforge.htmlunit.xerces.util.SecurityManager || value == null) {
-                    setProperty(SECURITY_MANAGER, value);
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
             else {
                 // REVISIT: check if this is a boolean parameter -- type mismatch should be thrown.
                 //parameter is not recognized
@@ -932,9 +919,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(GRAMMAR_POOL)) {
             return getProperty(GRAMMAR_POOL);
-        }
-        else if (name.equalsIgnoreCase(SECURITY_MANAGER)) {
-            return getProperty(SECURITY_MANAGER);
         }
         else {
             throw newFeatureNotFoundError(name);
@@ -1022,9 +1006,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase (GRAMMAR_POOL)) {
             return (value instanceof XMLGrammarPool) ? true : false;
         }
-        else if (name.equalsIgnoreCase(SECURITY_MANAGER)) {
-            return (value instanceof net.sourceforge.htmlunit.xerces.util.SecurityManager) ? true : false;
-        }
         else {
             //false if the parameter is not recognized or the requested value is not supported.
             return false ;
@@ -1073,11 +1054,9 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             //Add recognized xerces features and properties
             parameters.add(ENTITY_RESOLVER);
             parameters.add(GRAMMAR_POOL);
-            parameters.add(SECURITY_MANAGER);
             parameters.add(SYMBOL_TABLE);
 
             fRecognizedParameters = new DOMStringListImpl(parameters);
-
         }
 
         return fRecognizedParameters;

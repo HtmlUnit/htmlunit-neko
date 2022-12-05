@@ -370,9 +370,6 @@ public final class Constants {
     /** Input buffer size property ("input-buffer-size"). */
     public static final String BUFFER_SIZE_PROPERTY = "input-buffer-size";
 
-    /** Security manager property ("security-manager"). */
-    public static final String SECURITY_MANAGER_PROPERTY = "security-manager";
-
     /** Locale property ("locale"). */
     public static final String LOCALE_PROPERTY = "locale";
 
@@ -539,7 +536,6 @@ public final class Constants {
             SCHEMA_NONS_LOCATION,
             VALIDATION_MANAGER_PROPERTY,
             BUFFER_SIZE_PROPERTY,
-            SECURITY_MANAGER_PROPERTY,
             LOCALE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,
             ROOT_ELEMENT_DECLARATION_PROPERTY,
