@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
  * of DTD events.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDFilter
     extends XMLDTDHandler, XMLDTDSource {

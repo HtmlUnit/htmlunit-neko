@@ -25,10 +25,8 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 /**
  * <p>A DTD grammar that produces balanced syntax trees.</p>
  *
- * @xerces.internal
  *
  * @author Michael Glavassevich, IBM
- * @version $Id$
  */
 final class BalancedDTDGrammar extends DTDGrammar {
 

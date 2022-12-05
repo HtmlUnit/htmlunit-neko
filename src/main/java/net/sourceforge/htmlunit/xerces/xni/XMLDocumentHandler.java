@@ -26,8 +26,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  * as the document handler on the document source.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDocumentHandler {
 

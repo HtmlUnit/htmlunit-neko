@@ -39,8 +39,6 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 
 public interface Grammar {

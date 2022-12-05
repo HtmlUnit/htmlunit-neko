@@ -65,14 +65,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  *  <li>http://apache.org/xml/features/continue-after-fatal-error</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @see MessageFormatter
  *
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLErrorReporter
     implements XMLComponent {
@@ -569,8 +566,6 @@ public class XMLErrorReporter
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -588,8 +583,6 @@ public class XMLErrorReporter
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {

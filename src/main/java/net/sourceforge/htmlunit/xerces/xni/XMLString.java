@@ -38,8 +38,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  *
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLString {
 

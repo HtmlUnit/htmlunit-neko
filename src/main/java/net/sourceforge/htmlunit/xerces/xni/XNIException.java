@@ -28,8 +28,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * them, if so desired.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XNIException
     extends RuntimeException {

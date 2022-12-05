@@ -27,8 +27,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  * Default error handler.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class DefaultErrorHandler
     implements XMLErrorHandler {

@@ -55,8 +55,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  *
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class StandardParserConfiguration
     extends DTDConfiguration {

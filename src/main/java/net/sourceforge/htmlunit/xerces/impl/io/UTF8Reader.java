@@ -28,11 +28,8 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 /**
  * <p>A UTF-8 reader.</p>
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public final class UTF8Reader
     extends Reader {

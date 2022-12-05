@@ -24,13 +24,10 @@ import net.sourceforge.htmlunit.xerces.util.XML11Char;
 /**
  * NMTOKEN datatype validator for NMTokens from XML 1.1.
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class XML11NMTOKENDatatypeValidator extends NMTOKENDatatypeValidator {
 

@@ -29,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * can be used for this purpose.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class NamespaceSupport implements NamespaceContext {
 

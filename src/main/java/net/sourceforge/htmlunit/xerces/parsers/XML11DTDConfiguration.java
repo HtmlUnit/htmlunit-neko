@@ -96,8 +96,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * @author Neil Graham, IBM
  * @author Michael Glavassevich, IBM
  * @author John Kim, IBM
- *
- * @version $Id$
  */
 public class XML11DTDConfiguration extends ParserConfigurationSettings
     implements XMLPullParserConfiguration, XML11Configurable {

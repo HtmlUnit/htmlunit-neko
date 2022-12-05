@@ -20,7 +20,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLObjectElement;
 
 /**
- * @xerces.internal
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLObjectElement

@@ -54,14 +54,11 @@ import org.w3c.dom.events.EventListener;
  * <b>Note:</b> When any node in the document is serialized, the
  * entire document is serialized along with it.
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class DocumentImpl
     extends CoreDocumentImpl
@@ -190,7 +187,6 @@ public class DocumentImpl
      * @return Newly created Event
      * @exception DOMException NOT_SUPPORTED_ERR: Raised if the implementation
      * does not support the type of Event interface requested
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Event createEvent(String type) throws DOMException {

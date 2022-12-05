@@ -38,7 +38,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  * @see DOMErrorHandler
  *
  * @author Gopal Sharma, SUN Microsystems Inc.
- * @version $Id$
  */
 
 // REVISIT: current implementations wraps error several times:

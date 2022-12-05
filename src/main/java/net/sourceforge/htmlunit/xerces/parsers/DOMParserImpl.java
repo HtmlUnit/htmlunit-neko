@@ -77,7 +77,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Pavani Mukthipudi, Sun Microsystems Inc.
  * @author Elena Litani, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
- * @version $Id$
  */
 public class DOMParserImpl
     extends AbstractDOMParser implements LSParser, DOMConfiguration {

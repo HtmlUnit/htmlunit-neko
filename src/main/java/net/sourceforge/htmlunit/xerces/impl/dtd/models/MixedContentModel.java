@@ -33,9 +33,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  * validate by just looking up each child being validated by looking it up
  * in the list.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class MixedContentModel
     implements ContentModelValidator {

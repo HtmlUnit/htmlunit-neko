@@ -34,12 +34,9 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
  * <P>The Value space of IDREF is scoped to a specific
  * instance document</P>
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class IDREFDatatypeValidator implements DatatypeValidator {
 

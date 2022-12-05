@@ -30,8 +30,6 @@ import java.util.Enumeration;
  * net.sourceforge.htmlunit.xerces.util.SymbolTable</a>
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface NamespaceContext {
 

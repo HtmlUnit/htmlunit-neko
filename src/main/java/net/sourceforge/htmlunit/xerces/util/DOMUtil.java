@@ -38,8 +38,6 @@ import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
  * ever adopts an in-memory representation more efficient than the DOM
  * (such as a DTM), we should easily be able to convert our schema
  * parsing to utilize it.
- *
- * @version $Id$
  */
 public class DOMUtil {
 

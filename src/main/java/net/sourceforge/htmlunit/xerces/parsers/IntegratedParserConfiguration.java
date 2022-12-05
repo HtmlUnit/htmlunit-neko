@@ -61,8 +61,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
  * </ul>
  *
  * @author Elena Litani, IBM
- *
- * @version $Id$
  */
 public class IntegratedParserConfiguration
 extends StandardParserConfiguration {

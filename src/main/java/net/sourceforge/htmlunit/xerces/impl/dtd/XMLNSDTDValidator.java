@@ -51,11 +51,8 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/datatype-validator-factory</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Elena Litani, IBM
- *
- * @version $Id$
  */
 public class XMLNSDTDValidator
               extends XMLDTDValidator{

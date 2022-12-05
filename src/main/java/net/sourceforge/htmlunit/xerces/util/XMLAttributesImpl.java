@@ -37,8 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
  * @author Andy Clark, IBM
  * @author Elena Litani, IBM
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XMLAttributesImpl
     implements XMLAttributes {

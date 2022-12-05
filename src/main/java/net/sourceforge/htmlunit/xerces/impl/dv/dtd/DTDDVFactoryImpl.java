@@ -25,11 +25,8 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 /**
  * the factory to create/return built-in schema DVs and create user-defined DVs
  *
- * @xerces.internal
  *
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class DTDDVFactoryImpl extends DTDDVFactory {
 

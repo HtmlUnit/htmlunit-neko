@@ -40,8 +40,6 @@ import java.util.Arrays;
  * @author Arnaud  Le Hors, IBM
  * @author Michael Glavassevich, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
- *
- * @version $Id$
  */
 public class XMLChar {
 

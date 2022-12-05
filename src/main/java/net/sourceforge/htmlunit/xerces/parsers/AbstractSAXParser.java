@@ -70,8 +70,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  *
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public abstract class AbstractSAXParser
     extends AbstractXMLDocumentParser

@@ -24,7 +24,6 @@ package net.sourceforge.htmlunit.xerces.util;
  * The hash code uses the same algorithm as SymbolTable class.
  *
  * @author Elena Litani
- * @version $Id$
  */
 public class SymbolHash {
 

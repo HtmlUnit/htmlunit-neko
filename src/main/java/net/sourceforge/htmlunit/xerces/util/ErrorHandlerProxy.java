@@ -38,8 +38,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
  * and update all of them whenever it is changed, IMO.
  *
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
- *
- * @version $Id$
  */
 public abstract class ErrorHandlerProxy implements ErrorHandler {
 

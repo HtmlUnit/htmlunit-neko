@@ -51,14 +51,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
  * for DTD information so that it can build the appropriate validation
  * structures automatically from the callbacks.
  *
- * @xerces.internal
  *
  * @author Eric Ye, IBM
  * @author Jeffrey Rodriguez, IBM
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class DTDGrammar
     implements XMLDTDHandler, XMLDTDContentModelHandler, EntityState, Grammar {
@@ -2630,8 +2627,7 @@ public class DTDGrammar
     /**
      * Children list for <code>contentSpecTree</code> method.
      *
-     * @xerces.internal
-     *
+         *
      * @author Eric Ye, IBM
      */
     private static class ChildrenList {
@@ -2669,8 +2665,7 @@ public class DTDGrammar
      * A simple Hashtable implementation that takes a tuple (String, String)
      * as the key and a int as value.
      *
-     * @xerces.internal
-     *
+         *
      * @author Eric Ye, IBM
      * @author Andy Clark, IBM
      */
@@ -2679,8 +2674,7 @@ public class DTDGrammar
         /**
          * Fills an array with a random sequence of prime numbers.
          *
-         * @xerces.internal
-         */
+                 */
         private static final class PrimeNumberSequenceGenerator {
 
             private static final int [] PRIMES = {

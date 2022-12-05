@@ -72,8 +72,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Elena Litani, IBM
- *
- * @version $Id$
  */
 public class AbstractDOMParser extends AbstractXMLDocumentParser {
 

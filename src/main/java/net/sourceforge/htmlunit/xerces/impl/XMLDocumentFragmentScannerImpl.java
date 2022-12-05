@@ -61,14 +61,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Glenn Marcy, IBM
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public class XMLDocumentFragmentScannerImpl
     extends XMLScanner
@@ -501,8 +498,6 @@ public class XMLDocumentFragmentScannerImpl
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -520,8 +515,6 @@ public class XMLDocumentFragmentScannerImpl
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {
@@ -1554,8 +1547,7 @@ public class XMLDocumentFragmentScannerImpl
      * that implement this interface are responsible for scanning parts
      * of the XML document and dispatching callbacks.
      *
-     * @xerces.internal
-     *
+         *
      * @author Glenn Marcy, IBM
      */
     protected interface Dispatcher {

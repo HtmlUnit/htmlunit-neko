@@ -23,8 +23,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * <p>An <code>XMLInputSource</code> analogue to <code>javax.xml.transform.dom.DOMSource</code>.</p>
- *
- * @version $Id$
  */
 public final class DOMInputSource extends XMLInputSource {
 

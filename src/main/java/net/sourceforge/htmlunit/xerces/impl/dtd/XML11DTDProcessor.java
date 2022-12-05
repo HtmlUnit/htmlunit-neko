@@ -34,11 +34,8 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
  * be processed correctly (hence it's rather anomalous-appearing
  * derivation from XMLDTDLoader).
  *
- * @xerces.internal
  *
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class XML11DTDProcessor extends XMLDTDLoader{
 

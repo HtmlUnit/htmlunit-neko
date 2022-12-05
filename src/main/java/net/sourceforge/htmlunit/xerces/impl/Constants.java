@@ -23,11 +23,8 @@ import java.util.NoSuchElementException;
 /**
  * Commonly used constants.
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public final class Constants {
 
@@ -624,7 +621,6 @@ public final class Constants {
          *
          * @return  <code>true</code> if this enumeration contains more elements;
          *          <code>false</code> otherwise.
-         * @since   JDK1.0
          */
         @Override
         public boolean hasMoreElements() {
@@ -636,7 +632,6 @@ public final class Constants {
          *
          * @return     the next element of this enumeration.
          * @exception  NoSuchElementException  if no more elements exist.
-         * @since      JDK1.0
          */
         @Override
         public Object nextElement() {

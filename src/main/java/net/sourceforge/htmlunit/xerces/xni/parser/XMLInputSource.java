@@ -33,8 +33,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
  * </ul>
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLInputSource {
 

@@ -60,12 +60,10 @@ import org.w3c.dom.UserDataHandler;
  * <p><b>WARNING</b>: Some of the code here is partially duplicated in
  * AttrImpl, be careful to keep these two classes in sync!
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
- * @version $Id$
  */
 public abstract class ParentNode
     extends ChildNode {
@@ -620,7 +618,6 @@ public abstract class ParentNode
 
     /*
      * Get Node text content
-     * @since DOM Level 3
      */
     @Override
     public String getTextContent() throws DOMException {
@@ -659,7 +656,6 @@ public abstract class ParentNode
 
     /*
      * Set Node text content
-     * @since DOM Level 3
      */
     @Override
     public void setTextContent(String textContent)

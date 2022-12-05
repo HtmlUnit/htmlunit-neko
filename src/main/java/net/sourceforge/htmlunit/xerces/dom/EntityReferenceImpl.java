@@ -72,14 +72,11 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * structure-change-monitoring code I implemented to support
  * DeepNodeList.
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class EntityReferenceImpl
 extends ParentNode
@@ -158,7 +155,6 @@ implements EntityReference {
      * null is returned.
      *
      * @return The absolute base URI of this node or null.
-     * @since DOM Level 3
      */
     @Override
     public String getBaseURI() {

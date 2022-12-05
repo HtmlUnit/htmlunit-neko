@@ -29,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDContentModelSource;
  * @see XMLDTDHandler
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDContentModelHandler {
 

@@ -947,8 +947,6 @@ public class HTMLScanner
         fDocumentHandler = handler;
     }
 
-    // @since Xerces 2.1.0
-
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {

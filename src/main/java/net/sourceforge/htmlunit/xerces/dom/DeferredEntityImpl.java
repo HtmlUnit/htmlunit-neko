@@ -47,11 +47,6 @@ package net.sourceforge.htmlunit.xerces.dom;
  * the Entity. Since the DOM explicitly decided not to deal with this,
  * _any_ answer will involve a non-DOM operation, and this is the
  * simplest solution.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class DeferredEntityImpl
     extends EntityImpl

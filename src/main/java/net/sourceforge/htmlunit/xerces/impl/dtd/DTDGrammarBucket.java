@@ -30,11 +30,8 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  * document, and, if a new DTD grammar is parsed, the new set will be
  * offered back to the GrammarPool for possible inclusion.
  *
- * @xerces.internal
  *
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class DTDGrammarBucket {
 

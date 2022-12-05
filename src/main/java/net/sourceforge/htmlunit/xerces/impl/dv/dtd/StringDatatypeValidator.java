@@ -34,9 +34,6 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  * code point ([ISO 10646],[Unicode] and [Unicode3]),
  * which is an integer.</P>
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class StringDatatypeValidator implements DatatypeValidator {
 

@@ -32,8 +32,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  * @see ErrorHandler
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class ErrorHandlerWrapper
     implements XMLErrorHandler {

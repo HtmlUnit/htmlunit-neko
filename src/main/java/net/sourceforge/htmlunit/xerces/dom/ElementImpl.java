@@ -44,7 +44,6 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * ElementImpl does not support Namespaces. ElementNSImpl, which inherits from
  * it, does.
  *
- * @xerces.internal
  *
  * @see ElementNSImpl
  *
@@ -53,8 +52,6 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
  * @author Michael Glavassevich, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class ElementImpl
     extends ParentNode
@@ -602,7 +599,6 @@ public class ElementImpl
      * @return String       The Attr value as a string, or empty string
      *                      if that attribute
      *                      does not have a specified or default value.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getAttributeNS(String namespaceURI, String localName) {
@@ -659,7 +655,6 @@ public class ElementImpl
      *                          empty string, or if if the qualifiedName has a
      *                          prefix different from "xml" and "xmlns" and the
      *                          namespaceURI is null or an empty string.
-     * @since WD-DOM-Level-2-19990923
      */
      @Override
     public void setAttributeNS(String namespaceURI,String qualifiedName,
@@ -735,7 +730,6 @@ public class ElementImpl
      * @param localName     The local name of the attribute to remove.
      * @throws                  NO_MODIFICATION_ALLOWED_ERR: Raised if this
      *                          node is readonly.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public void removeAttributeNS(String namespaceURI, String localName) {
@@ -766,7 +760,6 @@ public class ElementImpl
      * @return Attr         The Attr node with the specified attribute
      *                      local name and namespace
      *                      URI or null if there is no such attribute.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Attr getAttributeNodeNS(String namespaceURI, String localName){
@@ -806,7 +799,6 @@ public class ElementImpl
      *                  already an attribute of another Element object. The
      *                  DOM user must explicitly clone Attr nodes to re-use
      *                  them in other elements.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Attr setAttributeNodeNS(Attr newAttr)
@@ -911,7 +903,6 @@ public class ElementImpl
      *                     The special value "*" matches all local names.
      * @return NodeList    A new NodeList object containing all the matched
      *                     Elements.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public NodeList getElementsByTagNameNS(String namespaceURI,

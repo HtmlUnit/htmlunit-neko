@@ -52,7 +52,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * include the replacement text of internal entities, and supply default attribute values".
  *
  * @author Elena Litani, IBM
- * @version $Id$
  */
 public class NonValidatingConfiguration
     extends BasicParserConfiguration

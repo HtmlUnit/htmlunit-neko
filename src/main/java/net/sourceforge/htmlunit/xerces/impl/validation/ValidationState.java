@@ -30,10 +30,8 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * Implementation of the ValidationContext interface. Used to establish an
  * environment for simple type validation.
  *
- * @xerces.internal
  *
  * @author Elena Litani, IBM
- * @version $Id$
  */
 public class ValidationState implements ValidationContext {
 

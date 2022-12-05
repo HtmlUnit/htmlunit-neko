@@ -33,11 +33,9 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 /**
  * Implements the entity scanner methods.
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
- * @version $Id$
  */
 public class XMLEntityScanner implements XMLLocator {
 

@@ -22,9 +22,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 /**
  * DOM Revalidation handler adds additional functionality to XMLDocumentHandler
  *
- * @xerces.internal
  * @author Elena Litani, IBM
- * @version $Id$
  */
 public interface RevalidationHandler extends XMLDocumentFilter {
 

@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
  * an emitter of DTD content model events.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDContentModelFilter
     extends XMLDTDContentModelHandler, XMLDTDContentModelSource {

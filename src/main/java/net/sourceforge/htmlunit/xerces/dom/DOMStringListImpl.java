@@ -27,7 +27,6 @@ import org.w3c.dom.DOMStringList;
  *
  * This class implements the DOM Level 3 Core interface DOMStringList.
  *
- * @xerces.internal
  *
  * @author Neil Delima, IBM
  */

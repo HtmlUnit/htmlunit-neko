@@ -72,12 +72,9 @@ import org.w3c.dom.events.EventTarget;
  * implements the EventTarget interface and forward all related calls to the
  * document so that the document class do so.
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public abstract class NodeImpl
     implements Node, NodeList, EventTarget, Cloneable, Serializable{
@@ -402,7 +399,6 @@ public abstract class NodeImpl
      *  Returns whether this node (if it is an element) has any attributes.
      * @return <code>true</code> if this node has any attributes,
      *   <code>false</code> otherwise.
-     * @since DOM Level 2
      * @see ElementImpl
      */
     @Override
@@ -627,7 +623,6 @@ public abstract class NodeImpl
      * method to return true.
      * @return boolean Returns true if this node defines a subtree within which
      * the specified feature is supported, false otherwise.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public boolean isSupported(String feature, String version)
@@ -649,7 +644,6 @@ public abstract class NodeImpl
      *
      * For nodes created with a DOM Level 1 method, such as createElement
      * from the Document interface, this is null.
-     * @since WD-DOM-Level-2-19990923
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -669,7 +663,6 @@ public abstract class NodeImpl
      * For nodes created with a DOM Level 1 method, such as createElement
      * from the Document interface, this is null. <p>
      *
-     * @since WD-DOM-Level-2-19990923
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -696,7 +689,6 @@ public abstract class NodeImpl
      * @throws INVALID_CHARACTER_ERR Raised if the specified
      *  prefix contains an invalid character.
      *
-     * @since WD-DOM-Level-2-19990923
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -717,7 +709,6 @@ public abstract class NodeImpl
      * from the Document interface, and for nodes of any type other than
      * ELEMENT_NODE and ATTRIBUTE_NODE this is the same as the nodeName
      * attribute.
-     * @since WD-DOM-Level-2-19990923
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -777,7 +768,6 @@ public abstract class NodeImpl
      * teleconference 30 May 2001).If the base HTML element is not yet
      * attached to a document, does the insert change the Document.baseURI?
      * Yes. (F2F 26 Sep 2001)
-     * @since DOM Level 3
      */
     @Override
     public String getBaseURI() {
@@ -791,7 +781,6 @@ public abstract class NodeImpl
      * @param other The node to compare against this node.
      * @return Returns how the given node is positioned relatively to this
      *   node.
-     * @since DOM Level 3
      * @deprecated
      */
     @Deprecated
@@ -998,7 +987,6 @@ public abstract class NodeImpl
      * @param other The node to compare against this node.
      * @return Returns how the given node is positioned relatively to this
      *   node.
-     * @since DOM Level 3
      */
     @Override
     public short compareDocumentPosition(Node other) throws DOMException {
@@ -1326,7 +1314,6 @@ public abstract class NodeImpl
      *   DOMSTRING_SIZE_ERR: Raised when it would return more characters than
      *   fit in a <code>DOMString</code> variable on the implementation
      *   platform.
-     * @since DOM Level 3
      */
     @Override
     public String getTextContent() throws DOMException {
@@ -1384,7 +1371,6 @@ public abstract class NodeImpl
      *   DOMSTRING_SIZE_ERR: Raised when it would return more characters than
      *   fit in a <code>DOMString</code> variable on the implementation
      *   platform.
-     * @since DOM Level 3
      */
     @Override
     public void setTextContent(String textContent)
@@ -1404,7 +1390,6 @@ public abstract class NodeImpl
      * @param other The node to test against.
      * @return Returns <code>true</code> if the nodes are the same,
      *   <code>false</code> otherwise.
-     * @since DOM Level 3
      */
     @Override
     public boolean isSameNode(Node other) {
@@ -1422,7 +1407,6 @@ public abstract class NodeImpl
      *  @param namespaceURI The namespace URI to look for.
      *  @return  <code>true</code> if the specified <code>namespaceURI</code>
      *   is the default namespace, <code>false</code> otherwise.
-     * @since DOM Level 3
      */
     @Override
     public boolean isDefaultNamespace(String namespaceURI){
@@ -1555,7 +1539,6 @@ public abstract class NodeImpl
      *
      * @param specifiedPrefix
      * @return the URI for the namespace
-     * @since DOM Level 3
      */
     @Override
     public String lookupNamespaceURI(String specifiedPrefix) {
@@ -1735,7 +1718,6 @@ public abstract class NodeImpl
      * @param arg The node to compare equality with.
      * @return If the nodes, and possibly subtrees are equal,
      *   <code>true</code> otherwise <code>false</code>.
-     * @since DOM Level 3
      */
     @Override
     public boolean isEqualNode(Node arg) {
@@ -1796,9 +1778,6 @@ public abstract class NodeImpl
         return true;
     }
 
-    /**
-     * @since DOM Level 3
-     */
     @Override
     public Object getFeature(String feature, String version) {
         // we don't have any alternate node, either this node does the job
@@ -1817,7 +1796,6 @@ public abstract class NodeImpl
      *   <code>null</code>.
      * @return Returns the <code>DOMObject</code> previously associated to
      *   the given key on this node, or <code>null</code> if there was none.
-     * @since DOM Level 3
      */
     @Override
     public Object setUserData(String key,
@@ -1833,7 +1811,6 @@ public abstract class NodeImpl
      * @param key The key the object is associated to.
      * @return Returns the <code>DOMObject</code> associated to the given key
      *   on this node, or <code>null</code> if there was none.
-     * @since DOM Level 3
      */
     @Override
     public Object getUserData(String key) {

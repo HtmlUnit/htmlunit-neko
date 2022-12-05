@@ -26,12 +26,9 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  * These validators can be supplied by the application writer and may be useful as
  * standalone code as well as plugins to the validator architecture.
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
  public class NOTATIONDatatypeValidator implements DatatypeValidator {
 

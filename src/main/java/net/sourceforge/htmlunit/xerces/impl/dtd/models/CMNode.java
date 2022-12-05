@@ -20,9 +20,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
 /**
  * A content model node.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public abstract class CMNode
 {

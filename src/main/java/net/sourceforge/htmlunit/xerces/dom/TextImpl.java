@@ -34,11 +34,6 @@ import org.w3c.dom.Text;
  * Note that CDATASection is a subclass of Text. This is conceptually
  * valid, since they're really just two different ways of quoting
  * characters when they're written out as part of an XML stream.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class TextImpl
     extends CharacterDataImpl
@@ -122,7 +117,6 @@ public class TextImpl
      * The text node is determined to contain whitespace in element content
      * during the load of the document or if validation occurs while using
      * <code>Document.normalizeDocument()</code>.
-     * @since DOM Level 3
      */
     @Override
     public boolean isElementContentWhitespace() {
@@ -138,7 +132,6 @@ public class TextImpl
      * DOM Level 3 WD - Experimental.
      * Returns all text of <code>Text</code> nodes logically-adjacent text
      * nodes to this node, concatenated in document order.
-     * @since DOM Level 3
      */
     @Override
     public String getWholeText(){
@@ -282,7 +275,6 @@ public class TextImpl
      * @param content
      *            The content of the replacing Text node.
      * @return text - The Text node created with the specified content.
-     * @since DOM Level 3
      */
     @Override
     public Text replaceWholeText(String content) throws DOMException {

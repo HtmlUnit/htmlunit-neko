@@ -37,8 +37,6 @@ import java.util.Arrays;
  * @author Arnaud  Le Hors, IBM
  * @author Neil Graham, IBM
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XML11Char {
 

@@ -82,7 +82,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *
  * @author Elena Litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems, inc.
- * @version $Id$
  */
 public class DOMNormalizer implements XMLDocumentHandler {
 

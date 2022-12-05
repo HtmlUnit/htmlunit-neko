@@ -28,8 +28,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * @see XMLComponentManager
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLComponent {
 
@@ -107,8 +105,6 @@ public interface XMLComponent {
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     Boolean getFeatureDefault(String featureId);
 
@@ -118,8 +114,6 @@ public interface XMLComponent {
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     Object getPropertyDefault(String propertyId);
 

@@ -20,11 +20,8 @@ package net.sourceforge.htmlunit.xerces.impl.dv;
 /**
  * Datatype exception for invalid values.
  *
- * @xerces.internal
  *
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class InvalidDatatypeValueException extends DatatypeException {
 

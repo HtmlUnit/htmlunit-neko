@@ -39,7 +39,6 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * it may return some grammars that were retrieved from the GrammarPool in earlier operations). </li> </ul> </p>
  *
  * @author Neil Graham, IBM
- * @version $Id$
  */
 
 public interface XMLGrammarPool {

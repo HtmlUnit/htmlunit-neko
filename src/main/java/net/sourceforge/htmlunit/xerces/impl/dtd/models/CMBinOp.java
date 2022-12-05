@@ -22,9 +22,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLContentSpec;
 /**
  * Content model Bin-Op node.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class CMBinOp extends CMNode
 {

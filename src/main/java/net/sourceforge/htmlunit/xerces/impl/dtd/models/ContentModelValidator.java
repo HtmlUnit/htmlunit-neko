@@ -20,9 +20,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 
 /**
- * @xerces.internal
- *
- * @version $Id$
  */
 public interface ContentModelValidator {
 

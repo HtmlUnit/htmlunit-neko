@@ -29,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
  * are created, only that the implementor is able to emit them.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDContentModelSource {
 

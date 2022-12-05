@@ -50,11 +50,6 @@ import org.w3c.dom.Node;
  * that these indices are "live"; if someone changes the map's
  * contents, the indices associated with nodes may change.
  * <P>
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class NamedNodeMapImpl
     implements NamedNodeMap, Serializable {

@@ -24,7 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
  * physical location and their type. </p>
  *
  * @author Neil Graham, IBM
- * @version $Id$
  */
 public interface XMLGrammarDescription extends XMLResourceIdentifier {
 

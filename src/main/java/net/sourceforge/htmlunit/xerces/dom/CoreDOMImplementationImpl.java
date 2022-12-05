@@ -42,11 +42,6 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  * This particular class, along with CoreDocumentImpl, supports the DOM
  * Core and Load/Save (Experimental). Optional modules are supported by
  * the more complete DOMImplementation class along with DocumentImpl.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since PR-DOM-Level-1-19980818.
  */
 public class CoreDOMImplementationImpl
     implements DOMImplementation {
@@ -180,7 +175,6 @@ public class CoreDOMImplementationImpl
      * @param qualifiedName The qualified name of the document type to be created.
      * @param publicID The document type public identifier.
      * @param systemID The document type system identifier.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public DocumentType createDocumentType( String qualifiedName,
@@ -275,7 +269,6 @@ public class CoreDOMImplementationImpl
      * @return Document        A new Document object.
      * @throws DOMException    WRONG_DOCUMENT_ERR: Raised if doctype has
      *                         already been used with a different document.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Document createDocument(

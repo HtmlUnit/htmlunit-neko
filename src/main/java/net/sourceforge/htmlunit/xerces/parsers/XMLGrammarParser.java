@@ -24,7 +24,6 @@ import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
- * @version $Id$
  */
 public abstract class XMLGrammarParser
     extends XMLParser {

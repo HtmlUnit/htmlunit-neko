@@ -23,11 +23,8 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
  * <p>This interface describes the properties of entities--their
  * physical location and their name.</p>
  *
- * @xerces.internal
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public interface XMLEntityDescription extends XMLResourceIdentifier {
 

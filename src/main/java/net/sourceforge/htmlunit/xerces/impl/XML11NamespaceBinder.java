@@ -23,11 +23,8 @@ package net.sourceforge.htmlunit.xerces.impl;
  * method calls in accordance with Namespaces in XML 1.1.  It extends the standard,
  * Namespace-1.0-compliant binder in order to do this.
  *
- * @xerces.internal
  *
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class XML11NamespaceBinder extends XMLNamespaceBinder {
 

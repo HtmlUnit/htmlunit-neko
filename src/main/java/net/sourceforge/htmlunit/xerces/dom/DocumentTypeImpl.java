@@ -42,13 +42,10 @@ import org.w3c.dom.UserDataHandler;
  * and using Element and Attribute information. Nor was the linkage
  * between Entities and Entity References nailed down solidly.
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class DocumentTypeImpl
     extends ParentNode
@@ -130,7 +127,6 @@ public class DocumentTypeImpl
      * Introduced in DOM Level 2. <p>
      *
      * Return the public identifier of this Document type.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getPublicId() {
@@ -143,7 +139,6 @@ public class DocumentTypeImpl
      * Introduced in DOM Level 2. <p>
      *
      * Return the system identifier of this Document type.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getSystemId() {
@@ -169,7 +164,6 @@ public class DocumentTypeImpl
      * Introduced in DOM Level 2. <p>
      *
      * Return the internalSubset given as a string.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getInternalSubset() {
@@ -219,7 +213,6 @@ public class DocumentTypeImpl
 
     /*
      * Get Node text content
-     * @since DOM Level 3
      */
     @Override
     public String getTextContent() throws DOMException {
@@ -228,7 +221,6 @@ public class DocumentTypeImpl
 
     /*
      * Set Node text content
-     * @since DOM Level 3
      */
     @Override
     public void setTextContent(String textContent)

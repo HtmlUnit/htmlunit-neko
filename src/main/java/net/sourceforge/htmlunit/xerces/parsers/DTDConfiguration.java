@@ -79,8 +79,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class DTDConfiguration
     extends BasicParserConfiguration

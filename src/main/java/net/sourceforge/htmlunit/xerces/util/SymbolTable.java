@@ -73,8 +73,6 @@ package net.sourceforge.htmlunit.xerces.util;
  *
  * @author Andy Clark
  * @author John Kim, IBM
- *
- * @version $Id$
  */
 public class SymbolTable {
 

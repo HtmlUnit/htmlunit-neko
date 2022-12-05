@@ -55,12 +55,9 @@ package net.sourceforge.htmlunit.xerces.dom;
  * Namespaces. DeferredAttrNSImpl, which inherits from AttrNSImpl, does.
  * @see DeferredAttrNSImpl
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public final class DeferredAttrImpl
     extends AttrImpl

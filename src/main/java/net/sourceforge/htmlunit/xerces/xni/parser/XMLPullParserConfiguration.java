@@ -40,8 +40,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * value of <code>true</code>.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLPullParserConfiguration
     extends XMLParserConfiguration {

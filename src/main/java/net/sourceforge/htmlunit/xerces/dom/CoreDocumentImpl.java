@@ -74,14 +74,11 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * <b>Note:</b> When any node in the document is serialized, the
  * entire document is serialized along with it.
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 
 
@@ -481,7 +478,6 @@ extends ParentNode implements Document  {
 
     /*
      * Get Node text content
-     * @since DOM Level 3
      */
     @Override
     public String getTextContent() throws DOMException {
@@ -490,7 +486,6 @@ extends ParentNode implements Document  {
 
     /*
      * Set Node text content
-     * @since DOM Level 3
      */
     @Override
     public void setTextContent(String textContent)
@@ -498,9 +493,6 @@ extends ParentNode implements Document  {
         // no-op
     }
 
-    /**
-     * @since DOM Level 3
-     */
     @Override
     public Object getFeature(String feature, String version) {
 
@@ -814,7 +806,6 @@ extends ParentNode implements Document  {
      * at the time of the parsing. This is <code>null</code> when
      * it is not known, such as when the <code>Document</code> was
      * created in memory.
-     * @since DOM Level 3
      */
     @Override
     public String getInputEncoding() {
@@ -944,7 +935,6 @@ extends ParentNode implements Document  {
      * @exception DOMException
      *    NOT_SUPPORTED_ERR: Raised if this document does not support the
      *   "XML" feature.
-     * @since DOM Level 3
      */
     @Override
     public void setXmlStandalone(boolean value)
@@ -988,7 +978,6 @@ extends ParentNode implements Document  {
      * <br>Beware that when the <code>Document</code> supports the feature
      * "HTML" , the href attribute of the HTML BASE element takes precedence
      * over this attribute.
-     * @since DOM Level 3
      */
     @Override
     public String getDocumentURI(){
@@ -1202,7 +1191,6 @@ extends ParentNode implements Document  {
      *
      *  The configuration used when <code>Document.normalizeDocument</code> is
      * invoked.
-     * @since DOM Level 3
      */
     @Override
     public DOMConfiguration getDomConfig(){
@@ -1219,7 +1207,6 @@ extends ParentNode implements Document  {
      * null is returned.
      *
      * @return The absolute base URI of this node or null.
-     * @since DOM Level 3
      */
     @Override
     public String getBaseURI() {
@@ -2110,7 +2097,6 @@ extends ParentNode implements Document  {
      *                      if the qualifiedName has a prefix different
      *                      from "xml" and the namespaceURI is null or an
      *                      empty string.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Element createElementNS(String namespaceURI, String qualifiedName)
@@ -2154,7 +2140,6 @@ extends ParentNode implements Document  {
      * @return Attr         A new Attr object.
      * @throws DOMException INVALID_CHARACTER_ERR: Raised if the specified
      * name contains an invalid character.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public Attr createAttributeNS(String namespaceURI, String qualifiedName)
@@ -2197,7 +2182,6 @@ extends ParentNode implements Document  {
      *                      The special value "*" matches all local names.
      * @return NodeList     A new NodeList object containing all the matched
      *                      Elements.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public NodeList getElementsByTagNameNS(String namespaceURI,
@@ -2342,7 +2326,6 @@ extends ParentNode implements Document  {
      *   <code>null</code>.
      * @return Returns the <code>DOMObject</code> previously associated to
      *   the given key on this node, or <code>null</code> if there was none.
-     * @since DOM Level 3
      *
      * REVISIT: we could use a free list of UserDataRecord here
      */
@@ -2393,7 +2376,6 @@ extends ParentNode implements Document  {
      * @param key The key the object is associated to.
      * @return Returns the <code>DOMObject</code> associated to the given key
      *   on this node, or <code>null</code> if there was none.
-     * @since DOM Level 3
      */
     public Object getUserData(Node n, String key) {
         if (userData == null) {

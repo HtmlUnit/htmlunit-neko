@@ -30,8 +30,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * @see XMLDocumentHandler#startElement
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLAttributes {
 

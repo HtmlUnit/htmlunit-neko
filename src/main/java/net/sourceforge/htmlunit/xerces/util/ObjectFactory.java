@@ -38,9 +38,6 @@ import java.util.Properties;
  * when bundled as part of the JDK.
  * <p>
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public final class ObjectFactory {
 

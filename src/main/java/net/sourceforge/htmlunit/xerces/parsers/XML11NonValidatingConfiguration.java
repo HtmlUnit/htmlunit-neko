@@ -67,8 +67,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  * @author Elena Litani, IBM
  * @author John Kim, IBM
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     implements XMLPullParserConfiguration, XML11Configurable {

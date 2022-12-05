@@ -21,9 +21,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
 /**
  * Content model any node.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class CMAny
     extends CMNode {

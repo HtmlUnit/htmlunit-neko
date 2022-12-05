@@ -30,11 +30,9 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * used in all queries. On the other hand we recompute the prefix when
  * necessary.
  *
- * @xerces.internal
  *
  * @author Elena litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems
- * @version $Id$
  */
 public class ElementNSImpl
     extends ElementImpl {
@@ -201,7 +199,6 @@ public class ElementNSImpl
      *
      * For nodes created with a DOM Level 1 method, such as createElement
      * from the Document interface, this is null.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getNamespaceURI()
@@ -219,8 +216,6 @@ public class ElementNSImpl
      *
      * For nodes created with a DOM Level 1 method, such as createElement
      * from the Document interface, this is null. <p>
-     *
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getPrefix()
@@ -246,7 +241,6 @@ public class ElementNSImpl
      *                   Raised if the specified
      *                   prefix contains an invalid character.
      * @exception DOMException
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public void setPrefix(String prefix)
@@ -292,7 +286,6 @@ public class ElementNSImpl
      * Introduced in DOM Level 2. <p>
      *
      * Returns the local part of the qualified name of this node.
-     * @since WD-DOM-Level-2-19990923
      */
     @Override
     public String getLocalName()

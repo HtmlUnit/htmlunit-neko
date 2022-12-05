@@ -45,14 +45,11 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/dtd-scanner</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Glenn Marcy, IBM
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public class XML11DocumentScannerImpl
     extends XMLDocumentScannerImpl {

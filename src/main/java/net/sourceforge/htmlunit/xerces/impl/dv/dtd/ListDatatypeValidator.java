@@ -26,12 +26,9 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 /**
  * For list types: ENTITIES, IDREFS, NMTOKENS.
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class ListDatatypeValidator implements DatatypeValidator {
 

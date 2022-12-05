@@ -57,11 +57,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 /**
  * Xerces implementation of DOMConfiguration that maintains a table of recognized parameters.
  *
- * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems.
- * @version $Id$
  */
 public class DOMConfigurationImpl extends ParserConfigurationSettings
     implements XMLParserConfiguration, DOMConfiguration {

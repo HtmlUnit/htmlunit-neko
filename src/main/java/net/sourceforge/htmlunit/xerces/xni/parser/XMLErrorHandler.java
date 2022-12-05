@@ -27,8 +27,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * @see XMLParserConfiguration
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLErrorHandler {
 

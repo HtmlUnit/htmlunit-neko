@@ -21,9 +21,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.models.ContentModelValidator;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 
 /**
- * @xerces.internal
- *
- * @version $Id$
  */
 public class XMLElementDecl {
 

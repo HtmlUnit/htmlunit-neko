@@ -50,11 +50,8 @@ import org.w3c.dom.Node;
  * _any_ answer will involve a non-DOM operation, and this is the
  * simplest solution.
  *
- * @xerces.internal
  *
  * @author Elena Litani, IBM
- * @version $Id$
- * @since PR-DOM-Level-1-19980818.
  */
 public class EntityImpl
     extends ParentNode
@@ -258,7 +255,6 @@ public class EntityImpl
      * of parsing, when it is an external parsed entity. This is
      * <code>null</code> if it an entity from the internal subset or if it
      * is not known..
-     * @since DOM Level 3
      */
     @Override
     public String getInputEncoding(){
@@ -326,7 +322,6 @@ public class EntityImpl
      * null is returned.
      *
      * @return The absolute base URI of this node or null.
-     * @since DOM Level 3
      */
     @Override
     public String getBaseURI() {

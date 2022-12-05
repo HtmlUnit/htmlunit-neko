@@ -41,7 +41,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * @author Gopal Sharma, SUN MicroSystems Inc.
  * @author Elena Litani, IBM
  * @author Ramesh Mandava, Sun Microsystems
- * @version $Id$
  */
 public class DOMEntityResolverWrapper
     implements XMLEntityResolver {

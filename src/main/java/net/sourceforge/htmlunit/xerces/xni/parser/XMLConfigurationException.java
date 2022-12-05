@@ -25,8 +25,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * parsing errors and configuration errors.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLConfigurationException
     extends XNIException {

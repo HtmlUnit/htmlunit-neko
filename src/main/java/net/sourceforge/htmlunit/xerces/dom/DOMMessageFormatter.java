@@ -24,10 +24,8 @@ import java.util.ResourceBundle;
 /**
  * Used to format DOM error messages, using the system locale.
  *
- * @xerces.internal
  *
  * @author Sandy Gao, IBM
- * @version $Id$
  */
 public class DOMMessageFormatter {
 

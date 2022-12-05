@@ -34,7 +34,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * will be provided for user applications to interact with these implementations.
  *
  * @author Neil Graham, IBM
- * @version $Id$
  */
 
 public interface XMLGrammarLoader {

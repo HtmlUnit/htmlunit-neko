@@ -29,8 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
  * that the implementor is able to emit them.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDSource {
 

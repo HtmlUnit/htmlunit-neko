@@ -25,13 +25,10 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * The entity handler interface defines methods to report information
  * about the start and end of entities.
  *
- * @xerces.internal
  *
  * @see net.sourceforge.htmlunit.xerces.impl.XMLEntityScanner
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLEntityHandler {
 

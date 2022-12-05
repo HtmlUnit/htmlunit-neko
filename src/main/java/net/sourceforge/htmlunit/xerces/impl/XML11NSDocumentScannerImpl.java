@@ -57,12 +57,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *  <li>http://apache.org/xml/properties/internal/dtd-scanner</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Elena Litani, IBM
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
 

@@ -59,12 +59,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/datatype-validator-factory</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Neil Graham, IBM
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XMLDTDLoader
         extends XMLDTDProcessor

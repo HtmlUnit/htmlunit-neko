@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
  * All information specific to XML Schema grammars.
  *
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public interface XMLSchemaDescription extends XMLGrammarDescription {
 

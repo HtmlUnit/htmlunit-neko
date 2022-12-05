@@ -22,10 +22,8 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 /**
  * An XMLLocator implementation used for schema error reporting.
  *
- * @xerces.internal
  *
  * @author Sandy Gao, IBM
- * @version $Id$
  */
 public final class SimpleLocator implements XMLLocator {
 

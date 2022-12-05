@@ -36,8 +36,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  * parser configuration settings to be "chained" together.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class ParserConfigurationSettings
     implements XMLComponentManager {

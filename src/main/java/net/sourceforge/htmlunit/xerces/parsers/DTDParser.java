@@ -29,7 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDScanner;
 
 /**
- * @version $Id$
  */
 public abstract class DTDParser
     extends XMLGrammarParser

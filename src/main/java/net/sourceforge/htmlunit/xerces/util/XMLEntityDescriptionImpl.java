@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLEntityDescription;
  * interface which describes the properties of an entity.</p>
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class XMLEntityDescriptionImpl
     extends XMLResourceIdentifierImpl

@@ -20,9 +20,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 
 /**
- * @xerces.internal
- *
- * @version $Id$
  */
 public class XMLAttributeDecl {
 

@@ -45,7 +45,6 @@ import org.w3c.dom.ls.LSOutput;
  * never modify them (though it may make copies and modify the copies,
  * if necessary).
  *
- * @xerces.internal
  *
  * @author Arun Yadav, Sun Microsytems
  * @author Gopal Sharma, Sun Microsystems

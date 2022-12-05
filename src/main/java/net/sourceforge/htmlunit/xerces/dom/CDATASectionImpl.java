@@ -41,11 +41,6 @@ import org.w3c.dom.Node;
  * split that string over two successive CDATAs at that time.
  * <P>
  * CDATA does not participate in Element.normalize() processing.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class CDATASectionImpl
     extends TextImpl

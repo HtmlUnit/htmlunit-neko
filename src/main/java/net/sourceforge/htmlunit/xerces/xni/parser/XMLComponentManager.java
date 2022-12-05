@@ -29,8 +29,6 @@ package net.sourceforge.htmlunit.xerces.xni.parser;
  * @see XMLComponent
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLComponentManager {
 

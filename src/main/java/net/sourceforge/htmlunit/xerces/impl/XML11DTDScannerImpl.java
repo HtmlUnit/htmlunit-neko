@@ -42,14 +42,11 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Glenn Marcy, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public class XML11DTDScannerImpl
     extends XMLDTDScannerImpl {

@@ -25,8 +25,6 @@ import java.util.ResourceBundle;
  * Used to format SAX error messages using a specified locale.
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class SAXMessageFormatter {
 

@@ -37,8 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
  *
  * @author Andy Clark, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public class XMLStringBuffer
     extends XMLString {

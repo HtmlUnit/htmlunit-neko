@@ -21,11 +21,6 @@ package net.sourceforge.htmlunit.xerces.dom;
  * Processing Instructions (PIs) permit documents to carry
  * processor-specific information alongside their actual content. PIs
  * are most common in XML, but they are supported in HTML as well.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class DeferredProcessingInstructionImpl
     extends ProcessingInstructionImpl

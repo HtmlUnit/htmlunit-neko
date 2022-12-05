@@ -18,9 +18,6 @@
 package net.sourceforge.htmlunit.xerces.impl.dtd;
 
 /**
- * @xerces.internal
- *
- * @version $Id$
  */
 public class XMLEntityDecl {
 

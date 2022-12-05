@@ -21,7 +21,6 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * All information specific to DTD grammars.
  *
  * @author Sandy Gao, IBM
- * @version $Id$
  */
 public interface XMLDTDDescription extends XMLGrammarDescription {
 

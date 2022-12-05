@@ -28,8 +28,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * @see <a href="../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">net.sourceforge.htmlunit.xerces.util.SymbolTable</a>
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class QName
     implements Cloneable {

@@ -24,11 +24,8 @@ import java.io.Reader;
 /**
  * <p>Reader for the ISO-8859-1 encoding.</p>
  *
- * @xerces.internal
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public final class Latin1Reader
     extends Reader {

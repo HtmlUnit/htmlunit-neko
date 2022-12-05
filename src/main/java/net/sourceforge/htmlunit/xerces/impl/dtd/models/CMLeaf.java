@@ -23,9 +23,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 /**
  * Content model leaf node.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class CMLeaf
     extends CMNode {

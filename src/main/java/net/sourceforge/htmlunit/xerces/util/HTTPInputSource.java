@@ -35,8 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * will induce an HTTP connection.
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public final class HTTPInputSource extends XMLInputSource {
 

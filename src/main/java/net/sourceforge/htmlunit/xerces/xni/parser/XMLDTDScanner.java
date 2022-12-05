@@ -35,8 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * </blockquote>
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDTDScanner
     extends XMLDTDSource, XMLDTDContentModelSource {

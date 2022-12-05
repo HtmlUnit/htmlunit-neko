@@ -78,14 +78,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *  <li>http://apache.org/xml/properties/internal/datatype-validator-factory</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
  * @author Jeffrey Rodriguez IBM
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class XMLDTDValidator
         implements XMLComponent, XMLDocumentFilter, XMLDTDValidatorFilter, RevalidationHandler {
@@ -587,8 +584,6 @@ public class XMLDTDValidator
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -606,8 +601,6 @@ public class XMLDTDValidator
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {

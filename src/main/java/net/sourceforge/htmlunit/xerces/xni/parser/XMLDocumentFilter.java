@@ -24,8 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
  * of document events.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLDocumentFilter
     extends XMLDocumentHandler, XMLDocumentSource {

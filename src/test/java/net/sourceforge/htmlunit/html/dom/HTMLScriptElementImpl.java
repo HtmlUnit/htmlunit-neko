@@ -21,7 +21,6 @@ import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLScriptElement;
 
 /**
- * @xerces.internal
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLScriptElement

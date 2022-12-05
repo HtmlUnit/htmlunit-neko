@@ -26,11 +26,8 @@ import org.w3c.dom.DOMImplementation;
  * <p>This implementation simply extends DOMImplementationImpl to differentiate
  * between the Deferred DOM Implementations and Non-Deferred DOM Implementations.</p>
  *
- * @xerces.internal
  *
  * @author Neil Delima, IBM
- *
- * @version $Id$
  */
 public class DeferredDOMImplementationImpl
     extends DOMImplementationImpl {

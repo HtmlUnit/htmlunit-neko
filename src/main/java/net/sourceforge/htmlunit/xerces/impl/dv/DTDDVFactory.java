@@ -26,11 +26,8 @@ import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
  * store the created datatypes in static data, so that they can be shared by
  * multiple parser instance, and multiple threads.
  *
- * @xerces.internal
  *
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public abstract class DTDDVFactory {
 

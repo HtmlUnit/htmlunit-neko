@@ -22,7 +22,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * XML resource (a Schema grammar, a DTD, a general entity etc.) </p>
  *
  * @author Neil Graham, IBM
- * @version $Id$
  */
 
 public interface XMLResourceIdentifier {

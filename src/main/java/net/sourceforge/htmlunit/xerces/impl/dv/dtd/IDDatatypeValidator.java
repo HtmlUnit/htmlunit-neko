@@ -37,12 +37,9 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
  * must uniquely identify the elements which bear
  * them.</P>
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class IDDatatypeValidator implements DatatypeValidator {
 

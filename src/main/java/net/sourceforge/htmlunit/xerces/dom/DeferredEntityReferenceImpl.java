@@ -64,11 +64,6 @@ package net.sourceforge.htmlunit.xerces.dom;
  * changes in the Entity. And it can take advantage of the same
  * structure-change-monitoring code I implemented to support
  * DeepNodeList.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public class DeferredEntityReferenceImpl
     extends EntityReferenceImpl

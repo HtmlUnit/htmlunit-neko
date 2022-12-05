@@ -22,8 +22,6 @@ package net.sourceforge.htmlunit.xerces.parsers;
  * in order to indicate that it provides support for XML 1.1.</p>
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public interface XML11Configurable {}
 

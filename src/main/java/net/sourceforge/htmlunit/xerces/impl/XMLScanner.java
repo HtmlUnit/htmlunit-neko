@@ -52,13 +52,10 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public abstract class XMLScanner
     implements XMLComponent {

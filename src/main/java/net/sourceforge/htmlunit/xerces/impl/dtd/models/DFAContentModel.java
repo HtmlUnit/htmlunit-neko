@@ -34,9 +34,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  * are very constrained in form and easily handled via a special case.
  * This also makes implementation of this class much easier.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public class DFAContentModel
     implements ContentModelValidator {

@@ -45,8 +45,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * user applications to do so.
  *
  * @author Neil Graham, IBM
- *
- * @version $Id$
  */
 public class XMLGrammarPreparser {
 

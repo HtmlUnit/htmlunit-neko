@@ -35,12 +35,9 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  * The value space of ENTITY is scoped to a specific
  * instance document.</P>
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class ENTITYDatatypeValidator implements DatatypeValidator {
 

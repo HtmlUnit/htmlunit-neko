@@ -71,8 +71,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLParserConfiguration
     extends XMLComponentManager {

@@ -99,16 +99,12 @@ import org.w3c.dom.TypeInfo;
  * <p><b>WARNING</b>: Some of the code here is partially duplicated in
  * ParentNode, be careful to keep these two classes in sync!
  *
- * @xerces.internal
  *
  * @see AttrNSImpl
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
- * @version $Id$
- * @since PR-DOM-Level-1-19980818.
- *
  */
 public class AttrImpl
     extends NodeImpl
@@ -538,8 +534,6 @@ public class AttrImpl
     /**
      * Returns the element node that this attribute is associated with,
      * or null if the attribute has not been added to an element.
-     *
-     * @since WD-DOM-Level-2-19990719
      */
     @Override
     public Element getOwnerElement() {

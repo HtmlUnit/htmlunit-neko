@@ -23,9 +23,6 @@ import org.w3c.dom.Node;
  * ChildNode inherits from NodeImpl and adds the capability of being a child by
  * having references to its previous and next siblings.
  *
- * @xerces.internal
- *
- * @version $Id$
  */
 public abstract class ChildNode
     extends NodeImpl {

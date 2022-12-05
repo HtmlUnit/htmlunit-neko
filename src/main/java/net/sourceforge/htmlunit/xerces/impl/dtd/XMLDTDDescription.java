@@ -28,10 +28,8 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 /**
  * All information specific to DTD grammars.
  *
- * @xerces.internal
  *
  * @author Neil Graham, IBM
- * @version $Id$
  */
 public class XMLDTDDescription extends XMLResourceIdentifierImpl
         implements net.sourceforge.htmlunit.xerces.xni.grammars.XMLDTDDescription {

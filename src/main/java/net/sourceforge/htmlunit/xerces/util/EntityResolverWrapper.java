@@ -36,8 +36,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * @see EntityResolver
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class EntityResolverWrapper
     implements XMLEntityResolver {

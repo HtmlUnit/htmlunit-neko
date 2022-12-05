@@ -28,11 +28,8 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 /**
  * <p>A UTF-16 reader. Can also be used for UCS-2 (i.e. ISO-10646-UCS-2).</p>
  *
- * @xerces.internal
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public final class UTF16Reader
     extends Reader {

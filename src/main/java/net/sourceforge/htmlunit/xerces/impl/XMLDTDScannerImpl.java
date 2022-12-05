@@ -52,14 +52,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/entity-manager</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Glenn Marcy, IBM
  * @author Eric Ye, IBM
- *
- * @version $Id$
  */
 public class XMLDTDScannerImpl
     extends XMLScanner
@@ -393,8 +390,6 @@ public class XMLDTDScannerImpl
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -412,8 +407,6 @@ public class XMLDTDScannerImpl
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {

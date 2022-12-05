@@ -34,7 +34,6 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
  * <p>
  *
  * @author Elena Litani, IBM
- * @version $Id$
  */
 public class AugmentationsImpl implements Augmentations {
 

@@ -27,11 +27,8 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
  * by a <code>java.io.Reader</code> that decodes bytes
  * of a given encoding into characters.</p>
  *
- * @xerces.internal
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public final class MalformedByteSequenceException extends CharConversionException {
 

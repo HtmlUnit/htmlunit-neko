@@ -30,7 +30,6 @@ import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
  * unconstructable, the only way to obtain an instance of a DOM implementation
  * is by calling the static method {@link #getDOMImplementation}.
  *
- * @xerces.internal
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>

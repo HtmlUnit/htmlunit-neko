@@ -53,11 +53,8 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  *  <li>http://apache.org/xml/properties/internal/error-reporter</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLNamespaceBinder
     implements XMLComponent, XMLDocumentFilter {
@@ -290,8 +287,6 @@ public class XMLNamespaceBinder
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -309,8 +304,6 @@ public class XMLNamespaceBinder
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {

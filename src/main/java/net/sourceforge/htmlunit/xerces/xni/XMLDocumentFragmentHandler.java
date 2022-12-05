@@ -27,7 +27,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * @see XMLDocumentHandler
  *
  * @author Andy Clark, IBM
- * @version $Id$
  */
 public interface XMLDocumentFragmentHandler {
 

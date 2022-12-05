@@ -26,8 +26,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * its entities) where the exception occurred.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public class XMLParseException
     extends XNIException {

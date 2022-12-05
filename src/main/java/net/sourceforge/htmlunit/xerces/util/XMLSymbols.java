@@ -21,7 +21,6 @@ package net.sourceforge.htmlunit.xerces.util;
  * All internalized xml symbols. They can be compared using "==".
  *
  * @author Sandy Gao, IBM
- * @version $Id$
  */
 public class XMLSymbols {
 

@@ -28,8 +28,6 @@ import java.util.MissingResourceException;
  * @see net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter
  *
  * @author Andy Clark
- *
- * @version $Id$
  */
 public interface MessageFormatter {
 

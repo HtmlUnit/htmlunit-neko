@@ -417,8 +417,6 @@ public class HTMLTagBalancer
         fDocumentHandler = handler;
     }
 
-    // @since Xerces 2.1.0
-
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
@@ -428,8 +426,6 @@ public class HTMLTagBalancer
     //
     // XMLDocumentHandler methods
     //
-
-    // since Xerces-J 2.2.0
 
     /** Start document. */
     @Override
@@ -1187,8 +1183,6 @@ public class HTMLTagBalancer
         }
 
     }
-
-    // @since Xerces 2.1.0
 
     /** Sets the document source. */
     @Override

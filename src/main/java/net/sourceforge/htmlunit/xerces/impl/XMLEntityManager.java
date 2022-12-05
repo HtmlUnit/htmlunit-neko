@@ -85,12 +85,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  *  <li>http://apache.org/xml/properties/internal/entity-resolver</li>
  * </ul>
  *
- * @xerces.internal
  *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM
- *
- * @version $Id$
  */
 public class XMLEntityManager
     implements XMLComponent, XMLEntityResolver {
@@ -1515,8 +1512,6 @@ public class XMLEntityManager
      * feature.
      *
      * @param featureId The feature identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Boolean getFeatureDefault(String featureId) {
@@ -1534,8 +1529,6 @@ public class XMLEntityManager
      * property.
      *
      * @param propertyId The property identifier.
-     *
-     * @since Xerces 2.2.0
      */
     @Override
     public Object getPropertyDefault(String propertyId) {
@@ -2398,8 +2391,7 @@ public class XMLEntityManager
     /**
      * Entity information.
      *
-     * @xerces.internal
-     *
+         *
      * @author Andy Clark, IBM
      */
     public static abstract class Entity {
@@ -2462,8 +2454,7 @@ public class XMLEntityManager
     /**
      * Internal entity.
      *
-     * @xerces.internal
-     *
+         *
      * @author Andy Clark, IBM
      */
     protected static class InternalEntity
@@ -2541,8 +2532,7 @@ public class XMLEntityManager
     /**
      * External entity.
      *
-     * @xerces.internal
-     *
+         *
      * @author Andy Clark, IBM
      */
     protected static class ExternalEntity
@@ -2619,8 +2609,7 @@ public class XMLEntityManager
     /**
      * Entity state.
      *
-     * @xerces.internal
-     *
+         *
      * @author Andy Clark, IBM
      */
     public class ScannedEntity
@@ -2882,8 +2871,7 @@ public class XMLEntityManager
     /**
      * Information about auto-detectable encodings.
      *
-     * @xerces.internal
-     *
+         *
      * @author Michael Glavassevich, IBM
      */
     private static class EncodingInfo {
@@ -2939,8 +2927,7 @@ public class XMLEntityManager
     /**
      * Pool of byte buffers for the java.io.Readers.
      *
-     * @xerces.internal
-     *
+         *
      * @author Michael Glavassevich, IBM
      */
     private static final class ByteBufferPool {
@@ -2987,8 +2974,7 @@ public class XMLEntityManager
      * Buffer used in entity manager to reuse character arrays instead
      * of creating new ones every time.
      *
-     * @xerces.internal
-     *
+         *
      * @author Ankit Pasricha, IBM
      */
     private static final class CharacterBuffer {
@@ -3009,8 +2995,7 @@ public class XMLEntityManager
      * Stores a number of character buffers and provides it to the entity
      * manager to use when an entity is seen.
      *
-     * @xerces.internal
-     *
+         *
      * @author Ankit Pasricha, IBM
      */
     private static final class CharacterBufferPool {
@@ -3103,8 +3088,7 @@ public class XMLEntityManager
      * underlying InputStream's read(char[], offset length) method--it
      * won't buffer data read this way!</strong>
      *
-     * @xerces.internal
-     *
+         *
      * @author Neil Graham, IBM
      * @author Glenn Marcy, IBM
      */

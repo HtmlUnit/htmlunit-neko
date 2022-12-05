@@ -21,8 +21,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  * Location information.
  *
  * @author Andy Clark, IBM
- *
- * @version $Id$
  */
 public interface XMLLocator {
 

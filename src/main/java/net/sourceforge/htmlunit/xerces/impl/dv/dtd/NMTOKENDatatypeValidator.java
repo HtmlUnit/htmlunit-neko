@@ -25,12 +25,9 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
 /**
  * NMTOKEN datatype validator.
  *
- * @xerces.internal
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM
- *
- * @version $Id$
  */
 public class NMTOKENDatatypeValidator implements DatatypeValidator {
 

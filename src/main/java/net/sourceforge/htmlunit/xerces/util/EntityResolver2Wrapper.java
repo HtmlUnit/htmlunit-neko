@@ -36,8 +36,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * <p>This class wraps a SAX entity resolver (EntityResolver2) in an XNI entity resolver.</p>
  *
  * @author Michael Glavassevich, IBM
- *
- * @version $Id$
  */
 public class EntityResolver2Wrapper
     implements ExternalSubsetResolver {

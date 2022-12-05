@@ -22,8 +22,6 @@ package net.sourceforge.htmlunit.xerces.util;
  * a domain and a message key.</p>
  *
  * @author Naela Nissar, IBM
- *
- * @version $Id$
  */
 final class XMLErrorCode {
 

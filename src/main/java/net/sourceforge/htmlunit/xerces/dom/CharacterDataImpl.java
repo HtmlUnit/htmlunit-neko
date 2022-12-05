@@ -32,11 +32,6 @@ import org.w3c.dom.NodeList;
  * <p>
  * This class doesn't directly support mutation events, however, it notifies
  * the document when mutations are performed so that the document class do so.
- *
- * @xerces.internal
- *
- * @version $Id$
- * @since  PR-DOM-Level-1-19980818.
  */
 public abstract class CharacterDataImpl
     extends ChildNode {

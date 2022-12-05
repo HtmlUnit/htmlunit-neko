@@ -25,8 +25,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
  * of a resource.
  *
  * @author Andy Clark
- *
- * @version $Id$
  */
 public class XMLResourceIdentifierImpl
     implements XMLResourceIdentifier {
