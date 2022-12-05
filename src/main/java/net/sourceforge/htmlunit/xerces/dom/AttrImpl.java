@@ -518,22 +518,6 @@ public class AttrImpl
     /**
      * Returns the element node that this attribute is associated with,
      * or null if the attribute has not been added to an element.
-     *
-     * @see #getOwnerElement
-     *
-     * @deprecated Previous working draft of DOM Level 2. New method
-     *             is <tt>getOwnerElement()</tt>.
-     */
-    @Deprecated
-    public Element getElement() {
-        // if we have an owner, ownerNode is our ownerElement, otherwise it's
-        // our ownerDocument and we don't have an ownerElement
-        return (Element) (isOwned() ? ownerNode : null);
-    }
-
-    /**
-     * Returns the element node that this attribute is associated with,
-     * or null if the attribute has not been added to an element.
      */
     @Override
     public Element getOwnerElement() {

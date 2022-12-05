@@ -950,22 +950,6 @@ public class EncodingMap {
     //
 
     /**
-     * Adds an IANA to Java encoding name mapping.
-     *
-     * @param ianaEncoding The IANA encoding name.
-     * @param javaEncoding The Java encoding name.
-     *
-     * @deprecated Use of this method is not recommended. Its
-     * effect is JVM wide and may cause unforeseen behaviour
-     * for other applications running in the system.
-     */
-    @Deprecated
-    public static void putIANA2JavaMapping(String ianaEncoding,
-                                           String javaEncoding) {
-        fIANA2JavaMap.put(ianaEncoding, javaEncoding);
-    } // putIANA2JavaMapping(String,String)
-
-    /**
      * Returns the Java encoding name for the specified IANA encoding name.
      *
      * @param ianaEncoding The IANA encoding name.
@@ -975,36 +959,6 @@ public class EncodingMap {
     } // getIANA2JavaMapping(String):String
 
     /**
-     * Removes an IANA to Java encoding name mapping.
-     *
-     * @param ianaEncoding The IANA encoding name.
-     *
-     * @deprecated Use of this method is not recommended. Its
-     * effect is JVM wide and may cause unforeseen behaviour
-     * for other applications running in the system.
-     */
-    @Deprecated
-    public static String removeIANA2JavaMapping(String ianaEncoding) {
-        return (String)fIANA2JavaMap.remove(ianaEncoding);
-    } // removeIANA2JavaMapping(String):String
-
-    /**
-     * Adds a Java to IANA encoding name mapping.
-     *
-     * @param javaEncoding The Java encoding name.
-     * @param ianaEncoding The IANA encoding name.
-     *
-     * @deprecated Use of this method is not recommended. Its
-     * effect is JVM wide and may cause unforeseen behaviour
-     * for other applications running in the system.
-     */
-    @Deprecated
-    public static void putJava2IANAMapping(String javaEncoding,
-                                           String ianaEncoding) {
-        fJava2IANAMap.put(javaEncoding, ianaEncoding);
-    } // putJava2IANAMapping(String,String)
-
-    /**
      * Returns the IANA encoding name for the specified Java encoding name.
      *
      * @param javaEncoding The Java encoding name.
@@ -1012,19 +966,5 @@ public class EncodingMap {
     public static String getJava2IANAMapping(String javaEncoding) {
         return (String)fJava2IANAMap.get(javaEncoding);
     } // getJava2IANAMapping(String):String
-
-    /**
-     * Removes a Java to IANA encoding name mapping.
-     *
-     * @param javaEncoding The Java encoding name.
-     *
-     * @deprecated Use of this method is not recommended. Its
-     * effect is JVM wide and may cause unforeseen behaviour
-     * for other applications running in the system.
-     */
-    @Deprecated
-    public static String removeJava2IANAMapping(String javaEncoding) {
-        return (String)fJava2IANAMap.remove(javaEncoding);
-    } // removeJava2IANAMapping
 
 } // class EncodingMap

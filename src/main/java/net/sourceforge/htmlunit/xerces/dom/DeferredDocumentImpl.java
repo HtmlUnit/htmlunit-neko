@@ -358,37 +358,6 @@ public class DeferredDocumentImpl
 
     } // createDeferredEntityReference(String):int
 
-
-    /**
-     * Creates an element node with a URI in the table and type information.
-     * @deprecated
-     */
-    @Deprecated
-    public int createDeferredElement(String elementURI, String elementName,
-                                      Object type) {
-
-        // create node
-        int elementNodeIndex = createNode(Node.ELEMENT_NODE);
-        int elementChunk     = elementNodeIndex >> CHUNK_SHIFT;
-        int elementIndex     = elementNodeIndex & CHUNK_MASK;
-        setChunkValue(fNodeName, elementName, elementChunk, elementIndex);
-        setChunkValue(fNodeURI, elementURI, elementChunk, elementIndex);
-        setChunkValue(fNodeValue, type, elementChunk, elementIndex);
-
-        // return node index
-        return elementNodeIndex;
-
-    } // createDeferredElement(String,String,Object):int
-
-    /**
-     * Creates an element node in the table.
-     * @deprecated
-     */
-    @Deprecated
-    public int createDeferredElement(String elementName) {
-        return createDeferredElement(null, elementName);
-    }
-
     /**
      * Creates an element node with a URI in the table.
      */

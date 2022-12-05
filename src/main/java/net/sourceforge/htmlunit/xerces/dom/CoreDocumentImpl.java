@@ -837,32 +837,12 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public void setEncoding(String value) {
-        setXmlEncoding(value);
-    }
-
-    /**
      * DOM Level 3 WD - Experimental.
      * The encoding of this document (part of XML Declaration)
      */
     @Override
     public String getXmlEncoding() {
         return encoding;
-    }
-
-    /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public String getEncoding() {
-        return getXmlEncoding();
     }
 
     /**
@@ -899,32 +879,12 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public void setVersion(String value) {
-        setXmlVersion(value);
-    }
-
-    /**
      * DOM Level 3 WD - Experimental.
      * The version of this document (part of XML Declaration)
      */
     @Override
     public String getXmlVersion() {
         return (version == null)?"1.0":version;
-    }
-
-    /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public String getVersion() {
-        return getXmlVersion();
     }
 
     /**
@@ -943,16 +903,6 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public void setStandalone(boolean value) {
-        setXmlStandalone(value);
-    }
-
-    /**
      * DOM Level 3 WD - Experimental.
      * standalone that specifies whether this document is standalone
      * (part of XML Declaration)
@@ -960,16 +910,6 @@ extends ParentNode implements Document  {
     @Override
     public boolean getXmlStandalone() {
         return standalone;
-    }
-
-    /**
-     * @deprecated This method is internal and only exists for
-     * compatibility with older applications. New applications
-     * should never call this method.
-     */
-    @Deprecated
-    public boolean getStandalone() {
-        return getXmlStandalone();
     }
 
     /**
