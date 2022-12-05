@@ -19,6 +19,7 @@ package net.sourceforge.htmlunit.xerces.parsers;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 

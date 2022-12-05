@@ -25,6 +25,7 @@ import java.util.Locale;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.Grammar;

@@ -39,6 +39,7 @@ import org.w3c.dom.html.HTMLTitleElement;
 
 import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 
 /**
  * Implements an HTML document. Provides access to the top level element in the

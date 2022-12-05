@@ -45,6 +45,7 @@ import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMUtil;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;

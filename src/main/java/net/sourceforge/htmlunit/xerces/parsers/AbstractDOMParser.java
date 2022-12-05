@@ -51,6 +51,7 @@ import net.sourceforge.htmlunit.xerces.dom.NotationImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;

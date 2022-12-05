@@ -19,6 +19,8 @@ package net.sourceforge.htmlunit.xerces.impl.dv;
 
 import java.util.Hashtable;
 
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
+
 /**
  * The factory to create and return DTD types. The implementation should
  * store the created datatypes in static data, so that they can be shared by

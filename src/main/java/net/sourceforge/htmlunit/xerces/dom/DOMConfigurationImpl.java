@@ -38,6 +38,7 @@ import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;

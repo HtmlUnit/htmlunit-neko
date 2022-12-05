@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.sourceforge.htmlunit.xerces.parsers;
+package net.sourceforge.htmlunit.xerces.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,9 +34,9 @@ import java.security.PrivilegedExceptionAction;
  *
  * @version $Id$
  */
-final class SecuritySupport {
+public final class SecuritySupport {
 
-    static ClassLoader getContextClassLoader() {
+    public static ClassLoader getContextClassLoader() {
         return (ClassLoader)
         AccessController.doPrivileged(new PrivilegedAction() {
             @Override
@@ -50,7 +50,7 @@ final class SecuritySupport {
         });
     }
 
-    static ClassLoader getSystemClassLoader() {
+    public static ClassLoader getSystemClassLoader() {
         return (ClassLoader)
         AccessController.doPrivileged(new PrivilegedAction() {
             @Override
@@ -64,7 +64,7 @@ final class SecuritySupport {
         });
     }
 
-    static ClassLoader getParentClassLoader(final ClassLoader cl) {
+    public static ClassLoader getParentClassLoader(final ClassLoader cl) {
         return (ClassLoader)
         AccessController.doPrivileged(new PrivilegedAction() {
             @Override
@@ -81,7 +81,7 @@ final class SecuritySupport {
         });
     }
 
-    static String getSystemProperty(final String propName) {
+    public static String getSystemProperty(final String propName) {
         return (String)
         AccessController.doPrivileged(new PrivilegedAction() {
             @Override
@@ -91,7 +91,7 @@ final class SecuritySupport {
         });
     }
 
-    static FileInputStream getFileInputStream(final File file)
+    public static FileInputStream getFileInputStream(final File file)
     throws FileNotFoundException
     {
         try {
@@ -107,7 +107,7 @@ final class SecuritySupport {
         }
     }
 
-    static InputStream getResourceAsStream(final ClassLoader cl,
+    public static InputStream getResourceAsStream(final ClassLoader cl,
             final String name)
     {
         return (InputStream)
@@ -125,7 +125,7 @@ final class SecuritySupport {
         });
     }
 
-    static boolean getFileExists(final File f) {
+    public static boolean getFileExists(final File f) {
         return ((Boolean)
                 AccessController.doPrivileged(new PrivilegedAction() {
                     @Override
@@ -135,7 +135,7 @@ final class SecuritySupport {
                 })).booleanValue();
     }
 
-    static long getLastModified(final File f) {
+    public static long getLastModified(final File f) {
         return ((Long)
                 AccessController.doPrivileged(new PrivilegedAction() {
                     @Override

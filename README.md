@@ -5,6 +5,8 @@ This is the code repository of the HTML parser used by HtmlUnit.
 HtmlUnit has been using CyberNeko HTML parser (http://nekohtml.sourceforge.net/) for a long time.
 But since the development was discontinued around 2014, we started our own fork, which now has many improvements.
 
+As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j). This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
+
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)

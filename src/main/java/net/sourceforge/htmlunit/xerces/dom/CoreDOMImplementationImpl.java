@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 

@@ -50,6 +50,7 @@ import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
+import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.URI;
 import net.sourceforge.htmlunit.xerces.util.XML11Char;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package net.sourceforge.htmlunit.html.dom;
+package net.sourceforge.htmlunit.xerces.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,7 +42,7 @@ import java.util.Properties;
  *
  * @version $Id$
  */
-final class ObjectFactory {
+public final class ObjectFactory {
 
     //
     // Constants
@@ -95,7 +95,7 @@ final class ObjectFactory {
      *
      * @exception ObjectFactory.ConfigurationError
      */
-    static Object createObject(String factoryId, String fallbackClassName)
+    public static Object createObject(String factoryId, String fallbackClassName)
         throws ConfigurationError {
         return createObject(factoryId, null, fallbackClassName);
     } // createObject(String,String):Object
@@ -279,7 +279,7 @@ final class ObjectFactory {
      * Figure out which ClassLoader to use.  For JDK 1.2 and later use
      * the context ClassLoader.
      */
-    static ClassLoader findClassLoader()
+    public static ClassLoader findClassLoader()
         throws ConfigurationError
     {
         // Figure out which ClassLoader to use for loading the provider
@@ -336,7 +336,7 @@ final class ObjectFactory {
     /**
      * Create an instance of a class using the specified ClassLoader
      */
-    static Object newInstance(String className, ClassLoader cl,
+    public static Object newInstance(String className, ClassLoader cl,
                                       boolean doFallback)
         throws ConfigurationError
     {
@@ -360,7 +360,7 @@ final class ObjectFactory {
     /**
      * Find a Class using the specified ClassLoader
      */
-    static Class findProviderClass(String className, ClassLoader cl,
+    public static Class findProviderClass(String className, ClassLoader cl,
                                       boolean doFallback)
         throws ClassNotFoundException, ConfigurationError
     {
@@ -506,7 +506,7 @@ final class ObjectFactory {
         extends Error {
 
         /** Serialization version. */
-        static final long serialVersionUID = 2646822752226280048L;
+        static final long serialVersionUID = 8521878292694272124L;
 
         //
         // Data
