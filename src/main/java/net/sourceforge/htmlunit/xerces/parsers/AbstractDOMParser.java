@@ -33,7 +33,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
-import org.w3c.dom.ls.LSParserFilter;
 import org.xml.sax.SAXException;
 
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
@@ -76,16 +75,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @version $Id$
  */
 public class AbstractDOMParser extends AbstractXMLDocumentParser {
-
-    //
-    // Constants
-    //
-    private static final int SHOW_ELEMENT = 0x00000001; // NodeFilter.SHOW_ELEMENT;
-    private static final int SHOW_TEXT = 0x00000004; // NodeFilter.SHOW_TEXT;
-    private static final int SHOW_CDATA_SECTION = 0x00000008; // NodeFilter.SHOW_CDATA_SECTION;
-    private static final int SHOW_ENTITY_REFERENCE = 0x00000010; // NodeFilter.SHOW_ENTITY_REFERENCE;
-    private static final int SHOW_PROCESSING_INSTRUCTION = 0x00000040; // NodeFilter.SHOW_PROCESSING_INSTRUCTION;
-    private static final int SHOW_COMMENT = 0x00000080; // NodeFilter.SHOW_COMMENT;
 
     // feature ids
 
@@ -269,10 +258,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** Document locator. */
     private XMLLocator fLocator;
-
-    // handlers
-
-    protected LSParserFilter fDOMFilter = null;
 
     //
     // Constructors
@@ -612,34 +597,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
             setCharacterData (false);
             fCurrentNode.appendChild (comment);
-            if (fDOMFilter !=null && !fInEntityRef &&
-            (fDOMFilter.getWhatToShow () & SHOW_COMMENT)!= 0) {
-                short code = fDOMFilter.acceptNode (comment);
-                switch (code) {
-                    case LSParserFilter.FILTER_INTERRUPT:{
-                        throw Abort.INSTANCE;
-                    }
-                    case LSParserFilter.FILTER_REJECT:{
-                        // REVISIT: the constant FILTER_REJECT should be changed when new
-                        // DOM LS specs gets published
-
-                        // fall through to SKIP since comment has no children.
-                    }
-                    case LSParserFilter.FILTER_SKIP: {
-                        // REVISIT: the constant FILTER_SKIP should be changed when new
-                        // DOM LS specs gets published
-                        fCurrentNode.removeChild (comment);
-                        // make sure we don't loose chars if next event is characters()
-                        fFirstChunk = true;
-                        return;
-                    }
-
-                    default: {
-                        // accept node
-                    }
-                }
-            }
-
         }
         else {
             int comment =
@@ -695,28 +652,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
             setCharacterData (false);
             fCurrentNode.appendChild (pi);
-            if (fDOMFilter !=null && !fInEntityRef &&
-            (fDOMFilter.getWhatToShow () & SHOW_PROCESSING_INSTRUCTION)!= 0) {
-                short code = fDOMFilter.acceptNode (pi);
-                switch (code) {
-                    case LSParserFilter.FILTER_INTERRUPT:{
-                        throw Abort.INSTANCE;
-                    }
-                    case LSParserFilter.FILTER_REJECT:{
-                        // fall through to SKIP since PI has no children.
-                    }
-                    case LSParserFilter.FILTER_SKIP: {
-                        fCurrentNode.removeChild (pi);
-                        // fFirstChunk must be set to true so that data
-                        // won't be lost in the case where the child before PI is
-                        // a text node and the next event is characters.
-                        fFirstChunk = true;
-                        return;
-                    }
-                    default: {
-                    }
-                }
-            }
         }
         else {
             int pi = fDeferredDocumentImpl.
@@ -965,44 +900,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
             setCharacterData (false);
 
-            // filter nodes
-            if (fDOMFilter != null && !fInEntityRef) {
-                if (fRoot == null) {
-                    // fill value of the root element
-                    fRoot = el;
-                } else {
-                    short code = fDOMFilter.startElement(el);
-                    switch (code) {
-                        case LSParserFilter.FILTER_INTERRUPT :
-                            {
-                                throw Abort.INSTANCE;
-                            }
-                        case LSParserFilter.FILTER_REJECT :
-                            {
-                                fFilterReject = true;
-                                fRejectedElementDepth = 0;
-                                return;
-                            }
-                        case LSParserFilter.FILTER_SKIP :
-                            {
-                                // make sure that if any char data is available
-                                // the fFirstChunk is true, so that if the next event
-                                // is characters(), and the last node is text, we will copy
-                                // the value already in the text node to fStringBuffer
-                                // (not to lose it).
-                                fFirstChunk = true;
-                                fSkippedElemStack.push(Boolean.TRUE);
-                                return;
-                            }
-                        default :
-                            {
-                                if (!fSkippedElemStack.isEmpty()) {
-                                    fSkippedElemStack.push(Boolean.FALSE);
-                                }
-                            }
-                    }
-                }
-            }
             fCurrentNode.appendChild (el);
             fCurrentNode = el;
         }
@@ -1216,65 +1113,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             System.out.println ("==>endElement ("+element.rawname+")");
         }
         if (!fDeferNodeExpansion) {
-
-            if (fDOMFilter != null) {
-                if (fFilterReject) {
-                    if (fRejectedElementDepth-- == 0) {
-                        fFilterReject = false;
-                    }
-                    return;
-                }
-                if (!fSkippedElemStack.isEmpty()) {
-                    if (fSkippedElemStack.pop() == Boolean.TRUE) {
-                        return;
-                    }
-                }
-                setCharacterData (false);
-                if ((fCurrentNode != fRoot) && !fInEntityRef && (fDOMFilter.getWhatToShow () & SHOW_ELEMENT)!=0) {
-                    short code = fDOMFilter.acceptNode (fCurrentNode);
-                    switch (code) {
-                        case LSParserFilter.FILTER_INTERRUPT:{
-                            throw Abort.INSTANCE;
-                        }
-                        case LSParserFilter.FILTER_REJECT:{
-                            Node parent = fCurrentNode.getParentNode ();
-                            parent.removeChild (fCurrentNode);
-                            fCurrentNode = parent;
-                            return;
-                        }
-                        case LSParserFilter.FILTER_SKIP: {
-                            // make sure that if any char data is available
-                            // the fFirstChunk is true, so that if the next event
-                            // is characters(), and the last node is text, we will copy
-                            // the value already in the text node to fStringBuffer
-                            // (not to lose it).
-                            fFirstChunk = true;
-
-                            // replace children
-                            Node parent = fCurrentNode.getParentNode ();
-                            NodeList ls = fCurrentNode.getChildNodes ();
-                            int length = ls.getLength ();
-
-                            for (int i=0;i<length;i++) {
-                                parent.appendChild (ls.item (0));
-                            }
-                            parent.removeChild (fCurrentNode);
-                            fCurrentNode = parent;
-
-                            return;
-                        }
-
-                        default: { }
-                    }
-                }
-                fCurrentNode = fCurrentNode.getParentNode ();
-
-            } // end-if DOMFilter
-            else {
-                setCharacterData (false);
-                fCurrentNode = fCurrentNode.getParentNode ();
-            }
-
+            setCharacterData (false);
+            fCurrentNode = fCurrentNode.getParentNode ();
         }
         else {
             fCurrentNodeIndex =
@@ -1322,30 +1162,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
 
             if (fCurrentCDATASection !=null) {
-
-                if (fDOMFilter !=null && !fInEntityRef &&
-                (fDOMFilter.getWhatToShow () & SHOW_CDATA_SECTION)!= 0) {
-                    short code = fDOMFilter.acceptNode (fCurrentCDATASection);
-                    switch (code) {
-                        case LSParserFilter.FILTER_INTERRUPT:{
-                            throw Abort.INSTANCE;
-                        }
-                        case LSParserFilter.FILTER_REJECT:{
-                            // fall through to SKIP since CDATA section has no children.
-                        }
-                        case LSParserFilter.FILTER_SKIP: {
-                            Node parent = fCurrentNode.getParentNode ();
-                            parent.removeChild (fCurrentCDATASection);
-                            fCurrentNode = parent;
-                            return;
-                        }
-
-                        default: {
-                            // accept node
-                        }
-                    }
-                }
-
                 fCurrentNode = fCurrentNode.getParentNode ();
                 fCurrentCDATASection = null;
             }
@@ -1442,35 +1258,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 if (fDocumentImpl != null) {
                     // Make entity ref node read only
                     ((NodeImpl)fCurrentNode).setReadOnly (true, true);
-                }
-
-                if (fDOMFilter !=null &&
-                (fDOMFilter.getWhatToShow () & SHOW_ENTITY_REFERENCE)!= 0) {
-                    short code = fDOMFilter.acceptNode (fCurrentNode);
-                    switch (code) {
-                        case LSParserFilter.FILTER_INTERRUPT:{
-                            throw Abort.INSTANCE;
-                        }
-                        case LSParserFilter.FILTER_REJECT:{
-                            Node parent = fCurrentNode.getParentNode ();
-                            parent.removeChild (fCurrentNode);
-                            fCurrentNode = parent;
-                            return;
-
-                        }
-                        case LSParserFilter.FILTER_SKIP: {
-                            // make sure we don't loose chars if next event is characters()
-                            fFirstChunk = true;
-                            removeEntityRef = true;
-                            break;
-                        }
-
-                        default: {
-                            fCurrentNode = fCurrentNode.getParentNode ();
-                        }
-                    }
-                } else {
-                    fCurrentNode = fCurrentNode.getParentNode ();
                 }
             }
 
@@ -2531,28 +2318,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // reset string buffer
                 fStringBuffer.setLength (0);
             }
-
-            if (fDOMFilter !=null && !fInEntityRef) {
-                if ( (child.getNodeType () == Node.TEXT_NODE ) &&
-                ((fDOMFilter.getWhatToShow () & SHOW_TEXT)!= 0) ) {
-                    short code = fDOMFilter.acceptNode (child);
-                    switch (code) {
-                        case LSParserFilter.FILTER_INTERRUPT:{
-                            throw Abort.INSTANCE;
-                        }
-                        case LSParserFilter.FILTER_REJECT:{
-                            // fall through to SKIP since Comment has no children.
-                        }
-                        case LSParserFilter.FILTER_SKIP: {
-                            fCurrentNode.removeChild (child);
-                            return;
-                        }
-                        default: {
-                            // accept node -- do nothing
-                        }
-                    }
-                }
-            }   // end-if fDOMFilter !=null
 
         } // end-if child !=null
     }

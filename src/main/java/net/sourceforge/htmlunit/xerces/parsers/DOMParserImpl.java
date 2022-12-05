@@ -145,7 +145,6 @@ public class DOMParserImpl
     private String fSchemaLocation = null;
     private DOMStringList fRecognizedParameters;
 
-    private boolean fNullFilterInUse = false;
     private AbortHandler abortHandler = null;
 
     //
@@ -292,11 +291,6 @@ public class DOMParserImpl
         fNamespaceDeclarations =
             fConfiguration.getFeature(Constants.DOM_NAMESPACE_DECLARATIONS);
 
-        // DOM Filter
-        if (fNullFilterInUse) {
-            fDOMFilter = null;
-            fNullFilterInUse = false;
-        }
         if (fSkippedElemStack != null) {
             fSkippedElemStack.removeAllElements();
         }
@@ -328,7 +322,7 @@ public class DOMParserImpl
      */
     @Override
     public LSParserFilter getFilter () {
-        return !fNullFilterInUse ? fDOMFilter : null;
+        return null;
     }
 
     /**
@@ -344,13 +338,6 @@ public class DOMParserImpl
      */
     @Override
     public void setFilter (LSParserFilter filter) {
-        if (fBusy && filter == null && fDOMFilter != null) {
-            fNullFilterInUse = true;
-            fDOMFilter = NullLSParserFilter.INSTANCE;
-        }
-        else {
-            fDOMFilter = filter;
-        }
         if (fSkippedElemStack == null) {
             fSkippedElemStack = new Stack<>();
         }
