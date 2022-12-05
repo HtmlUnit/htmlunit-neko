@@ -106,10 +106,6 @@ public class DeferredElementImpl
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl)this.ownerDocument;
 
-        // we don't want to generate any event for this so turn them off
-        boolean orig = ownerDocument.mutationEvents;
-        ownerDocument.mutationEvents = false;
-
         name = ownerDocument.getNodeName(fNodeIndex);
 
         // attributes
@@ -123,10 +119,6 @@ public class DeferredElementImpl
                 index = ownerDocument.getPrevSibling(index);
             } while (index != -1);
         }
-
-        // set mutation events flag back to its original value
-        ownerDocument.mutationEvents = orig;
-
     } // synchronizeData()
 
     @Override

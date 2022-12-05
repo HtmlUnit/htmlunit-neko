@@ -97,10 +97,6 @@ public class DeferredElementNSImpl
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) this.ownerDocument;
 
-        // we don't want to generate any event for this so turn them off
-        boolean orig = ownerDocument.mutationEvents;
-        ownerDocument.mutationEvents = false;
-
         name = ownerDocument.getNodeName(fNodeIndex);
 
         // extract local part from QName
@@ -138,10 +134,6 @@ public class DeferredElementNSImpl
                 attrIndex = ownerDocument.getPrevSibling(attrIndex);
             } while (attrIndex != -1);
         }
-
-        // set mutation events flag back to its original value
-        ownerDocument.mutationEvents = orig;
-
     } // synchronizeData()
 
     /**
