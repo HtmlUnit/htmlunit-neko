@@ -39,7 +39,6 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.opentest4j.AssertionFailedError;
 
-import net.sourceforge.htmlunit.xerces.impl.Version;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
@@ -57,7 +56,7 @@ public class CanonicalTest {
 
     private static final File dataDir = new File("src/test/resources");
     private static final File canonicalDir = new File("src/test/resources/canonical");
-    private static final File outputDir = new File("target/data/output/" + Version.getVersion());
+    private static final File outputDir = new File("target/data/output");
 
     @TestFactory
     public Iterable<DynamicTest> suite() throws Exception {
@@ -84,7 +83,7 @@ public class CanonicalTest {
         for (int i=0; i < dataFiles.size(); i++) {
             // suite.addTest(new CanonicalTest(dataFiles.get(i)));
             final File dataFile = dataFiles.get(i);
-            tests.add(DynamicTest.dynamicTest(dataFile.getName() + " [" + Version.getVersion() + "]", () -> runTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
         }
         return tests;
     }

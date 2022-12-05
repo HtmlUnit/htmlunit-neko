@@ -15,7 +15,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.Locator2;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.SAXParser;
-import net.sourceforge.htmlunit.xerces.impl.Version;
 
 /**
  * Regression test for <a href="http://sourceforge.net/tracker/?func=detail&atid=952178&aid=3381270&group_id=195122">Bug 3381270</a>.
@@ -26,10 +25,6 @@ public class LocatorEncodingTest {
 
     @Test
     public void test() throws SAXException, IOException {
-        if (Version.getVersion().startsWith("Xerces-J 2.2") || Version.getVersion().startsWith("Xerces-J 2.3")) {
-            return; // this test makes sense only for more recent Xerces versions
-        }
-
         final String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<html></html>";
         final ByteArrayInputStream input = new ByteArrayInputStream(content.getBytes("UTF-8"));
         final SAXParser parser = new SAXParser();
