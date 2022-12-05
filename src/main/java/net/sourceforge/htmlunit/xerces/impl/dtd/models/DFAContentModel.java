@@ -86,12 +86,6 @@ public class DFAContentModel
     /** Boolean to distinguish Schema Mixed Content */
     private final boolean fMixed;
 
-    /**
-     * The NFA position of the special EOC (end of content) node. This
-     * is saved away since it's used during the DFA build.
-     */
-    private int fEOCPos = 0;
-
 
     /**
      * This is an array of booleans, one per state (there are
@@ -106,14 +100,6 @@ public class DFAContentModel
      * the DFA, and is let go afterwards.
      */
     private CMStateSet[] fFollowList = null;
-
-    /**
-     * This is the head node of our intermediate representation. It is
-     * only non-null during the building of the DFA (just so that it
-     * does not have to be passed all around.) Once the DFA is built,
-     * this is no longer required so its nulled out.
-     */
-    private CMNode fHeadNode = null;
 
     /**
      * The count of leaf nodes. This is an important number that set some
@@ -419,12 +405,18 @@ public class DFAContentModel
 
         fQName.setValues(null, fEOCString, fEOCString, null);
         CMLeaf nodeEOC = new CMLeaf(fQName);
-        fHeadNode = new CMBinOp
-        (
-            XMLContentSpec.CONTENTSPECNODE_SEQ
-            , syntaxTree
-            , nodeEOC
-        );
+        /**
+         * This is the head node of our intermediate representation. It is
+         * only non-null during the building of the DFA (just so that it
+         * does not have to be passed all around.) Once the DFA is built,
+         * this is no longer required so its nulled out.
+         */
+        CMNode fHeadNode = new CMBinOp
+                (
+                        XMLContentSpec.CONTENTSPECNODE_SEQ
+                        , syntaxTree
+                        , nodeEOC
+                );
 
         //
         //  And handle specially the EOC node, which also must be numbered
@@ -433,7 +425,11 @@ public class DFAContentModel
         //  started. We save the EOC position since its used during the DFA
         //  building loop.
         //
-        fEOCPos = fLeafCount;
+        /**
+         * The NFA position of the special EOC (end of content) node. This
+         * is saved away since it's used during the DFA build.
+         */
+        int fEOCPos = fLeafCount;
         nodeEOC.setPosition(fLeafCount++);
 
         //
@@ -706,7 +702,7 @@ public class DFAContentModel
         }
 
         // Check to see if we can set the fEmptyContentIsValid flag.
-        fEmptyContentIsValid = ((CMBinOp)fHeadNode).getLeft().isNullable();
+        fEmptyContentIsValid = ((CMBinOp) fHeadNode).getLeft().isNullable();
 
         //
         //  And now we can say bye bye to the temp representation since we've

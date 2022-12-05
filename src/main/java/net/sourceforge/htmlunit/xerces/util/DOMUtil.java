@@ -28,14 +28,14 @@ import org.w3c.dom.ls.LSException;
  * (such as a DTM), we should easily be able to convert our schema
  * parsing to utilize it.
  */
-public class DOMUtil {
+public final class DOMUtil {
 
     //
     // Constructors
     //
 
     /** This class cannot be instantiated. */
-    protected DOMUtil() {}
+    private DOMUtil() {}
 
     /**
      * Creates an LSException. On J2SE 1.4 and above the cause for the exception will be set.

@@ -821,7 +821,7 @@ public abstract class XMLScanner
         normalizeWhitespace(value, fromIndex);
         if (DEBUG_ATTR_NORMALIZATION) {
             System.out.println("** normalizeWhitespace -> \""
-                               + value.toString() + "\"");
+                               + value + "\"");
         }
         if (c != quote) {
             fScanningAttribute = true;
@@ -830,7 +830,7 @@ public abstract class XMLScanner
                 fStringBuffer.append(value);
                 if (DEBUG_ATTR_NORMALIZATION) {
                     System.out.println("** value2: \""
-                                       + fStringBuffer.toString() + "\"");
+                                       + fStringBuffer + "\"");
                 }
                 if (c == '&') {
                     fEntityScanner.skipChar('&');
@@ -845,7 +845,7 @@ public abstract class XMLScanner
                         if (ch != -1) {
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** value3: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -869,7 +869,7 @@ public abstract class XMLScanner
                             fStringBuffer.append('&');
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** value5: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -877,7 +877,7 @@ public abstract class XMLScanner
                             fStringBuffer.append('\'');
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** value7: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -885,7 +885,7 @@ public abstract class XMLScanner
                             fStringBuffer.append('<');
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** value9: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -893,7 +893,7 @@ public abstract class XMLScanner
                             fStringBuffer.append('>');
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** valueB: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -901,7 +901,7 @@ public abstract class XMLScanner
                             fStringBuffer.append('"');
                             if (DEBUG_ATTR_NORMALIZATION) {
                                 System.out.println("** valueD: \""
-                                                   + fStringBuffer.toString()
+                                                   + fStringBuffer
                                                    + "\"");
                             }
                         }
@@ -947,7 +947,7 @@ public abstract class XMLScanner
                     }
                     if (DEBUG_ATTR_NORMALIZATION) {
                         System.out.println("** valueF: \""
-                                           + fStringBuffer.toString() + "\"");
+                                           + fStringBuffer + "\"");
                     }
                 }
                 else if (c == '\n' || c == '\r') {
@@ -966,7 +966,7 @@ public abstract class XMLScanner
                         }
                         if (DEBUG_ATTR_NORMALIZATION) {
                             System.out.println("** valueI: \""
-                                               + fStringBuffer.toString()
+                                               + fStringBuffer
                                                + "\"");
                         }
                     }
@@ -988,7 +988,7 @@ public abstract class XMLScanner
             fStringBuffer.append(value);
             if (DEBUG_ATTR_NORMALIZATION) {
                 System.out.println("** valueN: \""
-                                   + fStringBuffer.toString() + "\"");
+                                   + fStringBuffer + "\"");
             }
             value.setValues(fStringBuffer);
             fScanningAttribute = false;

@@ -292,8 +292,8 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     } // internalRemoveNamedItem(String,boolean):Node
 
-    private final Node remove(AttrImpl attr, int index,
-                              boolean addDefault) {
+    private Node remove(AttrImpl attr, int index,
+                        boolean addDefault) {
 
         CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         String name = attr.getNodeName();

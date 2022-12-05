@@ -1891,7 +1891,7 @@ public class DeferredDocumentImpl
         }
     }
     /** Creates the specified chunk in the given array of chunks. */
-    private final void createChunk(int[][] data, int chunk) {
+    private void createChunk(int[][] data, int chunk) {
         data[chunk] = new int[CHUNK_SIZE + 1];
         System.arraycopy(INIT_ARRAY, 0, data[chunk], 0, CHUNK_SIZE);
     }
@@ -1900,7 +1900,7 @@ public class DeferredDocumentImpl
         int fCount;
     }
 
-    private final void createChunk(Object[][] data, int chunk) {
+    private void createChunk(Object[][] data, int chunk) {
         data[chunk] = new Object[CHUNK_SIZE + 1];
         data[chunk][CHUNK_SIZE] = new RefCount();
     }
@@ -1910,8 +1910,8 @@ public class DeferredDocumentImpl
      *
      * @return Returns the old value.
      */
-    private final int setChunkIndex(int[][] data, int value,
-                                    int chunk, int index) {
+    private int setChunkIndex(int[][] data, int value,
+                              int chunk, int index) {
         if (value == -1) {
             return clearChunkIndex(data, chunk, index);
         }
@@ -1928,8 +1928,8 @@ public class DeferredDocumentImpl
         dataChunk[index] = value;
         return ovalue;
     }
-    private final String setChunkValue(Object[][] data, Object value,
-                                       int chunk, int index) {
+    private String setChunkValue(Object[][] data, Object value,
+                                 int chunk, int index) {
         if (value == null) {
             return clearChunkValue(data, chunk, index);
         }
@@ -1951,13 +1951,13 @@ public class DeferredDocumentImpl
     /**
      * Returns the specified value in the given data at the chunk and index.
      */
-    private final int getChunkIndex(int[][] data, int chunk, int index) {
+    private int getChunkIndex(int[][] data, int chunk, int index) {
         return data[chunk] != null ? data[chunk][index] : -1;
     }
-    private final String getChunkValue(Object[][] data, int chunk, int index) {
+    private String getChunkValue(Object[][] data, int chunk, int index) {
         return data[chunk] != null ? (String) data[chunk][index] : null;
     }
-    private final String getNodeValue(int chunk, int index) {
+    private String getNodeValue(int chunk, int index) {
         Object data = fNodeValue[chunk][index];
         if (data == null){
             return null;
@@ -1979,7 +1979,7 @@ public class DeferredDocumentImpl
      *
      * @return Returns the old value.
      */
-    private final int clearChunkIndex(int[][] data, int chunk, int index) {
+    private int clearChunkIndex(int[][] data, int chunk, int index) {
         int value = data[chunk] != null ? data[chunk][index] : -1;
         if (value != -1) {
             data[chunk][CHUNK_SIZE]--;
@@ -1990,8 +1990,8 @@ public class DeferredDocumentImpl
         }
         return value;
     }
-    private final String clearChunkValue(Object[][] data,
-                                         int chunk, int index) {
+    private String clearChunkValue(Object[][] data,
+                                   int chunk, int index) {
         String value = data[chunk] != null ? (String)data[chunk][index] : null;
         if (value != null) {
             data[chunk][index] = null;
@@ -2009,7 +2009,7 @@ public class DeferredDocumentImpl
      * all of the paths to ID attributes when a node object is
      * created that contains an ID attribute.
      */
-    private final void putIdentifier0(String idName, Element element) {
+    private void putIdentifier0(String idName, Element element) {
 
         if (DEBUG_IDS) {
             System.out.println("putIdentifier0("+

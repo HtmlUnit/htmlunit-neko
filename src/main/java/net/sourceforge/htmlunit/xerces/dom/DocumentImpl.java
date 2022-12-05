@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
@@ -28,7 +26,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.DocumentEvent;
 import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventListener;
 
 
 /**
@@ -209,55 +206,6 @@ public class DocumentImpl
     boolean getMutationEvents() {
         return false;
     }
-
-    //
-    // Constants
-    //
-
-    /*
-     * NON-DOM INTERNAL: Class LEntry is just a struct used to represent
-     * event listeners registered with this node. Copies of this object
-     * are hung from the nodeListeners Vector.
-     * <p>
-     * I considered using two vectors -- one for capture,
-     * one for bubble -- but decided that since the list of listeners
-     * is probably short in most cases, it might not be worth spending
-     * the space. ***** REVISIT WHEN WE HAVE MORE EXPERIENCE.
-     */
-    class LEntry implements Serializable {
-
-        private static final long serialVersionUID = -8426757059492421631L;
-        final String type;
-        final EventListener listener;
-        final boolean useCapture;
-
-        /** NON-DOM INTERNAL: Constructor for Listener list Entry
-         * @param type Event name (NOT event group!) to listen for.
-         * @param listener Who gets called when event is dispatched
-         * @param useCaptue True iff listener is registered on
-         *  capturing phase rather than at-target or bubbling
-         */
-        LEntry(String type, EventListener listener, boolean useCapture)
-        {
-            this.type = type;
-            this.listener = listener;
-            this.useCapture = useCapture;
-        }
-
-    } // LEntry
-
-    /**
-     * NON-DOM INTERNAL: Return object for getEnclosingAttr. Carries
-     * (two values, the Attr node affected (if any) and its previous
-     * string value. Simple struct, no methods.
-     */
-    class EnclosingAttr implements Serializable {
-        private static final long serialVersionUID = 5208387723391647216L;
-        AttrImpl node;
-        String oldvalue;
-    }
-
-    EnclosingAttr savedEnclosingAttr;
 
     /**
      * A method to be called when a character data node has been modified

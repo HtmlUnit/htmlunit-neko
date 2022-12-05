@@ -2146,7 +2146,7 @@ extends ParentNode implements Document  {
      * utility class
      */
 
-    public static final boolean isXMLName(String s, boolean xml11Version) {
+    public static boolean isXMLName(String s, boolean xml11Version) {
 
         if (s == null) {
             return false;
@@ -2165,7 +2165,7 @@ extends ParentNode implements Document  {
      * @param prefix prefix of qualified name
      * @param local local part of qualified name
      */
-    public static final boolean isValidQName(String prefix, String local, boolean xml11Version) {
+    public static boolean isValidQName(String prefix, String local, boolean xml11Version) {
 
         // check that both prefix and local part match NCName
         if (local == null) return false;

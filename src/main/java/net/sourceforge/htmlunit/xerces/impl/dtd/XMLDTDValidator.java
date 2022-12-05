@@ -1605,7 +1605,7 @@ public class XMLDTDValidator
     }
 
     /** Root element specified. */
-    private final void rootElementSpecified(QName rootElement) throws XNIException {
+    private void rootElementSpecified(QName rootElement) throws XNIException {
         if (fPerformValidation) {
             String root1 = fRootElement.rawname;
             String root2 = rootElement.rawname;

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
@@ -26,7 +27,7 @@ public class LocatorEncodingTest {
     @Test
     public void test() throws SAXException, IOException {
         final String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<html></html>";
-        final ByteArrayInputStream input = new ByteArrayInputStream(content.getBytes("UTF-8"));
+        final ByteArrayInputStream input = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
         final SAXParser parser = new SAXParser();
 
         final Locator[] locators = { null };

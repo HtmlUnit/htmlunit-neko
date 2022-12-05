@@ -1318,7 +1318,7 @@ public class HTMLTagBalancer
     //
 
     // Modifies the given name based on the specified mode.
-    protected static final String modifyName(String name, short mode) {
+    protected static String modifyName(String name, short mode) {
         switch (mode) {
             case NAMES_UPPERCASE: return name.toUpperCase(Locale.ENGLISH);
             case NAMES_LOWERCASE: return name.toLowerCase(Locale.ENGLISH);
@@ -1331,7 +1331,7 @@ public class HTMLTagBalancer
      // @see #NAMES_NO_CHANGE
      // @see #NAMES_LOWERCASE
      // @see #NAMES_UPPERCASE
-    protected static final short getNamesValue(String value) {
+    protected static short getNamesValue(String value) {
         if (value.equals("lower")) {
             return NAMES_LOWERCASE;
         }

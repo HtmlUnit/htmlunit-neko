@@ -2297,8 +2297,8 @@ public class DTDGrammar
 
     } // createChildModel(int):ContentModelValidator
 
-    private final CMNode buildSyntaxTree(int startNode,
-                                         XMLContentSpec contentSpec) {
+    private CMNode buildSyntaxTree(int startNode,
+                                   XMLContentSpec contentSpec) {
 
         // We will build a node at this level for the new tree
         CMNode nodeRet = null;

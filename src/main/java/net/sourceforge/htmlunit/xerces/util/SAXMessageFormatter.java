@@ -84,7 +84,7 @@ public class SAXMessageFormatter {
                     if (i > 0) {
                         str.append('&');
                     }
-                    str.append(String.valueOf(arguments[i]));
+                    str.append(arguments[i]);
                 }
             }
         }

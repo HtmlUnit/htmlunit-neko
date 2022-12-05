@@ -59,13 +59,6 @@ public class HTMLBuilder
 
 
     /**
-     * Applies only to whitespace appearing between element tags in element content,
-     * as per the SAX definition, and true by default.
-     */
-    private final boolean         _ignoreWhitespace = true;
-
-
-    /**
      * Indicates whether finished building a document. If so, can start building
      * another document. Must be initially true to get the first document processed.
      */
@@ -195,7 +188,12 @@ public class HTMLBuilder
     public void ignorableWhitespace( char[] text, int start, int length )
         throws SAXException
     {
-        if ( ! _ignoreWhitespace )
+        /**
+         * Applies only to whitespace appearing between element tags in element content,
+         * as per the SAX definition, and true by default.
+         */
+        boolean _ignoreWhitespace = true;
+        if ( !_ignoreWhitespace)
             _current.appendChild( _document.createTextNode(new String(text, start, length)) );
      }
 

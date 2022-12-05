@@ -627,7 +627,7 @@ public class HTMLConfiguration
                     if (i > 0) {
                         str.append('\t');
                     }
-                    str.append(String.valueOf(args[i]));
+                    str.append(args[i]);
                 }
             }
             return str.toString();

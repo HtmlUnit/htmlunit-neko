@@ -2281,7 +2281,7 @@ public class XMLEntityManager
     } // getDeclaredEntities():Hashtable
 
     /** Prints the contents of the buffer. */
-    static final void print(ScannedEntity currentEntity) {
+    static void print(ScannedEntity currentEntity) {
         if (DEBUG_BUFFER) {
             if (currentEntity != null) {
                 System.out.print('[');
@@ -3046,7 +3046,6 @@ public class XMLEntityManager
 
         private InputStream fInputStream;
         private byte[] fData;
-        private int fStartOffset;
         private int fEndOffset;
         private int fOffset;
         private int fLength;
@@ -3055,7 +3054,7 @@ public class XMLEntityManager
         public RewindableInputStream(InputStream is) {
             fData = new byte[DEFAULT_XMLDECL_BUFFER_SIZE];
             fInputStream = is;
-            fStartOffset = 0;
+            int fStartOffset = 0;
             fEndOffset = -1;
             fOffset = 0;
             fLength = 0;

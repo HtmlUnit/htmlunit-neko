@@ -332,7 +332,7 @@ public class XMLEntityScanner implements XMLLocator {
         if (DEBUG_BUFFER) {
             System.out.print(")scanNmtoken: ");
             XMLEntityManager.print(fCurrentEntity);
-            System.out.println(" -> "+String.valueOf(symbol));
+            System.out.println(" -> "+ symbol);
         }
         return symbol;
 
@@ -378,7 +378,7 @@ public class XMLEntityScanner implements XMLLocator {
                     if (DEBUG_BUFFER) {
                         System.out.print(")scanName: ");
                         XMLEntityManager.print(fCurrentEntity);
-                        System.out.println(" -> "+String.valueOf(symbol));
+                        System.out.println(" -> "+ symbol);
                     }
                     return symbol;
                 }
@@ -412,7 +412,7 @@ public class XMLEntityScanner implements XMLLocator {
         if (DEBUG_BUFFER) {
             System.out.print(")scanName: ");
             XMLEntityManager.print(fCurrentEntity);
-            System.out.println(" -> "+String.valueOf(symbol));
+            System.out.println(" -> "+ symbol);
         }
         return symbol;
 
@@ -458,7 +458,7 @@ public class XMLEntityScanner implements XMLLocator {
                     if (DEBUG_BUFFER) {
                         System.out.print(")scanNCName: ");
                         XMLEntityManager.print(fCurrentEntity);
-                        System.out.println(" -> "+String.valueOf(symbol));
+                        System.out.println(" -> "+ symbol);
                     }
                     return symbol;
                 }
@@ -492,7 +492,7 @@ public class XMLEntityScanner implements XMLLocator {
         if (DEBUG_BUFFER) {
             System.out.print(")scanNCName: ");
             XMLEntityManager.print(fCurrentEntity);
-            System.out.println(" -> "+String.valueOf(symbol));
+            System.out.println(" -> "+ symbol);
         }
         return symbol;
 

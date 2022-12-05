@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -110,7 +111,7 @@ public class CanonicalTest {
                 catch (final AssertionFailedError e) {
                     // expected
                 }
-                assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile.toString());
+                assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile);
             } else {
                 assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
             }
@@ -126,7 +127,7 @@ public class CanonicalTest {
 
     private static String getCanonical(final File infile) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new UTF8BOMSkipper(new FileInputStream(infile)), "UTF-8"))) {
+                new UTF8BOMSkipper(new FileInputStream(infile)), StandardCharsets.UTF_8))) {
             final StringBuffer sb = new StringBuffer();
             String line;
             while ((line = reader.readLine()) != null) {

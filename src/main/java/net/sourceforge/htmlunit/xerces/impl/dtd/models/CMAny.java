@@ -30,14 +30,6 @@ public class CMAny
     //
 
     /**
-     * The any content model type. This value is one of the following:
-     * XMLContentSpec.CONTENTSPECNODE_ANY,
-     * XMLContentSpec.CONTENTSPECNODE_ANY_OTHER,
-     * XMLContentSpec.CONTENTSPECNODE_ANY_LOCAL.
-     */
-    private final int fType;
-
-    /**
      * URI of the any content model. This value is set if the type is
      * of the following:
      * XMLContentSpec.CONTENTSPECNODE_ANY,
@@ -61,7 +53,12 @@ public class CMAny
         super(type);
 
         // Store the information
-        fType = type;
+        /**
+         * The any content model type. This value is one of the following:
+         * XMLContentSpec.CONTENTSPECNODE_ANY,
+         * XMLContentSpec.CONTENTSPECNODE_ANY_OTHER,
+         * XMLContentSpec.CONTENTSPECNODE_ANY_LOCAL.
+         */
         fURI = uri;
         fPosition = position;
     }
@@ -102,7 +99,7 @@ public class CMAny
         strRet.append(')');
         if (fPosition >= 0) {
             strRet.append(" (Pos:")
-                  .append(Integer.toString(fPosition))
+                  .append(fPosition)
                   .append(')');
         }
         return strRet.toString();

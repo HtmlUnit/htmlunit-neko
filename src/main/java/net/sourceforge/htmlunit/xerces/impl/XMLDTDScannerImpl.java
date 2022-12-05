@@ -885,7 +885,7 @@ public class XMLDTDScannerImpl
      *
      * <strong>Note:</strong> Called after scanning past '(#PCDATA'.
      */
-    private final void scanMixed(String elName)
+    private void scanMixed(String elName)
         throws IOException, XNIException {
 
         String childName = null;
@@ -964,7 +964,7 @@ public class XMLDTDScannerImpl
      * <strong>Note:</strong> Called after scanning past the first open
      * paranthesis.
      */
-    private final void scanChildren(String elName)
+    private void scanChildren(String elName)
         throws IOException, XNIException {
 
         fContentDepth = 0;
@@ -1228,7 +1228,7 @@ public class XMLDTDScannerImpl
      * @param elName The element type name this declaration is about.
      * @param atName The attribute name this declaration is about.
      */
-    private final String scanAttType(String elName, String atName)
+    private String scanAttType(String elName, String atName)
         throws IOException, XNIException {
 
         String type = null;
@@ -1398,7 +1398,7 @@ public class XMLDTDScannerImpl
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ENTITY'
      */
-    private final void scanEntityDecl() throws IOException, XNIException {
+    private void scanEntityDecl() throws IOException, XNIException {
 
         boolean isPEDecl = false;
         boolean sawPERef = false;
@@ -1713,7 +1713,7 @@ public class XMLDTDScannerImpl
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!NOTATION'
      */
-    private final void scanNotationDecl() throws IOException, XNIException {
+    private void scanNotationDecl() throws IOException, XNIException {
 
         // spaces
         fReportEntity = false;
@@ -1795,7 +1795,7 @@ public class XMLDTDScannerImpl
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;![' */
-    private final void scanConditionalSect(int currPEDepth)
+    private void scanConditionalSect(int currPEDepth)
         throws IOException, XNIException {
 
         fReportEntity = false;
@@ -2062,7 +2062,7 @@ public class XMLDTDScannerImpl
     /*
      * Element Children Content Stack
      */
-    private final void pushContentStack(int c) {
+    private void pushContentStack(int c) {
         if (fContentStack.length == fContentDepth) {
             int[] newStack = new int[fContentDepth * 2];
             System.arraycopy(fContentStack, 0, newStack, 0, fContentDepth);
@@ -2071,7 +2071,7 @@ public class XMLDTDScannerImpl
         fContentStack[fContentDepth++] = c;
     }
 
-    private final int popContentStack() {
+    private int popContentStack() {
         return fContentStack[--fContentDepth];
     }
 
@@ -2079,7 +2079,7 @@ public class XMLDTDScannerImpl
     /*
      * Parameter Entity Stack
      */
-    private final void pushPEStack(int depth, boolean report) {
+    private void pushPEStack(int depth, boolean report) {
         if (fPEStack.length == fPEDepth) {
             int[] newIntStack = new int[fPEDepth * 2];
             System.arraycopy(fPEStack, 0, newIntStack, 0, fPEDepth);
@@ -2095,12 +2095,12 @@ public class XMLDTDScannerImpl
     }
 
     /** pop the stack */
-    private final int popPEStack() {
+    private int popPEStack() {
         return fPEStack[--fPEDepth];
     }
 
     /** look at the top of the stack */
-    private final boolean peekReportEntity() {
+    private boolean peekReportEntity() {
         return fPEReport[fPEDepth-1];
     }
 
@@ -2108,7 +2108,7 @@ public class XMLDTDScannerImpl
     /*
      * Utility method
      */
-    private final void ensureEnumerationSize(int size) {
+    private void ensureEnumerationSize(int size) {
         if (fEnumeration.length == size) {
             String[] newEnum = new String[size * 2];
             System.arraycopy(fEnumeration, 0, newEnum, 0, size);

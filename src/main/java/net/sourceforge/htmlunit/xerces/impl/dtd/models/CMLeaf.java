@@ -105,7 +105,7 @@ public class CMLeaf
         strRet.append(')');
         if (fPosition >= 0) {
             strRet.append(" (Pos:")
-                  .append(Integer.toString(fPosition))
+                  .append(fPosition)
                   .append(')');
         }
         return strRet.toString();

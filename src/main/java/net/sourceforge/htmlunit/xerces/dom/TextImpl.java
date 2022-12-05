@@ -155,7 +155,7 @@ public class TextImpl
         // concatenate text of logically adjacent text nodes to the right of this node in the tree
         getWholeTextForward(this.getNextSibling(), buffer, this.getParentNode());
 
-        return temp + buffer.toString();
+        return temp + buffer;
 
     }
 

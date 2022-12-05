@@ -1070,8 +1070,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * @param datavalue
      * @param isXML11Version = true if XML 1.1
      */
-    public static final void isCDataWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
-        String datavalue, boolean isXML11Version)
+    public static void isCDataWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
+                                 String datavalue, boolean isXML11Version)
     {
         if (datavalue == null || (datavalue.length() == 0) ) {
             return;
@@ -1170,8 +1170,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * @param datavalue
      * @param isXML11Version = true if XML 1.1
      */
-    public static final void isXMLCharWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
-        String datavalue, boolean isXML11Version)
+    public static void isXMLCharWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
+                                   String datavalue, boolean isXML11Version)
     {
         if ( datavalue == null || (datavalue.length() == 0) ) {
             return;
@@ -1233,8 +1233,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * @param datavalue
      * @param isXML11Version = true if XML 1.1
      */
-    public static final void isCommentWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
-        String datavalue, boolean isXML11Version)
+    public static void isCommentWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
+                                   String datavalue, boolean isXML11Version)
     {
         if ( datavalue == null || (datavalue.length() == 0) ) {
             return;
@@ -1306,8 +1306,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * @param a
      * @param value
      */
-    public static final void isAttrValueWF(DOMErrorHandler errorHandler, DOMErrorImpl error,
-            DOMLocatorImpl locator, NamedNodeMap attributes, Attr a, String value, boolean xml11Version) {
+    public static void isAttrValueWF(DOMErrorHandler errorHandler, DOMErrorImpl error,
+                                     DOMLocatorImpl locator, NamedNodeMap attributes, Attr a, String value, boolean xml11Version) {
         if (a instanceof AttrImpl && ((AttrImpl)a).hasStringValue()) {
             isXMLCharWF(errorHandler, error, locator, value, xml11Version);
         } else {
@@ -1354,8 +1354,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * <p>
      * If the error is fatal, the processing will be always aborted.
      */
-    public static final void reportDOMError(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
-                        String message, short severity, String type ) {
+    public static void reportDOMError(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
+                                      String message, short severity, String type ) {
         if( errorHandler!=null ) {
             error.reset();
             error.fMessage = message;
