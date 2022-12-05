@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  * filled from the GrammarPool when the DTDValidator is invoked on a
  * document, and, if a new DTD grammar is parsed, the new set will be
  * offered back to the GrammarPool for possible inclusion.
- *
+ * <p>
  *
  * @author Neil Graham, IBM
  */

@@ -1623,15 +1623,8 @@ public class HTMLScanner
 
     // Returns an empty resource identifier.
     protected final XMLResourceIdentifier resourceId() {
-        /***/
         fResourceId.clear();
         return fResourceId;
-        /***
-        // NOTE: Unfortunately, the Xerces DOM parser classes expect a
-        //       non-null resource identifier object to be passed to
-        //       startGeneralEntity. -Ac
-        return null;
-        /***/
     }
 
     //
@@ -2991,23 +2984,6 @@ public class HTMLScanner
                 }
                 return false;
             }
-            /***
-            // REVISIT: [Q] Why is this still here? -Ac
-            if (c == '/' || c == '>') {
-                if (c == '/') {
-                    fCurrentEntity.offset--;
-                    fCurrentEntity.columnNumber--;
-                    empty[0] = skipMarkup(false);
-                }
-                fQName.setValues(null, aname, aname, null);
-                attributes.addAttribute(fQName, "CDATA", "");
-                attributes.setSpecified(attributes.getLength()-1, true);
-                if (fAugmentations) {
-                    addLocationItem(attributes, attributes.getLength() - 1);
-                }
-                return false;
-            }
-            /***/
             if (c == '=') {
                 skipSpaces();
                 c = fCurrentEntity.read();

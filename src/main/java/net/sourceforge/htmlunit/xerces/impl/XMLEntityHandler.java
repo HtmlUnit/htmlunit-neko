@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 /**
  * The entity handler interface defines methods to report information
  * about the start and end of entities.
- *
+ * <p>
  *
  * @see net.sourceforge.htmlunit.xerces.impl.XMLEntityScanner
  *

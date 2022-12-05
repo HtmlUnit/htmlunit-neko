@@ -206,13 +206,13 @@ public class XMLAttributesImpl
             name.uri.length() == 0 ||
             (index = getIndexFast(name.uri, name.localpart)) == -1) {
 
-            /**
-             * If attributes were removed from the list after the table
-             * becomes in use this isn't reflected in the table view. It's
-             * assumed that once a user starts removing attributes they're
-             * not likely to add more. We only make the view consistent if
-             * the user of this class adds attributes, removes them, and
-             * then adds more.
+            /*
+              If attributes were removed from the list after the table
+              becomes in use this isn't reflected in the table view. It's
+              assumed that once a user starts removing attributes they're
+              not likely to add more. We only make the view consistent if
+              the user of this class adds attributes, removes them, and
+              then adds more.
              */
             if (!fIsTableViewConsistent || fLength == SIZE_LIMIT ||
                 (fLength > SIZE_LIMIT && fLength > fTableViewBuckets)) {

@@ -324,7 +324,7 @@ public class DeferredDocumentImpl
 
     /**
      * DOM Internal
-     *
+     * <p>
      * An attribute specifying the actual encoding of this document. This is
      * <code>null</code> otherwise.
      * <br> This attribute represents the property [character encoding scheme]

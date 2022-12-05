@@ -21,7 +21,7 @@ package net.sourceforge.htmlunit.xerces.impl.dv;
 /**
  * The interface that a DTD datatype must implement. The implementation of this
  * interface must be thread-safe.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * This class is used, via a pool managed on CoreDocumentImpl, in ParentNode to
  * improve performance of the NodeList accessors, getLength() and item(i).
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  */

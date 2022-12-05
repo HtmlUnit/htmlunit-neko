@@ -71,7 +71,7 @@ import org.w3c.dom.events.EventTarget;
  * This class doesn't directly support mutation events, however, it still
  * implements the EventTarget interface and forward all related calls to the
  * document so that the document class do so.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM

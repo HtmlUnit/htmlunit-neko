@@ -133,7 +133,7 @@ public class XML11DocumentScannerImpl
     /**
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
-     *
+     * <p>
      * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
@@ -145,7 +145,7 @@ public class XML11DocumentScannerImpl
      * @param eleName The name of element to which this attribute belongs.
      *
      * @return true if the non-normalized and normalized value are the same
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      **/
@@ -173,7 +173,7 @@ public class XML11DocumentScannerImpl
 
         int fromIndex = 0;
         if (c == quote && (fromIndex = isUnchangedByNormalization(value)) == -1) {
-            /** Both the non-normalized and normalized attribute values are equal. **/
+            /* Both the non-normalized and normalized attribute values are equal. **/
             nonNormalizedValue.setValues(value);
             int cquote = fEntityScanner.scanChar();
             if (cquote != quote) {
@@ -379,20 +379,20 @@ public class XML11DocumentScannerImpl
     // this needs to be refactored!!!  - NG
     /**
      * Scans public ID literal.
-     *
+     * <p>
      * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
      * [13] PubidChar::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]
-     *
+     * <p>
      * The returned string is normalized according to the following rule,
      * from http://www.w3.org/TR/REC-xml#dt-pubid:
-     *
+     * <p>
      * Before a match is attempted, all strings of white space in the public
      * identifier must be normalized to single space characters (#x20), and
      * leading and trailing white space must be removed.
      *
      * @param literal The string to fill in with the public ID literal.
      * @return True on success.
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it at
      * the time of calling is lost.
      */

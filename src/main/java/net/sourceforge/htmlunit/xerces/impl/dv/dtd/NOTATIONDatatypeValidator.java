@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
  * NOTATIONValidator defines the interface that data type validators must obey.
  * These validators can be supplied by the application writer and may be useful as
  * standalone code as well as plugins to the validator architecture.
- *
+ * <p>
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM

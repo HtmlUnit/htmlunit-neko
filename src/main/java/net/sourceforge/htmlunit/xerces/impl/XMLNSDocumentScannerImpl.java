@@ -34,11 +34,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 /**
  * The scanner acts as the source for the document
  * information which is communicated to the document handler.
- *
+ * <p>
  * This class scans an XML document, checks if document has a DTD, and if
  * DTD is not found the scanner will remove the DTD Validator from the pipeline and perform
  * namespace binding.
- *
+ * <p>
  * Note: This scanner should only be used when the namespace processing is on!
  *
  * <p>
@@ -79,7 +79,7 @@ extends XMLDocumentScannerImpl {
 
     /**
      * Saw spaces after element name or between attributes.
-     *
+     * <p>
      * This is reserved for the case where scanning of a start element spans
      * several methods, as is the case when scanning the start of a root element
      * where a DTD external subset may be read after scanning the element name.
@@ -710,7 +710,7 @@ extends XMLDocumentScannerImpl {
          * element. This method will also attempt to remove DTD validator
          * from the pipeline, if there is no DTD grammar. If DTD validator
          * is no longer in the pipeline bind namespaces in the scanner.
-         *
+         * <p>
          *
          * @return True if the caller should stop and return true which
          *          allows the scanner to switch to a new scanning

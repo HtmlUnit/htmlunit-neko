@@ -49,7 +49,6 @@ public class DFAContentModel
     /** End-of-content string. */
     private static String fEOCString = "<<CMNODE_EOC>>";
 
-    /** initializing static members **/
     static {
         fEpsilonString = fEpsilonString.intern();
         fEOCString = fEOCString.intern();
@@ -133,10 +132,6 @@ public class DFAContentModel
 
     //private ContentLeafNameTypeVector fLeafNameTypeVector = null;
 
-    /**
-     * The string pool of our parser session. This is set during construction
-     * and kept around.
-     */
     //private StringPool fStringPool = null;
 
     /**
@@ -486,14 +481,6 @@ public class DFAContentModel
         {
             fElemMap[outIndex] = new QName();
 
-            /****
-            if ( (fLeafListType[outIndex] & 0x0f) != 0 ) {
-                if (fLeafNameTypeVector == null) {
-                    fLeafNameTypeVector = new ContentLeafNameTypeVector();
-                }
-            }
-            /****/
-
             // Get the current leaf's element index
             final QName element = fLeafList[outIndex].getElement();
 
@@ -514,18 +501,8 @@ public class DFAContentModel
             }
         }
         // set up the fLeafNameTypeVector object if there is one.
-        /*****
-        if (fLeafNameTypeVector != null) {
-            fLeafNameTypeVector.setValues(fElemMap, fElemMapType, fElemMapSize);
-        }
 
-    /***
-    * Optimization(Jan, 2001); We sort fLeafList according to
-    * elemIndex which is *uniquely* associated to each leaf.
-    * We are *assuming* that each element appears in at least one leaf.
-    **/
-
-    int[] fLeafSorter = new int[fLeafCount + fElemMapSize];
+        int[] fLeafSorter = new int[fLeafCount + fElemMapSize];
     int fSortCount = 0;
 
     for (int elemIndex = 0; elemIndex < fElemMapSize; elemIndex++) {
@@ -783,38 +760,7 @@ public class DFAContentModel
                 if (last.getBit(index))
                     fFollowList[index].union(first);
             }
-        }
-         /***
-         else if (nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE)
-        {
-            // Recurse first
-            calcFollowList(((CMUniOp)nodeCur).getChild());
-
-            //
-            //  Now handle our level. We use our own first and last position
-            //  sets, so get them up front.
-            //
-            final CMStateSet first = nodeCur.firstPos();
-            final CMStateSet last  = nodeCur.lastPos();
-
-            //
-            //  For every position which is in our last position set, add all
-            //  of our first position states to the follow set for that
-            //  position.
-            //
-            for (int index = 0; index < fLeafCount; index++)
-            {
-                if (last.getBit(index))
-                    fFollowList[index].union(first);
-            }
-        }
-         else if ((nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ONE_OR_MORE)
-              ||  (nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_ONE))
-        {
-            throw new RuntimeException("ImplementationMessages.VAL_NIICM");
-        }
-        /***/
-         else if (nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE
+        } else if (nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ZERO_OR_MORE
         || nodeCur.type() == XMLContentSpec.CONTENTSPECNODE_ONE_OR_MORE)
         {
             // Recurse first
@@ -843,7 +789,6 @@ public class DFAContentModel
             // Recurse only
             calcFollowList(((CMUniOp)nodeCur).getChild());
         }
-         /***/
     }
 
     /**

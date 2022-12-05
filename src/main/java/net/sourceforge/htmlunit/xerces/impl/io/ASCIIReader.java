@@ -28,7 +28,7 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 /**
  * A simple ASCII byte reader. This is an optimized reader for reading
  * byte streams that only contain 7-bit ASCII characters.
- *
+ * <p>
  *
  * @author Andy Clark, IBM
  */

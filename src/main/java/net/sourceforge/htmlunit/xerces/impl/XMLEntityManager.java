@@ -1813,11 +1813,11 @@ public class XMLEntityManager
             if (systemURI.getScheme().length() > 1) {
                 return systemId;
             }
-            /**
-             * If the scheme's length is only one character,
-             * it's likely that this was intended as a file
-             * path. Fixing this up in expandSystemId to
-             * maintain backwards compatibility.
+            /*
+              If the scheme's length is only one character,
+              it's likely that this was intended as a file
+              path. Fixing this up in expandSystemId to
+              maintain backwards compatibility.
              */
             throw new URI.MalformedURIException();
         }
@@ -2340,7 +2340,7 @@ public class XMLEntityManager
 
     /**
      * Entity information.
-     *
+     * <p>
          *
      * @author Andy Clark, IBM
      */
@@ -2403,7 +2403,7 @@ public class XMLEntityManager
 
     /**
      * Internal entity.
-     *
+     * <p>
          *
      * @author Andy Clark, IBM
      */
@@ -2481,7 +2481,7 @@ public class XMLEntityManager
 
     /**
      * External entity.
-     *
+     * <p>
          *
      * @author Andy Clark, IBM
      */
@@ -2558,7 +2558,7 @@ public class XMLEntityManager
 
     /**
      * Entity state.
-     *
+     * <p>
          *
      * @author Andy Clark, IBM
      */
@@ -2820,7 +2820,7 @@ public class XMLEntityManager
 
     /**
      * Information about auto-detectable encodings.
-     *
+     * <p>
          *
      * @author Michael Glavassevich, IBM
      */
@@ -2876,7 +2876,7 @@ public class XMLEntityManager
 
     /**
      * Pool of byte buffers for the java.io.Readers.
-     *
+     * <p>
          *
      * @author Michael Glavassevich, IBM
      */
@@ -2923,7 +2923,7 @@ public class XMLEntityManager
     /**
      * Buffer used in entity manager to reuse character arrays instead
      * of creating new ones every time.
-     *
+     * <p>
          *
      * @author Ankit Pasricha, IBM
      */
@@ -2944,7 +2944,7 @@ public class XMLEntityManager
     /**
      * Stores a number of character buffers and provides it to the entity
      * manager to use when an entity is seen.
-     *
+     * <p>
          *
      * @author Ankit Pasricha, IBM
      */
@@ -3030,14 +3030,14 @@ public class XMLEntityManager
      * encoding of a document, we can neither backtrack to read the
      * whole doc again nor start reading where we are with a new
      * reader.
-     *
+     * <p>
      * This class allows rewinding an inputStream by allowing a mark
      * to be set, and the stream reset to that position.  <strong>The
      * class assumes that it needs to read one character per
      * invocation when it's read() method is inovked, but uses the
      * underlying InputStream's read(char[], offset length) method--it
      * won't buffer data read this way!</strong>
-     *
+     * <p>
          *
      * @author Neil Graham, IBM
      * @author Glenn Marcy, IBM

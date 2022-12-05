@@ -43,7 +43,7 @@ public class XMLEntityDecl {
     /** isPE */
     public boolean isPE;
 
-    /** inExternal */
+    /* inExternal */
     /** <strong>Note:</strong> flag of where the entity is defined, not whether it is a external entity */
     public boolean inExternal;
 

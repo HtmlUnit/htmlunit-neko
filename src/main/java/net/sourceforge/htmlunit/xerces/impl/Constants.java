@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Commonly used constants.
- *
+ * <p>
  *
  * @author Andy Clark, IBM
  */
@@ -296,17 +296,17 @@ public final class Constants {
      * found for an element.  Once a global element declaration has been found, xsi:type
      * attributes will start being processed for the sub-tree beginning at the element for
      * which the declaration was found.
-     *
+     * <p>
      * Suppose an element A has two element children, B and C.
-     *
+     * <p>
      * If a global element declaration is found for A, xsi:type attributes on A, B and C,
      * and all of B and C's descendents, will be processed.
-     *
+     * <p>
      * If no global element declaration is found for A or B, but one is found for C,
      * then xsi:type attributes will be ignored on A and B (and any descendents of B,
      * until a global element declaration is found), but xsi:type attributes will be
      * processed for C and all of C's descendents.
-     *
+     * <p>
      * Once xsi:type attributes stop being ignored for a subtree, they do not start
      * being ignored again, even if more elements are encountered for which no global
      * element declaration can be found.

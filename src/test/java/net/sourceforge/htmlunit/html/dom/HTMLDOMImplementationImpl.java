@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
  * of any particular instance of the document object model. This class is
  * unconstructable, the only way to obtain an instance of a DOM implementation
  * is by calling the static method {@link #getDOMImplementation}.
- *
+ * <p>
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>

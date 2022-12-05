@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * this property. Validators are not required to know what kind of
  * other validators present in the pipeline, but should understand
  * that there are others and that some coordination is required.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  */

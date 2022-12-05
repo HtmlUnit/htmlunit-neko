@@ -22,13 +22,13 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
  * This class is a very simple bitset class. The DFA content model code needs
  * to support a bit set, but the java BitSet class is way, way overkill. Our
  * bitset never needs to be expanded after creation, hash itself, etc...
- *
+ * <p>
  * Since the vast majority of content models will never require more than 64
  * bits, and since allocation of anything in Java is expensive, this class
  * provides a hybrid implementation that uses two ints for instances that use
  * 64 bits or fewer. It has a byte array reference member which will only be
  * used if more than 64 bits are required.
- *
+ * <p>
  * Note that the code that uses this class will never perform operations
  * on sets of different sizes, so that check does not have to be made here.
  *

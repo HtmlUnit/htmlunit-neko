@@ -27,7 +27,7 @@ package net.sourceforge.htmlunit.xerces.dom;
 /**
  * DeferredAttrNSImpl is to AttrNSImpl, what DeferredAttrImpl is to
  * AttrImpl.
- *
+ * <p>
  *
  * @author Andy Clark, IBM
  * @author Arnaud  Le Hors, IBM

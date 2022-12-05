@@ -24,16 +24,7 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
  * @author Andy Clark
  */
 public class DOMParser
-    /***/
-    extends net.sourceforge.htmlunit.xerces.parsers.DOMParser {
-    /***
-    // NOTE: It would be better to extend from AbstractDOMParser but
-    //       most users will find it easier if the API is just like the
-    //       Xerces DOM parser. By extending directly from DOMParser,
-    //       users can register SAX error handlers, entity resolvers,
-    //       and the like. -Ac
-    extends org.apache.xerces.parsers.AbstractDOMParser {
-    /***/
+        extends net.sourceforge.htmlunit.xerces.parsers.DOMParser {
 
     //
     // Constructors
@@ -42,7 +33,6 @@ public class DOMParser
     /** Default constructor. */
     public DOMParser() {
         super(new HTMLConfiguration());
-        /*** extending DOMParser ***/
         try {
             setProperty("http://apache.org/xml/properties/dom/document-class-name",
                                        "net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl");
@@ -53,9 +43,5 @@ public class DOMParser
         catch (final org.xml.sax.SAXNotSupportedException e) {
             throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not supported");
         }
-        /** extending AbstractDOMParser ***
-        fConfiguration.setProperty("http://apache.org/xml/properties/dom/document-class-name",
-                                   "net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl");
-        */
     }
 }

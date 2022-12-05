@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 /**
  * Implementation of the ValidationContext interface. Used to establish an
  * environment for simple type validation.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  */

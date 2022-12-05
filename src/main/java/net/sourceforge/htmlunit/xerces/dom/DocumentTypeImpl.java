@@ -41,7 +41,7 @@ import org.w3c.dom.UserDataHandler;
  * Most notably, absolutely no provision was made for storing
  * and using Element and Attribute information. Nor was the linkage
  * between Entities and Entity References nailed down solidly.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM

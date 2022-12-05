@@ -260,7 +260,6 @@ public class NamedNodeMapImpl
      * @param name The name of a node to remove.
      * @return The node removed from the map if a node with such a name exists.
      */
-    /***/
     @Override
     public Node removeNamedItem(String name)
         throws DOMException {

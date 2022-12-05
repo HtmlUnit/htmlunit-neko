@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.ValidationContext;
 
 /**
  * For list types: ENTITIES, IDREFS, NMTOKENS.
- *
+ * <p>
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM

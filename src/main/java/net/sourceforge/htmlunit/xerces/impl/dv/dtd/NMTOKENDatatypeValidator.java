@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.util.XMLChar;
 
 /**
  * NMTOKEN datatype validator.
- *
+ * <p>
  *
  * @author Jeffrey Rodriguez, IBM
  * @author Sandy Gao, IBM

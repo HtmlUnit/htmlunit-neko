@@ -53,7 +53,7 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * likely to lead to a dead lock condition. Therefore, there is a chance of the
  * document being changed as results are fetched; in all likelihood, the results
  * might be out dated, but not erroneous.
- *
+ * <p>
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
@@ -477,7 +477,7 @@ class HTMLCollectionImpl
  * passed by value, this class servers to pass the index into each recursion
  * by reference. It encompasses all the operations that need be performed on
  * the index, although direct access is possible.
- *
+ * <p>
  *
  * @see CollectionImpl#item
  */

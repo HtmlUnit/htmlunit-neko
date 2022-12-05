@@ -208,9 +208,7 @@ public final class ObjectFactory {
                 factoryClassName = fXercesProperties.getProperty(factoryId);
             }
         } else {
-            FileInputStream fis = null;
-            try {
-                fis = SecuritySupport.getFileInputStream(new File(propertiesFilename));
+            try (FileInputStream fis = SecuritySupport.getFileInputStream(new File(propertiesFilename))) {
                 Properties props = new Properties();
                 props.load(fis);
                 factoryClassName = props.getProperty(factoryId);
@@ -219,16 +217,8 @@ public final class ObjectFactory {
                 //        || x instanceof SecurityException)
                 // In both cases, ignore and continue w/ next location
             }
-            finally {
-                // try to close the input stream if one was opened.
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    }
-                    // Ignore the exception.
-                    catch (IOException exc) {}
-                }
-            }
+            // try to close the input stream if one was opened.
+            // Ignore the exception.
         }
         if (factoryClassName != null) {
             if (DEBUG) debugPrintln("found in " + propertiesFilename + ", value=" + factoryClassName);

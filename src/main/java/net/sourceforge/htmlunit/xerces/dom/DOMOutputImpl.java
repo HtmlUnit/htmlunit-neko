@@ -44,7 +44,7 @@ import org.w3c.dom.ls.LSOutput;
  * LSOutput objects belong to the application. The DOM implementation will
  * never modify them (though it may make copies and modify the copies,
  * if necessary).
- *
+ * <p>
  *
  * @author Arun Yadav, Sun Microsytems
  * @author Gopal Sharma, Sun Microsystems

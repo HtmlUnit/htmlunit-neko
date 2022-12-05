@@ -53,7 +53,7 @@ import org.w3c.dom.events.EventListener;
  * <p>
  * <b>Note:</b> When any node in the document is serialized, the
  * entire document is serialized along with it.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM

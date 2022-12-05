@@ -93,11 +93,7 @@ import java.util.Locale;
 
   private static final byte [] fgLookupTable = new byte[128];
 
-  /**
-   * Character Classes
-   */
-
-  /** reserved characters ;/?:@&=+$,[] */
+    /** reserved characters ;/?:@&=+$,[] */
   //RFC 2732 added '[' and ']' as reserved characters
   private static final int RESERVED_CHARACTERS = 0x01;
 
@@ -928,14 +924,7 @@ import java.util.Locale;
         String portStr = p_uriSpec.substring(start, index);
         if (portStr.length() > 0) {
           // REVISIT: Remove this code.
-          /** for (int i = 0; i < portStr.length(); i++) {
-            if (!isDigit(portStr.charAt(i))) {
-              throw new MalformedURIException(
-                   portStr +
-                   " is invalid. Port should only contain digits!");
-            }
-          }**/
-          // REVISIT: Remove this code.
+            // REVISIT: Remove this code.
           // Store port value as string instead of integer.
           try {
             port = Integer.parseInt(portStr);
@@ -2081,25 +2070,6 @@ public String toString() {
   */
   private static boolean isAlphanum(char p_char) {
      return (p_char <= 'z' && (fgLookupTable[p_char] & MASK_ALPHA_NUMERIC) != 0);
-  }
-
- /**
-  * Determine whether a character is a reserved character:
-  * ';', '/', '?', ':', '@', '&', '=', '+', '$', ',', '[', or ']'
-  *
-  * @return true if the string contains any reserved characters
-  */
-  private static boolean isReservedCharacter(char p_char) {
-     return (p_char <= ']' && (fgLookupTable[p_char] & RESERVED_CHARACTERS) != 0);
-  }
-
- /**
-  * Determine whether a char is an unreserved character.
-  *
-  * @return true if the char is unreserved, false otherwise
-  */
-  private static boolean isUnreservedCharacter(char p_char) {
-     return (p_char <= '~' && (fgLookupTable[p_char] & MASK_UNRESERVED_MASK) != 0);
   }
 
  /**

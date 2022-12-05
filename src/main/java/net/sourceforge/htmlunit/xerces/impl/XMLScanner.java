@@ -350,7 +350,7 @@ public abstract class XMLScanner
      * @param pseudoAttributeValues An array of size 3 to return the version,
      *                         encoding and standalone pseudo attribute values
      *                         (in that order).
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fString, anything in it
      * at the time of calling is lost.
      */
@@ -524,7 +524,7 @@ public abstract class XMLScanner
      *                         value.
      *
      * @return The name of the attribute
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      */
@@ -663,7 +663,7 @@ public abstract class XMLScanner
      * Scans a processing data. This is needed to handle the situation
      * where a document starts with a processing instruction whose
      * target name <em>starts with</em> "xml". (e.g. xmlfoo)
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it
      * at the time of calling is lost.
      *
@@ -769,7 +769,7 @@ public abstract class XMLScanner
     /**
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
-     *
+     * <p>
      * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
@@ -781,7 +781,7 @@ public abstract class XMLScanner
      * @param eleName The name of element to which this attribute belongs.
      *
      * @return true if the non-normalized and normalized value are the same
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
      **/
@@ -808,7 +808,7 @@ public abstract class XMLScanner
 
         int fromIndex = 0;
         if (c == quote && (fromIndex = isUnchangedByNormalization(value)) == -1) {
-            /** Both the non-normalized and normalized attribute values are equal. **/
+            /* Both the non-normalized and normalized attribute values are equal. **/
             nonNormalizedValue.setValues(value);
             int cquote = fEntityScanner.scanChar();
             if (cquote != quote) {
@@ -1011,7 +1011,7 @@ public abstract class XMLScanner
      * @param identifiers An array of size 2 to return the system id,
      *                    and public id (in that order).
      * @param optionalSystemId Specifies whether the system id is optional.
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fString and fStringBuffer,
      * anything in them at the time of calling is lost.
      */
@@ -1084,20 +1084,20 @@ public abstract class XMLScanner
 
     /**
      * Scans public ID literal.
-     *
+     * <p>
      * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
      * [13] PubidChar::= #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%]
-     *
+     * <p>
      * The returned string is normalized according to the following rule,
      * from http://www.w3.org/TR/REC-xml#dt-pubid:
-     *
+     * <p>
      * Before a match is attempted, all strings of white space in the public
      * identifier must be normalized to single space characters (#x20), and
      * leading and trailing white space must be removed.
      *
      * @param literal The string to fill in with the public ID literal.
      * @return True on success.
-     *
+     * <p>
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it at
      * the time of calling is lost.
      */

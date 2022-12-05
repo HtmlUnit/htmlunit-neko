@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.xerces.impl.dv;
 
 /**
  * Datatype exception for invalid values.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

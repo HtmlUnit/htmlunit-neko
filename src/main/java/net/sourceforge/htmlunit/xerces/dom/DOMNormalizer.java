@@ -72,7 +72,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  * document.
  * See Namespace normalization for details on how namespace declaration attributes and prefixes
  * are normalized.
- *
+ * <p>
  * NOTE: There is an initial support for DOM revalidation with XML Schema as a grammar.
  * The tree might not be validated correctly if entityReferences, CDATA sections are
  * present in the tree. The PSVI information is not exposed, normalized data (including element
@@ -1351,7 +1351,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     /**
      * Reports a DOM error to the user handler.
-     *
+     * <p>
      * If the error is fatal, the processing will be always aborted.
      */
     public static final void reportDOMError(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,

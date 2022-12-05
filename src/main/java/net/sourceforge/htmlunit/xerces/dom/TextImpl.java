@@ -111,7 +111,7 @@ public class TextImpl
 
     /**
      * DOM L3 Core CR - Experimental
-     *
+     * <p>
      * Returns whether this text node contains
      * element content whitespace</a>, often abusively called "ignorable whitespace".
      * The text node is determined to contain whitespace in element content

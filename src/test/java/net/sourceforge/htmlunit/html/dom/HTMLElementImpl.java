@@ -34,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
  * the <code>id</code>, <code>title</code>, <code>lang</code>,
  * <code>dir</code> and <code>class</code> attributes. Other elements
  * add their own specific attributes.
- *
+ * <p>
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>

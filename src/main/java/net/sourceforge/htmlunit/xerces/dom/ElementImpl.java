@@ -43,7 +43,7 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * <P>
  * ElementImpl does not support Namespaces. ElementNSImpl, which inherits from
  * it, does.
- *
+ * <p>
  *
  * @see ElementNSImpl
  *
@@ -490,12 +490,12 @@ public class ElementImpl
     /**
      * Add a new name/value pair, or replace the value of the existing
      * attribute having that name.
-     *
+     * <p>
      * Note: this method supports only the simplest kind of Attribute,
      * one whose value is a string contained in a single Text node.
      * If you want to assert a more complex value (which XML permits,
      * though HTML doesn't), see setAttributeNode().
-     *
+     * <p>
      * The attribute is created with specified=true, meaning it's an
      * explicit value rather than inherited from the DTD as a default.
      * Again, setAttributeNode can be used to achieve other results.

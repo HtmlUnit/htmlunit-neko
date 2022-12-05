@@ -27,7 +27,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * The qualified name is the node name, and we store localName which is also
  * used in all queries. On the other hand we recompute the prefix when
  * necessary.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM

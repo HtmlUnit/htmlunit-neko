@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
  * The factory to create and return DTD types. The implementation should
  * store the created datatypes in static data, so that they can be shared by
  * multiple parser instance, and multiple threads.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

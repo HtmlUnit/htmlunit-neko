@@ -49,7 +49,7 @@ import org.w3c.dom.Node;
  * the Entity. Since the DOM explicitly decided not to deal with this,
  * _any_ answer will involve a non-DOM operation, and this is the
  * simplest solution.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  */

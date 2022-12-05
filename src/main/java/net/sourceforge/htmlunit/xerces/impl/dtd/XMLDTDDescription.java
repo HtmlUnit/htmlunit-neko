@@ -27,7 +27,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
  * All information specific to DTD grammars.
- *
+ * <p>
  *
  * @author Neil Graham, IBM
  */

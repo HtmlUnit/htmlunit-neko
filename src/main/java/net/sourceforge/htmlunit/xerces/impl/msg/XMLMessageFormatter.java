@@ -26,7 +26,7 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 /**
  * XMLMessageFormatter provides error messages for the XML 1.0 Recommendation and for
  * the Namespaces Recommendation
- *
+ * <p>
  *
  * @author Eric Ye, IBM
  *

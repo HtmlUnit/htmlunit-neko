@@ -22,7 +22,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 /**
  * Defines a DTD Validator filter to allow
  * components to query the DTD validator.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  */

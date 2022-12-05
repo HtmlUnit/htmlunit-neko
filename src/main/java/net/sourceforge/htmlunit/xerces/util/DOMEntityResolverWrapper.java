@@ -127,10 +127,10 @@ public class DOMEntityResolverWrapper
                 String encoding = inputSource.getEncoding();
                 String data = inputSource.getStringData();
 
-                /**
-                 * An LSParser looks at inputs specified in LSInput in
-                 * the following order: characterStream, byteStream,
-                 * stringData, systemId, publicId.
+                /*
+                  An LSParser looks at inputs specified in LSInput in
+                  the following order: characterStream, byteStream,
+                  stringData, systemId, publicId.
                  */
                 XMLInputSource xmlInputSource =
                     new XMLInputSource(publicId, systemId, baseSystemId);

@@ -29,11 +29,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
 /**
  * This is configuration uses a scanner that integrates both scanning of the document
  * and binding namespaces.
- *
+ * <p>
  * If namespace feature is turned on, the pipeline is constructured with the
  * following components:
  * XMLNSDocumentScannerImpl -> XMLNSDTDValidator -> (optional) XMLSchemaValidator
- *
+ * <p>
  * If the namespace feature is turned off the default document scanner implementation
  * is used (XMLDocumentScannerImpl).
  * <p>

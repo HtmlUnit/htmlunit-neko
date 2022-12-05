@@ -24,7 +24,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 
 /**
  * the factory to create/return built-in schema DVs and create user-defined DVs
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

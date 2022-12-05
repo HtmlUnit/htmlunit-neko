@@ -390,7 +390,7 @@ public abstract class CharacterDataImpl
      *
      * @param offset        Zero-based offset of first character to retrieve.
      * @param count Number of characters to retrieve.
-     *
+     * <p>
      * If the sum of offset and count exceeds the length, all characters
      * to end of data are returned.
      *

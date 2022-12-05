@@ -221,7 +221,6 @@ public class AttributeMap extends NamedNodeMapImpl {
      * @throws              NOT_FOUND_ERR: Raised if there is no node named
      *                      name in the map.
      */
-    /***/
     @Override
     public Node removeNamedItem(String name)
         throws DOMException {
@@ -239,7 +238,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * NON-DOM: Remove the node object
-     *
+     * <p>
      * NOTE: Specifically removes THIS NODE -- not the node with this
      * name, nor the node with these contents. If node does not belong to
      * this named node map, we throw a DOMException.

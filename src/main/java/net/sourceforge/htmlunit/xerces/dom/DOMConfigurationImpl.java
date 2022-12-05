@@ -56,7 +56,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * Xerces implementation of DOMConfiguration that maintains a table of recognized parameters.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems.
@@ -585,7 +585,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     /**
      * Set the state of a feature.
-     *
+     * <p>
      * Set the state of any feature in a SAX2 parser.  The parser
      * might not recognize the feature, and if it does recognize
      * it, it might not be able to fulfill the request.
@@ -1014,7 +1014,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     /**
      *  DOM Level 3 CR - Experimental.
-     *
+     * <p>
      *  The list of the parameters supported by this
      * <code>DOMConfiguration</code> object and for which at least one value
      * can be set by the application. Note that this list can also contain

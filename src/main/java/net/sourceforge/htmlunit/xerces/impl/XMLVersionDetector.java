@@ -33,7 +33,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * This class scans the version of the document to determine
  * which scanner to use: XML 1.1 or XML 1.0.
  * The version is scanned using XML 1.1. scanner.
- *
+ * <p>
  *
  * @author Neil Graham, IBM
  * @author Elena Litani, IBM

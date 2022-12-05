@@ -22,7 +22,7 @@ package net.sourceforge.htmlunit.xerces.impl.validation;
  * The entity state interface defines methods that must be implemented
  * by components that store information about entity declarations, as well as by
  * entity validator that will need to validate attributes of type entity.
- *
+ * <p>
  *
  * @author Elena Litani, IBM
  */

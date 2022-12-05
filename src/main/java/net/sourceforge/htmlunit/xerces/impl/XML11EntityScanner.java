@@ -30,7 +30,7 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 /**
  * Implements the entity scanner methods in
  * the context of XML 1.1.
- *
+ * <p>
  *
  * @author Michael Glavassevich, IBM
  * @author Neil Graham, IBM
@@ -780,9 +780,7 @@ public class XML11EntityScanner
                     if (cc == '\n' || cc == 0x85) {
                         fCurrentEntity.position++;
                         offset++;
-                    }
-                    /*** NEWLINE NORMALIZATION ***/
-                    else {
+                    } else {
                         newlines++;
                     }
                 }
@@ -923,9 +921,7 @@ public class XML11EntityScanner
                     if (cc == '\n' || cc == 0x85) {
                         fCurrentEntity.position++;
                         offset++;
-                    }
-                    /*** NEWLINE NORMALIZATION ***/
-                    else {
+                    } else {
                         newlines++;
                     }
                 }
@@ -1097,9 +1093,7 @@ public class XML11EntityScanner
                         if (cc == '\n' || cc == 0x85) {
                             fCurrentEntity.position++;
                             offset++;
-                        }
-                        /*** NEWLINE NORMALIZATION ***/
-                        else {
+                        } else {
                             newlines++;
                         }
                     }

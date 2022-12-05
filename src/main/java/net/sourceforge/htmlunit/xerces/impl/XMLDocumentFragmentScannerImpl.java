@@ -214,11 +214,6 @@ public class XMLDocumentFragmentScannerImpl
 
     // other info
 
-    /** Document system identifier.
-     * REVISIT:  So what's this used for?  - NG
-    * protected String fDocumentSystemId;
-     ******/
-
     // features
 
     /** Notify built-in references. */
@@ -266,7 +261,7 @@ public class XMLDocumentFragmentScannerImpl
 
     /**
      * Saw spaces after element name or between attributes.
-     *
+     * <p>
      * This is reserved for the case where scanning of a start element spans
      * several methods, as is the case when scanning the start of a root element
      * where a DTD external subset may be read after scanning the element name.
@@ -1546,7 +1541,7 @@ public class XMLDocumentFragmentScannerImpl
      * This interface defines an XML "event" dispatching model. Classes
      * that implement this interface are responsible for scanning parts
      * of the XML document and dispatching callbacks.
-     *
+     * <p>
          *
      * @author Glenn Marcy, IBM
      */

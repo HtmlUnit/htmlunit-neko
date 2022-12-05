@@ -58,7 +58,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
 /**
  * This class is the non validating parser configuration
  * used to parse XML 1.0 and XML 1.1 documents.
- *
+ * <p>
  * Xerces parser that uses this configuration is <strong>not</strong> <a href="http://www.w3.org/TR/REC-xml#sec-conformance">conformant</a>
  * non-validating XML processor, since conformant non-validating processor is required
  * to process "all the declarations they read in the internal DTD subset ... must use the information in those declarations to normalize attribute values,
@@ -705,7 +705,7 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
 
     /**
      * Set the state of a feature.
-     *
+     * <p>
      * Set the state of any feature in a SAX2 parser.  The parser
      * might not recognize the feature, and if it does recognize
      * it, it might not be able to fulfill the request.

@@ -960,7 +960,7 @@ public class XMLDTDScannerImpl
      * </pre>
      *
      * @param elName The element type name this declaration is about.
-     *
+     * <p>
      * <strong>Note:</strong> Called after scanning past the first open
      * paranthesis.
      */

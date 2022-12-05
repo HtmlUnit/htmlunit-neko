@@ -31,7 +31,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 /**
  * DeferredElementNSImpl is to ElementNSImpl, what DeferredElementImpl is to
  * ElementImpl.
- *
+ * <p>
  *
  * @see DeferredElementImpl
  */

@@ -28,10 +28,10 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  * <strong>Note:</strong> The error object that describes the error
  * might be reused by Xerces implementation, across multiple calls to the
  * handleEvent method on DOMErrorHandler interface.
- *
+ * <p>
  *
  * <p>See also the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document Object Model (DOM) Level 3 Core Specification</a>.
- *
+ * <p>
  *
  * @author Gopal Sharma, SUN Microsystems Inc.
  * @author Elena Litani, IBM

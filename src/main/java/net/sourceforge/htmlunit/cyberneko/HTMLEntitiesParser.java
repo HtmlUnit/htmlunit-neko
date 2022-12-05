@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.cyberneko;
 /**
  * Parser for the Pre-defined named HTML entities.
  * <a href="https://html.spec.whatwg.org/multipage/parsing.html#character-reference-state">12.2.5.72 Character reference state</a>
- *
+ * <p>
  * From the spec:<br>
  * Consume the maximum number of characters possible, with the consumed characters matching
  * one of the identifiers in the first column of the named character references table

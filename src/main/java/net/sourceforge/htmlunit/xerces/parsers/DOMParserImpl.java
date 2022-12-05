@@ -828,7 +828,7 @@ public class DOMParserImpl
 
     /**
      *  DOM Level 3 CR - Experimental.
-     *
+     * <p>
      *  The list of the parameters supported by this
      * <code>DOMConfiguration</code> object and for which at least one value
      * can be set by the application. Note that this list can also contain

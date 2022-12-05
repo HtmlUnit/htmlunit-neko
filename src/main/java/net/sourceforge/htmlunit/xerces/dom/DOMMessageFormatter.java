@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * Used to format DOM error messages, using the system locale.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

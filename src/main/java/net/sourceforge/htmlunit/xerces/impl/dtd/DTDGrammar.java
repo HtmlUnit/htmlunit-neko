@@ -50,7 +50,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
  * A DTD grammar. This class implements the XNI handler interfaces
  * for DTD information so that it can build the appropriate validation
  * structures automatically from the callbacks.
- *
+ * <p>
  *
  * @author Eric Ye, IBM
  * @author Jeffrey Rodriguez, IBM
@@ -1735,11 +1735,6 @@ public class DTDGrammar
         // Get the type of content this element has
         int contentSpecIndex = fElementDeclContentSpecIndex[chunk][index];
 
-        /***
-        if ( contentSpecIndex == -1 )
-            return null;
-        /***/
-
         XMLContentSpec  contentSpec = new XMLContentSpec();
         getContentSpec( contentSpecIndex, contentSpec );
 
@@ -2622,7 +2617,7 @@ public class DTDGrammar
 
     /**
      * Children list for <code>contentSpecTree</code> method.
-     *
+     * <p>
          *
      * @author Eric Ye, IBM
      */
@@ -2660,7 +2655,7 @@ public class DTDGrammar
     /**
      * A simple Hashtable implementation that takes a tuple (String, String)
      * as the key and a int as value.
-     *
+     * <p>
          *
      * @author Eric Ye, IBM
      * @author Andy Clark, IBM

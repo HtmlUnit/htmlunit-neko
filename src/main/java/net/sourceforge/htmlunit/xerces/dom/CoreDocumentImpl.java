@@ -73,7 +73,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * <p>
  * <b>Note:</b> When any node in the document is serialized, the
  * entire document is serialized along with it.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
@@ -85,12 +85,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class CoreDocumentImpl
 extends ParentNode implements Document  {
 
-    /**TODO::
-     * 1. Change XML11Char method names similar to XMLChar. That will prevent lot
-     * of dirty version checking code.
-     *
-     * 2. IMO during cloneNode qname/isXMLName check should not be made.
-     */
     //
     // Constants
     //
@@ -167,7 +161,7 @@ extends ParentNode implements Document  {
      * to "false negatives", though that's the difference between "wildly
      * unlikely" and "absurdly unlikely". IF we start maintaining digests,
      * we should consider taking advantage of them.
-     *
+     * <p>
      * Note: This used to be done a node basis, so that we knew what
      * subtree changed. But since only DeepNodeList really use this today,
      * the gain appears to be really small compared to the cost of having
@@ -372,7 +366,7 @@ extends ParentNode implements Document  {
      * While I'm doing so, I've taken advantage of the opportunity to
      * cache documentElement and docType so we don't have to
      * search for them.
-     *
+     * <p>
      * REVISIT: According to the spec it is not allowed to alter neither the
      * document element nor the document type in any way
      */
@@ -414,7 +408,7 @@ extends ParentNode implements Document  {
     /**
      * Since insertBefore caches the docElement (and, currently, docType),
      * removeChild has to know how to undo the cache
-     *
+     * <p>
      * REVISIT: According to the spec it is not allowed to alter neither the
      * document element nor the document type in any way
      */
@@ -439,7 +433,7 @@ extends ParentNode implements Document  {
     /**
      * Since we cache the docElement (and, currently, docType),
      * replaceChild has to update the cache
-     *
+     * <p>
      * REVISIT: According to the spec it is not allowed to alter neither the
      * document element nor the document type in any way
      */
@@ -708,7 +702,7 @@ extends ParentNode implements Document  {
      * HTML, where it is legal to have more than one Element at the top
      * level of the document, we pick the one with the tagName
      * "HTML". For XML there should be only one top-level
-     *
+     * <p>
      * (HTML not yet supported.)
      */
     @Override
@@ -801,7 +795,7 @@ extends ParentNode implements Document  {
 
     /**
      * DOM Level 3 CR - Experimental. (Was getActualEncoding)
-     *
+     * <p>
      * An attribute specifying the encoding used for this document
      * at the time of the parsing. This is <code>null</code> when
      * it is not known, such as when the <code>Document</code> was
@@ -815,7 +809,7 @@ extends ParentNode implements Document  {
     /**
      * DOM Internal
      * (Was a DOM L3 Core WD public interface method setActualEncoding )
-     *
+     * <p>
      * An attribute specifying the actual encoding of this document. This is
      * <code>null</code> otherwise.
      * <br> This attribute represents the property [character encoding scheme]
@@ -828,7 +822,7 @@ extends ParentNode implements Document  {
     /**
      * DOM Internal
      * (Was a DOM L3 Core WD public interface method setXMLEncoding )
-     *
+     * <p>
      * An attribute specifying, as part of the XML declaration,
      * the encoding of this document. This is null when unspecified.
      */
@@ -889,7 +883,7 @@ extends ParentNode implements Document  {
 
     /**
      * DOM Level 3 CR - Experimental.
-     *
+     * <p>
      * Xmlstandalone - An attribute specifying, as part of the XML declaration,
      * whether this document is standalone
      * @exception DOMException
@@ -1128,7 +1122,7 @@ extends ParentNode implements Document  {
 
     /**
      * DOM Level 3 CR - Experimental
-     *
+     * <p>
      *  The configuration used when <code>Document.normalizeDocument</code> is
      * invoked.
      */
@@ -1224,7 +1218,7 @@ extends ParentNode implements Document  {
 
     /**
      * DOM Level 3 WD - Experimental.
-     *
+     * <p>
      * Replaces the content of the document with the result of parsing the
      * given URI. Invoking this method will either block the caller or
      * return to the caller immediately depending on the value of the async
@@ -1441,7 +1435,7 @@ extends ParentNode implements Document  {
      * Overloaded implementation of DOM's importNode method. This method
      * provides the core functionality for the public importNode and cloneNode
      * methods.
-     *
+     * <p>
      * The reversedIdentifiers parameter is provided for cloneNode to
      * preserve the document's identifiers. The HashMap has Elements as the
      * keys and their identifiers as the values. When an element is being

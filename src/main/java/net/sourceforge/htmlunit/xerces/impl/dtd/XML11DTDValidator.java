@@ -23,7 +23,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 /**
  * This allows the validator to correctlyhandle XML 1.1
  * documents.
- *
+ * <p>
  *
  * @author Neil Graham
  */

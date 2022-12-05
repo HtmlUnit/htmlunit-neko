@@ -71,7 +71,7 @@ import net.sourceforge.htmlunit.xerces.util.URI;
  * changes in the Entity. And it can take advantage of the same
  * structure-change-monitoring code I implemented to support
  * DeepNodeList.
- *
+ * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
@@ -99,11 +99,6 @@ implements EntityReference {
     protected String baseURI;
 
 
-    /** Entity changes. */
-    //protected int entityChanges = -1;
-
-    /** Enable synchronize. */
-    //protected boolean fEnableSynchronize = false;
 
     //
     // Constructors

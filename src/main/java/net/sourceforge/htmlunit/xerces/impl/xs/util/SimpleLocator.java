@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 
 /**
  * An XMLLocator implementation used for schema error reporting.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

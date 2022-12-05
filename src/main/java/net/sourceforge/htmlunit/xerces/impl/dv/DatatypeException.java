@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * created from an error message. For Schema types, it needs an error code
  * (as defined in Appendix C of the structure spec), plus an array of arguments,
  * for error message substitution.
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */
@@ -71,7 +71,7 @@ public class DatatypeException extends Exception {
 
     /**
      * Overrides this method to get the formatted&localized error message.
-     *
+     * <p>
      * REVISIT: the system locale is used to load the property file.
      *          do we want to allow the appilcation to specify a
      *          different locale?

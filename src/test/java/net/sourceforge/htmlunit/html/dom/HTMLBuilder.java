@@ -34,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.dom.ProcessingInstructionImpl;
  * This is a SAX document handler that is used to build an HTML document.
  * It can build a document from any SAX parser, but is specifically tuned
  * for working with the OpenXML HTML parser.
- *
+ * <p>
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@openxml.org">Assaf Arkin</a>

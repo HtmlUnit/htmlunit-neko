@@ -91,8 +91,6 @@ public class XMLDTDValidator
     // Constants
     //
 
-    /** Symbol: "&lt;&lt;datatypes>>". */
-
     // feature identifiers
 
     /** Feature identifier: namespaces. */
@@ -1694,11 +1692,6 @@ public class XMLDTDValidator
         }
         else if (contentType == -1) {
             //REVISIT
-            /****
-            reportRecoverableXMLError(XMLMessages.MSG_ELEMENT_NOT_DECLARED,
-                                      XMLMessages.VC_ELEMENT_VALID,
-                                      elementType);
-            /****/
         }
         else if (contentType == XMLElementDecl.TYPE_SIMPLE) {
 
@@ -1708,14 +1701,6 @@ public class XMLDTDValidator
         }
         else {
             //REVISIT
-            /****
-            fErrorReporter.reportError(fErrorReporter.getLocator(),
-                                       ImplementationMessages.XERCES_IMPLEMENTATION_DOMAIN,
-                                       ImplementationMessages.VAL_CST,
-                                       0,
-                                       null,
-                                       XMLErrorReporter.ERRORTYPE_FATAL_ERROR);
-            /****/
         }
 
         // We succeeded

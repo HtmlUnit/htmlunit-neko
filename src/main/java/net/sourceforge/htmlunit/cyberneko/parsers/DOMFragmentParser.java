@@ -262,7 +262,7 @@ public class DOMFragmentParser
 
     /**
      * Query the state of a feature.
-     *
+     * <p>
      * Query the current state of any feature in a SAX2 parser.  The
      * parser might not recognize the feature.
      *
@@ -321,7 +321,7 @@ public class DOMFragmentParser
 
     /**
      * Query the value of a property.
-     *
+     * <p>
      * Return the current value of a property in a SAX2 parser.
      * The parser might not recognize the property.
      *

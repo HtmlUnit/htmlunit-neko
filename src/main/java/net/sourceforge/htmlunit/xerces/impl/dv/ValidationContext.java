@@ -22,7 +22,7 @@ import java.util.Locale;
 /**
  * ValidationContext has all the information required for the
  * validation of: id, idref, entity, notation, qname
- *
+ * <p>
  *
  * @author Sandy Gao, IBM
  */

@@ -25,7 +25,7 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
 
 /**
  * the factory to create/return built-in XML 1.1 DVs and create user-defined DVs
- *
+ * <p>
  *
  * @author Neil Graham, IBM
  */

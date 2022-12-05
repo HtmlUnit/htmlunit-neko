@@ -54,7 +54,7 @@ import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
  * Note: &lt;FRAMESET&gt; documents are not supported at the moment, neither
  * are direct document writing ({@link #open}, {@link #write}) and HTTP attribute
  * methods ({@link #getURL}, {@link #getCookie}).
- *
+ * <p>
  *
  * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
@@ -157,29 +157,6 @@ public class HTMLDocumentImpl
         {
             if ( html instanceof HTMLHtmlElement )
             {
-                // REVISIT: [Q] Why is this code even here? In fact, the
-                //          original code is in error because it will
-                //          try to move ALL nodes to be children of the
-                //          HTML tag. This is not the intended behavior
-                //          for comments and processing instructions
-                //          outside the root element; it will throw a
-                //          hierarchy request error exception for doctype
-                //          nodes; *and* this code shouldn't even be
-                //          needed because the parser should never build
-                //          a document that contains more than a single
-                //          root element, anyway! -Ac
-                /***
-                synchronized ( html )
-                {
-                    child = getFirstChild();
-                    while ( child != null && child != html )
-                    {
-                        next = child.getNextSibling();
-                        html.appendChild( child );
-                        child = next;
-                    }
-                }
-                /***/
                 return (HTMLElement) html;
             }
             html = html.getNextSibling();

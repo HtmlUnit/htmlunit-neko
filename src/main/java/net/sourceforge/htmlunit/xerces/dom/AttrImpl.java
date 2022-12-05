@@ -98,7 +98,7 @@ import org.w3c.dom.TypeInfo;
  *
  * <p><b>WARNING</b>: Some of the code here is partially duplicated in
  * ParentNode, be careful to keep these two classes in sync!
- *
+ * <p>
  *
  * @see AttrNSImpl
  *
@@ -145,7 +145,7 @@ public class AttrImpl
     protected AttrImpl(CoreDocumentImpl ownerDocument, String name) {
         super(ownerDocument);
         this.name = name;
-        /** False for default attributes. */
+        /* False for default attributes. */
         isSpecified(true);
         hasStringValue(true);
     }

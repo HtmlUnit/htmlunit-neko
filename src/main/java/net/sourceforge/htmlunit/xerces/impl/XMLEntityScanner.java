@@ -32,7 +32,7 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 
 /**
  * Implements the entity scanner methods.
- *
+ * <p>
  *
  * @author Andy Clark, IBM
  * @author Neil Graham, IBM
@@ -699,9 +699,7 @@ public class XMLEntityScanner implements XMLLocator {
                     if (fCurrentEntity.ch[fCurrentEntity.position] == '\n') {
                         fCurrentEntity.position++;
                         offset++;
-                    }
-                    /*** NEWLINE NORMALIZATION ***/
-                    else {
+                    } else {
                         newlines++;
                     }
                 }
@@ -853,12 +851,9 @@ public class XMLEntityScanner implements XMLLocator {
                     if (fCurrentEntity.ch[fCurrentEntity.position] == '\n') {
                         fCurrentEntity.position++;
                         offset++;
-                    }
-                    /*** NEWLINE NORMALIZATION ***/
-                    else {
+                    } else {
                         newlines++;
                     }
-                    /***/
                 }
                 else if (c == '\n') {
                     newlines++;
@@ -1051,9 +1046,7 @@ public class XMLEntityScanner implements XMLLocator {
                     if (fCurrentEntity.ch[fCurrentEntity.position] == '\n') {
                         fCurrentEntity.position++;
                         offset++;
-                    }
-                    /*** NEWLINE NORMALIZATION ***/
-                    else {
+                    } else {
                         newlines++;
                     }
                 }
@@ -1273,14 +1266,6 @@ public class XMLEntityScanner implements XMLLocator {
                             fCurrentEntity.position--;
                         }
                     }
-                    /*** NEWLINE NORMALIZATION ***
-                    else {
-                        if (fCurrentEntity.ch[fCurrentEntity.position + 1] == '\r'
-                            && external) {
-                            fCurrentEntity.position++;
-                        }
-                    }
-                    /***/
                 }
                 else {
                     fCurrentEntity.columnNumber++;
@@ -1366,14 +1351,6 @@ public class XMLEntityScanner implements XMLLocator {
                             fCurrentEntity.position--;
                         }
                     }
-                    /*** NEWLINE NORMALIZATION ***
-                    else {
-                        if (fCurrentEntity.ch[fCurrentEntity.position + 1] == '\r'
-                            && external) {
-                            fCurrentEntity.position++;
-                        }
-                    }
-                    /***/
                 }
                 else {
                     fCurrentEntity.columnNumber++;

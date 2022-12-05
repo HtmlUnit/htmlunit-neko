@@ -24,7 +24,7 @@ import org.w3c.dom.ProcessingInstruction;
  * Processing Instructions (PIs) permit documents to carry
  * processor-specific information alongside their actual content. PIs
  * are most common in XML, but they are supported in HTML as well.
- *
+ * <p>
  * This class inherits from CharacterDataImpl to reuse its setNodeValue method.
  */
 public class ProcessingInstructionImpl
