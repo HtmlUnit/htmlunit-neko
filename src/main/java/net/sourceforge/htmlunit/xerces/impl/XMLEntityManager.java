@@ -985,10 +985,10 @@ public class XMLEntityManager
                         final HTTPInputSource httpInputSource = (HTTPInputSource) xmlInputSource;
 
                         // set request properties
-                        Iterator propIter = httpInputSource.getHTTPRequestProperties();
+                        Iterator<Map.Entry<String, String>> propIter = httpInputSource.getHTTPRequestProperties();
                         while (propIter.hasNext()) {
-                            Map.Entry entry = (Map.Entry) propIter.next();
-                            urlConnection.setRequestProperty((String) entry.getKey(), (String) entry.getValue());
+                            Map.Entry<String, String> entry = propIter.next();
+                            urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
                         }
 
                         // set preference for redirection

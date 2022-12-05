@@ -230,13 +230,9 @@ public class DTDGrammar
     // for buildSyntaxTree method
 
     private int fLeafCount = 0;
-    private final int fEpsilonIndex = -1;
 
     /** Element declaration. */
     private XMLElementDecl fElementDecl = new XMLElementDecl();
-
-    /** Entity declaration. */
-    private final XMLEntityDecl fEntityDecl = new XMLEntityDecl();
 
     /** Simple type. */
     private final XMLSimpleType fSimpleType = new XMLSimpleType();
@@ -245,7 +241,7 @@ public class DTDGrammar
     private final XMLContentSpec fContentSpec = new XMLContentSpec();
 
     /** table of XMLElementDecl   */
-    final Hashtable   fElementDeclTab     = new Hashtable();
+    final Hashtable<String, XMLElementDecl> fElementDeclTab     = new Hashtable<>();
 
     /** Children content model operation stack. */
     private short[] fOpStack = null;
@@ -477,7 +473,7 @@ public class DTDGrammar
     public void elementDecl(String name, String contentModel, Augmentations augs)
         throws XNIException {
 
-        XMLElementDecl tmpElementDecl = (XMLElementDecl) fElementDeclTab.get(name) ;
+        XMLElementDecl tmpElementDecl = fElementDeclTab.get(name) ;
 
         // check if it is already defined
         if ( tmpElementDecl != null ) {
@@ -806,7 +802,7 @@ public class DTDGrammar
             int chunk, index = 0;
             String currName = null;
             final int size = fElementDeclCount;
-            ArrayList elements = new ArrayList(size);
+            ArrayList<String> elements = new ArrayList<>(size);
             for (int i = 0; i < size; ++i) {
                 chunk = i >> CHUNK_SHIFT;
                 index = i & CHUNK_MASK;
@@ -969,7 +965,7 @@ public class DTDGrammar
     public void startContentModel(String elementName, Augmentations augs)
         throws XNIException {
 
-        XMLElementDecl elementDecl = (XMLElementDecl) this.fElementDeclTab.get( elementName);
+        XMLElementDecl elementDecl = this.fElementDeclTab.get( elementName);
         if ( elementDecl != null ) {
             fElementDecl = elementDecl;
         }

@@ -20,13 +20,11 @@ package net.sourceforge.htmlunit.xerces.impl;
 import java.util.Hashtable;
 import java.util.Locale;
 
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
 import net.sourceforge.htmlunit.xerces.util.DefaultErrorHandler;
-import net.sourceforge.htmlunit.xerces.util.ErrorHandlerProxy;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
@@ -147,7 +145,7 @@ public class XMLErrorReporter
     protected Locale fLocale;
 
     /** Mapping of Message formatters for domains. */
-    protected final Hashtable fMessageFormatters;
+    protected final Hashtable<String, MessageFormatter> fMessageFormatters;
 
     /** Error handler. */
     protected XMLErrorHandler fErrorHandler;
@@ -166,33 +164,13 @@ public class XMLErrorReporter
      */
     protected XMLErrorHandler fDefaultErrorHandler;
 
-    /** A SAX proxy to the error handler contained in this error reporter. */
-    private ErrorHandler fSaxProxy = null;
-
     //
     // Constructors
     //
 
     /** Constructs an error reporter with a locator. */
     public XMLErrorReporter() {
-
-        // REVISIT: [Q] Should the locator be passed to the reportError
-        //              method? Otherwise, there is no way for a parser
-        //              component to store information about where an
-        //              error occurred so as to report it later.
-        //
-        //              An example would be to record the location of
-        //              IDREFs so that, at the end of the document, if
-        //              there is no associated ID declared, the error
-        //              could report the location information of the
-        //              reference. -Ac
-        //
-        // NOTE: I added another reportError method that allows the
-        //       caller to specify the location of the error being
-        //       reported. -Ac
-
-        fMessageFormatters = new Hashtable();
-
+        fMessageFormatters = new Hashtable<>();
     } // <init>()
 
     //
@@ -249,7 +227,7 @@ public class XMLErrorReporter
      * @param domain The domain of the message formatter.
      */
     public MessageFormatter getMessageFormatter(String domain) {
-        return (MessageFormatter)fMessageFormatters.get(domain);
+        return fMessageFormatters.get(domain);
     } // getMessageFormatter(String):MessageFormatter
 
     /**
@@ -259,7 +237,7 @@ public class XMLErrorReporter
      * @param domain The domain of the message formatter.
      */
     public MessageFormatter removeMessageFormatter(String domain) {
-        return (MessageFormatter) fMessageFormatters.remove(domain);
+        return fMessageFormatters.remove(domain);
     } // removeMessageFormatter(String):MessageFormatter
 
     /**
@@ -599,22 +577,6 @@ public class XMLErrorReporter
      */
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
-    }
-
-    /**
-     * Gets the internal XMLErrorHandler
-     * as SAX ErrorHandler.
-     */
-    public ErrorHandler getSAXErrorHandler() {
-        if (fSaxProxy == null) {
-            fSaxProxy = new ErrorHandlerProxy() {
-                @Override
-                protected XMLErrorHandler getErrorHandler() {
-                    return fErrorHandler;
-                }
-            };
-        }
-        return fSaxProxy;
     }
 
 } // class XMLErrorReporter

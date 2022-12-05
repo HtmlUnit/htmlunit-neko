@@ -189,7 +189,6 @@ public abstract class AbstractSAXParser
 
     // temp vars
     private final AttributesProxy fAttributesProxy = new AttributesProxy();
-    private Augmentations fAugmentations = null;
 
     // allows us to keep track of whether an attribute has
     // been declared twice, so that we can avoid exposing the
@@ -491,8 +490,6 @@ public abstract class AbstractSAXParser
                     }
                 }
 
-                fAugmentations = augs;
-
                 String uri = element.uri != null ? element.uri : "";
                 String localpart = fNamespaces ? element.localpart : "";
                 fAttributesProxy.setAttributes(attributes);
@@ -596,7 +593,6 @@ public abstract class AbstractSAXParser
 
             // SAX2
             if (fContentHandler != null) {
-                fAugmentations = augs;
                 String uri = element.uri != null ? element.uri : "";
                 String localpart = fNamespaces ? element.localpart : "";
                 fContentHandler.endElement(uri, localpart,
@@ -2220,7 +2216,6 @@ public abstract class AbstractSAXParser
 
         // features
         fNamespaces = fConfiguration.getFeature(NAMESPACES);
-        fAugmentations = null;
         fDeclaredAttrs = null;
 
     } // reset()
