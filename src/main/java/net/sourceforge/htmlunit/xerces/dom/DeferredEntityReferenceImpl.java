@@ -18,7 +18,7 @@
 package net.sourceforge.htmlunit.xerces.dom;
 
 /**
- * EntityReference models the XML &entityname; syntax, when used for
+ * EntityReference models the XML &amp;entityname; syntax, when used for
  * entities defined by the DOM. Entities hardcoded into XML, such as
  * character entities, should instead have been translated into text
  * by the code which generated the DOM tree.
@@ -69,27 +69,17 @@ public class DeferredEntityReferenceImpl
     extends EntityReferenceImpl
     implements DeferredNode {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 390319091370032223L;
-
-    //
-    // Data
-    //
 
     /** Node index. */
     protected final transient int fNodeIndex;
 
-    //
-    // Constructors
-    //
-
     /**
      * This is the deferred constructor. Only the fNodeIndex is given here.
      * All other data, can be requested from the ownerDocument via the index.
+     * @param ownerDocument owner document
+     * @param nodeIndex node index
      */
     DeferredEntityReferenceImpl(DeferredDocumentImpl ownerDocument,
                                 int nodeIndex) {
@@ -98,23 +88,21 @@ public class DeferredEntityReferenceImpl
         fNodeIndex = nodeIndex;
         needsSyncData(true);
 
-    } // <init>(DeferredDocumentImpl,int)
+    }
 
-    //
-    // DeferredNode methods
-    //
-
-    /** Returns the node index. */
+    /**
+     * {@inheritDoc}
+     *
+     * Returns the node index.
+     */
     @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
 
-    //
-    // Protected methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Synchronize the entity data. This is special because of the way
      * that the "fast" version stores the information.
      */
@@ -130,9 +118,13 @@ public class DeferredEntityReferenceImpl
         name = ownerDocument.getNodeName(fNodeIndex);
         baseURI = ownerDocument.getNodeValue(fNodeIndex);
 
-    } // synchronizeData()
+    }
 
-    /** Synchronize the children. */
+    /**
+     * {@inheritDoc}
+     *
+     * Synchronize the children.
+     */
     @Override
     protected void synchronizeChildren() {
 
@@ -146,6 +138,5 @@ public class DeferredEntityReferenceImpl
         ownerDocument.synchronizeChildren(this, fNodeIndex);
         setReadOnly(true, true);
 
-    } // synchronizeChildren()
-
-} // class DeferredEntityReferenceImpl
+    }
+}

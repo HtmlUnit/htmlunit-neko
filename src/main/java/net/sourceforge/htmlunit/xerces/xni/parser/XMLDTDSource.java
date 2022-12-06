@@ -32,14 +32,12 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
  */
 public interface XMLDTDSource {
 
-    //
-    // XMLDTDSource methods
-    //
-
-    /** Sets the DTD handler. */
+    /**
+     * Sets the DTD handler.
+     * @param handler the handler
+     */
     void setDTDHandler(XMLDTDHandler handler);
 
-    /** Returns the DTD handler. */
+    /** @return the DTD handler. */
     XMLDTDHandler getDTDHandler();
-
-} // interface XMLDTDSource
+}

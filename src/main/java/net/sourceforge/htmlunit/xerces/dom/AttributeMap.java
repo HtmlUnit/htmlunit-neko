@@ -45,7 +45,11 @@ public class AttributeMap extends NamedNodeMapImpl {
     // Constructors
     //
 
-    /** Constructs a named node map. */
+    /**
+     * Constructs a named node map.
+     * @param ownerNode the owner node
+     * @param defaults defaults
+     */
     protected AttributeMap(ElementImpl ownerNode, NamedNodeMapImpl defaults) {
         super(ownerNode);
         if (defaults != null) {
@@ -207,7 +211,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         }
         return previous;
 
-    } // setNamedItemNS(Node):Node
+    }
 
     /**
      * Removes an attribute specified by name.
@@ -218,7 +222,7 @@ public class AttributeMap extends NamedNodeMapImpl {
      *      as well as the corresponding namespace URI, local name,
      *      and prefix when applicable.
      * @return The node removed from the map if a node with such a name exists.
-     * @throws              NOT_FOUND_ERR: Raised if there is no node named
+     * @throws DOMException NOT_FOUND_ERR: Raised if there is no node named
      *                      name in the map.
      */
     @Override
@@ -246,7 +250,7 @@ public class AttributeMap extends NamedNodeMapImpl {
      * @param item       The node to remove
      * @param addDefault true -- magically add default attribute
      * @return Removed node
-     * @exception DOMException
+     * @exception DOMException on error
      */
     protected Node removeItem(Node item, boolean addDefault)
         throws DOMException {
@@ -272,6 +276,9 @@ public class AttributeMap extends NamedNodeMapImpl {
     /**
      * Internal removeNamedItem method allowing to specify whether an exception
      * must be thrown if the specified name is not found.
+     * @param name the mane
+     * @param raiseEx if true raise an exception
+     * @return the node
      */
     final protected Node internalRemoveNamedItem(String name, boolean raiseEx){
         if (isReadOnly()) {
@@ -289,8 +296,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         }
 
         return remove((AttrImpl)nodes.get(i), i, true);
-
-    } // internalRemoveNamedItem(String,boolean):Node
+    }
 
     private Node remove(AttrImpl attr, int index,
                         boolean addDefault) {
@@ -364,7 +370,7 @@ public class AttributeMap extends NamedNodeMapImpl {
      *                      containing the default value.
      * @return Node         The node removed from the map if a node with such
      *                      a local name and namespace URI exists.
-     * @throws              NOT_FOUND_ERR: Raised if there is no node named
+     * @throws DOMException NOT_FOUND_ERR: Raised if there is no node named
      *                      name in the map.
      */
     @Override
@@ -376,6 +382,8 @@ public class AttributeMap extends NamedNodeMapImpl {
     /**
      * Same as removeNamedItem except that it simply returns null if the
      * specified local name and namespace URI is not found.
+     * @param namespaceURI the namespace uri
+     * @param name the name
      */
     Node safeRemoveNamedItemNS(String namespaceURI, String name) {
         return internalRemoveNamedItemNS(namespaceURI, name, false);
@@ -385,6 +393,10 @@ public class AttributeMap extends NamedNodeMapImpl {
      * Internal removeNamedItemNS method allowing to specify whether an
      * exception must be thrown if the specified local name and namespace URI
      * is not found.
+     * @param namespaceURI the namespace uri
+     * @param name the name
+     * @param raiseEx if true raise exception
+     * @return the node
      */
     final protected Node internalRemoveNamedItemNS(String namespaceURI,
             String name,
@@ -461,18 +473,16 @@ public class AttributeMap extends NamedNodeMapImpl {
         ownerDocument.removedAttrNode(n, ownerNode, name);
 
         return n;
-
-    } // internalRemoveNamedItemNS(String,String,boolean):Node
-
-    //
-    // Public methods
-    //
+    }
 
     /**
      * Cloning a NamedNodeMap is a DEEP OPERATION; it always clones
      * all the nodes contained in the map.
      */
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NamedNodeMapImpl cloneMap(NodeImpl ownerNode) {
         AttributeMap newmap =
@@ -484,6 +494,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Override parent's method to set the ownerNode correctly
+     * @param srcmap the source map
      */
     @Override
     protected void cloneContent(NamedNodeMapImpl srcmap) {
@@ -507,11 +518,12 @@ public class AttributeMap extends NamedNodeMapImpl {
                 }
             }
         }
-    } // cloneContent():AttributeMap
+    }
 
 
     /**
      * Move specified attributes from the given map to this one
+     * @param srcmap the source map
      */
     void moveSpecifiedAttributes(AttributeMap srcmap) {
         int nsize = (srcmap.nodes != null) ? srcmap.nodes.size() : 0;
@@ -527,7 +539,7 @@ public class AttributeMap extends NamedNodeMapImpl {
                 }
             }
         }
-    } // moveSpecifiedAttributes(AttributeMap):void
+    }
 
 
     /**
@@ -566,9 +578,11 @@ public class AttributeMap extends NamedNodeMapImpl {
                 }
             }
         }
+    }
 
-    } // reconcileDefaults()
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final int addItem (Node arg) {
 
@@ -603,4 +617,4 @@ public class AttributeMap extends NamedNodeMapImpl {
         return i;
     }
 
-} // class AttributeMap
+}

@@ -258,7 +258,7 @@ public class XMLDocumentScannerImpl
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Thrown by component on initialization error.
+     * @throws XMLConfigurationException Thrown by component on initialization error.
      *                      For example, if a feature or property is
      *                      required for the operation of the component, the
      *                      component manager may throw a
@@ -353,10 +353,8 @@ public class XMLDocumentScannerImpl
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -409,10 +407,8 @@ public class XMLDocumentScannerImpl
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -544,11 +540,9 @@ public class XMLDocumentScannerImpl
     @Override
     protected Dispatcher createContentDispatcher() {
         return new ContentDispatcher();
-    } // createContentDispatcher():Dispatcher
+    }
 
-    // scanning methods
-
-    /** Scans a doctype declaration. */
+    // Scans a doctype declaration.
     protected boolean scanDoctypeDecl() throws IOException, XNIException {
 
         // spaces

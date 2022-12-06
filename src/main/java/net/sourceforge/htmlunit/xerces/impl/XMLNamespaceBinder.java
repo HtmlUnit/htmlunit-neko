@@ -170,7 +170,7 @@ public class XMLNamespaceBinder
     } // setOnlyPassPrefixMappingEvents(boolean)
 
     /**
-     * Returns true if the namespace binder only passes the prefix mapping
+     * @return true if the namespace binder only passes the prefix mapping
      * events to the registered document handler; false if the namespace
      * binder passes all document events.
      */
@@ -189,7 +189,7 @@ public class XMLNamespaceBinder
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Thrown by component on initialization error.
+     * @throws XNIException Thrown by component on initialization error.
      *                      For example, if a feature or property is
      *                      required for the operation of the component, the
      *                      component manager may throw a
@@ -234,10 +234,8 @@ public class XMLNamespaceBinder
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -257,8 +255,8 @@ public class XMLNamespaceBinder
     /**
      * Sets the value of a property during parsing.
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId property id
+     * @param value value
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -279,10 +277,10 @@ public class XMLNamespaceBinder
             return;
         }
 
-    } // setProperty(String,Object)
+    }
 
     /**
-     * Returns the default state for a feature, or null if this
+     * @return the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
      *
@@ -682,11 +680,7 @@ public class XMLNamespaceBinder
         }
     } // endEntity(String)
 
-    //
-    // Protected methods
-    //
-
-    /** Handles start element. */
+    // Handles start element.
     protected void handleStartElement(QName element, XMLAttributes attributes,
                                       Augmentations augs,
                                       boolean isEmpty) throws XNIException {
@@ -840,9 +834,9 @@ public class XMLNamespaceBinder
         }
 
 
-    } // handleStartElement(QName,XMLAttributes,boolean)
+    }
 
-    /** Handles end element. */
+    // Handles end element.
     protected void handleEndElement(QName element, Augmentations augs, boolean isEmpty)
         throws XNIException {
 
@@ -869,6 +863,5 @@ public class XMLNamespaceBinder
     // this is disallowed by the version of XML namespaces in use.
     protected boolean prefixBoundToNullURI(String uri, String localpart) {
         return (uri == XMLSymbols.EMPTY_STRING && localpart != XMLSymbols.PREFIX_XMLNS);
-    } // prefixBoundToNullURI(String, String):  boolean
-
-} // class XMLNamespaceBinder
+    }
+}

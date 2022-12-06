@@ -62,30 +62,20 @@ public class DocumentFragmentImpl
     extends ParentNode
     implements DocumentFragment {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -7596449967279236746L;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public DocumentFragmentImpl(CoreDocumentImpl ownerDoc) {
         super(ownerDoc);
     }
 
-    /** Constructor for serialization. */
+    // Constructor for serialization.
     public DocumentFragmentImpl() {}
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -94,13 +84,19 @@ public class DocumentFragmentImpl
         return Node.DOCUMENT_FRAGMENT_NODE;
     }
 
-    /** Returns the node name. */
+    /**
+     * {@inheritDoc}
+     *
+     * Returns the node name.
+     */
     @Override
     public String getNodeName() {
         return "#document-fragment";
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Override default behavior to call normalize() on this Node's
      * children. It is up to implementors or Node to override normalize()
      * to take action.
@@ -147,5 +143,4 @@ public class DocumentFragmentImpl
 
         isNormalized(true);
     }
-
-} // class DocumentFragmentImpl
+}

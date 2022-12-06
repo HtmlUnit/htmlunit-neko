@@ -57,16 +57,8 @@ public class EntityImpl
     extends ParentNode
     implements Entity {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -3575760943444303423L;
-
-    //
-    // Data
-    //
 
     /** Entity name. */
     protected String name;
@@ -94,22 +86,16 @@ public class EntityImpl
     /** base uri*/
     protected String baseURI;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public EntityImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
         isReadOnly(true);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -119,6 +105,8 @@ public class EntityImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the entity name
      */
     @Override
@@ -129,7 +117,11 @@ public class EntityImpl
         return name;
     }
 
-    /** Clone node. */
+    /**
+     * {@inheritDoc}
+     *
+     * Clone node.
+     */
     @Override
     public Node cloneNode(boolean deep) {
         EntityImpl newentity = (EntityImpl)super.cloneNode(deep);
@@ -137,11 +129,9 @@ public class EntityImpl
         return newentity;
     }
 
-    //
-    // Entity methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * The public identifier associated with the entity. If not specified,
      * this will be null.
      */
@@ -153,9 +143,11 @@ public class EntityImpl
         }
         return publicId;
 
-    } // getPublicId():String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * The system identifier associated with the entity. If not specified,
      * this will be null.
      */
@@ -167,9 +159,11 @@ public class EntityImpl
         }
         return systemId;
 
-    } // getSystemId():String
+    }
 
     /**
+     * {@inheritDoc}
+     *
       * DOM Level 3 WD - experimental
       * the version number of this entity, when it is an external parsed entity.
       */
@@ -181,10 +175,12 @@ public class EntityImpl
        }
        return version;
 
-   } // getVersion():String
+   }
 
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - experimental
      * the encoding of this entity, when it is an external parsed entity.
      */
@@ -197,13 +193,15 @@ public class EntityImpl
 
        return encoding;
 
-   } // getVersion():String
+   }
 
 
 
 
 
     /**
+     * {@inheritDoc}
+     *
      * Unparsed entities -- which contain non-XML data -- have a
      * "notation name" which tells applications how to deal with them.
      * Parsed entities, which <em>are</em> in XML format, don't need this and
@@ -219,13 +217,11 @@ public class EntityImpl
 
     } // getNotationName():String
 
-    //
-    // Public methods
-    //
-
     /**
      * DOM Level 2: The public identifier associated with the entity. If not specified,
-     * this will be null. */
+     * this will be null.
+     * @param id the id
+     */
     public void setPublicId(String id) {
 
         if (needsSyncData()) {
@@ -233,9 +229,11 @@ public class EntityImpl
         }
         publicId = id;
 
-    } // setPublicId(String)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM
      * encoding - An attribute specifying, as part of the text declaration,
      * the encoding of this entity, when it is an external parsed entity.
@@ -247,10 +245,12 @@ public class EntityImpl
             synchronizeData();
         }
         encoding = value;
-    } // setEncoding (String)
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * An attribute specifying the encoding used for this entity at the tiome
      * of parsing, when it is an external parsed entity. This is
      * <code>null</code> if it an entity from the internal subset or if it
@@ -264,9 +264,7 @@ public class EntityImpl
         return inputEncoding;
     }
 
-    /**
-     * NON-DOM, used to set the input encoding.
-     */
+     // NON-DOM, used to set the input encoding.
     public void setInputEncoding(String inputEncoding){
         if (needsSyncData()) {
             synchronizeData();
@@ -274,23 +272,22 @@ public class EntityImpl
         this.inputEncoding = inputEncoding;
     }
 
-    /**
-      * NON-DOM
-      * version - An attribute specifying, as part of the text declaration,
-      * the version number of this entity, when it is an external parsed entity.
-      * This is null otherwise
-      */
+    // NON-DOM
+    // version - An attribute specifying, as part of the text declaration,
+    // the version number of this entity, when it is an external parsed entity.
+    // This is null otherwise
     public void setXmlVersion(String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
         version = value;
-    } // setVersion (String)
+    }
 
 
     /**
      * DOM Level 2: The system identifier associated with the entity. If not
      * specified, this will be null.
+     * @param id the id
      */
     public void setSystemId(String id) {
         if (needsSyncData()) {
@@ -298,13 +295,14 @@ public class EntityImpl
         }
         systemId = id;
 
-    } // setSystemId(String)
+    }
 
     /**
      * DOM Level 2: Unparsed entities -- which contain non-XML data -- have a
      * "notation name" which tells applications how to deal with them.
      * Parsed entities, which <em>are</em> in XML format, don't need this and
      * set it to null.
+     * @param name the name
      */
     public void setNotationName(String name) {
         if (needsSyncData()) {
@@ -312,11 +310,13 @@ public class EntityImpl
         }
         notationName = name;
 
-    } // setNotationName(String)
+    }
 
 
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
@@ -332,14 +332,11 @@ public class EntityImpl
         return (baseURI!=null)?baseURI:((CoreDocumentImpl)getOwnerDocument()).getBaseURI();
     }
 
-    /** NON-DOM: set base uri*/
+    // NON-DOM: set base uri
     public void setBaseURI(String uri){
         if (needsSyncData()) {
             synchronizeData();
         }
         baseURI = uri;
     }
-
-
-
-} // class EntityImpl
+}

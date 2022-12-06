@@ -33,10 +33,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  */
 public interface XMLAttributes {
 
-    //
-    // XMLAttributes methods
-    //
-
     /**
      * Adds an attribute. The attribute's non-normalized value of the
      * attribute will have the same value as the attribute value until
@@ -62,8 +58,8 @@ public interface XMLAttributes {
      *
      * @return Returns the attribute index.
      *
-     * @see #setNonNormalizedValue
-     * @see #setSpecified
+     * @see #setNonNormalizedValue(int, String)
+     * @see #setSpecified(int, boolean)
      */
     int addAttribute(QName attrName, String attrType, String attrValue);
 
@@ -84,7 +80,7 @@ public interface XMLAttributes {
     void removeAttributeAt(int attrIndex);
 
     /**
-     * Returns the number of attributes in the list.
+     * @return the number of attributes in the list.
      * <p>
      * Once you know the number of attributes, you can iterate
      * through the list.
@@ -137,7 +133,7 @@ public interface XMLAttributes {
     void getName(int attrIndex, QName attrName);
 
     /**
-     * Returns the prefix of the attribute at the specified index.
+     * @return the prefix of the attribute at the specified index.
      *
      * @param index The index of the attribute.
      */
@@ -152,7 +148,7 @@ public interface XMLAttributes {
      *         is available, or null if the index is out of
      *         range.
      *
-     * @see #getLength
+     * @see #getLength()
      */
     String getURI(int index);
 
@@ -165,7 +161,7 @@ public interface XMLAttributes {
      *         processing is not being performed, or null
      *         if the index is out of range.
      *
-     * @see #getLength
+     * @see #getLength()
      */
     String getLocalName(int index);
 
@@ -178,7 +174,7 @@ public interface XMLAttributes {
      *         if none is available, or null if the index
      *         is out of range.
      *
-     * @see #getLength
+     * @see #getLength()
      */
     String getQName(int index);
 
@@ -217,7 +213,7 @@ public interface XMLAttributes {
      * @return The attribute's type as a string, or null if the
      *         index is out of range.
      *
-     * @see #getLength
+     * @see #getLength()
      */
     String getType(int index);
 
@@ -258,7 +254,7 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      * @param attrValue The new attribute value.
      *
-     * @see #setNonNormalizedValue
+     * @see #setNonNormalizedValue(int, String)
      */
     void setValue(int attrIndex, String attrValue);
 
@@ -275,7 +271,7 @@ public interface XMLAttributes {
      * @return The attribute's value as a string, or null if the
      *         index is out of range.
      *
-     * @see #getLength
+     * @see #getLength()
      */
     String getValue(int index);
 
@@ -318,7 +314,7 @@ public interface XMLAttributes {
     void setNonNormalizedValue(int attrIndex, String attrValue);
 
     /**
-     * Returns the non-normalized value of the attribute at the specified
+     * @return the non-normalized value of the attribute at the specified
      * index. If no non-normalized value is set, this method will return
      * the same value as the <code>getValue(int)</code> method.
      *
@@ -337,7 +333,7 @@ public interface XMLAttributes {
     void setSpecified(int attrIndex, boolean specified);
 
     /**
-     * Returns true if the attribute is specified in the instance document.
+     * @return true if the attribute is specified in the instance document.
      *
      * @param attrIndex The attribute index.
      */
@@ -357,7 +353,7 @@ public interface XMLAttributes {
      *
      * @param uri       The Namespace URI, or the empty string if
      *                  the name has no Namespace URI.
-     * @param localPart
+     * @param localPart the local part
      * @return Augmentations
      */
     Augmentations getAugmentations (String uri, String localPart);
@@ -382,6 +378,4 @@ public interface XMLAttributes {
      * @param augs      The augmentations.
      */
     void setAugmentations(int attrIndex, Augmentations augs);
-
-
-} // interface XMLAttributes
+}

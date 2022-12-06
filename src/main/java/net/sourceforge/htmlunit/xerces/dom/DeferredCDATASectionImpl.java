@@ -34,7 +34,7 @@ package net.sourceforge.htmlunit.xerces.dom;
  * <P>
  * Reminder: CDATA IS NOT A COMPLETELY GENERAL SOLUTION; it can't
  * quote its own end-of-block marking. If you need to write out a
- * CDATA that contains the ]]> sequence, it's your responsibility to
+ * CDATA that contains the ]]&gt; sequence, it's your responsibility to
  * split that string over two successive CDATAs at that time.
  * <P>
  * CDATA does not participate in Element.normalize() processing.
@@ -43,27 +43,17 @@ public class DeferredCDATASectionImpl
     extends CDATASectionImpl
     implements DeferredNode {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 1983580632355645726L;
-
-    //
-    // Data
-    //
 
     /** Node index. */
     protected final transient int fNodeIndex;
 
-    //
-    // Constructors
-    //
-
     /**
      * This is the deferred constructor. Only the fNodeIndex is given here. All other data,
      * can be requested from the ownerDocument via the index.
+     * @param ownerDocument the ownerDocument
+     * @param nodeIndex the index
      */
     DeferredCDATASectionImpl(DeferredDocumentImpl ownerDocument, int nodeIndex) {
         super(ownerDocument, null);
@@ -71,23 +61,21 @@ public class DeferredCDATASectionImpl
         fNodeIndex = nodeIndex;
         needsSyncData(true);
 
-    } // <init>(DeferredDocumentImpl,int)
+    }
 
-    //
-    // DeferredNode methods
-    //
-
-    /** Returns the node index. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getNodeIndex() {
         return fNodeIndex;
     }
 
-    //
-    // Protected methods
-    //
-
-    /** Synchronizes the data (name and value) for fast nodes. */
+    /**
+     * {@inheritDoc}
+     *
+     *  Synchronizes the data (name and value) for fast nodes.
+     */
     @Override
     protected void synchronizeData() {
 
@@ -98,7 +86,5 @@ public class DeferredCDATASectionImpl
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) this.ownerDocument();
         data = ownerDocument.getNodeValueString(fNodeIndex);
-
-    } // synchronizeData()
-
-} // class DeferredCDATASectionImpl
+    }
+}

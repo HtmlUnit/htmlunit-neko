@@ -62,20 +62,13 @@ public class XML11DocumentScannerImpl
     private final XMLStringBuffer fStringBuffer2 = new XMLStringBuffer();
     private final XMLStringBuffer fStringBuffer3 = new XMLStringBuffer();
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public XML11DocumentScannerImpl() {super();} // <init>()
 
-    //
-    // overridden methods
-    //
-
-    // XMLDocumentFragmentImpl methods
 
     /**
+     * {@inheritDoc}
+     *
      * Scans element content.
      *
      * @return Returns the next character on the stream.
@@ -128,13 +121,15 @@ public class XML11DocumentScannerImpl
         }
         return c;
 
-    } // scanContent():int
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
      * <p>
-     * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
+     * [10] AttValue ::= '"' ([^&lt;&amp;"] | Reference)* '"' | "'" ([^&lt;&amp;'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
      * @param nonNormalizedValue The XMLString to fill in with the
@@ -377,7 +372,10 @@ public class XML11DocumentScannerImpl
     // NOTE:  this is a carbon copy of the code in XML11DTDScannerImpl;
     // we need to override these methods in both places.
     // this needs to be refactored!!!  - NG
+
     /**
+     * {@inheritDoc}
+     *
      * Scans public ID literal.
      * <p>
      * [12] PubidLiteral ::= '"' PubidChar* '"' | "'" (PubidChar - "'")* "'"
@@ -446,6 +444,8 @@ public class XML11DocumentScannerImpl
    }
 
     /**
+     * {@inheritDoc}
+     *
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
@@ -461,6 +461,8 @@ public class XML11DocumentScannerImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
      */
@@ -476,6 +478,8 @@ public class XML11DocumentScannerImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Checks whether this string would be unchanged by normalization.
      *
      * @return -1 if the value would be unchanged by normalization,
@@ -500,7 +504,7 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isInvalid(int value) {
         return (XML11Char.isXML11Invalid(value));
-    } // isInvalid(int):  boolean
+    }
 
     // returns true if the given character is not
     // valid or may not be used outside a character reference
@@ -508,7 +512,7 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isInvalidLiteral(int value) {
         return (!XML11Char.isXML11ValidLiteral(value));
-    } // isInvalidLiteral(int):  boolean
+    }
 
     // returns true if the given character is
     // a valid nameChar with respect to the version of
@@ -516,7 +520,7 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isValidNameChar(int value) {
         return (XML11Char.isXML11Name(value));
-    } // isValidNameChar(int):  boolean
+    }
 
     // returns true if the given character is
     // a valid nameStartChar with respect to the version of
@@ -524,7 +528,7 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isValidNameStartChar(int value) {
         return (XML11Char.isXML11NameStart(value));
-    } // isValidNameStartChar(int):  boolean
+    }
 
     // returns true if the given character is
     // a valid NCName character with respect to the version of
@@ -532,7 +536,7 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isValidNCName(int value) {
         return (XML11Char.isXML11NCName(value));
-    } // isValidNCName(int):  boolean
+    }
 
     // returns true if the given character is
     // a valid high surrogate for a nameStartChar
@@ -541,12 +545,12 @@ public class XML11DocumentScannerImpl
     @Override
     protected boolean isValidNameStartHighSurrogate(int value) {
         return XML11Char.isXML11NameHighSurrogate(value);
-    } // isValidNameStartHighSurrogate(int):  boolean
+    }
 
     @Override
     protected boolean versionSupported(String version) {
         return (version.equals("1.1") || version.equals("1.0"));
-    } // versionSupported(String):  boolean
+    }
 
     // returns the error message key for unsupported
     // versions of XML with respect to the version of
@@ -554,6 +558,5 @@ public class XML11DocumentScannerImpl
     @Override
     protected String getVersionNotSupportedKey () {
         return "VersionNotSupported11";
-    } // getVersionNotSupportedKey: String
-
-} // class XML11DocumentScannerImpl
+    }
+}

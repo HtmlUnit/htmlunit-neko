@@ -33,42 +33,48 @@ import org.w3c.dom.DOMStringList;
 public class DOMStringListImpl implements DOMStringList {
 
     // A collection of DOMString values
-    private final ArrayList fStrings;
+    private final ArrayList<String> fStrings;
 
     /**
      * Construct an empty list of DOMStringListImpl
      */
     public DOMStringListImpl() {
-        fStrings = new ArrayList();
+        fStrings = new ArrayList<>();
     }
 
     /**
      * Construct a DOMStringListImpl from an ArrayList
+     * @param params params
      */
-    public DOMStringListImpl(ArrayList params) {
+    public DOMStringListImpl(ArrayList<String> params) {
         fStrings = params;
     }
 
     /**
      * Construct a DOMStringListImpl from a Vector
+     * @param params params
      */
-    public DOMStringListImpl(Vector params) {
-        fStrings = new ArrayList(params);
+    public DOMStringListImpl(Vector<String> params) {
+        fStrings = new ArrayList<>(params);
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.w3c.dom.DOMStringList#item(int)
      */
     @Override
     public String item(int index) {
         final int length = getLength();
         if (index >= 0 && index < length) {
-            return (String) fStrings.get(index);
+            return fStrings.get(index);
         }
         return null;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.w3c.dom.DOMStringList#getLength()
      */
     @Override
@@ -77,6 +83,8 @@ public class DOMStringListImpl implements DOMStringList {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.w3c.dom.DOMStringList#contains(String)
      */
     @Override

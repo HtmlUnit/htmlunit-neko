@@ -25,14 +25,8 @@ import org.w3c.dom.Node;
  */
 public interface DeferredNode extends Node {
 
-
      short TYPE_NODE  =  20;
 
-    //
-    // DeferredNode methods
-    //
-
-    /** Returns the node index. */
+    /** @return the node index. */
     int getNodeIndex();
-
-} // interface DeferredNode
+}

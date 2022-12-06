@@ -28,7 +28,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
  * <strong>Note:</strong> The error object that describes the error
  * might be reused by Xerces implementation, across multiple calls to the
  * handleEvent method on DOMErrorHandler interface.
- * <p>
  *
  * <p>See also the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document Object Model (DOM) Level 3 Core Specification</a>.
  * <p>
@@ -43,10 +42,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
 public class DOMErrorImpl implements DOMError {
 
-    //
-    // Data
-    //
-
     public short fSeverity = DOMError.SEVERITY_WARNING;
     public String fMessage = null;
     public DOMLocatorImpl fLocator = new DOMLocatorImpl();
@@ -55,16 +50,15 @@ public class DOMErrorImpl implements DOMError {
     public Object fRelatedData;
 
 
-
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public DOMErrorImpl () {
     }
 
-    /** Exctracts information from XMLParserException) */
+    /**
+     * Extracts information from XMLParserException
+     * @param severity the severity
+     * @param exception the exception
+     */
     public DOMErrorImpl (short severity, XMLParseException exception) {
         fSeverity = severity;
         fException = exception;
@@ -72,28 +66,31 @@ public class DOMErrorImpl implements DOMError {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * The severity of the error, either <code>SEVERITY_WARNING</code>,
      * <code>SEVERITY_ERROR</code>, or <code>SEVERITY_FATAL_ERROR</code>.
      */
-
     @Override
     public short getSeverity() {
         return fSeverity;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * An implementation specific string describing the error that occured.
      */
-
     @Override
     public String getMessage() {
         return fMessage;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * The location of the error.
      */
-
     @Override
     public DOMLocator getLocation() {
         return fLocator;
@@ -106,10 +103,12 @@ public class DOMErrorImpl implements DOMError {
                                   exception.getColumnNumber(),
                                   exception.getCharacterOffset(),
                                   exception.getExpandedSystemId());
-    } // createDOMLocator()
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * The related platform dependent exception if any.exception is a reserved
      * word, we need to rename it.Change to "relatedException". (F2F 26 Sep
      * 2001)
@@ -133,6 +132,4 @@ public class DOMErrorImpl implements DOMError {
     public Object getRelatedData(){
         return fRelatedData;
     }
-
-
-}// class DOMErrorImpl
+}

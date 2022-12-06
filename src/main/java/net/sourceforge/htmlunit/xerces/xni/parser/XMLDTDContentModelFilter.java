@@ -27,5 +27,4 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
  */
 public interface XMLDTDContentModelFilter
     extends XMLDTDContentModelHandler, XMLDTDContentModelSource {
-
-} // interface XMLDTDContentModelFilter
+}

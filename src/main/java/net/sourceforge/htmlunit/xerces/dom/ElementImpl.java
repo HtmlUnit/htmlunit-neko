@@ -57,15 +57,8 @@ public class ElementImpl
     extends ParentNode
     implements Element, TypeInfo {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 3717253516652722278L;
-    //
-    // Data
-    //
 
     /** Element name. */
     protected String name;
@@ -73,11 +66,7 @@ public class ElementImpl
     /** Attributes. */
     protected AttributeMap attributes;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public ElementImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
@@ -116,12 +105,9 @@ public class ElementImpl
         reconcileDefaultAttributes();
     }
 
-    //
-    // Node methods
-    //
-
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -131,6 +117,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the element name
      */
     @Override
@@ -142,6 +130,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Retrieve all the Attributes as a set. Note that this API is inherited
      * from Node rather than specified on Element; in fact only Elements will
      * ever have Attributes, but they want to allow folks to "blindly" operate
@@ -158,9 +148,11 @@ public class ElementImpl
         }
         return attributes;
 
-    } // getAttributes():NamedNodeMap
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Return a duplicate copy of this Element. Note that its children
      * will not be copied unless the "deep" flag is true, but Attributes
      * are <i>always</i> replicated.
@@ -177,9 +169,11 @@ public class ElementImpl
         }
         return newnode;
 
-    } // cloneNode(boolean):Node
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * Retrieve baseURI
      */
@@ -235,20 +229,14 @@ public class ElementImpl
 
         // ownerNode serves as a parent or as document
         return (this.ownerNode != null) ? this.ownerNode.getBaseURI() : null;
-    } //getBaseURI
+    }
 
-    /**
-     * NON-DOM
-     * Returns the xml:base attribute.
-     */
+    // NON-DOM Returns the xml:base attribute.
     protected Attr getXMLBaseAttribute() {
         return (Attr) attributes.getNamedItem("xml:base");
     } // getXMLBaseAttribute():Attr
 
-    /**
-     * NON-DOM
-     * set the ownerDocument of this node, its children, and its attributes
-     */
+    // NON-DOM set the ownerDocument of this node, its children, and its attributes
     @Override
     protected void setOwnerDocument(CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
@@ -257,11 +245,9 @@ public class ElementImpl
         }
     }
 
-    //
-    // Element methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Look up a single Attribute by name. Returns the Attribute's
      * string value, or an empty string (NOT null!) to indicate that the
      * name did not map to a currently defined attribute.
@@ -282,10 +268,11 @@ public class ElementImpl
         Attr attr = (Attr)(attributes.getNamedItem(name));
         return (attr == null) ? "" : attr.getValue();
 
-    } // getAttribute(String):String
-
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Look up a single Attribute by name. Returns the Attribute Node,
      * so its complete child tree is available. This could be important in
      * XML, where the string rendering may not be sufficient information.
@@ -303,10 +290,12 @@ public class ElementImpl
         }
         return (Attr)attributes.getNamedItem(name);
 
-    } // getAttributeNode(String):Attr
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a NodeList of all descendent nodes (children,
      * grandchildren, and so on) which are Elements and which have the
      * specified tag name.
@@ -327,6 +316,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the name of the Element. Note that Element.nodeName() is
      * defined to also return the tag name.
      * <p>
@@ -342,6 +333,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * In "normal form" (as read from a source file), there will never be two
      * Text children in succession. But DOM users may create successive Text
      * nodes in the course of manipulating the document. Normalize walks the
@@ -411,9 +404,11 @@ public class ElementImpl
         // so does not have to be reissued.
 
         isNormalized(true);
-    } // normalize()
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Remove the named attribute from this Element. If the removed
      * Attribute has a default value, it is immediately replaced thereby.
      * <P>
@@ -450,6 +445,8 @@ public class ElementImpl
 
 
     /**
+     * {@inheritDoc}
+     *
      * Remove the specified attribute/value pair. If the removed
      * Attribute has a default value, it is immediately replaced.
      * <p>
@@ -484,10 +481,12 @@ public class ElementImpl
         }
         return (Attr) attributes.removeItem(oldAttr, true);
 
-    } // removeAttributeNode(Attr):Attr
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * Add a new name/value pair, or replace the value of the existing
      * attribute having that name.
      * <p>
@@ -537,9 +536,11 @@ public class ElementImpl
             newAttr.setNodeValue(value);
         }
 
-    } // setAttribute(String,String)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Add a new attribute/value pair, or replace the value of the
      * existing attribute with that name.
      * <P>
@@ -581,13 +582,11 @@ public class ElementImpl
         // This will throw INUSE if necessary
         return (Attr) attributes.setNamedItem(newAttr);
 
-    } // setAttributeNode(Attr):Attr
-
-    //
-    // DOM2: Namespace methods
-    //
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Retrieves an attribute value by local name and namespace URI.
@@ -617,6 +616,8 @@ public class ElementImpl
     } // getAttributeNS(String,String):String
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      *  Adds a new attribute.
@@ -640,21 +641,6 @@ public class ElementImpl
      * @param qualifiedName     The qualified name of the attribute to create or
      *                          alter.
      * @param value             The value to set in string form.
-     * @throws                  INVALID_CHARACTER_ERR: Raised if the specified
-     *                          name contains an invalid character.
-     *
-     * @throws                  NO_MODIFICATION_ALLOWED_ERR: Raised if this
-     *                          node is readonly.
-     *
-     * @throws                  NAMESPACE_ERR: Raised if the qualifiedName
-     *                          has a prefix that is "xml" and the namespaceURI
-     *                          is neither null nor an empty string nor
-     *                          "http://www.w3.org/XML/1998/namespace", or if
-     *                          the qualifiedName has a prefix that is "xmlns"
-     *                          but the namespaceURI is neither null nor an
-     *                          empty string, or if if the qualifiedName has a
-     *                          prefix different from "xml" and "xmlns" and the
-     *                          namespaceURI is null or an empty string.
      */
      @Override
     public void setAttributeNS(String namespaceURI,String qualifiedName,
@@ -714,10 +700,12 @@ public class ElementImpl
             newAttr.setNodeValue(value);
         }
 
-    } // setAttributeNS(String,String,String)
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Removes an attribute by local name and namespace URI. If the removed
@@ -728,8 +716,6 @@ public class ElementImpl
      * @param namespaceURI  The namespace URI of the attribute to remove.
      *
      * @param localName     The local name of the attribute to remove.
-     * @throws                  NO_MODIFICATION_ALLOWED_ERR: Raised if this
-     *                          node is readonly.
      */
     @Override
     public void removeAttributeNS(String namespaceURI, String localName) {
@@ -749,9 +735,11 @@ public class ElementImpl
 
         attributes.safeRemoveNamedItemNS(namespaceURI, localName);
 
-    } // removeAttributeNS(String,String)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Retrieves an Attr node by local name and namespace URI.
      *
      * @param namespaceURI  The namespace URI of the attribute to
@@ -775,6 +763,8 @@ public class ElementImpl
     } // getAttributeNodeNS(String,String):Attr
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Adds a new attribute. If an attribute with that local name and
@@ -788,14 +778,14 @@ public class ElementImpl
      *                  with the same local name and namespace URI, the *
      *                  previously existing Attr node is returned, otherwise
      *                  null is returned.
-     * @throws          WRONG_DOCUMENT_ERR: Raised if newAttr
+     * @throws          DOMException WRONG_DOCUMENT_ERR: Raised if newAttr
      *                  was created from a different document than the one that
      *                  created the element.
      *
-     * @throws          NO_MODIFICATION_ALLOWED_ERR: Raised if
+     * @throws          DOMException NO_MODIFICATION_ALLOWED_ERR: Raised if
      *                  this node is readonly.
      *
-     * @throws          INUSE_ATTRIBUTE_ERR: Raised if newAttr is
+     * @throws          DOMException INUSE_ATTRIBUTE_ERR: Raised if newAttr is
      *                  already an attribute of another Element object. The
      *                  DOM user must explicitly clone Attr nodes to re-use
      *                  them in other elements.
@@ -827,11 +817,9 @@ public class ElementImpl
         // This will throw INUSE if necessary
         return (Attr) attributes.setNamedItemNS(newAttr);
 
-    } // setAttributeNodeNS(Attr):Attr
+    }
 
-    /**
-      * NON-DOM: sets attribute node for this element
-      */
+    // NON-DOM: sets attribute node for this element
     protected int setXercesAttributeNode (Attr attr){
 
         if (needsSyncData()) {
@@ -845,9 +833,7 @@ public class ElementImpl
 
     }
 
-    /**
-      * NON-DOM: get inded of an attribute
-      */
+     // NON-DOM: get inded of an attribute
     protected int getXercesAttribute(String namespaceURI, String localName){
 
         if (needsSyncData()) {
@@ -861,6 +847,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2.
      */
     @Override
@@ -872,6 +860,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2.
      */
     @Override
@@ -880,6 +870,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2.
      */
     @Override
@@ -888,6 +880,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Returns a NodeList of all the Elements with a given local name and
@@ -911,6 +905,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD- Experimental.
      * Override inherited behavior from NodeImpl and ParentNode to check on
      * attributes
@@ -952,6 +948,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
@@ -982,6 +980,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
@@ -1022,6 +1022,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
@@ -1062,6 +1064,8 @@ public class ElementImpl
    }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.w3c.dom.TypeInfo#getTypeName()
      */
      @Override
@@ -1070,6 +1074,8 @@ public class ElementImpl
      }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.w3c.dom.TypeInfo#getTypeNamespace()
      */
     @Override
@@ -1078,6 +1084,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 3. <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
@@ -1101,6 +1109,8 @@ public class ElementImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Method getSchemaTypeInfo.
      * @return TypeInfo
      */
@@ -1112,11 +1122,9 @@ public class ElementImpl
         return this;
     }
 
-    //
-    // Public methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM: Subclassed to flip the attributes' readonly switch as well.
      * @see NodeImpl#setReadOnly
      */
@@ -1129,12 +1137,11 @@ public class ElementImpl
     }
 
 
-
-    //
-    // Protected methods
-    //
-
-    /** Synchronizes the data (name and value) for fast nodes. */
+    /**
+     * {@inheritDoc}
+     *
+     * Synchronizes the data (name and value) for fast nodes.
+     */
     @Override
     protected void synchronizeData() {
 
@@ -1183,7 +1190,7 @@ public class ElementImpl
         }
     }
 
-    /** Get the default attributes. */
+    // Get the default attributes.
     protected NamedNodeMapImpl getDefaultAttributes() {
 
         DocumentTypeImpl doctype =
@@ -1199,13 +1206,10 @@ public class ElementImpl
         }
         return (NamedNodeMapImpl) eldef.getAttributes();
 
-    } // getDefaultAttributes()
-
-    //
-    // ElementTraversal methods
-    //
+    }
 
     /**
+     * @return count
      * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-childElementCount">
      * Element Traversal Specification</a>
      */
@@ -1217,9 +1221,10 @@ public class ElementImpl
             child = ((ElementImpl) child).getNextElementSibling();
         }
         return count;
-    } // getChildElementCount():int
+    }
 
     /**
+     * @return {@link Element}
      * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-firstElementChild">
      * Element Traversal Specification</a>
      */
@@ -1239,9 +1244,10 @@ public class ElementImpl
             n = n.getNextSibling();
         }
         return null;
-    } // getFirstElementChild():Element
+    }
 
     /**
+     * @return {@link Element}
      * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-lastElementChild">
      * Element Traversal Specification</a>
      */
@@ -1261,9 +1267,10 @@ public class ElementImpl
             n = n.getPreviousSibling();
         }
         return null;
-    } // getLastElementChild():Element
+    }
 
     /**
+     * @return {@link Element}
      * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-nextElementSibling">
      * Element Traversal Specification</a>
      */
@@ -1283,9 +1290,10 @@ public class ElementImpl
             n = getNextLogicalSibling(n);
         }
         return null;
-    } // getNextElementSibling():Element
+    }
 
     /**
+     * @return {@link Element}
      * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-previousElementSibling">
      * Element Traversal Specification</a>
      */
@@ -1331,7 +1339,7 @@ public class ElementImpl
             n = next;
         }
         return null;
-    } // getFirstElementChild(Node):Element
+    }
 
     // Returns the first element node found from a
     // non-recursive reverse order traversal of the given node.
@@ -1357,7 +1365,7 @@ public class ElementImpl
             n = next;
         }
         return null;
-    } // getLastElementChild(Node):Element
+    }
 
     // Returns the next logical sibling with respect to the given node.
     private Node getNextLogicalSibling(Node n) {
@@ -1376,7 +1384,7 @@ public class ElementImpl
             }
         }
         return next;
-    } // getNextLogicalSibling(Node):Node
+    }
 
     // Returns the previous logical sibling with respect to the given node.
     private Node getPreviousLogicalSibling(Node n) {
@@ -1395,6 +1403,5 @@ public class ElementImpl
             }
         }
         return prev;
-    } // getPreviousLogicalSibling(Node):Node
-
-} // class ElementImpl
+    }
+}

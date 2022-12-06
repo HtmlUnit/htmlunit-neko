@@ -37,7 +37,7 @@ import org.w3c.dom.Node;
  * <P>
  * Reminder: CDATA IS NOT A COMPLETELY GENERAL SOLUTION; it can't
  * quote its own end-of-block marking. If you need to write out a
- * CDATA that contains the ]]> sequence, it's your responsibility to
+ * CDATA that contains the ]]&gt; sequence, it's your responsibility to
  * split that string over two successive CDATAs at that time.
  * <P>
  * CDATA does not participate in Element.normalize() processing.
@@ -46,27 +46,20 @@ public class CDATASectionImpl
     extends TextImpl
     implements CDATASection {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 2372071297878177780L;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor for creating a CDATA section. */
+    /** Factory constructor for creating a CDATA section.
+     * @param ownerDoc the owner document
+     * @param data the data
+     */
     public CDATASectionImpl(CoreDocumentImpl ownerDoc, String data) {
         super(ownerDoc, data);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -75,10 +68,11 @@ public class CDATASectionImpl
         return Node.CDATA_SECTION_NODE;
     }
 
-    /** Returns the node name. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNodeName() {
         return "#cdata-section";
     }
-
-} // class CDATASectionImpl
+}

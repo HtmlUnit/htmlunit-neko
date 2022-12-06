@@ -31,31 +31,17 @@ import org.w3c.dom.DocumentType;
  */
 public class DOMImplementationImpl extends CoreDOMImplementationImpl
     implements DOMImplementation {
-
-    //
-    // Data
-    //
-
-    // static
-
     /** Dom implementation singleton. */
     static final DOMImplementationImpl singleton = new DOMImplementationImpl();
 
-
-    //
-    // Public methods
-    //
-
-    /** NON-DOM: Obtain and return the single shared object */
+    // NON-DOM: Obtain and return the single shared object
     public static DOMImplementation getDOMImplementation() {
         return singleton;
     }
 
-    //
-    // DOMImplementation methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Test if the DOM implementation supports a specific "feature" --
      * currently meaning language and level thereof.
      *
@@ -92,15 +78,14 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl
                         && (anyVersion || version.equals("2.0"))));
         }
         return result;
-    } // hasFeature(String,String):boolean
+    }
 
-    //
-    // Protected methods
-    //
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected CoreDocumentImpl createDocument(DocumentType doctype) {
         return new DocumentImpl(doctype);
     }
 
-} // class DOMImplementationImpl
+}

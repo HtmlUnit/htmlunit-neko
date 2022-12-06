@@ -21,6 +21,8 @@ import java.io.CharConversionException;
 import java.io.EOFException;
 import java.io.IOException;
 
+import javax.swing.text.Document;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
@@ -340,7 +342,7 @@ public class XMLDocumentFragmentScannerImpl
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Thrown by component on initialization error.
+     * @throws XMLConfigurationException Thrown by component on initialization error.
      *                      For example, if a feature or property is
      *                      required for the operation of the component, the
      *                      component manager may throw a
@@ -416,10 +418,8 @@ public class XMLDocumentFragmentScannerImpl
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -458,10 +458,8 @@ public class XMLDocumentFragmentScannerImpl
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -526,9 +524,8 @@ public class XMLDocumentFragmentScannerImpl
     //
 
     /**
-     * setDocumentHandler
+     * {@inheritDoc}
      *
-     * @param documentHandler
      */
     @Override
     public void setDocumentHandler(XMLDocumentHandler documentHandler) {
@@ -536,7 +533,10 @@ public class XMLDocumentFragmentScannerImpl
     } // setDocumentHandler(XMLDocumentHandler)
 
 
-    /** Returns the document handler */
+    /**
+     * {@inheritDoc}
+     *
+     */
     @Override
     public XMLDocumentHandler getDocumentHandler(){
         return fDocumentHandler;
@@ -626,38 +626,31 @@ public class XMLDocumentFragmentScannerImpl
             }
         }
 
-    } // endEntity(String)
+    }
 
-    //
-    // Protected methods
-    //
-
-    // dispatcher factory methods
-
-    /** Creates a content dispatcher. */
+    // Creates a content dispatcher.
     protected Dispatcher createContentDispatcher() {
         return new FragmentContentDispatcher();
-    } // createContentDispatcher():Dispatcher
-
-    // scanning methods
+    }
 
     /**
      * Scans an XML or text declaration.
-     * <p>
      * <pre>
-     * [23] XMLDecl ::= '&lt;?xml' VersionInfo EncodingDecl? SDDecl? S? '?>'
+     * [23] XMLDecl ::= '&lt;?xml' VersionInfo EncodingDecl? SDDecl? S? '?&gt;'
      * [24] VersionInfo ::= S 'version' Eq (' VersionNum ' | " VersionNum ")
      * [80] EncodingDecl ::= S 'encoding' Eq ('"' EncName '"' |  "'" EncName "'" )
      * [81] EncName ::= [A-Za-z] ([A-Za-z0-9._] | '-')*
      * [32] SDDecl ::= S 'standalone' Eq (("'" ('yes' | 'no') "'")
      *                 | ('"' ('yes' | 'no') '"'))
      *
-     * [77] TextDecl ::= '&lt;?xml' VersionInfo? EncodingDecl S? '?>'
+     * [77] TextDecl ::= '&lt;?xml' VersionInfo? EncodingDecl S? '?&gt;'
      * </pre>
      *
      * @param scanningTextDecl True if a text declaration is to
      *                         be scanned instead of an XML
      *                         declaration.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected void scanXMLDeclOrTextDecl(boolean scanningTextDecl)
         throws IOException, XNIException {
@@ -719,12 +712,14 @@ public class XMLDocumentFragmentScannerImpl
 
     /**
      * Scans a comment.
-     * <p>
      * <pre>
-     * [15] Comment ::= '&lt!--' ((Char - '-') | ('-' (Char - '-')))* '-->'
+     * [15] Comment ::= '&lt;!--' ((Char - '-') | ('-' (Char - '-')))* '--&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!--'
+     *
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected void scanComment() throws IOException, XNIException {
 
@@ -736,16 +731,15 @@ public class XMLDocumentFragmentScannerImpl
             fDocumentHandler.comment(fStringBuffer, null);
         }
 
-    } // scanComment()
+    }
 
     /**
      * Scans a start element. This method will handle the binding of
      * namespace information and notifying the handler of the start
      * of the element.
-     * <p>
      * <pre>
-     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/>'
-     * [40] STag ::= '&lt;' Name (S Attribute)* S? '>'
+     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/&gt;'
+     * [40] STag ::= '&lt;' Name (S Attribute)* S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method assumes that the leading
@@ -758,6 +752,8 @@ public class XMLDocumentFragmentScannerImpl
      *
      * @return True if element is empty. (i.e. It matches
      *          production [44].
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected boolean scanStartElement()
         throws IOException, XNIException {
@@ -841,6 +837,8 @@ public class XMLDocumentFragmentScannerImpl
 
     /**
      * Scans the name of an element in a start or empty tag.
+     * @throws IOException on error
+     * @throws XNIException on error
      *
      * @see #scanStartElement()
      */
@@ -864,6 +862,8 @@ public class XMLDocumentFragmentScannerImpl
      *
      * @see #scanStartElement
      * @return True if element is empty.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected boolean scanStartElementAfterName()
         throws IOException, XNIException {
@@ -937,7 +937,6 @@ public class XMLDocumentFragmentScannerImpl
 
     /**
      * Scans an attribute.
-     * <p>
      * <pre>
      * [41] Attribute ::= Name Eq AttValue
      * </pre>
@@ -951,6 +950,8 @@ public class XMLDocumentFragmentScannerImpl
      * destroyed.
      *
      * @param attributes The attributes list for the scanned attribute.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected void scanAttribute(XMLAttributes attributes)
         throws IOException, XNIException {
@@ -1002,6 +1003,8 @@ public class XMLDocumentFragmentScannerImpl
      * Scans element content.
      *
      * @return Returns the next character on the stream.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected int scanContent() throws IOException, XNIException {
 
@@ -1061,6 +1064,8 @@ public class XMLDocumentFragmentScannerImpl
      *                 completely.
      *
      * @return True if CDATA is completely scanned.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected boolean scanCDATASection(boolean complete)
         throws IOException, XNIException {
@@ -1143,13 +1148,12 @@ public class XMLDocumentFragmentScannerImpl
 
         return true;
 
-    } // scanCDATASection(boolean):boolean
+    }
 
     /**
      * Scans an end element.
-     * <p>
      * <pre>
-     * [42] ETag ::= '&lt;/' Name S? '>'
+     * [42] ETag ::= '&lt;/' Name S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method uses the fElementQName variable.
@@ -1158,6 +1162,8 @@ public class XMLDocumentFragmentScannerImpl
      * this method.
      *
      * @return The element depth.
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected int scanEndElement() throws IOException, XNIException {
         if (DEBUG_CONTENT_SCANNING) System.out.println(">>> scanEndElement()");
@@ -1201,14 +1207,15 @@ public class XMLDocumentFragmentScannerImpl
 
         return fMarkupDepth;
 
-    } // scanEndElement():int
+    }
 
     /**
      * Scans a character reference.
-     * <p>
      * <pre>
-     * [66] CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'
+     * [66] CharRef ::= '&amp;#' [0-9]+ ';' | '&amp;#x' [0-9a-fA-F]+ ';'
      * </pre>
+     * @throws IOException on error
+     * @throws XNIException on error
      */
     protected void scanCharReference()
         throws IOException, XNIException {
@@ -1240,7 +1247,7 @@ public class XMLDocumentFragmentScannerImpl
             }
         }
 
-    } // scanCharReference()
+    }
 
     /**
      * Scans an entity reference.
@@ -1335,6 +1342,7 @@ public class XMLDocumentFragmentScannerImpl
      * The contents of this variable will be destroyed.
      *
      * @param element The element.
+     * @param isEmpty true if empty
      *
      * @return The element depth.
      *
@@ -1407,11 +1415,7 @@ public class XMLDocumentFragmentScannerImpl
         }
     }
 
-    //
-    // Private methods
-    //
-
-    /** Returns the scanner state name. */
+    // Returns the scanner state name
     protected String getScannerStateName(int state) {
 
         switch (state) {
@@ -1430,9 +1434,9 @@ public class XMLDocumentFragmentScannerImpl
 
         return "??? ("+state+')';
 
-    } // getScannerStateName(int):String
+    }
 
-    /** Returns the dispatcher name. */
+    // Returns the dispatcher name
     public String getDispatcherName(Dispatcher dispatcher) {
 
         if (DEBUG_DISPATCHER) {
@@ -1451,11 +1455,7 @@ public class XMLDocumentFragmentScannerImpl
         }
         return "null";
 
-    } // getDispatcherName():String
-
-    //
-    // Classes
-    //
+    }
 
     /**
      * Element stack. This stack operates without synchronization, error

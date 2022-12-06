@@ -37,17 +37,9 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class ElementNSImpl
     extends ElementImpl {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -9142310625494392642L;
     static final String xmlURI = "http://www.w3.org/XML/1998/namespace";
-
-    //
-    // Data
-    //
 
     /** DOM2: Namespace URI. */
     protected String namespaceURI;
@@ -60,9 +52,8 @@ public class ElementNSImpl
     protected ElementNSImpl() {
         super();
     }
-    /**
-     * DOM2: Constructor for Namespace implementation.
-     */
+
+     // DOM2: Constructor for Namespace implementation.
     protected ElementNSImpl(CoreDocumentImpl ownerDocument,
                             String namespaceURI,
                             String qualifiedName)
@@ -73,7 +64,6 @@ public class ElementNSImpl
     }
 
     private void setName(String namespaceURI, String qname) {
-
         String prefix;
         // DOM Level 3: namespace URI is never empty string.
         this.namespaceURI = namespaceURI;
@@ -178,17 +168,9 @@ public class ElementNSImpl
         reconcileDefaultAttributes();
     }
 
-    //
-    // Node methods
-    //
-
-
-
-    //
-    //DOM2: Namespace methods.
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * The namespace URI of this node, or null if it is unspecified.<p>
@@ -210,12 +192,14 @@ public class ElementNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * The namespace prefix of this node, or null if it is unspecified. <p>
      *
      * For nodes created with a DOM Level 1 method, such as createElement
-     * from the Document interface, this is null. <p>
+     * from the Document interface, this is null.
      */
     @Override
     public String getPrefix()
@@ -229,6 +213,8 @@ public class ElementNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Note that setting this attribute changes the nodeName attribute, which holds the
@@ -237,10 +223,9 @@ public class ElementNSImpl
      *
      * @param prefix The namespace prefix of this node, or null(empty string) if it is unspecified.
      *
-     * @exception INVALID_CHARACTER_ERR
+     * @exception DOMException INVALID_CHARACTER_ERR
      *                   Raised if the specified
      *                   prefix contains an invalid character.
-     * @exception DOMException on error
      */
     @Override
     public void setPrefix(String prefix)
@@ -283,6 +268,8 @@ public class ElementNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Returns the local part of the qualified name of this node.
@@ -297,15 +284,18 @@ public class ElementNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM
      * Returns the xml:base attribute.
      */
     @Override
     protected Attr getXMLBaseAttribute() {
         return (Attr) attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace", "base");
-    } // getXMLBaseAttribute():Attr
+    }
 
     /**
+     * @return type name
      * @see org.w3c.dom.TypeInfo#getTypeName()
      */
     @Override
@@ -314,6 +304,7 @@ public class ElementNSImpl
     }
 
     /**
+     * @return namespace tyoe
      * @see org.w3c.dom.TypeInfo#getTypeNamespace()
      */
     @Override
@@ -322,6 +313,8 @@ public class ElementNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom

@@ -204,11 +204,11 @@ public abstract class XMLScanner
     //
 
     /**
-     *
+     * {@inheritDoc}
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Throws exception if required features and
+     * @throws XMLConfigurationException Throws exception if required features and
      *                      properties cannot be found.
      */
     @Override
@@ -254,13 +254,15 @@ public abstract class XMLScanner
 
         init();
 
-    } // reset(XMLComponentManager)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the value of a property during parsing.
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId property id
+     * @param value value
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -283,10 +285,11 @@ public abstract class XMLScanner
                 fEntityManager = (XMLEntityManager)value;
             }
         }
-
-    } // setProperty(String,Object)
+    }
 
     /*
+     * {@inheritDoc}
+     *
      * Sets the feature of the scanner.
      */
     @Override
@@ -332,16 +335,15 @@ public abstract class XMLScanner
 
     /**
      * Scans an XML or text declaration.
-     * <p>
      * <pre>
-     * [23] XMLDecl ::= '<?xml' VersionInfo EncodingDecl? SDDecl? S? '?>'
+     * [23] XMLDecl ::= '&lt;?xml' VersionInfo EncodingDecl? SDDecl? S? '?&gt;'
      * [24] VersionInfo ::= S 'version' Eq (' VersionNum ' | " VersionNum ")
      * [80] EncodingDecl ::= S 'encoding' Eq ('"' EncName '"' |  "'" EncName "'" )
      * [81] EncName ::= [A-Za-z] ([A-Za-z0-9._] | '-')*
      * [32] SDDecl ::= S 'standalone' Eq (("'" ('yes' | 'no') "'")
      *                 | ('"' ('yes' | 'no') '"'))
      *
-     * [77] TextDecl ::= '<?xml' VersionInfo? EncodingDecl S? '?>'
+     * [77] TextDecl ::= '&lt;?xml' VersionInfo? EncodingDecl S? '?&gt;'
      * </pre>
      *
      * @param scanningTextDecl True if a text declaration is to
@@ -353,6 +355,8 @@ public abstract class XMLScanner
      * <p>
      * <strong>Note:</strong> This method uses fString, anything in it
      * at the time of calling is lost.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanXMLDeclOrTextDecl(boolean scanningTextDecl,
                                          String[] pseudoAttributeValues)
@@ -527,6 +531,8 @@ public abstract class XMLScanner
      * <p>
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     public String scanPseudoAttribute(boolean scanningTextDecl,
                                       XMLString value)
@@ -606,6 +612,8 @@ public abstract class XMLScanner
      *
      * @return the name of the pseudo attribute or <code>null</code>
      * if a legal pseudo attribute name could not be scanned.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private String scanPseudoAttributeName() throws IOException, XNIException {
         final int ch = fEntityScanner.peekChar();
@@ -631,13 +639,14 @@ public abstract class XMLScanner
 
     /**
      * Scans a processing instruction.
-     * <p>
      * <pre>
-     * [16] PI ::= '&lt;?' PITarget (S (Char* - (Char* '?>' Char*)))? '?>'
+     * [16] PI ::= '&lt;?' PITarget (S (Char* - (Char* '?&gt;' Char*)))? '?&gt;'
      * [17] PITarget ::= Name - (('X' | 'x') ('M' | 'm') ('L' | 'l'))
      * </pre>
      * <strong>Note:</strong> This method uses fString, anything in it
      * at the time of calling is lost.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanPI() throws IOException, XNIException {
 
@@ -669,6 +678,8 @@ public abstract class XMLScanner
      *
      * @param target The PI target
      * @param data The string to fill in with the data
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanPIData(String target, XMLString data)
         throws IOException, XNIException {
@@ -730,9 +741,8 @@ public abstract class XMLScanner
 
     /**
      * Scans a comment.
-     * <p>
      * <pre>
-     * [15] Comment ::= '&lt!--' ((Char - '-') | ('-' (Char - '-')))* '-->'
+     * [15] Comment ::= '&lt;!--' ((Char - '-') | ('-' (Char - '-')))* '--&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!--'
@@ -740,6 +750,8 @@ public abstract class XMLScanner
      * at the time of calling is lost.
      *
      * @param text The buffer to fill in with the text.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanComment(XMLStringBuffer text)
         throws IOException, XNIException {
@@ -770,7 +782,7 @@ public abstract class XMLScanner
      * Scans an attribute value and normalizes whitespace converting all
      * whitespace characters to space characters.
      * <p>
-     * [10] AttValue ::= '"' ([^<&"] | Reference)* '"' | "'" ([^<&'] | Reference)* "'"
+     * [10] AttValue ::= '"' ([^&lt;&amp;"] | Reference)* '"' | "'" ([^&lt;&amp;'] | Reference)* "'"
      *
      * @param value The XMLString to fill in with the value.
      * @param nonNormalizedValue The XMLString to fill in with the
@@ -781,6 +793,8 @@ public abstract class XMLScanner
      * @param eleName The name of element to which this attribute belongs.
      *
      * @return true if the non-normalized and normalized value are the same
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      * <p>
      * <strong>Note:</strong> This method uses fStringBuffer2, anything in it
      * at the time of calling is lost.
@@ -1014,6 +1028,8 @@ public abstract class XMLScanner
      * <p>
      * <strong>Note:</strong> This method uses fString and fStringBuffer,
      * anything in them at the time of calling is lost.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanExternalID(String[] identifiers,
                                   boolean optionalSystemId)
@@ -1097,6 +1113,8 @@ public abstract class XMLScanner
      *
      * @param literal The string to fill in with the public ID literal.
      * @return True on success.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      * <p>
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it at
      * the time of calling is lost.
@@ -1152,6 +1170,7 @@ public abstract class XMLScanner
     /**
      * Normalize whitespace in an XMLString converting all whitespace
      * characters to space characters.
+     * @param value the value
      */
     protected void normalizeWhitespace(XMLString value) {
         int end = value.offset + value.length;
@@ -1169,10 +1188,8 @@ public abstract class XMLScanner
         }
     }
 
-    /**
-     * Normalize whitespace in an XMLString converting all whitespace
-     * characters to space characters.
-     */
+     // Normalize whitespace in an XMLString converting all whitespace
+     // characters to space characters.
     protected void normalizeWhitespace(XMLString value, int fromIndex) {
         int end = value.offset + value.length;
         for (int i = value.offset + fromIndex; i < end; ++i) {
@@ -1191,7 +1208,7 @@ public abstract class XMLScanner
 
     /**
      * Checks whether this string would be unchanged by normalization.
-     *
+     * @param value the value
      * @return -1 if the value would be unchanged by normalization,
      * otherwise the index of the first whitespace character which
      * would be transformed.
@@ -1266,10 +1283,8 @@ public abstract class XMLScanner
     /**
      * Scans a character reference and append the corresponding chars to the
      * specified buffer.
-     *
-     * <p>
      * <pre>
-     * [66] CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'
+     * [66] CharRef ::= '&amp;#' [0-9]+ ';' | '&amp;#x' [0-9a-fA-F]+ ';'
      * </pre>
      *
      * <strong>Note:</strong> This method uses fStringBuffer, anything in it
@@ -1279,6 +1294,8 @@ public abstract class XMLScanner
      * @param buf2 the character buffer to append non-normalized chars to
      *
      * @return the character value or (-1) on conversion failure
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected int scanCharReferenceValue(XMLStringBuffer buf, XMLStringBuffer buf2)
         throws IOException, XNIException {
@@ -1458,6 +1475,8 @@ public abstract class XMLScanner
      *
      * @param buf The StringBuffer to append the read surrogates to.
      * @return True if it succeeded.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected boolean scanSurrogates(XMLStringBuffer buf)
         throws IOException, XNIException {
@@ -1490,9 +1509,7 @@ public abstract class XMLScanner
     } // scanSurrogates():boolean
 
 
-    /**
-     * Convenience function used in all XML scanners.
-     */
+     // Convenience function used in all XML scanners.
     protected void reportFatalError(String msgId, Object[] args)
         throws XNIException {
         fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,

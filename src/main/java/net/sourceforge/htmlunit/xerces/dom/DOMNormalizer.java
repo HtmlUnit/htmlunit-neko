@@ -167,6 +167,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
     /**
      * Normalizes document.
      * Note: reset() must be called before this method.
+     * @param document the document
+     * @param config the configuration
      */
     protected void normalizeDocument(CoreDocumentImpl document, DOMConfigurationImpl config) {
 
@@ -1065,6 +1067,9 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     /**
      * Check if CDATA section is well-formed
+     * @param errorHandler the {@link DOMErrorHandler}
+     * @param error the error
+     * @param locator the locator
      * @param datavalue the data
      * @param isXML11Version = true if XML 1.1
      */
@@ -1159,15 +1164,10 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
                 }
             }
-        } // end-else fDocument.isXMLVersion()
+        }
+    }
 
-    } // isCDataWF
-
-    /**
-     * NON-DOM: check for valid XML characters as per the XML version
-     * @param datavalue the data
-     * @param isXML11Version = true if XML 1.1
-     */
+     // NON-DOM: check for valid XML characters as per the XML version
     public static void isXMLCharWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
                                    String datavalue, boolean isXML11Version)
     {
@@ -1226,11 +1226,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     } // isXMLCharWF
 
-    /**
-     * NON-DOM: check if value of the comment is well-formed
-     * @param datavalue the data
-     * @param isXML11Version = true if XML 1.1
-     */
+     // NON-DOM: check if value of the comment is well-formed
     public static void isCommentWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
                                    String datavalue, boolean isXML11Version)
     {
@@ -1295,15 +1291,11 @@ public class DOMNormalizer implements XMLDocumentHandler {
                 }
             }
 
-        } // end-else fDocument.isXMLVersion()
+        }
 
-    } // isCommentWF
+    }
 
-    /** NON-DOM: check if attribute value is well-formed
-     * @param attributes
-     * @param a
-     * @param value
-     */
+    // NON-DOM: check if attribute value is well-formed
     public static void isAttrValueWF(DOMErrorHandler errorHandler, DOMErrorImpl error,
                                      DOMLocatorImpl locator, NamedNodeMap attributes, Attr a, String value, boolean xml11Version) {
         if (a instanceof AttrImpl && ((AttrImpl)a).hasStringValue()) {
@@ -1347,11 +1339,8 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
 
 
-    /**
-     * Reports a DOM error to the user handler.
-     * <p>
-     * If the error is fatal, the processing will be always aborted.
-     */
+    // Reports a DOM error to the user handler.
+    // If the error is fatal, the processing will be always aborted.
     public static void reportDOMError(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
                                       String message, short severity, String type ) {
         if( errorHandler!=null ) {

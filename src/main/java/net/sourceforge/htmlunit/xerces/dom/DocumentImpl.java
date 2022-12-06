@@ -61,16 +61,8 @@ public class DocumentImpl
     extends CoreDocumentImpl
     implements DocumentEvent {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 515687835542616694L;
-
-    //
-    // Constructors
-    //
 
     /**
      * NON-DOM: Actually creating a Document is outside the DOM's spec,
@@ -80,7 +72,9 @@ public class DocumentImpl
         super();
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * @param grammarAccess grammar access flag
+     */
     public DocumentImpl(boolean grammarAccess) {
         super(grammarAccess);
     }
@@ -88,22 +82,25 @@ public class DocumentImpl
     /**
      * For DOM2 support.
      * The createDocument factory method is in DOMImplementation.
+     * @param doctype the {@link DocumentType}
      */
     public DocumentImpl(DocumentType doctype)
     {
         super(doctype);
     }
 
-    /** For DOM2 support. */
+    /**
+     * For DOM2 support.
+     * @param doctype the {@link DocumentType}
+     * @param grammarAccess grammar access flag
+     */
     public DocumentImpl(DocumentType doctype, boolean grammarAccess) {
         super(doctype, grammarAccess);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Deep-clone a document, including fixing ownerDoc for the cloned
      * children. Note that this requires bypassing the WRONG_DOCUMENT_ERR
      * protection. I've chosen to implement it by calling importNode
@@ -121,9 +118,11 @@ public class DocumentImpl
 
         return newdoc;
 
-    } // cloneNode(boolean):Node
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Retrieve information describing the abilities of this particular
      * DOM implementation. Intended to support applications that may be
      * using DOMs retrieved from several different sources, potentially
@@ -137,6 +136,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when some text was changed in a text node,
      * so that live objects can be notified.
      */
@@ -145,6 +146,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when some text was deleted from a text node,
      * so that live objects can be notified.
      */
@@ -153,6 +156,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when some text was inserted into a text node,
      * so that live objects can be notified.
      */
@@ -160,14 +165,9 @@ public class DocumentImpl
     void insertedText(CharacterDataImpl node, int offset, int count) {
     }
 
-
-
-
-    //
-    // DocumentEvent methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. Optional. <p>
      * Create and return Event objects.
      *
@@ -192,6 +192,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets whether the DOM implementation generates mutation events
      * upon operations.
      */
@@ -200,6 +202,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns true if the DOM implementation generates mutation events.
      */
     @Override
@@ -208,6 +212,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a character data node has been modified
      */
     @Override
@@ -215,6 +221,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a character data node has been modified
      */
     @Override
@@ -222,6 +230,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a character data node has been replaced
      */
     @Override
@@ -234,6 +244,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node is about to be inserted in the tree.
      */
     @Override
@@ -241,6 +253,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node has been inserted in the tree.
      */
     @Override
@@ -248,6 +262,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node is about to be removed from the tree.
      */
     @Override
@@ -255,6 +271,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node has been removed from the tree.
      */
     @Override
@@ -262,6 +280,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node is about to be replaced in the tree.
      */
     @Override
@@ -269,6 +289,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when character data is about to be replaced in the tree.
      */
     @Override
@@ -276,6 +298,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when a node has been replaced in the tree.
      */
     @Override
@@ -283,6 +307,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when an attribute value has been modified
      */
     @Override
@@ -290,6 +316,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when an attribute node has been set
      */
     @Override
@@ -297,6 +325,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when an attribute node has been removed
      */
     @Override
@@ -304,6 +334,8 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when an attribute node has been renamed
      */
     @Override
@@ -312,11 +344,12 @@ public class DocumentImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A method to be called when an element has been renamed
      */
     @Override
     void renamedElement(Element oldEl, Element newEl) {
     // REVISIT: To be implemented!!!
     }
-
-} // class DocumentImpl
+}

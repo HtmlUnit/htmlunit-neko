@@ -59,9 +59,9 @@ public class XML11DTDScannerImpl
     //
 
     /** Default constructor. */
-    public XML11DTDScannerImpl() {super();} // <init>()
+    public XML11DTDScannerImpl() {super();}
 
-    /** Constructor for he use of non-XMLComponentManagers. */
+    // Constructor for he use of non-XMLComponentManagers.
     public XML11DTDScannerImpl(SymbolTable symbolTable,
                 XMLErrorReporter errorReporter, XMLEntityManager entityManager) {
         super(symbolTable, errorReporter, entityManager);
@@ -178,6 +178,7 @@ public class XML11DTDScannerImpl
 
     /**
      * Checks whether this string would be unchanged by normalization.
+     * @param value the value
      *
      * @return -1 if the value would be unchanged by normalization,
      * otherwise the index of the first whitespace character which

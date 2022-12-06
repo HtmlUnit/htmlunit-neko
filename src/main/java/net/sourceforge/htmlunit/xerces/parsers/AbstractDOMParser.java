@@ -33,7 +33,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
-import org.xml.sax.SAXException;
 
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
 import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
@@ -75,8 +74,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  */
 public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
-    // feature ids
-
     /** Feature id: namespace. */
     protected static final String NAMESPACES =
     Constants.SAX_FEATURE_PREFIX+Constants.NAMESPACES_FEATURE;
@@ -112,8 +109,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         DEFER_NODE_EXPANSION
     };
 
-    // property ids
-
     /** Property id: document class name. */
     protected static final String DOCUMENT_CLASS_NAME =
     Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_CLASS_NAME_PROPERTY;
@@ -126,8 +121,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         DOCUMENT_CLASS_NAME,
         CURRENT_ELEMENT_NODE,
     };
-
-    // other
 
     /** Default document class name. */
     protected static final String DEFAULT_DOCUMENT_CLASS_NAME =
@@ -149,22 +142,14 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
     }
 
-    // debugging
-
     private static final boolean DEBUG_EVENTS = false;
     private static final boolean DEBUG_BASEURI = false;
-
-    //
-    // Data
-    //
 
     /** DOM L3 error handler */
     protected DOMErrorHandlerWrapper fErrorHandler = null;
 
     /** True if inside DTD. */
     protected boolean fInDTD;
-
-    // features
 
     /** Create entity reference nodes. */
     protected boolean fCreateEntityRefNodes;
@@ -177,8 +162,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** Create cdata nodes. */
     protected boolean fCreateCDATANodes;
-
-    // dom information
 
     /** The document. */
     protected Document fDocument;
@@ -285,7 +268,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     } // <init>(XMLParserConfiguration)
 
     /**
-     * This method retreives the name of current document class.
+     * @return the name of current document class.
      */
     protected String getDocumentClassName () {
         return fDocumentClassName;
@@ -339,16 +322,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             fDeferNodeExpansion = false;
         }
 
-    } // setDocumentClassName(String)
+    }
 
-    //
-    // Public methods
-    //
-
-    /** Returns the DOM document object. */
+    /** @return the DOM document object. */
     public Document getDocument () {
         return fDocument;
-    } // getDocument():Document
+    }
 
     /**
      * Drops all references to the last DOM which was built by this parser.
@@ -362,11 +341,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCurrentCDATASection = null;
         fCurrentEntityDecl = null;
         fRoot = null;
-    } // dropDocumentReferences()
-
-    //
-    // XMLDocumentParser methods
-    //
+    }
 
     /**
      * Resets the parser state.
@@ -2325,6 +2300,4 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void abort () {
         throw Abort.INSTANCE;
     }
-
-
-} // class AbstractDOMParser
+}

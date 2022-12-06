@@ -56,20 +56,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public class DOMParser
-    extends AbstractDOMParser {
-
-    //
-    // Constants
-    //
-
-    // features
+public class DOMParser extends AbstractDOMParser {
 
     /** Feature identifier: EntityResolver2. */
     protected static final String USE_ENTITY_RESOLVER2 =
         Constants.SAX_FEATURE_PREFIX + Constants.USE_ENTITY_RESOLVER2_FEATURE;
-
-    // properties
 
     /** Property identifier: symbol table. */
     protected static final String SYMBOL_TABLE =
@@ -85,39 +76,29 @@ public class DOMParser
         XMLGRAMMAR_POOL,
     };
 
-    //
-    // Data
-    //
-
-    // features
-
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
-
-    //
-    // Constructors
-    //
 
     /**
      * Constructs a DOM parser using the specified parser configuration.
      */
     public DOMParser(XMLParserConfiguration config) {
         super(config);
-    } // <init>(XMLParserConfiguration)
+    }
 
     /**
      * Constructs a DOM parser using the dtd/xml schema parser configuration.
      */
     public DOMParser() {
         this(null, null);
-    } // <init>()
+    }
 
     /**
      * Constructs a DOM parser using the specified symbol table.
      */
     public DOMParser(SymbolTable symbolTable) {
         this(symbolTable, null);
-    } // <init>(SymbolTable)
+    }
 
 
     /**
@@ -139,11 +120,7 @@ public class DOMParser
             fConfiguration.setProperty(XMLGRAMMAR_POOL, grammarPool);
         }
 
-    } // <init>(SymbolTable,XMLGrammarPool)
-
-    //
-    // XMLReader methods
-    //
+    }
 
     /**
      * Parses the input source specified by the given system identifier.
@@ -205,10 +182,10 @@ public class DOMParser
             throw new SAXException(ex);
         }
 
-    } // parse(String)
+    }
 
     /**
-     * parse
+     * Parse.
      *
      * @param inputSource the input source
      *
@@ -268,7 +245,7 @@ public class DOMParser
             throw new SAXException(ex);
         }
 
-    } // parse(InputSource)
+    }
 
     /**
      * Sets the resolver used to resolve external entities. The EntityResolver
@@ -306,7 +283,7 @@ public class DOMParser
             // do nothing
         }
 
-    } // setEntityResolver(EntityResolver)
+    }
 
     /**
      * Return the current entity resolver.
@@ -337,7 +314,7 @@ public class DOMParser
         }
         return entityResolver;
 
-    } // getEntityResolver():EntityResolver
+    }
 
     /**
      * Allow an application to register an error event handler.
@@ -374,7 +351,7 @@ public class DOMParser
             // do nothing
         }
 
-    } // setErrorHandler(ErrorHandler)
+    }
 
     /**
      * Return the current error handler.
@@ -399,7 +376,7 @@ public class DOMParser
         }
         return errorHandler;
 
-    } // getErrorHandler():ErrorHandler
+    }
 
     /**
      * Set the state of any feature in a SAX2 parser.  The parser
@@ -453,7 +430,7 @@ public class DOMParser
             }
         }
 
-    } // setFeature(String,boolean)
+    }
 
     /**
      * Query the state of a feature.
@@ -502,7 +479,7 @@ public class DOMParser
             }
         }
 
-    } // getFeature(String):boolean
+    }
 
     /**
      * Set the value of any property in a SAX2 parser.  The parser
@@ -539,7 +516,7 @@ public class DOMParser
             }
         }
 
-    } // setProperty(String,Object)
+    }
 
     /**
      * Query the value of a property.
@@ -593,13 +570,13 @@ public class DOMParser
             }
         }
 
-    } // getProperty(String):Object
+    }
 
     /**
-     * Returns this parser's XMLParserConfiguration.
+     * @return this parser's XMLParserConfiguration.
      */
     public XMLParserConfiguration getXMLParserConfiguration() {
         return fConfiguration;
-    } // getXMLParserConfiguration():XMLParserConfiguration
+    }
 
-} // class DOMParser
+}

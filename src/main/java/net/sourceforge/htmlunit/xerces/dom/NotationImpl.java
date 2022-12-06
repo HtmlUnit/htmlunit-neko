@@ -45,16 +45,8 @@ public class NotationImpl
     extends NodeImpl
     implements Notation {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -764632195890658402L;
-
-    //
-    // Data
-    //
 
     /** Notation name. */
     protected String name;
@@ -68,21 +60,15 @@ public class NotationImpl
     /** Base URI*/
     protected String baseURI;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public NotationImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -92,6 +78,8 @@ public class NotationImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the notation name
      */
     @Override
@@ -102,11 +90,9 @@ public class NotationImpl
         return name;
     }
 
-    //
-    // Notation methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * The Public Identifier for this Notation. If no public identifier
      * was specified, this will be null.
      */
@@ -118,9 +104,11 @@ public class NotationImpl
         }
         return publicId;
 
-    } // getPublicId():String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * The System Identifier for this Notation. If no system identifier
      * was specified, this will be null.
      */
@@ -132,16 +120,10 @@ public class NotationImpl
         }
         return systemId;
 
-    } // getSystemId():String
+    }
 
-    //
-    // Public methods
-    //
-
-    /**
-     * NON-DOM: The Public Identifier for this Notation. If no public
-     * identifier was specified, this will be null.
-     */
+    // NON-DOM: The Public Identifier for this Notation. If no public
+    // identifier was specified, this will be null.
     public void setPublicId(String id) {
 
         if (isReadOnly()) {
@@ -154,12 +136,10 @@ public class NotationImpl
         }
         publicId = id;
 
-    } // setPublicId(String)
+    }
 
-    /**
-     * NON-DOM: The System Identifier for this Notation. If no system
-     * identifier was specified, this will be null.
-     */
+    // NON-DOM: The System Identifier for this Notation. If no system
+    // identifier was specified, this will be null.
     public void setSystemId(String id) {
 
         if(isReadOnly()) {
@@ -172,10 +152,12 @@ public class NotationImpl
         }
         systemId = id;
 
-    } // setSystemId(String)
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
@@ -199,12 +181,11 @@ public class NotationImpl
         return baseURI;
     }
 
-    /** NON-DOM: set base uri*/
+    // NON-DOM: set base uri
     public void setBaseURI(String uri){
         if (needsSyncData()) {
             synchronizeData();
         }
         baseURI = uri;
     }
-
-} // class NotationImpl
+}

@@ -43,12 +43,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  */
 public abstract class XMLParser {
 
-    //
-    // Constants
-    //
-
-    // properties
-
     /** Property identifier: entity resolver. */
     protected static final String ENTITY_RESOLVER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
@@ -63,41 +57,28 @@ public abstract class XMLParser {
         ERROR_HANDLER,
     };
 
-    //
-    // Data
-    //
-
     /** The parser configuration. */
     protected final XMLParserConfiguration fConfiguration;
-
-    //
-    // Constructors
-    //
 
     /**
      * Default Constructor.
      */
     protected XMLParser(XMLParserConfiguration config) {
-
         // save configuration
         fConfiguration = config;
 
         // add default recognized properties
         fConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
 
-    } // <init>(XMLParserConfiguration)
-
-    //
-    // Public methods
-    //
+    }
 
     /**
-     * parse
+     * Parse.
      *
-     * @param inputSource
+     * @param inputSource the input source
      *
-     * @exception XNIException
-     * @exception java.io.IOException
+     * @exception XNIException on error
+     * @exception java.io.IOException on error
      */
     public void parse(XMLInputSource inputSource)
         throws XNIException, IOException {
@@ -105,16 +86,11 @@ public abstract class XMLParser {
         reset();
         fConfiguration.parse(inputSource);
 
-    } // parse(XMLInputSource)
-
-    //
-    // Protected methods
-    //
+    }
 
     /**
      * reset all components before parsing
      */
     protected void reset() throws XNIException {
-    } // reset()
-
-} // class XMLParser
+    }
+}

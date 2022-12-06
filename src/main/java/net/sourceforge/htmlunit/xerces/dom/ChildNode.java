@@ -24,19 +24,9 @@ import org.w3c.dom.Node;
  * having references to its previous and next siblings.
  *
  */
-public abstract class ChildNode
-    extends NodeImpl {
-
-    //
-    // Constants
-    //
-
+public abstract class ChildNode extends NodeImpl {
     /** Serialization version. */
     static final long serialVersionUID = -6112455738802414002L;
-
-    //
-    // Data
-    //
 
     /** Previous sibling. */
     protected ChildNode previousSibling;
@@ -44,28 +34,23 @@ public abstract class ChildNode
     /** Next sibling. */
     protected ChildNode nextSibling;
 
-    //
-    // Constructors
-    //
-
     /**
      * No public constructor; only subclasses of Node should be
      * instantiated, and those normally via a Document's factory methods
      * <p>
      * Every Node knows what Document it belongs to.
+     * @param ownerDocument the owner document
      */
     protected ChildNode(CoreDocumentImpl ownerDocument) {
         super(ownerDocument);
-    } // <init>(CoreDocumentImpl)
+    }
 
     /** Constructor for serialization. */
     public ChildNode() {}
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Returns a duplicate of a given node. You can consider this a
      * generic "copy constructor" for nodes. The newly returned object should
      * be completely independent of the source object's subtree, so changes
@@ -100,10 +85,10 @@ public abstract class ChildNode
 
         return newnode;
 
-    } // cloneNode(boolean):Node
+    }
 
     /**
-     * Returns the parent node of this node
+     * {@inheritDoc}
      */
     @Override
     public Node getParentNode() {
@@ -113,7 +98,7 @@ public abstract class ChildNode
     }
 
     /*
-     * same as above but returns internal type
+     * {@inheritDoc}
      */
     @Override
     final NodeImpl parentNode() {
@@ -122,13 +107,18 @@ public abstract class ChildNode
         return isOwned() ? ownerNode : null;
     }
 
-    /** The next child of this node's parent, or null if none */
+    /**
+     * {@inheritDoc}
+     * The next child of this node's parent, or null if none
+     */
     @Override
     public Node getNextSibling() {
         return nextSibling;
     }
 
-    /** The previous child of this node's parent, or null if none */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Node getPreviousSibling() {
         // if we are the firstChild, previousSibling actually refers to our
@@ -137,7 +127,7 @@ public abstract class ChildNode
     }
 
     /*
-     * same as above but returns internal type
+     * {@inheritDoc}
      */
     @Override
     final ChildNode previousSibling() {
@@ -145,5 +135,4 @@ public abstract class ChildNode
         // parent's lastChild, but we hide that
         return isFirstChild() ? null : previousSibling;
     }
-
-} // class ChildNode
+}

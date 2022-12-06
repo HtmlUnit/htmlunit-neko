@@ -28,27 +28,22 @@ public class CommentImpl
     extends CharacterDataImpl
     implements CharacterData, Comment {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -2685736833408134044L;
 
-    //
-    // Constructors
-    //
 
-    /** Factory constructor. */
+    /**
+     * Factory constructor.
+     * @param ownerDoc the owner document
+     * @param data the data
+     */
     public CommentImpl(CoreDocumentImpl ownerDoc, String data) {
         super(ownerDoc, data);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -57,10 +52,11 @@ public class CommentImpl
         return Node.COMMENT_NODE;
     }
 
-    /** Returns the node name. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNodeName() {
         return "#comment";
     }
-
-} // class CommentImpl
+}

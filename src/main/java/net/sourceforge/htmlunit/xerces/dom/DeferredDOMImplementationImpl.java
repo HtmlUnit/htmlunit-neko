@@ -32,21 +32,10 @@ import org.w3c.dom.DOMImplementation;
 public class DeferredDOMImplementationImpl
     extends DOMImplementationImpl {
 
-    //
-    // Data
-    //
-
-    // static
-
     /** Dom implementation singleton. */
     static final DeferredDOMImplementationImpl singleton = new DeferredDOMImplementationImpl();
 
-
-    //
-    // Public methods
-    //
-
-    /** NON-DOM: Obtain and return the single shared object */
+    // NON-DOM: Obtain and return the single shared object
     public static DOMImplementation getDOMImplementation() {
         return singleton;
     }

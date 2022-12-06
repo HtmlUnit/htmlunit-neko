@@ -39,36 +39,18 @@ public class TextImpl
     extends CharacterDataImpl
     implements CharacterData, Text {
 
-    //
-    // Private Data members
-    //
-
-
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -5294980852957403469L;
-
-    //
-    // Constructors
-    //
 
     /** Default constructor */
     public TextImpl(){}
 
-    /** Factory constructor. */
+    // Factory constructor.
     public TextImpl(CoreDocumentImpl ownerDoc, String data) {
         super(ownerDoc, data);
     }
 
-    /**
-     * NON-DOM: resets node and sets specified values for the current node
-     *
-     * @param ownerDoc
-     * @param data
-     */
+     // NON-DOM: resets node and sets specified values for the current node
     public void setValues(CoreDocumentImpl ownerDoc, String data){
 
         flags=0;
@@ -77,11 +59,10 @@ public class TextImpl
         setOwnerDocument(ownerDoc);
         super.data = data;
     }
-    //
-    // Node methods
-    //
 
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -90,15 +71,15 @@ public class TextImpl
         return Node.TEXT_NODE;
     }
 
-    /** Returns the node name. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getNodeName() {
         return "#text";
     }
 
-    /**
-     * NON-DOM: Set whether this Text is ignorable whitespace.
-     */
+     // NON-DOM: Set whether this Text is ignorable whitespace.
     public void setIgnorableWhitespace(boolean ignore) {
 
         if (needsSyncData()) {
@@ -106,14 +87,16 @@ public class TextImpl
         }
         isIgnorableWhitespace(ignore);
 
-    } // setIgnorableWhitespace(boolean)
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * DOM L3 Core CR - Experimental
      * <p>
      * Returns whether this text node contains
-     * element content whitespace</a>, often abusively called "ignorable whitespace".
+     * element content whitespace, often abusively called "ignorable whitespace".
      * The text node is determined to contain whitespace in element content
      * during the load of the document or if validation occurs while using
      * <code>Document.normalizeDocument()</code>.
@@ -129,6 +112,8 @@ public class TextImpl
 
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * Returns all text of <code>Text</code> nodes logically-adjacent text
      * nodes to this node, concatenated in document order.
@@ -163,7 +148,8 @@ public class TextImpl
      * internal method taking a StringBuffer in parameter and inserts the
      * text content at the start of the buffer
      *
-     * @param buf
+     * @param buf string buffer
+     * @throws DOMException on error
      */
     protected void insertTextContent(StringBuffer buf) throws DOMException {
          String content = getNodeValue();
@@ -175,9 +161,9 @@ public class TextImpl
     /**
      * Concatenates the text of all logically-adjacent text nodes to the
      * right of this node
-     * @param node
-     * @param buffer
-     * @param parent
+     * @param node the node
+     * @param buffer the buffer
+     * @param parent the parent
      * @return true - if execution was stopped because the type of node
      *         other than EntityRef, Text, CDATA is encountered, otherwise
      *         return false
@@ -222,9 +208,9 @@ public class TextImpl
     /**
      * Concatenates the text of all logically-adjacent text nodes to the left of
      * the node
-     * @param node
-     * @param buffer
-     * @param parent
+     * @param node the node
+     * @param buffer the  buffer
+     * @param parent the parent
      * @return true - if execution was stopped because the type of node
      *         other than EntityRef, Text, CDATA is encountered, otherwise
      *         return false
@@ -267,6 +253,8 @@ public class TextImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Replaces the text of the current node and all logically-adjacent text
      * nodes with the specified text. All logically-adjacent text nodes are
      * removed including the current node unless it was the recipient of the
@@ -374,7 +362,7 @@ public class TextImpl
      * contain only Text or CDATASection nodes, return false. Check this
      * recursively for EntityReference nodes.
      *
-     * @param node
+     * @param node the node
      * @return true - can replace text false - can't replace exception must be
      *         raised
      */
@@ -459,7 +447,7 @@ public class TextImpl
      * contain only Text or CDATASection nodes, return false. Check this
      * recursively for EntityReference nodes.
      *
-     * @param node
+     * @param node the node
      * @return true - can replace text false - can't replace exception must be
      *         raised
      */
@@ -530,7 +518,7 @@ public class TextImpl
     /**
      * Check if an EntityReference node has Text Only child nodes
      *
-     * @param node
+     * @param node the node
      * @return true - Contains text only children
      */
     private boolean hasTextOnlyChildren(Node node) {
@@ -559,9 +547,7 @@ public class TextImpl
     }
 
 
-    /**
-     * NON-DOM: Returns whether this Text is ignorable whitespace.
-     */
+     // NON-DOM: Returns whether this Text is ignorable whitespace.
     public boolean isIgnorableWhitespace() {
 
         if (needsSyncData()) {
@@ -569,14 +555,11 @@ public class TextImpl
         }
         return internalIsIgnorableWhitespace();
 
-    } // isIgnorableWhitespace():boolean
-
-
-    //
-    // Text methods
-    //
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Break a text node into two sibling nodes. (Note that if the current node
      * has no parent, they won't wind up as "siblings" -- they'll both be
      * orphans.)
@@ -588,11 +571,10 @@ public class TextImpl
      * @return A reference to the new node (containing data after the offset
      *         point). The original node will contain data up to that point.
      *
-     * @throws DOMException(INDEX_SIZE_ERR)
-     *             if offset is <0 or >length.
+     * @throws DOMException INDEX_SIZE_ERR
+     *             if offset is &lt; 0 or &gt; length.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR)
-     *             if node is read-only.
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is read-only.
      */
     @Override
     public Text splitText(int offset)
@@ -625,25 +607,20 @@ public class TextImpl
 
         return newText;
 
-    } // splitText(int):Text
+    }
 
 
-    /**
-     * NON-DOM (used by DOMParser): Reset data for the node.
-     */
+     // NON-DOM (used by DOMParser): Reset data for the node.
     public void replaceData (String value){
         data = value;
     }
 
 
-    /**
-     * NON-DOM (used by DOMParser: Sets data to empty string.
-     *  Returns the value the data was set to.
-     */
+     // NON-DOM (used by DOMParser: Sets data to empty string.
+     //  Returns the value the data was set to.
     public String removeData (){
         String olddata=data;
         data = "";
         return olddata;
     }
-
-} // class TextImpl
+}

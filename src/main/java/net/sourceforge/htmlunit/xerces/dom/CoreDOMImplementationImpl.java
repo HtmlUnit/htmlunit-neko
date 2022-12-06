@@ -46,10 +46,6 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 public class CoreDOMImplementationImpl
     implements DOMImplementation {
 
-    //
-    // Data
-    //
-
     // validator pools
     private static final int SIZE = 2;
 
@@ -79,21 +75,17 @@ public class CoreDOMImplementationImpl
     // compareDocumentPosition
     private int docAndDoctypeCounter = 0;
 
-    // static
     /** Dom implementation singleton. */
     static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
 
-    //
-    // Public methods
-    //
-    /** NON-DOM: Obtain and return the single shared object */
+    // NON-DOM: Obtain and return the single shared object
     public static DOMImplementation getDOMImplementation() {
         return singleton;
     }
-    //
-    // DOMImplementation methods
-    //
+
     /**
+     * {@inheritDoc}
+     *
      * Test if the DOM implementation supports a specific "feature" --
      * currently meaning language and level thereof.
      *
@@ -168,6 +160,8 @@ public class CoreDOMImplementationImpl
 
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Creates an empty DocumentType node.
@@ -252,6 +246,8 @@ public class CoreDOMImplementationImpl
 
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Creates an XML Document object of the specified type with its document
@@ -298,6 +294,8 @@ public class CoreDOMImplementationImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      */
     @Override
@@ -328,12 +326,7 @@ public class CoreDOMImplementationImpl
         return null;
     }
 
-    // DOM L3 LS
-
-    //
-    // Protected methods
-    //
-    /** NON-DOM: retrieve validator. */
+    // NON-DOM: retrieve validator.
     synchronized RevalidationHandler getValidator(String schemaType, String xmlVersion) {
         if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
             // create new validator - we should not attempt
@@ -402,7 +395,7 @@ public class CoreDOMImplementationImpl
         return null;
     }
 
-    /** NON-DOM: release validator */
+    // NON-DOM: release validator
     synchronized void releaseValidator(String schemaType, String xmlVersion,
             RevalidationHandler validator) {
         if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
@@ -468,7 +461,7 @@ public class CoreDOMImplementationImpl
         }
     }
 
-    /** NON-DOM: retrieve DTD loader */
+    // NON-DOM: retrieve DTD loader
     synchronized final XMLDTDLoader getDTDLoader(String xmlVersion) {
         // return an instance of XML11DTDProcessor
         if ("1.1".equals(xmlVersion)) {
@@ -508,7 +501,7 @@ public class CoreDOMImplementationImpl
         }
     }
 
-    /** NON-DOM: release DTD loader */
+    // NON-DOM: release DTD loader
     synchronized final void releaseDTDLoader(String xmlVersion, XMLDTDLoader loader) {
         // release an instance of XMLDTDLoader
         if ("1.1".equals(xmlVersion)) {
@@ -552,12 +545,12 @@ public class CoreDOMImplementationImpl
         }
     }
 
-    /** NON-DOM:  increment document/doctype counter */
+    // NON-DOM:  increment document/doctype counter
     protected synchronized int assignDocumentNumber() {
         return ++docAndDoctypeCounter;
     }
 
-    /** NON-DOM:  increment document/doctype counter */
+    // NON-DOM:  increment document/doctype counter
     protected synchronized int assignDocTypeNumber() {
         return ++docAndDoctypeCounter;
     }
@@ -584,4 +577,4 @@ public class CoreDOMImplementationImpl
         }
         XMLDTDLoader loader;
     }
-} // class DOMImplementationImpl
+}

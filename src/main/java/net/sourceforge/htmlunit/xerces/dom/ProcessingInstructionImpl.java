@@ -31,35 +31,21 @@ public class ProcessingInstructionImpl
     extends CharacterDataImpl
     implements ProcessingInstruction {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 7554435174099981510L;
 
-    //
-    // Data
-    //
-
     protected String target;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc,
                                      String target, String data) {
         super(ownerDoc, data);
         this.target = target;
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -69,6 +55,8 @@ public class ProcessingInstructionImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the target
      */
     @Override
@@ -79,16 +67,14 @@ public class ProcessingInstructionImpl
         return target;
     }
 
-    //
-    // ProcessingInstruction methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A PI's "target" states what processor channel the PI's data
      * should be directed to. It is defined differently in HTML and XML.
      * <p>
      * In XML, a PI's "target" is the first (whitespace-delimited) token
-     * following the "<?" token that begins the PI.
+     * following the "&lt;?" token that begins the PI.
      * <p>
      * In HTML, target is always null.
      * <p>
@@ -101,9 +87,11 @@ public class ProcessingInstructionImpl
         }
         return target;
 
-    } // getTarget():String
+    }
 
    /**
+     * {@inheritDoc}
+     *
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
@@ -118,6 +106,4 @@ public class ProcessingInstructionImpl
         }
         return ownerNode.getBaseURI();
     }
-
-
-} // class ProcessingInstructionImpl
+}

@@ -85,18 +85,8 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class CoreDocumentImpl
 extends ParentNode implements Document  {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 0;
-
-    //
-    // Data
-    //
-
-    // document information
 
     /** Document type. */
     protected DocumentTypeImpl docType;
@@ -126,7 +116,7 @@ extends ParentNode implements Document  {
     protected Map userData;  // serialized as Hashtable
 
     /** Identifiers. */
-    protected Hashtable identifiers;
+    protected Hashtable<String, Element> identifiers;
 
     // DOM Level 3: normalizeDocument
     transient DOMNormalizer domNormalizer = null;
@@ -243,7 +233,10 @@ extends ParentNode implements Document  {
         this(false);
     }
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     * @param grammarAccess grammar acess flag
+     */
     public CoreDocumentImpl(boolean grammarAccess) {
         super(null);
         ownerDocument = this;
@@ -253,12 +246,17 @@ extends ParentNode implements Document  {
     /**
      * For DOM2 support.
      * The createDocument factory method is in DOMImplementation.
+     * @param doctype the {@link DocumentType}
      */
     public CoreDocumentImpl(DocumentType doctype) {
         this(doctype, false);
     }
 
-    /** For DOM2 support. */
+    /**
+     * For DOM2 support.
+     * @param doctype the {@link DocumentType}
+     * @param grammarAccess grammar access flag
+     */
     public CoreDocumentImpl(DocumentType doctype, boolean grammarAccess) {
         this(grammarAccess);
         if (doctype != null) {
@@ -273,10 +271,6 @@ extends ParentNode implements Document  {
             appendChild(doctype);
         }
     }
-
-    //
-    // Node methods
-    //
 
     // even though ownerDocument refers to this in this implementation
     // the DOM Level 2 spec says it must be null, so make it appear so
@@ -315,12 +309,10 @@ extends ParentNode implements Document  {
 
         return newdoc;
 
-    } // cloneNode(boolean):Node
+    }
 
 
-    /**
-     * internal method to share code with subclass
-     **/
+    // internal method to share code with subclass
     protected void cloneNode(CoreDocumentImpl newdoc, boolean deep) {
 
         // clone the children by importing them
@@ -354,7 +346,7 @@ extends ParentNode implements Document  {
         newdoc.allowGrammarAccess = allowGrammarAccess;
         newdoc.errorChecking = errorChecking;
 
-    } // cloneNode(CoreDocumentImpl,boolean):void
+    }
 
     /**
      * Since a Document may contain at most one top-level Element child,
@@ -568,7 +560,7 @@ extends ParentNode implements Document  {
      *
      * @param data The initial contents of the CDATA
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents. (HTML
+     * @throws DOMException NOT_SUPPORTED_ERR  for HTML documents. (HTML
      * not yet implemented.)
      */
     @Override
@@ -581,7 +573,9 @@ extends ParentNode implements Document  {
      * Factory method; creates a Comment having this Document as its
      * OwnerDoc.
      *
-     * @param data The initial contents of the Comment. */
+     * @param data The initial contents of the Comment.
+     * @return comment
+     */
     @Override
     public Comment createComment(String data) {
         return new CommentImpl(this, data);
@@ -605,7 +599,7 @@ extends ParentNode implements Document  {
      * be provided in any case, but it must be mapped to the canonical
      * uppercase form by the DOM implementation.
      *
-     * @throws DOMException(INVALID_NAME_ERR) if the tag name is not
+     * @throws DOMException INVALID_NAME_ERR if the tag name is not
      * acceptable.
      */
     @Override
@@ -618,7 +612,7 @@ extends ParentNode implements Document  {
         }
         return new ElementImpl(this, tagName);
 
-    } // createElement(String):Element
+    }
 
     /**
      * Factory method; creates an EntityReference having this Document
@@ -626,7 +620,7 @@ extends ParentNode implements Document  {
      *
      * @param name The name of the Entity we wish to refer to
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents, where
+     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where
      * nonstandard entities are not permitted. (HTML not yet
      * implemented.)
      */
@@ -640,7 +634,7 @@ extends ParentNode implements Document  {
         }
         return new EntityReferenceImpl(this, name);
 
-    } // createEntityReference(String):EntityReference
+    }
 
     /**
      * Factory method; creates a ProcessingInstruction having this Document
@@ -649,10 +643,10 @@ extends ParentNode implements Document  {
      * @param target The target "processor channel"
      * @param data Parameter string to be passed to the target.
      *
-     * @throws DOMException(INVALID_NAME_ERR) if the target name is not
+     * @throws DOMException INVALID_NAME_ERR if the target name is not
      * acceptable.
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents. (HTML
+     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents. (HTML
      * not yet implemented.)
      */
     @Override
@@ -673,15 +667,16 @@ extends ParentNode implements Document  {
      * OwnerDoc.
      *
      * @param data The initial contents of the Text.
+     * @return the text
      */
     @Override
     public Text createTextNode(String data) {
         return new TextImpl(this, data);
     }
 
-    // other document methods
-
     /**
+     * {@inheritDoc}
+     *
      * For XML, this provides access to the Document Type Definition.
      * For HTML documents, and XML documents which don't specify a DTD,
      * it will be null.
@@ -696,6 +691,8 @@ extends ParentNode implements Document  {
 
 
     /**
+     * {@inheritDoc}
+     *
      * Convenience method, allowing direct access to the child node
      * which is considered the root of the actual document content. For
      * HTML, where it is legal to have more than one Element at the top
@@ -713,7 +710,7 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * Return a <em>live</em> collection of all descendent Elements (not just
+     * Return a <em>live</em> collection of all descendant Elements (not just
      * immediate children) having the specified tag name.
      *
      * @param tagname The type of Element we want to gather. "*" will be
@@ -762,14 +759,16 @@ extends ParentNode implements Document  {
      * <li>Read only checks
      * <li>Checks related to DOM events
      * </ul>
+     *
+     * @param check check flag
      */
-
     public void setErrorChecking(boolean check) {
         errorChecking = check;
     }
 
     /*
      * DOM Level 3 WD - Experimental.
+     * {@inheritDoc}
      */
     @Override
     public void setStrictErrorChecking(boolean check) {
@@ -777,7 +776,7 @@ extends ParentNode implements Document  {
     }
 
     /**
-     * Returns true if the DOM implementation performs error checking.
+     * @return true if the DOM implementation performs error checking.
      */
     public boolean getErrorChecking() {
         return errorChecking;
@@ -785,6 +784,7 @@ extends ParentNode implements Document  {
 
     /*
      * DOM Level 3 WD - Experimental.
+     * {@inheritDoc}
      */
     @Override
     public boolean getStrictErrorChecking() {
@@ -793,6 +793,7 @@ extends ParentNode implements Document  {
 
 
     /**
+     * {@inheritDoc}
      * DOM Level 3 CR - Experimental. (Was getActualEncoding)
      * <p>
      * An attribute specifying the encoding used for this document
@@ -812,7 +813,9 @@ extends ParentNode implements Document  {
      * An attribute specifying the actual encoding of this document. This is
      * <code>null</code> otherwise.
      * <br> This attribute represents the property [character encoding scheme]
-     * defined in .
+     * defined in.
+     *
+     * @param value the value
      */
     public void setInputEncoding(String value) {
         actualEncoding = value;
@@ -824,6 +827,8 @@ extends ParentNode implements Document  {
      * <p>
      * An attribute specifying, as part of the XML declaration,
      * the encoding of this document. This is null when unspecified.
+     *
+     * @param value the value
      */
     public void setXmlEncoding(String value) {
         encoding = value;
@@ -839,6 +844,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 CR - Experimental.
      * version - An attribute specifying, as part of the XML declaration,
      * the version number of this document.
@@ -872,6 +879,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * The version of this document (part of XML Declaration)
      */
@@ -881,6 +890,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 CR - Experimental.
      * <p>
      * Xmlstandalone - An attribute specifying, as part of the XML declaration,
@@ -896,6 +907,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * standalone that specifies whether this document is standalone
      * (part of XML Declaration)
@@ -906,6 +919,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * The location of the document or <code>null</code> if undefined.
      * <br>Beware that when the <code>Document</code> supports the feature
@@ -918,20 +933,18 @@ extends ParentNode implements Document  {
     }
 
 
-    /* NON-DOM
-     * Used by DOM Level 3 WD remameNode.
-     *
-     * Some DOM implementations do not allow nodes to be renamed and require
-     * creating new elements.
-     * In this case this method should be overwritten.
-     *
-     * @return true if the given element can be renamed, false, if it must be replaced.
-     */
+    // NON-DOM Used by DOM Level 3 WD remameNode.
+    // Some DOM implementations do not allow nodes to be renamed and require
+    // creating new elements.
+    // In this case this method should be overwritten.
+    // @return true if the given element can be renamed, false, if it must be replaced.
     protected boolean canRenameElements(String newNamespaceURI, String newNodeName, ElementImpl el) {
         return true;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 WD - Experimental.
      * Renaming node
      */
@@ -1045,7 +1058,6 @@ extends ParentNode implements Document  {
     }
 
     private ElementImpl replaceRenameElement(ElementImpl el, String namespaceURI, String name) {
-
         // we need to create a new object
         ElementNSImpl nel = (ElementNSImpl)createElementNS(namespaceURI, name);
 
@@ -1180,6 +1192,8 @@ extends ParentNode implements Document  {
      * property? What if implementing both async and sync IO is impractical
      * in some systems?  2001-09-14. default is <code>false</code> but we
      * need to check with Mozilla and IE.
+     *
+     * @return always false
      */
     public boolean getAsync() {
         return false;
@@ -1198,6 +1212,8 @@ extends ParentNode implements Document  {
      * property? What if implementing both async and sync IO is impractical
      * in some systems?  2001-09-14. default is <code>false</code> but we
      * need to check with Mozilla and IE.
+     *
+     * @param async the new value
      */
     public void setAsync(boolean async) {
         if (async) {
@@ -1205,6 +1221,7 @@ extends ParentNode implements Document  {
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
         }
     }
+
     /**
      * DOM Level 3 WD - Experimental.
      * If the document is currently being loaded as a result of the method
@@ -1284,20 +1301,18 @@ extends ParentNode implements Document  {
     }
 
 
-
-    // non-DOM factory methods
-
     /**
      * NON-DOM
      * Factory method; creates a DocumentType having this Document
      * as its OwnerDoc. (REC-DOM-Level-1-19981001 left the process of building
      * DTD information unspecified.)
      *
-     * @param qualifiedName
-     * @param publicID
-     * @param systemID
+     * @param qualifiedName the name
+     * @param publicID the public id
+     * @param systemID the system id
+     * @return the {@link DocumentType}
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents, where
+     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where
      * DTDs are not permitted. (HTML not yet implemented.)
      */
     public DocumentType createDocumentType(String qualifiedName,
@@ -1307,7 +1322,7 @@ extends ParentNode implements Document  {
 
         return new DocumentTypeImpl(this, qualifiedName, publicID, systemID);
 
-    } // createDocumentType(String):DocumentType
+    }
 
     /**
      * NON-DOM
@@ -1316,22 +1331,21 @@ extends ParentNode implements Document  {
      * DTD information unspecified.)
      *
      * @param name The name of the Entity we wish to provide a value for.
+     * @return the new entity
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents, where
+     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where
      * nonstandard entities are not permitted. (HTML not yet
      * implemented.)
      */
     public Entity createEntity(String name)
     throws DOMException {
-
-
         if (errorChecking && !isXMLName(name,xml11Version)) {
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new EntityImpl(this, name);
 
-    } // createEntity(String):Entity
+    }
 
     /**
      * NON-DOM
@@ -1340,8 +1354,9 @@ extends ParentNode implements Document  {
      * DTD information unspecified.)
      *
      * @param name The name of the Notation we wish to describe
+     * @return the new notration
      *
-     * @throws DOMException(NOT_SUPPORTED_ERR) for HTML documents, where
+     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where
      * notations are not permitted. (HTML not yet
      * implemented.)
      */
@@ -1354,12 +1369,10 @@ extends ParentNode implements Document  {
         }
         return new NotationImpl(this, name);
 
-    } // createNotation(String):Notation
+    }
 
-    /**
-     * NON-DOM Factory method: creates an element definition. Element
-     * definitions hold default attribute values.
-     */
+    // NON-DOM Factory method: creates an element definition. Element
+    // definitions hold default attribute values.
     public ElementDefinitionImpl createElementDefinition(String name)
     throws DOMException {
 
@@ -1369,11 +1382,12 @@ extends ParentNode implements Document  {
         }
         return new ElementDefinitionImpl(this, name);
 
-    } // createElementDefinition(String):ElementDefinitionImpl
+    }
 
-    // other non-DOM methods
 
-    /** NON-DOM:  Get the number associated with this document.   Used to
+    /**
+     * {@inheritDoc}
+     *  NON-DOM:  Get the number associated with this document.   Used to
      * order documents in the implementation.
      */
     @Override
@@ -1387,12 +1401,10 @@ extends ParentNode implements Document  {
     }
 
 
-    /** NON-DOM:  Get a number associated with a node created with respect
-     * to this document.   Needed for compareDocumentPosition when nodes
-     * are disconnected.  This is only used on demand.
-     */
+    // NON-DOM:  Get a number associated with a node created with respect
+    // to this document.   Needed for compareDocumentPosition when nodes
+    // are disconnected.  This is only used on demand.
     protected int getNodeNumber(Node node) {
-
         // Check if the node is already in the hash
         // If so, retrieve the node number
         // If not, assign a number to the node
@@ -1416,6 +1428,8 @@ extends ParentNode implements Document  {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Copies a node from another document to this document. The new nodes are
      * created using this document's factory methods and are populated with the
      * data from the source's accessor methods defined by the DOM interfaces.
@@ -1428,7 +1442,7 @@ extends ParentNode implements Document  {
     public Node importNode(Node source, boolean deep)
     throws DOMException {
         return importNode(source, deep, false, null);
-    } // importNode(Node,boolean):Node
+    }
 
     /**
      * Overloaded implementation of DOM's importNode method. This method
@@ -1441,9 +1455,13 @@ extends ParentNode implements Document  {
      * imported, a check is done for an associated identifier. If one exists,
      * the identifier is registered with the new, imported element. If
      * reversedIdentifiers is null, the parameter is not applied.
+     * @param source the source node
+     * @param deep true for deep iport
+     * @param cloningDoc the cloning Doc
+     * @param reversedIdentifiers helper
      */
     private Node importNode(Node source, boolean deep, boolean cloningDoc,
-    HashMap reversedIdentifiers)
+    HashMap<Node, String> reversedIdentifiers)
     throws DOMException {
         Node newnode=null;
         Hashtable userData = null;
@@ -1502,10 +1520,10 @@ extends ParentNode implements Document  {
                 // Register element identifier.
                 if (reversedIdentifiers != null) {
                     // Does element have an associated identifier?
-                    Object elementId = reversedIdentifiers.get(source);
+                    String elementId = reversedIdentifiers.get(source);
                     if (elementId != null) {
                         if (identifiers == null)
-                            identifiers = new Hashtable();
+                            identifiers = new Hashtable<>();
 
                         identifiers.put(elementId, newElement);
                     }
@@ -1840,10 +1858,10 @@ extends ParentNode implements Document  {
     /**
      * Traverses the DOM Tree and expands deferred nodes and their
      * children.
+     * @param node the node
      *
      */
     protected void undeferChildren(Node node) {
-
         Node top = node;
 
         while (null != node) {
@@ -1916,12 +1934,13 @@ extends ParentNode implements Document  {
      * If the identifier is already registered, the new element
      * node replaces the previous node. If the specified element
      * node is null, removeIdentifier() is called.
+     * @param idName the name
+     * @param element the element
      *
-     * @see #getIdentifier
-     * @see #removeIdentifier
+     * @see #getIdentifier(String)
+     * @see #removeIdentifier(String)
      */
     public void putIdentifier(String idName, Element element) {
-
         if (element == null) {
             removeIdentifier(idName);
             return;
@@ -1932,7 +1951,7 @@ extends ParentNode implements Document  {
         }
 
         if (identifiers == null) {
-            identifiers = new Hashtable();
+            identifiers = new Hashtable<>();
         }
 
         identifiers.put(idName, element);
@@ -1942,9 +1961,11 @@ extends ParentNode implements Document  {
     /**
      * Returns a previously registered element with the specified
      * identifier name, or null if no element is registered.
+     * @param idName the name
+     * @return the element
      *
-     * @see #putIdentifier
-     * @see #removeIdentifier
+     * @see #putIdentifier(String, Element)
+     * @see #removeIdentifier(String)
      */
     public Element getIdentifier(String idName) {
 
@@ -1955,7 +1976,7 @@ extends ParentNode implements Document  {
         if (identifiers == null) {
             return null;
         }
-        Element elem = (Element) identifiers.get(idName);
+        Element elem = identifiers.get(idName);
         if (elem != null) {
             // check that the element is in the tree
             Node parent = elem.getParentNode();
@@ -1972,9 +1993,10 @@ extends ParentNode implements Document  {
     /**
      * Removes a previously registered element with the specified
      * identifier name.
+     * @param idName the name
      *
-     * @see #putIdentifier
-     * @see #getIdentifier
+     * @see #putIdentifier(String, Element)
+     * @see #getIdentifier(String)
      */
     public void removeIdentifier(String idName) {
 
@@ -1988,9 +2010,9 @@ extends ParentNode implements Document  {
 
         identifiers.remove(idName);
 
-    } // removeIdentifier(String)
+    }
 
-    /** Returns an enumeration registered of identifier names. */
+    /** @return an enumeration registered of identifier names. */
     public Enumeration getIdentifiers() {
 
         if (needsSyncData()) {
@@ -2135,16 +2157,14 @@ extends ParentNode implements Document  {
         return newdoc;
     }
 
-    //
-    // Public static methods
-    //
-
     /**
      * Check the string against XML's definition of acceptable names for
      * elements and attributes and so on using the XMLCharacterProperties
      * utility class
+     * @param s the string to check
+     * @param xml11Version if true use xml 11 rules
+     * @return true or false
      */
-
     public static boolean isXMLName(String s, boolean xml11Version) {
 
         if (s == null) {
@@ -2154,8 +2174,7 @@ extends ParentNode implements Document  {
             return XMLChar.isValidName(s);
         else
             return XML11Char.isXML11ValidName(s);
-
-    } // isXMLName(String):boolean
+    }
 
     /**
      * Checks if the given qualified name is legal with respect
@@ -2163,6 +2182,8 @@ extends ParentNode implements Document  {
      *
      * @param prefix prefix of qualified name
      * @param local local part of qualified name
+     * @param xml11Version if true use xml 11 rules
+     * @return true or false
      */
     public static boolean isValidQName(String prefix, String local, boolean xml11Version) {
 
@@ -2181,13 +2202,13 @@ extends ParentNode implements Document  {
 
         return validNCName;
     }
-    //
-    // Protected methods
-    //
 
     /**
      * Uses the kidOK lookup table to check whether the proposed
      * tree structure is legal.
+     * @param parent the parent
+     * @param child the child
+     * @return true or false
      */
     protected boolean isKidOK(Node parent, Node child) {
         if (allowGrammarAccess &&
@@ -2405,42 +2426,6 @@ extends ParentNode implements Document  {
         }
     }
 
-    /**
-     * Call user data handlers to let them know the nodes they are related to
-     * are being deleted. The alternative would be to do that on Node but
-     * because the nodes are used as the keys we have a reference to them that
-     * prevents them from being gc'ed until the document is. At the same time,
-     * doing it here has the advantage of avoiding a finalize() method on Node,
-     * which would affect all nodes and not just the ones that have a user
-     * data.
-     */
-    // Temporarily comment out this method, because
-    // 1. It seems that finalizers are not guaranteed to be called, so the
-    //    functionality is not implemented.
-    // 2. It affects the performance greatly in multi-thread environment.
-    // -SG
-    /*public void finalize() {
-        if (userData == null) {
-            return;
-        }
-        Enumeration nodes = userData.keys();
-        while (nodes.hasMoreElements()) {
-            Object node = nodes.nextElement();
-            Hashtable t = (Hashtable) userData.get(node);
-            if (t != null && !t.isEmpty()) {
-                Enumeration keys = t.keys();
-                while (keys.hasMoreElements()) {
-                    String key = (String) keys.nextElement();
-                    UserDataRecord r = (UserDataRecord) t.get(key);
-                    if (r.fHandler != null) {
-                        r.fHandler.handle(UserDataHandler.NODE_DELETED,
-                                          key, r.fData, null, null);
-                    }
-                }
-            }
-        }
-    }*/
-
     protected final void checkNamespaceWF( String qname, int colon1,
     int colon2) {
 
@@ -2547,30 +2532,24 @@ extends ParentNode implements Document  {
     boolean isXMLVersionChanged(){
         return xmlVersionChanged ;
     }
-    /**
-     * NON-DOM: kept for backward compatibility
-     * Store user data related to a given node
-     * This is a place where we could use weak references! Indeed, the node
-     * here won't be GC'ed as long as some user data is attached to it, since
-     * the userData table will have a reference to the node.
-     */
+
+    // NON-DOM: kept for backward compatibility
+    // Store user data related to a given node
+    // This is a place where we could use weak references! Indeed, the node
+    // here won't be GC'ed as long as some user data is attached to it, since
+    // the userData table will have a reference to the node.
     protected void setUserData(NodeImpl n, Object data) {
         setUserData(n, "XERCES1DOMUSERDATA", data, null);
     }
 
-    /**
-     * NON-DOM: kept for backward compatibility
-     * Retreive user data related to a given node
-     */
+    // NON-DOM: kept for backward compatibility
+    // Retreive user data related to a given node
     protected Object getUserData(NodeImpl n) {
         return getUserData(n, "XERCES1DOMUSERDATA");
     }
 
 
-    // Event related methods overidden in subclass
-
-    protected void addEventListener(NodeImpl node, String type,
-    EventListener listener,
+    protected void addEventListener(NodeImpl node, String type, EventListener listener,
     boolean useCapture) {
         // does nothing by default - overidden in subclass
     }
@@ -2589,8 +2568,6 @@ extends ParentNode implements Document  {
         // does nothing by default - overidden in subclass
         return false;
     }
-
-    // Notification methods overidden in subclasses
 
     /**
      * A method to be called when some text was changed in a text node,
@@ -2745,5 +2722,4 @@ extends ParentNode implements Document  {
             this.nodeTable = oldNodeTable;
         }
     }
-
-} // class CoreDocumentImpl
+}

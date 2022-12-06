@@ -40,16 +40,13 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 public interface ExternalSubsetResolver
     extends XMLEntityResolver {
 
-    //
-    // ExternalSubsetResolver methods
-    //
-
     /**
      * <p>Locates an external subset for documents which do not explicitly
      * provide one. If no external subset is provided, this method should
      * return <code>null</code>.</p>
      *
      * @param grammarDescription a description of the DTD
+     * @return {@link XMLInputSource}
      *
      * @throws XNIException Thrown on general error.
      * @throws IOException  Thrown if resolved entity stream cannot be
@@ -58,4 +55,4 @@ public interface ExternalSubsetResolver
     XMLInputSource getExternalSubset(XMLDTDDescription grammarDescription)
         throws XNIException, IOException;
 
-} // interface ExternalSubsetResolver
+}

@@ -28,9 +28,6 @@ import java.util.NoSuchElementException;
  */
 public final class Constants {
 
-    //
-    // Constants
-    //
     // Schema Types:
     public static final String NS_XMLSCHEMA = "http://www.w3.org/2001/XMLSchema".intern();
     public static final String NS_DTD = "http://www.w3.org/TR/REC-xml".intern();
@@ -440,7 +437,7 @@ public final class Constants {
 
     /**
      * Boolean indicating whether a character is a probable white space
-     * character (ch <= 0x20) that was the replacement text of a character
+     * character (ch &lt;= 0x20) that was the replacement text of a character
      * reference is stored in augmentations using the string "CHAR_REF_PROBABLE_WS".
      * The absence of this augmentation indicates that the character is not
      * probable white space and/or was not included from a character reference.
@@ -555,31 +552,31 @@ public final class Constants {
 
     // sax
 
-    /** Returns an enumeration of the SAX features. */
+    /** @return an enumeration of the SAX features. */
     public static Enumeration getSAXFeatures() {
         return fgSAXFeatures.length > 0
         ? new ArrayEnumeration(fgSAXFeatures) : fgEmptyEnumeration;
-    } // getSAXFeatures():Enumeration
+    }
 
-    /** Returns an enumeration of the SAX properties. */
+    /** @return an enumeration of the SAX properties. */
     public static Enumeration getSAXProperties() {
         return fgSAXProperties.length > 0
         ? new ArrayEnumeration(fgSAXProperties) : fgEmptyEnumeration;
-    } // getSAXProperties():Enumeration
+    }
 
     // xerces
 
-    /** Returns an enumeration of the Xerces features. */
+    /** @return an enumeration of the Xerces features. */
     public static Enumeration getXercesFeatures() {
         return fgXercesFeatures.length > 0
         ? new ArrayEnumeration(fgXercesFeatures) : fgEmptyEnumeration;
-    } // getXercesFeatures():Enumeration
+    }
 
-    /** Returns an enumeration of the Xerces properties. */
+    /** @return an enumeration of the Xerces properties. */
     public static Enumeration getXercesProperties() {
         return fgXercesProperties.length > 0
         ? new ArrayEnumeration(fgXercesProperties) : fgEmptyEnumeration;
-    } // getXercesProperties():Enumeration
+    }
 
     //
     // Classes
@@ -590,12 +587,7 @@ public final class Constants {
      *
      * @author Andy Clark, IBM
      */
-    static class ArrayEnumeration
-    implements Enumeration {
-
-        //
-        // Data
-        //
+    static class ArrayEnumeration implements Enumeration {
 
         /** Array. */
         private final Object[] array;
@@ -603,20 +595,14 @@ public final class Constants {
         /** Index. */
         private int index;
 
-        //
-        // Constructors
-        //
-
         /** Constructs an array enumeration. */
         public ArrayEnumeration(Object[] array) {
             this.array = array;
-        } // <init>(Object[])
-
-        //
-        // Enumeration methods
-        //
+        }
 
         /**
+         * {@inheritDoc}
+         *
          * Tests if this enumeration contains more elements.
          *
          * @return  <code>true</code> if this enumeration contains more elements;
@@ -628,6 +614,8 @@ public final class Constants {
         } // hasMoreElement():boolean
 
         /**
+         * {@inheritDoc}
+         *
          * Returns the next element of this enumeration.
          *
          * @return     the next element of this enumeration.
@@ -639,15 +627,11 @@ public final class Constants {
                 return array[index++];
             }
             throw new NoSuchElementException();
-        } // nextElement():Object
+        }
 
-    } // class ArrayEnumeration
+    }
 
-    //
-    // MAIN
-    //
-
-    /** Prints all of the constants to standard output. */
+    // Prints all of the constants to standard output.
     public static void main(String[] argv) {
 
         print("SAX features:", SAX_FEATURE_PREFIX, fgSAXFeatures);
@@ -655,9 +639,9 @@ public final class Constants {
         print("Xerces features:", XERCES_FEATURE_PREFIX, fgXercesFeatures);
         print("Xerces properties:", XERCES_PROPERTY_PREFIX, fgXercesProperties);
 
-    } // main(String[])
+    }
 
-    /** Prints a list of features/properties. */
+    // Prints a list of features/properties.
     private static void print(String header, String prefix, Object[] array) {
         System.out.print(header);
         if (array.length > 0) {
@@ -671,6 +655,5 @@ public final class Constants {
         else {
             System.out.println(" none.");
         }
-    } // print(String,String,Object[])
-
-} // class Constants
+    }
+}

@@ -1193,12 +1193,7 @@ public abstract class AbstractSAXParser
     } // parse(String)
 
     /**
-     * parse
-     *
-     * @param inputSource
-     *
-     * @exception org.xml.sax.SAXException
-     * @exception java.io.IOException
+     * {@inheritDoc}
      */
     @Override
     public void parse(InputSource inputSource)
@@ -1263,11 +1258,7 @@ public abstract class AbstractSAXParser
     } // parse(InputSource)
 
     /**
-     * Sets the resolver used to resolve external entities. The EntityResolver
-     * interface supports resolution of public and system identifiers.
-     *
-     * @param resolver The new entity resolver. Passing a null value will
-     *                 uninstall the currently installed resolver.
+     * {@inheritDoc}
      */
     @Override
     public void setEntityResolver(EntityResolver resolver) {
@@ -2104,9 +2095,11 @@ public abstract class AbstractSAXParser
      * </pre>
      *
      * @param handler The new handler.
+     * @throws SAXNotRecognizedException on error
+     * @throws SAXNotSupportedException on error
      *
-     * @see #getDeclHandler
-     * @see #setProperty
+     * @see #getDeclHandler()
+     * @see #setProperty(String, Object)
      */
     protected void setDeclHandler(DeclHandler handler)
         throws SAXNotRecognizedException, SAXNotSupportedException {
@@ -2122,14 +2115,16 @@ public abstract class AbstractSAXParser
     } // setDeclHandler(DeclHandler)
 
     /**
-     * Returns the DTD declaration event handler.
+     * @return the DTD declaration event handler.
      *
-     * @see #setDeclHandler
+     * @throws SAXNotRecognizedException on error
+     * @throws SAXNotSupportedException on error
+     * @see #setDeclHandler(DeclHandler)
      */
     protected DeclHandler getDeclHandler()
         throws SAXNotRecognizedException, SAXNotSupportedException {
         return fDeclHandler;
-    } // getDeclHandler():DeclHandler
+    }
 
     /**
      * Set the lexical event handler.
@@ -2140,9 +2135,11 @@ public abstract class AbstractSAXParser
      * </pre>
      *
      * @param handler lexical event handler
+     * @throws SAXNotRecognizedException on error
+     * @throws SAXNotSupportedException on error
      *
-     * @see #getLexicalHandler
-     * @see #setProperty
+     * @see #getLexicalHandler()
+     * @see #setProperty(String, Object)
      */
     protected void setLexicalHandler(LexicalHandler handler)
         throws SAXNotRecognizedException, SAXNotSupportedException {
@@ -2155,20 +2152,23 @@ public abstract class AbstractSAXParser
         }
         fLexicalHandler = handler;
 
-    } // setLexicalHandler(LexicalHandler)
+    }
 
     /**
-     * Returns the lexical handler.
+     * @return the lexical handler.
      *
-     * @see #setLexicalHandler
+     * @throws SAXNotRecognizedException on error
+     * @throws SAXNotSupportedException on error
+     * @see #setLexicalHandler(LexicalHandler)
      */
     protected LexicalHandler getLexicalHandler()
         throws SAXNotRecognizedException, SAXNotSupportedException {
         return fLexicalHandler;
-    } // getLexicalHandler():LexicalHandler
+    }
 
     /**
      * Send startPrefixMapping events
+     * @throws SAXException on error
      */
     protected final void startNamespaceMapping() throws SAXException{
         int count = fNamespaceContext.getDeclaredPrefixCount();
@@ -2186,6 +2186,7 @@ public abstract class AbstractSAXParser
 
     /**
      * Send endPrefixMapping events
+     * @throws SAXException on error
      */
     protected final void endNamespaceMapping() throws SAXException {
         int count = fNamespaceContext.getDeclaredPrefixCount();
@@ -2195,10 +2196,6 @@ public abstract class AbstractSAXParser
             }
         }
     }
-
-    //
-    // XMLDocumentParser methods
-    //
 
     /**
      * Reset all components before parsing.

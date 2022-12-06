@@ -31,7 +31,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 /**
  * DeferredElementNSImpl is to ElementNSImpl, what DeferredElementImpl is to
  * ElementImpl.
- * <p>
  *
  * @see DeferredElementImpl
  */
@@ -39,51 +38,38 @@ public class DeferredElementNSImpl
     extends ElementNSImpl
     implements DeferredNode {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -5001885145370927385L;
-
-    //
-    // Data
-    //
 
     /** Node index. */
     protected final transient int fNodeIndex;
 
-    //
-    // Constructors
-    //
-
     /**
      * This is the deferred constructor. Only the fNodeIndex is given here. All
      * other data, can be requested from the ownerDocument via the index.
+     * @param ownerDoc the owner doc
+     * @param nodeIndex the node index
      */
     DeferredElementNSImpl(DeferredDocumentImpl ownerDoc, int nodeIndex) {
         super(ownerDoc, null);
 
         fNodeIndex = nodeIndex;
         needsSyncChildren(true);
+    }
 
-    } // <init>(DocumentImpl,int)
-
-    //
-    // DeferredNode methods
-    //
-
-    /** Returns the node index. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getNodeIndex() {
         return fNodeIndex;
     }
 
-    //
-    // Protected methods
-    //
-
-    /** Synchronizes the data (name and value) for fast nodes. */
+    /**
+     * {@inheritDoc}
+     *
+     * Synchronizes the data (name and value) for fast nodes.
+     */
     @Override
     protected final void synchronizeData() {
 
@@ -131,9 +117,11 @@ public class DeferredElementNSImpl
                 attrIndex = ownerDocument.getPrevSibling(attrIndex);
             } while (attrIndex != -1);
         }
-    } // synchronizeData()
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Synchronizes the node's children with the internal structure.
      * Fluffing the children at once solves a lot of work to keep
      * the two structures in sync. The problem gets worse when
@@ -144,6 +132,5 @@ public class DeferredElementNSImpl
         DeferredDocumentImpl ownerDocument =
             (DeferredDocumentImpl) ownerDocument();
         ownerDocument.synchronizeChildren(this, fNodeIndex);
-    } // synchronizeChildren()
-
-} // class DeferredElementImpl
+    }
+}

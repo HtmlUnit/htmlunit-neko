@@ -36,15 +36,12 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  */
 public interface XMLEntityResolver {
 
-    //
-    // XMLEntityResolver methods
-    //
-
     /**
      * Resolves an external parsed entity. If the entity cannot be
      * resolved, this method should return null.
      *
      * @param resourceIdentifier location of the XML resource to resolve
+     * @return {@link XMLInputSource}
      *
      * @throws XNIException Thrown on general error.
      * @throws IOException  Thrown if resolved entity stream cannot be
@@ -54,4 +51,4 @@ public interface XMLEntityResolver {
     XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier)
         throws XNIException, IOException;
 
-} // interface XMLEntityResolver
+}

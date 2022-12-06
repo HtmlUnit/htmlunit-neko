@@ -54,10 +54,6 @@ public class XMLEntityScanner implements XMLLocator {
         }
     };
 
-    //
-    // Data
-    //
-
     private XMLEntityManager fEntityManager = null;
     protected XMLEntityManager.ScannedEntity fCurrentEntity = null;
 
@@ -177,18 +173,17 @@ public class XMLEntityScanner implements XMLLocator {
         fCurrentEntity.xmlVersion = xmlVersion;
     } // setXMLVersion(String)
 
-    /** Returns true if the current entity being scanned is external. */
+    /** @return true if the current entity being scanned is external. */
     public final boolean isExternal() {
         return fCurrentEntity.isExternal();
-    } // isExternal():boolean
+    }
 
     /**
-     * Returns the next character on the input.
+     * @return the next character on the input.
      * <p>
      * <strong>Note:</strong> The character is <em>not</em> consumed.
      *
      * @throws IOException  Thrown if i/o error occurs.
-     * @throws EOFException Thrown on end of file.
      */
     public int peekChar() throws IOException {
         if (DEBUG_BUFFER) {
@@ -226,12 +221,11 @@ public class XMLEntityScanner implements XMLLocator {
     } // peekChar():int
 
     /**
-     * Returns the next character on the input.
+     * @return the next character on the input.
      * <p>
      * <strong>Note:</strong> The character is consumed.
      *
      * @throws IOException  Thrown if i/o error occurs.
-     * @throws EOFException Thrown on end of file.
      */
     public int scanChar() throws IOException {
         if (DEBUG_BUFFER) {
@@ -276,7 +270,7 @@ public class XMLEntityScanner implements XMLLocator {
     } // scanChar():int
 
     /**
-     * Returns a string matching the NMTOKEN production appearing immediately
+     * @return a string matching the NMTOKEN production appearing immediately
      * on the input as a symbol, or null if NMTOKEN Name string is present.
      * <p>
      * <strong>Note:</strong> The NMTOKEN characters are consumed.
@@ -285,7 +279,6 @@ public class XMLEntityScanner implements XMLLocator {
      * SymbolTable can be used for this purpose.
      *
      * @throws IOException  Thrown if i/o error occurs.
-     * @throws EOFException Thrown on end of file.
      *
      * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XMLChar#isName
@@ -339,7 +332,7 @@ public class XMLEntityScanner implements XMLLocator {
     } // scanNmtoken():String
 
     /**
-     * Returns a string matching the Name production appearing immediately
+     * @return a string matching the Name production appearing immediately
      * on the input as a symbol, or null if no Name string is present.
      * <p>
      * <strong>Note:</strong> The Name characters are consumed.
@@ -348,7 +341,6 @@ public class XMLEntityScanner implements XMLLocator {
      * SymbolTable can be used for this purpose.
      *
      * @throws IOException  Thrown if i/o error occurs.
-     * @throws EOFException Thrown on end of file.
      *
      * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XMLChar#isName
@@ -419,7 +411,7 @@ public class XMLEntityScanner implements XMLLocator {
     } // scanName():String
 
     /**
-     * Returns a string matching the NCName production appearing immediately
+     * @return a string matching the NCName production appearing immediately
      * on the input as a symbol, or null if no NCName string is present.
      * <p>
      * <strong>Note:</strong> The NCName characters are consumed.
@@ -428,7 +420,6 @@ public class XMLEntityScanner implements XMLLocator {
      * SymbolTable can be used for this purpose.
      *
      * @throws IOException  Thrown if i/o error occurs.
-     * @throws EOFException Thrown on end of file.
      *
      * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XMLChar#isNCName

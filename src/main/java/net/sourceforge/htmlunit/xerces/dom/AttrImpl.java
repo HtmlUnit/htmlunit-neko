@@ -134,13 +134,11 @@ public class AttrImpl
     // REVISIT: we are losing the type information in DOM during serialization
     transient Object type;
 
-    //
-    // Constructors
-    //
-
     /**
      * Attribute has no public constructor. Please use the factory
      * method in the Document class.
+     * @param ownerDocument the owner document
+     * @param name the  name
      */
     protected AttrImpl(CoreDocumentImpl ownerDocument, String name) {
         super(ownerDocument);
@@ -201,7 +199,7 @@ public class AttrImpl
     /**
      * NON-DOM: set the type of this attribute to be ID type.
      *
-     * @param id
+     * @param id the id
      */
     public void setIdAttribute(boolean id){
         if (needsSyncData()) {
@@ -209,18 +207,16 @@ public class AttrImpl
         }
         isIdAttribute(id);
     }
-    /** DOM Level 3: isId*/
+
+    /** DOM Level 3: isId
+     * {@inheritDoc}
+     */
     @Override
     public boolean isId(){
         // REVISIT: should an attribute that is not in the tree return
         // isID true?
         return isIdAttribute();
     }
-
-
-    //
-    // Node methods
-    //
 
     @Override
     public Node cloneNode(boolean deep) {
@@ -249,8 +245,7 @@ public class AttrImpl
     }
 
     /**
-     * A short integer indicating what type of node this is. The named
-     * constants for this value are defined in the org.w3c.dom.Node interface.
+     * {@inheritDoc}
      */
     @Override
     public short getNodeType() {
@@ -258,7 +253,7 @@ public class AttrImpl
     }
 
     /**
-     * Returns the attribute name
+     * {@inheritDoc}
      */
     @Override
     public String getNodeName() {
@@ -269,6 +264,7 @@ public class AttrImpl
     }
 
     /**
+     * {@inheritDoc}
      * Implicit in the rerouting of getNodeValue to getValue is the
      * need to redefine setNodeValue, for symmetry's sake.  Note that
      * since we're explicitly providing a value, Specified should be set
@@ -280,7 +276,7 @@ public class AttrImpl
     }
 
     /**
-     * @see org.w3c.dom.TypeInfo#getTypeName()
+     * {@inheritDoc}
      */
     @Override
     public String getTypeName() {
@@ -288,7 +284,7 @@ public class AttrImpl
     }
 
     /**
-     * @see org.w3c.dom.TypeInfo#getTypeNamespace()
+     * {@inheritDoc}
      */
     @Override
     public String getTypeNamespace() {
@@ -299,8 +295,7 @@ public class AttrImpl
     }
 
     /**
-     * Method getSchemaTypeInfo.
-     * @return TypeInfo
+     * {@inheritDoc}
      */
     @Override
     public TypeInfo getSchemaTypeInfo(){
@@ -308,21 +303,15 @@ public class AttrImpl
     }
 
     /**
-     * In Attribute objects, NodeValue is considered a synonym for
-     * Value.
-     *
-     * @see #getValue()
+     * {@inheritDoc}
      */
     @Override
     public String getNodeValue() {
         return getValue();
     }
 
-    //
-    // Attr methods
-    //
-
     /**
+     * {@inheritDoc}
      * In Attributes, NodeName is considered a synonym for the
      * attribute's Name
      */
@@ -334,9 +323,10 @@ public class AttrImpl
         }
         return name;
 
-    } // getName():String
+    }
 
     /**
+     * {@inheritDoc}
      * The DOM doesn't clearly define what setValue(null) means. I've taken it
      * as "remove all children", which from outside should appear
      * similar to setting it to the empty string.
@@ -437,9 +427,10 @@ public class AttrImpl
             ownerDocument.putIdentifier(newvalue, ownerElement);
         }
 
-    } // setValue(String)
+    }
 
     /**
+     * {@inheritDoc}
      * The "string value" of an Attribute is its text representation,
      * which in turn is a concatenation of the string values of its children.
      */
@@ -491,6 +482,7 @@ public class AttrImpl
 
 
     /**
+     * {@inheritDoc}
      * The "specified" flag is true if and only if this attribute's
      * value was explicitly specified in the original document. Note that
      * the implementation, not the user, is in charge of this
@@ -516,6 +508,7 @@ public class AttrImpl
     //
 
     /**
+     * {@inheritDoc}
      * Returns the element node that this attribute is associated with,
      * or null if the attribute has not been added to an element.
      */
@@ -526,6 +519,9 @@ public class AttrImpl
         return (Element) (isOwned() ? ownerNode : null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void normalize() {
 
@@ -564,13 +560,9 @@ public class AttrImpl
         }
 
         isNormalized(true);
-    } // normalize()
+    }
 
-    //
-    // Public methods
-    //
-
-    /** NON-DOM, for use by parser */
+    // NON-DOM, for use by parser
     public void setSpecified(boolean arg) {
 
         if (needsSyncData()) {
@@ -578,27 +570,21 @@ public class AttrImpl
         }
         isSpecified(arg);
 
-    } // setSpecified(boolean)
+    }
 
-    /**
-     * NON-DOM: used by the parser
-     * @param type
-     */
+     // NON-DOM: used by the parser
     public void setType (Object type){
         this.type = type;
     }
 
-    //
-    // Object methods
-    //
-
-    /** NON-DOM method for debugging convenience */
+    // NON-DOM method for debugging convenience
     @Override
     public String toString() {
         return getName() + "=" + "\"" + getValue() + "\"";
     }
 
     /**
+     * {@inheritDoc}
      * Test whether this node has any children. Convenience shorthand
      * for (Node.getFirstChild()!=null)
      */
@@ -611,6 +597,7 @@ public class AttrImpl
     }
 
     /**
+     * {@inheritDoc}
      * Obtain a NodeList enumerating all children of this node. If there
      * are none, an (initially) empty NodeList is returned.
      * <p>
@@ -634,7 +621,9 @@ public class AttrImpl
 
     } // getChildNodes():NodeList
 
-    /** The first child of this Node, or null if none. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Node getFirstChild() {
 
@@ -644,9 +633,11 @@ public class AttrImpl
         makeChildNode();
         return (Node) value;
 
-    }   // getFirstChild():Node
+    }
 
-    /** The last child of this Node, or null if none. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Node getLastChild() {
 
@@ -655,7 +646,7 @@ public class AttrImpl
         }
         return lastChild();
 
-    } // getLastChild():Node
+    }
 
     final ChildNode lastChild() {
         // last child is stored as the previous sibling of first child
@@ -671,6 +662,8 @@ public class AttrImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Move one or more node(s) to our list of children. Note that this
      * implicitly removes them from their previous parent.
      *
@@ -703,13 +696,12 @@ public class AttrImpl
         throws DOMException {
         // Tail-call; optimizer should be able to do good things with.
         return internalInsertBefore(newChild, refChild, false);
-    } // insertBefore(Node,Node):Node
+    }
 
-    /** NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
-     * to control which mutation events are spawned. This version of the
-     * insertBefore operation allows us to do so. It is not intended
-     * for use by application programs.
-     */
+    // NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
+    // to control which mutation events are spawned. This version of the
+    // insertBefore operation allows us to do so. It is not intended
+    // for use by application programs.
     Node internalInsertBefore(Node newChild, Node refChild, boolean replace)
         throws DOMException {
 

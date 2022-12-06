@@ -62,12 +62,6 @@ public class XMLDTDScannerImpl
     extends XMLScanner
     implements XMLDTDScanner, XMLComponent, XMLEntityHandler {
 
-    //
-    // Constants
-    //
-
-    // scanner states
-
     /** Scanner state: end of input. */
     protected static final int SCANNER_STATE_END_OF_INPUT = 0;
 
@@ -76,8 +70,6 @@ public class XMLDTDScannerImpl
 
     /** Scanner state: markup declaration. */
     protected static final int SCANNER_STATE_MARKUP_DECL = 2;
-
-    // recognized features and properties
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
@@ -109,12 +101,6 @@ public class XMLDTDScannerImpl
 
     /** Debug scanner state. */
     private static final boolean DEBUG_SCANNER_STATE = false;
-
-    //
-    // Data
-    //
-
-    // handlers
 
     /** DTD handler. */
     protected XMLDTDHandler fDTDHandler;
@@ -198,12 +184,8 @@ public class XMLDTDScannerImpl
     /** Ignore conditional section buffer. */
     private final XMLStringBuffer fIgnoreConditionalBuffer = new XMLStringBuffer(128);
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
-    public XMLDTDScannerImpl() {} // <init>()
+    public XMLDTDScannerImpl() {}
 
     /** Constructor for he use of non-XMLComponentManagers. */
     public XMLDTDScannerImpl(SymbolTable symbolTable,
@@ -214,11 +196,9 @@ public class XMLDTDScannerImpl
         entityManager.setProperty(SYMBOL_TABLE, fSymbolTable);
     }
 
-    //
-    // XMLDTDScanner methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Sets the input source.
      *
      * @param inputSource The input source or null.
@@ -237,7 +217,7 @@ public class XMLDTDScannerImpl
         }
         fEntityManager.setEntityHandler(this);
         fEntityManager.startDTDEntity(inputSource);
-    } // setInputSource(XMLInputSource)
+    }
 
     /**
      * Scans the external subset of the document.
@@ -251,6 +231,8 @@ public class XMLDTDScannerImpl
      *                 not support this "pull" scanning model.
      *
      * @return True if there is more to scan, false otherwise.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     public boolean scanDTDExternalSubset(boolean complete)
@@ -303,6 +285,8 @@ public class XMLDTDScannerImpl
      *                          absence of an external subset.
      *
      * @return True if there is more to scan, false otherwise.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     public boolean scanDTDInternalSubset(boolean complete, boolean standalone,
@@ -337,16 +321,12 @@ public class XMLDTDScannerImpl
         // return that there is more to scan
         return true;
 
-    } // scanDTDInternalSubset(boolean,boolean,boolean):boolean
-
-    //
-    // XMLComponent methods
-    //
+    }
 
     /**
      * reset
      *
-     * @param componentManager
+     * @param componentManager the content manager
      */
     @Override
     public void reset(XMLComponentManager componentManager)
@@ -355,7 +335,7 @@ public class XMLDTDScannerImpl
         super.reset(componentManager);
         init();
 
-    } // reset(XMLComponentManager)
+    }
 
     // this is made for something like XMLDTDLoader--XMLComponentManager-free operation...
     @Override
@@ -365,6 +345,8 @@ public class XMLDTDScannerImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
@@ -375,6 +357,8 @@ public class XMLDTDScannerImpl
     } // getRecognizedFeatures():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
@@ -385,6 +369,8 @@ public class XMLDTDScannerImpl
     } // getRecognizedProperties():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -402,6 +388,8 @@ public class XMLDTDScannerImpl
     } // getFeatureDefault(String):Boolean
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
      * property.
@@ -418,14 +406,9 @@ public class XMLDTDScannerImpl
         return null;
     } // getPropertyDefault(String):Object
 
-    //
-    // XMLDTDSource methods
-    //
-
     /**
-     * setDTDHandler
+     * {@inheritDoc}
      *
-     * @param dtdHandler
      */
     @Override
     public void setDTDHandler(XMLDTDHandler dtdHandler) {
@@ -433,23 +416,17 @@ public class XMLDTDScannerImpl
     } // setDTDHandler(XMLDTDHandler)
 
     /**
-     * getDTDHandler
+     * {@inheritDoc}
      *
-     * @return the XMLDTDHandler
      */
     @Override
     public XMLDTDHandler getDTDHandler() {
         return fDTDHandler;
     } // getDTDHandler():  XMLDTDHandler
 
-    //
-    // XMLDTDContentModelSource methods
-    //
-
     /**
-     * setDTDContentModelHandler
+     * {@inheritDoc}
      *
-     * @param dtdContentModelHandler
      */
     @Override
     public void setDTDContentModelHandler(XMLDTDContentModelHandler
@@ -458,20 +435,17 @@ public class XMLDTDScannerImpl
     } // setDTDContentModelHandler
 
     /**
-     * getDTDContentModelHandler
+     * {@inheritDoc}
      *
-     * @return XMLDTDContentModelHandler
      */
     @Override
     public XMLDTDContentModelHandler getDTDContentModelHandler() {
         return fDTDContentModelHandler ;
     } // setDTDContentModelHandler
 
-    //
-    // XMLEntityHandler methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * This method notifies of the start of an entity. The DTD has the
      * pseudo-name of "[dtd]" parameter entity names start with '%'; and
      * general entities are just specified by their name.
@@ -521,6 +495,8 @@ public class XMLDTDScannerImpl
     } // startEntity(String,XMLResourceIdentifier,String)
 
     /**
+     * {@inheritDoc}
+     *
      * This method notifies the end of an entity. The DTD has the pseudo-name
      * of "[dtd]" parameter entity names start with '%'; and general entities
      * are just specified by their name.
@@ -592,8 +568,6 @@ public class XMLDTDScannerImpl
 
     } // endEntity(String)
 
-    // helper methods
-
     /**
      * Sets the scanner state.
      *
@@ -640,6 +614,8 @@ public class XMLDTDScannerImpl
      * @param literal Whether this is happening within a literal
      *
      * @return The name of the parameter entity (with the '%')
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected String startPE(String name, boolean literal)
         throws IOException, XNIException {
@@ -755,12 +731,13 @@ public class XMLDTDScannerImpl
 
     /**
      * Scans a comment.
-     * <p>
      * <pre>
-     * [15] Comment ::= '&lt!--' ((Char - '-') | ('-' (Char - '-')))* '-->'
+     * [15] Comment ::= '&lt;!--' ((Char - '-') | ('-' (Char - '-')))* '--&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!--'
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected final void scanComment() throws IOException, XNIException {
 
@@ -778,13 +755,14 @@ public class XMLDTDScannerImpl
 
     /**
      * Scans an element declaration
-     * <p>
      * <pre>
-     * [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '>'
+     * [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '&gt;'
      * [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ELEMENT'
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected final void scanElementDecl() throws IOException, XNIException {
 
@@ -884,6 +862,8 @@ public class XMLDTDScannerImpl
      * @param elName The element type name this declaration is about.
      *
      * <strong>Note:</strong> Called after scanning past '(#PCDATA'.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private void scanMixed(String elName)
         throws IOException, XNIException {
@@ -963,6 +943,8 @@ public class XMLDTDScannerImpl
      * <p>
      * <strong>Note:</strong> Called after scanning past the first open
      * paranthesis.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private void scanChildren(String elName)
         throws IOException, XNIException {
@@ -1097,13 +1079,14 @@ public class XMLDTDScannerImpl
 
     /**
      * Scans an attlist declaration
-     * <p>
      * <pre>
-     * [52]  AttlistDecl    ::=   '&lt;!ATTLIST' S Name AttDef* S? '>'
+     * [52]  AttlistDecl    ::=   '&lt;!ATTLIST' S Name AttDef* S? '&gt;'
      * [53]  AttDef         ::=   S Name S AttType S DefaultDecl
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ATTLIST'
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected final void scanAttlistDecl() throws IOException, XNIException {
 
@@ -1227,6 +1210,8 @@ public class XMLDTDScannerImpl
      *
      * @param elName The element type name this declaration is about.
      * @param atName The attribute name this declaration is about.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private String scanAttType(String elName, String atName)
         throws IOException, XNIException {
@@ -1339,16 +1324,18 @@ public class XMLDTDScannerImpl
 
     /**
      * Scans an attribute default declaration
-     * <p>
      * <pre>
      * [60] DefaultDecl ::= '#REQUIRED' | '#IMPLIED' | (('#FIXED' S)? AttValue)
      * </pre>
      *
-     * @param elName
+     * @param elName the element name
      * @param atName The name of the attribute being scanned.
-     * @param type
+     * @param type the type
      * @param defaultVal The string to fill in with the default value.
-     * @param nonNormalizedDefaultVal
+     * @param nonNormalizedDefaultVal default value
+     * @return the type name
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected final String scanAttDefaultDecl(String elName, String atName,
                                               String type,
@@ -1397,6 +1384,8 @@ public class XMLDTDScannerImpl
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!ENTITY'
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private void scanEntityDecl() throws IOException, XNIException {
 
@@ -1591,6 +1580,8 @@ public class XMLDTDScannerImpl
      *                           non-normalized value.
      *
      * @return Count of direct and indirect references to parameter entities in the value of the entity.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected final int scanEntityValue(XMLString value,
                                         XMLString nonNormalizedValue)
@@ -1712,6 +1703,8 @@ public class XMLDTDScannerImpl
      * </pre>
      * <p>
      * <strong>Note:</strong> Called after scanning past '&lt;!NOTATION'
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     private void scanNotationDecl() throws IOException, XNIException {
 
@@ -1794,7 +1787,10 @@ public class XMLDTDScannerImpl
      * [65] Ignore            ::=    Char* - (Char* ('&lt;![' | ']]>') Char*)
      * </pre>
      * <p>
-     * <strong>Note:</strong> Called after scanning past '&lt;![' */
+     * <strong>Note:</strong> Called after scanning past '&lt;!['
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
+     */
     private void scanConditionalSect(int currPEDepth)
         throws IOException, XNIException {
 

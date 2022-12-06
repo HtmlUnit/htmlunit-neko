@@ -69,10 +69,6 @@ import org.w3c.dom.NodeList;
 public class DeepNodeListImpl
     implements NodeList {
 
-    //
-    // Data
-    //
-
     protected final NodeImpl rootNode; // Where the search started
     protected final String tagName;   // Or "*" to mean all-tags-acceptable
     protected int changes=0;
@@ -81,18 +77,23 @@ public class DeepNodeListImpl
     protected String nsName;
     protected boolean enableNS = false;
 
-    //
-    // Constructors
-    //
-
-    /** Constructor. */
+    /**
+     * Constructor.
+     * @param rootNode the root node
+     * @param tagName the tag name
+     */
     public DeepNodeListImpl(NodeImpl rootNode, String tagName) {
         this.rootNode = rootNode;
         this.tagName  = tagName;
         nodes = new ArrayList<>();
     }
 
-    /** Constructor for Namespace support. */
+    /**
+     * Constructor for Namespace support.
+     * @param rootNode the root node
+     * @param nsName the namespace
+     * @param tagName the tag name
+     */
     public DeepNodeListImpl(NodeImpl rootNode,
                             String nsName, String tagName) {
         this(rootNode, tagName);
@@ -100,11 +101,9 @@ public class DeepNodeListImpl
         enableNS = true;
     }
 
-    //
-    // NodeList methods
-    //
-
-    /** Returns the length of the node list. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getLength() {
         // Preload all matching elements. (Stops when we run out of subtree!)
@@ -112,7 +111,9 @@ public class DeepNodeListImpl
         return nodes.size();
     }
 
-    /** Returns the node at the specified index. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Node item(int index) {
         Node thisNode;
@@ -151,19 +152,16 @@ public class DeepNodeListImpl
             return thisNode;
         }
 
-    } // item(int):Node
-
-    //
-    // Protected methods (might be overridden by an extending DOM)
-    //
+    }
 
     /**
      * Iterative tree-walker. When you have a Parent link, there's often no
      * need to resort to recursion. NOTE THAT only Element nodes are matched
      * since we're specifically supporting getElementsByTagName().
+     * @param current the current node
+     * @return next node
      */
     protected Node nextMatchingElementAfter(Node current) {
-
         Node next;
         while (current != null) {
             // Look down to first child.
@@ -241,6 +239,5 @@ public class DeepNodeListImpl
         // Fell out of tree-walk; no more instances found
         return null;
 
-    } // nextMatchingElementAfter(int):Node
-
-} // class DeepNodeListImpl
+    }
+}

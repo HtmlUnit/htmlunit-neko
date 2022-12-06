@@ -51,16 +51,8 @@ public class DocumentTypeImpl
     extends ParentNode
     implements DocumentType {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 7751299192316526485L;
-
-    //
-    // Data
-    //
 
     /** Document type name. */
     protected String name;
@@ -70,8 +62,6 @@ public class DocumentTypeImpl
 
     /** Notations. */
     protected NamedNodeMapImpl notations;
-
-    // NON-DOM
 
     /** Elements. */
     protected NamedNodeMapImpl elements;
@@ -85,8 +75,7 @@ public class DocumentTypeImpl
     // DOM2: support internal subset.
     protected String internalSubset;
 
-    /** The following are required for compareDocumentPosition
-    */
+    // The following are required for compareDocumentPosition
     // Doctype number.   Doc types which have no owner may be assigned
     // a number, on demand, for ordering purposes for compareDocumentPosition
     private int doctypeNumber=0;
@@ -95,7 +84,12 @@ public class DocumentTypeImpl
     // Constructors
     //
     private Hashtable userData =  null;
-    /** Factory method for creating a document type node. */
+
+    /**
+     * Factory method for creating a document type node.
+     * @param ownerDocument the owner document
+     * @param name the name
+     */
     public DocumentTypeImpl(CoreDocumentImpl ownerDocument, String name) {
         super(ownerDocument);
 
@@ -107,9 +101,9 @@ public class DocumentTypeImpl
         // NON-DOM
         elements = new NamedNodeMapImpl(this);
 
-    } // <init>(CoreDocumentImpl,String)
+    }
 
-    /** Factory method for creating a document type node. */
+    // Factory method for creating a document type node.
     public DocumentTypeImpl(CoreDocumentImpl ownerDocument,
                             String qualifiedName,
                             String publicID, String systemID) {
@@ -117,13 +111,11 @@ public class DocumentTypeImpl
         this.publicID = publicID;
         this.systemID = systemID;
 
-    } // <init>(CoreDocumentImpl,String)
-
-    //
-    // DOM2: methods.
-    //
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Return the public identifier of this Document type.
@@ -135,7 +127,10 @@ public class DocumentTypeImpl
         }
         return publicID;
     }
+
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Return the system identifier of this Document type.
@@ -148,11 +143,8 @@ public class DocumentTypeImpl
         return systemID;
     }
 
-    /**
-     * NON-DOM. <p>
-     *
-     * Set the internalSubset given as a string.
-     */
+    // NON-DOM
+    // Set the internalSubset given as a string.
     public void setInternalSubset(String internalSubset) {
         if (needsSyncData()) {
             synchronizeData();
@@ -161,6 +153,8 @@ public class DocumentTypeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Return the internalSubset given as a string.
@@ -173,11 +167,9 @@ public class DocumentTypeImpl
         return internalSubset;
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -187,7 +179,7 @@ public class DocumentTypeImpl
     }
 
     /**
-     * Returns the document type name
+     * {@inheritDoc}
      */
     @Override
     public String getNodeName() {
@@ -197,7 +189,11 @@ public class DocumentTypeImpl
         return name;
     }
 
-    /** Clones the node. */
+    /**
+     * {@inheritDoc}
+     *
+     * Clones the node.
+     */
     @Override
     public Node cloneNode(boolean deep) {
 
@@ -209,9 +205,11 @@ public class DocumentTypeImpl
 
         return newnode;
 
-    } // cloneNode(boolean):Node
+    }
 
-    /*
+    /**
+     * {@inheritDoc}
+     *
      * Get Node text content
      */
     @Override
@@ -219,7 +217,9 @@ public class DocumentTypeImpl
         return null;
     }
 
-    /*
+    /**
+     * {@inheritDoc}
+     *
      * Set Node text content
      */
     @Override
@@ -229,6 +229,8 @@ public class DocumentTypeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
       * DOM Level 3 WD- Experimental.
       * Override inherited behavior from ParentNodeImpl to support deep equal.
       */
@@ -317,10 +319,12 @@ public class DocumentTypeImpl
         }
 
         return true;
-    } //end isEqualNode
+    }
 
 
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM
      * set the ownerDocument of this node and its children
      */
@@ -332,9 +336,12 @@ public class DocumentTypeImpl
         elements.setOwnerDocument(doc);
     }
 
-    /** NON-DOM
-        Get the number associated with this doctype.
-    */
+    /**
+     * {@inheritDoc}
+     *
+     * NON-DOM
+     * Get the number associated with this doctype.
+     */
     @Override
     protected int getNodeNumber() {
          // If the doctype has a document owner, get the node number
@@ -352,11 +359,9 @@ public class DocumentTypeImpl
          return doctypeNumber;
     }
 
-    //
-    // DocumentType methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Name of this document type. If we loaded from a DTD, this should
      * be the name immediately following the DOCTYPE keyword.
      */
@@ -368,12 +373,13 @@ public class DocumentTypeImpl
         }
         return name;
 
-    } // getName():String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Access the collection of general Entities, both external and
      * internal, defined in the DTD. For example, in:
-     * <p>
      * <pre>
      *   &lt;!doctype example SYSTEM "ex.dtd" [
      *     &lt;!ENTITY foo "foo"&gt;
@@ -401,6 +407,8 @@ public class DocumentTypeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Access the collection of Notations defined in the DTD.  A
      * notation declares, by name, the format of an XML unparsed entity
      * or is used to formally declare a Processing Instruction target.
@@ -413,11 +421,9 @@ public class DocumentTypeImpl
         return notations;
     }
 
-    //
-    // Public methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM: Subclassed to flip the entities' and notations' readonly switch
      * as well.
      * @see NodeImpl#setReadOnly
@@ -435,12 +441,10 @@ public class DocumentTypeImpl
         entities.setReadOnly(readOnly, true);
         notations.setReadOnly(readOnly, true);
 
-    } // setReadOnly(boolean,boolean)
+    }
 
-    /**
-     * NON-DOM: Access the collection of ElementDefinitions.
-     * @see ElementDefinitionImpl
-     */
+     // NON-DOM: Access the collection of ElementDefinitions.
+     // @see ElementDefinitionImpl
     public NamedNodeMap getElements() {
         if (needsSyncChildren()) {
             synchronizeChildren();
@@ -448,6 +452,9 @@ public class DocumentTypeImpl
         return elements;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object setUserData(String key,
     Object data, UserDataHandler handler) {
@@ -473,6 +480,9 @@ public class DocumentTypeImpl
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getUserData(String key) {
         if (userData == null) {
@@ -486,9 +496,11 @@ public class DocumentTypeImpl
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Hashtable getUserDataRecord(){
         return userData;
     }
-
-} // class DocumentTypeImpl
+}

@@ -33,12 +33,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
  */
-public class AttrNSImpl
-    extends AttrImpl {
-
-    //
-    // Constants
-    //
+public class AttrNSImpl extends AttrImpl {
 
     /** Serialization version. */
     static final long serialVersionUID = -781906615369795414L;
@@ -46,24 +41,15 @@ public class AttrNSImpl
     static final String xmlnsURI = "http://www.w3.org/2000/xmlns/";
     static final String xmlURI = "http://www.w3.org/XML/1998/namespace";
 
-    //
-    // Data
-    //
-
     /** DOM2: Namespace URI. */
     protected String namespaceURI;
 
     /** DOM2: localName. */
     protected String localName;
 
-    /*
-     * Default constructor
-     */
     public AttrNSImpl(){}
 
-   /**
-     * DOM2: Constructor for Namespace implementation.
-     */
+    // DOM2: Constructor for Namespace implementation.
     protected AttrNSImpl(CoreDocumentImpl ownerDocument,
                          String namespaceURI,
                          String qualifiedName) {
@@ -141,11 +127,9 @@ public class AttrNSImpl
         setName(namespaceURI, qualifiedName);
     }
 
-    //
-    // DOM2: Namespace methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * The namespace URI of this node, or null if it is unspecified.<p>
@@ -170,12 +154,14 @@ public class AttrNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
-     * The namespace prefix of this node, or null if it is unspecified. <p>
+     * The namespace prefix of this node, or null if it is unspecified.
      *
      * For nodes created with a DOM Level 1 method, such as createElement
-     * from the Document interface, this is null. <p>
+     * from the Document interface, this is null.
      */
     @Override
     public String getPrefix()
@@ -188,6 +174,8 @@ public class AttrNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Note that setting this attribute changes the nodeName attribute, which
@@ -196,10 +184,9 @@ public class AttrNSImpl
      *
      * @param prefix The namespace prefix of this node, or null(empty string) if it is unspecified.
      *
-     * @exception INVALID_CHARACTER_ERR
+     * @exception DOMException INVALID_CHARACTER_ERR
      *                   Raised if the specified
      *                   prefix contains an invalid character.
-     * @exception DOMException
      */
     @Override
     public void setPrefix(String prefix)
@@ -251,6 +238,8 @@ public class AttrNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Returns the local part of the qualified name of this node.
@@ -266,7 +255,7 @@ public class AttrNSImpl
 
 
     /**
-     * @see org.w3c.dom.TypeInfo#getTypeName()
+     * {@inheritDoc}
      */
     @Override
     public String getTypeName() {
@@ -277,6 +266,8 @@ public class AttrNSImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 3. <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
@@ -299,7 +290,7 @@ public class AttrNSImpl
     }
 
     /**
-     * @see org.w3c.dom.TypeInfo#getTypeNamespace()
+     * {@inheritDoc}
      */
     @Override
     public String getTypeNamespace() {
@@ -308,5 +299,4 @@ public class AttrNSImpl
         }
         return null;
     }
-
 }

@@ -79,11 +79,6 @@ import org.w3c.dom.events.EventTarget;
 public abstract class NodeImpl
     implements Node, NodeList, EventTarget, Cloneable, Serializable{
 
-    //
-    // Constants
-    //
-
-
     // TreePosition Constants.
     // Taken from DOM L3 Node interface.
     /**
@@ -131,20 +126,10 @@ public abstract class NodeImpl
     /** Serialization version. */
     static final long serialVersionUID = -6316591992167219696L;
 
-    // public
-
     /** Element definition node type. */
     public static final short ELEMENT_DEFINITION_NODE = 21;
 
-    //
-    // Data
-    //
-
-    // links
-
     protected NodeImpl ownerNode; // typically the parent but not always!
-
-    // data
 
     protected short flags;
 
@@ -168,6 +153,7 @@ public abstract class NodeImpl
      * instantiated, and those normally via a Document's factory methods
      * <p>
      * Every Node knows what Document it belongs to.
+     * @param ownerDocument the owner document
      */
     protected NodeImpl(CoreDocumentImpl ownerDocument) {
         // as long as we do not have any owner, ownerNode is our ownerDocument
@@ -177,11 +163,9 @@ public abstract class NodeImpl
     /** Constructor for serialization. */
     public NodeImpl() {}
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -189,14 +173,18 @@ public abstract class NodeImpl
     public abstract short getNodeType();
 
     /**
+     * {@inheritDoc}
+     *
      * the name of this node.
      */
     @Override
     public abstract String getNodeName();
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the node value.
-     * @throws DOMException(DOMSTRING_SIZE_ERR)
+     * @throws DOMException DOMSTRING_SIZE_ERR
      */
     @Override
     public String getNodeValue()
@@ -205,8 +193,10 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the node value.
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR)
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR
      */
     @Override
     public void setNodeValue(String x)
@@ -215,6 +205,8 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Adds a child node to the end of the list of children for this node.
      * Convenience shorthand for insertBefore(newChild,null).
      * @see #insertBefore(Node, Node)
@@ -225,13 +217,13 @@ public abstract class NodeImpl
      * @return newChild, in its new state (relocated, or emptied in the case of
      * DocumentNode.)
      *
-     * @throws DOMException(HIERARCHY_REQUEST_ERR) if newChild is of a
+     * @throws DOMException HIERARCHY_REQUEST_ERR if newChild is of a
      * type that shouldn't be a child of this node.
      *
-     * @throws DOMException(WRONG_DOCUMENT_ERR) if newChild has a
+     * @throws DOMException WRONG_DOCUMENT_ERR if newChild has a
      * different owner document than we do.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is
      * read-only.
      */
     @Override
@@ -240,6 +232,8 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a duplicate of a given node. You can consider this a
      * generic "copy constructor" for nodes. The newly returned object should
      * be completely independent of the source object's subtree, so changes
@@ -295,6 +289,8 @@ public abstract class NodeImpl
     } // cloneNode(boolean):Node
 
     /**
+     * {@inheritDoc}
+     *
      * Find the Document that this Node belongs to (the document in
      * whose context the Node was created). The Node may or may not
      * currently be part of that Document's actual contents.
@@ -324,10 +320,7 @@ public abstract class NodeImpl
         }
     }
 
-    /**
-     * NON-DOM
-     * set the ownerDocument of this node
-     */
+     // NON-DOM set the ownerDocument of this node
     protected void setOwnerDocument(CoreDocumentImpl doc) {
         if (needsSyncData()) {
             synchronizeData();
@@ -340,7 +333,7 @@ public abstract class NodeImpl
     }
 
     /**
-     * Returns the node number
+     * @return the node number
      */
     protected int getNodeNumber() {
         int nodeNumber;
@@ -474,17 +467,17 @@ public abstract class NodeImpl
      * @return newChild, in its new state (relocated, or emptied in the case of
      * DocumentNode.)
      *
-     * @throws DOMException(HIERARCHY_REQUEST_ERR) if newChild is of a
+     * @throws DOMException HIERARCHY_REQUEST_ERR if newChild is of a
      * type that shouldn't be a child of this node, or if newChild is an
      * ancestor of this node.
      *
-     * @throws DOMException(WRONG_DOCUMENT_ERR) if newChild has a
+     * @throws DOMException WRONG_DOCUMENT_ERR if newChild has a
      * different owner document than we do.
      *
-     * @throws DOMException(NOT_FOUND_ERR) if refChild is not a child of
+     * @throws DOMException NOT_FOUND_ERR if refChild is not a child of
      * this node.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is
      * read-only.
      */
     @Override
@@ -504,10 +497,10 @@ public abstract class NodeImpl
      *
      * @return oldChild, in its new state (removed).
      *
-     * @throws DOMException(NOT_FOUND_ERR) if oldChild is not a child of
+     * @throws DOMException NOT_FOUND_ERR if oldChild is not a child of
      * this node.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is
      * read-only.
      */
     @Override
@@ -529,17 +522,17 @@ public abstract class NodeImpl
      *
      * @return oldChild, in its new state (removed).
      *
-     * @throws DOMException(HIERARCHY_REQUEST_ERR) if newChild is of a
+     * @throws DOMException HIERARCHY_REQUEST_ERR if newChild is of a
      * type that shouldn't be a child of this node, or if newChild is
      * one of our ancestors.
      *
-     * @throws DOMException(WRONG_DOCUMENT_ERR) if newChild has a
+     * @throws DOMException WRONG_DOCUMENT_ERR if newChild has a
      * different owner document than we do.
      *
-     * @throws DOMException(NOT_FOUND_ERR) if oldChild is not a child of
+     * @throws DOMException NOT_FOUND_ERR if oldChild is not a child of
      * this node.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if this node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is
      * read-only.
      */
     @Override
@@ -555,12 +548,10 @@ public abstract class NodeImpl
     //
 
     /**
+     * {@inheritDoc}
      * NodeList method: Count the immediate children of this node
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * @see ParentNode
-     *
-     * @return int
      */
     @Override
     public int getLength() {
@@ -568,14 +559,11 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
      * NodeList method: Return the Nth immediate child of this node, or
      * null if the index is out of bounds.
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * @see ParentNode
-     *
-     * @return org.w3c.dom.Node
-     * @param index int
      */
     @Override
     public Node item(int index) {
@@ -654,6 +642,8 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * The namespace prefix of this node, or null if it is unspecified. When
@@ -661,7 +651,7 @@ public abstract class NodeImpl
      * is always null and setting it has no effect.<p>
      *
      * For nodes created with a DOM Level 1 method, such as createElement
-     * from the Document interface, this is null. <p>
+     * from the Document interface, this is null.
      *
      * @see AttrNSImpl
      * @see ElementNSImpl
@@ -673,6 +663,8 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      *  Introduced in DOM Level 2. <p>
      *
      *  The namespace prefix of this node, or null if it is unspecified. When
@@ -684,9 +676,9 @@ public abstract class NodeImpl
      *
      *  Note that setting this attribute changes the nodeName attribute, which
      *  holds the qualified name, as well as the tagName and name attributes of
-     *  the Element and Attr interfaces, when applicable.<p>
+     *  the Element and Attr interfaces, when applicable.
      *
-     * @throws INVALID_CHARACTER_ERR Raised if the specified
+     * @throws DOMException INVALID_CHARACTER_ERR Raised if the specified
      *  prefix contains an invalid character.
      *
      * @see AttrNSImpl
@@ -702,6 +694,8 @@ public abstract class NodeImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Introduced in DOM Level 2. <p>
      *
      * Returns the local part of the qualified name of this node.
@@ -1063,24 +1057,6 @@ public abstract class NodeImpl
      * <th>Node type</th>
      * <th>Content</th>
      * </tr>
-
-    /**
-     * This attribute returns the text content of this node and its
-     * descendants. When it is defined to be null, setting it has no effect.
-     * When set, any possible children this node may have are removed and
-     * replaced by a single <code>Text</code> node containing the string
-     * this attribute is set to. On getting, no serialization is performed,
-     * the returned string does not contain any markup. No whitespace
-     * normalization is performed, the returned string does not contain the
-     * element content whitespaces . Similarly, on setting, no parsing is
-     * performed either, the input string is taken as pure textual content.
-     * <br>The string returned is made of the text content of this node
-     * depending on its type, as defined below:
-     * <table border='1'>
-     * <tr>
-     * <th>Node type</th>
-     * <th>Content</th>
-     * </tr>
      * <tr>
      * <td valign='top' rowspan='1' colspan='1'>
      * ELEMENT_NODE, ENTITY_NODE, ENTITY_REFERENCE_NODE,
@@ -1271,11 +1247,12 @@ public abstract class NodeImpl
 
 
     /**
+     * {@inheritDoc}
      *
      * DOM Level 3 - Experimental:
      * Look up the prefix associated to the given namespace URI, starting from this node.
      *
-     * @param namespaceURI
+     * @param namespaceURI the namespace uri
      * @return the prefix for the namespace
      */
     @Override
@@ -1326,12 +1303,11 @@ public abstract class NodeImpl
         }
     }
     /**
+     * {@inheritDoc}
+     *
      * DOM Level 3 - Experimental:
      * Look up the namespace URI associated to the given prefix, starting from this node.
      * Use lookupNamespaceURI(null) to lookup the default namespace
-     *
-     * @param specifiedPrefix
-     * @return the URI for the namespace
      */
     @Override
     public String lookupNamespaceURI(String specifiedPrefix) {
@@ -1645,10 +1621,8 @@ public abstract class NodeImpl
 
     } // setReadOnly(boolean,boolean)
 
-    /**
-     * NON-DOM: Returns true if this node is read-only. This is a
-     * shallow check.
-     */
+     // NON-DOM: Returns true if this node is read-only. This is a
+     // shallow check.
     public boolean getReadOnly() {
 
         if (needsSyncData()) {
@@ -1656,7 +1630,7 @@ public abstract class NodeImpl
         }
         return isReadOnly();
 
-    } // getReadOnly():boolean
+    }
 
     /**
      * NON-DOM: As an alternative to subclassing the DOM, this implementation
@@ -1674,10 +1648,7 @@ public abstract class NodeImpl
         ownerDocument().setUserData(this, data);
     }
 
-    /**
-     * NON-DOM:
-     * Returns the user data associated to this node.
-     */
+     // NON-DOM: Returns the user data associated to this node.
     public Object getUserData() {
         return ownerDocument().getUserData(this);
     }
@@ -1697,7 +1668,7 @@ public abstract class NodeImpl
     }
 
     /**
-     * Returns the number of changes to this node.
+     * @return the number of changes to this node.
      */
     protected int changes() {
         // we do not actually store this information on every node, we only
@@ -1718,15 +1689,11 @@ public abstract class NodeImpl
     /**
      * For non-child nodes, the node which "points" to this node.
      * For example, the owning element for an attribute
+     * @return always null
      */
     protected Node getContainer() {
        return null;
     }
-
-
-    /*
-     * Flags setters and getters
-     */
 
     final boolean isReadOnly() {
         return (flags & READONLY) != 0;

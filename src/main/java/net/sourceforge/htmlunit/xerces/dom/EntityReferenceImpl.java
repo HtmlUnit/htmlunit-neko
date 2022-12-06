@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
 import net.sourceforge.htmlunit.xerces.util.URI;
 
 /**
- * EntityReference models the XML &entityname; syntax, when used for
+ * EntityReference models the XML &amp;entityname; syntax, when used for
  * entities defined by the DOM. Entities hardcoded into XML, such as
  * character entities, should instead have been translated into text
  * by the code which generated the DOM tree.
@@ -82,29 +82,15 @@ public class EntityReferenceImpl
 extends ParentNode
 implements EntityReference {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -7381452955687102062L;
-
-    //
-    // Data
-    //
 
     /** Name of Entity referenced */
     protected String name;
     /** Base URI*/
     protected String baseURI;
 
-
-
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public EntityReferenceImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
@@ -112,11 +98,9 @@ implements EntityReference {
         needsSyncChildren(true);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -126,6 +110,8 @@ implements EntityReference {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the name of the entity referenced
      */
     @Override
@@ -136,7 +122,11 @@ implements EntityReference {
         return name;
     }
 
-    /** Clone node. */
+    /**
+     * {@inheritDoc}
+     *
+     * Clone node.
+     */
     @Override
     public Node cloneNode(boolean deep) {
         EntityReferenceImpl er = (EntityReferenceImpl)super.cloneNode(deep);
@@ -145,6 +135,8 @@ implements EntityReference {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the absolute base URI of this node or null if the implementation
      * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
      * null is returned.
@@ -181,7 +173,7 @@ implements EntityReference {
     }
 
 
-    /** NON-DOM: set base uri*/
+    // NON-DOM: set base uri
     public void setBaseURI(String uri){
         if (needsSyncData()) {
             synchronizeData();
@@ -243,6 +235,8 @@ implements EntityReference {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * EntityReference's children are a reflection of those defined in the
      * named Entity. This method creates them if they haven't been created yet.
      * This doesn't support editing the Entity though, since this only called
@@ -279,6 +273,8 @@ implements EntityReference {
 
 
     /**
+     * {@inheritDoc}
+     *
      * NON-DOM: sets the node and its children value.
      * <P>
      * Note: make sure that entity reference and its kids could be set readonly.
@@ -304,5 +300,5 @@ implements EntityReference {
             }
         }
         isReadOnly(readOnly);
-    } // setReadOnly(boolean,boolean)
+    }
 }

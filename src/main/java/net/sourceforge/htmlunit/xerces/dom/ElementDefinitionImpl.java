@@ -31,16 +31,8 @@ import org.w3c.dom.Node;
 public class ElementDefinitionImpl
     extends ParentNode {
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = -8373890672670022714L;
-
-    //
-    // Data
-    //
 
     /** Element definition name. */
     protected String name;
@@ -48,22 +40,16 @@ public class ElementDefinitionImpl
     /** Default attributes. */
     protected NamedNodeMapImpl attributes;
 
-    //
-    // Constructors
-    //
-
-    /** Factory constructor. */
+    // Factory constructor.
     public ElementDefinitionImpl(CoreDocumentImpl ownerDocument, String name) {
         super(ownerDocument);
         this.name = name;
         attributes = new NamedNodeMapImpl(ownerDocument);
     }
 
-    //
-    // Node methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * A short integer indicating what type of node this is. The named
      * constants for this value are defined in the org.w3c.dom.Node interface.
      */
@@ -73,6 +59,8 @@ public class ElementDefinitionImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the element definition name
      */
     @Override
@@ -84,6 +72,8 @@ public class ElementDefinitionImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Replicate this object.
      */
     @Override
@@ -95,9 +85,11 @@ public class ElementDefinitionImpl
         newnode.attributes = attributes.cloneMap(newnode);
         return newnode;
 
-    } // cloneNode(boolean):Node
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Query the attributes defined on this Element.
      * <p>
      * In the base implementation this Map simply contains Attribute objects
@@ -114,7 +106,5 @@ public class ElementDefinitionImpl
             synchronizeChildren();
         }
         return attributes;
-
-    } // getAttributes():NamedNodeMap
-
-} // class ElementDefinitionImpl
+    }
+}
