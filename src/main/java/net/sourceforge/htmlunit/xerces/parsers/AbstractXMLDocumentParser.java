@@ -47,12 +47,6 @@ public abstract class AbstractXMLDocumentParser
     extends XMLParser
     implements XMLDocumentHandler, XMLDTDHandler, XMLDTDContentModelHandler {
 
-    //
-    // Data
-    //
-
-    // state
-
     /** True if inside DTD. */
     protected boolean fInDTD;
 
@@ -65,13 +59,10 @@ public abstract class AbstractXMLDocumentParser
     /** DTD content model source*/
     protected XMLDTDContentModelSource fDTDContentModelSource;
 
-    //
-    // Constructors
-    //
-
     /**
      * Constructs a document parser using the default symbol table
      * and grammar pool.
+     * @param config the config
      */
     protected AbstractXMLDocumentParser(XMLParserConfiguration config) {
         super(config);
@@ -80,12 +71,7 @@ public abstract class AbstractXMLDocumentParser
         config.setDocumentHandler(this);
         config.setDTDHandler(this);
         config.setDTDContentModelHandler(this);
-
-    } // <init>(XMLParserConfiguration)
-
-    //
-    // XMLDocumentHandler methods
-    //
+    }
 
     /**
      * The start of the document.

@@ -238,15 +238,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** Document locator. */
     private XMLLocator fLocator;
 
-    //
-    // Constructors
-    //
-
-    /** Default constructor. */
+    // Default constructor.
     protected AbstractDOMParser (XMLParserConfiguration config) {
-
         super (config);
-
 
         // add recognized features
         fConfiguration.addRecognizedFeatures (RECOGNIZED_FEATURES);
@@ -264,8 +258,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // set default values
         fConfiguration.setProperty (DOCUMENT_CLASS_NAME,
         DEFAULT_DOCUMENT_CLASS_NAME);
-
-    } // <init>(XMLParserConfiguration)
+    }
 
     /**
      * @return the name of current document class.

@@ -19,20 +19,14 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
 
 import net.sourceforge.htmlunit.xerces.xni.QName;
 
-/**
- */
 public interface ContentModelValidator {
 
-    //
-    // Methods
-    //
-
     /**
-     * validate
+     * Validate.
      *
-     * @param children
-     * @param offset
-     * @param length
+     * @param children the children arry
+     * @param offset the offser
+     * @param length the length
      *
      * @return The value -1 if fully valid, else the 0 based index of the child
      *         that first failed. If the value returned is equal to the number
@@ -40,5 +34,4 @@ public interface ContentModelValidator {
      *         content is required to reach a valid ending state.
      */
     int validate(QName[] children, int offset, int length);
-
-} // interface ContentModelValidator
+}

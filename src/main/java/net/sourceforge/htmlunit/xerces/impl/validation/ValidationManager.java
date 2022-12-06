@@ -42,6 +42,7 @@ public class ValidationManager {
     /**
      * Each validator should call this method to add its ValidationState into
      * the validation manager.
+     * @param vs the validation state
      */
     public final void addValidationState(ValidationState vs) {
         fVSs.add(vs);
@@ -49,6 +50,7 @@ public class ValidationManager {
 
     /**
      * Set the information required to validate entity values.
+     * @param state the state
      */
     public final void setEntityState(EntityState state) {
         for (int i = fVSs.size()-1; i >= 0; i--) {
@@ -66,11 +68,11 @@ public class ValidationManager {
 
     public final void setCachedDTD(boolean cachedDTD) {
         fCachedDTD = cachedDTD;
-    } // setCachedDTD(boolean)
+    }
 
     public final boolean isCachedDTD() {
         return fCachedDTD;
-    } // isCachedDTD():  boolean
+    }
 
 
     public final void reset () {

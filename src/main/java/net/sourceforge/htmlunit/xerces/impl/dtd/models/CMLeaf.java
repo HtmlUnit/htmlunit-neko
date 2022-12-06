@@ -27,10 +27,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 public class CMLeaf
     extends CMNode {
 
-    //
-    // Data
-    //
-
     /** This is the element that this leaf represents. */
     private final QName fElement = new QName();
 
@@ -41,11 +37,7 @@ public class CMLeaf
      */
     private int fPosition = -1;
 
-    //
-    // Constructors
-    //
-
-    /** Constructs a content model leaf. */
+    // Constructs a content model leaf.
     public CMLeaf(QName element, int position)  {
         super(XMLContentSpec.CONTENTSPECNODE_LEAF);
 
@@ -54,17 +46,13 @@ public class CMLeaf
         fPosition = position;
     }
 
-    /** Constructs a content model leaf. */
+    // Constructs a content model leaf.
     public CMLeaf(QName element)  {
         super(XMLContentSpec.CONTENTSPECNODE_LEAF);
 
         // Store the element index and position
         fElement.setValues(element);
     }
-
-    //
-    // Package methods
-    //
 
     final QName getElement()
     {
@@ -80,12 +68,6 @@ public class CMLeaf
     {
         fPosition = newPosition;
     }
-
-    //
-    // CMNode methods
-    //
-
-    // package
 
     @Override
     public boolean isNullable()
@@ -110,9 +92,6 @@ public class CMLeaf
         }
         return strRet.toString();
     }
-
-    // protected
-
     @Override
     protected void calcFirstPos(CMStateSet toSet)
     {
@@ -136,7 +115,6 @@ public class CMLeaf
         else
             toSet.setBit(fPosition);
     }
-
-} // class CMLeaf
+}
 
 

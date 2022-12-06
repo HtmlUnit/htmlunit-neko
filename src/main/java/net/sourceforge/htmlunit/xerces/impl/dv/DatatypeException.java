@@ -70,7 +70,9 @@ public class DatatypeException extends Exception {
     }
 
     /**
-     * Overrides this method to get the formatted&localized error message.
+     * {@inheritDoc}
+     *
+     * Overrides this method to get the formatted and localized error message.
      * <p>
      * REVISIT: the system locale is used to load the property file.
      *          do we want to allow the appilcation to specify a

@@ -25,10 +25,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd.models;
 public class CMAny
     extends CMNode {
 
-    //
-    // Data
-    //
-
     /**
      * URI of the any content model. This value is set if the type is
      * of the following:
@@ -44,21 +40,13 @@ public class CMAny
      */
     private int fPosition = -1;
 
-    //
-    // Constructors
-    //
-
-    /** Constructs a content model any. */
+    // Constructs a content model any.
     public CMAny(int type, String uri, int position)  {
         super(type);
 
         fURI = uri;
         fPosition = position;
     }
-
-    //
-    // Package methods
-    //
 
     final String getURI() {
         return fURI;
@@ -68,12 +56,6 @@ public class CMAny
     {
         return fPosition;
     }
-
-    //
-    // CMNode methods
-    //
-
-    // package
 
     @Override
     public boolean isNullable()
@@ -98,8 +80,6 @@ public class CMAny
         return strRet.toString();
     }
 
-    // protected
-
     @Override
     protected void calcFirstPos(CMStateSet toSet)
     {
@@ -123,6 +103,5 @@ public class CMAny
         else
             toSet.setBit(fPosition);
     }
-
-} // class CMAny
+}
 

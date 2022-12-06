@@ -107,28 +107,20 @@ public final class SimpleLocator implements XMLLocator {
         charOffset = offset;
     }
 
-    /**
-     * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setBaseSystemId(String)
-     */
+    // @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setBaseSystemId(String)
     public void setBaseSystemId(String systemId) {}
 
-    /**
-     * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setExpandedSystemId(String)
-     */
+    // @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setExpandedSystemId(String)
     public void setExpandedSystemId(String systemId) {
         esid = systemId;
     }
 
-    /**
-     * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setLiteralSystemId(String)
-     */
+    // @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setLiteralSystemId(String)
     public void setLiteralSystemId(String systemId) {
         lsid = systemId;
     }
 
-    /**
-     * @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setPublicId(String)
-     */
+    // @see net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier#setPublicId(String)
     public void setPublicId(String publicId) {}
 
     /**

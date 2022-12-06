@@ -32,6 +32,7 @@ public interface DatatypeValidator {
      *
      * @param content       the string value that needs to be validated
      * @param context       the validation context
+     * @throws InvalidDatatypeValueException on error
      */
     void validate(String content, ValidationContext context)
         throws InvalidDatatypeValueException;

@@ -35,9 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  */
 public class ValidationState implements ValidationContext {
 
-    //
-    // private data
-    //
     private boolean fExtraChecking              = true;
     private boolean fFacetChecking              = true;
     private boolean fNormalize                  = true;
@@ -88,6 +85,7 @@ public class ValidationState implements ValidationContext {
      * return null if all IDREF values have a corresponding ID value;
      * otherwise return an iterator for all the IDREF values without
      * a matching ID value.
+     * @return iterator
      */
     public Iterator<String> checkIDRefID() {
         HashSet<String> missingIDs = null;
@@ -127,10 +125,6 @@ public class ValidationState implements ValidationContext {
         fIdRefTable.clear();
     }
 
-    //
-    // implementation of ValidationContext methods
-    //
-
     // whether to do extra id/idref/entity checking
     @Override
     public boolean needExtraChecking() {
@@ -161,6 +155,7 @@ public class ValidationState implements ValidationContext {
         }
         return false;
     }
+
     @Override
     public boolean isEntityUnparsed (String name) {
         if (fEntityState !=null) {
@@ -174,6 +169,7 @@ public class ValidationState implements ValidationContext {
     public boolean isIdDeclared(String name) {
         return fIdTable.containsKey(name);
     }
+
     @Override
     public void addId(String name) {
         fIdTable.put(name, fNullValue);
@@ -196,6 +192,7 @@ public class ValidationState implements ValidationContext {
         // compared by reference with other symbol table string. -SG
         return symbol.intern();
     }
+
     // qname, notation
     @Override
     public String getURI(String prefix) {
@@ -204,8 +201,6 @@ public class ValidationState implements ValidationContext {
         }
         return null;
     }
-
-    // Locale
 
     public void setLocale(Locale locale) {
         fLocale = locale;

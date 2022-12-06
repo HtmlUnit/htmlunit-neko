@@ -195,11 +195,7 @@ public abstract class AbstractSAXParser
     // second declaration to any registered DeclHandler
     protected SymbolHash fDeclaredAttrs = null;
 
-    //
-    // Constructors
-    //
-
-    /** Default constructor. */
+    // Default constructor.
     protected AbstractSAXParser(XMLParserConfiguration config) {
         super(config);
 
@@ -212,11 +208,7 @@ public abstract class AbstractSAXParser
         catch (XMLConfigurationException e) {
             // it wasn't a recognized feature, so we don't worry about it
         }
-    } // <init>(XMLParserConfiguration)
-
-    //
-    // XMLDocumentHandler methods
-    //
+    }
 
     /**
      * The start of the document.
@@ -2224,77 +2216,70 @@ public abstract class AbstractSAXParser
     protected static final class LocatorProxy
         implements Locator2 {
 
-        //
-        // Data
-        //
-
         /** XML locator. */
         protected final XMLLocator fLocator;
 
-        //
-        // Constructors
-        //
-
-        /** Constructs an XML locator proxy. */
+        // Constructs an XML locator proxy.
         public LocatorProxy(XMLLocator locator) {
             fLocator = locator;
         }
 
-        //
-        // Locator methods
-        //
-
-        /** Public identifier. */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String getPublicId() {
             return fLocator.getPublicId();
         }
 
-        /** System identifier. */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String getSystemId() {
             return fLocator.getExpandedSystemId();
         }
-        /** Line number. */
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int getLineNumber() {
             return fLocator.getLineNumber();
         }
 
-        /** Column number. */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int getColumnNumber() {
             return fLocator.getColumnNumber();
         }
 
-        // Locator2 methods
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String getXMLVersion() {
             return fLocator.getXMLVersion();
         }
 
-        @Override
+        /**
+         * {@inheritDoc}
+         */
         public String getEncoding() {
             return fLocator.getEncoding();
         }
 
-    } // class LocatorProxy
+    }
 
     protected static final class AttributesProxy
         implements AttributeList, Attributes2 {
 
-        //
-        // Data
-        //
-
         /** XML attributes. */
         protected XMLAttributes fAttributes;
 
-        //
-        // Public methods
-        //
-
-        /** Sets the XML attributes. */
+        // Sets the XML attributes.
         public void setAttributes(XMLAttributes attributes) {
             fAttributes = attributes;
         } // setAttributes(XMLAttributes)
