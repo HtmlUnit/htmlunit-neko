@@ -579,9 +579,7 @@ public class NamedNodeMapImpl
         }
         list.clear();
         if (nodes != null) {
-            for (Node node : nodes) {
-                list.add(node);
-            }
+            list.addAll(nodes);
         }
         return list;
     }

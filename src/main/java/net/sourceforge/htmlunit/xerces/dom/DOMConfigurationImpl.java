@@ -608,8 +608,8 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /**
      * setProperty
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId the property id
+     * @param value the value
      */
     @Override
     public void setProperty(String propertyId, Object value)

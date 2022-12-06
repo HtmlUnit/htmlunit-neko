@@ -78,8 +78,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
  * present in the tree. The PSVI information is not exposed, normalized data (including element
  * default content is not available).
  *
- * @xerces.experimental
- *
  * @author Elena Litani, IBM
  * @author Neeraj Bajaj, Sun Microsystems, inc.
  */
@@ -1037,9 +1035,9 @@ public class DOMNormalizer implements XMLDocumentHandler {
      * attribute with the given prefix and value for URI.
      * In case prefix is empty will add/update default namespace declaration.
      *
-     * @param prefix
-     * @param uri
-     * @exception IOException
+     * @param prefix the prefix
+     * @param uri the uri
+     * @param element the element
      */
 
     protected final void addNamespaceDecl(String prefix, String uri, ElementImpl element){
@@ -1067,7 +1065,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     /**
      * Check if CDATA section is well-formed
-     * @param datavalue
+     * @param datavalue the data
      * @param isXML11Version = true if XML 1.1
      */
     public static void isCDataWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
@@ -1167,7 +1165,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     /**
      * NON-DOM: check for valid XML characters as per the XML version
-     * @param datavalue
+     * @param datavalue the data
      * @param isXML11Version = true if XML 1.1
      */
     public static void isXMLCharWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,
@@ -1230,7 +1228,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
 
     /**
      * NON-DOM: check if value of the comment is well-formed
-     * @param datavalue
+     * @param datavalue the data
      * @param isXML11Version = true if XML 1.1
      */
     public static void isCommentWF(DOMErrorHandler errorHandler, DOMErrorImpl error, DOMLocatorImpl locator,

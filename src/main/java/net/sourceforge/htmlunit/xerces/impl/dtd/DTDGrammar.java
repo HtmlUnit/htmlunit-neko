@@ -1196,7 +1196,7 @@ public class DTDGrammar
     /**
      * getElementDeclIndex
      *
-     * @param elementDeclName
+     * @param elementDeclName the declaration name
      *
      * @return index of the elementDeclName in scope
      */
@@ -1237,7 +1237,7 @@ public class DTDGrammar
     /**
      * getElementDecl
      *
-     * @param elementDeclIndex
+     * @param elementDeclIndex the declaration index
      * @param elementDecl The values of this structure are set by this call.
      *
      * @return True if find the element, False otherwise.
@@ -1289,7 +1289,7 @@ public class DTDGrammar
     /**
      * getFirstAttributeDeclIndex
      *
-     * @param elementDeclIndex
+     * @param elementDeclIndex the declaration index
      *
      * @return index of the first attribute for element declaration elementDeclIndex
      */
@@ -1303,7 +1303,7 @@ public class DTDGrammar
     /**
      * getNextAttributeDeclIndex
      *
-     * @param attributeDeclIndex
+     * @param attributeDeclIndex the declaration index
      *
      * @return index of the next attribute of the attribute at attributeDeclIndex
      */
@@ -1317,7 +1317,7 @@ public class DTDGrammar
     /**
      * getAttributeDecl
      *
-     * @param attributeDeclIndex
+     * @param attributeDeclIndex the declaration index
      * @param attributeDecl The values of this structure are set by this call.
      *
      * @return true if getAttributeDecl was able to fill in the value of attributeDecl
@@ -1373,7 +1373,7 @@ public class DTDGrammar
     /**
      * getEntityDeclIndex
      *
-     * @param entityDeclName
+     * @param entityDeclName the declaration name
      *
      * @return the index of the EntityDecl
      */
@@ -1388,7 +1388,7 @@ public class DTDGrammar
     /**
      * getEntityDecl
      *
-     * @param entityDeclIndex
+     * @param entityDeclIndex the declaration index
      * @param entityDecl
      *
      * @return true if getEntityDecl was able to fill entityDecl with the contents of the entity
@@ -1416,7 +1416,7 @@ public class DTDGrammar
     /**
      * getNotationDeclIndex
      *
-     * @param notationDeclName
+     * @param notationDeclName the declaration name
      *
      * @return the index if found a notation with the name, otherwise -1.
      */
@@ -1431,7 +1431,7 @@ public class DTDGrammar
     /**
      * getNotationDecl
      *
-     * @param notationDeclIndex
+     * @param notationDeclIndex the declaration index
      * @param notationDecl
      *
      * @return return true of getNotationDecl can fill notationDecl with information about
@@ -1491,7 +1491,7 @@ public class DTDGrammar
     /**
      * getContentSpecAsString
      *
-     * @param elementDeclIndex
+     * @param elementDeclIndex the declaration index
      *
      * @return String
      */
@@ -1711,7 +1711,7 @@ public class DTDGrammar
     /**
      * getElementContentModelValidator
      *
-     * @param elementDeclIndex
+     * @param elementDeclIndex the declaration index
      *
      * @return its ContentModelValidator if any.
      */

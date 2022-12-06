@@ -169,7 +169,7 @@ public class DFAContentModel
      *
      * @param syntaxTree    The syntax tree of the content model.
      * @param leafCount     The number of leaves.
-     * @param mixed
+     * @param mixed true if mixed
      *
      */
     public DFAContentModel(CMNode syntaxTree, int leafCount, boolean mixed) {

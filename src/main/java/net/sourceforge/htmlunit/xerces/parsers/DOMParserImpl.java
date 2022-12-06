@@ -280,8 +280,6 @@ public class DOMParserImpl
 
     /**
      * Resets the parser state.
-     *
-     * @throws SAXException Thrown on initialization error.
      */
     @Override
     public void reset () {
@@ -1023,8 +1021,8 @@ public class DOMParserImpl
     /**
      * NON-DOM: convert LSInput to XNIInputSource
      *
-     * @param is
-     * @return
+     * @param is the input source
+     * @return a new {@link XMLInputSource}
      */
     XMLInputSource dom2xmlInputSource (LSInput is) {
         // need to wrap the LSInput with an XMLInputSource

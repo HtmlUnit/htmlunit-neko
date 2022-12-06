@@ -210,10 +210,10 @@ public class DOMParser
     /**
      * parse
      *
-     * @param inputSource
+     * @param inputSource the input source
      *
-     * @exception org.xml.sax.SAXException
-     * @exception java.io.IOException
+     * @exception org.xml.sax.SAXException on error
+     * @exception java.io.IOException on error
      */
     public void parse(InputSource inputSource)
         throws SAXException, IOException {

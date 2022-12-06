@@ -107,6 +107,7 @@ public class XMLMessageFormatter implements MessageFormatter {
                     }
                     str.append(arguments[i]);
                 }
+                msg = str.toString();
             }
         }
 

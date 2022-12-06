@@ -98,6 +98,7 @@ public class DOMMessageFormatter {
                     }
                     str.append(arguments[i]);
                 }
+                msg = str.toString();
             }
         }
 
@@ -132,7 +133,7 @@ public class DOMMessageFormatter {
 
     /**
      * Set Locale to be used by the formatter.
-     * @param dlocale
+     * @param dlocale the locale
      */
     public static void setLocale(Locale dlocale) {
         locale = dlocale;

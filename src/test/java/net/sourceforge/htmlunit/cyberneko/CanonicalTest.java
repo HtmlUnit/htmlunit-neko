@@ -31,6 +31,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -118,7 +119,7 @@ public class CanonicalTest {
         }
         catch (final AssertionFailedError e) {
             final File output = new File(outputDir, dataFile.getName());
-            try (final PrintWriter pw = new PrintWriter(new FileOutputStream(output))) {
+            try (final PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);
             }
             throw e;

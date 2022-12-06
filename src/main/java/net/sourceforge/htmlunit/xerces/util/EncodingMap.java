@@ -532,7 +532,6 @@ public class EncodingMap {
         fIANA2JavaMap.put("437",    "CP437");
         fIANA2JavaMap.put("CP437",    "CP437");
         fIANA2JavaMap.put("CSPC8CODEPAGE437",    "CP437");
-        fIANA2JavaMap.put("EBCDIC-CP-CH",    "CP500");
         fIANA2JavaMap.put("IBM500",    "CP500");
         fIANA2JavaMap.put("CP500",    "CP500");
         fIANA2JavaMap.put("CSIBM500",    "CP500");

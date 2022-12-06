@@ -27,8 +27,7 @@ class HTMLErrorHandler extends DefaultErrorHandler {
 
     private void println(final String type, String key, XMLParseException exception) throws XNIException {
         try {
-            out_.append("[" + type + "] "
-                    + key + " " + exception.getMessage() + "\n");
+            out_.append("[").append(type).append("] ").append(key).append(" ").append(exception.getMessage()).append("\n");
         }
         catch (final IOException e) {
             throw new XNIException(e);

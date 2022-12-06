@@ -86,6 +86,7 @@ public class SAXMessageFormatter {
                     }
                     str.append(arguments[i]);
                 }
+                msg = str.toString();
             }
         }
         return msg;

@@ -240,7 +240,7 @@ public class ElementNSImpl
      * @exception INVALID_CHARACTER_ERR
      *                   Raised if the specified
      *                   prefix contains an invalid character.
-     * @exception DOMException
+     * @exception DOMException on error
      */
     @Override
     public void setPrefix(String prefix)

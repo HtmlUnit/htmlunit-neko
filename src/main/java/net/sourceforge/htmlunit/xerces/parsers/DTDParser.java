@@ -48,7 +48,7 @@ public abstract class DTDParser
     /**
      *
      *
-     * @param symbolTable
+     * @param symbolTable the {@link SymbolTable}
      */
     public DTDParser(SymbolTable symbolTable) {
         super(symbolTable);
