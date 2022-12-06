@@ -36,12 +36,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  *
  * @author Andy Clark, IBM
  */
-public interface XMLDocumentScanner
-    extends XMLDocumentSource {
-
-    //
-    // XMLDocumentScanner methods
-    //
+public interface XMLDocumentScanner extends XMLDocumentSource {
 
     /**
      * Sets the input source.
@@ -64,8 +59,8 @@ public interface XMLDocumentScanner
      *                 not support this "pull" scanning model.
      *
      * @return True if there is more to scan, false otherwise.
+     * @throws IOException Thrown on i/o error.
+     * @throws XNIException on error.
      */
-    boolean scanDocument(boolean complete)
-        throws IOException, XNIException;
-
-} // interface XMLDocumentScanner
+    boolean scanDocument(boolean complete) throws IOException, XNIException;
+}

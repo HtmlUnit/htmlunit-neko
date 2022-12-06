@@ -188,9 +188,9 @@ public class HTMLBuilder
     public void ignorableWhitespace( char[] text, int start, int length )
         throws SAXException
     {
-        /**
-         * Applies only to whitespace appearing between element tags in element content,
-         * as per the SAX definition, and true by default.
+        /*
+          Applies only to whitespace appearing between element tags in element content,
+          as per the SAX definition, and true by default.
          */
         boolean _ignoreWhitespace = true;
         if ( !_ignoreWhitespace)

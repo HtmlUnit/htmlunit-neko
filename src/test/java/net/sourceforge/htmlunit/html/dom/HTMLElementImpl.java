@@ -130,9 +130,9 @@ public class HTMLElementImpl
      * Convenience method used to translate an attribute value into a boolean
      * value. If the attribute has an associated value (even an empty string),
      * it is set and true is returned. If the attribute does not exist, false
-     * is returend.
+     * is returned.
      *
-     * @param value The value of the attribute
+     * @param name The name of the attribute
      * @return True or false depending on whether the attribute has been set
      */
     boolean getBinary( String name ) {

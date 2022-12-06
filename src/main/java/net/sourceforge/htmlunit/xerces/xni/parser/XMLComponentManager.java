@@ -31,15 +31,9 @@ package net.sourceforge.htmlunit.xerces.xni.parser;
  * @author Andy Clark, IBM
  */
 public interface XMLComponentManager {
-
-    //
-    // XMLComponentManager methods
-    //
-
     /**
-     * Returns the state of a feature.
-     *
      * @param featureId The feature identifier.
+     * @return the state of a feature.
      *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
@@ -47,9 +41,8 @@ public interface XMLComponentManager {
         throws XMLConfigurationException;
 
     /**
-     * Returns the value of a property.
-     *
      * @param propertyId The property identifier.
+     * @return the value of a property.
      *
     * @throws XMLConfigurationException Thrown on configuration error.
      */

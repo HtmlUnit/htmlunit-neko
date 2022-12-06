@@ -544,8 +544,7 @@ extends ParentNode implements Document  {
      * @param name The name of the attribute. Note that the attribute's value is
      * _not_ established at the factory; remember to set it!
      *
-     * @throws DOMException(INVALID_NAME_ERR)
-     * if the attribute name is not acceptable.
+     * @throws DOMException INVALID_NAME_ERR if the attribute name is not acceptable.
      */
     @Override
     public Attr createAttribute(String name)
@@ -2389,7 +2388,7 @@ extends ParentNode implements Document  {
      * @param n The node this operation applies to.
      * @param c The copy node or null.
      * @param operation The operation - import, clone, or delete.
-     * @param handlers Data associated with n.
+     * @param userData Data associated with n.
     */
     void callUserDataHandlers(Node n, Node c, short operation, Hashtable userData) {
         if (userData == null || userData.isEmpty()) {

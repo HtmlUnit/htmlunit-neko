@@ -2366,10 +2366,9 @@ public class DTDGrammar
      * Build a vector of valid QNames from Content Spec
      * table.
      *
-     * @param contentSpecIndex
-     *               Content Spec index
-     * @param vectorQName
-     *               Array of QName
+     * @param contentSpecIndex Content Spec index
+     * @param contentSpec Array of QName
+     * @param children children list
      * @exception RuntimeException
      */
     private void contentSpecTree(int contentSpecIndex,

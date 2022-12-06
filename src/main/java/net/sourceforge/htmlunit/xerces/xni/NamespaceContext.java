@@ -32,11 +32,6 @@ import java.util.Enumeration;
  * @author Andy Clark, IBM
  */
 public interface NamespaceContext {
-
-    //
-    // Constants
-    //
-
     /**
      * The XML Namespace ("http://www.w3.org/XML/1998/namespace"). This is
      * the Namespace URI that is automatically mapped to the "xml" prefix.
@@ -50,10 +45,6 @@ public interface NamespaceContext {
      */
     String XMLNS_URI = "http://www.w3.org/2000/xmlns/".intern();
 
-    //
-    // NamespaceContext methods
-    //
-
     /**
      * Start a new Namespace context.
      * <p>
@@ -61,7 +52,7 @@ public interface NamespaceContext {
      * of each XML element: the new context will automatically inherit
      * the declarations of its parent context, but it will also keep
      * track of which declarations were made within this context.
-     * <p>
+     * </p>
      *
      * @see #popContext
      */
@@ -73,10 +64,12 @@ public interface NamespaceContext {
      * The context should be popped at the end of each
      * XML element.  After popping the context, all Namespace prefix
      * mappings that were previously in force are restored.
+     * </p>
      * <p>
      * Users must not attempt to declare additional Namespace
      * prefixes after popping a context, unless you push another
      * context first.
+     * </p>
      *
      * @see #pushContext
      */
@@ -88,12 +81,15 @@ public interface NamespaceContext {
      * This method declares a prefix in the current Namespace
      * context; the prefix will remain in force until this context
      * is popped, unless it is shadowed in a descendant context.
+     * </p>
      * <p>
      * Note that to declare a default Namespace, use the empty string.
      * The prefixes "xml" and "xmlns" can't be rebound.
+     * </p>
      * <p>
      * Note that you must <em>not</em> declare a prefix after
      * you've pushed and popped another Namespace.
+     * </p>
      *
      * @param prefix The prefix to declare, or null for the empty
      *        string.
@@ -140,13 +136,14 @@ public interface NamespaceContext {
     String getPrefix(String uri);
 
     /**
-     * Return a count of locally declared prefixes, including
+     * @return a count of locally declared prefixes, including
      * the default prefix if bound.
      */
     int getDeclaredPrefixCount();
 
     /**
-     * Returns the prefix at the specified index in the current context.
+     * @param index the index pos
+     * @return the prefix at the specified index in the current context.
      */
     String getDeclaredPrefixAt(int index);
 
@@ -168,7 +165,4 @@ public interface NamespaceContext {
      * the declaration of the prefixes "xmlns" and "xml" are available.</p>
      */
     void reset();
-
-
-
-} // interface NamespaceContext
+}

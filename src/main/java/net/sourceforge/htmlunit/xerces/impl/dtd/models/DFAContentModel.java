@@ -357,8 +357,6 @@ public class DFAContentModel
      * Builds the internal DFA transition table from the given syntax tree.
      *
      * @param syntaxTree The syntax tree.
-     *
-     * @exception CMException Thrown if DFA cannot be built.
      */
     private void buildDFA(CMNode syntaxTree)
     {
@@ -405,11 +403,11 @@ public class DFAContentModel
 
         fQName.setValues(null, fEOCString, fEOCString, null);
         CMLeaf nodeEOC = new CMLeaf(fQName);
-        /**
-         * This is the head node of our intermediate representation. It is
-         * only non-null during the building of the DFA (just so that it
-         * does not have to be passed all around.) Once the DFA is built,
-         * this is no longer required so its nulled out.
+        /*
+          This is the head node of our intermediate representation. It is
+          only non-null during the building of the DFA (just so that it
+          does not have to be passed all around.) Once the DFA is built,
+          this is no longer required so its nulled out.
          */
         CMNode fHeadNode = new CMBinOp
                 (
@@ -425,9 +423,9 @@ public class DFAContentModel
         //  started. We save the EOC position since its used during the DFA
         //  building loop.
         //
-        /**
-         * The NFA position of the special EOC (end of content) node. This
-         * is saved away since it's used during the DFA build.
+        /*
+          The NFA position of the special EOC (end of content) node. This
+          is saved away since it's used during the DFA build.
          */
         int fEOCPos = fLeafCount;
         nodeEOC.setPosition(fLeafCount++);
@@ -720,8 +718,6 @@ public class DFAContentModel
      * Calculates the follow list of the current node.
      *
      * @param nodeCur The curent node.
-     *
-     * @exception CMException Thrown if follow list cannot be calculated.
      */
     private void calcFollowList(CMNode nodeCur)
     {
@@ -792,8 +788,6 @@ public class DFAContentModel
      *
      * @param nodeCur The current node.
      * @param level   The maximum levels to output.
-     *
-     * @exception CMException Thrown on error.
      */
     private void dumpTree(CMNode nodeCur, int level)
     {

@@ -43,12 +43,6 @@ public class ParserConfigurationSettings
     protected static final String PARSER_SETTINGS =
             Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
-    //
-    // Data
-    //
-
-    // data
-
     /** Recognized properties. */
     protected ArrayList<String> fRecognizedProperties;
 
@@ -64,14 +58,10 @@ public class ParserConfigurationSettings
     /** Parent parser configuration settings. */
     protected final XMLComponentManager fParentSettings;
 
-    //
-    // Constructors
-    //
-
     /** Default Constructor. */
     public ParserConfigurationSettings() {
         this(null);
-    } // <init>()
+    }
 
     /**
      * Constructs a parser configuration settings object with a
@@ -90,11 +80,7 @@ public class ParserConfigurationSettings
         // save parent
         fParentSettings = parent;
 
-    } // <init>(XMLComponentManager)
-
-    //
-    // XMLParserConfiguration methods
-    //
+    }
 
     /**
      * Allows a parser to add parser specific features to be recognized
@@ -114,7 +100,7 @@ public class ParserConfigurationSettings
             }
         }
 
-    } // addRecognizedFeatures(String[])
+    }
 
     /**
      * Set the state of a feature.
@@ -136,7 +122,7 @@ public class ParserConfigurationSettings
         checkFeature(featureId);
 
         fFeatures.put(featureId, state ? Boolean.TRUE : Boolean.FALSE);
-    } // setFeature(String,boolean)
+    }
 
     /**
      * Allows a parser to add parser specific properties to be recognized
@@ -156,13 +142,13 @@ public class ParserConfigurationSettings
             }
         }
 
-    } // addRecognizedProperties(String[])
+    }
 
     /**
      * setProperty
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId the property id
+     * @param value the value
      * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
      *            requested feature is not known.
      */
@@ -173,23 +159,10 @@ public class ParserConfigurationSettings
         checkProperty(propertyId);
         fProperties.put(propertyId, value);
 
-    } // setProperty(String,Object)
-
-    //
-    // XMLComponentManager methods
-    //
+    }
 
     /**
-     * Returns the state of a feature.
-     *
-     * @param featureId The feature identifier.
-         * @return true if the feature is supported
-     *
-     * @throws XMLConfigurationException Thrown for configuration error.
-     *                                   In general, components should
-     *                                   only throw this exception if
-     *                                   it is <strong>really</strong>
-     *                                   a critical error.
+     * {@inheritDoc}
      */
     @Override
     public boolean getFeature(String featureId)
@@ -202,20 +175,10 @@ public class ParserConfigurationSettings
             return false;
         }
         return state.booleanValue();
-
-    } // getFeature(String):boolean
+    }
 
     /**
-     * Returns the value of a property.
-     *
-     * @param propertyId The property identifier.
-         * @return the value of the property
-     *
-     * @throws XMLConfigurationException Thrown for configuration error.
-     *                                   In general, components should
-     *                                   only throw this exception if
-     *                                   it is <strong>really</strong>
-     *                                   a critical error.
+     * {@inheritDoc}
      */
     @Override
     public Object getProperty(String propertyId)
@@ -229,11 +192,7 @@ public class ParserConfigurationSettings
 
         return propertyValue;
 
-    } // getProperty(String):Object
-
-    //
-    // Protected methods
-    //
+    }
 
     /**
      * Check a feature. If feature is known and supported, this method simply
@@ -258,7 +217,7 @@ public class ParserConfigurationSettings
             }
         }
 
-    } // checkFeature(String)
+    }
 
     /**
      * Check a property. If the property is known and supported, this method
@@ -283,6 +242,5 @@ public class ParserConfigurationSettings
             }
         }
 
-    } // checkProperty(String)
-
-} // class ParserConfigurationSettings
+    }
+}

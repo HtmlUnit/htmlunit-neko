@@ -36,8 +36,6 @@ import java.util.Enumeration;
  */
 
 public interface Augmentations {
-
-
     /**
      * Add additional information identified by a key to the Augmentations structure.
      *
@@ -72,15 +70,12 @@ public interface Augmentations {
 
 
     /**
-     * Returns an enumeration of the keys in the Augmentations structure
-     *
+     * @return an enumeration of the keys in the Augmentations structure
      */
-    Enumeration keys ();
-
+    Enumeration<String> keys ();
 
     /**
      * Remove all objects from the Augmentations structure.
      */
     void removeAllItems ();
-
 }

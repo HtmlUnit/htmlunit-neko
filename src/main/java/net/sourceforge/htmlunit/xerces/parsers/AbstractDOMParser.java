@@ -371,7 +371,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * Resets the parser state.
      *
-     * @throws SAXException Thrown on initialization error.
+     * @throws XNIException Thrown on initialization error.
      */
     @Override
     public void reset () throws XNIException {
@@ -1363,7 +1363,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * or for the ProcessingInstruction (by setting a baseURI field)
      * Non deferred DOM.
      *
-     * @param node
+     * @param node the node
      */
     protected final void handleBaseURI (Node node){
         if (fDocumentImpl != null) {
@@ -1413,7 +1413,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * or for the ProcessingInstruction (by setting a baseURI field)
      * Deferred DOM.
      *
-     * @param node
+     * @param node the node
      */
     protected final void handleBaseURI (int node){
         short nodeType = fDeferredDocumentImpl.getNodeType (node, false);

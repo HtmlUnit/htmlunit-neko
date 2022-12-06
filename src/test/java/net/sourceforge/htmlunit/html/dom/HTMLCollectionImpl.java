@@ -472,14 +472,14 @@ class HTMLCollectionImpl
 
 
 /**
- * {@link CollectionImpl#item} must traverse down the tree and decrement the
+ * {@link HTMLCollectionImpl#item(int)} must traverse down the tree and decrement the
  * index until it matches an element who's index is zero. Since integers are
  * passed by value, this class servers to pass the index into each recursion
  * by reference. It encompasses all the operations that need be performed on
  * the index, although direct access is possible.
  * <p>
  *
- * @see CollectionImpl#item
+ * @see HTMLCollectionImpl#item(int)
  */
 class CollectionIndex
 {

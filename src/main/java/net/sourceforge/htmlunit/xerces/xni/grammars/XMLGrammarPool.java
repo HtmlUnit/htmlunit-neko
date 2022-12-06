@@ -54,7 +54,7 @@ public interface XMLGrammarPool {
      * validation attempt. </p>
      * @param grammarType the type of the grammar, from the
      *  <code>net.sourceforge.htmlunit.xerces.xni.grammars.Grammar</code> interface.
-     * @return the set of grammars the validator may put in its "bucket"
+     * @return the array of grammars the validator may put in its "bucket"
      */
     Grammar[] retrieveInitialGrammarSet(String grammarType);
 

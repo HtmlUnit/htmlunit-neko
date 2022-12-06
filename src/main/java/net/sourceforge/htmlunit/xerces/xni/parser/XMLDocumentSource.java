@@ -32,14 +32,12 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
  */
 public interface XMLDocumentSource {
 
-    //
-    // XMLDocumentSource methods
-    //
-
-    /** Sets the document handler. */
+    /**
+     * Sets the document handler.
+     * @param handler the new handler
+     */
     void setDocumentHandler(XMLDocumentHandler handler);
 
-    /** Returns the document handler */
+    /** @return the document handler */
     XMLDocumentHandler getDocumentHandler();
-
-} // interface XMLDocumentSource
+}

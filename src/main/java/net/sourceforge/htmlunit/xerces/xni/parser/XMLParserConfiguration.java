@@ -72,14 +72,7 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  * @author Arnaud  Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public interface XMLParserConfiguration
-    extends XMLComponentManager {
-
-    //
-    // XMLParserConfiguration methods
-    //
-
-    // parsing
+public interface XMLParserConfiguration extends XMLComponentManager {
 
     /**
      * Parse an XML document.
@@ -108,10 +101,7 @@ public interface XMLParserConfiguration
      *                         from a byte stream or character stream
      *                         supplied by the parser.
      */
-    void parse(XMLInputSource inputSource)
-        throws XNIException, IOException;
-
-    // generic configuration
+    void parse(XMLInputSource inputSource) throws XNIException, IOException;
 
     /**
      * Allows a parser to add parser specific features to be recognized
@@ -136,9 +126,8 @@ public interface XMLParserConfiguration
         throws XMLConfigurationException;
 
     /**
-     * Returns the state of a feature.
-     *
      * @param featureId The feature identifier.
+     * @return the state of a feature.
      *
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
@@ -170,9 +159,8 @@ public interface XMLParserConfiguration
         throws XMLConfigurationException;
 
     /**
-     * Returns the value of a property.
-     *
      * @param propertyId The property identifier.
+     * @return the value of a property.
      *
      * @throws XMLConfigurationException Thrown if there is a configuration
      *                                   error.
@@ -190,7 +178,9 @@ public interface XMLParserConfiguration
      */
     void setErrorHandler(XMLErrorHandler errorHandler);
 
-    /** Returns the registered error handler. */
+    /**
+     * @return the registered error handler.
+     */
     XMLErrorHandler getErrorHandler();
 
     /**
@@ -200,7 +190,9 @@ public interface XMLParserConfiguration
      */
     void setDocumentHandler(XMLDocumentHandler documentHandler);
 
-    /** Returns the registered document handler. */
+    /**
+     * @return the registered document handler.
+     */
     XMLDocumentHandler getDocumentHandler();
 
     /**
@@ -210,7 +202,9 @@ public interface XMLParserConfiguration
      */
     void setDTDHandler(XMLDTDHandler dtdHandler);
 
-    /** Returns the registered DTD handler. */
+    /**
+     * @return the registered DTD handler.
+     */
     XMLDTDHandler getDTDHandler();
 
     /**
@@ -220,7 +214,9 @@ public interface XMLParserConfiguration
      */
     void setDTDContentModelHandler(XMLDTDContentModelHandler dtdContentModelHandler);
 
-    /** Returns the registered DTD content model handler. */
+    /**
+     * @return the registered DTD content model handler.
+     */
     XMLDTDContentModelHandler getDTDContentModelHandler();
 
     // other settings
@@ -232,7 +228,9 @@ public interface XMLParserConfiguration
      */
     void setEntityResolver(XMLEntityResolver entityResolver);
 
-    /** Returns the registered entity resolver. */
+    /**
+     * @return the registered entity resolver.
+     */
     XMLEntityResolver getEntityResolver();
 
     /**
@@ -245,7 +243,8 @@ public interface XMLParserConfiguration
      */
     void setLocale(Locale locale) throws XNIException;
 
-    /** Returns the locale. */
+    /**
+     * @return the locale.
+     */
     Locale getLocale();
-
-} // interface XMLParserConfiguration
+}

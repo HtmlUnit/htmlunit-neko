@@ -425,7 +425,7 @@ public class ElementImpl
      * existed -- unlike removeAttributeNode, which will throw a not-found
      * exception in that case.
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
      * readonly.
      */
     @Override
@@ -460,9 +460,9 @@ public class ElementImpl
      * use removeAttribute().
      *
      * @return the Attribute object that was removed.
-     * @throws DOMException(NOT_FOUND_ERR) if oldattr is not an attribute of
+     * @throws DOMException NOT_FOUND_ERR if oldattr is not an attribute of
      * this Element.
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
      * readonly.
      */
     @Override
@@ -500,10 +500,10 @@ public class ElementImpl
      * explicit value rather than inherited from the DTD as a default.
      * Again, setAttributeNode can be used to achieve other results.
      *
-     * @throws DOMException(INVALID_NAME_ERR) if the name is not acceptable.
+     * @throws DOMException INVALID_NAME_ERR if the name is not acceptable.
      * (Attribute factory will do that test for us.)
      *
-     * @throws DOMException(NO_MODIFICATION_ALLOWED_ERR) if the node is
+     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
      * readonly.
      */
     @Override
@@ -549,7 +549,7 @@ public class ElementImpl
      * arbitrarily complex tree structure -- in particular, those which
      * had entity references mixed into their text.
      *
-     * @throws DOMException(INUSE_ATTRIBUTE_ERR) if the Attribute object
+     * @throws DOMException INUSE_ATTRIBUTE_ERR if the Attribute object
      * has already been assigned to another Element.
      */
     @Override

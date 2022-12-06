@@ -52,13 +52,6 @@ public class CMAny
     public CMAny(int type, String uri, int position)  {
         super(type);
 
-        // Store the information
-        /**
-         * The any content model type. This value is one of the following:
-         * XMLContentSpec.CONTENTSPECNODE_ANY,
-         * XMLContentSpec.CONTENTSPECNODE_ANY_OTHER,
-         * XMLContentSpec.CONTENTSPECNODE_ANY_LOCAL.
-         */
         fURI = uri;
         fPosition = position;
     }

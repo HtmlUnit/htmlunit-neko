@@ -2201,7 +2201,7 @@ public class HTMLScanner
         /**
          * Scans the content of <noscript>: it doesn't get parsed but is considered as plain text
          * when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to false.
-         * @param the tag for which content is scanned (one of "noscript", "noframes", "iframe")
+         * @param tagName the tag for which content is scanned (one of "noscript", "noframes", "iframe")
          * @throws IOException
          */
         private void scanUntilEndTag(final String tagName) throws IOException {

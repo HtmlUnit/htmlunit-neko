@@ -24,33 +24,29 @@ package net.sourceforge.htmlunit.xerces.xni;
  */
 public interface XMLLocator {
 
-    //
-    // XMLLocator methods
-    //
-
-    /** Returns the public identifier. */
+    /** @return the public identifier. */
     String getPublicId();
 
-    /** Returns the literal system identifier. */
+    /** @return the literal system identifier. */
     String getLiteralSystemId();
 
-    /** Returns the base system identifier. */
+    /** @return the base system identifier. */
     String getBaseSystemId();
 
-    /** Returns the expanded system identifier. */
+    /** @return the expanded system identifier. */
     String getExpandedSystemId();
 
-    /** Returns the line number, or <code>-1</code> if no line number is available. */
+    /** @return the line number, or <code>-1</code> if no line number is available. */
     int getLineNumber();
 
-    /** Returns the column number, or <code>-1</code> if no column number is available. */
+    /** @return the column number, or <code>-1</code> if no column number is available. */
     int getColumnNumber();
 
-    /** Returns the character offset, or <code>-1</code> if no character offset is available. */
+    /** @return the character offset, or <code>-1</code> if no character offset is available. */
     int getCharacterOffset();
 
     /**
-     * Returns the encoding of the current entity.
+     * @return the encoding of the current entity.
      * Note that, for a given entity, this value can only be
      * considered final once the encoding declaration has been read (or once it
      * has been determined that there is no such declaration) since, no encoding
@@ -60,7 +56,7 @@ public interface XMLLocator {
     String getEncoding();
 
     /**
-     * Returns the XML version of the current entity. This will normally be the
+     * @return the XML version of the current entity. This will normally be the
      * value from the XML or text declaration or defaulted by the parser. Note that
      * that this value may be different than the version of the processing rules
      * applied to the current entity. For instance, an XML 1.1 document may refer to
@@ -70,6 +66,4 @@ public interface XMLLocator {
      * determined that there is no such declaration.
      */
     String getXMLVersion();
-
-
-} // interface XMLLocator
+}

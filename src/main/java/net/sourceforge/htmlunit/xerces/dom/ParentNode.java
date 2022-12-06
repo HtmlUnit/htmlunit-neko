@@ -823,21 +823,15 @@ public abstract class ParentNode
             synchronizeChildren();
         }
         return new NodeList() {
-                /**
-                 * @see NodeList.getLength()
-                 */
                 @Override
                 public int getLength() {
                     return nodeListGetLength();
-                } // getLength():int
+                }
 
-                /**
-                 * @see NodeList.item(int)
-                 */
                 @Override
                 public Node item(int index) {
                     return nodeListItem(index);
-                } // item(int):Node
+                }
             };
     } // getChildNodesUnoptimized():NodeList
 

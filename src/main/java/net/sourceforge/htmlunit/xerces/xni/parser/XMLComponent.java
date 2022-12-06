@@ -31,10 +31,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
  */
 public interface XMLComponent {
 
-    //
-    // XMLComponent methods
-    //
-
     /**
      * Resets the component. The component can query the component manager
      * about any features and properties that affect the operation of the
@@ -48,7 +44,7 @@ public interface XMLComponent {
         throws XMLConfigurationException;
 
     /**
-     * Returns a list of feature identifiers that are recognized by
+     * @return a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
      */
@@ -74,7 +70,7 @@ public interface XMLComponent {
         throws XMLConfigurationException;
 
     /**
-     * Returns a list of property identifiers that are recognized by
+     * @return a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
@@ -100,21 +96,18 @@ public interface XMLComponent {
        throws XMLConfigurationException;
 
     /**
-     * Returns the default state for a feature, or null if this
+     * @param featureId The feature identifier.
+     * @return the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
-     *
-     * @param featureId The feature identifier.
      */
     Boolean getFeatureDefault(String featureId);
 
     /**
-     * Returns the default state for a property, or null if this
-     * component does not want to report a default value for this
-     * property.
-     *
      * @param propertyId The property identifier.
+     * @return the default state for a property, or null if this
+     * component does not want to report a default value for this
+     * property
      */
     Object getPropertyDefault(String propertyId);
-
-} // interface XMLComponent
+}
