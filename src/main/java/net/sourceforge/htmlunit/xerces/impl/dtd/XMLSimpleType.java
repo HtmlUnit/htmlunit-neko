@@ -23,10 +23,6 @@ import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
  */
 public class XMLSimpleType {
 
-    //
-    // Constants
-    //
-
     /** TYPE_CDATA */
     public static final short TYPE_CDATA = 0;
 
@@ -57,10 +53,6 @@ public class XMLSimpleType {
     /** DEFAULT_TYPE_REQUIRED */
     public static final short DEFAULT_TYPE_REQUIRED = 2;
 
-    //
-    // Data
-    //
-
     /** type */
     public short type;
 
@@ -85,22 +77,6 @@ public class XMLSimpleType {
     /** datatypeValidator */
     public DatatypeValidator datatypeValidator;
 
-    //
-    // Methods
-    //
-
-    /**
-     * setValues
-     *
-     * @param type
-     * @param name
-     * @param enumeration
-     * @param list
-     * @param defaultType
-     * @param defaultValue
-     * @param nonNormalizedDefaultValue
-     * @param datatypeValidator
-     */
     public void setValues(short type, String name, String[] enumeration,
                           boolean list, short defaultType,
                           String defaultValue, String nonNormalizedDefaultValue,
@@ -122,9 +98,8 @@ public class XMLSimpleType {
         this.nonNormalizedDefaultValue      = nonNormalizedDefaultValue;
         this.datatypeValidator = datatypeValidator;
 
-    } // setValues(short,String,String[],boolean,short,String,String,DatatypeValidator)
+    }
 
-    /** Set values. */
     public void setValues(XMLSimpleType simpleType) {
 
         type = simpleType.type;
@@ -143,7 +118,7 @@ public class XMLSimpleType {
         nonNormalizedDefaultValue = simpleType.nonNormalizedDefaultValue;
         datatypeValidator = simpleType.datatypeValidator;
 
-    } // setValues(XMLSimpleType)
+    }
 
     /**
      * clear
@@ -157,6 +132,5 @@ public class XMLSimpleType {
         this.defaultValue      = null;
         this.nonNormalizedDefaultValue      = null;
         this.datatypeValidator = null;
-    } // clear
-
-} // class XMLSimpleType
+    }
+}

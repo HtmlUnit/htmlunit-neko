@@ -29,10 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 public class XMLResourceIdentifierImpl
     implements XMLResourceIdentifier {
 
-    //
-    // Data
-    //
-
     /** The public identifier. */
     protected String fPublicId;
 
@@ -48,12 +44,8 @@ public class XMLResourceIdentifierImpl
     /** The namespace of the resource. */
     protected String fNamespace;
 
-    //
-    // Constructors
-    //
-
     /** Constructs an empty resource identifier. */
-    public XMLResourceIdentifierImpl() {} // <init>()
+    public XMLResourceIdentifierImpl() {}
 
     /**
      * Constructs a resource identifier.
@@ -68,20 +60,16 @@ public class XMLResourceIdentifierImpl
                                      String expandedSystemId) {
         setValues(publicId, literalSystemId, baseSystemId,
                   expandedSystemId, null);
-    } // <init>(String,String,String,String)
+    }
 
-    //
-    // Public methods
-    //
-
-    /** Sets the values of the resource identifier. */
+    // Sets the values of the resource identifier.
     public void setValues(String publicId, String literalSystemId,
                           String baseSystemId, String expandedSystemId) {
         setValues(publicId, literalSystemId, baseSystemId,
                   expandedSystemId, null);
-    } // setValues(String,String,String,String)
+    }
 
-    /** Sets the values of the resource identifier. */
+    // Sets the values of the resource identifier.
     public void setValues(String publicId, String literalSystemId,
                           String baseSystemId, String expandedSystemId,
                           String namespace) {
@@ -90,7 +78,7 @@ public class XMLResourceIdentifierImpl
         fBaseSystemId = baseSystemId;
         fExpandedSystemId = expandedSystemId;
         fNamespace = namespace;
-    } // setValues(String,String,String,String,String)
+    }
 
     /** Clears the values. */
     public void clear() {
@@ -101,77 +89,59 @@ public class XMLResourceIdentifierImpl
         fNamespace = null;
     } // clear()
 
-    /** Sets the public identifier. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPublicId(String publicId) {
         fPublicId = publicId;
-    } // setPublicId(String)
+    }
 
-    /** Sets the literal system identifier. */
     @Override
     public void setLiteralSystemId(String literalSystemId) {
         fLiteralSystemId = literalSystemId;
-    } // setLiteralSystemId(String)
+    }
 
-    /** Sets the base system identifier. */
     @Override
     public void setBaseSystemId(String baseSystemId) {
         fBaseSystemId = baseSystemId;
-    } // setBaseSystemId(String)
+    }
 
-    /** Sets the expanded system identifier. */
     @Override
     public void setExpandedSystemId(String expandedSystemId) {
         fExpandedSystemId = expandedSystemId;
-    } // setExpandedSystemId(String)
+    }
 
-    /** Sets the namespace of the resource. */
     @Override
     public void setNamespace(String namespace) {
         fNamespace = namespace;
-    } // setNamespace(String)
+    }
 
-    //
-    // XMLResourceIdentifier methods
-    //
-
-    /** Returns the public identifier. */
     @Override
     public String getPublicId() {
         return fPublicId;
-    } // getPublicId():String
+    }
 
-    /** Returns the literal system identifier. */
     @Override
     public String getLiteralSystemId() {
         return fLiteralSystemId;
-    } // getLiteralSystemId():String
+    }
 
-    /**
-     * Returns the base URI against which the literal SystemId is to be resolved.
-     */
     @Override
     public String getBaseSystemId() {
         return fBaseSystemId;
-    } // getBaseSystemId():String
+    }
 
-    /** Returns the expanded system identifier. */
     @Override
     public String getExpandedSystemId() {
         return fExpandedSystemId;
-    } // getExpandedSystemId():String
+    }
 
-    /** Returns the namespace of the resource. */
     @Override
     public String getNamespace() {
         return fNamespace;
-    } // getNamespace():String
+    }
 
-    //
-    // Object methods
-    //
-
-    /** Returns a hash code for this object. */
     @Override
     public int hashCode() {
         int code = 0;
@@ -193,7 +163,6 @@ public class XMLResourceIdentifierImpl
         return code;
     } // hashCode():int
 
-    /** Returns a string representation of this object. */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -217,6 +186,5 @@ public class XMLResourceIdentifierImpl
             str.append(fNamespace);
         }
         return str.toString();
-    } // toString():String
-
-} // class XMLResourceIdentifierImpl
+    }
+}

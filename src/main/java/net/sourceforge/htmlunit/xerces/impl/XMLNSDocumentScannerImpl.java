@@ -71,9 +71,6 @@ extends XMLDocumentScannerImpl {
       *   scanner if DTD grammar is missing.*/
     protected boolean fPerformValidation;
 
-    // private data
-    //
-
     /** DTD validator */
     private XMLDTDValidatorFilter fDTDValidator;
 
@@ -98,13 +95,14 @@ extends XMLDocumentScannerImpl {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Scans a start element. This method will handle the binding of
      * namespace information and notifying the handler of the start
      * of the element.
-     * <p>
      * <pre>
-     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/>'
-     * [40] STag ::= '&lt;' Name (S Attribute)* S? '>'
+     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/&gt;'
+     * [40] STag ::= '&lt;' Name (S Attribute)* S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method assumes that the leading
@@ -117,6 +115,8 @@ extends XMLDocumentScannerImpl {
      *
      * @return True if element is empty. (i.e. It matches
      *          production [44].
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected boolean scanStartElement()
@@ -285,12 +285,16 @@ extends XMLDocumentScannerImpl {
         if (DEBUG_CONTENT_SCANNING) System.out.println("<<< scanStartElement(): "+empty);
         return empty;
 
-    } // scanStartElement():boolean
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Scans the name of an element in a start or empty tag.
      *
      * @see #scanStartElement()
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected void scanStartElementName ()
@@ -303,10 +307,14 @@ extends XMLDocumentScannerImpl {
     } // scanStartElementName()
 
     /**
+     * {@inheritDoc}
+     *
      * Scans the remainder of a start or empty tag after the element name.
      *
      * @see #scanStartElement
      * @return True if element is empty.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected boolean scanStartElementAfterName()
@@ -472,11 +480,10 @@ extends XMLDocumentScannerImpl {
 
         if (DEBUG_CONTENT_SCANNING) System.out.println("<<< scanStartElementAfterName(): "+empty);
         return empty;
-    } // scanStartElementAfterName()
+    }
 
     /**
      * Scans an attribute.
-     * <p>
      * <pre>
      * [41] Attribute ::= Name Eq AttValue
      * </pre>
@@ -490,6 +497,8 @@ extends XMLDocumentScannerImpl {
      * destroyed.
      *
      * @param attributes The attributes list for the scanned attribute.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanAttribute(XMLAttributesImpl attributes)
     throws IOException, XNIException {
@@ -618,10 +627,11 @@ extends XMLDocumentScannerImpl {
 
 
     /**
+     * {@inheritDoc}
+     *
      * Scans an end element.
-     * <p>
      * <pre>
-     * [42] ETag ::= '&lt;/' Name S? '>'
+     * [42] ETag ::= '&lt;/' Name S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method uses the fElementQName variable.
@@ -630,6 +640,8 @@ extends XMLDocumentScannerImpl {
      * this method.
      *
      * @return The element depth.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected int scanEndElement() throws IOException, XNIException {
@@ -679,8 +691,7 @@ extends XMLDocumentScannerImpl {
         }
 
         return fMarkupDepth;
-
-    } // scanEndElement():int
+    }
 
 
     @Override
@@ -692,11 +703,13 @@ extends XMLDocumentScannerImpl {
         fBindNamespaces = false;
     }
 
-    /** Creates a content dispatcher. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Dispatcher createContentDispatcher() {
         return new NSContentDispatcher();
-    } // createContentDispatcher():Dispatcher
+    }
 
     /**
      * Dispatcher to handle content scanning.
@@ -705,6 +718,8 @@ extends XMLDocumentScannerImpl {
         extends ContentDispatcher {
 
         /**
+         * {@inheritDoc}
+         *
          * Scan for root element hook. This method is a hook for
          * subclasses to add code that handles scanning for the root
          * element. This method will also attempt to remove DTD validator
@@ -716,6 +731,8 @@ extends XMLDocumentScannerImpl {
          *          allows the scanner to switch to a new scanning
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         @Override
         protected boolean scanRootElementHook()
@@ -742,7 +759,7 @@ extends XMLDocumentScannerImpl {
             }
             return false;
 
-        } // scanRootElementHook():boolean
+        }
 
         /**
          * Re-configures pipeline by removing the DTD validator
@@ -766,7 +783,6 @@ extends XMLDocumentScannerImpl {
                 fDTDValidator.setDocumentSource(null);
                 fDTDValidator.setDocumentHandler(null);
             }
-        } // reconfigurePipeline()
+        }
     }
-
-} // class XMLNSDocumentScannerImpl
+}

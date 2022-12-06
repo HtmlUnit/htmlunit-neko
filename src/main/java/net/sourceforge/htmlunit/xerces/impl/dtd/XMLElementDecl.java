@@ -24,10 +24,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
  */
 public class XMLElementDecl {
 
-    //
-    // Constants
-    //
-
     /** TYPE_ANY */
     public static final short TYPE_ANY = 0;
 
@@ -42,10 +38,6 @@ public class XMLElementDecl {
 
     /** TYPE_SIMPLE */
     public static final short TYPE_SIMPLE = 4;
-
-    //
-    // Data
-    //
 
     /** name */
     public final QName name = new QName();
@@ -62,19 +54,6 @@ public class XMLElementDecl {
     /** simpleType */
     public final XMLSimpleType simpleType = new XMLSimpleType();
 
-    //
-    // Methods
-    //
-
-    /**
-     * setValues
-     *
-     * @param name
-     * @param scope
-     * @param type
-     * @param contentModelValidator
-     * @param simpleType
-     */
     public void setValues(QName name, int scope, short type, ContentModelValidator contentModelValidator, XMLSimpleType simpleType) {
         this.name.setValues(name);
         this.scope                 = scope;
@@ -92,6 +71,5 @@ public class XMLElementDecl {
         this.scope         = -1;
         this.contentModelValidator = null;
         this.simpleType.clear();
-    } // clear
-
-} // class XMLElementDecl
+    }
+}

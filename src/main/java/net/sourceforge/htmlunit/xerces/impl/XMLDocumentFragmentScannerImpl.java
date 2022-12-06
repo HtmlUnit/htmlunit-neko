@@ -310,6 +310,8 @@ public class XMLDocumentFragmentScannerImpl
      *                 not support this "pull" scanning model.
      *
      * @return True if there is more to scan, false otherwise.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     public boolean scanDocument(boolean complete)
@@ -1525,6 +1527,7 @@ public class XMLDocumentFragmentScannerImpl
          * <strong>Note:</strong> The object returned is <em>not</em>
          * orphaned to the caller. Therefore, the caller should consider
          * the object to be read-only.
+         * @param element the element name
          */
         public void popElement(QName element) {
             element.setValues(fElements[--fSize]);
@@ -1807,10 +1810,12 @@ public class XMLDocumentFragmentScannerImpl
         /**
          * Scan for DOCTYPE hook. This method is a hook for subclasses
          * to add code to handle scanning for a the "DOCTYPE" string
-         * after the string "<!" has been scanned.
+         * after the string "&lt;!" has been scanned.
          *
          * @return True if the "DOCTYPE" was scanned; false if "DOCTYPE"
          *          was not scanned.
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         protected boolean scanForDoctypeHook()
             throws IOException, XNIException {
@@ -1829,6 +1834,8 @@ public class XMLDocumentFragmentScannerImpl
          *          allows the scanner to switch to a new scanning
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         protected boolean elementDepthIsZeroHook()
             throws IOException, XNIException {
@@ -1846,6 +1853,8 @@ public class XMLDocumentFragmentScannerImpl
          *          allows the scanner to switch to a new scanning
          *          dispatcher. A return value of false indicates that
          *          the content dispatcher should continue as normal.
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         protected boolean scanRootElementHook()
             throws IOException, XNIException {
@@ -1858,6 +1867,9 @@ public class XMLDocumentFragmentScannerImpl
          * a document fragment is OK if the markup depth is zero.
          * However, when scanning a full XML document, an end of file
          * is always premature.
+         * @param e {@link EOFException}
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         protected void endOfFileHook(EOFException e)
             throws IOException, XNIException {

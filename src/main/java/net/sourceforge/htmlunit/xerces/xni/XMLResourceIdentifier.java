@@ -26,36 +26,48 @@ package net.sourceforge.htmlunit.xerces.xni;
 
 public interface XMLResourceIdentifier {
 
-    /** Sets the public identifier. */
+    /**
+     * Sets the public identifier.
+     * @param publicId the new public id
+     */
     void setPublicId(String publicId);
 
-    /** Returns the public identifier. */
+    /** @return the public identifier. */
     String getPublicId();
 
-    /** Sets the expanded system identifier. */
+    /**
+     * Sets the expanded system identifier.
+     * @param systemId the new system id
+     */
     void setExpandedSystemId(String systemId);
 
-    /** Returns the expanded system identifier. */
+    /** @return the expanded system identifier. */
     String getExpandedSystemId();
 
-    /** Sets the literal system identifier. */
+    /**
+     * Sets the literal system identifier.
+     * @param systemId the new system id
+     */
     void setLiteralSystemId(String systemId);
 
-    /** Returns the literal system identifier. */
+    /** @return the literal system identifier. */
     String getLiteralSystemId();
 
     /** Sets the base URI against which the literal SystemId is to be
-        resolved.*/
+     * resolved.
+     * @param systemId the system id
+     */
     void setBaseSystemId(String systemId);
 
-    /** <p> Returns the base URI against which the literal SystemId is to be
-        resolved. </p> */
+    /** @return the base URI against which the literal SystemId is to be
+        resolved. */
     String getBaseSystemId();
 
-    /** Sets the namespace of the resource. */
+    /** Sets the namespace of the resource.
+     * @param namespace the new namespace
+     */
     void setNamespace(String namespace);
 
-    /** Returns the namespace of the resource. */
+    /** @return the namespace of the resource. */
     String getNamespace();
-
-} // XMLResourceIdentifier
+}

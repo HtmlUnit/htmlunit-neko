@@ -40,13 +40,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  */
 public class XMLVersionDetector {
 
-    //
-    // Constants
-    //
-
     private static final char[] XML11_VERSION = new char[]{'1', '.', '1'};
-
-    // property identifiers
 
     /** Property identifier: symbol table. */
     protected static final String SYMBOL_TABLE =
@@ -59,10 +53,6 @@ public class XMLVersionDetector {
     /** Property identifier: entity manager. */
     protected static final String ENTITY_MANAGER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
-
-    //
-    // Data
-    //
 
     /** Symbol: "version". */
     protected static final String fVersionSymbol = "version".intern();
@@ -85,8 +75,6 @@ public class XMLVersionDetector {
                     'i', 'o', 'n', '=', ' ', ' ', ' ', ' ', ' '};
 
     /**
-     *
-     *
      * @param componentManager The component manager.
      *
      * @throws XNIException Throws exception if required features and
@@ -101,7 +89,7 @@ public class XMLVersionDetector {
         fEntityManager = (XMLEntityManager)componentManager.getProperty(ENTITY_MANAGER);
         for(int i=14; i<fExpectedVersionString.length; i++ )
             fExpectedVersionString[i] = ' ';
-    } // reset(XMLComponentManager)
+    }
 
     /**
      * Reset the reference to the appropriate scanner given the version of the
@@ -110,7 +98,6 @@ public class XMLVersionDetector {
      * @param version - the version of the document (XML 1.1 or XML 1.0).
      */
     public void startDocumentParsing(XMLEntityHandler scanner, short version){
-
         if (version == Constants.XML_VERSION_1_0){
             fEntityManager.setScannerVersion(Constants.XML_VERSION_1_0);
         }
@@ -133,10 +120,10 @@ public class XMLVersionDetector {
      * This methods scans the XML declaration to find out the version
      * (and provisional encoding)  of the document.
      * The scanning is doing using XML 1.1 scanner.
-     * @param inputSource
+     * @param inputSource the {@link XMLInputSource}
      * @return short - Constants.XML_VERSION_1_1 if document version 1.1,
      *                  otherwise Constants.XML_VERSION_1_0
-     * @throws IOException
+     * @throws IOException on error
      */
     public short determineDocVersion(XMLInputSource inputSource) throws IOException {
         fEncoding = fEntityManager.setupCurrentEntity(fXMLSymbol, inputSource, false, true);
@@ -235,6 +222,5 @@ public class XMLVersionDetector {
         currentEntity.startPosition = 0;
         currentEntity.columnNumber = currentEntity.lineNumber = 1;
     }
-
-} // class XMLVersionDetector
+}
 

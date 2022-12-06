@@ -187,7 +187,7 @@ public class XMLDTDScannerImpl
     /** Default constructor. */
     public XMLDTDScannerImpl() {}
 
-    /** Constructor for he use of non-XMLComponentManagers. */
+    // Constructor for he use of non-XMLComponentManagers.
     public XMLDTDScannerImpl(SymbolTable symbolTable,
                 XMLErrorReporter errorReporter, XMLEntityManager entityManager) {
         fSymbolTable = symbolTable;

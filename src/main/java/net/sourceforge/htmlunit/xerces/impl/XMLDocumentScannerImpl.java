@@ -1081,10 +1081,12 @@ public class XMLDocumentScannerImpl
         /**
          * Scan for DOCTYPE hook. This method is a hook for subclasses
          * to add code to handle scanning for a the "DOCTYPE" string
-         * after the string "<!" has been scanned.
+         * after the string "&lt;!" has been scanned.
          *
          * @return True if the "DOCTYPE" was scanned; false if "DOCTYPE"
          *          was not scanned.
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         @Override
         protected boolean scanForDoctypeHook()
@@ -1176,6 +1178,8 @@ public class XMLDocumentScannerImpl
         /**
          * <p>Attempt to locate an external subset for a document that does not otherwise
          * have one. If an external subset is located, then it is scanned.</p>
+         * @throws IOException  Thrown on i/o error.
+         * @throws XNIException Thrown on parse error.
          */
         protected void resolveExternalSubsetAndRead()
             throws IOException, XNIException {

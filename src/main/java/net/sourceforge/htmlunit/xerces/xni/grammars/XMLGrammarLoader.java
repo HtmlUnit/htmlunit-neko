@@ -39,14 +39,14 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 public interface XMLGrammarLoader {
 
     /**
-     * Returns a list of feature identifiers that are recognized by
+     * @return a list of feature identifiers that are recognized by
      * this XMLGrammarLoader.  This method may return null if no features
      * are recognized.
      */
     String[] getRecognizedFeatures();
 
     /**
-     * Returns the state of a feature.
+     * @return the state of a feature.
      *
      * @param featureId The feature identifier.
      *
@@ -68,14 +68,14 @@ public interface XMLGrammarLoader {
                 boolean state) throws XMLConfigurationException;
 
     /**
-     * Returns a list of property identifiers that are recognized by
+     * @return a list of property identifiers that are recognized by
      * this XMLGrammarLoader.  This method may return null if no properties
      * are recognized.
      */
     String[] getRecognizedProperties();
 
     /**
-     * Returns the state of a property.
+     * @return the state of a property.
      *
      * @param propertyId The property identifier.
      *
@@ -106,7 +106,7 @@ public interface XMLGrammarLoader {
      */
     void setLocale(Locale locale);
 
-    /** Return the Locale the XMLGrammarLoader is using. */
+    /** @return the Locale the XMLGrammarLoader is using. */
     Locale getLocale();
 
     /**
@@ -116,7 +116,7 @@ public interface XMLGrammarLoader {
      */
     void setErrorHandler(XMLErrorHandler errorHandler);
 
-    /** Returns the registered error handler.  */
+    /** @return the registered error handler.  */
     XMLErrorHandler getErrorHandler();
 
     /**
@@ -126,11 +126,11 @@ public interface XMLGrammarLoader {
      */
     void setEntityResolver(XMLEntityResolver entityResolver);
 
-    /** Returns the registered entity resolver.  */
+    /** @return the registered entity resolver.  */
     XMLEntityResolver getEntityResolver();
 
     /**
-     * Returns a Grammar object by parsing the contents of the
+     * @return a Grammar object by parsing the contents of the
      * entity pointed to by source.
      *
      * @param source        the location of the entity which forms
@@ -141,5 +141,5 @@ public interface XMLGrammarLoader {
      */
     Grammar loadGrammar(XMLInputSource source)
         throws IOException, XNIException;
-} // XMLGrammarLoader
+}
 

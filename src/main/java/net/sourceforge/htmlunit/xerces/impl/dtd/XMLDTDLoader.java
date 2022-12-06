@@ -67,12 +67,6 @@ public class XMLDTDLoader
         extends XMLDTDProcessor
         implements XMLGrammarLoader {
 
-    //
-    // Constants
-    //
-
-    // feature identifiers
-
     /** Feature identifier: standard uri conformant feature. */
     protected static final String STANDARD_URI_CONFORMANT_FEATURE =
         Constants.XERCES_FEATURE_PREFIX + Constants.STANDARD_URI_CONFORMANT_FEATURE;
@@ -134,23 +128,19 @@ public class XMLDTDLoader
     // what's our Locale?
     protected Locale fLocale;
 
-    //
-    // Constructors
-    //
-
     /** Deny default construction; we need a SymtolTable! */
     public XMLDTDLoader() {
         this(new SymbolTable());
-    } // <init>()
+    }
 
     public XMLDTDLoader(SymbolTable symbolTable) {
         this(symbolTable, null);
-    } // init(SymbolTable)
+    }
 
     public XMLDTDLoader(SymbolTable symbolTable,
                 XMLGrammarPool grammarPool) {
         this(symbolTable, grammarPool, null, new XMLEntityManager());
-    } // init(SymbolTable, XMLGrammarPool)
+    }
 
     XMLDTDLoader(SymbolTable symbolTable,
                 XMLGrammarPool grammarPool, XMLErrorReporter errorReporter,
@@ -179,11 +169,11 @@ public class XMLDTDLoader
         fDTDScanner.setDTDHandler(this);
         fDTDScanner.setDTDContentModelHandler(this);
         reset();
-    } // init(SymbolTable, XMLGrammarPool, XMLErrorReporter, XMLEntityResolver)
-
-    // XMLGrammarLoader methods
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
@@ -191,9 +181,11 @@ public class XMLDTDLoader
     @Override
     public String[] getRecognizedFeatures() {
         return (LOADER_RECOGNIZED_FEATURES.clone());
-    } // getRecognizedFeatures():String[]
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the state of a feature. This method is called by the component
      * manager any time after reset when a feature changes state.
      * <p>
@@ -203,10 +195,8 @@ public class XMLDTDLoader
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -232,9 +222,11 @@ public class XMLDTDLoader
         else {
             throw new XMLConfigurationException(XMLConfigurationException.NOT_RECOGNIZED, featureId);
         }
-    } // setFeature(String,boolean)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
@@ -242,9 +234,11 @@ public class XMLDTDLoader
     @Override
     public String[] getRecognizedProperties() {
         return (LOADER_RECOGNIZED_PROPERTIES.clone());
-    } // getRecognizedProperties():String[]
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the state of a property.
      *
      * @param propertyId The property identifier.
@@ -276,9 +270,11 @@ public class XMLDTDLoader
             return fValidator;
         }
         throw new XMLConfigurationException(XMLConfigurationException.NOT_RECOGNIZED, propertyId);
-    } // getProperty(String):  Object
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the value of a property. This method is called by the component
      * manager any time after reset when a property changes value.
      * <p>
@@ -288,10 +284,8 @@ public class XMLDTDLoader
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -328,9 +322,11 @@ public class XMLDTDLoader
         else {
             throw new XMLConfigurationException(XMLConfigurationException.NOT_RECOGNIZED, propertyId);
         }
-    } // setProperty(String,Object)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the state of a feature.
      *
      * @param featureId The feature identifier.
@@ -359,63 +355,63 @@ public class XMLDTDLoader
             return fBalanceSyntaxTrees;
         }
         throw new XMLConfigurationException(XMLConfigurationException.NOT_RECOGNIZED, featureId);
-    } //getFeature(String):  boolean
+    }
 
     /**
-     * Set the locale to use for messages.
+     * {@inheritDoc}
      *
-     * @param locale The locale object to use for localization of messages.
-     *
-     * @exception XNIException Thrown if the parser does not support the
-     *                         specified locale.
      */
     @Override
     public void setLocale(Locale locale) {
         fLocale = locale;
         fErrorReporter.setLocale(locale);
-    } // setLocale(Locale)
+    }
 
-    /** Return the Locale the XMLGrammarLoader is using. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Locale getLocale() {
         return fLocale;
-    } // getLocale():  Locale
+    }
 
 
     /**
-     * Sets the error handler.
-     *
-     * @param errorHandler The error handler.
+     * {@inheritDoc}
      */
     @Override
     public void setErrorHandler(XMLErrorHandler errorHandler) {
         fErrorReporter.setProperty(ERROR_HANDLER, errorHandler);
-    } // setErrorHandler(XMLErrorHandler)
+    }
 
-    /** Returns the registered error handler.  */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorReporter.getErrorHandler();
     } // getErrorHandler():  XMLErrorHandler
 
     /**
-     * Sets the entity resolver.
-     *
-     * @param entityResolver The new entity resolver.
+     * {@inheritDoc}
      */
     @Override
     public void setEntityResolver(XMLEntityResolver entityResolver) {
         fEntityResolver = entityResolver;
         fEntityManager.setProperty(ENTITY_RESOLVER, entityResolver);
-    } // setEntityResolver(XMLEntityResolver)
+    }
 
-    /** Returns the registered entity resolver.  */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public XMLEntityResolver getEntityResolver() {
         return fEntityResolver;
-    } // getEntityResolver():  XMLEntityResolver
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a Grammar object by parsing the contents of the
      * entity pointed to by source.
      *
@@ -459,12 +455,10 @@ public class XMLDTDLoader
             fGrammarPool.cacheGrammars(XMLGrammarDescription.XML_DTD, new Grammar[] {fDTDGrammar});
         }
         return fDTDGrammar;
-    } // loadGrammar(XMLInputSource):  Grammar
+    }
 
-    /**
-     * Parse a DTD internal and/or external subset and insert the content
-     * into the existing DTD grammar owned by the given DTDValidator.
-     */
+     // Parse a DTD internal and/or external subset and insert the content
+     // into the existing DTD grammar owned by the given DTDValidator.
     public void loadGrammarWithContext(XMLDTDValidator validator, String rootName,
             String publicId, String systemId, String baseSystemId, String internalSubset)
         throws IOException, XNIException {
@@ -503,7 +497,7 @@ public class XMLDTDLoader
                 fEntityManager.closeReaders();
             }
         }
-    } // loadGrammarWithContext(XMLDTDValidator, String, String, String, String, String)
+    }
 
     // reset all the components that we rely upon
     @Override
@@ -521,6 +515,5 @@ public class XMLDTDLoader
 
     protected short getScannerVersion() {
         return Constants.XML_VERSION_1_0;
-    } // getScannerVersion() : short
-
-} // class XMLDTDLoader
+    }
+}

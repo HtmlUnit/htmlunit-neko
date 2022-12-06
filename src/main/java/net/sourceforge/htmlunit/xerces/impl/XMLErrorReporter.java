@@ -72,12 +72,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 public class XMLErrorReporter
     implements XMLComponent {
 
-    //
-    // Constants
-    //
-
-    // severity
-
     /**
      * Severity: warning. Warnings represent informational messages only
      * that should not be considered serious enough to stop parsing or
@@ -137,10 +131,6 @@ public class XMLErrorReporter
         null,
     };
 
-    //
-    // Data
-    //
-
     /** The locale to be used to format error messages. */
     protected Locale fLocale;
 
@@ -164,18 +154,10 @@ public class XMLErrorReporter
      */
     protected XMLErrorHandler fDefaultErrorHandler;
 
-    //
-    // Constructors
-    //
-
     /** Constructs an error reporter with a locator. */
     public XMLErrorReporter() {
         fMessageFormatters = new Hashtable<>();
-    } // <init>()
-
-    //
-    // Methods
-    //
+    }
 
     /**
      * Sets the current locale.
@@ -184,7 +166,7 @@ public class XMLErrorReporter
      */
     public void setLocale(Locale locale) {
         fLocale = locale;
-    } // setLocale(Locale)
+    }
 
     /**
      * Gets the current locale.
@@ -193,7 +175,7 @@ public class XMLErrorReporter
      */
     public Locale getLocale() {
         return fLocale ;
-    } // getLocale():  Locale
+    }
 
     /**
      * Sets the document locator.
@@ -202,9 +184,11 @@ public class XMLErrorReporter
      */
     public void setDocumentLocator(XMLLocator locator) {
         fLocator = locator;
-    } // setDocumentLocator(XMLLocator)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Registers a message formatter for the specified domain.
      * <p>
      * <strong>Note:</strong> Registering a message formatter for a domain
@@ -212,15 +196,17 @@ public class XMLErrorReporter
      * formatter to be lost. This method replaces any previously registered
      * message formatter for the specified domain.
      *
-     * @param domain
-     * @param messageFormatter
+     * @param domain the domain
+     * @param messageFormatter the formatter
      */
     public void putMessageFormatter(String domain,
                                     MessageFormatter messageFormatter) {
         fMessageFormatters.put(domain, messageFormatter);
-    } // putMessageFormatter(String,MessageFormatter)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the message formatter associated with the specified domain,
      * or null if no message formatter is registered for that domain.
      *
@@ -228,9 +214,11 @@ public class XMLErrorReporter
      */
     public MessageFormatter getMessageFormatter(String domain) {
         return fMessageFormatters.get(domain);
-    } // getMessageFormatter(String):MessageFormatter
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Removes the message formatter for the specified domain and
      * returns the removed message formatter.
      *
@@ -238,9 +226,11 @@ public class XMLErrorReporter
      */
     public MessageFormatter removeMessageFormatter(String domain) {
         return fMessageFormatters.remove(domain);
-    } // removeMessageFormatter(String):MessageFormatter
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Reports an error. The error message passed to the error handler
      * is formatted for the locale by the message formatter installed
      * for the specified error domain.
@@ -259,9 +249,11 @@ public class XMLErrorReporter
     public String reportError(String domain, String key, Object[] arguments,
                             short severity) throws XNIException {
         return reportError(fLocator, domain, key, arguments, severity);
-    } // reportError(String,String,Object[],short):String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Reports an error. The error message passed to the error handler
      * is formatted for the locale by the message formatter installed
      * for the specified error domain.
@@ -281,9 +273,11 @@ public class XMLErrorReporter
     public String reportError(String domain, String key, Object[] arguments,
             short severity, Exception exception) throws XNIException {
         return reportError(fLocator, domain, key, arguments, severity, exception);
-    } // reportError(String,String,Object[],short,Exception):String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Reports an error at a specific location.
      *
      * @param location  The error location.
@@ -302,9 +296,11 @@ public class XMLErrorReporter
             String domain, String key, Object[] arguments,
             short severity) throws XNIException {
         return reportError(location, domain, key, arguments, severity, null);
-    } // reportError(XMLLocator,String,String,Object[],short):String
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Reports an error at a specific location.
      *
      * @param location  The error location.
@@ -382,21 +378,18 @@ public class XMLErrorReporter
             }
         }
         return message;
-
-    } // reportError(XMLLocator,String,String,Object[],short,Exception):String
-
-    //
-    // XMLComponent methods
-    //
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Resets the component. The component can query the component manager
      * about any features and properties that affect the operation of the
      * component.
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Thrown by component on initialization error.
+     * @throws XNIException Thrown by component on initialization error.
      *                      For example, if a feature or property is
      *                      required for the operation of the component, the
      *                      component manager may throw a
@@ -417,10 +410,11 @@ public class XMLErrorReporter
 
         // properties
         fErrorHandler = (XMLErrorHandler)componentManager.getProperty(ERROR_HANDLER);
-
-    } // reset(XMLComponentManager)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
@@ -428,9 +422,11 @@ public class XMLErrorReporter
     @Override
     public String[] getRecognizedFeatures() {
         return (RECOGNIZED_FEATURES.clone());
-    } // getRecognizedFeatures():String[]
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the state of a feature. This method is called by the component
      * manager any time after reset when a feature changes state.
      * <p>
@@ -440,19 +436,12 @@ public class XMLErrorReporter
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
         throws XMLConfigurationException {
-
-        //
-        // Xerces features
-        //
-
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
 
@@ -467,16 +456,11 @@ public class XMLErrorReporter
             }
         }
 
-    } // setFeature(String,boolean)
+    }
 
     // return state of given feature or false if unsupported.
     public boolean getFeature(String featureId)
         throws XMLConfigurationException {
-
-        //
-        // Xerces features
-        //
-
         if (featureId.startsWith(Constants.XERCES_FEATURE_PREFIX)) {
             final int suffixLength = featureId.length() - Constants.XERCES_FEATURE_PREFIX.length();
 
@@ -492,9 +476,11 @@ public class XMLErrorReporter
         }
         return false;
 
-    } // setFeature(String,boolean)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
@@ -502,9 +488,11 @@ public class XMLErrorReporter
     @Override
     public String[] getRecognizedProperties() {
         return (RECOGNIZED_PROPERTIES.clone());
-    } // getRecognizedProperties():String[]
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the value of a property. This method is called by the component
      * manager any time after reset when a property changes value.
      * <p>
@@ -514,19 +502,12 @@ public class XMLErrorReporter
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
         throws XMLConfigurationException {
-
-        //
-        // Xerces properties
-        //
-
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
 
@@ -536,9 +517,11 @@ public class XMLErrorReporter
             }
         }
 
-    } // setProperty(String,Object)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -553,9 +536,11 @@ public class XMLErrorReporter
             }
         }
         return null;
-    } // getFeatureDefault(String):Boolean
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
      * property.
@@ -570,13 +555,12 @@ public class XMLErrorReporter
             }
         }
         return null;
-    } // getPropertyDefault(String):Object
+    }
 
     /**
-     * Get the internal XMLErrrorHandler.
+     * @return the internal XMLErrrorHandler.
      */
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
     }
-
-} // class XMLErrorReporter
+}

@@ -44,9 +44,9 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
 public interface Grammar {
 
     /**
-     * get the <code>XMLGrammarDescription</code> associated with this
+     * @return the <code>XMLGrammarDescription</code> associated with this
      * object
      */
     XMLGrammarDescription getGrammarDescription ();
-} // interface Grammar
+}
 

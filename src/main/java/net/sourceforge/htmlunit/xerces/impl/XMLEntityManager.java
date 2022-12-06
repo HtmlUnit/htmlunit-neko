@@ -17,15 +17,13 @@
 
 package net.sourceforge.htmlunit.xerces.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -38,9 +36,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
+import javax.xml.crypto.URIReferenceException;
 
 import net.sourceforge.htmlunit.xerces.impl.io.ASCIIReader;
 import net.sourceforge.htmlunit.xerces.impl.io.Latin1Reader;
@@ -54,6 +50,7 @@ import net.sourceforge.htmlunit.xerces.util.EncodingMap;
 import net.sourceforge.htmlunit.xerces.util.HTTPInputSource;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.URI;
+import net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLEntityDescriptionImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLResourceIdentifierImpl;
@@ -91,10 +88,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  */
 public class XMLEntityManager
     implements XMLComponent, XMLEntityResolver {
-
-    //
-    // Constants
-    //
 
     /** Default buffer size (2048). */
     public static final int DEFAULT_BUFFER_SIZE = 2048;
@@ -377,6 +370,7 @@ public class XMLEntityManager
      * <strong>REVISIT:</strong> We might want to think about the "right"
      * way to expose the list of declared entities. For now, the knowledge
      * how to access the entity declarations is implicit.
+     * @param entityManager the entity manager
      */
     public XMLEntityManager(XMLEntityManager entityManager) {
 
@@ -400,7 +394,7 @@ public class XMLEntityManager
         fStandalone = standalone;
     } // setStandalone(boolean)
 
-    /** Returns true if the document entity is standalone. */
+    /** @return true if the document entity is standalone. */
     public boolean isStandalone() {
         return fStandalone;
     } // isStandalone():boolean
@@ -414,7 +408,7 @@ public class XMLEntityManager
     } // notifyHasPEReferences
 
     /**
-     * Returns true if the document contains parameter entity references.
+     * @return true if the document contains parameter entity references.
      */
     final boolean hasPEReferences() {
         return fHasPEReferences;
@@ -536,7 +530,7 @@ public class XMLEntityManager
      *                     the system identifier is a relative URI.
      *                     When null the system identifier of the first
      *                     external entity on the stack is used instead.
-     *
+     * @throws IOException on error
      * @see SymbolTable
      */
     public void addExternalEntity(String name,
@@ -619,6 +613,7 @@ public class XMLEntityManager
      * @param name     The name of the entity.
      * @param publicId The public identifier of the entity.
      * @param systemId The system identifier of the entity.
+     * @param baseSystemId the system id
      * @param notation The name of the notation.
      *
      * @see SymbolTable
@@ -1219,7 +1214,7 @@ public class XMLEntityManager
         }
     } // setScannerVersion(short)
 
-    /** Returns the entity scanner. */
+    /** @return the entity scanner. */
     public XMLEntityScanner getEntityScanner() {
         if(fEntityScanner == null) {
             // default to 1.0
@@ -1260,7 +1255,7 @@ public class XMLEntityManager
      *
      * @param componentManager The component manager.
      *
-     * @throws SAXException Thrown by component on initialization error.
+     * @throws XMLConfigurationException Thrown by component on initialization error.
      *                      For example, if a feature or property is
      *                      required for the operation of the component, the
      *                      component manager may throw a
@@ -1422,10 +1417,8 @@ public class XMLEntityManager
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -1462,10 +1455,8 @@ public class XMLEntityManager
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -1691,10 +1682,13 @@ public class XMLEntityManager
      * indicates a failure to expand the id.
      *
      * @param systemId The systemId to be expanded.
+     * @param baseSystemId the base system id
+     * @param strict strict flag
      *
      * @return Returns the URI string representing the expanded system
      *         identifier. A null value indicates that the given
      *         system identifier is already expanded.
+     * @throws MalformedURIException on error
      *
      */
     public static String expandSystemId(String systemId, String baseSystemId,
@@ -2027,6 +2021,7 @@ public class XMLEntityManager
      *                      unknown or not relevant.
      *
      * @return Returns a reader.
+     * @throws IOException on error
      */
     protected Reader createReader(InputStream inputStream, String encoding, Boolean isBigEndian)
         throws IOException {
@@ -2366,25 +2361,21 @@ public class XMLEntityManager
             clear();
         } // <init>()
 
-        /** Constructs an entity. */
+        // Constructs an entity.
         public Entity(String name, boolean inExternalSubset) {
             this.name = name;
             this.inExternalSubset = inExternalSubset;
         } // <init>(String)
 
-        //
-        // Public methods
-        //
-
-        /** Returns true if this entity was declared in the external subset. */
+        /** @return true if this entity was declared in the external subset. */
         public boolean isEntityDeclInExternalSubset () {
             return inExternalSubset;
         }
 
-        /** Returns true if this is an external entity. */
+        /** @return true if this is an external entity. */
         public abstract boolean isExternal();
 
-        /** Returns true if this is an unparsed entity. */
+        /** @return true if this is an unparsed entity. */
         public abstract boolean isUnparsed();
 
         /** Clears the entity. */
@@ -2393,13 +2384,14 @@ public class XMLEntityManager
             inExternalSubset = false;
         } // clear()
 
-        /** Sets the values of the entity. */
+        /** Sets the values of the entity.
+         * @param entity the new entity
+         */
         public void setValues(Entity entity) {
             name = entity.name;
             inExternalSubset = entity.inExternalSubset;
         } // setValues(Entity)
-
-    } // class Entity
+    }
 
     /**
      * Internal entity.
@@ -2427,35 +2419,31 @@ public class XMLEntityManager
         /** Default constructor. */
         public InternalEntity() {
             clear();
-        } // <init>()
+        }
 
-        /** Constructs an internal entity. */
+        // Constructs an internal entity.
         public InternalEntity(String name, String text, boolean inExternalSubset) {
             super(name,inExternalSubset);
             this.text = text;
-        } // <init>(String,String)
+        }
 
-        /** Constructs an internal entity. */
+        // Constructs an internal entity.
         public InternalEntity(String name, String text, boolean inExternalSubset, int paramEntityRefs) {
             this(name, text, inExternalSubset);
             this.paramEntityRefs = paramEntityRefs;
-        } // <init>(String,String,int)
+        }
 
-        //
-        // Entity methods
-        //
-
-        /** Returns true if this is an external entity. */
+        /** @return true if this is an external entity. */
         @Override
         public final boolean isExternal() {
             return false;
-        } // isExternal():boolean
+        }
 
-        /** Returns true if this is an unparsed entity. */
+        /** @return true if this is an unparsed entity. */
         @Override
         public final boolean isUnparsed() {
             return false;
-        } // isUnparsed():boolean
+        }
 
         /** Clears the entity. */
         @Override
@@ -2464,14 +2452,20 @@ public class XMLEntityManager
             text = null;
         } // clear()
 
-        /** Sets the values of the entity. */
+        /**
+         * Sets the values of the entity.
+         * @param entity the new entity
+         */
         @Override
         public void setValues(Entity entity) {
             super.setValues(entity);
             text = null;
-        } // setValues(Entity)
+        }
 
-        /** Sets the values of the entity. */
+        /**
+         * Sets the values of the entity.
+         * @param entity the new entity
+         */
         public void setValues(InternalEntity entity) {
             super.setValues(entity);
             text = entity.text;
@@ -2505,31 +2499,27 @@ public class XMLEntityManager
         /** Default constructor. */
         public ExternalEntity() {
             clear();
-        } // <init>()
+        }
 
-        /** Constructs an internal entity. */
+        // Constructs an internal entity
         public ExternalEntity(String name, XMLResourceIdentifier entityLocation,
                               String notation, boolean inExternalSubset) {
             super(name,inExternalSubset);
             this.entityLocation = entityLocation;
             this.notation = notation;
-        } // <init>(String,XMLResourceIdentifier, String)
+        }
 
-        //
-        // Entity methods
-        //
-
-        /** Returns true if this is an external entity. */
+        /** @return true if this is an external entity. */
         @Override
         public final boolean isExternal() {
             return true;
-        } // isExternal():boolean
+        }
 
-        /** Returns true if this is an unparsed entity. */
+        /** @return true if this is an unparsed entity. */
         @Override
         public final boolean isUnparsed() {
             return notation != null;
-        } // isUnparsed():boolean
+        }
 
         /** Clears the entity. */
         @Override
@@ -2539,22 +2529,28 @@ public class XMLEntityManager
             notation = null;
         } // clear()
 
-        /** Sets the values of the entity. */
+        /**
+         * Sets the values of the entity.
+         * @param entity the new entity
+         */
         @Override
         public void setValues(Entity entity) {
             super.setValues(entity);
             entityLocation = null;
             notation = null;
-        } // setValues(Entity)
+        }
 
-        /** Sets the values of the entity. */
+        /**
+         * Sets the values of the entity.
+         * @param entity the new entity
+         */
         public void setValues(ExternalEntity entity) {
             super.setValues(entity);
             entityLocation = entity.entityLocation;
             notation = entity.notation;
-        } // setValues(ExternalEntity)
+        }
 
-    } // class ExternalEntity
+    }
 
     /**
      * Entity state.
@@ -2638,11 +2634,7 @@ public class XMLEntityManager
         /** Byte buffer. */
         private byte [] fByteBuffer;
 
-        //
-        // Constructors
-        //
-
-        /** Constructs a scanned entity. */
+        // Constructs a scanned entity
         public ScannedEntity(String name,
                              XMLResourceIdentifier entityLocation,
                              InputStream stream, Reader reader, byte [] byteBuffer,
@@ -2660,21 +2652,17 @@ public class XMLEntityManager
             this.fByteBuffer = byteBuffer;
         } // <init>(StringXMLResourceIdentifier,InputStream,Reader,String,boolean, boolean)
 
-        //
-        // Entity methods
-        //
-
-        /** Returns true if this is an external entity. */
+        /** @return true if this is an external entity. */
         @Override
         public final boolean isExternal() {
             return isExternal;
-        } // isExternal():boolean
+        }
 
-        /** Returns true if this is an unparsed entity. */
+        /** @return true if this is an unparsed entity. */
         @Override
         public final boolean isUnparsed() {
             return false;
-        } // isUnparsed():boolean
+        }
 
         public void setReader(InputStream stream, String encoding, Boolean isBigEndian) throws IOException {
             fTempByteBuffer = fByteBuffer;
@@ -2786,21 +2774,20 @@ public class XMLEntityManager
             return null;
         }
 
-        /** Returns whether the encoding of this entity was externally specified. **/
+        /** @return whether the encoding of this entity was externally specified. **/
         public boolean isEncodingExternallySpecified() {
             return externallySpecifiedEncoding;
         }
 
-        /** Sets whether the encoding of this entity was externally specified. **/
+        /**
+         * Sets whether the encoding of this entity was externally specified.
+         * @param value the new valeu
+         */
         public void setEncodingExternallySpecified(boolean value) {
             externallySpecifiedEncoding = value;
         }
 
-        //
-        // Object methods
-        //
-
-        /** Returns a string representation of this object. */
+        /** @return a string representation of this object. */
         @Override
         public String toString() {
 
@@ -2814,9 +2801,9 @@ public class XMLEntityManager
             str.append(",startPosition=").append(startPosition);
             return str.toString();
 
-        } // toString():String
+        }
 
-    } // class ScannedEntity
+    }
 
     /**
      * Information about auto-detectable encodings.

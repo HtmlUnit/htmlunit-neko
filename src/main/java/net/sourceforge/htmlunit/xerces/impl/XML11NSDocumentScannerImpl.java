@@ -104,10 +104,9 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      * Scans a start element. This method will handle the binding of
      * namespace information and notifying the handler of the start
      * of the element.
-     * <p>
      * <pre>
-     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/>'
-     * [40] STag ::= '&lt;' Name (S Attribute)* S? '>'
+     * [44] EmptyElemTag ::= '&lt;' Name (S Attribute)* S? '/&gt;'
+     * [40] STag ::= '&lt;' Name (S Attribute)* S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method assumes that the leading
@@ -120,6 +119,8 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      *
      * @return True if element is empty. (i.e. It matches
      *          production [44].
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected boolean scanStartElement() throws IOException, XNIException {
@@ -319,6 +320,8 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      * Scans the name of an element in a start or empty tag.
      *
      * @see #scanStartElement()
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected void scanStartElementName ()
@@ -335,6 +338,8 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      *
      * @see #scanStartElement
      * @return True if element is empty.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     @Override
     protected boolean scanStartElementAfterName()
@@ -530,7 +535,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
 
     /**
      * Scans an attribute.
-     * <p>
      * <pre>
      * [41] Attribute ::= Name Eq AttValue
      * </pre>
@@ -544,6 +548,8 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      * destroyed.
      *
      * @param attributes The attributes list for the scanned attribute.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException Thrown on parse error.
      */
     protected void scanAttribute(XMLAttributesImpl attributes)
         throws IOException, XNIException {
@@ -692,9 +698,8 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
 
     /**
      * Scans an end element.
-     * <p>
      * <pre>
-     * [42] ETag ::= '&lt;/' Name S? '>'
+     * [42] ETag ::= '&lt;/' Name S? '&gt;'
      * </pre>
      * <p>
      * <strong>Note:</strong> This method uses the fElementQName variable.

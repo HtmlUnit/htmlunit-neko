@@ -70,10 +70,6 @@ package net.sourceforge.htmlunit.xerces.impl.dtd;
  */
 public class XMLContentSpec {
 
-    //
-    // Constants
-    //
-
     /**
      * Name or #PCDATA. Leaf nodes that represent parsed character
      * data (#PCDATA) have values of -1.
@@ -126,16 +122,11 @@ public class XMLContentSpec {
 
     public static final short CONTENTSPECNODE_ANY_LOCAL_LAX = 24;
 
-    /** processContent is 'skip' **/
-
     public static final short CONTENTSPECNODE_ANY_SKIP = 38;
 
     public static final short CONTENTSPECNODE_ANY_OTHER_SKIP = 39;
 
     public static final short CONTENTSPECNODE_ANY_LOCAL_SKIP = 40;
-    //
-    // Data
-    //
 
     /**
      * The content spec node type.
@@ -161,22 +152,19 @@ public class XMLContentSpec {
      */
     public Object otherValue;
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public XMLContentSpec() {
         clear();
     }
 
-    /** Constructs a content spec with the specified values. */
+    // Constructs a content spec with the specified values.
     public XMLContentSpec(short type, Object value, Object otherValue) {
         setValues(type, value, otherValue);
     }
 
     /**
      * Constructs a content spec from the values in the specified content spec.
+     * @param contentSpec base content spec
      */
     public XMLContentSpec(XMLContentSpec contentSpec) {
         setValues(contentSpec);
@@ -185,15 +173,13 @@ public class XMLContentSpec {
     /**
      * Constructs a content spec from the values specified by the given
      * content spec provider and identifier.
+     * @param provider the provider
+     * @param contentSpecIndex the index
      */
     public XMLContentSpec(XMLContentSpec.Provider provider,
                           int contentSpecIndex) {
         setValues(provider, contentSpecIndex);
     }
-
-    //
-    // Public methods
-    //
 
     /** Clears the values. */
     public void clear() {
@@ -202,14 +188,22 @@ public class XMLContentSpec {
         otherValue = null;
     }
 
-    /** Sets the values. */
+    /**
+     * Sets the values.
+     * @param type the type
+     * @param value the value
+     * @param otherValue other value
+     */
     public void setValues(short type, Object value, Object otherValue) {
         this.type = type;
         this.value = value;
         this.otherValue = otherValue;
     }
 
-    /** Sets the values of the specified content spec. */
+    /**
+     * Sets the values of the specified content spec.
+     * @param contentSpec the content spec
+     */
     public void setValues(XMLContentSpec contentSpec) {
         type = contentSpec.type;
         value = contentSpec.value;
@@ -220,6 +214,8 @@ public class XMLContentSpec {
      * Sets the values from the values specified by the given content spec
      * provider and identifier. If the specified content spec cannot be
      * provided, the values of this content spec are cleared.
+     * @param provider the provider
+     * @param contentSpecIndex the index
      */
     public void setValues(XMLContentSpec.Provider provider,
                           int contentSpecIndex) {
@@ -228,12 +224,9 @@ public class XMLContentSpec {
         }
     }
 
-
-    //
-    // Object methods
-    //
-
-    /** Returns a hash code for this node. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return type << 16 |
@@ -241,7 +234,9 @@ public class XMLContentSpec {
                otherValue.hashCode();
     }
 
-    /** Returns true if the two objects are equal. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         if (object != null && object instanceof XMLContentSpec) {
@@ -253,11 +248,6 @@ public class XMLContentSpec {
         return false;
     }
 
-
-    //
-    // Interfaces
-    //
-
     /**
      * Provides a means for walking the structure built out of
      * content spec "nodes". The user of this provider interface is
@@ -266,13 +256,8 @@ public class XMLContentSpec {
      * then the user can call back into the provider to get the
      * next content spec node in the structure.
      *
-         */
+     */
     public interface Provider {
-
-        //
-        // XMLContentSpec.Provider methods
-        //
-
         /**
          * Fills in the provided content spec structure with content spec
          * information for a unique identifier.
@@ -286,7 +271,6 @@ public class XMLContentSpec {
          */
         boolean getContentSpec(int contentSpecIndex, XMLContentSpec contentSpec);
 
-    } // interface Provider
-
-} // class XMLContentSpec
+    }
+}
 

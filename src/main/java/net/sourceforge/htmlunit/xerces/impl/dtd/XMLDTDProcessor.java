@@ -74,12 +74,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
 public class XMLDTDProcessor
         implements XMLComponent, XMLDTDFilter, XMLDTDContentModelFilter {
 
-    //
-    // Constants
-    //
-
-    // feature identifiers
-
     /** Feature identifier: validation. */
     protected static final String VALIDATION =
         Constants.SAX_FEATURE_PREFIX + Constants.VALIDATION_FEATURE;
@@ -98,8 +92,6 @@ public class XMLDTDProcessor
 
     protected static final String PARSER_SETTINGS =
         Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
-
-    // property identifiers
 
     /** Property identifier: symbol table. */
     protected static final String SYMBOL_TABLE =
@@ -391,6 +383,8 @@ public class XMLDTDProcessor
     } // getRecognizedFeatures():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the state of a feature. This method is called by the component
      * manager any time after reset when a feature changes state.
      * <p>
@@ -400,10 +394,8 @@ public class XMLDTDProcessor
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -411,6 +403,8 @@ public class XMLDTDProcessor
     } // setFeature(String,boolean)
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
@@ -421,6 +415,8 @@ public class XMLDTDProcessor
     } // getRecognizedProperties():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the value of a property. This method is called by the component
      * manager any time after reset when a property changes value.
      * <p>
@@ -430,10 +426,8 @@ public class XMLDTDProcessor
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -441,6 +435,8 @@ public class XMLDTDProcessor
     } // setProperty(String,Object)
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -522,11 +518,9 @@ public class XMLDTDProcessor
         return fDTDContentModelHandler;
     } // getDTDContentModelHandler():  XMLDTDContentModelHandler
 
-    //
-    // XMLDTDContentModelHandler and XMLDTDHandler methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * The start of the DTD external subset.
      *
      * @param augs Additional information that may include infoset
@@ -545,6 +539,8 @@ public class XMLDTDProcessor
     }
 
     /**
+     * {@inheritDoc}
+     *
      * The end of the DTD external subset.
      *
      * @param augs Additional information that may include infoset
@@ -565,8 +561,8 @@ public class XMLDTDProcessor
      * Check standalone entity reference.
      * Made static to make common between the validator and loader.
      *
-     * @param name
-     *@param grammar    grammar to which entity belongs
+     * @param name the name
+     * @param grammar    grammar to which entity belongs
      * @param tempEntityDecl    empty entity declaration to put results in
      * @param errorReporter     error reporter to send errors to
      *
@@ -587,6 +583,8 @@ public class XMLDTDProcessor
     }
 
     /**
+     * {@inheritDoc}
+     *
      * A comment.
      *
      * @param text The text in the comment.
@@ -1143,6 +1141,8 @@ public class XMLDTDProcessor
 
 
     /**
+     * {@inheritDoc}
+     *
      * An external entity declaration.
      *
      * @param name     The name of the entity. Parameter entity names start

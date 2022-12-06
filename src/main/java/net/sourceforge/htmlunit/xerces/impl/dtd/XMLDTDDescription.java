@@ -34,8 +34,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 public class XMLDTDDescription extends XMLResourceIdentifierImpl
         implements net.sourceforge.htmlunit.xerces.xni.grammars.XMLDTDDescription {
 
-    // Data
-
     // pieces of information needed to make this usable as a Grammar key
     // if we know the root of this grammar, here's its name:
     protected String fRootName = null;
@@ -44,60 +42,59 @@ public class XMLDTDDescription extends XMLResourceIdentifierImpl
     // could serve; fPossibleRoots and fRootName cannot both be non-null
     protected ArrayList fPossibleRoots = null;
 
-    // Constructors:
     public XMLDTDDescription(XMLResourceIdentifier id, String rootName) {
         this.setValues(id.getPublicId(), id.getLiteralSystemId(),
                 id.getBaseSystemId(), id.getExpandedSystemId());
         this.fRootName = rootName;
         this.fPossibleRoots = null;
-    } // init(XMLResourceIdentifier, String)
+    }
 
     public XMLDTDDescription(String publicId, String literalId,
                 String baseId, String expandedId, String rootName) {
         this.setValues(publicId, literalId, baseId, expandedId);
         this.fRootName = rootName;
         this.fPossibleRoots = null;
-    } // init(String, String, String, String, String)
+    }
 
     public XMLDTDDescription(XMLInputSource source) {
         this.setValues(source.getPublicId(), null,
                 source.getBaseSystemId(), source.getSystemId());
         this.fRootName = null;
         this.fPossibleRoots = null;
-    } // init(XMLInputSource)
-
-    // XMLGrammarDescription methods
+    }
 
     @Override
     public String getGrammarType () {
         return XMLGrammarDescription.XML_DTD;
-    } // getGrammarType():  String
+    }
 
     /**
-     * @return the root name of this DTD or null if root name is unknown
+     * {@inheritDoc}
      */
     @Override
     public String getRootName() {
         return fRootName;
-    } // getRootName():  String
+    }
 
-    /** Set the root name **/
+    // Set the root name
     public void setRootName(String rootName) {
         fRootName = rootName;
         fPossibleRoots = null;
     }
 
-    /** Set possible roots **/
+    // Set possible roots
     public void setPossibleRoots(ArrayList possibleRoots) {
         fPossibleRoots = possibleRoots;
     }
 
-    /** Set possible roots **/
+    // Set possible roots
     public void setPossibleRoots(Vector possibleRoots) {
         fPossibleRoots = (possibleRoots != null) ? new ArrayList(possibleRoots) : null;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Compares this grammar with the given grammar. Currently, we compare
      * as follows:
      * - if grammar type not equal return false immediately
@@ -167,6 +164,8 @@ public class XMLDTDDescription extends XMLResourceIdentifierImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the hash code of this grammar
      * Because our .equals method is so complex, we just return a very
      * simple hash that might avoid calls to the equals method a bit...
@@ -183,5 +182,5 @@ public class XMLDTDDescription extends XMLResourceIdentifierImpl
         // give up; hope .equals can handle it:
         return 0;
     }
-} // class XMLDTDDescription
+}
 

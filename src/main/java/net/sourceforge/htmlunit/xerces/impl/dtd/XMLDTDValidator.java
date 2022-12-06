@@ -517,6 +517,8 @@ public class XMLDTDValidator
     } // reset(XMLComponentManager)
 
     /**
+     * {@inheritDoc}
+     *
      * Returns a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
@@ -527,6 +529,8 @@ public class XMLDTDValidator
     } // getRecognizedFeatures():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the state of a feature. This method is called by the component
      * manager any time after reset when a feature changes state.
      * <p>
@@ -536,10 +540,8 @@ public class XMLDTDValidator
      * @param featureId The feature identifier.
      * @param state     The state of the feature.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setFeature(String featureId, boolean state)
@@ -547,6 +549,10 @@ public class XMLDTDValidator
     } // setFeature(String,boolean)
 
     /**
+     * {@inheritDoc}
+     *
+     * {@inheritDoc}
+     *
      * Returns a list of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
@@ -557,6 +563,8 @@ public class XMLDTDValidator
     } // getRecognizedProperties():String[]
 
     /**
+     * {@inheritDoc}
+     *
      * Sets the value of a property. This method is called by the component
      * manager any time after reset when a property changes value.
      * <p>
@@ -566,10 +574,8 @@ public class XMLDTDValidator
      * @param propertyId The property identifier.
      * @param value      The value of the property.
      *
-     * @throws SAXNotRecognizedException The component should not throw
+     * @throws XMLConfigurationException The component should not throw
      *                                   this exception.
-     * @throws SAXNotSupportedException The component should not throw
-     *                                  this exception.
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -577,6 +583,8 @@ public class XMLDTDValidator
     } // setProperty(String,Object)
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
@@ -594,6 +602,8 @@ public class XMLDTDValidator
     } // getFeatureDefault(String):Boolean
 
     /**
+     * {@inheritDoc}
+     *
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
      * property.
@@ -1169,9 +1179,7 @@ public class XMLDTDValidator
                (fDTDValidation || fSeenDoctypeDecl);
     }
 
-            //REVISIT:we can convert into functions.. adding default attribute values.. and one validating.
-
-    /** Add default attributes and validate. */
+    // Add default attributes and validate.
     protected void addDTDDefaultAttrsAndValidate(QName elementName, int elementIndex,
                                                XMLAttributes attributes)
     throws XNIException {
@@ -1377,9 +1385,9 @@ public class XMLDTDValidator
             }
         } // for all attributes
 
-    } // addDTDDefaultAttrsAndValidate(int,XMLAttrList)
+    }
 
-    /** Checks entities in attribute values for standalone VC. */
+    // Checks entities in attribute values for standalone VC.
     protected String getExternalEntityRefInAttrValue(String nonNormalizedValue) {
         int valLength = nonNormalizedValue.length();
         int ampIndex = nonNormalizedValue.indexOf('&');
@@ -1403,9 +1411,7 @@ public class XMLDTDValidator
         return null;
     } // isExternalEntityRefInAttrValue(String):String
 
-    /**
-     * Validate attributes in DTD fashion.
-     */
+     // Validate attributes in DTD fashion.
     protected void validateDTDattribute(QName element, String attValue,
                                       XMLAttributeDecl attributeDecl)
     throws XNIException {
@@ -1534,10 +1540,10 @@ public class XMLDTDValidator
 
         } // switch
 
-    } // validateDTDattribute(QName,String,XMLAttributeDecl)
+    }
 
 
-    /** Returns true if invalid standalone attribute definition. */
+    // Returns true if invalid standalone attribute definition.
     protected boolean invalidStandaloneAttDef(QName element, QName attribute) {
         // REVISIT: This obviously needs to be fixed! -Ac
         boolean state = true;
@@ -1553,12 +1559,6 @@ public class XMLDTDValidator
        */
         return state;
     }
-
-
-    //
-    // Private methods
-    //
-
 
     /**
      * Normalize the attribute value of a non CDATA attributes collapsing
@@ -1821,13 +1821,7 @@ public class XMLDTDValidator
     } // ensureStackCapacity
 
 
-    //
-    // Protected methods
-    //
-
-    /** Handle element
-     * @return true if validator is removed from the pipeline
-     */
+    // Handle element / return true if validator is removed from the pipeline
     protected boolean handleStartElement(QName element, XMLAttributes attributes, Augmentations augs)
                         throws XNIException {
 
@@ -1944,12 +1938,12 @@ public class XMLDTDValidator
         startNamespaceScope(element, attributes, augs);
         return false;
 
-    } // handleStartElement(QName,XMLAttributes)
+    }
 
     protected void startNamespaceScope(QName element, XMLAttributes attributes, Augmentations augs){
     }
 
-    /** Handle end element. */
+    // Handle end element.
     protected void handleEndElement(QName element,  Augmentations augs, boolean isEmpty)
     throws XNIException {
 
@@ -2027,7 +2021,7 @@ public class XMLDTDValidator
         fCurrentContentSpecType = fContentSpecTypeStack[fElementDepth];
         fInElementContent = (fCurrentContentSpecType == XMLElementDecl.TYPE_CHILDREN);
 
-    } // handleEndElement(QName,boolean)
+    }
 
     protected void endNamespaceScope(QName element,  Augmentations augs, boolean isEmpty){
 

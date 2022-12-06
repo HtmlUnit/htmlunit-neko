@@ -60,10 +60,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
 public class DTDGrammar
     implements XMLDTDHandler, XMLDTDContentModelHandler, EntityState, Grammar {
 
-    //
-    // Constants
-    //
-
     /** Top level scope (-1). */
     public static final int TOP_LEVEL_SCOPE = -1;
 
@@ -91,10 +87,6 @@ public class DTDGrammar
 
     /** Debug DTDGrammar. */
     private static final boolean DEBUG = false;
-
-    //
-    // Data
-    //
 
     protected XMLDTDSource fDTDSource = null;
     protected XMLDTDContentModelSource fDTDContentModelSource = null;
@@ -280,26 +272,20 @@ public class DTDGrammar
     // Constructors
     //
 
-    /** Default constructor. */
+    // Default constructor.
     public DTDGrammar(SymbolTable symbolTable, XMLDTDDescription desc) {
         fSymbolTable = symbolTable;
         fGrammarDescription = desc;
-    } // <init>(SymbolTable)
-
-    // Grammar methods
+    }
 
     // return the XMLDTDDescription object with which this is associated
     @Override
     public XMLGrammarDescription getGrammarDescription() {
         return fGrammarDescription;
-    } // getGrammarDescription():  XMLGrammarDescription
-
-    //
-    // Public methods
-    //
+    }
 
     /**
-     * Returns true if the specified element declaration is external.
+     * @return true if the specified element declaration is external.
      *
      * @param elementDeclIndex The element declaration index.
      */
@@ -313,10 +299,10 @@ public class DTDGrammar
         int index = elementDeclIndex & CHUNK_MASK;
         return (fElementDeclIsExternal[chunk][index] != 0);
 
-    } // getElementDeclIsExternal(int):boolean
+    }
 
     /**
-     * Returns true if the specified attribute declaration is external.
+     * @return true if the specified attribute declaration is external.
      *
      * @param attributeDeclIndex Attribute declaration index.
      */
@@ -1148,6 +1134,8 @@ public class DTDGrammar
     public void empty(Augmentations augs) throws XNIException {}
 
     /**
+     * {@inheritDoc}
+     *
      * The end of a content model.
      * @param augs Additional information that may include infoset
      *                      augmentations.
@@ -1157,33 +1145,29 @@ public class DTDGrammar
     @Override
     public void endContentModel(Augmentations augs) throws XNIException {}
 
-    //
-    // Grammar methods
-    //
-
-    /** Returns true if this grammar is namespace aware. */
+    /** @return true if this grammar is namespace aware. */
     public boolean isNamespaceAware() {
         return false;
-    } // isNamespaceAware():boolean
+    }
 
-    /** Returns the symbol table. */
+    /** @return the symbol table. */
     public SymbolTable getSymbolTable() {
         return fSymbolTable;
-    } // getSymbolTable():SymbolTable
+    }
 
     /**
-     * Returns the index of the first element declaration. This index
+     * @return the index of the first element declaration. This index
      * is then used to query more information about the element declaration.
      *
-     * @see #getNextElementDeclIndex
-     * @see #getElementDecl
+     * @see #getNextElementDeclIndex(int)
+     * @see #getElementDecl(int, XMLElementDecl)
      */
     public int getFirstElementDeclIndex() {
         return fElementDeclCount >= 0 ? 0 : -1;
-    } // getFirstElementDeclIndex():int
+    }
 
     /**
-     * Returns the next index of the element declaration following the
+     * @return the next index of the element declaration following the
      * specified element declaration.
      *
      * @param elementDeclIndex The element declaration index.
@@ -1191,7 +1175,7 @@ public class DTDGrammar
     public int getNextElementDeclIndex(int elementDeclIndex) {
         return elementDeclIndex < fElementDeclCount - 1
              ? elementDeclIndex + 1 : -1;
-    } // getNextElementDeclIndex(int):int
+    }
 
     /**
      * getElementDeclIndex
@@ -1204,19 +1188,17 @@ public class DTDGrammar
         int mapping = fElementIndexMap.get(elementDeclName);
         //System.out.println("getElementDeclIndex("+elementDeclName+") -> "+mapping);
         return mapping;
-    } // getElementDeclIndex(String):int
+    }
 
-    /** Returns the element decl index.
+    /** @return the element decl index.
      * @param elementDeclQName qualilfied name of the element
      */
     public int getElementDeclIndex(QName elementDeclQName) {
         return getElementDeclIndex(elementDeclQName.rawname);
-    } // getElementDeclIndex(QName):int
+    }
 
-        /** make separate function for getting contentSpecType of element.
-      * we can avoid setting of the element values.
-        */
-
+        // make separate function for getting contentSpecType of element.
+        // we can avoid setting of the element values.
         public short getContentSpecType(int elementIndex){
         if (elementIndex < 0 || elementIndex >= fElementDeclCount) {
             return -1 ;
@@ -1232,7 +1214,7 @@ public class DTDGrammar
                        return (short) (fElementDeclType[chunk][index] & LIST_MASK);
                 }
 
-        }//getContentSpecType
+        }
 
     /**
      * getElementDecl
@@ -1389,7 +1371,7 @@ public class DTDGrammar
      * getEntityDecl
      *
      * @param entityDeclIndex the declaration index
-     * @param entityDecl
+     * @param entityDecl the declaration
      *
      * @return true if getEntityDecl was able to fill entityDecl with the contents of the entity
      * with index entityDeclIndex
@@ -1432,7 +1414,7 @@ public class DTDGrammar
      * getNotationDecl
      *
      * @param notationDeclIndex the declaration index
-     * @param notationDecl
+     * @param notationDecl the declaration
      *
      * @return return true of getNotationDecl can fill notationDecl with information about
      * the notation at notationDeclIndex.
@@ -1451,13 +1433,13 @@ public class DTDGrammar
 
         return true;
 
-    } // getNotationDecl
+    }
 
     /**
      * getContentSpec
      *
-     * @param contentSpecIndex
-     * @param contentSpec
+     * @param contentSpecIndex the index
+     * @param contentSpec the spec
      *
      * @return true if find the requested contentSpec node, false otherwise
      */
@@ -1475,9 +1457,10 @@ public class DTDGrammar
     }
 
     /**
-     * Returns the index to the content spec for the given element
+     * @return the index to the content spec for the given element
      * declaration, or <code>-1</code> if the element declaration
      * index was invalid.
+     * @param elementDeclIndex the index
      */
     public int getContentSpecIndex(int elementDeclIndex) {
         if (elementDeclIndex < 0 || elementDeclIndex >= fElementDeclCount) {
@@ -1690,6 +1673,7 @@ public class DTDGrammar
 
     /**
      * Adds the content spec to the given element declaration.
+     * @param elementDecl the declaration
      */
     protected void addContentSpecToElement(XMLElementDecl elementDecl) {
         if ((fDepth == 0 || (fDepth == 1 && elementDecl.type == XMLElementDecl.TYPE_MIXED)) &&
@@ -1977,7 +1961,7 @@ public class DTDGrammar
         // return index
         return contentSpecIndex;
 
-    } // addContentSpecNode(short,String):int
+    }
 
     /**
      * create an XMLContentSpec for a leaf
@@ -1998,7 +1982,7 @@ public class DTDGrammar
         // return index
         return contentSpecIndex;
 
-    } // addUniqueLeafNode(String):int
+    }
 
     /**
      * Create an XMLContentSpec for a two child leaf
@@ -2050,15 +2034,11 @@ public class DTDGrammar
         fNodeIndexStack[fDepth] = -1;
         fPrevNodeIndexStack[fDepth] = -1;
 
-    } // initializeContentModelStack()
+    }
 
     boolean isImmutable() {
         return fIsImmutable;
     }
-
-    //
-    // Private methods
-    //
 
     private void appendContentSpec(XMLContentSpec contentSpec,
                                    StringBuffer str, boolean parens,
@@ -2176,9 +2156,7 @@ public class DTDGrammar
 
         } // switch type
 
-    } // appendContentSpec(XMLContentSpec.Provider,StringPool,XMLContentSpec,StringBuffer,boolean)
-
-    // debugging
+    }
 
     private void printAttribute(int attributeDeclIndex) {
 
@@ -2189,15 +2167,15 @@ public class DTDGrammar
             System.out.print(" }");
         }
 
-    } // printAttribute(int)
-
-    // content models
+    }
 
     /**
      * When the element has a 'CHILDREN' model, this method is called to
      * create the content model object. It looks for some special case simple
      * models and creates SimpleContentModel objects for those. For the rest
      * it creates the standard DFA style model.
+     * @param contentSpecIndex the index
+     * @return validator
      */
     private synchronized ContentModelValidator createChildModel(int contentSpecIndex) {
 
@@ -2295,7 +2273,7 @@ public class DTDGrammar
         // REVISIT: has to be fLeafCount because we convert x+ to x,x*, one more leaf
         return new DFAContentModel(  cmn, fLeafCount, false);
 
-    } // createChildModel(int):ContentModelValidator
+    }
 
     private CMNode buildSyntaxTree(int startNode,
                                    XMLContentSpec contentSpec) {
@@ -2369,7 +2347,7 @@ public class DTDGrammar
      * @param contentSpecIndex Content Spec index
      * @param contentSpec Array of QName
      * @param children children list
-     * @exception RuntimeException
+     * @exception RuntimeException on error
      */
     private void contentSpecTree(int contentSpecIndex,
                                  XMLContentSpec contentSpec,
@@ -2430,10 +2408,9 @@ public class DTDGrammar
         // error
         throw new RuntimeException("Invalid content spec type seen in contentSpecTree() method of AbstractDTDGrammar class : "+contentSpec.type);
 
-    } // contentSpecTree(int,XMLContentSpec,ChildrenList)
+    }
 
     // ensure capacity
-
     private void ensureElementDeclCapacity(int chunk) {
         if (chunk >= fElementDeclName.length) {
             fElementDeclIsExternal = resize(fElementDeclIsExternal,
@@ -2550,12 +2527,7 @@ public class DTDGrammar
         return;
     }
 
-    //
-    // Private static methods
-    //
-
     // resize chunks
-
     private static byte[][] resize(byte[][] array, int newsize) {
         byte[][] newarray = new byte[newsize][];
         System.arraycopy(array, 0, newarray, 0, array.length);
@@ -2610,10 +2582,6 @@ public class DTDGrammar
         return newarray;
     }
 
-    //
-    // Classes
-    //
-
     /**
      * Children list for <code>contentSpecTree</code> method.
      * <p>
@@ -2621,10 +2589,6 @@ public class DTDGrammar
      * @author Eric Ye, IBM
      */
     private static class ChildrenList {
-
-        //
-        // Data
-        //
 
         /** Length. */
         public int length = 0;
@@ -2639,17 +2603,9 @@ public class DTDGrammar
         /** Left and right children types. */
         public int[] type = new int[2];
 
-        //
-        // Constructors
-        //
-
         public ChildrenList () {}
 
-    } // class ChildrenList
-
-    //
-    // Classes
-    //
+    }
 
     /**
      * A simple Hashtable implementation that takes a tuple (String, String)
@@ -2685,10 +2641,6 @@ public class DTDGrammar
             }
         }
 
-        //
-        // Constants
-        //
-
         /** Initial bucket size (4). */
         private static final int INITIAL_BUCKET_SIZE = 4;
 
@@ -2703,9 +2655,6 @@ public class DTDGrammar
         private static final int MULTIPLIERS_SIZE = 1 << 5;
         private static final int MULTIPLIERS_MASK = MULTIPLIERS_SIZE - 1;
 
-        //
-        // Data
-        //
         private Object[][] fHashTable = new Object[HASHTABLE_SIZE][];
 
         /** actual table size **/
@@ -2720,10 +2669,7 @@ public class DTDGrammar
          */
         private int[] fHashMultipliers;
 
-        //
-        // Public methods
-        //
-        /** Associates the given value with the specified key tuple. */
+        // Associates the given value with the specified key tuple.
         public void put(String key, int value) {
 
             int hash = (hash(key) & 0x7FFFFFFF) % fTableSize;
@@ -2777,12 +2723,12 @@ public class DTDGrammar
                 }
 
             }
-            //System.out.println("put("+key+" -> "+value+')');
-            //System.out.println("get("+key+") -> "+get(key));
+        }
 
-        } // put(int,String,String,int)
-
-        /** Returns the value associated with the specified key tuple. */
+        /**
+         * @param key the key
+         * @return the value associated with the specified key tuple.
+         */
         public int get(String key) {
             int hash = (hash(key) & 0x7FFFFFFF) % fTableSize;
             Object[] bucket = fHashTable[hash];
@@ -2801,14 +2747,14 @@ public class DTDGrammar
             }
             return -1;
 
-        } // get(int,String,String)
+        }
 
         public int hash(String symbol) {
             if (fHashMultipliers == null) {
                 return symbol.hashCode();
             }
             return hash0(symbol);
-        } // hash(String):int
+        }
 
         private int hash0(String symbol) {
             int code = 0;
@@ -2818,11 +2764,11 @@ public class DTDGrammar
                 code = code * multipliers[i & MULTIPLIERS_MASK] + symbol.charAt(i);
             }
             return code;
-        } // hash0(String):int
+        }
 
         private void rehash() {
             rehashCommon(fHashTable.length * 2 + 1);
-        } // rehash()
+        }
 
         private void rebalance() {
             if (fHashMultipliers == null) {
@@ -2830,7 +2776,7 @@ public class DTDGrammar
             }
             PrimeNumberSequenceGenerator.generateSequence(fHashMultipliers);
             rehashCommon(fHashTable.length);
-        } // rebalance()
+        }
 
         private void rehashCommon(final int newCapacity) {
 
@@ -2888,13 +2834,10 @@ public class DTDGrammar
                 }
             }
 
-        } // rehashCommon(int)
+        }
 
-    }  // class QNameHashtable
+    }
 
-    //
-    // EntityState methods
-    //
     @Override
     public boolean isEntityDeclared (String name){
         return (getEntityDeclIndex(name)!=-1)?true:false;
@@ -2911,4 +2854,4 @@ public class DTDGrammar
         }
         return false;
     }
-} // class DTDGrammar
+}
