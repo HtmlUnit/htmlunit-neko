@@ -84,7 +84,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * </ul>
  *
  * @see HTMLElements
- * @see HTMLEntitiesParserGenerator
  *
  * @author Andy Clark
  * @author Marc Guillemot

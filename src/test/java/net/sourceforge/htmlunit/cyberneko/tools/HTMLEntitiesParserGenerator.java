@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.sourceforge.htmlunit.cyberneko;
+package net.sourceforge.htmlunit.cyberneko.tools;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+
+import net.sourceforge.htmlunit.cyberneko.HTMLEntitiesParser;
 
 /**
  * Generator for the parser HTMLEntitiesParser.

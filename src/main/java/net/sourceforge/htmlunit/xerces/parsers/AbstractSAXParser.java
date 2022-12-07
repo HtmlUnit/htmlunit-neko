@@ -46,7 +46,6 @@ import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
 import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
-import net.sourceforge.htmlunit.xerces.util.SymbolHash;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -108,10 +107,6 @@ public abstract class AbstractSAXParser
     protected static final String LEXICAL_HANDLER =
         Constants.SAX_PROPERTY_PREFIX + Constants.LEXICAL_HANDLER_PROPERTY;
 
-    /** Property id: declaration handler. */
-    protected static final String DECLARATION_HANDLER =
-        Constants.SAX_PROPERTY_PREFIX + Constants.DECLARATION_HANDLER_PROPERTY;
-
     /** Property id: DOM node. */
     protected static final String DOM_NODE =
         Constants.SAX_PROPERTY_PREFIX + Constants.DOM_NODE_PROPERTY;
@@ -119,7 +114,6 @@ public abstract class AbstractSAXParser
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
         LEXICAL_HANDLER,
-        DECLARATION_HANDLER,
         DOM_NODE,
     };
 
@@ -189,11 +183,6 @@ public abstract class AbstractSAXParser
 
     // temp vars
     private final AttributesProxy fAttributesProxy = new AttributesProxy();
-
-    // allows us to keep track of whether an attribute has
-    // been declared twice, so that we can avoid exposing the
-    // second declaration to any registered DeclHandler
-    protected SymbolHash fDeclaredAttrs = null;
 
     // Default constructor.
     protected AbstractSAXParser(XMLParserConfiguration config) {
@@ -323,12 +312,6 @@ public abstract class AbstractSAXParser
         catch (SAXException e) {
             throw new XNIException(e);
         }
-
-        // is there a DeclHandler?
-        if (fDeclHandler != null) {
-            fDeclaredAttrs = new SymbolHash(25);
-        }
-
     } // doctypeDecl(String,String,String)
 
         /**
@@ -1494,24 +1477,6 @@ public abstract class AbstractSAXParser
                     return;
                 }
                 //
-                // http://xml.org/sax/properties/declaration-handler
-                // Value type: org.xml.sax.ext.DeclHandler
-                // Access: read/write, pre-parse only
-                //   Set the DTD declaration event handler.
-                //
-                if (suffixLength == Constants.DECLARATION_HANDLER_PROPERTY.length() &&
-                    propertyId.endsWith(Constants.DECLARATION_HANDLER_PROPERTY)) {
-                    try {
-                        setDeclHandler((DeclHandler)value);
-                    }
-                    catch (ClassCastException e) {
-                        throw new SAXNotSupportedException(
-                            SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                            "incompatible-class", new Object [] {propertyId, "org.xml.sax.ext.DeclHandler"}));
-                    }
-                    return;
-                }
-                //
                 // http://xml.org/sax/properties/dom-node
                 // Value type: DOM Node
                 // Access: read-only
@@ -1620,17 +1585,6 @@ public abstract class AbstractSAXParser
                     return getLexicalHandler();
                 }
                 //
-                // http://xml.org/sax/properties/declaration-handler
-                // Value type: org.xml.sax.ext.DeclHandler
-                // Access: read/write, pre-parse only
-                //   Set the DTD declaration event handler.
-                //
-                if (suffixLength == Constants.DECLARATION_HANDLER_PROPERTY.length() &&
-                    propertyId.endsWith(Constants.DECLARATION_HANDLER_PROPERTY)) {
-                    return getDeclHandler();
-                }
-
-                //
                 // http://xml.org/sax/properties/dom-node
                 // Value type: DOM Node
                 // Access: read-only
@@ -1692,46 +1646,6 @@ public abstract class AbstractSAXParser
     //
 
     // SAX2 core properties
-
-    /**
-     * Set the DTD declaration event handler.
-     * <p>
-     * This method is the equivalent to the property:
-     * <pre>
-     * http://xml.org/sax/properties/declaration-handler
-     * </pre>
-     *
-     * @param handler The new handler.
-     * @throws SAXNotRecognizedException on error
-     * @throws SAXNotSupportedException on error
-     *
-     * @see #getDeclHandler()
-     * @see #setProperty(String, Object)
-     */
-    protected void setDeclHandler(DeclHandler handler)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
-
-        if (fParseInProgress) {
-            throw new SAXNotSupportedException(
-                SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                "property-not-parsing-supported",
-                new Object [] {"http://xml.org/sax/properties/declaration-handler"}));
-        }
-        fDeclHandler = handler;
-
-    } // setDeclHandler(DeclHandler)
-
-    /**
-     * @return the DTD declaration event handler.
-     *
-     * @throws SAXNotRecognizedException on error
-     * @throws SAXNotSupportedException on error
-     * @see #setDeclHandler(DeclHandler)
-     */
-    protected DeclHandler getDeclHandler()
-        throws SAXNotRecognizedException, SAXNotSupportedException {
-        return fDeclHandler;
-    }
 
     /**
      * Set the lexical event handler.
@@ -1820,7 +1734,6 @@ public abstract class AbstractSAXParser
 
         // features
         fNamespaces = fConfiguration.getFeature(NAMESPACES);
-        fDeclaredAttrs = null;
 
     } // reset()
 

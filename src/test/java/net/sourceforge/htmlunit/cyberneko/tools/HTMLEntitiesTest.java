@@ -1,4 +1,4 @@
-package net.sourceforge.htmlunit.cyberneko;
+package net.sourceforge.htmlunit.cyberneko.tools;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,6 +10,8 @@ import java.io.InputStream;
 
 import org.junit.jupiter.api.Test;
 
+import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
+import net.sourceforge.htmlunit.cyberneko.HTMLEntitiesParser;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**

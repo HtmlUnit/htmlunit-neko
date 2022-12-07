@@ -274,24 +274,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             fErrorReporter.putMessageFormatter(XMLMessageFormatter.XMLNS_DOMAIN, xmft);
         }
 
-        // REVISIT: try to include XML Schema formatter.
-        //          This is a hack to allow DTD configuration to be build.
-        //
-        if (fErrorReporter.getMessageFormatter("http://www.w3.org/TR/xml-schema-1") == null) {
-            MessageFormatter xmft = null;
-            try {
-               xmft = (MessageFormatter)(
-                    ObjectFactory.newInstance("net.sourceforge.htmlunit.xerces.impl.xs.XSMessageFormatter",
-                    ObjectFactory.findClassLoader(), true));
-            } catch (Exception exception){
-            }
-
-             if (xmft !=  null) {
-                 fErrorReporter.putMessageFormatter("http://www.w3.org/TR/xml-schema-1", xmft);
-             }
-        }
-
-
         // set locale
         try {
             setLocale(Locale.getDefault());

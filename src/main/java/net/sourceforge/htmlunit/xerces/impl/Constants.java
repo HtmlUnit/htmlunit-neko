@@ -90,9 +90,6 @@ public final class Constants {
     /** SAX property prefix ("http://xml.org/sax/properties/"). */
     public static final String SAX_PROPERTY_PREFIX = "http://xml.org/sax/properties/";
 
-    /** Declaration handler property ("declaration-handler"). */
-    public static final String DECLARATION_HANDLER_PROPERTY = "declaration-handler";
-
     /** Lexical handler property ("lexical-handler"). */
     public static final String LEXICAL_HANDLER_PROPERTY = "lexical-handler";
 
@@ -434,7 +431,6 @@ public final class Constants {
 
     /** SAX properties. */
     private static final String[] fgSAXProperties = {
-            DECLARATION_HANDLER_PROPERTY,
             LEXICAL_HANDLER_PROPERTY,
             DOM_NODE_PROPERTY,
             XML_STRING_PROPERTY,
