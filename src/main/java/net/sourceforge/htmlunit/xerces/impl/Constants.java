@@ -102,22 +102,6 @@ public final class Constants {
     /** Document XML version property ("document-xml-version"). */
     public static final String DOCUMENT_XML_VERSION_PROPERTY = "document-xml-version";
 
-
-    //
-    // JAXP properties
-    //
-
-    /** JAXP property prefix ("http://java.sun.com/xml/jaxp/properties/"). */
-    public static final String JAXP_PROPERTY_PREFIX =
-        "http://java.sun.com/xml/jaxp/properties/";
-
-    /** JAXP schemaSource property: when used internally may include DTD sources (DOM) */
-    public static final String SCHEMA_SOURCE = "schemaSource";
-
-    /** JAXP schemaSource language: when used internally may include DTD namespace (DOM) */
-    public static final String SCHEMA_LANGUAGE = "schemaLanguage";
-
-
     //
     // DOM features
     //
@@ -171,10 +155,7 @@ public final class Constants {
     public static final String DOM_IGNORE_UNKNOWN_CHARACTER_DENORMALIZATIONS =  "ignore-unknown-character-denormalizations";
 
     // DOM Properties
-    public static final String DOM_RESOURCE_RESOLVER = "resource-resolver";
     public static final String DOM_ERROR_HANDLER = "error-handler";
-    public static final String DOM_SCHEMA_TYPE = "schema-type";
-    public static final String DOM_SCHEMA_LOCATION = "schema-location";
 
 
     // xerces features
@@ -366,9 +347,6 @@ public final class Constants {
     /** Schema element declaration for the root element in a document ("validation/schema/root-element-declaration"). */
     public static final String ROOT_ELEMENT_DECLARATION_PROPERTY = "validation/schema/root-element-declaration";
 
-    /** Schema element declaration for the root element in a document ("internal/validation/schema/dv-factory"). */
-    public static final String SCHEMA_DV_FACTORY_PROPERTY = "internal/validation/schema/dv-factory";
-
     // general constants
 
     /**
@@ -470,8 +448,7 @@ public final class Constants {
             BUFFER_SIZE_PROPERTY,
             LOCALE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,
-            ROOT_ELEMENT_DECLARATION_PROPERTY,
-            SCHEMA_DV_FACTORY_PROPERTY,
+            ROOT_ELEMENT_DECLARATION_PROPERTY
     };
 
     /** Empty enumeration. */

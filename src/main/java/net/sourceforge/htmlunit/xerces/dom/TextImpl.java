@@ -408,11 +408,7 @@ public class TextImpl
                         //If the last child was replaceable and others are not
                         //Text or CDataSection or replaceable EntityRef nodes
                         //return false.
-                        if (textLastChild) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return !textLastChild;
                     }
                     lastChild = lastChild.getPreviousSibling();
                 }
@@ -491,11 +487,7 @@ public class TextImpl
                     } else {
                         //If the first child was replaceable text and next
                         //children are not, then return false
-                        if (textFirstChild) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return !textFirstChild;
                     }
                     firstChild = firstChild.getNextSibling();
                 }

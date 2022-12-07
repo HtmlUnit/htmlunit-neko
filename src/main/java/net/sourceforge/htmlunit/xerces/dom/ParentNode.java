@@ -876,10 +876,7 @@ public abstract class ParentNode
             child1 = child1.getNextSibling();
             child2 = child2.getNextSibling();
         }
-        if (child1 != child2) {
-            return false;
-        }
-        return true;
+        return child1 == child2;
     }
 
     /**

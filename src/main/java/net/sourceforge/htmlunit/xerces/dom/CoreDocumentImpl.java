@@ -810,12 +810,7 @@ extends ParentNode implements Document  {
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
 
         }
-        if((getXmlVersion()).equals("1.1")){
-            xml11Version = true;
-        }
-        else{
-            xml11Version = false;
-        }
+        xml11Version = (getXmlVersion()).equals("1.1");
     }
 
     /**

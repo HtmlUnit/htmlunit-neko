@@ -120,19 +120,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected static final String CORE_DOCUMENT_CLASS_NAME =
     "net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl";
 
-    /**
-     * If the user stops the process, this exception will be thrown.
-     */
-    static final class Abort extends RuntimeException {
-        private static final long serialVersionUID = 1687848994976808490L;
-        static final Abort INSTANCE = new Abort();
-        private Abort() {}
-        @Override
-        public Throwable fillInStackTrace() {
-            return this;
-        }
-    }
-
     private static final boolean DEBUG_EVENTS = false;
     private static final boolean DEBUG_BASEURI = false;
 
@@ -1173,13 +1160,5 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
 
         } // end-if child !=null
-    }
-
-
-    /**
-     * @see org.w3c.dom.ls.LSParser#abort()
-     */
-    public void abort () {
-        throw Abort.INSTANCE;
     }
 }

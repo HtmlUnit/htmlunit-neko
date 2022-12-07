@@ -131,18 +131,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String ENTITY_RESOLVER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
 
-    /** Property identifier: JAXP schema language / DOM schema-type. */
-    protected static final String JAXP_SCHEMA_LANGUAGE =
-        Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE;
-
-    /** Property identifier: JAXP schema source/ DOM schema-location. */
-    protected static final String JAXP_SCHEMA_SOURCE =
-        Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE;
-
-    /** Property identifier: Schema DV Factory */
-    protected static final String SCHEMA_DV_FACTORY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_DV_FACTORY_PROPERTY;
-
     //
     // Data
     //
@@ -245,10 +233,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             XML_STRING,
             ERROR_HANDLER,
             ENTITY_RESOLVER,
-            ERROR_REPORTER,
-            JAXP_SCHEMA_SOURCE,
-            JAXP_SCHEMA_LANGUAGE,
-            SCHEMA_DV_FACTORY
+            ERROR_REPORTER
         };
         addRecognizedProperties(recognizedProperties);
 
@@ -570,80 +555,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newTypeMismatchError(name);
                 }
             }
-            else if (name.equalsIgnoreCase(Constants.DOM_RESOURCE_RESOLVER)) {
-                if (value instanceof LSResourceResolver || value == null) {
-                    try {
-                        setEntityResolver(new DOMEntityResolverWrapper((LSResourceResolver) value));
-                    }
-                    catch (XMLConfigurationException e) {}
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
-            else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_LOCATION)) {
-                if (value instanceof String || value == null) {
-                    try {
-                        if (value == null) {
-                            fSchemaLocation = null;
-                            setProperty (
-                                Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE,
-                                null);
-                        }
-                        else {
-                            fSchemaLocation = (String) value;
-                            // map DOM schema-location to JAXP schemaSource property
-                            // tokenize location string
-                            StringTokenizer t = new StringTokenizer(fSchemaLocation, " \n\t\r");
-                            if (t.hasMoreTokens()) {
-                                ArrayList locations = new ArrayList();
-                                locations.add(t.nextToken());
-                                while (t.hasMoreTokens()) {
-                                    locations.add (t.nextToken());
-                                }
-                                setProperty (
-                                    Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE,
-                                    locations.toArray(new String[0]));
-                            }
-                            else {
-                                setProperty (
-                                    Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE,
-                                    new String [] {(String) value});
-                            }
-                        }
-                    }
-                    catch (XMLConfigurationException e) {}
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
-            else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_TYPE)) {
-                if (value instanceof String || value == null) {
-                    try {
-                        if (value == null) {
-                            setProperty(
-                                Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
-                                null);
-                        }
-                        else if (value.equals(Constants.NS_XMLSCHEMA)) {
-                            // REVISIT: when add support to DTD validation
-                            setProperty(
-                                Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
-                                Constants.NS_XMLSCHEMA);
-                        }
-                        else if (value.equals(Constants.NS_DTD)) {
-                            // Added support for revalidation against DTDs
-                            setProperty(Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE,
-                                    Constants.NS_DTD);
-                        }
-                    }
-                    catch (XMLConfigurationException e) {}
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
             else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
                 if (value instanceof XMLEntityResolver || value == null) {
                     try {
@@ -717,19 +628,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase(Constants.DOM_ERROR_HANDLER)) {
             return fErrorHandlerWrapper.getErrorHandler();
         }
-        else if (name.equalsIgnoreCase(Constants.DOM_RESOURCE_RESOLVER)) {
-            XMLEntityResolver entityResolver = getEntityResolver();
-            if (entityResolver != null && entityResolver instanceof DOMEntityResolverWrapper) {
-                return ((DOMEntityResolverWrapper) entityResolver).getEntityResolver();
-            }
-            return null;
-        }
-        else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_TYPE)) {
-            return getProperty(Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE);
-        }
-        else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_LOCATION)) {
-            return fSchemaLocation;
-        }
         else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
             return getEntityResolver();
         }
@@ -797,18 +695,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase(Constants.DOM_ERROR_HANDLER)) {
             return (value instanceof DOMErrorHandler) ? true : false ;
         }
-        else if (name.equalsIgnoreCase(Constants.DOM_RESOURCE_RESOLVER)) {
-            return (value instanceof LSResourceResolver) ? true : false ;
-        }
-        else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_LOCATION)) {
-            return (value instanceof String) ? true : false ;
-        }
-        else if (name.equalsIgnoreCase(Constants.DOM_SCHEMA_TYPE)) {
-            // REVISIT: should null value be supported?
-            // as of now we are only supporting W3C XML Schema and DTD.
-            return ((value instanceof String) &&
-                    (value.equals(Constants.NS_XMLSCHEMA) || value.equals(Constants.NS_DTD))) ? true : false;
-        }
         else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
             return (value instanceof XMLEntityResolver) ? true : false;
         }
@@ -853,9 +739,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             parameters.add(Constants.DOM_ELEMENT_CONTENT_WHITESPACE);
 
             parameters.add(Constants.DOM_ERROR_HANDLER);
-            parameters.add(Constants.DOM_SCHEMA_TYPE);
-            parameters.add(Constants.DOM_SCHEMA_LOCATION);
-            parameters.add(Constants.DOM_RESOURCE_RESOLVER);
 
             //Add recognized xerces features and properties
             parameters.add(ENTITY_RESOLVER);
