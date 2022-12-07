@@ -39,8 +39,6 @@ import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
@@ -423,39 +421,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
-
-    /**
-     * Sets the DTD handler.
-     *
-     * @param dtdHandler The DTD handler.
-     */
-    @Override
-    public void setDTDHandler(XMLDTDHandler dtdHandler) {
-        //no-op
-    } // setDTDHandler(XMLDTDHandler)
-
-    /** Returns the registered DTD handler. */
-    @Override
-    public XMLDTDHandler getDTDHandler() {
-        return null;
-    } // getDTDHandler():XMLDTDHandler
-
-    /**
-     * Sets the DTD content model handler.
-     *
-     * @param handler The DTD content model handler.
-     */
-    @Override
-    public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
-        //no-op
-
-    } // setDTDContentModelHandler(XMLDTDContentModelHandler)
-
-    /** Returns the registered DTD content model handler. */
-    @Override
-    public XMLDTDContentModelHandler getDTDContentModelHandler() {
-        return null;
-    } // getDTDContentModelHandler():XMLDTDContentModelHandler
 
     /**
      * Sets the resolver used to resolve external entities. The EntityResolver

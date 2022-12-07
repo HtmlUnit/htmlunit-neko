@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 
 import net.sourceforge.htmlunit.cyberneko.filters.NamespaceBinder;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
@@ -123,12 +121,6 @@ public class HTMLConfiguration
 
     /** Document handler. */
     protected XMLDocumentHandler fDocumentHandler;
-
-    /** DTD handler. */
-    protected XMLDTDHandler fDTDHandler;
-
-    /** DTD content model handler. */
-    protected XMLDTDContentModelHandler fDTDContentModelHandler;
 
     /** Error handler. */
     protected XMLErrorHandler fErrorHandler;
@@ -317,30 +309,6 @@ public class HTMLConfiguration
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
-    }
-
-    // Sets the DTD handler.
-    @Override
-    public void setDTDHandler(XMLDTDHandler handler) {
-        fDTDHandler = handler;
-    }
-
-    /** @return the DTD handler. */
-    @Override
-    public XMLDTDHandler getDTDHandler() {
-        return fDTDHandler;
-    }
-
-    // Sets the DTD content model handler.
-    @Override
-    public void setDTDContentModelHandler(XMLDTDContentModelHandler handler) {
-        fDTDContentModelHandler = handler;
-    }
-
-    /** @return the DTD content model handler. */
-    @Override
-    public XMLDTDContentModelHandler getDTDContentModelHandler() {
-        return fDTDContentModelHandler;
     }
 
     // Sets the error handler.

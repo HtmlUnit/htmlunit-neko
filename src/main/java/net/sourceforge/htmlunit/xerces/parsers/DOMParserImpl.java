@@ -51,8 +51,6 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
@@ -60,8 +58,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDContentModelSource;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
@@ -981,8 +977,6 @@ public class DOMParserImpl
 
     private void restoreHandlers() {
         fConfiguration.setDocumentHandler(this);
-        fConfiguration.setDTDHandler(this);
-        fConfiguration.setDTDContentModelHandler(this);
     }
 
     /**
@@ -1091,8 +1085,6 @@ public class DOMParserImpl
                     abortHandler = new AbortHandler();
                 }
                 fConfiguration.setDocumentHandler(abortHandler);
-                fConfiguration.setDTDHandler(abortHandler);
-                fConfiguration.setDTDContentModelHandler(abortHandler);
                 if (currentThread == Thread.currentThread()) {
                     throw Abort.INSTANCE;
                 }
@@ -1146,11 +1138,9 @@ public class DOMParserImpl
         }
     }
 
-    private static final class AbortHandler implements XMLDocumentHandler, XMLDTDHandler, XMLDTDContentModelHandler {
+    private static final class AbortHandler implements XMLDocumentHandler {
 
         private XMLDocumentSource documentSource;
-        private XMLDTDContentModelSource dtdContentSource;
-        private XMLDTDSource dtdSource;
 
         @Override
         public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
@@ -1240,161 +1230,6 @@ public class DOMParserImpl
         @Override
         public XMLDocumentSource getDocumentSource() {
             return documentSource;
-        }
-
-        @Override
-        public void startDTD(XMLLocator locator, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startParameterEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endParameterEntity(String name, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startExternalSubset(XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endExternalSubset(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void elementDecl(String name, String contentModel, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startAttlist(String elementName, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void attributeDecl(String elementName, String attributeName, String type, String[] enumeration, String defaultType, XMLString defaultValue, XMLString nonNormalizedDefaultValue, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endAttlist(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void internalEntityDecl(String name, XMLString text, XMLString nonNormalizedText, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void externalEntityDecl(String name, XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void unparsedEntityDecl(String name, XMLResourceIdentifier identifier, String notation, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void notationDecl(String name, XMLResourceIdentifier identifier, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startConditional(short type, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void ignoredCharacters(XMLString text, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endConditional(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endDTD(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void setDTDSource(XMLDTDSource source) {
-            dtdSource = source;
-        }
-
-        @Override
-        public XMLDTDSource getDTDSource() {
-            return dtdSource;
-        }
-
-        @Override
-        public void startContentModel(String elementName, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void any(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void empty(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startGroup(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void pcdata(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void element(String elementName, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void separator(short separator, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void occurrence(short occurrence, Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endGroup(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endContentModel(Augmentations augmentations) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void setDTDContentModelSource(XMLDTDContentModelSource source) {
-            dtdContentSource = source;
-        }
-
-        @Override
-        public XMLDTDContentModelSource getDTDContentModelSource() {
-            return dtdContentSource;
         }
     }
 

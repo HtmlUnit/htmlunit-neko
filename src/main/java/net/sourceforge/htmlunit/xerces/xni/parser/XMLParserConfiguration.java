@@ -20,8 +20,6 @@ package net.sourceforge.htmlunit.xerces.xni.parser;
 import java.io.IOException;
 import java.util.Locale;
 
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
-import net.sourceforge.htmlunit.xerces.xni.XMLDTDHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 
@@ -194,30 +192,6 @@ public interface XMLParserConfiguration extends XMLComponentManager {
      * @return the registered document handler.
      */
     XMLDocumentHandler getDocumentHandler();
-
-    /**
-     * Sets the DTD handler.
-     *
-     * @param dtdHandler The DTD handler.
-     */
-    void setDTDHandler(XMLDTDHandler dtdHandler);
-
-    /**
-     * @return the registered DTD handler.
-     */
-    XMLDTDHandler getDTDHandler();
-
-    /**
-     * Sets the DTD content model handler.
-     *
-     * @param dtdContentModelHandler The DTD content model handler.
-     */
-    void setDTDContentModelHandler(XMLDTDContentModelHandler dtdContentModelHandler);
-
-    /**
-     * @return the registered DTD content model handler.
-     */
-    XMLDTDContentModelHandler getDTDContentModelHandler();
 
     // other settings
 
