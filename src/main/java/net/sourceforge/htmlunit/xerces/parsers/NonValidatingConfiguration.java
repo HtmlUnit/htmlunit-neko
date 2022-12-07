@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.Locale;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.impl.XMLDTDScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
@@ -31,10 +30,8 @@ import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
@@ -109,17 +106,9 @@ public class NonValidatingConfiguration
     protected static final String DOCUMENT_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_SCANNER_PROPERTY;
 
-    /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
-
     /** Property identifier: grammar pool. */
     protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
-
-    /** Property identifier: DTD validator. */
-    protected static final String DTD_VALIDATOR =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
 
     /** Property identifier: namespace binder. */
     protected static final String NAMESPACE_BINDER =
@@ -153,9 +142,6 @@ public class NonValidatingConfiguration
 
     /** Input Source */
     protected XMLInputSource fInputSource;
-
-    /** DTD scanner. */
-    protected final XMLDTDScanner fDTDScanner;
 
     /** Document scanner that does namespace binding. */
     private XMLNSDocumentScannerImpl fNamespaceScanner;
@@ -263,8 +249,6 @@ public class NonValidatingConfiguration
             ERROR_REPORTER,
             ENTITY_MANAGER,
             DOCUMENT_SCANNER,
-            DTD_SCANNER,
-            DTD_VALIDATOR,
             NAMESPACE_BINDER,
             XMLGRAMMAR_POOL,
             LOCALE
@@ -287,14 +271,6 @@ public class NonValidatingConfiguration
 
         // this configuration delays creation of the scanner
         // till it is known if namespace processing should be performed
-
-        fDTDScanner = createDTDScanner();
-        if (fDTDScanner != null) {
-            fProperties.put(DTD_SCANNER, fDTDScanner);
-            if (fDTDScanner instanceof XMLComponent) {
-                addComponent((XMLComponent)fDTDScanner);
-            }
-        }
 
         // add message formatters
         if (fErrorReporter.getMessageFormatter(XMLMessageFormatter.XML_DOMAIN) == null) {
@@ -540,11 +516,6 @@ public class NonValidatingConfiguration
 
         fScanner.setDocumentHandler(fDocumentHandler);
         fLastComponent = fScanner;
-        // setup dtd pipeline
-        if (fDTDScanner != null) {
-                fDTDScanner.setDTDHandler(fDTDHandler);
-                fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
-        }
     }
 
     /**
@@ -647,19 +618,6 @@ public class NonValidatingConfiguration
     protected void checkProperty(String propertyId)
         throws XMLConfigurationException {
 
-        //
-        // Xerces Properties
-        //
-
-        if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
-            final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
-                propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
-                return;
-            }
-        }
-
         if (propertyId.startsWith(Constants.JAXP_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.JAXP_PROPERTY_PREFIX.length();
 
@@ -689,10 +647,5 @@ public class NonValidatingConfiguration
     // Create a document scanner.
     protected XMLDocumentScanner createDocumentScanner() {
         return null;
-    }
-
-    // Create a DTD scanner.
-    protected XMLDTDScanner createDTDScanner() {
-        return new XMLDTDScannerImpl();
     }
 }

@@ -379,17 +379,8 @@ public final class Constants {
     /** Document scanner property ("internal/document-scanner"). */
     public static final String DOCUMENT_SCANNER_PROPERTY = "internal/document-scanner";
 
-    /** DTD scanner property ("internal/dtd-scanner"). */
-    public static final String DTD_SCANNER_PROPERTY = "internal/dtd-scanner";
-
-    /** DTD processor property ("internal/dtd-processor"). */
-    public static final String DTD_PROCESSOR_PROPERTY = "internal/dtd-processor";
-
     /** Validator property ("internal/validator"). */
     public static final String VALIDATOR_PROPERTY = "internal/validator";
-
-    /** Validator property ("internal/validator/dtd"). */
-    public static final String DTD_VALIDATOR_PROPERTY = "internal/validator/dtd";
 
     /** Validator property ("internal/validator/schema"). */
     public static final String SCHEMA_VALIDATOR_PROPERTY = "internal/validator/schema";
@@ -521,7 +512,6 @@ public final class Constants {
             XMLGRAMMAR_POOL_PROPERTY,
             DATATYPE_VALIDATOR_FACTORY_PROPERTY,
             DOCUMENT_SCANNER_PROPERTY,
-            DTD_SCANNER_PROPERTY,
             VALIDATOR_PROPERTY,
             SCHEMA_LOCATION,
             SCHEMA_NONS_LOCATION,

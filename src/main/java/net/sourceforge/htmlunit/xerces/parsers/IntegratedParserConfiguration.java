@@ -134,9 +134,6 @@ extends StandardParserConfiguration {
     protected void configurePipeline() {
         // use XML 1.0 datatype library
 
-        // setup DTD pipeline
-        configureDTDPipeline();
-
         // setup document pipeline
         if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
             fProperties.put(NAMESPACE_BINDER, fNamespaceBinder);

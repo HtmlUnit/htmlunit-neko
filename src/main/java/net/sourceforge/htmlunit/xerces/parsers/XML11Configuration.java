@@ -23,10 +23,8 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.impl.XML11DTDScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XML11DocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XML11NSDocumentScannerImpl;
-import net.sourceforge.htmlunit.xerces.impl.XMLDTDScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityHandler;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
@@ -44,7 +42,6 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
@@ -216,10 +213,6 @@ public class XML11Configuration extends ParserConfigurationSettings
     protected static final String DOCUMENT_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_SCANNER_PROPERTY;
 
-    /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
-
     /** Property identifier: grammar pool. */
     protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
@@ -309,9 +302,6 @@ public class XML11Configuration extends ParserConfigurationSettings
     /** The XML 1.0 Non-namespace implementation of scanner */
     protected XMLDocumentScannerImpl fNonNSScanner;
 
-    /** The XML 1.0 DTD scanner. */
-    protected final XMLDTDScanner fDTDScanner;
-
     //
     // XML 1.1 components
     //
@@ -321,9 +311,6 @@ public class XML11Configuration extends ParserConfigurationSettings
 
     /** The XML 1.1 document scanner that does not do namespace binding. **/
     protected XML11DocumentScannerImpl fXML11DocScanner = null;
-
-    /** The XML 1.1 DTD scanner. **/
-    protected XML11DTDScannerImpl fXML11DTDScanner = null;
 
     //
     // Common components
@@ -340,9 +327,6 @@ public class XML11Configuration extends ParserConfigurationSettings
 
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;
-
-    /** Current DTD scanner. */
-    protected XMLDTDScanner fCurrentDTDScanner;
 
     /** Flag indiciating whether XML11 components have been initialized. */
     private boolean f11Initialized = false;
@@ -463,7 +447,6 @@ public class XML11Configuration extends ParserConfigurationSettings
                 ERROR_REPORTER,
                 ENTITY_MANAGER,
                 DOCUMENT_SCANNER,
-                DTD_SCANNER,
                 SCHEMA_VALIDATOR,
                 XML_STRING,
                 XMLGRAMMAR_POOL,
@@ -505,10 +488,6 @@ public class XML11Configuration extends ParserConfigurationSettings
         fNamespaceScanner = new XMLNSDocumentScannerImpl();
         fProperties.put(DOCUMENT_SCANNER, fNamespaceScanner);
         addComponent(fNamespaceScanner);
-
-        fDTDScanner = new XMLDTDScannerImpl();
-        fProperties.put(DTD_SCANNER, fDTDScanner);
-        addComponent((XMLComponent) fDTDScanner);
 
         fVersionDetector = new XMLVersionDetector();
 
@@ -956,11 +935,6 @@ public class XML11Configuration extends ParserConfigurationSettings
      *  Note: this method also resets the new XML11 components.
      */
     protected void configureXML11Pipeline() {
-        if (fCurrentDTDScanner != fXML11DTDScanner) {
-            fCurrentDTDScanner = fXML11DTDScanner;
-            setProperty(DTD_SCANNER, fCurrentDTDScanner);
-        }
-
         // setup XML 1.1 document pipeline
         if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
             if (fCurrentScanner != fXML11NSDocScanner) {
@@ -984,12 +958,6 @@ public class XML11Configuration extends ParserConfigurationSettings
 
     /** Configures the pipeline. */
     protected void configurePipeline() {
-        // setup DTD pipeline
-        if (fCurrentDTDScanner != fDTDScanner) {
-            fCurrentDTDScanner = fDTDScanner;
-            setProperty(DTD_SCANNER, fCurrentDTDScanner);
-        }
-
         // setup document pipeline
         if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
             if (fCurrentScanner != fNamespaceScanner) {
@@ -1149,11 +1117,6 @@ public class XML11Configuration extends ParserConfigurationSettings
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
 
-            if ((suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
-                propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) || (suffixLength == Constants.SCHEMA_LOCATION.length() &&
-                propertyId.endsWith(Constants.SCHEMA_LOCATION))) {
-                return;
-            }
             if (suffixLength == Constants.SCHEMA_NONS_LOCATION.length() &&
                 propertyId.endsWith(Constants.SCHEMA_NONS_LOCATION)) {
                 return;
@@ -1312,10 +1275,6 @@ public class XML11Configuration extends ParserConfigurationSettings
 
     private void initXML11Components() {
         if (!f11Initialized) {
-            // setup XML 1.1 DTD pipeline
-            fXML11DTDScanner = new XML11DTDScannerImpl();
-            addXML11Component(fXML11DTDScanner);
-
             // setup XML 1.1. document pipeline - namespace aware
             fXML11NSDocScanner = new XML11NSDocumentScannerImpl();
             addXML11Component(fXML11NSDocScanner);

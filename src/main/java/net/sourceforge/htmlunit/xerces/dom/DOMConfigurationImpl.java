@@ -161,10 +161,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String JAXP_SCHEMA_SOURCE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE;
 
-    /** Property identifier: DTD validator. */
-    protected final static String DTD_VALIDATOR_PROPERTY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
-
     /** Property identifier: schema location. */
     protected static final String SCHEMA_LOCATION =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_LOCATION;
@@ -310,7 +306,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             JAXP_SCHEMA_LANGUAGE,
             SCHEMA_LOCATION,
             SCHEMA_NONS_LOCATION,
-            DTD_VALIDATOR_PROPERTY,
             SCHEMA_DV_FACTORY
         };
         addRecognizedProperties(recognizedProperties);

@@ -34,7 +34,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
@@ -101,10 +100,6 @@ public class XMLDocumentScannerImpl
 
     // property identifiers
 
-    /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
-
     /** property identifier:  NamespaceContext */
     protected static final String NAMESPACE_CONTEXT =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_CONTEXT_PROPERTY;
@@ -127,7 +122,6 @@ public class XMLDocumentScannerImpl
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
-        DTD_SCANNER,
         NAMESPACE_CONTEXT,
     };
 
@@ -143,9 +137,6 @@ public class XMLDocumentScannerImpl
     //
 
     // properties
-
-    /** DTD scanner. */
-    protected XMLDTDScanner fDTDScanner;
 
     // protected data
 
@@ -290,9 +281,6 @@ public class XMLDocumentScannerImpl
             fDisallowDoctype = false;
         }
 
-        // xerces properties
-        fDTDScanner = (XMLDTDScanner)componentManager.getProperty(DTD_SCANNER);
-
         try {
             fNamespaceContext = (NamespaceContext)componentManager.getProperty(NAMESPACE_CONTEXT);
         }
@@ -401,11 +389,6 @@ public class XMLDocumentScannerImpl
         // Xerces properties
         if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
             final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
-                propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
-                fDTDScanner = (XMLDTDScanner)value;
-            }
             if (suffixLength == Constants.NAMESPACE_CONTEXT_PROPERTY.length() &&
                 propertyId.endsWith(Constants.NAMESPACE_CONTEXT_PROPERTY)) {
                 if (value != null) {
@@ -834,7 +817,6 @@ public class XMLDocumentScannerImpl
                                 if (((fValidation || fLoadExternalDTD)
                                     )) {
                                     // This handles the case of a DOCTYPE that had neither an internal subset or an external subset.
-                                    fDTDScanner.setInputSource(fExternalSubsetSource);
                                     fExternalSubsetSource = null;
                                     setScannerState(SCANNER_STATE_DTD_EXTERNAL_DECLS);
                                     setDispatcher(fDTDDispatcher);
@@ -849,7 +831,6 @@ public class XMLDocumentScannerImpl
 
                             // in XNI this results in 3 events:  doctypeDecl, startDTD, endDTD
                             // in SAX this results in 2 events: startDTD, endDTD
-                            fDTDScanner.setInputSource(null);
                             setScannerState(SCANNER_STATE_PROLOG);
                             break;
                         }
@@ -934,9 +915,8 @@ public class XMLDocumentScannerImpl
                         case SCANNER_STATE_DTD_INTERNAL_DECLS: {
                             // REVISIT: Should there be a feature for
                             //          the "complete" parameter?
-                            boolean completeDTD = true;
                             boolean readExternalSubset = (fValidation || fLoadExternalDTD);
-                            boolean moreToScan = fDTDScanner.scanDTDInternalSubset(completeDTD, fStandalone, fHasExternalDTD && readExternalSubset);
+                            boolean moreToScan = true;
                             if (!moreToScan) {
                                 // end doctype declaration
                                 if (!fEntityScanner.skipChar(']')) {
@@ -961,7 +941,6 @@ public class XMLDocumentScannerImpl
                                     fIsEntityDeclaredVC = !fStandalone;
                                     if (readExternalSubset) {
                                         // This handles the case of a DOCTYPE that only had an internal subset.
-                                        fDTDScanner.setInputSource(fExternalSubsetSource);
                                         fExternalSubsetSource = null;
                                         setScannerState(SCANNER_STATE_DTD_EXTERNAL_DECLS);
                                         break;
@@ -984,9 +963,6 @@ public class XMLDocumentScannerImpl
                         case SCANNER_STATE_DTD_EXTERNAL: {
                             fDTDDescription.setValues(fDoctypePublicId, fDoctypeSystemId, null, null);
                             fDTDDescription.setRootName(fDoctypeName);
-                            XMLInputSource xmlInputSource =
-                                fEntityManager.resolveEntity(fDTDDescription);
-                            fDTDScanner.setInputSource(xmlInputSource);
                             setScannerState(SCANNER_STATE_DTD_EXTERNAL_DECLS);
                             again = true;
                             break;
@@ -994,8 +970,7 @@ public class XMLDocumentScannerImpl
                         case SCANNER_STATE_DTD_EXTERNAL_DECLS: {
                             // REVISIT: Should there be a feature for
                             //          the "complete" parameter?
-                            boolean completeDTD = true;
-                            boolean moreToScan = fDTDScanner.scanDTDExternalSubset(completeDTD);
+                            boolean moreToScan = true;
                             if (!moreToScan) {
                                 setScannerState(SCANNER_STATE_PROLOG);
                                 setDispatcher(fPrologDispatcher);
@@ -1179,13 +1154,6 @@ public class XMLDocumentScannerImpl
                     // This inserts a doctypeDecl event into the stream though no
                     // DOCTYPE existed in the instance document.
                     fDocumentHandler.doctypeDecl(fDoctypeName, fDoctypePublicId, fDoctypeSystemId, null);
-                }
-                try {
-                    fDTDScanner.setInputSource(src);
-                    while (fDTDScanner.scanDTDExternalSubset(true));
-                }
-                finally {
-                    fEntityManager.setEntityHandler(XMLDocumentScannerImpl.this);
                 }
             }
         } // resolveExternalSubsetAndRead()

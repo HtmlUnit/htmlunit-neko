@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.Locale;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.impl.XMLDTDScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
@@ -34,7 +33,6 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
@@ -127,10 +125,6 @@ public class DTDConfiguration
     protected static final String DOCUMENT_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_SCANNER_PROPERTY;
 
-    /** Property identifier: DTD scanner. */
-    protected static final String DTD_SCANNER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
-
     /** Property identifier: grammar pool. */
     protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
@@ -178,9 +172,6 @@ public class DTDConfiguration
 
     /** Input Source */
     protected XMLInputSource fInputSource;
-
-    /** DTD scanner. */
-    protected final XMLDTDScanner fDTDScanner;
 
     /** Namespace binder. */
     protected final XMLNamespaceBinder fNamespaceBinder;
@@ -274,7 +265,6 @@ public class DTDConfiguration
             ERROR_REPORTER,
             ENTITY_MANAGER,
             DOCUMENT_SCANNER,
-            DTD_SCANNER,
             NAMESPACE_BINDER,
             XMLGRAMMAR_POOL,
             JAXP_SCHEMA_SOURCE,
@@ -301,14 +291,6 @@ public class DTDConfiguration
         setProperty(DOCUMENT_SCANNER, fScanner);
         if (fScanner instanceof XMLComponent) {
             addComponent((XMLComponent)fScanner);
-        }
-
-        fDTDScanner = createDTDScanner();
-        if (fDTDScanner != null) {
-            setProperty(DTD_SCANNER, fDTDScanner);
-            if (fDTDScanner instanceof XMLComponent) {
-                addComponent((XMLComponent)fDTDScanner);
-            }
         }
 
         fNamespaceBinder = createNamespaceBinder();
@@ -541,27 +523,7 @@ public class DTDConfiguration
             fScanner.setDocumentHandler(fDocumentHandler);
             fLastComponent = fScanner;
         }
-
-        configureDTDPipeline();
     } // configurePipeline()
-
-    protected void configureDTDPipeline (){
-
-        // setup dtd pipeline
-        if (fDTDScanner != null) {
-            fProperties.put(DTD_SCANNER, fDTDScanner);
-            fDTDScanner.setDTDHandler(fDTDHandler);
-            if (fDTDHandler != null) {
-                fDTDHandler.setDTDSource(fDTDScanner);
-            }
-            fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
-            if (fDTDContentModelHandler != null) {
-                fDTDContentModelHandler.setDTDContentModelSource(fDTDScanner);
-            }
-        }
-
-
-    }
 
     // features and properties
 
@@ -662,23 +624,6 @@ public class DTDConfiguration
     protected void checkProperty(String propertyId)
         throws XMLConfigurationException {
 
-        //
-        // Xerces Properties
-        //
-
-        if (propertyId.startsWith(Constants.XERCES_PROPERTY_PREFIX)) {
-            final int suffixLength = propertyId.length() - Constants.XERCES_PROPERTY_PREFIX.length();
-
-            if (suffixLength == Constants.DTD_SCANNER_PROPERTY.length() &&
-                propertyId.endsWith(Constants.DTD_SCANNER_PROPERTY)) {
-                return;
-            }
-        }
-
-        //
-        // Not recognized
-        //
-
         super.checkProperty(propertyId);
 
     } // checkProperty(String)
@@ -696,11 +641,6 @@ public class DTDConfiguration
     // Create a document scanner.
     protected XMLDocumentScanner createDocumentScanner() {
         return new XMLDocumentScannerImpl();
-    }
-
-    // Create a DTD scanner.
-    protected XMLDTDScanner createDTDScanner() {
-        return new XMLDTDScannerImpl();
     }
 
     // Create a namespace binder.
