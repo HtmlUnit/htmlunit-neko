@@ -61,10 +61,6 @@ public class DOMErrorHandlerWrapper
     // Print writer
     protected PrintWriter fOut;
 
-    // some components may set error node
-    // @see DOMNormalizer.
-    public Node fCurrentNode;
-
     /** Error code for comparisons. **/
     protected final XMLErrorCode fErrorCode = new XMLErrorCode(null, null);
 
@@ -137,7 +133,6 @@ public class DOMErrorHandlerWrapper
             locator.fLineNumber = exception.getLineNumber();
             locator.fUtf16Offset = exception.getCharacterOffset();
             locator.fUri = exception.getExpandedSystemId();
-            locator.fRelatedNode = fCurrentNode;
         }
         if (fDomErrorHandler != null) {
             fDomErrorHandler.handleError(fDOMError);
@@ -174,7 +169,6 @@ public class DOMErrorHandlerWrapper
             locator.fLineNumber = exception.getLineNumber();
             locator.fUtf16Offset = exception.getCharacterOffset();
             locator.fUri = exception.getExpandedSystemId();
-            locator.fRelatedNode= fCurrentNode;
         }
         if (fDomErrorHandler != null) {
             fDomErrorHandler.handleError(fDOMError);
@@ -220,7 +214,6 @@ public class DOMErrorHandlerWrapper
             locator.fLineNumber = exception.getLineNumber();
             locator.fUtf16Offset = exception.getCharacterOffset();
             locator.fUri = exception.getExpandedSystemId();
-            locator.fRelatedNode = fCurrentNode;
         }
         if (fDomErrorHandler != null) {
             fDomErrorHandler.handleError(fDOMError);

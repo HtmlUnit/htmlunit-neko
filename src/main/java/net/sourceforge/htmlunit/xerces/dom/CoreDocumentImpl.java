@@ -314,16 +314,13 @@ extends ParentNode implements Document  {
         }
 
         if (deep) {
-            HashMap reversedIdentifiers = null;
+            HashMap<Node, String> reversedIdentifiers = null;
             if (identifiers != null) {
                 // Build a reverse mapping from element to identifier.
-                reversedIdentifiers = new HashMap();
-                Iterator entries = identifiers.entrySet().iterator();
-                while (entries.hasNext()) {
-                    Map.Entry entry = (Map.Entry) entries.next();
-                    Object elementId = entry.getKey();
-                    Object elementNode = entry.getValue();
-                    reversedIdentifiers.put(elementNode, elementId);
+                reversedIdentifiers = new HashMap<>();
+                for (Map.Entry<String, Element> stringElementEntry : identifiers.entrySet()) {
+                    Map.Entry<String, Element> entry = stringElementEntry;
+                    reversedIdentifiers.put(entry.getValue(), entry.getKey());
                 }
             }
 
@@ -2285,9 +2282,8 @@ extends ParentNode implements Document  {
         if (userData == null || userData.isEmpty()) {
             return;
         }
-        Iterator entries = userData.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = (Map.Entry) entries.next();
+        for (Object o : userData.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
             UserDataRecord r = (UserDataRecord) entry.getValue();
             if (r.fHandler != null) {

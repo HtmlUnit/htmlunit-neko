@@ -35,7 +35,6 @@ import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.Attributes2;
-import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
@@ -46,7 +45,6 @@ import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
 import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
-import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
@@ -160,9 +158,6 @@ public abstract class AbstractSAXParser
 
     /** DTD handler. */
     protected org.xml.sax.DTDHandler fDTDHandler;
-
-    /** Decl handler. */
-    protected DeclHandler fDeclHandler;
 
     /** Lexical handler. */
     protected LexicalHandler fLexicalHandler;
@@ -301,7 +296,6 @@ public abstract class AbstractSAXParser
     public void doctypeDecl(String rootElement,
                             String publicId, String systemId, Augmentations augs)
         throws XNIException {
-        fInDTD = true;
 
         try {
             // SAX2 extension
@@ -431,38 +425,6 @@ public abstract class AbstractSAXParser
                 if (fNamespaces) {
                     // send prefix mapping events
                     startNamespaceMapping();
-
-                    // REVISIT: It should not be necessary to iterate over the attribute
-                    // list when the set of [namespace attributes] is empty for this
-                    // element. This should be computable from the NamespaceContext, but
-                    // since we currently don't report the mappings for the xml prefix
-                    // we cannot use the declared prefix count for the current context
-                    // to skip this section. -- mrglavas
-                    int len = attributes.getLength();
-                    if (!fNamespacePrefixes) {
-                        for (int i = len - 1; i >= 0; --i) {
-                            attributes.getName(i, fQName);
-                            if ((fQName.prefix == XMLSymbols.PREFIX_XMLNS) ||
-                               (fQName.rawname == XMLSymbols.PREFIX_XMLNS)) {
-                                // remove namespace declaration attributes
-                                attributes.removeAttributeAt(i);
-                            }
-                        }
-                    }
-                    else if (!fXMLNSURIs) {
-                        for (int i = len - 1; i >= 0; --i) {
-                            attributes.getName(i, fQName);
-                            if ((fQName.prefix == XMLSymbols.PREFIX_XMLNS) ||
-                               (fQName.rawname == XMLSymbols.PREFIX_XMLNS)) {
-                                // localpart should be empty string as per SAX documentation:
-                                // http://www.saxproject.org/?selected=namespaces
-                                fQName.prefix = "";
-                                fQName.uri = "";
-                                fQName.localpart = "";
-                                attributes.setName(i, fQName);
-                            }
-                        }
-                    }
                 }
 
                 String uri = element.uri != null ? element.uri : "";
@@ -1728,7 +1690,6 @@ public abstract class AbstractSAXParser
         super.reset();
 
         // reset state
-        fInDTD = false;
         fVersion = "1.0";
         fStandalone = false;
 

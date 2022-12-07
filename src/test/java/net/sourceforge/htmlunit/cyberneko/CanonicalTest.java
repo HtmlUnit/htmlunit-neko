@@ -82,9 +82,8 @@ public class CanonicalTest {
         Collections.sort(dataFiles);
 
         List<DynamicTest> tests = new ArrayList<>();
-        for (int i=0; i < dataFiles.size(); i++) {
+        for (final File dataFile : dataFiles) {
             // suite.addTest(new CanonicalTest(dataFiles.get(i)));
-            final File dataFile = dataFiles.get(i);
             tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
         }
         return tests;
@@ -129,7 +128,7 @@ public class CanonicalTest {
     private static String getCanonical(final File infile) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 new UTF8BOMSkipper(new FileInputStream(infile)), StandardCharsets.UTF_8))) {
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
@@ -174,7 +173,7 @@ public class CanonicalTest {
             // parse
             parser.parse(new XMLInputSource(null, infilename, null));
             final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");

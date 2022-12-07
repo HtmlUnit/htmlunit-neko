@@ -104,12 +104,6 @@ public class NamespaceSupport implements NamespaceContext {
         fCurrentContext = 0;
         fContext[fCurrentContext] = fNamespaceSize;
 
-        // bind "xml" prefix to the XML uri
-        fNamespace[fNamespaceSize++] = XMLSymbols.PREFIX_XML;
-        fNamespace[fNamespaceSize++] = NamespaceContext.XML_URI;
-        // bind "xmlns" prefix to the XMLNS uri
-        fNamespace[fNamespaceSize++] = XMLSymbols.PREFIX_XMLNS;
-        fNamespace[fNamespaceSize++] = NamespaceContext.XMLNS_URI;
         ++fCurrentContext;
 
     } // reset(SymbolTable)
@@ -147,11 +141,6 @@ public class NamespaceSupport implements NamespaceContext {
      */
     @Override
     public boolean declarePrefix(String prefix, String uri) {
-        // ignore "xml" and "xmlns" prefixes
-        if (prefix == XMLSymbols.PREFIX_XML || prefix == XMLSymbols.PREFIX_XMLNS) {
-            return false;
-        }
-
         // see if prefix already exists in current context
         for (int i = fNamespaceSize; i > fContext[fCurrentContext]; i -= 2) {
             if (fNamespace[i - 2] == prefix) {

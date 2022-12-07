@@ -298,9 +298,8 @@ public class AugmentationsImpl implements Augmentations {
         public String toString() {
             StringBuilder buff = new StringBuilder();
             buff.append("LargeContainer");
-            Iterator entries = fAugmentations.entrySet().iterator();
-            while (entries.hasNext()) {
-                Map.Entry entry = (Map.Entry) entries.next();
+            for (Object o : fAugmentations.entrySet()) {
+                Map.Entry entry = (Map.Entry) o;
                 buff.append("\nkey == ");
                 buff.append(entry.getKey());
                 buff.append("; value == ");

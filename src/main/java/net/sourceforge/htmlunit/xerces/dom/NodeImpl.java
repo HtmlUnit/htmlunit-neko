@@ -81,38 +81,6 @@ public abstract class NodeImpl
 
     // TreePosition Constants.
     // Taken from DOM L3 Node interface.
-    /**
-     * The node precedes the reference node.
-     */
-    public static final short TREE_POSITION_PRECEDING   = 0x01;
-    /**
-     * The node follows the reference node.
-     */
-    public static final short TREE_POSITION_FOLLOWING   = 0x02;
-    /**
-     * The node is an ancestor of the reference node.
-     */
-    public static final short TREE_POSITION_ANCESTOR    = 0x04;
-    /**
-     * The node is a descendant of the reference node.
-     */
-    public static final short TREE_POSITION_DESCENDANT  = 0x08;
-    /**
-     * The two nodes have an equivalent position. This is the case of two
-     * attributes that have the same <code>ownerElement</code>, and two
-     * nodes that are the same.
-     */
-    public static final short TREE_POSITION_EQUIVALENT  = 0x10;
-    /**
-     * The two nodes are the same. Two nodes that are the same have an
-     * equivalent position, though the reverse may not be true.
-     */
-    public static final short TREE_POSITION_SAME_NODE   = 0x20;
-    /**
-     * The two nodes are disconnected, they do not have any common ancestor.
-     * This is the case of two nodes that are not in the same document.
-     */
-    public static final short TREE_POSITION_DISCONNECTED = 0x00;
 
 
     // DocumentPosition

@@ -312,12 +312,6 @@ public final class Constants {
     /** Feature to ignore errors caused by unparsed entities ("validation/unparsed-entity-checking") */
     public static final String UNPARSED_ENTITY_CHECKING_FEATURE = "validation/unparsed-entity-checking";
 
-    /**
-     * Internal feature. When set to true the schema validator will only use
-     * schema components from the grammar pool provided.
-     */
-    public static final String USE_GRAMMAR_POOL_ONLY_FEATURE = "internal/validation/schema/use-grammar-pool-only";
-
     /** Internal performance related feature:
      * false - the parser settings (features/properties) have not changed between 2 parses
      * true - the parser settings have changed between 2 parses
@@ -344,12 +338,6 @@ public final class Constants {
 
     /** Error handler property ("internal/error-handler"). */
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
-
-    /** XInclude handler property ("internal/xinclude-handler"). */
-    public static final String XINCLUDE_HANDLER_PROPERTY = "internal/xinclude-handler";
-
-    /** XPointer handler property ("internal/xpointer-handler"). */
-    public static final String XPOINTER_HANDLER_PROPERTY = "internal/xpointer-handler";
 
     /** Entity manager property ("internal/entity-manager"). */
     public static final String ENTITY_MANAGER_PROPERTY = "internal/entity-manager";
@@ -411,11 +399,6 @@ public final class Constants {
     public final static short XML_VERSION_ERROR = -1;
     public final static short XML_VERSION_1_0 = 1;
     public final static short XML_VERSION_1_1 = 2;
-
-    // Constant to enable Schema 1.1 support
-    public final static boolean SCHEMA_1_1_SUPPORT = false;
-    public final static short SCHEMA_VERSION_1_0          = 1;
-    public final static short SCHEMA_VERSION_1_0_EXTENDED = 2;
 
     // private
 

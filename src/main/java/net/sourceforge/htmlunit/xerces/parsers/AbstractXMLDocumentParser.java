@@ -43,9 +43,6 @@ public abstract class AbstractXMLDocumentParser
     extends XMLParser
     implements XMLDocumentHandler {
 
-    /** True if inside DTD. */
-    protected boolean fInDTD;
-
     /** Document source*/
     protected XMLDocumentSource fDocumentSource;
 
@@ -353,7 +350,6 @@ public abstract class AbstractXMLDocumentParser
     @Override
     protected void reset() throws XNIException {
         super.reset();
-        fInDTD = false;
     } // reset()
 
 } // class AbstractXMLDocumentParser
