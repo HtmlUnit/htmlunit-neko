@@ -26,9 +26,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.XMLNamespaceBinder;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDProcessor;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
@@ -138,21 +135,9 @@ public class DTDConfiguration
     protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
 
-    /** Property identifier: DTD loader. */
-    protected static final String DTD_PROCESSOR =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_PROCESSOR_PROPERTY;
-
-    /** Property identifier: DTD validator. */
-    protected static final String DTD_VALIDATOR =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
-
     /** Property identifier: namespace binder. */
     protected static final String NAMESPACE_BINDER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
-
-    /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
     /** Property identifier: JAXP schema language / DOM schema-type. */
     protected static final String JAXP_SCHEMA_LANGUAGE =
@@ -180,9 +165,6 @@ public class DTDConfiguration
     /** Grammar pool. */
     protected final XMLGrammarPool fGrammarPool;
 
-    /** Datatype validator factory. */
-    protected final DTDDVFactory fDatatypeValidatorFactory;
-
     // components (configurable)
 
     /** Error reporter. */
@@ -199,12 +181,6 @@ public class DTDConfiguration
 
     /** DTD scanner. */
     protected final XMLDTDScanner fDTDScanner;
-
-    /** DTD Processor . */
-    protected final XMLDTDProcessor fDTDProcessor;
-
-    /** DTD Validator. */
-    protected final XMLDTDValidator fDTDValidator;
 
     /** Namespace binder. */
     protected final XMLNamespaceBinder fNamespaceBinder;
@@ -299,11 +275,8 @@ public class DTDConfiguration
             ENTITY_MANAGER,
             DOCUMENT_SCANNER,
             DTD_SCANNER,
-            DTD_PROCESSOR,
-            DTD_VALIDATOR,
             NAMESPACE_BINDER,
             XMLGRAMMAR_POOL,
-            DATATYPE_VALIDATOR_FACTORY,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
             LOCALE
@@ -338,28 +311,10 @@ public class DTDConfiguration
             }
         }
 
-        fDTDProcessor = createDTDProcessor();
-        if (fDTDProcessor != null) {
-            setProperty(DTD_PROCESSOR, fDTDProcessor);
-            addComponent(fDTDProcessor);
-        }
-
-        fDTDValidator = createDTDValidator();
-        if (fDTDValidator != null) {
-            setProperty(DTD_VALIDATOR, fDTDValidator);
-            addComponent(fDTDValidator);
-        }
-
         fNamespaceBinder = createNamespaceBinder();
         if (fNamespaceBinder != null) {
             setProperty(NAMESPACE_BINDER, fNamespaceBinder);
             addComponent(fNamespaceBinder);
-        }
-
-        fDatatypeValidatorFactory = createDatatypeValidatorFactory();
-        if (fDatatypeValidatorFactory != null) {
-            setProperty(DATATYPE_VALIDATOR_FACTORY,
-                        fDatatypeValidatorFactory);
         }
 
         // add message formatters
@@ -576,34 +531,15 @@ public class DTDConfiguration
         //          etc... -Ac
 
         // setup document pipeline
-        if (fDTDValidator != null) {
-            fScanner.setDocumentHandler(fDTDValidator);
-            if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
-
-                // filters
-                fDTDValidator.setDocumentHandler(fNamespaceBinder);
-                fDTDValidator.setDocumentSource(fScanner);
-                fNamespaceBinder.setDocumentHandler(fDocumentHandler);
-                fNamespaceBinder.setDocumentSource(fDTDValidator);
-                fLastComponent = fNamespaceBinder;
-            }
-            else {
-                fDTDValidator.setDocumentHandler(fDocumentHandler);
-                fDTDValidator.setDocumentSource(fScanner);
-                fLastComponent = fDTDValidator;
-            }
+        if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
+            fScanner.setDocumentHandler(fNamespaceBinder);
+            fNamespaceBinder.setDocumentHandler(fDocumentHandler);
+            fNamespaceBinder.setDocumentSource(fScanner);
+            fLastComponent = fNamespaceBinder;
         }
         else {
-            if (fFeatures.get(NAMESPACES) == Boolean.TRUE) {
-                fScanner.setDocumentHandler(fNamespaceBinder);
-                fNamespaceBinder.setDocumentHandler(fDocumentHandler);
-                fNamespaceBinder.setDocumentSource(fScanner);
-                fLastComponent = fNamespaceBinder;
-            }
-            else {
-                fScanner.setDocumentHandler(fDocumentHandler);
-                fLastComponent = fScanner;
-            }
+            fScanner.setDocumentHandler(fDocumentHandler);
+            fLastComponent = fScanner;
         }
 
         configureDTDPipeline();
@@ -614,31 +550,13 @@ public class DTDConfiguration
         // setup dtd pipeline
         if (fDTDScanner != null) {
             fProperties.put(DTD_SCANNER, fDTDScanner);
-            if (fDTDProcessor != null) {
-                fProperties.put(DTD_PROCESSOR, fDTDProcessor);
-                fDTDScanner.setDTDHandler(fDTDProcessor);
-                fDTDProcessor.setDTDSource(fDTDScanner);
-                fDTDProcessor.setDTDHandler(fDTDHandler);
-                if (fDTDHandler != null) {
-                    fDTDHandler.setDTDSource(fDTDProcessor);
-                }
-
-                fDTDScanner.setDTDContentModelHandler(fDTDProcessor);
-                fDTDProcessor.setDTDContentModelSource(fDTDScanner);
-                fDTDProcessor.setDTDContentModelHandler(fDTDContentModelHandler);
-                if (fDTDContentModelHandler != null) {
-                    fDTDContentModelHandler.setDTDContentModelSource(fDTDProcessor);
-                }
+            fDTDScanner.setDTDHandler(fDTDHandler);
+            if (fDTDHandler != null) {
+                fDTDHandler.setDTDSource(fDTDScanner);
             }
-            else {
-                fDTDScanner.setDTDHandler(fDTDHandler);
-                if (fDTDHandler != null) {
-                    fDTDHandler.setDTDSource(fDTDScanner);
-                }
-                fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
-                if (fDTDContentModelHandler != null) {
-                    fDTDContentModelHandler.setDTDContentModelSource(fDTDScanner);
-                }
+            fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
+            if (fDTDContentModelHandler != null) {
+                fDTDContentModelHandler.setDTDContentModelSource(fDTDScanner);
             }
         }
 
@@ -785,23 +703,8 @@ public class DTDConfiguration
         return new XMLDTDScannerImpl();
     }
 
-    // Create a DTD loader
-    protected XMLDTDProcessor createDTDProcessor() {
-        return new XMLDTDProcessor();
-    }
-
-    // Create a DTD validator.
-    protected XMLDTDValidator createDTDValidator() {
-        return new XMLDTDValidator();
-    }
-
     // Create a namespace binder.
     protected XMLNamespaceBinder createNamespaceBinder() {
         return new XMLNamespaceBinder();
-    }
-
-    // Create a datatype validator factory.
-    protected DTDDVFactory createDatatypeValidatorFactory() {
-        return DTDDVFactory.getInstance();
     }
 }

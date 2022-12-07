@@ -19,17 +19,14 @@ package net.sourceforge.htmlunit.xerces.impl;
 
 import java.io.IOException;
 
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidatorFilter;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
-import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * The scanner acts as the source for the document
@@ -70,18 +67,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
     protected boolean fBindNamespaces;
 
     /**
-     * If validating parser, make sure we report an error in the
-     *  scanner if DTD grammar is missing.
-     */
-    protected boolean fPerformValidation;
-
-    // private data
-    //
-
-    /** DTD validator */
-    private XMLDTDValidatorFilter fDTDValidator;
-
-    /**
      * Saw spaces after element name or between attributes.
      * <p>
      * This is reserved for the case where scanning of a start element spans
@@ -89,16 +74,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
      * where a DTD external subset may be read after scanning the element name.
      */
     private boolean fSawSpace;
-
-    /**
-     * The scanner is responsible for removing DTD validator
-     * from the pipeline if it is not needed.
-     *
-     * @param validator the DTD validator from the pipeline
-     */
-    public void setDTDValidator(XMLDTDValidatorFilter validator) {
-        fDTDValidator = validator;
-    }
 
     /**
      * Scans a start element. This method will handle the binding of
@@ -133,24 +108,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
         String rawname = fElementQName.rawname;
         if (fBindNamespaces) {
             fNamespaceContext.pushContext();
-            if (fScannerState == SCANNER_STATE_ROOT_ELEMENT) {
-                if (fPerformValidation) {
-                    fErrorReporter.reportError(
-                        XMLMessageFormatter.XML_DOMAIN,
-                        "MSG_GRAMMAR_NOT_FOUND",
-                        new Object[] { rawname },
-                        XMLErrorReporter.SEVERITY_ERROR);
-
-                    if (fDoctypeName == null
-                        || !fDoctypeName.equals(rawname)) {
-                        fErrorReporter.reportError(
-                            XMLMessageFormatter.XML_DOMAIN,
-                            "RootElementTypeMustMatchDoctypedecl",
-                            new Object[] { fDoctypeName, rawname },
-                            XMLErrorReporter.SEVERITY_ERROR);
-                    }
-                }
-            }
         }
 
         // push element stack
@@ -349,24 +306,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
         String rawname = fElementQName.rawname;
         if (fBindNamespaces) {
             fNamespaceContext.pushContext();
-            if (fScannerState == SCANNER_STATE_ROOT_ELEMENT) {
-                if (fPerformValidation) {
-                    fErrorReporter.reportError(
-                        XMLMessageFormatter.XML_DOMAIN,
-                        "MSG_GRAMMAR_NOT_FOUND",
-                        new Object[] { rawname },
-                        XMLErrorReporter.SEVERITY_ERROR);
-
-                    if (fDoctypeName == null
-                        || !fDoctypeName.equals(rawname)) {
-                        fErrorReporter.reportError(
-                            XMLMessageFormatter.XML_DOMAIN,
-                            "RootElementTypeMustMatchDoctypedecl",
-                            new Object[] { fDoctypeName, rawname },
-                            XMLErrorReporter.SEVERITY_ERROR);
-                    }
-                }
-            }
         }
 
         // push element stack
@@ -770,7 +709,6 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
         throws XMLConfigurationException {
 
         super.reset(componentManager);
-        fPerformValidation = false;
         fBindNamespaces = false;
     }
 
@@ -831,21 +769,7 @@ public class XML11NSDocumentScannerImpl extends XML11DocumentScannerImpl {
          * is performed by the scanner in the enclosing class.
          */
         private void reconfigurePipeline() {
-            if (fDTDValidator == null) {
-                fBindNamespaces = true;
-            }
-            else if (!fDTDValidator.hasGrammar()) {
-                fBindNamespaces = true;
-                fPerformValidation = fDTDValidator.validate();
-                // re-configure pipeline
-                XMLDocumentSource source = fDTDValidator.getDocumentSource();
-                XMLDocumentHandler handler = fDTDValidator.getDocumentHandler();
-                source.setDocumentHandler(handler);
-                if (handler != null)
-                    handler.setDocumentSource(source);
-                fDTDValidator.setDocumentSource(null);
-                fDTDValidator.setDocumentHandler(null);
-            }
+            fBindNamespaces = true;
         } // reconfigurePipeline()
     }
 }

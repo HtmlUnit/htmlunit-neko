@@ -37,8 +37,6 @@ import org.w3c.dom.Text;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.xs.util.SimpleLocator;
 import net.sourceforge.htmlunit.xerces.util.AugmentationsImpl;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
@@ -204,7 +202,6 @@ public class DOMNormalizer implements XMLDocumentHandler {
                 if (schemaLang != null) {
                     schemaLocations = (String []) fConfiguration.getProperty(DOMConfigurationImpl.JAXP_SCHEMA_SOURCE);
                 }
-                fConfiguration.setDTDValidatorFactory(xmlVersion);
                 fValidationHandler = CoreDOMImplementationImpl.singleton.getValidator(schemaType, xmlVersion);
             }
 
@@ -706,24 +703,7 @@ public class DOMNormalizer implements XMLDocumentHandler {
             if (systemId == null || systemId.length() == 0) return;
         }
 
-        XMLDTDLoader loader = null;
-        try {
-            fValidationHandler.doctypeDecl(rootName, publicId, systemId, null);
-            loader = CoreDOMImplementationImpl.singleton.getDTDLoader(xmlVersion);
-            loader.setFeature(DOMConfigurationImpl.XERCES_VALIDATION, true);
-            loader.setEntityResolver(fConfiguration.getEntityResolver());
-            loader.setErrorHandler(fConfiguration.getErrorHandler());
-            loader.loadGrammarWithContext((XMLDTDValidator) fValidationHandler, rootName,
-                    publicId, systemId, baseSystemId, internalSubset);
-        }
-        // REVISIT: Should probably report this exception to the error handler.
-        catch (IOException e) {
-        }
-        finally {
-            if (loader != null) {
-                CoreDOMImplementationImpl.singleton.releaseDTDLoader(xmlVersion, loader);
-            }
-        }
+        fValidationHandler.doctypeDecl(rootName, publicId, systemId, null);
     } // processDTD(String, String)
 
     protected final void expandEntityRef (Node parent, Node reference){

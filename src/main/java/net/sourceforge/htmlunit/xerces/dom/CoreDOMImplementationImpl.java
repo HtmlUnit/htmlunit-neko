@@ -25,7 +25,6 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDLoader;
 import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
@@ -461,90 +460,6 @@ public class CoreDOMImplementationImpl
         }
     }
 
-    // NON-DOM: retrieve DTD loader
-    synchronized final XMLDTDLoader getDTDLoader(String xmlVersion) {
-        // return an instance of XML11DTDProcessor
-        if ("1.1".equals(xmlVersion)) {
-            while (freeXML11DTDLoaderIndex >= 0) {
-                // return first available DTD loader
-                SoftReference ref = xml11DTDLoaders[freeXML11DTDLoaderIndex];
-                XMLDTDLoaderHolder holder = (XMLDTDLoaderHolder) ref.get();
-                if (holder != null && holder.loader != null) {
-                    XMLDTDLoader val = holder.loader;
-                    holder.loader = null;
-                    --freeXML11DTDLoaderIndex;
-                    return val;
-                }
-                xml11DTDLoaders[freeXML11DTDLoaderIndex--] = null;
-            }
-            return (XMLDTDLoader) (ObjectFactory
-                    .newInstance(
-                        "net.sourceforge.htmlunit.xerces.impl.dtd.XML11DTDProcessor",
-                        ObjectFactory.findClassLoader(),
-                        true));
-        }
-        // return an instance of XMLDTDLoader
-        else {
-            while (freeXML10DTDLoaderIndex >= 0) {
-                // return first available DTD loader
-                SoftReference ref = xml10DTDLoaders[freeXML10DTDLoaderIndex];
-                XMLDTDLoaderHolder holder = (XMLDTDLoaderHolder) ref.get();
-                if (holder != null && holder.loader != null) {
-                    XMLDTDLoader val = holder.loader;
-                    holder.loader = null;
-                    --freeXML10DTDLoaderIndex;
-                    return val;
-                }
-                xml10DTDLoaders[freeXML10DTDLoaderIndex--] = null;
-            }
-            return new XMLDTDLoader();
-        }
-    }
-
-    // NON-DOM: release DTD loader
-    synchronized final void releaseDTDLoader(String xmlVersion, XMLDTDLoader loader) {
-        // release an instance of XMLDTDLoader
-        if ("1.1".equals(xmlVersion)) {
-            ++freeXML11DTDLoaderIndex;
-            if (xml11DTDLoaders.length == freeXML11DTDLoaderIndex) {
-                // resize size of the DTD loaders
-                xml11DTDLoaderCurrentSize += SIZE;
-                SoftReference [] newarray = new SoftReference[xml11DTDLoaderCurrentSize];
-                System.arraycopy(xml11DTDLoaders, 0, newarray, 0, xml11DTDLoaders.length);
-                xml11DTDLoaders = newarray;
-            }
-            SoftReference ref = xml11DTDLoaders[freeXML11DTDLoaderIndex];
-            if (ref != null) {
-                XMLDTDLoaderHolder holder = (XMLDTDLoaderHolder) ref.get();
-                if (holder != null) {
-                    holder.loader = loader;
-                    return;
-                }
-            }
-            xml11DTDLoaders[freeXML11DTDLoaderIndex] = new SoftReference(new XMLDTDLoaderHolder(loader));
-        }
-        // release an instance of XMLDTDLoader
-        else {
-            ++freeXML10DTDLoaderIndex;
-            if (xml10DTDLoaders.length == freeXML10DTDLoaderIndex) {
-                // resize size of the DTD loaders
-                xml10DTDLoaderCurrentSize += SIZE;
-                SoftReference [] newarray = new SoftReference[xml10DTDLoaderCurrentSize];
-                System.arraycopy(xml10DTDLoaders, 0, newarray, 0, xml10DTDLoaders.length);
-                xml10DTDLoaders = newarray;
-            }
-            SoftReference ref = xml10DTDLoaders[freeXML10DTDLoaderIndex];
-            if (ref != null) {
-                XMLDTDLoaderHolder holder = (XMLDTDLoaderHolder) ref.get();
-                if (holder != null) {
-                    holder.loader = loader;
-                    return;
-                }
-            }
-            xml10DTDLoaders[freeXML10DTDLoaderIndex] = new SoftReference(new XMLDTDLoaderHolder(loader));
-        }
-    }
-
     // NON-DOM:  increment document/doctype counter
     protected synchronized int assignDocumentNumber() {
         return ++docAndDoctypeCounter;
@@ -565,16 +480,5 @@ public class CoreDOMImplementationImpl
             this.handler = handler;
         }
         RevalidationHandler handler;
-    }
-
-    /**
-     * A holder for XMLDTDLoaders. This allows us to reuse SoftReferences
-     * which haven't yet been cleared by the garbage collector.
-     */
-    static final class XMLDTDLoaderHolder {
-        XMLDTDLoaderHolder(XMLDTDLoader loader) {
-            this.loader = loader;
-        }
-        XMLDTDLoader loader;
     }
 }

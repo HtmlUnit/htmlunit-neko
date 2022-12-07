@@ -33,7 +33,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.XMLNSDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLVersionDetector;
-import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
@@ -146,10 +145,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     protected static final String NAMESPACE_BINDER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
 
-    /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
-
     // debugging
 
     /** Set to true and recompile to print exception stack trace. */
@@ -201,9 +196,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     // XML 1.0 components
     //
 
-    /** The XML 1.0 Datatype validator factory. */
-    protected final DTDDVFactory fDatatypeValidatorFactory;
-
     /** The XML 1.0 Document scanner that does namespace binding. */
     protected final XMLNSDocumentScannerImpl fNamespaceScanner;
 
@@ -216,9 +208,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
     //
     // XML 1.1 components
     //
-
-    /** The XML 1.1 datatype factory. **/
-    protected DTDDVFactory fXML11DatatypeFactory = null;
 
     /** The XML 1.1 document scanner that does namespace binding. **/
     protected XML11NSDocumentScannerImpl fXML11NSDocScanner = null;
@@ -244,9 +233,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
 
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;
-
-    /** Current Datatype validator factory. */
-    protected DTDDVFactory fCurrentDVFactory;
 
     /** Current DTD scanner. */
     protected XMLDTDScanner fCurrentDTDScanner;
@@ -355,7 +341,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
                 DOCUMENT_SCANNER,
                 DTD_SCANNER,
                 DTD_VALIDATOR,
-                DATATYPE_VALIDATOR_FACTORY,
                 XML_STRING,
                 XMLGRAMMAR_POOL, };
         addRecognizedProperties(recognizedProperties);
@@ -387,9 +372,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
         fDTDScanner = new XMLDTDScannerImpl();
         fProperties.put(DTD_SCANNER, fDTDScanner);
         addComponent((XMLComponent) fDTDScanner);
-
-        fDatatypeValidatorFactory = DTDDVFactory.getInstance();
-        fProperties.put(DATATYPE_VALIDATOR_FACTORY, fDatatypeValidatorFactory);
 
         fVersionDetector = new XMLVersionDetector();
 
@@ -812,11 +794,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
      *  Note: this method also resets the new XML11 components.
      */
     protected void configureXML11Pipeline() {
-        if (fCurrentDVFactory != fXML11DatatypeFactory) {
-            fCurrentDVFactory = fXML11DatatypeFactory;
-            setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
-        }
-
         // setup DTD pipeline
         if (fCurrentDTDScanner != fXML11DTDScanner) {
             fCurrentDTDScanner = fXML11DTDScanner;
@@ -832,7 +809,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
                 setProperty(DOCUMENT_SCANNER, fXML11NSDocScanner);
             }
 
-            fXML11NSDocScanner.setDTDValidator(null);
             fXML11NSDocScanner.setDocumentHandler(fDocumentHandler);
             if (fDocumentHandler != null) {
                 fDocumentHandler.setDocumentSource(fXML11NSDocScanner);
@@ -862,12 +838,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
 
     /** Configures the pipeline. */
     protected void configurePipeline() {
-        if (fCurrentDVFactory != fDatatypeValidatorFactory) {
-            fCurrentDVFactory = fDatatypeValidatorFactory;
-            // use XML 1.0 datatype library
-            setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
-        }
-
         // setup DTD pipeline
         if (fCurrentDTDScanner != fDTDScanner) {
             fCurrentDTDScanner = fDTDScanner;
@@ -882,7 +852,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
                 fCurrentScanner = fNamespaceScanner;
                 setProperty(DOCUMENT_SCANNER, fNamespaceScanner);
             }
-            fNamespaceScanner.setDTDValidator(null);
             fNamespaceScanner.setDocumentHandler(fDocumentHandler);
             if (fDocumentHandler != null) {
                 fDocumentHandler.setDocumentSource(fNamespaceScanner);
@@ -1181,9 +1150,6 @@ public class XML11NonValidatingConfiguration extends ParserConfigurationSettings
 
     private void initXML11Components() {
         if (!f11Initialized) {
-
-            // create datatype factory
-            fXML11DatatypeFactory = DTDDVFactory.getInstance(XML11_DATATYPE_VALIDATOR_FACTORY);
 
             // setup XML 1.1 DTD pipeline
             fXML11DTDScanner = new XML11DTDScannerImpl();

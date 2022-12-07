@@ -19,8 +19,6 @@ package net.sourceforge.htmlunit.xerces.parsers;
 
 import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLNSDocumentScannerImpl;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLNSDTDValidator;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
@@ -77,9 +75,6 @@ extends StandardParserConfiguration {
     /** Default Xerces implementation of scanner */
     protected final XMLDocumentScannerImpl fNonNSScanner;
 
-    /** DTD Validator that does not bind namespaces */
-    protected final XMLDTDValidator fNonNSDTDValidator;
-
     /** Default constructor. */
     public IntegratedParserConfiguration() {
         this(null, null, null);
@@ -129,19 +124,15 @@ extends StandardParserConfiguration {
 
         // create components
         fNonNSScanner = new XMLDocumentScannerImpl();
-        fNonNSDTDValidator = new XMLDTDValidator();
 
         // add components
         addComponent(fNonNSScanner);
-        addComponent(fNonNSDTDValidator);
-
     }
 
 
     @Override
     protected void configurePipeline() {
         // use XML 1.0 datatype library
-        setProperty(DATATYPE_VALIDATOR_FACTORY, fDatatypeValidatorFactory);
 
         // setup DTD pipeline
         configureDTDPipeline();
@@ -151,46 +142,20 @@ extends StandardParserConfiguration {
             fProperties.put(NAMESPACE_BINDER, fNamespaceBinder);
             fScanner = fNamespaceScanner;
             fProperties.put(DOCUMENT_SCANNER, fNamespaceScanner);
-            if (fDTDValidator != null) {
-                fProperties.put(DTD_VALIDATOR, fDTDValidator);
-                fNamespaceScanner.setDTDValidator(fDTDValidator);
-                fNamespaceScanner.setDocumentHandler(fDTDValidator);
-                fDTDValidator.setDocumentSource(fNamespaceScanner);
-                fDTDValidator.setDocumentHandler(fDocumentHandler);
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.setDocumentSource(fDTDValidator);
-                }
-                fLastComponent = fDTDValidator;
+            fNamespaceScanner.setDocumentHandler(fDocumentHandler);
+            if (fDocumentHandler != null) {
+                fDocumentHandler.setDocumentSource(fNamespaceScanner);
             }
-            else {
-                fNamespaceScanner.setDocumentHandler(fDocumentHandler);
-                fNamespaceScanner.setDTDValidator(null);
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.setDocumentSource(fNamespaceScanner);
-                }
-                fLastComponent = fNamespaceScanner;
-            }
+            fLastComponent = fNamespaceScanner;
         }
         else {
             fScanner = fNonNSScanner;
             fProperties.put(DOCUMENT_SCANNER, fNonNSScanner);
-            if (fNonNSDTDValidator != null) {
-                fProperties.put(DTD_VALIDATOR, fNonNSDTDValidator);
-                fNonNSScanner.setDocumentHandler(fNonNSDTDValidator);
-                fNonNSDTDValidator.setDocumentSource(fNonNSScanner);
-                fNonNSDTDValidator.setDocumentHandler(fDocumentHandler);
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.setDocumentSource(fNonNSDTDValidator);
-                }
-                fLastComponent = fNonNSDTDValidator;
+            fScanner.setDocumentHandler(fDocumentHandler);
+            if (fDocumentHandler != null) {
+                fDocumentHandler.setDocumentSource(fScanner);
             }
-            else {
-                fScanner.setDocumentHandler(fDocumentHandler);
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.setDocumentSource(fScanner);
-                }
-                fLastComponent = fScanner;
-            }
+            fLastComponent = fScanner;
         }
     }
 
@@ -199,11 +164,5 @@ extends StandardParserConfiguration {
         fNamespaceScanner = new XMLNSDocumentScannerImpl();
         return fNamespaceScanner;
     } // createDocumentScanner():XMLDocumentScanner
-
-
-    @Override
-    protected XMLDTDValidator createDTDValidator() {
-        return new XMLNSDTDValidator();
-    }
 }
 

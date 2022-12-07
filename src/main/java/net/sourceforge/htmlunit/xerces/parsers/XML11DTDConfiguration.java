@@ -33,13 +33,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.XMLNSDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLVersionDetector;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XML11DTDProcessor;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XML11DTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XML11NSDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDProcessor;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLNSDTDValidator;
-import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
@@ -169,21 +162,9 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     protected static final String XMLGRAMMAR_POOL =
         Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
 
-    /** Property identifier: DTD loader. */
-    protected static final String DTD_PROCESSOR =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_PROCESSOR_PROPERTY;
-
-    /** Property identifier: DTD validator. */
-    protected static final String DTD_VALIDATOR =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
-
     /** Property identifier: namespace binder. */
     protected static final String NAMESPACE_BINDER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
-
-    /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
     /** Property identifier: JAXP schema language / DOM schema-type. */
     protected static final String JAXP_SCHEMA_LANGUAGE =
@@ -245,33 +226,18 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     // XML 1.0 components
     //
 
-    /** The XML 1.0 Datatype validator factory. */
-    protected final DTDDVFactory fDatatypeValidatorFactory;
-
     /** The XML 1.0 Document scanner that does namespace binding. */
     protected final XMLNSDocumentScannerImpl fNamespaceScanner;
 
     /** The XML 1.0 Non-namespace implementation of scanner */
     protected XMLDocumentScannerImpl fNonNSScanner;
 
-    /** The XML 1.0 DTD Validator: binds namespaces */
-    protected final XMLDTDValidator fDTDValidator;
-
-    /** The XML 1.0 DTD Validator that does not bind namespaces */
-    protected XMLDTDValidator fNonNSDTDValidator;
-
     /** The XML 1.0 DTD scanner. */
     protected final XMLDTDScanner fDTDScanner;
-
-    /** The XML 1.0 DTD Processor . */
-    protected final XMLDTDProcessor fDTDProcessor;
 
     //
     // XML 1.1 components
     //
-
-    /** The XML 1.1 datatype factory. **/
-    protected DTDDVFactory fXML11DatatypeFactory = null;
 
     /** The XML 1.1 document scanner that does namespace binding. **/
     protected XML11NSDocumentScannerImpl fXML11NSDocScanner = null;
@@ -279,17 +245,8 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     /** The XML 1.1 document scanner that does not do namespace binding. **/
     protected XML11DocumentScannerImpl fXML11DocScanner = null;
 
-    /** The XML 1.1 DTD validator that does namespace binding. **/
-    protected XML11NSDTDValidator fXML11NSDTDValidator = null;
-
-    /** The XML 1.1 DTD validator that does not do namespace binding. **/
-    protected XML11DTDValidator fXML11DTDValidator = null;
-
     /** The XML 1.1 DTD scanner. **/
     protected XML11DTDScannerImpl fXML11DTDScanner = null;
-
-    /** The XML 1.1 DTD processor. **/
-    protected XML11DTDProcessor fXML11DTDProcessor = null;
 
     //
     // Common components
@@ -306,9 +263,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
     /** Current scanner */
     protected XMLDocumentScanner fCurrentScanner;
-
-    /** Current Datatype validator factory. */
-    protected DTDDVFactory fCurrentDVFactory;
 
     /** Current DTD scanner. */
     protected XMLDTDScanner fCurrentDTDScanner;
@@ -414,9 +368,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
                 ENTITY_MANAGER,
                 DOCUMENT_SCANNER,
                 DTD_SCANNER,
-                DTD_PROCESSOR,
-                DTD_VALIDATOR,
-                DATATYPE_VALIDATOR_FACTORY,
                 XML_STRING,
                 XMLGRAMMAR_POOL,
                 JAXP_SCHEMA_SOURCE,
@@ -450,17 +401,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
         fDTDScanner = new XMLDTDScannerImpl();
         fProperties.put(DTD_SCANNER, fDTDScanner);
         addComponent((XMLComponent) fDTDScanner);
-
-        fDTDProcessor = new XMLDTDProcessor();
-        fProperties.put(DTD_PROCESSOR, fDTDProcessor);
-        addComponent(fDTDProcessor);
-
-        fDTDValidator = new XMLNSDTDValidator();
-        fProperties.put(DTD_VALIDATOR, fDTDValidator);
-        addComponent(fDTDValidator);
-
-        fDatatypeValidatorFactory = DTDDVFactory.getInstance();
-        fProperties.put(DATATYPE_VALIDATOR_FACTORY, fDatatypeValidatorFactory);
 
         fVersionDetector = new XMLVersionDetector();
 
@@ -884,28 +824,9 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
      *  Note: this method also resets the new XML11 components.
      */
     protected void configureXML11Pipeline() {
-        if (fCurrentDVFactory != fXML11DatatypeFactory) {
-            fCurrentDVFactory = fXML11DatatypeFactory;
-            setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
-        }
         if (fCurrentDTDScanner != fXML11DTDScanner) {
             fCurrentDTDScanner = fXML11DTDScanner;
             setProperty(DTD_SCANNER, fCurrentDTDScanner);
-            setProperty(DTD_PROCESSOR, fXML11DTDProcessor);
-        }
-
-        fXML11DTDScanner.setDTDHandler(fXML11DTDProcessor);
-        fXML11DTDProcessor.setDTDSource(fXML11DTDScanner);
-        fXML11DTDProcessor.setDTDHandler(fDTDHandler);
-        if (fDTDHandler != null) {
-            fDTDHandler.setDTDSource(fXML11DTDProcessor);
-        }
-
-        fXML11DTDScanner.setDTDContentModelHandler(fXML11DTDProcessor);
-        fXML11DTDProcessor.setDTDContentModelSource(fXML11DTDScanner);
-        fXML11DTDProcessor.setDTDContentModelHandler(fDTDContentModelHandler);
-        if (fDTDContentModelHandler != null) {
-            fDTDContentModelHandler.setDTDContentModelSource(fXML11DTDProcessor);
         }
 
         // setup XML 1.1 document pipeline
@@ -913,71 +834,28 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
             if (fCurrentScanner != fXML11NSDocScanner) {
                 fCurrentScanner = fXML11NSDocScanner;
                 setProperty(DOCUMENT_SCANNER, fXML11NSDocScanner);
-                setProperty(DTD_VALIDATOR, fXML11NSDTDValidator);
             }
-
-            fXML11NSDocScanner.setDTDValidator(fXML11NSDTDValidator);
-            fXML11NSDocScanner.setDocumentHandler(fXML11NSDTDValidator);
-            fXML11NSDTDValidator.setDocumentSource(fXML11NSDocScanner);
-            fXML11NSDTDValidator.setDocumentHandler(fDocumentHandler);
-
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fXML11NSDTDValidator);
-            }
-            fLastComponent = fXML11NSDTDValidator;
-
         } else {
             // create components
               if (fXML11DocScanner == null) {
                     // non namespace document pipeline
                     fXML11DocScanner = new XML11DocumentScannerImpl();
                     addXML11Component(fXML11DocScanner);
-                    fXML11DTDValidator = new XML11DTDValidator();
-                    addXML11Component(fXML11DTDValidator);
               }
             if (fCurrentScanner != fXML11DocScanner) {
                 fCurrentScanner = fXML11DocScanner;
                 setProperty(DOCUMENT_SCANNER, fXML11DocScanner);
-                setProperty(DTD_VALIDATOR, fXML11DTDValidator);
             }
-            fXML11DocScanner.setDocumentHandler(fXML11DTDValidator);
-            fXML11DTDValidator.setDocumentSource(fXML11DocScanner);
-            fXML11DTDValidator.setDocumentHandler(fDocumentHandler);
-
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fXML11DTDValidator);
-            }
-            fLastComponent = fXML11DTDValidator;
         }
 
     } // configureXML11Pipeline()
 
     /** Configures the pipeline. */
     protected void configurePipeline() {
-        if (fCurrentDVFactory != fDatatypeValidatorFactory) {
-            fCurrentDVFactory = fDatatypeValidatorFactory;
-            // use XML 1.0 datatype library
-            setProperty(DATATYPE_VALIDATOR_FACTORY, fCurrentDVFactory);
-        }
-
         // setup DTD pipeline
         if (fCurrentDTDScanner != fDTDScanner) {
             fCurrentDTDScanner = fDTDScanner;
             setProperty(DTD_SCANNER, fCurrentDTDScanner);
-            setProperty(DTD_PROCESSOR, fDTDProcessor);
-        }
-        fDTDScanner.setDTDHandler(fDTDProcessor);
-        fDTDProcessor.setDTDSource(fDTDScanner);
-        fDTDProcessor.setDTDHandler(fDTDHandler);
-        if (fDTDHandler != null) {
-            fDTDHandler.setDTDSource(fDTDProcessor);
-        }
-
-        fDTDScanner.setDTDContentModelHandler(fDTDProcessor);
-        fDTDProcessor.setDTDContentModelSource(fDTDScanner);
-        fDTDProcessor.setDTDContentModelHandler(fDTDContentModelHandler);
-        if (fDTDContentModelHandler != null) {
-            fDTDContentModelHandler.setDTDContentModelSource(fDTDProcessor);
         }
 
         // setup document pipeline
@@ -985,38 +863,18 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
             if (fCurrentScanner != fNamespaceScanner) {
                 fCurrentScanner = fNamespaceScanner;
                 setProperty(DOCUMENT_SCANNER, fNamespaceScanner);
-                setProperty(DTD_VALIDATOR, fDTDValidator);
             }
-            fNamespaceScanner.setDTDValidator(fDTDValidator);
-            fNamespaceScanner.setDocumentHandler(fDTDValidator);
-            fDTDValidator.setDocumentSource(fNamespaceScanner);
-            fDTDValidator.setDocumentHandler(fDocumentHandler);
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fDTDValidator);
-            }
-            fLastComponent = fDTDValidator;
         } else {
             // create components
             if (fNonNSScanner == null) {
                 fNonNSScanner = new XMLDocumentScannerImpl();
-                fNonNSDTDValidator = new XMLDTDValidator();
                 // add components
                 addComponent(fNonNSScanner);
-                addComponent(fNonNSDTDValidator);
             }
             if (fCurrentScanner != fNonNSScanner) {
                 fCurrentScanner = fNonNSScanner;
                 setProperty(DOCUMENT_SCANNER, fNonNSScanner);
-                setProperty(DTD_VALIDATOR, fNonNSDTDValidator);
             }
-
-            fNonNSScanner.setDocumentHandler(fNonNSDTDValidator);
-            fNonNSDTDValidator.setDocumentSource(fNonNSScanner);
-            fNonNSDTDValidator.setDocumentHandler(fDocumentHandler);
-            if (fDocumentHandler != null) {
-                fDocumentHandler.setDocumentSource(fNonNSDTDValidator);
-            }
-            fLastComponent = fNonNSDTDValidator;
         }
 
     } // configurePipeline()
@@ -1283,20 +1141,13 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     private void initXML11Components() {
         if (!f11Initialized) {
 
-            // create datatype factory
-            fXML11DatatypeFactory = DTDDVFactory.getInstance(XML11_DATATYPE_VALIDATOR_FACTORY);
-
             // setup XML 1.1 DTD pipeline
             fXML11DTDScanner = new XML11DTDScannerImpl();
             addXML11Component(fXML11DTDScanner);
-            fXML11DTDProcessor = new XML11DTDProcessor();
-            addXML11Component(fXML11DTDProcessor);
 
             // setup XML 1.1. document pipeline - namespace aware
             fXML11NSDocScanner = new XML11NSDocumentScannerImpl();
             addXML11Component(fXML11NSDocScanner);
-            fXML11NSDTDValidator = new XML11NSDTDValidator();
-            addXML11Component(fXML11NSDTDValidator);
 
             f11Initialized = true;
         }

@@ -26,7 +26,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLDocumentScannerImpl;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.XMLNSDocumentScannerImpl;
-import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
@@ -126,10 +125,6 @@ public class NonValidatingConfiguration
     protected static final String NAMESPACE_BINDER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_BINDER_PROPERTY;
 
-    /** Property identifier: datatype validator factory. */
-    protected static final String DATATYPE_VALIDATOR_FACTORY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
-
     /** Property identifier: XML Schema validator. */
     protected static final String SCHEMA_VALIDATOR =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_VALIDATOR_PROPERTY;
@@ -144,9 +139,6 @@ public class NonValidatingConfiguration
 
     /** Grammar pool. */
     protected final XMLGrammarPool fGrammarPool;
-
-    /** Datatype validator factory. */
-    protected final DTDDVFactory fDatatypeValidatorFactory;
 
     // components (configurable)
 
@@ -275,7 +267,6 @@ public class NonValidatingConfiguration
             DTD_VALIDATOR,
             NAMESPACE_BINDER,
             XMLGRAMMAR_POOL,
-            DATATYPE_VALIDATOR_FACTORY,
             LOCALE
         };
         addRecognizedProperties(recognizedProperties);
@@ -303,12 +294,6 @@ public class NonValidatingConfiguration
             if (fDTDScanner instanceof XMLComponent) {
                 addComponent((XMLComponent)fDTDScanner);
             }
-        }
-
-        fDatatypeValidatorFactory = createDatatypeValidatorFactory();
-        if (fDatatypeValidatorFactory != null) {
-            fProperties.put(DATATYPE_VALIDATOR_FACTORY,
-                        fDatatypeValidatorFactory);
         }
 
         // add message formatters
@@ -542,7 +527,6 @@ public class NonValidatingConfiguration
                 addComponent(fNamespaceScanner);
             }
             fProperties.put(DOCUMENT_SCANNER, fNamespaceScanner);
-            fNamespaceScanner.setDTDValidator(null);
             fScanner = fNamespaceScanner;
         }
         else {
@@ -710,10 +694,5 @@ public class NonValidatingConfiguration
     // Create a DTD scanner.
     protected XMLDTDScanner createDTDScanner() {
         return new XMLDTDScannerImpl();
-    }
-
-    // Create a datatype validator factory.
-    protected DTDDVFactory createDatatypeValidatorFactory() {
-        return DTDDVFactory.getInstance();
     }
 }

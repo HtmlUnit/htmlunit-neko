@@ -19,17 +19,14 @@ package net.sourceforge.htmlunit.xerces.impl;
 
 import java.io.IOException;
 
-import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidatorFilter;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
-import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * The scanner acts as the source for the document
@@ -71,9 +68,6 @@ extends XMLDocumentScannerImpl {
       *   scanner if DTD grammar is missing.*/
     protected boolean fPerformValidation;
 
-    /** DTD validator */
-    private XMLDTDValidatorFilter fDTDValidator;
-
     /**
      * Saw spaces after element name or between attributes.
      * <p>
@@ -82,17 +76,6 @@ extends XMLDocumentScannerImpl {
      * where a DTD external subset may be read after scanning the element name.
      */
     private boolean fSawSpace;
-
-
-    /**
-     * The scanner is responsible for removing DTD validator
-     * from the pipeline if it is not needed.
-     *
-     * @param dtdValidator The DTDValidator
-     */
-    public void setDTDValidator(XMLDTDValidatorFilter dtdValidator) {
-        fDTDValidator = dtdValidator;
-    }
 
     /**
      * {@inheritDoc}
@@ -768,21 +751,7 @@ extends XMLDocumentScannerImpl {
          * is performed by the scanner in the enclosing class.
          */
         private void reconfigurePipeline() {
-            if (fDTDValidator == null) {
-                fBindNamespaces = true;
-            }
-            else if (!fDTDValidator.hasGrammar()) {
-                fBindNamespaces = true;
-                fPerformValidation = fDTDValidator.validate();
-                // re-configure pipeline
-                XMLDocumentSource source = fDTDValidator.getDocumentSource();
-                XMLDocumentHandler handler = fDTDValidator.getDocumentHandler();
-                source.setDocumentHandler(handler);
-                if (handler != null)
-                    handler.setDocumentSource(source);
-                fDTDValidator.setDocumentSource(null);
-                fDTDValidator.setDocumentHandler(null);
-            }
+            fBindNamespaces = true;
         }
     }
 }

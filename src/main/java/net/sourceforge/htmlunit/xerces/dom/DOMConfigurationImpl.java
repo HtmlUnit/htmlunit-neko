@@ -32,7 +32,6 @@ import org.w3c.dom.ls.LSResourceResolver;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
-import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
@@ -63,12 +62,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 public class DOMConfigurationImpl extends ParserConfigurationSettings
     implements XMLParserConfiguration, DOMConfiguration {
 
-    //
-    // Constants
-    //
-
-    protected static final String XML11_DATATYPE_VALIDATOR_FACTORY =
-        "net.sourceforge.htmlunit.xerces.impl.dv.dtd.XML11DTDDVFactoryImpl";
 
     // feature identifiers
 
@@ -172,10 +165,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected final static String DTD_VALIDATOR_PROPERTY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_VALIDATOR_PROPERTY;
 
-    /** Property identifier: datatype validator factory. */
-    protected static final String DTD_VALIDATOR_FACTORY_PROPERTY =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
-
     /** Property identifier: schema location. */
     protected static final String SCHEMA_LOCATION =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_LOCATION;
@@ -226,17 +215,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     protected final DOMErrorHandlerWrapper fErrorHandlerWrapper =
                 new DOMErrorHandlerWrapper();
-
-    /** Current Datatype validator factory. */
-    protected DTDDVFactory fCurrentDVFactory;
-
-    /** The XML 1.0 Datatype validator factory. */
-    protected final DTDDVFactory fDatatypeValidatorFactory;
-
-    /** The XML 1.1 Datatype validator factory. **/
-    protected final DTDDVFactory fXML11DatatypeFactory;
-
-    // private data
 
     private String fSchemaLocation = null;
     private DOMStringList fRecognizedParameters;
@@ -333,7 +311,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             SCHEMA_LOCATION,
             SCHEMA_NONS_LOCATION,
             DTD_VALIDATOR_PROPERTY,
-            DTD_VALIDATOR_FACTORY_PROPERTY,
             SCHEMA_DV_FACTORY
         };
         addRecognizedProperties(recognizedProperties);
@@ -358,11 +335,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         fErrorReporter = new XMLErrorReporter();
         setProperty(ERROR_REPORTER, fErrorReporter);
         addComponent(fErrorReporter);
-
-        fDatatypeValidatorFactory = DTDDVFactory.getInstance();
-        fXML11DatatypeFactory = DTDDVFactory.getInstance(XML11_DATATYPE_VALIDATOR_FACTORY);
-        fCurrentDVFactory = fDatatypeValidatorFactory;
-        setProperty(DTD_VALIDATOR_FACTORY_PROPERTY, fCurrentDVFactory);
 
         XMLEntityManager manager =  new XMLEntityManager();
         setProperty(ENTITY_MANAGER, manager);
@@ -1124,19 +1096,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         addRecognizedProperties(recognizedProperties);
 
     } // addComponent(XMLComponent)
-
-    protected final void setDTDValidatorFactory(String version) {
-        if ("1.1".equals(version)) {
-            if (fCurrentDVFactory != fXML11DatatypeFactory) {
-                fCurrentDVFactory = fXML11DatatypeFactory;
-                setProperty(DTD_VALIDATOR_FACTORY_PROPERTY, fCurrentDVFactory);
-            }
-        }
-        else if (fCurrentDVFactory != fDatatypeValidatorFactory) {
-            fCurrentDVFactory = fDatatypeValidatorFactory;
-            setProperty(DTD_VALIDATOR_FACTORY_PROPERTY, fCurrentDVFactory);
-        }
-    }
 
     private static DOMException newFeatureNotSupportedError(String name) {
         String msg =
