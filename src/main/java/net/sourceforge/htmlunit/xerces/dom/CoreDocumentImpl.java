@@ -119,7 +119,6 @@ extends ParentNode implements Document  {
     protected Hashtable<String, Element> identifiers;
 
     // DOM Level 3: normalizeDocument
-    transient DOMNormalizer domNormalizer = null;
     transient DOMConfigurationImpl fConfiguration = null;
 
     /** Table for quick check of child insertion. */
@@ -1044,37 +1043,12 @@ extends ParentNode implements Document  {
         return nel;
     }
 
-
     /**
      *  DOM Level 3 WD - Experimental
      *  Normalize document.
      */
     @Override
-    public void normalizeDocument(){
-        // No need to normalize if already normalized.
-        if (isNormalized() && !isNormalizeDocRequired()) {
-            return;
-        }
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-
-        if (domNormalizer == null) {
-            domNormalizer = new DOMNormalizer();
-        }
-
-        if (fConfiguration == null) {
-            fConfiguration =  new DOMConfigurationImpl();
-        }
-        else {
-            fConfiguration.reset();
-        }
-
-        domNormalizer.normalizeDocument(this, fConfiguration);
-        isNormalized(true);
-        //set the XMLversion changed value to false -- once we have finished
-        //doing normalization
-        xmlVersionChanged = false ;
+    public void normalizeDocument() {
     }
 
 
@@ -1291,30 +1265,6 @@ extends ParentNode implements Document  {
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new EntityImpl(this, name);
-
-    }
-
-    /**
-     * NON-DOM
-     * Factory method; creates a Notation having this Document
-     * as its OwnerDoc. (REC-DOM-Level-1-19981001 left the process of building
-     * DTD information unspecified.)
-     *
-     * @param name The name of the Notation we wish to describe
-     * @return the new notration
-     *
-     * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where
-     * notations are not permitted. (HTML not yet
-     * implemented.)
-     */
-    public Notation createNotation(String name)
-    throws DOMException {
-
-        if (errorChecking && !isXMLName(name,xml11Version)) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
-            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
-        }
-        return new NotationImpl(this, name);
 
     }
 
@@ -1612,14 +1562,6 @@ extends ParentNode implements Document  {
             }
 
             case NOTATION_NODE: {
-                Notation srcnotation = (Notation)source;
-                NotationImpl newnotation =
-                (NotationImpl)createNotation(source.getNodeName());
-                newnotation.setPublicId(srcnotation.getPublicId());
-                newnotation.setSystemId(srcnotation.getSystemId());
-                // Kids carry additional value
-                newnode = newnotation;
-                // No name, no value
                 break;
             }
             case DOCUMENT_NODE : // Can't import document nodes

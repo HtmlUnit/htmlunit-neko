@@ -45,7 +45,6 @@ import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityReferenceImpl;
 import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
-import net.sourceforge.htmlunit.xerces.dom.NotationImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
@@ -1513,22 +1512,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 fInternalSubset.append (literalSystemId);
             }
             fInternalSubset.append ("'>\n");
-        }
-
-        // NOTE: We only know how to create these nodes for the Xerces
-        //       DOM implementation because DOM Level 2 does not specify
-        //       that functionality. -Ac
-
-        // create full node
-        if (fDocumentImpl !=null && fDocumentType != null) {
-            NamedNodeMap notations = fDocumentType.getNotations ();
-            if (notations.getNamedItem (name) == null) {
-                NotationImpl notation = (NotationImpl)fDocumentImpl.createNotation (name);
-                notation.setPublicId (publicId);
-                notation.setSystemId (literalSystemId);
-                notation.setBaseURI (identifier.getBaseSystemId ());
-                notations.setNamedItem (notation);
-            }
         }
     }
 

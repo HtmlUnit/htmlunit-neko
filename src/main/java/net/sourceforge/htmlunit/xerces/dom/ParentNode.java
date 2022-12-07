@@ -856,29 +856,6 @@ public abstract class ParentNode
     /**
      * {@inheritDoc}
      *
-     * Override default behavior to call normalize() on this Node's
-     * children. It is up to implementors or Node to override normalize()
-     * to take action.
-     */
-    @Override
-    public void normalize() {
-        // No need to normalize if already normalized.
-        if (isNormalized()) {
-            return;
-        }
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-        ChildNode kid;
-        for (kid = firstChild; kid != null; kid = kid.nextSibling) {
-            kid.normalize();
-        }
-        isNormalized(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * DOM Level 3 WD- Experimental.
      * Override inherited behavior from NodeImpl to support deep equal.
      */

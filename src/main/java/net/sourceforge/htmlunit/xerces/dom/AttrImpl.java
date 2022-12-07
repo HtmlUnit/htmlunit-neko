@@ -515,49 +515,6 @@ public class AttrImpl
         return (Element) (isOwned() ? ownerNode : null);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void normalize() {
-
-        // No need to normalize if already normalized or
-        // if value is kept as a String.
-        if (isNormalized() || hasStringValue())
-            return;
-
-        Node kid, next;
-        ChildNode firstChild = (ChildNode)value;
-        for (kid = firstChild; kid != null; kid = next) {
-            next = kid.getNextSibling();
-
-            // If kid is a text node, we need to check for one of two
-            // conditions:
-            //   1) There is an adjacent text node
-            //   2) There is no adjacent text node, but kid is
-            //      an empty text node.
-            if ( kid.getNodeType() == Node.TEXT_NODE )
-            {
-                // If an adjacent text node, merge it with kid
-                if ( next!=null && next.getNodeType() == Node.TEXT_NODE )
-                {
-                    ((Text)kid).appendData(next.getNodeValue());
-                    removeChild( next );
-                    next = kid; // Don't advance; there might be another.
-                }
-                else
-                {
-                    // If kid is empty, remove it
-                    if ( kid.getNodeValue() == null || kid.getNodeValue().length() == 0 ) {
-                        removeChild( kid );
-                    }
-                }
-            }
-        }
-
-        isNormalized(true);
-    }
-
     // NON-DOM, for use by parser
     public void setSpecified(boolean arg) {
 
