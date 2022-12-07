@@ -38,12 +38,9 @@ import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
-import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
@@ -135,14 +132,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String XML_STRING =
         Constants.SAX_PROPERTY_PREFIX + Constants.XML_STRING_PROPERTY;
 
-    /** Property identifier: symbol table. */
-    protected static final String SYMBOL_TABLE =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY;
-
-    /** Property id: Grammar pool. */
-    protected static final String GRAMMAR_POOL =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.XMLGRAMMAR_POOL_PROPERTY;
-
     /** Property identifier: error handler. */
     protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
@@ -158,14 +147,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Property identifier: JAXP schema source/ DOM schema-location. */
     protected static final String JAXP_SCHEMA_SOURCE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE;
-
-    /** Property identifier: schema location. */
-    protected static final String SCHEMA_LOCATION =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_LOCATION;
-
-    /** Property identifier: no namespace schema location. */
-    protected static final String SCHEMA_NONS_LOCATION =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_NONS_LOCATION;
 
     /** Property identifier: Schema DV Factory */
     protected static final String SCHEMA_DV_FACTORY =
@@ -195,9 +176,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     // components
 
-    /** Symbol table. */
-    protected final SymbolTable fSymbolTable;
-
     /** Components. */
     protected final ArrayList<XMLComponent> fComponents;
 
@@ -217,30 +195,12 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     // Constructors
     //
 
-    /** Default Constructor. */
-    protected DOMConfigurationImpl() {
-        this(null, null);
-    } // <init>()
-
-    /**
-     * Constructs a parser configuration using the specified symbol table.
-     *
-     * @param symbolTable The symbol table to use.
-     */
-    protected DOMConfigurationImpl(SymbolTable symbolTable) {
-        this(symbolTable, null);
-    } // <init>(SymbolTable)
-
     /**
      * Constructs a parser configuration using the specified symbol table
      * and parent settings.
-     *
-     * @param symbolTable    The symbol table to use.
-     * @param parentSettings The parent settings.
      */
-    protected DOMConfigurationImpl(SymbolTable symbolTable,
-                                    XMLComponentManager parentSettings) {
-        super(parentSettings);
+    protected DOMConfigurationImpl() {
+        super();
 
         // create storage for recognized features and properties
         fRecognizedFeatures = new ArrayList();
@@ -294,16 +254,12 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         // add default recognized properties
         final String[] recognizedProperties = {
             XML_STRING,
-            SYMBOL_TABLE,
             ERROR_HANDLER,
             ENTITY_RESOLVER,
             ERROR_REPORTER,
             ENTITY_MANAGER,
-            GRAMMAR_POOL,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
-            SCHEMA_LOCATION,
-            SCHEMA_NONS_LOCATION,
             SCHEMA_DV_FACTORY
         };
         addRecognizedProperties(recognizedProperties);
@@ -317,14 +273,8 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         features |= WELLFORMED;
         features |= NSDECL;
 
-        if (symbolTable == null) {
-            symbolTable = new SymbolTable();
-        }
-        fSymbolTable = symbolTable;
-
         fComponents = new ArrayList<>();
 
-        setProperty(SYMBOL_TABLE, fSymbolTable);
         fErrorReporter = new XMLErrorReporter();
         setProperty(ERROR_REPORTER, fErrorReporter);
         addComponent(fErrorReporter);
@@ -739,23 +689,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newTypeMismatchError(name);
                 }
             }
-            else if (name.equalsIgnoreCase(SYMBOL_TABLE)) {
-                // Xerces Symbol Table
-                if (value instanceof SymbolTable){
-                    setProperty(SYMBOL_TABLE, value);
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
-            else if (name.equalsIgnoreCase (GRAMMAR_POOL)) {
-                if (value instanceof XMLGrammarPool || value == null) {
-                    setProperty(GRAMMAR_POOL, value);
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
             else {
                 // REVISIT: check if this is a boolean parameter -- type mismatch should be thrown.
                 //parameter is not recognized
@@ -833,12 +766,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
             return getEntityResolver();
-        }
-        else if (name.equalsIgnoreCase(SYMBOL_TABLE)) {
-            return getProperty(SYMBOL_TABLE);
-        }
-        else if (name.equalsIgnoreCase(GRAMMAR_POOL)) {
-            return getProperty(GRAMMAR_POOL);
         }
         else {
             throw newFeatureNotFoundError(name);
@@ -919,13 +846,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
             return (value instanceof XMLEntityResolver) ? true : false;
         }
-        else if (name.equalsIgnoreCase(SYMBOL_TABLE)) {
-            // Xerces Symbol Table
-            return (value instanceof SymbolTable) ? true : false;
-        }
-        else if (name.equalsIgnoreCase (GRAMMAR_POOL)) {
-            return (value instanceof XMLGrammarPool) ? true : false;
-        }
         else {
             //false if the parameter is not recognized or the requested value is not supported.
             return false ;
@@ -973,8 +893,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
             //Add recognized xerces features and properties
             parameters.add(ENTITY_RESOLVER);
-            parameters.add(GRAMMAR_POOL);
-            parameters.add(SYMBOL_TABLE);
 
             fRecognizedParameters = new DOMStringListImpl(parameters);
         }

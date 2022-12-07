@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
-import org.w3c.dom.Text;
 
 /**
  * DocumentFragment is a "lightweight" or "minimal" Document

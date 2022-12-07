@@ -55,17 +55,9 @@ public class ParserConfigurationSettings
     /** Features. */
     protected HashMap<String, Boolean> fFeatures;
 
-    /** Parent parser configuration settings. */
-    protected final XMLComponentManager fParentSettings;
-
-    /** Default Constructor. */
-    public ParserConfigurationSettings() {
-        this(null);
-    }
-
     // Constructs a parser configuration settings object with a
     // parent settings object.
-    public ParserConfigurationSettings(XMLComponentManager parent) {
+    public ParserConfigurationSettings() {
 
         // create storage for recognized features and properties
         fRecognizedFeatures = new ArrayList<>();
@@ -74,10 +66,6 @@ public class ParserConfigurationSettings
         // create table for features and properties
         fFeatures = new HashMap<>();
         fProperties = new HashMap<>();
-
-        // save parent
-        fParentSettings = parent;
-
     }
 
     /**
@@ -206,13 +194,8 @@ public class ParserConfigurationSettings
 
         // check feature
         if (!fRecognizedFeatures.contains(featureId)) {
-            if (fParentSettings != null) {
-                fParentSettings.getFeature(featureId);
-            }
-            else {
-                short type = XMLConfigurationException.NOT_RECOGNIZED;
-                throw new XMLConfigurationException(type, featureId);
-            }
+            short type = XMLConfigurationException.NOT_RECOGNIZED;
+            throw new XMLConfigurationException(type, featureId);
         }
 
     }
@@ -231,14 +214,8 @@ public class ParserConfigurationSettings
 
         // check property
         if (!fRecognizedProperties.contains(propertyId)) {
-            if (fParentSettings != null) {
-                fParentSettings.getProperty(propertyId);
-            }
-            else {
-                short type = XMLConfigurationException.NOT_RECOGNIZED;
-                throw new XMLConfigurationException(type, propertyId);
-            }
+            short type = XMLConfigurationException.NOT_RECOGNIZED;
+            throw new XMLConfigurationException(type, propertyId);
         }
-
     }
 }

@@ -17,51 +17,29 @@
 
 package net.sourceforge.htmlunit.xerces.parsers;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 import org.w3c.dom.DOMConfiguration;
-import org.w3c.dom.DOMError;
 import org.w3c.dom.DOMErrorHandler;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMStringList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.ls.LSException;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSParser;
-import org.w3c.dom.ls.LSParserFilter;
 import org.w3c.dom.ls.LSResourceResolver;
 
-import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.DOMStringListImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
-import net.sourceforge.htmlunit.xerces.util.DOMUtil;
 import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
-import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
-import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
-import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
-import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
-import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
@@ -74,7 +52,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Rahul Srivastava, Sun Microsystems Inc.
  */
 public class DOMParserImpl
-    extends AbstractDOMParser implements LSParser, DOMConfiguration {
+    extends AbstractDOMParser implements DOMConfiguration {
 
     // SAX & Xerces feature ids
 
@@ -131,16 +109,10 @@ public class DOMParserImpl
 
     protected boolean fBusy = false;
 
-    private boolean abortNow = false;
-
-    private Thread currentThread;
-
     protected final static boolean DEBUG = false;
 
     private String fSchemaLocation = null;
     private DOMStringList fRecognizedParameters;
-
-    private AbortHandler abortHandler = null;
 
     // Constructs a DOM Builder using the standard parser configuration.
     public DOMParserImpl (String configuration, String schemaType) {
@@ -229,34 +201,6 @@ public class DOMParserImpl
 
     } // <init>(XMLParserConfiguration)
 
-    // Constructs a DOM Builder using the specified symbol table.
-    public DOMParserImpl (SymbolTable symbolTable) {
-        this (
-        (XMLParserConfiguration) ObjectFactory.createObject (
-        "net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration",
-        "net.sourceforge.htmlunit.xerces.parsers.XIncludeAwareParserConfiguration"));
-        fConfiguration.setProperty (
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY,
-        symbolTable);
-    } // <init>(SymbolTable)
-
-
-    // Constructs a DOM Builder using the specified symbol table and
-    // grammar pool.
-    public DOMParserImpl (SymbolTable symbolTable, XMLGrammarPool grammarPool) {
-        this (
-        (XMLParserConfiguration) ObjectFactory.createObject (
-        "net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration",
-        "net.sourceforge.htmlunit.xerces.parsers.XIncludeAwareParserConfiguration"));
-        fConfiguration.setProperty (
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY,
-        symbolTable);
-        fConfiguration.setProperty (
-        Constants.XERCES_PROPERTY_PREFIX
-        + Constants.XMLGRAMMAR_POOL_PROPERTY,
-        grammarPool);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -276,52 +220,6 @@ public class DOMParserImpl
         fSchemaType = null;
 
     } // reset()
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public DOMConfiguration getDomConfig (){
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * When a filter is provided, the implementation will call out to the
-     * filter as it is constructing the DOM tree structure. The filter can
-     * choose to remove elements from the document being constructed, or to
-     * terminate the parsing early.
-     * <br> The filter is invoked after the operations requested by the
-     * <code>DOMConfiguration</code> parameters have been applied. For
-     * example, if "<a href='http://www.w3.org/TR/DOM-Level-3-Core/core.html#parameter-validate'>
-     * validate</a>" is set to <code>true</code>, the validation is done before invoking the
-     * filter.
-     */
-    @Override
-    public LSParserFilter getFilter () {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * When a filter is provided, the implementation will call out to the
-     * filter as it is constructing the DOM tree structure. The filter can
-     * choose to remove elements from the document being constructed, or to
-     * terminate the parsing early.
-     * <br> The filter is invoked after the operations requested by the
-     * <code>DOMConfiguration</code> parameters have been applied. For
-     * example, if "<a href='http://www.w3.org/TR/DOM-Level-3-Core/core.html#parameter-validate'>
-     * validate</a>" is set to <code>true</code>, the validation is done before invoking the
-     * filter.
-     */
-    @Override
-    public void setFilter (LSParserFilter filter) {
-        if (fSkippedElemStack == null) {
-            fSkippedElemStack = new Stack<>();
-        }
-    }
 
     /**
      * {@inheritDoc}
@@ -443,9 +341,9 @@ public class DOMParserImpl
 
             }
             else if (name.equalsIgnoreCase (Constants.DOM_RESOURCE_RESOLVER)) {
-                if (value instanceof LSResourceResolver || value == null) {
+                if (value == null) {
                     try {
-                        fConfiguration.setProperty (ENTITY_RESOLVER, new DOMEntityResolverWrapper ((LSResourceResolver) value));
+                        fConfiguration.setProperty (ENTITY_RESOLVER, new DOMEntityResolverWrapper (null));
                     }
                     catch (XMLConfigurationException e) {}
                 }
@@ -859,242 +757,6 @@ public class DOMParserImpl
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Parse an XML document from a location identified by an URI reference.
-     * If the URI contains a fragment identifier (see section 4.1 in ), the
-     * behavior is not defined by this specification.
-     *
-     */
-    @Override
-    public Document parseURI (String uri) throws LSException {
-
-        //If DOMParser insstance is already busy parsing another document when this
-        // method is called, then raise INVALID_STATE_ERR according to DOM L3 LS spec
-        if ( fBusy ) {
-            throw newInvalidStateError();
-        }
-
-        XMLInputSource source = new XMLInputSource (null, uri, null);
-        try {
-            currentThread = Thread.currentThread();
-            fBusy = true;
-            parse (source);
-            fBusy = false;
-            if (abortNow && currentThread.isInterrupted()) {
-                //reset interrupt state
-                abortNow = false;
-                Thread.interrupted();
-            }
-        } catch (Exception e){
-            fBusy = false;
-            if (abortNow && currentThread.isInterrupted()) {
-                Thread.interrupted();
-            }
-            if (abortNow) {
-                abortNow = false;
-                restoreHandlers();
-                return null;
-            }
-            // Consume this exception if the user
-            // issued an interrupt or an abort.
-            if (e != Abort.INSTANCE) {
-                if (!(e instanceof XMLParseException) && fErrorHandler != null) {
-                    DOMErrorImpl error = new DOMErrorImpl ();
-                    error.fException = e;
-                    error.fMessage = e.getMessage ();
-                    error.fSeverity = DOMError.SEVERITY_FATAL_ERROR;
-                    fErrorHandler.getErrorHandler ().handleError (error);
-                }
-                if (DEBUG) {
-                    e.printStackTrace ();
-                }
-                throw (LSException) DOMUtil.createLSException(LSException.PARSE_ERR, e).fillInStackTrace();
-            }
-        }
-        Document doc = getDocument();
-        dropDocumentReferences();
-        return doc;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Parse an XML document from a resource identified by an
-     * <code>LSInput</code>.
-     *
-     */
-    @Override
-    public Document parse (LSInput is) throws LSException {
-
-        // need to wrap the LSInput with an XMLInputSource
-        XMLInputSource xmlInputSource = dom2xmlInputSource (is);
-        if ( fBusy ) {
-            throw newInvalidStateError();
-        }
-
-        try {
-            currentThread = Thread.currentThread();
-            fBusy = true;
-            parse (xmlInputSource);
-            fBusy = false;
-            if (abortNow && currentThread.isInterrupted()) {
-                //reset interrupt state
-                abortNow = false;
-                Thread.interrupted();
-            }
-        } catch (Exception e) {
-            fBusy = false;
-            if (abortNow && currentThread.isInterrupted()) {
-                Thread.interrupted();
-            }
-            if (abortNow) {
-                abortNow = false;
-                restoreHandlers();
-                return null;
-            }
-            // Consume this exception if the user
-            // issued an interrupt or an abort.
-            if (e != Abort.INSTANCE) {
-                if (!(e instanceof XMLParseException) && fErrorHandler != null) {
-                   DOMErrorImpl error = new DOMErrorImpl ();
-                   error.fException = e;
-                   error.fMessage = e.getMessage ();
-                   error.fSeverity = DOMError.SEVERITY_FATAL_ERROR;
-                   fErrorHandler.getErrorHandler().handleError (error);
-                }
-                if (DEBUG) {
-                   e.printStackTrace ();
-                }
-                throw (LSException) DOMUtil.createLSException(LSException.PARSE_ERR, e).fillInStackTrace();
-            }
-        }
-        Document doc = getDocument();
-        dropDocumentReferences();
-        return doc;
-    }
-
-
-    private void restoreHandlers() {
-        fConfiguration.setDocumentHandler(this);
-    }
-
-    /**
-     *  Parse an XML document or fragment from a resource identified by an
-     * <code>LSInput</code> and insert the content into an existing
-     * document at the position epcified with the <code>contextNode</code>
-     * and <code>action</code> arguments. When parsing the input stream the
-     * context node is used for resolving unbound namespace prefixes.
-     *
-     * @param is  The <code>LSInput</code> from which the source
-     *   document is to be read.
-     * @param cnode  The <code>Node</code> that is used as the context for
-     *   the data that is being parsed.
-     * @param action This parameter describes which action should be taken
-     *   between the new set of node being inserted and the existing
-     *   children of the context node. The set of possible actions is
-     *   defined above.
-     * @exception DOMException
-     *   HIERARCHY_REQUEST_ERR: Thrown if this action results in an invalid
-     *   hierarchy (i.e. a Document with more than one document element).
-     */
-    @Override
-    public Node parseWithContext (LSInput is, Node cnode,
-    short action) throws DOMException, LSException {
-        // REVISIT: need to implement.
-        throw new DOMException (DOMException.NOT_SUPPORTED_ERR, "Not supported");
-    }
-
-
-    /**
-     * NON-DOM: convert LSInput to XNIInputSource
-     *
-     * @param is the input source
-     * @return a new {@link XMLInputSource}
-     */
-    XMLInputSource dom2xmlInputSource (LSInput is) {
-        // need to wrap the LSInput with an XMLInputSource
-        XMLInputSource xis = null;
-        // check whether there is a Reader
-        // according to DOM, we need to treat such reader as "UTF-16".
-        if (is.getCharacterStream () != null) {
-            xis = new XMLInputSource (is.getPublicId (), is.getSystemId (),
-            is.getBaseURI (), is.getCharacterStream (),
-            "UTF-16");
-        }
-        // check whether there is an InputStream
-        else if (is.getByteStream () != null) {
-            xis = new XMLInputSource (is.getPublicId (), is.getSystemId (),
-            is.getBaseURI (), is.getByteStream (),
-            is.getEncoding ());
-        }
-        // if there is a string data, use a StringReader
-        // according to DOM, we need to treat such data as "UTF-16".
-        else if (is.getStringData () != null && is.getStringData().length() > 0) {
-            xis = new XMLInputSource (is.getPublicId (), is.getSystemId (),
-            is.getBaseURI (), new StringReader (is.getStringData ()),
-            "UTF-16");
-        }
-        // otherwise, just use the public/system/base Ids
-        else if ((is.getSystemId() != null && is.getSystemId().length() > 0) ||
-            (is.getPublicId() != null && is.getPublicId().length() > 0)) {
-            xis = new XMLInputSource (is.getPublicId (), is.getSystemId (),
-            is.getBaseURI ());
-        }
-        else {
-            // all inputs are null
-            if (fErrorHandler != null) {
-                DOMErrorImpl error = new DOMErrorImpl();
-                error.fType = "no-input-specified";
-                error.fMessage = "no-input-specified";
-                error.fSeverity = DOMError.SEVERITY_FATAL_ERROR;
-                fErrorHandler.getErrorHandler().handleError(error);
-            }
-            throw new LSException(LSException.PARSE_ERR, "no-input-specified");
-        }
-        return xis;
-    }
-
-    /**
-     * @see org.w3c.dom.ls.LSParser#getAsync()
-     */
-    @Override
-    public boolean getAsync () {
-        return false;
-    }
-
-    /**
-     * @see org.w3c.dom.ls.LSParser#getBusy()
-     */
-    @Override
-    public boolean getBusy () {
-        return fBusy;
-    }
-
-    /**
-     * @see org.w3c.dom.ls.LSParser#abort()
-     */
-    @Override
-    public void abort () {
-        // If parse operation is in progress then reset it
-        if (fBusy) {
-            fBusy = false;
-            if (currentThread != null) {
-                abortNow = true;
-                if (abortHandler == null) {
-                    abortHandler = new AbortHandler();
-                }
-                fConfiguration.setDocumentHandler(abortHandler);
-                if (currentThread == Thread.currentThread()) {
-                    throw Abort.INSTANCE;
-                }
-                currentThread.interrupt();
-            }
-        }
-        return; // If not busy then this is noop
-    }
-
-    /**
      * The start of an element. If the document specifies the start element
      * by using an empty tag, then the startElement method will immediately
      * be followed by the endElement method, with no intervening methods.
@@ -1119,126 +781,6 @@ public class DOMParserImpl
             }
         }
         super.startElement(element, attributes, augs);
-    }
-
-    static final class NullLSParserFilter implements LSParserFilter {
-        static final NullLSParserFilter INSTANCE = new NullLSParserFilter();
-        private NullLSParserFilter() {}
-        @Override
-        public short acceptNode(Node nodeArg) {
-            return LSParserFilter.FILTER_ACCEPT;
-        }
-        @Override
-        public int getWhatToShow() {
-            return 0xFFFFFFFF; // NodeFilter.SHOW_ALL;
-        }
-        @Override
-        public short startElement(Element elementArg) {
-            return LSParserFilter.FILTER_ACCEPT;
-        }
-    }
-
-    private static final class AbortHandler implements XMLDocumentHandler {
-
-        private XMLDocumentSource documentSource;
-
-        @Override
-        public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void comment(XMLString text, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startGeneralEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void textDecl(String version, String encoding, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void characters(XMLString text, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endElement(QName element, Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void startCDATA(Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endCDATA(Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void endDocument(Augmentations augs) throws XNIException {
-            throw Abort.INSTANCE;
-        }
-
-        @Override
-        public void setDocumentSource(XMLDocumentSource source) {
-            documentSource = source;
-        }
-
-        @Override
-        public XMLDocumentSource getDocumentSource() {
-            return documentSource;
-        }
-    }
-
-    private static DOMException newInvalidStateError() {
-        String msg =
-            DOMMessageFormatter.formatMessage (
-                    DOMMessageFormatter.DOM_DOMAIN,
-                    "INVALID_STATE_ERR", null);
-        throw new DOMException ( DOMException.INVALID_STATE_ERR, msg);
     }
 
     private static DOMException newFeatureNotSupportedError(String name) {

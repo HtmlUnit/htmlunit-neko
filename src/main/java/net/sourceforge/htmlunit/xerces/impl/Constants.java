@@ -370,26 +370,8 @@ public final class Constants {
     /** Entity resolver property ("internal/entity-resolver"). */
     public static final String ENTITY_RESOLVER_PROPERTY = "internal/entity-resolver";
 
-    /** Grammar pool property ("internal/grammar-pool"). */
-    public static final String XMLGRAMMAR_POOL_PROPERTY = "internal/grammar-pool";
-
-    /** Datatype validator factory ("internal/datatype-validator-factory"). */
-    public static final String DATATYPE_VALIDATOR_FACTORY_PROPERTY = "internal/datatype-validator-factory";
-
     /** Document scanner property ("internal/document-scanner"). */
     public static final String DOCUMENT_SCANNER_PROPERTY = "internal/document-scanner";
-
-    /** Validator property ("internal/validator"). */
-    public static final String VALIDATOR_PROPERTY = "internal/validator";
-
-    /** Validator property ("internal/validator/schema"). */
-    public static final String SCHEMA_VALIDATOR_PROPERTY = "internal/validator/schema";
-
-    /** No namespace schema location property ("schema/external-schemaLocation"). */
-    public static final String SCHEMA_LOCATION = "schema/external-schemaLocation";
-
-    /** Schema location property ("schema/external-noNamespaceSchemaLocation"). */
-    public static final String SCHEMA_NONS_LOCATION = "schema/external-noNamespaceSchemaLocation";
 
     /** Namespace binder property ("internal/namespace-binder"). */
     public static final String NAMESPACE_BINDER_PROPERTY = "internal/namespace-binder";
@@ -509,12 +491,7 @@ public final class Constants {
             ERROR_REPORTER_PROPERTY,
             ENTITY_MANAGER_PROPERTY,
             ENTITY_RESOLVER_PROPERTY,
-            XMLGRAMMAR_POOL_PROPERTY,
-            DATATYPE_VALIDATOR_FACTORY_PROPERTY,
             DOCUMENT_SCANNER_PROPERTY,
-            VALIDATOR_PROPERTY,
-            SCHEMA_LOCATION,
-            SCHEMA_NONS_LOCATION,
             BUFFER_SIZE_PROPERTY,
             LOCALE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,

@@ -16,18 +16,13 @@
  */
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.lang.ref.SoftReference;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 
-import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
-import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 
 /**
  * The DOMImplementation class is description of a particular
@@ -44,30 +39,6 @@ import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
  */
 public class CoreDOMImplementationImpl
     implements DOMImplementation {
-
-    // validator pools
-    private static final int SIZE = 2;
-
-    private SoftReference[] schemaValidators = new SoftReference[SIZE];
-    private SoftReference[] xml10DTDValidators = new SoftReference[SIZE];
-    private SoftReference[] xml11DTDValidators = new SoftReference[SIZE];
-
-    private int freeSchemaValidatorIndex = -1;
-    private int freeXML10DTDValidatorIndex = -1;
-    private int freeXML11DTDValidatorIndex = -1;
-
-    private int schemaValidatorsCurrentSize = SIZE;
-    private int xml10DTDValidatorsCurrentSize = SIZE;
-    private int xml11DTDValidatorsCurrentSize = SIZE;
-
-    private SoftReference[] xml10DTDLoaders = new SoftReference[SIZE];
-    private SoftReference[] xml11DTDLoaders = new SoftReference[SIZE];
-
-    private int freeXML10DTDLoaderIndex = -1;
-    private int freeXML11DTDLoaderIndex = -1;
-
-    private int xml10DTDLoaderCurrentSize = SIZE;
-    private int xml11DTDLoaderCurrentSize = SIZE;
 
     // Document and doctype counter.  Used to assign order to documents and
     // doctypes without owners, on an demand basis.   Used for
@@ -278,141 +249,6 @@ public class CoreDOMImplementationImpl
         return null;
     }
 
-    // NON-DOM: retrieve validator.
-    synchronized RevalidationHandler getValidator(String schemaType, String xmlVersion) {
-        if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
-            // create new validator - we should not attempt
-            // to restrict the number of validation handlers being
-            // requested
-            while (freeSchemaValidatorIndex >= 0) {
-                // return first available validator
-                SoftReference ref = schemaValidators[freeSchemaValidatorIndex];
-                RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                if (holder != null && holder.handler != null) {
-                    RevalidationHandler val = holder.handler;
-                    holder.handler = null;
-                    --freeSchemaValidatorIndex;
-                    return val;
-                }
-                schemaValidators[freeSchemaValidatorIndex--] = null;
-            }
-            return (RevalidationHandler) (ObjectFactory
-                    .newInstance(
-                        "net.sourceforge.htmlunit.xerces.impl.xs.XMLSchemaValidator",
-                        ObjectFactory.findClassLoader(),
-                        true));
-        }
-        else if(schemaType == XMLGrammarDescription.XML_DTD) {
-            // return an instance of XML11DTDValidator
-            if ("1.1".equals(xmlVersion)) {
-                while (freeXML11DTDValidatorIndex >= 0) {
-                    // return first available validator
-                    SoftReference ref = xml11DTDValidators[freeXML11DTDValidatorIndex];
-                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                    if (holder != null && holder.handler != null) {
-                        RevalidationHandler val = holder.handler;
-                        holder.handler = null;
-                        --freeXML11DTDValidatorIndex;
-                        return val;
-                    }
-                    xml11DTDValidators[freeXML11DTDValidatorIndex--] = null;
-                }
-                return (RevalidationHandler) (ObjectFactory
-                        .newInstance(
-                                "net.sourceforge.htmlunit.xerces.impl.dtd.XML11DTDValidator",
-                                ObjectFactory.findClassLoader(),
-                                true));
-            }
-            // return an instance of XMLDTDValidator
-            else {
-                while (freeXML10DTDValidatorIndex >= 0) {
-                    // return first available validator
-                    SoftReference ref = xml10DTDValidators[freeXML10DTDValidatorIndex];
-                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                    if (holder != null && holder.handler != null) {
-                        RevalidationHandler val = holder.handler;
-                        holder.handler = null;
-                        --freeXML10DTDValidatorIndex;
-                        return val;
-                    }
-                    xml10DTDValidators[freeXML10DTDValidatorIndex--] = null;
-                }
-                return (RevalidationHandler) (ObjectFactory
-                        .newInstance(
-                            "net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator",
-                            ObjectFactory.findClassLoader(),
-                            true));
-            }
-        }
-        return null;
-    }
-
-    // NON-DOM: release validator
-    synchronized void releaseValidator(String schemaType, String xmlVersion,
-            RevalidationHandler validator) {
-        if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
-            ++freeSchemaValidatorIndex;
-            if (schemaValidators.length == freeSchemaValidatorIndex) {
-                // resize size of the validators
-                schemaValidatorsCurrentSize += SIZE;
-                SoftReference[] newarray =  new SoftReference[schemaValidatorsCurrentSize];
-                System.arraycopy(schemaValidators, 0, newarray, 0, schemaValidators.length);
-                schemaValidators = newarray;
-            }
-            SoftReference ref = schemaValidators[freeSchemaValidatorIndex];
-            if (ref != null) {
-                RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                if (holder != null) {
-                    holder.handler = validator;
-                    return;
-                }
-            }
-            schemaValidators[freeSchemaValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-        }
-        else if (schemaType == XMLGrammarDescription.XML_DTD) {
-            // release an instance of XML11DTDValidator
-            if ("1.1".equals(xmlVersion)) {
-                ++freeXML11DTDValidatorIndex;
-                if (xml11DTDValidators.length == freeXML11DTDValidatorIndex) {
-                    // resize size of the validators
-                    xml11DTDValidatorsCurrentSize += SIZE;
-                    SoftReference [] newarray = new SoftReference[xml11DTDValidatorsCurrentSize];
-                    System.arraycopy(xml11DTDValidators, 0, newarray, 0, xml11DTDValidators.length);
-                    xml11DTDValidators = newarray;
-                }
-                SoftReference ref = xml11DTDValidators[freeXML11DTDValidatorIndex];
-                if (ref != null) {
-                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                    if (holder != null) {
-                        holder.handler = validator;
-                        return;
-                    }
-                }
-                xml11DTDValidators[freeXML11DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-            }
-            // release an instance of XMLDTDValidator
-            else {
-                ++freeXML10DTDValidatorIndex;
-                if (xml10DTDValidators.length == freeXML10DTDValidatorIndex) {
-                    // resize size of the validators
-                    xml10DTDValidatorsCurrentSize += SIZE;
-                    SoftReference [] newarray = new SoftReference[xml10DTDValidatorsCurrentSize];
-                    System.arraycopy(xml10DTDValidators, 0, newarray, 0, xml10DTDValidators.length);
-                    xml10DTDValidators = newarray;
-                }
-                SoftReference ref = xml10DTDValidators[freeXML10DTDValidatorIndex];
-                if (ref != null) {
-                    RevalidationHandlerHolder holder = (RevalidationHandlerHolder) ref.get();
-                    if (holder != null) {
-                        holder.handler = validator;
-                        return;
-                    }
-                }
-                xml10DTDValidators[freeXML10DTDValidatorIndex] = new SoftReference(new RevalidationHandlerHolder(validator));
-            }
-        }
-    }
-
     // NON-DOM:  increment document/doctype counter
     protected synchronized int assignDocumentNumber() {
         return ++docAndDoctypeCounter;
@@ -421,17 +257,5 @@ public class CoreDOMImplementationImpl
     // NON-DOM:  increment document/doctype counter
     protected synchronized int assignDocTypeNumber() {
         return ++docAndDoctypeCounter;
-    }
-
-    /**
-     * A holder for RevalidationHandlers. This allows us to reuse
-     * SoftReferences which haven't yet been cleared by the garbage
-     * collector.
-     */
-    static final class RevalidationHandlerHolder {
-        RevalidationHandlerHolder(RevalidationHandler handler) {
-            this.handler = handler;
-        }
-        RevalidationHandler handler;
     }
 }

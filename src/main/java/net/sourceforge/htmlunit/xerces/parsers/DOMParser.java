@@ -35,11 +35,8 @@ import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
 import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
-import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
-import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarPool;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
@@ -61,56 +58,12 @@ public class DOMParser extends AbstractDOMParser {
     protected static final String USE_ENTITY_RESOLVER2 =
         Constants.SAX_FEATURE_PREFIX + Constants.USE_ENTITY_RESOLVER2_FEATURE;
 
-    /** Property identifier: symbol table. */
-    protected static final String SYMBOL_TABLE =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY;
-
-    /** Property identifier: XML grammar pool. */
-    protected static final String XMLGRAMMAR_POOL =
-        Constants.XERCES_PROPERTY_PREFIX+Constants.XMLGRAMMAR_POOL_PROPERTY;
-
-    /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = {
-        SYMBOL_TABLE,
-        XMLGRAMMAR_POOL,
-    };
-
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
 
     // Constructs a DOM parser using the specified parser configuration.
     public DOMParser(XMLParserConfiguration config) {
         super(config);
-    }
-
-    // Constructs a DOM parser using the dtd/xml schema parser configuration.
-    public DOMParser() {
-        this(null, null);
-    }
-
-    // Constructs a DOM parser using the specified symbol table.
-    public DOMParser(SymbolTable symbolTable) {
-        this(symbolTable, null);
-    }
-
-
-    // Constructs a DOM parser using the specified symbol table and
-    // grammar pool.
-    public DOMParser(SymbolTable symbolTable, XMLGrammarPool grammarPool) {
-        super((XMLParserConfiguration)ObjectFactory.createObject(
-            "net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration",
-            "net.sourceforge.htmlunit.xerces.parsers.XIncludeAwareParserConfiguration"
-            ));
-
-        // set properties
-        fConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
-        if (symbolTable != null) {
-            fConfiguration.setProperty(SYMBOL_TABLE, symbolTable);
-        }
-        if (grammarPool != null) {
-            fConfiguration.setProperty(XMLGRAMMAR_POOL, grammarPool);
-        }
-
     }
 
     /**

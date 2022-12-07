@@ -134,7 +134,6 @@ public class XML11EntityScanner
      * @throws IOException  Thrown if i/o error occurs.
      * @throws EOFException Thrown on end of file.
      *
-     * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11Name
      */
     @Override
@@ -236,7 +235,6 @@ public class XML11EntityScanner
      * @throws IOException  Thrown if i/o error occurs.
      * @throws EOFException Thrown on end of file.
      *
-     * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11Name
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11NameStart
      */
@@ -382,7 +380,6 @@ public class XML11EntityScanner
      * @throws IOException  Thrown if i/o error occurs.
      * @throws EOFException Thrown on end of file.
      *
-     * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11NCName
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11NCNameStart
      */
@@ -535,7 +532,6 @@ public class XML11EntityScanner
      * @throws IOException  Thrown if i/o error occurs.
      * @throws EOFException Thrown on end of file.
      *
-     * @see net.sourceforge.htmlunit.xerces.util.SymbolTable
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11Name
      * @see net.sourceforge.htmlunit.xerces.util.XML11Char#isXML11NameStart
      */
