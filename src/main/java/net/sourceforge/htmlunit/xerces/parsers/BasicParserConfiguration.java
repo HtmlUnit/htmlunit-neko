@@ -457,10 +457,7 @@ public abstract class BasicParserConfiguration
     } // setFeature(String,boolean)
 
     /**
-     * setProperty
-     *
-     * @param propertyId
-     * @param value
+     * {@inheritDoc}
      */
     @Override
     public void setProperty(String propertyId, Object value)
@@ -489,15 +486,13 @@ public abstract class BasicParserConfiguration
         fLocale = locale;
     } // setLocale(Locale)
 
-    /** Returns the locale. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Locale getLocale() {
         return fLocale;
-    } // getLocale():Locale
-
-    //
-    // Protected methods
-    //
+    }
 
     /**
      * reset all components before parsing and namespace context

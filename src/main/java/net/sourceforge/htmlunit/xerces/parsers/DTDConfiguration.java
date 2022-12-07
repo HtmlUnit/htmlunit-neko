@@ -84,12 +84,6 @@ public class DTDConfiguration
     extends BasicParserConfiguration
     implements XMLPullParserConfiguration {
 
-    //
-    // Constants
-    //
-
-    // feature identifiers
-
     /** Feature identifier: warn on duplicate attribute definition. */
     protected static final String WARN_ON_DUPLICATE_ATTDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ATTDEF_FEATURE;
@@ -786,49 +780,47 @@ public class DTDConfiguration
 
     } // checkProperty(String)
 
-    // factory methods
-
-    /** Creates an entity manager. */
+    // Creates an entity manager
     protected XMLEntityManager createEntityManager() {
         return new XMLEntityManager();
-    } // createEntityManager():XMLEntityManager
+    }
 
-    /** Creates an error reporter. */
+    // Creates an error reporter.
     protected XMLErrorReporter createErrorReporter() {
         return new XMLErrorReporter();
-    } // createErrorReporter():XMLErrorReporter
+    }
 
-    /** Create a document scanner. */
+    // Create a document scanner.
     protected XMLDocumentScanner createDocumentScanner() {
         return new XMLDocumentScannerImpl();
-    } // createDocumentScanner():XMLDocumentScanner
+    }
 
-    /** Create a DTD scanner. */
+    // Create a DTD scanner.
     protected XMLDTDScanner createDTDScanner() {
         return new XMLDTDScannerImpl();
-    } // createDTDScanner():XMLDTDScanner
+    }
 
-    /** Create a DTD loader . */
+    // Create a DTD loader
     protected XMLDTDProcessor createDTDProcessor() {
         return new XMLDTDProcessor();
-    } // createDTDProcessor():XMLDTDProcessor
+    }
 
-    /** Create a DTD validator. */
+    // Create a DTD validator.
     protected XMLDTDValidator createDTDValidator() {
         return new XMLDTDValidator();
-    } // createDTDValidator():XMLDTDValidator
+    }
 
-    /** Create a namespace binder. */
+    // Create a namespace binder.
     protected XMLNamespaceBinder createNamespaceBinder() {
         return new XMLNamespaceBinder();
-    } // createNamespaceBinder():XMLNamespaceBinder
+    }
 
-    /** Create a datatype validator factory. */
+    // Create a datatype validator factory.
     protected DTDDVFactory createDatatypeValidatorFactory() {
         return DTDDVFactory.getInstance();
-    } // createDatatypeValidatorFactory():DatatypeValidatorFactory
+    }
+
     protected ValidationManager createValidationManager(){
         return new ValidationManager();
     }
-
-} // class DTDConfiguration
+}

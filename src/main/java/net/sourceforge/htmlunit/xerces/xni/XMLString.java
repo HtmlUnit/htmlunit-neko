@@ -41,10 +41,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  */
 public class XMLString {
 
-    //
-    // Data
-    //
-
     /** The character array. */
     public char[] ch;
 
@@ -54,13 +50,9 @@ public class XMLString {
     /** The length of characters from the offset. */
     public int length;
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public XMLString() {
-    } // <init>()
+    }
 
     /**
      * Constructs an XMLString structure preset with the specified
@@ -72,11 +64,7 @@ public class XMLString {
      */
     public XMLString(char[] ch, int offset, int length) {
         setValues(ch, offset, length);
-    } // <init>(char[],int,int)
-
-    //
-    // Public methods
-    //
+    }
 
     /**
      * Initializes the contents of the XMLString structure with the
@@ -90,7 +78,7 @@ public class XMLString {
         this.ch = ch;
         this.offset = offset;
         this.length = length;
-    } // setValues(char[],int,int)
+    }
 
     /**
      * Initializes the contents of the XMLString structure with copies
@@ -99,21 +87,21 @@ public class XMLString {
      * <strong>Note:</strong> This does not copy the character array;
      * only the reference to the array is copied.
      *
-     * @param s
+     * @param s the xml string value
      */
     public void setValues(XMLString s) {
         setValues(s.ch, s.offset, s.length);
-    } // setValues(XMLString)
+    }
 
     /** Resets all of the values to their defaults. */
     public void clear() {
         this.ch = null;
         this.offset = 0;
         this.length = -1;
-    } // clear()
+    }
 
     /**
-     * Returns true if the contents of this XMLString structure and
+     * @return true if the contents of this XMLString structure and
      * the specified array are equal.
      *
      * @param ch     The character array.
@@ -131,10 +119,10 @@ public class XMLString {
             }
         }
         return true;
-    } // equals(char[],int,int):boolean
+    }
 
     /**
-     * Returns true if the contents of this XMLString structure and
+     * @return true if the contents of this XMLString structure and
      * the specified string are equal.
      *
      * @param s The string to compare.
@@ -154,16 +142,10 @@ public class XMLString {
         }
 
         return true;
-    } // equals(String):boolean
+    }
 
-    //
-    // Object methods
-    //
-
-    /** Returns a string representation of this object. */
     @Override
     public String toString() {
         return length > 0 ? new String(ch, offset, length) : "";
-    } // toString():String
-
-} // class XMLString
+    }
+}

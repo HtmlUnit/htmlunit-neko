@@ -63,10 +63,8 @@ public class ParserConfigurationSettings
         this(null);
     }
 
-    /**
-     * Constructs a parser configuration settings object with a
-     * parent settings object.
-     */
+    // Constructs a parser configuration settings object with a
+    // parent settings object.
     public ParserConfigurationSettings(XMLComponentManager parent) {
 
         // create storage for recognized features and properties

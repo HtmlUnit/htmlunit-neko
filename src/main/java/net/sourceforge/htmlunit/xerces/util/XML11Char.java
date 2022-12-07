@@ -74,10 +74,6 @@ public class XML11Char {
     /** XML 1.1 content for internal entities (valid - "special" chars) */
     public static final int MASK_XML11_CONTENT_INTERNAL = MASK_XML11_CONTROL | MASK_XML11_CONTENT;
 
-    //
-    // Static initialization
-    //
-
     static {
 
         // Initializing the Character Flag Array
@@ -140,24 +136,20 @@ public class XML11Char {
         Arrays.fill(XML11CHARS, 64976, 65008, (byte) 33 ); // Fill 32 of value (byte) 33
         Arrays.fill(XML11CHARS, 65008, 65534, (byte) -19 ); // Fill 526 of value (byte) -19
 
-    } // <clinit>()
-
-    //
-    // Public static methods
-    //
+    }
 
     /**
-     * Returns true if the specified character is a space character
+     * @return true if the specified character is a space character
      * as amdended in the XML 1.1 specification.
      *
      * @param c The character to check.
      */
     public static boolean isXML11Space(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_SPACE) != 0);
-    } // isXML11Space(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is valid. This method
+     * @return true if the specified character is valid. This method
      * also checks the surrogate character range from 0x10000 to 0x10FFFF.
      * <p>
      * If the program chooses to apply the mask directly to the
@@ -169,19 +161,19 @@ public class XML11Char {
     public static boolean isXML11Valid(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_VALID) != 0)
                 || (0x10000 <= c && c <= 0x10FFFF);
-    } // isXML11Valid(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is invalid.
+     * @return true if the specified character is invalid.
      *
      * @param c The character to check.
      */
     public static boolean isXML11Invalid(int c) {
         return !isXML11Valid(c);
-    } // isXML11Invalid(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is valid and permitted outside
+     * @return true if the specified character is valid and permitted outside
      * of a character reference.
      * That is, this method will return false for the same set as
      * isXML11Valid, except it also reports false for "control characters".
@@ -191,10 +183,10 @@ public class XML11Char {
     public static boolean isXML11ValidLiteral(int c) {
         return ((c < 0x10000 && ((XML11CHARS[c] & MASK_XML11_VALID) != 0 && (XML11CHARS[c] & MASK_XML11_CONTROL) == 0))
             || (0x10000 <= c && c <= 0x10FFFF));
-    } // isXML11ValidLiteral(int):boolean
+    }
 
     /**
-     * Returns true if the specified character can be considered
+     * @return true if the specified character can be considered
      * content in an external parsed entity.
      *
      * @param c The character to check.
@@ -202,10 +194,10 @@ public class XML11Char {
     public static boolean isXML11Content(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_CONTENT) != 0) ||
                (0x10000 <= c && c <= 0x10FFFF);
-    } // isXML11Content(int):boolean
+    }
 
     /**
-     * Returns true if the specified character can be considered
+     * @return true if the specified character can be considered
      * content in an internal parsed entity.
      *
      * @param c The character to check.
@@ -213,10 +205,10 @@ public class XML11Char {
     public static boolean isXML11InternalEntityContent(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_CONTENT_INTERNAL) != 0) ||
                (0x10000 <= c && c <= 0x10FFFF);
-    } // isXML11InternalEntityContent(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is a valid name start
+     * @return true if the specified character is a valid name start
      * character as defined by production [4] in the XML 1.1
      * specification.
      *
@@ -225,10 +217,10 @@ public class XML11Char {
     public static boolean isXML11NameStart(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME_START) != 0)
             || (0x10000 <= c && c < 0xF0000);
-    } // isXML11NameStart(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is a valid name
+     * @return true if the specified character is a valid name
      * character as defined by production [4a] in the XML 1.1
      * specification.
      *
@@ -237,10 +229,10 @@ public class XML11Char {
     public static boolean isXML11Name(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME) != 0)
             || (c >= 0x10000 && c < 0xF0000);
-    } // isXML11Name(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is a valid NCName start
+     * @return true if the specified character is a valid NCName start
      * character as defined by production [4] in Namespaces in XML
      * 1.1 recommendation.
      *
@@ -249,10 +241,10 @@ public class XML11Char {
     public static boolean isXML11NCNameStart(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME_START) != 0)
             || (0x10000 <= c && c < 0xF0000);
-    } // isXML11NCNameStart(int):boolean
+    }
 
     /**
-     * Returns true if the specified character is a valid NCName
+     * @return true if the specified character is a valid NCName
      * character as defined by production [5] in Namespaces in XML
      * 1.1 recommendation.
      *
@@ -261,10 +253,10 @@ public class XML11Char {
     public static boolean isXML11NCName(int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME) != 0)
             || (0x10000 <= c && c < 0xF0000);
-    } // isXML11NCName(int):boolean
+    }
 
     /**
-     * Returns whether the given character is a valid
+     * @return whether the given character is a valid
      * high surrogate for a name character. This includes
      * all high surrogates for characters [0x10000-0xEFFFF].
      * In other words everything excluding planes 15 and 16.
@@ -322,7 +314,7 @@ public class XML11Char {
             ++i;
         }
         return true;
-    } // isXML11ValidName(String):boolean
+    }
 
     /*
      * from the namespace 1.1 rec
@@ -372,7 +364,7 @@ public class XML11Char {
             ++i;
         }
         return true;
-    } // isXML11ValidNCName(String):boolean
+    }
 
     /*
      * [7] Nmtoken ::= (NameChar)+
@@ -405,7 +397,6 @@ public class XML11Char {
             }
         }
         return true;
-    } // isXML11ValidName(String):boolean
-
-} // class XML11Char
+    }
+}
 

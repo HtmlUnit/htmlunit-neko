@@ -1739,6 +1739,7 @@ public String toString() {
   * Determine whether a scheme conforms to the rules for a scheme name.
   * A scheme is conformant if it starts with an alphanumeric, and
   * contains only alphanumerics, '+','-' and '.'.
+  * @param p_scheme the scheme
   *
   * @return true if the scheme is conformant, false otherwise
   */
@@ -1766,8 +1767,9 @@ public String toString() {
   * '.'. Each group must consist of one to three digits. See RFC 2732 Section 3,
   * and RFC 2373 Section 2.2, for the definition of IPv6 references. A hostname
   * consists of domain labels (each of which must begin and end with an alphanumeric
-  * but may contain '-') separated & by a '.'. See RFC 2396 Section 3.2.2.
+  * but may contain '-') separated &amp; by a '.'. See RFC 2396 Section 3.2.2.
   *
+  * @param address the address
   * @return true if the string is a syntactically valid IPv4 address,
   * IPv6 reference or hostname
   */
@@ -1850,6 +1852,7 @@ public String toString() {
    *
    * <p><code>IPv4address = 1*3DIGIT "." 1*3DIGIT "." 1*3DIGIT "." 1*3DIGIT</code></p>
    *
+   * @param address the address
    * @return true if the string is a syntactically valid IPv4 address
    */
   public static boolean isWellFormedIPv4Address(String address) {
@@ -1917,6 +1920,7 @@ public String toString() {
    * accurately describe section 2.2, and was in fact removed from
    * RFC 3513, the successor of RFC 2373.</p>
    *
+   * @param address the address
    * @return true if the string is a syntactically valid IPv6 reference
    */
   public static boolean isWellFormedIPv6Reference(String address) {

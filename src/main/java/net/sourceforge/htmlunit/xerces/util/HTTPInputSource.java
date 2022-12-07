@@ -128,7 +128,7 @@ public final class HTTPInputSource extends XMLInputSource {
     //
 
     /**
-     * Returns the preference whether HTTP redirects should
+     * @return the preference whether HTTP redirects should
      * be followed. By default HTTP redirects will be followed.
      */
     public boolean getFollowHTTPRedirects() {
@@ -139,13 +139,14 @@ public final class HTTPInputSource extends XMLInputSource {
     /**
      * Sets the preference whether HTTP redirects should
      * be followed. By default HTTP redirects will be followed.
+     * @param followRedirects if true follow redirects
      */
     public void setFollowHTTPRedirects(boolean followRedirects) {
         fFollowRedirects = followRedirects;
     } // setFollowHTTPRedirects(boolean)
 
     /**
-     * Returns the value of the request property
+     * @return the value of the request property
      * associated with the given property name.
      *
      * @param key the name of the request property
@@ -158,7 +159,7 @@ public final class HTTPInputSource extends XMLInputSource {
     } // getHTTPRequestProperty(String):String
 
     /**
-     * Returns an iterator for the request properties this
+     * @return an iterator for the request properties this
      * input source contains. Each object returned by the
      * iterator is an instance of <code>java.util.Map.Entry</code>
      * where each key and value are a pair of strings corresponding

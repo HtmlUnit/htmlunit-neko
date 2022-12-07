@@ -42,7 +42,7 @@ public abstract class XMLGrammarParser
     /**
      * Construct an XMLGrammarParser with the specified symbol table
      *
-     * @param symbolTable
+     * @param symbolTable the symbol table
      */
     protected XMLGrammarParser(SymbolTable symbolTable) {
         super((XMLParserConfiguration)ObjectFactory.createObject(

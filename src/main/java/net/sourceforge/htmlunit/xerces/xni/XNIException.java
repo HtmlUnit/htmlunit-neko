@@ -35,16 +35,8 @@ public class XNIException
     /** Serialization version. */
     static final long serialVersionUID = 9019819772686063775L;
 
-    //
-    // Data
-    //
-
     /** The wrapped exception. */
     private Exception fException = this;
-
-    //
-    // Constructors
-    //
 
     /**
      * Constructs an XNI exception with a message.
@@ -53,7 +45,7 @@ public class XNIException
      */
     public XNIException(String message) {
         super(message);
-    } // <init>(String)
+    }
 
     /**
      * Constructs an XNI exception with a wrapped exception.
@@ -63,7 +55,7 @@ public class XNIException
     public XNIException(Exception exception) {
         super(exception.getMessage());
         fException = exception;
-    } // <init>(Exception)
+    }
 
     /**
      * Constructs an XNI exception with a message and wrapped exception.
@@ -74,16 +66,12 @@ public class XNIException
     public XNIException(String message, Exception exception) {
         super(message);
         fException = exception;
-    } // <init>(Exception,String)
+    }
 
-    //
-    // Public methods
-    //
-
-    /** Returns the wrapped exception. */
+    /** @return the wrapped exception. */
     public Exception getException() {
         return fException != this ? fException : null;
-    } // getException():Exception
+    }
 
     /**
      * Initializes the cause of this <code>XNIException</code>.
@@ -109,12 +97,11 @@ public class XNIException
         }
         fException = (Exception) throwable;
         return this;
-    } // initCause(Throwable):Throwable
+    }
 
-    /** Returns the cause of this <code>XNIException</code>. */
+    /** @return the cause of this <code>XNIException</code>. */
     @Override
     public Throwable getCause() {
         return getException();
-    } // getCause():Throwable
-
-} // class XNIException
+    }
+}

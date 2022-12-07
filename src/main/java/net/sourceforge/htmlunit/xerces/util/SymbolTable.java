@@ -187,6 +187,7 @@ public class SymbolTable {
      * guarantee that symbol references remain unique.
      *
      * @param symbol The new symbol.
+     * @return the created symbol
      */
     public String addSymbol(String symbol) {
 
@@ -234,6 +235,7 @@ public class SymbolTable {
      * @param buffer The buffer containing the new symbol.
      * @param offset The offset into the buffer of the new symbol.
      * @param length The length of the new symbol in the buffer.
+     * @return the added symbol
      */
     public String addSymbol(char[] buffer, int offset, int length) {
 
@@ -279,7 +281,7 @@ public class SymbolTable {
     } // addSymbol0(char[],int,int,int,int):String
 
     /**
-     * Returns a hashcode value for the specified symbol. The value
+     * @return a hashcode value for the specified symbol. The value
      * returned by this method must be identical to the value returned
      * by the <code>hash(char[],int,int)</code> method when called
      * with the character array that comprises the symbol string.
@@ -304,7 +306,7 @@ public class SymbolTable {
     } // hash0(String):int
 
     /**
-     * Returns a hashcode value for the specified symbol information.
+     * @return a hashcode value for the specified symbol information.
      * The value returned by this method must be identical to the value
      * returned by the <code>hash(String)</code> method when called
      * with the string object created from the symbol information.
@@ -384,7 +386,7 @@ public class SymbolTable {
     }
 
     /**
-     * Returns true if the symbol table already contains the specified
+     * @return true if the symbol table already contains the specified
      * symbol.
      *
      * @param symbol The symbol to look for.
@@ -410,7 +412,7 @@ public class SymbolTable {
     } // containsSymbol(String):boolean
 
     /**
-     * Returns true if the symbol table already contains the specified
+     * @return true if the symbol table already contains the specified
      * symbol.
      *
      * @param buffer The buffer containing the symbol to look for.
@@ -434,21 +436,13 @@ public class SymbolTable {
 
         return false;
 
-    } // containsSymbol(char[],int,int):boolean
-
-    //
-    // Classes
-    //
+    }
 
     /**
      * This class is a symbol table entry. Each entry acts as a node
      * in a linked list.
      */
     protected static final class Entry {
-
-        //
-        // Data
-        //
 
         /** Symbol. */
         public final String symbol;
@@ -462,14 +456,8 @@ public class SymbolTable {
         /** The next entry. */
         public Entry next;
 
-        //
-        // Constructors
-        //
-
-        /**
-         * Constructs a new entry from the specified symbol and next entry
-         * reference.
-         */
+        // Constructs a new entry from the specified symbol and next entry
+        // reference.
         public Entry(String symbol, Entry next) {
             this.symbol = symbol.intern();
             characters = new char[symbol.length()];
@@ -477,10 +465,8 @@ public class SymbolTable {
             this.next = next;
         }
 
-        /**
-         * Constructs a new entry from the specified symbol information and
-         * next entry reference.
-         */
+         // Constructs a new entry from the specified symbol information and
+         // next entry reference.
         public Entry(char[] ch, int offset, int length, Entry next) {
             characters = new char[length];
             System.arraycopy(ch, offset, characters, 0, length);

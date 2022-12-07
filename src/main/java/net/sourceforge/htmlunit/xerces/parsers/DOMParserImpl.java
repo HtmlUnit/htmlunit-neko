@@ -147,13 +147,7 @@ public class DOMParserImpl
 
     private AbortHandler abortHandler = null;
 
-    //
-    // Constructors
-    //
-
-    /**
-     * Constructs a DOM Builder using the standard parser configuration.
-     */
+    // Constructs a DOM Builder using the standard parser configuration.
     public DOMParserImpl (String configuration, String schemaType) {
         this (
         (XMLParserConfiguration) ObjectFactory.createObject (
@@ -178,12 +172,9 @@ public class DOMParserImpl
                 Constants.NS_XMLSCHEMA);
             }
         }
-
     }
 
-    /**
-     * Constructs a DOM Builder using the specified parser configuration.
-     */
+    // Constructs a DOM Builder using the specified parser configuration.
     public DOMParserImpl (XMLParserConfiguration config) {
         super (config);
 
@@ -246,9 +237,7 @@ public class DOMParserImpl
 
     } // <init>(XMLParserConfiguration)
 
-    /**
-     * Constructs a DOM Builder using the specified symbol table.
-     */
+    // Constructs a DOM Builder using the specified symbol table.
     public DOMParserImpl (SymbolTable symbolTable) {
         this (
         (XMLParserConfiguration) ObjectFactory.createObject (
@@ -260,10 +249,8 @@ public class DOMParserImpl
     } // <init>(SymbolTable)
 
 
-    /**
-     * Constructs a DOM Builder using the specified symbol table and
-     * grammar pool.
-     */
+    // Constructs a DOM Builder using the specified symbol table and
+    // grammar pool.
     public DOMParserImpl (SymbolTable symbolTable, XMLGrammarPool grammarPool) {
         this (
         (XMLParserConfiguration) ObjectFactory.createObject (
@@ -279,7 +266,7 @@ public class DOMParserImpl
     }
 
     /**
-     * Resets the parser state.
+     * {@inheritDoc}
      */
     @Override
     public void reset () {
@@ -298,16 +285,17 @@ public class DOMParserImpl
 
     } // reset()
 
-    //
-    // DOMParser methods
-    //
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DOMConfiguration getDomConfig (){
         return this;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * When a filter is provided, the implementation will call out to the
      * filter as it is constructing the DOM tree structure. The filter can
      * choose to remove elements from the document being constructed, or to
@@ -324,6 +312,8 @@ public class DOMParserImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * When a filter is provided, the implementation will call out to the
      * filter as it is constructing the DOM tree structure. The filter can
      * choose to remove elements from the document being constructed, or to
@@ -342,7 +332,7 @@ public class DOMParserImpl
     }
 
     /**
-     * Set parameters and properties
+     * {@inheritDoc}
      */
     @Override
     public void setParameter (String name, Object value) throws DOMException {
@@ -586,6 +576,8 @@ public class DOMParserImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Look up the value of a feature or a property.
      */
     @Override
@@ -825,6 +817,8 @@ public class DOMParserImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      *  DOM Level 3 CR - Experimental.
      * <p>
      *  The list of the parameters supported by this
@@ -873,6 +867,8 @@ public class DOMParserImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Parse an XML document from a location identified by an URI reference.
      * If the URI contains a fragment identifier (see section 4.1 in ), the
      * behavior is not defined by this specification.
@@ -930,6 +926,8 @@ public class DOMParserImpl
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Parse an XML document from a resource identified by an
      * <code>LSInput</code>.
      *
@@ -1438,5 +1436,4 @@ public class DOMParserImpl
                     new Object[] { name });
         return new DOMException (DOMException.TYPE_MISMATCH_ERR, msg);
     }
-
-} // class DOMParserImpl
+}

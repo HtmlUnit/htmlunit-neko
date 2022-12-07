@@ -24,7 +24,7 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * assumptions about the kind of Grammar involved, or about how the
  * application's storage mechanism works.</p>
  *
- * <p>The interaction works as follows:
+ * <p>The interaction works as follows:</p>
  * <ul>
  * <li>When a validator considers a document, it is expected to request
  * grammars of the type it can handle from this object using the
@@ -36,7 +36,7 @@ package net.sourceforge.htmlunit.xerces.xni.grammars;
  * instance, the validator should make any new grammars it has compiled
  * available to this object using the <code>cacheGrammars</code>
  * method; for ease of implementation it may make other Grammars it holds references to as well (i.e.,
- * it may return some grammars that were retrieved from the GrammarPool in earlier operations). </li> </ul> </p>
+ * it may return some grammars that were retrieved from the GrammarPool in earlier operations). </li> </ul>
  *
  * @author Neil Graham, IBM
  */

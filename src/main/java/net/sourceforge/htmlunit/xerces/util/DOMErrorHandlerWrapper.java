@@ -92,7 +92,7 @@ public class DOMErrorHandlerWrapper
     // Public methods
     //
 
-    /** Sets the DOM error handler. */
+    // Sets the DOM error handler.
     public void setErrorHandler(DOMErrorHandler errorHandler) {
         fDomErrorHandler = errorHandler;
     } // setErrorHandler(ErrorHandler)

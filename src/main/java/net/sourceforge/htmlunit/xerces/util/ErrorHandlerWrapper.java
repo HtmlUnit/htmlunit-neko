@@ -43,25 +43,17 @@ public class ErrorHandlerWrapper
     /** The SAX error handler. */
     protected ErrorHandler fErrorHandler;
 
-    //
-    // Constructors
-    //
-
-    /** Wraps the specified SAX error handler. */
+    // Wraps the specified SAX error handler.
     public ErrorHandlerWrapper(ErrorHandler errorHandler) {
         setErrorHandler(errorHandler);
     } // <init>(ErrorHandler)
 
-    //
-    // Public methods
-    //
-
-    /** Sets the SAX error handler. */
+    // Sets the SAX error handler.
     public void setErrorHandler(ErrorHandler errorHandler) {
         fErrorHandler = errorHandler;
     } // setErrorHandler(ErrorHandler)
 
-    /** Returns the SAX error handler. */
+    /** @return the SAX error handler. */
     public ErrorHandler getErrorHandler() {
         return fErrorHandler;
     } // getErrorHandler():ErrorHandler
@@ -190,7 +182,7 @@ public class ErrorHandlerWrapper
     // Protected methods
     //
 
-    /** Creates a SAXParseException from an XMLParseException. */
+    // Creates a SAXParseException from an XMLParseException.
     protected static SAXParseException createSAXParseException(XMLParseException exception) {
         return new SAXParseException(exception.getMessage(),
                                      exception.getPublicId(),
@@ -200,7 +192,7 @@ public class ErrorHandlerWrapper
                                      exception.getException());
     } // createSAXParseException(XMLParseException):SAXParseException
 
-    /** Creates an XMLParseException from a SAXParseException. */
+    // Creates an XMLParseException from a SAXParseException. */
     protected static XMLParseException createXMLParseException(SAXParseException exception) {
         final String fPublicId = exception.getPublicId();
         final String fExpandedSystemId = exception.getSystemId();
@@ -229,9 +221,9 @@ public class ErrorHandlerWrapper
         return new XMLParseException(location, exception.getMessage(),exception);
     } // createXMLParseException(SAXParseException):XMLParseException
 
-    /** Creates an XNIException from a SAXException.
-        NOTE:  care should be taken *not* to call this with a SAXParseException; this will
-        lose information!!! */
+    // Creates an XNIException from a SAXException.
+    //  NOTE:  care should be taken *not* to call this with a SAXParseException; this will
+    //  lose information!!! */
     protected static XNIException createXNIException(SAXException exception) {
         return new XNIException(exception.getMessage(),exception);
     } // createXNIException(SAXException):XMLParseException

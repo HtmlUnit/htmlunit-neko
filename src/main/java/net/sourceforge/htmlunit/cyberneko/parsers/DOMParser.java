@@ -26,10 +26,6 @@ import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 public class DOMParser
         extends net.sourceforge.htmlunit.xerces.parsers.DOMParser {
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public DOMParser() {
         super(new HTMLConfiguration());

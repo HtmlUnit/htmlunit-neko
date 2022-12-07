@@ -30,9 +30,9 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentScanner;
  * This is configuration uses a scanner that integrates both scanning of the document
  * and binding namespaces.
  * <p>
- * If namespace feature is turned on, the pipeline is constructured with the
+ * If namespace feature is turned on, the pipeline is constructed with the
  * following components:
- * XMLNSDocumentScannerImpl -> XMLNSDTDValidator -> (optional) XMLSchemaValidator
+ * XMLNSDocumentScannerImpl -&gt; XMLNSDTDValidator -&gt; (optional) XMLSchemaValidator
  * <p>
  * If the namespace feature is turned off the default document scanner implementation
  * is used (XMLDocumentScannerImpl).
@@ -80,14 +80,10 @@ extends StandardParserConfiguration {
     /** DTD Validator that does not bind namespaces */
     protected final XMLDTDValidator fNonNSDTDValidator;
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public IntegratedParserConfiguration() {
         this(null, null, null);
-    } // <init>()
+    }
 
     /**
      * Constructs a parser configuration using the specified symbol table.
@@ -96,7 +92,7 @@ extends StandardParserConfiguration {
      */
     public IntegratedParserConfiguration(SymbolTable symbolTable) {
         this(symbolTable, null, null);
-    } // <init>(SymbolTable)
+    }
 
     /**
      * Constructs a parser configuration using the specified symbol table and
@@ -112,7 +108,7 @@ extends StandardParserConfiguration {
     public IntegratedParserConfiguration(SymbolTable symbolTable,
                                          XMLGrammarPool grammarPool) {
         this(symbolTable, grammarPool, null);
-    } // <init>(SymbolTable,XMLGrammarPool)
+    }
 
     /**
      * Constructs a parser configuration using the specified symbol table,
@@ -139,13 +135,11 @@ extends StandardParserConfiguration {
         addComponent(fNonNSScanner);
         addComponent(fNonNSDTDValidator);
 
-    } // <init>(SymbolTable,XMLGrammarPool)
+    }
 
 
-    /** Configures the pipeline. */
     @Override
     protected void configurePipeline() {
-
         // use XML 1.0 datatype library
         setProperty(DATATYPE_VALIDATOR_FACTORY, fDatatypeValidatorFactory);
 
@@ -198,14 +192,8 @@ extends StandardParserConfiguration {
                 fLastComponent = fScanner;
             }
         }
+    }
 
-        // setup document pipeline
-    } // configurePipeline()
-
-
-
-    /** Create a document scanner: this scanner performs namespace binding
-      */
     @Override
     protected XMLDocumentScanner createDocumentScanner() {
         fNamespaceScanner = new XMLNSDocumentScannerImpl();
@@ -213,12 +201,9 @@ extends StandardParserConfiguration {
     } // createDocumentScanner():XMLDocumentScanner
 
 
-    /** Create a DTD validator: this validator performs namespace binding.
-      */
     @Override
     protected XMLDTDValidator createDTDValidator() {
         return new XMLNSDTDValidator();
-    } // createDTDValidator():XMLDTDValidator
-
-} // class IntegratedParserConfiguration
+    }
+}
 

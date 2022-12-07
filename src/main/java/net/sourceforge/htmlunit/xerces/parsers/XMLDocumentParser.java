@@ -49,16 +49,12 @@ public class XMLDocumentParser
             ));
     } // <init>()
 
-    /**
-     * Constructs a document parser using the specified parser configuration.
-     */
+    // Constructs a document parser using the specified parser configuration.
     public XMLDocumentParser(XMLParserConfiguration config) {
         super(config);
     } // <init>(ParserConfiguration)
 
-    /**
-     * Constructs a document parser using the specified symbol table.
-     */
+    // Constructs a document parser using the specified symbol table.
     public XMLDocumentParser(SymbolTable symbolTable) {
         super((XMLParserConfiguration)ObjectFactory.createObject(
             "net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration",
@@ -67,10 +63,8 @@ public class XMLDocumentParser
         fConfiguration.setProperty(Constants.XERCES_PROPERTY_PREFIX+Constants.SYMBOL_TABLE_PROPERTY, symbolTable);
     } // <init>(SymbolTable)
 
-    /**
-     * Constructs a document parser using the specified symbol table and
-     * grammar pool.
-     */
+    // Constructs a document parser using the specified symbol table and
+    // grammar pool.
     public XMLDocumentParser(SymbolTable symbolTable,
                              XMLGrammarPool grammarPool) {
         super((XMLParserConfiguration)ObjectFactory.createObject(

@@ -25,7 +25,6 @@ import java.util.HashMap;
  * encoding names used in XML instance documents <strong>must</strong>
  * be the IANA encoding names specified or one of the aliases for those names
  * which IANA defines.
- * <p>
  * <TABLE BORDER="0" WIDTH="100%">
  *  <TR>
  *      <TD WIDTH="33%">
@@ -933,7 +932,7 @@ public class EncodingMap {
     private EncodingMap() {}
 
     /**
-     * Returns the Java encoding name for the specified IANA encoding name.
+     * @return the Java encoding name for the specified IANA encoding name.
      *
      * @param ianaEncoding The IANA encoding name.
      */
@@ -942,7 +941,7 @@ public class EncodingMap {
     }
 
     /**
-     * Returns the IANA encoding name for the specified Java encoding name.
+     * @return the IANA encoding name for the specified Java encoding name.
      *
      * @param javaEncoding The Java encoding name.
      */

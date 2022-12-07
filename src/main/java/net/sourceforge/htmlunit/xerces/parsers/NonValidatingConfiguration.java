@@ -57,12 +57,6 @@ public class NonValidatingConfiguration
     extends BasicParserConfiguration
     implements XMLPullParserConfiguration {
 
-    //
-    // Constants
-    //
-
-    // feature identifiers
-
     /** Feature identifier: warn on duplicate attribute definition. */
     protected static final String WARN_ON_DUPLICATE_ATTDEF =
         Constants.XERCES_FEATURE_PREFIX + Constants.WARN_ON_DUPLICATE_ATTDEF_FEATURE;
@@ -104,8 +98,6 @@ public class NonValidatingConfiguration
     /** Feature identifier: send element default value via characters() */
     protected static final String SCHEMA_ELEMENT_DEFAULT =
     Constants.XERCES_FEATURE_PREFIX + Constants.SCHEMA_ELEMENT_DEFAULT;
-
-    // property identifiers
 
     /** Property identifier: error reporter. */
     protected static final String ERROR_REPORTER =
@@ -151,16 +143,8 @@ public class NonValidatingConfiguration
         Constants.XERCES_PROPERTY_PREFIX + Constants.LOCALE_PROPERTY;
 
 
-    // debugging
-
     /** Set to true and recompile to print exception stack trace. */
     private static final boolean PRINT_EXCEPTION_STACK_TRACE = false;
-
-    //
-    // Data
-    //
-
-    // components (non-configurable)
 
     /** Grammar pool. */
     protected final XMLGrammarPool fGrammarPool;
@@ -188,8 +172,6 @@ public class NonValidatingConfiguration
 
     protected final ValidationManager fValidationManager;
 
-    // private data
-
     /** Document scanner that does namespace binding. */
     private XMLNSDocumentScannerImpl fNamespaceScanner;
 
@@ -202,8 +184,6 @@ public class NonValidatingConfiguration
      */
     protected boolean fConfigUpdated = false;
 
-
-    // state
 
     /** Locator */
     protected XMLLocator fLocator;
@@ -549,11 +529,9 @@ public class NonValidatingConfiguration
 
     } // parse(InputSource)
 
-    //
-    // Protected methods
-    //
-
     /**
+     * {@inheritDoc}
+     *
      * Reset all components before parsing.
      *
      * @throws XNIException Thrown if an error occurs during initialization.
@@ -598,13 +576,11 @@ public class NonValidatingConfiguration
                 fDTDScanner.setDTDHandler(fDTDHandler);
                 fDTDScanner.setDTDContentModelHandler(fDTDContentModelHandler);
         }
-
-
-    } // configurePipeline()
-
-    // features and properties
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Check a feature. If feature is know and supported, this method simply
      * returns. Otherwise, the appropriate exception is thrown.
      *
@@ -681,9 +657,11 @@ public class NonValidatingConfiguration
 
         super.checkFeature(featureId);
 
-    } // checkFeature(String)
+    }
 
     /**
+     * {@inheritDoc}
+     *
      * Check a property. If the property is know and supported, this method
      * simply returns. Otherwise, the appropriate exception is thrown.
      *
@@ -727,37 +705,34 @@ public class NonValidatingConfiguration
         //
 
         super.checkProperty(propertyId);
+    }
 
-    } // checkProperty(String)
-
-    // factory methods
-
-    /** Creates an entity manager. */
+    // Creates an entity manager.
     protected XMLEntityManager createEntityManager() {
         return new XMLEntityManager();
-    } // createEntityManager():XMLEntityManager
+    }
 
-    /** Creates an error reporter. */
+    // Creates an error reporter.
     protected XMLErrorReporter createErrorReporter() {
         return new XMLErrorReporter();
-    } // createErrorReporter():XMLErrorReporter
+    }
 
-    /** Create a document scanner. */
+    // Create a document scanner.
     protected XMLDocumentScanner createDocumentScanner() {
         return null;
-    } // createDocumentScanner():XMLDocumentScanner
+    }
 
-    /** Create a DTD scanner. */
+    // Create a DTD scanner.
     protected XMLDTDScanner createDTDScanner() {
         return new XMLDTDScannerImpl();
-    } // createDTDScanner():XMLDTDScanner
+    }
 
-    /** Create a datatype validator factory. */
+    // Create a datatype validator factory.
     protected DTDDVFactory createDatatypeValidatorFactory() {
         return DTDDVFactory.getInstance();
-    } // createDatatypeValidatorFactory():DatatypeValidatorFactory
+    }
+
     protected ValidationManager createValidationManager(){
         return new ValidationManager();
     }
-
-} // class NonValidatingConfiguration
+}

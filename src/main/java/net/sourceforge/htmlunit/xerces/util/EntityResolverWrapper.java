@@ -47,25 +47,17 @@ public class EntityResolverWrapper
     /** The SAX entity resolver. */
     protected EntityResolver fEntityResolver;
 
-    //
-    // Constructors
-    //
-
-    /** Wraps the specified SAX entity resolver. */
+    // Wraps the specified SAX entity resolver. */
     public EntityResolverWrapper(EntityResolver entityResolver) {
         setEntityResolver(entityResolver);
     } // <init>(EntityResolver)
 
-    //
-    // Public methods
-    //
-
-    /** Sets the SAX entity resolver. */
+    // Sets the SAX entity resolver.
     public void setEntityResolver(EntityResolver entityResolver) {
         fEntityResolver = entityResolver;
     } // setEntityResolver(EntityResolver)
 
-    /** Returns the SAX entity resolver. */
+    /** @return the SAX entity resolver. */
     public EntityResolver getEntityResolver() {
         return fEntityResolver;
     } // getEntityResolver():EntityResolver

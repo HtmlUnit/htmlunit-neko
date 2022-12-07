@@ -2685,6 +2685,9 @@ extends ParentNode implements Document  {
      * The serialized forms of the user data and node table
      * maps are Hashtables. Convert them into WeakHashMaps
      * on load.
+     * @param in the input stream
+     * @throws IOException on error
+     * @throws ClassNotFoundException on error
      */
     private void readObject(ObjectInputStream in)
         throws IOException, ClassNotFoundException {
@@ -2701,6 +2704,8 @@ extends ParentNode implements Document  {
      * To allow DOM trees serialized by newer versions of Xerces
      * to be read by older versions briefly move the user data
      * and node table into Hashtables.
+     * @param out the output stream
+     * @throws IOException on error
      */
     private void writeObject(ObjectOutputStream out) throws IOException {
         // Keep references to the original objects for restoration after serialization

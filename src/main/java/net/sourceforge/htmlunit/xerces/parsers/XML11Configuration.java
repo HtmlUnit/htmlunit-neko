@@ -946,8 +946,8 @@ public class XML11Configuration extends ParserConfigurationSettings
     /**
      * setProperty
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId property id
+     * @param value new value
      */
     @Override
     public void setProperty(String propertyId, Object value)

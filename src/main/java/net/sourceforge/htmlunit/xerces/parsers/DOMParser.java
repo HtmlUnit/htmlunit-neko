@@ -79,32 +79,24 @@ public class DOMParser extends AbstractDOMParser {
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
 
-    /**
-     * Constructs a DOM parser using the specified parser configuration.
-     */
+    // Constructs a DOM parser using the specified parser configuration.
     public DOMParser(XMLParserConfiguration config) {
         super(config);
     }
 
-    /**
-     * Constructs a DOM parser using the dtd/xml schema parser configuration.
-     */
+    // Constructs a DOM parser using the dtd/xml schema parser configuration.
     public DOMParser() {
         this(null, null);
     }
 
-    /**
-     * Constructs a DOM parser using the specified symbol table.
-     */
+    // Constructs a DOM parser using the specified symbol table.
     public DOMParser(SymbolTable symbolTable) {
         this(symbolTable, null);
     }
 
 
-    /**
-     * Constructs a DOM parser using the specified symbol table and
-     * grammar pool.
-     */
+    // Constructs a DOM parser using the specified symbol table and
+    // grammar pool.
     public DOMParser(SymbolTable symbolTable, XMLGrammarPool grammarPool) {
         super((XMLParserConfiguration)ObjectFactory.createObject(
             "net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration",

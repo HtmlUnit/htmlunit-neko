@@ -110,10 +110,6 @@ public class AttrImpl
     extends NodeImpl
     implements Attr, TypeInfo{
 
-    //
-    // Constants
-    //
-
     /** Serialization version. */
     static final long serialVersionUID = 7277707688218972102L;
 
@@ -1203,11 +1199,7 @@ public class AttrImpl
         }
     } // checkNormalizationAfterRemove(ChildNode)
 
-    //
-    // Serialization methods
-    //
-
-    /** Serialize object. */
+    // Serialize object.
     private void writeObject(ObjectOutputStream out) throws IOException {
 
         // synchronize chilren
@@ -1219,7 +1211,7 @@ public class AttrImpl
 
     } // writeObject(ObjectOutputStream)
 
-    /** Deserialize object. */
+    // Deserialize object.
     private void readObject(ObjectInputStream ois)
         throws ClassNotFoundException, IOException {
 

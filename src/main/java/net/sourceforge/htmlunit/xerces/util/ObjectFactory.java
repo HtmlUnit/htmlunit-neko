@@ -36,14 +36,9 @@ import java.util.Properties;
  * later, and to compile on JDK 1.2 and onward.
  * The code also runs both as part of an unbundled jar file and
  * when bundled as part of the JDK.
- * <p>
  *
  */
 public final class ObjectFactory {
-
-    //
-    // Constants
-    //
 
     // name of default properties file to look for in JDK's jre/lib directory
     private static final String DEFAULT_PROPERTIES_FILENAME = "xerces.properties";
@@ -70,10 +65,6 @@ public final class ObjectFactory {
      */
     private static long fLastModified = -1;
 
-    //
-    // static methods
-    //
-
     /**
      * Finds the implementation Class object in the specified order.  The
      * specified order is the following:
@@ -90,7 +81,7 @@ public final class ObjectFactory {
      * @param fallbackClassName     Implementation class name, if nothing else
      *                              is found.  Use null to mean no fallback.
      *
-     * @exception ObjectFactory.ConfigurationError
+     * @exception ObjectFactory.ConfigurationError on error
      */
     public static Object createObject(String factoryId, String fallbackClassName)
         throws ConfigurationError {
@@ -244,7 +235,7 @@ public final class ObjectFactory {
     // Private static methods
     //
 
-    /** Returns true if debug has been enabled. */
+    /** @return true if debug has been enabled. */
     private static boolean isDebugEnabled() {
         try {
             String val = SecuritySupport.getSystemProperty("xerces.debug");
@@ -265,6 +256,8 @@ public final class ObjectFactory {
     /**
      * Figure out which ClassLoader to use.  For JDK 1.2 and later use
      * the context ClassLoader.
+     * @return the class loader
+     * @throws ConfigurationError on error
      */
     public static ClassLoader findClassLoader()
         throws ConfigurationError
@@ -320,9 +313,7 @@ public final class ObjectFactory {
         return context;
     } // findClassLoader():ClassLoader
 
-    /**
-     * Create an instance of a class using the specified ClassLoader
-     */
+     // Create an instance of a class using the specified ClassLoader
     public static Object newInstance(String className, ClassLoader cl,
                                       boolean doFallback)
         throws ConfigurationError
@@ -344,9 +335,7 @@ public final class ObjectFactory {
         }
     }
 
-    /**
-     * Find a Class using the specified ClassLoader
-     */
+    // Find a Class using the specified ClassLoader
     public static Class<?> findProviderClass(String className, ClassLoader cl,
                                       boolean doFallback)
         throws ClassNotFoundException, ConfigurationError
@@ -482,10 +471,6 @@ public final class ObjectFactory {
         return null;
     }
 
-    //
-    // Classes
-    //
-
     /**
      * A configuration error.
      */
@@ -495,31 +480,17 @@ public final class ObjectFactory {
         /** Serialization version. */
         static final long serialVersionUID = 8521878292694272124L;
 
-        //
-        // Data
-        //
-
         /** Exception. */
         private final Exception exception;
 
-        //
-        // Constructors
-        //
-
-        /**
-         * Construct a new instance with the specified detail string and
-         * exception.
-         */
+        // Construct a new instance with the specified detail string and
+        // exception.
         ConfigurationError(String msg, Exception x) {
             super(msg);
             this.exception = x;
         } // <init>(String,Exception)
 
-        //
-        // methods
-        //
-
-        /** Returns the exception associated to this error. */
+        /** @return the exception associated to this error. */
         Exception getException() {
             return exception;
         } // getException():Exception

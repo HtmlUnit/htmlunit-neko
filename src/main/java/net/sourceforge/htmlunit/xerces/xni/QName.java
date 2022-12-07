@@ -60,28 +60,20 @@ public class QName
      */
     public String uri;
 
-    //
-    // Constructors
-    //
-
     /** Default constructor. */
     public QName() {
         clear();
-    } // <init>()
+    }
 
-    /** Constructs a QName with the specified values. */
+    // Constructs a QName with the specified values.
     public QName(String prefix, String localpart, String rawname, String uri) {
         setValues(prefix, localpart, rawname, uri);
-    } // <init>(String,String,String,String)
+    }
 
-    /** Constructs a copy of the specified QName. */
+    // Constructs a copy of the specified QName.
     public QName(QName qname) {
         setValues(qname);
-    } // <init>(QName)
-
-    //
-    // Public methods
-    //
+    }
 
     /**
      * Convenience method to set the values of the qname components.
@@ -93,7 +85,7 @@ public class QName
         localpart = qname.localpart;
         rawname = qname.rawname;
         uri = qname.uri;
-    } // setValues(QName)
+    }
 
     /**
      * Convenience method to set the values of the qname components.
@@ -109,7 +101,7 @@ public class QName
         this.localpart = localpart;
         this.rawname = rawname;
         this.uri = uri;
-    } // setValues(String,String,String,String)
+    }
 
     /** Clears the values of the qname components. */
     public void clear() {
@@ -117,23 +109,13 @@ public class QName
         localpart = null;
         rawname = null;
         uri = null;
-    } // clear()
+    }
 
-    //
-    // Cloneable methods
-    //
-
-    /** Returns a clone of this object. */
     @Override
     public Object clone() {
         return new QName(this);
-    } // clone():Object
+    }
 
-    //
-    // Object methods
-    //
-
-    /** Returns the hashcode for this object. */
     @Override
     public int hashCode() {
         if (uri != null) {
@@ -141,9 +123,8 @@ public class QName
                 ((localpart != null) ? localpart.hashCode() : 0);
         }
         return (rawname != null) ? rawname.hashCode() : 0;
-    } // hashCode():int
+    }
 
-    /** Returns true if the two objects are equal. */
     @Override
     public boolean equals(Object object) {
         if (object instanceof QName) {
@@ -157,9 +138,8 @@ public class QName
             // fall through and return not equal
         }
         return false;
-    } // equals(Object):boolean
+    }
 
-    /** Returns a string representation of this object. */
     @Override
     public String toString() {
 
@@ -191,6 +171,6 @@ public class QName
         }
         return str.toString();
 
-    } // toString():String
+    }
 
-} // class QName
+}

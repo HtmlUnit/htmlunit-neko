@@ -1780,21 +1780,13 @@ public abstract class NodeImpl
         flags = (short) (value ? flags | ID : flags & ~ID);
     }
 
-    //
-    // Object methods
-    //
-
-    /** NON-DOM method for debugging convenience. */
+    // NON-DOM method for debugging convenience.
     @Override
     public String toString() {
         return "["+getNodeName()+": "+getNodeValue()+"]";
     }
 
-    //
-    // Serialization methods
-    //
-
-    /** Serialize object. */
+    // Serialize object. */
     private void writeObject(ObjectOutputStream out) throws IOException {
 
         // synchronize data
@@ -1804,6 +1796,6 @@ public abstract class NodeImpl
         // write object
         out.defaultWriteObject();
 
-    } // writeObject(ObjectOutputStream)
+    }
 
-} // class NodeImpl
+}

@@ -41,42 +41,21 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 public class XMLStringBuffer
     extends XMLString {
 
-    //
-    // Constants
-    //
-
     /** Default buffer size (32). */
     public static final int DEFAULT_SIZE = 32;
 
-    //
-    // Constructors
-    //
-
-    /**
-     *
-     */
     public XMLStringBuffer() {
         this(DEFAULT_SIZE);
-    } // <init>()
+    }
 
-    /**
-     *
-     *
-     * @param size
-     */
     public XMLStringBuffer(int size) {
         ch = new char[size];
-    } // <init>(int)
+    }
 
-    /** Constructs a string buffer from a String. */
     public XMLStringBuffer(String s) {
         this(s.length());
         append(s);
-    } // <init>(String)
-
-    //
-    // Public methods
-    //
+    }
 
     /** Clears the string buffer. */
     @Override
@@ -88,7 +67,7 @@ public class XMLStringBuffer
     /**
      * append
      *
-     * @param c
+     * @param c thechar to append
      */
     public void append(char c) {
         if (this.length + 1 > this.ch.length) {
@@ -102,12 +81,12 @@ public class XMLStringBuffer
         }
         this.ch[this.length] = c;
         this.length++;
-    } // append(char)
+    }
 
     /**
      * append
      *
-     * @param s
+     * @param s the string to append
      */
     public void append(String s) {
         int length = s.length();
@@ -122,14 +101,14 @@ public class XMLStringBuffer
         }
         s.getChars(0, length, this.ch, this.length);
         this.length += length;
-    } // append(String)
+    }
 
     /**
      * append
      *
-     * @param ch
-     * @param offset
-     * @param length
+     * @param ch char array
+     * @param offset start
+     * @param length length
      */
     public void append(char[] ch, int offset, int length) {
         if (this.length + length > this.ch.length) {
@@ -143,15 +122,14 @@ public class XMLStringBuffer
         }
         System.arraycopy(ch, offset, this.ch, this.length, length);
         this.length += length;
-    } // append(char[],int,int)
+    }
 
     /**
      * append
      *
-     * @param s
+     * @param s xmlstring
      */
     public void append(XMLString s) {
         append(s.ch, s.offset, s.length);
-    } // append(XMLString)
-
-} // class XMLStringBuffer
+    }
+}

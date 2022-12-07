@@ -820,8 +820,8 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     /**
      * setProperty
      *
-     * @param propertyId
-     * @param value
+     * @param propertyId property id
+     * @param value value
      */
     @Override
     public void setProperty(String propertyId, Object value)

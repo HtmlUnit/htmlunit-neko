@@ -38,10 +38,6 @@ public class DefaultErrorHandler
     /** Print writer. */
     protected final PrintWriter fOut;
 
-    //
-    // Constructors
-    //
-
     /**
      * Constructs an error handler that prints error messages to
      * <code>System.err</code>.
@@ -50,10 +46,8 @@ public class DefaultErrorHandler
         this(new PrintWriter(System.err));
     } // <init>()
 
-    /**
-     * Constructs an error handler that prints error messages to the
-     * specified <code>PrintWriter</code>.
-     */
+    // Constructs an error handler that prints error messages to the
+    // specified <code>PrintWriter</code>.
     public DefaultErrorHandler(PrintWriter out) {
         fOut = out;
     } // <init>(PrintWriter)

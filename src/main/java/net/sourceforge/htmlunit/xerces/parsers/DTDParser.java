@@ -34,29 +34,12 @@ public abstract class DTDParser
     extends XMLGrammarParser
     implements XMLDTDHandler, XMLDTDContentModelHandler {
 
-    //
-    // Data
-    //
-
     /** fDTDScanner */
     protected XMLDTDScanner fDTDScanner;
 
-    //
-    // Constructors
-    //
-
-    /**
-     *
-     *
-     * @param symbolTable the {@link SymbolTable}
-     */
     public DTDParser(SymbolTable symbolTable) {
         super(symbolTable);
     }
-
-    //
-    // Methods
-    //
 
     /**
      * getDTDGrammar
@@ -65,11 +48,7 @@ public abstract class DTDParser
      */
     public DTDGrammar getDTDGrammar() {
         return null;
-    } // getDTDGrammar
-
-    //
-    // XMLDTDHandler methods
-    //
+    }
 
     /**
      * This method notifies of the start of an entity. The DTD has the
@@ -359,15 +338,12 @@ public abstract class DTDParser
      * the endDTD method.
      *
      * @param name The name of the entity.
+     * @param augmentations augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
     public void endEntity(String name, Augmentations augmentations) throws XNIException {
     }
-
-    //
-    // XMLDTDContentModelHandler methods
-    //
 
     /**
      * The start of a content model. Depending on the type of the content

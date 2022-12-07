@@ -32,10 +32,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  */
 public class NamespaceSupport implements NamespaceContext {
 
-    //
-    // Data
-    //
-
     /**
      * Namespace binding information. This array is composed of a
      * series of tuples containing the namespace binding information:
@@ -79,6 +75,7 @@ public class NamespaceSupport implements NamespaceContext {
     /**
      * Constructs a namespace context object and initializes it with
      * the prefixes declared in the specified context.
+     * @param context the context
      */
     public NamespaceSupport(NamespaceContext context) {
         pushContext();
@@ -298,9 +295,7 @@ public class NamespaceSupport implements NamespaceContext {
         private int counter = 0;
         private int size = 0;
 
-        /**
-         * Constructor for Prefixes.
-         */
+        // Constructor for Prefixes.
         public Prefixes(String [] prefixes, int size) {
             this.prefixes = prefixes;
             this.size = size;

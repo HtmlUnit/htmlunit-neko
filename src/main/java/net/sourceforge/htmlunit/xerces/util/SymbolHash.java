@@ -27,10 +27,6 @@ package net.sourceforge.htmlunit.xerces.util;
  */
 public class SymbolHash {
 
-    //
-    // Constants
-    //
-
     /** Default table size. */
     protected static final int TABLE_SIZE = 101;
 
@@ -39,10 +35,6 @@ public class SymbolHash {
 
     protected static final int MULTIPLIERS_SIZE = 1 << 5;
     protected static final int MULTIPLIERS_MASK = MULTIPLIERS_SIZE - 1;
-
-    //
-    // Data
-    //
 
     /** Actual table size **/
     protected int fTableSize;
@@ -59,10 +51,6 @@ public class SymbolHash {
      */
     protected int[] fHashMultipliers;
 
-    //
-    // Constructors
-    //
-
     /** Constructs a key table with the default size. */
     public SymbolHash() {
         this(TABLE_SIZE);
@@ -78,17 +66,13 @@ public class SymbolHash {
         fBuckets = new Entry[fTableSize];
     }
 
-    //
-    // Public methods
-    //
-
     /**
      * Adds the key/value mapping to the key table. If the key already exists,
      * the previous value associated with this key is overwritten by the new
      * value.
      *
-     * @param key
-     * @param value
+     * @param key key
+     * @param value value
      */
     public void put(Object key, Object value) {
 
@@ -127,7 +111,7 @@ public class SymbolHash {
     /**
      * Get the value associated with the given key.
      *
-     * @param key
+     * @param key the key
      * @return the value associated with the given key.
      */
     public Object get(Object key) {
@@ -166,7 +150,7 @@ public class SymbolHash {
     }
 
     /**
-     * Return key/value pairs of all entries in the map
+     * @return key/value pairs of all entries in the map
      */
     public Object[] getEntries() {
         Object[] entries = new Object[fNum << 1];
@@ -182,6 +166,7 @@ public class SymbolHash {
 
     /**
      * Make a clone of this object.
+     * @return the cloned hash
      */
     public SymbolHash makeClone() {
         SymbolHash newTable = new SymbolHash(fTableSize);
@@ -205,7 +190,7 @@ public class SymbolHash {
         }
         fNum = 0;
         fHashMultipliers = null;
-    } // clear():  void
+    }
 
     protected Entry search(Object key, int bucket) {
         // search for identical key
@@ -217,7 +202,7 @@ public class SymbolHash {
     }
 
     /**
-     * Returns a hashcode value for the specified key.
+     * @return a hashcode value for the specified key.
      *
      * @param key The key to hash.
      */
@@ -284,10 +269,6 @@ public class SymbolHash {
         }
     }
 
-    //
-    // Classes
-    //
-
     /**
      * This class is a key table entry. Each entry acts as a node
      * in a linked list.
@@ -319,7 +300,6 @@ public class SymbolHash {
                 entry.next = next.makeClone();
             return entry;
         }
-    } // entry
-
-} // class SymbolHash
+    }
+}
 

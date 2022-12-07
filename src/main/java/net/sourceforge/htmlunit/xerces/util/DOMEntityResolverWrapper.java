@@ -65,7 +65,7 @@ public class DOMEntityResolverWrapper
     /** Default constructor. */
     public DOMEntityResolverWrapper() {}
 
-    /** Wraps the specified DOM entity resolver. */
+    // Wraps the specified DOM entity resolver.
     public DOMEntityResolverWrapper(LSResourceResolver entityResolver) {
         setEntityResolver(entityResolver);
     } // LSResourceResolver
@@ -74,12 +74,12 @@ public class DOMEntityResolverWrapper
     // Public methods
     //
 
-    /** Sets the DOM entity resolver. */
+    // Sets the DOM entity resolver.
     public void setEntityResolver(LSResourceResolver entityResolver) {
         fEntityResolver = entityResolver;
     } // setEntityResolver(LSResourceResolver)
 
-    /** Returns the DOM entity resolver. */
+    /** @return the DOM entity resolver. */
     public LSResourceResolver getEntityResolver() {
         return fEntityResolver;
     } // getEntityResolver():LSResourceResolver

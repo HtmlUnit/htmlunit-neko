@@ -60,9 +60,7 @@ public abstract class XMLParser {
     /** The parser configuration. */
     protected final XMLParserConfiguration fConfiguration;
 
-    /**
-     * Default Constructor.
-     */
+    // Default Constructor.
     protected XMLParser(XMLParserConfiguration config) {
         // save configuration
         fConfiguration = config;

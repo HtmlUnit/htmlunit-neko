@@ -59,7 +59,6 @@ public interface XMLDTDContentModelHandler {
      * A sequence separator for children content models. This separator
      * is used to specify that the allowed children must follow in the
      * specified sequence.
-     * <p>
      * <pre>
      * &lt;!ELEMENT elem (foo,bar)&gt;
      * &lt;!ELEMENT elem (foo,bar*)&gt;

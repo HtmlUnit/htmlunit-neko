@@ -39,6 +39,9 @@ public final class DOMUtil {
 
     /**
      * Creates an LSException. On J2SE 1.4 and above the cause for the exception will be set.
+     * @param code the code
+     * @param cause the cause
+     * @return the exception
      */
     public static LSException createLSException(short code, Throwable cause) {
         LSException lse = new LSException(code, cause != null ? cause.getMessage() : null);
