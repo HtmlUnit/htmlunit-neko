@@ -83,7 +83,7 @@ public class DocumentTypeImpl
     //
     // Constructors
     //
-    private Hashtable userData =  null;
+    private Hashtable<String, UserDataRecord> userData =  null;
 
     /**
      * Factory method for creating a document type node.
@@ -459,22 +459,20 @@ public class DocumentTypeImpl
     public Object setUserData(String key,
     Object data, UserDataHandler handler) {
         if(userData == null)
-            userData = new Hashtable();
+            userData = new Hashtable<>();
         if (data == null) {
             if (userData != null) {
-                Object o = userData.remove(key);
-                if (o != null) {
-                    UserDataRecord r = (UserDataRecord) o;
-                    return r.fData;
+                UserDataRecord udr = userData.remove(key);
+                if (udr != null) {
+                    return udr.fData;
                 }
             }
             return null;
         }
         else {
-            Object o = userData.put(key, new UserDataRecord(data, handler));
-            if (o != null) {
-                UserDataRecord r = (UserDataRecord) o;
-                return r.fData;
+            UserDataRecord udr = userData.put(key, new UserDataRecord(data, handler));
+            if (udr != null) {
+                return udr.fData;
             }
         }
         return null;
@@ -500,7 +498,7 @@ public class DocumentTypeImpl
      * {@inheritDoc}
      */
     @Override
-    protected Hashtable getUserDataRecord(){
+    protected Hashtable<String, UserDataRecord> getUserDataRecord(){
         return userData;
     }
 }

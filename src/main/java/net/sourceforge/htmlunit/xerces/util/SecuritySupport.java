@@ -34,10 +34,10 @@ import java.security.PrivilegedExceptionAction;
 public final class SecuritySupport {
 
     public static ClassLoader getContextClassLoader() {
-        return (ClassLoader)
-        AccessController.doPrivileged(new PrivilegedAction() {
+        return
+        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
             @Override
-            public Object run() {
+            public ClassLoader run() {
                 ClassLoader cl = null;
                 try {
                     cl = Thread.currentThread().getContextClassLoader();
@@ -48,10 +48,10 @@ public final class SecuritySupport {
     }
 
     public static ClassLoader getSystemClassLoader() {
-        return (ClassLoader)
-        AccessController.doPrivileged(new PrivilegedAction() {
+        return
+        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
             @Override
-            public Object run() {
+            public ClassLoader run() {
                 ClassLoader cl = null;
                 try {
                     cl = ClassLoader.getSystemClassLoader();
@@ -62,10 +62,10 @@ public final class SecuritySupport {
     }
 
     public static ClassLoader getParentClassLoader(final ClassLoader cl) {
-        return (ClassLoader)
-        AccessController.doPrivileged(new PrivilegedAction() {
+        return
+        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
             @Override
-            public Object run() {
+            public ClassLoader run() {
                 ClassLoader parent = null;
                 try {
                     parent = cl.getParent();
@@ -79,10 +79,10 @@ public final class SecuritySupport {
     }
 
     public static String getSystemProperty(final String propName) {
-        return (String)
-        AccessController.doPrivileged(new PrivilegedAction() {
+        return
+        AccessController.doPrivileged(new PrivilegedAction<String>() {
             @Override
-            public Object run() {
+            public String run() {
                 return System.getProperty(propName);
             }
         });
@@ -92,10 +92,10 @@ public final class SecuritySupport {
     throws FileNotFoundException
     {
         try {
-            return (FileInputStream)
-            AccessController.doPrivileged(new PrivilegedExceptionAction() {
+            return
+            AccessController.doPrivileged(new PrivilegedExceptionAction<FileInputStream>() {
                 @Override
-                public Object run() throws FileNotFoundException {
+                public FileInputStream run() throws FileNotFoundException {
                     return new FileInputStream(file);
                 }
             });
@@ -107,10 +107,10 @@ public final class SecuritySupport {
     public static InputStream getResourceAsStream(final ClassLoader cl,
             final String name)
     {
-        return (InputStream)
-        AccessController.doPrivileged(new PrivilegedAction() {
+        return
+        AccessController.doPrivileged(new PrivilegedAction<InputStream>() {
             @Override
-            public Object run() {
+            public InputStream run() {
                 InputStream ris;
                 if (cl == null) {
                     ris = ClassLoader.getSystemResourceAsStream(name);
@@ -123,20 +123,20 @@ public final class SecuritySupport {
     }
 
     public static boolean getFileExists(final File f) {
-        return ((Boolean)
-                AccessController.doPrivileged(new PrivilegedAction() {
+        return (
+                AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
                     @Override
-                    public Object run() {
+                    public Boolean run() {
                         return f.exists() ? Boolean.TRUE : Boolean.FALSE;
                     }
                 })).booleanValue();
     }
 
     public static long getLastModified(final File f) {
-        return ((Long)
-                AccessController.doPrivileged(new PrivilegedAction() {
+        return (
+                AccessController.doPrivileged(new PrivilegedAction<Long>() {
                     @Override
-                    public Object run() {
+                    public Long run() {
                         return new Long(f.lastModified());
                     }
                 })).longValue();

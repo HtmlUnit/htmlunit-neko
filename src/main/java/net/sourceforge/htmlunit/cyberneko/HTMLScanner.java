@@ -32,7 +32,6 @@ import net.sourceforge.htmlunit.xerces.util.EncodingMap;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
 import net.sourceforge.htmlunit.xerces.util.URI;
 import net.sourceforge.htmlunit.xerces.util.XMLAttributesImpl;
-import net.sourceforge.htmlunit.xerces.util.XMLResourceIdentifierImpl;
 import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -40,7 +39,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
@@ -526,9 +524,6 @@ public class HTMLScanner
 
     /** Single boolean array. */
     private final boolean[] fSingleBoolean = { false };
-
-    /** Resource identifier. */
-    private final XMLResourceIdentifierImpl fResourceId = new XMLResourceIdentifierImpl();
 
     private final char REPLACEMENT_CHARACTER = '\uFFFD'; // the � character
 
@@ -1619,12 +1614,6 @@ public class HTMLScanner
             augs.putItem(AUGMENTATIONS, SYNTHESIZED_ITEM);
         }
         return augs;
-    }
-
-    // Returns an empty resource identifier.
-    protected final XMLResourceIdentifier resourceId() {
-        fResourceId.clear();
-        return fResourceId;
     }
 
     //

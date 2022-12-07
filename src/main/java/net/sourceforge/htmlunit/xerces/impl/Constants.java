@@ -82,9 +82,6 @@ public final class Constants {
     /** xmlns URIs feature ("xmlns-uris"). */
     public static final String XMLNS_URIS_FEATURE = "xmlns-uris";
 
-    /** XML 1.1 feature ("xml-1.1"). */
-    public static final String XML_11_FEATURE = "xml-1.1";
-
     /** Allow unparsed entity and notation declaration events to be sent after the end DTD event ("allow-dtd-events-after-endDTD") */
     public static final String ALLOW_DTD_EVENTS_AFTER_ENDDTD_FEATURE = "allow-dtd-events-after-endDTD";
 
@@ -173,7 +170,6 @@ public final class Constants {
     public static final String DOM_FORMAT_PRETTY_PRINT = "format-pretty-print";
     public static final String DOM_XMLDECL = "xml-declaration";
     public static final String DOM_UNKNOWNCHARS = "unknown-characters";
-    public static final String DOM_CERTIFIED =  "certified";
     public static final String DOM_DISALLOW_DOCTYPE =  "disallow-doctype";
     public static final String DOM_IGNORE_UNKNOWN_CHARACTER_DENORMALIZATIONS =  "ignore-unknown-character-denormalizations";
 

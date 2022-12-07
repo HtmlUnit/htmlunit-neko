@@ -28,7 +28,6 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLGrammarDescription;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
@@ -156,12 +155,6 @@ public class DOMEntityResolverWrapper
 
     /** Determines the type of resource being resolved **/
     private String getType(XMLResourceIdentifier resourceIdentifier) {
-        if (resourceIdentifier instanceof XMLGrammarDescription) {
-            XMLGrammarDescription desc = (XMLGrammarDescription) resourceIdentifier;
-            if (XMLGrammarDescription.XML_SCHEMA.equals(desc.getGrammarType())) {
-                return XSD_TYPE;
-            }
-        }
         return XML_TYPE;
     } // getType(XMLResourceIdentifier):String
 

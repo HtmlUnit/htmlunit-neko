@@ -1252,9 +1252,7 @@ public abstract class AbstractSAXParser
                     (suffixLength == Constants.USE_ATTRIBUTES2_FEATURE.length() &&
                     featureId.endsWith(Constants.USE_ATTRIBUTES2_FEATURE)) ||
                     (suffixLength == Constants.USE_LOCATOR2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_LOCATOR2_FEATURE)) ||
-                    (suffixLength == Constants.XML_11_FEATURE.length() &&
-                    featureId.endsWith(Constants.XML_11_FEATURE))) {
+                    featureId.endsWith(Constants.USE_LOCATOR2_FEATURE))) {
                     throw new SAXNotSupportedException(
                         SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                         "feature-read-only", new Object [] {featureId}));
@@ -1352,14 +1350,6 @@ public abstract class AbstractSAXParser
                 if (suffixLength == Constants.IS_STANDALONE_FEATURE.length() &&
                     featureId.endsWith(Constants.IS_STANDALONE_FEATURE)) {
                     return fStandalone;
-                }
-
-                // http://xml.org/sax/features/xml-1.1
-                //   reports whether the parser supports both XML 1.1 and XML 1.0.
-                //
-                if (suffixLength == Constants.XML_11_FEATURE.length() &&
-                    featureId.endsWith(Constants.XML_11_FEATURE)) {
-                    return (fConfiguration instanceof XML11Configurable);
                 }
 
                 // http://xml.org/sax/features/lexical-handler/parameter-entities

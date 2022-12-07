@@ -95,10 +95,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String HONOUR_ALL_SCHEMALOCATIONS =
         Constants.XERCES_FEATURE_PREFIX + Constants.HONOUR_ALL_SCHEMALOCATIONS_FEATURE;
 
-    /** Feature identifier: use grammar pool only */
-    protected static final String USE_GRAMMAR_POOL_ONLY =
-        Constants.XERCES_FEATURE_PREFIX + Constants.USE_GRAMMAR_POOL_ONLY_FEATURE;
-
     /** Feature identifier: load external DTD. */
     protected static final String DISALLOW_DOCTYPE_DECL_FEATURE =
         Constants.XERCES_FEATURE_PREFIX + Constants.DISALLOW_DOCTYPE_DECL_FEATURE;
@@ -217,7 +213,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             GENERATE_SYNTHETIC_ANNOTATIONS,
             VALIDATE_ANNOTATIONS,
             HONOUR_ALL_SCHEMALOCATIONS,
-            USE_GRAMMAR_POOL_ONLY,
             DISALLOW_DOCTYPE_DECL_FEATURE,
             BALANCE_SYNTAX_TREES,
             WARN_ON_DUPLICATE_ATTDEF,
@@ -238,7 +233,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         setFeature(GENERATE_SYNTHETIC_ANNOTATIONS, false);
         setFeature(VALIDATE_ANNOTATIONS, false);
         setFeature(HONOUR_ALL_SCHEMALOCATIONS, false);
-        setFeature(USE_GRAMMAR_POOL_ONLY, false);
         setFeature(DISALLOW_DOCTYPE_DECL_FEATURE, false);
         setFeature(BALANCE_SYNTAX_TREES, false);
         setFeature(WARN_ON_DUPLICATE_ATTDEF, false);
