@@ -108,7 +108,7 @@ public final class ObjectFactory {
      * @param fallbackClassName     Implementation class name, if nothing else
      *                              is found.  Use null to mean no fallback.
      *
-     * @exception ObjectFactory.ConfigurationError
+     * @exception ObjectFactory.ConfigurationError on error
      */
     static Object createObject(String factoryId,
                                       String propertiesFilename,
@@ -394,7 +394,7 @@ public final class ObjectFactory {
         throws ConfigurationError
     {
         String serviceId = "META-INF/services/" + factoryId;
-        InputStream is = null;
+        InputStream is;
 
         // First try the Context ClassLoader
         ClassLoader cl = findClassLoader();
@@ -437,7 +437,7 @@ public final class ObjectFactory {
         BufferedReader rd;
         rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8), DEFAULT_LINE_LENGTH);
 
-        String factoryClassName = null;
+        String factoryClassName;
         try {
             // XXX Does not handle all possible input as specified by the
             // Jar Service Provider specification

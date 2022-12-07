@@ -1594,7 +1594,7 @@ extends ParentNode implements Document  {
     @Override
     public Node adoptNode(Node source) {
         NodeImpl node;
-        Hashtable userData = null;
+        Hashtable userData;
         try {
             node = (NodeImpl) source;
         } catch (ClassCastException e) {
@@ -1745,7 +1745,7 @@ extends ParentNode implements Document  {
                 }
             }
 
-            Node nextNode = null;
+            Node nextNode;
             nextNode = node.getFirstChild();
 
             while (null == nextNode) {
@@ -2056,7 +2056,7 @@ extends ParentNode implements Document  {
 
         // check that both prefix and local part match NCName
         if (local == null) return false;
-        boolean validNCName = false;
+        boolean validNCName;
 
         if (!xml11Version) {
             validNCName = (prefix == null || XMLChar.isValidNCName(prefix))
@@ -2358,7 +2358,7 @@ extends ParentNode implements Document  {
         }
 
         // check that both prefix and local part match NCName
-        boolean validNCName = false;
+        boolean validNCName;
         if (!xml11Version) {
             validNCName = (prefix == null || XMLChar.isValidNCName(prefix))
                 && XMLChar.isValidNCName(local);

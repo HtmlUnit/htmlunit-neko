@@ -58,7 +58,7 @@ public class HTMLEntitiesParserGenerator {
         }
         Arrays.sort(entities);
         for (i= 0; i < entities.length; i++) {
-            mapped[i] = props.getProperty(entities[i]).toString();
+            mapped[i] = props.getProperty(entities[i]);
         }
 
         String start = "";

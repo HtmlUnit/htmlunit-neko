@@ -52,7 +52,7 @@ public class HTMLTagBalancingListenerTest {
 
    /**
     * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17
-    * @throws Exception
+    * @throws Exception on error
     */
    @Test
    public void reuse() throws Exception {

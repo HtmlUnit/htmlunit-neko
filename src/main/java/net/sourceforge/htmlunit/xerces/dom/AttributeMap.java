@@ -476,15 +476,12 @@ public class AttributeMap extends NamedNodeMapImpl {
     }
 
     /**
-     * Cloning a NamedNodeMap is a DEEP OPERATION; it always clones
-     * all the nodes contained in the map.
-     */
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public NamedNodeMapImpl cloneMap(NodeImpl ownerNode) {
+        // Cloning a NamedNodeMap is a DEEP OPERATION; it always clones
+        // all the nodes contained in the map.
         AttributeMap newmap =
             new AttributeMap((ElementImpl) ownerNode, null);
         newmap.hasDefaults(hasDefaults());

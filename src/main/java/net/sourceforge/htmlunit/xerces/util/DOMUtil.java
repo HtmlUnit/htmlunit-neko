@@ -61,10 +61,10 @@ public final class DOMUtil {
     static class ThrowableMethods {
 
         // Method: java.lang.Throwable.initCause(java.lang.Throwable)
-        private static java.lang.reflect.Method fgThrowableInitCauseMethod = null;
+        private static java.lang.reflect.Method fgThrowableInitCauseMethod;
 
         // Flag indicating whether or not Throwable methods available.
-        private static boolean fgThrowableMethodsAvailable = false;
+        private static boolean fgThrowableMethodsAvailable;
 
         private ThrowableMethods() {}
 

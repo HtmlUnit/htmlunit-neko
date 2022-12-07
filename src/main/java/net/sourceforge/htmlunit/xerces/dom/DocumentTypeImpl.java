@@ -293,7 +293,7 @@ public class DocumentTypeImpl
                 Node entNode2 =
                     argEntities.getNamedItem(entNode1.getNodeName());
 
-                if (!((NodeImpl) entNode1).isEqualNode(entNode2))
+                if (!entNode1.isEqualNode(entNode2))
                     return false;
             }
         }
@@ -313,7 +313,7 @@ public class DocumentTypeImpl
                 Node noteNode2 =
                     argNotations.getNamedItem(noteNode1.getNodeName());
 
-                if (!((NodeImpl) noteNode1).isEqualNode(noteNode2))
+                if (!noteNode1.isEqualNode(noteNode2))
                     return false;
             }
         }
@@ -486,9 +486,9 @@ public class DocumentTypeImpl
         if (userData == null) {
             return null;
         }
-        Object o = userData.get(key);
+        UserDataRecord o = userData.get(key);
         if (o != null) {
-            UserDataRecord r = (UserDataRecord) o;
+            UserDataRecord r = o;
             return r.fData;
         }
         return null;

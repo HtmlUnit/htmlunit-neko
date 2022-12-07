@@ -106,7 +106,7 @@ public class NamedNodeMapImpl
     @Override
     public Node item(int index) {
         return (nodes != null && index < nodes.size()) ?
-                    (Node)(nodes.get(index)) : null;
+                nodes.get(index) : null;
     }
 
     /**
@@ -122,7 +122,7 @@ public class NamedNodeMapImpl
     public Node getNamedItem(String name) {
 
         int i = findNamePoint(name,0);
-        return (i < 0) ? null : (Node)(nodes.get(i));
+        return (i < 0) ? null : nodes.get(i);
 
     }
 
@@ -143,7 +143,7 @@ public class NamedNodeMapImpl
     public Node getNamedItemNS(String namespaceURI, String localName) {
 
         int i = findNamePoint(namespaceURI, localName);
-        return (i < 0) ? null : (Node)(nodes.get(i));
+        return (i < 0) ? null : nodes.get(i);
 
     }
 

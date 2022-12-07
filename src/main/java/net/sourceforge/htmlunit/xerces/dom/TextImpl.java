@@ -293,7 +293,7 @@ public class TextImpl
         }
 
         //replace the text node
-        Text currentNode = null;
+        Text currentNode;
         if (isReadOnly()) {
             Text newNode = this.ownerDocument().createTextNode(content);
             if (parent != null) { // check if node in the tree

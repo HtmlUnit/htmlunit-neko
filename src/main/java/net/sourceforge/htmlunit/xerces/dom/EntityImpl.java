@@ -329,7 +329,7 @@ public class EntityImpl
         if (needsSyncData()) {
             synchronizeData();
         }
-        return (baseURI!=null)?baseURI:((CoreDocumentImpl)getOwnerDocument()).getBaseURI();
+        return (baseURI!=null)?baseURI: getOwnerDocument().getBaseURI();
     }
 
     // NON-DOM: set base uri

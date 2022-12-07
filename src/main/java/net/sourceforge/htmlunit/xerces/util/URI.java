@@ -287,7 +287,7 @@ import java.util.Locale;
    *                                   rules
    */
   public URI(String p_uriSpec, boolean allowNonAbsoluteURI) throws MalformedURIException {
-      this((URI)null, p_uriSpec, allowNonAbsoluteURI);
+      this(null, p_uriSpec, allowNonAbsoluteURI);
   }
 
  /**

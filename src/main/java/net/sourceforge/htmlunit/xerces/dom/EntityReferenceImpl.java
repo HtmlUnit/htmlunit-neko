@@ -193,7 +193,7 @@ implements EntityReference {
             synchronizeChildren();
         }
 
-        String value = "";
+        String value;
         if (firstChild != null){
           if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE){
               value = ((EntityReferenceImpl)firstChild).getEntityRefValue();

@@ -842,12 +842,12 @@ public class ElementImpl
             return false;
         }
         boolean hasAttrs = hasAttributes();
-        if (hasAttrs != ((Element) arg).hasAttributes()) {
+        if (hasAttrs != arg.hasAttributes()) {
             return false;
         }
         if (hasAttrs) {
             NamedNodeMap map1 = getAttributes();
-            NamedNodeMap map2 = ((Element) arg).getAttributes();
+            NamedNodeMap map2 = arg.getAttributes();
             int len = map1.getLength();
             if (len != map2.getLength()) {
                 return false;
@@ -856,14 +856,14 @@ public class ElementImpl
                 Node n1 = map1.item(i);
                 if (n1.getLocalName() == null) { // DOM Level 1 Node
                     Node n2 = map2.getNamedItem(n1.getNodeName());
-                    if (n2 == null || !((NodeImpl) n1).isEqualNode(n2)) {
+                    if (n2 == null || !n1.isEqualNode(n2)) {
                         return false;
                     }
                 }
                 else {
                     Node n2 = map2.getNamedItemNS(n1.getNamespaceURI(),
                                                   n1.getLocalName());
-                    if (n2 == null || !((NodeImpl) n1).isEqualNode(n2)) {
+                    if (n2 == null || !n1.isEqualNode(n2)) {
                         return false;
                     }
                 }

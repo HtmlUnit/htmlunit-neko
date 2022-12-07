@@ -346,18 +346,6 @@ public class HTMLScanner
     protected static final HTMLEventInfo SYNTHESIZED_ITEM =
         new HTMLEventInfo.SynthesizedItem();
 
-    private final static BitSet ENTITY_CHARS = new BitSet();
-    static {
-        final String str = "-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
-        for (int i = 0; i < str.length(); ++i) {
-            final char c = str.charAt(i);
-            ENTITY_CHARS.set(c);
-        }
-    }
-    //
-    // Data
-    //
-
     // features
 
     /** Augmentations. */
@@ -997,7 +985,7 @@ public class HTMLScanner
         final String id = fixURI(systemId);
 
         // normalize base
-        URI base = null;
+        URI base;
         URI uri = null;
         try {
             if (baseSystemId == null || baseSystemId.length() == 0 ||
@@ -1801,8 +1789,7 @@ public class HTMLScanner
         }
 
         /**
-         * Gets the current character and moves to next one.
-         * @return
+         * @return the current character and moves to next one.
          */
         private char getNextChar() {
             characterOffset_++;
@@ -2190,7 +2177,7 @@ public class HTMLScanner
          * Scans the content of <noscript>: it doesn't get parsed but is considered as plain text
          * when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to false.
          * @param tagName the tag for which content is scanned (one of "noscript", "noframes", "iframe")
-         * @throws IOException
+         * @throws IOException on error
          */
         private void scanUntilEndTag(final String tagName) throws IOException {
             final XMLStringBuffer buffer = new XMLStringBuffer();
@@ -2310,7 +2297,7 @@ public class HTMLScanner
             final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
 
             final char[] buff = new char[len];
-            int nbRead = 0;
+            int nbRead;
             for (nbRead=0; nbRead<len; ++nbRead) {
                 // read() should not clear the buffer
                 if (fCurrentEntity.offset == fCurrentEntity.length) {
@@ -2503,7 +2490,7 @@ public class HTMLScanner
         // Scans markup content.
         protected boolean scanMarkupContent(XMLStringBuffer buffer,
                                             char cend) throws IOException {
-            int c = -1;
+            int c;
             OUTER: while (true) {
                 c = fCurrentEntity.read();
                 if (c == -1) {

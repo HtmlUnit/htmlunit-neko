@@ -236,7 +236,7 @@ public class NamespaceSupport implements NamespaceContext {
             String[] prefixes = new String[fNamespaceSize];
             fPrefixes = prefixes;
         }
-        String prefix = null;
+        String prefix;
         boolean unique = true;
         for (int i = 2; i < (fNamespaceSize-2); i += 2) {
             prefix = fNamespace[i + 2];
@@ -282,7 +282,7 @@ public class NamespaceSupport implements NamespaceContext {
     protected final class Prefixes implements Enumeration {
         private final String[] prefixes;
         private int counter = 0;
-        private int size = 0;
+        private int size;
 
         // Constructor for Prefixes.
         public Prefixes(String [] prefixes, int size) {

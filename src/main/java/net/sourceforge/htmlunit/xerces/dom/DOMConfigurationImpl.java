@@ -603,7 +603,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                                 }
                                 setProperty (
                                     Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_SOURCE,
-                                    locations.toArray(new String[locations.size()]));
+                                    locations.toArray(new String[0]));
                             }
                             else {
                                 setProperty (

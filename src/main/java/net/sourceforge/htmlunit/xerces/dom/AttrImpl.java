@@ -447,7 +447,7 @@ public class AttrImpl
 
         ChildNode firstChild = ((ChildNode) value);
 
-        String data = null;
+        String data;
         if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE){
                 data = ((EntityReferenceImpl)firstChild).getEntityRefValue();
         }

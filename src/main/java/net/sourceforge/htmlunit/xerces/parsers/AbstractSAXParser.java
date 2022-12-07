@@ -1656,8 +1656,8 @@ public abstract class AbstractSAXParser
     protected final void startNamespaceMapping() throws SAXException{
         int count = fNamespaceContext.getDeclaredPrefixCount();
         if (count > 0) {
-            String prefix = null;
-            String uri = null;
+            String prefix;
+            String uri;
             for (int i = 0; i < count; i++) {
                 prefix = fNamespaceContext.getDeclaredPrefixAt(i);
                 uri = fNamespaceContext.getURI(prefix);

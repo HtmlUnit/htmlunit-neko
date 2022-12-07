@@ -78,7 +78,7 @@ public class HTMLBuilder
         throws SAXException
     {
         if ( ! _done )
-        throw new SAXException( "HTM001 State error: startDocument fired twice on one builder." );
+            throw new SAXException( "HTM001 State error: startDocument fired twice on one builder." );
     _document = null;
     _done = false;
     }
@@ -92,7 +92,7 @@ public class HTMLBuilder
             throw new SAXException( "HTM002 State error: document never started or missing document element." );
     if ( _current != null )
         throw new SAXException( "HTM003 State error: document ended before end of document element." );
-        _current = null;
+    _current = null;
     _done = true;
     }
 
@@ -116,7 +116,7 @@ public class HTMLBuilder
         elem = (ElementImpl) _document.getDocumentElement();
         _current = elem;
         if ( _current == null )
-        throw new SAXException( "HTM005 State error: Document.getDocumentElement returns null." );
+            throw new SAXException( "HTM005 State error: Document.getDocumentElement returns null." );
 
         // Insert nodes (comment and PI) that appear before the root element.
         if ( _preRootNodes != null )
@@ -132,7 +132,7 @@ public class HTMLBuilder
         // This is a state error, indicates that document has been parsed in full,
         // or that there are two root elements.
         if ( _current == null )
-        throw new SAXException( "HTM006 State error: startElement called after end of document element." );
+            throw new SAXException( "HTM006 State error: startElement called after end of document element." );
         elem = (ElementImpl) _document.createElement( tagName );
         _current.appendChild( elem );
         _current = elem;
@@ -207,14 +207,14 @@ public class HTMLBuilder
         if ( _current == null && _document == null )
     {
         if ( _preRootNodes == null )
-        _preRootNodes = new Vector<>();
+            _preRootNodes = new Vector<>();
         _preRootNodes.addElement( new ProcessingInstructionImpl( null, target, instruction ) );
     }
     else
         if ( _current == null && _document != null )
             _document.appendChild( _document.createProcessingInstruction(target, instruction) );
     else
-        _current.appendChild( _document.createProcessingInstruction(target, instruction) );
+            _current.appendChild( _document.createProcessingInstruction(target, instruction) );
     }
 
 

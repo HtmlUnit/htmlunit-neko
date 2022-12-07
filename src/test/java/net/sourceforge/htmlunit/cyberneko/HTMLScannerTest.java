@@ -73,7 +73,7 @@ public class HTMLScannerTest {
     /**
      * Ensure that the current locale doesn't affect the HTML tags.
      * see issue https://sourceforge.net/tracker/?func=detail&atid=952178&aid=3544334&group_id=195122
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void locale() throws Exception {
@@ -175,7 +175,7 @@ public class HTMLScannerTest {
 
     /**
      * Regression test for bug 2933989.
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void infiniteLoop() throws Exception {
@@ -215,7 +215,7 @@ public class HTMLScannerTest {
     }
 
     /**
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void elementNameNormalization() throws Exception {
@@ -256,7 +256,7 @@ public class HTMLScannerTest {
 
     /**
      * Regression test for an oom exception in versions < 2.60.
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void invalidProcessingInstruction() throws Exception {
@@ -274,7 +274,7 @@ public class HTMLScannerTest {
 
     /**
      * Regression test for an index out of bounds exception in versions < 2.60.
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void invalidProcessingInstruction2() throws Exception {
@@ -292,7 +292,7 @@ public class HTMLScannerTest {
 
     /**
      * Regression test for an index out of bounds exception in versions < 2.60.
-     * @throws Exception
+     * @throws Exception on error
      */
     @Test
     public void invalidProcessingInstruction3() throws Exception {

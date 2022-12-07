@@ -825,7 +825,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                         fStringBuffer.append (((TextImpl)child).removeData ());
                     } else {
                         fStringBuffer.append (((Text)child).getData ());
-                        ((Text)child).setNodeValue (null);
+                        child.setNodeValue (null);
                     }
                     fFirstChunk = false;
                 }
@@ -980,7 +980,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             NamedNodeMap entities = fDocumentType.getEntities ();
             fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
             if (fCurrentEntityDecl != null) {
-                if (fCurrentEntityDecl != null && fCurrentEntityDecl.getFirstChild () == null) {
+                if (fCurrentEntityDecl.getFirstChild () == null) {
                     fCurrentEntityDecl.setReadOnly (false, true);
                     Node child = fCurrentNode.getFirstChild ();
                     while (child != null) {
@@ -997,7 +997,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         }
         fInEntityRef = false;
-        boolean removeEntityRef = false;
         if (fCreateEntityRefNodes) {
             if (fDocumentImpl != null) {
                 // Make entity ref node read only
@@ -1005,7 +1004,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
         }
 
-        if (!fCreateEntityRefNodes || removeEntityRef) {
+        if (!fCreateEntityRefNodes) {
             // move entity reference children to the list of
             // siblings of its parent and remove entity reference
             NodeList children = fCurrentNode.getChildNodes ();
@@ -1050,7 +1049,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // REVISIT: remove dependency on our implementation when
             //          DOM L3 becomes REC
 
-            String baseURI = null;
+            String baseURI;
             short nodeType = node.getNodeType ();
 
             if (nodeType == Node.ELEMENT_NODE) {
@@ -1064,7 +1063,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     return;
                 }
                 // retrive the baseURI from the entity reference
-                baseURI = ((EntityReferenceImpl)fCurrentNode).getBaseURI ();
+                baseURI = fCurrentNode.getBaseURI ();
                 if (baseURI !=null && !baseURI.equals (fDocumentImpl.getDocumentURI ())) {
                     if (fNamespaceAware) {
                         ((Element)node).setAttributeNS ("http://www.w3.org/XML/1998/namespace", "xml:base", baseURI);
@@ -1075,7 +1074,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
             else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
 
-                baseURI = ((EntityReferenceImpl)fCurrentNode).getBaseURI ();
+                baseURI = fCurrentNode.getBaseURI ();
                 if (baseURI !=null && fErrorHandler != null) {
                     DOMErrorImpl error = new DOMErrorImpl ();
                     error.fType = "pi-base-uri-not-preserved";
@@ -1090,7 +1089,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     // method to create an element node.
     // subclasses can override this method to create element nodes in other ways.
     protected Element createElementNode (QName element) {
-        Element el = null;
+        Element el;
 
         if (fNamespaceAware) {
             // if we are using xerces DOM implementation, call our
@@ -1113,7 +1112,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     // method to create an attribute node.
     // subclasses can override this method to create attribute nodes in other ways.
     protected Attr createAttrNode (QName attrQName) {
-        Attr attr = null;
+        Attr attr;
 
         if (fNamespaceAware) {
             if (fDocumentImpl != null) {

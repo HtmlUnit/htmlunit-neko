@@ -637,7 +637,7 @@ public abstract class ParentNode
         if (child != null) {
             Node next = child.getNextSibling();
             if (next == null) {
-                return hasTextContent(child) ? ((NodeImpl) child).getTextContent() : "";
+                return hasTextContent(child) ? child.getTextContent() : "";
             }
             StringBuffer buf = new StringBuffer();
             getTextContent(buf);
@@ -1012,7 +1012,7 @@ public abstract class ParentNode
     /*
      * a class to store some user data along with its handler
      */
-    class UserDataRecord implements Serializable {
+    static class UserDataRecord implements Serializable {
         /** Serialization version. */
         private static final long serialVersionUID = 3258126977134310455L;
 

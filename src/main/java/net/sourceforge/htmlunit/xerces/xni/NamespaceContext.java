@@ -36,14 +36,14 @@ public interface NamespaceContext {
      * The XML Namespace ("http://www.w3.org/XML/1998/namespace"). This is
      * the Namespace URI that is automatically mapped to the "xml" prefix.
      */
-    String XML_URI = "http://www.w3.org/XML/1998/namespace".intern();
+    String XML_URI = "http://www.w3.org/XML/1998/namespace";
 
     /**
      * XML Information Set REC
      * all namespace attributes (including those named xmlns,
      * whose [prefix] property has no value) have a namespace URI of http://www.w3.org/2000/xmlns/
      */
-    String XMLNS_URI = "http://www.w3.org/2000/xmlns/".intern();
+    String XMLNS_URI = "http://www.w3.org/2000/xmlns/";
 
     /**
      * Start a new Namespace context.

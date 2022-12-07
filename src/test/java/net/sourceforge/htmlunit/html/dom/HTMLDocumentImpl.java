@@ -496,7 +496,7 @@ public class HTMLDocumentImpl
      *
      * @param name The name of the attribute
      * @return An attribute whose name is all lower case
-     * @throws DOMException(INVALID_NAME_ERR) if the attribute name
+     * @throws DOMException INVALID_NAME_ERR if the attribute name
      *   is not acceptable
      */
     @Override

@@ -29,11 +29,11 @@ import java.util.NoSuchElementException;
 public final class Constants {
 
     // Schema Types:
-    public static final String NS_XMLSCHEMA = "http://www.w3.org/2001/XMLSchema".intern();
-    public static final String NS_DTD = "http://www.w3.org/TR/REC-xml".intern();
+    public static final String NS_XMLSCHEMA = "http://www.w3.org/2001/XMLSchema";
+    public static final String NS_DTD = "http://www.w3.org/TR/REC-xml";
 
     // Schema Versions:
-    public static final String W3C_XML_SCHEMA10_NS_URI = "http://www.w3.org/XML/XMLSchema/v1.0".intern();
+    public static final String W3C_XML_SCHEMA10_NS_URI = "http://www.w3.org/XML/XMLSchema/v1.0";
 
     // sax features
 

@@ -35,57 +35,43 @@ public final class SecuritySupport {
 
     public static ClassLoader getContextClassLoader() {
         return
-        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-            @Override
-            public ClassLoader run() {
-                ClassLoader cl = null;
-                try {
-                    cl = Thread.currentThread().getContextClassLoader();
-                } catch (SecurityException ex) { }
-                return cl;
-            }
+        AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> {
+            ClassLoader cl = null;
+            try {
+                cl = Thread.currentThread().getContextClassLoader();
+            } catch (SecurityException ex) { }
+            return cl;
         });
     }
 
     public static ClassLoader getSystemClassLoader() {
         return
-        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-            @Override
-            public ClassLoader run() {
-                ClassLoader cl = null;
-                try {
-                    cl = ClassLoader.getSystemClassLoader();
-                } catch (SecurityException ex) {}
-                return cl;
-            }
+        AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> {
+            ClassLoader cl = null;
+            try {
+                cl = ClassLoader.getSystemClassLoader();
+            } catch (SecurityException ex) {}
+            return cl;
         });
     }
 
     public static ClassLoader getParentClassLoader(final ClassLoader cl) {
         return
-        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-            @Override
-            public ClassLoader run() {
-                ClassLoader parent = null;
-                try {
-                    parent = cl.getParent();
-                } catch (SecurityException ex) {}
+        AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> {
+            ClassLoader parent = null;
+            try {
+                parent = cl.getParent();
+            } catch (SecurityException ex) {}
 
-                // eliminate loops in case of the boot
-                // ClassLoader returning itself as a parent
-                return (parent == cl) ? null : parent;
-            }
+            // eliminate loops in case of the boot
+            // ClassLoader returning itself as a parent
+            return (parent == cl) ? null : parent;
         });
     }
 
     public static String getSystemProperty(final String propName) {
         return
-        AccessController.doPrivileged(new PrivilegedAction<String>() {
-            @Override
-            public String run() {
-                return System.getProperty(propName);
-            }
-        });
+        AccessController.doPrivileged((PrivilegedAction<String>) () -> System.getProperty(propName));
     }
 
     public static FileInputStream getFileInputStream(final File file)
@@ -93,12 +79,7 @@ public final class SecuritySupport {
     {
         try {
             return
-            AccessController.doPrivileged(new PrivilegedExceptionAction<FileInputStream>() {
-                @Override
-                public FileInputStream run() throws FileNotFoundException {
-                    return new FileInputStream(file);
-                }
-            });
+            AccessController.doPrivileged((PrivilegedExceptionAction<FileInputStream>) () -> new FileInputStream(file));
         } catch (PrivilegedActionException e) {
             throw (FileNotFoundException)e.getException();
         }
@@ -108,38 +89,25 @@ public final class SecuritySupport {
             final String name)
     {
         return
-        AccessController.doPrivileged(new PrivilegedAction<InputStream>() {
-            @Override
-            public InputStream run() {
-                InputStream ris;
-                if (cl == null) {
-                    ris = ClassLoader.getSystemResourceAsStream(name);
-                } else {
-                    ris = cl.getResourceAsStream(name);
-                }
-                return ris;
+        AccessController.doPrivileged((PrivilegedAction<InputStream>) () -> {
+            InputStream ris;
+            if (cl == null) {
+                ris = ClassLoader.getSystemResourceAsStream(name);
+            } else {
+                ris = cl.getResourceAsStream(name);
             }
+            return ris;
         });
     }
 
     public static boolean getFileExists(final File f) {
         return (
-                AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
-                    @Override
-                    public Boolean run() {
-                        return f.exists() ? Boolean.TRUE : Boolean.FALSE;
-                    }
-                })).booleanValue();
+                AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> f.exists() ? Boolean.TRUE : Boolean.FALSE)).booleanValue();
     }
 
     public static long getLastModified(final File f) {
         return (
-                AccessController.doPrivileged(new PrivilegedAction<Long>() {
-                    @Override
-                    public Long run() {
-                        return new Long(f.lastModified());
-                    }
-                })).longValue();
+                AccessController.doPrivileged((PrivilegedAction<Long>) () -> new Long(f.lastModified()))).longValue();
     }
 
     private SecuritySupport () {}
