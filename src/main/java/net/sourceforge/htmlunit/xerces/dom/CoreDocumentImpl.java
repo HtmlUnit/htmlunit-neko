@@ -122,9 +122,6 @@ extends ParentNode implements Document  {
     transient DOMNormalizer domNormalizer = null;
     transient DOMConfigurationImpl fConfiguration = null;
 
-    // support of XPath API
-    transient Object fXPathEvaluator = null;
-
     /** Table for quick check of child insertion. */
     private final static int[] kidOK;
 
@@ -478,56 +475,6 @@ extends ParentNode implements Document  {
     throws DOMException {
         // no-op
     }
-
-    @Override
-    public Object getFeature(String feature, String version) {
-
-        boolean anyVersion = version == null || version.length() == 0;
-
-        // if a plus sign "+" is prepended to any feature name, implementations
-        // are considered in which the specified feature may not be directly
-        // castable DOMImplementation.getFeature(feature, version). Without a
-        // plus, only features whose interfaces are directly castable are
-        // considered.
-        if ((feature.equalsIgnoreCase("+XPath"))
-            && (anyVersion || version.equals("3.0"))) {
-
-            // If an XPathEvaluator was created previously
-            // return it otherwise create a new one.
-            if (fXPathEvaluator != null) {
-                return fXPathEvaluator;
-            }
-
-            try {
-                Class xpathClass = ObjectFactory.findProviderClass(
-                    "org.apache.xpath.domapi.XPathEvaluatorImpl",
-                    ObjectFactory.findClassLoader(), true);
-                Constructor xpathClassConstr =
-                    xpathClass.getConstructor(new Class[] { Document.class });
-
-                // Check if the DOM XPath implementation implements
-                // the interface org.w3c.dom.XPathEvaluator
-                Class[] interfaces = xpathClass.getInterfaces();
-                for (Class anInterface : interfaces) {
-                    if (anInterface.getName().equals(
-                            "org.w3c.dom.xpath.XPathEvaluator")) {
-                        fXPathEvaluator = xpathClassConstr.newInstance(new Object[]{this});
-                        return fXPathEvaluator;
-                    }
-                }
-                return null;
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return super.getFeature(feature, version);
-    }
-
-    //
-    // Document methods
-    //
-
-    // factory methods
 
     /**
      * Factory method; creates an Attribute having this Document as its
@@ -1732,24 +1679,8 @@ extends ParentNode implements Document  {
             // when the source node comes from a different implementation.
             if (thisImpl != otherImpl) {
                 // Adopting from a deferred DOM to a non-deferred DOM
-                if (thisImpl instanceof net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl &&
-                        otherImpl instanceof net.sourceforge.htmlunit.xerces.dom.DeferredDOMImplementationImpl) {
-                    // traverse the DOM and expand deferred nodes and then allow adoption
-                    undeferChildren (node);
-                }
-                else if ( thisImpl instanceof net.sourceforge.htmlunit.xerces.dom.DeferredDOMImplementationImpl
-                        && otherImpl instanceof net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl) {
-                    // Adopting from a non-deferred DOM into a deferred DOM, this should be okay
-                }
-                else {
-                    // Adopting between two dissimilar DOMs is not allowed
-                    return null;
-                }
-            }
-            // Adopting from a deferred DOM into another deferred DOM
-            else if (otherImpl instanceof net.sourceforge.htmlunit.xerces.dom.DeferredDOMImplementationImpl) {
-                // traverse the DOM and expand deferred nodes and then allow adoption
-                undeferChildren (node);
+                // Adopting between two dissimilar DOMs is not allowed
+                return null;
             }
         }
 

@@ -38,7 +38,6 @@ import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
 import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
-import net.sourceforge.htmlunit.xerces.dom.DeferredDocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.DocumentTypeImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementDefinitionImpl;
@@ -94,10 +93,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected static final String INCLUDE_IGNORABLE_WHITESPACE =
     Constants.XERCES_FEATURE_PREFIX + Constants.INCLUDE_IGNORABLE_WHITESPACE;
 
-    /** Feature id: defer node expansion. */
-    protected static final String DEFER_NODE_EXPANSION =
-    Constants.XERCES_FEATURE_PREFIX + Constants.DEFER_NODE_EXPANSION_FEATURE;
-
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
@@ -105,8 +100,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         CREATE_ENTITY_REF_NODES,
         INCLUDE_COMMENTS_FEATURE,
         CREATE_CDATA_NODES_FEATURE,
-        INCLUDE_IGNORABLE_WHITESPACE,
-        DEFER_NODE_EXPANSION
+        INCLUDE_IGNORABLE_WHITESPACE
     };
 
     /** Property id: document class name. */
@@ -191,9 +185,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     // deferred expansion data
 
-    protected boolean              fDeferNodeExpansion;
     protected boolean              fNamespaceAware;
-    protected DeferredDocumentImpl fDeferredDocumentImpl;
     protected int                  fDocumentIndex;
     protected int                  fDocumentTypeIndex;
     protected int                  fCurrentNodeIndex;
@@ -248,7 +240,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // set default values
         fConfiguration.setFeature (CREATE_ENTITY_REF_NODES, true);
         fConfiguration.setFeature (INCLUDE_IGNORABLE_WHITESPACE, true);
-        fConfiguration.setFeature (DEFER_NODE_EXPANSION, true);
         fConfiguration.setFeature (INCLUDE_COMMENTS_FEATURE, true);
         fConfiguration.setFeature (CREATE_CDATA_NODES_FEATURE, true);
 
@@ -311,10 +302,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         // set document class name
         fDocumentClassName = documentClassName;
-        if (!documentClassName.equals (DEFAULT_DOCUMENT_CLASS_NAME)) {
-            fDeferNodeExpansion = false;
-        }
-
     }
 
     /** @return the DOM document object. */
@@ -328,7 +315,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public final void dropDocumentReferences() {
         fDocument = null;
         fDocumentImpl = null;
-        fDeferredDocumentImpl = null;
         fDocumentType = null;
         fCurrentNode = null;
         fCurrentCDATASection = null;
@@ -353,9 +339,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fIncludeIgnorableWhitespace =
         fConfiguration.getFeature (INCLUDE_IGNORABLE_WHITESPACE);
 
-        fDeferNodeExpansion =
-        fConfiguration.getFeature (DEFER_NODE_EXPANSION);
-
         fNamespaceAware = fConfiguration.getFeature (NAMESPACES);
 
         fIncludeComments = fConfiguration.getFeature (INCLUDE_COMMENTS_FEATURE);
@@ -371,7 +354,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fDocumentImpl = null;
         fDocumentType = null;
         fDocumentTypeIndex = -1;
-        fDeferredDocumentImpl = null;
         fCurrentNode = null;
 
         // reset string buffer
@@ -438,64 +420,37 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         // Always create entity reference nodes to be able to recreate
         // entity as a part of doctype
-        if (!fDeferNodeExpansion) {
-            if (fFilterReject) {
-                return;
-            }
-            setCharacterData (true);
-            EntityReference er = fDocument.createEntityReference (name);
-            if (fDocumentImpl != null) {
-                // REVISIT: baseURI/actualEncoding
-                //         remove dependency on our implementation when DOM L3 is REC
-                //
-
-                EntityReferenceImpl erImpl =(EntityReferenceImpl)er;
-
-                // set base uri
-                erImpl.setBaseURI (identifier.getExpandedSystemId ());
-                if (fDocumentType != null) {
-                    // set actual encoding
-                    NamedNodeMap entities = fDocumentType.getEntities ();
-                    fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
-                    if (fCurrentEntityDecl != null) {
-                        fCurrentEntityDecl.setInputEncoding (encoding);
-                    }
-
-                }
-                // we don't need synchronization now, because entity ref will be
-                // expanded anyway. Synch only needed when user creates entityRef node
-                erImpl.needsSyncChildren (false);
-            }
-            fInEntityRef = true;
-            fCurrentNode.appendChild (er);
-            fCurrentNode = er;
+        if (fFilterReject) {
+            return;
         }
-        else {
+        setCharacterData (true);
+        EntityReference er = fDocument.createEntityReference (name);
+        if (fDocumentImpl != null) {
+            // REVISIT: baseURI/actualEncoding
+            //         remove dependency on our implementation when DOM L3 is REC
+            //
 
-            int er =
-            fDeferredDocumentImpl.createDeferredEntityReference (name, identifier.getExpandedSystemId ());
-            if (fDocumentTypeIndex != -1) {
-                // find corresponding Entity decl
-                int node = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-                while (node != -1) {
-                    short nodeType = fDeferredDocumentImpl.getNodeType (node, false);
-                    if (nodeType == Node.ENTITY_NODE) {
-                        String nodeName =
-                        fDeferredDocumentImpl.getNodeName (node, false);
-                        if (nodeName.equals (name)) {
-                            fDeferredEntityDecl = node;
-                            fDeferredDocumentImpl.setInputEncoding (node, encoding);
-                            break;
-                        }
-                    }
-                    node = fDeferredDocumentImpl.getRealPrevSibling (node, false);
+            EntityReferenceImpl erImpl =(EntityReferenceImpl)er;
+
+            // set base uri
+            erImpl.setBaseURI (identifier.getExpandedSystemId ());
+            if (fDocumentType != null) {
+                // set actual encoding
+                NamedNodeMap entities = fDocumentType.getEntities ();
+                fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
+                if (fCurrentEntityDecl != null) {
+                    fCurrentEntityDecl.setInputEncoding (encoding);
                 }
-            }
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, er);
-            fCurrentNodeIndex = er;
-        }
 
-    } // startGeneralEntity(String,XMLResourceIdentifier, Augmentations)
+            }
+            // we don't need synchronization now, because entity ref will be
+            // expanded anyway. Synch only needed when user creates entityRef node
+            erImpl.needsSyncChildren (false);
+        }
+        fInEntityRef = true;
+        fCurrentNode.appendChild (er);
+        fCurrentNode = er;
+    }
 
     /**
      * Notifies of the presence of a TextDecl line in an entity. If present,
@@ -519,19 +474,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (fInDTD){
             return;
         }
-        if (!fDeferNodeExpansion) {
-            if (fCurrentEntityDecl != null && !fFilterReject) {
-                fCurrentEntityDecl.setXmlEncoding (encoding);
-                if (version != null)
-                    fCurrentEntityDecl.setXmlVersion (version);
-            }
+        if (fCurrentEntityDecl != null && !fFilterReject) {
+            fCurrentEntityDecl.setXmlEncoding (encoding);
+            if (version != null)
+                fCurrentEntityDecl.setXmlVersion (version);
         }
-        else {
-            if (fDeferredEntityDecl !=-1) {
-                fDeferredDocumentImpl.setEntityInfo (fDeferredEntityDecl, version, encoding);
-            }
-        }
-    } // textDecl(String,String)
+    }
 
     /**
      * A comment.
@@ -556,19 +504,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (!fIncludeComments || fFilterReject) {
             return;
         }
-        if (!fDeferNodeExpansion) {
-            Comment comment = fDocument.createComment (text.toString ());
+        Comment comment = fDocument.createComment (text.toString ());
 
-            setCharacterData (false);
-            fCurrentNode.appendChild (comment);
-        }
-        else {
-            int comment =
-            fDeferredDocumentImpl.createDeferredComment (text.toString ());
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, comment);
-        }
-
-    } // comment(XMLString)
+        setCharacterData (false);
+        fCurrentNode.appendChild (comment);
+    }
 
     /**
      * A processing instruction. Processing instructions consist of a
@@ -606,24 +546,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println ("==>processingInstruction ("+target+")");
         }
-        if (!fDeferNodeExpansion) {
-            if (fFilterReject) {
-                return;
-            }
-            ProcessingInstruction pi =
-            fDocument.createProcessingInstruction (target, data.toString ());
-
-
-            setCharacterData (false);
-            fCurrentNode.appendChild (pi);
+        if (fFilterReject) {
+            return;
         }
-        else {
-            int pi = fDeferredDocumentImpl.
-            createDeferredProcessingInstruction (target, data.toString ());
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, pi);
-        }
+        ProcessingInstruction pi =
+        fDocument.createProcessingInstruction (target, data.toString ());
 
-    } // processingInstruction(String,XMLString)
+
+        setCharacterData (false);
+        fCurrentNode.appendChild (pi);
+    }
 
     /**
      * The start of the document.
@@ -653,74 +585,57 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     throws XNIException {
 
         fLocator = locator;
-        if (!fDeferNodeExpansion) {
-            if (fDocumentClassName.equals (DEFAULT_DOCUMENT_CLASS_NAME)) {
-                fDocument = new DocumentImpl ();
-                fDocumentImpl = (CoreDocumentImpl)fDocument;
-                // REVISIT: when DOM Level 3 is REC rely on Document.support
-                //          instead of specific class
-                // set DOM error checking off
-                fDocumentImpl.setStrictErrorChecking (false);
-                // set actual encoding
-                fDocumentImpl.setInputEncoding (encoding);
-                // set documentURI
-                fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
-            }
-            else {
-                // use specified document class
-                try {
-                    ClassLoader cl = ObjectFactory.findClassLoader();
-                    Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName,
-                        cl, true);
-                    fDocument = (Document)documentClass.newInstance ();
-
-                    // if subclass of our own class that's cool too
-                    Class<?> defaultDocClass =
-                    ObjectFactory.findProviderClass (CORE_DOCUMENT_CLASS_NAME,
-                        cl, true);
-                    if (defaultDocClass.isAssignableFrom (documentClass)) {
-                        fDocumentImpl = (CoreDocumentImpl)fDocument;
-
-                        // REVISIT: when DOM Level 3 is REC rely on
-                        //          Document.support instead of specific class
-                        // set DOM error checking off
-                        fDocumentImpl.setStrictErrorChecking (false);
-                        // set actual encoding
-                        fDocumentImpl.setInputEncoding (encoding);
-                        // set documentURI
-                        if (locator != null) {
-                            fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
-                        }
-                    }
-                }
-                catch (ClassNotFoundException e) {
-                    // won't happen we already checked that earlier
-                }
-                catch (Exception e) {
-                    throw new RuntimeException (
-                        DOMMessageFormatter.formatMessage(
-                        DOMMessageFormatter.DOM_DOMAIN,
-                        "CannotCreateDocumentClass",
-                        new Object [] {fDocumentClassName}));
-                }
-            }
-            fCurrentNode = fDocument;
+        if (fDocumentClassName.equals (DEFAULT_DOCUMENT_CLASS_NAME)) {
+            fDocument = new DocumentImpl ();
+            fDocumentImpl = (CoreDocumentImpl)fDocument;
+            // REVISIT: when DOM Level 3 is REC rely on Document.support
+            //          instead of specific class
+            // set DOM error checking off
+            fDocumentImpl.setStrictErrorChecking (false);
+            // set actual encoding
+            fDocumentImpl.setInputEncoding (encoding);
+            // set documentURI
+            fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
         }
         else {
-            fDeferredDocumentImpl = new DeferredDocumentImpl (fNamespaceAware);
-            fDocument = fDeferredDocumentImpl;
-            fDocumentIndex = fDeferredDocumentImpl.createDeferredDocument ();
-            // REVISIT: strict error checking is not implemented in deferred dom.
-            //          Document.support instead of specific class
+            // use specified document class
+            try {
+                ClassLoader cl = ObjectFactory.findClassLoader();
+                Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName,
+                    cl, true);
+                fDocument = (Document)documentClass.newInstance ();
 
-            // set actual encoding
-            fDeferredDocumentImpl.setInputEncoding (encoding);
-            // set documentURI
-            fDeferredDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
-            fCurrentNodeIndex = fDocumentIndex;
+                // if subclass of our own class that's cool too
+                Class<?> defaultDocClass =
+                ObjectFactory.findProviderClass (CORE_DOCUMENT_CLASS_NAME,
+                    cl, true);
+                if (defaultDocClass.isAssignableFrom (documentClass)) {
+                    fDocumentImpl = (CoreDocumentImpl)fDocument;
 
+                    // REVISIT: when DOM Level 3 is REC rely on
+                    //          Document.support instead of specific class
+                    // set DOM error checking off
+                    fDocumentImpl.setStrictErrorChecking (false);
+                    // set actual encoding
+                    fDocumentImpl.setInputEncoding (encoding);
+                    // set documentURI
+                    if (locator != null) {
+                        fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
+                    }
+                }
+            }
+            catch (ClassNotFoundException e) {
+                // won't happen we already checked that earlier
+            }
+            catch (Exception e) {
+                throw new RuntimeException (
+                    DOMMessageFormatter.formatMessage(
+                    DOMMessageFormatter.DOM_DOMAIN,
+                    "CannotCreateDocumentClass",
+                    new Object [] {fDocumentClassName}));
+            }
         }
-
+        fCurrentNode = fDocument;
     } // startDocument(String,String)
 
     /**
@@ -740,23 +655,15 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void xmlDecl (String version, String encoding, String standalone,
     Augmentations augs)
     throws XNIException {
-        if (!fDeferNodeExpansion) {
-            // REVISIT: when DOM Level 3 is REC rely on Document.support
-            //          instead of specific class
-            if (fDocumentImpl != null) {
-                if (version != null)
-                    fDocumentImpl.setXmlVersion (version);
-                fDocumentImpl.setXmlEncoding (encoding);
-                fDocumentImpl.setXmlStandalone ("yes".equals (standalone));
-            }
-        }
-        else {
+        // REVISIT: when DOM Level 3 is REC rely on Document.support
+        //          instead of specific class
+        if (fDocumentImpl != null) {
             if (version != null)
-                fDeferredDocumentImpl.setXmlVersion (version);
-            fDeferredDocumentImpl.setXmlEncoding (encoding);
-            fDeferredDocumentImpl.setXmlStandalone ("yes".equals (standalone));
+                fDocumentImpl.setXmlVersion (version);
+            fDocumentImpl.setXmlEncoding (encoding);
+            fDocumentImpl.setXmlStandalone ("yes".equals (standalone));
         }
-    } // xmlDecl(String,String,String)
+    }
 
     /**
      * Notifies of the presence of the DOCTYPE line in the document.
@@ -774,21 +681,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void doctypeDecl (String rootElement,
     String publicId, String systemId, Augmentations augs)
     throws XNIException {
-
-        if (!fDeferNodeExpansion) {
-            if (fDocumentImpl != null) {
-                fDocumentType = fDocumentImpl.createDocumentType (
-                rootElement, publicId, systemId);
-                fCurrentNode.appendChild (fDocumentType);
-            }
+        if (fDocumentImpl != null) {
+            fDocumentType = fDocumentImpl.createDocumentType (
+            rootElement, publicId, systemId);
+            fCurrentNode.appendChild (fDocumentType);
         }
-        else {
-            fDocumentTypeIndex = fDeferredDocumentImpl.
-            createDeferredDocumentType (rootElement, publicId, systemId);
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, fDocumentTypeIndex);
-        }
-
-    } // doctypeDecl(String,String,String)
+    }
 
     /**
      * The start of an element. If the document specifies the start element
@@ -807,76 +705,39 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println ("==>startElement ("+element.rawname+")");
         }
-        if (!fDeferNodeExpansion) {
-            if (fFilterReject) {
-                ++fRejectedElementDepth;
-                return;
-            }
-            Element el = createElementNode (element);
-            int attrCount = attributes.getLength ();
-            boolean seenSchemaDefault = false;
-            for (int i = 0; i < attrCount; i++) {
-                attributes.getName (i, fAttrQName);
-                Attr attr = createAttrNode (fAttrQName);
-
-                String attrValue = attributes.getValue (i);
-
-                attr.setValue (attrValue);
-                boolean specified = attributes.isSpecified(i);
-                // Take special care of schema defaulted attributes. Calling the
-                // non-namespace aware setAttributeNode() method could overwrite
-                // another attribute with the same local name.
-                if (!specified && (seenSchemaDefault || (fAttrQName.uri != null &&
-                    fAttrQName.uri != NamespaceContext.XMLNS_URI && fAttrQName.prefix == null))) {
-                    el.setAttributeNodeNS(attr);
-                    seenSchemaDefault = true;
-                }
-                else {
-                    el.setAttributeNode(attr);
-                }
-                // NOTE: The specified value MUST be set after you set
-                //       the node value because that turns the "specified"
-                //       flag to "true" which may overwrite a "false"
-                //       value from the attribute list. -Ac
-                if (fDocumentImpl != null) {
-                    AttrImpl attrImpl = (AttrImpl) attr;
-                    Object type = null;
-                    boolean id = false;
-
-                    // DTD
-                    boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
-                    // For DOM Level 3 TypeInfo, the type name must
-                    // be null if this attribute has not been declared
-                    // in the DTD.
-                    if (isDeclared) {
-                        type = attributes.getType (i);
-                        id = "ID".equals (type);
-                    }
-                    attrImpl.setType (type);
-
-                    if (id) {
-                        ((ElementImpl) el).setIdAttributeNode (attr, true);
-                    }
-
-                    attrImpl.setSpecified (specified);
-                    // REVISIT: Handle entities in attribute value.
-                }
-            }
-            setCharacterData (false);
-
-            fCurrentNode.appendChild (el);
-            fCurrentNode = el;
+        if (fFilterReject) {
+            ++fRejectedElementDepth;
+            return;
         }
-        else {
-            int el = fDeferredDocumentImpl.createDeferredElement (fNamespaceAware ?
-                    element.uri : null, element.rawname);
-            Object type = null;
-            int attrCount = attributes.getLength ();
-            // Need to loop in reverse order so that the attributes
-            // are processed in document order when the DOM is expanded.
-            for (int i = attrCount - 1; i >= 0; --i) {
+        Element el = createElementNode (element);
+        int attrCount = attributes.getLength ();
+        boolean seenSchemaDefault = false;
+        for (int i = 0; i < attrCount; i++) {
+            attributes.getName (i, fAttrQName);
+            Attr attr = createAttrNode (fAttrQName);
 
-                // set type information
+            String attrValue = attributes.getValue (i);
+
+            attr.setValue (attrValue);
+            boolean specified = attributes.isSpecified(i);
+            // Take special care of schema defaulted attributes. Calling the
+            // non-namespace aware setAttributeNode() method could overwrite
+            // another attribute with the same local name.
+            if (!specified && (seenSchemaDefault || (fAttrQName.uri != null &&
+                fAttrQName.uri != NamespaceContext.XMLNS_URI && fAttrQName.prefix == null))) {
+                el.setAttributeNodeNS(attr);
+                seenSchemaDefault = true;
+            }
+            else {
+                el.setAttributeNode(attr);
+            }
+            // NOTE: The specified value MUST be set after you set
+            //       the node value because that turns the "specified"
+            //       flag to "true" which may overwrite a "false"
+            //       value from the attribute list. -Ac
+            if (fDocumentImpl != null) {
+                AttrImpl attrImpl = (AttrImpl) attr;
+                Object type = null;
                 boolean id = false;
 
                 // DTD
@@ -888,22 +749,21 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     type = attributes.getType (i);
                     id = "ID".equals (type);
                 }
+                attrImpl.setType (type);
 
-                // create attribute
-                fDeferredDocumentImpl.setDeferredAttribute (
-                el,
-                attributes.getQName (i),
-                attributes.getURI (i),
-                attributes.getValue (i),
-                attributes.isSpecified (i),
-                id,
-                type);
+                if (id) {
+                    ((ElementImpl) el).setIdAttributeNode (attr, true);
+                }
+
+                attrImpl.setSpecified (specified);
+                // REVISIT: Handle entities in attribute value.
             }
-
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, el);
-            fCurrentNodeIndex = el;
         }
-    } // startElement(QName,XMLAttributes)
+        setCharacterData (false);
+
+        fCurrentNode.appendChild (el);
+        fCurrentNode = el;
+    }
 
 
     /**
@@ -939,85 +799,51 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             System.out.println ("==>characters(): "+text.toString ());
         }
 
-        if (!fDeferNodeExpansion) {
-
-            if (fFilterReject) {
+        if (fFilterReject) {
+            return;
+        }
+        if (fInCDATASection && fCreateCDATANodes) {
+            if (fCurrentCDATASection == null) {
+                fCurrentCDATASection =
+                fDocument.createCDATASection (text.toString ());
+                fCurrentNode.appendChild (fCurrentCDATASection);
+                fCurrentNode = fCurrentCDATASection;
+            }
+            else {
+                fCurrentCDATASection.appendData (text.toString ());
+            }
+        }
+        else if (!fInDTD) {
+            // if type is union (XML Schema) it is possible that we receive
+            // character call with empty data
+            if (text.length == 0) {
                 return;
             }
-            if (fInCDATASection && fCreateCDATANodes) {
-                if (fCurrentCDATASection == null) {
-                    fCurrentCDATASection =
-                    fDocument.createCDATASection (text.toString ());
-                    fCurrentNode.appendChild (fCurrentCDATASection);
-                    fCurrentNode = fCurrentCDATASection;
-                }
-                else {
-                    fCurrentCDATASection.appendData (text.toString ());
-                }
-            }
-            else if (!fInDTD) {
-                // if type is union (XML Schema) it is possible that we receive
-                // character call with empty data
-                if (text.length == 0) {
-                    return;
-                }
 
-                Node child = fCurrentNode.getLastChild ();
-                if (child != null && child.getNodeType () == Node.TEXT_NODE) {
-                    // collect all the data into the string buffer.
-                    if (fFirstChunk) {
-                        if (fDocumentImpl != null) {
-                            fStringBuffer.append (((TextImpl)child).removeData ());
-                        } else {
-                            fStringBuffer.append (((Text)child).getData ());
-                            ((Text)child).setNodeValue (null);
-                        }
-                        fFirstChunk = false;
+            Node child = fCurrentNode.getLastChild ();
+            if (child != null && child.getNodeType () == Node.TEXT_NODE) {
+                // collect all the data into the string buffer.
+                if (fFirstChunk) {
+                    if (fDocumentImpl != null) {
+                        fStringBuffer.append (((TextImpl)child).removeData ());
+                    } else {
+                        fStringBuffer.append (((Text)child).getData ());
+                        ((Text)child).setNodeValue (null);
                     }
-                    if (text.length > 0) {
-                        fStringBuffer.append (text.ch, text.offset, text.length);
-                    }
+                    fFirstChunk = false;
                 }
-                else {
-                    fFirstChunk = true;
-                    Text textNode = fDocument.createTextNode (text.toString());
-                    fCurrentNode.appendChild (textNode);
+                if (text.length > 0) {
+                    fStringBuffer.append (text.ch, text.offset, text.length);
                 }
-
             }
-        }
-        else {
-            // The Text and CDATASection normalization is taken care of within
-            // the DOM in the deferred case.
-            if (fInCDATASection && fCreateCDATANodes) {
-                if (fCurrentCDATASectionIndex == -1) {
-                    int cs = fDeferredDocumentImpl.
-                    createDeferredCDATASection (text.toString ());
-
-                    fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, cs);
-                    fCurrentCDATASectionIndex = cs;
-                    fCurrentNodeIndex = cs;
-                }
-                else {
-                    int txt = fDeferredDocumentImpl.
-                    createDeferredTextNode (text.toString (), false);
-                    fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, txt);
-                }
-            } else if (!fInDTD) {
-                // if type is union (XML Schema) it is possible that we receive
-                // character call with empty data
-                if (text.length == 0) {
-                    return;
-                }
-
-                String value = text.toString ();
-                int txt = fDeferredDocumentImpl.
-                createDeferredTextNode (value, false);
-                fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, txt);
-
+            else {
+                fFirstChunk = true;
+                Text textNode = fDocument.createTextNode (text.toString());
+                fCurrentNode.appendChild (textNode);
             }
+
         }
-    } // characters(XMLString)
+    }
 
     /**
      * Ignorable whitespace. For this method to be called, the document
@@ -1038,30 +864,20 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (!fIncludeIgnorableWhitespace || fFilterReject) {
             return;
         }
-        if (!fDeferNodeExpansion) {
-            Node child = fCurrentNode.getLastChild ();
-            if (child != null && child.getNodeType () == Node.TEXT_NODE) {
-                Text textNode = (Text)child;
-                textNode.appendData (text.toString ());
-            }
-            else {
-                Text textNode = fDocument.createTextNode (text.toString ());
-                if (fDocumentImpl != null) {
-                    TextImpl textNodeImpl = (TextImpl)textNode;
-                    textNodeImpl.setIgnorableWhitespace (true);
-                }
-                fCurrentNode.appendChild (textNode);
-            }
+        Node child = fCurrentNode.getLastChild ();
+        if (child != null && child.getNodeType () == Node.TEXT_NODE) {
+            Text textNode = (Text)child;
+            textNode.appendData (text.toString ());
         }
         else {
-            // The Text normalization is taken care of within the DOM in the
-            // deferred case.
-            int txt = fDeferredDocumentImpl.
-            createDeferredTextNode (text.toString (), true);
-            fDeferredDocumentImpl.appendChild (fCurrentNodeIndex, txt);
+            Text textNode = fDocument.createTextNode (text.toString ());
+            if (fDocumentImpl != null) {
+                TextImpl textNodeImpl = (TextImpl)textNode;
+                textNodeImpl.setIgnorableWhitespace (true);
+            }
+            fCurrentNode.appendChild (textNode);
         }
-
-    } // ignorableWhitespace(XMLString)
+    }
 
     /**
      * The end of an element.
@@ -1076,17 +892,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println ("==>endElement ("+element.rawname+")");
         }
-        if (!fDeferNodeExpansion) {
-            setCharacterData (false);
-            fCurrentNode = fCurrentNode.getParentNode ();
-        }
-        else {
-            fCurrentNodeIndex =
-                fDeferredDocumentImpl.getParentNode (fCurrentNodeIndex, false);
-        }
-
-
-    } // endElement(QName)
+        setCharacterData (false);
+        fCurrentNode = fCurrentNode.getParentNode ();
+    }
 
 
     /**
@@ -1099,15 +907,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void startCDATA (Augmentations augs) throws XNIException {
 
         fInCDATASection = true;
-        if (!fDeferNodeExpansion) {
-            if (fFilterReject) {
-                return;
-            }
-            if (fCreateCDATANodes) {
-                setCharacterData (false);
-            }
+        if (fFilterReject) {
+            return;
         }
-    } // startCDATA()
+        if (fCreateCDATANodes) {
+            setCharacterData (false);
+        }
+    }
 
     /**
      * The end of a CDATA section.
@@ -1119,26 +925,15 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void endCDATA (Augmentations augs) throws XNIException {
 
         fInCDATASection = false;
-        if (!fDeferNodeExpansion) {
-
-            if (fFilterReject) {
-                return;
-            }
-
-            if (fCurrentCDATASection !=null) {
-                fCurrentNode = fCurrentNode.getParentNode ();
-                fCurrentCDATASection = null;
-            }
-        }
-        else {
-            if (fCurrentCDATASectionIndex !=-1) {
-                fCurrentNodeIndex =
-                fDeferredDocumentImpl.getParentNode (fCurrentNodeIndex, false);
-                fCurrentCDATASectionIndex = -1;
-            }
+        if (fFilterReject) {
+            return;
         }
 
-    } // endCDATA()
+        if (fCurrentCDATASection !=null) {
+            fCurrentNode = fCurrentNode.getParentNode ();
+            fCurrentCDATASection = null;
+        }
+    }
 
     /**
      * The end of the document.
@@ -1148,28 +943,17 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void endDocument (Augmentations augs) throws XNIException {
-
-        if (!fDeferNodeExpansion) {
-            // REVISIT: when DOM Level 3 is REC rely on Document.support
-            //          instead of specific class
-            // set the actual encoding and set DOM error checking back on
-            if (fDocumentImpl != null) {
-                if (fLocator != null) {
-                    fDocumentImpl.setInputEncoding (fLocator.getEncoding());
-                }
-                fDocumentImpl.setStrictErrorChecking (true);
-            }
-            fCurrentNode = null;
-        }
-        else {
-            // set the actual encoding
+        // REVISIT: when DOM Level 3 is REC rely on Document.support
+        //          instead of specific class
+        // set the actual encoding and set DOM error checking back on
+        if (fDocumentImpl != null) {
             if (fLocator != null) {
-                fDeferredDocumentImpl.setInputEncoding (fLocator.getEncoding());
+                fDocumentImpl.setInputEncoding (fLocator.getEncoding());
             }
-            fCurrentNodeIndex = -1;
+            fDocumentImpl.setStrictErrorChecking (true);
         }
-
-    } // endDocument()
+        fCurrentNode = null;
+    }
 
     /**
      * This method notifies the end of a general entity.
@@ -1188,142 +972,73 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println ("==>endGeneralEntity: ("+name+")");
         }
-        if (!fDeferNodeExpansion) {
 
-            if (fFilterReject) {
-                return;
-            }
-            setCharacterData (true);
+        if (fFilterReject) {
+            return;
+        }
+        setCharacterData (true);
 
-            if (fDocumentType != null) {
-                // get current entity declaration
-                NamedNodeMap entities = fDocumentType.getEntities ();
-                fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
-                if (fCurrentEntityDecl != null) {
-                    if (fCurrentEntityDecl != null && fCurrentEntityDecl.getFirstChild () == null) {
-                        fCurrentEntityDecl.setReadOnly (false, true);
-                        Node child = fCurrentNode.getFirstChild ();
-                        while (child != null) {
-                            Node copy = child.cloneNode (true);
-                            fCurrentEntityDecl.appendChild (copy);
-                            child = child.getNextSibling ();
-                        }
-                        fCurrentEntityDecl.setReadOnly (true, true);
-
-                        //entities.setNamedItem(fCurrentEntityDecl);
+        if (fDocumentType != null) {
+            // get current entity declaration
+            NamedNodeMap entities = fDocumentType.getEntities ();
+            fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
+            if (fCurrentEntityDecl != null) {
+                if (fCurrentEntityDecl != null && fCurrentEntityDecl.getFirstChild () == null) {
+                    fCurrentEntityDecl.setReadOnly (false, true);
+                    Node child = fCurrentNode.getFirstChild ();
+                    while (child != null) {
+                        Node copy = child.cloneNode (true);
+                        fCurrentEntityDecl.appendChild (copy);
+                        child = child.getNextSibling ();
                     }
-                    fCurrentEntityDecl = null;
+                    fCurrentEntityDecl.setReadOnly (true, true);
+
+                    //entities.setNamedItem(fCurrentEntityDecl);
                 }
-
-            }
-            fInEntityRef = false;
-            boolean removeEntityRef = false;
-            if (fCreateEntityRefNodes) {
-                if (fDocumentImpl != null) {
-                    // Make entity ref node read only
-                    ((NodeImpl)fCurrentNode).setReadOnly (true, true);
-                }
+                fCurrentEntityDecl = null;
             }
 
-            if (!fCreateEntityRefNodes || removeEntityRef) {
-                // move entity reference children to the list of
-                // siblings of its parent and remove entity reference
-                NodeList children = fCurrentNode.getChildNodes ();
-                Node parent = fCurrentNode.getParentNode ();
-                int length = children.getLength ();
-                if (length > 0) {
-
-                    // get previous sibling of the entity reference
-                    Node node = fCurrentNode.getPreviousSibling ();
-                    // normalize text nodes
-                    Node child = children.item (0);
-                    if (node != null && node.getNodeType () == Node.TEXT_NODE &&
-                    child.getNodeType () == Node.TEXT_NODE) {
-                        ((Text)node).appendData (child.getNodeValue ());
-                        fCurrentNode.removeChild (child);
-
-                    } else {
-                        node = parent.insertBefore (child, fCurrentNode);
-                        handleBaseURI (node);
-                    }
-
-                    for (int i=1;i <length;i++) {
-                        node = parent.insertBefore (children.item (0), fCurrentNode);
-                        handleBaseURI (node);
-                    }
-                } // length > 0
-                parent.removeChild (fCurrentNode);
-                fCurrentNode = parent;
+        }
+        fInEntityRef = false;
+        boolean removeEntityRef = false;
+        if (fCreateEntityRefNodes) {
+            if (fDocumentImpl != null) {
+                // Make entity ref node read only
+                ((NodeImpl)fCurrentNode).setReadOnly (true, true);
             }
         }
-        else {
 
-            if (fDocumentTypeIndex != -1) {
-                // find corresponding Entity decl
-                int node = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-                while (node != -1) {
-                    short nodeType = fDeferredDocumentImpl.getNodeType (node, false);
-                    if (nodeType == Node.ENTITY_NODE) {
-                        String nodeName =
-                        fDeferredDocumentImpl.getNodeName (node, false);
-                        if (nodeName.equals (name)) {
-                            fDeferredEntityDecl = node;
-                            break;
-                        }
-                    }
-                    node = fDeferredDocumentImpl.getRealPrevSibling (node, false);
-                }
-            }
+        if (!fCreateEntityRefNodes || removeEntityRef) {
+            // move entity reference children to the list of
+            // siblings of its parent and remove entity reference
+            NodeList children = fCurrentNode.getChildNodes ();
+            Node parent = fCurrentNode.getParentNode ();
+            int length = children.getLength ();
+            if (length > 0) {
 
-            if (fDeferredEntityDecl != -1 &&
-            fDeferredDocumentImpl.getLastChild (fDeferredEntityDecl, false) == -1) {
-                // entity definition exists and it does not have any children
-                int prevIndex = -1;
-                int childIndex = fDeferredDocumentImpl.getLastChild (fCurrentNodeIndex, false);
-                while (childIndex != -1) {
-                    int cloneIndex = fDeferredDocumentImpl.cloneNode (childIndex, true);
-                    fDeferredDocumentImpl.insertBefore (fDeferredEntityDecl, cloneIndex, prevIndex);
-                    prevIndex = cloneIndex;
-                    childIndex = fDeferredDocumentImpl.getRealPrevSibling (childIndex, false);
-                }
-            }
-            if (fCreateEntityRefNodes) {
-                fCurrentNodeIndex =
-                fDeferredDocumentImpl.getParentNode (fCurrentNodeIndex,
-                false);
-            } else { //!fCreateEntityRefNodes
-                // move children of entity ref before the entity ref.
-                // remove entity ref.
+                // get previous sibling of the entity reference
+                Node node = fCurrentNode.getPreviousSibling ();
+                // normalize text nodes
+                Node child = children.item (0);
+                if (node != null && node.getNodeType () == Node.TEXT_NODE &&
+                child.getNodeType () == Node.TEXT_NODE) {
+                    ((Text)node).appendData (child.getNodeValue ());
+                    fCurrentNode.removeChild (child);
 
-                // holds a child of entity ref
-                int childIndex = fDeferredDocumentImpl.getLastChild (fCurrentNodeIndex, false);
-                int parentIndex =
-                fDeferredDocumentImpl.getParentNode (fCurrentNodeIndex,
-                false);
+                } else {
+                    node = parent.insertBefore (child, fCurrentNode);
+                    handleBaseURI (node);
+                }
 
-                int prevIndex = fCurrentNodeIndex;
-                int lastChild = childIndex;
-                int sibling = -1;
-                while (childIndex != -1) {
-                    handleBaseURI (childIndex);
-                    sibling = fDeferredDocumentImpl.getRealPrevSibling (childIndex, false);
-                    fDeferredDocumentImpl.insertBefore (parentIndex, childIndex, prevIndex);
-                    prevIndex = childIndex;
-                    childIndex = sibling;
+                for (int i=1;i <length;i++) {
+                    node = parent.insertBefore (children.item (0), fCurrentNode);
+                    handleBaseURI (node);
                 }
-                if(lastChild != -1)
-                    fDeferredDocumentImpl.setAsLastChild (parentIndex, lastChild);
-                else{
-                    sibling = fDeferredDocumentImpl.getRealPrevSibling (prevIndex, false);
-                    fDeferredDocumentImpl.setAsLastChild (parentIndex, sibling);
-                }
-                fCurrentNodeIndex = parentIndex;
-            }
-            fDeferredEntityDecl = -1;
+            } // length > 0
+            parent.removeChild (fCurrentNode);
+            fCurrentNode = parent;
         }
-
-
-    } // endGeneralEntity(String, Augmentations)
+    }
 
 
     /**
@@ -1375,52 +1090,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
     }
 
-    /**
-     *
-     * Record baseURI information for the Element (by adding xml:base attribute)
-     * or for the ProcessingInstruction (by setting a baseURI field)
-     * Deferred DOM.
-     *
-     * @param node the node
-     */
-    protected final void handleBaseURI (int node){
-        short nodeType = fDeferredDocumentImpl.getNodeType (node, false);
-
-        if (nodeType == Node.ELEMENT_NODE) {
-            String baseURI = fDeferredDocumentImpl.getNodeValueString (fCurrentNodeIndex, false);
-            if (baseURI == null) {
-                baseURI = fDeferredDocumentImpl.getDeferredEntityBaseURI (fDeferredEntityDecl);
-            }
-            if (baseURI !=null && !baseURI.equals (fDeferredDocumentImpl.getDocumentURI ())) {
-                fDeferredDocumentImpl.setDeferredAttribute (node,
-                "xml:base",
-                "http://www.w3.org/XML/1998/namespace",
-                baseURI,
-                true);
-            }
-        }
-        else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
-
-
-            // retrieve baseURI from the entity reference
-            String baseURI = fDeferredDocumentImpl.getNodeValueString (fCurrentNodeIndex, false);
-
-            if (baseURI == null) {
-                // try baseURI of the entity declaration
-                baseURI = fDeferredDocumentImpl.getDeferredEntityBaseURI (fDeferredEntityDecl);
-            }
-
-            if (baseURI != null && fErrorHandler != null) {
-                DOMErrorImpl error = new DOMErrorImpl ();
-                error.fType = "pi-base-uri-not-preserved";
-                error.fRelatedData = baseURI;
-                error.fSeverity = DOMError.SEVERITY_WARNING;
-                fErrorHandler.getErrorHandler ().handleError (error);
-            }
-        }
-    }
-
-
     //
     // XMLDTDHandler methods
     //
@@ -1453,10 +1122,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (locator != null) {
             fBaseURIStack.push (locator.getBaseSystemId());
         }
-        if (fDeferNodeExpansion || fDocumentImpl != null) {
+        if (fDocumentImpl != null) {
             fInternalSubset = new StringBuffer (1024);
         }
-    } // startDTD(XMLLocator)
+    }
 
 
     /**
@@ -1478,12 +1147,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
         String internalSubset = fInternalSubset != null && fInternalSubset.length () > 0
         ? fInternalSubset.toString () : null;
-        if (fDeferNodeExpansion) {
-            if (internalSubset != null) {
-                fDeferredDocumentImpl.setInternalSubset (fDocumentTypeIndex, internalSubset);
-            }
-        }
-        else if (fDocumentImpl != null) {
+        if (fDocumentImpl != null) {
             if (internalSubset != null) {
                 ((DocumentTypeImpl)fDocumentType).setInternalSubset (internalSubset);
             }
@@ -1619,30 +1283,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 entities.setNamedItem (entity);
             }
         }
-
-        // create deferred node
-        if (fDocumentTypeIndex != -1) {
-            boolean found = false;
-            int node = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-            while (node != -1) {
-                short nodeType = fDeferredDocumentImpl.getNodeType (node, false);
-                if (nodeType == Node.ENTITY_NODE) {
-                    String nodeName = fDeferredDocumentImpl.getNodeName (node, false);
-                    if (nodeName.equals (name)) {
-                        found = true;
-                        break;
-                    }
-                }
-                node = fDeferredDocumentImpl.getRealPrevSibling (node, false);
-            }
-            if (!found) {
-                int entityIndex =
-                fDeferredDocumentImpl.createDeferredEntity (name, null, null, null, fBaseURIStack.peek());
-                fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, entityIndex);
-            }
-        }
-
-    } // internalEntityDecl(String,XMLString,XMLString)
+    }
 
     /**
      * An external entity declaration.
@@ -1713,30 +1354,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 entities.setNamedItem (entity);
             }
         }
-
-        // create deferred node
-        if (fDocumentTypeIndex != -1) {
-            boolean found = false;
-            int nodeIndex = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-            while (nodeIndex != -1) {
-                short nodeType = fDeferredDocumentImpl.getNodeType (nodeIndex, false);
-                if (nodeType == Node.ENTITY_NODE) {
-                    String nodeName = fDeferredDocumentImpl.getNodeName (nodeIndex, false);
-                    if (nodeName.equals (name)) {
-                        found = true;
-                        break;
-                    }
-                }
-                nodeIndex = fDeferredDocumentImpl.getRealPrevSibling (nodeIndex, false);
-            }
-            if (!found) {
-                int entityIndex = fDeferredDocumentImpl.createDeferredEntity (
-                name, publicId, literalSystemId, null, identifier.getBaseSystemId ());
-                fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, entityIndex);
-            }
-        }
-
-    } // externalEntityDecl(String,XMLResourceIdentifier, Augmentations)
+    }
 
 
     /**
@@ -1859,30 +1477,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 entities.setNamedItem (entity);
             }
         }
-
-        // create deferred node
-        if (fDocumentTypeIndex != -1) {
-            boolean found = false;
-            int nodeIndex = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-            while (nodeIndex != -1) {
-                short nodeType = fDeferredDocumentImpl.getNodeType (nodeIndex, false);
-                if (nodeType == Node.ENTITY_NODE) {
-                    String nodeName = fDeferredDocumentImpl.getNodeName (nodeIndex, false);
-                    if (nodeName.equals (name)) {
-                        found = true;
-                        break;
-                    }
-                }
-                nodeIndex = fDeferredDocumentImpl.getRealPrevSibling (nodeIndex, false);
-            }
-            if (!found) {
-                int entityIndex = fDeferredDocumentImpl.createDeferredEntity (
-                name, publicId, literalSystemId, notation, identifier.getBaseSystemId ());
-                fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, entityIndex);
-            }
-        }
-
-    } // unparsedEntityDecl(String,XMLResourceIdentifier, String, Augmentations)
+    }
 
     /**
      * A notation declaration
@@ -1935,30 +1530,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 notations.setNamedItem (notation);
             }
         }
-
-        // create deferred node
-        if (fDocumentTypeIndex != -1) {
-            boolean found = false;
-            int nodeIndex = fDeferredDocumentImpl.getLastChild (fDocumentTypeIndex, false);
-            while (nodeIndex != -1) {
-                short nodeType = fDeferredDocumentImpl.getNodeType (nodeIndex, false);
-                if (nodeType == Node.NOTATION_NODE) {
-                    String nodeName = fDeferredDocumentImpl.getNodeName (nodeIndex, false);
-                    if (nodeName.equals (name)) {
-                        found = true;
-                        break;
-                    }
-                }
-                nodeIndex = fDeferredDocumentImpl.getPrevSibling (nodeIndex, false);
-            }
-            if (!found) {
-                int notationIndex = fDeferredDocumentImpl.createDeferredNotation (
-                name, publicId, literalSystemId, identifier.getBaseSystemId ());
-                fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, notationIndex);
-            }
-        }
-
-    } // notationDecl(String,XMLResourceIdentifier, Augmentations)
+    }
 
     /**
      * Characters within an IGNORE conditional section.
@@ -2072,49 +1644,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // REVISIT: This code applies to the support of domx/grammar-access
         // feature in Xerces 1
 
-        // deferred expansion
-        if (fDeferredDocumentImpl != null) {
-
-            // get the default value
-            if (defaultValue != null) {
-
-                // get element definition
-                int elementDefIndex  = fDeferredDocumentImpl.lookupElementDefinition (elementName);
-
-                // create element definition if not already there
-                if (elementDefIndex == -1) {
-                    elementDefIndex = fDeferredDocumentImpl.createDeferredElementDefinition (elementName);
-                    fDeferredDocumentImpl.appendChild (fDocumentTypeIndex, elementDefIndex);
-                }
-                // add default attribute
-                boolean nsEnabled = fNamespaceAware;
-                String namespaceURI = null;
-                if (nsEnabled) {
-                    // DOM Level 2 wants all namespace declaration attributes
-                    // to be bound to "http://www.w3.org/2000/xmlns/"
-                    // So as long as the XML parser doesn't do it, it needs to
-                    // done here.
-                    if (attributeName.startsWith("xmlns:") ||
-                        attributeName.equals("xmlns")) {
-                        namespaceURI = NamespaceContext.XMLNS_URI;
-                    }
-                    else if (attributeName.startsWith("xml:")) {
-                        namespaceURI = NamespaceContext.XML_URI;
-                    }
-                }
-                int attrIndex = fDeferredDocumentImpl.createDeferredAttribute (
-                        attributeName, namespaceURI, defaultValue.toString(), false);
-                if ("ID".equals (type)) {
-                    fDeferredDocumentImpl.setIdAttribute (attrIndex);
-                }
-                // REVISIT: set ID type correctly
-                fDeferredDocumentImpl.appendChild (elementDefIndex, attrIndex);
-            }
-
-        } // if deferred
-
-        // full expansion
-        else if (fDocumentImpl != null) {
+        if (fDocumentImpl != null) {
 
             // get the default value
             if (defaultValue != null) {

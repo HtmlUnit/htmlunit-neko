@@ -31,7 +31,6 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.helpers.LocatorImpl;
 
-import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
 import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
@@ -528,19 +527,6 @@ public class DOMParser extends AbstractDOMParser {
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
        if (propertyId.equals(CURRENT_ELEMENT_NODE)) {
-           boolean deferred = false;
-           try {
-               deferred = getFeature(DEFER_NODE_EXPANSION);
-           }
-           catch (XMLConfigurationException e){
-               // ignore
-           }
-           if (deferred) {
-               throw new SAXNotSupportedException(
-                       DOMMessageFormatter.formatMessage(
-                       DOMMessageFormatter.DOM_DOMAIN,
-                       "CannotQueryDeferredNode", null));
-           }
            return (fCurrentNode!=null &&
                    fCurrentNode.getNodeType() == Node.ELEMENT_NODE)? fCurrentNode:null;
        }

@@ -193,9 +193,6 @@ public class DOMParserImpl
 
         fConfiguration.addRecognizedFeatures (domRecognizedFeatures);
 
-        // turn off deferred DOM
-        fConfiguration.setFeature (DEFER_NODE_EXPANSION, false);
-
         // Set values so that the value of the
         // infoset parameter is true (its default value).
         //

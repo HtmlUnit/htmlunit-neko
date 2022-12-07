@@ -104,33 +104,6 @@ public class CoreDOMImplementationImpl
 
         boolean anyVersion = version == null || version.length() == 0;
 
-        // check if Xalan implementation is around and if yes report true for supporting
-        // XPath API
-        // if a plus sign "+" is prepended to any feature name, implementations
-        // are considered in which the specified feature may not be directly
-        // castable DOMImplementation.getFeature(feature, version). Without a
-        // plus, only features whose interfaces are directly castable are considered.
-        if ((feature.equalsIgnoreCase("+XPath"))
-            && (anyVersion || version.equals("3.0"))) {
-            try {
-                Class xpathClass = ObjectFactory.findProviderClass(
-                    "org.apache.xpath.domapi.XPathEvaluatorImpl",
-                    ObjectFactory.findClassLoader(), true);
-
-                // Check if the DOM XPath implementation implements
-                // the interface org.w3c.dom.XPathEvaluator
-                Class[] interfaces = xpathClass.getInterfaces();
-                for (Class anInterface : interfaces) {
-                    if (anInterface.getName().equals(
-                            "org.w3c.dom.xpath.XPathEvaluator")) {
-                        return true;
-                    }
-                }
-            } catch (Exception e) {
-                return false;
-            }
-            return true;
-        }
         if (feature.startsWith("+")) {
             feature = feature.substring(1);
         }
@@ -300,27 +273,7 @@ public class CoreDOMImplementationImpl
     @Override
     public Object getFeature(String feature, String version) {
         if (singleton.hasFeature(feature, version)) {
-            if ((feature.equalsIgnoreCase("+XPath"))) {
-                try {
-                    Class xpathClass = ObjectFactory.findProviderClass(
-                        "org.apache.xpath.domapi.XPathEvaluatorImpl",
-                        ObjectFactory.findClassLoader(), true);
-
-                    // Check if the DOM XPath implementation implements
-                    // the interface org.w3c.dom.XPathEvaluator
-                    Class[] interfaces = xpathClass.getInterfaces();
-                    for (Class anInterface : interfaces) {
-                        if (anInterface.getName().equals(
-                                "org.w3c.dom.xpath.XPathEvaluator")) {
-                            return xpathClass.newInstance();
-                        }
-                    }
-                } catch (Exception e) {
-                    return null;
-                }
-            } else {
-                return singleton;
-            }
+            return singleton;
         }
         return null;
     }
