@@ -25,11 +25,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.EntityResolver2;
 
-import net.sourceforge.htmlunit.xerces.impl.ExternalSubsetResolver;
-import net.sourceforge.htmlunit.xerces.impl.XMLEntityDescription;
 import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
-import net.sourceforge.htmlunit.xerces.xni.grammars.XMLDTDDescription;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 
 /**
@@ -38,7 +36,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * @author Michael Glavassevich, IBM
  */
 public class EntityResolver2Wrapper
-    implements ExternalSubsetResolver {
+    implements XMLEntityResolver {
 
     //
     // Data
@@ -86,45 +84,7 @@ public class EntityResolver2Wrapper
     // ExternalSubsetResolver methods
     //
 
-    /**
-     * <p>Locates an external subset for documents which do not explicitly
-     * provide one. If no external subset is provided, this method should
-     * return <code>null</code>.</p>
-     *
-     * @param grammarDescription a description of the DTD
-     *
-     * @throws XNIException Thrown on general error.
-     * @throws IOException  Thrown if resolved entity stream cannot be
-     *                      opened or some other i/o error occurs.
-     */
-    @Override
-    public XMLInputSource getExternalSubset(XMLDTDDescription grammarDescription)
-            throws XNIException, IOException {
 
-        if (fEntityResolver != null) {
-
-            String name = grammarDescription.getRootName();
-            String baseURI = grammarDescription.getBaseSystemId();
-
-            // Resolve using EntityResolver2
-            try {
-                InputSource inputSource = fEntityResolver.getExternalSubset(name, baseURI);
-                return (inputSource != null) ? createXMLInputSource(inputSource, baseURI) : null;
-            }
-            // error resolving external subset
-            catch (SAXException e) {
-                Exception ex = e.getException();
-                if (ex == null) {
-                    ex = e;
-                }
-                throw new XNIException(ex);
-            }
-        }
-
-        // unable to resolve external subset
-        return null;
-
-    } // getExternalSubset(XMLDTDDescription):XMLInputSource
 
     //
     // XMLEntityResolver methods
@@ -150,12 +110,6 @@ public class EntityResolver2Wrapper
             String sysId = resourceIdentifier.getLiteralSystemId();
             String baseURI = resourceIdentifier.getBaseSystemId();
             String name = null;
-            if (resourceIdentifier instanceof XMLDTDDescription) {
-                name = "[dtd]";
-            }
-            else if (resourceIdentifier instanceof XMLEntityDescription) {
-                name = ((XMLEntityDescription) resourceIdentifier).getEntityName();
-            }
 
             // When both pubId and sysId are null, the user's entity resolver
             // can do nothing about it. We'd better not bother calling it.

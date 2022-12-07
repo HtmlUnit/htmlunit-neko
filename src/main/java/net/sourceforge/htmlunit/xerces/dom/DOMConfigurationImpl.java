@@ -30,7 +30,6 @@ import org.w3c.dom.DOMStringList;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
@@ -119,10 +118,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String TOLERATE_DUPLICATES =
         Constants.XERCES_FEATURE_PREFIX + Constants.TOLERATE_DUPLICATES_FEATURE;
     // property identifiers
-
-    /** Property identifier: entity manager. */
-    protected static final String ENTITY_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_MANAGER_PROPERTY;
 
     /** Property identifier: error reporter. */
     protected static final String ERROR_REPORTER =
@@ -257,7 +252,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             ERROR_HANDLER,
             ENTITY_RESOLVER,
             ERROR_REPORTER,
-            ENTITY_MANAGER,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
             SCHEMA_DV_FACTORY
@@ -278,10 +272,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         fErrorReporter = new XMLErrorReporter();
         setProperty(ERROR_REPORTER, fErrorReporter);
         addComponent(fErrorReporter);
-
-        XMLEntityManager manager =  new XMLEntityManager();
-        setProperty(ENTITY_MANAGER, manager);
-        addComponent(manager);
 
         // add message formatters
         if (fErrorReporter.getMessageFormatter(XMLMessageFormatter.XML_DOMAIN) == null) {
