@@ -41,7 +41,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLNSDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLDTDContentModelHandler;
@@ -186,9 +185,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     protected static final String DATATYPE_VALIDATOR_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     /** Property identifier: JAXP schema language / DOM schema-type. */
     protected static final String JAXP_SCHEMA_LANGUAGE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE;
@@ -207,7 +203,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
     //
     protected final SymbolTable fSymbolTable;
     protected XMLInputSource fInputSource;
-    protected final ValidationManager fValidationManager;
     protected final XMLVersionDetector fVersionDetector;
     protected XMLLocator fLocator;
     protected Locale fLocale;
@@ -422,7 +417,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
                 DTD_PROCESSOR,
                 DTD_VALIDATOR,
                 DATATYPE_VALIDATOR_FACTORY,
-                VALIDATION_MANAGER,
                 XML_STRING,
                 XMLGRAMMAR_POOL,
                 JAXP_SCHEMA_SOURCE,
@@ -467,9 +461,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
 
         fDatatypeValidatorFactory = DTDDVFactory.getInstance();
         fProperties.put(DATATYPE_VALIDATOR_FACTORY, fDatatypeValidatorFactory);
-
-        fValidationManager = new ValidationManager();
-        fProperties.put(VALIDATION_MANAGER, fValidationManager);
 
         fVersionDetector = new XMLVersionDetector();
 
@@ -702,7 +693,6 @@ public class XML11DTDConfiguration extends ParserConfigurationSettings
         // reset and configure pipeline and set InputSource.
         if (fInputSource != null) {
             try {
-                fValidationManager.reset();
                 fVersionDetector.reset(this);
                 resetCommon();
 

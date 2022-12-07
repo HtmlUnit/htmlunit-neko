@@ -34,7 +34,6 @@ import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
@@ -177,9 +176,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected static final String DTD_VALIDATOR_FACTORY_PROPERTY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     /** Property identifier: schema location. */
     protected static final String SCHEMA_LOCATION =
         Constants.XERCES_PROPERTY_PREFIX + Constants.SCHEMA_LOCATION;
@@ -221,8 +217,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
 
     /** Components. */
     protected final ArrayList<XMLComponent> fComponents;
-
-    protected final ValidationManager fValidationManager;
 
     /** Locale. */
     protected Locale fLocale;
@@ -333,7 +327,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             ENTITY_RESOLVER,
             ERROR_REPORTER,
             ENTITY_MANAGER,
-            VALIDATION_MANAGER,
             GRAMMAR_POOL,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
@@ -374,10 +367,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         XMLEntityManager manager =  new XMLEntityManager();
         setProperty(ENTITY_MANAGER, manager);
         addComponent(manager);
-
-        fValidationManager = createValidationManager();
-        setProperty(VALIDATION_MANAGER, fValidationManager);
-
 
         // add message formatters
         if (fErrorReporter.getMessageFormatter(XMLMessageFormatter.XML_DOMAIN) == null) {
@@ -1069,10 +1058,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
      * reset all components before parsing
      */
     protected void reset() throws XNIException {
-
-        if (fValidationManager != null)
-            fValidationManager.reset();
-
         for (XMLComponent c : fComponents) {
             c.reset(this);
         }
@@ -1139,10 +1124,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         addRecognizedProperties(recognizedProperties);
 
     } // addComponent(XMLComponent)
-
-    protected ValidationManager createValidationManager(){
-        return new ValidationManager();
-    }
 
     protected final void setDTDValidatorFactory(String version) {
         if ("1.1".equals(version)) {

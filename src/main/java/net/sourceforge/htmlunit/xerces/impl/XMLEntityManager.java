@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -36,15 +35,12 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-import javax.xml.crypto.URIReferenceException;
-
 import net.sourceforge.htmlunit.xerces.impl.io.ASCIIReader;
 import net.sourceforge.htmlunit.xerces.impl.io.Latin1Reader;
 import net.sourceforge.htmlunit.xerces.impl.io.UCSReader;
 import net.sourceforge.htmlunit.xerces.impl.io.UTF16Reader;
 import net.sourceforge.htmlunit.xerces.impl.io.UTF8Reader;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.AugmentationsImpl;
 import net.sourceforge.htmlunit.xerces.util.EncodingMap;
 import net.sourceforge.htmlunit.xerces.util.HTTPInputSource;
@@ -141,10 +137,6 @@ public class XMLEntityManager
     protected static final String ENTITY_RESOLVER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
 
-    // property identifier:  ValidationManager
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     /** property identifier: buffer size. */
     protected static final String BUFFER_SIZE =
         Constants.XERCES_PROPERTY_PREFIX + Constants.BUFFER_SIZE_PROPERTY;
@@ -176,7 +168,6 @@ public class XMLEntityManager
         SYMBOL_TABLE,
         ERROR_REPORTER,
         ENTITY_RESOLVER,
-        VALIDATION_MANAGER,
         BUFFER_SIZE,
     };
 
@@ -271,12 +262,6 @@ public class XMLEntityManager
      * http://apache.org/xml/properties/internal/entity-resolver
      */
     protected XMLEntityResolver fEntityResolver;
-
-    /**
-     * Validation manager. This property identifier is:
-     * http://apache.org/xml/properties/internal/validation-manager
-     */
-    protected ValidationManager fValidationManager;
 
     // settings
 
@@ -768,7 +753,7 @@ public class XMLEntityManager
 
         // should we skip external entities?
         boolean external = entity.isExternal();
-        if (external && (fValidationManager == null || !fValidationManager.isCachedDTD())) {
+        if (external) {
             boolean unparsed = entity.isUnparsed();
             boolean parameter = entityName.startsWith("%");
             boolean general = !parameter;
@@ -1329,12 +1314,6 @@ public class XMLEntityManager
         }
         catch (XMLConfigurationException e) {
             fEntityResolver = null;
-        }
-        try {
-            fValidationManager = (ValidationManager)componentManager.getProperty(VALIDATION_MANAGER);
-        }
-        catch (XMLConfigurationException e) {
-            fValidationManager = null;
         }
 
         // reset general state

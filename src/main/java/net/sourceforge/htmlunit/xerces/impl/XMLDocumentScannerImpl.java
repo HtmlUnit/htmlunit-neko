@@ -21,14 +21,9 @@ import java.io.CharConversionException;
 import java.io.EOFException;
 import java.io.IOException;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDDescription;
 import net.sourceforge.htmlunit.xerces.impl.io.MalformedByteSequenceException;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.NamespaceSupport;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLStringBuffer;
@@ -110,10 +105,6 @@ public class XMLDocumentScannerImpl
     protected static final String DTD_SCANNER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DTD_SCANNER_PROPERTY;
 
-    /** property identifier:  ValidationManager */
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     /** property identifier:  NamespaceContext */
     protected static final String NAMESPACE_CONTEXT =
         Constants.XERCES_PROPERTY_PREFIX + Constants.NAMESPACE_CONTEXT_PROPERTY;
@@ -137,7 +128,6 @@ public class XMLDocumentScannerImpl
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
         DTD_SCANNER,
-        VALIDATION_MANAGER,
         NAMESPACE_CONTEXT,
     };
 
@@ -156,8 +146,6 @@ public class XMLDocumentScannerImpl
 
     /** DTD scanner. */
     protected XMLDTDScanner fDTDScanner;
-    /** Validation manager . */
-    protected ValidationManager fValidationManager;
 
     // protected data
 
@@ -304,12 +292,6 @@ public class XMLDocumentScannerImpl
 
         // xerces properties
         fDTDScanner = (XMLDTDScanner)componentManager.getProperty(DTD_SCANNER);
-        try {
-            fValidationManager = (ValidationManager)componentManager.getProperty(VALIDATION_MANAGER);
-        }
-        catch (XMLConfigurationException e) {
-            fValidationManager = null;
-        }
 
         try {
             fNamespaceContext = (NamespaceContext)componentManager.getProperty(NAMESPACE_CONTEXT);
@@ -841,7 +823,7 @@ public class XMLDocumentScannerImpl
                             if (fDoctypeSystemId != null) {
                                 fIsEntityDeclaredVC = !fStandalone;
                                 if (((fValidation || fLoadExternalDTD)
-                                    && (fValidationManager == null || !fValidationManager.isCachedDTD()))) {
+                                    )) {
                                     setScannerState(SCANNER_STATE_DTD_EXTERNAL);
                                     setDispatcher(fDTDDispatcher);
                                     return true;
@@ -850,7 +832,7 @@ public class XMLDocumentScannerImpl
                             else if (fExternalSubsetSource != null) {
                                 fIsEntityDeclaredVC = !fStandalone;
                                 if (((fValidation || fLoadExternalDTD)
-                                    && (fValidationManager == null || !fValidationManager.isCachedDTD()))) {
+                                    )) {
                                     // This handles the case of a DOCTYPE that had neither an internal subset or an external subset.
                                     fDTDScanner.setInputSource(fExternalSubsetSource);
                                     fExternalSubsetSource = null;
@@ -953,7 +935,7 @@ public class XMLDocumentScannerImpl
                             // REVISIT: Should there be a feature for
                             //          the "complete" parameter?
                             boolean completeDTD = true;
-                            boolean readExternalSubset = (fValidation || fLoadExternalDTD) && (fValidationManager == null || !fValidationManager.isCachedDTD());
+                            boolean readExternalSubset = (fValidation || fLoadExternalDTD);
                             boolean moreToScan = fDTDScanner.scanDTDInternalSubset(completeDTD, fStandalone, fHasExternalDTD && readExternalSubset);
                             if (!moreToScan) {
                                 // end doctype declaration
@@ -1199,14 +1181,8 @@ public class XMLDocumentScannerImpl
                     fDocumentHandler.doctypeDecl(fDoctypeName, fDoctypePublicId, fDoctypeSystemId, null);
                 }
                 try {
-                    if (fValidationManager == null || !fValidationManager.isCachedDTD()) {
-                        fDTDScanner.setInputSource(src);
-                        while (fDTDScanner.scanDTDExternalSubset(true));
-                    }
-                    else {
-                        // This sends startDTD and endDTD calls down the pipeline.
-                        fDTDScanner.setInputSource(null);
-                    }
+                    fDTDScanner.setInputSource(src);
+                    while (fDTDScanner.scanDTDExternalSubset(true));
                 }
                 finally {
                     fEntityManager.setEntityHandler(XMLDocumentScannerImpl.this);

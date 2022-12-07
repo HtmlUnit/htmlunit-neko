@@ -406,9 +406,6 @@ public final class Constants {
     /** Namespace context property ("internal/namespace-context"). */
     public static final String NAMESPACE_CONTEXT_PROPERTY = "internal/namespace-context";
 
-    /** Validation manager property ("internal/validation-manager"). */
-    public static final String VALIDATION_MANAGER_PROPERTY = "internal/validation-manager";
-
     /** Schema type for the root element in a document ("validation/schema/root-type-definition"). */
     public static final String ROOT_TYPE_DEFINITION_PROPERTY = "validation/schema/root-type-definition";
 
@@ -528,7 +525,6 @@ public final class Constants {
             VALIDATOR_PROPERTY,
             SCHEMA_LOCATION,
             SCHEMA_NONS_LOCATION,
-            VALIDATION_MANAGER_PROPERTY,
             BUFFER_SIZE_PROPERTY,
             LOCALE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,

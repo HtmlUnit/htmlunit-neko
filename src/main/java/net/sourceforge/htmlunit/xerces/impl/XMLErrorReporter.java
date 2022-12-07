@@ -20,10 +20,6 @@ package net.sourceforge.htmlunit.xerces.impl;
 import java.util.Hashtable;
 import java.util.Locale;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-
 import net.sourceforge.htmlunit.xerces.util.DefaultErrorHandler;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;

@@ -30,7 +30,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDProcessor;
 import net.sourceforge.htmlunit.xerces.impl.dtd.XMLDTDValidator;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
@@ -155,9 +154,6 @@ public class DTDConfiguration
     protected static final String DATATYPE_VALIDATOR_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     /** Property identifier: JAXP schema language / DOM schema-type. */
     protected static final String JAXP_SCHEMA_LANGUAGE =
         Constants.JAXP_PROPERTY_PREFIX + Constants.SCHEMA_LANGUAGE;
@@ -212,9 +208,6 @@ public class DTDConfiguration
 
     /** Namespace binder. */
     protected final XMLNamespaceBinder fNamespaceBinder;
-
-    protected final ValidationManager fValidationManager;
-    // state
 
     /** Locator */
     protected XMLLocator fLocator;
@@ -311,7 +304,6 @@ public class DTDConfiguration
             NAMESPACE_BINDER,
             XMLGRAMMAR_POOL,
             DATATYPE_VALIDATOR_FACTORY,
-            VALIDATION_MANAGER,
             JAXP_SCHEMA_SOURCE,
             JAXP_SCHEMA_LANGUAGE,
             LOCALE
@@ -369,11 +361,7 @@ public class DTDConfiguration
             setProperty(DATATYPE_VALIDATOR_FACTORY,
                         fDatatypeValidatorFactory);
         }
-        fValidationManager = createValidationManager();
 
-        if (fValidationManager != null) {
-            setProperty (VALIDATION_MANAGER, fValidationManager);
-        }
         // add message formatters
         if (fErrorReporter.getMessageFormatter(XMLMessageFormatter.XML_DOMAIN) == null) {
             XMLMessageFormatter xmft = new XMLMessageFormatter();
@@ -572,9 +560,6 @@ public class DTDConfiguration
      */
     @Override
     protected void reset() throws XNIException {
-
-        if (fValidationManager != null)
-            fValidationManager.reset();
         // configure the pipeline and initialize the components
         configurePipeline();
         super.reset();
@@ -818,9 +803,5 @@ public class DTDConfiguration
     // Create a datatype validator factory.
     protected DTDDVFactory createDatatypeValidatorFactory() {
         return DTDDVFactory.getInstance();
-    }
-
-    protected ValidationManager createValidationManager(){
-        return new ValidationManager();
     }
 }

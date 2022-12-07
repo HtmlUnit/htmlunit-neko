@@ -31,7 +31,6 @@ import net.sourceforge.htmlunit.xerces.impl.dtd.models.DFAContentModel;
 import net.sourceforge.htmlunit.xerces.impl.dtd.models.MixedContentModel;
 import net.sourceforge.htmlunit.xerces.impl.dtd.models.SimpleContentModel;
 import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
-import net.sourceforge.htmlunit.xerces.impl.validation.EntityState;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.QName;
@@ -58,7 +57,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDTDSource;
  * @author Neil Graham, IBM
  */
 public class DTDGrammar
-    implements XMLDTDHandler, XMLDTDContentModelHandler, EntityState, Grammar {
+    implements XMLDTDHandler, XMLDTDContentModelHandler, Grammar {
 
     /** Top level scope (-1). */
     public static final int TOP_LEVEL_SCOPE = -1;
@@ -2833,25 +2832,6 @@ public class DTDGrammar
                     }
                 }
             }
-
         }
-
-    }
-
-    @Override
-    public boolean isEntityDeclared (String name){
-        return (getEntityDeclIndex(name)!=-1)?true:false;
-    }
-
-    @Override
-    public boolean isEntityUnparsed (String name){
-        int entityIndex = getEntityDeclIndex(name);
-        if (entityIndex >-1) {
-            int chunk = entityIndex >> CHUNK_SHIFT;
-            int index = entityIndex & CHUNK_MASK;
-            //for unparsed entity notation!=null
-            return (fEntityNotation[chunk][index]!=null)?true:false;
-        }
-        return false;
     }
 }

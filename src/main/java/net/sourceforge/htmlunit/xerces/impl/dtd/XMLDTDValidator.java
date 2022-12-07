@@ -17,11 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.impl.dtd;
 
-import java.util.Iterator;
-
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.RevalidationHandler;
 import net.sourceforge.htmlunit.xerces.impl.XMLEntityManager;
@@ -29,10 +24,7 @@ import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.dtd.models.ContentModelValidator;
 import net.sourceforge.htmlunit.xerces.impl.dv.DTDDVFactory;
 import net.sourceforge.htmlunit.xerces.impl.dv.DatatypeValidator;
-import net.sourceforge.htmlunit.xerces.impl.dv.InvalidDatatypeValueException;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationManager;
-import net.sourceforge.htmlunit.xerces.impl.validation.ValidationState;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
 import net.sourceforge.htmlunit.xerces.util.XMLSymbols;
@@ -136,10 +128,6 @@ public class XMLDTDValidator
     protected static final String DATATYPE_VALIDATOR_FACTORY =
         Constants.XERCES_PROPERTY_PREFIX + Constants.DATATYPE_VALIDATOR_FACTORY_PROPERTY;
 
-    // property identifier:  ValidationManager
-    protected static final String VALIDATION_MANAGER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.VALIDATION_MANAGER_PROPERTY;
-
     // recognized features and properties
 
     /** Recognized features. */
@@ -163,8 +151,7 @@ public class XMLDTDValidator
         SYMBOL_TABLE,
         ERROR_REPORTER,
         GRAMMAR_POOL,
-        DATATYPE_VALIDATOR_FACTORY,
-        VALIDATION_MANAGER
+        DATATYPE_VALIDATOR_FACTORY
     };
 
     /** Property defaults. */
@@ -187,12 +174,6 @@ public class XMLDTDValidator
     //
     // Data
     //
-
-    // updated during reset
-    protected ValidationManager fValidationManager = null;
-
-    // validation state
-    protected final ValidationState fValidationState = new ValidationState();
 
     // features
 
@@ -427,8 +408,6 @@ public class XMLDTDValidator
 
         fRootElement.clear();
 
-        fValidationState.resetIDTables();
-
         fGrammarBucket.clear();
         fElementDepth = -1;
         fElementChildrenLength = 0;
@@ -443,7 +422,6 @@ public class XMLDTDValidator
 
         if (!parser_settings){
             // parser settings have not been changed
-            fValidationManager.addValidationState(fValidationState);
             return;
         }
 
@@ -497,10 +475,6 @@ public class XMLDTDValidator
         catch (XMLConfigurationException e){
             fSchemaType = null;
         }
-
-        fValidationManager= (ValidationManager)componentManager.getProperty(VALIDATION_MANAGER);
-        fValidationManager.addValidationState(fValidationState);
-        fValidationState.setUsingNamespaces(fNamespaces);
 
         // get needed components
         fErrorReporter = (XMLErrorReporter)componentManager.getProperty(Constants.XERCES_PROPERTY_PREFIX+Constants.ERROR_REPORTER_PROPERTY);
@@ -774,10 +748,6 @@ public class XMLDTDValidator
             else {
                 fDTDGrammar = new BalancedDTDGrammar(fSymbolTable, grammarDesc);
             }
-        } else {
-            // we've found a cached one;so let's make sure not to read
-            // any external subset!
-            fValidationManager.setCachedDTD(true);
         }
         fGrammarBucket.setActiveGrammar(fDTDGrammar);
 
@@ -1418,24 +1388,6 @@ public class XMLDTDValidator
 
         switch (attributeDecl.simpleType.type) {
         case XMLSimpleType.TYPE_ENTITY: {
-                // NOTE: Save this information because invalidStandaloneAttDef
-                boolean isAlistAttribute = attributeDecl.simpleType.list;
-
-                try {
-                    if (isAlistAttribute) {
-                        fValENTITIES.validate(attValue, fValidationState);
-                    }
-                    else {
-                        fValENTITY.validate(attValue, fValidationState);
-                    }
-                }
-                catch (InvalidDatatypeValueException ex) {
-                    fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                               ex.getKey(),
-                                               ex.getArgs(),
-                                               XMLErrorReporter.SEVERITY_ERROR );
-
-                }
                 break;
             }
 
@@ -1469,72 +1421,14 @@ public class XMLDTDValidator
             }
 
         case XMLSimpleType.TYPE_ID: {
-                try {
-                    fValID.validate(attValue, fValidationState);
-                }
-                catch (InvalidDatatypeValueException ex) {
-                    fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                               ex.getKey(),
-                                               ex.getArgs(),
-                                               XMLErrorReporter.SEVERITY_ERROR );
-                }
                 break;
             }
 
         case XMLSimpleType.TYPE_IDREF: {
-                boolean isAlistAttribute = attributeDecl.simpleType.list;//Caveat - Save this information because invalidStandaloneAttDef
-
-                try {
-                    if (isAlistAttribute) {
-                        fValIDRefs.validate(attValue, fValidationState);
-                    }
-                    else {
-                        fValIDRef.validate(attValue, fValidationState);
-                    }
-                }
-                catch (InvalidDatatypeValueException ex) {
-                    if (isAlistAttribute) {
-                        fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                                   "IDREFSInvalid",
-                                                   new Object[]{attValue},
-                                                   XMLErrorReporter.SEVERITY_ERROR );
-                    }
-                    else {
-                        fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                                   ex.getKey(),
-                                                   ex.getArgs(),
-                                                   XMLErrorReporter.SEVERITY_ERROR );
-                    }
-
-                }
                 break;
             }
 
         case XMLSimpleType.TYPE_NMTOKEN: {
-                boolean isAlistAttribute = attributeDecl.simpleType.list;//Caveat - Save this information because invalidStandaloneAttDef
-                //changes fTempAttDef
-                try {
-                    if (isAlistAttribute) {
-                        fValNMTOKENS.validate(attValue, fValidationState);
-                    }
-                    else {
-                        fValNMTOKEN.validate(attValue, fValidationState);
-                    }
-                }
-                catch (InvalidDatatypeValueException ex) {
-                    if (isAlistAttribute) {
-                        fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                                   "NMTOKENSInvalid",
-                                                   new Object[] { attValue},
-                                                   XMLErrorReporter.SEVERITY_ERROR);
-                    }
-                    else {
-                        fErrorReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
-                                                   "NMTOKENInvalid",
-                                                   new Object[] { attValue},
-                                                   XMLErrorReporter.SEVERITY_ERROR);
-                    }
-                }
                 break;
             }
 
@@ -1852,8 +1746,6 @@ public class XMLDTDValidator
             //
             fPerformValidation = validate();
             fSeenRootElement = true;
-            fValidationManager.setEntityState(fDTDGrammar);
-            fValidationManager.setGrammarFound(fSeenDoctypeDecl);
             rootElementSpecified(element);
         }
         if (fDTDGrammar == null) {
@@ -1994,23 +1886,6 @@ public class XMLDTDValidator
             fCurrentContentSpecType = -1;
             fInElementContent = false;
 
-            // TO DO : fix this
-            //
-            // Check after document is fully parsed
-            // (1) check that there was an element with a matching id for every
-            //   IDREF and IDREFS attr (V_IDREF0)
-            //
-            if (fPerformValidation) {
-                Iterator<String> invIdRefs = fValidationState.checkIDRefID();
-                if (invIdRefs != null) {
-                    while (invIdRefs.hasNext()) {
-                        fErrorReporter.reportError( XMLMessageFormatter.XML_DOMAIN,
-                                "MSG_ELEMENT_WITH_ID_REQUIRED",
-                                new Object[]{invIdRefs.next()},
-                                XMLErrorReporter.SEVERITY_ERROR );
-                    }
-                }
-            }
             return;
         }
 

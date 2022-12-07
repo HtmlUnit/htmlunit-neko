@@ -19,8 +19,6 @@ package net.sourceforge.htmlunit.xerces.impl;
 
 import java.io.IOException;
 
-import org.xml.sax.SAXException;
-
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
 import net.sourceforge.htmlunit.xerces.util.SymbolTable;
 import net.sourceforge.htmlunit.xerces.util.XMLChar;
