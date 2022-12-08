@@ -337,7 +337,7 @@ public class AttrImpl
         }
 
         Element ownerElement = getOwnerElement();
-        String oldvalue = "";
+        String oldvalue;
 
         if (needsSyncData()) {
             synchronizeData();

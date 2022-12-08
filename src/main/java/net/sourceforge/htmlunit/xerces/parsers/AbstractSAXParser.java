@@ -153,8 +153,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Lexical handler. */
     protected LexicalHandler fLexicalHandler;
 
-    protected final QName fQName = new QName();
-
     // state
 
     /**
@@ -1442,14 +1440,13 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * </pre>
      *
      * @param handler lexical event handler
-     * @throws SAXNotRecognizedException on error
      * @throws SAXNotSupportedException on error
      *
      * @see #getLexicalHandler()
      * @see #setProperty(String, Object)
      */
     protected void setLexicalHandler(LexicalHandler handler)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
+        throws SAXNotSupportedException {
 
         if (fParseInProgress) {
             throw new SAXNotSupportedException(
@@ -1464,12 +1461,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /**
      * @return the lexical handler.
      *
-     * @throws SAXNotRecognizedException on error
-     * @throws SAXNotSupportedException on error
      * @see #setLexicalHandler(LexicalHandler)
      */
-    protected LexicalHandler getLexicalHandler()
-        throws SAXNotRecognizedException, SAXNotSupportedException {
+    protected LexicalHandler getLexicalHandler() {
         return fLexicalHandler;
     }
 

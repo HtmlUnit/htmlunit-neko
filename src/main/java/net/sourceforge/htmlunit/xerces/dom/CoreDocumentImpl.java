@@ -43,7 +43,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 import org.w3c.dom.UserDataHandler;
-import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import net.sourceforge.htmlunit.xerces.util.URI;
@@ -2233,18 +2232,6 @@ extends ParentNode implements Document  {
         return xml11Version;
     }
 
-    boolean isNormalizeDocRequired(){
-        // REVISIT: Implement to optimize when normalization
-        // is required
-        return true;
-    }
-
-    //we should be checking the (elements, attribute, entity etc.) names only when
-    //version of the document is changed.
-    boolean isXMLVersionChanged(){
-        return xmlVersionChanged ;
-    }
-
     // NON-DOM: kept for backward compatibility
     // Store user data related to a given node
     // This is a place where we could use weak references! Indeed, the node
@@ -2274,11 +2261,6 @@ extends ParentNode implements Document  {
 
     protected void copyEventListeners(NodeImpl src, NodeImpl tgt) {
         // does nothing by default - overidden in subclass
-    }
-
-    protected boolean dispatchEvent(NodeImpl node, Event event) {
-        // does nothing by default - overidden in subclass
-        return false;
     }
 
     /**

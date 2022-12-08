@@ -21,7 +21,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 public class HTMLEntitiesTest {
 
     @Test
-    public void parseEuml() throws Exception {
+    public void parseEuml() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml ";
@@ -35,7 +35,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEuml_() throws Exception {
+    public void parseEuml_() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "Euml; ";
@@ -49,7 +49,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEumlX() throws Exception {
+    public void parseEumlX() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumlX";
@@ -65,7 +65,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEumX() throws Exception {
+    public void parseEumX() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "EumX";
@@ -79,7 +79,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEuroLt() throws Exception {
+    public void parseEuroLt() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "euro<";
@@ -95,7 +95,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEuro() throws Exception {
+    public void parseEuro() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "x80;";
@@ -109,7 +109,7 @@ public class HTMLEntitiesTest {
     }
 
     @Test
-    public void parseEuroMissingSemicolon() throws Exception {
+    public void parseEuroMissingSemicolon() {
         HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         String input = "x80<";

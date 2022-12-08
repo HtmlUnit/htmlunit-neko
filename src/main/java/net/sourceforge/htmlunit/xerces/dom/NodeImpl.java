@@ -702,8 +702,7 @@ public abstract class NodeImpl
 
     @Override
     public boolean dispatchEvent(Event event) {
-        // simply forward to Document
-        return ownerDocument().dispatchEvent(this, event);
+        return false;
     }
 
     //
@@ -1654,15 +1653,6 @@ public abstract class NodeImpl
     protected void synchronizeData() {
         // By default just change the flag to avoid calling this method again
         needsSyncData(false);
-    }
-
-    /**
-     * For non-child nodes, the node which "points" to this node.
-     * For example, the owning element for an attribute
-     * @return always null
-     */
-    protected Node getContainer() {
-       return null;
     }
 
     final boolean isReadOnly() {

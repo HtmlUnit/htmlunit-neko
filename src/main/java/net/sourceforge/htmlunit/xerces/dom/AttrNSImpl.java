@@ -159,7 +159,7 @@ public class AttrNSImpl extends AttrImpl {
      * Introduced in DOM Level 2. <p>
      *
      * The namespace prefix of this node, or null if it is unspecified.
-     *
+     * <p>
      * For nodes created with a DOM Level 1 method, such as createElement
      * from the Document interface, this is null.
      */

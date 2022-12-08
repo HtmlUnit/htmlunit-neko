@@ -157,7 +157,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected Node fCurrentNode;
     protected CDATASection fCurrentCDATASection;
     protected EntityImpl fCurrentEntityDecl;
-    protected int fDeferredEntityDecl;
 
     /** Character buffer */
     protected final StringBuffer fStringBuffer = new StringBuffer (50);
@@ -170,18 +169,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     // deferred expansion data
 
     protected boolean              fNamespaceAware;
-    protected int                  fDocumentIndex;
-    protected int                  fDocumentTypeIndex;
-    protected int                  fCurrentNodeIndex;
-    protected int                  fCurrentCDATASectionIndex;
 
     // state
 
     /** True if inside DTD external subset. */
     protected boolean fInDTDExternalSubset;
-
-    /** Root element node. */
-    protected Node fRoot;
 
     /** True if inside CDATA section. */
     protected boolean fInCDATASection;
@@ -201,12 +193,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** LSParserFilter: tracks the element depth within a rejected subtree. */
     protected int fRejectedElementDepth = 0;
-
-    /** LSParserFilter: store depth of skipped elements */
-    protected Stack<Boolean> fSkippedElemStack = null;
-
-    /** LSParserFilter: true if inside entity reference */
-    protected boolean fInEntityRef = false;
 
     /** Attribute QName. */
     private final QName fAttrQName = new QName();
@@ -303,7 +289,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCurrentNode = null;
         fCurrentCDATASection = null;
         fCurrentEntityDecl = null;
-        fRoot = null;
     }
 
     /**
@@ -337,20 +322,17 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fDocument = null;
         fDocumentImpl = null;
         fDocumentType = null;
-        fDocumentTypeIndex = -1;
         fCurrentNode = null;
 
         // reset string buffer
         fStringBuffer.setLength (0);
 
         // reset state information
-        fRoot = null;
         fInDTD = false;
         fInDTDExternalSubset = false;
         fInCDATASection = false;
         fFirstChunk = false;
         fCurrentCDATASection = null;
-        fCurrentCDATASectionIndex = -1;
 
         fBaseURIStack.removeAllElements ();
 
@@ -431,7 +413,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // expanded anyway. Synch only needed when user creates entityRef node
             erImpl.needsSyncChildren (false);
         }
-        fInEntityRef = true;
         fCurrentNode.appendChild (er);
         fCurrentNode = er;
     }
@@ -983,7 +964,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
 
         }
-        fInEntityRef = false;
         if (fCreateEntityRefNodes) {
             if (fDocumentImpl != null) {
                 // Make entity ref node read only

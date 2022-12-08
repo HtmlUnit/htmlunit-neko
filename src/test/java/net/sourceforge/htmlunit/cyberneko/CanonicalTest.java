@@ -59,7 +59,7 @@ public class CanonicalTest {
     private static final File outputDir = new File("target/data/output");
 
     @TestFactory
-    public Iterable<DynamicTest> suite() throws Exception {
+    public Iterable<DynamicTest> suite() {
         // System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 

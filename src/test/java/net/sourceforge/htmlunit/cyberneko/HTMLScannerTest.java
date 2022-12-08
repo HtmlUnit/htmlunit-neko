@@ -32,7 +32,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 public class HTMLScannerTest {
 
     @Test
-    public void isEncodingCompatible() throws Exception {
+    public void isEncodingCompatible() {
         final HTMLScanner scanner = new HTMLScanner(new HTMLConfiguration());
         assertTrue(scanner.isEncodingCompatible("ISO-8859-1","ISO-8859-1"));
         assertTrue(scanner.isEncodingCompatible("UTF-8","UTF-8"));
@@ -150,7 +150,7 @@ public class HTMLScannerTest {
     }
 
     @Test
-    public void reduceToContent() throws Exception {
+    public void reduceToContent() {
         XMLStringBuffer buffer = new XMLStringBuffer("<!-- hello-->");
 
         HTMLScanner.reduceToContent(buffer, "<!--", "-->");
