@@ -294,7 +294,7 @@ public class XMLAttributesImpl
         attribute.specified = false;
 
         // clear augmentations
-        attribute.augs.removeAllItems();
+        attribute.augs.clear();
 
         return index;
 
@@ -862,7 +862,7 @@ public class XMLAttributesImpl
         attribute.specified = false;
 
         // clear augmentations
-        attribute.augs.removeAllItems();
+        attribute.augs.clear();
     }
 
     /**

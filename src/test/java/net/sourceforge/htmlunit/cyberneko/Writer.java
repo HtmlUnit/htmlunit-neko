@@ -359,7 +359,7 @@ public class Writer
      */
     protected void doAugs(Augmentations augs) {
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
-                .getItem("http://cyberneko.org/html/features/augmentations");
+                .get("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             if(evInfo.isSynthesized()) {
                 out.print("[synth]");
@@ -389,7 +389,7 @@ public class Writer
      */
     protected void storeCharactersStart(Augmentations augs) {
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
-                .getItem("http://cyberneko.org/html/features/augmentations");
+                .get("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             fCharactersBeginLine = evInfo.getBeginLineNumber();
             fCharactersBeginColumn = evInfo.getBeginColumnNumber();
@@ -404,7 +404,7 @@ public class Writer
      */
     protected void storeCharactersEnd(Augmentations augs) {
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs
-                .getItem("http://cyberneko.org/html/features/augmentations");
+                .get("http://cyberneko.org/html/features/augmentations");
         if(evInfo != null) {
             fCharactersEndLine = evInfo.getEndLineNumber();
             fCharactersEndColumn = evInfo.getEndColumnNumber();
