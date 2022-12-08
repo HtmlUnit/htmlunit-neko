@@ -19,16 +19,12 @@ package net.sourceforge.htmlunit.xerces.parsers;
 
 import java.io.CharConversionException;
 import java.io.IOException;
-import java.util.Locale;
 
-import org.xml.sax.AttributeList;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
-import org.xml.sax.DocumentHandler;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
-import org.xml.sax.Parser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
@@ -68,9 +64,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public abstract class AbstractSAXParser
-    extends AbstractXMLDocumentParser
-    implements Parser, XMLReader // SAX1, SAX2
+public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implements XMLReader // SAX2
 {
 
     //
@@ -150,9 +144,6 @@ public abstract class AbstractSAXParser
     /** Content handler. */
     protected ContentHandler fContentHandler;
 
-    /** Document handler. */
-    protected DocumentHandler fDocumentHandler;
-
     /** Namespace context */
     protected NamespaceContext fNamespaceContext;
 
@@ -228,18 +219,6 @@ public abstract class AbstractSAXParser
         fNamespaceContext = namespaceContext;
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                if (locator != null) {
-                    fDocumentHandler.setDocumentLocator(new LocatorProxy(locator));
-                }
-                // The application may have set the DocumentHandler to null
-                // within setDocumentLocator() so we need to check again.
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.startDocument();
-                }
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 if (locator != null) {
@@ -411,14 +390,6 @@ public abstract class AbstractSAXParser
         throws XNIException {
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                // REVISIT: should we support schema-normalized-value for SAX1 events
-                //
-                fAttributesProxy.setAttributes(attributes);
-                fDocumentHandler.startElement(element.rawname, fAttributesProxy);
-            }
-
             // SAX2
             if (fContentHandler != null) {
 
@@ -459,13 +430,6 @@ public abstract class AbstractSAXParser
 
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                // REVISIT: should we support schema-normalized-value for SAX1 events
-                //
-                fDocumentHandler.characters(text.ch, text.offset, text.length);
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.characters(text.ch, text.offset, text.length);
@@ -494,11 +458,6 @@ public abstract class AbstractSAXParser
     public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                fDocumentHandler.ignorableWhitespace(text.ch, text.offset, text.length);
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.ignorableWhitespace(text.ch, text.offset, text.length);
@@ -523,11 +482,6 @@ public abstract class AbstractSAXParser
 
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                fDocumentHandler.endElement(element.rawname);
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 String uri = element.uri != null ? element.uri : "";
@@ -638,12 +592,6 @@ public abstract class AbstractSAXParser
         //
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                fDocumentHandler.processingInstruction(target,
-                                                       data.toString());
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.processingInstruction(target, data.toString());
@@ -666,11 +614,6 @@ public abstract class AbstractSAXParser
     public void endDocument(Augmentations augs) throws XNIException {
 
         try {
-            // SAX1
-            if (fDocumentHandler != null) {
-                fDocumentHandler.endDocument();
-            }
-
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.endDocument();
@@ -949,24 +892,6 @@ public abstract class AbstractSAXParser
     } // getErrorHandler():ErrorHandler
 
     /**
-     * Set the locale to use for messages.
-     *
-     * @param locale The locale object to use for localization of messages.
-     *
-     * @exception SAXException An exception thrown if the parser does not
-     *                         support the specified locale.
-     *
-     * @see org.xml.sax.Parser
-     */
-    @Override
-    public void setLocale(Locale locale) throws SAXException {
-        //REVISIT:this methods is not part of SAX2 interfaces, we should throw exception
-        //if any application uses SAX2 and sets locale also. -nb
-        fConfiguration.setLocale(locale);
-
-    } // setLocale(Locale)
-
-    /**
      * Allow an application to register a DTD event handler.
      * <p>
      * If the application does not register a DTD handler, all DTD
@@ -989,25 +914,6 @@ public abstract class AbstractSAXParser
     //
     // Parser methods
     //
-
-    /**
-     * Allow an application to register a document event handler.
-     * <p>
-     * If the application does not register a document handler, all
-     * document events reported by the SAX parser will be silently
-     * ignored (this is the default behaviour implemented by
-     * HandlerBase).
-     * <p>
-     * Applications may register a new or different handler in the
-     * middle of a parse, and the SAX parser must begin using the new
-     * handler immediately.
-     *
-     * @param documentHandler The document handler.
-     */
-    @Override
-    public void setDocumentHandler(DocumentHandler documentHandler) {
-        fDocumentHandler = documentHandler;
-    } // setDocumentHandler(DocumentHandler)
 
     //
     // XMLReader methods
@@ -1680,8 +1586,7 @@ public abstract class AbstractSAXParser
 
     }
 
-    protected static final class AttributesProxy
-        implements AttributeList, Attributes2 {
+    protected static final class AttributesProxy implements Attributes2 {
 
         /** XML attributes. */
         protected XMLAttributes fAttributes;
@@ -1694,11 +1599,6 @@ public abstract class AbstractSAXParser
         @Override
         public int getLength() {
             return fAttributes.getLength();
-        }
-
-        @Override
-        public String getName(int i) {
-            return fAttributes.getQName(i);
         }
 
         @Override
