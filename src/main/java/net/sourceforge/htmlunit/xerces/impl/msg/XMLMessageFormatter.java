@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.impl.msg;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -38,8 +37,6 @@ public class XMLMessageFormatter implements MessageFormatter {
     public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
     public static final String XMLNS_DOMAIN = "http://www.w3.org/TR/1999/REC-xml-names-19990114";
 
-    // private objects to cache the locale and resource bundle
-    private Locale fLocale = null;
     private ResourceBundle fResourceBundle = null;
 
     //
@@ -47,10 +44,8 @@ public class XMLMessageFormatter implements MessageFormatter {
     //
 
     /**
-     * Formats a message with the specified arguments using the given
-     * locale information.
+     * Formats a message with the specified arguments.
      *
-     * @param locale    The locale of the message.
      * @param key       The message key.
      * @param arguments The message replacement text arguments. The order
      *                  of the arguments must match that of the placeholders
@@ -62,17 +57,9 @@ public class XMLMessageFormatter implements MessageFormatter {
      *                                  specified key cannot be found.
      */
     @Override
-    public String formatMessage(Locale locale, String key, Object[] arguments)
-        throws MissingResourceException {
+    public String formatMessage(String key, Object[] arguments) throws MissingResourceException {
 
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-        if (locale != fLocale) {
-            fResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages", locale);
-            // memorize the most-recent locale
-            fLocale = locale;
-        }
+        fResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages");
 
         // format message
         String msg;

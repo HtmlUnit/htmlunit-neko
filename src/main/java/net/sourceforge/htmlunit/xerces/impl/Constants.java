@@ -316,9 +316,6 @@ public final class Constants {
     /** Input buffer size property ("input-buffer-size"). */
     public static final String BUFFER_SIZE_PROPERTY = "input-buffer-size";
 
-    /** Locale property ("locale"). */
-    public static final String LOCALE_PROPERTY = "locale";
-
     /** Entity resolver property ("internal/entity-resolver"). */
     public static final String ENTITY_RESOLVER_PROPERTY = "internal/entity-resolver";
 
@@ -436,7 +433,6 @@ public final class Constants {
             ENTITY_RESOLVER_PROPERTY,
             DOCUMENT_SCANNER_PROPERTY,
             BUFFER_SIZE_PROPERTY,
-            LOCALE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,
             ROOT_ELEMENT_DECLARATION_PROPERTY
     };

@@ -17,22 +17,19 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Used to format SAX error messages using a specified locale.
+ * Used to format SAX error messages.
  *
  * @author Michael Glavassevich, IBM
  */
 public class SAXMessageFormatter {
 
     /**
-     * Formats a message with the specified arguments using the given
-     * locale information.
+     * Formats a message with the specified arguments.
      *
-     * @param locale    The locale of the message.
      * @param key       The message key.
      * @param arguments The message replacement text arguments. The order
      *                  of the arguments must match that of the placeholders
@@ -43,15 +40,8 @@ public class SAXMessageFormatter {
      * @throws MissingResourceException Thrown if the message with the
      *                                  specified key cannot be found.
      */
-    public static String formatMessage(Locale locale,
-        String key, Object[] arguments)
-        throws MissingResourceException {
-
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-        final ResourceBundle resourceBundle =
-            ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.SAXMessages", locale);
+    public static String formatMessage(String key, Object[] arguments) throws MissingResourceException {
+        final ResourceBundle resourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.SAXMessages");
 
         // format message
         String msg;

@@ -32,6 +32,8 @@ package net.sourceforge.htmlunit.xerces.xni;
 public class XNIException
     extends RuntimeException {
 
+    private static final long serialVersionUID = 7447489736019161121L;
+
     /** The wrapped exception. */
     private Exception fException = this;
 

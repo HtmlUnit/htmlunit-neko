@@ -20,7 +20,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMErrorHandler;
@@ -153,9 +152,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Components. */
     protected final ArrayList<XMLComponent> fComponents;
 
-    /** Locale. */
-    protected Locale fLocale;
-
     /** Error reporter */
     protected final XMLErrorReporter fErrorReporter;
 
@@ -252,18 +248,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             fErrorReporter.putMessageFormatter(XMLMessageFormatter.XML_DOMAIN, xmft);
             fErrorReporter.putMessageFormatter(XMLMessageFormatter.XMLNS_DOMAIN, xmft);
         }
-
-        // set locale
-        try {
-            setLocale(Locale.getDefault());
-        }
-        catch (XNIException e) {
-            // do nothing
-            // REVISIT: What is the right thing to do? -Ac
-        }
-
-
-    } // <init>(SymbolTable)
+    }
 
 
     //
@@ -434,28 +419,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         // store value if noone "objects"
         super.setProperty(propertyId, value);
 
-    } // setProperty(String,Object)
-
-    /**
-     * Set the locale to use for messages.
-     *
-     * @param locale The locale object to use for localization of messages.
-     *
-     * @exception XNIException Thrown if the parser does not support the
-     *                         specified locale.
-     */
-    @Override
-    public void setLocale(Locale locale) throws XNIException {
-        fLocale = locale;
-        fErrorReporter.setLocale(locale);
-
-    } // setLocale(Locale)
-
-    /** Returns the locale. */
-    @Override
-    public Locale getLocale() {
-        return fLocale;
-    } // getLocale():Locale
+    }
 
     /**
      * DOM Level 3 WD - Experimental.

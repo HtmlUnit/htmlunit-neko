@@ -364,13 +364,11 @@ public class DOMParser extends AbstractDOMParser {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -413,13 +411,11 @@ public class DOMParser extends AbstractDOMParser {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -450,13 +446,11 @@ public class DOMParser extends AbstractDOMParser {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -491,13 +485,11 @@ public class DOMParser extends AbstractDOMParser {
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
             }
         }
 

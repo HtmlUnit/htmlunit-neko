@@ -1016,8 +1016,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     featureId.endsWith(Constants.STRING_INTERNING_FEATURE)) {
                     if (!state) {
                         throw new SAXNotSupportedException(
-                            SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                            "false-not-supported", new Object [] {featureId}));
+                            SAXMessageFormatter.formatMessage("false-not-supported", new Object [] {featureId}));
                     }
                     return;
                 }
@@ -1052,8 +1051,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     // checking is supported -- mrglavas.
                     if (state) {
                         throw new SAXNotSupportedException(
-                            SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                            "true-not-supported", new Object [] {featureId}));
+                            SAXMessageFormatter.formatMessage("true-not-supported", new Object [] {featureId}));
                     }
                     return;
                 }
@@ -1103,8 +1101,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     (suffixLength == Constants.USE_LOCATOR2_FEATURE.length() &&
                     featureId.endsWith(Constants.USE_LOCATOR2_FEATURE))) {
                     throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                        "feature-read-only", new Object [] {featureId}));
+                        SAXMessageFormatter.formatMessage("feature-read-only", new Object [] {featureId}));
                 }
             }
 
@@ -1114,13 +1111,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -1246,13 +1241,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "feature-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -1298,8 +1291,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     }
                     catch (ClassCastException e) {
                         throw new SAXNotSupportedException(
-                            SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                            "incompatible-class", new Object [] {propertyId, "org.xml.sax.ext.LexicalHandler"}));
+                            SAXMessageFormatter.formatMessage("incompatible-class", new Object [] {propertyId, "org.xml.sax.ext.LexicalHandler"}));
                     }
                     return;
                 }
@@ -1322,8 +1314,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     (suffixLength == Constants.DOCUMENT_XML_VERSION_PROPERTY.length() &&
                     propertyId.endsWith(Constants.DOCUMENT_XML_VERSION_PROPERTY))) {
                     throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                        "property-read-only", new Object [] {propertyId}));
+                        SAXMessageFormatter.formatMessage("property-read-only", new Object [] {propertyId}));
                 }
             }
 
@@ -1333,13 +1324,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -1406,8 +1395,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     propertyId.endsWith(Constants.DOM_NODE_PROPERTY)) {
                     // we are not iterating a DOM tree
                     throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                        "dom-node-read-not-supported", null));
+                        SAXMessageFormatter.formatMessage("dom-node-read-not-supported", null));
                 }
             }
 
@@ -1417,13 +1405,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-recognized", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
             else {
                 throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                    "property-not-supported", new Object [] {identifier}));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
             }
         }
 
@@ -1450,9 +1436,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         if (fParseInProgress) {
             throw new SAXNotSupportedException(
-                SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
-                "property-not-parsing-supported",
-                new Object [] {"http://xml.org/sax/properties/lexical-handler"}));
+                SAXMessageFormatter.formatMessage("property-not-parsing-supported",
+                        new Object [] {"http://xml.org/sax/properties/lexical-handler"}));
         }
         fLexicalHandler = handler;
 

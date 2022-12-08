@@ -18,7 +18,6 @@
 package net.sourceforge.htmlunit.xerces.impl;
 
 import java.util.Hashtable;
-import java.util.Locale;
 
 import net.sourceforge.htmlunit.xerces.util.DefaultErrorHandler;
 import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
@@ -127,9 +126,6 @@ public class XMLErrorReporter
         null,
     };
 
-    /** The locale to be used to format error messages. */
-    protected Locale fLocale;
-
     /** Mapping of Message formatters for domains. */
     protected final Hashtable<String, MessageFormatter> fMessageFormatters;
 
@@ -153,24 +149,6 @@ public class XMLErrorReporter
     /** Constructs an error reporter with a locator. */
     public XMLErrorReporter() {
         fMessageFormatters = new Hashtable<>();
-    }
-
-    /**
-     * Sets the current locale.
-     *
-     * @param locale The new locale.
-     */
-    public void setLocale(Locale locale) {
-        fLocale = locale;
-    }
-
-    /**
-     * Gets the current locale.
-     *
-     * @return the current Locale
-     */
-    public Locale getLocale() {
-        return fLocale ;
     }
 
     /**
@@ -228,8 +206,7 @@ public class XMLErrorReporter
      * {@inheritDoc}
      *
      * Reports an error. The error message passed to the error handler
-     * is formatted for the locale by the message formatter installed
-     * for the specified error domain.
+     * is formatted for the specified error domain.
      *
      * @param domain    The error domain.
      * @param key       The key of the error message.
@@ -251,8 +228,7 @@ public class XMLErrorReporter
      * {@inheritDoc}
      *
      * Reports an error. The error message passed to the error handler
-     * is formatted for the locale by the message formatter installed
-     * for the specified error domain.
+     * is formatted for the specified error domain.
      *
      * @param domain    The error domain.
      * @param key       The key of the error message.
@@ -323,7 +299,7 @@ public class XMLErrorReporter
         MessageFormatter messageFormatter = getMessageFormatter(domain);
         String message;
         if (messageFormatter != null) {
-            message = messageFormatter.formatMessage(fLocale, key, arguments);
+            message = messageFormatter.formatMessage(key, arguments);
         }
         else {
             StringBuilder str = new StringBuilder();

@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.parsers;
 
-import java.util.Locale;
 import java.util.Stack;
 
 import org.w3c.dom.Attr;
@@ -335,24 +334,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCurrentCDATASection = null;
 
         fBaseURIStack.removeAllElements ();
-
-
-    } // reset()
-
-    /**
-     * Set the locale to use for messages.
-     *
-     * @param locale The locale object to use for localization of messages.
-     *
-     */
-    public void setLocale (Locale locale) {
-        fConfiguration.setLocale (locale);
-
-    } // setLocale(Locale)
-
-    //
-    // XMLDocumentHandler methods
-    //
+    }
 
     /**
      * This method notifies the start of a general entity.

@@ -65,7 +65,9 @@ import java.util.Locale;
   ********************************************************************/
   public static class MalformedURIException extends IOException {
 
-   /******************************************************************
+    private static final long serialVersionUID = -8343545858797571098L;
+
+/******************************************************************
     * Constructs a <code>MalformedURIException</code> with no specified
     * detail message.
     ******************************************************************/
@@ -1379,7 +1381,7 @@ import java.util.Locale;
       throw new MalformedURIException("The scheme is not conformant.");
     }
 
-    m_scheme = p_scheme.toLowerCase(Locale.ENGLISH);
+    m_scheme = p_scheme.toLowerCase(Locale.ROOT);
   }
 
  /**

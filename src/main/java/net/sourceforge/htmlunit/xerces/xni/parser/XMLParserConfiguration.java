@@ -18,7 +18,6 @@
 package net.sourceforge.htmlunit.xerces.xni.parser;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
@@ -206,19 +205,4 @@ public interface XMLParserConfiguration extends XMLComponentManager {
      * @return the registered entity resolver.
      */
     XMLEntityResolver getEntityResolver();
-
-    /**
-     * Set the locale to use for messages.
-     *
-     * @param locale The locale object to use for localization of messages.
-     *
-     * @exception XNIException Thrown if the parser does not support the
-     *                         specified locale.
-     */
-    void setLocale(Locale locale) throws XNIException;
-
-    /**
-     * @return the locale.
-     */
-    Locale getLocale();
 }

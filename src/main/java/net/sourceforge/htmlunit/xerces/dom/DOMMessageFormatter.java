@@ -17,12 +17,11 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Used to format DOM error messages, using the system locale.
+ * Used to format DOM error messages.
  * <p>
  *
  * @author Sandy Gao, IBM
@@ -34,15 +33,12 @@ public class DOMMessageFormatter {
 
     private static ResourceBundle domResourceBundle = null;
     private static ResourceBundle xmlResourceBundle = null;
-    private static Locale locale = null;
 
     DOMMessageFormatter() {
-        locale = Locale.getDefault();
     }
 
     /**
-     * Formats a message with the specified arguments using the given
-     * locale information.
+     * Formats a message with the specified arguments.
      *
      * @param domain    domain from which error string is to come.
      * @param key       The message key.
@@ -117,19 +113,7 @@ public class DOMMessageFormatter {
      * Initialize Message Formatter.
      */
     public static void init() {
-        Locale _locale = locale;
-        if (_locale == null) {
-            _locale = Locale.getDefault();
-        }
-        domResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.DOMMessages", _locale);
-        xmlResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages", _locale);
-    }
-
-    /**
-     * Set Locale to be used by the formatter.
-     * @param dlocale the locale
-     */
-    public static void setLocale(Locale dlocale) {
-        locale = dlocale;
+        domResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.DOMMessages");
+        xmlResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages");
     }
 }

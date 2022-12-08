@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -129,9 +128,6 @@ public class HTMLConfiguration
 
     /** Entity resolver. */
     protected XMLEntityResolver fEntityResolver;
-
-    /** Locale. */
-    protected Locale fLocale = Locale.getDefault();
 
     // state
 
@@ -335,21 +331,6 @@ public class HTMLConfiguration
         return fEntityResolver;
     }
 
-    /** Sets the locale. */
-    @Override
-    public void setLocale(Locale locale) {
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-        fLocale = locale;
-    }
-
-    /** Returns the locale. */
-    @Override
-    public Locale getLocale() {
-        return fLocale;
-    }
-
     /** Parses a document. */
     @Override
     public void parse(XMLInputSource source) throws XNIException, IOException {
@@ -516,13 +497,6 @@ public class HTMLConfiguration
     protected class ErrorReporter
         implements HTMLErrorReporter {
 
-        //
-        // Data
-        //
-
-        /** Last locale. */
-        protected Locale fLastLocale;
-
         /** Error messages. */
         protected ResourceBundle fErrorMessages;
 
@@ -534,14 +508,9 @@ public class HTMLConfiguration
         @Override
         public String formatMessage(String key, Object[] args) {
             if (!getFeature(SIMPLE_ERROR_FORMAT)) {
-                if (!fLocale.equals(fLastLocale)) {
-                    fErrorMessages = null;
-                    fLastLocale = fLocale;
-                }
                 if (fErrorMessages == null) {
                     fErrorMessages =
-                        ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages",
-                                                 fLocale);
+                        ResourceBundle.getBundle("net/sourceforge/htmlunit/cyberneko/res/ErrorMessages");
                 }
                 try {
                     final String value = fErrorMessages.getString(key);

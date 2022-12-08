@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 
 /**
@@ -36,10 +35,8 @@ public interface MessageFormatter {
     //
 
     /**
-     * Formats a message with the specified arguments using the given
-     * locale information.
+     * Formats a message with the specified arguments.
      *
-     * @param locale    The locale of the message.
      * @param key       The message key.
      * @param arguments The message replacement text arguments. The order
      *                  of the arguments must match that of the placeholders
@@ -50,7 +47,6 @@ public interface MessageFormatter {
      * @throws MissingResourceException Thrown if the message with the
      *                                  specified key cannot be found.
      */
-    String formatMessage(Locale locale, String key, Object[] arguments)
-        throws MissingResourceException;
+    String formatMessage(String key, Object[] arguments) throws MissingResourceException;
 
-} // interface MessageFormatter
+}

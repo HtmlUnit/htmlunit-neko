@@ -474,8 +474,9 @@ public final class ObjectFactory {
     /**
      * A configuration error.
      */
-    static final class ConfigurationError
-        extends Error {
+    static final class ConfigurationError extends Error {
+
+        private static final long serialVersionUID = 5666859090980261868L;
 
         /** Exception. */
         private final Exception exception;
