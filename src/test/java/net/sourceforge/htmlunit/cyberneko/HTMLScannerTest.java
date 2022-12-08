@@ -116,7 +116,7 @@ public class HTMLScannerTest {
 
        private final List<String> collectedStrings = new ArrayList<>();
        private static int counter = 1;
-       protected HTMLConfiguration fConfiguration;
+       protected final HTMLConfiguration fConfiguration;
 
        public EvaluateInputSourceFilter(HTMLConfiguration config) {
            fConfiguration = config;
