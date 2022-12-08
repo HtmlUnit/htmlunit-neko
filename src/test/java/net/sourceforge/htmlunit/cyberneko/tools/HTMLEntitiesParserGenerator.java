@@ -47,7 +47,7 @@ public class HTMLEntitiesParserGenerator {
     public static void main(String[] args) {
         final Properties props = new Properties();
 
-        load0(props, "res/html_entities.properties");
+        load0(props, "html_entities.properties");
 
         final String[] entities = new String[props.size()];
         final String[] mapped = new String[props.size()];

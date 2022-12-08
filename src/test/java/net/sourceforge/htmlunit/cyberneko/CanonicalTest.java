@@ -55,9 +55,8 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Ronald Brill
  */
 public class CanonicalTest {
-
-    private static final File dataDir = new File("src/test/resources");
-    private static final File canonicalDir = new File("src/test/resources/canonical");
+    private static final File dataDir = new File("src/test/resources/net/sourceforge/htmlunit/cyberneko/testfiles");
+    private static final File canonicalDir = new File("src/test/resources/net/sourceforge/htmlunit/cyberneko/testfiles/canonical");
     private static final File outputDir = new File("target/data/output");
 
     @TestFactory
