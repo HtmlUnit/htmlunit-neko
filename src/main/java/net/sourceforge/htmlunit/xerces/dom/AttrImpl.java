@@ -338,7 +338,6 @@ public class AttrImpl
 
         Element ownerElement = getOwnerElement();
         String oldvalue = "";
-        TextImpl textNode = null;
 
         if (needsSyncData()) {
             synchronizeData();

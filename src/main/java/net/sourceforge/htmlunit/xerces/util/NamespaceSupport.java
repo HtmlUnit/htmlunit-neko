@@ -279,7 +279,7 @@ public class NamespaceSupport implements NamespaceContext {
         return false;
     }
 
-    protected final class Prefixes implements Enumeration {
+    protected final class Prefixes implements Enumeration<String> {
         private final String[] prefixes;
         private int counter = 0;
         private final int size;
@@ -302,7 +302,7 @@ public class NamespaceSupport implements NamespaceContext {
          * @see java.util.Enumeration#nextElement()
          */
         @Override
-        public Object nextElement() {
+        public String nextElement() {
             if (counter< size){
                 return fPrefixes[counter++];
             }
