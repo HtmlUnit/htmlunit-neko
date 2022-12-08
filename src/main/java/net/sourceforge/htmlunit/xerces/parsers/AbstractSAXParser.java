@@ -31,14 +31,11 @@ import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.Attributes2;
-import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.ext.Locator2;
 import org.xml.sax.ext.Locator2Impl;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
-import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
@@ -50,7 +47,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
@@ -765,35 +761,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      */
     @Override
     public void setEntityResolver(EntityResolver resolver) {
-
-        try {
-            XMLEntityResolver xer = (XMLEntityResolver) fConfiguration.getProperty(ENTITY_RESOLVER);
-            if (fUseEntityResolver2 && resolver instanceof EntityResolver2) {
-                if (xer instanceof EntityResolver2Wrapper) {
-                    EntityResolver2Wrapper er2w = (EntityResolver2Wrapper) xer;
-                    er2w.setEntityResolver((EntityResolver2) resolver);
-                }
-                else {
-                    fConfiguration.setProperty(ENTITY_RESOLVER,
-                            new EntityResolver2Wrapper((EntityResolver2) resolver));
-                }
-            }
-            else {
-                if (xer instanceof EntityResolverWrapper) {
-                    EntityResolverWrapper erw = (EntityResolverWrapper) xer;
-                    erw.setEntityResolver(resolver);
-                }
-                else {
-                    fConfiguration.setProperty(ENTITY_RESOLVER,
-                            new EntityResolverWrapper(resolver));
-                }
-            }
-        }
-        catch (XMLConfigurationException e) {
-            // do nothing
-        }
-
-    } // setEntityResolver(EntityResolver)
+    }
 
     /**
      * Return the current entity resolver.
@@ -804,28 +772,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      */
     @Override
     public EntityResolver getEntityResolver() {
-
-        EntityResolver entityResolver = null;
-        try {
-            XMLEntityResolver xmlEntityResolver =
-                (XMLEntityResolver)fConfiguration.getProperty(ENTITY_RESOLVER);
-            if (xmlEntityResolver != null) {
-                if (xmlEntityResolver instanceof EntityResolverWrapper) {
-                    entityResolver =
-                        ((EntityResolverWrapper) xmlEntityResolver).getEntityResolver();
-                }
-                else if (xmlEntityResolver instanceof EntityResolver2Wrapper) {
-                    entityResolver =
-                        ((EntityResolver2Wrapper) xmlEntityResolver).getEntityResolver();
-                }
-            }
-        }
-        catch (XMLConfigurationException e) {
-            // do nothing
-        }
-        return entityResolver;
-
-    } // getEntityResolver():EntityResolver
+        return null;
+    }
 
     /**
      * Allow an application to register an error event handler.
@@ -1066,20 +1014,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     return;
                 }
 
-                // http://xml.org/sax/features/use-entity-resolver2
-                //   controls whether the methods of an object implementing
-                //   org.xml.sax.ext.EntityResolver2 will be used by the parser.
-                //
-                if (suffixLength == Constants.USE_ENTITY_RESOLVER2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_ENTITY_RESOLVER2_FEATURE)) {
-                    if (state != fUseEntityResolver2) {
-                        fUseEntityResolver2 = state;
-                        // Refresh EntityResolver wrapper.
-                        setEntityResolver(getEntityResolver());
-                    }
-                    return;
-                }
-
                 //
                 // Read only features.
                 //
@@ -1209,15 +1143,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     // REVISIT: Allow this feature to be set once Unicode normalization
                     // checking is supported -- mrglavas.
                     return false;
-                }
-
-                // http://xml.org/sax/features/use-entity-resolver2
-                //   controls whether the methods of an object implementing
-                //   org.xml.sax.ext.EntityResolver2 will be used by the parser.
-                //
-                if (suffixLength == Constants.USE_ENTITY_RESOLVER2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_ENTITY_RESOLVER2_FEATURE)) {
-                    return fUseEntityResolver2;
                 }
 
                 // http://xml.org/sax/features/use-attributes2

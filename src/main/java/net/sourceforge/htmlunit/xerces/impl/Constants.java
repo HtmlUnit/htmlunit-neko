@@ -63,9 +63,6 @@ public final class Constants {
     /** Use Locator2 feature ("use-locator2"). */
     public static final String USE_LOCATOR2_FEATURE = "use-locator2";
 
-    /** Use EntityResolver2 feature ("use-entity-resolver2"). */
-    public static final String USE_ENTITY_RESOLVER2_FEATURE = "use-entity-resolver2";
-
     /** Unicode normalization checking feature ("unicode-normalization-checking"). */
     public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "unicode-normalization-checking";
 

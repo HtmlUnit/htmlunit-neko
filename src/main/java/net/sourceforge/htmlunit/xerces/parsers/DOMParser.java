@@ -21,24 +21,18 @@ import java.io.CharConversionException;
 import java.io.IOException;
 
 import org.w3c.dom.Node;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.helpers.LocatorImpl;
 
-import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.util.EntityResolver2Wrapper;
-import net.sourceforge.htmlunit.xerces.util.EntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
@@ -53,13 +47,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * @author Andy Clark, IBM
  */
 public class DOMParser extends AbstractDOMParser {
-
-    /** Feature identifier: EntityResolver2. */
-    protected static final String USE_ENTITY_RESOLVER2 =
-        Constants.SAX_FEATURE_PREFIX + Constants.USE_ENTITY_RESOLVER2_FEATURE;
-
-    /** Use EntityResolver2. */
-    protected boolean fUseEntityResolver2 = true;
 
     // Constructs a DOM parser using the specified parser configuration.
     public DOMParser(XMLParserConfiguration config) {
@@ -192,75 +179,6 @@ public class DOMParser extends AbstractDOMParser {
     }
 
     /**
-     * Sets the resolver used to resolve external entities. The EntityResolver
-     * interface supports resolution of public and system identifiers.
-     *
-     * @param resolver The new entity resolver. Passing a null value will
-     *                 uninstall the currently installed resolver.
-     */
-    public void setEntityResolver(EntityResolver resolver) {
-
-        try {
-            XMLEntityResolver xer = (XMLEntityResolver) fConfiguration.getProperty(ENTITY_RESOLVER);
-            if (fUseEntityResolver2 && resolver instanceof EntityResolver2) {
-                if (xer instanceof EntityResolver2Wrapper) {
-                    EntityResolver2Wrapper er2w = (EntityResolver2Wrapper) xer;
-                    er2w.setEntityResolver((EntityResolver2) resolver);
-                }
-                else {
-                    fConfiguration.setProperty(ENTITY_RESOLVER,
-                            new EntityResolver2Wrapper((EntityResolver2) resolver));
-                }
-            }
-            else {
-                if (xer instanceof EntityResolverWrapper) {
-                    EntityResolverWrapper erw = (EntityResolverWrapper) xer;
-                    erw.setEntityResolver(resolver);
-                }
-                else {
-                    fConfiguration.setProperty(ENTITY_RESOLVER,
-                            new EntityResolverWrapper(resolver));
-                }
-            }
-        }
-        catch (XMLConfigurationException e) {
-            // do nothing
-        }
-
-    }
-
-    /**
-     * Return the current entity resolver.
-     *
-     * @return The current entity resolver, or null if none
-     *         has been registered.
-     * @see #setEntityResolver
-     */
-    public EntityResolver getEntityResolver() {
-
-        EntityResolver entityResolver = null;
-        try {
-            XMLEntityResolver xmlEntityResolver =
-                (XMLEntityResolver)fConfiguration.getProperty(ENTITY_RESOLVER);
-            if (xmlEntityResolver != null) {
-                if (xmlEntityResolver instanceof EntityResolverWrapper) {
-                    entityResolver =
-                        ((EntityResolverWrapper) xmlEntityResolver).getEntityResolver();
-                }
-                else if (xmlEntityResolver instanceof EntityResolver2Wrapper) {
-                    entityResolver =
-                        ((EntityResolver2Wrapper) xmlEntityResolver).getEntityResolver();
-                }
-            }
-        }
-        catch (XMLConfigurationException e) {
-            // do nothing
-        }
-        return entityResolver;
-
-    }
-
-    /**
      * Allow an application to register an error event handler.
      *
      * <p>If the application does not register an error handler, all
@@ -340,24 +258,6 @@ public class DOMParser extends AbstractDOMParser {
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-
-            // http://xml.org/sax/features/use-entity-resolver2
-            //   controls whether the methods of an object implementing
-            //   org.xml.sax.ext.EntityResolver2 will be used by the parser.
-            //
-            if (featureId.equals(USE_ENTITY_RESOLVER2)) {
-                if (state != fUseEntityResolver2) {
-                    fUseEntityResolver2 = state;
-                    // Refresh EntityResolver wrapper.
-                    setEntityResolver(getEntityResolver());
-                }
-                return;
-            }
-
-            //
-            // Default handling
-            //
-
             fConfiguration.setFeature(featureId, state);
         }
         catch (XMLConfigurationException e) {
@@ -392,19 +292,6 @@ public class DOMParser extends AbstractDOMParser {
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-
-            // http://xml.org/sax/features/use-entity-resolver2
-            //   controls whether the methods of an object implementing
-            //   org.xml.sax.ext.EntityResolver2 will be used by the parser.
-            //
-            if (featureId.equals(USE_ENTITY_RESOLVER2)) {
-                return fUseEntityResolver2;
-            }
-
-            //
-            // Default handling
-            //
-
             return fConfiguration.getFeature(featureId);
         }
         catch (XMLConfigurationException e) {
