@@ -27,16 +27,6 @@ import java.util.NoSuchElementException;
  * @author Andy Clark, IBM
  */
 public final class Constants {
-
-    // Schema Types:
-    public static final String NS_XMLSCHEMA = "http://www.w3.org/2001/XMLSchema";
-    public static final String NS_DTD = "http://www.w3.org/TR/REC-xml";
-
-    // Schema Versions:
-    public static final String W3C_XML_SCHEMA10_NS_URI = "http://www.w3.org/XML/XMLSchema/v1.0";
-
-    // sax features
-
     /** SAX feature prefix ("http://xml.org/sax/features/"). */
     public static final String SAX_FEATURE_PREFIX = "http://xml.org/sax/features/";
 
