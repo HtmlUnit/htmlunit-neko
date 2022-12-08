@@ -327,16 +327,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * version of this operation will never be
      *
      * @param readOnly boolean true to make read-only, false to permit editing.
-     * @param deep boolean true to pass this request along to the contained
-     * nodes, false to only toggle the NamedNodeMap itself. I expect that
-     * the shallow version of this operation will never be used, but I want
-     * to design it in now, while I'm thinking about it.
      */
-    void setReadOnly(boolean readOnly, boolean deep) {
+    void setReadOnly(boolean readOnly) {
         isReadOnly(readOnly);
-        if (deep && nodes != null) {
+        if (true && nodes != null) {
             for (int i = nodes.size() - 1; i >= 0; i--) {
-                ((NodeImpl) nodes.get(i)).setReadOnly(readOnly,deep);
+                ((NodeImpl) nodes.get(i)).setReadOnly(readOnly, true);
             }
         }
     }
@@ -518,23 +514,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             }
         }
         return i;
-    }
-
-    /**
-     * NON-DOM: copy content of this map into the specified ArrayList
-     *
-     * @param list   ArrayList to copy information into.
-     * @return A copy of this node named map
-     */
-    protected ArrayList<Node> cloneMap(ArrayList<Node> list) {
-        if (list == null) {
-            list = new ArrayList<>(5);
-        }
-        list.clear();
-        if (nodes != null) {
-            list.addAll(nodes);
-        }
-        return list;
     }
 
      protected int getNamedItemIndex(String namespaceURI, String localName) {

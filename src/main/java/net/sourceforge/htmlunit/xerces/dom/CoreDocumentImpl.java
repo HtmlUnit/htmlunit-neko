@@ -307,8 +307,7 @@ extends ParentNode implements Document  {
                 // Build a reverse mapping from element to identifier.
                 reversedIdentifiers = new HashMap<>();
                 for (Map.Entry<String, Element> stringElementEntry : identifiers.entrySet()) {
-                    Map.Entry<String, Element> entry = stringElementEntry;
-                    reversedIdentifiers.put(entry.getValue(), entry.getKey());
+                    reversedIdentifiers.put(stringElementEntry.getValue(), stringElementEntry.getKey());
                 }
             }
 
@@ -2058,9 +2057,6 @@ extends ParentNode implements Document  {
             return null;
         }
         Hashtable<String, UserDataRecord> t = userData.get(n);
-        if (t == null) {
-            return null;
-        }
         return t;
     }
 

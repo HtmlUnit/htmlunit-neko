@@ -412,8 +412,7 @@ public class XMLAttributesImpl
      */
     @Override
     public String getNonNormalizedValue(int attrIndex) {
-        String value = fAttributes[attrIndex].nonNormalizedValue;
-        return value;
+        return fAttributes[attrIndex].nonNormalizedValue;
     } // getNonNormalizedValue(int):String
 
     /**
@@ -700,8 +699,7 @@ public class XMLAttributesImpl
         if (index < 0 || index >= fLength) {
             return null;
         }
-        String uri = fAttributes[index].name.uri;
-        return uri;
+        return fAttributes[index].name.uri;
     } // getURI(int):String
 
     /**

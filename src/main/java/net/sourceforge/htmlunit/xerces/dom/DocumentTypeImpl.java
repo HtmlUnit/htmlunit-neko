@@ -434,9 +434,9 @@ public class DocumentTypeImpl
         super.setReadOnly(readOnly, deep);
 
         // set read-only property
-        elements.setReadOnly(readOnly, true);
-        entities.setReadOnly(readOnly, true);
-        notations.setReadOnly(readOnly, true);
+        elements.setReadOnly(readOnly);
+        entities.setReadOnly(readOnly);
+        notations.setReadOnly(readOnly);
 
     }
 
@@ -485,8 +485,7 @@ public class DocumentTypeImpl
         }
         UserDataRecord o = userData.get(key);
         if (o != null) {
-            UserDataRecord r = o;
-            return r.fData;
+            return o.fData;
         }
         return null;
     }

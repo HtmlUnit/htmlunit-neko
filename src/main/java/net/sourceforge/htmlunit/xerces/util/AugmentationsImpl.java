@@ -34,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
  */
 public class AugmentationsImpl implements Augmentations {
 
-    private HashMap<String, Object> fAugmentationsContainer = new HashMap<>();
+    private final HashMap<String, Object> fAugmentationsContainer = new HashMap<>();
 
     /**
      * Add additional information identified by a key to the Augmentations structure.

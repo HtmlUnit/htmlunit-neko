@@ -3152,7 +3152,7 @@ public class HTMLScanner
         private boolean isEnded(String ename) {
             final String content = new String(fCurrentEntity.buffer, fCurrentEntity.offset,
                 fCurrentEntity.length - fCurrentEntity.offset);
-            return content.toLowerCase(Locale.ROOT).indexOf("</" + ename.toLowerCase(Locale.ROOT) + ">") != -1;
+            return content.toLowerCase(Locale.ROOT).contains("</" + ename.toLowerCase(Locale.ROOT) + ">");
         }
     }
 

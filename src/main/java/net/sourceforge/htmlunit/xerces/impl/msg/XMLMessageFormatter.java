@@ -59,7 +59,9 @@ public class XMLMessageFormatter implements MessageFormatter {
     @Override
     public String formatMessage(String key, Object[] arguments) throws MissingResourceException {
 
-        fResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages");
+        if (fResourceBundle == null) {
+            fResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages");
+        }
 
         // format message
         String msg;

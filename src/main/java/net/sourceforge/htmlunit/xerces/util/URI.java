@@ -478,8 +478,7 @@ import java.util.Locale;
   private void initialize(URI p_base, String p_uriSpec, boolean allowNonAbsoluteURI)
       throws MalformedURIException {
 
-      String uriSpec = p_uriSpec;
-      int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
+      int uriSpecLen = (p_uriSpec != null) ? p_uriSpec.length() : 0;
 
       if (p_base == null && uriSpecLen == 0) {
           if (allowNonAbsoluteURI) {
@@ -498,13 +497,13 @@ import java.util.Locale;
       int index = 0;
 
       // Check for scheme, which must be before '/', '?' or '#'.
-      int colonIdx = uriSpec.indexOf(':');
+      int colonIdx = p_uriSpec.indexOf(':');
       if (colonIdx != -1) {
           final int searchFrom = colonIdx - 1;
           // search backwards starting from character before ':'.
-          int slashIdx = uriSpec.lastIndexOf('/', searchFrom);
-          int queryIdx = uriSpec.lastIndexOf('?', searchFrom);
-          int fragmentIdx = uriSpec.lastIndexOf('#', searchFrom);
+          int slashIdx = p_uriSpec.lastIndexOf('/', searchFrom);
+          int queryIdx = p_uriSpec.lastIndexOf('?', searchFrom);
+          int fragmentIdx = p_uriSpec.lastIndexOf('#', searchFrom);
 
           if (colonIdx == 0 || slashIdx != -1 ||
               queryIdx != -1 || fragmentIdx != -1) {
@@ -514,16 +513,16 @@ import java.util.Locale;
               }
           }
           else {
-              initializeScheme(uriSpec);
+              initializeScheme(p_uriSpec);
               index = m_scheme.length()+1;
 
               // Neither 'scheme:' or 'scheme:#fragment' are valid URIs.
-              if (colonIdx == uriSpecLen - 1 || uriSpec.charAt(colonIdx+1) == '#') {
+              if (colonIdx == uriSpecLen - 1 || p_uriSpec.charAt(colonIdx+1) == '#') {
                   throw new MalformedURIException("Scheme specific part cannot be empty.");
               }
           }
       }
-      else if (p_base == null && uriSpec.indexOf('#') != 0 && !allowNonAbsoluteURI) {
+      else if (p_base == null && p_uriSpec.indexOf('#') != 0 && !allowNonAbsoluteURI) {
           throw new MalformedURIException("No scheme found in URI.");
       }
 
@@ -537,14 +536,14 @@ import java.util.Locale;
       // net_path = "//" authority [ abs_path ]
       // abs_path = "/"  path_segments
       if (((index+1) < uriSpecLen) &&
-          (uriSpec.charAt(index) == '/' && uriSpec.charAt(index+1) == '/')) {
+          (p_uriSpec.charAt(index) == '/' && p_uriSpec.charAt(index+1) == '/')) {
           index += 2;
           int startPos = index;
 
           // Authority will be everything up to path, query or fragment
           char testChar = '\0';
           while (index < uriSpecLen) {
-              testChar = uriSpec.charAt(index);
+              testChar = p_uriSpec.charAt(index);
               if (testChar == '/' || testChar == '?' || testChar == '#') {
                   break;
               }
@@ -557,7 +556,7 @@ import java.util.Locale;
           if (index > startPos) {
               // If we didn't find authority we need to back up. Attempt to
               // match against abs_path next.
-              if (!initializeAuthority(uriSpec.substring(startPos, index))) {
+              if (!initializeAuthority(p_uriSpec.substring(startPos, index))) {
                   index = startPos - 2;
               }
           }
@@ -566,7 +565,7 @@ import java.util.Locale;
           }
       }
 
-      initializePath(uriSpec, index);
+      initializePath(p_uriSpec, index);
 
       // Resolve relative URI to base URI - see RFC 2396 Section 5.2
       // In some cases, it might make more sense to throw an exception
@@ -597,8 +596,7 @@ import java.util.Locale;
   private void initialize(URI p_base, String p_uriSpec)
                          throws MalformedURIException {
 
-    String uriSpec = p_uriSpec;
-    int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
+      int uriSpecLen = (p_uriSpec != null) ? p_uriSpec.length() : 0;
 
     if (p_base == null && uriSpecLen == 0) {
       throw new MalformedURIException(
@@ -614,13 +612,13 @@ import java.util.Locale;
     int index = 0;
 
     // Check for scheme, which must be before '/', '?' or '#'.
-    int colonIdx = uriSpec.indexOf(':');
+    int colonIdx = p_uriSpec.indexOf(':');
     if (colonIdx != -1) {
         final int searchFrom = colonIdx - 1;
         // search backwards starting from character before ':'.
-        int slashIdx = uriSpec.lastIndexOf('/', searchFrom);
-        int queryIdx = uriSpec.lastIndexOf('?', searchFrom);
-        int fragmentIdx = uriSpec.lastIndexOf('#', searchFrom);
+        int slashIdx = p_uriSpec.lastIndexOf('/', searchFrom);
+        int queryIdx = p_uriSpec.lastIndexOf('?', searchFrom);
+        int fragmentIdx = p_uriSpec.lastIndexOf('#', searchFrom);
 
         if (colonIdx == 0 || slashIdx != -1 ||
             queryIdx != -1 || fragmentIdx != -1) {
@@ -630,16 +628,16 @@ import java.util.Locale;
             }
         }
         else {
-            initializeScheme(uriSpec);
+            initializeScheme(p_uriSpec);
             index = m_scheme.length()+1;
 
             // Neither 'scheme:' or 'scheme:#fragment' are valid URIs.
-            if (colonIdx == uriSpecLen - 1 || uriSpec.charAt(colonIdx+1) == '#') {
+            if (colonIdx == uriSpecLen - 1 || p_uriSpec.charAt(colonIdx+1) == '#') {
                 throw new MalformedURIException("Scheme specific part cannot be empty.");
             }
         }
     }
-    else if (p_base == null && uriSpec.indexOf('#') != 0) {
+    else if (p_base == null && p_uriSpec.indexOf('#') != 0) {
         throw new MalformedURIException("No scheme found in URI.");
     }
 
@@ -653,14 +651,14 @@ import java.util.Locale;
     // net_path = "//" authority [ abs_path ]
     // abs_path = "/"  path_segments
     if (((index+1) < uriSpecLen) &&
-        (uriSpec.charAt(index) == '/' && uriSpec.charAt(index+1) == '/')) {
+        (p_uriSpec.charAt(index) == '/' && p_uriSpec.charAt(index+1) == '/')) {
       index += 2;
       int startPos = index;
 
       // Authority will be everything up to path, query or fragment
       char testChar = '\0';
       while (index < uriSpecLen) {
-        testChar = uriSpec.charAt(index);
+        testChar = p_uriSpec.charAt(index);
         if (testChar == '/' || testChar == '?' || testChar == '#') {
           break;
         }
@@ -673,7 +671,7 @@ import java.util.Locale;
       if (index > startPos) {
         // If we didn't find authority we need to back up. Attempt to
         // match against abs_path next.
-        if (!initializeAuthority(uriSpec.substring(startPos, index))) {
+        if (!initializeAuthority(p_uriSpec.substring(startPos, index))) {
           index = startPos - 2;
         }
       }
@@ -682,7 +680,7 @@ import java.util.Locale;
       }
     }
 
-    initializePath(uriSpec, index);
+    initializePath(p_uriSpec, index);
 
     // Resolve relative URI to base URI - see RFC 2396 Section 5.2
     // In some cases, it might make more sense to throw an exception

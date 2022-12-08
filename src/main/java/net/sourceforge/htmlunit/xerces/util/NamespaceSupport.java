@@ -233,8 +233,7 @@ public class NamespaceSupport implements NamespaceContext {
         int count = 0;
         if (fPrefixes.length < (fNamespace.length/2)) {
             // resize prefix array
-            String[] prefixes = new String[fNamespaceSize];
-            fPrefixes = prefixes;
+            fPrefixes = new String[fNamespaceSize];
         }
         String prefix;
         boolean unique = true;

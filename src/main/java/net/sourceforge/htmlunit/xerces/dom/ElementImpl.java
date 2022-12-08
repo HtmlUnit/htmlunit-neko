@@ -398,7 +398,7 @@ public class ElementImpl
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
-        return (Attr) attributes.removeItem(oldAttr, true);
+        return (Attr) attributes.removeItem(oldAttr);
 
     }
 
@@ -1051,7 +1051,7 @@ public class ElementImpl
     public void setReadOnly(boolean readOnly, boolean deep) {
         super.setReadOnly(readOnly,deep);
         if (attributes != null) {
-            attributes.setReadOnly(readOnly,true);
+            attributes.setReadOnly(readOnly);
         }
     }
 

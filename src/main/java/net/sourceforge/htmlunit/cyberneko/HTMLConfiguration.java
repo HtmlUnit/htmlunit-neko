@@ -514,8 +514,7 @@ public class HTMLConfiguration
                 }
                 try {
                     final String value = fErrorMessages.getString(key);
-                    final String message = MessageFormat.format(value, args);
-                    return message;
+                    return MessageFormat.format(value, args);
                 }
                 catch (final MissingResourceException e) {
                     // ignore and return a simple format
