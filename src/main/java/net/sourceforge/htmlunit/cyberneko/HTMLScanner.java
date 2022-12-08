@@ -1585,8 +1585,8 @@ public class HTMLScanner
                                     fBeginCharacterOffset, fEndLineNumber,
                                     fEndColumnNumber, fEndCharacterOffset);
             augs = fInfosetAugs;
-            augs.removeAllItems();
-            augs.putItem(AUGMENTATIONS, fLocationItem);
+            augs.clear();
+            augs.put(AUGMENTATIONS, fLocationItem);
         }
         return augs;
     }
@@ -1596,8 +1596,8 @@ public class HTMLScanner
         HTMLAugmentations augs = null;
         if (fAugmentations) {
             augs = fInfosetAugs;
-            augs.removeAllItems();
-            augs.putItem(AUGMENTATIONS, SYNTHESIZED_ITEM);
+            augs.clear();
+            augs.put(AUGMENTATIONS, SYNTHESIZED_ITEM);
         }
         return augs;
     }
@@ -3117,7 +3117,7 @@ public class HTMLScanner
                                    fBeginCharacterOffset, fEndLineNumber,
                                    fEndColumnNumber, fEndCharacterOffset);
             final Augmentations augs = attributes.getAugmentations(index);
-            augs.putItem(AUGMENTATIONS, locationItem);
+            augs.put(AUGMENTATIONS, locationItem);
         }
 
         // Scans an end element.

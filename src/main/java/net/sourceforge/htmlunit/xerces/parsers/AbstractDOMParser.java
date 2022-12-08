@@ -725,7 +725,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 boolean id = false;
 
                 // DTD
-                boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).getItem (Constants.ATTRIBUTE_DECLARED));
+                boolean isDeclared = Boolean.TRUE.equals (attributes.getAugmentations (i).get (Constants.ATTRIBUTE_DECLARED));
                 // For DOM Level 3 TypeInfo, the type name must
                 // be null if this attribute has not been declared
                 // in the DTD.

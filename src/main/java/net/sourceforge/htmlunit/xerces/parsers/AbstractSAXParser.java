@@ -339,7 +339,7 @@ public abstract class AbstractSAXParser
 
         try {
             // Only report startEntity if this entity was actually read.
-            if (augs != null && Boolean.TRUE.equals(augs.getItem(Constants.ENTITY_SKIPPED))) {
+            if (augs != null && Boolean.TRUE.equals(augs.get(Constants.ENTITY_SKIPPED))) {
                 // report skipped entity to content handler
                 if (fContentHandler != null) {
                     fContentHandler.skippedEntity(name);
@@ -382,7 +382,7 @@ public abstract class AbstractSAXParser
 
         try {
             // Only report endEntity if this entity was actually read.
-            if (augs == null || !Boolean.TRUE.equals(augs.getItem(Constants.ENTITY_SKIPPED))) {
+            if (augs == null || !Boolean.TRUE.equals(augs.get(Constants.ENTITY_SKIPPED))) {
                 // SAX2 extension
                 if (fLexicalHandler != null) {
                     fLexicalHandler.endEntity(name);
@@ -1771,7 +1771,7 @@ public abstract class AbstractSAXParser
                 throw new ArrayIndexOutOfBoundsException(index);
             }
             return Boolean.TRUE.equals(
-                fAttributes.getAugmentations(index).getItem(
+                fAttributes.getAugmentations(index).get(
                 Constants.ATTRIBUTE_DECLARED));
         }
 
@@ -1782,7 +1782,7 @@ public abstract class AbstractSAXParser
                 throw new IllegalArgumentException(qName);
             }
             return Boolean.TRUE.equals(
-                fAttributes.getAugmentations(index).getItem(
+                fAttributes.getAugmentations(index).get(
                 Constants.ATTRIBUTE_DECLARED));
         }
 
@@ -1793,7 +1793,7 @@ public abstract class AbstractSAXParser
                 throw new IllegalArgumentException(localName);
             }
             return Boolean.TRUE.equals(
-                fAttributes.getAugmentations(index).getItem(
+                fAttributes.getAugmentations(index).get(
                 Constants.ATTRIBUTE_DECLARED));
         }
 

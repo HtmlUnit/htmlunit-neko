@@ -18,6 +18,7 @@ package net.sourceforge.htmlunit.cyberneko;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Set;
 
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 
@@ -57,9 +58,8 @@ public class HTMLAugmentations implements Augmentations {
      * @param augs the object to copy
      */
     HTMLAugmentations(final Augmentations augs) {
-        for (final Enumeration<String> keys = augs.keys(); keys.hasMoreElements(); ) {
-            final String key = keys.nextElement();
-            Object value = augs.getItem(key);
+        for (final String key : augs.keys()) {
+            Object value = augs.get(key);
             if (value instanceof HTMLScanner.LocationItem) {
                 value = new HTMLScanner.LocationItem((HTMLScanner.LocationItem) value);
             }
@@ -71,13 +71,6 @@ public class HTMLAugmentations implements Augmentations {
 
     /** Removes all of the elements in this augmentations object. */
     @Override
-    public void removeAllItems() {
-        fItems.clear();
-    }
-
-    // from Xerces 2.0.0 (beta4) until 2.3.0
-
-    /** Removes all of the elements in this augmentations object. */
     public void clear() {
         fItems.clear();
     }
@@ -97,7 +90,7 @@ public class HTMLAugmentations implements Augmentations {
      *         structure, or <code>null</code> if it did not have one.
      */
     @Override
-    public Object putItem(String key, Object item) {
+    public Object put(String key, Object item) {
         return fItems.put(key, item);
     }
 
@@ -112,7 +105,7 @@ public class HTMLAugmentations implements Augmentations {
      *         value.
      */
     @Override
-    public Object getItem(String key) {
+    public Object get(String key) {
         return fItems.get(key);
     }
 
@@ -124,7 +117,7 @@ public class HTMLAugmentations implements Augmentations {
      *         structure, or <code>null</code> if it did not have one.
      */
     @Override
-    public Object removeItem(String key) {
+    public Object remove(String key) {
         return fItems.remove(key);
     }
 
@@ -132,7 +125,7 @@ public class HTMLAugmentations implements Augmentations {
      * Returns an enumeration of the keys in the Augmentations structure.
      */
     @Override
-    public Enumeration<String> keys() {
-        return fItems.keys();
+    public Set<String> keys() {
+        return fItems.keySet();
     }
 }

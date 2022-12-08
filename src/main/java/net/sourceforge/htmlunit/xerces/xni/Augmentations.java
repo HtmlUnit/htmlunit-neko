@@ -17,7 +17,7 @@
 
 package net.sourceforge.htmlunit.xerces.xni;
 
-import java.util.Enumeration;
+import java.util.Set;
 
 /**
  * The Augmentations interface defines a table of additional data that may
@@ -45,7 +45,7 @@ public interface Augmentations {
      * @return the previous value of the specified key in the Augmentations structure,
      *         or <code>null</code> if it did not have one.
      */
-    Object putItem (String key, Object item);
+    Object put(String key, Object item);
 
 
     /**
@@ -56,7 +56,7 @@ public interface Augmentations {
      * @return the value to which the key is mapped in the Augmentations structure;
      *         <code>null</code> if the key is not mapped to any value.
      */
-    Object getItem(String key);
+    Object get(String key);
 
 
     /**
@@ -66,16 +66,16 @@ public interface Augmentations {
      * @return the previous value of the specified key in the Augmentations structure,
      *         or <code>null</code> if it did not have one.
      */
-    Object removeItem (String key);
+    Object remove(String key);
 
 
     /**
      * @return an enumeration of the keys in the Augmentations structure
      */
-    Enumeration<String> keys ();
+    Set<String> keys();
 
     /**
      * Remove all objects from the Augmentations structure.
      */
-    void removeAllItems ();
+    void clear();
 }

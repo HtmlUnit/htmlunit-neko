@@ -1307,8 +1307,8 @@ public class HTMLTagBalancer
         HTMLAugmentations augs = null;
         if (fAugmentations) {
             augs = fInfosetAugs;
-            augs.removeAllItems();
-            augs.putItem(AUGMENTATIONS, SYNTHESIZED_ITEM);
+            augs.clear();
+            augs.put(AUGMENTATIONS, SYNTHESIZED_ITEM);
         }
         return augs;
     }

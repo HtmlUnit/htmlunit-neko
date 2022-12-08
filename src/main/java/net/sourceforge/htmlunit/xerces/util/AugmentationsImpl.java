@@ -17,10 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 
@@ -36,7 +34,7 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
  */
 public class AugmentationsImpl implements Augmentations {
 
-    private AugmentationsItemsContainer fAugmentationsContainer = new SmallContainer();
+    private HashMap<String, Object> fAugmentationsContainer = new HashMap<>();
 
     /**
      * Add additional information identified by a key to the Augmentations structure.
@@ -48,14 +46,8 @@ public class AugmentationsImpl implements Augmentations {
      *         or <code>null</code> if it did not have one.
      */
     @Override
-    public Object putItem (String key, Object item){
-        Object oldValue = fAugmentationsContainer.putItem(key, item);
-
-        if (oldValue == null && fAugmentationsContainer.isFull()) {
-            fAugmentationsContainer = fAugmentationsContainer.expand();
-        }
-
-        return oldValue;
+    public Object put(String key, Object item){
+        return fAugmentationsContainer.put(key, item);
     }
 
     /**
@@ -67,8 +59,8 @@ public class AugmentationsImpl implements Augmentations {
      *         <code>null</code> if the key is not mapped to any value.
      */
     @Override
-    public Object getItem(String key){
-        return fAugmentationsContainer.getItem(key);
+    public Object get(String key){
+        return fAugmentationsContainer.get(key);
     }
 
     /**
@@ -77,8 +69,8 @@ public class AugmentationsImpl implements Augmentations {
      * @param key    Identifier, can't be <code>null</code>
      */
     @Override
-    public Object removeItem (String key){
-        return fAugmentationsContainer.removeItem(key);
+    public Object remove(String key){
+        return fAugmentationsContainer.remove(key);
     }
 
     /**
@@ -86,223 +78,20 @@ public class AugmentationsImpl implements Augmentations {
      *
      */
     @Override
-    public Enumeration<String> keys (){
-        return fAugmentationsContainer.keys();
+    public Set<String> keys(){
+        return fAugmentationsContainer.keySet();
     }
 
     /**
      * Remove all objects from the Augmentations structure.
      */
     @Override
-    public void removeAllItems() {
+    public void clear() {
         fAugmentationsContainer.clear();
     }
 
     @Override
     public String toString() {
         return fAugmentationsContainer.toString();
-    }
-
-    static abstract class AugmentationsItemsContainer {
-        abstract public Object putItem(String key, Object item);
-        abstract public Object getItem(String key);
-        abstract public Object removeItem(String key);
-        abstract public Enumeration<String> keys();
-        abstract public void clear();
-        abstract public boolean isFull();
-        abstract public AugmentationsItemsContainer expand();
-    }
-
-    final static class SmallContainer extends AugmentationsItemsContainer {
-
-        final static int SIZE_LIMIT = 10;
-        final Object[] fAugmentations = new Object[SIZE_LIMIT*2];
-        int fNumEntries = 0;
-
-        @Override
-        public Enumeration<String> keys() {
-            return new SmallContainerKeyEnumeration();
-        }
-
-        @Override
-        public Object getItem(String key) {
-            for (int i = 0; i < fNumEntries*2; i = i + 2) {
-                if (fAugmentations[i].equals(key)) {
-                    return fAugmentations[i+1];
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        public Object putItem(String key, Object item) {
-            for (int i = 0; i < fNumEntries*2; i = i + 2) {
-                if (fAugmentations[i].equals(key)) {
-                    Object oldValue = fAugmentations[i+1];
-                    fAugmentations[i+1] = item;
-
-                    return oldValue;
-                }
-            }
-
-            fAugmentations[fNumEntries*2] = key;
-            fAugmentations[fNumEntries*2+1] = item;
-            fNumEntries++;
-
-            return null;
-        }
-
-
-        @Override
-        public Object removeItem(String key) {
-            for (int i = 0; i < fNumEntries*2; i = i + 2) {
-                if (fAugmentations[i].equals(key)) {
-                    Object oldValue = fAugmentations[i+1];
-
-                    for (int j = i; j < fNumEntries*2 - 2; j = j + 2) {
-                        fAugmentations[j] = fAugmentations[j+2];
-                        fAugmentations[j+1] = fAugmentations[j+3];
-                    }
-
-                    fAugmentations[fNumEntries*2-2] = null;
-                    fAugmentations[fNumEntries*2-1] = null;
-                    fNumEntries--;
-
-                    return oldValue;
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        public void clear() {
-            for (int i = 0; i < fNumEntries*2; i = i + 2) {
-                fAugmentations[i] = null;
-                fAugmentations[i+1] = null;
-            }
-
-            fNumEntries = 0;
-        }
-
-        @Override
-        public boolean isFull() {
-            return (fNumEntries == SIZE_LIMIT);
-        }
-
-        @Override
-        public AugmentationsItemsContainer expand() {
-            LargeContainer expandedContainer = new LargeContainer();
-
-            for (int i = 0; i < fNumEntries*2; i = i + 2) {
-                expandedContainer.putItem((String)fAugmentations[i],
-                                          fAugmentations[i+1]);
-            }
-
-            return expandedContainer;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder buff = new StringBuilder();
-            buff.append("SmallContainer - fNumEntries == ").append(fNumEntries);
-
-            for (int i = 0; i < SIZE_LIMIT*2; i=i+2) {
-                buff.append("\nfAugmentations[");
-                buff.append(i);
-                buff.append("] == ");
-                buff.append(fAugmentations[i]);
-                buff.append("; fAugmentations[");
-                buff.append(i+1);
-                buff.append("] == ");
-                buff.append(fAugmentations[i+1]);
-            }
-
-            return buff.toString();
-        }
-
-        final class SmallContainerKeyEnumeration implements Enumeration<String> {
-
-            final String[] enumArray = new String[fNumEntries];
-            int next = 0;
-
-            SmallContainerKeyEnumeration() {
-                for (int i = 0; i < fNumEntries; i++) {
-                    enumArray[i] = (String)fAugmentations[i*2];
-                }
-            }
-
-            @Override
-            public boolean hasMoreElements() {
-                return next < enumArray.length;
-            }
-
-            @Override
-            public String nextElement() {
-                if (next >= enumArray.length) {
-                    throw new java.util.NoSuchElementException();
-                }
-
-                Object nextVal = enumArray[next];
-                enumArray[next] = null;
-                next++;
-
-                return (String) nextVal;
-            }
-        }
-    }
-
-    final static class LargeContainer extends AugmentationsItemsContainer {
-
-        private final HashMap<String, Object> fAugmentations = new HashMap<>();
-
-        @Override
-        public Object getItem(String key) {
-            return fAugmentations.get(key);
-        }
-
-        @Override
-        public Object putItem(String key, Object item) {
-            return fAugmentations.put(key, item);
-        }
-
-        @Override
-        public Object removeItem(String key) {
-            return fAugmentations.remove(key);
-        }
-
-        @Override
-        public Enumeration<String> keys() {
-            return Collections.enumeration(fAugmentations.keySet());
-        }
-
-        @Override
-        public void clear() {
-            fAugmentations.clear();
-        }
-
-        @Override
-        public boolean isFull() {
-            return false;
-        }
-
-        @Override
-        public AugmentationsItemsContainer expand() {
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder buff = new StringBuilder();
-            buff.append("LargeContainer");
-            for (Map.Entry<String, Object> entry : fAugmentations.entrySet()) {
-                buff.append("\nkey == ");
-                buff.append(entry.getKey());
-                buff.append("; value == ");
-                buff.append(entry.getValue());
-            }
-            return buff.toString();
-        }
     }
 }
