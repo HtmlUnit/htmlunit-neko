@@ -36,7 +36,6 @@ import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
  * add their own specific attributes.
  * <p>
  *
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLElement
  */

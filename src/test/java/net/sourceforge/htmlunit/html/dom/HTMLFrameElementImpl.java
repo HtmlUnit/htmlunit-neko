@@ -20,7 +20,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLFrameElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLFrameElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

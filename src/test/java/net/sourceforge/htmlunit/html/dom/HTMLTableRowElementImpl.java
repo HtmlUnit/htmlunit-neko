@@ -26,7 +26,6 @@ import org.w3c.dom.html.HTMLTableRowElement;
 import org.w3c.dom.html.HTMLTableSectionElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLTableRowElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

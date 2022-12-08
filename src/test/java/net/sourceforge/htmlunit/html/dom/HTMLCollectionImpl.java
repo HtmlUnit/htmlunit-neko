@@ -55,7 +55,6 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * might be out dated, but not erroneous.
  * <p>
  *
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLCollection
  */

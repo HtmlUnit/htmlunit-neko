@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.html.dom;
 import org.w3c.dom.html.HTMLBRElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLBRElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

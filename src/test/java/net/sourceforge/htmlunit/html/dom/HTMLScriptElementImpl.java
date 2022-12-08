@@ -21,7 +21,6 @@ import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLScriptElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLScriptElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

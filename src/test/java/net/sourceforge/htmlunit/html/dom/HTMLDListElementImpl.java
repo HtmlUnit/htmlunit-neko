@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.html.dom;
 import org.w3c.dom.html.HTMLDListElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLDListElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

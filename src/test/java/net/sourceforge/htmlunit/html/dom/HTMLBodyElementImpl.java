@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.html.dom;
 import org.w3c.dom.html.HTMLBodyElement;
 
 /**
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLBodyElement
  * @see net.sourceforge.htmlunit.xerces.dom.ElementImpl

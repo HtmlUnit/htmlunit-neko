@@ -31,7 +31,6 @@ import net.sourceforge.htmlunit.xerces.dom.DOMImplementationImpl;
  * is by calling the static method {@link #getDOMImplementation}.
  * <p>
  *
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.DOMImplementation
  */

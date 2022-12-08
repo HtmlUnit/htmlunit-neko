@@ -37,7 +37,6 @@ import net.sourceforge.htmlunit.xerces.dom.ProcessingInstructionImpl;
  * for working with the OpenXML HTML parser.
  * <p>
  *
- * @version $Revision$ $Date$
  * @author <a href="mailto:arkin@openxml.org">Assaf Arkin</a>
  */
 public class HTMLBuilder implements ContentHandler
