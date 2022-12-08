@@ -17,12 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
