@@ -44,7 +44,7 @@ public interface XMLComponent {
         throws XMLConfigurationException;
 
     /**
-     * @return a list of feature identifiers that are recognized by
+     * @return an array of feature identifiers that are recognized by
      * this component. This method may return null if no features
      * are recognized by this component.
      */
@@ -70,7 +70,7 @@ public interface XMLComponent {
         throws XMLConfigurationException;
 
     /**
-     * @return a list of property identifiers that are recognized by
+     * @return an array of property identifiers that are recognized by
      * this component. This method may return null if no properties
      * are recognized by this component.
      */
