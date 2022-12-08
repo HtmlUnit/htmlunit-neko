@@ -28,8 +28,6 @@ public class HTMLStyleElementImpl
     implements HTMLStyleElement
 {
 
-    private static final long serialVersionUID = -9001815754196124532L;
-
     @Override
     public boolean getDisabled()
     {

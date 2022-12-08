@@ -28,8 +28,6 @@ public class HTMLHeadingElementImpl
     implements HTMLHeadingElement
 {
 
-    private static final long serialVersionUID = 6605827989383069095L;
-
     @Override
     public String getAlign()
     {

@@ -28,8 +28,6 @@ public class HTMLButtonElementImpl
     implements HTMLButtonElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = -753685852948076730L;
-
     @Override
     public String getAccessKey()
     {

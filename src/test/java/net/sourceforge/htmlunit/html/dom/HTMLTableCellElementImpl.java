@@ -30,8 +30,6 @@ public class HTMLTableCellElementImpl
     implements HTMLTableCellElement
 {
 
-    private static final long serialVersionUID = -2406518157464313922L;
-
     @Override
     public int getCellIndex()
     {

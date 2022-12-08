@@ -30,9 +30,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 public class XMLParseException
     extends XNIException {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 1732959359448549967L;
-
     /** Public identifier. */
     protected String fPublicId;
 

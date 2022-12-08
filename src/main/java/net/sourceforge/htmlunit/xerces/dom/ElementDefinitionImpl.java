@@ -31,9 +31,6 @@ import org.w3c.dom.Node;
 public class ElementDefinitionImpl
     extends ParentNode {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -8373890672670022714L;
-
     /** Element definition name. */
     protected final String name;
 

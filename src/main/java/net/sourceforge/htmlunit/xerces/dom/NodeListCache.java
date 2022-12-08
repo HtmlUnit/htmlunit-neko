@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.Serializable;
-
 /**
  * This class is used, via a pool managed on CoreDocumentImpl, in ParentNode to
  * improve performance of the NodeList accessors, getLength() and item(i).
@@ -26,10 +24,7 @@ import java.io.Serializable;
  *
  * @author Arnaud  Le Hors, IBM
  */
-class NodeListCache implements Serializable {
-
-    /** Serialization version. */
-    private static final long serialVersionUID = -7927529254918631002L;
+class NodeListCache {
 
     /** Cached node list length. */
     int fLength = -1;

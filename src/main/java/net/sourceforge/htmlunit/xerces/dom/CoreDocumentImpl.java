@@ -17,9 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -65,9 +62,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * The CoreDocumentImpl class only implements the DOM Core. Additional modules
  * are supported by the more complete DocumentImpl subclass.
  * <p>
- * <b>Note:</b> When any node in the document is serialized, the
- * entire document is serialized along with it.
- * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
@@ -79,9 +73,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class CoreDocumentImpl
 extends ParentNode implements Document  {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 0;
-
     /** Document type. */
     protected DocumentTypeImpl docType;
 
@@ -89,7 +80,7 @@ extends ParentNode implements Document  {
     protected ElementImpl docElement;
 
     /** NodeListCache free list */
-    transient NodeListCache fFreeNLCache;
+    protected NodeListCache fFreeNLCache;
 
     /**Experimental DOM Level 3 feature: Document encoding */
     protected String encoding;
@@ -107,13 +98,13 @@ extends ParentNode implements Document  {
     protected String fDocumentURI;
 
     /** Table for user data attached to this document nodes. */
-    protected Map<Node, Hashtable<String, UserDataRecord>> userData;  // serialized as Hashtable
+    protected Map<Node, Hashtable<String, UserDataRecord>> userData;
 
     /** Identifiers. */
     protected Hashtable<String, Element> identifiers;
 
     // DOM Level 3: normalizeDocument
-    transient DOMConfigurationImpl fConfiguration = null;
+    DOMConfigurationImpl fConfiguration = null;
 
     /** Table for quick check of child insertion. */
     private final static int[] kidOK;
@@ -175,7 +166,7 @@ extends ParentNode implements Document  {
     // document.  Node number values are negative integers.  Nodes are
     // assigned numbers on demand.
     private int nodeCounter = 0;
-    private Map<Node, Integer> nodeTable;  // serialized as Hashtable
+    private Map<Node, Integer> nodeTable;
     private boolean xml11Version = false; //by default 1.0
     //
     // Static initialization
@@ -2373,52 +2364,5 @@ extends ParentNode implements Document  {
      * A method to be called when an element has been renamed
      */
     void renamedElement(Element oldEl, Element newEl) {
-    }
-
-    /**
-     * The serialized forms of the user data and node table
-     * maps are Hashtables. Convert them into WeakHashMaps
-     * on load.
-     * @param in the input stream
-     * @throws IOException on error
-     * @throws ClassNotFoundException on error
-     */
-    private void readObject(ObjectInputStream in)
-        throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        if (userData != null) {
-            userData = new WeakHashMap<>(userData);
-        }
-        if (nodeTable != null) {
-            nodeTable = new WeakHashMap<>(nodeTable);
-        }
-    }
-
-    /**
-     * To allow DOM trees serialized by newer versions of Xerces
-     * to be read by older versions briefly move the user data
-     * and node table into Hashtables.
-     * @param out the output stream
-     * @throws IOException on error
-     */
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        // Keep references to the original objects for restoration after serialization
-        final Map<Node, Hashtable<String, UserDataRecord>> oldUserData = this.userData;
-        final Map<Node, Integer> oldNodeTable = this.nodeTable;
-        try {
-            if (oldUserData != null) {
-                this.userData = new Hashtable<>(oldUserData);
-            }
-            if (oldNodeTable != null) {
-                nodeTable = new Hashtable<>(oldNodeTable);
-            }
-            out.defaultWriteObject();
-        }
-        // If the write fails for some reason ensure
-        // that we restore the original objects.
-        finally {
-            this.userData = oldUserData;
-            this.nodeTable = oldNodeTable;
-        }
     }
 }

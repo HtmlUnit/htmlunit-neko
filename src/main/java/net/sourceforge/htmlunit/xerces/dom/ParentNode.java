@@ -17,11 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -68,9 +63,6 @@ import org.w3c.dom.UserDataHandler;
 public abstract class ParentNode
     extends ChildNode {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 2815829867152120872L;
-
     /** Owner document. */
     protected CoreDocumentImpl ownerDocument;
 
@@ -78,7 +70,7 @@ public abstract class ParentNode
     protected ChildNode firstChild = null;
 
     /** NodeList cache */
-    protected transient NodeListCache fNodeListCache = null;
+    protected NodeListCache fNodeListCache = null;
 
     /**
      * No public constructor; only subclasses of ParentNode should be
@@ -89,9 +81,6 @@ public abstract class ParentNode
         super(ownerDocument);
         this.ownerDocument = ownerDocument;
     }
-
-    /** Constructor for serialization. */
-    public ParentNode() {}
 
     /**
      * {@inheritDoc}
@@ -821,11 +810,6 @@ public abstract class ParentNode
      * optimizes getChildNodes() by implementing NodeList itself.  However if
      * a subclass Element implements methods with the same name as the NodeList
      * methods, they will override the actually methods in this class.
-     * <p>
-     * To use this method, the subclass should implement getChildNodes() and
-     * have it call this method.  The resulting NodeList instance maybe
-     * shared and cached in a transient field, but the cached value must be
-     * cleared if the node is cloned.
      * @return a node list
      */
     protected final NodeList getChildNodesUnoptimized() {
@@ -978,37 +962,10 @@ public abstract class ParentNode
         }
     }
 
-    // Serialize object
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        // synchronize children
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-        // write object
-        out.defaultWriteObject();
-
-    }
-
-    // Deserialize object
-    private void readObject(ObjectInputStream ois)
-        throws ClassNotFoundException, IOException {
-
-        // perform default deseralization
-        ois.defaultReadObject();
-
-        // hardset synchildren - so we don't try to sync - it does not make any
-        // sense to try to synchildren when we just deserialize object.
-        needsSyncChildren(false);
-
-    }
-
     /*
      * a class to store some user data along with its handler
      */
-    static class UserDataRecord implements Serializable {
-        /** Serialization version. */
-        private static final long serialVersionUID = 3258126977134310455L;
-
+    static class UserDataRecord {
         final Object fData;
         final UserDataHandler fHandler;
         UserDataRecord(Object data, UserDataHandler handler) {

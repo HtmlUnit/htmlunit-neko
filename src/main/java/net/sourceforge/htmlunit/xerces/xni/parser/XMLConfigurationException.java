@@ -29,13 +29,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 public class XMLConfigurationException
     extends XNIException {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -5437427404547669188L;
-
-    //
-    // Constants
-    //
-
     /** Exception type: identifier not recognized. */
     public static final short NOT_RECOGNIZED = 0;
 

@@ -29,8 +29,6 @@ public class HTMLObjectElementImpl
     implements HTMLObjectElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = 2276953229932965067L;
-
     @Override
     public String getCode()
     {

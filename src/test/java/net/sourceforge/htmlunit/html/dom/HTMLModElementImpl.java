@@ -28,8 +28,6 @@ public class HTMLModElementImpl
     implements HTMLModElement
 {
 
-    private static final long serialVersionUID = 6424581972706750120L;
-
     @Override
     public String getCite()
     {

@@ -17,7 +17,7 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -80,9 +80,9 @@ public class NamespaceSupport implements NamespaceContext {
     public NamespaceSupport(NamespaceContext context) {
         pushContext();
         // copy declaration in the context
-        Enumeration<String> prefixes = context.getAllPrefixes();
-        while (prefixes.hasMoreElements()){
-            String prefix = prefixes.nextElement();
+        Iterator<String> prefixes = context.getAllPrefixes();
+        while (prefixes.hasNext()){
+            String prefix = prefixes.next();
             String uri = context.getURI(prefix);
             declarePrefix(prefix, uri);
         }
@@ -229,7 +229,7 @@ public class NamespaceSupport implements NamespaceContext {
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getAllPrefixes()
      */
     @Override
-    public Enumeration<String> getAllPrefixes() {
+    public Iterator<String> getAllPrefixes() {
         int count = 0;
         if (fPrefixes.length < (fNamespace.length/2)) {
             // resize prefix array
@@ -254,10 +254,6 @@ public class NamespaceSupport implements NamespaceContext {
         return new Prefixes(fPrefixes, count);
     }
 
-    /*
-     * non-NamespaceContext methods
-     */
-
     /**
      * Checks whether a binding or unbinding for
      * the given prefix exists in the context.
@@ -279,30 +275,23 @@ public class NamespaceSupport implements NamespaceContext {
         return false;
     }
 
-    protected final class Prefixes implements Enumeration<String> {
+    protected final class Prefixes implements Iterator<String> {
         private final String[] prefixes;
         private int counter = 0;
         private final int size;
 
-        // Constructor for Prefixes.
-        public Prefixes(String [] prefixes, int size) {
+        public Prefixes(String[] prefixes, int size) {
             this.prefixes = prefixes;
             this.size = size;
         }
 
-       /**
-         * @see java.util.Enumeration#hasMoreElements()
-         */
         @Override
-        public boolean hasMoreElements() {
+        public boolean hasNext() {
             return (counter< size);
         }
 
-        /**
-         * @see java.util.Enumeration#nextElement()
-         */
         @Override
-        public String nextElement() {
+        public String next() {
             if (counter< size){
                 return fPrefixes[counter++];
             }
@@ -320,6 +309,5 @@ public class NamespaceSupport implements NamespaceContext {
             return buf.toString();
         }
 
+    }
 }
-
-} // class NamespaceSupport

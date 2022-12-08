@@ -28,8 +28,6 @@ public class HTMLFontElementImpl
     implements HTMLFontElement
 {
 
-    private static final long serialVersionUID = -415914342045846318L;
-
     @Override
     public String getColor()
     {

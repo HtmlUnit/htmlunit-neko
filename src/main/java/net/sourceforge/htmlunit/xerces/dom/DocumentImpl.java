@@ -47,10 +47,6 @@ import org.w3c.dom.events.Event;
  * After finishing with an iterator it is important to remove the object
  * using the remove methods in this implementation. This allows the release of
  * the references from the iterator objects to the DOM Nodes.
- * <p>
- * <b>Note:</b> When any node in the document is serialized, the
- * entire document is serialized along with it.
- * <p>
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
@@ -60,9 +56,6 @@ import org.w3c.dom.events.Event;
 public class DocumentImpl
     extends CoreDocumentImpl
     implements DocumentEvent {
-
-    /** Serialization version. */
-    static final long serialVersionUID = 515687835542616694L;
 
     /**
      * NON-DOM: Actually creating a Document is outside the DOM's spec,

@@ -34,17 +34,6 @@ import org.w3c.dom.ls.LSOutput;
  * own objects that implement this interface, or it can use the generic factory
  * method DOMImplementationLS.createLSOutput() to create objects that
  * implement this interface.
- * The DOMSerializer will use the LSOutput object to determine where to
- * serialize the output to. The DOMSerializer will look at the different
- * outputs specified in the LSOutput in the following order to know which one
- * to output to, the first one that data can be output to will be used:
- * 1.LSOutput.characterStream
- * 2.LSOutput.byteStream
- * 3.LSOutput.systemId
- * LSOutput objects belong to the application. The DOM implementation will
- * never modify them (though it may make copies and modify the copies,
- * if necessary).
- * <p>
  *
  * @author Arun Yadav, Sun Microsytems
  * @author Gopal Sharma, Sun Microsystems

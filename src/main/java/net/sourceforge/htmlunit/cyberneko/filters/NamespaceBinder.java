@@ -16,9 +16,9 @@
 
 package net.sourceforge.htmlunit.cyberneko.filters;
 
-import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
-import java.util.Vector;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
@@ -42,8 +42,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  *
  * @author Andy Clark
  */
-public class NamespaceBinder
-    extends DefaultFilter {
+public class NamespaceBinder extends DefaultFilter {
 
     //
     // Constants
@@ -581,15 +580,13 @@ public class NamespaceBinder
 
         /** Get all prefixes. */
         @Override
-        public Enumeration<String> getAllPrefixes() {
-            final Vector<String> prefixes = new Vector<>();
+        public Iterator<String> getAllPrefixes() {
+            final HashSet<String> prefixes = new HashSet<>();
             for (int i = fLevels[1]; i < fLevels[fTop]; i++) {
                 final String prefix = fEntries[i].prefix;
-                if (!prefixes.contains(prefix)) {
-                    prefixes.addElement(prefix);
-                }
+                prefixes.add(prefix);
             }
-            return prefixes.elements();
+            return prefixes.iterator();
         }
 
         //

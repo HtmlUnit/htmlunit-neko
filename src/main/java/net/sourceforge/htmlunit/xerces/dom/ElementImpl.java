@@ -56,9 +56,6 @@ public class ElementImpl
     extends ParentNode
     implements Element, TypeInfo {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 3717253516652722278L;
-
     /** Element name. */
     protected String name;
 
@@ -71,9 +68,6 @@ public class ElementImpl
         this.name = name;
         needsSyncData(true);    // synchronizeData will initialize attributes
     }
-
-    // for ElementNSImpl
-    protected ElementImpl() {}
 
     // Support for DOM Level 3 renameNode method.
     // Note: This only deals with part of the pb. CoreDocumentImpl

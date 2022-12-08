@@ -28,8 +28,6 @@ public class HTMLLIElementImpl
         implements HTMLLIElement
 {
 
-    private static final long serialVersionUID = -8987309345926701831L;
-
     @Override
     public String getType()
     {

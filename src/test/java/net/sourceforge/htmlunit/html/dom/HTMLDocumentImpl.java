@@ -64,8 +64,6 @@ public class HTMLDocumentImpl
     implements HTMLDocument
 {
 
-    private static final long serialVersionUID = 4285791750126227180L;
-
     /**
      * Holds <code>HTMLCollectionImpl</code> object with live collection of all
      * anchors in document. This reference is on demand only once.

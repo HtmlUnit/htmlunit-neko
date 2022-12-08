@@ -36,9 +36,6 @@ import org.w3c.dom.NodeList;
 public abstract class CharacterDataImpl
     extends ChildNode {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 7931170150428474230L;
-
     protected String data;
 
     /** Empty child nodes. */
@@ -48,8 +45,6 @@ public abstract class CharacterDataImpl
         @Override
         public int getLength() { return 0; }
     };
-
-    public CharacterDataImpl(){}
 
     /** Factory constructor.
      * @param ownerDocument the owner document

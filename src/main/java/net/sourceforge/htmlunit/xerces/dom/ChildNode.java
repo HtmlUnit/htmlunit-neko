@@ -25,8 +25,6 @@ import org.w3c.dom.Node;
  *
  */
 public abstract class ChildNode extends NodeImpl {
-    /** Serialization version. */
-    static final long serialVersionUID = -6112455738802414002L;
 
     /** Previous sibling. */
     protected ChildNode previousSibling;
@@ -44,9 +42,6 @@ public abstract class ChildNode extends NodeImpl {
     protected ChildNode(CoreDocumentImpl ownerDocument) {
         super(ownerDocument);
     }
-
-    /** Constructor for serialization. */
-    public ChildNode() {}
 
     /**
      * {@inheritDoc}

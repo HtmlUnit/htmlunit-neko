@@ -28,8 +28,6 @@ public class HTMLHeadElementImpl
     implements HTMLHeadElement
 {
 
-    private static final long serialVersionUID = 6438668473721292232L;
-
     @Override
     public String getProfile()
     {

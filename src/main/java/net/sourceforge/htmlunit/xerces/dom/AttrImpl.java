@@ -17,10 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
@@ -107,10 +103,7 @@ import org.w3c.dom.TypeInfo;
  */
 public class AttrImpl
     extends NodeImpl
-    implements Attr, TypeInfo{
-
-    /** Serialization version. */
-    static final long serialVersionUID = 7277707688218972102L;
+    implements Attr, TypeInfo {
 
     /** DTD namespace. **/
     static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
@@ -126,8 +119,7 @@ public class AttrImpl
     protected String name;
 
     /** Type information */
-    // REVISIT: we are losing the type information in DOM during serialization
-    transient Object type;
+    Object type;
 
     /**
      * Attribute has no public constructor. Please use the factory
@@ -142,9 +134,6 @@ public class AttrImpl
         isSpecified(true);
         hasStringValue(true);
     }
-
-    // for AttrNSImpl
-    protected AttrImpl() {}
 
     // Support for DOM Level 3 renameNode method.
     // Note: This only deals with part of the pb. It is expected to be
@@ -1113,33 +1102,5 @@ public class AttrImpl
                 isNormalized(false);
             }
         }
-    } // checkNormalizationAfterRemove(ChildNode)
-
-    // Serialize object.
-    private void writeObject(ObjectOutputStream out) throws IOException {
-
-        // synchronize chilren
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-        // write object
-        out.defaultWriteObject();
-
-    } // writeObject(ObjectOutputStream)
-
-    // Deserialize object.
-    private void readObject(ObjectInputStream ois)
-        throws ClassNotFoundException, IOException {
-
-        // perform default deseralization
-        ois.defaultReadObject();
-
-        // hardset synchildren - so we don't try to sync -
-        // it does not make any sense to try to synchildren when we just
-        // deserialize object.
-        needsSyncChildren(false);
-
-    } // readObject(ObjectInputStream)
-
-
-} // class AttrImpl
+    }
+}

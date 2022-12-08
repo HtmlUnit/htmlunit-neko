@@ -28,8 +28,6 @@ public class HTMLFieldSetElementImpl
     implements HTMLFieldSetElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = 1146145578073441343L;
-
     /**
      * Constructor requires owner document.
      *

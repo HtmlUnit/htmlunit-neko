@@ -28,8 +28,6 @@ public class HTMLIsIndexElementImpl
     implements HTMLIsIndexElement
 {
 
-    private static final long serialVersionUID = 3073521742049689699L;
-
     @Override
     public String getPrompt()
     {

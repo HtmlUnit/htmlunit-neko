@@ -28,8 +28,6 @@ public class HTMLOptGroupElementImpl
     implements HTMLOptGroupElement
 {
 
-    private static final long serialVersionUID = -8807098641226171501L;
-
     @Override
     public boolean getDisabled()
     {

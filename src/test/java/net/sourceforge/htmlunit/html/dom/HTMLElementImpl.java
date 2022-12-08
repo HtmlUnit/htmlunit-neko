@@ -44,8 +44,6 @@ public class HTMLElementImpl
     implements HTMLElement
 {
 
-    private static final long serialVersionUID = 5283925246324423495L;
-
     /**
      * Constructor required owner document and element tag name. Will be called
      * by the constructor of specific element types but with a known tag name.

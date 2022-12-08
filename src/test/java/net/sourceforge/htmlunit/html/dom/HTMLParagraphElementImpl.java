@@ -28,8 +28,6 @@ public class HTMLParagraphElementImpl
     implements HTMLParagraphElement
 {
 
-    private static final long serialVersionUID = 8075287150683866287L;
-
     @Override
     public String getAlign()
     {

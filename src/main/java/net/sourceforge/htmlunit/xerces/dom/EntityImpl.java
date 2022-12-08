@@ -57,9 +57,6 @@ public class EntityImpl
     extends ParentNode
     implements Entity {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -3575760943444303423L;
-
     /** Entity name. */
     protected final String name;
 

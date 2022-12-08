@@ -28,8 +28,6 @@ public class HTMLMetaElementImpl
     implements HTMLMetaElement
 {
 
-    private static final long serialVersionUID = -2401961905874264272L;
-
     @Override
     public String getContent()
     {

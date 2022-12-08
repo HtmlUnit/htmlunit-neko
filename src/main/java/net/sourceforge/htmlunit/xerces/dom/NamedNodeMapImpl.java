@@ -20,7 +20,6 @@ package net.sourceforge.htmlunit.xerces.dom;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -50,11 +49,7 @@ import org.w3c.dom.Node;
  * that these indices are "live"; if someone changes the map's
  * contents, the indices associated with nodes may change.
  */
-public class NamedNodeMapImpl
-    implements NamedNodeMap, Serializable {
-
-    /** Serialization version. */
-    static final long serialVersionUID = -7039242451046758020L;
+public class NamedNodeMapImpl implements NamedNodeMap {
 
     protected short flags;
 
@@ -556,29 +551,6 @@ public class NamedNodeMapImpl
     public void removeAll (){
         if (nodes != null) {
             nodes.clear();
-        }
-    }
-
-    private void readObject(ObjectInputStream in)
-        throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        if (nodes != null) {
-            nodes = new ArrayList<>(nodes);
-        }
-    }
-
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        List<Node> oldNodes = nodes;
-        try {
-            if (oldNodes != null) {
-                nodes = new Vector<>(oldNodes);
-            }
-            out.defaultWriteObject();
-        }
-        // If the write fails for some reason ensure
-        // that we restore the original object.
-        finally {
-            nodes = oldNodes;
         }
     }
 }

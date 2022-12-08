@@ -37,8 +37,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class ElementNSImpl
     extends ElementImpl {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -9142310625494392642L;
     static final String xmlURI = "http://www.w3.org/XML/1998/namespace";
 
     /** DOM2: Namespace URI. */
@@ -48,10 +46,6 @@ public class ElementNSImpl
     protected String localName;
 
     /** DOM3: type information */
-
-    protected ElementNSImpl() {
-        super();
-    }
 
      // DOM2: Constructor for Namespace implementation.
     protected ElementNSImpl(CoreDocumentImpl ownerDocument,

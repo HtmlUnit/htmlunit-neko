@@ -46,9 +46,6 @@ public class CDATASectionImpl
     extends TextImpl
     implements CDATASection {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 2372071297878177780L;
-
     /** Factory constructor for creating a CDATA section.
      * @param ownerDoc the owner document
      * @param data the data

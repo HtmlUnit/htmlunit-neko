@@ -35,8 +35,6 @@ public class HTMLTableRowElementImpl
     implements HTMLTableRowElement
 {
 
-    private static final long serialVersionUID = 5409562635656244263L;
-
     @Override
     public int getRowIndex()
     {

@@ -28,8 +28,6 @@ public class HTMLTableColElementImpl
     implements HTMLTableColElement
 {
 
-    private static final long serialVersionUID = -6189626162811911792L;
-
     @Override
     public String getAlign()
     {

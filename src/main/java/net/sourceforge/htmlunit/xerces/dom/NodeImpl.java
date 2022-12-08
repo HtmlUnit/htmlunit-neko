@@ -17,9 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.Hashtable;
 
 import org.w3c.dom.DOMException;
@@ -79,7 +76,7 @@ import net.sourceforge.htmlunit.xerces.dom.ParentNode.UserDataRecord;
  * @author Joe Kesselman, IBM
  */
 public abstract class NodeImpl
-    implements Node, NodeList, EventTarget, Cloneable, Serializable{
+    implements Node, NodeList, EventTarget, Cloneable {
 
     // TreePosition Constants.
     // Taken from DOM L3 Node interface.
@@ -92,9 +89,6 @@ public abstract class NodeImpl
     public static final short DOCUMENT_POSITION_CONTAINS = 0x08;
     public static final short DOCUMENT_POSITION_IS_CONTAINED = 0x10;
     public static final short DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
-
-    /** Serialization version. */
-    static final long serialVersionUID = -6316591992167219696L;
 
     /** Element definition node type. */
     public static final short ELEMENT_DEFINITION_NODE = 21;
@@ -129,9 +123,6 @@ public abstract class NodeImpl
         // as long as we do not have any owner, ownerNode is our ownerDocument
         ownerNode = ownerDocument;
     } // <init>(CoreDocumentImpl)
-
-    /** Constructor for serialization. */
-    public NodeImpl() {}
 
     /**
      * {@inheritDoc}
@@ -1745,17 +1736,4 @@ public abstract class NodeImpl
     public String toString() {
         return "["+getNodeName()+": "+getNodeValue()+"]";
     }
-
-    // Serialize object. */
-    private void writeObject(ObjectOutputStream out) throws IOException {
-
-        // synchronize data
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        // write object
-        out.defaultWriteObject();
-
-    }
-
 }

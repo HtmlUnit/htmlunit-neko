@@ -35,9 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  */
 public class AttrNSImpl extends AttrImpl {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -781906615369795414L;
-
     static final String xmlnsURI = "http://www.w3.org/2000/xmlns/";
     static final String xmlURI = "http://www.w3.org/XML/1998/namespace";
 
@@ -46,8 +43,6 @@ public class AttrNSImpl extends AttrImpl {
 
     /** DOM2: localName. */
     protected String localName;
-
-    public AttrNSImpl(){}
 
     // DOM2: Constructor for Namespace implementation.
     protected AttrNSImpl(CoreDocumentImpl ownerDocument,

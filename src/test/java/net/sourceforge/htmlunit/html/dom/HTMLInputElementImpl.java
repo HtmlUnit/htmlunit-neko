@@ -28,8 +28,6 @@ public class HTMLInputElementImpl
     implements HTMLInputElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = 640139325394332007L;
-
     @Override
     public String getDefaultValue()
     {

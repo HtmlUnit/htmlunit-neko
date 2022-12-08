@@ -32,8 +32,6 @@ public class HTMLTableSectionElementImpl
     implements HTMLTableSectionElement
 {
 
-    private static final long serialVersionUID = 1016412997716618027L;
-
     @Override
     public String getAlign()
     {

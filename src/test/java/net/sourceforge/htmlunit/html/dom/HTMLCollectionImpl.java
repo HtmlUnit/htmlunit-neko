@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.html.dom;
 
-import java.io.Serializable;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLAnchorElement;
@@ -59,10 +57,8 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * @see org.w3c.dom.html.HTMLCollection
  */
 class HTMLCollectionImpl
-    implements HTMLCollection, Serializable
+    implements HTMLCollection
 {
-
-    private static final long serialVersionUID = 9112122196669185082L;
 
     /**
      * Request collection of all anchors in document: &lt;A&gt; elements that

@@ -28,8 +28,6 @@ public class HTMLLinkElementImpl
     implements HTMLLinkElement
 {
 
-    private static final long serialVersionUID = 874345520063418879L;
-
     @Override
     public boolean getDisabled()
     {

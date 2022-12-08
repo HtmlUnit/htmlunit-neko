@@ -28,10 +28,6 @@ public class CommentImpl
     extends CharacterDataImpl
     implements CharacterData, Comment {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -2685736833408134044L;
-
-
     /**
      * Factory constructor.
      * @param ownerDoc the owner document

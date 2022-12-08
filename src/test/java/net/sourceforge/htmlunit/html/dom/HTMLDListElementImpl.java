@@ -28,8 +28,6 @@ public class HTMLDListElementImpl
     implements HTMLDListElement
 {
 
-    private static final long serialVersionUID = -2130005642453038604L;
-
     @Override
     public boolean getCompact()
     {

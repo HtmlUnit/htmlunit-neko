@@ -82,9 +82,6 @@ public class EntityReferenceImpl
 extends ParentNode
 implements EntityReference {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -7381452955687102062L;
-
     /** Name of Entity referenced */
     protected final String name;
     /** Base URI*/

@@ -39,12 +39,6 @@ public class TextImpl
     extends CharacterDataImpl
     implements CharacterData, Text {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -5294980852957403469L;
-
-    /** Default constructor */
-    public TextImpl(){}
-
     // Factory constructor.
     public TextImpl(CoreDocumentImpl ownerDoc, String data) {
         super(ownerDoc, data);

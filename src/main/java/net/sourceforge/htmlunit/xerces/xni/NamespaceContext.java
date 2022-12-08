@@ -17,7 +17,7 @@
 
 package net.sourceforge.htmlunit.xerces.xni;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * Represents an interface to query namespace information.
@@ -153,7 +153,7 @@ public interface NamespaceContext {
      * that have not been overridden.
      * @return Enumeration
      */
-    Enumeration<String> getAllPrefixes();
+    Iterator<String> getAllPrefixes();
 
     /**
      * Reset this Namespace support object for reuse.

@@ -61,16 +61,10 @@ public class DocumentFragmentImpl
     extends ParentNode
     implements DocumentFragment {
 
-    /** Serialization version. */
-    static final long serialVersionUID = -7596449967279236746L;
-
     // Factory constructor.
     public DocumentFragmentImpl(CoreDocumentImpl ownerDoc) {
         super(ownerDoc);
     }
-
-    // Constructor for serialization.
-    public DocumentFragmentImpl() {}
 
     /**
      * {@inheritDoc}

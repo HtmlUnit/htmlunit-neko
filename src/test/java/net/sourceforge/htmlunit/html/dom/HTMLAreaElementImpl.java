@@ -28,8 +28,6 @@ public class HTMLAreaElementImpl
     implements HTMLAreaElement
 {
 
-    private static final long serialVersionUID = 7164004431531608995L;
-
     @Override
     public String getAccessKey()
     {

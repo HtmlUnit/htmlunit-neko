@@ -31,9 +31,6 @@ public class ProcessingInstructionImpl
     extends CharacterDataImpl
     implements ProcessingInstruction {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 7554435174099981510L;
-
     protected final String target;
 
     // Factory constructor.

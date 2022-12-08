@@ -28,8 +28,6 @@ public class HTMLTableCaptionElementImpl
     implements HTMLTableCaptionElement
 {
 
-    private static final long serialVersionUID = 183703024771848940L;
-
     @Override
     public String getAlign()
     {

@@ -28,8 +28,6 @@ public class HTMLFrameSetElementImpl
     implements HTMLFrameSetElement
 {
 
-    private static final long serialVersionUID = 8403143821972586708L;
-
     @Override
     public String getCols()
     {

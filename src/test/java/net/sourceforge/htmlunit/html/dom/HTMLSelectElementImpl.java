@@ -33,8 +33,6 @@ public class HTMLSelectElementImpl
     implements HTMLSelectElement, HTMLFormControl
 {
 
-    private static final long serialVersionUID = -6998282711006968187L;
-
     @Override
     public String getType()
     {

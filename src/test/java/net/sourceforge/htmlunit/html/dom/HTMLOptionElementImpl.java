@@ -33,8 +33,6 @@ public class HTMLOptionElementImpl
     implements HTMLOptionElement
 {
 
-    private static final long serialVersionUID = -4486774554137530907L;
-
     @Override
     public boolean getDefaultSelected()
     {

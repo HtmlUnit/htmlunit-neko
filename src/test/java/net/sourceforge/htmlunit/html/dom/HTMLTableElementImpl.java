@@ -34,8 +34,6 @@ public class HTMLTableElementImpl
     implements HTMLTableElement
 {
 
-    private static final long serialVersionUID = -1824053099870917532L;
-
     @Override
     public synchronized HTMLTableCaptionElement getCaption()
     {

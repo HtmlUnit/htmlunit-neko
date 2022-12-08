@@ -28,8 +28,6 @@ public class HTMLHtmlElementImpl
     implements HTMLHtmlElement
 {
 
-    private static final long serialVersionUID = -4489734201536616166L;
-
     @Override
     public String getVersion()
     {

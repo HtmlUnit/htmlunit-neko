@@ -29,8 +29,6 @@ public class HTMLFrameElementImpl
     implements HTMLFrameElement
 {
 
-    private static final long serialVersionUID = 635237057173695984L;
-
     @Override
     public String getFrameBorder()
     {

@@ -31,11 +31,9 @@ public class DOMMessageFormatter {
 
     public static final String DOM_DOMAIN = "http://www.w3.org/dom/DOMTR";
     public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
-    public static final String SERIALIZER_DOMAIN = "http://apache.org/xml/serializer";
 
     private static ResourceBundle domResourceBundle = null;
     private static ResourceBundle xmlResourceBundle = null;
-    private static ResourceBundle serResourceBundle = null;
     private static Locale locale = null;
 
     DOMMessageFormatter() {
@@ -112,9 +110,6 @@ public class DOMMessageFormatter {
         else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
             return xmlResourceBundle;
         }
-        else if (domain == SERIALIZER_DOMAIN || domain.equals(SERIALIZER_DOMAIN)) {
-            return serResourceBundle;
-        }
         return null;
     }
 
@@ -127,7 +122,6 @@ public class DOMMessageFormatter {
             _locale = Locale.getDefault();
         }
         domResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.DOMMessages", _locale);
-        serResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLSerializerMessages", _locale);
         xmlResourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.XMLMessages", _locale);
     }
 

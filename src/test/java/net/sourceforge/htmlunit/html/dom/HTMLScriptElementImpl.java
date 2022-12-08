@@ -30,8 +30,6 @@ public class HTMLScriptElementImpl
     implements HTMLScriptElement
 {
 
-    private static final long serialVersionUID = 5090330049085326558L;
-
     @Override
     public String getText()
     {

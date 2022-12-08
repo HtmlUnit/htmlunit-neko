@@ -28,8 +28,6 @@ public class HTMLImageElementImpl
     implements HTMLImageElement
 {
 
-    private static final long serialVersionUID = 1424360710977241315L;
-
     @Override
     public String getLowSrc()
     {

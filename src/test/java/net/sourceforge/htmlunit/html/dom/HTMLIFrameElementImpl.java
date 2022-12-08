@@ -29,8 +29,6 @@ public class HTMLIFrameElementImpl
     implements HTMLIFrameElement
 {
 
-    private static final long serialVersionUID = 2393622754706230429L;
-
     @Override
     public String getAlign()
     {

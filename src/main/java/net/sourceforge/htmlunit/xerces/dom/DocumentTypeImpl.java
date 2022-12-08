@@ -51,9 +51,6 @@ public class DocumentTypeImpl
     extends ParentNode
     implements DocumentType {
 
-    /** Serialization version. */
-    static final long serialVersionUID = 7751299192316526485L;
-
     /** Document type name. */
     protected final String name;
 

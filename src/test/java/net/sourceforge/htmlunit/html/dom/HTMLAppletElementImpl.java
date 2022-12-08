@@ -28,8 +28,6 @@ public class HTMLAppletElementImpl
     implements HTMLAppletElement
 {
 
-    private static final long serialVersionUID = 8375794094117740967L;
-
     @Override
     public String getAlign()
     {

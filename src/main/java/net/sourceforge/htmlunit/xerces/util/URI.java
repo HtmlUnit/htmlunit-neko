@@ -18,7 +18,6 @@
 package net.sourceforge.htmlunit.xerces.util;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Locale;
 
 /**********************************************************************
@@ -56,7 +55,7 @@ import java.util.Locale;
 * @version  $Id$
 *
 **********************************************************************/
- public class URI implements Serializable {
+ public class URI {
 
   /*******************************************************************
   * MalformedURIExceptions are thrown in the process of building a URI
@@ -65,9 +64,6 @@ import java.util.Locale;
   *
   ********************************************************************/
   public static class MalformedURIException extends IOException {
-
-   /** Serialization version. */
-   static final long serialVersionUID = -6695054834342951930L;
 
    /******************************************************************
     * Constructs a <code>MalformedURIException</code> with no specified
@@ -87,9 +83,6 @@ import java.util.Locale;
       super(p_msg);
     }
   }
-
-  /** Serialization version. */
-  static final long serialVersionUID = 1601921774685357214L;
 
   private static final byte [] fgLookupTable = new byte[128];
 
