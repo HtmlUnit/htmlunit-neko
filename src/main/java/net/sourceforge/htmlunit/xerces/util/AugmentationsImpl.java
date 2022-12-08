@@ -20,7 +20,6 @@ package net.sourceforge.htmlunit.xerces.util;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
@@ -37,8 +36,7 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
  */
 public class AugmentationsImpl implements Augmentations {
 
-    private AugmentationsItemsContainer fAugmentationsContainer =
-                                        new SmallContainer();
+    private AugmentationsItemsContainer fAugmentationsContainer = new SmallContainer();
 
     /**
      * Add additional information identified by a key to the Augmentations structure.

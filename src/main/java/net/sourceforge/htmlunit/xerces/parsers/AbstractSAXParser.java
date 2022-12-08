@@ -1202,29 +1202,7 @@ public abstract class AbstractSAXParser
                         SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                         "feature-read-only", new Object [] {featureId}));
                 }
-
-
-                //
-                // Drop through and perform default processing
-                //
             }
-
-            //
-            // Xerces Features
-            //
-
-            /*
-            else if (featureId.startsWith(XERCES_FEATURES_PREFIX)) {
-                String feature = featureId.substring(XERCES_FEATURES_PREFIX.length());
-                //
-                // Drop through and perform default processing
-                //
-            }
-            */
-
-            //
-            // Default handling
-            //
 
             fConfiguration.setFeature(featureId, state);
         }
@@ -1356,24 +1334,7 @@ public abstract class AbstractSAXParser
                     featureId.endsWith(Constants.USE_LOCATOR2_FEATURE))) {
                     return true;
                 }
-
-
-                //
-                // Drop through and perform default processing
-                //
             }
-
-            //
-            // Xerces Features
-            //
-
-            /*
-            else if (featureId.startsWith(XERCES_FEATURES_PREFIX)) {
-                //
-                // Drop through and perform default processing
-                //
-            }
-            */
 
             return fConfiguration.getFeature(featureId);
         }
@@ -1460,26 +1421,7 @@ public abstract class AbstractSAXParser
                         SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                         "property-read-only", new Object [] {propertyId}));
                 }
-                //
-                // Drop through and perform default processing
-                //
             }
-
-            //
-            // Xerces Properties
-            //
-
-            /*
-            else if (propertyId.startsWith(XERCES_PROPERTIES_PREFIX)) {
-                //
-                // Drop through and perform default processing
-                //
-            }
-            */
-
-            //
-            // Perform default processing
-            //
 
             fConfiguration.setProperty(propertyId, value);
         }
@@ -1563,27 +1505,7 @@ public abstract class AbstractSAXParser
                         SAXMessageFormatter.formatMessage(fConfiguration.getLocale(),
                         "dom-node-read-not-supported", null));
                 }
-
-                //
-                // Drop through and perform default processing
-                //
             }
-
-            //
-            // Xerces properties
-            //
-
-            /*
-            else if (propertyId.startsWith(XERCES_PROPERTIES_PREFIX)) {
-                //
-                // Drop through and perform default processing
-                //
-            }
-            */
-
-            //
-            // Perform default processing
-            //
 
             return fConfiguration.getProperty(propertyId);
         }
@@ -1601,11 +1523,7 @@ public abstract class AbstractSAXParser
             }
         }
 
-    } // getProperty(String):Object
-
-    //
-    // Protected methods
-    //
+    }
 
     // SAX2 core properties
 

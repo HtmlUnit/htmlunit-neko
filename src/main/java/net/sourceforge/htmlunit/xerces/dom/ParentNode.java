@@ -792,10 +792,6 @@ public abstract class ParentNode
             fNodeListCache.fChildIndex = -1;
             fNodeListCache.fChild = null;
             ownerDocument.freeNodeListCache(fNodeListCache);
-            // we can keep using the cache until it is actually reused
-            // fNodeListCache will be nulled by the pool (document) if that
-            // happens.
-            // fNodeListCache = null;
         }
         else {
             // otherwise update it

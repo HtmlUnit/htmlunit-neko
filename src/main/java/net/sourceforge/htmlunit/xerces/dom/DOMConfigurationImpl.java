@@ -21,21 +21,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.StringTokenizer;
 
 import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMErrorHandler;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMStringList;
-import org.w3c.dom.ls.LSResourceResolver;
 
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter;
 import net.sourceforge.htmlunit.xerces.impl.msg.XMLMessageFormatter;
-import net.sourceforge.htmlunit.xerces.util.DOMEntityResolverWrapper;
 import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
-import net.sourceforge.htmlunit.xerces.util.MessageFormatter;
-import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.ParserConfigurationSettings;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
@@ -167,7 +162,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     protected final DOMErrorHandlerWrapper fErrorHandlerWrapper =
                 new DOMErrorHandlerWrapper();
 
-    private String fSchemaLocation = null;
     private DOMStringList fRecognizedParameters;
 
     //
@@ -182,12 +176,12 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         super();
 
         // create storage for recognized features and properties
-        fRecognizedFeatures = new ArrayList();
-        fRecognizedProperties = new ArrayList();
+        fRecognizedFeatures = new ArrayList<>();
+        fRecognizedProperties = new ArrayList<>();
 
         // create table for features and properties
-        fFeatures = new HashMap();
-        fProperties = new HashMap();
+        fFeatures = new HashMap<>();
+        fProperties = new HashMap<>();
 
         // add default recognized features
         final String[] recognizedFeatures = {
@@ -531,14 +525,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             }
             else {
                 found = false;
-                /*
-                String msg =
-                    DOMMessageFormatter.formatMessage(
-                        DOMMessageFormatter.DOM_DOMAIN,
-                        "FEATURE_NOT_FOUND",
-                        new Object[] { name });
-                throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
-                */
             }
 
         }
@@ -716,7 +702,7 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     @Override
     public DOMStringList getParameterNames() {
         if (fRecognizedParameters == null){
-            ArrayList parameters = new ArrayList();
+            ArrayList<String> parameters = new ArrayList<>();
 
             //Add DOM recognized parameters
             //REVISIT: Would have been nice to have a list of

@@ -20,10 +20,8 @@ package net.sourceforge.htmlunit.xerces.dom;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -110,7 +108,7 @@ extends ParentNode implements Document  {
     protected String fDocumentURI;
 
     /** Table for user data attached to this document nodes. */
-    protected Map userData;  // serialized as Hashtable
+    protected Map<Node, Hashtable<String, UserDataRecord>> userData;  // serialized as Hashtable
 
     /** Identifiers. */
     protected Hashtable<String, Element> identifiers;
@@ -178,7 +176,7 @@ extends ParentNode implements Document  {
     // document.  Node number values are negative integers.  Nodes are
     // assigned numbers on demand.
     private int nodeCounter = 0;
-    private Map nodeTable;  // serialized as Hashtable
+    private Map<Node, Integer> nodeTable;  // serialized as Hashtable
     private boolean xml11Version = false; //by default 1.0
     //
     // Static initialization
@@ -956,7 +954,7 @@ extends ParentNode implements Document  {
                         copyEventListeners(at, nat);
 
                         // remove user data from old node
-                        Hashtable data = removeUserDataTable(at);
+                        Hashtable<String, UserDataRecord> data = removeUserDataTable(at);
 
                         // move children to new node
                         Node child = at.getFirstChild();
@@ -1000,7 +998,7 @@ extends ParentNode implements Document  {
         copyEventListeners(el, nel);
 
         // remove user data from old node
-        Hashtable data = removeUserDataTable(el);
+        Hashtable<String, UserDataRecord> data = removeUserDataTable(el);
 
         // remove old node from parent if any
         Node parent = el.getParentNode();
@@ -1171,12 +1169,12 @@ extends ParentNode implements Document  {
         // Node numbers are negative, from -1 to -n
         int num;
         if (nodeTable == null) {
-            nodeTable = new WeakHashMap();
+            nodeTable = new WeakHashMap<>();
             num = --nodeCounter;
             nodeTable.put(node, new Integer(num));
         }
         else {
-            Integer n = (Integer)nodeTable.get(node);
+            Integer n = nodeTable.get(node);
             if (n== null) {
                 num = --nodeCounter;
                 nodeTable.put(node, new Integer(num));
@@ -1224,7 +1222,7 @@ extends ParentNode implements Document  {
     HashMap<Node, String> reversedIdentifiers)
     throws DOMException {
         Node newnode=null;
-        Hashtable userData = null;
+        Hashtable<String, UserDataRecord> userData = null;
 
         // Sigh. This doesn't work; too many nodes have private data that
         // would have to be manually tweaked. May be able to add local
@@ -1463,7 +1461,7 @@ extends ParentNode implements Document  {
     @Override
     public Node adoptNode(Node source) {
         NodeImpl node;
-        Hashtable userData;
+        Hashtable<String, UserDataRecord> userData;
         try {
             node = (NodeImpl) source;
         } catch (ClassCastException e) {
@@ -1748,21 +1746,6 @@ extends ParentNode implements Document  {
 
     }
 
-    /** @return an enumeration registered of identifier names. */
-    public Enumeration getIdentifiers() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
-        if (identifiers == null) {
-            identifiers = new Hashtable();
-        }
-
-        return identifiers.keys();
-
-    } // getIdentifiers():Enumeration
-
     //
     // DOM2: Namespace methods
     //
@@ -2023,11 +2006,10 @@ extends ParentNode implements Document  {
     Object data, UserDataHandler handler) {
         if (data == null) {
             if (userData != null) {
-                Hashtable t = (Hashtable) userData.get(n);
+                Hashtable<String, UserDataRecord> t = userData.get(n);
                 if (t != null) {
-                    Object o = t.remove(key);
-                    if (o != null) {
-                        UserDataRecord r = (UserDataRecord) o;
+                    UserDataRecord r = t.remove(key);
+                    if (r != null) {
                         return r.fData;
                     }
                 }
@@ -2035,22 +2017,21 @@ extends ParentNode implements Document  {
             return null;
         }
         else {
-            Hashtable t;
+            Hashtable<String, UserDataRecord> t;
             if (userData == null) {
-                userData = new WeakHashMap();
-                t = new Hashtable();
+                userData = new WeakHashMap<>();
+                t = new Hashtable<>();
                 userData.put(n, t);
             }
             else {
-                t = (Hashtable) userData.get(n);
+                t = userData.get(n);
                 if (t == null) {
-                    t = new Hashtable();
+                    t = new Hashtable<>();
                     userData.put(n, t);
                 }
             }
-            Object o = t.put(key, new UserDataRecord(data, handler));
-            if (o != null) {
-                UserDataRecord r = (UserDataRecord) o;
+            UserDataRecord r = t.put(key, new UserDataRecord(data, handler));
+            if (r != null) {
                 return r.fData;
             }
             return null;
@@ -2071,23 +2052,22 @@ extends ParentNode implements Document  {
         if (userData == null) {
             return null;
         }
-        Hashtable t = (Hashtable) userData.get(n);
+        Hashtable<String, UserDataRecord> t = userData.get(n);
         if (t == null) {
             return null;
         }
-        Object o = t.get(key);
-        if (o != null) {
-            UserDataRecord r = (UserDataRecord) o;
+        UserDataRecord r = t.get(key);
+        if (r != null) {
             return r.fData;
         }
         return null;
     }
 
-    protected Hashtable getUserDataRecord(Node n){
+    protected Hashtable<String, UserDataRecord> getUserDataRecord(Node n){
         if (userData == null) {
             return null;
         }
-        Hashtable t = (Hashtable) userData.get(n);
+        Hashtable<String, UserDataRecord> t = userData.get(n);
         if (t == null) {
             return null;
         }
@@ -2099,11 +2079,11 @@ extends ParentNode implements Document  {
      * @param n The node this operation applies to.
      * @return The removed table.
      */
-    Hashtable removeUserDataTable(Node n) {
+    Hashtable<String, UserDataRecord> removeUserDataTable(Node n) {
         if (userData == null) {
             return null;
         }
-        return (Hashtable) userData.get(n);
+        return userData.get(n);
     }
 
     /**
@@ -2111,9 +2091,9 @@ extends ParentNode implements Document  {
      * @param n The node this operation applies to.
      * @param data The user data table.
      */
-    void setUserDataTable(Node n, Hashtable data) {
+    void setUserDataTable(Node n, Hashtable<String, UserDataRecord> data) {
         if (userData == null) {
-            userData = new WeakHashMap();
+            userData = new WeakHashMap<>();
         }
         if (data != null) {
             userData.put(n, data);
@@ -2130,13 +2110,12 @@ extends ParentNode implements Document  {
         if (userData == null) {
             return;
         }
-        //Hashtable t = (Hashtable) userData.get(n);
         if(n instanceof NodeImpl){
-            Hashtable t = ((NodeImpl)n).getUserDataRecord();
+            Hashtable<String, UserDataRecord> t = ((NodeImpl)n).getUserDataRecord();
             if (t == null || t.isEmpty()) {
                 return;
             }
-            callUserDataHandlers(n, c, operation,t);
+            callUserDataHandlers(n, c, operation, t);
         }
     }
 
@@ -2147,16 +2126,14 @@ extends ParentNode implements Document  {
      * @param operation The operation - import, clone, or delete.
      * @param userData Data associated with n.
     */
-    void callUserDataHandlers(Node n, Node c, short operation, Hashtable userData) {
+    void callUserDataHandlers(Node n, Node c, short operation, Hashtable<String, UserDataRecord> userData) {
         if (userData == null || userData.isEmpty()) {
             return;
         }
-        for (Object o : userData.entrySet()) {
-            Map.Entry entry = (Map.Entry) o;
-            String key = (String) entry.getKey();
-            UserDataRecord r = (UserDataRecord) entry.getValue();
+        for (Map.Entry<String, UserDataRecord> entry : userData.entrySet()) {
+            UserDataRecord r = entry.getValue();
             if (r.fHandler != null) {
-                r.fHandler.handle(operation, key, r.fData, n, c);
+                r.fHandler.handle(operation, entry.getKey(), r.fData, n, c);
             }
         }
     }
@@ -2428,10 +2405,10 @@ extends ParentNode implements Document  {
         throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         if (userData != null) {
-            userData = new WeakHashMap(userData);
+            userData = new WeakHashMap<>(userData);
         }
         if (nodeTable != null) {
-            nodeTable = new WeakHashMap(nodeTable);
+            nodeTable = new WeakHashMap<>(nodeTable);
         }
     }
 
@@ -2444,14 +2421,14 @@ extends ParentNode implements Document  {
      */
     private void writeObject(ObjectOutputStream out) throws IOException {
         // Keep references to the original objects for restoration after serialization
-        final Map oldUserData = this.userData;
-        final Map oldNodeTable = this.nodeTable;
+        final Map<Node, Hashtable<String, UserDataRecord>> oldUserData = this.userData;
+        final Map<Node, Integer> oldNodeTable = this.nodeTable;
         try {
             if (oldUserData != null) {
-                this.userData = new Hashtable(oldUserData);
+                this.userData = new Hashtable<>(oldUserData);
             }
             if (oldNodeTable != null) {
-                nodeTable = new Hashtable(oldNodeTable);
+                nodeTable = new Hashtable<>(oldNodeTable);
             }
             out.defaultWriteObject();
         }

@@ -442,7 +442,7 @@ public final class Constants {
     };
 
     /** Empty enumeration. */
-    private static final Enumeration fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
+    private static final Enumeration<Object> fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
 
     //
     // Constructors
@@ -458,13 +458,13 @@ public final class Constants {
     // sax
 
     /** @return an enumeration of the SAX features. */
-    public static Enumeration getSAXFeatures() {
+    public static Enumeration<Object> getSAXFeatures() {
         return fgSAXFeatures.length > 0
         ? new ArrayEnumeration(fgSAXFeatures) : fgEmptyEnumeration;
     }
 
     /** @return an enumeration of the SAX properties. */
-    public static Enumeration getSAXProperties() {
+    public static Enumeration<Object> getSAXProperties() {
         return fgSAXProperties.length > 0
         ? new ArrayEnumeration(fgSAXProperties) : fgEmptyEnumeration;
     }
@@ -472,13 +472,13 @@ public final class Constants {
     // xerces
 
     /** @return an enumeration of the Xerces features. */
-    public static Enumeration getXercesFeatures() {
+    public static Enumeration<Object> getXercesFeatures() {
         return fgXercesFeatures.length > 0
         ? new ArrayEnumeration(fgXercesFeatures) : fgEmptyEnumeration;
     }
 
     /** @return an enumeration of the Xerces properties. */
-    public static Enumeration getXercesProperties() {
+    public static Enumeration<Object> getXercesProperties() {
         return fgXercesProperties.length > 0
         ? new ArrayEnumeration(fgXercesProperties) : fgEmptyEnumeration;
     }
@@ -492,7 +492,7 @@ public final class Constants {
      *
      * @author Andy Clark, IBM
      */
-    static class ArrayEnumeration implements Enumeration {
+    static class ArrayEnumeration implements Enumeration<Object> {
 
         /** Array. */
         private final Object[] array;

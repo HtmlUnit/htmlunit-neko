@@ -34,6 +34,8 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 
+import net.sourceforge.htmlunit.xerces.dom.ParentNode.UserDataRecord;
+
 /**
  * NodeImpl provides the basic structure of a DOM tree. It is never used
  * directly, but instead is subclassed to add type and data
@@ -1554,7 +1556,7 @@ public abstract class NodeImpl
         return ownerDocument().getUserData(this, key);
     }
 
-    protected Hashtable getUserDataRecord(){
+    protected Hashtable<String, UserDataRecord> getUserDataRecord(){
         return ownerDocument().getUserDataRecord(this);
     }
 

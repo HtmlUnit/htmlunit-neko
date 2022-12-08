@@ -472,16 +472,6 @@ public class HTMLDocumentImpl
             }
             catch ( Exception except )
             {
-                /*
-                Throwable thrw;
-
-                if ( except instanceof java.lang.reflect.InvocationTargetException )
-                    thrw = ( (java.lang.reflect.InvocationTargetException) except ).getTargetException();
-                else
-                    thrw = except;
-                System.out.println( "Exception " + thrw.getClass().getName() );
-                System.out.println( thrw.getMessage() );
-                */
                 throw new IllegalStateException( "HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName);
             }
         }
