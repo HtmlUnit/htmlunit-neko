@@ -240,12 +240,11 @@ public class AttributeMap extends NamedNodeMapImpl {
      * name, nor the node with these contents. If node does not belong to
      * this named node map, we throw a DOMException.
      *
-     * @param item       The node to remove
-     * @param addDefault true -- magically add default attribute
+     * @param item The node to remove
      * @return Removed node
-     * @exception DOMException on error
+     * @throws DOMException on error
      */
-    protected Node removeItem(Node item, boolean addDefault)
+    protected Node removeItem(Node item)
         throws DOMException {
 
         int index = -1;
@@ -263,7 +262,7 @@ public class AttributeMap extends NamedNodeMapImpl {
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
-        return remove((AttrImpl)item, index, addDefault);
+        return remove((AttrImpl)item, index, true);
     }
 
     /**

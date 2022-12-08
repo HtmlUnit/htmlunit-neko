@@ -251,9 +251,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (!documentClassName.equals(DEFAULT_DOCUMENT_CLASS_NAME)) {
             // verify that this class exists and is of the right type
             try {
-                Class<?> _class = ObjectFactory.findProviderClass (documentClassName,
-                ObjectFactory.findClassLoader (), true);
-                //if (!_class.isAssignableFrom(Document.class)) {
+                Class<?> _class = ObjectFactory.findProviderClass (documentClassName, ObjectFactory.findClassLoader (), true);
                 if (!Document.class.isAssignableFrom (_class)) {
                     throw new IllegalArgumentException (
                         DOMMessageFormatter.formatMessage(
@@ -548,9 +546,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // use specified document class
             try {
                 ClassLoader cl = ObjectFactory.findClassLoader();
-                Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName,
-                    cl, true);
-                fDocument = (Document)documentClass.newInstance ();
+                Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName, cl, true);
+                fDocument = (Document) documentClass.newInstance ();
 
                 // if subclass of our own class that's cool too
                 Class<?> defaultDocClass =
