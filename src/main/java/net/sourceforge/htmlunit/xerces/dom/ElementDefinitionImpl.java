@@ -35,7 +35,7 @@ public class ElementDefinitionImpl
     static final long serialVersionUID = -8373890672670022714L;
 
     /** Element definition name. */
-    protected String name;
+    protected final String name;
 
     /** Default attributes. */
     protected NamedNodeMapImpl attributes;

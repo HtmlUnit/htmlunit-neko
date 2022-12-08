@@ -34,7 +34,7 @@ public class ProcessingInstructionImpl
     /** Serialization version. */
     static final long serialVersionUID = 7554435174099981510L;
 
-    protected String target;
+    protected final String target;
 
     // Factory constructor.
     public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc,

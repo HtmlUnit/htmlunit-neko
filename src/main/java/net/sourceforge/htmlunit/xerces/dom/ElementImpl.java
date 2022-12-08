@@ -1073,16 +1073,8 @@ public class ElementImpl
         // no need to sync in the future
         needsSyncData(false);
 
-        // we don't want to generate any event for this so turn them off
-        boolean orig = ownerDocument.getMutationEvents();
-        ownerDocument.setMutationEvents(false);
-
         // attributes
         setupDefaultAttributes();
-
-        // set mutation events flag back to its original value
-        ownerDocument.setMutationEvents(orig);
-
     } // synchronizeData()
 
     // support for DOM Level 3 renameNode method

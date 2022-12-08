@@ -61,7 +61,7 @@ public class EntityImpl
     static final long serialVersionUID = -3575760943444303423L;
 
     /** Entity name. */
-    protected String name;
+    protected final String name;
 
     /** Public identifier. */
     protected String publicId;

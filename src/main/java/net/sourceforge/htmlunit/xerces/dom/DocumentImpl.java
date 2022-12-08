@@ -194,26 +194,6 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * Sets whether the DOM implementation generates mutation events
-     * upon operations.
-     */
-    @Override
-    void setMutationEvents(boolean set) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Returns true if the DOM implementation generates mutation events.
-     */
-    @Override
-    boolean getMutationEvents() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * A method to be called when a character data node has been modified
      */
     @Override

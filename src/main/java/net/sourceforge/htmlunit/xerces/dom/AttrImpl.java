@@ -347,46 +347,22 @@ public class AttrImpl
             synchronizeChildren();
         }
         if (value != null) {
-            if (ownerDocument.getMutationEvents()) {
-                // Can no longer just discard the kids; they may have
-                // event listeners waiting for them to disconnect.
-                if (hasStringValue()) {
-                    oldvalue = (String) value;
-                    // create an actual text node as our child so
-                    // that we can use it in the event
-                    textNode = (TextImpl) ownerDocument.createTextNode((String) value);
-                    value = textNode;
-                    textNode.isFirstChild(true);
-                    textNode.previousSibling = textNode;
-                    textNode.ownerNode = this;
-                    textNode.isOwned(true);
-                    hasStringValue(false);
-                    internalRemoveChild(textNode, true);
-                }
-                else {
-                    oldvalue = getValue();
-                    while (value != null) {
-                        internalRemoveChild((Node) value, true);
-                    }
-                }
+            if (hasStringValue()) {
+                oldvalue = (String) value;
             }
             else {
-                if (hasStringValue()) {
-                    oldvalue = (String) value;
-                }
-                else {
-                    // simply discard children if any
-                    oldvalue = getValue();
-                    // remove ref from first child to last child
-                    ChildNode firstChild = (ChildNode) value;
-                    firstChild.previousSibling = null;
-                    firstChild.isFirstChild(false);
-                    firstChild.ownerNode = ownerDocument;
-                }
-                // then remove ref to current value
-                value = null;
-                needsSyncChildren(false);
+                // simply discard children if any
+                oldvalue = getValue();
+                // remove ref from first child to last child
+                ChildNode firstChild = (ChildNode) value;
+                firstChild.previousSibling = null;
+                firstChild.isFirstChild(false);
+                firstChild.ownerNode = ownerDocument;
             }
+            // then remove ref to current value
+            value = null;
+            needsSyncChildren(false);
+
             if (isIdAttribute() && ownerElement != null) {
                 ownerDocument.removeIdentifier(oldvalue);
             }
@@ -398,26 +374,11 @@ public class AttrImpl
         // Note that aggregate events are NOT dispatched here,
         // since we need to combine the remove and insert.
         isSpecified(true);
-        if (ownerDocument.getMutationEvents()) {
-            // if there are any event handlers create a real node or
-            // reuse the one we synthesized for the remove notifications
-            // if it exists.
-            if (textNode == null) {
-                textNode = (TextImpl) ownerDocument.createTextNode(newvalue);
-            }
-            else {
-                textNode.data = newvalue;
-            }
-            internalInsertBefore(textNode, null, true);
-            hasStringValue(false);
-            // notify document
-            ownerDocument.modifiedAttrValue(this, oldvalue);
-        } else {
-            // directly store the string
-            value = newvalue;
-            hasStringValue(true);
-            changed();
-        }
+        // directly store the string
+        value = newvalue;
+        hasStringValue(true);
+        changed();
+
         if (isIdAttribute() && ownerElement != null) {
             ownerDocument.putIdentifier(newvalue, ownerElement);
         }

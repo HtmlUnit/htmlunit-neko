@@ -86,7 +86,7 @@ implements EntityReference {
     static final long serialVersionUID = -7381452955687102062L;
 
     /** Name of Entity referenced */
-    protected String name;
+    protected final String name;
     /** Base URI*/
     protected String baseURI;
 

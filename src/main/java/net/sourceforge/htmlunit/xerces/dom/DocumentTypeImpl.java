@@ -55,7 +55,7 @@ public class DocumentTypeImpl
     static final long serialVersionUID = 7751299192316526485L;
 
     /** Document type name. */
-    protected String name;
+    protected final String name;
 
     /** Entities. */
     protected NamedNodeMapImpl entities;

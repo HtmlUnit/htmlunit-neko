@@ -282,7 +282,7 @@ public class NamespaceSupport implements NamespaceContext {
     protected final class Prefixes implements Enumeration {
         private final String[] prefixes;
         private int counter = 0;
-        private int size;
+        private final int size;
 
         // Constructor for Prefixes.
         public Prefixes(String [] prefixes, int size) {

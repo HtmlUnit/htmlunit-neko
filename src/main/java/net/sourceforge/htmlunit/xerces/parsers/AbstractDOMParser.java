@@ -124,7 +124,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     private static final boolean DEBUG_BASEURI = false;
 
     /** DOM L3 error handler */
-    protected DOMErrorHandlerWrapper fErrorHandler = null;
+    protected final DOMErrorHandlerWrapper fErrorHandler = null;
 
     /** True if inside DTD. */
     protected boolean fInDTD;
@@ -192,7 +192,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /** LSParserFilter: specifies that element with given QNAME and all its children
      * must be rejected */
-    protected boolean fFilterReject = false;
+    protected final boolean fFilterReject = false;
 
     // data
 
