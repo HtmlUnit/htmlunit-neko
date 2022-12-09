@@ -512,9 +512,8 @@ public class TextImpl
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 return hasTextOnlyChildren(child);
             }
-            else if (type != Node.TEXT_NODE
-                    && type != Node.CDATA_SECTION_NODE
-                    && type != Node.ENTITY_REFERENCE_NODE) {
+
+            if (type != Node.TEXT_NODE && type != Node.CDATA_SECTION_NODE) {
                 return false;
             }
             child = child.getNextSibling();

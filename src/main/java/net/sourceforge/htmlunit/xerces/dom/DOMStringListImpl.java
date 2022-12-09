@@ -18,7 +18,6 @@
 package net.sourceforge.htmlunit.xerces.dom;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import org.w3c.dom.DOMStringList;
 

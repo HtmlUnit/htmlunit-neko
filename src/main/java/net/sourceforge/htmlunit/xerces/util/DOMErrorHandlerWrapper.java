@@ -59,7 +59,7 @@ public class DOMErrorHandlerWrapper
     boolean eStatus = true ;
 
     // Print writer
-    protected PrintWriter fOut;
+    protected final PrintWriter fOut;
 
     /** Error code for comparisons. **/
     protected final XMLErrorCode fErrorCode = new XMLErrorCode(null, null);

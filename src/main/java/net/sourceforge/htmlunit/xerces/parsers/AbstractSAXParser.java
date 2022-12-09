@@ -77,12 +77,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final String STRING_INTERNING =
         Constants.SAX_FEATURE_PREFIX + Constants.STRING_INTERNING_FEATURE;
 
-    /** Feature identifier: allow notation and unparsed entity events to be sent out of order. */
-    // this is not meant to be a recognized feature, but we need it here to use
-    // if it is already a recognized feature for the pipeline
-    protected static final String ALLOW_UE_AND_NOTATION_EVENTS =
-        Constants.SAX_FEATURE_PREFIX + Constants.ALLOW_DTD_EVENTS_AFTER_ENDDTD_FEATURE;
-
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
         NAMESPACES,
@@ -170,13 +164,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         config.addRecognizedFeatures(RECOGNIZED_FEATURES);
         config.addRecognizedProperties(RECOGNIZED_PROPERTIES);
-
-        try {
-            config.setFeature(ALLOW_UE_AND_NOTATION_EVENTS, false);
-        }
-        catch (XMLConfigurationException e) {
-            // it wasn't a recognized feature, so we don't worry about it
-        }
     }
 
     /**
@@ -1013,30 +1000,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     fXMLNSURIs = state;
                     return;
                 }
-
-                //
-                // Read only features.
-                //
-
-                // http://xml.org/sax/features/is-standalone
-                //   reports whether the document specified a standalone document declaration.
-                // http://xml.org/sax/features/use-attributes2
-                //   reports whether Attributes objects passed to startElement also implement
-                //   the org.xml.sax.ext.Attributes2 interface.
-                // http://xml.org/sax/features/use-locator2
-                //   reports whether Locator objects passed to setDocumentLocator also implement
-                //   the org.xml.sax.ext.Locator2 interface.
-                // http://xml.org/sax/features/xml-1.1
-                //   reports whether the parser supports both XML 1.1 and XML 1.0.
-                if ((suffixLength == Constants.IS_STANDALONE_FEATURE.length() &&
-                    featureId.endsWith(Constants.IS_STANDALONE_FEATURE)) ||
-                    (suffixLength == Constants.USE_ATTRIBUTES2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_ATTRIBUTES2_FEATURE)) ||
-                    (suffixLength == Constants.USE_LOCATOR2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_LOCATOR2_FEATURE))) {
-                    throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage("feature-read-only", new Object [] {featureId}));
-                }
             }
 
             fConfiguration.setFeature(featureId, state);
@@ -1100,14 +1063,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     return true;
                 }
 
-                // http://xml.org/sax/features/is-standalone
-                //   reports whether the document specified a standalone document declaration.
-                //
-                if (suffixLength == Constants.IS_STANDALONE_FEATURE.length() &&
-                    featureId.endsWith(Constants.IS_STANDALONE_FEATURE)) {
-                    return fStandalone;
-                }
-
                 // http://xml.org/sax/features/lexical-handler/parameter-entities
                 //   controls whether the beginning and end of parameter entities
                 //   will be reported to the LexicalHandler.
@@ -1143,20 +1098,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     // REVISIT: Allow this feature to be set once Unicode normalization
                     // checking is supported -- mrglavas.
                     return false;
-                }
-
-                // http://xml.org/sax/features/use-attributes2
-                //   reports whether Attributes objects passed to startElement also implement
-                //   the org.xml.sax.ext.Attributes2 interface.
-                // http://xml.org/sax/features/use-locator2
-                //   reports whether Locator objects passed to setDocumentLocator also implement
-                //   the org.xml.sax.ext.Locator2 interface.
-                //
-                if ((suffixLength == Constants.USE_ATTRIBUTES2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_ATTRIBUTES2_FEATURE)) ||
-                    (suffixLength == Constants.USE_LOCATOR2_FEATURE.length() &&
-                    featureId.endsWith(Constants.USE_LOCATOR2_FEATURE))) {
-                    return true;
                 }
             }
 
@@ -1434,7 +1375,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         implements Locator2 {
 
         /** XML locator. */
-        protected final XMLLocator fLocator;
+        private final XMLLocator fLocator;
 
         // Constructs an XML locator proxy.
         public LocatorProxy(XMLLocator locator) {
@@ -1493,7 +1434,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final class AttributesProxy implements Attributes2 {
 
         /** XML attributes. */
-        protected XMLAttributes fAttributes;
+        private XMLAttributes fAttributes;
 
         // Sets the XML attributes.
         public void setAttributes(XMLAttributes attributes) {

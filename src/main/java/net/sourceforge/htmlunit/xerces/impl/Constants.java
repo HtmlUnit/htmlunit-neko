@@ -51,26 +51,14 @@ public final class Constants {
     /** Lexical handler parameter entities feature ("lexical-handler/parameter-entities"). */
     public static final String LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE = "lexical-handler/parameter-entities";
 
-    /** Is standalone feature ("is-standalone"). */
-    public static final String IS_STANDALONE_FEATURE = "is-standalone";
-
     /** Resolve DTD URIs feature ("resolve-dtd-uris"). */
     public static final String RESOLVE_DTD_URIS_FEATURE = "resolve-dtd-uris";
-
-    /** Use Attributes2 feature ("use-attributes2"). */
-    public static final String USE_ATTRIBUTES2_FEATURE = "use-attributes2";
-
-    /** Use Locator2 feature ("use-locator2"). */
-    public static final String USE_LOCATOR2_FEATURE = "use-locator2";
 
     /** Unicode normalization checking feature ("unicode-normalization-checking"). */
     public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "unicode-normalization-checking";
 
     /** xmlns URIs feature ("xmlns-uris"). */
     public static final String XMLNS_URIS_FEATURE = "xmlns-uris";
-
-    /** Allow unparsed entity and notation declaration events to be sent after the end DTD event ("allow-dtd-events-after-endDTD") */
-    public static final String ALLOW_DTD_EVENTS_AFTER_ENDDTD_FEATURE = "allow-dtd-events-after-endDTD";
 
     // sax properties
 
@@ -149,27 +137,6 @@ public final class Constants {
 
     /** Xerces features prefix ("http://apache.org/xml/features/"). */
     public static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
-
-    /** Schema validation feature ("validation/schema"). */
-    public static final String SCHEMA_VALIDATION_FEATURE = "validation/schema";
-
-    /** Expose schema normalized values */
-    public static final String SCHEMA_NORMALIZED_VALUE = "validation/schema/normalized-value";
-
-    /** Send schema default value via characters() */
-    public static final String SCHEMA_ELEMENT_DEFAULT = "validation/schema/element-default";
-
-    /** Schema full constraint checking ("validation/schema-full-checking"). */
-    public static final String SCHEMA_FULL_CHECKING = "validation/schema-full-checking";
-
-    /** Dynamic validation feature ("validation/dynamic"). */
-    public static final String DYNAMIC_VALIDATION_FEATURE = "validation/dynamic";
-
-    /** Warn on duplicate attribute declaration feature ("validation/warn-on-duplicate-attdef"). */
-    public static final String WARN_ON_DUPLICATE_ATTDEF_FEATURE = "validation/warn-on-duplicate-attdef";
-
-    /** Warn on undeclared element feature ("validation/warn-on-undeclared-elemdef"). */
-    public static final String WARN_ON_UNDECLARED_ELEMDEF_FEATURE = "validation/warn-on-undeclared-elemdef";
 
     /** Warn on duplicate entity declaration feature ("warn-on-duplicate-entitydef"). */
     public static final String WARN_ON_DUPLICATE_ENTITYDEF_FEATURE = "warn-on-duplicate-entitydef";
@@ -380,19 +347,12 @@ public final class Constants {
 
     /** Xerces features. */
     private static final String[] fgXercesFeatures = {
-            SCHEMA_VALIDATION_FEATURE,
-            SCHEMA_FULL_CHECKING,
-            DYNAMIC_VALIDATION_FEATURE,
-            WARN_ON_DUPLICATE_ATTDEF_FEATURE,
-            WARN_ON_UNDECLARED_ELEMDEF_FEATURE,
             ALLOW_JAVA_ENCODINGS_FEATURE,
             CONTINUE_AFTER_FATAL_ERROR_FEATURE,
             LOAD_DTD_GRAMMAR_FEATURE,
             LOAD_EXTERNAL_DTD_FEATURE,
-            //DEFER_NODE_EXPANSION_FEATURE,
             CREATE_ENTITY_REF_NODES_FEATURE,
             INCLUDE_IGNORABLE_WHITESPACE,
-            //GRAMMAR_ACCESS_FEATURE,
             DEFAULT_ATTRIBUTE_VALUES_FEATURE,
             VALIDATE_CONTENT_MODELS_FEATURE,
             VALIDATE_DATATYPES_FEATURE,

@@ -1457,8 +1457,8 @@ extends ParentNode implements Document  {
         if (source == null) {
             return null;
         }
-        else if (source != null && source.getOwnerDocument() != null) {
 
+        if (source.getOwnerDocument() != null) {
             DOMImplementation thisImpl = this.getImplementation();
             DOMImplementation otherImpl = source.getOwnerDocument().getImplementation();
 

@@ -44,16 +44,16 @@ public class ParserConfigurationSettings
             Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     /** Recognized properties. */
-    protected ArrayList<String> fRecognizedProperties;
+    protected final ArrayList<String> fRecognizedProperties;
 
     /** Properties. */
-    protected HashMap<String, Object> fProperties;
+    protected final HashMap<String, Object> fProperties;
 
     /** Recognized features. */
-    protected ArrayList<String> fRecognizedFeatures;
+    protected final ArrayList<String> fRecognizedFeatures;
 
     /** Features. */
-    protected HashMap<String, Boolean> fFeatures;
+    protected final HashMap<String, Boolean> fFeatures;
 
     // Constructs a parser configuration settings object with a
     // parent settings object.
