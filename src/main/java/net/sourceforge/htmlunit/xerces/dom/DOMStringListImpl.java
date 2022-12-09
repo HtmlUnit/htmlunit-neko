@@ -36,26 +36,11 @@ public class DOMStringListImpl implements DOMStringList {
     private final ArrayList<String> fStrings;
 
     /**
-     * Construct an empty list of DOMStringListImpl
-     */
-    public DOMStringListImpl() {
-        fStrings = new ArrayList<>();
-    }
-
-    /**
      * Construct a DOMStringListImpl from an ArrayList
      * @param params params
      */
     public DOMStringListImpl(ArrayList<String> params) {
         fStrings = params;
-    }
-
-    /**
-     * Construct a DOMStringListImpl from a Vector
-     * @param params params
-     */
-    public DOMStringListImpl(Vector<String> params) {
-        fStrings = new ArrayList<>(params);
     }
 
     /**

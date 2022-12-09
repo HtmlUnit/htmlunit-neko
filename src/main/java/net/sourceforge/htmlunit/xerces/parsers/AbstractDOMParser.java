@@ -24,7 +24,6 @@ import java.util.Stack;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
-import org.w3c.dom.DOMError;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
@@ -44,7 +43,6 @@ import org.xml.sax.helpers.LocatorImpl;
 
 import net.sourceforge.htmlunit.xerces.dom.AttrImpl;
 import net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl;
-import net.sourceforge.htmlunit.xerces.dom.DOMErrorImpl;
 import net.sourceforge.htmlunit.xerces.dom.DOMMessageFormatter;
 import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
@@ -53,7 +51,6 @@ import net.sourceforge.htmlunit.xerces.dom.EntityReferenceImpl;
 import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
-import net.sourceforge.htmlunit.xerces.util.DOMErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
 import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
@@ -136,9 +133,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     private static final boolean DEBUG_EVENTS = false;
     private static final boolean DEBUG_BASEURI = false;
-
-    /** DOM L3 error handler */
-    protected final DOMErrorHandlerWrapper fErrorHandler = null;
 
     /** Create entity reference nodes. */
     protected boolean fCreateEntityRefNodes;
@@ -978,15 +972,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 }
             }
             else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
-
                 baseURI = fCurrentNode.getBaseURI ();
-                if (baseURI !=null && fErrorHandler != null) {
-                    DOMErrorImpl error = new DOMErrorImpl ();
-                    error.fType = "pi-base-uri-not-preserved";
-                    error.fRelatedData = baseURI;
-                    error.fSeverity = DOMError.SEVERITY_WARNING;
-                    fErrorHandler.getErrorHandler ().handleError (error);
-                }
             }
         }
     }

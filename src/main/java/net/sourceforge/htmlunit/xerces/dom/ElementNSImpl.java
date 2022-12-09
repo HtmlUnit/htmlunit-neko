@@ -141,12 +141,6 @@ public class ElementNSImpl
         this.namespaceURI = namespaceURI;
     }
 
-    // for DeferredElementImpl
-    protected ElementNSImpl(CoreDocumentImpl ownerDocument,
-                            String value) {
-        super(ownerDocument, value);
-    }
-
     // Support for DOM Level 3 renameNode method.
     // Note: This only deals with part of the pb. CoreDocumentImpl
     // does all the work.

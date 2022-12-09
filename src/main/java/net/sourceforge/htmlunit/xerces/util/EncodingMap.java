@@ -472,9 +472,6 @@ public class EncodingMap {
     /** fIANA2JavaMap */
     protected final static HashMap<String, String> fIANA2JavaMap = new HashMap<>();
 
-    /** fJava2IANAMap */
-    protected final static HashMap<String, String> fJava2IANAMap = new HashMap<>();
-
     static {
         // add IANA to Java encoding mappings.
         fIANA2JavaMap.put("BIG5",            "Big5");

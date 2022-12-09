@@ -79,9 +79,7 @@ public class DOMErrorHandlerWrapper
     }
 
 
-    public DOMErrorHandlerWrapper(DOMErrorHandler domErrorHandler) {
-        fDomErrorHandler = domErrorHandler;
-    } // DOMErrorHandlerWrapper(DOMErrorHandler domErrorHandler)
+    
 
 
     //

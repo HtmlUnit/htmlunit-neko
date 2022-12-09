@@ -103,9 +103,6 @@ extends ParentNode implements Document  {
     /** Identifiers. */
     protected Hashtable<String, Element> identifiers;
 
-    // DOM Level 3: normalizeDocument
-    DOMConfigurationImpl fConfiguration = null;
-
     /** Table for quick check of child insertion. */
     private final static int[] kidOK;
 
@@ -1036,10 +1033,7 @@ extends ParentNode implements Document  {
      */
     @Override
     public DOMConfiguration getDomConfig(){
-        if (fConfiguration == null) {
-            fConfiguration = new DOMConfigurationImpl();
-        }
-        return fConfiguration;
+        return null;
     }
 
 

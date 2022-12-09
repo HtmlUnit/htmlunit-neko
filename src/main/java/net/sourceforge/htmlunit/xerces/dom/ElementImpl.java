@@ -738,33 +738,6 @@ public class ElementImpl
 
     }
 
-    // NON-DOM: sets attribute node for this element
-    protected int setXercesAttributeNode (Attr attr){
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
-        if (attributes == null) {
-            attributes = new AttributeMap(this, null);
-        }
-        return attributes.addItem(attr);
-
-    }
-
-     // NON-DOM: get inded of an attribute
-    protected int getXercesAttribute(String namespaceURI, String localName){
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        if (attributes == null) {
-            return -1;
-        }
-        return attributes.getNamedItemIndex(namespaceURI, localName);
-
-    }
-
     /**
      * {@inheritDoc}
      *

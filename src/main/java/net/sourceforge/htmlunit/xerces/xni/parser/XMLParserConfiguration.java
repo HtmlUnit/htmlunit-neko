@@ -192,5 +192,43 @@ public interface XMLParserConfiguration extends XMLComponentManager {
      */
     XMLDocumentHandler getDocumentHandler();
 
-    // other settings
+    /**
+     * Sets the input source for the document to parse.
+     *
+     * @param inputSource The document's input source.
+     *
+     * @exception XMLConfigurationException Thrown if there is a
+     *                        configuration error when initializing the
+     *                        parser.
+     * @exception IOException Thrown on I/O error.
+     *
+     * @see #parse(boolean)
+     */
+    void setInputSource(XMLInputSource inputSource)
+        throws XMLConfigurationException, IOException;
+
+    /**
+     * Parses the document in a pull parsing fashion.
+     *
+     * @param complete True if the pull parser should parse the
+     *                 remaining document completely.
+     *
+     * @return True if there is more document to parse.
+     *
+     * @exception XNIException Any XNI exception, possibly wrapping
+     *                         another exception.
+     * @exception IOException  An IO exception from the parser, possibly
+     *                         from a byte stream or character stream
+     *                         supplied by the parser.
+     *
+     * @see #setInputSource
+     */
+    boolean parse(boolean complete) throws XNIException, IOException;
+
+    /**
+     * If the application decides to terminate parsing before the xml document
+     * is fully parsed, the application should call this method to free any
+     * resource allocated during parsing. For example, close all opened streams.
+     */
+    void cleanup();
 }

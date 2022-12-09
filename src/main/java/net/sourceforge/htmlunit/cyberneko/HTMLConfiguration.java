@@ -33,7 +33,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
+import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * An XNI-based parser configuration that can be used to parse HTML
@@ -68,9 +68,7 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLPullParserConfiguration;
  *
  * @author Andy Clark
  */
-public class HTMLConfiguration
-    extends ParserConfigurationSettings
-    implements XMLPullParserConfiguration {
+public class HTMLConfiguration extends ParserConfigurationSettings implements XMLParserConfiguration {
 
     //
     // Constants
