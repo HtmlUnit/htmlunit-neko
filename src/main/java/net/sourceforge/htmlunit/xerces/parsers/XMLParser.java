@@ -43,17 +43,12 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  */
 public abstract class XMLParser {
 
-    /** Property identifier: entity resolver. */
-    protected static final String ENTITY_RESOLVER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
-
     /** Property identifier: error handler. */
     protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
-        ENTITY_RESOLVER,
         ERROR_HANDLER,
     };
 

@@ -140,9 +140,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** DOM L3 error handler */
     protected final DOMErrorHandlerWrapper fErrorHandler = null;
 
-    /** True if inside DTD. */
-    protected boolean fInDTD;
-
     /** Create entity reference nodes. */
     protected boolean fCreateEntityRefNodes;
 
@@ -175,19 +172,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** Character buffer */
     protected final StringBuffer fStringBuffer = new StringBuffer (50);
 
-    // internal subset
-
-    /** Internal subset buffer. */
-    protected StringBuffer fInternalSubset;
-
-    // deferred expansion data
-
     protected boolean              fNamespaceAware;
-
-    // state
-
-    /** True if inside DTD external subset. */
-    protected boolean fInDTDExternalSubset;
 
     /** True if inside CDATA section. */
     protected boolean fInCDATASection;
@@ -292,18 +277,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Drops all references to the last DOM which was built by this parser.
-     */
-    public final void dropDocumentReferences() {
-        fDocument = null;
-        fDocumentImpl = null;
-        fDocumentType = null;
-        fCurrentNode = null;
-        fCurrentCDATASection = null;
-        fCurrentEntityDecl = null;
-    }
-
-    /**
      * Resets the parser state.
      *
      * @throws XNIException Thrown on initialization error.
@@ -327,8 +300,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCreateCDATANodes = fConfiguration.getFeature (CREATE_CDATA_NODES_FEATURE);
 
         // get property
-        setDocumentClassName ((String)
-        fConfiguration.getProperty (DOCUMENT_CLASS_NAME));
+        setDocumentClassName ((String) fConfiguration.getProperty (DOCUMENT_CLASS_NAME));
 
         // reset dom information
         fDocument = null;
@@ -340,8 +312,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fStringBuffer.setLength (0);
 
         // reset state information
-        fInDTD = false;
-        fInDTDExternalSubset = false;
         fInCDATASection = false;
         fFirstChunk = false;
         fCurrentCDATASection = null;
@@ -431,9 +401,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void textDecl (String version, String encoding, Augmentations augs) throws XNIException {
-        if (fInDTD){
-            return;
-        }
         if (fCurrentEntityDecl != null && !fFilterReject) {
             fCurrentEntityDecl.setXmlEncoding (encoding);
             if (version != null)
@@ -451,16 +418,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void comment (XMLString text, Augmentations augs) throws XNIException {
-        if (fInDTD) {
-            if (fInternalSubset != null && !fInDTDExternalSubset) {
-                fInternalSubset.append ("<!--");
-                if (text.length > 0) {
-                    fInternalSubset.append (text.ch, text.offset, text.length);
-                }
-                fInternalSubset.append ("-->");
-            }
-            return;
-        }
         if (!fIncludeComments || fFilterReject) {
             return;
         }
@@ -490,19 +447,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     @Override
     public void processingInstruction (String target, XMLString data, Augmentations augs)
     throws XNIException {
-
-        if (fInDTD) {
-            if (fInternalSubset != null && !fInDTDExternalSubset) {
-                fInternalSubset.append ("<?");
-                fInternalSubset.append (target);
-                if (data.length > 0) {
-                    fInternalSubset.append (' ').append (data.ch, data.offset, data.length);
-                }
-                fInternalSubset.append ("?>");
-            }
-            return;
-        }
-
         if (DEBUG_EVENTS) {
             System.out.println ("==>processingInstruction ("+target+")");
         }
@@ -772,7 +716,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 fCurrentCDATASection.appendData (text.toString ());
             }
         }
-        else if (!fInDTD) {
+        else {
             // if type is union (XML Schema) it is possible that we receive
             // character call with empty data
             if (text.length == 0) {

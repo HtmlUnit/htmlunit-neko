@@ -35,7 +35,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponent;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
@@ -120,10 +119,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     /** Property identifier: error handler. */
     protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
-
-    /** Property identifier: entity resolver. */
-    protected static final String ENTITY_RESOLVER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.ENTITY_RESOLVER_PROPERTY;
 
     //
     // Data
@@ -222,7 +217,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         final String[] recognizedProperties = {
             XML_STRING,
             ERROR_HANDLER,
-            ENTITY_RESOLVER,
             ERROR_REPORTER
         };
         addRecognizedProperties(recognizedProperties);
@@ -301,30 +295,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     } // getDocumentHandler():XMLDocumentHandler
-
-    /**
-     * Sets the resolver used to resolve external entities. The EntityResolver
-     * interface supports resolution of public and system identifiers.
-     *
-     * @param resolver The new entity resolver. Passing a null value will
-     *                 uninstall the currently installed resolver.
-     */
-    @Override
-    public void setEntityResolver(XMLEntityResolver resolver) {
-        fProperties.put(ENTITY_RESOLVER, resolver);
-    } // setEntityResolver(XMLEntityResolver)
-
-    /**
-     * Return the current entity resolver.
-     *
-     * @return The current entity resolver, or null if none
-     *         has been registered.
-     * @see #setEntityResolver
-     */
-    @Override
-    public XMLEntityResolver getEntityResolver() {
-        return (XMLEntityResolver)fProperties.get(ENTITY_RESOLVER);
-    } // getEntityResolver():XMLEntityResolver
 
     /**
      * Allow an application to register an error event handler.
@@ -505,17 +475,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
                     throw newTypeMismatchError(name);
                 }
             }
-            else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
-                if (value instanceof XMLEntityResolver || value == null) {
-                    try {
-                        setEntityResolver((XMLEntityResolver) value);
-                    }
-                    catch (XMLConfigurationException e) {}
-                }
-                else {
-                    throw newTypeMismatchError(name);
-                }
-            }
             else {
                 // REVISIT: check if this is a boolean parameter -- type mismatch should be thrown.
                 //parameter is not recognized
@@ -577,9 +536,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         }
         else if (name.equalsIgnoreCase(Constants.DOM_ERROR_HANDLER)) {
             return fErrorHandlerWrapper.getErrorHandler();
-        }
-        else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
-            return getEntityResolver();
         }
         else {
             throw newFeatureNotFoundError(name);
@@ -645,9 +601,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
         else if (name.equalsIgnoreCase(Constants.DOM_ERROR_HANDLER)) {
             return (value instanceof DOMErrorHandler) ? true : false ;
         }
-        else if (name.equalsIgnoreCase(ENTITY_RESOLVER)) {
-            return (value instanceof XMLEntityResolver) ? true : false;
-        }
         else {
             //false if the parameter is not recognized or the requested value is not supported.
             return false ;
@@ -689,9 +642,6 @@ public class DOMConfigurationImpl extends ParserConfigurationSettings
             parameters.add(Constants.DOM_ELEMENT_CONTENT_WHITESPACE);
 
             parameters.add(Constants.DOM_ERROR_HANDLER);
-
-            //Add recognized xerces features and properties
-            parameters.add(ENTITY_RESOLVER);
 
             fRecognizedParameters = new DOMStringListImpl(parameters);
         }

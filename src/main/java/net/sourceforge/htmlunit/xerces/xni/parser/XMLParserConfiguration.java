@@ -193,16 +193,4 @@ public interface XMLParserConfiguration extends XMLComponentManager {
     XMLDocumentHandler getDocumentHandler();
 
     // other settings
-
-    /**
-     * Sets the entity resolver.
-     *
-     * @param entityResolver The new entity resolver.
-     */
-    void setEntityResolver(XMLEntityResolver entityResolver);
-
-    /**
-     * @return the registered entity resolver.
-     */
-    XMLEntityResolver getEntityResolver();
 }

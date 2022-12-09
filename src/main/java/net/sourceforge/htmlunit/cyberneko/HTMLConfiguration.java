@@ -30,7 +30,6 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
-import net.sourceforge.htmlunit.xerces.xni.parser.XMLEntityResolver;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLErrorHandler;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
@@ -123,11 +122,6 @@ public class HTMLConfiguration
 
     /** Error handler. */
     protected XMLErrorHandler fErrorHandler;
-
-    // other settings
-
-    /** Entity resolver. */
-    protected XMLEntityResolver fEntityResolver;
 
     // state
 
@@ -317,18 +311,6 @@ public class HTMLConfiguration
     @Override
     public XMLErrorHandler getErrorHandler() {
         return fErrorHandler;
-    }
-
-    /** Sets the entity resolver. */
-    @Override
-    public void setEntityResolver(XMLEntityResolver resolver) {
-        fEntityResolver = resolver;
-    }
-
-    /** Returns the entity resolver. */
-    @Override
-    public XMLEntityResolver getEntityResolver() {
-        return fEntityResolver;
     }
 
     /** Parses a document. */

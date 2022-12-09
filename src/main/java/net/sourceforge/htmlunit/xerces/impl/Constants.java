@@ -313,9 +313,6 @@ public final class Constants {
     /** Input buffer size property ("input-buffer-size"). */
     public static final String BUFFER_SIZE_PROPERTY = "input-buffer-size";
 
-    /** Entity resolver property ("internal/entity-resolver"). */
-    public static final String ENTITY_RESOLVER_PROPERTY = "internal/entity-resolver";
-
     /** Document scanner property ("internal/document-scanner"). */
     public static final String DOCUMENT_SCANNER_PROPERTY = "internal/document-scanner";
 
@@ -427,7 +424,6 @@ public final class Constants {
             ERROR_HANDLER_PROPERTY,
             ERROR_REPORTER_PROPERTY,
             ENTITY_MANAGER_PROPERTY,
-            ENTITY_RESOLVER_PROPERTY,
             DOCUMENT_SCANNER_PROPERTY,
             BUFFER_SIZE_PROPERTY,
             ROOT_TYPE_DEFINITION_PROPERTY,
