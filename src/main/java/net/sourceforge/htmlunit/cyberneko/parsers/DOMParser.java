@@ -17,14 +17,14 @@
 package net.sourceforge.htmlunit.cyberneko.parsers;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
+import net.sourceforge.htmlunit.xerces.parsers.AbstractDOMParser;
 
 /**
  * A DOM parser for HTML documents.
  *
  * @author Andy Clark
  */
-public class DOMParser
-        extends net.sourceforge.htmlunit.xerces.parsers.DOMParser {
+public class DOMParser extends AbstractDOMParser {
 
     /** Default constructor. */
     public DOMParser() {

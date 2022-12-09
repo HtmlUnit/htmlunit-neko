@@ -45,9 +45,7 @@ public class ElementNSImpl
     /** DOM2: localName. */
     protected String localName;
 
-    /** DOM3: type information */
-
-     // DOM2: Constructor for Namespace implementation.
+    // DOM2: Constructor for Namespace implementation.
     protected ElementNSImpl(CoreDocumentImpl ownerDocument,
                             String namespaceURI,
                             String qualifiedName)
