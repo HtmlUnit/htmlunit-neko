@@ -39,14 +39,6 @@ import org.w3c.dom.events.Event;
  * objects. The Node objects created have a ownerDocument attribute
  * which associates them with the Document within whose context they
  * were created.
- * <p>
- * The DocumentImpl class also implements the DOM Level 2 DocumentTraversal
- * interface. This interface is comprised of factory methods needed to
- * create NodeIterators and TreeWalkers. The process of creating NodeIterator
- * objects also adds these references to this document.
- * After finishing with an iterator it is important to remove the object
- * using the remove methods in this implementation. This allows the release of
- * the references from the iterator objects to the DOM Nodes.
  *
  * @author Arnaud  Le Hors, IBM
  * @author Joe Kesselman, IBM
