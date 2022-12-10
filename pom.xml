@@ -89,8 +89,11 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.4.1</version>
                 <configuration>
+                    <doclint>none</doclint>
+                    <additionalparam>--allow-script-in-comments</additionalparam>
+                
                     <quiet>true</quiet>
-                    <doclint>html,missing,reference,syntax</doclint>
+                    <!--doclint>html,missing,reference,syntax<doclint-->
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>
                     <excludePackageNames>netscape:netscape.*</excludePackageNames>
