@@ -66,9 +66,10 @@ public class DOMFragmentParserTest {
             (DOMImplementationLS)registry.getDOMImplementation("LS");
 
         final LSSerializer writer = impl.createLSSerializer();
-        final String str = writer.writeToString(fragment);
+        String str = writer.writeToString(fragment);
+        str = str.replace("\r", "").replace("\n", "");
 
-        final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n";
+        final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>";
         assertEquals(xmlDecl + expected, str);
     }
 
