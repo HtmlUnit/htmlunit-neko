@@ -19,10 +19,14 @@
     <url>http://htmlunit.sourceforge.net</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <checkstyle.version>9.3</checkstyle.version>
+        <spotbugs.version>4.7.3</spotbugs.version>
+        <pmd.version>6.50.0</pmd.version>
     </properties>
 
     <dependencies>
@@ -112,6 +116,60 @@
                     </execution>
                 </executions>
             </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.7.3.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.19.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-core</artifactId>
+            <version>${pmd.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-java</artifactId>
+            <version>${pmd.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <rulesets>
+            <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
         </plugins>
     </build>
     <licenses>
@@ -122,6 +180,10 @@
         </license>
     </licenses>
 
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/HtmlUnit/neko-htmlunit/issues/</url>
+    </issueManagement>
     <scm>
         <connection>scm:git:git@github.com:HtmlUnit/htmlunit-neko.git</connection>
         <developerConnection>scm:git:git@github.com:HtmlUnit/htmlunit-neko.git</developerConnection>
@@ -132,6 +194,30 @@
         <system>Jenkins</system>
         <url>https://jenkins.wetator.org/view/HtmlUnit/</url>
     </ciManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <id>OSS Sonatype snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <developers>
         <developer>
@@ -166,28 +252,4 @@
             <url>www.markusheiden.de</url>
         </contributor>
     </contributors>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <id>OSS Sonatype snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
 </project>
