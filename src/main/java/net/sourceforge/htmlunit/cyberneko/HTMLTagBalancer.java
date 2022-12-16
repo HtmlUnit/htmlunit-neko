@@ -693,7 +693,7 @@ public class HTMLTagBalancer
                 // nothing, don't force HEAD or BODY creation for a document fragment
             }
             else if (fTemplateFragment
-            			&& fElementStack.data[fElementStack.top - 1].element.code == HTMLElements.TEMPLATE) {
+                        && fElementStack.data[fElementStack.top - 1].element.code == HTMLElements.TEMPLATE) {
                 // nothing, don't force/check parent for the direct template children
             }
             else if (!fSeenRootElement && !fDocumentFragment) {

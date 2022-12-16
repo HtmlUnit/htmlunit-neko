@@ -58,7 +58,7 @@ public class HTMLEntitiesTest {
             i++;
         }
 
-		// valid without semicolon at end
+        // valid without semicolon at end
         assertEquals("\u00CB", parser.getMatch());
         assertEquals(1, parser.getRewindCount());
         assertFalse(parser.endsWithSemicolon());
@@ -88,7 +88,7 @@ public class HTMLEntitiesTest {
             i++;
         }
 
-		// not valid without semicolon at end
+        // not valid without semicolon at end
         assertNull(parser.getMatch());
         assertEquals(5, parser.getRewindCount());
         assertFalse(parser.endsWithSemicolon());
