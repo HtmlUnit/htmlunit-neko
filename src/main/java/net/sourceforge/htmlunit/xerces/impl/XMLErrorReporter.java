@@ -161,8 +161,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Registers a message formatter for the specified domain.
      * <p>
      * <strong>Note:</strong> Registering a message formatter for a domain
@@ -179,8 +177,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Returns the message formatter associated with the specified domain,
      * or null if no message formatter is registered for that domain.
      *
@@ -191,8 +187,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Removes the message formatter for the specified domain and
      * returns the removed message formatter.
      *
@@ -203,8 +197,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Reports an error. The error message passed to the error handler
      * is formatted for the specified error domain.
      *
@@ -225,8 +217,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Reports an error. The error message passed to the error handler
      * is formatted for the specified error domain.
      *
@@ -248,8 +238,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Reports an error at a specific location.
      *
      * @param location  The error location.
@@ -271,8 +259,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Reports an error at a specific location.
      *
      * @param location  The error location.
@@ -353,8 +339,6 @@ public class XMLErrorReporter
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Resets the component. The component can query the component manager
      * about any features and properties that affect the operation of the
      * component.
