@@ -20,7 +20,6 @@ package net.sourceforge.htmlunit.xerces.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 
@@ -39,9 +38,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  */
 public class ParserConfigurationSettings
     implements XMLComponentManager {
-
-    protected static final String PARSER_SETTINGS =
-            Constants.XERCES_FEATURE_PREFIX + Constants.PARSER_SETTINGS;
 
     /** Recognized properties. */
     protected final ArrayList<String> fRecognizedProperties;

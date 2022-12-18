@@ -67,10 +67,10 @@ import java.util.Locale;
 
     private static final long serialVersionUID = -8343545858797571098L;
 
-/******************************************************************
-    * Constructs a <code>MalformedURIException</code> with no specified
-    * detail message.
-    ******************************************************************/
+    /******************************************************************
+     * Constructs a <code>MalformedURIException</code> with no specified
+     * detail message.
+     ******************************************************************/
     public MalformedURIException() {
       super();
     }

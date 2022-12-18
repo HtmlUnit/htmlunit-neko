@@ -247,13 +247,6 @@ public final class Constants {
     /** Feature to ignore errors caused by unparsed entities ("validation/unparsed-entity-checking") */
     public static final String UNPARSED_ENTITY_CHECKING_FEATURE = "validation/unparsed-entity-checking";
 
-    /** Internal performance related feature:
-     * false - the parser settings (features/properties) have not changed between 2 parses
-     * true - the parser settings have changed between 2 parses
-     * NOTE: this feature should only be set by the parser configuration.
-     */
-    public static final String PARSER_SETTINGS = "internal/parser-settings";
-
     // xerces properties
 
     /** Xerces properties prefix ("http://apache.org/xml/properties/"). */
@@ -261,9 +254,6 @@ public final class Constants {
 
     /** Current element node property ("dom/current-element-node"). */
     public static final String CURRENT_ELEMENT_NODE_PROPERTY = "dom/current-element-node";
-
-    /** Document class name property ("dom/document-class-name"). */
-    public static final String DOCUMENT_CLASS_NAME_PROPERTY = "dom/document-class-name";
 
     /** Symbol table property ("internal/symbol-table"). */
     public static final String SYMBOL_TABLE_PROPERTY = "internal/symbol-table";
@@ -379,7 +369,6 @@ public final class Constants {
     /** Xerces properties. */
     private static final String[] fgXercesProperties = {
             CURRENT_ELEMENT_NODE_PROPERTY,
-            DOCUMENT_CLASS_NAME_PROPERTY,
             SYMBOL_TABLE_PROPERTY,
             ERROR_HANDLER_PROPERTY,
             ERROR_REPORTER_PROPERTY,

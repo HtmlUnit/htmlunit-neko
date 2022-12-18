@@ -19,7 +19,7 @@ package net.sourceforge.htmlunit.html.dom;
 
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.w3c.dom.Attr;
@@ -39,7 +39,6 @@ import org.w3c.dom.html.HTMLTitleElement;
 
 import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
-import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 
 /**
  * Implements an HTML document. Provides access to the top level element in the
@@ -116,7 +115,7 @@ public class HTMLDocumentImpl
      *
      * @see #createElement
      */
-    private static Hashtable<String, Class<?>> _elementTypesHTML;
+    private static HashMap<String, Class<? extends HTMLElementImpl>> _elementTypesHTML = new HashMap<>();
 
 
     /**
@@ -128,13 +127,77 @@ public class HTMLDocumentImpl
     private static final Class<?>[]    _elemClassSigHTML =
                 new Class[] { HTMLDocumentImpl.class, String.class };
 
+    static {
+        _elementTypesHTML.put("A", HTMLAnchorElementImpl.class);
+        _elementTypesHTML.put("APPLET", HTMLAppletElementImpl.class);
+        _elementTypesHTML.put("AREA", HTMLAreaElementImpl.class);
+        _elementTypesHTML.put("BASE",  HTMLBaseElementImpl.class);
+        _elementTypesHTML.put("BASEFONT", HTMLBaseFontElementImpl.class);
+        _elementTypesHTML.put("BLOCKQUOTE", HTMLQuoteElementImpl.class);
+        _elementTypesHTML.put("BODY", HTMLBodyElementImpl.class);
+        _elementTypesHTML.put("BR", HTMLBRElementImpl.class);
+        _elementTypesHTML.put("BUTTON", HTMLButtonElementImpl.class);
+        _elementTypesHTML.put("DEL", HTMLModElementImpl.class);
+        _elementTypesHTML.put("DIR", HTMLDirectoryElementImpl.class);
+        _elementTypesHTML.put("DIV",  HTMLDivElementImpl.class);
+        _elementTypesHTML.put("DL", HTMLDListElementImpl.class);
+        _elementTypesHTML.put("FIELDSET", HTMLFieldSetElementImpl.class);
+        _elementTypesHTML.put("FONT", HTMLFontElementImpl.class);
+        _elementTypesHTML.put("FORM", HTMLFormElementImpl.class);
+        _elementTypesHTML.put("FRAME", HTMLFrameElementImpl.class);
+        _elementTypesHTML.put("FRAMESET", HTMLFrameSetElementImpl.class);
+        _elementTypesHTML.put("HEAD", HTMLHeadElementImpl.class);
+        _elementTypesHTML.put("H1", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("H2", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("H3", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("H4", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("H5", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("H6", HTMLHeadingElementImpl.class);
+        _elementTypesHTML.put("HR", HTMLHRElementImpl.class);
+        _elementTypesHTML.put("HTML", HTMLHtmlElementImpl.class);
+        _elementTypesHTML.put("IFRAME", HTMLIFrameElementImpl.class);
+        _elementTypesHTML.put("IMG", HTMLImageElementImpl.class);
+        _elementTypesHTML.put("INPUT", HTMLInputElementImpl.class);
+        _elementTypesHTML.put("INS", HTMLModElementImpl.class);
+        _elementTypesHTML.put("ISINDEX", HTMLIsIndexElementImpl.class);
+        _elementTypesHTML.put("LABEL", HTMLLabelElementImpl.class);
+        _elementTypesHTML.put("LEGEND", HTMLLegendElementImpl.class);
+        _elementTypesHTML.put("LI", HTMLLIElementImpl.class);
+        _elementTypesHTML.put("LINK", HTMLLinkElementImpl.class);
+        _elementTypesHTML.put("MAP", HTMLMapElementImpl.class);
+        _elementTypesHTML.put("MENU", HTMLMenuElementImpl.class);
+        _elementTypesHTML.put("META", HTMLMetaElementImpl.class);
+        _elementTypesHTML.put("OBJECT", HTMLObjectElementImpl.class);
+        _elementTypesHTML.put("OL", HTMLOListElementImpl.class);
+        _elementTypesHTML.put("OPTGROUP", HTMLOptGroupElementImpl.class);
+        _elementTypesHTML.put("OPTION", HTMLOptionElementImpl.class);
+        _elementTypesHTML.put("P", HTMLParagraphElementImpl.class);
+        _elementTypesHTML.put("PARAM", HTMLParamElementImpl.class);
+        _elementTypesHTML.put("PRE", HTMLPreElementImpl.class);
+        _elementTypesHTML.put("Q", HTMLQuoteElementImpl.class);
+        _elementTypesHTML.put("SCRIPT", HTMLScriptElementImpl.class);
+        _elementTypesHTML.put("SELECT", HTMLSelectElementImpl.class);
+        _elementTypesHTML.put("STYLE", HTMLStyleElementImpl.class);
+        _elementTypesHTML.put("TABLE", HTMLTableElementImpl.class);
+        _elementTypesHTML.put("CAPTION", HTMLTableCaptionElementImpl.class);
+        _elementTypesHTML.put("TD", HTMLTableCellElementImpl.class);
+        _elementTypesHTML.put("TH", HTMLTableCellElementImpl.class);
+        _elementTypesHTML.put("COL", HTMLTableColElementImpl.class);
+        _elementTypesHTML.put("COLGROUP", HTMLTableColElementImpl.class);
+        _elementTypesHTML.put("TR", HTMLTableRowElementImpl.class);
+        _elementTypesHTML.put("TBODY", HTMLTableSectionElementImpl.class);
+        _elementTypesHTML.put("THEAD", HTMLTableSectionElementImpl.class);
+        _elementTypesHTML.put("TFOOT", HTMLTableSectionElementImpl.class);
+        _elementTypesHTML.put("TEXTAREA", HTMLTextAreaElementImpl.class);
+        _elementTypesHTML.put("TITLE", HTMLTitleElementImpl.class);
+        _elementTypesHTML.put("UL", HTMLUListElementImpl.class);
+    }
 
     /**
      */
     public HTMLDocumentImpl()
     {
         super();
-        populateElementTypes();
     }
 
 
@@ -677,106 +740,5 @@ public class HTMLDocumentImpl
         }
         return null;
     }
-
-
-    /**
-     * Called by the constructor to populate the element types list (see {@link
-     * #_elementTypesHTML}). Will be called multiple times but populate the list
-     * only the first time. Replacement for static constructor.
-     */
-    private synchronized static void populateElementTypes()
-    {
-        // This class looks like it is due to some strange
-        // (read: inconsistent) JVM bugs.
-        // Initially all this code was placed in the static constructor,
-        // but that caused some early JVMs (1.1) to go mad, and if a
-        // class could not be found (as happened during development),
-        // the JVM would die.
-        // Bertrand Delacretaz <bdelacretaz@worldcom.ch> pointed out
-        // several configurations where HTMLAnchorElementImpl.class
-        // failed, forcing me to revert back to Class.forName().
-
-        if ( _elementTypesHTML != null )
-            return;
-        _elementTypesHTML = new Hashtable<>( 63 );
-        populateElementType( "A", "HTMLAnchorElementImpl" );
-        populateElementType( "APPLET", "HTMLAppletElementImpl" );
-        populateElementType( "AREA", "HTMLAreaElementImpl" );
-        populateElementType( "BASE",  "HTMLBaseElementImpl" );
-        populateElementType( "BASEFONT", "HTMLBaseFontElementImpl" );
-        populateElementType( "BLOCKQUOTE", "HTMLQuoteElementImpl" );
-        populateElementType( "BODY", "HTMLBodyElementImpl" );
-        populateElementType( "BR", "HTMLBRElementImpl" );
-        populateElementType( "BUTTON", "HTMLButtonElementImpl" );
-        populateElementType( "DEL", "HTMLModElementImpl" );
-        populateElementType( "DIR", "HTMLDirectoryElementImpl" );
-        populateElementType( "DIV",  "HTMLDivElementImpl" );
-        populateElementType( "DL", "HTMLDListElementImpl" );
-        populateElementType( "FIELDSET", "HTMLFieldSetElementImpl" );
-        populateElementType( "FONT", "HTMLFontElementImpl" );
-        populateElementType( "FORM", "HTMLFormElementImpl" );
-        populateElementType( "FRAME","HTMLFrameElementImpl" );
-        populateElementType( "FRAMESET", "HTMLFrameSetElementImpl" );
-        populateElementType( "HEAD", "HTMLHeadElementImpl" );
-        populateElementType( "H1", "HTMLHeadingElementImpl" );
-        populateElementType( "H2", "HTMLHeadingElementImpl" );
-        populateElementType( "H3", "HTMLHeadingElementImpl" );
-        populateElementType( "H4", "HTMLHeadingElementImpl" );
-        populateElementType( "H5", "HTMLHeadingElementImpl" );
-        populateElementType( "H6", "HTMLHeadingElementImpl" );
-        populateElementType( "HR", "HTMLHRElementImpl" );
-        populateElementType( "HTML", "HTMLHtmlElementImpl" );
-        populateElementType( "IFRAME", "HTMLIFrameElementImpl" );
-        populateElementType( "IMG", "HTMLImageElementImpl" );
-        populateElementType( "INPUT", "HTMLInputElementImpl" );
-        populateElementType( "INS", "HTMLModElementImpl" );
-        populateElementType( "ISINDEX", "HTMLIsIndexElementImpl" );
-        populateElementType( "LABEL", "HTMLLabelElementImpl" );
-        populateElementType( "LEGEND", "HTMLLegendElementImpl" );
-        populateElementType( "LI", "HTMLLIElementImpl" );
-        populateElementType( "LINK", "HTMLLinkElementImpl" );
-        populateElementType( "MAP", "HTMLMapElementImpl" );
-        populateElementType( "MENU", "HTMLMenuElementImpl" );
-        populateElementType( "META", "HTMLMetaElementImpl" );
-        populateElementType( "OBJECT", "HTMLObjectElementImpl" );
-        populateElementType( "OL", "HTMLOListElementImpl" );
-        populateElementType( "OPTGROUP", "HTMLOptGroupElementImpl" );
-        populateElementType( "OPTION", "HTMLOptionElementImpl" );
-        populateElementType( "P", "HTMLParagraphElementImpl" );
-        populateElementType( "PARAM", "HTMLParamElementImpl" );
-        populateElementType( "PRE", "HTMLPreElementImpl" );
-        populateElementType( "Q", "HTMLQuoteElementImpl" );
-        populateElementType( "SCRIPT", "HTMLScriptElementImpl" );
-        populateElementType( "SELECT", "HTMLSelectElementImpl" );
-        populateElementType( "STYLE", "HTMLStyleElementImpl" );
-        populateElementType( "TABLE", "HTMLTableElementImpl" );
-        populateElementType( "CAPTION", "HTMLTableCaptionElementImpl" );
-        populateElementType( "TD", "HTMLTableCellElementImpl" );
-        populateElementType( "TH", "HTMLTableCellElementImpl" );
-        populateElementType( "COL", "HTMLTableColElementImpl" );
-        populateElementType( "COLGROUP", "HTMLTableColElementImpl" );
-        populateElementType( "TR", "HTMLTableRowElementImpl" );
-        populateElementType( "TBODY", "HTMLTableSectionElementImpl" );
-        populateElementType( "THEAD", "HTMLTableSectionElementImpl" );
-        populateElementType( "TFOOT", "HTMLTableSectionElementImpl" );
-        populateElementType( "TEXTAREA", "HTMLTextAreaElementImpl" );
-        populateElementType( "TITLE", "HTMLTitleElementImpl" );
-        populateElementType( "UL", "HTMLUListElementImpl" );
-    }
-
-
-    private static void populateElementType( String tagName, String className )
-    {
-        try {
-            _elementTypesHTML.put( tagName,
-                ObjectFactory.findProviderClass("net.sourceforge.htmlunit.html.dom." + className,
-                    HTMLDocumentImpl.class.getClassLoader(), true) );
-        } catch ( Exception except ) {
-            throw new RuntimeException( "HTM019 OpenXML Error: Could not find or execute class " + className + " implementing HTML element " + tagName
-                                  + "\n" + className + "\t" + tagName);
-        }
-    }
-
-
 }
 

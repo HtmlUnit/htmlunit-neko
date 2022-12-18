@@ -17,6 +17,7 @@
 package net.sourceforge.htmlunit.cyberneko.parsers;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
+import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.parsers.AbstractDOMParser;
 
 /**
@@ -27,17 +28,7 @@ import net.sourceforge.htmlunit.xerces.parsers.AbstractDOMParser;
 public class DOMParser extends AbstractDOMParser {
 
     /** Default constructor. */
-    public DOMParser() {
-        super(new HTMLConfiguration());
-        try {
-            setProperty("http://apache.org/xml/properties/dom/document-class-name",
-                                       "net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl");
-        }
-        catch (final org.xml.sax.SAXNotRecognizedException e) {
-            throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not recognized");
-        }
-        catch (final org.xml.sax.SAXNotSupportedException e) {
-            throw new RuntimeException("http://apache.org/xml/properties/dom/document-class-name property not supported");
-        }
+    public DOMParser(Class<? extends DocumentImpl> documentClass) {
+        super(new HTMLConfiguration(), documentClass);
     }
 }

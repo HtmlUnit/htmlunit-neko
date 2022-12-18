@@ -77,12 +77,6 @@ public class DOMLocatorImpl implements DOMLocator {
    public DOMLocatorImpl(){
    }
 
-   public DOMLocatorImpl (int lineNumber, int columnNumber, String uri ){
-    fLineNumber = lineNumber ;
-    fColumnNumber = columnNumber ;
-    fUri = uri;
-   } // DOMLocatorImpl (int lineNumber, int columnNumber, String uri )
-
    public DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri ){
     fLineNumber = lineNumber ;
     fColumnNumber = columnNumber ;
@@ -90,25 +84,7 @@ public class DOMLocatorImpl implements DOMLocator {
     fUtf16Offset = utf16Offset;
    } // DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri )
 
-   public DOMLocatorImpl (int lineNumber, int columnNumber, int byteoffset, Node relatedData, String uri ){
-    fLineNumber = lineNumber ;
-    fColumnNumber = columnNumber ;
-    fByteOffset = byteoffset ;
-    fRelatedNode = relatedData ;
-    fUri = uri;
-   } // DOMLocatorImpl (int lineNumber, int columnNumber, int offset, Node errorNode, String uri )
-
-   public DOMLocatorImpl (int lineNumber, int columnNumber, int byteoffset, Node relatedData, String uri, int utf16Offset ){
-    fLineNumber = lineNumber ;
-    fColumnNumber = columnNumber ;
-    fByteOffset = byteoffset ;
-    fRelatedNode = relatedData ;
-    fUri = uri;
-    fUtf16Offset = utf16Offset;
-   } // DOMLocatorImpl (int lineNumber, int columnNumber, int offset, Node errorNode, String uri )
-
-
-  /**
+   /**
    * The line number where the error occured, or -1 if there is no line
    * number available.
    */

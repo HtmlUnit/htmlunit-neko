@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import org.junit.jupiter.api.Test;
 
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
+import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
@@ -99,7 +100,7 @@ public class GeneralTest {
 
     public static void doTest(final String html, final String[] contextStack,
             final String expected, String... features) throws Exception {
-        final DOMParser parser = new DOMParser();
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         for (String feature : features) {
             parser.setFeature(feature, true);
         }

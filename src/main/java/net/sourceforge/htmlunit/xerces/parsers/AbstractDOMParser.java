@@ -52,7 +52,6 @@ import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;
-import net.sourceforge.htmlunit.xerces.util.ObjectFactory;
 import net.sourceforge.htmlunit.xerces.util.SAXMessageFormatter;
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
@@ -111,25 +110,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         INCLUDE_IGNORABLE_WHITESPACE
     };
 
-    /** Property id: document class name. */
-    protected static final String DOCUMENT_CLASS_NAME =
-    Constants.XERCES_PROPERTY_PREFIX + Constants.DOCUMENT_CLASS_NAME_PROPERTY;
-
     protected static final String  CURRENT_ELEMENT_NODE=
     Constants.XERCES_PROPERTY_PREFIX + Constants.CURRENT_ELEMENT_NODE_PROPERTY;
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
-        DOCUMENT_CLASS_NAME,
         CURRENT_ELEMENT_NODE,
     };
-
-    /** Default document class name. */
-    protected static final String DEFAULT_DOCUMENT_CLASS_NAME =
-    "net.sourceforge.htmlunit.xerces.dom.DocumentImpl";
-
-    protected static final String CORE_DOCUMENT_CLASS_NAME =
-    "net.sourceforge.htmlunit.xerces.dom.CoreDocumentImpl";
 
     private static final boolean DEBUG_EVENTS = false;
     private static final boolean DEBUG_BASEURI = false;
@@ -152,8 +139,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** The default Xerces document implementation, if used. */
     protected CoreDocumentImpl fDocumentImpl;
 
-    /** The document class name to use. */
-    protected String  fDocumentClassName;
+    /** The document class to use. */
+    protected Class<? extends DocumentImpl>  fDocumentClass;
 
     /** The document type node. */
     protected DocumentType fDocumentType;
@@ -194,7 +181,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     private XMLLocator fLocator;
 
     // Default constructor.
-    protected AbstractDOMParser (XMLParserConfiguration config) {
+    protected AbstractDOMParser (XMLParserConfiguration config, Class<? extends DocumentImpl> documentClass) {
         super (config);
 
         // add recognized features
@@ -209,16 +196,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // add recognized properties
         fConfiguration.addRecognizedProperties (RECOGNIZED_PROPERTIES);
 
-        // set default values
-        fConfiguration.setProperty (DOCUMENT_CLASS_NAME,
-        DEFAULT_DOCUMENT_CLASS_NAME);
-    }
-
-    /**
-     * @return the name of current document class.
-     */
-    protected String getDocumentClassName () {
-        return fDocumentClassName;
+        setDocumentClass(documentClass);
     }
 
     /**
@@ -235,34 +213,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @see #getDocumentClassName
      * @see #DEFAULT_DOCUMENT_CLASS_NAME
      */
-    protected void setDocumentClassName (String documentClassName) {
-
-        // normalize class name
-        if (documentClassName == null) {
-            documentClassName = DEFAULT_DOCUMENT_CLASS_NAME;
-        }
-
-        if (!documentClassName.equals(DEFAULT_DOCUMENT_CLASS_NAME)) {
-            // verify that this class exists and is of the right type
-            try {
-                Class<?> _class = ObjectFactory.findProviderClass (documentClassName, ObjectFactory.findClassLoader (), true);
-                if (!Document.class.isAssignableFrom (_class)) {
-                    throw new IllegalArgumentException (
-                        DOMMessageFormatter.formatMessage(
-                        DOMMessageFormatter.DOM_DOMAIN,
-                        "InvalidDocumentClassName", new Object [] {documentClassName}));
-                }
-            }
-            catch (ClassNotFoundException e) {
-                throw new IllegalArgumentException (
-                    DOMMessageFormatter.formatMessage(
-                    DOMMessageFormatter.DOM_DOMAIN,
-                    "MissingDocumentClassName", new Object [] {documentClassName}));
-            }
-        }
-
-        // set document class name
-        fDocumentClassName = documentClassName;
+    protected void setDocumentClass(Class<? extends DocumentImpl> documentClass) {
+        fDocumentClass = documentClass;
     }
 
     /** @return the DOM document object. */
@@ -292,9 +244,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fIncludeComments = fConfiguration.getFeature (INCLUDE_COMMENTS_FEATURE);
 
         fCreateCDATANodes = fConfiguration.getFeature (CREATE_CDATA_NODES_FEATURE);
-
-        // get property
-        setDocumentClassName ((String) fConfiguration.getProperty (DOCUMENT_CLASS_NAME));
 
         // reset dom information
         fDocument = null;
@@ -483,7 +432,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     throws XNIException {
 
         fLocator = locator;
-        if (fDocumentClassName.equals (DEFAULT_DOCUMENT_CLASS_NAME)) {
+        if (fDocumentClass == null) {
             fDocument = new DocumentImpl ();
             fDocumentImpl = (CoreDocumentImpl)fDocument;
             // REVISIT: when DOM Level 3 is REC rely on Document.support
@@ -498,38 +447,26 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         else {
             // use specified document class
             try {
-                ClassLoader cl = ObjectFactory.findClassLoader();
-                Class<?> documentClass = ObjectFactory.findProviderClass (fDocumentClassName, cl, true);
-                fDocument = (Document) documentClass.newInstance ();
+                fDocument = fDocumentClass.newInstance ();
+                fDocumentImpl = (CoreDocumentImpl)fDocument;
 
-                // if subclass of our own class that's cool too
-                Class<?> defaultDocClass =
-                ObjectFactory.findProviderClass (CORE_DOCUMENT_CLASS_NAME,
-                    cl, true);
-                if (defaultDocClass.isAssignableFrom (documentClass)) {
-                    fDocumentImpl = (CoreDocumentImpl)fDocument;
-
-                    // REVISIT: when DOM Level 3 is REC rely on
-                    //          Document.support instead of specific class
-                    // set DOM error checking off
-                    fDocumentImpl.setStrictErrorChecking (false);
-                    // set actual encoding
-                    fDocumentImpl.setInputEncoding (encoding);
-                    // set documentURI
-                    if (locator != null) {
-                        fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
-                    }
+                // REVISIT: when DOM Level 3 is REC rely on
+                //          Document.support instead of specific class
+                // set DOM error checking off
+                fDocumentImpl.setStrictErrorChecking (false);
+                // set actual encoding
+                fDocumentImpl.setInputEncoding (encoding);
+                // set documentURI
+                if (locator != null) {
+                    fDocumentImpl.setDocumentURI (locator.getExpandedSystemId ());
                 }
-            }
-            catch (ClassNotFoundException e) {
-                // won't happen we already checked that earlier
             }
             catch (Exception e) {
                 throw new RuntimeException (
                     DOMMessageFormatter.formatMessage(
                     DOMMessageFormatter.DOM_DOMAIN,
                     "CannotCreateDocumentClass",
-                    new Object [] {fDocumentClassName}));
+                    new Object [] {fDocumentClass.getSimpleName()}));
             }
         }
         fCurrentNode = fDocument;
