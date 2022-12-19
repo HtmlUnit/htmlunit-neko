@@ -84,14 +84,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final String LEXICAL_HANDLER =
         Constants.SAX_PROPERTY_PREFIX + Constants.LEXICAL_HANDLER_PROPERTY;
 
-    /** Property id: DOM node. */
-    protected static final String DOM_NODE =
-        Constants.SAX_PROPERTY_PREFIX + Constants.DOM_NODE_PROPERTY;
-
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
         LEXICAL_HANDLER,
-        DOM_NODE,
     };
 
     //
@@ -1089,27 +1084,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     }
                     return;
                 }
-                //
-                // http://xml.org/sax/properties/dom-node
-                // Value type: DOM Node
-                // Access: read-only
-                //   Get the DOM node currently being visited, if the SAX parser is
-                //   iterating over a DOM tree.  If the parser recognises and
-                //   supports this property but is not currently visiting a DOM
-                //   node, it should return null (this is a good way to check for
-                //   availability before the parse begins).
-                // http://xml.org/sax/properties/document-xml-version
-                // Value type: java.lang.String
-                // Access: read-only
-                //   The literal string describing the actual XML version of the document.
-                //
-                if ((suffixLength == Constants.DOM_NODE_PROPERTY.length() &&
-                    propertyId.endsWith(Constants.DOM_NODE_PROPERTY)) ||
-                    (suffixLength == Constants.DOCUMENT_XML_VERSION_PROPERTY.length() &&
-                    propertyId.endsWith(Constants.DOCUMENT_XML_VERSION_PROPERTY))) {
-                    throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage("property-read-only", new Object [] {propertyId}));
-                }
             }
 
             fConfiguration.setProperty(propertyId, value);
@@ -1174,22 +1148,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 if (suffixLength == Constants.LEXICAL_HANDLER_PROPERTY.length() &&
                     propertyId.endsWith(Constants.LEXICAL_HANDLER_PROPERTY)) {
                     return getLexicalHandler();
-                }
-                //
-                // http://xml.org/sax/properties/dom-node
-                // Value type: DOM Node
-                // Access: read-only
-                //   Get the DOM node currently being visited, if the SAX parser is
-                //   iterating over a DOM tree.  If the parser recognises and
-                //   supports this property but is not currently visiting a DOM
-                //   node, it should return null (this is a good way to check for
-                //   availability before the parse begins).
-                //
-                if (suffixLength == Constants.DOM_NODE_PROPERTY.length() &&
-                    propertyId.endsWith(Constants.DOM_NODE_PROPERTY)) {
-                    // we are not iterating a DOM tree
-                    throw new SAXNotSupportedException(
-                        SAXMessageFormatter.formatMessage("dom-node-read-not-supported", null));
                 }
             }
 

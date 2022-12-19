@@ -50,9 +50,6 @@ public final class Constants {
     /** Lexical handler property ("lexical-handler"). */
     public static final String LEXICAL_HANDLER_PROPERTY = "lexical-handler";
 
-    /** DOM node property ("dom-node"). */
-    public static final String DOM_NODE_PROPERTY = "dom-node";
-
     /** Document XML version property ("document-xml-version"). */
     public static final String DOCUMENT_XML_VERSION_PROPERTY = "document-xml-version";
 
@@ -303,7 +300,6 @@ public final class Constants {
     /** SAX properties. */
     private static final String[] fgSAXProperties = {
             LEXICAL_HANDLER_PROPERTY,
-            DOM_NODE_PROPERTY,
     };
 
     /** Xerces features. */
