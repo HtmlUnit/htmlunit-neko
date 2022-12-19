@@ -73,14 +73,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final String NAMESPACES =
         Constants.SAX_FEATURE_PREFIX + Constants.NAMESPACES_FEATURE;
 
-    /** Feature id: string interning. */
-    protected static final String STRING_INTERNING =
-        Constants.SAX_FEATURE_PREFIX + Constants.STRING_INTERNING_FEATURE;
-
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
         NAMESPACES,
-        STRING_INTERNING,
     };
 
     // properties
@@ -943,19 +938,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     return;
                 }
 
-                // http://xml.org/sax/features/string-interning
-                //   controls the use of java.lang.String#intern() for strings
-                //   passed to SAX handlers.
-                //
-                if (suffixLength == Constants.STRING_INTERNING_FEATURE.length() &&
-                    featureId.endsWith(Constants.STRING_INTERNING_FEATURE)) {
-                    if (!state) {
-                        throw new SAXNotSupportedException(
-                            SAXMessageFormatter.formatMessage("false-not-supported", new Object [] {featureId}));
-                    }
-                    return;
-                }
-
                 // http://xml.org/sax/features/lexical-handler/parameter-entities
                 //   controls whether the beginning and end of parameter entities
                 //   will be reported to the LexicalHandler.
@@ -1053,14 +1035,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 if (suffixLength == Constants.NAMESPACE_PREFIXES_FEATURE.length() &&
                     featureId.endsWith(Constants.NAMESPACE_PREFIXES_FEATURE)) {
                     return fNamespacePrefixes;
-                }
-                // http://xml.org/sax/features/string-interning
-                //   controls the use of java.lang.String#intern() for strings
-                //   passed to SAX handlers.
-                //
-                if (suffixLength == Constants.STRING_INTERNING_FEATURE.length() &&
-                    featureId.endsWith(Constants.STRING_INTERNING_FEATURE)) {
-                    return true;
                 }
 
                 // http://xml.org/sax/features/lexical-handler/parameter-entities

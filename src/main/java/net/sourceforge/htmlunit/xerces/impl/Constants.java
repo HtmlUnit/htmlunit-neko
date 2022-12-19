@@ -36,12 +36,6 @@ public final class Constants {
     /** Namespace prefixes feature ("namespace-prefixes"). */
     public static final String NAMESPACE_PREFIXES_FEATURE = "namespace-prefixes";
 
-    /** String interning feature ("string-interning"). */
-    public static final String STRING_INTERNING_FEATURE = "string-interning";
-
-    /** Validation feature ("validation"). */
-    public static final String VALIDATION_FEATURE = "validation";
-
     /** External general entities feature ("external-general-entities "). */
     public static final String EXTERNAL_GENERAL_ENTITIES_FEATURE = "external-general-entities";
 
@@ -322,8 +316,6 @@ public final class Constants {
     private static final String[] fgSAXFeatures = {
             NAMESPACES_FEATURE,
             NAMESPACE_PREFIXES_FEATURE,
-            STRING_INTERNING_FEATURE,
-            VALIDATION_FEATURE,
             EXTERNAL_GENERAL_ENTITIES_FEATURE,
             EXTERNAL_PARAMETER_ENTITIES_FEATURE,
     };
