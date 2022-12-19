@@ -117,12 +117,6 @@ public final class Constants {
     /** Warn on duplicate entity declaration feature ("warn-on-duplicate-entitydef"). */
     public static final String WARN_ON_DUPLICATE_ENTITYDEF_FEATURE = "warn-on-duplicate-entitydef";
 
-    /** Allow Java encoding names feature ("allow-java-encodings"). */
-    public static final String ALLOW_JAVA_ENCODINGS_FEATURE = "allow-java-encodings";
-
-    /** Disallow DOCTYPE declaration feature ("disallow-doctype-decl"). */
-    public static final String DISALLOW_DOCTYPE_DECL_FEATURE = "disallow-doctype-decl";
-
     /** Continue after fatal error feature ("continue-after-fatal-error"). */
     public static final String CONTINUE_AFTER_FATAL_ERROR_FEATURE = "continue-after-fatal-error";
 
@@ -259,13 +253,11 @@ public final class Constants {
 
     /** Xerces features. */
     private static final String[] fgXercesFeatures = {
-            ALLOW_JAVA_ENCODINGS_FEATURE,
             CONTINUE_AFTER_FATAL_ERROR_FEATURE,
             CREATE_ENTITY_REF_NODES_FEATURE,
             INCLUDE_IGNORABLE_WHITESPACE,
             NOTIFY_CHAR_REFS_FEATURE,
             NOTIFY_BUILTIN_REFS_FEATURE,
-            DISALLOW_DOCTYPE_DECL_FEATURE,
             STANDARD_URI_CONFORMANT_FEATURE,
             XINCLUDE_FEATURE,
             XINCLUDE_FIXUP_BASE_URIS_FEATURE,
