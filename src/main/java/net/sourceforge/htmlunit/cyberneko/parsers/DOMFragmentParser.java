@@ -88,14 +88,9 @@ public class DOMFragmentParser
     protected static final String ERROR_HANDLER =
         Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
-    /** Current element node. */
-    protected static final String CURRENT_ELEMENT_NODE =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.CURRENT_ELEMENT_NODE_PROPERTY;
-
     /** Recognized properties. */
     protected static final String[] RECOGNIZED_PROPERTIES = {
         ERROR_HANDLER,
-        CURRENT_ELEMENT_NODE,
     };
 
     //
@@ -309,40 +304,6 @@ public class DOMFragmentParser
 
         try {
             fParserConfiguration.setProperty(propertyId, value);
-        }
-        catch (final XMLConfigurationException e) {
-            final String message = e.getMessage();
-            if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
-                throw new SAXNotRecognizedException(message);
-            }
-            throw new SAXNotSupportedException(message);
-        }
-    }
-
-    /**
-     * Query the value of a property.
-     * <p>
-     * Return the current value of a property in a SAX2 parser.
-     * The parser might not recognize the property.
-     *
-     * @param propertyId The unique identifier (URI) of the property
-     *                   being set.
-     * @return The current value of the property.
-     * @exception org.xml.sax.SAXNotRecognizedException If the
-     *            requested property is not known.
-     * @exception SAXNotSupportedException If the
-     *            requested property is known but not supported.
-     */
-    public Object getProperty(String propertyId)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
-
-        if (propertyId.equals(CURRENT_ELEMENT_NODE)) {
-            return (fCurrentNode!=null &&
-                    fCurrentNode.getNodeType() == Node.ELEMENT_NODE)? fCurrentNode:null;
-        }
-
-        try {
-            return fParserConfiguration.getProperty(propertyId);
         }
         catch (final XMLConfigurationException e) {
             final String message = e.getMessage();

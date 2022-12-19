@@ -110,12 +110,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         INCLUDE_IGNORABLE_WHITESPACE
     };
 
-    protected static final String  CURRENT_ELEMENT_NODE=
-    Constants.XERCES_PROPERTY_PREFIX + Constants.CURRENT_ELEMENT_NODE_PROPERTY;
-
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
-        CURRENT_ELEMENT_NODE,
     };
 
     private static final boolean DEBUG_EVENTS = false;
@@ -1278,45 +1274,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         try {
             fConfiguration.setProperty(propertyId, value);
-        }
-        catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
-            if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
-                throw new SAXNotRecognizedException(
-                    SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
-            }
-            else {
-                throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
-            }
-        }
-
-    }
-
-    /**
-     * Query the value of a property.
-     * <p>
-     * Return the current value of a property in a SAX2 parser.
-     * The parser might not recognize the property.
-     *
-     * @param propertyId The unique identifier (URI) of the property
-     *                   being set.
-     * @return The current value of the property.
-     * @exception org.xml.sax.SAXNotRecognizedException If the
-     *            requested property is not known.
-     * @exception SAXNotSupportedException If the
-     *            requested property is known but not supported.
-     */
-    public Object getProperty(String propertyId)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
-
-       if (propertyId.equals(CURRENT_ELEMENT_NODE)) {
-           return (fCurrentNode!=null &&
-                   fCurrentNode.getNodeType() == Node.ELEMENT_NODE)? fCurrentNode:null;
-       }
-
-        try {
-            return fConfiguration.getProperty(propertyId);
         }
         catch (XMLConfigurationException e) {
             String identifier = e.getIdentifier();

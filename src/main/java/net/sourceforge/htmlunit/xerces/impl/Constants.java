@@ -231,9 +231,6 @@ public final class Constants {
     /** Xerces properties prefix ("http://apache.org/xml/properties/"). */
     public static final String XERCES_PROPERTY_PREFIX = "http://apache.org/xml/properties/";
 
-    /** Current element node property ("dom/current-element-node"). */
-    public static final String CURRENT_ELEMENT_NODE_PROPERTY = "dom/current-element-node";
-
     /** Symbol table property ("internal/symbol-table"). */
     public static final String SYMBOL_TABLE_PROPERTY = "internal/symbol-table";
 
@@ -342,7 +339,6 @@ public final class Constants {
 
     /** Xerces properties. */
     private static final String[] fgXercesProperties = {
-            CURRENT_ELEMENT_NODE_PROPERTY,
             SYMBOL_TABLE_PROPERTY,
             ERROR_HANDLER_PROPERTY,
             ERROR_REPORTER_PROPERTY,
