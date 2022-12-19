@@ -63,10 +63,6 @@ public final class Constants {
     /** Create cdata nodes feature ("create-cdata-nodes"). */
     public static final String CREATE_CDATA_NODES_FEATURE = "create-cdata-nodes";
 
-    /** Feature id: load as infoset. */
-    public static final String LOAD_AS_INFOSET = "load-as-infoset";
-
-
     //
     // Constants: DOM Level 3 feature ids
     //
@@ -87,23 +83,8 @@ public final class Constants {
     public static final String DOM_SUPPORTED_MEDIATYPES_ONLY =
         "supported-media-types-only";
 
-    public static final String DOM_VALIDATE = "validate";
     public static final String DOM_ELEMENT_CONTENT_WHITESPACE =
         "element-content-whitespace";
-
-    // DOM Level 3 features defined in Core:
-    public static final String DOM_DISCARD_DEFAULT_CONTENT = "discard-default-content";
-    public static final String DOM_NORMALIZE_CHARACTERS    = "normalize-characters";
-    public static final String DOM_CHECK_CHAR_NORMALIZATION  = "check-character-normalization";
-    public static final String DOM_WELLFORMED  = "well-formed";
-    public static final String DOM_SPLIT_CDATA = "split-cdata-sections";
-
-    // Load and Save
-    public static final String DOM_FORMAT_PRETTY_PRINT = "format-pretty-print";
-    public static final String DOM_XMLDECL = "xml-declaration";
-    public static final String DOM_UNKNOWNCHARS = "unknown-characters";
-    public static final String DOM_DISALLOW_DOCTYPE =  "disallow-doctype";
-    public static final String DOM_IGNORE_UNKNOWN_CHARACTER_DENORMALIZATIONS =  "ignore-unknown-character-denormalizations";
 
     // DOM Properties
     public static final String DOM_ERROR_HANDLER = "error-handler";
