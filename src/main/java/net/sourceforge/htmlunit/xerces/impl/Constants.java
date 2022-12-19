@@ -36,12 +36,6 @@ public final class Constants {
     /** Namespace prefixes feature ("namespace-prefixes"). */
     public static final String NAMESPACE_PREFIXES_FEATURE = "namespace-prefixes";
 
-    /** External general entities feature ("external-general-entities "). */
-    public static final String EXTERNAL_GENERAL_ENTITIES_FEATURE = "external-general-entities";
-
-    /** External parameter entities feature ("external-parameter-entities "). */
-    public static final String EXTERNAL_PARAMETER_ENTITIES_FEATURE = "external-parameter-entities";
-
     /** Lexical handler parameter entities feature ("lexical-handler/parameter-entities"). */
     public static final String LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE = "lexical-handler/parameter-entities";
 
@@ -307,8 +301,6 @@ public final class Constants {
     private static final String[] fgSAXFeatures = {
             NAMESPACES_FEATURE,
             NAMESPACE_PREFIXES_FEATURE,
-            EXTERNAL_GENERAL_ENTITIES_FEATURE,
-            EXTERNAL_PARAMETER_ENTITIES_FEATURE,
     };
 
     /** SAX properties. */
