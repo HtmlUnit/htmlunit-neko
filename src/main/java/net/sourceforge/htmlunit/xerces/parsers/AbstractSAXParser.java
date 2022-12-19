@@ -112,9 +112,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Standalone document declaration. */
     protected boolean fStandalone;
 
-    /** Resolve DTD URIs. */
-    protected boolean fResolveDTDURIs = true;
-
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
 
@@ -948,16 +945,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     return;
                 }
 
-                // http://xml.org/sax/features/resolve-dtd-uris
-                //   controls whether system identifiers will be absolutized relative to
-                //   their base URIs before reporting.
-                //
-                if (suffixLength == Constants.RESOLVE_DTD_URIS_FEATURE.length() &&
-                    featureId.endsWith(Constants.RESOLVE_DTD_URIS_FEATURE)) {
-                    fResolveDTDURIs = state;
-                    return;
-                }
-
                 // http://xml.org/sax/features/unicode-normalization-checking
                 //   controls whether Unicode normalization checking is performed
                 //   as per Appendix B of the XML 1.1 specification
@@ -1044,14 +1031,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 if (suffixLength == Constants.LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE.length() &&
                     featureId.endsWith(Constants.LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE)) {
                     return fLexicalHandlerParameterEntities;
-                }
-
-                // http://xml.org/sax/features/resolve-dtd-uris
-                //   controls whether system identifiers will be absolutized relative to
-                //   their base URIs before reporting.
-                if (suffixLength == Constants.RESOLVE_DTD_URIS_FEATURE.length() &&
-                    featureId.endsWith(Constants.RESOLVE_DTD_URIS_FEATURE)) {
-                    return fResolveDTDURIs;
                 }
 
                 // http://xml.org/sax/features/xmlns-uris

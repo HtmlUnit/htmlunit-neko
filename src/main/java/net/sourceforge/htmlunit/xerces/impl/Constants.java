@@ -45,9 +45,6 @@ public final class Constants {
     /** Lexical handler parameter entities feature ("lexical-handler/parameter-entities"). */
     public static final String LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE = "lexical-handler/parameter-entities";
 
-    /** Resolve DTD URIs feature ("resolve-dtd-uris"). */
-    public static final String RESOLVE_DTD_URIS_FEATURE = "resolve-dtd-uris";
-
     /** Unicode normalization checking feature ("unicode-normalization-checking"). */
     public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "unicode-normalization-checking";
 
