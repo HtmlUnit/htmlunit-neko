@@ -48,9 +48,6 @@ public final class Constants {
     /** Unicode normalization checking feature ("unicode-normalization-checking"). */
     public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "unicode-normalization-checking";
 
-    /** xmlns URIs feature ("xmlns-uris"). */
-    public static final String XMLNS_URIS_FEATURE = "xmlns-uris";
-
     // sax properties
 
     /** SAX property prefix ("http://xml.org/sax/properties/"). */
@@ -61,9 +58,6 @@ public final class Constants {
 
     /** DOM node property ("dom-node"). */
     public static final String DOM_NODE_PROPERTY = "dom-node";
-
-    /** XML string property ("xml-string"). */
-    public static final String XML_STRING_PROPERTY = "xml-string";
 
     /** Document XML version property ("document-xml-version"). */
     public static final String DOCUMENT_XML_VERSION_PROPERTY = "document-xml-version";
@@ -321,7 +315,6 @@ public final class Constants {
     private static final String[] fgSAXProperties = {
             LEXICAL_HANDLER_PROPERTY,
             DOM_NODE_PROPERTY,
-            XML_STRING_PROPERTY,
     };
 
     /** Xerces features. */

@@ -115,12 +115,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Use EntityResolver2. */
     protected boolean fUseEntityResolver2 = true;
 
-    /**
-     * XMLNS URIs: Namespace declarations in the
-     * http://www.w3.org/2000/xmlns/ namespace.
-     */
-    protected boolean fXMLNSURIs = false;
-
     // parser handlers
 
     /** Content handler. */
@@ -959,16 +953,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     }
                     return;
                 }
-
-                // http://xml.org/sax/features/xmlns-uris
-                //   controls whether the parser reports that namespace declaration
-                //   attributes as being in the namespace: http://www.w3.org/2000/xmlns/
-                //
-                if (suffixLength == Constants.XMLNS_URIS_FEATURE.length() &&
-                    featureId.endsWith(Constants.XMLNS_URIS_FEATURE)) {
-                    fXMLNSURIs = state;
-                    return;
-                }
             }
 
             fConfiguration.setFeature(featureId, state);
@@ -1031,15 +1015,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 if (suffixLength == Constants.LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE.length() &&
                     featureId.endsWith(Constants.LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE)) {
                     return fLexicalHandlerParameterEntities;
-                }
-
-                // http://xml.org/sax/features/xmlns-uris
-                //   controls whether the parser reports that namespace declaration
-                //   attributes as being in the namespace: http://www.w3.org/2000/xmlns/
-                //
-                if (suffixLength == Constants.XMLNS_URIS_FEATURE.length() &&
-                    featureId.endsWith(Constants.XMLNS_URIS_FEATURE)) {
-                    return fXMLNSURIs;
                 }
 
                 // http://xml.org/sax/features/unicode-normalization-checking
