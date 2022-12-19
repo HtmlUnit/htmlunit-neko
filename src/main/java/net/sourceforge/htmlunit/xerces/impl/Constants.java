@@ -126,12 +126,6 @@ public final class Constants {
     /** Continue after fatal error feature ("continue-after-fatal-error"). */
     public static final String CONTINUE_AFTER_FATAL_ERROR_FEATURE = "continue-after-fatal-error";
 
-    /** Load dtd grammar when nonvalidating feature ("nonvalidating/load-dtd-grammar"). */
-    public static final String LOAD_DTD_GRAMMAR_FEATURE = "nonvalidating/load-dtd-grammar";
-
-    /** Load external dtd when nonvalidating feature ("nonvalidating/load-external-dtd"). */
-    public static final String LOAD_EXTERNAL_DTD_FEATURE = "nonvalidating/load-external-dtd";
-
     /** Defer node expansion feature ("dom/defer-node-expansion"). */
     public static final String DEFER_NODE_EXPANSION_FEATURE = "dom/defer-node-expansion";
 
@@ -141,18 +135,6 @@ public final class Constants {
     /** Include ignorable whitespace feature ("dom/include-ignorable-whitespace"). */
     public static final String INCLUDE_IGNORABLE_WHITESPACE = "dom/include-ignorable-whitespace";
 
-    /** Default attribute values feature ("validation/default-attribute-values"). */
-    public static final String DEFAULT_ATTRIBUTE_VALUES_FEATURE = "validation/default-attribute-values";
-
-    /** Validate content models feature ("validation/validate-content-models"). */
-    public static final String VALIDATE_CONTENT_MODELS_FEATURE = "validation/validate-content-models";
-
-    /** Validate datatypes feature ("validation/validate-datatypes"). */
-    public static final String VALIDATE_DATATYPES_FEATURE = "validation/validate-datatypes";
-
-    /** Balance syntax trees feature ("validation/balance-syntax-trees"). */
-    public static final String BALANCE_SYNTAX_TREES = "validation/balance-syntax-trees";
-
     /** Notify character references feature (scanner/notify-char-refs"). */
     public static final String NOTIFY_CHAR_REFS_FEATURE = "scanner/notify-char-refs";
 
@@ -161,24 +143,6 @@ public final class Constants {
 
     /** Standard URI conformant feature ("standard-uri-conformant"). */
     public static final String STANDARD_URI_CONFORMANT_FEATURE = "standard-uri-conformant";
-
-    /** Generate synthetic annotations feature ("generate-synthetic-annotations"). */
-    public static final String GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE = "generate-synthetic-annotations";
-
-    /** Validate annotations feature ("validate-annotations"). */
-    public static final String VALIDATE_ANNOTATIONS_FEATURE = "validate-annotations";
-
-    /** Honour all schemaLocations feature ("honour-all-schemaLocations"). */
-    public static final String HONOUR_ALL_SCHEMALOCATIONS_FEATURE = "honour-all-schemaLocations";
-
-    /** Namespace growth feature ("namespace-growth"). */
-    public static final String NAMESPACE_GROWTH_FEATURE = "namespace-growth";
-
-    /** Tolerate duplicates feature ("internal/tolerate-duplicates"). */
-    public static final String TOLERATE_DUPLICATES_FEATURE = "internal/tolerate-duplicates";
-
-    /** String interned feature ("internal/strings-interned"). */
-    public static final String STRINGS_INTERNED_FEATURE = "internal/strings-interned";
 
     /** XInclude processing feature ("xinclude"). */
     public static final String XINCLUDE_FEATURE = "xinclude";
@@ -249,15 +213,6 @@ public final class Constants {
     /** Namespace binder property ("internal/namespace-binder"). */
     public static final String NAMESPACE_BINDER_PROPERTY = "internal/namespace-binder";
 
-    /** Namespace context property ("internal/namespace-context"). */
-    public static final String NAMESPACE_CONTEXT_PROPERTY = "internal/namespace-context";
-
-    /** Schema type for the root element in a document ("validation/schema/root-type-definition"). */
-    public static final String ROOT_TYPE_DEFINITION_PROPERTY = "validation/schema/root-type-definition";
-
-    /** Schema element declaration for the root element in a document ("validation/schema/root-element-declaration"). */
-    public static final String ROOT_ELEMENT_DECLARATION_PROPERTY = "validation/schema/root-element-declaration";
-
     // general constants
 
     /**
@@ -306,21 +261,12 @@ public final class Constants {
     private static final String[] fgXercesFeatures = {
             ALLOW_JAVA_ENCODINGS_FEATURE,
             CONTINUE_AFTER_FATAL_ERROR_FEATURE,
-            LOAD_DTD_GRAMMAR_FEATURE,
-            LOAD_EXTERNAL_DTD_FEATURE,
             CREATE_ENTITY_REF_NODES_FEATURE,
             INCLUDE_IGNORABLE_WHITESPACE,
-            DEFAULT_ATTRIBUTE_VALUES_FEATURE,
-            VALIDATE_CONTENT_MODELS_FEATURE,
-            VALIDATE_DATATYPES_FEATURE,
-            BALANCE_SYNTAX_TREES,
             NOTIFY_CHAR_REFS_FEATURE,
             NOTIFY_BUILTIN_REFS_FEATURE,
             DISALLOW_DOCTYPE_DECL_FEATURE,
             STANDARD_URI_CONFORMANT_FEATURE,
-            GENERATE_SYNTHETIC_ANNOTATIONS_FEATURE,
-            VALIDATE_ANNOTATIONS_FEATURE,
-            HONOUR_ALL_SCHEMALOCATIONS_FEATURE,
             XINCLUDE_FEATURE,
             XINCLUDE_FIXUP_BASE_URIS_FEATURE,
             XINCLUDE_FIXUP_LANGUAGE_FEATURE,
@@ -328,9 +274,6 @@ public final class Constants {
             ID_IDREF_CHECKING_FEATURE,
             IDC_CHECKING_FEATURE,
             UNPARSED_ENTITY_CHECKING_FEATURE,
-            NAMESPACE_GROWTH_FEATURE,
-            TOLERATE_DUPLICATES_FEATURE,
-            STRINGS_INTERNED_FEATURE,
     };
 
     /** Xerces properties. */
@@ -341,8 +284,6 @@ public final class Constants {
             ENTITY_MANAGER_PROPERTY,
             DOCUMENT_SCANNER_PROPERTY,
             BUFFER_SIZE_PROPERTY,
-            ROOT_TYPE_DEFINITION_PROPERTY,
-            ROOT_ELEMENT_DECLARATION_PROPERTY
     };
 
     /** Empty enumeration. */
