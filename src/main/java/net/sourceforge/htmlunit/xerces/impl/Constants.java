@@ -63,46 +63,14 @@ public final class Constants {
     /** Create cdata nodes feature ("create-cdata-nodes"). */
     public static final String CREATE_CDATA_NODES_FEATURE = "create-cdata-nodes";
 
-    //
-    // Constants: DOM Level 3 feature ids
-    //
-
-    public static final String DOM_CANONICAL_FORM = "canonical-form";
-    public static final String DOM_CDATA_SECTIONS ="cdata-sections";
-    public static final String DOM_COMMENTS = "comments";
-
-    // REVISIT: this feature seems to have no effect for Xerces
-    public static final String DOM_CHARSET_OVERRIDES_XML_ENCODING =
-        "charset-overrides-xml-encoding";
-
-    public static final String DOM_DATATYPE_NORMALIZATION = "datatype-normalization";
-    public static final String DOM_ENTITIES = "entities";
-    public static final String DOM_INFOSET = "infoset";
-    public static final String DOM_NAMESPACES = "namespaces";
-    public static final String DOM_NAMESPACE_DECLARATIONS = "namespace-declarations";
-    public static final String DOM_SUPPORTED_MEDIATYPES_ONLY =
-        "supported-media-types-only";
-
-    public static final String DOM_ELEMENT_CONTENT_WHITESPACE =
-        "element-content-whitespace";
-
-    // DOM Properties
-    public static final String DOM_ERROR_HANDLER = "error-handler";
-
 
     // xerces features
 
     /** Xerces features prefix ("http://apache.org/xml/features/"). */
     public static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
 
-    /** Warn on duplicate entity declaration feature ("warn-on-duplicate-entitydef"). */
-    public static final String WARN_ON_DUPLICATE_ENTITYDEF_FEATURE = "warn-on-duplicate-entitydef";
-
     /** Continue after fatal error feature ("continue-after-fatal-error"). */
     public static final String CONTINUE_AFTER_FATAL_ERROR_FEATURE = "continue-after-fatal-error";
-
-    /** Defer node expansion feature ("dom/defer-node-expansion"). */
-    public static final String DEFER_NODE_EXPANSION_FEATURE = "dom/defer-node-expansion";
 
     /** Create entity reference nodes feature ("dom/create-entity-ref-nodes"). */
     public static final String CREATE_ENTITY_REF_NODES_FEATURE = "dom/create-entity-ref-nodes";
@@ -118,49 +86,6 @@ public final class Constants {
 
     /** Standard URI conformant feature ("standard-uri-conformant"). */
     public static final String STANDARD_URI_CONFORMANT_FEATURE = "standard-uri-conformant";
-
-    /** XInclude processing feature ("xinclude"). */
-    public static final String XINCLUDE_FEATURE = "xinclude";
-
-    /** XInclude fixup base URIs feature ("xinclude/fixup-base-uris"). */
-    public static final String XINCLUDE_FIXUP_BASE_URIS_FEATURE = "xinclude/fixup-base-uris";
-
-    /** XInclude fixup language feature ("xinclude/fixup-language"). */
-    public static final String XINCLUDE_FIXUP_LANGUAGE_FEATURE = "xinclude/fixup-language";
-
-    /**
-     * Feature to ignore xsi:type attributes on elements during validation,
-     * until a global element declaration is found. ("validation/schema/ignore-xsi-type-until-elemdecl")
-     * If this feature is on when validating a document, then beginning at the validation root
-     * element, xsi:type attributes are ignored until a global element declaration is
-     * found for an element.  Once a global element declaration has been found, xsi:type
-     * attributes will start being processed for the sub-tree beginning at the element for
-     * which the declaration was found.
-     * <p>
-     * Suppose an element A has two element children, B and C.
-     * <p>
-     * If a global element declaration is found for A, xsi:type attributes on A, B and C,
-     * and all of B and C's descendents, will be processed.
-     * <p>
-     * If no global element declaration is found for A or B, but one is found for C,
-     * then xsi:type attributes will be ignored on A and B (and any descendents of B,
-     * until a global element declaration is found), but xsi:type attributes will be
-     * processed for C and all of C's descendents.
-     * <p>
-     * Once xsi:type attributes stop being ignored for a subtree, they do not start
-     * being ignored again, even if more elements are encountered for which no global
-     * element declaration can be found.
-     */
-    public static final String IGNORE_XSI_TYPE_FEATURE = "validation/schema/ignore-xsi-type-until-elemdecl";
-
-    /** Perform checking of ID/IDREFs ("validation/id-idref-checking") */
-    public static final String ID_IDREF_CHECKING_FEATURE = "validation/id-idref-checking";
-
-    /** Feature to ignore errors caused by identity constraints ("validation/identity-constraint-checking") */
-    public static final String IDC_CHECKING_FEATURE = "validation/identity-constraint-checking";
-
-    /** Feature to ignore errors caused by unparsed entities ("validation/unparsed-entity-checking") */
-    public static final String UNPARSED_ENTITY_CHECKING_FEATURE = "validation/unparsed-entity-checking";
 
     // xerces properties
 
@@ -240,13 +165,6 @@ public final class Constants {
             NOTIFY_CHAR_REFS_FEATURE,
             NOTIFY_BUILTIN_REFS_FEATURE,
             STANDARD_URI_CONFORMANT_FEATURE,
-            XINCLUDE_FEATURE,
-            XINCLUDE_FIXUP_BASE_URIS_FEATURE,
-            XINCLUDE_FIXUP_LANGUAGE_FEATURE,
-            IGNORE_XSI_TYPE_FEATURE,
-            ID_IDREF_CHECKING_FEATURE,
-            IDC_CHECKING_FEATURE,
-            UNPARSED_ENTITY_CHECKING_FEATURE,
     };
 
     /** Xerces properties. */
