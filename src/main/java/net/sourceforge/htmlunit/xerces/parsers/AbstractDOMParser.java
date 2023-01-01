@@ -202,12 +202,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * a document class other than the default will lose the ability
      * to defer node expansion on the DOM tree produced.
      *
-     * @param documentClassName The fully qualified class name of the
-     *                      document factory to use when constructing
+     * @param documentClass The document factory to use when constructing
      *                      the DOM tree.
-     *
-     * @see #getDocumentClassName
-     * @see #DEFAULT_DOCUMENT_CLASS_NAME
      */
     protected void setDocumentClass(Class<? extends DocumentImpl> documentClass) {
         fDocumentClass = documentClass;

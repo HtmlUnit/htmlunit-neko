@@ -555,13 +555,6 @@ public class AttrImpl
         return value != null ? ((ChildNode) value).previousSibling : null;
     }
 
-    final void lastChild(ChildNode node) {
-        // store lastChild as previous sibling of first child
-        if (value != null) {
-            ((ChildNode) value).previousSibling = node;
-        }
-    }
-
     /**
      * {@inheritDoc}
      *

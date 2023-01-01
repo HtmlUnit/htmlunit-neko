@@ -243,13 +243,6 @@ public abstract class ParentNode
         return firstChild != null ? firstChild.previousSibling : null;
     }
 
-    final void lastChild(ChildNode node) {
-        // store lastChild as previous sibling of first child
-        if (firstChild != null) {
-            firstChild.previousSibling = node;
-        }
-    }
-
     /**
      * {@inheritDoc}
      *

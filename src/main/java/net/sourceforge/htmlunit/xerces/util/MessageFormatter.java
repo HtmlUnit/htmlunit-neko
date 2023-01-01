@@ -24,8 +24,6 @@ import java.util.MissingResourceException;
  * is useful for producing messages that must be localized and/or formatted
  * with replacement text.
  *
- * @see net.sourceforge.htmlunit.xerces.impl.XMLErrorReporter
- *
  * @author Andy Clark
  */
 public interface MessageFormatter {
