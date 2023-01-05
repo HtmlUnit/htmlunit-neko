@@ -1384,13 +1384,20 @@ public class HTMLScanner
                 else {
                     // look ahead
                     final String consumed = str.toString();
-                    nextChar = consumed.charAt(parser.getMatchLength() + 1);
-                    if ('=' == nextChar
-                            || '0' <= nextChar && nextChar <= '9'
-                            || 'A' <= nextChar && nextChar <= 'Z'
-                            || 'a' <= nextChar && nextChar <= 'z') {
-                        str.clear();
-                        str.append(consumed.substring(0, parser.getMatchLength() + 1));
+                    final int matchLength = parser.getMatchLength() + 1;
+                    if (matchLength < consumed.length()) {
+                        nextChar = consumed.charAt(matchLength);
+                        if ('=' == nextChar
+                                || '0' <= nextChar && nextChar <= '9'
+                                || 'A' <= nextChar && nextChar <= 'Z'
+                                || 'a' <= nextChar && nextChar <= 'z') {
+                            str.clear();
+                            str.append(consumed.substring(0, parser.getMatchLength() + 1));
+                        }
+                        else {
+                            str.clear();
+                            str.append(match);
+                        }
                     }
                     else {
                         str.clear();
