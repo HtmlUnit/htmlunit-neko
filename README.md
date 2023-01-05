@@ -14,7 +14,7 @@ As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://gi
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.68.0 / December 28, 2022
+### Latest release Version 2.69.0 / January 05, 2023
 
 #### CVE-2022-29546
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -24,7 +24,7 @@ For maven, you would add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.68.0</version>
+        <version>2.69.0</version>
     </dependency>
 
 ### Last CI build
@@ -39,7 +39,7 @@ If you use maven please add:
     <dependency>
         <groupId>net.sourceforge.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.69.0-SNAPSHOT</version>
+        <version>2.70.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
