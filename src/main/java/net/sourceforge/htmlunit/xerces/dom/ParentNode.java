@@ -631,6 +631,7 @@ public abstract class ParentNode
     /**
      * {@inheritDoc}
      */
+    @Override
     void getTextContent(StringBuffer buf) throws DOMException {
         Node child = getFirstChild();
         while (child != null) {

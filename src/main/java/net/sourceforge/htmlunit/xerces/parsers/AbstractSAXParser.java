@@ -1311,6 +1311,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         /**
          * {@inheritDoc}
          */
+        @Override
         public String getEncoding() {
             return fLocator.getEncoding();
         }
