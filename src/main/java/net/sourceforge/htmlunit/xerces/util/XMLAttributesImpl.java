@@ -192,7 +192,7 @@ public class XMLAttributesImpl
 
             if (index == -1) {
                 index = fLength;
-                if (fLength++ == fAttributes.length) {
+                if (++fLength == fAttributes.length) {
                     Attribute[] attributes = new Attribute[fAttributes.length + 4];
                     System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
                     for (int i = fAttributes.length; i < attributes.length; i++) {
@@ -226,7 +226,7 @@ public class XMLAttributesImpl
             // This must be a unique attribute.
             if (fAttributeTableViewChainState[bucket] != fLargeCount) {
                 index = fLength;
-                if (fLength++ == fAttributes.length) {
+                if (++fLength == fAttributes.length) {
                     Attribute[] attributes = new Attribute[fAttributes.length << 1];
                     System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
                     for (int i = fAttributes.length; i < attributes.length; i++) {
@@ -256,7 +256,7 @@ public class XMLAttributesImpl
                 // This attribute is unique.
                 if (found == null) {
                     index = fLength;
-                    if (fLength++ == fAttributes.length) {
+                    if (++fLength == fAttributes.length) {
                         Attribute[] attributes = new Attribute[fAttributes.length << 1];
                         System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
                         for (int i = fAttributes.length; i < attributes.length; i++) {
@@ -836,7 +836,7 @@ public class XMLAttributesImpl
      */
     public void addAttributeNS(QName name, String type, String value) {
         int index = fLength;
-        if (fLength++ == fAttributes.length) {
+        if (++fLength == fAttributes.length) {
             Attribute[] attributes;
             if (fLength < SIZE_LIMIT) {
                 attributes = new Attribute[fAttributes.length + 4];
