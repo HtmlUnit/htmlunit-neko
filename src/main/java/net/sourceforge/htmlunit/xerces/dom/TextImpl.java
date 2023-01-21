@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import org.w3c.dom.CharacterData;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
@@ -37,7 +36,7 @@ import org.w3c.dom.Text;
  */
 public class TextImpl
     extends CharacterDataImpl
-    implements CharacterData, Text {
+    implements Text {
 
     // Factory constructor.
     public TextImpl(CoreDocumentImpl ownerDoc, String data) {
@@ -382,12 +381,11 @@ public class TextImpl
                     } else if (lType == Node.ENTITY_REFERENCE_NODE) {
                         if (!canModifyPrev(lastChild)) {
                             return false;
-                        } else {
-                            //If the EntityReference child contains
-                            //only text, or non-text or ends with a
-                            //non-text node.
-                            textLastChild = true;
                         }
+                        //If the EntityReference child contains
+                        //only text, or non-text or ends with a
+                        //non-text node.
+                        textLastChild = true;
                     } else {
                         //If the last child was replaceable and others are not
                         //Text or CDataSection or replaceable EntityRef nodes
@@ -462,12 +460,11 @@ public class TextImpl
                     } else if (lType == Node.ENTITY_REFERENCE_NODE) {
                         if (!canModifyNext(firstChild)) {
                             return false;
-                        } else {
-                            //If the EntityReference child contains
-                            //only text, or non-text or ends with a
-                            //non-text node.
-                            textFirstChild = true;
                         }
+                        //If the EntityReference child contains
+                        //only text, or non-text or ends with a
+                        //non-text node.
+                        textFirstChild = true;
                     } else {
                         //If the first child was replaceable text and next
                         //children are not, then return false

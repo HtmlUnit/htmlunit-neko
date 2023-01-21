@@ -17,7 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import org.w3c.dom.CharacterData;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Node;
 
@@ -26,7 +25,7 @@ import org.w3c.dom.Node;
  */
 public class CommentImpl
     extends CharacterDataImpl
-    implements CharacterData, Comment {
+    implements Comment {
 
     /**
      * Factory constructor.
