@@ -16,7 +16,7 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Set;
 
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
@@ -38,12 +38,8 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
  */
 public class HTMLAugmentations implements Augmentations {
 
-    //
-    // Data
-    //
-
     /** Augmentation items. */
-    protected final Hashtable<String, Object> fItems = new Hashtable<>();
+    private final HashMap<String, Object> fItems = new HashMap<>();
 
     //
     // Public methods
