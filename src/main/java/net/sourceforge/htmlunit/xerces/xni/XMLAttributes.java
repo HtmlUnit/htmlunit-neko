@@ -133,13 +133,6 @@ public interface XMLAttributes {
     void getName(int attrIndex, QName attrName);
 
     /**
-     * @return the prefix of the attribute at the specified index.
-     *
-     * @param index The index of the attribute.
-     */
-    String getPrefix(int index);
-
-    /**
      * Look up an attribute's Namespace URI by index.
      *
      * @param index The attribute index (zero-based).

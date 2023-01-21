@@ -43,19 +43,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 public class XMLAttributesImpl
     implements XMLAttributes {
 
-    /** Default table size. */
-    protected static final int TABLE_SIZE = 101;
-
-    /** Maximum hash collisions per bucket. */
-    protected static final int MAX_HASH_COLLISIONS = 40;
-
-    protected static final int MULTIPLIERS_SIZE = 1 << 5;
-    protected static final int MULTIPLIERS_MASK = MULTIPLIERS_SIZE - 1;
-
-
-    /** Namespaces. */
-    protected boolean fNamespaces = true;
-
     /** Attribute information. */
     private ArrayList<Attribute> fAttributes = new ArrayList<>();
 
@@ -63,18 +50,6 @@ public class XMLAttributesImpl
     public XMLAttributesImpl() {
         fAttributes = new ArrayList<>();
     }
-
-    /**
-     * Sets whether namespace processing is being performed. This state
-     * is needed to return the correct value from the getLocalName method.
-     *
-     * @param namespaces True if namespace processing is turned on.
-     *
-     * @see #getLocalName
-     */
-    public void setNamespaces(boolean namespaces) {
-        fNamespaces = namespaces;
-    } // setNamespaces(boolean)
 
     //
     // XMLAttributes methods
@@ -440,9 +415,6 @@ public class XMLAttributesImpl
      */
     @Override
     public String getLocalName(int index) {
-        if (!fNamespaces) {
-            return "";
-        }
         if (index < 0 || index >= getLength()) {
             return null;
         }
@@ -482,27 +454,9 @@ public class XMLAttributesImpl
      */
     @Override
     public String getType(String uri, String localName) {
-        if (!fNamespaces) {
-            return null;
-        }
         int index = getIndex(uri, localName);
         return index != -1 ? getReportableType(fAttributes.get(index).type) : null;
     } // getType(String,String):String
-
-    /**
-     * Returns the prefix of the attribute at the specified index.
-     *
-     * @param index The index of the attribute.
-     */
-    @Override
-    public String getPrefix(int index) {
-        if (index < 0 || index >= getLength()) {
-            return null;
-        }
-        String prefix = fAttributes.get(index).name.prefix;
-        // REVISIT: The empty string is not entered in the symbol table!
-        return prefix != null ? prefix : "";
-    } // getPrefix(int):String
 
     /**
      * Look up an attribute's Namespace URI by index.
@@ -550,39 +504,7 @@ public class XMLAttributesImpl
         return fAttributes.get(attributeIndex).augs;
     }
 
-    /**
-     * Sets the uri of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param uri       Namespace uri
-     */
-    public void setURI(int attrIndex, String uri) {
-        fAttributes.get(attrIndex).name.uri = uri;
-    } // getURI(int,QName)
-
     // Implementation methods
-
-    /**
-     * Look up the index of an attribute by XML 1.0 qualified name.
-     * <p>
-     * <strong>Note:</strong>
-     * This method uses reference comparison, and thus should
-     * only be used internally. We cannot use this method in any
-     * code exposed to users as they may not pass in unique strings.
-     *
-     * @param qName The qualified (prefixed) name.
-     * @return The index of the attribute, or -1 if it does not
-     *         appear in the list.
-     */
-    public int getIndexFast(String qName) {
-        for (int i = 0; i < getLength(); ++i) {
-            Attribute attribute = fAttributes.get(i);
-            if (attribute.name.rawname == qName) {
-                return i;
-            }
-        }
-        return -1;
-    } // getIndexFast(String):int
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the
@@ -627,31 +549,6 @@ public class XMLAttributesImpl
     }
 
     /**
-     * Look up the index of an attribute by Namespace name.
-     * <p>
-     * <strong>Note:</strong>
-     * This method uses reference comparison, and thus should
-     * only be used internally. We cannot use this method in any
-     * code exposed to users as they may not pass in unique strings.
-     *
-     * @param uri The Namespace URI, or null if
-     *        the name has no Namespace URI.
-     * @param localPart The attribute's local name.
-     * @return The index of the attribute, or -1 if it does not
-     *         appear in the list.
-     */
-    public int getIndexFast(String uri, String localPart) {
-        for (int i = 0; i < getLength(); ++i) {
-            Attribute attribute = fAttributes.get(i);
-            if (attribute.name.localpart == localPart &&
-                attribute.name.uri == uri) {
-                return i;
-            }
-        }
-        return -1;
-    } // getIndexFast(String,String):int
-
-    /**
      * Returns the value passed in or NMTOKEN if it's an enumerated type.
      *
      * @param type attribute type
@@ -674,14 +571,7 @@ public class XMLAttributesImpl
      *
      * @author Andy Clark, IBM
      */
-    static class Attribute {
-
-        //
-        // Data
-        //
-
-        // basic info
-
+    static final class Attribute {
         /** Name. */
         public final QName name = new QName();
 
@@ -703,12 +593,6 @@ public class XMLAttributesImpl
          * were attached to Augmentations.
          */
         public Augmentations augs = new AugmentationsImpl();
-
-        // Additional data for attribute table view
-
-        /** Pointer to the next attribute in the chain. **/
-        public Attribute next;
-
     } // class Attribute
 
 } // class XMLAttributesImpl
