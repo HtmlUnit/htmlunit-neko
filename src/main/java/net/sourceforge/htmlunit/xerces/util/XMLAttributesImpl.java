@@ -17,6 +17,8 @@
 
 package net.sourceforge.htmlunit.xerces.util;
 
+import java.util.ArrayList;
+
 import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
@@ -41,10 +43,6 @@ import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 public class XMLAttributesImpl
     implements XMLAttributes {
 
-    //
-    // Constants
-    //
-
     /** Default table size. */
     protected static final int TABLE_SIZE = 101;
 
@@ -54,88 +52,17 @@ public class XMLAttributesImpl
     protected static final int MULTIPLIERS_SIZE = 1 << 5;
     protected static final int MULTIPLIERS_MASK = MULTIPLIERS_SIZE - 1;
 
-    /**
-     * Threshold at which an instance is treated
-     * as a large attribute list.
-     */
-    protected static final int SIZE_LIMIT = 20;
-
-    //
-    // Data
-    //
-
-    // features
 
     /** Namespaces. */
     protected boolean fNamespaces = true;
 
-    // data
-
-    /**
-     * Usage count for the attribute table view.
-     * Incremented each time all attributes are removed
-     * when the attribute table view is in use.
-     */
-    protected int fLargeCount = 1;
-
-    /** Attribute count. */
-    protected int fLength;
-
     /** Attribute information. */
-    protected Attribute[] fAttributes = new Attribute[4];
-
-    /**
-     * Hashtable of attribute information.
-     * Provides an alternate view of the attribute specification.
-     */
-    protected Attribute[] fAttributeTableView;
-
-    /**
-     * Tracks whether each chain in the hash table is stale
-     * with respect to the current state of this object.
-     * A chain is stale if its state is not the same as the number
-     * of times the attribute table view has been used.
-     */
-    protected int[] fAttributeTableViewChainState;
-
-    /**
-     * Actual number of buckets in the table view.
-     */
-    protected int fTableViewBuckets;
-
-    /**
-     * Indicates whether the table view contains consistent data.
-     */
-    protected boolean fIsTableViewConsistent;
-
-    /**
-     * Array of randomly selected hash function multipliers or <code>null</code>
-     * if the default String.hashCode() function should be used.
-     */
-    protected int[] fHashMultipliers;
-
-    //
-    // Constructors
-    //
+    private ArrayList<Attribute> fAttributes = new ArrayList<>();
 
     /** Default constructor. */
     public XMLAttributesImpl() {
-        this(TABLE_SIZE);
+        fAttributes = new ArrayList<>();
     }
-
-    /**
-     * @param tableSize initial size of table view
-     */
-    public XMLAttributesImpl(int tableSize) {
-        fTableViewBuckets = tableSize;
-        for (int i = 0; i < fAttributes.length; i++) {
-            fAttributes[i] = new Attribute();
-        }
-    } // <init>()
-
-    //
-    // Public methods
-    //
 
     /**
      * Sets whether namespace processing is being performed. This state
@@ -183,110 +110,8 @@ public class XMLAttributesImpl
      */
     @Override
     public int addAttribute(QName name, String type, String value) {
-
-        int index;
-        if (fLength < SIZE_LIMIT) {
-            index = name.uri != null && name.uri.length() != 0
-                ? getIndexFast(name.uri, name.localpart)
-                : getIndexFast(name.rawname);
-
-            if (index == -1) {
-                index = fLength;
-                if (++fLength == fAttributes.length) {
-                    Attribute[] attributes = new Attribute[fAttributes.length + 4];
-                    System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
-                    for (int i = fAttributes.length; i < attributes.length; i++) {
-                        attributes[i] = new Attribute();
-                    }
-                    fAttributes = attributes;
-                }
-            }
-        }
-        else if (name.uri == null ||
-            name.uri.length() == 0 ||
-            (index = getIndexFast(name.uri, name.localpart)) == -1) {
-
-            /*
-              If attributes were removed from the list after the table
-              becomes in use this isn't reflected in the table view. It's
-              assumed that once a user starts removing attributes they're
-              not likely to add more. We only make the view consistent if
-              the user of this class adds attributes, removes them, and
-              then adds more.
-             */
-            if (!fIsTableViewConsistent || fLength == SIZE_LIMIT ||
-                (fLength > SIZE_LIMIT && fLength > fTableViewBuckets)) {
-                prepareAndPopulateTableView();
-                fIsTableViewConsistent = true;
-            }
-
-            int bucket = getTableViewBucket(name.rawname);
-
-            // The chain is stale.
-            // This must be a unique attribute.
-            if (fAttributeTableViewChainState[bucket] != fLargeCount) {
-                index = fLength;
-                if (++fLength == fAttributes.length) {
-                    Attribute[] attributes = new Attribute[fAttributes.length << 1];
-                    System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
-                    for (int i = fAttributes.length; i < attributes.length; i++) {
-                        attributes[i] = new Attribute();
-                    }
-                    fAttributes = attributes;
-                }
-
-                // Update table view.
-                fAttributeTableViewChainState[bucket] = fLargeCount;
-                fAttributes[index].next = null;
-                fAttributeTableView[bucket] = fAttributes[index];
-            }
-            // This chain is active.
-            // We need to check if any of the attributes has the same rawname.
-            else {
-                // Search the table.
-                int collisionCount = 0;
-                Attribute found = fAttributeTableView[bucket];
-                while (found != null) {
-                    if (found.name.rawname == name.rawname) {
-                        break;
-                    }
-                    found = found.next;
-                    ++collisionCount;
-                }
-                // This attribute is unique.
-                if (found == null) {
-                    index = fLength;
-                    if (++fLength == fAttributes.length) {
-                        Attribute[] attributes = new Attribute[fAttributes.length << 1];
-                        System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
-                        for (int i = fAttributes.length; i < attributes.length; i++) {
-                            attributes[i] = new Attribute();
-                        }
-                        fAttributes = attributes;
-                    }
-                    // Select a new hash function and rehash the table view
-                    // if the collision threshold is exceeded.
-                    if (collisionCount >= MAX_HASH_COLLISIONS) {
-                        // The current attribute will be processed in the rehash.
-                        // Need to set its name first.
-                        fAttributes[index].name.setValues(name);
-                        rebalanceTableView(fLength);
-                    }
-                    else {
-                        // Update table view
-                        fAttributes[index].next = fAttributeTableView[bucket];
-                        fAttributeTableView[bucket] = fAttributes[index];
-                    }
-                }
-                // Duplicate. We still need to find the index.
-                else {
-                    index = getIndexFast(name.rawname);
-                }
-            }
-        }
-
         // set values
-        Attribute attribute = fAttributes[index];
+        Attribute attribute = new Attribute();
         attribute.name.setValues(name);
         attribute.type = type;
         attribute.value = value;
@@ -296,7 +121,8 @@ public class XMLAttributesImpl
         // clear augmentations
         attribute.augs.clear();
 
-        return index;
+        fAttributes.add(attribute);
+        return fAttributes.size() - 1;
 
     } // addAttribute(QName,String,XMLString)
 
@@ -306,7 +132,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void removeAllAttributes() {
-        fLength = 0;
+        fAttributes.clear();
     } // removeAllAttributes()
 
     /**
@@ -319,16 +145,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void removeAttributeAt(int attrIndex) {
-        fIsTableViewConsistent = false;
-        if (attrIndex < fLength - 1) {
-            Attribute removedAttr = fAttributes[attrIndex];
-            System.arraycopy(fAttributes, attrIndex + 1,
-                fAttributes, attrIndex, fLength - attrIndex - 1);
-            // Make the discarded Attribute object available for re-use
-            // by tucking it after the Attributes that are still in use
-            fAttributes[fLength-1] = removedAttr;
-        }
-        fLength--;
+        fAttributes.remove(attrIndex);
     } // removeAttributeAt(int)
 
     /**
@@ -339,7 +156,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void setName(int attrIndex, QName attrName) {
-        fAttributes[attrIndex].name.setValues(attrName);
+        fAttributes.get(attrIndex).name.setValues(attrName);
     } // setName(int,QName)
 
     /**
@@ -351,7 +168,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void getName(int attrIndex, QName attrName) {
-        attrName.setValues(fAttributes[attrIndex].name);
+        attrName.setValues(fAttributes.get(attrIndex).name);
     } // getName(int,QName)
 
     /**
@@ -369,7 +186,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void setType(int attrIndex, String attrType) {
-        fAttributes[attrIndex].type = attrType;
+        fAttributes.get(attrIndex).type = attrType;
     } // setType(int,String)
 
     /**
@@ -383,7 +200,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void setValue(int attrIndex, String attrValue) {
-        Attribute attribute = fAttributes[attrIndex];
+        Attribute attribute = fAttributes.get(attrIndex);
         attribute.value = attrValue;
         attribute.nonNormalizedValue = attrValue;
     } // setValue(int,String)
@@ -398,9 +215,9 @@ public class XMLAttributesImpl
     @Override
     public void setNonNormalizedValue(int attrIndex, String attrValue) {
         if (attrValue == null) {
-            attrValue = fAttributes[attrIndex].value;
+            attrValue = fAttributes.get(attrIndex).value;
         }
-        fAttributes[attrIndex].nonNormalizedValue = attrValue;
+        fAttributes.get(attrIndex).nonNormalizedValue = attrValue;
     } // setNonNormalizedValue(int,String)
 
     /**
@@ -412,7 +229,7 @@ public class XMLAttributesImpl
      */
     @Override
     public String getNonNormalizedValue(int attrIndex) {
-        return fAttributes[attrIndex].nonNormalizedValue;
+        return fAttributes.get(attrIndex).nonNormalizedValue;
     } // getNonNormalizedValue(int):String
 
     /**
@@ -425,7 +242,7 @@ public class XMLAttributesImpl
      */
     @Override
     public void setSpecified(int attrIndex, boolean specified) {
-        fAttributes[attrIndex].specified = specified;
+        fAttributes.get(attrIndex).specified = specified;
     } // setSpecified(int,boolean)
 
     /**
@@ -435,7 +252,7 @@ public class XMLAttributesImpl
      */
     @Override
     public boolean isSpecified(int attrIndex) {
-        return fAttributes[attrIndex].specified;
+        return fAttributes.get(attrIndex).specified;
     } // isSpecified(int):boolean
 
     //
@@ -452,7 +269,7 @@ public class XMLAttributesImpl
      */
     @Override
     public int getLength() {
-        return fLength;
+        return fAttributes.size();
     } // getLength():int
 
     /**
@@ -477,10 +294,10 @@ public class XMLAttributesImpl
      */
     @Override
     public String getType(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        return getReportableType(fAttributes[index].type);
+        return getReportableType(fAttributes.get(index).type);
     } // getType(int):String
 
     /**
@@ -497,7 +314,7 @@ public class XMLAttributesImpl
     @Override
     public String getType(String qname) {
         int index = getIndex(qname);
-        return index != -1 ? getReportableType(fAttributes[index].type) : null;
+        return index != -1 ? getReportableType(fAttributes.get(index).type) : null;
     } // getType(String):String
 
     /**
@@ -515,10 +332,10 @@ public class XMLAttributesImpl
      */
     @Override
     public String getValue(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes[index].value;
+        return fAttributes.get(index).value;
     } // getValue(int):String
 
     /**
@@ -535,7 +352,7 @@ public class XMLAttributesImpl
     @Override
     public String getValue(String qname) {
         int index = getIndex(qname);
-        return index != -1 ? fAttributes[index].value : null;
+        return index != -1 ? fAttributes.get(index).value : null;
     } // getValue(String):String
 
     //
@@ -559,10 +376,10 @@ public class XMLAttributesImpl
      * @see #getLength
      */
     public String getName(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes[index].name.rawname;
+        return fAttributes.get(index).name.rawname;
     } // getName(int):String
 
     //
@@ -578,8 +395,8 @@ public class XMLAttributesImpl
      */
     @Override
     public int getIndex(String qName) {
-        for (int i = 0; i < fLength; i++) {
-            Attribute attribute = fAttributes[i];
+        for (int i = 0; i < getLength(); i++) {
+            Attribute attribute = fAttributes.get(i);
             if (attribute.name.rawname != null &&
                 attribute.name.rawname.equals(qName)) {
                 return i;
@@ -599,8 +416,8 @@ public class XMLAttributesImpl
      */
     @Override
     public int getIndex(String uri, String localPart) {
-        for (int i = 0; i < fLength; i++) {
-            Attribute attribute = fAttributes[i];
+        for (int i = 0; i < getLength(); i++) {
+            Attribute attribute = fAttributes.get(i);
             if (attribute.name.localpart != null &&
                 attribute.name.localpart.equals(localPart) &&
                 ((uri==attribute.name.uri) ||
@@ -626,10 +443,10 @@ public class XMLAttributesImpl
         if (!fNamespaces) {
             return "";
         }
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes[index].name.localpart;
+        return fAttributes.get(index).name.localpart;
     } // getLocalName(int):String
 
     /**
@@ -643,10 +460,10 @@ public class XMLAttributesImpl
      */
     @Override
     public String getQName(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        String rawname = fAttributes[index].name.rawname;
+        String rawname = fAttributes.get(index).name.rawname;
         return rawname != null ? rawname : "";
     } // getQName(int):String
 
@@ -669,7 +486,7 @@ public class XMLAttributesImpl
             return null;
         }
         int index = getIndex(uri, localName);
-        return index != -1 ? getReportableType(fAttributes[index].type) : null;
+        return index != -1 ? getReportableType(fAttributes.get(index).type) : null;
     } // getType(String,String):String
 
     /**
@@ -679,10 +496,10 @@ public class XMLAttributesImpl
      */
     @Override
     public String getPrefix(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        String prefix = fAttributes[index].name.prefix;
+        String prefix = fAttributes.get(index).name.prefix;
         // REVISIT: The empty string is not entered in the symbol table!
         return prefix != null ? prefix : "";
     } // getPrefix(int):String
@@ -696,10 +513,10 @@ public class XMLAttributesImpl
      */
     @Override
     public String getURI(int index) {
-        if (index < 0 || index >= fLength) {
+        if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes[index].name.uri;
+        return fAttributes.get(index).name.uri;
     } // getURI(int):String
 
     /**
@@ -719,35 +536,6 @@ public class XMLAttributesImpl
         return index != -1 ? getValue(index) : null;
     } // getValue(String,String):String
 
-
-    /**
-     * Look up an augmentations by Namespace name.
-     *
-     * @param uri The Namespace URI, or null if the
-     * @param localName The local name of the attribute.
-     * @return Augmentations
-     */
-    @Override
-    public Augmentations getAugmentations (String uri, String localName) {
-        int index = getIndex(uri, localName);
-        return index != -1 ? fAttributes[index].augs : null;
-    }
-
-    /**
-     * Look up an augmentation by XML 1.0 qualified name.
-     * <p>
-     *
-     * @param qName The XML 1.0 qualified name.
-     *
-     * @return Augmentations
-     *
-     */
-    @Override
-    public Augmentations getAugmentations(String qName){
-        int index = getIndex(qName);
-        return index != -1 ? fAttributes[index].augs : null;
-    }
-
     /**
      * Look up an augmentations by attributes index.
      *
@@ -756,21 +544,10 @@ public class XMLAttributesImpl
      */
     @Override
     public Augmentations getAugmentations (int attributeIndex){
-        if (attributeIndex < 0 || attributeIndex >= fLength) {
+        if (attributeIndex < 0 || attributeIndex >= getLength()) {
             return null;
         }
-        return fAttributes[attributeIndex].augs;
-    }
-
-    /**
-     * Sets the augmentations of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param augs      The augmentations.
-     */
-    @Override
-    public void setAugmentations(int attrIndex, Augmentations augs) {
-        fAttributes[attrIndex].augs = augs;
+        return fAttributes.get(attributeIndex).augs;
     }
 
     /**
@@ -780,7 +557,7 @@ public class XMLAttributesImpl
      * @param uri       Namespace uri
      */
     public void setURI(int attrIndex, String uri) {
-        fAttributes[attrIndex].name.uri = uri;
+        fAttributes.get(attrIndex).name.uri = uri;
     } // getURI(int,QName)
 
     // Implementation methods
@@ -798,8 +575,8 @@ public class XMLAttributesImpl
      *         appear in the list.
      */
     public int getIndexFast(String qName) {
-        for (int i = 0; i < fLength; ++i) {
-            Attribute attribute = fAttributes[i];
+        for (int i = 0; i < getLength(); ++i) {
+            Attribute attribute = fAttributes.get(i);
             if (attribute.name.rawname == qName) {
                 return i;
             }
@@ -835,24 +612,8 @@ public class XMLAttributesImpl
      * @see #checkDuplicatesNS
      */
     public void addAttributeNS(QName name, String type, String value) {
-        int index = fLength;
-        if (++fLength == fAttributes.length) {
-            Attribute[] attributes;
-            if (fLength < SIZE_LIMIT) {
-                attributes = new Attribute[fAttributes.length + 4];
-            }
-            else {
-                attributes = new Attribute[fAttributes.length << 1];
-            }
-            System.arraycopy(fAttributes, 0, attributes, 0, fAttributes.length);
-            for (int i = fAttributes.length; i < attributes.length; i++) {
-                attributes[i] = new Attribute();
-            }
-            fAttributes = attributes;
-        }
-
         // set values
-        Attribute attribute = fAttributes[index];
+        Attribute attribute = new Attribute();
         attribute.name.setValues(name);
         attribute.type = type;
         attribute.value = value;
@@ -861,100 +622,8 @@ public class XMLAttributesImpl
 
         // clear augmentations
         attribute.augs.clear();
-    }
 
-    /**
-     * Checks for duplicate expanded names (local part and namespace name
-     * pairs) in the attribute specification. If a duplicate is found its
-     * name is returned.
-     * <p>
-     * This should be called once all the in-scope namespaces for the element
-     * enclosing these attributes is known, and after all the attributes
-     * have gone through namespace binding.
-     *
-     * @return the name of a duplicate attribute found in the search,
-     * otherwise null.
-     */
-    public QName checkDuplicatesNS() {
-        // If the list is small check for duplicates using pairwise comparison.
-        final int length = fLength;
-        if (length <= SIZE_LIMIT) {
-            final Attribute[] attributes = fAttributes;
-            for (int i = 0; i < length - 1; ++i) {
-                Attribute att1 = attributes[i];
-                for (int j = i + 1; j < length; ++j) {
-                    Attribute att2 = attributes[j];
-                    if (att1.name.localpart == att2.name.localpart &&
-                        att1.name.uri == att2.name.uri) {
-                        return att2.name;
-                    }
-                }
-            }
-            return null;
-        }
-        // If the list is large check duplicates using a hash table.
-        else {
-            return checkManyDuplicatesNS();
-        }
-    }
-
-    private QName checkManyDuplicatesNS() {
-        // We don't want this table view to be read if someone calls
-        // addAttribute so we invalidate it up front.
-        fIsTableViewConsistent = false;
-
-        prepareTableView();
-
-        Attribute attr;
-        int bucket;
-
-        final int length = fLength;
-        final Attribute[] attributes = fAttributes;
-        final Attribute[] attributeTableView = fAttributeTableView;
-        final int[] attributeTableViewChainState = fAttributeTableViewChainState;
-        int largeCount = fLargeCount;
-
-        for (int i = 0; i < length; ++i) {
-            attr = attributes[i];
-            bucket = getTableViewBucket(attr.name.localpart, attr.name.uri);
-
-            // The chain is stale.
-            // This must be a unique attribute.
-            if (attributeTableViewChainState[bucket] != largeCount) {
-                attributeTableViewChainState[bucket] = largeCount;
-                attr.next = null;
-                attributeTableView[bucket] = attr;
-            }
-            // This chain is active.
-            // We need to check if any of the attributes has the same name.
-            else {
-                // Search the table.
-                int collisionCount = 0;
-                Attribute found = attributeTableView[bucket];
-                while (found != null) {
-                    if (found.name.localpart == attr.name.localpart &&
-                        found.name.uri == attr.name.uri) {
-                        return attr.name;
-                    }
-                    found = found.next;
-                    ++collisionCount;
-                }
-
-                // Select a new hash function and rehash the table view
-                // if the collision threshold is exceeded.
-                if (collisionCount >= MAX_HASH_COLLISIONS) {
-                    // The current attribute will be processed in the rehash.
-                    rebalanceTableViewNS(i+1);
-                    largeCount = fLargeCount;
-                }
-                else {
-                    // Update table view
-                    attr.next = attributeTableView[bucket];
-                    attributeTableView[bucket] = attr;
-                }
-            }
-        }
-        return null;
+        fAttributes.add(attribute);
     }
 
     /**
@@ -972,8 +641,8 @@ public class XMLAttributesImpl
      *         appear in the list.
      */
     public int getIndexFast(String uri, String localPart) {
-        for (int i = 0; i < fLength; ++i) {
-            Attribute attribute = fAttributes[i];
+        for (int i = 0; i < getLength(); ++i) {
+            Attribute attribute = fAttributes.get(i);
             if (attribute.name.localpart == localPart &&
                 attribute.name.uri == uri) {
                 return i;
@@ -994,189 +663,6 @@ public class XMLAttributesImpl
             return "NMTOKEN";
         }
         return type;
-    }
-
-    /**
-     * Returns the position in the table view
-     * where the given attribute name would be hashed.
-     *
-     * @param qname the attribute name
-     * @return the position in the table view where the given attribute
-     * would be hashed
-     */
-    protected int getTableViewBucket(String qname) {
-        return (hash(qname) & 0x7FFFFFFF) % fTableViewBuckets;
-    }
-
-    /**
-     * Returns the position in the table view
-     * where the given attribute name would be hashed.
-     *
-     * @param localpart the local part of the attribute
-     * @param uri the namespace name of the attribute
-     * @return the position in the table view where the given attribute
-     * would be hashed
-     */
-    protected int getTableViewBucket(String localpart, String uri) {
-        if (uri == null) {
-            return (hash(localpart) & 0x7FFFFFFF) % fTableViewBuckets;
-        }
-        else {
-            return (hash(localpart, uri) & 0x7FFFFFFF) % fTableViewBuckets;
-        }
-    }
-
-    private int hash(String localpart) {
-        if (fHashMultipliers == null) {
-            return localpart.hashCode();
-        }
-        return hash0(localpart);
-    } // hash(String):int
-
-    private int hash(String localpart, String uri) {
-        if (fHashMultipliers == null) {
-            return localpart.hashCode() + uri.hashCode() * 31;
-        }
-        return hash0(localpart) + hash0(uri) * fHashMultipliers[MULTIPLIERS_SIZE];
-    } // hash(String,String):int
-
-    private int hash0(String symbol) {
-        int code = 0;
-        final int length = symbol.length();
-        final int[] multipliers = fHashMultipliers;
-        for (int i = 0; i < length; ++i) {
-            code = code * multipliers[i & MULTIPLIERS_MASK] + symbol.charAt(i);
-        }
-        return code;
-    } // hash0(String):int
-
-    /**
-     * Purges all elements from the table view.
-     */
-    protected void cleanTableView() {
-        if (++fLargeCount < 0) {
-            // Overflow. We actually need to visit the chain state array.
-            if (fAttributeTableViewChainState != null) {
-                for (int i = fTableViewBuckets - 1; i >= 0; --i) {
-                    fAttributeTableViewChainState[i] = 0;
-                }
-            }
-            fLargeCount = 1;
-        }
-    }
-
-    /**
-     * Increases the capacity of the table view.
-     */
-    private void growTableView() {
-        final int length = fLength;
-        int tableViewBuckets = fTableViewBuckets;
-        do {
-            tableViewBuckets = (tableViewBuckets << 1) + 1;
-            if (tableViewBuckets < 0) {
-                tableViewBuckets = Integer.MAX_VALUE;
-                break;
-            }
-        }
-        while (length > tableViewBuckets);
-        fTableViewBuckets = tableViewBuckets;
-        fAttributeTableView = null;
-        fLargeCount = 1;
-    }
-
-    /**
-     * Prepares the table view of the attributes list for use.
-     */
-    protected void prepareTableView() {
-        if (fLength > fTableViewBuckets) {
-            growTableView();
-        }
-        if (fAttributeTableView == null) {
-            fAttributeTableView = new Attribute[fTableViewBuckets];
-            fAttributeTableViewChainState = new int[fTableViewBuckets];
-        }
-        else {
-            cleanTableView();
-        }
-    }
-
-    /**
-     * Prepares the table view of the attributes list for use,
-     * and populates it with the attributes which have been
-     * previously read.
-     */
-    protected void prepareAndPopulateTableView() {
-        prepareAndPopulateTableView(fLength);
-    }
-
-    private void prepareAndPopulateTableView(final int count) {
-        prepareTableView();
-        // Need to populate the hash table with the attributes we've processed so far.
-        Attribute attr;
-        int bucket;
-        for (int i = 0; i < count; ++i) {
-            attr = fAttributes[i];
-            bucket = getTableViewBucket(attr.name.rawname);
-            if (fAttributeTableViewChainState[bucket] != fLargeCount) {
-                fAttributeTableViewChainState[bucket] = fLargeCount;
-                attr.next = null;
-                fAttributeTableView[bucket] = attr;
-            }
-            else {
-                // Update table view
-                attr.next = fAttributeTableView[bucket];
-                fAttributeTableView[bucket] = attr;
-            }
-        }
-    }
-
-    private void prepareAndPopulateTableViewNS(final int count) {
-        prepareTableView();
-        // Need to populate the hash table with the attributes we've processed so far.
-        Attribute attr;
-        int bucket;
-        for (int i = 0; i < count; ++i) {
-            attr = fAttributes[i];
-            bucket = getTableViewBucket(attr.name.localpart, attr.name.uri);
-            if (fAttributeTableViewChainState[bucket] != fLargeCount) {
-                fAttributeTableViewChainState[bucket] = fLargeCount;
-                attr.next = null;
-                fAttributeTableView[bucket] = attr;
-            }
-            else {
-                // Update table view
-                attr.next = fAttributeTableView[bucket];
-                fAttributeTableView[bucket] = attr;
-            }
-        }
-    }
-
-    /**
-     * Randomly selects a new hash function and reorganizes the table view
-     * in order to more evenly distribute its entries. This method is called
-     * automatically when the number of attributes in one bucket exceeds
-     * MAX_HASH_COLLISIONS.
-     */
-    private void rebalanceTableView(final int count) {
-        if (fHashMultipliers == null) {
-            fHashMultipliers = new int[MULTIPLIERS_SIZE + 1];
-        }
-        PrimeNumberSequenceGenerator.generateSequence(fHashMultipliers);
-        prepareAndPopulateTableView(count);
-    }
-
-    /**
-     * Randomly selects a new hash function and reorganizes the table view
-     * in order to more evenly distribute its entries. This method is called
-     * automatically when the number of attributes in one bucket exceeds
-     * MAX_HASH_COLLISIONS.
-     */
-    private void rebalanceTableViewNS(final int count) {
-        if (fHashMultipliers == null) {
-            fHashMultipliers = new int[MULTIPLIERS_SIZE + 1];
-        }
-        PrimeNumberSequenceGenerator.generateSequence(fHashMultipliers);
-        prepareAndPopulateTableViewNS(count);
     }
 
     //

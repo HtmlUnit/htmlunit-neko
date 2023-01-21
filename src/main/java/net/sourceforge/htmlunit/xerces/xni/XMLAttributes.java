@@ -347,35 +347,4 @@ public interface XMLAttributes {
      * @return Augmentations
      */
     Augmentations getAugmentations (int attributeIndex);
-
-    /**
-     * Look up an augmentation by namespace name.
-     *
-     * @param uri       The Namespace URI, or the empty string if
-     *                  the name has no Namespace URI.
-     * @param localPart the local part
-     * @return Augmentations
-     */
-    Augmentations getAugmentations (String uri, String localPart);
-
-
-    /**
-     * Look up an augmentation by XML 1.0 qualified name.
-     * <p>
-     *
-     * @param qName The XML 1.0 qualified name.
-     *
-     * @return Augmentations
-     *
-     */
-    Augmentations getAugmentations(String qName);
-
-
-    /**
-     * Sets the augmentations of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param augs      The augmentations.
-     */
-    void setAugmentations(int attrIndex, Augmentations augs);
 }
