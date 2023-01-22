@@ -105,18 +105,6 @@ public class HTMLAugmentations implements Augmentations {
     }
 
     /**
-     * Remove additional info from the Augmentations structure
-     *
-     * @param key    Identifier, can't be <code>null</code>
-     * @return The previous value of the specified key in the Augmentations
-     *         structure, or <code>null</code> if it did not have one.
-     */
-    @Override
-    public Object remove(String key) {
-        return fItems.remove(key);
-    }
-
-    /**
      * Returns an enumeration of the keys in the Augmentations structure.
      */
     @Override

@@ -51,20 +51,6 @@ public class HTMLTableRowElementImpl
     }
 
 
-    public void setRowIndex( int rowIndex )
-    {
-        Node    parent;
-
-        parent = getParentNode();
-        if ( parent instanceof HTMLTableSectionElement ) {
-            parent = parent.getParentNode();
-        }
-        if ( parent instanceof HTMLTableElement ) {
-            ( (HTMLTableElementImpl) parent ).insertRowX( rowIndex, this );
-        }
-    }
-
-
     @Override
     public int getSectionRowIndex()
     {
@@ -75,17 +61,6 @@ public class HTMLTableRowElementImpl
             return getRowIndex( parent );
         }
         return -1;
-    }
-
-
-    public void setSectionRowIndex( int sectionRowIndex )
-    {
-        Node    parent;
-
-        parent = getParentNode();
-        if ( parent instanceof HTMLTableSectionElement ) {
-            ( (HTMLTableSectionElementImpl) parent ).insertRowX( sectionRowIndex, this );
-        }
     }
 
 
@@ -114,26 +89,6 @@ public class HTMLTableRowElementImpl
             _cells = new HTMLCollectionImpl( this, HTMLCollectionImpl.CELL );
         }
         return _cells;
-    }
-
-
-    public void setCells( HTMLCollection cells )
-    {
-        Node    child;
-        int        i;
-
-        child = getFirstChild();
-        while ( child != null ) {
-            removeChild( child );
-            child = child.getNextSibling();
-        }
-        i = 0;
-        child = cells.item( i );
-        while ( child != null ) {
-            appendChild ( child );
-            ++i;
-            child = cells.item( i );
-        }
     }
 
 

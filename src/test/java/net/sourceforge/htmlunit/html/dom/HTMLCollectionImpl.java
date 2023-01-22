@@ -478,19 +478,6 @@ class HTMLCollectionImpl
  */
 class CollectionIndex
 {
-
-
-    /**
-     * Returns the current index.
-     *
-     * @return Current index
-     */
-    int getIndex()
-    {
-        return _index;
-    }
-
-
     /**
      * Decrements the index by one.
      */

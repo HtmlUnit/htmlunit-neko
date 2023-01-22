@@ -180,18 +180,6 @@ public class AttrImpl
         }
     }
 
-    /**
-     * NON-DOM: set the type of this attribute to be ID type.
-     *
-     * @param id the id
-     */
-    public void setIdAttribute(boolean id){
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        isIdAttribute(id);
-    }
-
     /** DOM Level 3: isId
      * {@inheritDoc}
      */

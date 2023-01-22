@@ -69,24 +69,6 @@ public class HTMLOptionElementImpl
     }
 
 
-    public void setText( String text )
-    {
-        Node    child;
-        Node    next;
-
-        // Delete all the nodes and replace them with a single Text node.
-        // This is the only approach that can handle comments and other nodes.
-        child = getFirstChild();
-        while ( child != null )
-        {
-            next = child.getNextSibling();
-            removeChild( child );
-            child = next;
-        }
-        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
-    }
-
-
     @Override
     public int getIndex()
     {
@@ -111,38 +93,6 @@ public class HTMLOptionElementImpl
                     return i;
         }
         return -1;
-    }
-
-
-    public void setIndex( int index )
-    {
-        Node        parent;
-        NodeList    options;
-        Node        item;
-
-        // Locate the parent SELECT. Note that this OPTION might be inside a
-        // OPTGROUP inside the SELECT. Or it might not have a parent SELECT.
-        // Everything is possible. If no parent is found, just return.
-        parent = getParentNode();
-        while ( parent != null && ! ( parent instanceof HTMLSelectElement ) )
-            parent = parent.getParentNode();
-        if ( parent != null )
-        {
-            // Use getElementsByTagName() which creates a snapshot of all the
-            // OPTION elements under the SELECT. Access to the returned NodeList
-            // is very fast and the snapshot solves many synchronization problems.
-            // Make sure this OPTION is not replacing itself.
-            options = ( (HTMLElement) parent ).getElementsByTagName( "OPTION" );
-            if ( options.item( index ) != this )
-            {
-                // Remove this OPTION from its parent. Place this OPTION right
-                // before indexed OPTION underneath it's direct parent (might
-                // be an OPTGROUP).
-                getParentNode().removeChild( this );
-                item = options.item( index );
-                item.getParentNode().insertBefore( this, item );
-            }
-        }
     }
 
 

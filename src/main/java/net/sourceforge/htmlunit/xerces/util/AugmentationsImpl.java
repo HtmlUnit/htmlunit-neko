@@ -64,16 +64,6 @@ public class AugmentationsImpl implements Augmentations {
     }
 
     /**
-     * Remove additional info from the Augmentations structure
-     *
-     * @param key    Identifier, can't be <code>null</code>
-     */
-    @Override
-    public Object remove(String key){
-        return fAugmentationsContainer.remove(key);
-    }
-
-    /**
      * Returns an enumeration of the keys in the Augmentations structure
      *
      */

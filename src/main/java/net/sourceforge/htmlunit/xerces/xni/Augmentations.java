@@ -60,16 +60,6 @@ public interface Augmentations {
 
 
     /**
-     * Remove additional info from the Augmentations structure
-     *
-     * @param key    Identifier, can't be <code>null</code>
-     * @return the previous value of the specified key in the Augmentations structure,
-     *         or <code>null</code> if it did not have one.
-     */
-    Object remove(String key);
-
-
-    /**
      * @return an enumeration of the keys in the Augmentations structure
      */
     Set<String> keys();

@@ -57,34 +57,6 @@ public class HTMLTableCellElementImpl
     }
 
 
-    public void setCellIndex( int cellIndex )
-    {
-        Node    parent;
-        Node    child;
-
-        parent = getParentNode();
-        if ( parent instanceof HTMLTableRowElement )
-        {
-            child = parent.getFirstChild();
-            while ( child != null )
-            {
-                if ( child instanceof HTMLTableCellElement )
-                {
-                    if ( cellIndex == 0 )
-                    {
-                        if ( this != child )
-                            parent.insertBefore( this, child );
-                        return;
-                    }
-                    -- cellIndex;
-                }
-                child = child.getNextSibling();
-            }
-        }
-        parent.appendChild( this );
-    }
-
-
     @Override
     public String getAbbr()
     {

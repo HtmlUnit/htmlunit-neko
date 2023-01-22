@@ -1092,113 +1092,6 @@ public class ElementImpl
 
     }
 
-    /**
-     * @return count
-     * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-childElementCount">
-     * Element Traversal Specification</a>
-     */
-    public final int getChildElementCount() {
-        int count = 0;
-        Element child = getFirstElementChild();
-        while (child != null) {
-            ++count;
-            child = ((ElementImpl) child).getNextElementSibling();
-        }
-        return count;
-    }
-
-    /**
-     * @return {@link Element}
-     * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-firstElementChild">
-     * Element Traversal Specification</a>
-     */
-    public final Element getFirstElementChild() {
-        Node n = getFirstChild();
-        while (n != null) {
-            switch (n.getNodeType()) {
-                case Node.ELEMENT_NODE:
-                    return (Element) n;
-                case Node.ENTITY_REFERENCE_NODE:
-                    final Element e = getFirstElementChild(n);
-                    if (e != null) {
-                        return e;
-                    }
-                    break;
-            }
-            n = n.getNextSibling();
-        }
-        return null;
-    }
-
-    /**
-     * @return {@link Element}
-     * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-lastElementChild">
-     * Element Traversal Specification</a>
-     */
-    public final Element getLastElementChild() {
-        Node n = getLastChild();
-        while (n != null) {
-            switch (n.getNodeType()) {
-                case Node.ELEMENT_NODE:
-                    return (Element) n;
-                case Node.ENTITY_REFERENCE_NODE:
-                    final Element e = getLastElementChild(n);
-                    if (e != null) {
-                        return e;
-                    }
-                    break;
-            }
-            n = n.getPreviousSibling();
-        }
-        return null;
-    }
-
-    /**
-     * @return {@link Element}
-     * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-nextElementSibling">
-     * Element Traversal Specification</a>
-     */
-    public final Element getNextElementSibling() {
-        Node n = getNextLogicalSibling(this);
-        while (n != null) {
-            switch (n.getNodeType()) {
-                case Node.ELEMENT_NODE:
-                    return (Element) n;
-                case Node.ENTITY_REFERENCE_NODE:
-                    final Element e = getFirstElementChild(n);
-                    if (e != null) {
-                        return e;
-                    }
-                    break;
-            }
-            n = getNextLogicalSibling(n);
-        }
-        return null;
-    }
-
-    /**
-     * @return {@link Element}
-     * @see <a href="http://www.w3.org/TR/2008/REC-ElementTraversal-20081222/#attribute-previousElementSibling">
-     * Element Traversal Specification</a>
-     */
-    public final Element getPreviousElementSibling() {
-        Node n = getPreviousLogicalSibling(this);
-        while (n != null) {
-            switch (n.getNodeType()) {
-                case Node.ELEMENT_NODE:
-                    return (Element) n;
-                case Node.ENTITY_REFERENCE_NODE:
-                    final Element e = getLastElementChild(n);
-                    if (e != null) {
-                        return e;
-                    }
-                    break;
-            }
-            n = getPreviousLogicalSibling(n);
-        }
-        return null;
-    } // getPreviousElementSibling():Element
-
     // Returns the first element node found from a
     // non-recursive in order traversal of the given node.
     private Element getFirstElementChild(Node n) {
@@ -1213,32 +1106,6 @@ public class ElementImpl
                     break;
                 }
                 next = n.getNextSibling();
-                if (next == null) {
-                    n = n.getParentNode();
-                    if (n == null || top == n) {
-                        return null;
-                    }
-                }
-            }
-            n = next;
-        }
-        return null;
-    }
-
-    // Returns the first element node found from a
-    // non-recursive reverse order traversal of the given node.
-    private Element getLastElementChild(Node n) {
-        final Node top = n;
-        while (n != null) {
-            if (n.getNodeType() == Node.ELEMENT_NODE) {
-                return (Element) n;
-            }
-            Node next = n.getLastChild();
-            while (next == null) {
-                if (top == n) {
-                    break;
-                }
-                next = n.getPreviousSibling();
                 if (next == null) {
                     n = n.getParentNode();
                     if (n == null || top == n) {
@@ -1270,22 +1137,4 @@ public class ElementImpl
         return next;
     }
 
-    // Returns the previous logical sibling with respect to the given node.
-    private Node getPreviousLogicalSibling(Node n) {
-        Node prev = n.getPreviousSibling();
-        // If "n" has no previous sibling and its parent is an entity reference node we
-        // need to continue the search through the previous siblings of the entity
-        // reference as these are logically siblings of the given node.
-        if (prev == null) {
-            Node parent = n.getParentNode();
-            while (parent != null && parent.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
-                prev = parent.getPreviousSibling();
-                if (prev != null) {
-                    break;
-                }
-                parent = parent.getParentNode();
-            }
-        }
-        return prev;
-    }
 }
