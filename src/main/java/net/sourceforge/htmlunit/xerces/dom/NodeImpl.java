@@ -238,10 +238,6 @@ public abstract class NodeImpl
         newnode.ownerNode      = ownerDocument();
         newnode.isOwned(false);
 
-        // By default we make all clones readwrite,
-        // this is overriden in readonly subclasses
-        newnode.isReadOnly(false);
-
         ownerDocument().callUserDataHandlers(this, newnode,
                                              UserDataHandler.NODE_CLONED);
 
@@ -1038,8 +1034,6 @@ public abstract class NodeImpl
      * </tr>
      * </table>
      * @exception DOMException
-     *   NO_MODIFICATION_ALLOWED_ERR: Raised when the node is readonly.
-     * @exception DOMException
      *   DOMSTRING_SIZE_ERR: Raised when it would return more characters than
      *   fit in a <code>DOMString</code> variable on the implementation
      *   platform.
@@ -1094,8 +1088,6 @@ public abstract class NodeImpl
      * null</td>
      * </tr>
      * </table>
-     * @exception DOMException
-     *   NO_MODIFICATION_ALLOWED_ERR: Raised when the node is readonly.
      * @exception DOMException
      *   DOMSTRING_SIZE_ERR: Raised when it would return more characters than
      *   fit in a <code>DOMString</code> variable on the implementation
@@ -1551,69 +1543,6 @@ public abstract class NodeImpl
     }
 
     //
-    // Public methods
-    //
-
-    /**
-     * NON-DOM: PR-DOM-Level-1-19980818 mentions readonly nodes in conjunction
-     * with Entities, but provides no API to support this.
-     * <P>
-     * Most DOM users should not touch this method. Its anticpated use
-     * is during construction of EntityRefernces, where it will be used to
-     * lock the contents replicated from Entity so they can't be casually
-     * altered. It _could_ be published as a DOM extension, if desired.
-     * <P>
-     * Note: since we never have any children deep is meaningless here,
-     * ParentNode overrides this behavior.
-     * @see ParentNode
-     *
-     * @param readOnly True or false as desired.
-     * @param deep If true, children are also toggled. Note that this will
-     *    not change the state of an EntityReference or its children,
-     *  which are always read-only.
-     */
-    public void setReadOnly(boolean readOnly, boolean deep) {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        isReadOnly(readOnly);
-
-    } // setReadOnly(boolean,boolean)
-
-     // NON-DOM: Returns true if this node is read-only. This is a
-     // shallow check.
-    public boolean getReadOnly() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        return isReadOnly();
-
-    }
-
-    /**
-     * NON-DOM: As an alternative to subclassing the DOM, this implementation
-     * has been extended with the ability to attach an object to each node.
-     * (If you need multiple objects, you can attach a collection such as a
-     * vector or hashtable, then attach your application information to that.)
-     * <p><b>Important Note:</b> You are responsible for removing references
-     * to your data on nodes that are no longer used. Failure to do so will
-     * prevent the nodes, your data is attached to, to be garbage collected
-     * until the whole document is.
-     *
-     * @param data the object to store or null to remove any existing reference
-     */
-    public void setUserData(Object data) {
-        ownerDocument().setUserData(this, data);
-    }
-
-     // NON-DOM: Returns the user data associated to this node.
-    public Object getUserData() {
-        return ownerDocument().getUserData(this);
-    }
-
-    //
     // Protected methods
     //
 
@@ -1644,14 +1573,6 @@ public abstract class NodeImpl
     protected void synchronizeData() {
         // By default just change the flag to avoid calling this method again
         needsSyncData(false);
-    }
-
-    final boolean isReadOnly() {
-        return (flags & READONLY) != 0;
-    }
-
-    final void isReadOnly(boolean value) {
-        flags = (short) (value ? flags | READONLY : flags & ~READONLY);
     }
 
     final boolean needsSyncData() {

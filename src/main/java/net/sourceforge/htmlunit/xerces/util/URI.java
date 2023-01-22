@@ -67,14 +67,6 @@ import java.util.Locale;
 
     private static final long serialVersionUID = -8343545858797571098L;
 
-    /******************************************************************
-     * Constructs a <code>MalformedURIException</code> with no specified
-     * detail message.
-     ******************************************************************/
-    public MalformedURIException() {
-      super();
-    }
-
     /*****************************************************************
     * Constructs a <code>MalformedURIException</code> with the
     * specified detail message.
@@ -227,23 +219,7 @@ import java.util.Locale;
   /** If specified, stores the fragment for this URI; otherwise null */
   private String m_fragment = null;
 
-  /**
-  * Construct a new and uninitialized URI.
-  */
-  public URI() {
-  }
-
- /**
-  * Construct a new URI from another URI. All fields for this URI are
-  * set equal to the fields of the URI passed in.
-  *
-  * @param p_other the URI to copy (cannot be null)
-  */
-  public URI(URI p_other) {
-    initialize(p_other);
-  }
-
- /**
+    /**
   * Construct a new URI from a URI specification string. If the
   * specification follows the "generic URI" syntax, (two slashes
   * following the first colon), the specification will be parsed
@@ -322,34 +298,7 @@ import java.util.Locale;
       initialize(p_base, p_uriSpec, allowNonAbsoluteURI);
   }
 
- /**
-  * Construct a new URI that does not follow the generic URI syntax.
-  * Only the scheme and scheme-specific part (stored as the path) are
-  * initialized.
-  *
-  * @param p_scheme the URI scheme (cannot be null or empty)
-  * @param p_schemeSpecificPart the scheme-specific part (cannot be
-  *                             null or empty)
-  *
-  * @exception MalformedURIException if p_scheme violates any
-  *                                  syntax rules
-  */
-  public URI(String p_scheme, String p_schemeSpecificPart)
-             throws MalformedURIException {
-    if (p_scheme == null || p_scheme.trim().length() == 0) {
-      throw new MalformedURIException(
-            "Cannot construct URI with null/empty scheme!");
-    }
-    if (p_schemeSpecificPart == null ||
-        p_schemeSpecificPart.trim().length() == 0) {
-      throw new MalformedURIException(
-          "Cannot construct URI with null/empty scheme-specific part!");
-    }
-    setScheme(p_scheme);
-    setPath(p_schemeSpecificPart);
-  }
-
- /**
+    /**
   * Construct a new URI that follows the generic URI syntax from its
   * component parts. Each component is validated for syntax and some
   * basic semantic checks are performed as well.  See the individual
@@ -1261,70 +1210,7 @@ import java.util.Locale;
     return m_regAuthority;
   }
 
-  /**
-   * Get the authority for this URI.
-   *
-   * @return the authority
-   */
-  public String getAuthority() {
-      StringBuilder authority = new StringBuilder();
-      if (m_host != null || m_regAuthority != null) {
-          authority.append("//");
-
-          // Server based authority.
-          if (m_host != null) {
-
-              if (m_userinfo != null) {
-                  authority.append(m_userinfo);
-                  authority.append('@');
-              }
-
-              authority.append(m_host);
-
-              if (m_port != -1) {
-                  authority.append(':');
-                  authority.append(m_port);
-              }
-          }
-          // Registry based authority.
-          else {
-              authority.append(m_regAuthority);
-          }
-      }
-      return authority.toString();
-  }
-
- /**
-  * Get the path for this URI (optionally with the query string and
-  * fragment).
-  *
-  * @param p_includeQueryString if true (and query string is not null),
-  *                             then a "?" followed by the query string
-  *                             will be appended
-  * @param p_includeFragment if true (and fragment is not null),
-  *                             then a "#" followed by the fragment
-  *                             will be appended
-  *
-  * @return the path for this URI possibly including the query string
-  *         and fragment
-  */
-  public String getPath(boolean p_includeQueryString,
-                        boolean p_includeFragment) {
-    StringBuilder pathString = new StringBuilder(m_path);
-
-    if (p_includeQueryString && m_queryString != null) {
-      pathString.append('?');
-      pathString.append(m_queryString);
-    }
-
-    if (p_includeFragment && m_fragment != null) {
-      pathString.append('#');
-      pathString.append(m_fragment);
-    }
-    return pathString.toString();
-  }
-
- /**
+    /**
   * Get the path for this URI. Note that the value returned is the path
   * only and does not include the query string or fragment.
   *
@@ -1474,37 +1360,6 @@ import java.util.Locale;
     m_port = p_port;
   }
 
-  /**
-   * <p>Sets the registry based authority for this URI.</p>
-   *
-   * <p>Note: This method overwrites server based authority
-   * if it previously existed in this URI.</p>
-   *
-   * @param authority the registry based authority for this URI
-   *
-   * @exception MalformedURIException it authority is not a
-   * well formed registry based authority
-   */
-  public void setRegBasedAuthority(String authority)
-    throws MalformedURIException {
-
-      if (authority == null) {
-        m_regAuthority = null;
-        return;
-      }
-    // reg_name = 1*( unreserved | escaped | "$" | "," |
-    //            ";" | ":" | "@" | "&" | "=" | "+" )
-      else if (authority.length() < 1 ||
-        !isValidRegistryBasedAuthority(authority) ||
-        authority.indexOf('/') != -1) {
-      throw new MalformedURIException("Registry based authority is not well formed.");
-      }
-      m_regAuthority = authority;
-      m_host = null;
-      m_userinfo = null;
-      m_port = -1;
-  }
-
  /**
   * Set the path for this URI. If the supplied path is null, then the
   * query string and fragment are set to null as well. If the supplied
@@ -1530,57 +1385,7 @@ import java.util.Locale;
     }
   }
 
- /**
-  * Append to the end of the path of this URI. If the current path does
-  * not end in a slash and the path to be appended does not begin with
-  * a slash, a slash will be appended to the current path before the
-  * new segment is added. Also, if the current path ends in a slash
-  * and the new segment begins with a slash, the extra slash will be
-  * removed before the new segment is appended.
-  *
-  * @param p_addToPath the new segment to be added to the current path
-  *
-  * @exception MalformedURIException if p_addToPath contains syntax
-  *                                  errors
-  */
-  public void appendPath(String p_addToPath)
-                         throws MalformedURIException {
-    if (p_addToPath == null || p_addToPath.trim().length() == 0) {
-      return;
-    }
-
-    if (!isURIString(p_addToPath)) {
-      throw new MalformedURIException(
-              "Path contains invalid character!");
-    }
-
-    if (m_path == null || m_path.trim().length() == 0) {
-      if (p_addToPath.startsWith("/")) {
-        m_path = p_addToPath;
-      }
-      else {
-        m_path = "/" + p_addToPath;
-      }
-    }
-    else if (m_path.endsWith("/")) {
-      if (p_addToPath.startsWith("/")) {
-        m_path = m_path.concat(p_addToPath.substring(1));
-      }
-      else {
-        m_path = m_path.concat(p_addToPath);
-      }
-    }
-    else {
-      if (p_addToPath.startsWith("/")) {
-        m_path = m_path.concat(p_addToPath);
-      }
-      else {
-        m_path = m_path.concat("/" + p_addToPath);
-      }
-    }
-  }
-
- /**
+    /**
   * Set the query string for this URI. A non-null value is valid only
   * if this is an URI conforming to the generic URI syntax and
   * the path value is not null.

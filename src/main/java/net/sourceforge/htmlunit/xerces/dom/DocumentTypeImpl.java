@@ -418,28 +418,6 @@ public class DocumentTypeImpl
         return notations;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * NON-DOM: Subclassed to flip the entities' and notations' readonly switch
-     * as well.
-     * @see NodeImpl#setReadOnly
-     */
-    @Override
-    public void setReadOnly(boolean readOnly, boolean deep) {
-
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-        super.setReadOnly(readOnly, deep);
-
-        // set read-only property
-        elements.setReadOnly(readOnly);
-        entities.setReadOnly(readOnly);
-        notations.setReadOnly(readOnly);
-
-    }
-
      // NON-DOM: Access the collection of ElementDefinitions.
      // @see ElementDefinitionImpl
     public NamedNodeMap getElements() {

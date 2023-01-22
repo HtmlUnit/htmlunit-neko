@@ -91,7 +91,6 @@ implements EntityReference {
     public EntityReferenceImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
-        isReadOnly(true);
         needsSyncChildren(true);
     }
 
@@ -127,7 +126,6 @@ implements EntityReference {
     @Override
     public Node cloneNode(boolean deep) {
         EntityReferenceImpl er = (EntityReferenceImpl)super.cloneNode(deep);
-        er.setReadOnly(true, deep);
         return er;
     }
 
@@ -257,45 +255,12 @@ implements EntityReference {
                 return;
 
             // If entity's definition exists, clone its kids
-            isReadOnly(false);
             for (Node defkid = entDef.getFirstChild();
                 defkid != null;
                 defkid = defkid.getNextSibling()) {
                 Node newkid = defkid.cloneNode(true);
                 insertBefore(newkid, null);
             }
-            setReadOnly(true, true);
         }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     *
-     * NON-DOM: sets the node and its children value.
-     * <P>
-     * Note: make sure that entity reference and its kids could be set readonly.
-     */
-    @Override
-    public void setReadOnly(boolean readOnly, boolean deep) {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        if (deep) {
-
-            if (needsSyncChildren()) {
-                synchronizeChildren();
-            }
-            // Recursively set kids
-            for (ChildNode mykid = firstChild;
-                 mykid != null;
-                 mykid = mykid.nextSibling) {
-
-                mykid.setReadOnly(readOnly,true);
-
-            }
-        }
-        isReadOnly(readOnly);
     }
 }

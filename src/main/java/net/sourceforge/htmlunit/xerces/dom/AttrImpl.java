@@ -308,11 +308,6 @@ public class AttrImpl
 
         CoreDocumentImpl ownerDocument = ownerDocument();
 
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         Element ownerElement = getOwnerElement();
         String oldvalue;
 
@@ -638,10 +633,6 @@ public class AttrImpl
         }
 
         if (errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if (newChild.getOwnerDocument() != ownerDocument) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -774,10 +765,6 @@ public class AttrImpl
 
         CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if (oldChild != null && oldChild.getParentNode() != this) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
@@ -972,43 +959,6 @@ public class AttrImpl
         return false;
     }
 
-
-    //
-    // Public methods
-    //
-
-    /**
-     * Override default behavior so that if deep is true, children are also
-     * toggled.
-     * @see Node
-     * <P>
-     * Note: this will not change the state of an EntityReference or its
-     * children, which are always read-only.
-     */
-    @Override
-    public void setReadOnly(boolean readOnly, boolean deep) {
-
-        super.setReadOnly(readOnly, deep);
-
-        if (deep) {
-
-            if (needsSyncChildren()) {
-                synchronizeChildren();
-            }
-
-            if (hasStringValue()) {
-                return;
-            }
-            // Recursively set kids
-            for (ChildNode mykid = (ChildNode) value;
-                 mykid != null;
-                 mykid = mykid.nextSibling) {
-                if (mykid.getNodeType() != Node.ENTITY_REFERENCE_NODE) {
-                    mykid.setReadOnly(readOnly,true);
-                }
-            }
-        }
-    } // setReadOnly(boolean,boolean)
 
     //
     // Protected methods

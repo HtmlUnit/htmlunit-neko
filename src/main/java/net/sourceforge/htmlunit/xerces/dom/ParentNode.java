@@ -338,11 +338,6 @@ public abstract class ParentNode
         }
 
         if (errorChecking) {
-            if (isReadOnly()) {
-                throw new DOMException(
-                              DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                              DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
-            }
             if (newChild.getOwnerDocument() != ownerDocument && newChild != ownerDocument) {
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null));
@@ -485,11 +480,6 @@ public abstract class ParentNode
 
         CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                throw new DOMException(
-                            DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                            DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
-            }
             if (oldChild != null && oldChild.getParentNode() != this) {
                 throw new DOMException(DOMException.NOT_FOUND_ERR,
                             DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
@@ -852,38 +842,6 @@ public abstract class ParentNode
         }
         return child1 == child2;
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * Override default behavior so that if deep is true, children are also
-     * toggled.
-     * @see Node
-     * <P>
-     * Note: this will not change the state of an EntityReference or its
-     * children, which are always read-only.
-     */
-    @Override
-    public void setReadOnly(boolean readOnly, boolean deep) {
-
-        super.setReadOnly(readOnly, deep);
-
-        if (deep) {
-
-            if (needsSyncChildren()) {
-                synchronizeChildren();
-            }
-
-            // Recursively set kids
-            for (ChildNode mykid = firstChild;
-                 mykid != null;
-                 mykid = mykid.nextSibling) {
-                if (mykid.getNodeType() != Node.ENTITY_REFERENCE_NODE) {
-                    mykid.setReadOnly(readOnly,true);
-                }
-            }
-        }
-    } // setReadOnly(boolean,boolean)
 
     /**
      * Override this method in subclass to hook in efficient

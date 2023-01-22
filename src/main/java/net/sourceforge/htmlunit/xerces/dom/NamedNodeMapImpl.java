@@ -163,10 +163,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
         CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if (arg.getOwnerDocument() != ownerDocument) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -197,11 +193,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
         CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
-
             if(arg.getOwnerDocument() != ownerDocument) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -242,13 +233,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     @Override
     public Node removeNamedItem(String name)
         throws DOMException {
-
-        if (isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw
-                new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                msg);
-        }
         int i = findNamePoint(name,0);
         if (i < 0) {
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
@@ -268,13 +252,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      @Override
     public Node removeNamedItemNS(String namespaceURI, String name)
         throws DOMException {
-
-        if (isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw
-                new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                msg);
-        }
         int i = findNamePoint(namespaceURI, name);
         if (i < 0) {
             String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
@@ -322,30 +299,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     }
 
     /**
-     * Internal subroutine to allow read-only Nodes to make their contained
-     * NamedNodeMaps readonly too. I expect that in fact the shallow
-     * version of this operation will never be
-     *
-     * @param readOnly boolean true to make read-only, false to permit editing.
-     */
-    void setReadOnly(boolean readOnly) {
-        isReadOnly(readOnly);
-        if (true && nodes != null) {
-            for (int i = nodes.size() - 1; i >= 0; i--) {
-                ((NodeImpl) nodes.get(i)).setReadOnly(readOnly, true);
-            }
-        }
-    }
-
-    /**
-     * Internal subroutine returns this NodeNameMap's (shallow) readOnly value.
-     *
-     */
-    boolean getReadOnly() {
-        return isReadOnly();
-    }
-
-    /**
      * NON-DOM
      * set the ownerDocument of this node, and the attributes it contains
      * @param doc the doc
@@ -357,14 +310,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
                 ((NodeImpl)item(i)).setOwnerDocument(doc);
             }
         }
-    }
-
-    final boolean isReadOnly() {
-        return (flags & READONLY) != 0;
-    }
-
-    final void isReadOnly(boolean value) {
-        flags = (short) (value ? flags | READONLY : flags & ~READONLY);
     }
 
     final boolean changed() {

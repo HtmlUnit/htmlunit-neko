@@ -810,26 +810,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             fCurrentEntityDecl = (EntityImpl) entities.getNamedItem (name);
             if (fCurrentEntityDecl != null) {
                 if (fCurrentEntityDecl.getFirstChild () == null) {
-                    fCurrentEntityDecl.setReadOnly (false, true);
                     Node child = fCurrentNode.getFirstChild ();
                     while (child != null) {
                         Node copy = child.cloneNode (true);
                         fCurrentEntityDecl.appendChild (copy);
                         child = child.getNextSibling ();
                     }
-                    fCurrentEntityDecl.setReadOnly (true, true);
-
-                    //entities.setNamedItem(fCurrentEntityDecl);
                 }
                 fCurrentEntityDecl = null;
             }
 
-        }
-        if (fCreateEntityRefNodes) {
-            if (fDocumentImpl != null) {
-                // Make entity ref node read only
-                ((NodeImpl)fCurrentNode).setReadOnly (true, true);
-            }
         }
 
         if (!fCreateEntityRefNodes) {

@@ -277,19 +277,8 @@ public class TextImpl
 
         //replace the text node
         Text currentNode;
-        if (isReadOnly()) {
-            Text newNode = this.ownerDocument().createTextNode(content);
-            if (parent != null) { // check if node in the tree
-                parent.insertBefore(newNode, this);
-                parent.removeChild(this);
-                currentNode = newNode;
-            } else {
-                return newNode;
-            }
-        } else {
-            this.setData(content);
-            currentNode = this;
-        }
+        this.setData(content);
+        currentNode = this;
 
         //check logically-adjacent text nodes
         Node prev = currentNode.getPreviousSibling();
@@ -551,12 +540,6 @@ public class TextImpl
     @Override
     public Text splitText(int offset)
         throws DOMException {
-
-        if (isReadOnly()) {
-            throw new DOMException(
-            DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
-        }
 
         if (needsSyncData()) {
             synchronizeData();

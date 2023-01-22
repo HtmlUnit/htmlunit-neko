@@ -1341,9 +1341,6 @@ extends ParentNode implements Document  {
                 newentity.setPublicId(srcentity.getPublicId());
                 newentity.setSystemId(srcentity.getSystemId());
                 newentity.setNotationName(srcentity.getNotationName());
-                // Kids carry additional value,
-                // allow deep import temporarily
-                newentity.isReadOnly(false);
                 newnode = newentity;
                 break;
             }
@@ -1426,9 +1423,6 @@ extends ParentNode implements Document  {
                 newnode.appendChild(importNode(srckid, true, cloningDoc,
                 reversedIdentifiers));
             }
-        }
-        if (newnode.getNodeType() == Node.ENTITY_NODE) {
-            ((NodeImpl)newnode).setReadOnly(true, true);
         }
         return newnode;
 

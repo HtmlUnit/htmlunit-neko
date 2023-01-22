@@ -69,10 +69,6 @@ public class AttributeMap extends NamedNodeMapImpl {
 
         boolean errCheck = ownerNode.ownerDocument().errorChecking;
         if (errCheck) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if (arg.getOwnerDocument() != ownerNode.ownerDocument()) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -140,10 +136,6 @@ public class AttributeMap extends NamedNodeMapImpl {
 
         boolean errCheck = ownerNode.ownerDocument().errorChecking;
         if (errCheck) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if(arg.getOwnerDocument() != ownerNode.ownerDocument()) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -273,10 +265,6 @@ public class AttributeMap extends NamedNodeMapImpl {
      * @return the node
      */
     final protected Node internalRemoveNamedItem(String name, boolean raiseEx){
-        if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
         int i = findNamePoint(name,0);
         if (i < 0) {
             if (raiseEx) {
@@ -395,10 +383,6 @@ public class AttributeMap extends NamedNodeMapImpl {
             boolean raiseEx) {
 
         CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
         int i = findNamePoint(namespaceURI, name);
         if (i < 0) {
             if (raiseEx) {

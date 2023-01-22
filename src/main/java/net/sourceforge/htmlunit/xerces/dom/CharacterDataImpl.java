@@ -94,12 +94,6 @@ public abstract class CharacterDataImpl
     protected void setNodeValueInternal(String value, boolean replace) {
 
         CoreDocumentImpl ownerDocument = ownerDocument();
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         // revisit: may want to set the value in ownerDocument.
         // Default behavior, overridden in some subclasses
         if (needsSyncData()) {
@@ -165,11 +159,6 @@ public abstract class CharacterDataImpl
      * @param data the data
      */
     public void appendData(String data) {
-
-        if (isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
         if (data == null) {
             return;
         }
@@ -190,9 +179,6 @@ public abstract class CharacterDataImpl
      *
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or
      * greater than length, or if count is negative.
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is
-     * readonly.
      */
     public void deleteData(int offset, int count)
         throws DOMException {
@@ -210,11 +196,6 @@ public abstract class CharacterDataImpl
 
         CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
-
             if (count < 0) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
                 throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
@@ -248,8 +229,6 @@ public abstract class CharacterDataImpl
      *
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or
      * greater than length.
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is readonly.
      */
     public void insertData(int offset, String data)
         throws DOMException {
@@ -266,12 +245,6 @@ public abstract class CharacterDataImpl
     throws DOMException {
 
         CoreDocumentImpl ownerDocument = ownerDocument();
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -314,24 +287,10 @@ public abstract class CharacterDataImpl
      *
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or
      * greater than length, or if count is negative.
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is
-     * readonly.
      */
     public void replaceData(int offset, int count, String data) throws DOMException {
 
         CoreDocumentImpl ownerDocument = ownerDocument();
-
-        // The read-only check is done by deleteData()
-        // ***** This could be more efficient w/r/t Mutation Events,
-        // specifically by aggregating DOMAttrModified and
-        // DOMSubtreeModified. But mutation events are
-        // underspecified; I don't feel compelled
-        // to deal with it right now.
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
 
         if (needsSyncData()) {
             synchronizeData();
@@ -353,8 +312,6 @@ public abstract class CharacterDataImpl
     /**
      * Store character data into this node.
      * @param value the value
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is readonly.
      */
     public void setData(String value)
         throws DOMException {

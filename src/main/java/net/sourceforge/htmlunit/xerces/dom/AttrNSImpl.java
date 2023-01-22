@@ -191,10 +191,6 @@ public class AttrNSImpl extends AttrImpl {
             synchronizeData();
         }
         if (ownerDocument().errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-            }
             if (prefix != null && prefix.length() != 0) {
 
                 if (!CoreDocumentImpl.isXMLName(prefix,ownerDocument().isXML11Version())) {

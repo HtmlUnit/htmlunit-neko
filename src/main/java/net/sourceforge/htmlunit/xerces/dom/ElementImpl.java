@@ -338,18 +338,9 @@ public class ElementImpl
      * Note that this call "succeeds" even if no attribute by this name
      * existed -- unlike removeAttributeNode, which will throw a not-found
      * exception in that case.
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
-     * readonly.
      */
     @Override
     public void removeAttribute(String name) {
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -378,17 +369,10 @@ public class ElementImpl
      * @return the Attribute object that was removed.
      * @throws DOMException NOT_FOUND_ERR if oldattr is not an attribute of
      * this Element.
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
-     * readonly.
      */
     @Override
     public Attr removeAttributeNode(Attr oldAttr)
         throws DOMException {
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
 
         if (needsSyncData()) {
             synchronizeData();
@@ -420,22 +404,9 @@ public class ElementImpl
      *
      * @throws DOMException INVALID_NAME_ERR if the name is not acceptable.
      * (Attribute factory will do that test for us.)
-     *
-     * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if the node is
-     * readonly.
      */
     @Override
     public void setAttribute(String name, String value) {
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg =
-                DOMMessageFormatter.formatMessage(
-                    DOMMessageFormatter.DOM_DOMAIN,
-                    "NO_MODIFICATION_ALLOWED_ERR",
-                    null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -482,13 +453,6 @@ public class ElementImpl
         }
 
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(
-                                     DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                                     msg);
-            }
-
             if (newAttr.getOwnerDocument() != ownerDocument) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -564,16 +528,6 @@ public class ElementImpl
      @Override
     public void setAttributeNS(String namespaceURI,String qualifiedName,
                                   String value) {
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg =
-                DOMMessageFormatter.formatMessage(
-                    DOMMessageFormatter.DOM_DOMAIN,
-                    "NO_MODIFICATION_ALLOWED_ERR",
-                    null);
-            throw new DOMException(
-                DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                msg);
-        }
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -638,12 +592,6 @@ public class ElementImpl
      */
     @Override
     public void removeAttributeNS(String namespaceURI, String localName) {
-
-        if (ownerDocument.errorChecking && isReadOnly()) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-            throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
-        }
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -701,9 +649,6 @@ public class ElementImpl
      *                  was created from a different document than the one that
      *                  created the element.
      *
-     * @throws          DOMException NO_MODIFICATION_ALLOWED_ERR: Raised if
-     *                  this node is readonly.
-     *
      * @throws          DOMException INUSE_ATTRIBUTE_ERR: Raised if newAttr is
      *                  already an attribute of another Element object. The
      *                  DOM user must explicitly clone Attr nodes to re-use
@@ -718,12 +663,6 @@ public class ElementImpl
             synchronizeData();
         }
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(
-                                     DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                                     msg);
-            }
             if (newAttr.getOwnerDocument() != ownerDocument) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -850,13 +789,6 @@ public class ElementImpl
             synchronizeData();
         }
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(
-                                     DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                                     msg);
-            }
-
             if (at.getOwnerElement() != this) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
@@ -891,13 +823,6 @@ public class ElementImpl
         }
 
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(
-                                     DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                                     msg);
-            }
-
             if (at.getOwnerElement() != this) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
@@ -934,13 +859,6 @@ public class ElementImpl
         }
 
         if (ownerDocument.errorChecking) {
-            if (isReadOnly()) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
-                throw new DOMException(
-                                     DOMException.NO_MODIFICATION_ALLOWED_ERR,
-                                     msg);
-            }
-
             if (at.getOwnerElement() != this) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
@@ -1013,21 +931,6 @@ public class ElementImpl
         }
         return this;
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * NON-DOM: Subclassed to flip the attributes' readonly switch as well.
-     * @see NodeImpl#setReadOnly
-     */
-    @Override
-    public void setReadOnly(boolean readOnly, boolean deep) {
-        super.setReadOnly(readOnly,deep);
-        if (attributes != null) {
-            attributes.setReadOnly(readOnly);
-        }
-    }
-
 
     /**
      * {@inheritDoc}

@@ -87,7 +87,6 @@ public class EntityImpl
     public EntityImpl(CoreDocumentImpl ownerDoc, String name) {
         super(ownerDoc);
         this.name = name;
-        isReadOnly(true);
     }
 
     /**
@@ -122,7 +121,6 @@ public class EntityImpl
     @Override
     public Node cloneNode(boolean deep) {
         EntityImpl newentity = (EntityImpl)super.cloneNode(deep);
-        newentity.setReadOnly(true, deep);
         return newentity;
     }
 
