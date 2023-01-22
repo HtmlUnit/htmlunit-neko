@@ -592,7 +592,7 @@ public class XMLAttributesImpl
          * XMLAttributes has no knowledge if any augmentations
          * were attached to Augmentations.
          */
-        public Augmentations augs = new AugmentationsImpl();
+        public final Augmentations augs = new AugmentationsImpl();
     } // class Attribute
 
 } // class XMLAttributesImpl

@@ -115,7 +115,7 @@ public class HTMLDocumentImpl
      *
      * @see #createElement
      */
-    private static HashMap<String, Class<? extends HTMLElementImpl>> _elementTypesHTML = new HashMap<>();
+    private static final HashMap<String, Class<? extends HTMLElementImpl>> _elementTypesHTML = new HashMap<>();
 
 
     /**

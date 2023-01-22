@@ -541,9 +541,8 @@ import java.util.Locale;
           int startPos = index;
 
           // Authority will be everything up to path, query or fragment
-          char testChar = '\0';
           while (index < uriSpecLen) {
-              testChar = p_uriSpec.charAt(index);
+              char testChar = p_uriSpec.charAt(index);
               if (testChar == '/' || testChar == '?' || testChar == '#') {
                   break;
               }
@@ -656,9 +655,8 @@ import java.util.Locale;
       int startPos = index;
 
       // Authority will be everything up to path, query or fragment
-      char testChar = '\0';
       while (index < uriSpecLen) {
-        testChar = p_uriSpec.charAt(index);
+        char testChar = p_uriSpec.charAt(index);
         if (testChar == '/' || testChar == '?' || testChar == '#') {
           break;
         }
@@ -772,7 +770,7 @@ import java.util.Locale;
       path = path.concat(m_path);
 
       // 6c - remove all "./" where "." is a complete path segment
-      int index = -1;
+      int index;
       while ((index = path.indexOf("/./")) != -1) {
           path = path.substring(0, index+1).concat(path.substring(index+3));
       }
@@ -830,10 +828,9 @@ import java.util.Locale;
     int uriSpecLen = p_uriSpec.length();
     int index = 0;
     String scheme = null;
-    char testChar = '\0';
 
     while (index < uriSpecLen) {
-      testChar = p_uriSpec.charAt(index);
+      char testChar = p_uriSpec.charAt(index);
       if (testChar == ':' || testChar == '/' ||
           testChar == '?' || testChar == '#') {
         break;
@@ -865,13 +862,12 @@ import java.util.Locale;
     int start = 0;
     int end = p_uriSpec.length();
 
-    char testChar = '\0';
     String userinfo = null;
 
     // userinfo is everything up to @
     if (p_uriSpec.indexOf('@', start) != -1) {
       while (index < end) {
-        testChar = p_uriSpec.charAt(index);
+        char testChar = p_uriSpec.charAt(index);
         if (testChar == '@') {
           break;
         }
@@ -975,9 +971,8 @@ import java.util.Locale;
       // and ';',':','&','=','+','$',','
       int index = 0;
       int end = userinfo.length();
-      char testChar = '\0';
       while (index < end) {
-        testChar = userinfo.charAt(index);
+        char testChar = userinfo.charAt(index);
         if (testChar == '%') {
           if (index+2 >= end ||
             !isHex(userinfo.charAt(index+1)) ||
@@ -1406,9 +1401,8 @@ import java.util.Locale;
       // and ';',':','&','=','+','$',','
       int index = 0;
       int end = p_userinfo.length();
-      char testChar = '\0';
       while (index < end) {
-        testChar = p_userinfo.charAt(index);
+        char testChar = p_userinfo.charAt(index);
         if (testChar == '%') {
           if (index+2 >= end ||
               !isHex(p_userinfo.charAt(index+1)) ||
@@ -2119,9 +2113,8 @@ public String toString() {
       return false;
     }
     int end = p_uric.length();
-    char testChar = '\0';
     for (int i = 0; i < end; i++) {
-      testChar = p_uric.charAt(i);
+      char testChar = p_uric.charAt(i);
       if (testChar == '%') {
         if (i+2 >= end ||
             !isHex(p_uric.charAt(i+1)) ||

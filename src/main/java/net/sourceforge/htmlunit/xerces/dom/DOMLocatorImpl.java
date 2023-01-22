@@ -49,7 +49,7 @@ public class DOMLocatorImpl implements DOMLocator {
    public int fLineNumber = -1;
 
    /** related data node*/
-   public Node fRelatedNode = null;
+   public final Node fRelatedNode = null;
 
    /**
     * The URI where the error occured,
@@ -61,7 +61,7 @@ public class DOMLocatorImpl implements DOMLocator {
     * The byte offset into the input source this locator is pointing to or -1
     * if there is no byte offset available
     */
-   public int fByteOffset = -1;
+   public final int fByteOffset = -1;
 
    /**
     * The UTF-16, as defined in [Unicode] and Amendment 1 of [ISO/IEC 10646],

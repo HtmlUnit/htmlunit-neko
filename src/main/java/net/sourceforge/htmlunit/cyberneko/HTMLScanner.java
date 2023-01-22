@@ -2635,12 +2635,11 @@ public class HTMLScanner
                         appendChar(fStringBuffer, c, null);
                     }
                 }
-                final XMLString data = fStringBuffer;
                 if (fDocumentHandler != null) {
                     fEndLineNumber = fCurrentEntity.getLineNumber();
                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                    fDocumentHandler.processingInstruction(target, data, locationAugs());
+                    fDocumentHandler.processingInstruction(target, fStringBuffer, locationAugs());
                 }
             }
 
@@ -2814,16 +2813,15 @@ public class HTMLScanner
             charset = charset.trim();
             boolean encodingChanged = false;
             try {
-                final String ianaEncoding = charset;
-                String javaEncoding = EncodingMap.getIANA2JavaMapping(ianaEncoding.toUpperCase(Locale.ROOT));
+                String javaEncoding = EncodingMap.getIANA2JavaMapping(charset.toUpperCase(Locale.ROOT));
                 if (DEBUG_CHARSET) {
-                    System.out.println("+++ ianaEncoding: "+ianaEncoding);
+                    System.out.println("+++ ianaEncoding: "+ charset);
                     System.out.println("+++ javaEncoding: "+javaEncoding);
                 }
                 if (javaEncoding == null) {
-                    javaEncoding = ianaEncoding;
+                    javaEncoding = charset;
                     if (fReportErrors) {
-                        fErrorReporter.reportError("HTML1001", new Object[]{ianaEncoding});
+                        fErrorReporter.reportError("HTML1001", new Object[]{charset});
                     }
                 }
                 // patch: Marc Guillemot
@@ -2836,8 +2834,8 @@ public class HTMLScanner
                       // change the charset
                      else {
                         fIso8859Encoding =
-                                ianaEncoding.toUpperCase(Locale.ROOT).startsWith("ISO-8859")
-                                || ianaEncoding.equalsIgnoreCase(fDefaultIANAEncoding);
+                                charset.toUpperCase(Locale.ROOT).startsWith("ISO-8859")
+                                || charset.equalsIgnoreCase(fDefaultIANAEncoding);
                         fJavaEncoding = javaEncoding;
                         fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding));
                         fByteStream.playback();

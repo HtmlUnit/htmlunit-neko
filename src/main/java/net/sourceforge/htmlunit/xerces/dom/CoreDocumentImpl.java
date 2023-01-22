@@ -2050,8 +2050,7 @@ extends ParentNode implements Document  {
         if (userData == null) {
             return null;
         }
-        Hashtable<String, UserDataRecord> t = userData.get(n);
-        return t;
+        return userData.get(n);
     }
 
     /**
