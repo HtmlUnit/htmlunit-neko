@@ -143,7 +143,6 @@ public interface XMLDocumentHandler {
      * appearing as part of attribute values.
      *
      * @param name       The name of the general entity.
-     * @param identifier The resource identifier.
      * @param encoding   The auto-detected IANA encoding name of the entity stream.
      *                   This value will be null in those situations where the
      *                   entity encoding is not auto-detected (e.g. internal
@@ -154,7 +153,7 @@ public interface XMLDocumentHandler {
      *
      * @exception XNIException Thrown by handler to signal an error.
      */
-    void startGeneralEntity(String name, XMLResourceIdentifier identifier, String encoding, Augmentations augs)
+    void startGeneralEntity(String name, String encoding, Augmentations augs)
             throws XNIException;
 
     /**

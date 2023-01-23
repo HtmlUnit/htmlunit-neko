@@ -349,7 +349,7 @@ public class ElementImpl
             return;
         }
 
-        attributes.safeRemoveNamedItem(name);
+        attributes.internalRemoveNamedItem(name, false);
 
     } // removeAttribute(String)
 
@@ -600,7 +600,7 @@ public class ElementImpl
             return;
         }
 
-        attributes.safeRemoveNamedItemNS(namespaceURI, localName);
+        attributes.internalRemoveNamedItemNS(namespaceURI, name, false);
 
     }
 

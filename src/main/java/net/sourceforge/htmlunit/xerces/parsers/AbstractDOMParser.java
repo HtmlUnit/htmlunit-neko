@@ -58,7 +58,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
@@ -272,16 +271,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startGeneralEntity (String name,
-    XMLResourceIdentifier identifier,
-    String encoding, Augmentations augs)
+    public void startGeneralEntity (String name, String encoding, Augmentations augs)
     throws XNIException {
         if (DEBUG_EVENTS) {
-            System.out.println ("==>startGeneralEntity ("+name+")");
-            if (DEBUG_BASEURI) {
-                System.out.println ("   expandedSystemId( **baseURI): "+identifier.getExpandedSystemId ());
-                System.out.println ("   baseURI:"+ identifier.getBaseSystemId ());
-            }
+            System.out.println ("==>startGeneralEntity (" + name + ")");
         }
 
         // Always create entity reference nodes to be able to recreate
@@ -297,9 +290,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             //
 
             EntityReferenceImpl erImpl =(EntityReferenceImpl)er;
-
-            // set base uri
-            erImpl.setBaseURI (identifier.getExpandedSystemId ());
             if (fDocumentType != null) {
                 // set actual encoding
                 NamedNodeMap entities = fDocumentType.getEntities ();

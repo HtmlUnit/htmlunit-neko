@@ -43,7 +43,6 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
@@ -264,7 +263,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * appearing as part of attribute values.
      *
      * @param name     The name of the entity.
-     * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
      *                 stream. This value will be null in those situations
      *                 where the entity encoding is not auto-detected (e.g.
@@ -274,8 +272,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startGeneralEntity(String name, XMLResourceIdentifier identifier,
-                                   String encoding, Augmentations augs)
+    public void startGeneralEntity(String name, String encoding, Augmentations augs)
         throws XNIException {
 
         try {
@@ -958,10 +955,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw new SAXNotRecognizedException(
                     SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
-            else {
-                throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
-            }
+            throw new SAXNotSupportedException(
+                SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
         }
 
     } // setFeature(String,boolean)
@@ -1032,10 +1027,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw new SAXNotRecognizedException(
                     SAXMessageFormatter.formatMessage("feature-not-recognized", new Object [] {identifier}));
             }
-            else {
-                throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
-            }
+            throw new SAXNotSupportedException(
+                SAXMessageFormatter.formatMessage("feature-not-supported", new Object [] {identifier}));
         }
 
     } // getFeature(String):boolean
@@ -1094,10 +1087,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw new SAXNotRecognizedException(
                     SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
-            else {
-                throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
-            }
+            throw new SAXNotSupportedException(
+                SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
         }
 
     } // setProperty(String,Object)
@@ -1159,10 +1150,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw new SAXNotRecognizedException(
                     SAXMessageFormatter.formatMessage("property-not-recognized", new Object [] {identifier}));
             }
-            else {
-                throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
-            }
+            throw new SAXNotSupportedException(
+                SAXMessageFormatter.formatMessage("property-not-supported", new Object [] {identifier}));
         }
 
     }

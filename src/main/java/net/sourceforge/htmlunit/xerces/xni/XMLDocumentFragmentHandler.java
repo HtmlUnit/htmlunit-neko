@@ -68,7 +68,6 @@ public interface XMLDocumentFragmentHandler {
      * appearing as part of attribute values.
      *
      * @param name     The name of the general entity.
-     * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
      *                 stream. This value will be null in those situations
      *                 where the entity encoding is not auto-detected (e.g.
@@ -79,10 +78,7 @@ public interface XMLDocumentFragmentHandler {
      *
      * @throws XNIException Thrown by handler to signal an error.
      */
-    void startGeneralEntity(String name,
-                                   XMLResourceIdentifier identifier,
-                                   String encoding,
-                                   Augmentations augmentations) throws XNIException;
+    void startGeneralEntity(String name, String encoding, Augmentations augmentations) throws XNIException;
 
     /**
      * Notifies of the presence of a TextDecl line in an entity. If present,

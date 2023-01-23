@@ -807,35 +807,4 @@ public class HTMLElements {
             return false;
         }
     }
-
-    /** Unsynchronized list of elements. */
-    public static class ElementList {
-
-        //
-        // Data
-        //
-
-        /** The size of the list. */
-        public int size;
-
-        /** The data in the list. */
-        public Element[] data = new Element[120];
-
-        //
-        // Public methods
-        //
-
-        /**
-         * Adds an element to list, resizing if necessary.
-         * @param element element
-         */
-        public void addElement(final Element element) {
-            if (size == data.length) {
-                final Element[] newarray = new Element[size + 20];
-                System.arraycopy(data, 0, newarray, 0, size);
-                data = newarray;
-            }
-            data[size++] = element;
-        }
-    }
 }

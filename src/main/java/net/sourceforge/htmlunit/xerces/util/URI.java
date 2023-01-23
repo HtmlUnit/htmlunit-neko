@@ -791,9 +791,7 @@ import java.util.Locale;
     if (scheme.length() == 0) {
       throw new MalformedURIException("No scheme found in URI.");
     }
-    else {
-      setScheme(scheme);
-    }
+    setScheme(scheme);
   }
 
  /**

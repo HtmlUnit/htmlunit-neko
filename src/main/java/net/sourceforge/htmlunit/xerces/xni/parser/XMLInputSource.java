@@ -20,8 +20,6 @@ package net.sourceforge.htmlunit.xerces.xni.parser;
 import java.io.InputStream;
 import java.io.Reader;
 
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
-
 /**
  * This class represents an input source for an XML document. The
  * basic properties of an input source are the following:
@@ -79,20 +77,6 @@ public class XMLInputSource {
         fSystemId = systemId;
         fBaseSystemId = baseSystemId;
     } // <init>(String,String,String)
-
-    /**
-     * Constructs an input source from a XMLResourceIdentifier
-     * object, leaving resolution of the entity and opening of
-     * the input stream up to the caller.
-     *
-     * @param resourceIdentifier    the XMLResourceIdentifier containing the information
-     */
-    public XMLInputSource(XMLResourceIdentifier resourceIdentifier) {
-
-        fPublicId = resourceIdentifier.getPublicId();
-        fSystemId = resourceIdentifier.getLiteralSystemId();
-        fBaseSystemId = resourceIdentifier.getBaseSystemId();
-    } // <init>(XMLResourceIdentifier)
 
     /**
      * Constructs an input source from a byte stream.

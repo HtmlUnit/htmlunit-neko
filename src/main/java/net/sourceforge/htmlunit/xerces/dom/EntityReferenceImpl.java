@@ -84,8 +84,6 @@ implements EntityReference {
 
     /** Name of Entity referenced */
     protected final String name;
-    /** Base URI*/
-    protected String baseURI;
 
     // Factory constructor.
     public EntityReferenceImpl(CoreDocumentImpl ownerDoc, String name) {
@@ -143,37 +141,19 @@ implements EntityReference {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (baseURI == null) {
-            DocumentType doctype;
-            NamedNodeMap entities;
-            EntityImpl entDef;
-            if (null != (doctype = getOwnerDocument().getDoctype()) &&
-                null != (entities = doctype.getEntities())) {
+        DocumentType doctype;
+        NamedNodeMap entities;
+        EntityImpl entDef;
+        if (null != (doctype = getOwnerDocument().getDoctype()) &&
+            null != (entities = doctype.getEntities())) {
 
-                entDef = (EntityImpl)entities.getNamedItem(getNodeName());
-                if (entDef !=null) {
-                    return entDef.getBaseURI();
-                }
-            }
-        } else if (baseURI != null && baseURI.length() != 0 ) {// attribute value is always empty string
-            try {
-                return new URI(baseURI).toString();
-            }
-            catch (net.sourceforge.htmlunit.xerces.util.URI.MalformedURIException e){
-                // REVISIT: what should happen in this case?
-                return null;
+            entDef = (EntityImpl)entities.getNamedItem(getNodeName());
+            if (entDef !=null) {
+                return entDef.getBaseURI();
             }
         }
-        return baseURI;
-    }
 
-
-    // NON-DOM: set base uri
-    public void setBaseURI(String uri){
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        baseURI = uri;
+        return null;
     }
 
     /**

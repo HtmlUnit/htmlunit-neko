@@ -23,7 +23,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
@@ -169,10 +168,10 @@ public class DefaultFilter
 
     /** Start general entity. */
     @Override
-    public void startGeneralEntity(String name, XMLResourceIdentifier id, String encoding, Augmentations augs)
+    public void startGeneralEntity(String name, String encoding, Augmentations augs)
         throws XNIException {
         if (fDocumentHandler != null) {
-            fDocumentHandler.startGeneralEntity(name, id, encoding, augs);
+            fDocumentHandler.startGeneralEntity(name, encoding, augs);
         }
     }
 

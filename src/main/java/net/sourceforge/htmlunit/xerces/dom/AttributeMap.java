@@ -216,14 +216,6 @@ public class AttributeMap extends NamedNodeMapImpl {
         return internalRemoveNamedItem(name, true);
     }
 
-    /**
-     * Same as removeNamedItem except that it simply returns null if the
-     * specified name is not found.
-     */
-    Node safeRemoveNamedItem(String name) {
-        return internalRemoveNamedItem(name, false);
-    }
-
 
     /**
      * NON-DOM: Remove the node object
@@ -357,16 +349,6 @@ public class AttributeMap extends NamedNodeMapImpl {
     public Node removeNamedItemNS(String namespaceURI, String name)
         throws DOMException {
         return internalRemoveNamedItemNS(namespaceURI, name, true);
-    }
-
-    /**
-     * Same as removeNamedItem except that it simply returns null if the
-     * specified local name and namespace URI is not found.
-     * @param namespaceURI the namespace uri
-     * @param name the name
-     */
-    Node safeRemoveNamedItemNS(String namespaceURI, String name) {
-        return internalRemoveNamedItemNS(namespaceURI, name, false);
     }
 
     /**

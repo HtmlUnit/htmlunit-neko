@@ -23,7 +23,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
@@ -235,7 +234,6 @@ public abstract class AbstractXMLDocumentParser
      * appearing as part of attribute values.
      *
      * @param name     The name of the entity.
-     * @param identifier The resource identifier.
      * @param encoding The auto-detected IANA encoding name of the entity
      *                 stream. This value will be null in those situations
      *                 where the entity encoding is not auto-detected (e.g.
@@ -247,7 +245,6 @@ public abstract class AbstractXMLDocumentParser
      */
     @Override
     public void startGeneralEntity(String name,
-                                   XMLResourceIdentifier identifier,
                                    String encoding,
                                    Augmentations augs) throws XNIException {
     } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
@@ -339,17 +336,5 @@ public abstract class AbstractXMLDocumentParser
     public XMLDocumentSource getDocumentSource (){
         return fDocumentSource;
     } // getDocumentSource
-
-    //
-    // Protected methods
-    //
-
-    /**
-     * reset all components before parsing
-     */
-    @Override
-    protected void reset() throws XNIException {
-        super.reset();
-    } // reset()
 
 } // class AbstractXMLDocumentParser

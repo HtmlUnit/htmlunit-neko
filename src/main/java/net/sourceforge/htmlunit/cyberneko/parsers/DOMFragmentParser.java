@@ -49,7 +49,6 @@ import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
-import net.sourceforge.htmlunit.xerces.xni.XMLResourceIdentifier;
 import net.sourceforge.htmlunit.xerces.xni.XMLString;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
@@ -441,8 +440,7 @@ public class DOMFragmentParser
 
     /** Start general entity. */
     @Override
-    public void startGeneralEntity(String name, XMLResourceIdentifier id,
-                                   String encoding, Augmentations augs)
+    public void startGeneralEntity(String name, String encoding, Augmentations augs)
         throws XNIException {
         final EntityReference entityRef = fDocument.createEntityReference(name);
         fCurrentNode.appendChild(entityRef);
