@@ -44,12 +44,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
  */
 public class NamespaceBinder extends DefaultFilter {
 
-    //
-    // Constants
-    //
-
-    // namespace uris
-
     /** XHTML 1.0 namespace URI (http://www.w3.org/1999/xhtml). */
     public static final String XHTML_1_0_URI = "http://www.w3.org/1999/xhtml";
 
@@ -62,13 +56,13 @@ public class NamespaceBinder extends DefaultFilter {
     // features
 
     /** Namespaces. */
-    protected static final String NAMESPACES = "http://xml.org/sax/features/namespaces";
+    private static final String NAMESPACES = "http://xml.org/sax/features/namespaces";
 
     /** Override namespace binding URI. */
-    protected static final String OVERRIDE_NAMESPACES = "http://cyberneko.org/html/features/override-namespaces";
+    private static final String OVERRIDE_NAMESPACES = "http://cyberneko.org/html/features/override-namespaces";
 
     /** Insert namespace binding URIs. */
-    protected static final String INSERT_NAMESPACES = "http://cyberneko.org/html/features/insert-namespaces";
+    private static final String INSERT_NAMESPACES = "http://cyberneko.org/html/features/insert-namespaces";
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
@@ -84,16 +78,14 @@ public class NamespaceBinder extends DefaultFilter {
         Boolean.FALSE,
     };
 
-    // properties
-
     /** Modify HTML element names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
+    private static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
 
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
+    private static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
     /** Namespaces URI. */
-    protected static final String NAMESPACES_URI = "http://cyberneko.org/html/properties/namespaces-uri";
+    private static final String NAMESPACES_URI = "http://cyberneko.org/html/properties/namespaces-uri";
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = new String[] {
@@ -112,49 +104,40 @@ public class NamespaceBinder extends DefaultFilter {
     // modify HTML names
 
     /** Don't modify HTML names. */
-    protected static final short NAMES_NO_CHANGE = 0;
+    private static final short NAMES_NO_CHANGE = 0;
 
     /** Uppercase HTML names. */
-    protected static final short NAMES_UPPERCASE = 1;
+    private static final short NAMES_UPPERCASE = 1;
 
     /** Lowercase HTML names. */
-    protected static final short NAMES_LOWERCASE = 2;
-
-    //
-    // Data
-    //
-
-    // features
+    private static final short NAMES_LOWERCASE = 2;
 
     /** Namespaces. */
-    protected boolean fNamespaces;
+    private boolean fNamespaces;
 
     /** Namespace prefixes. */
-    protected boolean fNamespacePrefixes;
+    private boolean fNamespacePrefixes;
 
     /** Override namespaces. */
-    protected boolean fOverrideNamespaces;
+    private boolean fOverrideNamespaces;
 
     /** Insert namespaces. */
-    protected boolean fInsertNamespaces;
+    private boolean fInsertNamespaces;
 
     // properties
 
     /** Modify HTML element names. */
-    protected short fNamesElems;
+    private short fNamesElems;
 
     /** Modify HTML attribute names. */
-    protected short fNamesAttrs;
+    private short fNamesAttrs;
 
     /** Namespaces URI. */
-    protected String fNamespacesURI;
-
-    // state
+    private String fNamespacesURI;
 
     /** Namespace context. */
-    protected final NamespaceSupport fNamespaceContext = new NamespaceSupport();
+    private final NamespaceSupport fNamespaceContext = new NamespaceSupport();
 
-    // temp vars
 
     /** QName. */
     private final QName fQName = new QName();
@@ -164,9 +147,6 @@ public class NamespaceBinder extends DefaultFilter {
     public NamespaceBinder(HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
     }
-    //
-    // HTMLComponent methods
-    //
 
     /**
      * Returns a list of feature identifiers that are recognized by
@@ -245,10 +225,6 @@ public class NamespaceBinder extends DefaultFilter {
         // initialize state
         fNamespaceContext.reset();
     }
-
-    //
-    // XMLDocumentHandler methods
-    //
 
     /** Start document. */
     @Override

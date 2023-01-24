@@ -42,7 +42,7 @@ public class AttrNSImpl extends AttrImpl {
     protected String namespaceURI;
 
     /** DOM2: localName. */
-    protected String localName;
+    private String localName;
 
     // DOM2: Constructor for Namespace implementation.
     protected AttrNSImpl(CoreDocumentImpl ownerDocument,
@@ -250,10 +250,7 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public String getTypeName() {
-        if (type !=null){
-            return (String)type;
-        }
-        return null;
+        return type;
     }
 
     /**

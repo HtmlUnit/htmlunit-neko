@@ -106,20 +106,16 @@ public class AttrImpl
     implements Attr, TypeInfo {
 
     /** DTD namespace. **/
-    static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
-
-    //
-    // Data
-    //
+    protected static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
 
     /** This can either be a String or the first child node. */
-    protected Object value = null;
+    private Object value = null;
 
     /** Attribute name. */
     protected String name;
 
     /** Type information */
-    Object type;
+    protected String type;
 
     /**
      * Attribute has no public constructor. Please use the factory
@@ -252,7 +248,7 @@ public class AttrImpl
      */
     @Override
     public String getTypeName() {
-        return (String)type;
+        return type;
     }
 
     /**
@@ -391,19 +387,19 @@ public class AttrImpl
 
         if (node == null || data == null)  return (data == null)?"":data;
 
-        StringBuilder value = new StringBuilder(data);
+        StringBuilder v = new StringBuilder(data);
         while (node != null) {
             if (node.getNodeType()  == Node.ENTITY_REFERENCE_NODE){
                 data = ((EntityReferenceImpl)node).getEntityRefValue();
                 if (data == null) return "";
-                value.append(data);
+                v.append(data);
             }
             else {
-                value.append(node.getNodeValue());
+                v.append(node.getNodeValue());
             }
             node = node.nextSibling;
         }
-        return value.toString();
+        return v.toString();
 
     } // getValue():String
 
@@ -457,7 +453,7 @@ public class AttrImpl
     }
 
      // NON-DOM: used by the parser
-    public void setType (Object type){
+    public void setType (String type){
         this.type = type;
     }
 
@@ -906,14 +902,13 @@ public class AttrImpl
             if (index != 0 || value == null) {
                 return null;
             }
-            else {
-                makeChildNode();
-                return (Node) value;
-            }
+            makeChildNode();
+            return (Node) value;
         }
         if (index < 0) {
             return null;
         }
+
         ChildNode node = (ChildNode) value;
         for (int i = 0; i < index && node != null; i++) {
             node = node.nextSibling;

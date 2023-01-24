@@ -29,10 +29,10 @@ import org.w3c.dom.DocumentType;
  * methods. However, there's nothing that says it can't be a singleton,
  * so that's how I've implemented it.
  */
-public class DOMImplementationImpl extends CoreDOMImplementationImpl
-    implements DOMImplementation {
+public class DOMImplementationImpl extends CoreDOMImplementationImpl {
+
     /** Dom implementation singleton. */
-    static final DOMImplementationImpl singleton = new DOMImplementationImpl();
+    private static final DOMImplementationImpl singleton = new DOMImplementationImpl();
 
     // NON-DOM: Obtain and return the single shared object
     public static DOMImplementation getDOMImplementation() {

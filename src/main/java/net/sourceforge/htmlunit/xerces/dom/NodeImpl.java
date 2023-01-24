@@ -258,9 +258,8 @@ public abstract class NodeImpl
         // otherwise ownerNode is our ownerDocument
         if (isOwned()) {
             return ownerNode.ownerDocument();
-        } else {
-            return (Document) ownerNode;
         }
+        return (Document) ownerNode;
     }
 
     /**
@@ -272,9 +271,8 @@ public abstract class NodeImpl
         // otherwise ownerNode is our ownerDocument
         if (isOwned()) {
             return ownerNode.ownerDocument();
-        } else {
-            return (CoreDocumentImpl) ownerNode;
         }
+        return (CoreDocumentImpl) ownerNode;
     }
 
      // NON-DOM set the ownerDocument of this node
@@ -765,15 +763,15 @@ public abstract class NodeImpl
  {
           int otherDocNum = ((CoreDocumentImpl)otherOwnerDoc).getNodeNumber();
           int thisDocNum = ((CoreDocumentImpl)thisOwnerDoc).getNodeNumber();
-          if (otherDocNum > thisDocNum)
+          if (otherDocNum > thisDocNum) {
             return DOCUMENT_POSITION_DISCONNECTED |
                    DOCUMENT_POSITION_FOLLOWING |
                    DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
-          else
-            return DOCUMENT_POSITION_DISCONNECTED |
-                   DOCUMENT_POSITION_PRECEDING |
-                   DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+          }
 
+          return DOCUMENT_POSITION_DISCONNECTED |
+               DOCUMENT_POSITION_PRECEDING |
+               DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
         }
 
         // Find the ancestor of each node, and the distance each node is from
@@ -829,24 +827,22 @@ public abstract class NodeImpl
                  // the nodes are of different types
                  return ((thisAncestorType>otherAncestorType) ?
                     DOCUMENT_POSITION_PRECEDING:DOCUMENT_POSITION_FOLLOWING);
-                else {
-                 // the nodes are of the same type.  Find order.
-                 if (thisAncestorType == Node.NOTATION_NODE)
 
-                     if (((NamedNodeMapImpl)container.getNotations()).precedes(otherAncestor,thisAncestor))
+                 // the nodes are of the same type.  Find order.
+                 if (thisAncestorType == Node.NOTATION_NODE) {
+                     if (((NamedNodeMapImpl)container.getNotations()).precedes(otherAncestor,thisAncestor)) {
                        return (DOCUMENT_POSITION_PRECEDING |
                                DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
-                     else
-                       return (DOCUMENT_POSITION_FOLLOWING |
+                     }
+                     return (DOCUMENT_POSITION_FOLLOWING |
                                DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
-                 else
-                     if (((NamedNodeMapImpl)container.getEntities()).precedes(otherAncestor,thisAncestor))
-                       return (DOCUMENT_POSITION_PRECEDING |
-                               DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
-                     else
-                       return (DOCUMENT_POSITION_FOLLOWING |
-                               DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
-                }
+                 }
+                 if (((NamedNodeMapImpl)container.getEntities()).precedes(otherAncestor,thisAncestor)) {
+                   return (DOCUMENT_POSITION_PRECEDING |
+                           DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                 }
+                 return (DOCUMENT_POSITION_FOLLOWING |
+                           DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
               }
             }
             thisNode = thisAncestor = thisOwnerDoc;
@@ -868,8 +864,8 @@ public abstract class NodeImpl
                 if (((NamedNodeMapImpl)thisNode.getAttributes()).precedes(other,this))
                   return (DOCUMENT_POSITION_PRECEDING |
                           DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
-                else
-                  return (DOCUMENT_POSITION_FOLLOWING |
+
+                return (DOCUMENT_POSITION_FOLLOWING |
                           DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
               }
             }
@@ -928,12 +924,13 @@ public abstract class NodeImpl
           thisAncestorNum = ((NodeImpl)thisAncestor).getNodeNumber();
           otherAncestorNum = ((NodeImpl)otherAncestor).getNodeNumber();
 
-          if (thisAncestorNum > otherAncestorNum)
+          if (thisAncestorNum > otherAncestorNum) {
             return DOCUMENT_POSITION_DISCONNECTED |
                    DOCUMENT_POSITION_FOLLOWING |
                    DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
-          else
-            return DOCUMENT_POSITION_DISCONNECTED |
+          }
+
+          return DOCUMENT_POSITION_DISCONNECTED |
                    DOCUMENT_POSITION_PRECEDING |
                    DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
         }

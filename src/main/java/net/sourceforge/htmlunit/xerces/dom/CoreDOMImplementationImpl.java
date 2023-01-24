@@ -46,7 +46,7 @@ public class CoreDOMImplementationImpl
     private int docAndDoctypeCounter = 0;
 
     /** Dom implementation singleton. */
-    static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
+    private static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
 
     // NON-DOM: Obtain and return the single shared object
     public static DOMImplementation getDOMImplementation() {

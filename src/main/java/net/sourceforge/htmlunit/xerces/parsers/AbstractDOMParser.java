@@ -552,7 +552,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             //       value from the attribute list. -Ac
             if (fDocumentImpl != null) {
                 AttrImpl attrImpl = (AttrImpl) attr;
-                Object type = null;
+                String type = null;
                 boolean id = false;
 
                 // DTD

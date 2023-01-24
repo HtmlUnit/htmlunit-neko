@@ -40,19 +40,11 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentSource;
 public class DefaultFilter
     implements XMLDocumentFilter, HTMLComponent {
 
-    //
-    // Data
-    //
-
     /** Document handler. */
-    protected XMLDocumentHandler fDocumentHandler;
+    private XMLDocumentHandler fDocumentHandler;
 
     /** Document source. */
-    protected XMLDocumentSource fDocumentSource;
-
-    //
-    // XMLDocumentSource methods
-    //
+    private XMLDocumentSource fDocumentSource;
 
     /** Sets the document handler. */
     @Override
@@ -78,10 +70,6 @@ public class DefaultFilter
         return fDocumentSource;
     }
 
-    //
-    // XMLDocumentHandler methods
-    //
-
     /** Start document. */
     @Override
     public void startDocument(XMLLocator locator, String encoding,
@@ -91,8 +79,6 @@ public class DefaultFilter
             fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
         }
     }
-
-    // old methods
 
     /** XML declaration. */
     @Override
