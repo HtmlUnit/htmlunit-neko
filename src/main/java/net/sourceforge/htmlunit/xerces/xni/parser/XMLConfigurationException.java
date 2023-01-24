@@ -36,15 +36,11 @@ public class XMLConfigurationException extends XNIException {
     /** Exception type: identifier not supported. */
     public static final short NOT_SUPPORTED = 1;
 
-    //
-    // Data
-    //
-
     /** Exception type. */
-    protected final short fType;
+    private final short fType;
 
     /** Identifier. */
-    protected final String fIdentifier;
+    private final String fIdentifier;
 
     //
     // Constructors

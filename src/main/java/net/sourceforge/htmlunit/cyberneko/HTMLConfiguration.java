@@ -107,19 +107,11 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     /** Error domain. */
     protected static final String ERROR_DOMAIN = "http://cyberneko.org/html";
 
-    // private
-
-    //
-    // Data
-    //
-
-    // handlers
-
     /** Document handler. */
-    protected XMLDocumentHandler fDocumentHandler;
+    private XMLDocumentHandler fDocumentHandler;
 
     /** Error handler. */
-    protected XMLErrorHandler fErrorHandler;
+    private XMLErrorHandler fErrorHandler;
 
     // state
 
@@ -127,37 +119,26 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
      * Stream opened by parser. Therefore, must close stream manually upon
      * termination of parsing.
      */
-    protected boolean fCloseStream;
-
-    // components
+    private boolean fCloseStream;
 
     /** Components. */
-    protected final List<HTMLComponent> fHTMLComponents = new ArrayList<>(2);
-
-    // pipeline
+    private final List<HTMLComponent> fHTMLComponents = new ArrayList<>(2);
 
     /** Document scanner. */
-    protected final HTMLScanner fDocumentScanner = createDocumentScanner();
+    private final HTMLScanner fDocumentScanner = createDocumentScanner();
 
     /** HTML tag balancer. */
-    protected final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer(this);
+    private final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer(this);
 
     /** Namespace binder. */
-    protected final NamespaceBinder fNamespaceBinder = new NamespaceBinder(this);
+    private final NamespaceBinder fNamespaceBinder = new NamespaceBinder(this);
 
     // other components
 
     /** Error reporter. */
-    protected final HTMLErrorReporter fErrorReporter = new ErrorReporter();
-
-    //
-    // Static initializer
-    //
+    private final HTMLErrorReporter fErrorReporter = new ErrorReporter();
 
     public final HTMLElements htmlElements_;
-    //
-    // Constructors
-    //
 
     /** Default constructor. */
     public HTMLConfiguration() {
@@ -478,7 +459,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         implements HTMLErrorReporter {
 
         /** Error messages. */
-        protected ResourceBundle fErrorMessages;
+        private ResourceBundle fErrorMessages;
 
         //
         // HTMLErrorReporter methods

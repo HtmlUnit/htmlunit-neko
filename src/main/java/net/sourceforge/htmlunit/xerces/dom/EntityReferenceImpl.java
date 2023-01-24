@@ -22,8 +22,6 @@ import org.w3c.dom.EntityReference;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import net.sourceforge.htmlunit.xerces.util.URI;
-
 /**
  * EntityReference models the XML &amp;entityname; syntax, when used for
  * entities defined by the DOM. Entities hardcoded into XML, such as

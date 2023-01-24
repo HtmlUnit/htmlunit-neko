@@ -40,16 +40,16 @@ public class ParserConfigurationSettings
     implements XMLComponentManager {
 
     /** Recognized properties. */
-    protected final ArrayList<String> fRecognizedProperties;
+    private final ArrayList<String> fRecognizedProperties;
 
     /** Properties. */
-    protected final HashMap<String, Object> fProperties;
+    private final HashMap<String, Object> fProperties;
 
     /** Recognized features. */
-    protected final ArrayList<String> fRecognizedFeatures;
+    private final ArrayList<String> fRecognizedFeatures;
 
     /** Features. */
-    protected final HashMap<String, Boolean> fFeatures;
+    private final HashMap<String, Boolean> fFeatures;
 
     // Constructs a parser configuration settings object with a
     // parent settings object.

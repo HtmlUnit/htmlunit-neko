@@ -41,10 +41,10 @@ public class NamespaceSupport implements NamespaceContext {
      * @see #fNamespaceSize
      * @see #fContext
      */
-    protected String[] fNamespace = new String[16 * 2];
+    private String[] fNamespace = new String[16 * 2];
 
     /** The top of the namespace information array. */
-    protected int fNamespaceSize;
+    private int fNamespaceSize;
 
     // NOTE: The constructor depends on the initial context size
     //       being at least 1. -Ac
@@ -57,16 +57,12 @@ public class NamespaceSupport implements NamespaceContext {
      *
      * @see #fNamespaceSize
      */
-    protected int[] fContext = new int[8];
+    private int[] fContext = new int[8];
 
     /** The current context. */
-    protected int fCurrentContext;
+    private int fCurrentContext;
 
-    protected String[] fPrefixes = new String[16];
-
-    //
-    // Constructors
-    //
+    private String[] fPrefixes = new String[16];
 
     /** Default constructor. */
     public NamespaceSupport() {

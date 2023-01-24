@@ -48,7 +48,6 @@ import net.sourceforge.htmlunit.xerces.dom.DocumentImpl;
 import net.sourceforge.htmlunit.xerces.dom.ElementImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityImpl;
 import net.sourceforge.htmlunit.xerces.dom.EntityReferenceImpl;
-import net.sourceforge.htmlunit.xerces.dom.NodeImpl;
 import net.sourceforge.htmlunit.xerces.dom.TextImpl;
 import net.sourceforge.htmlunit.xerces.impl.Constants;
 import net.sourceforge.htmlunit.xerces.util.ErrorHandlerWrapper;

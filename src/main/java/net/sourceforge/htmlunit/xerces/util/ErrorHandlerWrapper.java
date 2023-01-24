@@ -36,12 +36,8 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 public class ErrorHandlerWrapper
     implements XMLErrorHandler {
 
-    //
-    // Data
-    //
-
     /** The SAX error handler. */
-    protected ErrorHandler fErrorHandler;
+    private ErrorHandler fErrorHandler;
 
     // Wraps the specified SAX error handler.
     public ErrorHandlerWrapper(ErrorHandler errorHandler) {

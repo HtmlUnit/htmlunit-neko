@@ -36,7 +36,7 @@ public class DefaultErrorHandler
     //
 
     /** Print writer. */
-    protected final PrintWriter fOut;
+    private final PrintWriter fOut;
 
     /**
      * Constructs an error handler that prints error messages to

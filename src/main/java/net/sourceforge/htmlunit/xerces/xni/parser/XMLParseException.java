@@ -32,25 +32,25 @@ public class XMLParseException extends XNIException {
     private static final long serialVersionUID = -1306660736099956209L;
 
     /** Public identifier. */
-    protected String fPublicId;
+    private String fPublicId;
 
     /** literal System identifier. */
-    protected String fLiteralSystemId;
+    private String fLiteralSystemId;
 
     /** expanded System identifier. */
-    protected String fExpandedSystemId;
+    private String fExpandedSystemId;
 
     /** Base system identifier. */
-    protected String fBaseSystemId;
+    private String fBaseSystemId;
 
     /** Line number. */
-    protected int fLineNumber = -1;
+    private int fLineNumber = -1;
 
     /** Column number. */
-    protected int fColumnNumber = -1;
+    private int fColumnNumber = -1;
 
     /** Character offset. */
-    protected int fCharacterOffset = -1;
+    private int fCharacterOffset = -1;
 
     // Constructs a parse exception.
     public XMLParseException(XMLLocator locator, String message) {

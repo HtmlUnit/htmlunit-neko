@@ -470,7 +470,7 @@ import java.util.HashMap;
 public class EncodingMap {
 
     /** fIANA2JavaMap */
-    protected final static HashMap<String, String> fIANA2JavaMap = new HashMap<>();
+    private final static HashMap<String, String> fIANA2JavaMap = new HashMap<>();
 
     static {
         // add IANA to Java encoding mappings.

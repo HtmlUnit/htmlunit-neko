@@ -35,26 +35,22 @@ import java.io.Reader;
 public class XMLInputSource {
 
     /** Public identifier. */
-    protected String fPublicId;
+    private String fPublicId;
 
     /** System identifier. */
-    protected String fSystemId;
+    private String fSystemId;
 
     /** Base system identifier. */
-    protected String fBaseSystemId;
+    private String fBaseSystemId;
 
     /** Byte stream. */
-    protected InputStream fByteStream;
+    private InputStream fByteStream;
 
     /** Character stream. */
-    protected Reader fCharStream;
+    private Reader fCharStream;
 
     /** Encoding. */
-    protected String fEncoding;
-
-    //
-    // Constructors
-    //
+    private String fEncoding;
 
     /**
      * Constructs an input source from just the public and system
