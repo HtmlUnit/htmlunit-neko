@@ -23,14 +23,13 @@ import org.w3c.dom.Node;
 /**
  * Represents an XML (or HTML) comment.
  */
-public class CommentImpl
-    extends CharacterDataImpl
-    implements Comment {
+public class CommentImpl extends CharacterDataImpl implements Comment {
 
     /**
      * Factory constructor.
+     * 
      * @param ownerDoc the owner document
-     * @param data the data
+     * @param data     the data
      */
     public CommentImpl(CoreDocumentImpl ownerDoc, String data) {
         super(ownerDoc, data);
@@ -39,8 +38,8 @@ public class CommentImpl
     /**
      * {@inheritDoc}
      *
-     * A short integer indicating what type of node this is. The named
-     * constants for this value are defined in the org.w3c.dom.Node interface.
+     * A short integer indicating what type of node this is. The named constants for
+     * this value are defined in the org.w3c.dom.Node interface.
      */
     @Override
     public short getNodeType() {

@@ -29,7 +29,7 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
  * necessary.
  * <p>
  *
- * @author Arnaud  Le Hors, IBM
+ * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
  */
@@ -45,22 +45,19 @@ public class AttrNSImpl extends AttrImpl {
     private String localName;
 
     // DOM2: Constructor for Namespace implementation.
-    protected AttrNSImpl(CoreDocumentImpl ownerDocument,
-                         String namespaceURI,
-                         String qualifiedName) {
+    protected AttrNSImpl(CoreDocumentImpl ownerDocument, String namespaceURI, String qualifiedName) {
 
         super(ownerDocument, qualifiedName);
         setName(namespaceURI, qualifiedName);
     }
 
-    private void setName(String namespaceURI, String qname){
+    private void setName(String namespaceURI, String qname) {
         CoreDocumentImpl ownerDocument = ownerDocument();
         String prefix;
         // DOM Level 3: namespace URI is never empty string.
         this.namespaceURI = namespaceURI;
-        if (namespaceURI !=null) {
-            this.namespaceURI = (namespaceURI.length() == 0)? null
-                    : namespaceURI;
+        if (namespaceURI != null) {
+            this.namespaceURI = (namespaceURI.length() == 0) ? null : namespaceURI;
 
         }
         int colon1 = qname.indexOf(':');
@@ -72,32 +69,24 @@ public class AttrNSImpl extends AttrImpl {
             if (ownerDocument.errorChecking) {
                 ownerDocument.checkQName(null, localName);
 
-                if (qname.equals("xmlns") && (namespaceURI == null
-                    || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
-                    || (namespaceURI!=null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
-                    && !qname.equals("xmlns"))) {
-                    String msg =
-                        DOMMessageFormatter.formatMessage(
-                                DOMMessageFormatter.DOM_DOMAIN,
-                                "NAMESPACE_ERR",
-                                null);
+                if (qname.equals("xmlns") && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
+                        || (namespaceURI != null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
+                                && !qname.equals("xmlns"))) {
+                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
+                            null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
-        }
-        else {
+        } else {
             prefix = qname.substring(0, colon1);
-            localName = qname.substring(colon2+1);
+            localName = qname.substring(colon2 + 1);
             ownerDocument.checkQName(prefix, localName);
             ownerDocument.checkDOMNSErr(prefix, namespaceURI);
         }
     }
 
     // when local name is known
-    public AttrNSImpl(CoreDocumentImpl ownerDocument,
-                         String namespaceURI,
-                         String qualifiedName,
-                         String localName) {
+    public AttrNSImpl(CoreDocumentImpl ownerDocument, String namespaceURI, String qualifiedName, String localName) {
         super(ownerDocument, qualifiedName);
 
         this.localName = localName;
@@ -105,8 +94,7 @@ public class AttrNSImpl extends AttrImpl {
     }
 
     // for DeferredAttrImpl
-    protected AttrNSImpl(CoreDocumentImpl ownerDocument,
-                         String value) {
+    protected AttrNSImpl(CoreDocumentImpl ownerDocument, String value) {
         super(ownerDocument, value);
     }
 
@@ -125,20 +113,22 @@ public class AttrNSImpl extends AttrImpl {
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 2. <p>
+     * Introduced in DOM Level 2.
+     * <p>
      *
-     * The namespace URI of this node, or null if it is unspecified.<p>
+     * The namespace URI of this node, or null if it is unspecified.
+     * <p>
      *
-     * This is not a computed value that is the result of a namespace lookup
-     * based on an examination of the namespace declarations in scope. It is
-     * merely the namespace URI given at creation time.<p>
+     * This is not a computed value that is the result of a namespace lookup based
+     * on an examination of the namespace declarations in scope. It is merely the
+     * namespace URI given at creation time.
+     * <p>
      *
-     * For nodes created with a DOM Level 1 method, such as createElement
-     * from the Document interface, this is null.
+     * For nodes created with a DOM Level 1 method, such as createElement from the
+     * Document interface, this is null.
      */
     @Override
-    public String getNamespaceURI()
-    {
+    public String getNamespaceURI() {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -151,16 +141,16 @@ public class AttrNSImpl extends AttrImpl {
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 2. <p>
+     * Introduced in DOM Level 2.
+     * <p>
      *
      * The namespace prefix of this node, or null if it is unspecified.
      * <p>
-     * For nodes created with a DOM Level 1 method, such as createElement
-     * from the Document interface, this is null.
+     * For nodes created with a DOM Level 1 method, such as createElement from the
+     * Document interface, this is null.
      */
     @Override
-    public String getPrefix()
-    {
+    public String getPrefix() {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -171,59 +161,63 @@ public class AttrNSImpl extends AttrImpl {
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 2. <p>
+     * Introduced in DOM Level 2.
+     * <p>
      *
-     * Note that setting this attribute changes the nodeName attribute, which
-     * holds the qualified name, as well as the tagName and name attributes of
-     * the Element and Attr interfaces, when applicable.<p>
+     * Note that setting this attribute changes the nodeName attribute, which holds
+     * the qualified name, as well as the tagName and name attributes of the Element
+     * and Attr interfaces, when applicable.
+     * <p>
      *
-     * @param prefix The namespace prefix of this node, or null(empty string) if it is unspecified.
+     * @param prefix The namespace prefix of this node, or null(empty string) if it
+     *               is unspecified.
      *
-     * @exception DOMException INVALID_CHARACTER_ERR
-     *                   Raised if the specified
-     *                   prefix contains an invalid character.
+     * @exception DOMException INVALID_CHARACTER_ERR Raised if the specified prefix
+     *                         contains an invalid character.
      */
     @Override
-    public void setPrefix(String prefix)
-        throws DOMException
-    {
+    public void setPrefix(String prefix) throws DOMException {
         if (needsSyncData()) {
             synchronizeData();
         }
         if (ownerDocument().errorChecking) {
             if (prefix != null && prefix.length() != 0) {
 
-                if (!CoreDocumentImpl.isXMLName(prefix,ownerDocument().isXML11Version())) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
+                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
+                            "INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
-                if (namespaceURI == null || prefix.indexOf(':') >=0) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                if (namespaceURI == null || prefix.indexOf(':') >= 0) {
+                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
+                            null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
 
                 }
-               if (prefix.equals("xmlns")) {
-                    if (!namespaceURI.equals(xmlnsURI)){
-                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                if (prefix.equals("xmlns")) {
+                    if (!namespaceURI.equals(xmlnsURI)) {
+                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
+                                null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
                 } else if (prefix.equals("xml")) {
                     if (!namespaceURI.equals(xmlURI)) {
-                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
+                                null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
-                }else if (name.equals("xmlns")) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                } else if (name.equals("xmlns")) {
+                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
+                            null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
         }
 
         // update node name with new qualifiedName
-        if (prefix !=null && prefix.length() != 0) {
+        if (prefix != null && prefix.length() != 0) {
             name = prefix + ":" + localName;
-        }
-        else {
+        } else {
             name = localName;
         }
     }
@@ -231,19 +225,18 @@ public class AttrNSImpl extends AttrImpl {
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 2. <p>
+     * Introduced in DOM Level 2.
+     * <p>
      *
      * Returns the local part of the qualified name of this node.
      */
     @Override
-    public String getLocalName()
-    {
+    public String getLocalName() {
         if (needsSyncData()) {
             synchronizeData();
         }
         return localName;
     }
-
 
     /**
      * {@inheritDoc}
@@ -256,24 +249,20 @@ public class AttrNSImpl extends AttrImpl {
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 3. <p>
+     * Introduced in DOM Level 3.
+     * <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
      *
-     * @param typeNamespaceArg
-     *        The namspace of the ancestor type declaration
-     * @param typeNameArg
-     *        The name of the ancestor type declaration
-     * @param derivationMethod
-     *        The derivation method
+     * @param typeNamespaceArg The namspace of the ancestor type declaration
+     * @param typeNameArg      The name of the ancestor type declaration
+     * @param derivationMethod The derivation method
      *
-     * @return boolean True if the type is derived by restriciton for the
-     *         reference type
+     * @return boolean True if the type is derived by restriciton for the reference
+     *         type
      */
     @Override
-    public boolean isDerivedFrom(String typeNamespaceArg,
-                                 String typeNameArg,
-                                 int derivationMethod) {
+    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, int derivationMethod) {
         return false;
     }
 
@@ -282,7 +271,7 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public String getTypeNamespace() {
-        if (type !=null) {
+        if (type != null) {
             return DTD_URI;
         }
         return null;

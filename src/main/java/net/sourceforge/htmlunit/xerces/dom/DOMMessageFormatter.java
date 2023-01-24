@@ -42,23 +42,21 @@ public class DOMMessageFormatter {
      *
      * @param domain    domain from which error string is to come.
      * @param key       The message key.
-     * @param arguments The message replacement text arguments. The order
-     *                  of the arguments must match that of the placeholders
-     *                  in the actual message.
+     * @param arguments The message replacement text arguments. The order of the
+     *                  arguments must match that of the placeholders in the actual
+     *                  message.
      *
-     * @return          the formatted message.
+     * @return the formatted message.
      *
-     * @throws MissingResourceException Thrown if the message with the
-     *                                  specified key cannot be found.
+     * @throws MissingResourceException Thrown if the message with the specified key
+     *                                  cannot be found.
      */
-    public static String formatMessage(String domain,
-    String key, Object[] arguments)
-    throws MissingResourceException {
+    public static String formatMessage(String domain, String key, Object[] arguments) throws MissingResourceException {
         ResourceBundle resourceBundle = getResourceBundle(domain);
-        if(resourceBundle == null){
+        if (resourceBundle == null) {
             init();
             resourceBundle = getResourceBundle(domain);
-            if(resourceBundle == null)
+            if (resourceBundle == null)
                 throw new MissingResourceException("Unknown domain" + domain, null, key);
         }
         // format message
@@ -68,8 +66,7 @@ public class DOMMessageFormatter {
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     msg = resourceBundle.getString("FormatFailed");
                     msg += " " + resourceBundle.getString(key);
                 }
@@ -102,8 +99,7 @@ public class DOMMessageFormatter {
     static ResourceBundle getResourceBundle(String domain) {
         if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
             return domResourceBundle;
-        }
-        else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
+        } else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
             return xmlResourceBundle;
         }
         return null;

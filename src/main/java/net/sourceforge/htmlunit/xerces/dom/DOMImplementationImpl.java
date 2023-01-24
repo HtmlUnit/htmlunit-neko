@@ -21,13 +21,13 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DocumentType;
 
 /**
- * The DOMImplementation class is description of a particular
- * implementation of the Document Object Model. As such its data is
- * static, shared by all instances of this implementation.
+ * The DOMImplementation class is description of a particular implementation of
+ * the Document Object Model. As such its data is static, shared by all
+ * instances of this implementation.
  * <P>
- * The DOM API requires that it be a real object rather than static
- * methods. However, there's nothing that says it can't be a singleton,
- * so that's how I've implemented it.
+ * The DOM API requires that it be a real object rather than static methods.
+ * However, there's nothing that says it can't be a singleton, so that's how
+ * I've implemented it.
  */
 public class DOMImplementationImpl extends CoreDOMImplementationImpl {
 
@@ -42,19 +42,20 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
     /**
      * {@inheritDoc}
      *
-     * Test if the DOM implementation supports a specific "feature" --
-     * currently meaning language and level thereof.
+     * Test if the DOM implementation supports a specific "feature" -- currently
+     * meaning language and level thereof.
      *
-     * @param feature      The package name of the feature to test.
-     * In Level 1, supported values are "HTML" and "XML" (case-insensitive).
-     * At this writing, net.sourceforge.htmlunit.xerces.dom supports only XML.
+     * @param feature The package name of the feature to test. In Level 1, supported
+     *                values are "HTML" and "XML" (case-insensitive). At this
+     *                writing, net.sourceforge.htmlunit.xerces.dom supports only
+     *                XML.
      *
-     * @param version      The version number of the feature being tested.
-     * This is interpreted as "Version of the DOM API supported for the
-     * specified Feature", and in Level 1 should be "1.0"
+     * @param version The version number of the feature being tested. This is
+     *                interpreted as "Version of the DOM API supported for the
+     *                specified Feature", and in Level 1 should be "1.0"
      *
-     * @return    true iff this implementation is compatable with the
-     * specified feature and version.
+     * @return true iff this implementation is compatable with the specified feature
+     *         and version.
      */
     @Override
     public boolean hasFeature(String feature, String version) {
@@ -65,17 +66,11 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
             if (feature.startsWith("+")) {
                 feature = feature.substring(1);
             }
-            return (
-                (feature.equalsIgnoreCase("Events")
-                    && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("MutationEvents")
-                        && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("Traversal")
-                        && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("Range")
-                        && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("MutationEvents")
-                        && (anyVersion || version.equals("2.0"))));
+            return ((feature.equalsIgnoreCase("Events") && (anyVersion || version.equals("2.0")))
+                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || version.equals("2.0")))
+                    || (feature.equalsIgnoreCase("Traversal") && (anyVersion || version.equals("2.0")))
+                    || (feature.equalsIgnoreCase("Range") && (anyVersion || version.equals("2.0")))
+                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || version.equals("2.0"))));
         }
         return result;
     }

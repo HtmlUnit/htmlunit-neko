@@ -21,15 +21,14 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
- * NON-DOM CLASS: Describe one of the Elements (and its associated
- * Attributes) defined in this Document Type.
+ * NON-DOM CLASS: Describe one of the Elements (and its associated Attributes)
+ * defined in this Document Type.
  * <p>
  * I've included this in Level 1 purely as an anchor point for default
  * attributes. In Level 2 it should enable the ChildRule support.
  *
  */
-public class ElementDefinitionImpl
-    extends ParentNode {
+public class ElementDefinitionImpl extends ParentNode {
 
     /** Element definition name. */
     protected final String name;
@@ -47,8 +46,8 @@ public class ElementDefinitionImpl
     /**
      * {@inheritDoc}
      *
-     * A short integer indicating what type of node this is. The named
-     * constants for this value are defined in the org.w3c.dom.Node interface.
+     * A short integer indicating what type of node this is. The named constants for
+     * this value are defined in the org.w3c.dom.Node interface.
      */
     @Override
     public short getNodeType() {
@@ -76,8 +75,7 @@ public class ElementDefinitionImpl
     @Override
     public Node cloneNode(boolean deep) {
 
-        ElementDefinitionImpl newnode =
-            (ElementDefinitionImpl) super.cloneNode(deep);
+        ElementDefinitionImpl newnode = (ElementDefinitionImpl) super.cloneNode(deep);
         // NamedNodeMap must be explicitly replicated to avoid sharing
         newnode.attributes = attributes.cloneMap(newnode);
         return newnode;
@@ -90,9 +88,9 @@ public class ElementDefinitionImpl
      * Query the attributes defined on this Element.
      * <p>
      * In the base implementation this Map simply contains Attribute objects
-     * representing the defaults. In a more serious implementation, it would
-     * contain AttributeDefinitionImpl objects for all declared Attributes,
-     * indicating which are Default, DefaultFixed, Implicit and/or Required.
+     * representing the defaults. In a more serious implementation, it would contain
+     * AttributeDefinitionImpl objects for all declared Attributes, indicating which
+     * are Default, DefaultFixed, Implicit and/or Required.
      *
      * @return org.w3c.dom.NamedNodeMap containing org.w3c.dom.Attribute
      */

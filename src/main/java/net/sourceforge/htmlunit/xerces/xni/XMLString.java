@@ -22,19 +22,19 @@ package net.sourceforge.htmlunit.xerces.xni;
  * character buffer of the scanner. The offset and length fields allow the
  * buffer to be re-used without creating new character arrays.
  * <p>
- * <strong>Note:</strong> Methods that are passed an XMLString structure
- * should consider the contents read-only and not make any modifications
- * to the contents of the buffer. The method receiving this structure
- * should also not modify the offset and length if this structure (or
- * the values of this structure) are passed to another method.
+ * <strong>Note:</strong> Methods that are passed an XMLString structure should
+ * consider the contents read-only and not make any modifications to the
+ * contents of the buffer. The method receiving this structure should also not
+ * modify the offset and length if this structure (or the values of this
+ * structure) are passed to another method.
  * <p>
- * <strong>Note:</strong> Methods that are passed an XMLString structure
- * are required to copy the information out of the buffer if it is to be
- * saved for use beyond the scope of the method. The contents of the
- * structure are volatile and the contents of the character buffer cannot
- * be assured once the method that is passed this structure returns.
- * Therefore, methods passed this structure should not save any reference
- * to the structure or the character array contained in the structure.
+ * <strong>Note:</strong> Methods that are passed an XMLString structure are
+ * required to copy the information out of the buffer if it is to be saved for
+ * use beyond the scope of the method. The contents of the structure are
+ * volatile and the contents of the character buffer cannot be assured once the
+ * method that is passed this structure returns. Therefore, methods passed this
+ * structure should not save any reference to the structure or the character
+ * array contained in the structure.
  *
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
@@ -55,8 +55,7 @@ public class XMLString {
     }
 
     /**
-     * Constructs an XMLString structure preset with the specified
-     * values.
+     * Constructs an XMLString structure preset with the specified values.
      *
      * @param ch     The character array.
      * @param offset The offset into the character array.
@@ -67,8 +66,8 @@ public class XMLString {
     }
 
     /**
-     * Initializes the contents of the XMLString structure with the
-     * specified values.
+     * Initializes the contents of the XMLString structure with the specified
+     * values.
      *
      * @param ch     The character array.
      * @param offset The offset into the character array.
@@ -81,11 +80,11 @@ public class XMLString {
     }
 
     /**
-     * Initializes the contents of the XMLString structure with copies
-     * of the given string structure.
+     * Initializes the contents of the XMLString structure with copies of the given
+     * string structure.
      * <p>
-     * <strong>Note:</strong> This does not copy the character array;
-     * only the reference to the array is copied.
+     * <strong>Note:</strong> This does not copy the character array; only the
+     * reference to the array is copied.
      *
      * @param s the xml string value
      */
@@ -101,8 +100,8 @@ public class XMLString {
     }
 
     /**
-     * @return true if the contents of this XMLString structure and
-     * the specified array are equal.
+     * @return true if the contents of this XMLString structure and the specified
+     *         array are equal.
      *
      * @param ch     The character array.
      * @param offset The offset into the character array.
@@ -113,8 +112,8 @@ public class XMLString {
             return false;
         }
 
-        for (int i=0; i<length; i++) {
-            if (this.ch[this.offset+i] != ch[offset+i] ) {
+        for (int i = 0; i < length; i++) {
+            if (this.ch[this.offset + i] != ch[offset + i]) {
                 return false;
             }
         }
@@ -122,21 +121,21 @@ public class XMLString {
     }
 
     /**
-     * @return true if the contents of this XMLString structure and
-     * the specified string are equal.
+     * @return true if the contents of this XMLString structure and the specified
+     *         string are equal.
      *
      * @param s The string to compare.
      */
     public boolean equals(String s) {
-        if ( (s == null) || (length != s.length()) ) {
+        if ((s == null) || (length != s.length())) {
             return false;
         }
 
         // is this faster than call s.toCharArray first and compare the
         // two arrays directly, which will possibly involve creating a
         // new char array object.
-        for (int i=0; i<length; i++) {
-            if (ch[offset+i] != s.charAt(i)) {
+        for (int i = 0; i < length; i++) {
+            if (ch[offset + i] != s.charAt(i)) {
                 return false;
             }
         }

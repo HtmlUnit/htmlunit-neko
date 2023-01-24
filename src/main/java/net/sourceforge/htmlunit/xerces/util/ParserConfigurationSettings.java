@@ -24,20 +24,18 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLComponentManager;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException;
 
 /**
- * This class implements the basic operations for managing parser
- * configuration features and properties. This utility class can
- * be used as a base class for parser configurations or separately
- * to encapsulate a number of parser settings as a component
- * manager.
+ * This class implements the basic operations for managing parser configuration
+ * features and properties. This utility class can be used as a base class for
+ * parser configurations or separately to encapsulate a number of parser
+ * settings as a component manager.
  * <p>
- * This class can be constructed with a "parent" settings object
- * (in the form of an <code>XMLComponentManager</code>) that allows
- * parser configuration settings to be "chained" together.
+ * This class can be constructed with a "parent" settings object (in the form of
+ * an <code>XMLComponentManager</code>) that allows parser configuration
+ * settings to be "chained" together.
  *
  * @author Andy Clark, IBM
  */
-public class ParserConfigurationSettings
-    implements XMLComponentManager {
+public class ParserConfigurationSettings implements XMLComponentManager {
 
     /** Recognized properties. */
     private final ArrayList<String> fRecognizedProperties;
@@ -65,11 +63,11 @@ public class ParserConfigurationSettings
     }
 
     /**
-     * Allows a parser to add parser specific features to be recognized
-     * and managed by the parser configuration.
+     * Allows a parser to add parser specific features to be recognized and managed
+     * by the parser configuration.
      *
-     * @param featureIds An array of the additional feature identifiers
-     *                   to be recognized.
+     * @param featureIds An array of the additional feature identifiers to be
+     *                   recognized.
      */
     public void addRecognizedFeatures(String[] featureIds) {
 
@@ -87,18 +85,22 @@ public class ParserConfigurationSettings
     /**
      * Set the state of a feature.
      * <p>
-     * Set the state of any feature in a SAX2 parser.  The parser
-     * might not recognize the feature, and if it does recognize
-     * it, it might not be able to fulfill the request.
+     * Set the state of any feature in a SAX2 parser. The parser might not recognize
+     * the feature, and if it does recognize it, it might not be able to fulfill the
+     * request.
      *
      * @param featureId The unique identifier (URI) of the feature.
-     * @param state The requested state of the feature (true or false).
+     * @param state     The requested state of the feature (true or false).
      *
-     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
-     *            requested feature is not known.
+     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If
+     *                                                                                 the
+     *                                                                                 requested
+     *                                                                                 feature
+     *                                                                                 is
+     *                                                                                 not
+     *                                                                                 known.
      */
-    public void setFeature(String featureId, boolean state)
-        throws XMLConfigurationException {
+    public void setFeature(String featureId, boolean state) throws XMLConfigurationException {
 
         // check and store
         checkFeature(featureId);
@@ -107,11 +109,11 @@ public class ParserConfigurationSettings
     }
 
     /**
-     * Allows a parser to add parser specific properties to be recognized
-     * and managed by the parser configuration.
+     * Allows a parser to add parser specific properties to be recognized and
+     * managed by the parser configuration.
      *
-     * @param propertyIds An array of the additional property identifiers
-     *                    to be recognized.
+     * @param propertyIds An array of the additional property identifiers to be
+     *                    recognized.
      */
     public void addRecognizedProperties(String[] propertyIds) {
 
@@ -130,12 +132,16 @@ public class ParserConfigurationSettings
      * setProperty
      *
      * @param propertyId the property id
-     * @param value the value
-     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
-     *            requested feature is not known.
+     * @param value      the value
+     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If
+     *                                                                                 the
+     *                                                                                 requested
+     *                                                                                 feature
+     *                                                                                 is
+     *                                                                                 not
+     *                                                                                 known.
      */
-    public void setProperty(String propertyId, Object value)
-        throws XMLConfigurationException {
+    public void setProperty(String propertyId, Object value) throws XMLConfigurationException {
 
         // check and store
         checkProperty(propertyId);
@@ -147,8 +153,7 @@ public class ParserConfigurationSettings
      * {@inheritDoc}
      */
     @Override
-    public boolean getFeature(String featureId)
-        throws XMLConfigurationException {
+    public boolean getFeature(String featureId) throws XMLConfigurationException {
 
         Boolean state = fFeatures.get(featureId);
 
@@ -163,8 +168,7 @@ public class ParserConfigurationSettings
      * {@inheritDoc}
      */
     @Override
-    public Object getProperty(String propertyId)
-        throws XMLConfigurationException {
+    public Object getProperty(String propertyId) throws XMLConfigurationException {
 
         Object propertyValue = fProperties.get(propertyId);
 
@@ -182,11 +186,15 @@ public class ParserConfigurationSettings
      *
      * @param featureId The unique identifier (URI) of the feature.
      *
-     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
-     *            requested feature is not known.
+     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If
+     *                                                                                 the
+     *                                                                                 requested
+     *                                                                                 feature
+     *                                                                                 is
+     *                                                                                 not
+     *                                                                                 known.
      */
-    protected void checkFeature(String featureId)
-        throws XMLConfigurationException {
+    protected void checkFeature(String featureId) throws XMLConfigurationException {
 
         // check feature
         if (!fRecognizedFeatures.contains(featureId)) {
@@ -197,16 +205,19 @@ public class ParserConfigurationSettings
     }
 
     /**
-     * Check a property. If the property is known and supported, this method
-     * simply returns. Otherwise, the appropriate exception is thrown.
+     * Check a property. If the property is known and supported, this method simply
+     * returns. Otherwise, the appropriate exception is thrown.
      *
-     * @param propertyId The unique identifier (URI) of the property
-     *                   being set.
-     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If the
-     *            requested feature is not known.
+     * @param propertyId The unique identifier (URI) of the property being set.
+     * @exception net.sourceforge.htmlunit.xerces.xni.parser.XMLConfigurationException If
+     *                                                                                 the
+     *                                                                                 requested
+     *                                                                                 feature
+     *                                                                                 is
+     *                                                                                 not
+     *                                                                                 known.
      */
-    protected void checkProperty(String propertyId)
-        throws XMLConfigurationException {
+    protected void checkProperty(String propertyId) throws XMLConfigurationException {
 
         // check property
         if (!fRecognizedProperties.contains(propertyId)) {

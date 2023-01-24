@@ -22,14 +22,16 @@ import org.w3c.dom.DOMLocator;
 
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
-
 /**
  * <code>DOMErrorImpl</code> is an implementation that describes an error.
- * <strong>Note:</strong> The error object that describes the error
- * might be reused by Xerces implementation, across multiple calls to the
- * handleEvent method on DOMErrorHandler interface.
+ * <strong>Note:</strong> The error object that describes the error might be
+ * reused by Xerces implementation, across multiple calls to the handleEvent
+ * method on DOMErrorHandler interface.
  *
- * <p>See also the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document Object Model (DOM) Level 3 Core Specification</a>.
+ * <p>
+ * See also the
+ * <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document
+ * Object Model (DOM) Level 3 Core Specification</a>.
  * <p>
  *
  * @author Gopal Sharma, SUN Microsystems Inc.
@@ -49,20 +51,20 @@ public class DOMErrorImpl implements DOMError {
     public String fType;
     public Object fRelatedData;
 
-
     /** Default constructor. */
-    public DOMErrorImpl () {
+    public DOMErrorImpl() {
     }
 
     /**
      * Extracts information from XMLParserException
-     * @param severity the severity
+     * 
+     * @param severity  the severity
      * @param exception the exception
      */
-    public DOMErrorImpl (short severity, XMLParseException exception) {
+    public DOMErrorImpl(short severity, XMLParseException exception) {
         fSeverity = severity;
         fException = exception;
-        fLocator = createDOMLocator (exception);
+        fLocator = createDOMLocator(exception);
     }
 
     /**
@@ -98,38 +100,35 @@ public class DOMErrorImpl implements DOMError {
 
     // method to get the DOMLocator Object
     private DOMLocatorImpl createDOMLocator(XMLParseException exception) {
-        // assuming DOMLocator wants the *expanded*, not the literal, URI of the doc... - neilg
-        return new DOMLocatorImpl(exception.getLineNumber(),
-                                  exception.getColumnNumber(),
-                                  exception.getCharacterOffset(),
-                                  exception.getExpandedSystemId());
+        // assuming DOMLocator wants the *expanded*, not the literal, URI of the doc...
+        // - neilg
+        return new DOMLocatorImpl(exception.getLineNumber(), exception.getColumnNumber(),
+                exception.getCharacterOffset(), exception.getExpandedSystemId());
     }
-
 
     /**
      * {@inheritDoc}
      *
-     * The related platform dependent exception if any.exception is a reserved
-     * word, we need to rename it.Change to "relatedException". (F2F 26 Sep
-     * 2001)
+     * The related platform dependent exception if any.exception is a reserved word,
+     * we need to rename it.Change to "relatedException". (F2F 26 Sep 2001)
      */
     @Override
-    public Object getRelatedException(){
+    public Object getRelatedException() {
         return fException;
     }
 
-    public void reset(){
+    public void reset() {
         fSeverity = DOMError.SEVERITY_WARNING;
         fException = null;
     }
 
     @Override
-    public String getType(){
+    public String getType() {
         return fType;
     }
 
     @Override
-    public Object getRelatedData(){
+    public Object getRelatedData() {
         return fRelatedData;
     }
 }

@@ -20,11 +20,13 @@ package net.sourceforge.htmlunit.xerces.dom;
 import org.w3c.dom.DOMLocator;
 import org.w3c.dom.Node;
 
-
 /**
- * <code>DOMLocatorImpl</code> is an implementaion that describes a location (e.g.
- * where an error occured).
- * <p>See also the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document Object Model (DOM) Level 3 Core Specification</a>.
+ * <code>DOMLocatorImpl</code> is an implementaion that describes a location
+ * (e.g. where an error occured).
+ * <p>
+ * See also the
+ * <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010913'>Document
+ * Object Model (DOM) Level 3 Core Specification</a>.
  * <p>
  *
  * @author Gopal Sharma, SUN Microsystems Inc.
@@ -36,105 +38,102 @@ public class DOMLocatorImpl implements DOMLocator {
     // Data
     //
 
-   /**
-    * The column number where the error occured,
-    * or -1 if there is no column number available.
-    */
-   public int fColumnNumber = -1;
+    /**
+     * The column number where the error occured, or -1 if there is no column number
+     * available.
+     */
+    public int fColumnNumber = -1;
 
-   /**
-    * The line number where the error occured,
-    * or -1 if there is no line number available.
-    */
-   public int fLineNumber = -1;
+    /**
+     * The line number where the error occured, or -1 if there is no line number
+     * available.
+     */
+    public int fLineNumber = -1;
 
-   /** related data node*/
-   public final Node fRelatedNode = null;
+    /** related data node */
+    public final Node fRelatedNode = null;
 
-   /**
-    * The URI where the error occured,
-    * or null if there is no URI available.
-    */
-   public String fUri = null;
+    /**
+     * The URI where the error occured, or null if there is no URI available.
+     */
+    public String fUri = null;
 
-   /**
-    * The byte offset into the input source this locator is pointing to or -1
-    * if there is no byte offset available
-    */
-   public final int fByteOffset = -1;
+    /**
+     * The byte offset into the input source this locator is pointing to or -1 if
+     * there is no byte offset available
+     */
+    public final int fByteOffset = -1;
 
-   /**
-    * The UTF-16, as defined in [Unicode] and Amendment 1 of [ISO/IEC 10646],
-    * offset into the input source this locator is pointing to or -1 if there
-    * is no UTF-16 offset available.
-    */
-   public int fUtf16Offset = -1;
+    /**
+     * The UTF-16, as defined in [Unicode] and Amendment 1 of [ISO/IEC 10646],
+     * offset into the input source this locator is pointing to or -1 if there is no
+     * UTF-16 offset available.
+     */
+    public int fUtf16Offset = -1;
 
-   //
-   // Constructors
-   //
+    //
+    // Constructors
+    //
 
-   public DOMLocatorImpl(){
-   }
+    public DOMLocatorImpl() {
+    }
 
-   public DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri ){
-    fLineNumber = lineNumber ;
-    fColumnNumber = columnNumber ;
-    fUri = uri;
-    fUtf16Offset = utf16Offset;
-   } // DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri )
+    public DOMLocatorImpl(int lineNumber, int columnNumber, int utf16Offset, String uri) {
+        fLineNumber = lineNumber;
+        fColumnNumber = columnNumber;
+        fUri = uri;
+        fUtf16Offset = utf16Offset;
+    } // DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri
+      // )
 
-   /**
-   * The line number where the error occured, or -1 if there is no line
-   * number available.
-   */
-   @Override
-public int getLineNumber(){
-     return fLineNumber;
-   }
+    /**
+     * The line number where the error occured, or -1 if there is no line number
+     * available.
+     */
+    @Override
+    public int getLineNumber() {
+        return fLineNumber;
+    }
 
-  /**
-   * The column number where the error occured, or -1 if there is no column
-   * number available.
-   */
-  @Override
-public int getColumnNumber(){
-    return fColumnNumber;
-  }
+    /**
+     * The column number where the error occured, or -1 if there is no column number
+     * available.
+     */
+    @Override
+    public int getColumnNumber() {
+        return fColumnNumber;
+    }
 
+    /**
+     * The URI where the error occured, or null if there is no URI available.
+     */
+    @Override
+    public String getUri() {
+        return fUri;
+    }
 
-  /**
-   * The URI where the error occured, or null if there is no URI available.
-   */
-  @Override
-public String getUri(){
-    return fUri;
-  }
+    @Override
+    public Node getRelatedNode() {
+        return fRelatedNode;
+    }
 
+    /**
+     * The byte offset into the input source this locator is pointing to or -1 if
+     * there is no byte offset available
+     */
+    @Override
+    public int getByteOffset() {
+        return fByteOffset;
+    }
 
-  @Override
-public Node getRelatedNode(){
-    return fRelatedNode;
-  }
-
-
-  /**
-   * The byte offset into the input source this locator is pointing to or -1
-   * if there is no byte offset available
-   */
-  @Override
-public int getByteOffset(){
-    return fByteOffset;
-  }
-
-  /**
-   * The UTF-16, as defined in [Unicode] and Amendment 1 of [ISO/IEC 10646],
-   * offset into the input source this locator is pointing to or -1 if there
-   * is no UTF-16 offset available.
-   */
-  @Override
-public int getUtf16Offset(){
-    return fUtf16Offset;
-  }
+    /**
+     * The UTF-16, as defined in [Unicode] and Amendment 1 of [ISO/IEC 10646],
+     * offset into the input source this locator is pointing to or -1 if there is no
+     * UTF-16 offset available.
+     */
+    @Override
+    public int getUtf16Offset() {
+        return fUtf16Offset;
+    }
 
 }// class DOMLocatorImpl

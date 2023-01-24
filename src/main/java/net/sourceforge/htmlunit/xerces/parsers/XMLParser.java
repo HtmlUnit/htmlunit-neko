@@ -32,25 +32,22 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParserConfiguration;
  * properties:
  * <ul>
  * <li>Properties
- *  <ul>
- *   <li>http://apache.org/xml/properties/internal/error-handler</li>
- *   <li>http://apache.org/xml/properties/internal/entity-resolver</li>
- *  </ul>
+ * <ul>
+ * <li>http://apache.org/xml/properties/internal/error-handler</li>
+ * <li>http://apache.org/xml/properties/internal/entity-resolver</li>
+ * </ul>
  * </ul>
  *
- * @author Arnaud  Le Hors, IBM
+ * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  */
 public abstract class XMLParser {
 
     /** Property identifier: error handler. */
-    protected static final String ERROR_HANDLER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
+    protected static final String ERROR_HANDLER = Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
     /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = {
-        ERROR_HANDLER,
-    };
+    private static final String[] RECOGNIZED_PROPERTIES = { ERROR_HANDLER, };
 
     /** The parser configuration. */
     protected final XMLParserConfiguration fConfiguration;
@@ -70,11 +67,10 @@ public abstract class XMLParser {
      *
      * @param inputSource the input source
      *
-     * @exception XNIException on error
+     * @exception XNIException        on error
      * @exception java.io.IOException on error
      */
-    public void parse(XMLInputSource inputSource)
-        throws XNIException, IOException {
+    public void parse(XMLInputSource inputSource) throws XNIException, IOException {
 
         reset();
         fConfiguration.parse(inputSource);

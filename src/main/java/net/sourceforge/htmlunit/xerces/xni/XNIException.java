@@ -18,19 +18,16 @@
 package net.sourceforge.htmlunit.xerces.xni;
 
 /**
- * This exception is the base exception of all XNI exceptions. It
- * can be constructed with an error message or used to wrap another
- * exception object.
+ * This exception is the base exception of all XNI exceptions. It can be
+ * constructed with an error message or used to wrap another exception object.
  * <p>
- * <strong>Note:</strong> By extending the Java
- * <code>RuntimeException</code>, XNI handlers and components are
- * not required to catch XNI exceptions but may explicitly catch
- * them, if so desired.
+ * <strong>Note:</strong> By extending the Java <code>RuntimeException</code>,
+ * XNI handlers and components are not required to catch XNI exceptions but may
+ * explicitly catch them, if so desired.
  *
  * @author Andy Clark, IBM
  */
-public class XNIException
-    extends RuntimeException {
+public class XNIException extends RuntimeException {
 
     private static final long serialVersionUID = 7447489736019161121L;
 
@@ -59,7 +56,7 @@ public class XNIException
     /**
      * Constructs an XNI exception with a message and wrapped exception.
      *
-     * @param message The exception message.
+     * @param message   The exception message.
      * @param exception The wrapped exception.
      */
     public XNIException(String message, Exception exception) {
@@ -73,16 +70,16 @@ public class XNIException
     }
 
     /**
-     * Initializes the cause of this <code>XNIException</code>.
-     * The value must be an instance of <code>Exception</code> or
-     * <code>null</code>.
+     * Initializes the cause of this <code>XNIException</code>. The value must be an
+     * instance of <code>Exception</code> or <code>null</code>.
      *
      * @param throwable the cause
      * @return this exception
      *
-     * @throws IllegalStateException if a cause has already been set
+     * @throws IllegalStateException    if a cause has already been set
      * @throws IllegalArgumentException if the cause is this exception
-     * @throws ClassCastException if the cause is not assignable to <code>Exception</code>
+     * @throws ClassCastException       if the cause is not assignable to
+     *                                  <code>Exception</code>
      */
     @Override
     public synchronized Throwable initCause(Throwable throwable) {

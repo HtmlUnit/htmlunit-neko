@@ -24,8 +24,8 @@ import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 
 /**
  * This class provides an implementation for Augmentations interface.
- * Augmentations interface defines a hashtable of additional data that could
- * be passed along the document pipeline. The information can contain extra
+ * Augmentations interface defines a hashtable of additional data that could be
+ * passed along the document pipeline. The information can contain extra
  * arguments or infoset augmentations, for example PSVI. This additional
  * information is identified by a String key.
  * <p>
@@ -37,29 +37,30 @@ public class AugmentationsImpl implements Augmentations {
     private final HashMap<String, Object> fAugmentationsContainer = new HashMap<>();
 
     /**
-     * Add additional information identified by a key to the Augmentations structure.
+     * Add additional information identified by a key to the Augmentations
+     * structure.
      *
-     * @param key    Identifier, can't be <code>null</code>
-     * @param item   Additional information
+     * @param key  Identifier, can't be <code>null</code>
+     * @param item Additional information
      *
-     * @return the previous value of the specified key in the Augmentations strucutre,
-     *         or <code>null</code> if it did not have one.
+     * @return the previous value of the specified key in the Augmentations
+     *         strucutre, or <code>null</code> if it did not have one.
      */
     @Override
-    public Object put(String key, Object item){
+    public Object put(String key, Object item) {
         return fAugmentationsContainer.put(key, item);
     }
 
     /**
      * Get information identified by a key from the Augmentations structure
      *
-     * @param key    Identifier, can't be <code>null</code>
+     * @param key Identifier, can't be <code>null</code>
      *
      * @return the value to which the key is mapped in the Augmentations structure;
      *         <code>null</code> if the key is not mapped to any value.
      */
     @Override
-    public Object get(String key){
+    public Object get(String key) {
         return fAugmentationsContainer.get(key);
     }
 
@@ -68,7 +69,7 @@ public class AugmentationsImpl implements Augmentations {
      *
      */
     @Override
-    public Set<String> keys(){
+    public Set<String> keys() {
         return fAugmentationsContainer.keySet();
     }
 

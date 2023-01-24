@@ -20,44 +20,42 @@ package net.sourceforge.htmlunit.xerces.xni;
 import java.util.Set;
 
 /**
- * The Augmentations interface defines a table of additional data that may
- * be passed along the document pipeline. The information can contain extra
+ * The Augmentations interface defines a table of additional data that may be
+ * passed along the document pipeline. The information can contain extra
  * arguments or infoset augmentations, for example PSVI. This additional
  * information is identified by a String key.
  * <p>
- * <strong>Note:</strong>
- * Methods that receive Augmentations are required to copy the information
- * if it is to be saved for use beyond the scope of the method.
- * The Augmentations content is volatile, and maybe modified by any method in
- * any component in the pipeline. Therefore, methods passed this structure
- * should not save any reference to the structure.
+ * <strong>Note:</strong> Methods that receive Augmentations are required to
+ * copy the information if it is to be saved for use beyond the scope of the
+ * method. The Augmentations content is volatile, and maybe modified by any
+ * method in any component in the pipeline. Therefore, methods passed this
+ * structure should not save any reference to the structure.
  *
  * @author Elena Litani, IBM
  */
 
 public interface Augmentations {
     /**
-     * Add additional information identified by a key to the Augmentations structure.
+     * Add additional information identified by a key to the Augmentations
+     * structure.
      *
-     * @param key    Identifier, can't be <code>null</code>
-     * @param item   Additional information
+     * @param key  Identifier, can't be <code>null</code>
+     * @param item Additional information
      *
-     * @return the previous value of the specified key in the Augmentations structure,
-     *         or <code>null</code> if it did not have one.
+     * @return the previous value of the specified key in the Augmentations
+     *         structure, or <code>null</code> if it did not have one.
      */
     Object put(String key, Object item);
-
 
     /**
      * Get information identified by a key from the Augmentations structure
      *
-     * @param key    Identifier, can't be <code>null</code>
+     * @param key Identifier, can't be <code>null</code>
      *
      * @return the value to which the key is mapped in the Augmentations structure;
      *         <code>null</code> if the key is not mapped to any value.
      */
     Object get(String key);
-
 
     /**
      * @return an enumeration of the keys in the Augmentations structure

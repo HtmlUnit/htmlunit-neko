@@ -142,19 +142,16 @@ public interface XMLDocumentHandler {
      * <strong>Note:</strong> This method is not called for entity references
      * appearing as part of attribute values.
      *
-     * @param name       The name of the general entity.
-     * @param encoding   The auto-detected IANA encoding name of the entity stream.
-     *                   This value will be null in those situations where the
-     *                   entity encoding is not auto-detected (e.g. internal
-     *                   entities or a document entity that is parsed from a
-     *                   java.io.Reader).
-     * @param augs       Additional information that may include infoset
-     *                   augmentations
+     * @param name     The name of the general entity.
+     * @param encoding The auto-detected IANA encoding name of the entity stream.
+     *                 This value will be null in those situations where the entity
+     *                 encoding is not auto-detected (e.g. internal entities or a
+     *                 document entity that is parsed from a java.io.Reader).
+     * @param augs     Additional information that may include infoset augmentations
      *
      * @exception XNIException Thrown by handler to signal an error.
      */
-    void startGeneralEntity(String name, String encoding, Augmentations augs)
-            throws XNIException;
+    void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException;
 
     /**
      * Notifies of the presence of a TextDecl line in an entity. If present, this

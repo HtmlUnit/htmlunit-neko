@@ -18,8 +18,10 @@
 package net.sourceforge.htmlunit.xerces.util;
 
 /**
- * <p>A structure that represents an error code, characterized by
- * a domain and a message key.</p>
+ * <p>
+ * A structure that represents an error code, characterized by a domain and a
+ * message key.
+ * </p>
  *
  * @author Naela Nissar, IBM
  */
@@ -36,10 +38,12 @@ final class XMLErrorCode {
     private String fKey;
 
     /**
-     * <p>Constructs an XMLErrorCode with the given domain and key.</p>
+     * <p>
+     * Constructs an XMLErrorCode with the given domain and key.
+     * </p>
      *
      * @param domain The error domain.
-     * @param key The key of the error message.
+     * @param key    The key of the error message.
      */
     public XMLErrorCode(String domain, String key) {
         fDomain = domain;
@@ -47,10 +51,12 @@ final class XMLErrorCode {
     }
 
     /**
-     * <p>Convenience method to set the values of an XMLErrorCode.</p>
+     * <p>
+     * Convenience method to set the values of an XMLErrorCode.
+     * </p>
      *
      * @param domain The error domain.
-     * @param key The key of the error message.
+     * @param key    The key of the error message.
      */
     public void setValues(String domain, String key) {
         fDomain = domain;
@@ -58,7 +64,9 @@ final class XMLErrorCode {
     }
 
     /**
-     * <p>Indicates whether some other object is equal to this XMLErrorCode.</p>
+     * <p>
+     * Indicates whether some other object is equal to this XMLErrorCode.
+     * </p>
      *
      * @param obj the object with which to compare.
      */
@@ -71,7 +79,9 @@ final class XMLErrorCode {
     }
 
     /**
-     * <p>Returns a hash code value for this XMLErrorCode.</p>
+     * <p>
+     * Returns a hash code value for this XMLErrorCode.
+     * </p>
      *
      * @return a hash code value for this XMLErrorCode.
      */

@@ -21,8 +21,8 @@ import net.sourceforge.htmlunit.xerces.xni.XNIException;
 
 /**
  * An XNI parser configuration exception. This exception class extends
- * <code>XNIException</code> in order to differentiate between general
- * parsing errors and configuration errors.
+ * <code>XNIException</code> in order to differentiate between general parsing
+ * errors and configuration errors.
  *
  * @author Andy Clark, IBM
  */
@@ -47,8 +47,8 @@ public class XMLConfigurationException extends XNIException {
     //
 
     /**
-     * Constructs a configuration exception with the specified type
-     * and feature/property identifier.
+     * Constructs a configuration exception with the specified type and
+     * feature/property identifier.
      *
      * @param type       The type of the exception.
      * @param identifier The feature or property identifier.
@@ -73,8 +73,7 @@ public class XMLConfigurationException extends XNIException {
      * @see #NOT_RECOGNIZED
      * @see #NOT_SUPPORTED
      */
-    public XMLConfigurationException(short type, String identifier,
-                                     String message) {
+    public XMLConfigurationException(short type, String identifier, String message) {
         super(message);
         fType = type;
         fIdentifier = identifier;

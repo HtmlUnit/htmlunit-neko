@@ -21,25 +21,22 @@ import net.sourceforge.htmlunit.xerces.xni.XMLString;
 
 /**
  * XMLString is a structure used to pass character arrays. However,
- * XMLStringBuffer is a buffer in which characters can be appended
- * and extends XMLString so that it can be passed to methods
- * expecting an XMLString object. This is a safe operation because
- * it is assumed that any callee will <strong>not</strong> modify
- * the contents of the XMLString structure.
+ * XMLStringBuffer is a buffer in which characters can be appended and extends
+ * XMLString so that it can be passed to methods expecting an XMLString object.
+ * This is a safe operation because it is assumed that any callee will
+ * <strong>not</strong> modify the contents of the XMLString structure.
  * <p>
- * The contents of the string are managed by the string buffer. As
- * characters are appended, the string buffer will grow as needed.
+ * The contents of the string are managed by the string buffer. As characters
+ * are appended, the string buffer will grow as needed.
  * <p>
- * <strong>Note:</strong> Never set the <code>ch</code>,
- * <code>offset</code>, and <code>length</code> fields directly.
- * These fields are managed by the string buffer. In order to reset
- * the buffer, call <code>clear()</code>.
+ * <strong>Note:</strong> Never set the <code>ch</code>, <code>offset</code>,
+ * and <code>length</code> fields directly. These fields are managed by the
+ * string buffer. In order to reset the buffer, call <code>clear()</code>.
  *
  * @author Andy Clark, IBM
  * @author Eric Ye, IBM
  */
-public class XMLStringBuffer
-    extends XMLString {
+public class XMLStringBuffer extends XMLString {
 
     /** Default buffer size (32). */
     public static final int DEFAULT_SIZE = 32;
@@ -106,7 +103,7 @@ public class XMLStringBuffer
     /**
      * append
      *
-     * @param ch char array
+     * @param ch     char array
      * @param offset start
      * @param length length
      */

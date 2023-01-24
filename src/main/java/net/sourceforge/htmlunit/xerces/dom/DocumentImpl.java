@@ -27,37 +27,35 @@ import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.DocumentEvent;
 import org.w3c.dom.events.Event;
 
-
 /**
  * The Document interface represents the entire HTML or XML document.
- * Conceptually, it is the root of the document tree, and provides the
- * primary access to the document's data.
+ * Conceptually, it is the root of the document tree, and provides the primary
+ * access to the document's data.
  * <P>
- * Since elements, text nodes, comments, processing instructions,
- * etc. cannot exist outside the context of a Document, the Document
- * interface also contains the factory methods needed to create these
- * objects. The Node objects created have a ownerDocument attribute
- * which associates them with the Document within whose context they
- * were created.
+ * Since elements, text nodes, comments, processing instructions, etc. cannot
+ * exist outside the context of a Document, the Document interface also contains
+ * the factory methods needed to create these objects. The Node objects created
+ * have a ownerDocument attribute which associates them with the Document within
+ * whose context they were created.
  *
- * @author Arnaud  Le Hors, IBM
+ * @author Arnaud Le Hors, IBM
  * @author Joe Kesselman, IBM
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
  */
-public class DocumentImpl
-    extends CoreDocumentImpl
-    implements DocumentEvent {
+public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
 
     /**
-     * NON-DOM: Actually creating a Document is outside the DOM's spec,
-     * since it has to operate in terms of a particular implementation.
+     * NON-DOM: Actually creating a Document is outside the DOM's spec, since it has
+     * to operate in terms of a particular implementation.
      */
     public DocumentImpl() {
         super();
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
+     * 
      * @param grammarAccess grammar access flag
      */
     public DocumentImpl(boolean grammarAccess) {
@@ -65,18 +63,18 @@ public class DocumentImpl
     }
 
     /**
-     * For DOM2 support.
-     * The createDocument factory method is in DOMImplementation.
+     * For DOM2 support. The createDocument factory method is in DOMImplementation.
+     * 
      * @param doctype the {@link DocumentType}
      */
-    public DocumentImpl(DocumentType doctype)
-    {
+    public DocumentImpl(DocumentType doctype) {
         super(doctype);
     }
 
     /**
      * For DOM2 support.
-     * @param doctype the {@link DocumentType}
+     * 
+     * @param doctype       the {@link DocumentType}
      * @param grammarAccess grammar access flag
      */
     public DocumentImpl(DocumentType doctype, boolean grammarAccess) {
@@ -86,10 +84,9 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * Deep-clone a document, including fixing ownerDoc for the cloned
-     * children. Note that this requires bypassing the WRONG_DOCUMENT_ERR
-     * protection. I've chosen to implement it by calling importNode
-     * which is DOM Level 2.
+     * Deep-clone a document, including fixing ownerDoc for the cloned children.
+     * Note that this requires bypassing the WRONG_DOCUMENT_ERR protection. I've
+     * chosen to implement it by calling importNode which is DOM Level 2.
      *
      * @return org.w3c.dom.Node
      * @param deep boolean, iff true replicate children
@@ -108,10 +105,10 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * Retrieve information describing the abilities of this particular
-     * DOM implementation. Intended to support applications that may be
-     * using DOMs retrieved from several different sources, potentially
-     * with different underlying representations.
+     * Retrieve information describing the abilities of this particular DOM
+     * implementation. Intended to support applications that may be using DOMs
+     * retrieved from several different sources, potentially with different
+     * underlying representations.
      */
     @Override
     public DOMImplementation getImplementation() {
@@ -123,8 +120,8 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * A method to be called when some text was changed in a text node,
-     * so that live objects can be notified.
+     * A method to be called when some text was changed in a text node, so that live
+     * objects can be notified.
      */
     @Override
     void replacedText(CharacterDataImpl node) {
@@ -133,8 +130,8 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * A method to be called when some text was deleted from a text node,
-     * so that live objects can be notified.
+     * A method to be called when some text was deleted from a text node, so that
+     * live objects can be notified.
      */
     @Override
     void deletedText(CharacterDataImpl node, int offset, int count) {
@@ -143,8 +140,8 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * A method to be called when some text was inserted into a text node,
-     * so that live objects can be notified.
+     * A method to be called when some text was inserted into a text node, so that
+     * live objects can be notified.
      */
     @Override
     void insertedText(CharacterDataImpl node, int offset, int count) {
@@ -153,22 +150,24 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * Introduced in DOM Level 2. Optional. <p>
+     * Introduced in DOM Level 2. Optional.
+     * <p>
      * Create and return Event objects.
      *
-     * @param type The eventType parameter specifies the type of Event
-     * interface to be created.  If the Event interface specified is supported
-     * by the implementation this method will return a new Event of the
-     * interface type requested. If the Event is to be dispatched via the
-     * dispatchEvent method the appropriate event init method must be called
-     * after creation in order to initialize the Event's values.  As an
-     * example, a user wishing to synthesize some kind of Event would call
-     * createEvent with the parameter "Events". The initEvent method could then
-     * be called on the newly created Event to set the specific type of Event
-     * to be dispatched and set its context information.
+     * @param type The eventType parameter specifies the type of Event interface to
+     *             be created. If the Event interface specified is supported by the
+     *             implementation this method will return a new Event of the
+     *             interface type requested. If the Event is to be dispatched via
+     *             the dispatchEvent method the appropriate event init method must
+     *             be called after creation in order to initialize the Event's
+     *             values. As an example, a user wishing to synthesize some kind of
+     *             Event would call createEvent with the parameter "Events". The
+     *             initEvent method could then be called on the newly created Event
+     *             to set the specific type of Event to be dispatched and set its
+     *             context information.
      * @return Newly created Event
-     * @exception DOMException NOT_SUPPORTED_ERR: Raised if the implementation
-     * does not support the type of Event interface requested
+     * @exception DOMException NOT_SUPPORTED_ERR: Raised if the implementation does
+     *                         not support the type of Event interface requested
      */
     @Override
     public Event createEvent(String type) throws DOMException {
@@ -201,10 +200,10 @@ public class DocumentImpl
      */
     @Override
     void replacedCharacterData(NodeImpl node, String oldvalue, String value) {
-        //now that we have finished replacing data, we need to perform the same actions
-        //that are required after a character data node has been modified
-        //send the value of false for replace parameter so that mutation
-        //events if appropriate will be initiated
+        // now that we have finished replacing data, we need to perform the same actions
+        // that are required after a character data node has been modified
+        // send the value of false for replace parameter so that mutation
+        // events if appropriate will be initiated
         modifiedCharacterData(node, oldvalue, value, false);
     }
 
@@ -256,10 +255,11 @@ public class DocumentImpl
     /**
      * {@inheritDoc}
      *
-     * A method to be called when character data is about to be replaced in the tree.
+     * A method to be called when character data is about to be replaced in the
+     * tree.
      */
     @Override
-    void replacingData (NodeImpl node) {
+    void replacingData(NodeImpl node) {
     }
 
     /**
@@ -305,7 +305,7 @@ public class DocumentImpl
      */
     @Override
     void renamedAttrNode(Attr oldAt, Attr newAt) {
-    // REVISIT: To be implemented!!!
+        // REVISIT: To be implemented!!!
     }
 
     /**
@@ -315,6 +315,6 @@ public class DocumentImpl
      */
     @Override
     void renamedElement(Element oldEl, Element newEl) {
-    // REVISIT: To be implemented!!!
+        // REVISIT: To be implemented!!!
     }
 }

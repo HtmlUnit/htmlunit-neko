@@ -18,45 +18,42 @@
 package net.sourceforge.htmlunit.xerces.xni;
 
 /**
- * A structure that holds the components of an XML Namespaces qualified
- * name.
+ * A structure that holds the components of an XML Namespaces qualified name.
  * <p>
- * To be used correctly, the strings must be identical references for
- * equal strings. Within the parser, these values are considered symbols
- * and should always be retrieved from the <code>SymbolTable</code>.
+ * To be used correctly, the strings must be identical references for equal
+ * strings. Within the parser, these values are considered symbols and should
+ * always be retrieved from the <code>SymbolTable</code>.
  *
- * @see <a href="../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">net.sourceforge.htmlunit.xerces.util.SymbolTable</a>
+ * @see <a href=
+ *      "../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">net.sourceforge.htmlunit.xerces.util.SymbolTable</a>
  *
  * @author Andy Clark, IBM
  */
-public class QName
-    implements Cloneable {
+public class QName implements Cloneable {
 
     //
     // Data
     //
 
     /**
-     * The qname prefix. For example, the prefix for the qname "a:foo"
-     * is "a".
+     * The qname prefix. For example, the prefix for the qname "a:foo" is "a".
      */
     public String prefix;
 
     /**
-     * The qname localpart. For example, the localpart for the qname "a:foo"
-     * is "foo".
+     * The qname localpart. For example, the localpart for the qname "a:foo" is
+     * "foo".
      */
     public String localpart;
 
     /**
-     * The qname rawname. For example, the rawname for the qname "a:foo"
-     * is "a:foo".
+     * The qname rawname. For example, the rawname for the qname "a:foo" is "a:foo".
      */
     public String rawname;
 
     /**
-     * The URI to which the qname prefix is bound. This binding must be
-     * performed by a XML Namespaces aware processor.
+     * The URI to which the qname prefix is bound. This binding must be performed by
+     * a XML Namespaces aware processor.
      */
     public String uri;
 
@@ -95,8 +92,7 @@ public class QName
      * @param rawname   The qname rawname. (e.g. "a:foo")
      * @param uri       The URI binding. (e.g. "http://foo.com/mybinding")
      */
-    public void setValues(String prefix, String localpart, String rawname,
-                          String uri) {
+    public void setValues(String prefix, String localpart, String rawname, String uri) {
         this.prefix = prefix;
         this.localpart = localpart;
         this.rawname = rawname;
@@ -119,8 +115,7 @@ public class QName
     @Override
     public int hashCode() {
         if (uri != null) {
-            return uri.hashCode() +
-                ((localpart != null) ? localpart.hashCode() : 0);
+            return uri.hashCode() + ((localpart != null) ? localpart.hashCode() : 0);
         }
         return (rawname != null) ? rawname.hashCode() : 0;
     }
@@ -128,11 +123,10 @@ public class QName
     @Override
     public boolean equals(Object object) {
         if (object instanceof QName) {
-            QName qname = (QName)object;
+            QName qname = (QName) object;
             if (qname.uri != null) {
                 return uri == qname.uri && localpart == qname.localpart;
-            }
-            else if (uri == null) {
+            } else if (uri == null) {
                 return rawname == qname.rawname;
             }
             // fall through and return not equal

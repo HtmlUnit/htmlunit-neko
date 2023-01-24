@@ -22,7 +22,7 @@ package net.sourceforge.htmlunit.xerces.dom;
  * improve performance of the NodeList accessors, getLength() and item(i).
  * <p>
  *
- * @author Arnaud  Le Hors, IBM
+ * @author Arnaud Le Hors, IBM
  */
 class NodeListCache {
 
@@ -38,12 +38,13 @@ class NodeListCache {
     /** Owner of this cache */
     ParentNode fOwner;
 
-    /** Pointer to the next object on the list,
-        only meaningful when actully stored in the free list. */
+    /**
+     * Pointer to the next object on the list, only meaningful when actully stored
+     * in the free list.
+     */
     NodeListCache next;
 
     NodeListCache(ParentNode owner) {
         fOwner = owner;
     }
 }
-

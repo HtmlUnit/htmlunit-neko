@@ -36,10 +36,15 @@ public final class Constants {
     /** Namespace prefixes feature ("namespace-prefixes"). */
     public static final String NAMESPACE_PREFIXES_FEATURE = "namespace-prefixes";
 
-    /** Lexical handler parameter entities feature ("lexical-handler/parameter-entities"). */
+    /**
+     * Lexical handler parameter entities feature
+     * ("lexical-handler/parameter-entities").
+     */
     public static final String LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE = "lexical-handler/parameter-entities";
 
-    /** Unicode normalization checking feature ("unicode-normalization-checking"). */
+    /**
+     * Unicode normalization checking feature ("unicode-normalization-checking").
+     */
     public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "unicode-normalization-checking";
 
     // sax properties
@@ -63,7 +68,6 @@ public final class Constants {
     /** Create cdata nodes feature ("create-cdata-nodes"). */
     public static final String CREATE_CDATA_NODES_FEATURE = "create-cdata-nodes";
 
-
     // xerces features
 
     /** Xerces features prefix ("http://apache.org/xml/features/"). */
@@ -75,13 +79,18 @@ public final class Constants {
     /** Create entity reference nodes feature ("dom/create-entity-ref-nodes"). */
     public static final String CREATE_ENTITY_REF_NODES_FEATURE = "dom/create-entity-ref-nodes";
 
-    /** Include ignorable whitespace feature ("dom/include-ignorable-whitespace"). */
+    /**
+     * Include ignorable whitespace feature ("dom/include-ignorable-whitespace").
+     */
     public static final String INCLUDE_IGNORABLE_WHITESPACE = "dom/include-ignorable-whitespace";
 
     /** Notify character references feature (scanner/notify-char-refs"). */
     public static final String NOTIFY_CHAR_REFS_FEATURE = "scanner/notify-char-refs";
 
-    /** Notify built-in (&amp;amp;, etc.) references feature (scanner/notify-builtin-refs"). */
+    /**
+     * Notify built-in (&amp;amp;, etc.) references feature
+     * (scanner/notify-builtin-refs").
+     */
     public static final String NOTIFY_BUILTIN_REFS_FEATURE = "scanner/notify-builtin-refs";
 
     /** Standard URI conformant feature ("standard-uri-conformant"). */
@@ -116,26 +125,26 @@ public final class Constants {
     // general constants
 
     /**
-     * Boolean indicating whether an attribute is declared in the DTD is stored
-     * in augmentations using the string "ATTRIBUTE_DECLARED". The absence of this
+     * Boolean indicating whether an attribute is declared in the DTD is stored in
+     * augmentations using the string "ATTRIBUTE_DECLARED". The absence of this
      * augmentation indicates that the attribute was not declared in the DTD.
      */
     public final static String ATTRIBUTE_DECLARED = "ATTRIBUTE_DECLARED";
 
     /**
-     * Boolean indicating whether an entity referenced in the document has
-     * not been read is stored in augmentations using the string "ENTITY_SKIPPED".
-     * The absence of this augmentation indicates that the entity had a
-     * declaration and was expanded.
+     * Boolean indicating whether an entity referenced in the document has not been
+     * read is stored in augmentations using the string "ENTITY_SKIPPED". The
+     * absence of this augmentation indicates that the entity had a declaration and
+     * was expanded.
      */
     public final static String ENTITY_SKIPPED = "ENTITY_SKIPPED";
 
     /**
-     * Boolean indicating whether a character is a probable white space
-     * character (ch &lt;= 0x20) that was the replacement text of a character
-     * reference is stored in augmentations using the string "CHAR_REF_PROBABLE_WS".
-     * The absence of this augmentation indicates that the character is not
-     * probable white space and/or was not included from a character reference.
+     * Boolean indicating whether a character is a probable white space character
+     * (ch &lt;= 0x20) that was the replacement text of a character reference is
+     * stored in augmentations using the string "CHAR_REF_PROBABLE_WS". The absence
+     * of this augmentation indicates that the character is not probable white space
+     * and/or was not included from a character reference.
      */
     public final static String CHAR_REF_PROBABLE_WS = "CHAR_REF_PROBABLE_WS";
 
@@ -147,35 +156,19 @@ public final class Constants {
     // private
 
     /** SAX features. */
-    private static final String[] fgSAXFeatures = {
-            NAMESPACES_FEATURE,
-            NAMESPACE_PREFIXES_FEATURE,
-    };
+    private static final String[] fgSAXFeatures = { NAMESPACES_FEATURE, NAMESPACE_PREFIXES_FEATURE, };
 
     /** SAX properties. */
-    private static final String[] fgSAXProperties = {
-            LEXICAL_HANDLER_PROPERTY,
-    };
+    private static final String[] fgSAXProperties = { LEXICAL_HANDLER_PROPERTY, };
 
     /** Xerces features. */
-    private static final String[] fgXercesFeatures = {
-            CONTINUE_AFTER_FATAL_ERROR_FEATURE,
-            CREATE_ENTITY_REF_NODES_FEATURE,
-            INCLUDE_IGNORABLE_WHITESPACE,
-            NOTIFY_CHAR_REFS_FEATURE,
-            NOTIFY_BUILTIN_REFS_FEATURE,
-            STANDARD_URI_CONFORMANT_FEATURE,
-    };
+    private static final String[] fgXercesFeatures = { CONTINUE_AFTER_FATAL_ERROR_FEATURE,
+            CREATE_ENTITY_REF_NODES_FEATURE, INCLUDE_IGNORABLE_WHITESPACE, NOTIFY_CHAR_REFS_FEATURE,
+            NOTIFY_BUILTIN_REFS_FEATURE, STANDARD_URI_CONFORMANT_FEATURE, };
 
     /** Xerces properties. */
-    private static final String[] fgXercesProperties = {
-            SYMBOL_TABLE_PROPERTY,
-            ERROR_HANDLER_PROPERTY,
-            ERROR_REPORTER_PROPERTY,
-            ENTITY_MANAGER_PROPERTY,
-            DOCUMENT_SCANNER_PROPERTY,
-            BUFFER_SIZE_PROPERTY,
-    };
+    private static final String[] fgXercesProperties = { SYMBOL_TABLE_PROPERTY, ERROR_HANDLER_PROPERTY,
+            ERROR_REPORTER_PROPERTY, ENTITY_MANAGER_PROPERTY, DOCUMENT_SCANNER_PROPERTY, BUFFER_SIZE_PROPERTY, };
 
     /** Empty enumeration. */
     private static final Enumeration<Object> fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
@@ -185,7 +178,8 @@ public final class Constants {
     //
 
     /** This class cannot be instantiated. */
-    private Constants() {}
+    private Constants() {
+    }
 
     //
     // Public methods
@@ -195,28 +189,24 @@ public final class Constants {
 
     /** @return an enumeration of the SAX features. */
     public static Enumeration<Object> getSAXFeatures() {
-        return fgSAXFeatures.length > 0
-        ? new ArrayEnumeration(fgSAXFeatures) : fgEmptyEnumeration;
+        return fgSAXFeatures.length > 0 ? new ArrayEnumeration(fgSAXFeatures) : fgEmptyEnumeration;
     }
 
     /** @return an enumeration of the SAX properties. */
     public static Enumeration<Object> getSAXProperties() {
-        return fgSAXProperties.length > 0
-        ? new ArrayEnumeration(fgSAXProperties) : fgEmptyEnumeration;
+        return fgSAXProperties.length > 0 ? new ArrayEnumeration(fgSAXProperties) : fgEmptyEnumeration;
     }
 
     // xerces
 
     /** @return an enumeration of the Xerces features. */
     public static Enumeration<Object> getXercesFeatures() {
-        return fgXercesFeatures.length > 0
-        ? new ArrayEnumeration(fgXercesFeatures) : fgEmptyEnumeration;
+        return fgXercesFeatures.length > 0 ? new ArrayEnumeration(fgXercesFeatures) : fgEmptyEnumeration;
     }
 
     /** @return an enumeration of the Xerces properties. */
     public static Enumeration<Object> getXercesProperties() {
-        return fgXercesProperties.length > 0
-        ? new ArrayEnumeration(fgXercesProperties) : fgEmptyEnumeration;
+        return fgXercesProperties.length > 0 ? new ArrayEnumeration(fgXercesProperties) : fgEmptyEnumeration;
     }
 
     //
@@ -246,8 +236,8 @@ public final class Constants {
          *
          * Tests if this enumeration contains more elements.
          *
-         * @return  <code>true</code> if this enumeration contains more elements;
-         *          <code>false</code> otherwise.
+         * @return <code>true</code> if this enumeration contains more elements;
+         *         <code>false</code> otherwise.
          */
         @Override
         public boolean hasMoreElements() {
@@ -259,8 +249,8 @@ public final class Constants {
          *
          * Returns the next element of this enumeration.
          *
-         * @return     the next element of this enumeration.
-         * @exception  NoSuchElementException  if no more elements exist.
+         * @return the next element of this enumeration.
+         * @exception NoSuchElementException if no more elements exist.
          */
         @Override
         public Object nextElement() {
@@ -292,8 +282,7 @@ public final class Constants {
                 System.out.print(prefix);
                 System.out.println(o);
             }
-        }
-        else {
+        } else {
             System.out.println(" none.");
         }
     }

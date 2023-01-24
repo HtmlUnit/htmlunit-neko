@@ -31,17 +31,18 @@ public class SAXMessageFormatter {
      * Formats a message with the specified arguments.
      *
      * @param key       The message key.
-     * @param arguments The message replacement text arguments. The order
-     *                  of the arguments must match that of the placeholders
-     *                  in the actual message.
+     * @param arguments The message replacement text arguments. The order of the
+     *                  arguments must match that of the placeholders in the actual
+     *                  message.
      *
-     * @return          the formatted message.
+     * @return the formatted message.
      *
-     * @throws MissingResourceException Thrown if the message with the
-     *                                  specified key cannot be found.
+     * @throws MissingResourceException Thrown if the message with the specified key
+     *                                  cannot be found.
      */
     public static String formatMessage(String key, Object[] arguments) throws MissingResourceException {
-        final ResourceBundle resourceBundle = ResourceBundle.getBundle("net.sourceforge.htmlunit.xerces.impl.msg.SAXMessages");
+        final ResourceBundle resourceBundle = ResourceBundle
+                .getBundle("net.sourceforge.htmlunit.xerces.impl.msg.SAXMessages");
 
         // format message
         String msg;
@@ -50,8 +51,7 @@ public class SAXMessageFormatter {
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     msg = resourceBundle.getString("FormatFailed");
                     msg += " " + resourceBundle.getString(key);
                 }

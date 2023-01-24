@@ -21,9 +21,9 @@ import net.sourceforge.htmlunit.xerces.xni.XMLLocator;
 import net.sourceforge.htmlunit.xerces.xni.XNIException;
 
 /**
- * A parsing exception. This exception is different from the standard
- * XNI exception in that it stores the location in the document (or
- * its entities) where the exception occurred.
+ * A parsing exception. This exception is different from the standard XNI
+ * exception in that it stores the location in the document (or its entities)
+ * where the exception occurred.
  *
  * @author Andy Clark, IBM
  */
@@ -67,8 +67,7 @@ public class XMLParseException extends XNIException {
     }
 
     // Constructs a parse exception.
-    public XMLParseException(XMLLocator locator,
-                             String message, Exception exception) {
+    public XMLParseException(XMLLocator locator, String message, Exception exception) {
         super(message, exception);
         if (locator != null) {
             fPublicId = locator.getPublicId();

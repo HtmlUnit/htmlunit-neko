@@ -18,13 +18,13 @@
 package net.sourceforge.htmlunit.xerces.xni.parser;
 
 /**
- * The component manager manages a parser configuration and the components
- * that make up that configuration. The manager notifies each component
- * before parsing to allow the components to initialize their state; and
- * also any time that a parser feature or property changes.
+ * The component manager manages a parser configuration and the components that
+ * make up that configuration. The manager notifies each component before
+ * parsing to allow the components to initialize their state; and also any time
+ * that a parser feature or property changes.
  * <p>
- * The methods of the component manager allow components to query features
- * and properties that affect the operation of the component.
+ * The methods of the component manager allow components to query features and
+ * properties that affect the operation of the component.
  *
  * @see XMLComponent
  *
@@ -37,16 +37,14 @@ public interface XMLComponentManager {
      *
      * @throws XMLConfigurationException Thrown on configuration error.
      */
-    boolean getFeature(String featureId)
-        throws XMLConfigurationException;
+    boolean getFeature(String featureId) throws XMLConfigurationException;
 
     /**
      * @param propertyId The property identifier.
      * @return the value of a property.
      *
-    * @throws XMLConfigurationException Thrown on configuration error.
+     * @throws XMLConfigurationException Thrown on configuration error.
      */
-    Object getProperty(String propertyId)
-        throws XMLConfigurationException;
+    Object getProperty(String propertyId) throws XMLConfigurationException;
 
 } // interface XMLComponentManager

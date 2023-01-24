@@ -20,13 +20,11 @@ package net.sourceforge.htmlunit.xerces.xni.parser;
 import net.sourceforge.htmlunit.xerces.xni.XMLDocumentHandler;
 
 /**
- * Defines a document filter that acts as both a receiver and an emitter
- * of document events.
+ * Defines a document filter that acts as both a receiver and an emitter of
+ * document events.
  *
  * @author Andy Clark, IBM
  */
-public interface XMLDocumentFilter
-    extends XMLDocumentHandler, XMLDocumentSource {
-
+public interface XMLDocumentFilter extends XMLDocumentHandler, XMLDocumentSource {
 
 } // interface XMLDocumentFilter

@@ -21,21 +21,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 
 /**
- * Processing Instructions (PIs) permit documents to carry
- * processor-specific information alongside their actual content. PIs
- * are most common in XML, but they are supported in HTML as well.
+ * Processing Instructions (PIs) permit documents to carry processor-specific
+ * information alongside their actual content. PIs are most common in XML, but
+ * they are supported in HTML as well.
  * <p>
  * This class inherits from CharacterDataImpl to reuse its setNodeValue method.
  */
-public class ProcessingInstructionImpl
-    extends CharacterDataImpl
-    implements ProcessingInstruction {
+public class ProcessingInstructionImpl extends CharacterDataImpl implements ProcessingInstruction {
 
     protected final String target;
 
     // Factory constructor.
-    public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc,
-                                     String target, String data) {
+    public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc, String target, String data) {
         super(ownerDoc, data);
         this.target = target;
     }
@@ -43,8 +40,8 @@ public class ProcessingInstructionImpl
     /**
      * {@inheritDoc}
      *
-     * A short integer indicating what type of node this is. The named
-     * constants for this value are defined in the org.w3c.dom.Node interface.
+     * A short integer indicating what type of node this is. The named constants for
+     * this value are defined in the org.w3c.dom.Node interface.
      */
     @Override
     public short getNodeType() {
@@ -67,11 +64,11 @@ public class ProcessingInstructionImpl
     /**
      * {@inheritDoc}
      *
-     * A PI's "target" states what processor channel the PI's data
-     * should be directed to. It is defined differently in HTML and XML.
+     * A PI's "target" states what processor channel the PI's data should be
+     * directed to. It is defined differently in HTML and XML.
      * <p>
-     * In XML, a PI's "target" is the first (whitespace-delimited) token
-     * following the "&lt;?" token that begins the PI.
+     * In XML, a PI's "target" is the first (whitespace-delimited) token following
+     * the "&lt;?" token that begins the PI.
      * <p>
      * In HTML, target is always null.
      * <p>
@@ -86,12 +83,12 @@ public class ProcessingInstructionImpl
 
     }
 
-   /**
+    /**
      * {@inheritDoc}
      *
      * Returns the absolute base URI of this node or null if the implementation
-     * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a
-     * null is returned.
+     * wasn't able to obtain an absolute URI. Note: If the URI is malformed, a null
+     * is returned.
      *
      * @return The absolute base URI of this node or null.
      */
