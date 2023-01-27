@@ -76,7 +76,7 @@ public abstract class ParentNode extends ChildNode {
     /**
      * No public constructor; only subclasses of ParentNode should be instantiated,
      * and those normally via a Document's factory methods
-     * 
+     *
      * @param ownerDocument the owner document
      */
     protected ParentNode(CoreDocumentImpl ownerDocument) {
@@ -637,7 +637,7 @@ public abstract class ParentNode extends ChildNode {
     /**
      * Count the immediate children of this node. Use to implement
      * NodeList.getLength().
-     * 
+     *
      * @return the length
      */
     private int nodeListGetLength() {
@@ -682,7 +682,7 @@ public abstract class ParentNode extends ChildNode {
      * {@inheritDoc}
      *
      * NodeList method: Count the immediate children of this node
-     * 
+     *
      * @return int
      */
     @Override
@@ -755,7 +755,7 @@ public abstract class ParentNode extends ChildNode {
      *
      * NodeList method: Return the Nth immediate child of this node, or null if the
      * index is out of bounds.
-     * 
+     *
      * @return org.w3c.dom.Node
      * @param index int
      */
@@ -770,7 +770,7 @@ public abstract class ParentNode extends ChildNode {
      * getChildNodes() by implementing NodeList itself. However if a subclass
      * Element implements methods with the same name as the NodeList methods, they
      * will override the actually methods in this class.
-     * 
+     *
      * @return a node list
      */
     protected final NodeList getChildNodesUnoptimized() {

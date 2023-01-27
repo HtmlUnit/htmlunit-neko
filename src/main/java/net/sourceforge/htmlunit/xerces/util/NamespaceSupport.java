@@ -66,22 +66,7 @@ public class NamespaceSupport implements NamespaceContext {
     public NamespaceSupport() {
     } // <init>()
 
-    /**
-     * Constructs a namespace context object and initializes it with the prefixes
-     * declared in the specified context.
-     * 
-     * @param context the context
-     */
-    public NamespaceSupport(NamespaceContext context) {
-        pushContext();
-        // copy declaration in the context
-        Iterator<String> prefixes = context.getAllPrefixes();
-        while (prefixes.hasNext()) {
-            String prefix = prefixes.next();
-            String uri = context.getURI(prefix);
-            declarePrefix(prefix, uri);
-        }
-    } // <init>(NamespaceContext)
+
 
     //
     // Public methods
@@ -182,25 +167,6 @@ public class NamespaceSupport implements NamespaceContext {
     } // getURI(String):String
 
     /**
-     * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getPrefix(String)
-     */
-    @Override
-    public String getPrefix(String uri) {
-
-        // find uri in current context
-        for (int i = fNamespaceSize; i > 0; i -= 2) {
-            if (fNamespace[i - 1] == uri) {
-                if (getURI(fNamespace[i - 2]) == uri)
-                    return fNamespace[i - 2];
-            }
-        }
-
-        // uri not found
-        return null;
-
-    } // getPrefix(String):String
-
-    /**
      * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getDeclaredPrefixCount()
      */
     @Override
@@ -215,34 +181,6 @@ public class NamespaceSupport implements NamespaceContext {
     public String getDeclaredPrefixAt(int index) {
         return fNamespace[fContext[fCurrentContext] + index * 2];
     } // getDeclaredPrefixAt(int):String
-
-    /**
-     * @see net.sourceforge.htmlunit.xerces.xni.NamespaceContext#getAllPrefixes()
-     */
-    @Override
-    public Iterator<String> getAllPrefixes() {
-        int count = 0;
-        if (fPrefixes.length < (fNamespace.length / 2)) {
-            // resize prefix array
-            fPrefixes = new String[fNamespaceSize];
-        }
-        String prefix;
-        boolean unique = true;
-        for (int i = 2; i < (fNamespaceSize - 2); i += 2) {
-            prefix = fNamespace[i + 2];
-            for (int k = 0; k < count; k++) {
-                if (fPrefixes[k] == prefix) {
-                    unique = false;
-                    break;
-                }
-            }
-            if (unique) {
-                fPrefixes[count++] = prefix;
-            }
-            unique = true;
-        }
-        return new Prefixes(fPrefixes, count);
-    }
 
     /**
      * Checks whether a binding or unbinding for the given prefix exists in the

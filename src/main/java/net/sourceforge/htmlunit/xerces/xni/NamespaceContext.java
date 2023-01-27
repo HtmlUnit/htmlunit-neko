@@ -116,23 +116,6 @@ public interface NamespaceContext {
     String getURI(String prefix);
 
     /**
-     * Look up a namespace URI and get one of the mapped prefix.
-     * <p>
-     * This method looks up the namespace URI in the current context. If more than
-     * one prefix is currently mapped to the same URI, this method will make an
-     * arbitrary selection If no mapping is found, this methods will continue lookup
-     * in the parent context(s).
-     *
-     * @param uri The namespace URI to look up.
-     *
-     * @return One of the associated prefixes, or null if the uri does not map to
-     *         any prefix.
-     *
-     * @see #getPrefix
-     */
-    String getPrefix(String uri);
-
-    /**
      * @return a count of locally declared prefixes, including the default prefix if
      *         bound.
      */
@@ -143,15 +126,6 @@ public interface NamespaceContext {
      * @return the prefix at the specified index in the current context.
      */
     String getDeclaredPrefixAt(int index);
-
-    /**
-     * Return an enumeration of all prefixes whose declarations are active in the
-     * current context. This includes declarations from parent contexts that have
-     * not been overridden.
-     * 
-     * @return Enumeration
-     */
-    Iterator<String> getAllPrefixes();
 
     /**
      * Reset this Namespace support object for reuse.

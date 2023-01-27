@@ -59,7 +59,6 @@ public class QName implements Cloneable {
 
     /** Default constructor. */
     public QName() {
-        clear();
     }
 
     // Constructs a QName with the specified values.
@@ -97,14 +96,6 @@ public class QName implements Cloneable {
         this.localpart = localpart;
         this.rawname = rawname;
         this.uri = uri;
-    }
-
-    /** Clears the values of the qname components. */
-    public void clear() {
-        prefix = null;
-        localpart = null;
-        rawname = null;
-        uri = null;
     }
 
     @Override

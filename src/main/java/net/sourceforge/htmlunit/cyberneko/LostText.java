@@ -32,7 +32,7 @@ class LostText
     /**
      * Pair of (text, augmentation)
      */
-    static class Entry
+    private static final class Entry
     {
         private final XMLString text_;
         private Augmentations augs_;
@@ -46,6 +46,7 @@ class LostText
                 augs_ = new HTMLAugmentations(augs);
         }
     }
+
     private final List<Entry> entries = new ArrayList<>();
 
     /**

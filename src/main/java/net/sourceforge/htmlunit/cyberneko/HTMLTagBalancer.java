@@ -258,9 +258,6 @@ public class HTMLTagBalancer
     /** A qualified name. */
     private final QName fQName = new QName();
 
-    /** Empty attributes. */
-    private final XMLAttributes fEmptyAttrs = new XMLAttributesImpl();
-
     /** Augmentations. */
     private final HTMLAugmentations fInfosetAugs = new HTMLAugmentations();
 
@@ -623,7 +620,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
-                forceStartElement(head, emptyAttributes(), synthesizedAugs());
+                forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -633,7 +630,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
-                forceStartElement(head, emptyAttributes(), synthesizedAugs());
+                forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -695,7 +692,7 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename,pname});
                 }
                 final QName qname = createQName(pname);
-                final boolean parentCreated = forceStartElement(qname, emptyAttributes(), synthesizedAugs());
+                final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
                         notifyDiscardedStartElement(elem, attrs, augs);
@@ -713,7 +710,7 @@ public class HTMLTagBalancer
                             final String ename = elem.rawname;
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename,pname});
                         }
-                        final boolean parentCreated = forceStartElement(qname, emptyAttributes(), synthesizedAugs());
+                        final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -793,7 +790,7 @@ public class HTMLTagBalancer
         fSeenRootElement = true;
         if (element.isEmpty()) {
             if (attrs == null) {
-                attrs = emptyAttributes();
+                attrs = new XMLAttributesImpl();
             }
             if (fDocumentHandler != null) {
                 fDocumentHandler.emptyElement(elem, attrs, augs);
@@ -803,7 +800,7 @@ public class HTMLTagBalancer
             final boolean inline = element.isInline();
             fElementStack.push(new Info(element, elem, inline ? attrs : null));
             if (attrs == null) {
-                attrs = emptyAttributes();
+                attrs = new XMLAttributesImpl();
             }
             if (fDocumentHandler != null) {
                 callStartElement(elem, attrs, augs);
@@ -902,7 +899,7 @@ public class HTMLTagBalancer
         if (fReportErrors) {
             fErrorReporter.reportWarning("HTML2006", new Object[]{body.localpart});
         }
-        forceStartElement(body, emptyAttributes(), synthesizedAugs());
+        forceStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
     }
 
     /** Text declaration. */
@@ -1114,11 +1111,11 @@ public class HTMLTagBalancer
         final int depth = getElementDepth(elem);
         if (depth == -1) {
             if (elementCode == HTMLElements.P) {
-                forceStartElement(element, emptyAttributes(), synthesizedAugs());
+                forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
                 endElement(element, augs);
             }
             else if (elementCode == HTMLElements.BR) {
-                forceStartElement(element, emptyAttributes(), synthesizedAugs());
+                forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
             }
             else if (!elem.isEmpty()) {
                 notifyDiscardedEndElement(element, augs);
@@ -1212,12 +1209,12 @@ public class HTMLTagBalancer
         if (!fDocumentFragment && !fSeenFramesetElement && element == HTMLElements.HTML) {
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
-                callStartElement(head, emptyAttributes(), synthesizedAugs());
+                callStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 callEndElement(head, synthesizedAugs());
             }
             if (!fSeenBodyElement) {
                 final QName body = createQName("body");
-                callStartElement(body, emptyAttributes(), synthesizedAugs());
+                callStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
                 callEndElement(body, synthesizedAugs());
             }
         }
@@ -1283,12 +1280,6 @@ public class HTMLTagBalancer
             }
         }
         return -1;
-    }
-
-    // Returns a set of empty attributes.
-    protected final XMLAttributes emptyAttributes() {
-        fEmptyAttrs.removeAllAttributes();
-        return fEmptyAttrs;
     }
 
     // Returns an augmentations object with a synthesized item added.

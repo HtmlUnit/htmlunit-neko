@@ -542,33 +542,6 @@ public class NamespaceBinder extends DefaultFilter {
             return true;
         }
 
-        /** Get prefix. */
-        @Override
-        public String getPrefix(String uri) {
-            for (int i = fLevels[fTop]-1; i >= 0; i--) {
-                final Entry entry = fEntries[i];
-                if (entry.uri.equals(uri)) {
-                    return entry.prefix;
-                }
-            }
-            return null;
-        }
-
-        /** Get all prefixes. */
-        @Override
-        public Iterator<String> getAllPrefixes() {
-            final HashSet<String> prefixes = new HashSet<>();
-            for (int i = fLevels[1]; i < fLevels[fTop]; i++) {
-                final String prefix = fEntries[i].prefix;
-                prefixes.add(prefix);
-            }
-            return prefixes.iterator();
-        }
-
-        //
-        // Classes
-        //
-
         /** A namespace binding entry. */
         static class Entry {
 
