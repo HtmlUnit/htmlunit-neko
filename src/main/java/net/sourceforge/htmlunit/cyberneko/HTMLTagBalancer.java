@@ -148,31 +148,22 @@ public class HTMLTagBalancer
         null,
     };
 
-    // modify HTML names
-
     /** Don't modify HTML names. */
-    protected static final short NAMES_NO_CHANGE = 0;
+    private static final short NAMES_NO_CHANGE = 0;
 
     /** Match HTML element names. */
-    protected static final short NAMES_MATCH = 0;
+    private static final short NAMES_MATCH = 0;
 
     /** Uppercase HTML names. */
-    protected static final short NAMES_UPPERCASE = 1;
+    private static final short NAMES_UPPERCASE = 1;
 
     /** Lowercase HTML names. */
-    protected static final short NAMES_LOWERCASE = 2;
+    private static final short NAMES_LOWERCASE = 2;
 
     // static vars
 
     /** Synthesized event info item. */
-    protected static final HTMLEventInfo SYNTHESIZED_ITEM =
-        new HTMLEventInfo.SynthesizedItem();
-
-    //
-    // Data
-    //
-
-    // features
+    private static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
 
     /** Namespaces. */
     protected boolean fNamespaces;

@@ -75,12 +75,6 @@ public interface HTMLEventInfo {
     class SynthesizedItem
         implements HTMLEventInfo {
 
-        //
-        // HTMLEventInfo methods
-        //
-
-        // location information
-
         /**
          * @return the line number of the beginning of this event.
          */

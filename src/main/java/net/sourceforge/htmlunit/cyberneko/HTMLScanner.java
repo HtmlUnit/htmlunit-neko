@@ -342,8 +342,7 @@ public class HTMLScanner
     // static vars
 
     /** Synthesized event info item. */
-    protected static final HTMLEventInfo SYNTHESIZED_ITEM =
-        new HTMLEventInfo.SynthesizedItem();
+    protected static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
 
     // features
 
@@ -1998,12 +1997,6 @@ public class HTMLScanner
      */
     public class ContentScanner
         implements Scanner {
-
-        //
-        // Data
-        //
-
-        // temp vars
 
         /** A qualified name. */
         private final QName fQName = new QName();

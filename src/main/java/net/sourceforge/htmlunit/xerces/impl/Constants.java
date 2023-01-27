@@ -101,28 +101,8 @@ public final class Constants {
     /** Xerces properties prefix ("http://apache.org/xml/properties/"). */
     public static final String XERCES_PROPERTY_PREFIX = "http://apache.org/xml/properties/";
 
-    /** Symbol table property ("internal/symbol-table"). */
-    public static final String SYMBOL_TABLE_PROPERTY = "internal/symbol-table";
-
-    /** Error reporter property ("internal/error-reporter"). */
-    public static final String ERROR_REPORTER_PROPERTY = "internal/error-reporter";
-
     /** Error handler property ("internal/error-handler"). */
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
-
-    /** Entity manager property ("internal/entity-manager"). */
-    public static final String ENTITY_MANAGER_PROPERTY = "internal/entity-manager";
-
-    /** Input buffer size property ("input-buffer-size"). */
-    public static final String BUFFER_SIZE_PROPERTY = "input-buffer-size";
-
-    /** Document scanner property ("internal/document-scanner"). */
-    public static final String DOCUMENT_SCANNER_PROPERTY = "internal/document-scanner";
-
-    /** Namespace binder property ("internal/namespace-binder"). */
-    public static final String NAMESPACE_BINDER_PROPERTY = "internal/namespace-binder";
-
-    // general constants
 
     /**
      * Boolean indicating whether an attribute is declared in the DTD is stored in
@@ -139,25 +119,6 @@ public final class Constants {
      */
     public final static String ENTITY_SKIPPED = "ENTITY_SKIPPED";
 
-    /**
-     * Boolean indicating whether a character is a probable white space character
-     * (ch &lt;= 0x20) that was the replacement text of a character reference is
-     * stored in augmentations using the string "CHAR_REF_PROBABLE_WS". The absence
-     * of this augmentation indicates that the character is not probable white space
-     * and/or was not included from a character reference.
-     */
-    public final static String CHAR_REF_PROBABLE_WS = "CHAR_REF_PROBABLE_WS";
-
-    // XML version constants
-    public final static short XML_VERSION_ERROR = -1;
-    public final static short XML_VERSION_1_0 = 1;
-    public final static short XML_VERSION_1_1 = 2;
-
-    // private
-
-    /** SAX features. */
-    private static final String[] fgSAXFeatures = { NAMESPACES_FEATURE, NAMESPACE_PREFIXES_FEATURE, };
-
     /** SAX properties. */
     private static final String[] fgSAXProperties = { LEXICAL_HANDLER_PROPERTY, };
 
@@ -167,8 +128,7 @@ public final class Constants {
             NOTIFY_BUILTIN_REFS_FEATURE, STANDARD_URI_CONFORMANT_FEATURE, };
 
     /** Xerces properties. */
-    private static final String[] fgXercesProperties = { SYMBOL_TABLE_PROPERTY, ERROR_HANDLER_PROPERTY,
-            ERROR_REPORTER_PROPERTY, ENTITY_MANAGER_PROPERTY, DOCUMENT_SCANNER_PROPERTY, BUFFER_SIZE_PROPERTY, };
+    private static final String[] fgXercesProperties = { ERROR_HANDLER_PROPERTY };
 
     /** Empty enumeration. */
     private static final Enumeration<Object> fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
@@ -184,13 +144,6 @@ public final class Constants {
     //
     // Public methods
     //
-
-    // sax
-
-    /** @return an enumeration of the SAX features. */
-    public static Enumeration<Object> getSAXFeatures() {
-        return fgSAXFeatures.length > 0 ? new ArrayEnumeration(fgSAXFeatures) : fgEmptyEnumeration;
-    }
 
     /** @return an enumeration of the SAX properties. */
     public static Enumeration<Object> getSAXProperties() {
@@ -264,12 +217,9 @@ public final class Constants {
 
     // Prints all of the constants to standard output.
     public static void main(String[] argv) {
-
-        print("SAX features:", SAX_FEATURE_PREFIX, fgSAXFeatures);
         print("SAX properties:", SAX_PROPERTY_PREFIX, fgSAXProperties);
         print("Xerces features:", XERCES_FEATURE_PREFIX, fgXercesFeatures);
         print("Xerces properties:", XERCES_PROPERTY_PREFIX, fgXercesProperties);
-
     }
 
     // Prints a list of features/properties.
