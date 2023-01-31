@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.xni;
 
-import java.util.Iterator;
-
 /**
  * Represents an interface to query namespace information.
  * <p>

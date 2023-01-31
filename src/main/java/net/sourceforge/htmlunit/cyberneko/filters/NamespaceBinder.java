@@ -16,8 +16,6 @@
 
 package net.sourceforge.htmlunit.cyberneko.filters;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Locale;
 
 import net.sourceforge.htmlunit.cyberneko.HTMLConfiguration;
