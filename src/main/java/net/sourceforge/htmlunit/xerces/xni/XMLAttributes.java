@@ -315,12 +315,4 @@ public interface XMLAttributes {
      * @param attrIndex The attribute index.
      */
     boolean isSpecified(int attrIndex);
-
-    /**
-     * Look up an augmentation by attribute's index.
-     *
-     * @param attributeIndex The attribute index.
-     * @return Augmentations
-     */
-    Augmentations getAugmentations(int attributeIndex);
 }

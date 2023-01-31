@@ -19,7 +19,6 @@ package net.sourceforge.htmlunit.xerces.util;
 
 import java.util.ArrayList;
 
-import net.sourceforge.htmlunit.xerces.xni.Augmentations;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.XMLAttributes;
 
@@ -88,9 +87,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.value = value;
         attribute.nonNormalizedValue = value;
         attribute.specified = false;
-
-        // clear augmentations
-        attribute.augs.clear();
 
         fAttributes.add(attribute);
         return fAttributes.size() - 1;
@@ -489,20 +485,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         return index != -1 ? getValue(index) : null;
     } // getValue(String,String):String
 
-    /**
-     * Look up an augmentations by attributes index.
-     *
-     * @param attributeIndex The attribute index.
-     * @return Augmentations
-     */
-    @Override
-    public Augmentations getAugmentations(int attributeIndex) {
-        if (attributeIndex < 0 || attributeIndex >= getLength()) {
-            return null;
-        }
-        return fAttributes.get(attributeIndex).augs;
-    }
-
     // Implementation methods
 
     /**
@@ -538,9 +520,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.value = value;
         attribute.nonNormalizedValue = value;
         attribute.specified = false;
-
-        // clear augmentations
-        attribute.augs.clear();
 
         fAttributes.add(attribute);
     }
@@ -583,12 +562,6 @@ public class XMLAttributesImpl implements XMLAttributes {
 
         /** Specified. */
         public boolean specified;
-
-        /**
-         * Augmentations information for this attribute. XMLAttributes has no knowledge
-         * if any augmentations were attached to Augmentations.
-         */
-        public final Augmentations augs = new AugmentationsImpl();
     } // class Attribute
 
 } // class XMLAttributesImpl

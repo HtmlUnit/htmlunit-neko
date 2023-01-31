@@ -2947,9 +2947,6 @@ public class HTMLScanner
                 fQName.setValues(null, aname, aname, null);
                 attributes.addAttribute(fQName, "CDATA", "");
                 attributes.setSpecified(attributes.getLength()-1, true);
-                if (fAugmentations) {
-                    addLocationItem(attributes, attributes.getLength() - 1);
-                }
                 if (c == '/') {
                     fCurrentEntity.rewind();
                     empty[0] = skipMarkup(false);
@@ -2970,9 +2967,6 @@ public class HTMLScanner
                     fQName.setValues(null, aname, aname, null);
                     attributes.addAttribute(fQName, "CDATA", "");
                     attributes.setSpecified(attributes.getLength()-1, true);
-                    if (fAugmentations) {
-                        addLocationItem(attributes, attributes.getLength() - 1);
-                    }
                     return false;
                 }
                 fStringBuffer.clear();
@@ -3015,9 +3009,6 @@ public class HTMLScanner
                     final int lastattr = attributes.getLength()-1;
                     attributes.setSpecified(lastattr, true);
                     attributes.setNonNormalizedValue(lastattr, fNonNormAttr.toString());
-                    if (fAugmentations) {
-                        addLocationItem(attributes, attributes.getLength() - 1);
-                    }
                     return true;
                 }
                 final char quote = (char)c;
@@ -3089,33 +3080,14 @@ public class HTMLScanner
                 final int lastattr = attributes.getLength()-1;
                 attributes.setSpecified(lastattr, true);
                 attributes.setNonNormalizedValue(lastattr, fNonNormAttr.toString());
-                if (fAugmentations) {
-                    addLocationItem(attributes, attributes.getLength() - 1);
-                }
             }
             else {
                 fQName.setValues(null, aname, aname, null);
                 attributes.addAttribute(fQName, "CDATA", "");
                 attributes.setSpecified(attributes.getLength()-1, true);
                 fCurrentEntity.rewind();
-                if (fAugmentations) {
-                    addLocationItem(attributes, attributes.getLength() - 1);
-                }
             }
             return true;
-        }
-
-        // Adds location augmentations to the specified attribute.
-        protected void addLocationItem(XMLAttributes attributes, int index) {
-            fEndLineNumber = fCurrentEntity.getLineNumber();
-            fEndColumnNumber = fCurrentEntity.getColumnNumber();
-            fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-            final LocationItem locationItem = new LocationItem();
-            locationItem.setValues(fBeginLineNumber, fBeginColumnNumber,
-                                   fBeginCharacterOffset, fEndLineNumber,
-                                   fEndColumnNumber, fEndCharacterOffset);
-            final Augmentations augs = attributes.getAugmentations(index);
-            augs.put(AUGMENTATIONS, locationItem);
         }
 
         // Scans an end element.
