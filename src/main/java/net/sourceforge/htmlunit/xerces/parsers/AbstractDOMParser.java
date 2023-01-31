@@ -528,8 +528,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 boolean id = false;
 
                 // DTD
-                boolean isDeclared = Boolean.TRUE
-                        .equals(attributes.getAugmentations(i).get(Constants.ATTRIBUTE_DECLARED));
+                boolean isDeclared = false;
                 // For DOM Level 3 TypeInfo, the type name must
                 // be null if this attribute has not been declared
                 // in the DTD.
@@ -679,7 +678,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /**
      * The start of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -698,7 +697,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /**
      * The end of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -719,7 +718,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /**
      * The end of the document.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -931,7 +930,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * Parses the input source specified by the given system identifier.
      * <p>
      * This method is equivalent to the following:
-     * 
+     *
      * <pre>
      * parse(new InputSource(systemId));
      * </pre>

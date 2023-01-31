@@ -434,7 +434,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /**
      * The start of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -455,7 +455,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /**
      * The end of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -534,7 +534,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /**
      * The end of the document.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -561,7 +561,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * Parses the input source specified by the given system identifier.
      * <p>
      * This method is equivalent to the following:
-     * 
+     *
      * <pre>
      * parse(new InputSource(systemId));
      * </pre>
@@ -770,7 +770,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *
      * @param dtdHandler The DTD handler.
      *
-     * 
+     *
      * @see #getDTDHandler
      */
     @Override
@@ -1099,7 +1099,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * Set the lexical event handler.
      * <p>
      * This method is the equivalent to the property:
-     * 
+     *
      * <pre>
      * http://xml.org/sax/properties/lexical-handler
      * </pre>
@@ -1131,7 +1131,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /**
      * Send startPrefixMapping events
-     * 
+     *
      * @throws SAXException on error
      */
     protected final void startNamespaceMapping() throws SAXException {
@@ -1149,7 +1149,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /**
      * Send endPrefixMapping events
-     * 
+     *
      * @throws SAXException on error
      */
     protected final void endNamespaceMapping() throws SAXException {
@@ -1321,28 +1321,17 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         // REVISIT: Localize exception messages. -- mrglavas
         @Override
         public boolean isDeclared(int index) {
-            if (index < 0 || index >= fAttributes.getLength()) {
-                throw new ArrayIndexOutOfBoundsException(index);
-            }
-            return Boolean.TRUE.equals(fAttributes.getAugmentations(index).get(Constants.ATTRIBUTE_DECLARED));
+            return false;
         }
 
         @Override
         public boolean isDeclared(String qName) {
-            int index = getIndex(qName);
-            if (index == -1) {
-                throw new IllegalArgumentException(qName);
-            }
-            return Boolean.TRUE.equals(fAttributes.getAugmentations(index).get(Constants.ATTRIBUTE_DECLARED));
+            return false;
         }
 
         @Override
         public boolean isDeclared(String uri, String localName) {
-            int index = getIndex(uri, localName);
-            if (index == -1) {
-                throw new IllegalArgumentException(localName);
-            }
-            return Boolean.TRUE.equals(fAttributes.getAugmentations(index).get(Constants.ATTRIBUTE_DECLARED));
+            return false;
         }
 
         @Override

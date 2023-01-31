@@ -105,13 +105,6 @@ public final class Constants {
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
 
     /**
-     * Boolean indicating whether an attribute is declared in the DTD is stored in
-     * augmentations using the string "ATTRIBUTE_DECLARED". The absence of this
-     * augmentation indicates that the attribute was not declared in the DTD.
-     */
-    public final static String ATTRIBUTE_DECLARED = "ATTRIBUTE_DECLARED";
-
-    /**
      * Boolean indicating whether an entity referenced in the document has not been
      * read is stored in augmentations using the string "ENTITY_SKIPPED". The
      * absence of this augmentation indicates that the entity had a declaration and
