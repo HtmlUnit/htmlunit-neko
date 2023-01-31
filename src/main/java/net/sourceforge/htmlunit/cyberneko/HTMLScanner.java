@@ -501,12 +501,6 @@ public class HTMLScanner
     /** Non-normalized attribute string buffer. */
     private final XMLStringBuffer fNonNormAttr = new XMLStringBuffer(128);
 
-    /** Augmentations. */
-    private final HTMLAugmentations fInfosetAugs = new HTMLAugmentations();
-
-    /** Location infoset item. */
-    private final LocationItem fLocationItem = new LocationItem();
-
     /** Single boolean array. */
     private final boolean[] fSingleBoolean = { false };
 
@@ -1585,27 +1579,25 @@ public class HTMLScanner
 
     // Returns an augmentations object with a location item added.
     protected final Augmentations locationAugs() {
-        HTMLAugmentations augs = null;
         if (fAugmentations) {
-            fLocationItem.setValues(fBeginLineNumber, fBeginColumnNumber,
+            final LocationItem locationItem = new LocationItem(fBeginLineNumber, fBeginColumnNumber,
                                     fBeginCharacterOffset, fEndLineNumber,
                                     fEndColumnNumber, fEndCharacterOffset);
-            augs = fInfosetAugs;
-            augs.clear();
-            augs.put(AUGMENTATIONS, fLocationItem);
+            final HTMLAugmentations augs = new HTMLAugmentations();
+            augs.put(AUGMENTATIONS, locationItem);
+            return augs;
         }
-        return augs;
+        return null;
     }
 
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
-        HTMLAugmentations augs = null;
         if (fAugmentations) {
-            augs = fInfosetAugs;
-            augs.clear();
+            final HTMLAugmentations augs = new HTMLAugmentations();
             augs.put(AUGMENTATIONS, SYNTHESIZED_ITEM);
+            return augs;
         }
-        return augs;
+        return null;
     }
 
     //
@@ -3618,49 +3610,37 @@ public class HTMLScanner
      */
     protected static class LocationItem implements HTMLEventInfo, Cloneable {
 
-        //
-        // Data
-        //
-
         /** Beginning line number. */
-        protected int fBeginLineNumber;
+        private final int fBeginLineNumber;
 
         /** Beginning column number. */
-        protected int fBeginColumnNumber;
+        private final int fBeginColumnNumber;
 
         /** Beginning character offset. */
-        protected int fBeginCharacterOffset;
+        private final int fBeginCharacterOffset;
 
         /** Ending line number. */
-        protected int fEndLineNumber;
+        private final int fEndLineNumber;
 
         /** Ending column number. */
-        protected int fEndColumnNumber;
+        private final int fEndColumnNumber;
 
         /** Ending character offset. */
-        protected int fEndCharacterOffset;
+        private final int fEndCharacterOffset;
 
-        //
-        // Public methods
-        //
-        public LocationItem() {
-            // nothing
-        }
-
-        LocationItem(final LocationItem other) {
-            setValues(other.fBeginLineNumber, other.fBeginColumnNumber, other.fBeginCharacterOffset,
-                    other.fEndLineNumber, other.fEndColumnNumber, other.fEndCharacterOffset);
-        }
-
-        // Sets the values of this item.
-        public void setValues(int beginLine, int beginColumn, int beginOffset,
-                              int endLine, int endColumn, int endOffset) {
+        public LocationItem(int beginLine, int beginColumn, int beginOffset,
+                int endLine, int endColumn, int endOffset) {
             fBeginLineNumber = beginLine;
             fBeginColumnNumber = beginColumn;
             fBeginCharacterOffset = beginOffset;
             fEndLineNumber = endLine;
             fEndColumnNumber = endColumn;
             fEndCharacterOffset = endOffset;
+        }
+
+        LocationItem(final LocationItem other) {
+            this(other.fBeginLineNumber, other.fBeginColumnNumber, other.fBeginCharacterOffset,
+                    other.fEndLineNumber, other.fEndColumnNumber, other.fEndCharacterOffset);
         }
 
         //
