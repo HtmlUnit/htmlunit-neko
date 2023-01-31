@@ -74,8 +74,7 @@ public interface HTMLEventInfo extends Augmentations {
      *
      * @author Andy Clark
      */
-    class SynthesizedItem
-        implements HTMLEventInfo {
+    class SynthesizedItem implements HTMLEventInfo {
 
         /**
          * @return the line number of the beginning of this event.
@@ -125,8 +124,6 @@ public interface HTMLEventInfo extends Augmentations {
             return -1;
         }
 
-        // other information
-
         /**
          * @return true if this corresponding event was synthesized.
          */
@@ -134,10 +131,6 @@ public interface HTMLEventInfo extends Augmentations {
         public boolean isSynthesized() {
             return true;
         }
-
-        //
-        // Object methods
-        //
 
         /**
          * @return a string representation of this object.

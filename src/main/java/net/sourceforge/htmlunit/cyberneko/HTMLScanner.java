@@ -3603,7 +3603,7 @@ public class HTMLScanner
      *
      * @author Andy Clark
      */
-    protected static class LocationItem implements HTMLEventInfo, Cloneable {
+    protected static class LocationItem implements HTMLEventInfo {
 
         /** Beginning line number. */
         private final int fBeginLineNumber;
@@ -3632,17 +3632,6 @@ public class HTMLScanner
             fEndColumnNumber = endColumn;
             fEndCharacterOffset = endOffset;
         }
-
-        LocationItem(final LocationItem other) {
-            this(other.fBeginLineNumber, other.fBeginColumnNumber, other.fBeginCharacterOffset,
-                    other.fEndLineNumber, other.fEndColumnNumber, other.fEndCharacterOffset);
-        }
-
-        //
-        // HTMLEventInfo methods
-        //
-
-        // location information
 
         /**
          * @return the line number of the beginning of this event.
@@ -3701,10 +3690,6 @@ public class HTMLScanner
         public boolean isSynthesized() {
             return false;
         }
-
-        //
-        // Object methods
-        //
 
         /**
          * @return a string representation of this object.
