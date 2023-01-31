@@ -262,17 +262,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     public void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException {
 
         try {
-            // Only report startEntity if this entity was actually read.
-            if (augs != null && Boolean.TRUE.equals(augs.get(Constants.ENTITY_SKIPPED))) {
-                // report skipped entity to content handler
-                if (fContentHandler != null) {
-                    fContentHandler.skippedEntity(name);
-                }
-            } else {
-                // SAX2 extension
-                if (fLexicalHandler != null) {
-                    fLexicalHandler.startEntity(name);
-                }
+            // SAX2 extension
+            if (fLexicalHandler != null) {
+                fLexicalHandler.startEntity(name);
             }
         } catch (SAXException e) {
             throw new XNIException(e);
@@ -303,12 +295,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
 
         try {
-            // Only report endEntity if this entity was actually read.
-            if (augs == null || !Boolean.TRUE.equals(augs.get(Constants.ENTITY_SKIPPED))) {
-                // SAX2 extension
-                if (fLexicalHandler != null) {
-                    fLexicalHandler.endEntity(name);
-                }
+            // SAX2 extension
+            if (fLexicalHandler != null) {
+                fLexicalHandler.endEntity(name);
             }
         } catch (SAXException e) {
             throw new XNIException(e);

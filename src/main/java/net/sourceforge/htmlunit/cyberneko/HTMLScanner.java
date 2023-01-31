@@ -1580,12 +1580,9 @@ public class HTMLScanner
     // Returns an augmentations object with a location item added.
     protected final Augmentations locationAugs() {
         if (fAugmentations) {
-            final LocationItem locationItem = new LocationItem(fBeginLineNumber, fBeginColumnNumber,
+            return new LocationItem(fBeginLineNumber, fBeginColumnNumber,
                                     fBeginCharacterOffset, fEndLineNumber,
                                     fEndColumnNumber, fEndCharacterOffset);
-            final HTMLAugmentations augs = new HTMLAugmentations();
-            augs.put(AUGMENTATIONS, locationItem);
-            return augs;
         }
         return null;
     }
@@ -1593,9 +1590,7 @@ public class HTMLScanner
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         if (fAugmentations) {
-            final HTMLAugmentations augs = new HTMLAugmentations();
-            augs.put(AUGMENTATIONS, SYNTHESIZED_ITEM);
-            return augs;
+            return SYNTHESIZED_ITEM;
         }
         return null;
     }

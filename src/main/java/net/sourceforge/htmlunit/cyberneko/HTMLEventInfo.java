@@ -16,13 +16,15 @@
 
 package net.sourceforge.htmlunit.cyberneko;
 
+import net.sourceforge.htmlunit.xerces.xni.Augmentations;
+
 /**
  * This interface is used to pass augmentated information to the
  * application through the XNI pipeline.
  *
  * @author Andy Clark
  */
-public interface HTMLEventInfo {
+public interface HTMLEventInfo extends Augmentations {
 
     //
     // HTMLEventInfo methods

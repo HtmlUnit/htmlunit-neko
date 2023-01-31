@@ -37,13 +37,11 @@ class LostText
         private final XMLString text_;
         private Augmentations augs_;
 
-        public Entry(final XMLString text, final Augmentations augs)
-        {
+        public Entry(final XMLString text, final Augmentations augs) {
             final char[] chars = new char[text.length];
             System.arraycopy(text.ch, text.offset, chars, 0, text.length);
             text_ = new XMLString(chars, 0, chars.length);
-            if (augs != null)
-                augs_ = new HTMLAugmentations(augs);
+            augs_ = augs;
         }
     }
 

@@ -104,14 +104,6 @@ public final class Constants {
     /** Error handler property ("internal/error-handler"). */
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
 
-    /**
-     * Boolean indicating whether an entity referenced in the document has not been
-     * read is stored in augmentations using the string "ENTITY_SKIPPED". The
-     * absence of this augmentation indicates that the entity had a declaration and
-     * was expanded.
-     */
-    public final static String ENTITY_SKIPPED = "ENTITY_SKIPPED";
-
     /** SAX properties. */
     private static final String[] fgSAXProperties = { LEXICAL_HANDLER_PROPERTY, };
 

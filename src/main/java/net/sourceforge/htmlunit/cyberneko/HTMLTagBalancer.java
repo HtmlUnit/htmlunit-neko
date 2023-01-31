@@ -258,9 +258,6 @@ public class HTMLTagBalancer
     /** A qualified name. */
     private final QName fQName = new QName();
 
-    /** Augmentations. */
-    private final HTMLAugmentations fInfosetAugs = new HTMLAugmentations();
-
     protected HTMLTagBalancingListener tagBalancingListener;
     private final LostText lostText_ = new LostText();
 
@@ -1284,13 +1281,10 @@ public class HTMLTagBalancer
 
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
-        HTMLAugmentations augs = null;
         if (fAugmentations) {
-            augs = fInfosetAugs;
-            augs.clear();
-            augs.put(AUGMENTATIONS, SYNTHESIZED_ITEM);
+            return SYNTHESIZED_ITEM;
         }
-        return augs;
+        return null;
     }
 
     //
@@ -1494,9 +1488,10 @@ public class HTMLTagBalancer
     static class ElementEntry {
         private final QName name_;
         private final Augmentations augs_;
+
         ElementEntry(final QName element, final Augmentations augs) {
             name_ = new QName(element);
-            augs_ = (augs == null) ? null : new HTMLAugmentations(augs);
+            augs_ = augs;
         }
     }
 }
