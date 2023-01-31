@@ -6,8 +6,6 @@
 (TBODY
 (tr
 (td
-)td
-)tr
 (form
 (input
 Aname xyz
@@ -18,6 +16,8 @@ Atype submit
 Avalue Submit
 )input
 )form
+)td
+)tr
 )TBODY
 )table
 )BODY
