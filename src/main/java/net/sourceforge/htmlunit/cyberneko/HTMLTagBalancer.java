@@ -1414,10 +1414,8 @@ public class HTMLTagBalancer
                         attributes.getName(i, aqname);
                         final String type = attributes.getType(i);
                         final String value = attributes.getValue(i);
-                        final String nonNormalizedValue = attributes.getNonNormalizedValue(i);
                         final boolean specified = attributes.isSpecified(i);
                         newattrs.addAttribute(aqname, type, value);
-                        newattrs.setNonNormalizedValue(i, nonNormalizedValue);
                         newattrs.setSpecified(i, specified);
                     }
                     this.attributes = newattrs;

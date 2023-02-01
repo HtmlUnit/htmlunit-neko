@@ -498,9 +498,6 @@ public class HTMLScanner
     /** String buffer. */
     private final XMLStringBuffer fStringBuffer2 = new XMLStringBuffer(1024);
 
-    /** Non-normalized attribute string buffer. */
-    private final XMLStringBuffer fNonNormAttr = new XMLStringBuffer(128);
-
     /** Single boolean array. */
     private final boolean[] fSingleBoolean = { false };
 
@@ -2957,7 +2954,6 @@ public class HTMLScanner
                     return false;
                 }
                 fStringBuffer.clear();
-                fNonNormAttr.clear();
                 if (c != '\'' && c != '"') {
                     fCurrentEntity.rewind();
                     while (true) {
@@ -2982,11 +2978,9 @@ public class HTMLScanner
                             else {
                                 fStringBuffer.append(fStringBuffer2);
                             }
-                            fNonNormAttr.append(fStringBuffer2);
                         }
                         else {
                             appendChar(fStringBuffer, c, null);
-                            appendChar(fNonNormAttr, c, null);
                         }
                     }
                     fQName.setValues(null, aname, aname, null);
@@ -2995,7 +2989,6 @@ public class HTMLScanner
 
                     final int lastattr = attributes.getLength()-1;
                     attributes.setSpecified(lastattr, true);
-                    attributes.setNonNormalizedValue(lastattr, fNonNormAttr.toString());
                     return true;
                 }
                 final char quote = (char)c;
@@ -3019,19 +3012,16 @@ public class HTMLScanner
                         else {
                             fStringBuffer.append(fStringBuffer2);
                         }
-                        fNonNormAttr.append(fStringBuffer2);
                     }
                     else if (c == ' ' || c == '\t') {
                         if (acceptSpace) {
                             fStringBuffer.append(fNormalizeAttributes ? ' ' : (char)c);
                         }
-                        fNonNormAttr.append((char)c);
                     }
                     else if (c == '\r' || c == '\n') {
                         if (c == '\r') {
                             final int c2 = fCurrentEntity.read();
                             if (c2 == '\n') {
-                                fNonNormAttr.append('\r');
                                 c = c2;
                             }
                             else if (c2 != -1) {
@@ -3042,12 +3032,10 @@ public class HTMLScanner
                             fStringBuffer.append(fNormalizeAttributes ? ' ' : '\n');
                         }
                         fCurrentEntity.incLine();
-                        fNonNormAttr.append((char)c);
                     }
                     else if (c != quote) {
                         isStart = false;
                         appendChar(fStringBuffer, c, null);
-                        appendChar(fNonNormAttr, c, null);
                     }
                     prevSpace = c == ' ' || c == '\t' || c == '\r' || c == '\n';
                     isStart = isStart && prevSpace;
@@ -3066,7 +3054,6 @@ public class HTMLScanner
 
                 final int lastattr = attributes.getLength()-1;
                 attributes.setSpecified(lastattr, true);
-                attributes.setNonNormalizedValue(lastattr, fNonNormAttr.toString());
             }
             else {
                 fQName.setValues(null, aname, aname, null);

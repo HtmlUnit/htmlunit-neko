@@ -86,7 +86,6 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             }
         }
         this.name = name;
-        reconcileDefaultAttributes();
     }
 
     /**
@@ -873,7 +872,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * {@inheritDoc}
      *
      * Method getSchemaTypeInfo.
-     * 
+     *
      * @return TypeInfo
      */
     @Override
@@ -896,7 +895,6 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         needsSyncData(false);
 
         // attributes
-        setupDefaultAttributes();
     } // synchronizeData()
 
     // support for DOM Level 3 renameNode method
@@ -912,81 +910,4 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             attributes.moveSpecifiedAttributes(el.attributes);
         }
     }
-
-    /** Setup the default attributes. */
-    protected void setupDefaultAttributes() {
-        NamedNodeMapImpl defaults = getDefaultAttributes();
-        if (defaults != null) {
-            attributes = new AttributeMap(this, defaults);
-        }
-    }
-
-    /** Reconcile default attributes. */
-    protected void reconcileDefaultAttributes() {
-        if (attributes != null) {
-            NamedNodeMapImpl defaults = getDefaultAttributes();
-            attributes.reconcileDefaults(defaults);
-        }
-    }
-
-    // Get the default attributes.
-    protected NamedNodeMapImpl getDefaultAttributes() {
-
-        DocumentTypeImpl doctype = (DocumentTypeImpl) ownerDocument.getDoctype();
-        if (doctype == null) {
-            return null;
-        }
-        ElementDefinitionImpl eldef = (ElementDefinitionImpl) doctype.getElements().getNamedItem(getNodeName());
-        if (eldef == null) {
-            return null;
-        }
-        return (NamedNodeMapImpl) eldef.getAttributes();
-
-    }
-
-    // Returns the first element node found from a
-    // non-recursive in order traversal of the given node.
-    private Element getFirstElementChild(Node n) {
-        final Node top = n;
-        while (n != null) {
-            if (n.getNodeType() == Node.ELEMENT_NODE) {
-                return (Element) n;
-            }
-            Node next = n.getFirstChild();
-            while (next == null) {
-                if (top == n) {
-                    break;
-                }
-                next = n.getNextSibling();
-                if (next == null) {
-                    n = n.getParentNode();
-                    if (n == null || top == n) {
-                        return null;
-                    }
-                }
-            }
-            n = next;
-        }
-        return null;
-    }
-
-    // Returns the next logical sibling with respect to the given node.
-    private Node getNextLogicalSibling(Node n) {
-        Node next = n.getNextSibling();
-        // If "n" has no following sibling and its parent is an entity reference node we
-        // need to continue the search through the following siblings of the entity
-        // reference as these are logically siblings of the given node.
-        if (next == null) {
-            Node parent = n.getParentNode();
-            while (parent != null && parent.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
-                next = parent.getNextSibling();
-                if (next != null) {
-                    break;
-                }
-                parent = parent.getParentNode();
-            }
-        }
-        return next;
-    }
-
 }

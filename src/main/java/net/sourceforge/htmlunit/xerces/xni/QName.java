@@ -31,10 +31,6 @@ package net.sourceforge.htmlunit.xerces.xni;
  */
 public class QName implements Cloneable {
 
-    //
-    // Data
-    //
-
     /**
      * The qname prefix. For example, the prefix for the qname "a:foo" is "a".
      */

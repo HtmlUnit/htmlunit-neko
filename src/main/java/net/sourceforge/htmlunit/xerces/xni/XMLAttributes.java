@@ -35,8 +35,7 @@ public interface XMLAttributes {
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
-     * have the same value as the attribute value until set using the
-     * <code>setNonNormalizedValue</code> method. Also, the added attribute will be
+     * have the same value as the attribute value until. Also, the added attribute will be
      * marked as specified in the XML instance document unless set otherwise using
      * the <code>setSpecified</code> method.
      * <p>
@@ -55,7 +54,6 @@ public interface XMLAttributes {
      *
      * @return Returns the attribute index.
      *
-     * @see #setNonNormalizedValue(int, String)
      * @see #setSpecified(int, boolean)
      */
     int addAttribute(QName attrName, String attrType, String attrValue);
@@ -235,8 +233,6 @@ public interface XMLAttributes {
      *
      * @param attrIndex The attribute index.
      * @param attrValue The new attribute value.
-     *
-     * @see #setNonNormalizedValue(int, String)
      */
     void setValue(int attrIndex, String attrValue);
 
@@ -283,23 +279,6 @@ public interface XMLAttributes {
      *         the list.
      */
     String getValue(String uri, String localName);
-
-    /**
-     * Sets the non-normalized value of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param attrValue The new non-normalized attribute value.
-     */
-    void setNonNormalizedValue(int attrIndex, String attrValue);
-
-    /**
-     * @return the non-normalized value of the attribute at the specified index. If
-     *         no non-normalized value is set, this method will return the same
-     *         value as the <code>getValue(int)</code> method.
-     *
-     * @param attrIndex The attribute index.
-     */
-    String getNonNormalizedValue(int attrIndex);
 
     /**
      * Sets whether an attribute is specified in the instance document or not.

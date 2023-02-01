@@ -55,8 +55,7 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
-     * have the same value as the attribute value until set using the
-     * <code>setNonNormalizedValue</code> method. Also, the added attribute will be
+     * have the same value as the attribute value. Also, the added attribute will be
      * marked as specified in the XML instance document unless set otherwise using
      * the <code>setSpecified</code> method.
      * <p>
@@ -74,8 +73,6 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @param value The attribute value.
      *
      * @return Returns the attribute index.
-     *
-     * @see #setNonNormalizedValue
      * @see #setSpecified
      */
     @Override
@@ -85,7 +82,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.name.setValues(name);
         attribute.type = type;
         attribute.value = value;
-        attribute.nonNormalizedValue = value;
         attribute.specified = false;
 
         fAttributes.add(attribute);
@@ -161,41 +157,12 @@ public class XMLAttributesImpl implements XMLAttributes {
      *
      * @param attrIndex The attribute index.
      * @param attrValue The new attribute value.
-     *
-     * @see #setNonNormalizedValue
      */
     @Override
     public void setValue(int attrIndex, String attrValue) {
         Attribute attribute = fAttributes.get(attrIndex);
         attribute.value = attrValue;
-        attribute.nonNormalizedValue = attrValue;
     } // setValue(int,String)
-
-    /**
-     * Sets the non-normalized value of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param attrValue The new non-normalized attribute value.
-     */
-    @Override
-    public void setNonNormalizedValue(int attrIndex, String attrValue) {
-        if (attrValue == null) {
-            attrValue = fAttributes.get(attrIndex).value;
-        }
-        fAttributes.get(attrIndex).nonNormalizedValue = attrValue;
-    } // setNonNormalizedValue(int,String)
-
-    /**
-     * Returns the non-normalized value of the attribute at the specified index. If
-     * no non-normalized value is set, this method will return the same value as the
-     * <code>getValue(int)</code> method.
-     *
-     * @param attrIndex The attribute index.
-     */
-    @Override
-    public String getNonNormalizedValue(int attrIndex) {
-        return fAttributes.get(attrIndex).nonNormalizedValue;
-    } // getNonNormalizedValue(int):String
 
     /**
      * Sets whether an attribute is specified in the instance document or not.
@@ -489,8 +456,7 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
-     * have the same value as the attribute value until set using the
-     * <code>setNonNormalizedValue</code> method. Also, the added attribute will be
+     * have the same value as the attribute value. Also, the added attribute will be
      * marked as specified in the XML instance document unless set otherwise using
      * the <code>setSpecified</code> method.
      * <p>
@@ -508,7 +474,6 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @param type  the attribute type
      * @param value the attribute value
      *
-     * @see #setNonNormalizedValue
      * @see #setSpecified
      * @see #checkDuplicatesNS
      */
@@ -518,7 +483,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.name.setValues(name);
         attribute.type = type;
         attribute.value = value;
-        attribute.nonNormalizedValue = value;
         attribute.specified = false;
 
         fAttributes.add(attribute);
@@ -538,30 +502,22 @@ public class XMLAttributesImpl implements XMLAttributes {
         return type;
     }
 
-    //
-    // Classes
-    //
-
     /**
      * Attribute information.
      *
      * @author Andy Clark, IBM
      */
-    static final class Attribute {
+    private static final class Attribute {
         /** Name. */
-        public final QName name = new QName();
+        private final QName name = new QName();
 
         /** Type. */
-        public String type;
+        private String type;
 
         /** Value. */
-        public String value;
-
-        /** Non-normalized value. */
-        public String nonNormalizedValue;
+        private String value;
 
         /** Specified. */
-        public boolean specified;
-    } // class Attribute
-
-} // class XMLAttributesImpl
+        private boolean specified;
+    }
+}

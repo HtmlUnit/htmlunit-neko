@@ -195,7 +195,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Constructor.
-     * 
+     *
      * @param grammarAccess grammar acess flag
      */
     public CoreDocumentImpl(boolean grammarAccess) {
@@ -206,7 +206,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * For DOM2 support. The createDocument factory method is in DOMImplementation.
-     * 
+     *
      * @param doctype the {@link DocumentType}
      */
     public CoreDocumentImpl(DocumentType doctype) {
@@ -215,7 +215,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * For DOM2 support.
-     * 
+     *
      * @param doctype       the {@link DocumentType}
      * @param grammarAccess grammar access flag
      */
@@ -758,7 +758,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * <p>
      * Xmlstandalone - An attribute specifying, as part of the XML declaration,
      * whether this document is standalone
-     * 
+     *
      * @exception DOMException NOT_SUPPORTED_ERR: Raised if this document does not
      *                         support the "XML" feature.
      */
@@ -1033,19 +1033,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     }
 
-    // NON-DOM Factory method: creates an element definition. Element
-    // definitions hold default attribute values.
-    public ElementDefinitionImpl createElementDefinition(String name) throws DOMException {
-
-        if (errorChecking && !isXMLName(name, xml11Version)) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR",
-                    null);
-            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
-        }
-        return new ElementDefinitionImpl(this, name);
-
-    }
-
     /**
      * {@inheritDoc} NON-DOM: Get the number associated with this document. Used to
      * order documents in the implementation.
@@ -1110,7 +1097,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * for an associated identifier. If one exists, the identifier is registered
      * with the new, imported element. If reversedIdentifiers is null, the parameter
      * is not applied.
-     * 
+     *
      * @param source              the source node
      * @param deep                true for deep iport
      * @param cloningDoc          the cloning Doc
@@ -1439,8 +1426,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             node.setOwnerDocument(this);
             if (userData != null)
                 setUserDataTable(node, userData);
-            // reconcile default attributes
-            ((ElementImpl) node).reconcileDefaultAttributes();
             break;
         }
         default: {
@@ -1467,7 +1452,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Traverses the DOM Tree and expands deferred nodes and their children.
-     * 
+     *
      * @param node the node
      *
      */
@@ -1522,7 +1507,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * are of type ID. Attributes with the name "ID" are not of type ID unless so
      * defined. Implementations that do not know whether attributes are of type ID
      * or not are expected to return null.
-     * 
+     *
      * @see #getIdentifier
      */
     @Override
@@ -1543,7 +1528,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * Registers an identifier name with a specified element node. If the identifier
      * is already registered, the new element node replaces the previous node. If
      * the specified element node is null, removeIdentifier() is called.
-     * 
+     *
      * @param idName  the name
      * @param element the element
      *
@@ -1571,7 +1556,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     /**
      * Returns a previously registered element with the specified identifier name,
      * or null if no element is registered.
-     * 
+     *
      * @param idName the name
      * @return the element
      *
@@ -1603,7 +1588,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Removes a previously registered element with the specified identifier name.
-     * 
+     *
      * @param idName the name
      *
      * @see #putIdentifier(String, Element)
@@ -1634,7 +1619,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * given namespaceURI is null or an empty string and the qualifiedName has a
      * prefix that is "xml", the created element is bound to the predefined
      * namespace "http://www.w3.org/XML/1998/namespace" [Namespaces].
-     * 
+     *
      * @param namespaceURI  The namespace URI of the element to create.
      * @param qualifiedName The qualified name of the element type to instantiate.
      * @return Element A new Element object with the following attributes:
@@ -1711,7 +1696,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * Returns a NodeList of all the Elements with a given local name and namespace
      * URI in the order in which they would be encountered in a preorder traversal
      * of the Document tree.
-     * 
+     *
      * @param namespaceURI The namespace URI of the elements to match on. The
      *                     special value "*" matches all namespaces. When it is null
      *                     or an empty string, this method behaves like
@@ -1741,7 +1726,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     /**
      * Check the string against XML's definition of acceptable names for elements
      * and attributes and so on using the XMLCharacterProperties utility class
-     * 
+     *
      * @param s            the string to check
      * @param xml11Version if true use xml 11 rules
      * @return true or false
@@ -1786,7 +1771,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     /**
      * Uses the kidOK lookup table to check whether the proposed tree structure is
      * legal.
-     * 
+     *
      * @param parent the parent
      * @param child  the child
      * @return true or false
@@ -1849,7 +1834,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     /**
      * Associate an object to a key on this node. The object can later be retrieved
      * from this node by calling <code>getUserData</code> with the same key.
-     * 
+     *
      * @param n       The node to associate the object to.
      * @param key     The key to associate the object to.
      * @param data    The object to associate to the given key, or <code>null</code>
@@ -1898,7 +1883,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * Retrieves the object associated to a key on a this node. The object must
      * first have been set to this node by calling <code>setUserData</code> with the
      * same key.
-     * 
+     *
      * @param n   The node the object is associated to.
      * @param key The key the object is associated to.
      * @return Returns the <code>DOMObject</code> associated to the given key on
@@ -1928,7 +1913,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Remove user data table for the given node.
-     * 
+     *
      * @param n The node this operation applies to.
      * @return The removed table.
      */
@@ -1941,7 +1926,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Set user data table for the given node.
-     * 
+     *
      * @param n    The node this operation applies to.
      * @param data The user data table.
      */
@@ -1956,7 +1941,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Call user data handlers when a node is deleted (finalized)
-     * 
+     *
      * @param n         The node this operation applies to.
      * @param c         The copy node or null.
      * @param operation The operation - import, clone, or delete.
@@ -1976,7 +1961,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Call user data handlers when a node is deleted (finalized)
-     * 
+     *
      * @param n         The node this operation applies to.
      * @param c         The copy node or null.
      * @param operation The operation - import, clone, or delete.

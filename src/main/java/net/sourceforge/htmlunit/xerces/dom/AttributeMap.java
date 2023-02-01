@@ -40,7 +40,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Constructs a named node map.
-     * 
+     *
      * @param ownerNode the owner node
      * @param defaults  defaults
      */
@@ -57,7 +57,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Adds an attribute using its nodeName attribute.
-     * 
+     *
      * @see org.w3c.dom.NamedNodeMap#setNamedItem
      * @return If the new Node replaces an existing node the replaced Node is
      *         returned, otherwise null is returned.
@@ -127,7 +127,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Adds an attribute using its namespaceURI and localName.
-     * 
+     *
      * @see org.w3c.dom.NamedNodeMap#setNamedItem
      * @return If the new Node replaces an existing node the replaced Node is
      *         returned, otherwise null is returned.
@@ -205,7 +205,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Removes an attribute specified by name.
-     * 
+     *
      * @param name The name of a node to remove. If the removed attribute is known
      *             to have a default value, an attribute immediately appears
      *             containing the default value as well as the corresponding
@@ -253,7 +253,7 @@ public class AttributeMap extends NamedNodeMapImpl {
     /**
      * Internal removeNamedItem method allowing to specify whether an exception must
      * be thrown if the specified name is not found.
-     * 
+     *
      * @param name    the mane
      * @param raiseEx if true raise an exception
      * @return the node
@@ -280,34 +280,7 @@ public class AttributeMap extends NamedNodeMapImpl {
             ownerDocument.removeIdentifier(attr.getValue());
         }
 
-        if (hasDefaults() && addDefault) {
-            // If there's a default, add it instead
-            NamedNodeMapImpl defaults = ((ElementImpl) ownerNode).getDefaultAttributes();
-
-            Node d;
-            if (defaults != null && (d = defaults.getNamedItem(name)) != null && findNamePoint(name, index + 1) < 0) {
-                NodeImpl clone = (NodeImpl) d.cloneNode(true);
-                if (d.getLocalName() != null) {
-                    // we must rely on the name to find a default attribute
-                    // ("test:attr"), but while copying it from the DOCTYPE
-                    // we should not loose namespace URI that was assigned
-                    // to the attribute in the instance document.
-                    ((AttrNSImpl) clone).namespaceURI = attr.getNamespaceURI();
-                }
-                clone.ownerNode = ownerNode;
-                clone.isOwned(true);
-                clone.isSpecified(false);
-
-                nodes.set(index, clone);
-                if (attr.isIdAttribute()) {
-                    ownerDocument.putIdentifier(clone.getNodeValue(), (ElementImpl) ownerNode);
-                }
-            } else {
-                nodes.remove(index);
-            }
-        } else {
-            nodes.remove(index);
-        }
+        nodes.remove(index);
 
         // changed(true);
 
@@ -330,7 +303,7 @@ public class AttributeMap extends NamedNodeMapImpl {
      * Introduced in DOM Level 2.
      * <p>
      * Removes an attribute specified by local name and namespace URI.
-     * 
+     *
      * @param namespaceURI The namespace URI of the node to remove. When it is null
      *                     or an empty string, this method behaves like
      *                     removeNamedItem.
@@ -350,7 +323,7 @@ public class AttributeMap extends NamedNodeMapImpl {
     /**
      * Internal removeNamedItemNS method allowing to specify whether an exception
      * must be thrown if the specified local name and namespace URI is not found.
-     * 
+     *
      * @param namespaceURI the namespace uri
      * @param name         the name
      * @param raiseEx      if true raise exception
@@ -374,38 +347,8 @@ public class AttributeMap extends NamedNodeMapImpl {
         if (n.isIdAttribute()) {
             ownerDocument.removeIdentifier(n.getValue());
         }
-        // If there's a default, add it instead
-        String nodeName = n.getNodeName();
-        if (hasDefaults()) {
-            NamedNodeMapImpl defaults = ((ElementImpl) ownerNode).getDefaultAttributes();
-            Node d;
-            if (defaults != null && (d = defaults.getNamedItem(nodeName)) != null) {
-                int j = findNamePoint(nodeName, 0);
-                if (j >= 0 && findNamePoint(nodeName, j + 1) < 0) {
-                    NodeImpl clone = (NodeImpl) d.cloneNode(true);
-                    clone.ownerNode = ownerNode;
-                    if (d.getLocalName() != null) {
-                        // we must rely on the name to find a default attribute
-                        // ("test:attr"), but while copying it from the DOCTYPE
-                        // we should not loose namespace URI that was assigned
-                        // to the attribute in the instance document.
-                        ((AttrNSImpl) clone).namespaceURI = namespaceURI;
-                    }
-                    clone.isOwned(true);
-                    clone.isSpecified(false);
-                    nodes.set(i, clone);
-                    if (clone.isIdAttribute()) {
-                        ownerDocument.putIdentifier(clone.getNodeValue(), (ElementImpl) ownerNode);
-                    }
-                } else {
-                    nodes.remove(i);
-                }
-            } else {
-                nodes.remove(i);
-            }
-        } else {
-            nodes.remove(i);
-        }
+
+        nodes.remove(i);
 
         // changed(true);
 
@@ -439,7 +382,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Override parent's method to set the ownerNode correctly
-     * 
+     *
      * @param srcmap the source map
      */
     @Override
@@ -467,7 +410,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Move specified attributes from the given map to this one
-     * 
+     *
      * @param srcmap the source map
      */
     void moveSpecifiedAttributes(AttributeMap srcmap) {
@@ -487,7 +430,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
     /**
      * Get this AttributeMap in sync with the given "defaults" map.
-     * 
+     *
      * @param defaults The default attributes map to sync with.
      */
     protected void reconcileDefaults(NamedNodeMapImpl defaults) {

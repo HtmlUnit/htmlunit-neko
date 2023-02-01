@@ -131,7 +131,6 @@ public class ElementNSImpl extends ElementImpl {
         }
         this.name = qualifiedName;
         setName(namespaceURI, qualifiedName);
-        reconcileDefaultAttributes();
     }
 
     /**
