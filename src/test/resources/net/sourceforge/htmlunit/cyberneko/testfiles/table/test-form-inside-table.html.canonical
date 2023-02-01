@@ -9,6 +9,7 @@
 )td
 )tr
 (form
+)form
 (input
 Aname xyz
 Atype hidden
@@ -17,7 +18,6 @@ Atype hidden
 Atype submit
 Avalue Submit
 )input
-)form
 )TBODY
 )table
 )BODY

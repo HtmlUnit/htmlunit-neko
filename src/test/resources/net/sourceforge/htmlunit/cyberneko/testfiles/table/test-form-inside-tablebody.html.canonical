@@ -3,10 +3,7 @@
 )head
 (BODY
 (table
-(TBODY
-(tr
-(td
-)td
+(tbody
 (form
 )form
 (input
@@ -17,8 +14,11 @@ Atype hidden
 Atype submit
 Avalue Submit
 )input
+(tr
+(td
+)td
 )tr
-)TBODY
+)tbody
 )table
 )BODY
 )HTML

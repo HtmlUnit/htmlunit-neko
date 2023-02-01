@@ -643,7 +643,32 @@ public class HTMLTagBalancer
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
+
             fOpenedForm = true;
+
+            // check if inside a table
+            //    forms are only valid inside td/th/caption
+            //    otherwise close the form
+            for (int i = fElementStack.top - 1; i >= 0; i--) {
+                final Info info = fElementStack.data[i];
+                if (info.element.code == HTMLElements.TD
+                        || info.element.code == HTMLElements.TH
+                        || info.element.code == HTMLElements.CAPTION) {
+                    break;
+                }
+                if (info.element.code == HTMLElements.TR
+                        || info.element.code == HTMLElements.THEAD
+                        || info.element.code == HTMLElements.TBODY
+                        || info.element.code == HTMLElements.TFOOT
+                        || info.element.code == HTMLElements.TABLE) {
+                    if (fDocumentHandler != null) {
+                        callStartElement(elem, attrs, augs);
+                        callEndElement(createQName("form"), synthesizedAugs());
+                    }
+                    fOpenedForm = false;
+                    return;
+                }
+            }
         }
         else if (elementCode == HTMLElements.UNKNOWN) {
             consumeBufferedEndElements();
@@ -663,8 +688,8 @@ public class HTMLTagBalancer
                         || info.element.code == HTMLElements.TBODY
                         || info.element.code == HTMLElements.TFOOT
                         || info.element.code == HTMLElements.TABLE) {
-                    final QName head = createQName("table");
-                    endElement(head, synthesizedAugs());
+                    final QName table = createQName("table");
+                    endElement(table, synthesizedAugs());
                     break;
                 }
             }

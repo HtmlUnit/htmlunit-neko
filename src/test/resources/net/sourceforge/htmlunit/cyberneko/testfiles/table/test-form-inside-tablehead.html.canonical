@@ -5,10 +5,8 @@
 (table
 (TBODY
 (tr
-(td
-)td
+(th
 (form
-)form
 (input
 Aname xyz
 Atype hidden
@@ -17,6 +15,8 @@ Atype hidden
 Atype submit
 Avalue Submit
 )input
+)form
+)th
 )tr
 )TBODY
 )table

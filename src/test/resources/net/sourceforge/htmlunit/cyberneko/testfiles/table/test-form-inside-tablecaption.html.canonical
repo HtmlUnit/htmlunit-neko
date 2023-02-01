@@ -3,12 +3,8 @@
 )head
 (BODY
 (table
-(TBODY
-(tr
-(td
-)td
+(caption
 (form
-)form
 (input
 Aname xyz
 Atype hidden
@@ -17,6 +13,12 @@ Atype hidden
 Atype submit
 Avalue Submit
 )input
+)form
+)caption
+(TBODY
+(tr
+(td
+)td
 )tr
 )TBODY
 )table
