@@ -35,9 +35,9 @@ public interface XMLAttributes {
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
-     * have the same value as the attribute value until. Also, the added attribute will be
-     * marked as specified in the XML instance document unless set otherwise using
-     * the <code>setSpecified</code> method.
+     * have the same value as the attribute value until. Also, the added attribute
+     * will be marked as specified in the XML instance document unless set otherwise
+     * using the <code>setSpecified</code> method.
      * <p>
      * <strong>Note:</strong> If an attribute of the same name already exists, the
      * old values for the attribute are replaced by the new values.

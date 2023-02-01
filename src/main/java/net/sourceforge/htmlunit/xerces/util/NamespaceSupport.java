@@ -66,8 +66,6 @@ public class NamespaceSupport implements NamespaceContext {
     public NamespaceSupport() {
     } // <init>()
 
-
-
     //
     // Public methods
     //

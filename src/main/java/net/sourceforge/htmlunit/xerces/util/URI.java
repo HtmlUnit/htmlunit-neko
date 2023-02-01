@@ -1507,8 +1507,7 @@ public class URI {
         for (int i = 0; i < addrLength; i++) {
             testChar = address.charAt(i);
             if (testChar == '.') {
-                if (!isAlphanum(address.charAt(i - 1))
-                        || (i + 1 < addrLength && !isAlphanum(address.charAt(i + 1)))) {
+                if (!isAlphanum(address.charAt(i - 1)) || (i + 1 < addrLength && !isAlphanum(address.charAt(i + 1)))) {
                     return false;
                 }
                 labelCharCount = 0;
