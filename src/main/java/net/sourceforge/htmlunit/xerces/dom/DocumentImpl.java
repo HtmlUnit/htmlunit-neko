@@ -23,7 +23,6 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.DocumentEvent;
 import org.w3c.dom.events.Event;
 
@@ -55,7 +54,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
 
     /**
      * Constructor.
-     * 
+     *
      * @param grammarAccess grammar access flag
      */
     public DocumentImpl(boolean grammarAccess) {
@@ -64,7 +63,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
 
     /**
      * For DOM2 support. The createDocument factory method is in DOMImplementation.
-     * 
+     *
      * @param doctype the {@link DocumentType}
      */
     public DocumentImpl(DocumentType doctype) {
@@ -73,7 +72,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
 
     /**
      * For DOM2 support.
-     * 
+     *
      * @param doctype       the {@link DocumentType}
      * @param grammarAccess grammar access flag
      */
@@ -95,7 +94,6 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
     public Node cloneNode(boolean deep) {
 
         DocumentImpl newdoc = new DocumentImpl();
-        callUserDataHandlers(this, newdoc, UserDataHandler.NODE_CLONED);
         cloneNode(newdoc, deep);
 
         return newdoc;

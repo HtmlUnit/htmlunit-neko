@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.util.Hashtable;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
@@ -30,8 +28,6 @@ import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-
-import net.sourceforge.htmlunit.xerces.dom.ParentNode.UserDataRecord;
 
 /**
  * NodeImpl provides the basic structure of a DOM tree. It is never used
@@ -111,7 +107,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * those normally via a Document's factory methods
      * <p>
      * Every Node knows what Document it belongs to.
-     * 
+     *
      * @param ownerDocument the owner document
      */
     protected NodeImpl(CoreDocumentImpl ownerDocument) {
@@ -140,7 +136,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * {@inheritDoc}
      *
      * Returns the node value.
-     * 
+     *
      * @throws DOMException DOMSTRING_SIZE_ERR
      */
     @Override
@@ -152,7 +148,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * {@inheritDoc}
      *
      * Sets the node value.
-     * 
+     *
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR
      */
     @Override
@@ -165,7 +161,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      *
      * Adds a child node to the end of the list of children for this node.
      * Convenience shorthand for insertBefore(newChild,null).
-     * 
+     *
      * @see #insertBefore(Node, Node)
      *      <P>
      *      By default we do not accept any children, ParentNode overrides this.
@@ -197,7 +193,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * <P>
      * Note: since we never have any children deep is meaningless here, ParentNode
      * overrides this behavior.
-     * 
+     *
      * @see ParentNode
      *
      *      <p>
@@ -232,8 +228,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         // Need to break the association w/ original kids
         newnode.ownerNode = ownerDocument();
         newnode.isOwned(false);
-
-        ownerDocument().callUserDataHandlers(this, newnode, UserDataHandler.NODE_CLONED);
 
         return newnode;
 
@@ -338,7 +332,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
     /**
      * Returns whether this node (if it is an element) has any attributes.
-     * 
+     *
      * @return <code>true</code> if this node has any attributes, <code>false</code>
      *         otherwise.
      * @see ElementImpl
@@ -353,7 +347,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * (Node.getFirstChild()!=null)
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      */
     @Override
@@ -382,7 +376,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * The first child of this Node, or null if none.
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      */
     @Override
@@ -394,7 +388,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * The first child of this Node, or null if none.
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      */
     @Override
@@ -407,7 +401,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * removes them from their previous parent.
      * <P>
      * By default we do not accept any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      *
      * @param newChild The Node to be moved to our subtree. As a convenience
@@ -443,7 +437,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * it may be re-inserted elsewhere.
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      *
      * @return oldChild, in its new state (removed).
@@ -464,7 +458,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * to inserting newChild before oldChild, then removing oldChild.
      * <P>
      * By default we do not have any children, ParentNode overrides this.
-     * 
+     *
      * @see ParentNode
      *
      * @return oldChild, in its new state (removed).
@@ -544,7 +538,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * <p>
      * Tests whether the DOM implementation implements a specific feature and that
      * feature is supported by this node.
-     * 
+     *
      * @param feature The package name of the feature to test. This is the same name
      *                as what can be passed to the method hasFeature on
      *                DOMImplementation.
@@ -576,7 +570,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      *
      * For nodes created with a DOM Level 1 method, such as createElement from the
      * Document interface, this is null.
-     * 
+     *
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -648,7 +642,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * with a DOM Level 1 method, such as createElement from the Document interface,
      * and for nodes of any type other than ELEMENT_NODE and ATTRIBUTE_NODE this is
      * the same as the nodeName attribute.
-     * 
+     *
      * @see AttrNSImpl
      * @see ElementNSImpl
      */
@@ -710,7 +704,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
     /**
      * Compares a node with this node with regard to their position in the document.
-     * 
+     *
      * @param other The node to compare against this node.
      * @return Returns how the given node is positioned relatively to this node.
      */
@@ -983,7 +977,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * <td valign='top' rowspan='1' colspan='1'>null</td>
      * </tr>
      * </table>
-     * 
+     *
      * @exception DOMException DOMSTRING_SIZE_ERR: Raised when it would return more
      *                         characters than fit in a <code>DOMString</code>
      *                         variable on the implementation platform.
@@ -1036,7 +1030,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * <td valign='top' rowspan='1' colspan='1'>null</td>
      * </tr>
      * </table>
-     * 
+     *
      * @exception DOMException DOMSTRING_SIZE_ERR: Raised when it would return more
      *                         characters than fit in a <code>DOMString</code>
      *                         variable on the implementation platform.
@@ -1054,7 +1048,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * through a proxy, the references may be used completely interchangably, such
      * that all attributes have the same values and calling the same DOM method on
      * either reference always has exactly the same effect.
-     * 
+     *
      * @param other The node to test against.
      * @return Returns <code>true</code> if the nodes are the same,
      *         <code>false</code> otherwise.
@@ -1068,7 +1062,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     /**
      * DOM Level 3: Experimental This method checks if the specified
      * <code>namespaceURI</code> is the default namespace or not.
-     * 
+     *
      * @param namespaceURI The namespace URI to look for.
      * @return <code>true</code> if the specified <code>namespaceURI</code> is the
      *         default namespace, <code>false</code> otherwise.
@@ -1371,7 +1365,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * for <code>Attr</code> nodes, the <code>isWhitespaceInElementContent</code>
      * attribute for <code>Text</code> nodes, as well as any user data or event
      * listeners registered on the nodes.
-     * 
+     *
      * @param arg The node to compare equality with.
      * @return If the nodes, and possibly subtrees are equal, <code>true</code>
      *         otherwise <code>false</code>.
@@ -1439,7 +1433,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     /**
      * Associate an object to a key on this node. The object can later be retrieved
      * from this node by calling <code>getUserData</code> with the same key.
-     * 
+     *
      * @param key     The key to associate the object to.
      * @param data    The object to associate to the given key, or <code>null</code>
      *                to remove any existing association to that key.
@@ -1449,25 +1443,21 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      */
     @Override
     public Object setUserData(String key, Object data, UserDataHandler handler) {
-        return ownerDocument().setUserData(this, key, data, handler);
+        return null;
     }
 
     /**
      * Retrieves the object associated to a key on a this node. The object must
      * first have been set to this node by calling <code>setUserData</code> with the
      * same key.
-     * 
+     *
      * @param key The key the object is associated to.
      * @return Returns the <code>DOMObject</code> associated to the given key on
      *         this node, or <code>null</code> if there was none.
      */
     @Override
     public Object getUserData(String key) {
-        return ownerDocument().getUserData(this, key);
-    }
-
-    protected Hashtable<String, UserDataRecord> getUserDataRecord() {
-        return ownerDocument().getUserDataRecord(this);
+        return null;
     }
 
     //

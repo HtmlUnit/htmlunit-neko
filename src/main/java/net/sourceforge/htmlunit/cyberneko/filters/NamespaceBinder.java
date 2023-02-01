@@ -79,16 +79,12 @@ public class NamespaceBinder extends DefaultFilter {
     /** Modify HTML element names: { "upper", "lower", "default" }. */
     private static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
 
-    /** Modify HTML attribute names: { "upper", "lower", "default" }. */
-    private static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
-
     /** Namespaces URI. */
     private static final String NAMESPACES_URI = "http://cyberneko.org/html/properties/namespaces-uri";
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = new String[] {
         NAMES_ELEMS,
-        NAMES_ATTRS,
         NAMESPACES_URI,
     };
 
@@ -113,9 +109,6 @@ public class NamespaceBinder extends DefaultFilter {
     /** Namespaces. */
     private boolean fNamespaces;
 
-    /** Namespace prefixes. */
-    private boolean fNamespacePrefixes;
-
     /** Override namespaces. */
     private boolean fOverrideNamespaces;
 
@@ -126,9 +119,6 @@ public class NamespaceBinder extends DefaultFilter {
 
     /** Modify HTML element names. */
     private short fNamesElems;
-
-    /** Modify HTML attribute names. */
-    private short fNamesAttrs;
 
     /** Namespaces URI. */
     private String fNamespacesURI;
@@ -217,7 +207,6 @@ public class NamespaceBinder extends DefaultFilter {
 
         // get properties
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fNamespacesURI = String.valueOf(manager.getProperty(NAMESPACES_URI));
 
         // initialize state

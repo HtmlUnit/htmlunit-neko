@@ -21,7 +21,6 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.UserDataHandler;
 
 /**
  * ParentNode inherits from ChildNode and adds the capability of having child
@@ -884,19 +883,6 @@ public abstract class ParentNode extends ChildNode {
             if (next != null && next.getNodeType() == Node.TEXT_NODE) {
                 isNormalized(false);
             }
-        }
-    }
-
-    /*
-     * a class to store some user data along with its handler
-     */
-    static class UserDataRecord {
-        final Object fData;
-        final UserDataHandler fHandler;
-
-        UserDataRecord(Object data, UserDataHandler handler) {
-            fData = data;
-            fHandler = handler;
         }
     }
 }

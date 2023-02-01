@@ -39,7 +39,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
-import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.events.EventListener;
 
 import net.sourceforge.htmlunit.xerces.util.URI;
@@ -93,9 +92,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /** Experimental DOM Level 3 feature: documentURI */
     protected String fDocumentURI;
-
-    /** Table for user data attached to this document nodes. */
-    protected Map<Node, Hashtable<String, UserDataRecord>> userData;
 
     /** Identifiers. */
     protected Hashtable<String, Element> identifiers;
@@ -266,7 +262,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     public Node cloneNode(boolean deep) {
 
         CoreDocumentImpl newdoc = new CoreDocumentImpl();
-        callUserDataHandlers(this, newdoc, UserDataHandler.NODE_CLONED);
         cloneNode(newdoc, deep);
 
         return newdoc;
@@ -819,16 +814,12 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             if (el instanceof ElementNSImpl) {
                 if (canRenameElements(namespaceURI, name, el)) {
                     ((ElementNSImpl) el).rename(namespaceURI, name);
-                    // fire user data NODE_RENAMED event
-                    callUserDataHandlers(el, null, UserDataHandler.NODE_RENAMED);
                 } else {
                     el = replaceRenameElement(el, namespaceURI, name);
                 }
             } else {
                 if (namespaceURI == null && canRenameElements(null, name, el)) {
                     el.rename(name);
-                    // fire user data NODE_RENAMED event
-                    callUserDataHandlers(el, null, UserDataHandler.NODE_RENAMED);
                 } else {
                     el = replaceRenameElement(el, namespaceURI, name);
                 }
@@ -851,9 +842,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 if (el != null) {
                     el.setAttributeNodeNS(at);
                 }
-
-                // fire user data NODE_RENAMED event
-                callUserDataHandlers(at, null, UserDataHandler.NODE_RENAMED);
             } else {
                 if (namespaceURI == null) {
                     at.rename(name);
@@ -861,18 +849,12 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                     if (el != null) {
                         el.setAttributeNode(at);
                     }
-
-                    // fire user data NODE_RENAMED event
-                    callUserDataHandlers(at, null, UserDataHandler.NODE_RENAMED);
                 } else {
                     // we need to create a new object
                     AttrNSImpl nat = (AttrNSImpl) createAttributeNS(namespaceURI, name);
 
                     // register event listeners on new node
                     copyEventListeners(at, nat);
-
-                    // remove user data from old node
-                    Hashtable<String, UserDataRecord> data = removeUserDataTable(at);
 
                     // move children to new node
                     Node child = at.getFirstChild();
@@ -881,12 +863,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                         nat.appendChild(child);
                         child = at.getFirstChild();
                     }
-
-                    // attach user data to new node
-                    setUserDataTable(nat, data);
-
-                    // and fire user data NODE_RENAMED event
-                    callUserDataHandlers(at, nat, UserDataHandler.NODE_RENAMED);
 
                     // reattach attr to element
                     if (el != null) {
@@ -915,9 +891,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         // register event listeners on new node
         copyEventListeners(el, nel);
 
-        // remove user data from old node
-        Hashtable<String, UserDataRecord> data = removeUserDataTable(el);
-
         // remove old node from parent if any
         Node parent = el.getParentNode();
         Node nextSib = el.getNextSibling();
@@ -933,12 +906,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
         // move specified attributes to new node
         nel.moveSpecifiedAttributes(el);
-
-        // attach user data to new node
-        setUserDataTable(nel, data);
-
-        // and fire user data NODE_RENAMED event
-        callUserDataHandlers(el, nel, UserDataHandler.NODE_RENAMED);
 
         // insert new node where old one was
         if (parent != null) {
@@ -1106,7 +1073,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     private Node importNode(Node source, boolean deep, boolean cloningDoc, HashMap<Node, String> reversedIdentifiers)
             throws DOMException {
         Node newnode = null;
-        Hashtable<String, UserDataRecord> userData = null;
 
         // Sigh. This doesn't work; too many nodes have private data that
         // would have to be manually tweaked. May be able to add local
@@ -1119,8 +1085,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         // newnode.ownerDocument=this;
         // }
         // else
-        if (source instanceof NodeImpl)
-            userData = ((NodeImpl) source).getUserDataRecord();
         int type = source.getNodeType();
         switch (type) {
         case ELEMENT_NODE: {
@@ -1301,9 +1265,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
         }
 
-        if (userData != null)
-            callUserDataHandlers(source, newnode, UserDataHandler.NODE_IMPORTED, userData);
-
         // If deep, replicate and attach the kids.
         if (deep) {
             for (Node srckid = source.getFirstChild(); srckid != null; srckid = srckid.getNextSibling()) {
@@ -1324,7 +1285,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public Node adoptNode(Node source) {
         NodeImpl node;
-        Hashtable<String, UserDataRecord> userData;
         try {
             node = (NodeImpl) source;
         } catch (ClassCastException e) {
@@ -1360,12 +1320,9 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             // 2. specified flag is set to true
             attr.isSpecified(true);
-            userData = node.getUserDataRecord();
 
             // 3. change ownership
             attr.setOwnerDocument(this);
-            if (userData != null)
-                setUserDataTable(node, userData);
             break;
         }
         // entity, notation nodes are read only nodes.. so they can't be adopted.
@@ -1385,7 +1342,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
         }
         case ENTITY_REFERENCE_NODE: {
-            userData = node.getUserDataRecord();
             // remove node from wherever it is
             Node parent = node.getParentNode();
             if (parent != null) {
@@ -1398,8 +1354,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             // change ownership
             node.setOwnerDocument(this);
-            if (userData != null)
-                setUserDataTable(node, userData);
             // set its new replacement value if any
             if (docType == null) {
                 break;
@@ -1416,7 +1370,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             break;
         }
         case ELEMENT_NODE: {
-            userData = node.getUserDataRecord();
             // remove node from wherever it is
             Node parent = node.getParentNode();
             if (parent != null) {
@@ -1424,12 +1377,9 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             // change ownership
             node.setOwnerDocument(this);
-            if (userData != null)
-                setUserDataTable(node, userData);
             break;
         }
         default: {
-            userData = node.getUserDataRecord();
             // remove node from wherever it is
             Node parent = node.getParentNode();
             if (parent != null) {
@@ -1437,15 +1387,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             // change ownership
             node.setOwnerDocument(this);
-            if (userData != null)
-                setUserDataTable(node, userData);
         }
         }
-
-        // DOM L3 Core CR
-        // http://www.w3.org/TR/2003/CR-DOM-Level-3-Core-20031107/core.html#UserDataHandler-ADOPTED
-        if (userData != null)
-            callUserDataHandlers(source, null, UserDataHandler.NODE_ADOPTED, userData);
 
         return node;
     }
@@ -1831,154 +1774,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         fFreeNLCache = c;
     }
 
-    /**
-     * Associate an object to a key on this node. The object can later be retrieved
-     * from this node by calling <code>getUserData</code> with the same key.
-     *
-     * @param n       The node to associate the object to.
-     * @param key     The key to associate the object to.
-     * @param data    The object to associate to the given key, or <code>null</code>
-     *                to remove any existing association to that key.
-     * @param handler The handler to associate to that key, or <code>null</code>.
-     * @return Returns the <code>DOMObject</code> previously associated to the given
-     *         key on this node, or <code>null</code> if there was none.
-     *
-     *         REVISIT: we could use a free list of UserDataRecord here
-     */
-    public Object setUserData(Node n, String key, Object data, UserDataHandler handler) {
-        if (data == null) {
-            if (userData != null) {
-                Hashtable<String, UserDataRecord> t = userData.get(n);
-                if (t != null) {
-                    UserDataRecord r = t.remove(key);
-                    if (r != null) {
-                        return r.fData;
-                    }
-                }
-            }
-            return null;
-        }
-
-        Hashtable<String, UserDataRecord> t;
-        if (userData == null) {
-            userData = new WeakHashMap<>();
-            t = new Hashtable<>();
-            userData.put(n, t);
-        } else {
-            t = userData.get(n);
-            if (t == null) {
-                t = new Hashtable<>();
-                userData.put(n, t);
-            }
-        }
-
-        UserDataRecord r = t.put(key, new UserDataRecord(data, handler));
-        if (r != null) {
-            return r.fData;
-        }
-        return null;
-    }
-
-    /**
-     * Retrieves the object associated to a key on a this node. The object must
-     * first have been set to this node by calling <code>setUserData</code> with the
-     * same key.
-     *
-     * @param n   The node the object is associated to.
-     * @param key The key the object is associated to.
-     * @return Returns the <code>DOMObject</code> associated to the given key on
-     *         this node, or <code>null</code> if there was none.
-     */
-    public Object getUserData(Node n, String key) {
-        if (userData == null) {
-            return null;
-        }
-        Hashtable<String, UserDataRecord> t = userData.get(n);
-        if (t == null) {
-            return null;
-        }
-        UserDataRecord r = t.get(key);
-        if (r != null) {
-            return r.fData;
-        }
-        return null;
-    }
-
-    protected Hashtable<String, UserDataRecord> getUserDataRecord(Node n) {
-        if (userData == null) {
-            return null;
-        }
-        return userData.get(n);
-    }
-
-    /**
-     * Remove user data table for the given node.
-     *
-     * @param n The node this operation applies to.
-     * @return The removed table.
-     */
-    Hashtable<String, UserDataRecord> removeUserDataTable(Node n) {
-        if (userData == null) {
-            return null;
-        }
-        return userData.get(n);
-    }
-
-    /**
-     * Set user data table for the given node.
-     *
-     * @param n    The node this operation applies to.
-     * @param data The user data table.
-     */
-    void setUserDataTable(Node n, Hashtable<String, UserDataRecord> data) {
-        if (userData == null) {
-            userData = new WeakHashMap<>();
-        }
-        if (data != null) {
-            userData.put(n, data);
-        }
-    }
-
-    /**
-     * Call user data handlers when a node is deleted (finalized)
-     *
-     * @param n         The node this operation applies to.
-     * @param c         The copy node or null.
-     * @param operation The operation - import, clone, or delete.
-     */
-    protected void callUserDataHandlers(Node n, Node c, short operation) {
-        if (userData == null) {
-            return;
-        }
-        if (n instanceof NodeImpl) {
-            Hashtable<String, UserDataRecord> t = ((NodeImpl) n).getUserDataRecord();
-            if (t == null || t.isEmpty()) {
-                return;
-            }
-            callUserDataHandlers(n, c, operation, t);
-        }
-    }
-
-    /**
-     * Call user data handlers when a node is deleted (finalized)
-     *
-     * @param n         The node this operation applies to.
-     * @param c         The copy node or null.
-     * @param operation The operation - import, clone, or delete.
-     * @param userData  Data associated with n.
-     */
-    void callUserDataHandlers(Node n, Node c, short operation, Hashtable<String, UserDataRecord> userData) {
-        if (userData == null || userData.isEmpty()) {
-            return;
-        }
-        for (Map.Entry<String, UserDataRecord> entry : userData.entrySet()) {
-            UserDataRecord r = entry.getValue();
-            if (r.fHandler != null) {
-                r.fHandler.handle(operation, entry.getKey(), r.fData, n, c);
-            }
-        }
-    }
-
     protected final void checkNamespaceWF(String qname, int colon1, int colon2) {
 
         if (!errorChecking) {
@@ -2044,21 +1839,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     boolean isXML11Version() {
         return xml11Version;
-    }
-
-    // NON-DOM: kept for backward compatibility
-    // Store user data related to a given node
-    // This is a place where we could use weak references! Indeed, the node
-    // here won't be GC'ed as long as some user data is attached to it, since
-    // the userData table will have a reference to the node.
-    protected void setUserData(NodeImpl n, Object data) {
-        setUserData(n, "XERCES1DOMUSERDATA", data, null);
-    }
-
-    // NON-DOM: kept for backward compatibility
-    // Retreive user data related to a given node
-    protected Object getUserData(NodeImpl n) {
-        return getUserData(n, "XERCES1DOMUSERDATA");
     }
 
     protected void addEventListener(NodeImpl node, String type, EventListener listener, boolean useCapture) {

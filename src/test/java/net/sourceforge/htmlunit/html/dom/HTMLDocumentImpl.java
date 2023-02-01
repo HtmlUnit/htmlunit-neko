@@ -27,7 +27,6 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.UserDataHandler;
 import org.w3c.dom.html.HTMLBodyElement;
 import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLDocument;
@@ -689,7 +688,6 @@ public class HTMLDocumentImpl
     public Node cloneNode( boolean deep )
     {
         HTMLDocumentImpl newdoc = new HTMLDocumentImpl();
-        callUserDataHandlers(this, newdoc, UserDataHandler.NODE_CLONED);
         cloneNode(newdoc, deep);
         return newdoc;
     }

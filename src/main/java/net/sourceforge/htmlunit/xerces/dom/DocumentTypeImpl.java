@@ -17,8 +17,6 @@
 
 package net.sourceforge.htmlunit.xerces.dom;
 
-import java.util.Hashtable;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
@@ -74,14 +72,9 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     // a number, on demand, for ordering purposes for compareDocumentPosition
     private int doctypeNumber = 0;
 
-    //
-    // Constructors
-    //
-    private Hashtable<String, UserDataRecord> userData = null;
-
     /**
      * Factory method for creating a document type node.
-     * 
+     *
      * @param ownerDocument the owner document
      * @param name          the name
      */
@@ -366,7 +359,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      *
      * Access the collection of general Entities, both external and internal,
      * defined in the DTD. For example, in:
-     * 
+     *
      * <pre>
      *   &lt;!doctype example SYSTEM "ex.dtd" [
      *     &lt;!ENTITY foo "foo"&gt;
@@ -422,22 +415,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public Object setUserData(String key, Object data, UserDataHandler handler) {
-        if (userData == null)
-            userData = new Hashtable<>();
-        if (data == null) {
-            if (userData != null) {
-                UserDataRecord udr = userData.remove(key);
-                if (udr != null) {
-                    return udr.fData;
-                }
-            }
-            return null;
-        }
-
-        UserDataRecord udr = userData.put(key, new UserDataRecord(data, handler));
-        if (udr != null) {
-            return udr.fData;
-        }
         return null;
     }
 
@@ -446,21 +423,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public Object getUserData(String key) {
-        if (userData == null) {
-            return null;
-        }
-        UserDataRecord o = userData.get(key);
-        if (o != null) {
-            return o.fData;
-        }
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Hashtable<String, UserDataRecord> getUserDataRecord() {
-        return userData;
     }
 }
