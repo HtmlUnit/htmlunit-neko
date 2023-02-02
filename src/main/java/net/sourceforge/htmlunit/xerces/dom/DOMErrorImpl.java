@@ -44,12 +44,12 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLParseException;
 
 public class DOMErrorImpl implements DOMError {
 
-    public short fSeverity = DOMError.SEVERITY_WARNING;
-    public final String fMessage = null;
-    public DOMLocatorImpl fLocator = new DOMLocatorImpl();
-    public Exception fException = null;
-    public String fType;
-    public Object fRelatedData;
+    private short fSeverity = DOMError.SEVERITY_WARNING;
+    private final String fMessage = null;
+    private DOMLocatorImpl fLocator = new DOMLocatorImpl();
+    private Exception fException = null;
+    private String fType;
+    private Object fRelatedData;
 
     /** Default constructor. */
     public DOMErrorImpl() {
@@ -57,7 +57,7 @@ public class DOMErrorImpl implements DOMError {
 
     /**
      * Extracts information from XMLParserException
-     * 
+     *
      * @param severity  the severity
      * @param exception the exception
      */

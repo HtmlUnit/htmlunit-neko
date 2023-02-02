@@ -18,7 +18,6 @@
 package net.sourceforge.htmlunit.xerces.dom;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -70,31 +69,31 @@ import net.sourceforge.htmlunit.xerces.xni.NamespaceContext;
 public class CoreDocumentImpl extends ParentNode implements Document {
 
     /** Document type. */
-    protected DocumentTypeImpl docType;
+    private DocumentTypeImpl docType;
 
     /** Document element. */
-    protected ElementImpl docElement;
+    private ElementImpl docElement;
 
     /** NodeListCache free list */
-    protected NodeListCache fFreeNLCache;
+    private NodeListCache fFreeNLCache;
 
     /** Experimental DOM Level 3 feature: Document encoding */
-    protected String encoding;
+    private String encoding;
 
     /** Experimental DOM Level 3 feature: Document actualEncoding */
-    protected String actualEncoding;
+    private String actualEncoding;
 
     /** Experimental DOM Level 3 feature: Document version */
-    protected String version;
+    private String version;
 
     /** Experimental DOM Level 3 feature: Document standalone */
-    protected boolean standalone;
+    private boolean standalone;
 
     /** Experimental DOM Level 3 feature: documentURI */
-    protected String fDocumentURI;
+    private String fDocumentURI;
 
     /** Identifiers. */
-    protected Hashtable<String, Element> identifiers;
+    private HashMap<String, Element> identifiers;
 
     /** Table for quick check of child insertion. */
     private final static int[] kidOK;
@@ -1126,7 +1125,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 String elementId = reversedIdentifiers.get(source);
                 if (elementId != null) {
                     if (identifiers == null)
-                        identifiers = new Hashtable<>();
+                        identifiers = new HashMap<>();
 
                     identifiers.put(elementId, newElement);
                 }
@@ -1273,7 +1272,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
         return newnode;
 
-    } // importNode(Node,boolean,boolean,Hashtable):Node
+    }
 
     /**
      * DOM Level 3 WD - Experimental Change the node's ownerDocument, and its
@@ -1489,7 +1488,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         if (identifiers == null) {
-            identifiers = new Hashtable<>();
+            identifiers = new HashMap<>();
         }
 
         identifiers.put(idName, element);

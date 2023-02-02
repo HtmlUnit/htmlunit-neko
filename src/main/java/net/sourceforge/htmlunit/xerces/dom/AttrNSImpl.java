@@ -39,7 +39,7 @@ public class AttrNSImpl extends AttrImpl {
     static final String xmlURI = "http://www.w3.org/XML/1998/namespace";
 
     /** DOM2: Namespace URI. */
-    protected String namespaceURI;
+    private String namespaceURI;
 
     /** DOM2: localName. */
     private String localName;

@@ -68,15 +68,15 @@ public class DeepNodeListImpl implements NodeList {
 
     protected final NodeImpl rootNode; // Where the search started
     protected final String tagName; // Or "*" to mean all-tags-acceptable
-    protected int changes = 0;
-    protected ArrayList<Node> nodes;
+    private int changes = 0;
+    private ArrayList<Node> nodes;
 
-    protected String nsName;
-    protected boolean enableNS = false;
+    private String nsName;
+    private boolean enableNS = false;
 
     /**
      * Constructor.
-     * 
+     *
      * @param rootNode the root node
      * @param tagName  the tag name
      */
@@ -88,7 +88,7 @@ public class DeepNodeListImpl implements NodeList {
 
     /**
      * Constructor for Namespace support.
-     * 
+     *
      * @param rootNode the root node
      * @param nsName   the namespace
      * @param tagName  the tag name
@@ -154,7 +154,7 @@ public class DeepNodeListImpl implements NodeList {
      * Iterative tree-walker. When you have a Parent link, there's often no need to
      * resort to recursion. NOTE THAT only Element nodes are matched since we're
      * specifically supporting getElementsByTagName().
-     * 
+     *
      * @param current the current node
      * @return next node
      */

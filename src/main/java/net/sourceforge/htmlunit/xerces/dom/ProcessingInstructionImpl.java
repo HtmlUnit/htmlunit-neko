@@ -29,7 +29,7 @@ import org.w3c.dom.ProcessingInstruction;
  */
 public class ProcessingInstructionImpl extends CharacterDataImpl implements ProcessingInstruction {
 
-    protected final String target;
+    private final String target;
 
     // Factory constructor.
     public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc, String target, String data) {

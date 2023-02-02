@@ -37,7 +37,7 @@ public abstract class ChildNode extends NodeImpl {
      * those normally via a Document's factory methods
      * <p>
      * Every Node knows what Document it belongs to.
-     * 
+     *
      * @param ownerDocument the owner document
      */
     protected ChildNode(CoreDocumentImpl ownerDocument) {
@@ -54,7 +54,7 @@ public abstract class ChildNode extends NodeImpl {
      * <P>
      * Note: since we never have any children deep is meaningless here, ParentNode
      * overrides this behavior.
-     * 
+     *
      * @see ParentNode
      *
      *      <p>

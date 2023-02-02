@@ -52,7 +52,7 @@ public abstract class CharacterDataImpl extends ChildNode {
 
     /**
      * Factory constructor.
-     * 
+     *
      * @param ownerDocument the owner document
      * @param data          the data
      */
@@ -83,7 +83,7 @@ public abstract class CharacterDataImpl extends ChildNode {
     /**
      * Convenience wrapper for calling setNodeValueInternal when we are not
      * performing a replacement operation
-     * 
+     *
      * @param value the value
      */
     protected void setNodeValueInternal(String value) {
@@ -97,7 +97,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * This is important, because we do one type of Range fix-up, from the
      * high-level functions in CharacterData, and another type if the client simply
      * calls setNodeValue(value).
-     * 
+     *
      * @param value   the value
      * @param replace flag to signal replace
      */
@@ -166,7 +166,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * node. Note that this, and insert(), are the paths by which a DOM could wind
      * up accumulating more data than the language's strings can easily handle. (See
      * above discussion.)
-     * 
+     *
      * @param data the data
      */
     public void appendData(String data) {
@@ -184,7 +184,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * Remove a range of characters from the node's value. Throws a DOMException if
      * the offset is beyond the end of the string. However, a deletion _count_ that
      * exceeds the available data is accepted as a delete-to-end request.
-     * 
+     *
      * @param offset the offser
      * @param count  the count
      *
@@ -231,7 +231,7 @@ public abstract class CharacterDataImpl extends ChildNode {
     /**
      * Insert additional characters into the data stored in this node, at the offset
      * specified.
-     * 
+     *
      * @param offset the offset
      * @param data   the data
      *
@@ -309,7 +309,7 @@ public abstract class CharacterDataImpl extends ChildNode {
 
     /**
      * Store character data into this node.
-     * 
+     *
      * @param value the value
      */
     public void setData(String value) throws DOMException {

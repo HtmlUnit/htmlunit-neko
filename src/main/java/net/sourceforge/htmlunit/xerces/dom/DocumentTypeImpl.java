@@ -47,25 +47,25 @@ import org.w3c.dom.UserDataHandler;
 public class DocumentTypeImpl extends ParentNode implements DocumentType {
 
     /** Document type name. */
-    protected final String name;
+    private final String name;
 
     /** Entities. */
-    protected NamedNodeMapImpl entities;
+    private NamedNodeMapImpl entities;
 
     /** Notations. */
-    protected NamedNodeMapImpl notations;
+    private NamedNodeMapImpl notations;
 
     /** Elements. */
-    protected NamedNodeMapImpl elements;
+    private NamedNodeMapImpl elements;
 
     // DOM2: support public ID.
-    protected String publicID;
+    private String publicID;
 
     // DOM2: support system ID.
-    protected String systemID;
+    private String systemID;
 
     // DOM2: support internal subset.
-    protected String internalSubset;
+    private String internalSubset;
 
     // The following are required for compareDocumentPosition
     // Doctype number. Doc types which have no owner may be assigned

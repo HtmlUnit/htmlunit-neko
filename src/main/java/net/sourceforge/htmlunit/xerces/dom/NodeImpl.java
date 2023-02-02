@@ -85,7 +85,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
     protected NodeImpl ownerNode; // typically the parent but not always!
 
-    protected short flags;
+    private short flags;
 
     protected final static short READONLY = 0x1 << 0;
     protected final static short SYNCDATA = 0x1 << 1;
