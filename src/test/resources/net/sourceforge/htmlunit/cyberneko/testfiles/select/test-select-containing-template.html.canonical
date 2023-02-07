@@ -1,0 +1,14 @@
+(HTML
+(head
+)head
+(BODY
+(select
+(template
+(a
+Ahref abc
+"anchor
+)a
+)template
+)select
+)BODY
+)HTML

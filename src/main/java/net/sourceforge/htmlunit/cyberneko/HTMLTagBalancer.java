@@ -253,6 +253,9 @@ public class HTMLTagBalancer
     /** True if a svg is in the stack (no parent checking takes place) */
     protected boolean fOpenedSvg;
 
+    /** True if a select is in the stack */
+    protected boolean fOpenedSelect;
+
     // temp vars
 
     /** A qualified name. */
@@ -602,6 +605,21 @@ public class HTMLTagBalancer
             return;
         }
 
+        if (!fTemplateFragment && fOpenedSelect) {
+            if (elementCode == HTMLElements.SELECT) {
+                final QName head = createQName("SELECT");
+                endElement(head, synthesizedAugs());
+
+                notifyDiscardedStartElement(elem, attrs, augs);
+                return;
+            }
+            else if (elementCode != HTMLElements.OPTION
+                        && elementCode != HTMLElements.OPTGROUP) {
+                notifyDiscardedStartElement(elem, attrs, augs);
+                return;
+            }
+        }
+
         if (elementCode == HTMLElements.HEAD) {
             if (fSeenHeadElement) {
                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -747,6 +765,9 @@ public class HTMLTagBalancer
         if (elementCode == HTMLElements.SVG) {
             fOpenedSvg = true;
         }
+        else if (!fTemplateFragment && elementCode == HTMLElements.SELECT) {
+            fOpenedSelect = true;
+        }
 
         // if block element, save immediate parent inline elements
         int depth = 0;
@@ -802,7 +823,8 @@ public class HTMLTagBalancer
                 }
 
                 // should we stop searching?
-                if (info.element.isBlock() || element.isParent(info.element)) {
+                if (info.element.code == HTMLElements.TEMPLATE
+                        || info.element.isBlock() || element.isParent(info.element)) {
                     break;
                 }
             }
@@ -1078,6 +1100,17 @@ public class HTMLTagBalancer
         // get element information
         final HTMLElements.Element elem = getElement(element);
         final short elementCode = elem.code;
+
+
+        if (!fTemplateFragment && fOpenedSelect) {
+            if (elementCode == HTMLElements.SELECT) {
+                fOpenedSelect = false;
+            } else if (elementCode != HTMLElements.OPTION
+                        && elementCode != HTMLElements.OPTGROUP) {
+                notifyDiscardedEndElement(element, augs);
+                return;
+            }
+        }
 
         if (elementCode == HTMLElements.TEMPLATE) {
             fTemplateFragment = false;
