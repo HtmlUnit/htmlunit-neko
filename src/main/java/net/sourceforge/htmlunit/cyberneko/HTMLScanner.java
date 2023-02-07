@@ -2088,6 +2088,9 @@ public class HTMLScanner
                                 else if (!fParseNoFramesContent && "noframes".equals(enameLC)) {
                                     scanUntilEndTag("noframes");
                                 }
+                                else if ("noembed".equals(enameLC)) {
+                                    scanUntilEndTag("noembed");
+                                }
                                 else if (ename != null && !fSingleBoolean[0]
                                     && htmlConfiguration_.htmlElements_.getElement(enameLC).isSpecial()
                                     && (!ename.equalsIgnoreCase("TITLE") || isEnded(enameLC))) {

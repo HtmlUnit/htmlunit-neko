@@ -3,8 +3,7 @@
 )head
 (BODY
 (noembed
-(noembed
-)noembed
+"<noembed>
 )noembed
 )BODY
 )HTML

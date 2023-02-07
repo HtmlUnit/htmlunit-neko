@@ -3,12 +3,7 @@
 )head
 (BODY
 (noembed
-(div
-"hello 
-(span
-"world
-)span
-)div
+"<div>hello <span>world</span>
 )noembed
 )BODY
 )HTML
