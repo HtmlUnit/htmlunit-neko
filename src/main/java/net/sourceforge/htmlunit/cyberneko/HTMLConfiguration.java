@@ -158,18 +158,15 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         //
 
         // recognized features
-        final String VALIDATION = "http://xml.org/sax/features/validation";
         final String[] recognizedFeatures = {
             AUGMENTATIONS,
             NAMESPACES,
-            VALIDATION,
             REPORT_ERRORS,
             SIMPLE_ERROR_FORMAT,
         };
         addRecognizedFeatures(recognizedFeatures);
         setFeature(AUGMENTATIONS, false);
         setFeature(NAMESPACES, true);
-        setFeature(VALIDATION, false);
         setFeature(REPORT_ERRORS, false);
         setFeature(SIMPLE_ERROR_FORMAT, false);
 

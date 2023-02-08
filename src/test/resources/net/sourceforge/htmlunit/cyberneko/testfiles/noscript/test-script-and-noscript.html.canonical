@@ -2,11 +2,10 @@
 (HEAD
 (script
 )script
-)HEAD
-(BODY
 (noscript
-(div
-)div
+"<div />
 )noscript
-)BODY
+)HEAD
+(body
+)body
 )HTML

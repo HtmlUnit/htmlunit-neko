@@ -1,0 +1,25 @@
+(HTML
+(head
+)head
+(BODY
+(video
+Acontrols 
+(source
+Asrc myVideo.webm
+Atype video/webm
+)source
+(source
+Asrc myVideo.mp4
+Atype video/mp4
+)source
+(p
+"Your browser doesn't support HTML video. Here is a 
+(a
+Ahref myVideo.mp4
+"link to the video
+)a
+" instead.
+)p
+)video
+)BODY
+)HTML

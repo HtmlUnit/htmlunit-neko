@@ -49,10 +49,12 @@ public class HTMLElements {
     public static final short AREA = APPLET+1;
     public static final short ARTICLE = AREA+1;
     public static final short ASIDE = ARTICLE+1;
-    public static final short B = ASIDE+1;
+    public static final short AUDIO = ASIDE+1;
+    public static final short B = AUDIO+1;
     public static final short BASE = B+1;
     public static final short BASEFONT = BASE+1;
-    public static final short BDO = BASEFONT+1;
+    public static final short BDI = BASEFONT+1;
+    public static final short BDO = BDI+1;
     public static final short BGSOUND = BDO+1;
     public static final short BIG = BGSOUND+1;
     public static final short BLINK = BIG+1;
@@ -172,7 +174,8 @@ public class HTMLElements {
     public static final short U = TT+1;
     public static final short UL = U+1;
     public static final short VAR = UL+1;
-    public static final short WBR = VAR+1;
+    public static final short VIDEO = VAR+1;
+    public static final short WBR = VIDEO+1;
     public static final short XML = WBR+1;
     public static final short XMP = XML+1;
     public static final short UNKNOWN = XMP+1;
@@ -219,6 +222,8 @@ public class HTMLElements {
             new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
 
             new Element(ASIDE, "ASIDE", Element.BLOCK, BODY, new short[] {P}),
+
+            new Element(AUDIO, "AUDIO", Element.CONTAINER, BODY, null),
         };
         elementsArray['B'-'A'] = new Element[] {
             // B - - (%inline;)*
@@ -227,6 +232,8 @@ public class HTMLElements {
             new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
             // BASEFONT
             new Element(BASEFONT, "BASEFONT", Element.EMPTY, HEAD, null),
+
+            new Element(BDI, "BDI", Element.INLINE, BODY, null),
             // BDO - - (%inline;)*
             new Element(BDO, "BDO", Element.INLINE, BODY, null),
             // BGSOUND
@@ -386,7 +393,7 @@ public class HTMLElements {
             // NOLAYER
             new Element(NOLAYER, "NOLAYER", Element.CONTAINER, BODY, null),
             // NOSCRIPT - - (%block;)+
-            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{BODY}, null),
+            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD,BODY}, null),
         };
         elementsArray['O'-'A'] = new Element[] {
             // OBJECT - - (PARAM | %flow;)*
@@ -402,7 +409,7 @@ public class HTMLElements {
             // P - O (%inline;)*
             new Element(P, "P", Element.CONTAINER, BODY, new short[]{P,SVG}),
             // PARAM - O EMPTY
-            new Element(PARAM, "PARAM", Element.EMPTY, HEAD, null),
+            new Element(PARAM, "PARAM", Element.EMPTY, BODY, null),
             // PLAINTEXT
             new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
             // PRE - - (%inline;)* -(%pre.exclusion;)
@@ -442,7 +449,7 @@ public class HTMLElements {
             // SOUND
             new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
 
-            new Element(SOURCE, "SOURCE", Element.EMPTY, HEAD, null),
+            new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
             // SPACER
             new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
             // SPAN - - (%inline;)*
@@ -498,6 +505,8 @@ public class HTMLElements {
         elementsArray['V'-'A'] = new Element[] {
             // VAR - - (%inline;)*
             new Element(VAR, "VAR", Element.INLINE, BODY, new short[]{SVG}),
+
+            new Element(VIDEO, "VIDEO", Element.CONTAINER, BODY, null),
         };
         elementsArray['W'-'A'] = new Element[] {
             // WBR
