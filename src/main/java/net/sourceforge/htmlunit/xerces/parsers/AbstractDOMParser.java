@@ -146,19 +146,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** True if saw the first chunk of characters */
     protected boolean fFirstChunk = false;
 
-    /**
-     * LSParserFilter: specifies that element with given QNAME and all its children
-     * must be rejected
-     */
-    protected final boolean fFilterReject = false;
-
     // data
 
     /** Base uri stack */
     protected final Stack<String> fBaseURIStack = new Stack<>();
-
-    /** LSParserFilter: tracks the element depth within a rejected subtree. */
-    protected int fRejectedElementDepth = 0;
 
     /** Attribute QName. */
     private final QName fAttrQName = new QName();
@@ -263,11 +254,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             System.out.println("==>startGeneralEntity (" + name + ")");
         }
 
-        // Always create entity reference nodes to be able to recreate
-        // entity as a part of doctype
-        if (fFilterReject) {
-            return;
-        }
         setCharacterData(true);
         EntityReference er = fDocument.createEntityReference(name);
         if (fDocumentImpl != null) {
@@ -312,7 +298,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void textDecl(String version, String encoding, Augmentations augs) throws XNIException {
-        if (fCurrentEntityDecl != null && !fFilterReject) {
+        if (fCurrentEntityDecl != null) {
             fCurrentEntityDecl.setXmlEncoding(encoding);
             if (version != null)
                 fCurrentEntityDecl.setXmlVersion(version);
@@ -329,7 +315,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void comment(XMLString text, Augmentations augs) throws XNIException {
-        if (!fIncludeComments || fFilterReject) {
+        if (!fIncludeComments) {
             return;
         }
         Comment comment = fDocument.createComment(text.toString());
@@ -358,9 +344,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>processingInstruction (" + target + ")");
-        }
-        if (fFilterReject) {
-            return;
         }
         ProcessingInstruction pi = fDocument.createProcessingInstruction(target, data.toString());
 
@@ -492,10 +475,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (DEBUG_EVENTS) {
             System.out.println("==>startElement (" + element.rawname + ")");
         }
-        if (fFilterReject) {
-            ++fRejectedElementDepth;
-            return;
-        }
+
         Element el = createElementNode(element);
         int attrCount = attributes.getLength();
         boolean seenSchemaDefault = false;
@@ -584,9 +564,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             System.out.println("==>characters(): " + text.toString());
         }
 
-        if (fFilterReject) {
-            return;
-        }
         if (fInCDATASection && fCreateCDATANodes) {
             if (fCurrentCDATASection == null) {
                 fCurrentCDATASection = fDocument.createCDATASection(text.toString());
@@ -641,7 +618,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     @Override
     public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
 
-        if (!fIncludeIgnorableWhitespace || fFilterReject) {
+        if (!fIncludeIgnorableWhitespace) {
             return;
         }
         Node child = fCurrentNode.getLastChild();
@@ -686,9 +663,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void startCDATA(Augmentations augs) throws XNIException {
 
         fInCDATASection = true;
-        if (fFilterReject) {
-            return;
-        }
         if (fCreateCDATANodes) {
             setCharacterData(false);
         }
@@ -705,9 +679,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void endCDATA(Augmentations augs) throws XNIException {
 
         fInCDATASection = false;
-        if (fFilterReject) {
-            return;
-        }
 
         if (fCurrentCDATASection != null) {
             fCurrentNode = fCurrentNode.getParentNode();
@@ -753,9 +724,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             System.out.println("==>endGeneralEntity: (" + name + ")");
         }
 
-        if (fFilterReject) {
-            return;
-        }
         setCharacterData(true);
 
         if (fDocumentType != null) {
