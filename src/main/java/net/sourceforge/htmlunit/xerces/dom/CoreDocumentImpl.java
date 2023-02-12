@@ -139,10 +139,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     /** Bypass error checking. */
     protected boolean errorChecking = true;
 
-    // Did version change at any point when the document was created ?
-    // this field helps us to optimize when normalizingDocument.
-    protected boolean xmlVersionChanged = false;
-
     /**
      * The following are required for compareDocumentPosition
      */
@@ -717,7 +713,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             // we need to change the flag value only --
             // when the version set is different than already set.
             if (!getXmlVersion().equals(value)) {
-                xmlVersionChanged = true;
                 // change the normalization value back to false
                 isNormalized(false);
                 version = value;
