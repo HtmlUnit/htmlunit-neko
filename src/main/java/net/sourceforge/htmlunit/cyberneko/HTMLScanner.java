@@ -141,15 +141,6 @@ public class HTMLScanner
     public static final String NOTIFY_XML_BUILTIN_REFS = "http://apache.org/xml/features/scanner/notify-builtin-refs";
 
     /**
-     * Notify handler of built-in entity references (e.g. &amp;nobr;,
-     * &amp;copy;, etc).
-     * <p>
-     * <strong>Note:</strong>
-     * This <em>includes</em> the five pre-defined XML general entities.
-     */
-    public static final String NOTIFY_HTML_BUILTIN_REFS = "http://cyberneko.org/html/features/scanner/notify-builtin-refs";
-
-    /**
      * Strip HTML comment delimiters ("&lt;!&minus;&minus;" and
      * "&minus;&minus;&gt;") from SCRIPT tag contents.
      */
@@ -205,7 +196,6 @@ public class HTMLScanner
         AUGMENTATIONS,
         REPORT_ERRORS,
         NOTIFY_XML_BUILTIN_REFS,
-        NOTIFY_HTML_BUILTIN_REFS,
         SCRIPT_STRIP_CDATA_DELIMS,
         SCRIPT_STRIP_COMMENT_DELIMS,
         STYLE_STRIP_CDATA_DELIMS,
@@ -224,7 +214,6 @@ public class HTMLScanner
     private static final Boolean[] RECOGNIZED_FEATURES_DEFAULTS = {
         null,
         null,
-        Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
@@ -342,9 +331,6 @@ public class HTMLScanner
 
     /** Notify XML built-in general entity references. */
     protected boolean fNotifyXmlBuiltinRefs;
-
-    /** Notify HTML built-in general entity references. */
-    protected boolean fNotifyHtmlBuiltinRefs;
 
     /** Strip CDATA delimiters from SCRIPT tags. */
     protected boolean fScriptStripCDATADelims;
@@ -708,7 +694,6 @@ public class HTMLScanner
         fAugmentations = manager.getFeature(AUGMENTATIONS);
         fReportErrors = manager.getFeature(REPORT_ERRORS);
         fNotifyXmlBuiltinRefs = manager.getFeature(NOTIFY_XML_BUILTIN_REFS);
-        fNotifyHtmlBuiltinRefs = manager.getFeature(NOTIFY_HTML_BUILTIN_REFS);
         fScriptStripCDATADelims = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
         fScriptStripCommentDelims = manager.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
         fStyleStripCDATADelims = manager.getFeature(STYLE_STRIP_CDATA_DELIMS);
@@ -743,9 +728,6 @@ public class HTMLScanner
         }
         else if (featureId.equals(NOTIFY_XML_BUILTIN_REFS)) {
             fNotifyXmlBuiltinRefs = state;
-        }
-        else if (featureId.equals(NOTIFY_HTML_BUILTIN_REFS)) {
-            fNotifyHtmlBuiltinRefs = state;
         }
         else if (featureId.equals(SCRIPT_STRIP_CDATA_DELIMS)) {
             fScriptStripCDATADelims = state;
