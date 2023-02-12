@@ -58,7 +58,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * <li>http://apache.org/xml/features/scanner/notify-char-refs
  * <li>http://apache.org/xml/features/scanner/notify-builtin-refs
  * <li>http://cyberneko.org/html/features/scanner/notify-builtin-refs
- * <li>http://cyberneko.org/html/features/scanner/fix-mswindows-refs
  * <li>http://cyberneko.org/html/features/scanner/script/strip-cdata-delims
  * <li>http://cyberneko.org/html/features/scanner/script/strip-comment-delims
  * <li>http://cyberneko.org/html/features/scanner/style/strip-cdata-delims
@@ -154,9 +153,6 @@ public class HTMLScanner
      */
     public static final String NOTIFY_HTML_BUILTIN_REFS = "http://cyberneko.org/html/features/scanner/notify-builtin-refs";
 
-    /** Fix Microsoft Windows&reg; character entity references. */
-    public static final String FIX_MSWINDOWS_REFS = "http://cyberneko.org/html/features/scanner/fix-mswindows-refs";
-
     /**
      * Strip HTML comment delimiters ("&lt;!&minus;&minus;" and
      * "&minus;&minus;&gt;") from SCRIPT tag contents.
@@ -215,7 +211,6 @@ public class HTMLScanner
         NOTIFY_CHAR_REFS,
         NOTIFY_XML_BUILTIN_REFS,
         NOTIFY_HTML_BUILTIN_REFS,
-        FIX_MSWINDOWS_REFS,
         SCRIPT_STRIP_CDATA_DELIMS,
         SCRIPT_STRIP_COMMENT_DELIMS,
         STYLE_STRIP_CDATA_DELIMS,
@@ -234,7 +229,6 @@ public class HTMLScanner
     private static final Boolean[] RECOGNIZED_FEATURES_DEFAULTS = {
         null,
         null,
-        Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
@@ -360,9 +354,6 @@ public class HTMLScanner
 
     /** Notify HTML built-in general entity references. */
     protected boolean fNotifyHtmlBuiltinRefs;
-
-    /** Fix Microsoft Windows&reg; character entity references. */
-    protected boolean fFixWindowsCharRefs;
 
     /** Strip CDATA delimiters from SCRIPT tags. */
     protected boolean fScriptStripCDATADelims;
@@ -731,7 +722,6 @@ public class HTMLScanner
         fNotifyCharRefs = manager.getFeature(NOTIFY_CHAR_REFS);
         fNotifyXmlBuiltinRefs = manager.getFeature(NOTIFY_XML_BUILTIN_REFS);
         fNotifyHtmlBuiltinRefs = manager.getFeature(NOTIFY_HTML_BUILTIN_REFS);
-        fFixWindowsCharRefs = manager.getFeature(FIX_MSWINDOWS_REFS);
         fScriptStripCDATADelims = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
         fScriptStripCommentDelims = manager.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
         fStyleStripCDATADelims = manager.getFeature(STYLE_STRIP_CDATA_DELIMS);
@@ -772,9 +762,6 @@ public class HTMLScanner
         }
         else if (featureId.equals(NOTIFY_HTML_BUILTIN_REFS)) {
             fNotifyHtmlBuiltinRefs = state;
-        }
-        else if (featureId.equals(FIX_MSWINDOWS_REFS)) {
-            fFixWindowsCharRefs = state;
         }
         else if (featureId.equals(SCRIPT_STRIP_CDATA_DELIMS)) {
             fScriptStripCDATADelims = state;
