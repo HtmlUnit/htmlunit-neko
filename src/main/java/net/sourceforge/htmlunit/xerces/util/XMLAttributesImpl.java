@@ -475,7 +475,6 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @param value the attribute value
      *
      * @see #setSpecified
-     * @see #checkDuplicatesNS
      */
     public void addAttributeNS(QName name, String type, String value) {
         // set values

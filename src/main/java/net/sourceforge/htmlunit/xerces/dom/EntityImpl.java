@@ -200,7 +200,7 @@ public class EntityImpl extends ParentNode implements Entity {
     /**
      * DOM Level 2: The public identifier associated with the entity. If not
      * specified, this will be null.
-     * 
+     *
      * @param id the id
      */
     public void setPublicId(String id) {
@@ -213,8 +213,6 @@ public class EntityImpl extends ParentNode implements Entity {
     }
 
     /**
-     * {@inheritDoc}
-     *
      * NON-DOM encoding - An attribute specifying, as part of the text declaration,
      * the encoding of this entity, when it is an external parsed entity. This is
      * null otherwise
@@ -264,7 +262,7 @@ public class EntityImpl extends ParentNode implements Entity {
     /**
      * DOM Level 2: The system identifier associated with the entity. If not
      * specified, this will be null.
-     * 
+     *
      * @param id the id
      */
     public void setSystemId(String id) {
@@ -280,7 +278,7 @@ public class EntityImpl extends ParentNode implements Entity {
      * "notation name" which tells applications how to deal with them. Parsed
      * entities, which <em>are</em> in XML format, don't need this and set it to
      * null.
-     * 
+     *
      * @param name the name
      */
     public void setNotationName(String name) {
