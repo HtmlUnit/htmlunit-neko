@@ -194,9 +194,6 @@ public class HTMLTagBalancer
     /** Modify HTML element names. */
     protected short fNamesElems;
 
-    /** Modify HTML attribute names. */
-    protected short fNamesAttrs;
-
     /** Error reporter. */
     protected HTMLErrorReporter fErrorReporter;
 
@@ -343,7 +340,6 @@ public class HTMLTagBalancer
 
         // get properties
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fErrorReporter = (HTMLErrorReporter)manager.getProperty(ERROR_REPORTER);
 
         fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
@@ -385,11 +381,6 @@ public class HTMLTagBalancer
 
         if (propertyId.equals(NAMES_ELEMS)) {
             fNamesElems = getNamesValue(String.valueOf(value));
-            return;
-        }
-
-        if (propertyId.equals(NAMES_ATTRS)) {
-            fNamesAttrs = getNamesValue(String.valueOf(value));
             return;
         }
     }
