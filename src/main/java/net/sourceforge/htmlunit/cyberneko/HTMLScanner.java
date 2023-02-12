@@ -55,7 +55,6 @@ import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;
  * <ul>
  * <li>http://cyberneko.org/html/features/augmentations
  * <li>http://cyberneko.org/html/features/report-errors
- * <li>http://apache.org/xml/features/scanner/notify-char-refs
  * <li>http://apache.org/xml/features/scanner/notify-builtin-refs
  * <li>http://cyberneko.org/html/features/scanner/notify-builtin-refs
  * <li>http://cyberneko.org/html/features/scanner/script/strip-cdata-delims
@@ -125,9 +124,6 @@ public class HTMLScanner
 
     /** Report errors. */
     protected static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
-
-    /** Notify character entity references (e.g. &amp;#32;, &amp;#x20;, etc). */
-    public static final String NOTIFY_CHAR_REFS = "http://apache.org/xml/features/scanner/notify-char-refs";
 
     /**
      * Notify handler of built-in entity references (e.g. &amp;amp;,
@@ -208,7 +204,6 @@ public class HTMLScanner
     private static final String[] RECOGNIZED_FEATURES = {
         AUGMENTATIONS,
         REPORT_ERRORS,
-        NOTIFY_CHAR_REFS,
         NOTIFY_XML_BUILTIN_REFS,
         NOTIFY_HTML_BUILTIN_REFS,
         SCRIPT_STRIP_CDATA_DELIMS,
@@ -229,7 +224,6 @@ public class HTMLScanner
     private static final Boolean[] RECOGNIZED_FEATURES_DEFAULTS = {
         null,
         null,
-        Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
@@ -346,9 +340,6 @@ public class HTMLScanner
     /** Report errors. */
     protected boolean fReportErrors;
 
-    /** Notify character entity references. */
-    protected boolean fNotifyCharRefs;
-
     /** Notify XML built-in general entity references. */
     protected boolean fNotifyXmlBuiltinRefs;
 
@@ -459,9 +450,6 @@ public class HTMLScanner
 
     /** Auto-detected Java encoding. */
     protected String fJavaEncoding;
-
-    /** True if the encoding matches "ISO-8859-*". */
-    protected boolean fIso8859Encoding;
 
     /** Element count. */
     protected int fElementCount;
@@ -719,7 +707,6 @@ public class HTMLScanner
         // get features
         fAugmentations = manager.getFeature(AUGMENTATIONS);
         fReportErrors = manager.getFeature(REPORT_ERRORS);
-        fNotifyCharRefs = manager.getFeature(NOTIFY_CHAR_REFS);
         fNotifyXmlBuiltinRefs = manager.getFeature(NOTIFY_XML_BUILTIN_REFS);
         fNotifyHtmlBuiltinRefs = manager.getFeature(NOTIFY_HTML_BUILTIN_REFS);
         fScriptStripCDATADelims = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
@@ -753,9 +740,6 @@ public class HTMLScanner
         }
         else if (featureId.equals(IGNORE_SPECIFIED_CHARSET)) {
             fIgnoreSpecifiedCharset = state;
-        }
-        else if (featureId.equals(NOTIFY_CHAR_REFS)) {
-            fNotifyCharRefs = state;
         }
         else if (featureId.equals(NOTIFY_XML_BUILTIN_REFS)) {
             fNotifyXmlBuiltinRefs = state;
@@ -872,10 +856,6 @@ public class HTMLScanner
             }
             fIANAEncoding = encodings[0];
             fJavaEncoding = encodings[1];
-            /* PATCH: Asgeir Asgeirsson */
-            fIso8859Encoding = fIANAEncoding == null
-                            || fIANAEncoding.toUpperCase(Locale.ROOT).startsWith("ISO-8859")
-                            || fIANAEncoding.equalsIgnoreCase(fDefaultIANAEncoding);
             encoding = fIANAEncoding;
             reader = new InputStreamReader(fByteStream, fJavaEncoding);
         }
@@ -2800,9 +2780,6 @@ public class HTMLScanner
                      }
                       // change the charset
                      else {
-                        fIso8859Encoding =
-                                charset.toUpperCase(Locale.ROOT).startsWith("ISO-8859")
-                                || charset.equalsIgnoreCase(fDefaultIANAEncoding);
                         fJavaEncoding = javaEncoding;
                         fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding));
                         fByteStream.playback();

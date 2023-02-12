@@ -84,9 +84,6 @@ public final class Constants {
      */
     public static final String INCLUDE_IGNORABLE_WHITESPACE = "dom/include-ignorable-whitespace";
 
-    /** Notify character references feature (scanner/notify-char-refs"). */
-    public static final String NOTIFY_CHAR_REFS_FEATURE = "scanner/notify-char-refs";
-
     /**
      * Notify built-in (&amp;amp;, etc.) references feature
      * (scanner/notify-builtin-refs").
@@ -109,7 +106,7 @@ public final class Constants {
 
     /** Xerces features. */
     private static final String[] fgXercesFeatures = { CONTINUE_AFTER_FATAL_ERROR_FEATURE,
-            CREATE_ENTITY_REF_NODES_FEATURE, INCLUDE_IGNORABLE_WHITESPACE, NOTIFY_CHAR_REFS_FEATURE,
+            CREATE_ENTITY_REF_NODES_FEATURE, INCLUDE_IGNORABLE_WHITESPACE,
             NOTIFY_BUILTIN_REFS_FEATURE, STANDARD_URI_CONFORMANT_FEATURE, };
 
     /** Xerces properties. */
