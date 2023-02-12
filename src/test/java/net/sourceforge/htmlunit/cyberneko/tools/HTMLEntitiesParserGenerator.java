@@ -38,6 +38,8 @@ public class HTMLEntitiesParserGenerator {
 
         final int id;
         String switchCode;
+        String ifCode;
+        int branches;
 
         public State() {
             id = idGen++;
@@ -83,7 +85,12 @@ public class HTMLEntitiesParserGenerator {
                 System.out.println("        switch (state) {");
             }
             System.out.println("            case " + state.id +":");
-            System.out.print(state.switchCode);
+            if (state.branches < 3) {
+                System.out.print(state.ifCode);
+            }
+            else {
+                System.out.print(state.switchCode);
+            }
             System.out.println("                break;");
         }
 
@@ -107,7 +114,9 @@ public class HTMLEntitiesParserGenerator {
         int c = -1;
         State state = new State();
         states.add(state);
+
         state.switchCode = "                switch (current) {\n";
+        state.ifCode = "";
 
         for (int i = 0; i < entities.length; i++) {
             String entity = entities[i];
@@ -115,14 +124,38 @@ public class HTMLEntitiesParserGenerator {
                 if (entity.charAt(start.length()) != c) {
                     c = entity.charAt(start.length());
                     if (entity.length() - start.length() > 1) {
-                        state.switchCode += "                    case '" + (char) c +"' :\n";
                         int stateId = switchChar(entities, mapped, start + (char) c, states);
+
+                        state.switchCode += "                    case '" + (char) c +"' :\n";
                         state.switchCode += "                        state = " + stateId + ";\n";
                         state.switchCode += "                        return true;\n";
+
+                        if (state.branches > 0) {
+                            state.ifCode += "                else if ('" + (char) c + "' == current) {\n";
+                        }
+                        else {
+                            state.ifCode += "                if ('" + (char) c + "' == current) {\n";
+                        }
+                        state.ifCode += "                    state = " + stateId + ";\n";
+                        state.ifCode += "                    return true;\n";
+                        state.ifCode += "                }\n";
+
+                        state.branches++;
                     } else {
                         state.switchCode += "                    case '" + (char) c + "' : // " + entity + "\n";
                         state.switchCode += "                        match = \"" + escape(mapped[i]) + "\";\n";
                         state.switchCode += "                        matchLength = consumedCount;\n";
+
+                        state.ifCode += "                // " + entity + "\n";
+                        if (state.branches > 0) {
+                            state.ifCode += "                else if ('" + (char) c + "' == current) {\n";
+                        }
+                        else {
+                            state.ifCode += "                if ('" + (char) c + "' == current) {\n";
+                        }
+                        state.ifCode += "                    match = \"" + escape(mapped[i]) + "\";\n";
+                        state.ifCode += "                    matchLength = consumedCount;\n";
+
                         // do we have to go on?
                         if (i+1 < entities.length
                                 && entities[i+1].startsWith(start + (char)c)
@@ -130,19 +163,38 @@ public class HTMLEntitiesParserGenerator {
                             int stateId = switchChar(entities, mapped, start + (char) c, states);
                             state.switchCode += "                        state = " + stateId + ";\n";
                             state.switchCode += "                        return true;\n";
+
+                            state.ifCode += "                    state = " + stateId + ";\n";
+                            state.ifCode += "                    return true;\n";
+                            state.ifCode += "                }\n";
+
+                            state.branches++;
                         } else {
                             if (c == ';') {
                                 state.switchCode += "                        state = STATE_ENDS_WITH_SEMICOLON;\n";
                                 state.switchCode += "                        return false;\n";
+
+                                state.ifCode += "                    state = STATE_ENDS_WITH_SEMICOLON;\n";
+                                state.ifCode += "                    return false;\n";
+                                state.ifCode += "                }\n";
+
+                                state.branches++;
                             } else {
                                 state.switchCode += "                        return false;\n";
+
+                                state.ifCode += "                    return false;\n";
+                                state.ifCode += "                }\n";
+
+                                state.branches++;
                             }
                         }
                     }
                 }
             }
         }
+
         state.switchCode += "                }\n";
+
         return state.id;
     }
 
