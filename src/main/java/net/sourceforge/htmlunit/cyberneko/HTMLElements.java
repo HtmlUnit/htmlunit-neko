@@ -108,8 +108,7 @@ public class HTMLElements {
     public static final short IMAGE = IMG+1;
     public static final short INPUT = IMAGE+1;
     public static final short INS = INPUT+1;
-    public static final short ISINDEX = INS+1;
-    public static final short KBD = ISINDEX+1;
+    public static final short KBD = INS+1;
     public static final short KEYGEN = KBD+1;
     public static final short LABEL = KEYGEN+1;
     public static final short LAYER = LABEL+1;
@@ -360,8 +359,6 @@ public class HTMLElements {
             new Element(INPUT, "INPUT", Element.EMPTY, BODY, null),
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
-            // ISINDEX
-            new Element(ISINDEX, "ISINDEX", Element.BLOCK, BODY, new short[] {ISINDEX, P}),
         };
         elementsArray['K'-'A'] = new Element[] {
             // KBD - - (%inline;)*
@@ -605,7 +602,8 @@ public class HTMLElements {
     public final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
-            element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
+            element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),
+                                NO_SUCH_ELEMENT.flags, NO_SUCH_ELEMENT.parentCodes, NO_SUCH_ELEMENT.closes);
             element.parent = NO_SUCH_ELEMENT.parent;
             element.parentCodes = NO_SUCH_ELEMENT.parentCodes;
         }
