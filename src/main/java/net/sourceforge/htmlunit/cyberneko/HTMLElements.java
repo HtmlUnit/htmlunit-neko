@@ -445,15 +445,15 @@ public class HTMLElements {
         };
         elementsArray['R'-'A'] = new Element[] {
             // RB
-            new Element(RB, "RB", Element.INLINE, RUBY, new short[]{RB}),
+            new Element(RB, "RB", Element.INLINE, BODY, null),
             // RBC
-            new Element(RBC, "RBC", 0, RUBY, new short[]{SVG}),
+            new Element(RBC, "RBC", 0, BODY, null),
             // RP
-            new Element(RP, "RP", Element.INLINE, BODY, new short[]{RB}),
+            new Element(RP, "RP", Element.INLINE, BODY, null),
             // RT
-            new Element(RT, "RT", Element.INLINE, BODY, new short[]{RB,RP}),
+            new Element(RT, "RT", Element.INLINE, BODY, null),
             // RTC
-            new Element(RTC, "RTC", 0, RUBY, new short[]{RBC}),
+            new Element(RTC, "RTC", 0, BODY, null),
             // RUBY
             new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{SVG}),
         };
@@ -481,17 +481,17 @@ public class HTMLElements {
             // SPAN - - (%inline;)*
             new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
             // STRIKE
-            new Element(STRIKE, "STRIKE", Element.INLINE, BODY, null),
+            new Element(STRIKE, "STRIKE", Element.INLINE, BODY, new short[]{SVG}),
             // STRONG - - (%inline;)*
-            new Element(STRONG, "STRONG", Element.INLINE, BODY, null),
+            new Element(STRONG, "STRONG", Element.INLINE, BODY, new short[]{SVG}),
             // STYLE - - %StyleSheet;
             new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD,BODY}, new short[]{STYLE,TITLE,META}),
             // SUB - - (%inline;)*
-            new Element(SUB, "SUB", Element.INLINE, BODY, null),
+            new Element(SUB, "SUB", Element.INLINE, BODY, new short[]{SVG}),
 
             new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
             // SUP - - (%inline;)*
-            new Element(SUP, "SUP", Element.INLINE, BODY, null),
+            new Element(SUP, "SUP", Element.INLINE, BODY, new short[]{SVG}),
 
             // SVG - - (%SVG;)*
             new Element(SVG, "SVG", Element.CONTAINER, BODY, null),
