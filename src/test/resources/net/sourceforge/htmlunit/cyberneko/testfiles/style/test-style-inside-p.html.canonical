@@ -1,0 +1,17 @@
+(html
+(head
+)head
+(body
+(h1
+"A heading
+)h1
+(p
+"A para
+(style
+"h1 {color:red;} p {color:blue;}
+)style
+"graph.
+)p
+" 
+)body
+)html
