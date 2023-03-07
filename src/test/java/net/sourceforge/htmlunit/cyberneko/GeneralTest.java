@@ -12,8 +12,8 @@ import java.io.StringWriter;
 
 import org.junit.jupiter.api.Test;
 
+import net.sourceforge.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMParser;
-import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 import net.sourceforge.htmlunit.xerces.xni.QName;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLDocumentFilter;
 import net.sourceforge.htmlunit.xerces.xni.parser.XMLInputSource;

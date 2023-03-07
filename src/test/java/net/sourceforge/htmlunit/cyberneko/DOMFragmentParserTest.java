@@ -13,8 +13,8 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 
+import net.sourceforge.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import net.sourceforge.htmlunit.cyberneko.parsers.DOMFragmentParser;
-import net.sourceforge.htmlunit.html.dom.HTMLDocumentImpl;
 
 /**
  * Unit tests for {@link DOMFragmentParser}.
