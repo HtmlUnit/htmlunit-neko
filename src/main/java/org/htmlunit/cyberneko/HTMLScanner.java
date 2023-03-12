@@ -27,23 +27,23 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.Stack;
 
-import org.htmlunit.xerces.util.EncodingMap;
-import org.htmlunit.xerces.util.NamespaceSupport;
-import org.htmlunit.xerces.util.URI;
-import org.htmlunit.xerces.util.XMLAttributesImpl;
-import org.htmlunit.xerces.util.XMLStringBuffer;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.NamespaceContext;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XMLDocumentHandler;
-import org.htmlunit.xerces.xni.XMLLocator;
-import org.htmlunit.xerces.xni.XMLString;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLComponentManager;
-import org.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import org.htmlunit.xerces.xni.parser.XMLDocumentScanner;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.util.EncodingMap;
+import org.htmlunit.cyberneko.xerces.util.NamespaceSupport;
+import org.htmlunit.cyberneko.xerces.util.URI;
+import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
+import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
+import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
+import org.htmlunit.cyberneko.xerces.xni.XMLString;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentScanner;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 
 /**
  * A simple HTML scanner. This scanner makes no attempt to balance tags

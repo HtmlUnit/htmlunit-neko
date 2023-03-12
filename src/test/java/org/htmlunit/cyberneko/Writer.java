@@ -24,14 +24,14 @@ import java.io.UnsupportedEncodingException;
 
 import org.htmlunit.cyberneko.HTMLEventInfo;
 import org.htmlunit.cyberneko.filters.DefaultFilter;
-import org.htmlunit.xerces.util.XMLStringBuffer;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.NamespaceContext;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XMLLocator;
-import org.htmlunit.xerces.xni.XMLString;
-import org.htmlunit.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
+import org.htmlunit.cyberneko.xerces.xni.XMLString;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
 
 /**
  * This class implements an filter to output "canonical" files for
@@ -469,15 +469,15 @@ public class Writer
 
     /** Main program. */
     public static void main(String[] argv) throws Exception {
-        final org.htmlunit.xerces.xni.parser.XMLDocumentFilter[] filters = {
+        final org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter[] filters = {
             new Writer(),
         };
-        final org.htmlunit.xerces.xni.parser.XMLParserConfiguration parser =
+        final org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration parser =
             new org.htmlunit.cyberneko.HTMLConfiguration();
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
         for (final String element : argv) {
-            final org.htmlunit.xerces.xni.parser.XMLInputSource source =
-                new org.htmlunit.xerces.xni.parser.XMLInputSource(null, element, null);
+            final org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource source =
+                new org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource(null, element, null);
             parser.parse(source);
         }
     }

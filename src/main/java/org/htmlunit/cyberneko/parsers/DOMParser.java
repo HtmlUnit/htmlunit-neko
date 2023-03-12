@@ -17,8 +17,8 @@
 package org.htmlunit.cyberneko.parsers;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.xerces.dom.DocumentImpl;
-import org.htmlunit.xerces.parsers.AbstractDOMParser;
+import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
+import org.htmlunit.cyberneko.xerces.parsers.AbstractDOMParser;
 
 /**
  * A DOM parser for HTML documents.

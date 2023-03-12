@@ -17,7 +17,7 @@
 package org.htmlunit.cyberneko.parsers;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.xerces.parsers.AbstractSAXParser;
+import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
 
 /**
  * A SAX parser for HTML documents.

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayInputStream;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.xerces.parsers.AbstractSAXParser;
+import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

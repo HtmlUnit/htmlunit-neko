@@ -17,7 +17,7 @@
 package org.htmlunit.cyberneko.html.dom;
 
 
-import org.htmlunit.xerces.dom.DOMImplementationImpl;
+import org.htmlunit.cyberneko.xerces.dom.DOMImplementationImpl;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.html.HTMLDOMImplementation;
 import org.w3c.dom.html.HTMLDocument;

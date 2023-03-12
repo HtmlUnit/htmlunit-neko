@@ -21,7 +21,7 @@ import org.w3c.dom.html.HTMLTableColElement;
 /**
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLTableColElement
- * @see org.htmlunit.xerces.dom.ElementImpl
+ * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
 public class HTMLTableColElementImpl
     extends HTMLElementImpl

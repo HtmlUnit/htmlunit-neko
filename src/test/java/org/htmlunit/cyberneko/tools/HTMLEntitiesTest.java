@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.HTMLEntitiesParser;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -16,7 +16,7 @@
 
 package org.htmlunit.cyberneko;
 
-import org.htmlunit.xerces.xni.parser.XMLParseException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
 
 /**
  * Defines an error reporter for reporting HTML errors. There is no such

@@ -2,9 +2,9 @@ package org.htmlunit.cyberneko;
 
 import java.io.IOException;
 
-import org.htmlunit.xerces.util.DefaultErrorHandler;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLParseException;
+import org.htmlunit.cyberneko.xerces.util.DefaultErrorHandler;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
 
 /**
  * Error handler for test purposes: just logs the errors to the provided PrintWriter.

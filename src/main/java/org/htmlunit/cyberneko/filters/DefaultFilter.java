@@ -17,18 +17,18 @@
 package org.htmlunit.cyberneko.filters;
 
 import org.htmlunit.cyberneko.HTMLComponent;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.NamespaceContext;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XMLDocumentHandler;
-import org.htmlunit.xerces.xni.XMLLocator;
-import org.htmlunit.xerces.xni.XMLString;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLComponentManager;
-import org.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLDocumentSource;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
+import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
+import org.htmlunit.cyberneko.xerces.xni.XMLString;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * This class implements a filter that simply passes document

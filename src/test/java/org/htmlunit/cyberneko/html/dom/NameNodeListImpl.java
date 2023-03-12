@@ -17,9 +17,9 @@
 
 package org.htmlunit.cyberneko.html.dom;
 
-import org.htmlunit.xerces.dom.DeepNodeListImpl;
-import org.htmlunit.xerces.dom.ElementImpl;
-import org.htmlunit.xerces.dom.NodeImpl;
+import org.htmlunit.cyberneko.xerces.dom.DeepNodeListImpl;
+import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
+import org.htmlunit.cyberneko.xerces.dom.NodeImpl;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

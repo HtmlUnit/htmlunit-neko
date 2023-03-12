@@ -26,7 +26,7 @@ import org.w3c.dom.html.HTMLSelectElement;
 /**
  * @author <a href="mailto:arkin@openxml.org">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLOptionElement
- * @see org.htmlunit.xerces.dom.ElementImpl
+ * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
 public class HTMLOptionElementImpl
     extends HTMLElementImpl

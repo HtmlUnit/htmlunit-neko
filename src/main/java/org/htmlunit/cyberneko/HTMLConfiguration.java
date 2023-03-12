@@ -24,16 +24,16 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
-import org.htmlunit.xerces.util.ParserConfigurationSettings;
-import org.htmlunit.xerces.xni.XMLDocumentHandler;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLConfigurationException;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLDocumentSource;
-import org.htmlunit.xerces.xni.parser.XMLErrorHandler;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.htmlunit.xerces.xni.parser.XMLParseException;
-import org.htmlunit.xerces.xni.parser.XMLParserConfiguration;
+import org.htmlunit.cyberneko.xerces.util.ParserConfigurationSettings;
+import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLErrorHandler;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * An XNI-based parser configuration that can be used to parse HTML

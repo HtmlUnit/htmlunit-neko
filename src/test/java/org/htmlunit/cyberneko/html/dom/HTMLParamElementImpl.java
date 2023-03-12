@@ -21,7 +21,7 @@ import org.w3c.dom.html.HTMLParamElement;
 /**
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLParamElement
- * @see org.htmlunit.xerces.dom.ElementImpl
+ * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
 public class HTMLParamElementImpl
     extends HTMLElementImpl

@@ -38,9 +38,9 @@ import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.HTMLScanner;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.htmlunit.xerces.xni.parser.XMLParserConfiguration;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.opentest4j.AssertionFailedError;

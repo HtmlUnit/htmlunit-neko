@@ -19,14 +19,14 @@ package org.htmlunit.cyberneko.filters;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.NamespaceContext;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XMLLocator;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLComponentManager;
-import org.htmlunit.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 
 /**
  * This filter binds namespaces if namespace processing is turned on

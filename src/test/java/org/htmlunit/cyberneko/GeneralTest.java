@@ -12,9 +12,9 @@ import java.io.StringWriter;
 
 import org.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import org.htmlunit.cyberneko.parsers.DOMParser;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -18,7 +18,7 @@ package org.htmlunit.cyberneko.html.dom;
 
 import java.util.Locale;
 
-import org.htmlunit.xerces.dom.ElementImpl;
+import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -28,7 +28,7 @@ import org.w3c.dom.html.HTMLFormElement;
 /**
  * Implements an HTML-specific element, an {@link org.w3c.dom.Element} that
  * will only appear inside HTML documents. This element extends {@link
- * org.htmlunit.xerces.dom.ElementImpl} by adding methods for directly
+ * org.htmlunit.cyberneko.xerces.dom.ElementImpl} by adding methods for directly
  * manipulating HTML-specific attributes. All HTML elements gain access to
  * the <code>id</code>, <code>title</code>, <code>lang</code>,
  * <code>dir</code> and <code>class</code> attributes. Other elements

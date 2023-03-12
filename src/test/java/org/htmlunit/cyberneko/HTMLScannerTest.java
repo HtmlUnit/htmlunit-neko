@@ -14,14 +14,14 @@ import java.util.Locale;
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.HTMLScanner;
 import org.htmlunit.cyberneko.filters.DefaultFilter;
-import org.htmlunit.xerces.util.XMLStringBuffer;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.htmlunit.xerces.xni.parser.XMLParserConfiguration;
+import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 /**

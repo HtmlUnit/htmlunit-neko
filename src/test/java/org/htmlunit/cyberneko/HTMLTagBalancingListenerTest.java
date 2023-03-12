@@ -9,12 +9,12 @@ import java.util.List;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.HTMLTagBalancingListener;
-import org.htmlunit.xerces.parsers.AbstractSAXParser;
-import org.htmlunit.xerces.xni.Augmentations;
-import org.htmlunit.xerces.xni.QName;
-import org.htmlunit.xerces.xni.XMLAttributes;
-import org.htmlunit.xerces.xni.XNIException;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
+import org.htmlunit.cyberneko.xerces.xni.Augmentations;
+import org.htmlunit.cyberneko.xerces.xni.QName;
+import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
 
 /**

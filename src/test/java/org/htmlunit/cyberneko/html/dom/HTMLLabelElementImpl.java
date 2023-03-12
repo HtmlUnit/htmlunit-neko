@@ -21,7 +21,7 @@ import org.w3c.dom.html.HTMLLabelElement;
 /**
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLLabelElement
- * @see org.htmlunit.xerces.dom.ElementImpl
+ * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
 public class HTMLLabelElementImpl
     extends HTMLElementImpl

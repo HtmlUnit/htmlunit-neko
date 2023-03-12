@@ -21,7 +21,7 @@ import org.w3c.dom.html.HTMLFieldSetElement;
 /**
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLFieldSetElement
- * @see org.htmlunit.xerces.dom.ElementImpl
+ * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
 public class HTMLFieldSetElementImpl
     extends HTMLElementImpl

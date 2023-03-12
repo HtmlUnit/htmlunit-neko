@@ -22,8 +22,8 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.htmlunit.xerces.dom.DocumentImpl;
-import org.htmlunit.xerces.dom.ElementImpl;
+import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
+import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;

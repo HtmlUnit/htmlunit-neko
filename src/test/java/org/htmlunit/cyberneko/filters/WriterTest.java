@@ -6,9 +6,9 @@ import java.io.InputStream;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.Writer;
-import org.htmlunit.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.xerces.xni.parser.XMLInputSource;
-import org.htmlunit.xerces.xni.parser.XMLParserConfiguration;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 /**

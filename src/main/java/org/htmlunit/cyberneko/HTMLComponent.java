@@ -16,7 +16,7 @@
 
 package org.htmlunit.cyberneko;
 
-import org.htmlunit.xerces.xni.parser.XMLComponent;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 
 /**
  * This interface extends the XNI <code>XMLComponent</code> interface
