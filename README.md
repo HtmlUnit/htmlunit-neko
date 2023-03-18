@@ -5,7 +5,8 @@ This is the code repository of the HTML parser used by HtmlUnit.
 HtmlUnit has been using CyberNeko HTML parser (http://nekohtml.sourceforge.net/) for a long time.
 But since the development was discontinued around 2014, we started our own fork, which now has many improvements.
 
-As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j). This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
+As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j).
+This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit)
 
@@ -16,7 +17,7 @@ As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://gi
 
 ### Latest release Version 2.70.0 / January 22, 2023
 
-#### CVE-2022-29546
+#### CVE-2022-29546 / CVE-2022-28366
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
 
 For maven, you would add:
@@ -55,6 +56,53 @@ You have to add the sonatype snapshot repository to your pom distributionManagem
             <enabled>false</enabled>
         </releases>
     </repository>
+
+
+## HowTo use NekoHtml
+
+### DOMParser
+
+The DOMParser can be used together with the simple build in DOM implementation or with your own.
+
+    final String html =
+                " <!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<body>\n"
+                + "<h1>NekoHtml</h1>\n"
+                + "</body>\n"
+                + "</html>";
+
+    final StringReader sr = new StringReader(html);
+    final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
+
+    // use the provided simple DocumentImpl
+    final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+    parser.parse(in);
+
+    HTMLDocumentImpl doc = (HTMLDocumentImpl) parser.getDocument();
+    NodeList headings = doc.getElementsByTagName("h1");
+
+### SAXParser
+
+Using the SAXParser is straigtforward - simple provide your own org.xml.sax.ContentHandler implementation.
+
+    final String html =
+                " <!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<body>\n"
+                + "<h1>NekoHtml</h1>\n"
+                + "</body>\n"
+                + "</html>";
+
+    final StringReader sr = new StringReader(html);
+    final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
+
+    final SAXParser parser = new SAXParser();
+
+    ContentHandler myContentHandler = new MyContentHandler();
+    parser.setContentHandler(myContentHandler);
+
+    parser.parse(in);
 
 
 ## Start NekoHtml Development
