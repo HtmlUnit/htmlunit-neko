@@ -20,45 +20,29 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 #### CVE-2022-29546 / CVE-2022-28366
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
 
-For maven, you would add:
+## Get it!
 
-    <dependency>
-        <groupId>net.sourceforge.htmlunit</groupId>
-        <artifactId>neko-htmlunit</artifactId>
-        <version>2.70.0</version>
-    </dependency>
+### Maven
 
-### Last CI build
-The latest builds are available from our
-[Jenkins CI build server][2]
+Add to your `pom.xml`:
 
-[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
+```xml
+<dependency>
+    <groupId>org.htmlunit</groupId>
+    <artifactId>neko-htmlunit</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
 
+### Gradle
 
-If you use maven please add:
+Add to your `build.gradle`:
 
-    <dependency>
-        <groupId>net.sourceforge.htmlunit</groupId>
-        <artifactId>neko-htmlunit</artifactId>
-        <version>2.71.0-SNAPSHOT</version>
-    </dependency>
+```groovy
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.0.0'
+```
 
-You have to add the sonatype snapshot repository to your pom distributionManagement section also:
-
-    <repository>
-        <id>OSS Sonatype snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-        </snapshots>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-    </repository>
-
-
-## HowTo use NekoHtml
+## HowTo use
 
 ### DOMParser
 
@@ -103,6 +87,36 @@ Using the SAXParser is straigtforward - simple provide your own org.xml.sax.Cont
     parser.setContentHandler(myContentHandler);
 
     parser.parse(in);
+
+
+### Last CI build
+The latest builds are available from our
+[Jenkins CI build server][2]
+
+[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
+
+
+If you use maven please add:
+
+    <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>neko-htmlunit</artifactId>
+        <version>2.71.0-SNAPSHOT</version>
+    </dependency>
+
+You have to add the sonatype snapshot repository to your pom distributionManagement section also:
+
+    <repository>
+        <id>OSS Sonatype snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </snapshots>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+    </repository>
 
 
 ## Start NekoHtml Development
