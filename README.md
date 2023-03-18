@@ -15,7 +15,7 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 2.70.0 / January 22, 2023
+### Latest release Version 3.0.0 / March 19, 2023
 
 #### CVE-2022-29546 / CVE-2022-28366
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -99,16 +99,16 @@ The latest builds are available from our
 If you use maven please add:
 
     <dependency>
-        <groupId>net.sourceforge.htmlunit</groupId>
+        <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>2.71.0-SNAPSHOT</version>
+        <version>3.1.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
 
     <repository>
         <id>OSS Sonatype snapshots</id>
-        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         <snapshots>
             <enabled>true</enabled>
             <updatePolicy>always</updatePolicy>
@@ -165,7 +165,7 @@ This part is intended for committer who are packaging a release.
    mvn -up clean deploy
 ```
 
-* Go to [Sonatype staging repositories](https://oss.sonatype.org/index.html#stagingRepositories) and process the deploy
+* Go to [Sonatype staging repositories](https://s01.oss.sonatype.org/index.html#stagingRepositories) and process the deploy
   - select the repository and close it - wait until the close is processed
   - release the package and wait until it is processed
 
