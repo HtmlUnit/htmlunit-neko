@@ -36,8 +36,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.cyberneko.HTMLScanner;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;

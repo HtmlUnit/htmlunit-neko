@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.cyberneko.HTMLTagBalancingListener;
 import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.QName;

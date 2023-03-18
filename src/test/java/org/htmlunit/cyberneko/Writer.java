@@ -22,7 +22,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import org.htmlunit.cyberneko.HTMLEventInfo;
 import org.htmlunit.cyberneko.filters.DefaultFilter;
 import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;

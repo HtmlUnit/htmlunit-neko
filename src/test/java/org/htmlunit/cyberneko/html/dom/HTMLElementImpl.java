@@ -131,8 +131,8 @@ public class HTMLElementImpl
      * @param name The name of the attribute
      * @return True or false depending on whether the attribute has been set
      */
-    boolean getBinary( String name ) {
-        return ( getAttributeNode( name ) != null );
+    boolean getBinary( String attrName) {
+        return ( getAttributeNode( attrName ) != null );
     }
 
     /**
@@ -225,15 +225,15 @@ public class HTMLElementImpl
      * is returned. For example, the align values "LEFT" and "left" will both
      * return as "Left".
      *
-     * @param name The name of the attribute
+     * @param attrName The name of the attribute
      * @return The capitalized value
      */
-    String getCapitalized( String name ) {
+    String getCapitalized( String attrName ) {
         String    value;
         char[]    chars;
         int        i;
 
-        value = getAttribute( name );
+        value = getAttribute( attrName );
         if ( value != null ) {
             // Convert string to charactares. Convert the first one to upper case,
             // the other characters to lower case, and return the converted string.

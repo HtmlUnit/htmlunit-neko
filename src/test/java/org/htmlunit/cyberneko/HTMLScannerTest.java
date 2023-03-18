@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.cyberneko.HTMLScanner;
 import org.htmlunit.cyberneko.filters.DefaultFilter;
 import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;

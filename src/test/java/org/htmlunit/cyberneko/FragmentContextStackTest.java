@@ -1,6 +1,5 @@
 package org.htmlunit.cyberneko;
 
-import org.htmlunit.cyberneko.HTMLTagBalancer;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -528,9 +528,9 @@ public class HTMLDocumentImpl
                 cnst = elemClass.getConstructor( _elemClassSigHTML );
                 return (Element) cnst.newInstance( new Object[] { this, tagName } );
             }
-            catch ( Exception except )
+            catch (Exception e)
             {
-                throw new IllegalStateException( "HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName);
+                throw new IllegalStateException( "HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
             }
         }
         return new HTMLElementImpl( this, tagName );

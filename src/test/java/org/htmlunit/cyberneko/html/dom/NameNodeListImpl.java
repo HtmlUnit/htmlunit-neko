@@ -21,7 +21,6 @@ import org.htmlunit.cyberneko.xerces.dom.DeepNodeListImpl;
 import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.htmlunit.cyberneko.xerces.dom.NodeImpl;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * This class implements the DOM's NodeList behavior for
@@ -30,8 +29,7 @@ import org.w3c.dom.NodeList;
  * @see DeepNodeListImpl
  */
 public class NameNodeListImpl
-    extends DeepNodeListImpl
-    implements NodeList {
+    extends DeepNodeListImpl {
 
 
     /** Constructor. */
