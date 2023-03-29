@@ -606,7 +606,8 @@ public class HTMLTagBalancer
                 return;
             }
             else if (elementCode != HTMLElements.OPTION
-                        && elementCode != HTMLElements.OPTGROUP) {
+                        && elementCode != HTMLElements.OPTGROUP
+                        && elementCode != HTMLElements.SCRIPT) {
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
@@ -1098,7 +1099,8 @@ public class HTMLTagBalancer
             if (elementCode == HTMLElements.SELECT) {
                 fOpenedSelect = false;
             } else if (elementCode != HTMLElements.OPTION
-                        && elementCode != HTMLElements.OPTGROUP) {
+                        && elementCode != HTMLElements.OPTGROUP
+                        && elementCode != HTMLElements.SCRIPT) {
                 notifyDiscardedEndElement(element, augs);
                 return;
             }
