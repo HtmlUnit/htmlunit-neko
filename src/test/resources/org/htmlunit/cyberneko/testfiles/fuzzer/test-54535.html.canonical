@@ -1,8 +1,8 @@
 (HTML
-(head
-)head
-(BODY
+(HEAD
 (template
 )template
-)BODY
+)HEAD
+(body
+)body
 )HTML
