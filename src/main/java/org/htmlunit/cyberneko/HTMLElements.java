@@ -505,7 +505,7 @@ public class HTMLElements {
             // TD - O (%flow;)*
             new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD,TH}),
 
-            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER, BODY, null),
+            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER, new short[]{HEAD,BODY}, null),
             // TEXTAREA - - (#PCDATA)
             new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
             // TFOOT - O (TR)+
