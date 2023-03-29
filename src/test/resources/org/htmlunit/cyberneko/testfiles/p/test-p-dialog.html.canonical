@@ -1,0 +1,15 @@
+(HTML
+(head
+)head
+(BODY
+(p
+"Paragraph 
+)p
+(dialog
+"Hello
+)dialog
+"text.
+(p
+)p
+)BODY
+)HTML

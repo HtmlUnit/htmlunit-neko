@@ -290,7 +290,7 @@ public class HTMLElements {
             // DFN - - (%inline;)*
             new Element(DFN, "DFN", Element.INLINE, BODY, null),
 
-            new Element(DIALOG, "DIALOG",  Element.CONTAINER, BODY, null),
+            new Element(DIALOG, "DIALOG",  Element.CONTAINER, BODY, new short[] {P}),
             // DIR
             new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
             // DIV - - (%flow;)*
