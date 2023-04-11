@@ -76,4 +76,11 @@ class LostText
     public boolean isEmpty() {
         return entries.isEmpty();
     }
+
+    /**
+     * Clears the list
+     */
+    public void clear() {
+        entries.clear();
+    }
 }

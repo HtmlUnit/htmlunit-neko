@@ -262,8 +262,8 @@ public class HTMLTagBalancer
     protected HTMLTagBalancingListener tagBalancingListener;
     private final LostText lostText_ = new LostText();
 
-    private boolean forcedStartElement_ = false;
-    private boolean forcedEndElement_ = false;
+    private boolean forcedStartElement_;
+    private boolean forcedEndElement_;
 
     /**
      * Stack of elements determining the context in which a document fragment should be parsed
@@ -354,6 +354,18 @@ public class HTMLTagBalancer
         fSeenFramesetElement = false;
         fSeenCharacters = false;
         fTemplateFragment = false;
+
+        fOpenedForm = false;
+        fOpenedSvg = false;
+        fOpenedSelect = false;
+
+        lostText_.clear();
+
+        forcedStartElement_ = false;
+        forcedEndElement_ = false;
+
+        endElementsBuffer_.clear();
+        discardedStartElements.clear();
     }
 
     /** Sets a feature. */
