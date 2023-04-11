@@ -42,7 +42,7 @@ public class SAXMessageFormatter {
      */
     public static String formatMessage(String key, Object[] arguments) throws MissingResourceException {
         final ResourceBundle resourceBundle = ResourceBundle
-                .getBundle("org.htmlunit.xerces.impl.msg.SAXMessages");
+                .getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
 
         // format message
         String msg;

@@ -60,7 +60,7 @@ public class XMLMessageFormatter implements MessageFormatter {
     public String formatMessage(String key, Object[] arguments) throws MissingResourceException {
 
         if (fResourceBundle == null) {
-            fResourceBundle = ResourceBundle.getBundle("org.htmlunit.xerces.impl.msg.XMLMessages");
+            fResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
         }
 
         // format message

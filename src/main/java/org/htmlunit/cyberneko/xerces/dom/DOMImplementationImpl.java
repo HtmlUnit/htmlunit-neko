@@ -47,7 +47,7 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
      *
      * @param feature The package name of the feature to test. In Level 1, supported
      *                values are "HTML" and "XML" (case-insensitive). At this
-     *                writing, org.htmlunit.xerces.dom supports only
+     *                writing, org.htmlunit.cyberneko.xerces.dom supports only
      *                XML.
      *
      * @param version The version number of the feature being tested. This is

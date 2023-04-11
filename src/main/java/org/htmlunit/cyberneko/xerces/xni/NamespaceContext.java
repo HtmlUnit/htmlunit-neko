@@ -26,7 +26,7 @@ package org.htmlunit.cyberneko.xerces.xni;
  *
  * @see <a href=
  *      "../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">
- *      org.htmlunit.xerces.util.SymbolTable</a>
+ *      org.htmlunit.cyberneko.xerces.util.SymbolTable</a>
  *
  * @author Andy Clark, IBM
  */

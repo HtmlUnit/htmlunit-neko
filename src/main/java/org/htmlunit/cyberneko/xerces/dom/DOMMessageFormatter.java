@@ -109,7 +109,7 @@ public class DOMMessageFormatter {
      * Initialize Message Formatter.
      */
     public static void init() {
-        domResourceBundle = ResourceBundle.getBundle("org.htmlunit.xerces.impl.msg.DOMMessages");
-        xmlResourceBundle = ResourceBundle.getBundle("org.htmlunit.xerces.impl.msg.XMLMessages");
+        domResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
+        xmlResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
     }
 }
