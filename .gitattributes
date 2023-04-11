@@ -7,6 +7,9 @@
 *.xml    text
 .travis.yml text
 
+src/test/resources/org/htmlunit/cyberneko/testfiles/test010.html binary
+src/test/resources/org/htmlunit/cyberneko/testfiles/test011.html binary
+
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-augmentations-following-cdata.html binary
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-augmentations-script-content.html  binary
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-newline-in-attribute-lf.html       binary
