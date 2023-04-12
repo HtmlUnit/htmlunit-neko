@@ -15,13 +15,13 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 ### Project News
 [HtmlUnit@Twitter][3]
 
-### Latest release Version 3.0.0 / March 19, 2023
+### Latest release Version 3.1.0 / April 12, 2023
 
 #### CVE-2022-29546 / CVE-2022-28366
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
 
 #### CVE-2023-26119
-#### HtmlUnit - NekoHtml Parser suffers from a remote code execution vulnerability on versions 2.70.0 and below.Please update to at least version 3.0.0.
+#### HtmlUnit - NekoHtml Parser suffers from a remote code execution vulnerability on versions 2.70.0 and below.Please update to at least version 3.1.0.
 
 ## Get it!
 
@@ -33,7 +33,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.0.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.1.0'
 ```
 
 ## HowTo use
@@ -104,7 +104,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>3.1.0-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom distributionManagement section also:
