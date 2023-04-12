@@ -124,13 +124,15 @@ You have to add the sonatype snapshot repository to your pom distributionManagem
 
 ## Porting from 2.x to 3.x
 
+Usually the upgrade should be simple:
+
     * change your pom.xml to switch to the new artifact
     * adjust the imports
         * net.sourceforge.htmlunit.cyberneko -> org.htmlunit.cyberneko
         * net.sourceforge.htmlunit.xerces -> org.htmlunit.cyberneko.xerces
 
-For version 3 we have removed some features and some classes. If you have any problems or if
-you miss something important for your project, please open an issue.
+But we have removed some features and some classes in version 3.
+If you have any problems or if you miss something important for your project, please open an issue.
 
 
 ## Start NekoHtml Development
