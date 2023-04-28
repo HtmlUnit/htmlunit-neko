@@ -17,11 +17,11 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 
 ### Latest release Version 3.1.0 / April 12, 2023
 
-#### CVE-2022-29546 / CVE-2022-28366
+#### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
 
-#### CVE-2023-26119
-#### HtmlUnit - NekoHtml Parser suffers from a remote code execution vulnerability on versions 2.70.0 and below.Please update to at least version 3.1.0.
+#### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
+#### HtmlUnit - NekoHtml Parser suffers from a denial of service via crafted Processing Instruction vulnerability on versions 2.26 and below.Please update to at least version 2.27.
 
 ## Get it!
 
