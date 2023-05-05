@@ -47,8 +47,6 @@ public class DOMErrorImpl implements DOMError {
     private final String fMessage = null;
     private DOMLocatorImpl fLocator = new DOMLocatorImpl();
     private Exception fException = null;
-    private String fType;
-    private Object fRelatedData;
 
     /** Default constructor. */
     public DOMErrorImpl() {
@@ -123,11 +121,11 @@ public class DOMErrorImpl implements DOMError {
 
     @Override
     public String getType() {
-        return fType;
+        return null;
     }
 
     @Override
     public Object getRelatedData() {
-        return fRelatedData;
+        return null;
     }
 }

@@ -112,7 +112,7 @@ public class QName implements Cloneable {
         if (object instanceof QName) {
             QName qname = (QName) object;
             if (qname.uri != null) {
-                return uri == qname.uri && localpart == qname.localpart;
+                return qname.uri.equals(uri) && localpart == qname.localpart;
             } else if (uri == null) {
                 return rawname == qname.rawname;
             }
