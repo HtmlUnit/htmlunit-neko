@@ -50,7 +50,7 @@ public class NameNodeListImpl
         while (current != null) {
             // Look down to first child.
             if (current.hasChildNodes()) {
-                current = (current.getFirstChild());
+                current = current.getFirstChild();
             }
 
             // Look right to sibling (but not from root!)

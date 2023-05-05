@@ -764,7 +764,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
             thisDepth += 1;
             if (node == other)
                 // The other node is an ancestor of this one.
-                return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+                return DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING;
             thisAncestor = node;
         }
 
@@ -772,7 +772,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
             otherDepth += 1;
             if (node == this)
                 // The other node is a descendent of the reference node.
-                return (DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING);
+                return DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING;
             otherAncestor = node;
         }
 
@@ -788,26 +788,25 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         case Node.ENTITY_NODE: {
             DocumentType container = thisOwnerDoc.getDoctype();
             if (container == otherAncestor)
-                return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+                return DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING;
             switch (otherAncestorType) {
             case Node.NOTATION_NODE:
             case Node.ENTITY_NODE: {
                 if (thisAncestorType != otherAncestorType)
                     // the nodes are of different types
-                    return ((thisAncestorType > otherAncestorType) ? DOCUMENT_POSITION_PRECEDING
-                            : DOCUMENT_POSITION_FOLLOWING);
+                    return (thisAncestorType > otherAncestorType) ? DOCUMENT_POSITION_PRECEDING : DOCUMENT_POSITION_FOLLOWING;
 
                 // the nodes are of the same type. Find order.
                 if (thisAncestorType == Node.NOTATION_NODE) {
                     if (((NamedNodeMapImpl) container.getNotations()).precedes(otherAncestor, thisAncestor)) {
-                        return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                        return DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
                     }
-                    return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                    return DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
                 }
                 if (((NamedNodeMapImpl) container.getEntities()).precedes(otherAncestor, thisAncestor)) {
-                    return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                    return DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
                 }
-                return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                return DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
             }
             }
             thisNode = thisAncestor = thisOwnerDoc;
@@ -815,9 +814,9 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         }
         case Node.DOCUMENT_TYPE_NODE: {
             if (otherNode == thisOwnerDoc)
-                return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_CONTAINS);
+                return DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_CONTAINS;
             else if (thisOwnerDoc != null && thisOwnerDoc == otherOwnerDoc)
-                return (DOCUMENT_POSITION_FOLLOWING);
+                return DOCUMENT_POSITION_FOLLOWING;
             break;
         }
         case Node.ATTRIBUTE_NODE: {
@@ -826,9 +825,9 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 otherNode = ((AttrImpl) otherAncestor).getOwnerElement();
                 if (otherNode == thisNode) {
                     if (((NamedNodeMapImpl) thisNode.getAttributes()).precedes(other, this))
-                        return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                        return DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
 
-                    return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+                    return DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
                 }
             }
 
@@ -838,7 +837,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 thisDepth += 1;
                 if (node == otherNode) {
                     // The other node is an ancestor of the owning element
-                    return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+                    return DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING;
                 }
                 thisAncestor = node;
             }
@@ -849,15 +848,15 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         case Node.ENTITY_NODE: {
             DocumentType container = thisOwnerDoc.getDoctype();
             if (container == this)
-                return (DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING);
+                return DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING;
             otherNode = otherAncestor = thisOwnerDoc;
             break;
         }
         case Node.DOCUMENT_TYPE_NODE: {
             if (thisNode == otherOwnerDoc)
-                return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IS_CONTAINED);
+                return DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IS_CONTAINED;
             else if (otherOwnerDoc != null && thisOwnerDoc == otherOwnerDoc)
-                return (DOCUMENT_POSITION_PRECEDING);
+                return DOCUMENT_POSITION_PRECEDING;
             break;
         }
         case Node.ATTRIBUTE_NODE: {

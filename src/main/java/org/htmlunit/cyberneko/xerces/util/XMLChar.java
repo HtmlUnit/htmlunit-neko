@@ -708,7 +708,7 @@ public class XMLChar {
      * @param c The character to check.
      */
     public static boolean isSupplemental(int c) {
-        return (c >= 0x10000 && c <= 0x10FFFF);
+        return c >= 0x10000 && c <= 0x10FFFF;
     }
 
     /**
@@ -746,7 +746,7 @@ public class XMLChar {
      * @param c The character to check.
      */
     public static boolean isHighSurrogate(int c) {
-        return (0xD800 <= c && c <= 0xDBFF);
+        return 0xD800 <= c && c <= 0xDBFF;
     }
 
     /**
@@ -755,7 +755,7 @@ public class XMLChar {
      * @param c The character to check.
      */
     public static boolean isLowSurrogate(int c) {
-        return (0xDC00 <= c && c <= 0xDFFF);
+        return 0xDC00 <= c && c <= 0xDFFF;
     }
 
     /**

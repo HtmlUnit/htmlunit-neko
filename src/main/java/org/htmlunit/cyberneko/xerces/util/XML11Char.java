@@ -147,7 +147,7 @@ public class XML11Char {
      * @param c The character to check.
      */
     public static boolean isXML11Space(int c) {
-        return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_SPACE) != 0);
+        return c < 0x10000 && (XML11CHARS[c] & MASK_XML11_SPACE) != 0;
     }
 
     /**
@@ -182,8 +182,8 @@ public class XML11Char {
      * @param c The character to check.
      */
     public static boolean isXML11ValidLiteral(int c) {
-        return ((c < 0x10000 && ((XML11CHARS[c] & MASK_XML11_VALID) != 0 && (XML11CHARS[c] & MASK_XML11_CONTROL) == 0))
-                || (0x10000 <= c && c <= 0x10FFFF));
+        return (c < 0x10000 && ((XML11CHARS[c] & MASK_XML11_VALID) != 0 && (XML11CHARS[c] & MASK_XML11_CONTROL) == 0))
+                || (0x10000 <= c && c <= 0x10FFFF);
     }
 
     /**
@@ -255,7 +255,7 @@ public class XML11Char {
      * @param c The character to check.
      */
     public static boolean isXML11NameHighSurrogate(int c) {
-        return (0xD800 <= c && c <= 0xDB7F);
+        return 0xD800 <= c && c <= 0xDB7F;
     }
 
     /*

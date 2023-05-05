@@ -132,7 +132,7 @@ public class HTMLElementImpl
      * @return True or false depending on whether the attribute has been set
      */
     boolean getBinary( String attrName) {
-        return ( getAttributeNode( attrName ) != null );
+        return getAttributeNode( attrName ) != null;
     }
 
     /**

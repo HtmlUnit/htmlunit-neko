@@ -796,7 +796,7 @@ public class URI {
             } else {
                 int colonIndex = p_uriSpec.lastIndexOf(':', end);
                 index = (colonIndex > start) ? colonIndex : end;
-                hasPort = (index != end);
+                hasPort = index != end;
             }
         }
         host = p_uriSpec.substring(start, index);
@@ -1086,7 +1086,7 @@ public class URI {
         }
 
         if (m_path != null) {
-            schemespec.append((m_path));
+            schemespec.append(m_path);
         }
 
         if (m_queryString != null) {
@@ -1405,7 +1405,7 @@ public class URI {
     public boolean isGenericURI() {
         // presence of the host (whether valid or empty) means
         // double-slashes which means generic uri
-        return (m_host != null);
+        return m_host != null;
     }
 
     /**
@@ -1415,7 +1415,7 @@ public class URI {
      */
     public boolean isAbsoluteURI() {
         // presence of the scheme means absolute uri
-        return (m_scheme != null);
+        return m_scheme != null;
     }
 
     /**
@@ -1583,7 +1583,7 @@ public class URI {
                 }
             }
         }
-        return (numDots == 3);
+        return numDots == 3;
     }
 
     /**

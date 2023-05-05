@@ -117,7 +117,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     /**
      * Attribute has no public constructor. Please use the factory method in the
      * Document class.
-     * 
+     *
      * @param ownerDocument the owner document
      * @param name          the name
      */
@@ -362,7 +362,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             return (String) value;
         }
 
-        ChildNode firstChild = ((ChildNode) value);
+        ChildNode firstChild = (ChildNode) value;
 
         String data;
         if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
@@ -842,7 +842,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
     /**
      * NodeList method: Count the immediate children of this node
-     * 
+     *
      * @return int
      */
     @Override
@@ -863,7 +863,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     /**
      * NodeList method: Return the Nth immediate child of this node, or null if the
      * index is out of bounds.
-     * 
+     *
      * @return org.w3c.dom.Node
      * @param index int
      */

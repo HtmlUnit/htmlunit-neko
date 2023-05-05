@@ -398,11 +398,11 @@ class HTMLCollectionImpl
                 break;
             case FORM:
                 // Any <FORM> element.
-                match = ( elem instanceof HTMLFormElement );
+                match = elem instanceof HTMLFormElement;
                 break;
             case IMAGE:
                 // Any <IMG> element. <OBJECT> elements with images are not returned.
-                match = ( elem instanceof HTMLImageElement );
+                match = elem instanceof HTMLImageElement;
                 break;
             case APPLET:
                 // Any <APPLET> element, and any <OBJECT> element which represents an
@@ -415,34 +415,33 @@ class HTMLCollectionImpl
                 break;
             case ELEMENT:
                 // All form elements implement HTMLFormControl for easy identification.
-                match = ( elem instanceof HTMLFormControl );
+                match = elem instanceof HTMLFormControl;
                 break;
             case LINK:
                 // Any <A> element, and any <AREA> elements with an 'href' attribute.
-                match = ( ( elem instanceof HTMLAnchorElement ||
+                match = ( elem instanceof HTMLAnchorElement ||
                             elem instanceof HTMLAreaElement ) &&
-                          elem.getAttribute( "href" ).length() > 0 );
+                          elem.getAttribute( "href" ).length() > 0;
                 break;
             case AREA:
                 // Any <AREA> element.
-                match = ( elem instanceof HTMLAreaElement );
+                match = elem instanceof HTMLAreaElement;
                 break;
             case OPTION:
                 // Any <OPTION> element.
-                match = ( elem instanceof HTMLOptionElement );
+                match = elem instanceof HTMLOptionElement;
                 break;
             case ROW:
                 // Any <TR> element.
-                match = ( elem instanceof HTMLTableRowElement );
+                match = elem instanceof HTMLTableRowElement;
                 break;
             case TBODY:
                 // Any <TBODY> element (one of three table section types).
-                match = ( elem instanceof HTMLTableSectionElement &&
-                          elem.getTagName().equals( "TBODY" ) );
+                match = elem instanceof HTMLTableSectionElement && elem.getTagName().equals( "TBODY" );
                 break;
             case CELL:
                 // Any <TD> or <TH> element.
-                match = ( elem instanceof HTMLTableCellElement );
+                match = elem instanceof HTMLTableCellElement;
                 break;
             }
 
