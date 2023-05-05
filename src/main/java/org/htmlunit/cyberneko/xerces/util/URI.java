@@ -1628,7 +1628,7 @@ public class URI {
         }
         // Address must contain 128-bits of information.
         else if (index == end) {
-            return (counter[0] == 8);
+            return counter[0] == 8;
         }
 
         if (index + 1 < end && address.charAt(index) == ':') {
@@ -1733,7 +1733,7 @@ public class URI {
      *         false otherwise
      */
     private static boolean isHex(char p_char) {
-        return (p_char <= 'f' && (fgLookupTable[p_char] & ASCII_HEX_CHARACTERS) != 0);
+        return p_char <= 'f' && (fgLookupTable[p_char] & ASCII_HEX_CHARACTERS) != 0;
     }
 
     /**
@@ -1742,7 +1742,7 @@ public class URI {
      * @return true if the char is alphabetic, false otherwise
      */
     private static boolean isAlpha(char p_char) {
-        return ((p_char >= 'a' && p_char <= 'z') || (p_char >= 'A' && p_char <= 'Z'));
+        return (p_char >= 'a' && p_char <= 'z') || (p_char >= 'A' && p_char <= 'Z');
     }
 
     /**
@@ -1751,7 +1751,7 @@ public class URI {
      * @return true if the char is alphanumeric, false otherwise
      */
     private static boolean isAlphanum(char p_char) {
-        return (p_char <= 'z' && (fgLookupTable[p_char] & MASK_ALPHA_NUMERIC) != 0);
+        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_ALPHA_NUMERIC) != 0;
     }
 
     /**
@@ -1761,7 +1761,7 @@ public class URI {
      * @return true if the char is a URI character, false otherwise
      */
     private static boolean isURICharacter(char p_char) {
-        return (p_char <= '~' && (fgLookupTable[p_char] & MASK_URI_CHARACTER) != 0);
+        return p_char <= '~' && (fgLookupTable[p_char] & MASK_URI_CHARACTER) != 0;
     }
 
     /**
@@ -1770,7 +1770,7 @@ public class URI {
      * @return true if the char is a scheme character, false otherwise
      */
     private static boolean isSchemeCharacter(char p_char) {
-        return (p_char <= 'z' && (fgLookupTable[p_char] & MASK_SCHEME_CHARACTER) != 0);
+        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_SCHEME_CHARACTER) != 0;
     }
 
     /**
@@ -1779,7 +1779,7 @@ public class URI {
      * @return true if the char is a userinfo character, false otherwise
      */
     private static boolean isUserinfoCharacter(char p_char) {
-        return (p_char <= 'z' && (fgLookupTable[p_char] & MASK_USERINFO_CHARACTER) != 0);
+        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_USERINFO_CHARACTER) != 0;
     }
 
     /**
@@ -1788,7 +1788,7 @@ public class URI {
      * @return true if the char is a path character, false otherwise
      */
     private static boolean isPathCharacter(char p_char) {
-        return (p_char <= '~' && (fgLookupTable[p_char] & MASK_PATH_CHARACTER) != 0);
+        return p_char <= '~' && (fgLookupTable[p_char] & MASK_PATH_CHARACTER) != 0;
     }
 
     /**

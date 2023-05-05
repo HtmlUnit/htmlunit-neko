@@ -75,7 +75,7 @@ final class XMLErrorCode {
         if (!(obj instanceof XMLErrorCode))
             return false;
         XMLErrorCode err = (XMLErrorCode) obj;
-        return (fDomain.equals(err.fDomain) && fKey.equals(err.fKey));
+        return fDomain.equals(err.fDomain) && fKey.equals(err.fKey);
     }
 
     /**

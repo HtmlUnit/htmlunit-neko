@@ -216,7 +216,7 @@ public class NamespaceSupport implements NamespaceContext {
 
         @Override
         public boolean hasNext() {
-            return (counter < size);
+            return counter < size;
         }
 
         @Override
