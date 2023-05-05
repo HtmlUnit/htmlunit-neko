@@ -708,7 +708,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public void setXmlVersion(String value) {
-        if (value.equals("1.0") || value.equals("1.1")) {
+        if ("1.0".equals(value) || "1.1".equals(value)) {
             // we need to change the flag value only --
             // when the version set is different than already set.
             if (!getXmlVersion().equals(value)) {
@@ -725,7 +725,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
 
         }
-        xml11Version = (getXmlVersion()).equals("1.1");
+        xml11Version = "1.1".equals(getXmlVersion());
     }
 
     /**
@@ -1786,11 +1786,11 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             if (namespace == null) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-            } else if (prefix.equals("xml") && !namespace.equals(NamespaceContext.XML_URI)) {
+            } else if ("xml".equals(prefix) && !namespace.equals(NamespaceContext.XML_URI)) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-            } else if (prefix.equals("xmlns") && !namespace.equals(NamespaceContext.XMLNS_URI)
-                    || (!prefix.equals("xmlns") && namespace.equals(NamespaceContext.XMLNS_URI))) {
+            } else if ("xmlns".equals(prefix) && !namespace.equals(NamespaceContext.XMLNS_URI)
+                    || (!"xmlns".equals(prefix) && namespace.equals(NamespaceContext.XMLNS_URI))) {
                 String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }

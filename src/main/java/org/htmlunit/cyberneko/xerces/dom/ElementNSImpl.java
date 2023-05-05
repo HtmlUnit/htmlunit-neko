@@ -80,9 +80,9 @@ public class ElementNSImpl extends ElementImpl {
             localName = qname;
             if (ownerDocument.errorChecking) {
                 ownerDocument.checkQName(null, localName);
-                if (qname.equals("xmlns") && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
+                if ("xmlns".equals(qname) && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
                         || (namespaceURI != null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
-                                && !qname.equals("xmlns"))) {
+                                && !"xmlns".equals(qname))) {
                     String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
                             null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
@@ -100,7 +100,7 @@ public class ElementNSImpl extends ElementImpl {
             // is different from " http://www.w3.org/XML/1998/namespace"
 
             if (ownerDocument.errorChecking) {
-                if (namespaceURI == null || (prefix.equals("xml") && !namespaceURI.equals(NamespaceContext.XML_URI))) {
+                if (namespaceURI == null || ("xml".equals(prefix) && !namespaceURI.equals(NamespaceContext.XML_URI))) {
                     String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
                             null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
@@ -212,7 +212,7 @@ public class ElementNSImpl extends ElementImpl {
                     String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
                             null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-                } else if (prefix.equals("xml")) {
+                } else if ("xml".equals(prefix)) {
                     if (!namespaceURI.equals(xmlURI)) {
                         String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
                                 null);

@@ -66,11 +66,11 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
             if (feature.startsWith("+")) {
                 feature = feature.substring(1);
             }
-            return ((feature.equalsIgnoreCase("Events") && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("Traversal") && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("Range") && (anyVersion || version.equals("2.0")))
-                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || version.equals("2.0"))));
+            return ((feature.equalsIgnoreCase("Events") && (anyVersion || "2.0".equals(version)))
+                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || "2.0".equals(version)))
+                    || (feature.equalsIgnoreCase("Traversal") && (anyVersion || "2.0".equals(version)))
+                    || (feature.equalsIgnoreCase("Range") && (anyVersion || "2.0".equals(version)))
+                    || (feature.equalsIgnoreCase("MutationEvents") && (anyVersion || "2.0".equals(version))));
         }
         return result;
     }

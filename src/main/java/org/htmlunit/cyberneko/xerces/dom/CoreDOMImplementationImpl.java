@@ -78,13 +78,13 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
             feature = feature.substring(1);
         }
         return (feature.equalsIgnoreCase("Core")
-                && (anyVersion || version.equals("1.0") || version.equals("2.0") || version.equals("3.0")))
+                && (anyVersion || "1.0".equals(version) || "2.0".equals(version) || "3.0".equals(version)))
                 || (feature.equalsIgnoreCase("XML")
-                        && (anyVersion || version.equals("1.0") || version.equals("2.0") || version.equals("3.0")))
+                        && (anyVersion || "1.0".equals(version) || "2.0".equals(version) || "3.0".equals(version)))
                 || (feature.equalsIgnoreCase("XMLVersion")
-                        && (anyVersion || version.equals("1.0") || version.equals("1.1")))
-                || (feature.equalsIgnoreCase("LS") && (anyVersion || version.equals("3.0")))
-                || (feature.equalsIgnoreCase("ElementTraversal") && (anyVersion || version.equals("1.0")));
+                        && (anyVersion || "1.0".equals(version) || "1.1".equals(version)))
+                || (feature.equalsIgnoreCase("LS") && (anyVersion || "3.0".equals(version)))
+                || (feature.equalsIgnoreCase("ElementTraversal") && (anyVersion || "1.0".equals(version)));
     } // hasFeature(String,String):boolean
 
     /**

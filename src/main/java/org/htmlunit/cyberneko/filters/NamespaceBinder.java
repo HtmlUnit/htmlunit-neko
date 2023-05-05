@@ -299,8 +299,8 @@ public class NamespaceBinder extends DefaultFilter {
     // @see #NAMES_LOWERCASE
     // @see #NAMES_UPPERCASE
     protected static short getNamesValue(String value) {
-        if (value.equals("lower")) { return NAMES_LOWERCASE; }
-        if (value.equals("upper")) { return NAMES_UPPERCASE; }
+        if ("lower".equals(value)) { return NAMES_LOWERCASE; }
+        if ("upper".equals(value)) { return NAMES_UPPERCASE; }
         return NAMES_NO_CHANGE;
     }
 
@@ -330,7 +330,7 @@ public class NamespaceBinder extends DefaultFilter {
                 attrs.getName(i, fQName);
                 String aname = fQName.rawname;
                 final String ANAME = aname.toUpperCase(Locale.ROOT);
-                if (ANAME.startsWith("XMLNS:") || ANAME.equals("XMLNS")) {
+                if (ANAME.startsWith("XMLNS:") || "XMLNS".equals(ANAME)) {
                     final int anamelen = aname.length();
 
                     // get parts
@@ -396,15 +396,15 @@ public class NamespaceBinder extends DefaultFilter {
             for (int i = 0; i < attrCount; i++) {
                 attrs.getName(i, fQName);
                 splitQName(fQName);
-                prefix = !fQName.rawname.equals("xmlns")
+                prefix = !"xmlns".equals(fQName.rawname)
                        ? (fQName.prefix != null ? fQName.prefix : "") : "xmlns";
                 // PATCH: Joseph Walton
-                if (!prefix.equals("")) {
-                    fQName.uri = prefix.equals("xml") ? XML_URI : fNamespaceContext.getURI(prefix);
+                if (!"".equals(prefix)) {
+                    fQName.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext.getURI(prefix);
                 }
                 // NOTE: You would think the xmlns namespace would be handled
                 //       by NamespaceSupport but it's not. -Ac
-                if (prefix.equals("xmlns") && fQName.uri == null) {
+                if ("xmlns".equals(prefix) && fQName.uri == null) {
                     fQName.uri = XMLNS_URI;
                 }
                 attrs.setName(i, fQName);

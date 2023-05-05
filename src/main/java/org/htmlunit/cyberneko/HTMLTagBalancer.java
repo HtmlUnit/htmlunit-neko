@@ -1370,10 +1370,10 @@ public class HTMLTagBalancer
      // @see #NAMES_LOWERCASE
      // @see #NAMES_UPPERCASE
     protected static short getNamesValue(String value) {
-        if (value.equals("lower")) {
+        if ("lower".equals(value)) {
             return NAMES_LOWERCASE;
         }
-        if (value.equals("upper")) {
+        if ("upper".equals(value)) {
             return NAMES_UPPERCASE;
         }
         return NAMES_NO_CHANGE;

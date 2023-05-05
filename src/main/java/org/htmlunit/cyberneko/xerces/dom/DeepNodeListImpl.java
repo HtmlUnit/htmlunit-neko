@@ -188,13 +188,13 @@ public class DeepNodeListImpl implements NodeList {
             // ("*" matches anything.)
             if (current != rootNode && current != null && current.getNodeType() == Node.ELEMENT_NODE) {
                 if (!enableNS) {
-                    if (tagName.equals("*") || ((ElementImpl) current).getTagName().equals(tagName)) {
+                    if ("*".equals(tagName) || ((ElementImpl) current).getTagName().equals(tagName)) {
                         return current;
                     }
                 } else {
                     // DOM2: Namespace logic.
-                    if (tagName.equals("*")) {
-                        if (nsName != null && nsName.equals("*")) {
+                    if ("*".equals(tagName)) {
+                        if (nsName != null && "*".equals(nsName)) {
                             return current;
                         }
 
@@ -206,7 +206,7 @@ public class DeepNodeListImpl implements NodeList {
                     } else {
                         ElementImpl el = (ElementImpl) current;
                         if (el.getLocalName() != null && el.getLocalName().equals(tagName)) {
-                            if (nsName != null && nsName.equals("*")) {
+                            if (nsName != null && "*".equals(nsName)) {
                                 return current;
                             }
 

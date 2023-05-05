@@ -155,8 +155,8 @@ public class CanonicalTest {
                         final String type = tokenizer.nextToken();
                         final String id = tokenizer.nextToken();
                         final String value = tokenizer.nextToken();
-                        if (type.equals("feature")) {
-                            parser.setFeature(id, value.equals("true"));
+                        if ("feature".equals(type)) {
+                            parser.setFeature(id, "true".equals(value));
                             if (HTMLScanner.REPORT_ERRORS.equals(id)) {
                                 parser.setErrorHandler(new HTMLErrorHandler(out));
                             }

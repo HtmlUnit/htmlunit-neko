@@ -1222,14 +1222,14 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 for (int i = 0; i < length; i++) {
                     Node attr = map.item(i);
                     namespace = attr.getNamespaceURI();
-                    if (namespace != null && namespace.equals("http://www.w3.org/2000/xmlns/")) {
+                    if (namespace != null && "http://www.w3.org/2000/xmlns/".equals(namespace)) {
                         String attrPrefix = attr.getPrefix();
                         String value = attr.getNodeValue();
                         // at this point we are dealing with DOM Level 2 nodes only
-                        if (specifiedPrefix == null && attr.getNodeName().equals("xmlns")) {
+                        if (specifiedPrefix == null && "xmlns".equals(attr.getNodeName())) {
                             // default namespace
                             return value.length() > 0 ? value : null;
-                        } else if (attrPrefix != null && attrPrefix.equals("xmlns")
+                        } else if (attrPrefix != null && "xmlns".equals(attrPrefix)
                                 && attr.getLocalName().equals(specifiedPrefix)) {
                             // non default namespace
                             return value.length() > 0 ? value : null;
@@ -1309,12 +1309,12 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
             for (int i = 0; i < length; i++) {
                 Node attr = map.item(i);
                 namespace = attr.getNamespaceURI();
-                if (namespace != null && namespace.equals("http://www.w3.org/2000/xmlns/")) {
+                if (namespace != null && "http://www.w3.org/2000/xmlns/".equals(namespace)) {
                     String attrPrefix = attr.getPrefix();
                     String value = attr.getNodeValue();
                     // DOM Level 2 nodes
-                    if (((attr.getNodeName().equals("xmlns"))
-                            || (attrPrefix != null && attrPrefix.equals("xmlns")) && value.equals(namespaceURI))) {
+                    if ((("xmlns".equals(attr.getNodeName()))
+                            || (attrPrefix != null && "xmlns".equals(attrPrefix)) && value.equals(namespaceURI))) {
 
                         String localname = attr.getLocalName();
                         String foundNamespace = el.lookupNamespaceURI(localname);

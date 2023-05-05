@@ -699,7 +699,7 @@ public class URI {
             tempString = path.substring(0, path.indexOf("/../"));
             segIndex = tempString.lastIndexOf('/');
             if (segIndex != -1) {
-                if (!tempString.substring(segIndex).equals("..")) {
+                if (!"..".equals(tempString.substring(segIndex))) {
                     path = path.substring(0, segIndex + 1).concat(path.substring(index + 4));
                     index = segIndex;
                 } else {

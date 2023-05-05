@@ -1010,10 +1010,10 @@ public class HTMLScanner
     // @see #NAMES_LOWERCASE
     // @see #NAMES_UPPERCASE
     protected static short getNamesValue(String value) {
-        if (value.equals("lower")) {
+        if ("lower".equals(value)) {
             return NAMES_LOWERCASE;
         }
-        if (value.equals("upper")) {
+        if ("upper".equals(value)) {
             return NAMES_UPPERCASE;
         }
         return NAMES_NO_CHANGE;
@@ -1483,8 +1483,8 @@ public class HTMLScanner
 
     // Returns true if the name is a built-in XML general entity reference.
     protected static boolean builtinXmlRef(String name) {
-        return name.equals("amp") || name.equals("lt") || name.equals("gt") ||
-               name.equals("quot") || name.equals("apos");
+        return "amp".equals(name) || "lt".equals(name) || "gt".equals(name) ||
+                "quot".equals(name) || "apos".equals(name);
     }
 
     //
