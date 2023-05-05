@@ -119,7 +119,8 @@ public class NamespaceSupport implements NamespaceContext {
     public boolean declarePrefix(String prefix, String uri) {
         // see if prefix already exists in current context
         for (int i = fNamespaceSize; i > fContext[fCurrentContext]; i -= 2) {
-            if (fNamespace[i - 2] == prefix) {
+            if ((prefix == null && fNamespace[i - 2] == null)
+                    || prefix.equals(fNamespace[i - 2])) {
                 // REVISIT: [Q] Should the new binding override the
                 // previously declared binding or should it
                 // it be ignored? -Ac
@@ -154,7 +155,8 @@ public class NamespaceSupport implements NamespaceContext {
 
         // find prefix in current context
         for (int i = fNamespaceSize; i > 0; i -= 2) {
-            if (fNamespace[i - 2] == prefix) {
+            if ((prefix == null && fNamespace[i - 2] == null)
+                    || prefix.equals(fNamespace[i - 2])) {
                 return fNamespace[i - 1];
             }
         }
@@ -192,7 +194,8 @@ public class NamespaceSupport implements NamespaceContext {
 
         // find prefix in current context
         for (int i = fNamespaceSize; i > 0; i -= 2) {
-            if (fNamespace[i - 2] == prefix) {
+            if ((prefix == null && fNamespace[i - 2] == null)
+                    || prefix.equals(fNamespace[i - 2])) {
                 return true;
             }
         }
