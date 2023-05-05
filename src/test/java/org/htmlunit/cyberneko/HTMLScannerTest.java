@@ -146,7 +146,7 @@ public class HTMLScannerTest {
        @Override
        public void endElement(QName element, Augmentations augs) throws XNIException {
            collectedStrings.add(")" + element.rawname);
-           if (element.localpart.equalsIgnoreCase("SCRIPT")) {
+           if ("SCRIPT".equalsIgnoreCase(element.localpart)) {
                // act as if evaluation of document.write would insert the content
                insert("<style type=\"text/css\" id=\"myStyle\">");
                insert("  .nwr {white-space: nowrap;}");

@@ -77,14 +77,14 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         if (feature.startsWith("+")) {
             feature = feature.substring(1);
         }
-        return (feature.equalsIgnoreCase("Core")
+        return ("Core".equalsIgnoreCase(feature)
                 && (anyVersion || "1.0".equals(version) || "2.0".equals(version) || "3.0".equals(version)))
-                || (feature.equalsIgnoreCase("XML")
+                || ("XML".equalsIgnoreCase(feature)
                         && (anyVersion || "1.0".equals(version) || "2.0".equals(version) || "3.0".equals(version)))
-                || (feature.equalsIgnoreCase("XMLVersion")
+                || ("XMLVersion".equalsIgnoreCase(feature)
                         && (anyVersion || "1.0".equals(version) || "1.1".equals(version)))
-                || (feature.equalsIgnoreCase("LS") && (anyVersion || "3.0".equals(version)))
-                || (feature.equalsIgnoreCase("ElementTraversal") && (anyVersion || "1.0".equals(version)));
+                || ("LS".equalsIgnoreCase(feature) && (anyVersion || "3.0".equals(version)))
+                || ("ElementTraversal".equalsIgnoreCase(feature) && (anyVersion || "1.0".equals(version)));
     } // hasFeature(String,String):boolean
 
     /**

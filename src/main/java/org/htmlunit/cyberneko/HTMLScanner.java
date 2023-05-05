@@ -1978,8 +1978,8 @@ public class HTMLScanner
                                 }
                                 else if (ename != null && !fSingleBoolean[0]
                                     && htmlConfiguration_.htmlElements_.getElement(enameLC).isSpecial()
-                                    && (!ename.equalsIgnoreCase("TITLE") || isEnded(enameLC))) {
-                                    if (ename.equalsIgnoreCase("PLAINTEXT")) {
+                                    && (!"TITLE".equalsIgnoreCase(ename) || isEnded(enameLC))) {
+                                    if ("PLAINTEXT".equalsIgnoreCase(ename)) {
                                         setScanner(new PlainTextScanner());
                                     }
                                     else {
@@ -2429,7 +2429,7 @@ public class HTMLScanner
 
             // scan processing instruction
             final String target = scanName(true);
-            if (target != null && !target.equalsIgnoreCase("xml")) {
+            if (target != null && !"xml".equalsIgnoreCase(target)) {
                 while (true) {
                     int c = fCurrentEntity.read();
                     if (c == -1) {
@@ -2591,12 +2591,12 @@ public class HTMLScanner
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
             if (fByteStream != null && fElementDepth == -1) {
-                if (ename.equalsIgnoreCase("META") && !fIgnoreSpecifiedCharset) {
+                if ("META".equalsIgnoreCase(ename) && !fIgnoreSpecifiedCharset) {
                     if (DEBUG_CHARSET) {
                         System.out.println("+++ <META>");
                     }
                     final String httpEquiv = getValue(fAttributes, "http-equiv");
-                    if (httpEquiv != null && httpEquiv.equalsIgnoreCase("content-type")) {
+                    if (httpEquiv != null && "content-type".equalsIgnoreCase(httpEquiv)) {
                         if (DEBUG_CHARSET) {
                             System.out.println("+++ @content-type: \""+httpEquiv+'"');
                         }
@@ -2618,7 +2618,7 @@ public class HTMLScanner
                         }
                     }
                 }
-                else if (ename.equalsIgnoreCase("BODY")) {
+                else if ("BODY".equalsIgnoreCase(ename)) {
                     fByteStream.clear();
                     fByteStream = null;
                 }
@@ -3026,9 +3026,9 @@ public class HTMLScanner
         // Sets the element name.
         public Scanner setElementName(String ename) {
             fElementName = ename;
-            fStyle = fElementName.equalsIgnoreCase("STYLE");
-            fTextarea = fElementName.equalsIgnoreCase("TEXTAREA");
-            fTitle = fElementName.equalsIgnoreCase("TITLE");
+            fStyle = "STYLE".equalsIgnoreCase(fElementName);
+            fTextarea = "TEXTAREA".equalsIgnoreCase(fElementName);
+            fTitle = "TITLE".equalsIgnoreCase(fElementName);
             return this;
         }
 
