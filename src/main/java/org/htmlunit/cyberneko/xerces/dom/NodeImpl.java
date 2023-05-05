@@ -1312,8 +1312,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                     String attrPrefix = attr.getPrefix();
                     String value = attr.getNodeValue();
                     // DOM Level 2 nodes
-                    if ((("xmlns".equals(attr.getNodeName()))
-                            || (attrPrefix != null && "xmlns".equals(attrPrefix)) && value.equals(namespaceURI))) {
+                    if (("xmlns".equals(attr.getNodeName()))
+                            || (attrPrefix != null && "xmlns".equals(attrPrefix)) && value.equals(namespaceURI)) {
 
                         String localname = attr.getLocalName();
                         String foundNamespace = el.lookupNamespaceURI(localname);

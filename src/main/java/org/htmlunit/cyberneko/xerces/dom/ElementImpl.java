@@ -653,7 +653,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return (attributes != null && attributes.getLength() != 0);
+        return attributes != null && attributes.getLength() != 0;
     }
 
     /**
