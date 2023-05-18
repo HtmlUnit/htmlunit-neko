@@ -531,6 +531,10 @@ public class HTMLTagBalancer
      * at the end of document
      */
     private void consumeBufferedEndElements() {
+        if (endElementsBuffer_.isEmpty()) {
+            return;
+        }
+
         final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
         endElementsBuffer_.clear();
         for (final ElementEntry entry : toConsume) {
