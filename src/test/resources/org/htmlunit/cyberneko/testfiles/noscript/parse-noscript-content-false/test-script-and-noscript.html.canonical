@@ -3,10 +3,9 @@
 (script
 )script
 (noscript
+"<div />
 )noscript
 )HEAD
-(BODY
-(div
-)div
-)BODY
+(body
+)body
 )HTML

@@ -4,9 +4,9 @@
 (BODY
 (div
 (noscript
-# <link href="
+"<link href="
 )noscript
-/></noscript>
+""/>
 )div
 )BODY
 )HTML
