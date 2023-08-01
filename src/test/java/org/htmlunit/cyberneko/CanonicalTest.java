@@ -146,7 +146,7 @@ public class CanonicalTest {
             // parser settings
             parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
             final String infilename = infile.toString();
-            final File insettings = new File(infilename+".settings");
+            final File insettings = new File(infilename + ".settings");
             if (insettings.exists()) {
                 try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
                     String settingline;
