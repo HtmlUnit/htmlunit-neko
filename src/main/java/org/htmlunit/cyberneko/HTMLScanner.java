@@ -1956,11 +1956,14 @@ public class HTMLScanner
                                 fCurrentEntity.rewind();
                                 fElementCount++;
                                 fSingleBoolean[0] = false;
+
                                 final String ename = scanStartElement(fSingleBoolean);
                                 final String enameLC = ename == null ? null : ename.toLowerCase(Locale.ROOT);
+
                                 fBeginLineNumber = fCurrentEntity.getLineNumber();
                                 fBeginColumnNumber = fCurrentEntity.getColumnNumber();
                                 fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
+
                                 if ("script".equals(enameLC)) {
                                     scanScriptContent();
                                 }
@@ -1976,10 +1979,10 @@ public class HTMLScanner
                                 else if ("noembed".equals(enameLC)) {
                                     scanUntilEndTag("noembed");
                                 }
-                                else if (ename != null && !fSingleBoolean[0]
+                                else if (ename != null
                                     && htmlConfiguration_.htmlElements_.getElement(enameLC).isSpecial()
-                                    && (!"TITLE".equalsIgnoreCase(ename) || isEnded(enameLC))) {
-                                    if ("PLAINTEXT".equalsIgnoreCase(ename)) {
+                                    && (!"title".equals(enameLC) || isEnded(enameLC))) {
+                                    if ("plaintext".equals(enameLC)) {
                                         setScanner(new PlainTextScanner());
                                     }
                                     else {
