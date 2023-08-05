@@ -127,7 +127,7 @@ public class HTMLEntitiesParserGenerator {
                     if (entity.length() - start.length() > 1) {
                         int stateId = switchChar(entities, mapped, start + (char) c, states);
 
-                        state.switchCode += "                    case '" + (char) c +"' :\n";
+                        state.switchCode += "                    case '" + (char) c +"':\n";
                         state.switchCode += "                        state = " + stateId + ";\n";
                         state.switchCode += "                        return true;\n";
 
@@ -143,7 +143,7 @@ public class HTMLEntitiesParserGenerator {
 
                         state.branches++;
                     } else {
-                        state.switchCode += "                    case '" + (char) c + "' : // " + entity + "\n";
+                        state.switchCode += "                    case '" + (char) c + "': // " + entity + "\n";
                         state.switchCode += "                        match = \"" + escape(mapped[i]) + "\";\n";
                         state.switchCode += "                        matchLength = consumedCount;\n";
 

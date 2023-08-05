@@ -287,212 +287,212 @@ public class HTMLEntitiesParser {
         switch (state) {
             case 0:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 1;
                         return true;
-                    case 'B' :
+                    case 'B':
                         state = 77;
                         return true;
-                    case 'C' :
+                    case 'C':
                         state = 126;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 342;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 666;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 788;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 842;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 929;
                         return true;
-                    case 'I' :
+                    case 'I':
                         state = 995;
                         return true;
-                    case 'J' :
+                    case 'J':
                         state = 1096;
                         return true;
-                    case 'K' :
+                    case 'K':
                         state = 1118;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 1143;
                         return true;
-                    case 'M' :
+                    case 'M':
                         state = 1514;
                         return true;
-                    case 'N' :
+                    case 'N':
                         state = 1553;
                         return true;
-                    case 'O' :
+                    case 'O':
                         state = 2064;
                         return true;
-                    case 'P' :
+                    case 'P':
                         state = 2173;
                         return true;
-                    case 'Q' :
+                    case 'Q':
                         state = 2258;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 2270;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 2525;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2722;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 2817;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 2997;
                         return true;
-                    case 'W' :
+                    case 'W':
                         state = 3067;
                         return true;
-                    case 'X' :
+                    case 'X':
                         state = 3084;
                         return true;
-                    case 'Y' :
+                    case 'Y':
                         state = 3094;
                         return true;
-                    case 'Z' :
+                    case 'Z':
                         state = 3125;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3166;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3311;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3623;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3915;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4156;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4342;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4442;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 4588;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4704;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4847;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 4873;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4904;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5397;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5510;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5945;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6092;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 6272;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6309;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6642;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7043;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7238;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 7408;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7562;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 7593;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 7672;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 7702;
                         return true;
                 }
                 break;
             case 1:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 2;
                         return true;
-                    case 'M' :
+                    case 'M':
                         state = 6;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 8;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 13;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 18;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 23;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 25;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 30;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 34;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 38;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 40;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 46;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 58;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 62;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 69;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 74;
                         return true;
                 }
@@ -1042,28 +1042,28 @@ public class HTMLEntitiesParser {
                 break;
             case 77:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 78;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 91;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 93;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 109;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 111;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 114;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 118;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 121;
                         return true;
                 }
@@ -1180,13 +1180,13 @@ public class HTMLEntitiesParser {
                 break;
             case 93:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 94;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 99;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 107;
                         return true;
                 }
@@ -1409,46 +1409,46 @@ public class HTMLEntitiesParser {
                 break;
             case 126:
                 switch (current) {
-                    case 'H' :
+                    case 'H':
                         state = 127;
                         return true;
-                    case 'O' :
+                    case 'O':
                         state = 130;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 133;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 161;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 178;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 181;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 194;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 196;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 198;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 220;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 266;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 330;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 334;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 337;
                         return true;
                 }
@@ -1500,13 +1500,13 @@ public class HTMLEntitiesParser {
                 break;
             case 133:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 134;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 138;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 156;
                         return true;
                 }
@@ -1691,16 +1691,16 @@ public class HTMLEntitiesParser {
                 break;
             case 161:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 162;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 166;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 170;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 173;
                         return true;
                 }
@@ -1981,16 +1981,16 @@ public class HTMLEntitiesParser {
                 break;
             case 202:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 203;
                         return true;
-                    case 'M' :
+                    case 'M':
                         state = 206;
                         return true;
-                    case 'P' :
+                    case 'P':
                         state = 211;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 215;
                         return true;
                 }
@@ -2404,16 +2404,16 @@ public class HTMLEntitiesParser {
                 break;
             case 266:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 267;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 271;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 293;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 301;
                         return true;
                 }
@@ -2454,13 +2454,13 @@ public class HTMLEntitiesParser {
                 break;
             case 271:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 272;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 278;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 281;
                         return true;
                 }
@@ -2925,37 +2925,37 @@ public class HTMLEntitiesParser {
                 break;
             case 342:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 343;
                         return true;
-                    case 'J' :
+                    case 'J':
                         state = 350;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 353;
                         return true;
-                    case 'Z' :
+                    case 'Z':
                         state = 356;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 359;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 369;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 375;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 379;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 381;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 433;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 659;
                         return true;
                 }
@@ -3077,13 +3077,13 @@ public class HTMLEntitiesParser {
                 break;
             case 359:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 360;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 364;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 366;
                         return true;
                 }
@@ -3310,16 +3310,16 @@ public class HTMLEntitiesParser {
                 break;
             case 390:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 391;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 396;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 408;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 413;
                         return true;
                 }
@@ -3603,16 +3603,16 @@ public class HTMLEntitiesParser {
                 break;
             case 433:
                 switch (current) {
-                    case 'p' :
+                    case 'p':
                         state = 434;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 436;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 445;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 568;
                         return true;
                 }
@@ -3634,15 +3634,15 @@ public class HTMLEntitiesParser {
                 break;
             case 436:
                 switch (current) {
-                    case ';' : // Dot;
+                    case ';': // Dot;
                         match = "\u00A8";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'D' :
+                    case 'D':
                         state = 437;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 440;
                         return true;
                 }
@@ -3721,22 +3721,22 @@ public class HTMLEntitiesParser {
                 break;
             case 448:
                 switch (current) {
-                    case 'C' :
+                    case 'C':
                         state = 449;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 464;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 474;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 528;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 541;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 557;
                         return true;
                 }
@@ -3928,13 +3928,13 @@ public class HTMLEntitiesParser {
                 break;
             case 477:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 478;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 483;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 493;
                         return true;
                 }
@@ -4536,22 +4536,22 @@ public class HTMLEntitiesParser {
                 break;
             case 569:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 570;
                         return true;
-                    case 'B' :
+                    case 'B':
                         state = 585;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 590;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 623;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 646;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 654;
                         return true;
                 }
@@ -4582,15 +4582,15 @@ public class HTMLEntitiesParser {
                 break;
             case 574:
                 switch (current) {
-                    case ';' : // DownArrow;
+                    case ';': // DownArrow;
                         match = "\u2193";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 575;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 578;
                         return true;
                 }
@@ -4714,13 +4714,13 @@ public class HTMLEntitiesParser {
                 break;
             case 593:
                 switch (current) {
-                    case 'R' :
+                    case 'R':
                         state = 594;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 605;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 614;
                         return true;
                 }
@@ -5215,52 +5215,52 @@ public class HTMLEntitiesParser {
                 break;
             case 666:
                 switch (current) {
-                    case 'N' :
+                    case 'N':
                         state = 667;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 669;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 671;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 676;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 685;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 688;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 690;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 695;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 701;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 734;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 740;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 746;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 763;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 768;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 770;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 773;
                         return true;
                 }
@@ -5336,13 +5336,13 @@ public class HTMLEntitiesParser {
                 break;
             case 676:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 677;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 681;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 684;
                         return true;
                 }
@@ -6118,19 +6118,19 @@ public class HTMLEntitiesParser {
                 break;
             case 788:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 789;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 791;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 793;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 824;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 839;
                         return true;
                 }
@@ -6363,13 +6363,13 @@ public class HTMLEntitiesParser {
                 break;
             case 824:
                 switch (current) {
-                    case 'p' :
+                    case 'p':
                         state = 825;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 827;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 831;
                         return true;
                 }
@@ -6490,42 +6490,42 @@ public class HTMLEntitiesParser {
                 break;
             case 842:
                 switch (current) {
-                    case 'J' :
+                    case 'J':
                         state = 843;
                         return true;
-                    case 'T' : // GT
+                    case 'T': // GT
                         match = ">";
                         matchLength = consumedCount;
                         state = 846;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 847;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 852;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 857;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 866;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 869;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 871;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 872;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 875;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 925;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 928;
                         return true;
                 }
@@ -6635,13 +6635,13 @@ public class HTMLEntitiesParser {
                 break;
             case 857:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 858;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 862;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 865;
                         return true;
                 }
@@ -6801,22 +6801,22 @@ public class HTMLEntitiesParser {
                 break;
             case 880:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 881;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 890;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 899;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 906;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 910;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 920;
                         return true;
                 }
@@ -7142,28 +7142,28 @@ public class HTMLEntitiesParser {
                 break;
             case 929:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 930;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 935;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 940;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 944;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 946;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 957;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 972;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 979;
                         return true;
                 }
@@ -7612,46 +7612,46 @@ public class HTMLEntitiesParser {
                 break;
             case 995:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 996;
                         return true;
-                    case 'J' :
+                    case 'J':
                         state = 999;
                         return true;
-                    case 'O' :
+                    case 'O':
                         state = 1003;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 1006;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1011;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 1016;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1019;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 1021;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 1026;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 1042;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1074;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1082;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 1085;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 1090;
                         return true;
                 }
@@ -7885,15 +7885,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1026:
                 switch (current) {
-                    case ';' : // Im;
+                    case ';': // Im;
                         match = "\u2111";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 1027;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 1037;
                         return true;
                 }
@@ -8226,13 +8226,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1074:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 1075;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 1078;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 1080;
                         return true;
                 }
@@ -8393,19 +8393,19 @@ public class HTMLEntitiesParser {
                 break;
             case 1096:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 1097;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1102;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1104;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1107;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 1114;
                         return true;
                 }
@@ -8567,25 +8567,25 @@ public class HTMLEntitiesParser {
                 break;
             case 1118:
                 switch (current) {
-                    case 'H' :
+                    case 'H':
                         state = 1119;
                         return true;
-                    case 'J' :
+                    case 'J':
                         state = 1122;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 1125;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1129;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1135;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1137;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1140;
                         return true;
                 }
@@ -8764,39 +8764,39 @@ public class HTMLEntitiesParser {
                 break;
             case 1143:
                 switch (current) {
-                    case 'J' :
+                    case 'J':
                         state = 1144;
                         return true;
-                    case 'T' : // LT
+                    case 'T': // LT
                         match = "<";
                         matchLength = consumedCount;
                         state = 1147;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 1148;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1169;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 1179;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1404;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 1406;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 1415;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1420;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1505;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 1513;
                         return true;
                 }
@@ -8833,19 +8833,19 @@ public class HTMLEntitiesParser {
                 break;
             case 1148:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 1149;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 1153;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 1157;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 1159;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 1167;
                         return true;
                 }
@@ -8987,13 +8987,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1169:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 1170;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 1174;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 1178;
                         return true;
                 }
@@ -9079,34 +9079,34 @@ public class HTMLEntitiesParser {
                 break;
             case 1181:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 1182;
                         return true;
-                    case 'C' :
+                    case 'C':
                         state = 1211;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 1218;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 1251;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 1256;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1272;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 1301;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 1331;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 1340;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 1345;
                         return true;
                 }
@@ -9210,15 +9210,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1197:
                 switch (current) {
-                    case ';' : // LeftArrow;
+                    case ';': // LeftArrow;
                         match = "\u2190";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 1198;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 1201;
                         return true;
                 }
@@ -9731,15 +9731,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1274:
                 switch (current) {
-                    case ';' : // LeftTee;
+                    case ';': // LeftTee;
                         match = "\u22A3";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'A' :
+                    case 'A':
                         state = 1275;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 1280;
                         return true;
                 }
@@ -9854,15 +9854,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1292:
                 switch (current) {
-                    case ';' : // LeftTriangle;
+                    case ';': // LeftTriangle;
                         match = "\u22B2";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 1293;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 1296;
                         return true;
                 }
@@ -9929,13 +9929,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1302:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 1303;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1313;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 1322;
                         return true;
                 }
@@ -10292,22 +10292,22 @@ public class HTMLEntitiesParser {
                 break;
             case 1356:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 1357;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 1369;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 1378;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 1385;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1389;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1399;
                         return true;
                 }
@@ -10726,13 +10726,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1420:
                 switch (current) {
-                    case 'n' :
+                    case 'n':
                         state = 1421;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 1481;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 1483;
                         return true;
                 }
@@ -10745,16 +10745,16 @@ public class HTMLEntitiesParser {
                 break;
             case 1422:
                 switch (current) {
-                    case 'L' :
+                    case 'L':
                         state = 1423;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 1442;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 1452;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 1471;
                         return true;
                 }
@@ -11292,13 +11292,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1505:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 1506;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 1508;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 1509;
                         return true;
                 }
@@ -11365,28 +11365,28 @@ public class HTMLEntitiesParser {
                 break;
             case 1514:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 1515;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1517;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 1519;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1536;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 1538;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1546;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1549;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 1552;
                         return true;
                 }
@@ -11652,31 +11652,31 @@ public class HTMLEntitiesParser {
                 break;
             case 1553:
                 switch (current) {
-                    case 'J' :
+                    case 'J':
                         state = 1554;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 1557;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1562;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 1572;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 1650;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 1652;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2055;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 2058;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 2063;
                         return true;
                 }
@@ -11737,13 +11737,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1562:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 1563;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 1567;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 1571;
                         return true;
                 }
@@ -11813,13 +11813,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1572:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 1573;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 1619;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 1645;
                         return true;
                 }
@@ -11856,13 +11856,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1578:
                 switch (current) {
-                    case 'M' :
+                    case 'M':
                         state = 1579;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1590;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 1606;
                         return true;
                 }
@@ -12339,16 +12339,16 @@ public class HTMLEntitiesParser {
                 break;
             case 1652:
                 switch (current) {
-                    case 'B' :
+                    case 'B':
                         state = 1653;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 1658;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 1672;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 1674;
                         return true;
                 }
@@ -12490,45 +12490,45 @@ public class HTMLEntitiesParser {
                 break;
             case 1674:
                 switch (current) {
-                    case ';' : // Not;
+                    case ';': // Not;
                         match = "\u2AEC";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'C' :
+                    case 'C':
                         state = 1675;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 1689;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 1706;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 1727;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 1780;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 1801;
                         return true;
-                    case 'N' :
+                    case 'N':
                         state = 1860;
                         return true;
-                    case 'P' :
+                    case 'P':
                         state = 1888;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 1911;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1945;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2020;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 2044;
                         return true;
                 }
@@ -12734,13 +12734,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1706:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 1707;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 1713;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 1722;
                         return true;
                 }
@@ -12919,27 +12919,27 @@ public class HTMLEntitiesParser {
                 break;
             case 1733:
                 switch (current) {
-                    case ';' : // NotGreater;
+                    case ';': // NotGreater;
                         match = "\u226F";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 1734;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 1739;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 1750;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 1759;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1763;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1775;
                         return true;
                 }
@@ -13441,15 +13441,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1812:
                 switch (current) {
-                    case ';' : // NotLeftTriangle;
+                    case ';': // NotLeftTriangle;
                         match = "\u22EA";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 1813;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 1818;
                         return true;
                 }
@@ -13527,24 +13527,24 @@ public class HTMLEntitiesParser {
                 break;
             case 1824:
                 switch (current) {
-                    case ';' : // NotLess;
+                    case ';': // NotLess;
                         match = "\u226E";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 1825;
                         return true;
-                    case 'G' :
+                    case 'G':
                         state = 1830;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 1837;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1843;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 1855;
                         return true;
                 }
@@ -13994,15 +13994,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1895:
                 switch (current) {
-                    case ';' : // NotPrecedes;
+                    case ';': // NotPrecedes;
                         match = "\u2280";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 1896;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1901;
                         return true;
                 }
@@ -14262,15 +14262,15 @@ public class HTMLEntitiesParser {
                 break;
             case 1936:
                 switch (current) {
-                    case ';' : // NotRightTriangle;
+                    case ';': // NotRightTriangle;
                         match = "\u22EB";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 1937;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 1940;
                         return true;
                 }
@@ -14527,13 +14527,13 @@ public class HTMLEntitiesParser {
                 break;
             case 1973:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 1974;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 1983;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 2009;
                         return true;
                 }
@@ -14634,18 +14634,18 @@ public class HTMLEntitiesParser {
                 break;
             case 1988:
                 switch (current) {
-                    case ';' : // NotSucceeds;
+                    case ';': // NotSucceeds;
                         match = "\u2281";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 1989;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 1994;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2004;
                         return true;
                 }
@@ -14888,18 +14888,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2024:
                 switch (current) {
-                    case ';' : // NotTilde;
+                    case ';': // NotTilde;
                         match = "\u2241";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 2025;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 2030;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2039;
                         return true;
                 }
@@ -15164,46 +15164,46 @@ public class HTMLEntitiesParser {
                 break;
             case 2064:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 2065;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2069;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2074;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 2079;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2084;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 2086;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 2091;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2103;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 2106;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2130;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2131;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 2138;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 2146;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 2149;
                         return true;
                 }
@@ -15400,13 +15400,13 @@ public class HTMLEntitiesParser {
                 break;
             case 2091:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 2092;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 2095;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2098;
                         return true;
                 }
@@ -15980,31 +15980,31 @@ public class HTMLEntitiesParser {
                 break;
             case 2173:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 2174;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2181;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2183;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 2185;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2187;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 2188;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2196;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2210;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2254;
                         return true;
                 }
@@ -16255,18 +16255,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2210:
                 switch (current) {
-                    case ';' : // Pr;
+                    case ';': // Pr;
                         match = "\u2ABB";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 2211;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2237;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2240;
                         return true;
                 }
@@ -16303,18 +16303,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2216:
                 switch (current) {
-                    case ';' : // Precedes;
+                    case ';': // Precedes;
                         match = "\u227A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 2217;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 2222;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2232;
                         return true;
                 }
@@ -16606,16 +16606,16 @@ public class HTMLEntitiesParser {
                 break;
             case 2258:
                 switch (current) {
-                    case 'U' :
+                    case 'U':
                         state = 2259;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2262;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2264;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2267;
                         return true;
                 }
@@ -16703,40 +16703,40 @@ public class HTMLEntitiesParser {
                 break;
             case 2270:
                 switch (current) {
-                    case 'B' :
+                    case 'B':
                         state = 2271;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 2275;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2277;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2288;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 2298;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2334;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 2336;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2338;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2488;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2501;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2511;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 2515;
                         return true;
                 }
@@ -16788,13 +16788,13 @@ public class HTMLEntitiesParser {
                 break;
             case 2277:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 2278;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 2282;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2284;
                         return true;
                 }
@@ -16877,13 +16877,13 @@ public class HTMLEntitiesParser {
                 break;
             case 2288:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 2289;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 2293;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 2297;
                         return true;
                 }
@@ -17241,28 +17241,28 @@ public class HTMLEntitiesParser {
                 break;
             case 2341:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 2342;
                         return true;
-                    case 'C' :
+                    case 'C':
                         state = 2370;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 2377;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 2410;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2415;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 2444;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 2474;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2483;
                         return true;
                 }
@@ -17366,15 +17366,15 @@ public class HTMLEntitiesParser {
                 break;
             case 2357:
                 switch (current) {
-                    case ';' : // RightArrow;
+                    case ';': // RightArrow;
                         match = "\u2192";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 2358;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 2361;
                         return true;
                 }
@@ -17775,15 +17775,15 @@ public class HTMLEntitiesParser {
                 break;
             case 2417:
                 switch (current) {
-                    case ';' : // RightTee;
+                    case ';': // RightTee;
                         match = "\u22A2";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'A' :
+                    case 'A':
                         state = 2418;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 2423;
                         return true;
                 }
@@ -17898,15 +17898,15 @@ public class HTMLEntitiesParser {
                 break;
             case 2435:
                 switch (current) {
-                    case ';' : // RightTriangle;
+                    case ';': // RightTriangle;
                         match = "\u22B3";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 2436;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 2439;
                         return true;
                 }
@@ -17973,13 +17973,13 @@ public class HTMLEntitiesParser {
                 break;
             case 2445:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 2446;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2456;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 2465;
                         return true;
                 }
@@ -18515,43 +18515,43 @@ public class HTMLEntitiesParser {
                 break;
             case 2525:
                 switch (current) {
-                    case 'H' :
+                    case 'H':
                         state = 2526;
                         return true;
-                    case 'O' :
+                    case 'O':
                         state = 2533;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2538;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2543;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2556;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 2558;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2597;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 2601;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2611;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 2614;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2660;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 2663;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 2666;
                         return true;
                 }
@@ -18676,21 +18676,21 @@ public class HTMLEntitiesParser {
                 break;
             case 2543:
                 switch (current) {
-                    case ';' : // Sc;
+                    case ';': // Sc;
                         match = "\u2ABC";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 2544;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 2548;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2552;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 2555;
                         return true;
                 }
@@ -18814,16 +18814,16 @@ public class HTMLEntitiesParser {
                 break;
             case 2561:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 2562;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 2571;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 2580;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 2590;
                         return true;
                 }
@@ -19206,18 +19206,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2620:
                 switch (current) {
-                    case ';' : // Square;
+                    case ';': // Square;
                         match = "\u25A1";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'I' :
+                    case 'I':
                         state = 2621;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 2633;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 2655;
                         return true;
                 }
@@ -19530,16 +19530,16 @@ public class HTMLEntitiesParser {
                 break;
             case 2666:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 2667;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2676;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 2707;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 2708;
                         return true;
                 }
@@ -19651,18 +19651,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2681:
                 switch (current) {
-                    case ';' : // Succeeds;
+                    case ';': // Succeeds;
                         match = "\u227B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 2682;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 2687;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2697;
                         return true;
                 }
@@ -19840,15 +19840,15 @@ public class HTMLEntitiesParser {
                 break;
             case 2708:
                 switch (current) {
-                    case ';' : // Sup;
+                    case ';': // Sup;
                         match = "\u22D1";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 2709;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2719;
                         return true;
                 }
@@ -19946,37 +19946,37 @@ public class HTMLEntitiesParser {
                 break;
             case 2722:
                 switch (current) {
-                    case 'H' :
+                    case 'H':
                         state = 2723;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 2727;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 2731;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2737;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2740;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2750;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 2752;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 2776;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2799;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2802;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2810;
                         return true;
                 }
@@ -20114,13 +20114,13 @@ public class HTMLEntitiesParser {
                 break;
             case 2740:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 2741;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 2745;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 2749;
                         return true;
                 }
@@ -20391,18 +20391,18 @@ public class HTMLEntitiesParser {
                 break;
             case 2779:
                 switch (current) {
-                    case ';' : // Tilde;
+                    case ';': // Tilde;
                         match = "\u223C";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 2780;
                         return true;
-                    case 'F' :
+                    case 'F':
                         state = 2785;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2794;
                         return true;
                 }
@@ -20656,46 +20656,46 @@ public class HTMLEntitiesParser {
                 break;
             case 2817:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 2818;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 2829;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 2836;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 2841;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 2846;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 2848;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 2853;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 2857;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 2889;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 2895;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 2982;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2986;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 2989;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 2994;
                         return true;
                 }
@@ -21270,28 +21270,28 @@ public class HTMLEntitiesParser {
                 break;
             case 2895:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 2896;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 2913;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 2922;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 2933;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 2941;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 2946;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 2955;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 2977;
                         return true;
                 }
@@ -21322,15 +21322,15 @@ public class HTMLEntitiesParser {
                 break;
             case 2900:
                 switch (current) {
-                    case ';' : // UpArrow;
+                    case ';': // UpArrow;
                         match = "\u2191";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'B' :
+                    case 'B':
                         state = 2901;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 2904;
                         return true;
                 }
@@ -21976,31 +21976,31 @@ public class HTMLEntitiesParser {
                 break;
             case 2997:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 2998;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3002;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3005;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3007;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3012;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3054;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3056;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3059;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3062;
                         return true;
                 }
@@ -22136,13 +22136,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3014:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 3015;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3018;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 3044;
                         return true;
                 }
@@ -22201,16 +22201,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3022:
                 switch (current) {
-                    case 'B' :
+                    case 'B':
                         state = 3023;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 3026;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 3030;
                         return true;
-                    case 'T' :
+                    case 'T':
                         state = 3039;
                         return true;
                 }
@@ -22508,19 +22508,19 @@ public class HTMLEntitiesParser {
                 break;
             case 3067:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3068;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3072;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3076;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3078;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3081;
                         return true;
                 }
@@ -22638,16 +22638,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3084:
                 switch (current) {
-                    case 'f' :
+                    case 'f':
                         state = 3085;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3087;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3088;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3091;
                         return true;
                 }
@@ -22720,31 +22720,31 @@ public class HTMLEntitiesParser {
                 break;
             case 3094:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 3095;
                         return true;
-                    case 'I' :
+                    case 'I':
                         state = 3098;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 3101;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3104;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3109;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3114;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3116;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3119;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3122;
                         return true;
                 }
@@ -22968,28 +22968,28 @@ public class HTMLEntitiesParser {
                 break;
             case 3125:
                 switch (current) {
-                    case 'H' :
+                    case 'H':
                         state = 3126;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3129;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3134;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3140;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3143;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3158;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3160;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3163;
                         return true;
                 }
@@ -23274,52 +23274,52 @@ public class HTMLEntitiesParser {
                 break;
             case 3166:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3167;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3172;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3177;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3187;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3191;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 3193;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3198;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3209;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 3216;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3257;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3263;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3280;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3284;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3293;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3298;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3301;
                         return true;
                 }
@@ -23395,24 +23395,24 @@ public class HTMLEntitiesParser {
                 break;
             case 3177:
                 switch (current) {
-                    case ';' : // ac;
+                    case ';': // ac;
                         match = "\u223E";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 3178;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3179;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3180;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3183;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 3186;
                         return true;
                 }
@@ -23737,21 +23737,21 @@ public class HTMLEntitiesParser {
                 break;
             case 3217:
                 switch (current) {
-                    case ';' : // and;
+                    case ';': // and;
                         match = "\u2227";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 3218;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3221;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3222;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3227;
                         return true;
                 }
@@ -23830,27 +23830,27 @@ public class HTMLEntitiesParser {
                 break;
             case 3228:
                 switch (current) {
-                    case ';' : // ang;
+                    case ';': // ang;
                         match = "\u2220";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 3229;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3230;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3232;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3244;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3249;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 3253;
                         return true;
                 }
@@ -23906,28 +23906,28 @@ public class HTMLEntitiesParser {
                 break;
             case 3235:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3236;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3237;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3238;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3239;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3240;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3241;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 3242;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3243;
                         return true;
                 }
@@ -24160,27 +24160,27 @@ public class HTMLEntitiesParser {
                 break;
             case 3263:
                 switch (current) {
-                    case ';' : // ap;
+                    case ';': // ap;
                         match = "\u2248";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 3264;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3265;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3269;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3270;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3272;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3274;
                         return true;
                 }
@@ -24338,13 +24338,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3284:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3285;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3287;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 3288;
                         return true;
                 }
@@ -24545,52 +24545,52 @@ public class HTMLEntitiesParser {
                 break;
             case 3311:
                 switch (current) {
-                    case 'N' :
+                    case 'N':
                         state = 3312;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3315;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3348;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3355;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3360;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3364;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3389;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3391;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 3449;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3454;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 3503;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3511;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3584;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3589;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3597;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3613;
                         return true;
                 }
@@ -24634,16 +24634,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3317:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3318;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3322;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3329;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3334;
                         return true;
                 }
@@ -24985,19 +24985,19 @@ public class HTMLEntitiesParser {
                 break;
             case 3364:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3365;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3370;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3375;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3378;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3382;
                         return true;
                 }
@@ -25125,13 +25125,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3382:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3383;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3384;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3385;
                         return true;
                 }
@@ -25204,38 +25204,38 @@ public class HTMLEntitiesParser {
                 break;
             case 3392:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3393;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3401;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3414;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3422;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3436;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3441;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3444;
                         return true;
                 }
                 break;
             case 3393:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3394;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3396;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3399;
                         return true;
                 }
@@ -25293,13 +25293,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3401:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 3402;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3405;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3409;
                         return true;
                 }
@@ -25659,13 +25659,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3454:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3455;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 3494;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3500;
                         return true;
                 }
@@ -25688,13 +25688,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3457:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 3458;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3465;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3471;
                         return true;
                 }
@@ -25827,18 +25827,18 @@ public class HTMLEntitiesParser {
                 break;
             case 3478:
                 switch (current) {
-                    case ';' : // blacktriangle;
+                    case ';': // blacktriangle;
                         match = "\u25B4";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 3479;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3483;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3487;
                         return true;
                 }
@@ -26086,16 +26086,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3511:
                 switch (current) {
-                    case 'p' :
+                    case 'p':
                         state = 3512;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3514;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3518;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 3522;
                         return true;
                 }
@@ -26178,56 +26178,56 @@ public class HTMLEntitiesParser {
                 break;
             case 3522:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 3523;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 3528;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 3533;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 3538;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3545;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3548;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3553;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3558;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3563;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3567;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3572;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3577;
                         return true;
                 }
                 break;
             case 3523:
                 switch (current) {
-                    case 'L' :
+                    case 'L':
                         state = 3524;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3525;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3526;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3527;
                         return true;
                 }
@@ -26270,21 +26270,21 @@ public class HTMLEntitiesParser {
                 break;
             case 3528:
                 switch (current) {
-                    case ';' : // boxH;
+                    case ';': // boxH;
                         match = "\u2550";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'D' :
+                    case 'D':
                         state = 3529;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 3530;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3531;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3532;
                         return true;
                 }
@@ -26327,16 +26327,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3533:
                 switch (current) {
-                    case 'L' :
+                    case 'L':
                         state = 3534;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3535;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3536;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3537;
                         return true;
                 }
@@ -26379,27 +26379,27 @@ public class HTMLEntitiesParser {
                 break;
             case 3538:
                 switch (current) {
-                    case ';' : // boxV;
+                    case ';': // boxV;
                         match = "\u2551";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'H' :
+                    case 'H':
                         state = 3539;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 3540;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3541;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3542;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3543;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3544;
                         return true;
                 }
@@ -26481,16 +26481,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3548:
                 switch (current) {
-                    case 'L' :
+                    case 'L':
                         state = 3549;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3550;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3551;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3552;
                         return true;
                 }
@@ -26533,21 +26533,21 @@ public class HTMLEntitiesParser {
                 break;
             case 3553:
                 switch (current) {
-                    case ';' : // boxh;
+                    case ';': // boxh;
                         match = "\u2500";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'D' :
+                    case 'D':
                         state = 3554;
                         return true;
-                    case 'U' :
+                    case 'U':
                         state = 3555;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3556;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3557;
                         return true;
                 }
@@ -26683,16 +26683,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3572:
                 switch (current) {
-                    case 'L' :
+                    case 'L':
                         state = 3573;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3574;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3575;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3576;
                         return true;
                 }
@@ -26735,27 +26735,27 @@ public class HTMLEntitiesParser {
                 break;
             case 3577:
                 switch (current) {
-                    case ';' : // boxv;
+                    case ';': // boxv;
                         match = "\u2502";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'H' :
+                    case 'H':
                         state = 3578;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 3579;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 3580;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3581;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3582;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3583;
                         return true;
                 }
@@ -26910,16 +26910,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3597:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3598;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3600;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3603;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3606;
                         return true;
                 }
@@ -26996,15 +26996,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3607:
                 switch (current) {
-                    case ';' : // bsol;
+                    case ';': // bsol;
                         match = "\\";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 3608;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3609;
                         return true;
                 }
@@ -27097,15 +27097,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3619:
                 switch (current) {
-                    case ';' : // bump;
+                    case ';': // bump;
                         match = "\u224E";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 3620;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3621;
                         return true;
                 }
@@ -27143,62 +27143,62 @@ public class HTMLEntitiesParser {
                 break;
             case 3623:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3624;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3652;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3671;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3674;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3690;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3692;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3703;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3752;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3759;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3797;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3804;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 3812;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3816;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3900;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 3910;
                         return true;
                 }
                 break;
             case 3624:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3625;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3629;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3647;
                         return true;
                 }
@@ -27232,24 +27232,24 @@ public class HTMLEntitiesParser {
                 break;
             case 3629:
                 switch (current) {
-                    case ';' : // cap;
+                    case ';': // cap;
                         match = "\u2229";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 3630;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3633;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3638;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3643;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3646;
                         return true;
                 }
@@ -27420,16 +27420,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3652:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3653;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3659;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3663;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 3666;
                         return true;
                 }
@@ -27594,13 +27594,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3674:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 3675;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3678;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 3683;
                         return true;
                 }
@@ -27734,13 +27734,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3692:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 3693;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3695;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3702;
                         return true;
                 }
@@ -27829,27 +27829,27 @@ public class HTMLEntitiesParser {
                 break;
             case 3704:
                 switch (current) {
-                    case ';' : // cir;
+                    case ';': // cir;
                         match = "\u25CB";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 3705;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3706;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3739;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3740;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3745;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3748;
                         return true;
                 }
@@ -27865,15 +27865,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3706:
                 switch (current) {
-                    case ';' : // circ;
+                    case ';': // circ;
                         match = "\u02C6";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 3707;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3709;
                         return true;
                 }
@@ -28005,19 +28005,19 @@ public class HTMLEntitiesParser {
                 break;
             case 3725:
                 switch (current) {
-                    case 'R' :
+                    case 'R':
                         state = 3726;
                         return true;
-                    case 'S' :
+                    case 'S':
                         state = 3727;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3728;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3731;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3735;
                         return true;
                 }
@@ -28259,16 +28259,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3759:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 3760;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3765;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 3781;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3789;
                         return true;
                 }
@@ -28360,15 +28360,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3769:
                 switch (current) {
-                    case ';' : // comp;
+                    case ';': // comp;
                         match = "\u2201";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'f' :
+                    case 'f':
                         state = 3770;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3772;
                         return true;
                 }
@@ -28519,13 +28519,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3789:
                 switch (current) {
-                    case 'f' :
+                    case 'f':
                         state = 3790;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3791;
                         return true;
-                    case 'y' : // copy
+                    case 'y': // copy
                         match = "\u00A9";
                         matchLength = consumedCount;
                         state = 3794;
@@ -28750,25 +28750,25 @@ public class HTMLEntitiesParser {
                 break;
             case 3816:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 3817;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3823;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3828;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 3833;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3850;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3894;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3897;
                         return true;
                 }
@@ -28901,24 +28901,24 @@ public class HTMLEntitiesParser {
                 break;
             case 3833:
                 switch (current) {
-                    case ';' : // cup;
+                    case ';': // cup;
                         match = "\u222A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 3834;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3839;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3844;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3847;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3849;
                         return true;
                 }
@@ -29043,16 +29043,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3850:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3851;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3855;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3875;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3878;
                         return true;
                 }
@@ -29099,13 +29099,13 @@ public class HTMLEntitiesParser {
                 break;
             case 3856:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 3857;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 3867;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 3870;
                         return true;
                 }
@@ -29511,61 +29511,61 @@ public class HTMLEntitiesParser {
                 break;
             case 3915:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 3916;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 3919;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 3922;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 3936;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 3945;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 3951;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3964;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 3974;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 3980;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 3985;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4019;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4022;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4030;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4103;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4117;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4127;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4134;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 4141;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 4147;
                         return true;
                 }
@@ -29614,16 +29614,16 @@ public class HTMLEntitiesParser {
                 break;
             case 3922:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 3923;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3927;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 3931;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3933;
                         return true;
                 }
@@ -29837,15 +29837,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3951:
                 switch (current) {
-                    case ';' : // dd;
+                    case ';': // dd;
                         match = "\u2146";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 3952;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 3959;
                         return true;
                 }
@@ -29937,15 +29937,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3964:
                 switch (current) {
-                    case 'g' : // deg
+                    case 'g': // deg
                         match = "\u00B0";
                         matchLength = consumedCount;
                         state = 3965;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 3966;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 3969;
                         return true;
                 }
@@ -30101,19 +30101,19 @@ public class HTMLEntitiesParser {
                 break;
             case 3985:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 3986;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 3996;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 3997;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4002;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4005;
                         return true;
                 }
@@ -30126,15 +30126,15 @@ public class HTMLEntitiesParser {
                 break;
             case 3987:
                 switch (current) {
-                    case ';' : // diam;
+                    case ';': // diam;
                         match = "\u22C4";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'o' :
+                    case 'o':
                         state = 3988;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 3995;
                         return true;
                 }
@@ -30272,15 +30272,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4005:
                 switch (current) {
-                    case ';' : // div;
+                    case ';': // div;
                         match = "\u00F7";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 4006;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4016;
                         return true;
                 }
@@ -30460,19 +30460,19 @@ public class HTMLEntitiesParser {
                 break;
             case 4030:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 4031;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4035;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4037;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4058;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 4070;
                         return true;
                 }
@@ -30521,21 +30521,21 @@ public class HTMLEntitiesParser {
                 break;
             case 4037:
                 switch (current) {
-                    case ';' : // dot;
+                    case ';': // dot;
                         match = "\u02D9";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 4038;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4043;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4048;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4052;
                         return true;
                 }
@@ -30762,13 +30762,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4071:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4072;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4077;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 4087;
                         return true;
                 }
@@ -31078,13 +31078,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4117:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4118;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4121;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4123;
                         return true;
                 }
@@ -31375,58 +31375,58 @@ public class HTMLEntitiesParser {
                 break;
             case 4156:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 4157;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4163;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4172;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4185;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4188;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4189;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4194;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4203;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4215;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4231;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4235;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4241;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 4255;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4295;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4302;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4310;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4313;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 4318;
                         return true;
                 }
@@ -31546,16 +31546,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4172:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4173;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4177;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4180;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 4184;
                         return true;
                 }
@@ -31726,15 +31726,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4194:
                 switch (current) {
-                    case ';' : // eg;
+                    case ';': // eg;
                         match = "\u2A9A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'r' :
+                    case 'r':
                         state = 4195;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4199;
                         return true;
                 }
@@ -31805,18 +31805,18 @@ public class HTMLEntitiesParser {
                 break;
             case 4203:
                 switch (current) {
-                    case ';' : // el;
+                    case ';': // el;
                         match = "\u2A99";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 4204;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4210;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4211;
                         return true;
                 }
@@ -31905,13 +31905,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4215:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4216;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4219;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4226;
                         return true;
                 }
@@ -31951,15 +31951,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4221:
                 switch (current) {
-                    case ';' : // empty;
+                    case ';': // empty;
                         match = "\u2205";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 's' :
+                    case 's':
                         state = 4222;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4225;
                         return true;
                 }
@@ -32123,13 +32123,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4241:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4242;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4246;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4249;
                         return true;
                 }
@@ -32197,15 +32197,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4250:
                 switch (current) {
-                    case ';' : // epsi;
+                    case ';': // epsi;
                         match = "\u03B5";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'l' :
+                    case 'l':
                         state = 4251;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4254;
                         return true;
                 }
@@ -32242,16 +32242,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4255:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4256;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4264;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4278;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4289;
                         return true;
                 }
@@ -32417,13 +32417,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4278:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4279;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4282;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4285;
                         return true;
                 }
@@ -32597,13 +32597,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4302:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4303;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4305;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4308;
                         return true;
                 }
@@ -32735,13 +32735,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4318:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4319;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4321;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4324;
                         return true;
                 }
@@ -32902,40 +32902,40 @@ public class HTMLEntitiesParser {
                 break;
             case 4342:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4343;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4355;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4357;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4362;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4374;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4378;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4382;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4391;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4394;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4403;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4410;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4439;
                         return true;
                 }
@@ -33065,13 +33065,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4362:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 4363;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4367;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4373;
                         return true;
                 }
@@ -33214,13 +33214,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4382:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4383;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4385;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4388;
                         return true;
                 }
@@ -33448,48 +33448,48 @@ public class HTMLEntitiesParser {
                 break;
             case 4412:
                 switch (current) {
-                    case '1' :
+                    case '1':
                         state = 4413;
                         return true;
-                    case '2' :
+                    case '2':
                         state = 4420;
                         return true;
-                    case '3' :
+                    case '3':
                         state = 4423;
                         return true;
-                    case '4' :
+                    case '4':
                         state = 4427;
                         return true;
-                    case '5' :
+                    case '5':
                         state = 4429;
                         return true;
-                    case '7' :
+                    case '7':
                         state = 4432;
                         return true;
                 }
                 break;
             case 4413:
                 switch (current) {
-                    case '2' : // frac12
+                    case '2': // frac12
                         match = "\u00BD";
                         matchLength = consumedCount;
                         state = 4414;
                         return true;
-                    case '3' :
+                    case '3':
                         state = 4415;
                         return true;
-                    case '4' : // frac14
+                    case '4': // frac14
                         match = "\u00BC";
                         matchLength = consumedCount;
                         state = 4416;
                         return true;
-                    case '5' :
+                    case '5':
                         state = 4417;
                         return true;
-                    case '6' :
+                    case '6':
                         state = 4418;
                         return true;
-                    case '8' :
+                    case '8':
                         state = 4419;
                         return true;
                 }
@@ -33578,15 +33578,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4423:
                 switch (current) {
-                    case '4' : // frac34
+                    case '4': // frac34
                         match = "\u00BE";
                         matchLength = consumedCount;
                         state = 4424;
                         return true;
-                    case '5' :
+                    case '5':
                         state = 4425;
                         return true;
-                    case '8' :
+                    case '8':
                         state = 4426;
                         return true;
                 }
@@ -33735,57 +33735,57 @@ public class HTMLEntitiesParser {
                 break;
             case 4442:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 4443;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4445;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 4455;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4460;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4465;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4468;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4488;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4490;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4492;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4496;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4499;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4503;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4517;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4520;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4524;
                         return true;
-                    case 't' : // gt
+                    case 't': // gt
                         match = ">";
                         matchLength = consumedCount;
                         state = 4531;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4578;
                         return true;
                 }
@@ -33814,13 +33814,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4445:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4446;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4450;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4454;
                         return true;
                 }
@@ -33991,18 +33991,18 @@ public class HTMLEntitiesParser {
                 break;
             case 4468:
                 switch (current) {
-                    case ';' : // ge;
+                    case ';': // ge;
                         match = "\u2265";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'l' :
+                    case 'l':
                         state = 4469;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 4470;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4477;
                         return true;
                 }
@@ -34018,15 +34018,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4470:
                 switch (current) {
-                    case ';' : // geq;
+                    case ';': // geq;
                         match = "\u2265";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'q' :
+                    case 'q':
                         state = 4471;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4472;
                         return true;
                 }
@@ -34075,18 +34075,18 @@ public class HTMLEntitiesParser {
                 break;
             case 4477:
                 switch (current) {
-                    case ';' : // ges;
+                    case ';': // ges;
                         match = "\u2A7E";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 4478;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4480;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4485;
                         return true;
                 }
@@ -34268,18 +34268,18 @@ public class HTMLEntitiesParser {
                 break;
             case 4499:
                 switch (current) {
-                    case ';' : // gl;
+                    case ';': // gl;
                         match = "\u2277";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 4500;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4501;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4502;
                         return true;
                 }
@@ -34313,16 +34313,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4503:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 4504;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4505;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4511;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4514;
                         return true;
                 }
@@ -34519,15 +34519,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4528:
                 switch (current) {
-                    case ';' : // gsim;
+                    case ';': // gsim;
                         match = "\u2273";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 4529;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4530;
                         return true;
                 }
@@ -34552,24 +34552,24 @@ public class HTMLEntitiesParser {
                 break;
             case 4531:
                 switch (current) {
-                    case ';' : // gt;
+                    case ';': // gt;
                         match = ">";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 4532;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4536;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4539;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 4543;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4548;
                         return true;
                 }
@@ -34691,19 +34691,19 @@ public class HTMLEntitiesParser {
                 break;
             case 4548:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4549;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4557;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4560;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4571;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4575;
                         return true;
                 }
@@ -34983,34 +34983,34 @@ public class HTMLEntitiesParser {
                 break;
             case 4588:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 4589;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4592;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 4612;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4615;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4619;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4635;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 4637;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4649;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4684;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 4695;
                         return true;
                 }
@@ -35038,16 +35038,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4592:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 4593;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4597;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4599;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4603;
                         return true;
                 }
@@ -35154,15 +35154,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4607:
                 switch (current) {
-                    case ';' : // harr;
+                    case ';': // harr;
                         match = "\u2194";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 4608;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 4611;
                         return true;
                 }
@@ -35247,13 +35247,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4619:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4620;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4627;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4631;
                         return true;
                 }
@@ -35463,19 +35463,19 @@ public class HTMLEntitiesParser {
                 break;
             case 4649:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4650;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4653;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4657;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4678;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4680;
                         return true;
                 }
@@ -35708,13 +35708,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4684:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4685;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4687;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4691;
                         return true;
                 }
@@ -35854,49 +35854,49 @@ public class HTMLEntitiesParser {
                 break;
             case 4704:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4705;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4710;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4715;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4721;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4724;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 4729;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4743;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4747;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4768;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4805;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4815;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 4819;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4824;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4836;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4841;
                         return true;
                 }
@@ -35939,15 +35939,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4710:
                 switch (current) {
-                    case ';' : // ic;
+                    case ';': // ic;
                         match = "\u2063";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 4711;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 4714;
                         return true;
                 }
@@ -36100,18 +36100,18 @@ public class HTMLEntitiesParser {
                 break;
             case 4729:
                 switch (current) {
-                    case ';' : // ii;
+                    case ';': // ii;
                         match = "\u2148";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 4730;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4736;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4740;
                         return true;
                 }
@@ -36239,26 +36239,26 @@ public class HTMLEntitiesParser {
                 break;
             case 4747:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4748;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4763;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4765;
                         return true;
                 }
                 break;
             case 4748:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4749;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4751;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4761;
                         return true;
                 }
@@ -36280,13 +36280,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4751:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 4752;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4753;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4757;
                         return true;
                 }
@@ -36407,21 +36407,21 @@ public class HTMLEntitiesParser {
                 break;
             case 4768:
                 switch (current) {
-                    case ';' : // in;
+                    case ';': // in;
                         match = "\u2208";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 4769;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4773;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4779;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4783;
                         return true;
                 }
@@ -36528,21 +36528,21 @@ public class HTMLEntitiesParser {
                 break;
             case 4783:
                 switch (current) {
-                    case ';' : // int;
+                    case ';': // int;
                         match = "\u222B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 4784;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4787;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4796;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4801;
                         return true;
                 }
@@ -36694,16 +36694,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4805:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4806;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4808;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4811;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4813;
                         return true;
                 }
@@ -36870,21 +36870,21 @@ public class HTMLEntitiesParser {
                 break;
             case 4828:
                 switch (current) {
-                    case ';' : // isin;
+                    case ';': // isin;
                         match = "\u2208";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 4829;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 4830;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4833;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 4835;
                         return true;
                 }
@@ -37041,22 +37041,22 @@ public class HTMLEntitiesParser {
                 break;
             case 4847:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4848;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4853;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4855;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4859;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4862;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 4869;
                         return true;
                 }
@@ -37245,28 +37245,28 @@ public class HTMLEntitiesParser {
                 break;
             case 4873:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4874;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4879;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4885;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4887;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 4892;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 4895;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 4898;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4901;
                         return true;
                 }
@@ -37491,88 +37491,88 @@ public class HTMLEntitiesParser {
                 break;
             case 4904:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 4905;
                         return true;
-                    case 'B' :
+                    case 'B':
                         state = 4915;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 4919;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 4921;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 4924;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 4976;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 4994;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5008;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5027;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5145;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5155;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5157;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 5166;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5169;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5186;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5199;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5213;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5300;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5305;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5323;
                         return true;
-                    case 't' : // lt
+                    case 't': // lt
                         match = "<";
                         matchLength = consumedCount;
                         state = 5344;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5376;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 5387;
                         return true;
                 }
                 break;
             case 4905:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4906;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4909;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4911;
                         return true;
                 }
@@ -37712,31 +37712,31 @@ public class HTMLEntitiesParser {
                 break;
             case 4924:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 4925;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4929;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 4935;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 4939;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 4943;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4948;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 4949;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4952;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4970;
                         return true;
                 }
@@ -37869,15 +37869,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4944:
                 switch (current) {
-                    case ';' : // lang;
+                    case ';': // lang;
                         match = "\u27E8";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 4945;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4946;
                         return true;
                 }
@@ -37947,30 +37947,30 @@ public class HTMLEntitiesParser {
                 break;
             case 4953:
                 switch (current) {
-                    case ';' : // larr;
+                    case ';': // larr;
                         match = "\u2190";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 4954;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 4957;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 4959;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 4961;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 4963;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 4965;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 4968;
                         return true;
                 }
@@ -38101,15 +38101,15 @@ public class HTMLEntitiesParser {
                 break;
             case 4970:
                 switch (current) {
-                    case ';' : // lat;
+                    case ';': // lat;
                         match = "\u2AAB";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 4971;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4974;
                         return true;
                 }
@@ -38159,13 +38159,13 @@ public class HTMLEntitiesParser {
                 break;
             case 4976:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4977;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 4980;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 4983;
                         return true;
                 }
@@ -38311,16 +38311,16 @@ public class HTMLEntitiesParser {
                 break;
             case 4994:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 4995;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 4999;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5005;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 5007;
                         return true;
                 }
@@ -38431,16 +38431,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5008:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 5009;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5011;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5015;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5025;
                         return true;
                 }
@@ -38581,21 +38581,21 @@ public class HTMLEntitiesParser {
                 break;
             case 5027:
                 switch (current) {
-                    case ';' : // le;
+                    case ';': // le;
                         match = "\u2264";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'f' :
+                    case 'f':
                         state = 5028;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5101;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5102;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5109;
                         return true;
                 }
@@ -38608,19 +38608,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5029:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5030;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5039;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5052;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5062;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5091;
                         return true;
                 }
@@ -38866,13 +38866,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5066:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5067;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5073;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5081;
                         return true;
                 }
@@ -39111,15 +39111,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5102:
                 switch (current) {
-                    case ';' : // leq;
+                    case ';': // leq;
                         match = "\u2264";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'q' :
+                    case 'q':
                         state = 5103;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5104;
                         return true;
                 }
@@ -39168,21 +39168,21 @@ public class HTMLEntitiesParser {
                 break;
             case 5109:
                 switch (current) {
-                    case ';' : // les;
+                    case ';': // les;
                         match = "\u2A7D";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 5110;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5112;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5117;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5120;
                         return true;
                 }
@@ -39279,19 +39279,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5120:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5121;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5127;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5130;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5139;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5142;
                         return true;
                 }
@@ -39464,13 +39464,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5145:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 5146;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5150;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5154;
                         return true;
                 }
@@ -39661,21 +39661,21 @@ public class HTMLEntitiesParser {
                 break;
             case 5169:
                 switch (current) {
-                    case ';' : // ll;
+                    case ';': // ll;
                         match = "\u226A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 5170;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5173;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5179;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5183;
                         return true;
                 }
@@ -39885,16 +39885,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5199:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 5200;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5201;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5207;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5210;
                         return true;
                 }
@@ -40012,28 +40012,28 @@ public class HTMLEntitiesParser {
                 break;
             case 5213:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5214;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 5219;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5222;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5259;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5275;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5282;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 5287;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 5294;
                         return true;
                 }
@@ -40107,13 +40107,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5223:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 5224;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5243;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5249;
                         return true;
                 }
@@ -40452,13 +40452,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5275:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5276;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5278;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5279;
                         return true;
                 }
@@ -40595,15 +40595,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5294:
                 switch (current) {
-                    case ';' : // loz;
+                    case ';': // loz;
                         match = "\u25CA";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 5295;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5299;
                         return true;
                 }
@@ -40686,19 +40686,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5305:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5306;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5309;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5315;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5319;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5320;
                         return true;
                 }
@@ -40829,22 +40829,22 @@ public class HTMLEntitiesParser {
                 break;
             case 5323:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5324;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5328;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5330;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5331;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5335;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5340;
                         return true;
                 }
@@ -40908,15 +40908,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5332:
                 switch (current) {
-                    case ';' : // lsim;
+                    case ';': // lsim;
                         match = "\u2272";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 5333;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5334;
                         return true;
                 }
@@ -41015,30 +41015,30 @@ public class HTMLEntitiesParser {
                 break;
             case 5344:
                 switch (current) {
-                    case ';' : // lt;
+                    case ';': // lt;
                         match = "<";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 5345;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5349;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5352;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5356;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5360;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5364;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5369;
                         return true;
                 }
@@ -41245,15 +41245,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5373:
                 switch (current) {
-                    case ';' : // ltri;
+                    case ';': // ltri;
                         match = "\u25C3";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 5374;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5375;
                         return true;
                 }
@@ -41424,46 +41424,46 @@ public class HTMLEntitiesParser {
                 break;
             case 5397:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 5398;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5402;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5429;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5435;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5439;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5451;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5453;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5455;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5475;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5480;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5485;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5492;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5493;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5500;
                         return true;
                 }
@@ -41497,16 +41497,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5402:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 5403;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5405;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5411;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5425;
                         return true;
                 }
@@ -41609,18 +41609,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5414:
                 switch (current) {
-                    case ';' : // mapsto;
+                    case ';': // mapsto;
                         match = "\u21A6";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 5415;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5419;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5423;
                         return true;
                 }
@@ -41901,13 +41901,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5455:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 5456;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5459;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5469;
                         return true;
                 }
@@ -41938,18 +41938,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5459:
                 switch (current) {
-                    case ';' : // mid;
+                    case ';': // mid;
                         match = "\u2223";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 5460;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5463;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5466;
                         return true;
                 }
@@ -42034,15 +42034,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5471:
                 switch (current) {
-                    case ';' : // minus;
+                    case ';': // minus;
                         match = "\u2212";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 5472;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5473;
                         return true;
                 }
@@ -42266,15 +42266,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5500:
                 switch (current) {
-                    case ';' : // mu;
+                    case ';': // mu;
                         match = "\u03BC";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'l' :
+                    case 'l':
                         state = 5501;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5507;
                         return true;
                 }
@@ -42341,76 +42341,76 @@ public class HTMLEntitiesParser {
                 break;
             case 5510:
                 switch (current) {
-                    case 'G' :
+                    case 'G':
                         state = 5511;
                         return true;
-                    case 'L' :
+                    case 'L':
                         state = 5515;
                         return true;
-                    case 'R' :
+                    case 'R':
                         state = 5537;
                         return true;
-                    case 'V' :
+                    case 'V':
                         state = 5547;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5556;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 5582;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5589;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5608;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5612;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5641;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5643;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5659;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5669;
                         return true;
-                    case 'j' :
+                    case 'j':
                         state = 5673;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5676;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5720;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5723;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5743;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5767;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5789;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5851;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5880;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 5887;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 5930;
                         return true;
                 }
@@ -42458,13 +42458,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5515:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 5516;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5534;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5535;
                         return true;
                 }
@@ -42747,19 +42747,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5556:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 5557;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5560;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5564;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5566;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5576;
                         return true;
                 }
@@ -42829,21 +42829,21 @@ public class HTMLEntitiesParser {
                 break;
             case 5566:
                 switch (current) {
-                    case ';' : // nap;
+                    case ';': // nap;
                         match = "\u2249";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 5567;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5568;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5570;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5572;
                         return true;
                 }
@@ -43031,19 +43031,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5589:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5590;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5595;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5599;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5605;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 5607;
                         return true;
                 }
@@ -43214,27 +43214,27 @@ public class HTMLEntitiesParser {
                 break;
             case 5612:
                 switch (current) {
-                    case ';' : // ne;
+                    case ';': // ne;
                         match = "\u2260";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'A' :
+                    case 'A':
                         state = 5613;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5616;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5623;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5626;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5630;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 5636;
                         return true;
                 }
@@ -43470,16 +43470,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5643:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 5644;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5645;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5654;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5657;
                         return true;
                 }
@@ -43495,30 +43495,30 @@ public class HTMLEntitiesParser {
                 break;
             case 5645:
                 switch (current) {
-                    case ';' : // nge;
+                    case ';': // nge;
                         match = "\u2271";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'q' :
+                    case 'q':
                         state = 5646;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5653;
                         return true;
                 }
                 break;
             case 5646:
                 switch (current) {
-                    case ';' : // ngeq;
+                    case ';': // ngeq;
                         match = "\u2271";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'q' :
+                    case 'q':
                         state = 5647;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5648;
                         return true;
                 }
@@ -43619,13 +43619,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5659:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 5660;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5663;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5666;
                         return true;
                 }
@@ -43695,15 +43695,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5669:
                 switch (current) {
-                    case ';' : // ni;
+                    case ';': // ni;
                         match = "\u220B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 's' :
+                    case 's':
                         state = 5670;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 5672;
                         return true;
                 }
@@ -43762,25 +43762,25 @@ public class HTMLEntitiesParser {
                 break;
             case 5676:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 5677;
                         return true;
-                    case 'E' :
+                    case 'E':
                         state = 5680;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5681;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5684;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5686;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5713;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5716;
                         return true;
                 }
@@ -43853,18 +43853,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5686:
                 switch (current) {
-                    case ';' : // nle;
+                    case ';': // nle;
                         match = "\u2270";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'f' :
+                    case 'f':
                         state = 5687;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5704;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5711;
                         return true;
                 }
@@ -43983,15 +43983,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5704:
                 switch (current) {
-                    case ';' : // nleq;
+                    case ';': // nleq;
                         match = "\u2270";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'q' :
+                    case 'q':
                         state = 5705;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5706;
                         return true;
                 }
@@ -44173,15 +44173,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5726:
                 switch (current) {
-                    case ';' : // not;
+                    case ';': // not;
                         match = "\u00AC";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 5727;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5737;
                         return true;
                 }
@@ -44194,18 +44194,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5728:
                 switch (current) {
-                    case ';' : // notin;
+                    case ';': // notin;
                         match = "\u2209";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 5729;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5730;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 5733;
                         return true;
                 }
@@ -44242,13 +44242,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5733:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5734;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 5735;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5736;
                         return true;
                 }
@@ -44301,13 +44301,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5739:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5740;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 5741;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5742;
                         return true;
                 }
@@ -44341,13 +44341,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5743:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5744;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5754;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5759;
                         return true;
                 }
@@ -44360,18 +44360,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5745:
                 switch (current) {
-                    case ';' : // npar;
+                    case ';': // npar;
                         match = "\u2226";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 5746;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5751;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5753;
                         return true;
                 }
@@ -44468,15 +44468,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5759:
                 switch (current) {
-                    case ';' : // npr;
+                    case ';': // npr;
                         match = "\u2280";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 5760;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5763;
                         return true;
                 }
@@ -44545,16 +44545,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5767:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 5768;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5771;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5776;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5785;
                         return true;
                 }
@@ -44594,15 +44594,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5773:
                 switch (current) {
-                    case ';' : // nrarr;
+                    case ';': // nrarr;
                         match = "\u219B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 5774;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 5775;
                         return true;
                 }
@@ -44718,43 +44718,43 @@ public class HTMLEntitiesParser {
                 break;
             case 5789:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 5790;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5796;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5811;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 5815;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5818;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 5821;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 5828;
                         return true;
                 }
                 break;
             case 5790:
                 switch (current) {
-                    case ';' : // nsc;
+                    case ';': // nsc;
                         match = "\u2281";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'c' :
+                    case 'c':
                         state = 5791;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5794;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5795;
                         return true;
                 }
@@ -45035,31 +45035,31 @@ public class HTMLEntitiesParser {
                 break;
             case 5828:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 5829;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5838;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 5842;
                         return true;
                 }
                 break;
             case 5829:
                 switch (current) {
-                    case ';' : // nsub;
+                    case ';': // nsub;
                         match = "\u2284";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 5830;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5831;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5832;
                         return true;
                 }
@@ -45171,18 +45171,18 @@ public class HTMLEntitiesParser {
                 break;
             case 5842:
                 switch (current) {
-                    case ';' : // nsup;
+                    case ';': // nsup;
                         match = "\u2285";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 5843;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5844;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5845;
                         return true;
                 }
@@ -45260,16 +45260,16 @@ public class HTMLEntitiesParser {
                 break;
             case 5851:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 5852;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5854;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5858;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5860;
                         return true;
                 }
@@ -45493,15 +45493,15 @@ public class HTMLEntitiesParser {
                 break;
             case 5881:
                 switch (current) {
-                    case ';' : // num;
+                    case ';': // num;
                         match = "#";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 5882;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5885;
                         return true;
                 }
@@ -45544,31 +45544,31 @@ public class HTMLEntitiesParser {
                 break;
             case 5887:
                 switch (current) {
-                    case 'D' :
+                    case 'D':
                         state = 5888;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 5892;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5896;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5898;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5902;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5905;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 5910;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5919;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5927;
                         return true;
                 }
@@ -45732,13 +45732,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5910:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 5911;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5914;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5915;
                         return true;
                 }
@@ -45888,13 +45888,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5930:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 5931;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5934;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 5941;
                         return true;
                 }
@@ -46008,58 +46008,58 @@ public class HTMLEntitiesParser {
                 break;
             case 5945:
                 switch (current) {
-                    case 'S' :
+                    case 'S':
                         state = 5946;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 5947;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 5954;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 5959;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 5975;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 5979;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 5984;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 5992;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5997;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6000;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6015;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6031;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6034;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6043;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6066;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6075;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6085;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 6088;
                         return true;
                 }
@@ -46180,19 +46180,19 @@ public class HTMLEntitiesParser {
                 break;
             case 5959:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 5960;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 5963;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 5967;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 5969;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 5971;
                         return true;
                 }
@@ -46371,13 +46371,13 @@ public class HTMLEntitiesParser {
                 break;
             case 5984:
                 switch (current) {
-                    case 'o' :
+                    case 'o':
                         state = 5985;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 5987;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 5991;
                         return true;
                 }
@@ -46506,16 +46506,16 @@ public class HTMLEntitiesParser {
         switch (state) {
             case 6000:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6001;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6004;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6011;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6014;
                         return true;
                 }
@@ -46625,13 +46625,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6015:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6016;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6019;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6022;
                         return true;
                 }
@@ -46680,13 +46680,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6022:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6023;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6027;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6028;
                         return true;
                 }
@@ -46771,13 +46771,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6034:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6035;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6037;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6040;
                         return true;
                 }
@@ -46841,27 +46841,27 @@ public class HTMLEntitiesParser {
                 break;
             case 6043:
                 switch (current) {
-                    case ';' : // or;
+                    case ';': // or;
                         match = "\u2228";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6044;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6047;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6054;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6058;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6060;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 6065;
                         return true;
                 }
@@ -46889,20 +46889,20 @@ public class HTMLEntitiesParser {
                 break;
             case 6047:
                 switch (current) {
-                    case ';' : // ord;
+                    case ';': // ord;
                         match = "\u2A5D";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 6048;
                         return true;
-                    case 'f' : // ordf
+                    case 'f': // ordf
                         match = "\u00AA";
                         matchLength = consumedCount;
                         state = 6052;
                         return true;
-                    case 'm' : // ordm
+                    case 'm': // ordm
                         match = "\u00BA";
                         matchLength = consumedCount;
                         state = 6053;
@@ -47047,13 +47047,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6066:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6067;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6069;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6073;
                         return true;
                 }
@@ -47251,40 +47251,40 @@ public class HTMLEntitiesParser {
                 break;
             case 6092:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6093;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6105;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6107;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6123;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6125;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6135;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6144;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6174;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6175;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6187;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6263;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6267;
                         return true;
                 }
@@ -47297,20 +47297,20 @@ public class HTMLEntitiesParser {
                 break;
             case 6094:
                 switch (current) {
-                    case ';' : // par;
+                    case ';': // par;
                         match = "\u2225";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' : // para
+                    case 'a': // para
                         match = "\u00B6";
                         matchLength = consumedCount;
                         state = 6095;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6100;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6104;
                         return true;
                 }
@@ -47421,19 +47421,19 @@ public class HTMLEntitiesParser {
                 break;
             case 6108:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6109;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6112;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6115;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6118;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6119;
                         return true;
                 }
@@ -47554,13 +47554,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6125:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 6126;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6128;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6132;
                         return true;
                 }
@@ -47637,15 +47637,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6135:
                 switch (current) {
-                    case ';' : // pi;
+                    case ';': // pi;
                         match = "\u03C0";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 't' :
+                    case 't':
                         state = 6136;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 6143;
                         return true;
                 }
@@ -47781,33 +47781,33 @@ public class HTMLEntitiesParser {
                 break;
             case 6153:
                 switch (current) {
-                    case ';' : // plus;
+                    case ';': // plus;
                         match = "+";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6154;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6158;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6159;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6162;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6165;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6166;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6168;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6171;
                         return true;
                 }
@@ -47977,13 +47977,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6175:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 6176;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6182;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6184;
                         return true;
                 }
@@ -48068,36 +48068,36 @@ public class HTMLEntitiesParser {
                 break;
             case 6187:
                 switch (current) {
-                    case ';' : // pr;
+                    case ';': // pr;
                         match = "\u227A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 6188;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6189;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6191;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6194;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6227;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6231;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6238;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6256;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6259;
                         return true;
                 }
@@ -48162,24 +48162,24 @@ public class HTMLEntitiesParser {
                 break;
             case 6195:
                 switch (current) {
-                    case ';' : // prec;
+                    case ';': // prec;
                         match = "\u227A";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6196;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6202;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6209;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6211;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6224;
                         return true;
                 }
@@ -48285,13 +48285,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6211:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6212;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6218;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6221;
                         return true;
                 }
@@ -48434,13 +48434,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6231:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 6232;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6233;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6235;
                         return true;
                 }
@@ -48492,13 +48492,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6238:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 6239;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6240;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6253;
                         return true;
                 }
@@ -48514,13 +48514,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6240:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6241;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6245;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6249;
                         return true;
                 }
@@ -48751,22 +48751,22 @@ public class HTMLEntitiesParser {
                 break;
             case 6272:
                 switch (current) {
-                    case 'f' :
+                    case 'f':
                         state = 6273;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6275;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6278;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6281;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6286;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6289;
                         return true;
                 }
@@ -48884,13 +48884,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6289:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6290;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6302;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6307;
                         return true;
                 }
@@ -49037,80 +49037,80 @@ public class HTMLEntitiesParser {
                 break;
             case 6309:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 6310;
                         return true;
-                    case 'B' :
+                    case 'B':
                         state = 6320;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 6324;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6327;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6383;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6401;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6415;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6429;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6443;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6453;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6461;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6548;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6556;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6565;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6569;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6590;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6601;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6605;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6618;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6635;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 6641;
                         return true;
                 }
                 break;
             case 6310:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6311;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6314;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6316;
                         return true;
                 }
@@ -49228,25 +49228,25 @@ public class HTMLEntitiesParser {
                 break;
             case 6327:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6328;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6333;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6336;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6342;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 6348;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6351;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6373;
                         return true;
                 }
@@ -49359,18 +49359,18 @@ public class HTMLEntitiesParser {
                 break;
             case 6343:
                 switch (current) {
-                    case ';' : // rang;
+                    case ';': // rang;
                         match = "\u27E9";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 6344;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6345;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6346;
                         return true;
                 }
@@ -49440,39 +49440,39 @@ public class HTMLEntitiesParser {
                 break;
             case 6352:
                 switch (current) {
-                    case ';' : // rarr;
+                    case ';': // rarr;
                         match = "\u2192";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6353;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6355;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6358;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6359;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6361;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6363;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6365;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6367;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6370;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 6372;
                         return true;
                 }
@@ -49713,13 +49713,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6383:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6384;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6387;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6390;
                         return true;
                 }
@@ -49865,16 +49865,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6401:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6402;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6406;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6412;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 6414;
                         return true;
                 }
@@ -49978,16 +49978,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6415:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6416;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6418;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 6423;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6427;
                         return true;
                 }
@@ -50091,13 +50091,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6429:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6430;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6440;
                         return true;
-                    case 'g' : // reg
+                    case 'g': // reg
                         match = "\u00AE";
                         matchLength = consumedCount;
                         state = 6442;
@@ -50112,18 +50112,18 @@ public class HTMLEntitiesParser {
                 break;
             case 6431:
                 switch (current) {
-                    case ';' : // real;
+                    case ';': // real;
                         match = "\u211C";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'i' :
+                    case 'i':
                         state = 6432;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6435;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6439;
                         return true;
                 }
@@ -50211,13 +50211,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6443:
                 switch (current) {
-                    case 'i' :
+                    case 'i':
                         state = 6444;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6448;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6452;
                         return true;
                 }
@@ -50366,13 +50366,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6461:
                 switch (current) {
-                    case 'g' :
+                    case 'g':
                         state = 6462;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6536;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6538;
                         return true;
                 }
@@ -50391,22 +50391,22 @@ public class HTMLEntitiesParser {
                 break;
             case 6464:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6465;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6474;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6487;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6505;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6516;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6526;
                         return true;
                 }
@@ -50956,13 +50956,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6548:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6549;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6552;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6555;
                         return true;
                 }
@@ -51111,16 +51111,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6569:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6570;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6575;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6578;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6585;
                         return true;
                 }
@@ -51188,13 +51188,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6578:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6579;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6581;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6582;
                         return true;
                 }
@@ -51389,16 +51389,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6605:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6606;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6610;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6612;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 6613;
                         return true;
                 }
@@ -51503,13 +51503,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6618:
                 switch (current) {
-                    case 'h' :
+                    case 'h':
                         state = 6619;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6623;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6627;
                         return true;
                 }
@@ -51576,18 +51576,18 @@ public class HTMLEntitiesParser {
                 break;
             case 6628:
                 switch (current) {
-                    case ';' : // rtri;
+                    case ';': // rtri;
                         match = "\u25B9";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 6629;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6630;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6631;
                         return true;
                 }
@@ -51687,61 +51687,61 @@ public class HTMLEntitiesParser {
                 break;
             case 6642:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6643;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 6648;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6652;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6686;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6691;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6719;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6724;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6748;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6774;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6778;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6806;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6817;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 6826;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6856;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6860;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6875;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6897;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7024;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 7039;
                         return true;
                 }
@@ -51808,36 +51808,36 @@ public class HTMLEntitiesParser {
                 break;
             case 6652:
                 switch (current) {
-                    case ';' : // sc;
+                    case ';': // sc;
                         match = "\u227B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 6653;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6654;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6659;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6662;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6666;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6669;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6676;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6682;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 6685;
                         return true;
                 }
@@ -51969,13 +51969,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6669:
                 switch (current) {
-                    case 'E' :
+                    case 'E':
                         state = 6670;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6671;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6673;
                         return true;
                 }
@@ -52108,15 +52108,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6688:
                 switch (current) {
-                    case ';' : // sdot;
+                    case ';': // sdot;
                         match = "\u22C5";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 6689;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6690;
                         return true;
                 }
@@ -52141,25 +52141,25 @@ public class HTMLEntitiesParser {
                 break;
             case 6691:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 6692;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 6695;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6702;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6704;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6706;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6710;
                         return true;
-                    case 'x' :
+                    case 'x':
                         state = 6717;
                         return true;
                 }
@@ -52413,16 +52413,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6724:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6725;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6728;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 6733;
                         return true;
-                    case 'y' : // shy
+                    case 'y': // shy
                         match = "\u00AD";
                         matchLength = consumedCount;
                         state = 6747;
@@ -52617,15 +52617,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6751:
                 switch (current) {
-                    case ';' : // sigma;
+                    case ';': // sigma;
                         match = "\u03C3";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'f' :
+                    case 'f':
                         state = 6752;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 6753;
                         return true;
                 }
@@ -52650,30 +52650,30 @@ public class HTMLEntitiesParser {
                 break;
             case 6754:
                 switch (current) {
-                    case ';' : // sim;
+                    case ';': // sim;
                         match = "\u223C";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 6755;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6758;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 6760;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6762;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6764;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6766;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6770;
                         return true;
                 }
@@ -52863,16 +52863,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6778:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6779;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6793;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6799;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6803;
                         return true;
                 }
@@ -53081,13 +53081,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6806:
                 switch (current) {
-                    case 'f' :
+                    case 'f':
                         state = 6807;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6811;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6815;
                         return true;
                 }
@@ -53248,13 +53248,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6826:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6827;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6834;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6850;
                         return true;
                 }
@@ -53343,15 +53343,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6836:
                 switch (current) {
-                    case ';' : // sqsub;
+                    case ';': // sqsub;
                         match = "\u228F";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 6837;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6838;
                         return true;
                 }
@@ -53407,15 +53407,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6843:
                 switch (current) {
-                    case ';' : // sqsup;
+                    case ';': // sqsup;
                         match = "\u2290";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 6844;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6845;
                         return true;
                 }
@@ -53471,15 +53471,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6850:
                 switch (current) {
-                    case ';' : // squ;
+                    case ';': // squ;
                         match = "\u25A1";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6851;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 6855;
                         return true;
                 }
@@ -53556,16 +53556,16 @@ public class HTMLEntitiesParser {
                 break;
             case 6860:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 6861;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6863;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6867;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 6871;
                         return true;
                 }
@@ -53831,52 +53831,52 @@ public class HTMLEntitiesParser {
                 break;
             case 6897:
                 switch (current) {
-                    case 'b' :
+                    case 'b':
                         state = 6898;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6937;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6970;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6971;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6973;
                         return true;
                 }
                 break;
             case 6898:
                 switch (current) {
-                    case ';' : // sub;
+                    case ';': // sub;
                         match = "\u2282";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 6899;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6900;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6903;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6907;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6911;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 6914;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 6918;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6922;
                         return true;
                 }
@@ -54056,13 +54056,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6922:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 6923;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 6932;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 6934;
                         return true;
                 }
@@ -54075,15 +54075,15 @@ public class HTMLEntitiesParser {
                 break;
             case 6924:
                 switch (current) {
-                    case ';' : // subset;
+                    case ';': // subset;
                         match = "\u2282";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 6925;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6928;
                         return true;
                 }
@@ -54201,24 +54201,24 @@ public class HTMLEntitiesParser {
                 break;
             case 6938:
                 switch (current) {
-                    case ';' : // succ;
+                    case ';': // succ;
                         match = "\u227B";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'a' :
+                    case 'a':
                         state = 6939;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 6945;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6952;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 6954;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6967;
                         return true;
                 }
@@ -54324,13 +54324,13 @@ public class HTMLEntitiesParser {
                 break;
             case 6954:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 6955;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6961;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 6964;
                         return true;
                 }
@@ -54463,51 +54463,51 @@ public class HTMLEntitiesParser {
                 break;
             case 6973:
                 switch (current) {
-                    case '1' : // sup1
+                    case '1': // sup1
                         match = "\u00B9";
                         matchLength = consumedCount;
                         state = 6974;
                         return true;
-                    case '2' : // sup2
+                    case '2': // sup2
                         match = "\u00B2";
                         matchLength = consumedCount;
                         state = 6975;
                         return true;
-                    case '3' : // sup3
+                    case '3': // sup3
                         match = "\u00B3";
                         matchLength = consumedCount;
                         state = 6976;
                         return true;
-                    case ';' : // sup;
+                    case ';': // sup;
                         match = "\u2283";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'E' :
+                    case 'E':
                         state = 6977;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 6978;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 6984;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 6988;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 6994;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 6998;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7002;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7005;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7009;
                         return true;
                 }
@@ -54792,13 +54792,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7009:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 7010;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7019;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7021;
                         return true;
                 }
@@ -54811,15 +54811,15 @@ public class HTMLEntitiesParser {
                 break;
             case 7011:
                 switch (current) {
-                    case ';' : // supset;
+                    case ';': // supset;
                         match = "\u2283";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'e' :
+                    case 'e':
                         state = 7012;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7015;
                         return true;
                 }
@@ -54931,13 +54931,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7024:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 7025;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 7028;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7035;
                         return true;
                 }
@@ -55081,43 +55081,43 @@ public class HTMLEntitiesParser {
                 break;
             case 7043:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7044;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 7050;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7053;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7063;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7066;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7071;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7073;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7112;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7125;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7141;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7146;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7199;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7210;
                         return true;
                 }
@@ -55191,13 +55191,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7053:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7054;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7058;
                         return true;
-                    case 'y' :
+                    case 'y':
                         state = 7062;
                         return true;
                 }
@@ -55336,16 +55336,16 @@ public class HTMLEntitiesParser {
                 break;
             case 7073:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 7074;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7088;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 7103;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7109;
                         return true;
                 }
@@ -55420,15 +55420,15 @@ public class HTMLEntitiesParser {
                 break;
             case 7083:
                 switch (current) {
-                    case ';' : // theta;
+                    case ';': // theta;
                         match = "\u03B8";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 's' :
+                    case 's':
                         state = 7084;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 7087;
                         return true;
                 }
@@ -55642,13 +55642,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7112:
                 switch (current) {
-                    case 'l' :
+                    case 'l':
                         state = 7113;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 7116;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7123;
                         return true;
                 }
@@ -55691,15 +55691,15 @@ public class HTMLEntitiesParser {
                 break;
             case 7118:
                 switch (current) {
-                    case ';' : // times;
+                    case ';': // times;
                         match = "\u00D7";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 7119;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7122;
                         return true;
                 }
@@ -55758,13 +55758,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7125:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 7126;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7128;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7139;
                         return true;
                 }
@@ -55786,18 +55786,18 @@ public class HTMLEntitiesParser {
                 break;
             case 7128:
                 switch (current) {
-                    case ';' : // top;
+                    case ';': // top;
                         match = "\u22A4";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 7129;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7132;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7135;
                         return true;
                 }
@@ -55928,13 +55928,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7146:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7147;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7150;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7193;
                         return true;
                 }
@@ -55962,25 +55962,25 @@ public class HTMLEntitiesParser {
                 break;
             case 7150:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7151;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7174;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7177;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 7178;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7183;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7187;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7189;
                         return true;
                 }
@@ -56011,21 +56011,21 @@ public class HTMLEntitiesParser {
                 break;
             case 7155:
                 switch (current) {
-                    case ';' : // triangle;
+                    case ';': // triangle;
                         match = "\u25B5";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'd' :
+                    case 'd':
                         state = 7156;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7160;
                         return true;
-                    case 'q' :
+                    case 'q':
                         state = 7166;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7167;
                         return true;
                 }
@@ -56337,13 +56337,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7199:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 7200;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7203;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7206;
                         return true;
                 }
@@ -56611,58 +56611,58 @@ public class HTMLEntitiesParser {
                 break;
             case 7238:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 7239;
                         return true;
-                    case 'H' :
+                    case 'H':
                         state = 7242;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 7245;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 7252;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7259;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7264;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7275;
                         return true;
-                    case 'g' :
+                    case 'g':
                         state = 7281;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7286;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7294;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 7307;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7312;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7318;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7366;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7382;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7385;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7396;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7402;
                         return true;
                 }
@@ -56861,13 +56861,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7264:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7265;
                         return true;
-                    case 'b' :
+                    case 'b':
                         state = 7268;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7272;
                         return true;
                 }
@@ -57281,22 +57281,22 @@ public class HTMLEntitiesParser {
                 break;
             case 7318:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7319;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7324;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7333;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7349;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7352;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7358;
                         return true;
                 }
@@ -57526,15 +57526,15 @@ public class HTMLEntitiesParser {
                 break;
             case 7353:
                 switch (current) {
-                    case ';' : // upsi;
+                    case ';': // upsi;
                         match = "\u03C5";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'h' :
+                    case 'h':
                         state = 7354;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7355;
                         return true;
                 }
@@ -57622,13 +57622,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7366:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 7367;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7376;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7379;
                         return true;
                 }
@@ -57769,13 +57769,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7385:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 7386;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7389;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7393;
                         return true;
                 }
@@ -57946,49 +57946,49 @@ public class HTMLEntitiesParser {
                 break;
             case 7408:
                 switch (current) {
-                    case 'A' :
+                    case 'A':
                         state = 7409;
                         return true;
-                    case 'B' :
+                    case 'B':
                         state = 7412;
                         return true;
-                    case 'D' :
+                    case 'D':
                         state = 7416;
                         return true;
-                    case 'a' :
+                    case 'a':
                         state = 7420;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7500;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7502;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7506;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7522;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7524;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7528;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7533;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7536;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7540;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7544;
                         return true;
-                    case 'z' :
+                    case 'z':
                         state = 7556;
                         return true;
                 }
@@ -58114,25 +58114,25 @@ public class HTMLEntitiesParser {
                 break;
             case 7425:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 7426;
                         return true;
-                    case 'k' :
+                    case 'k':
                         state = 7433;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7438;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7445;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7454;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7457;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7479;
                         return true;
                 }
@@ -58262,13 +58262,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7445:
                 switch (current) {
-                    case 'h' :
+                    case 'h':
                         state = 7446;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7448;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7449;
                         return true;
                 }
@@ -58708,28 +58708,28 @@ public class HTMLEntitiesParser {
                 break;
             case 7506:
                 switch (current) {
-                    case 'e' :
+                    case 'e':
                         state = 7507;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7513;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7517;
                         return true;
                 }
                 break;
             case 7507:
                 switch (current) {
-                    case ';' : // vee;
+                    case ';': // vee;
                         match = "\u2228";
                         matchLength = consumedCount;
                         state = STATE_ENDS_WITH_SEMICOLON;
                         return false;
-                    case 'b' :
+                    case 'b':
                         state = 7508;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7511;
                         return true;
                 }
@@ -59138,25 +59138,25 @@ public class HTMLEntitiesParser {
                 break;
             case 7562:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 7563;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7567;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7579;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7581;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7584;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7585;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7590;
                         return true;
                 }
@@ -59392,59 +59392,59 @@ public class HTMLEntitiesParser {
                 break;
             case 7593:
                 switch (current) {
-                    case 'c' :
+                    case 'c':
                         state = 7594;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7602;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7606;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7608;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7615;
                         return true;
-                    case 'l' :
+                    case 'l':
                         state = 7616;
                         return true;
-                    case 'm' :
+                    case 'm':
                         state = 7623;
                         return true;
-                    case 'n' :
+                    case 'n':
                         state = 7626;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7629;
                         return true;
-                    case 'r' :
+                    case 'r':
                         state = 7642;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7649;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7656;
                         return true;
-                    case 'v' :
+                    case 'v':
                         state = 7664;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7667;
                         return true;
                 }
                 break;
             case 7594:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7595;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7597;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7600;
                         return true;
                 }
@@ -59699,13 +59699,13 @@ public class HTMLEntitiesParser {
                 break;
             case 7629:
                 switch (current) {
-                    case 'd' :
+                    case 'd':
                         state = 7630;
                         return true;
-                    case 'p' :
+                    case 'p':
                         state = 7633;
                         return true;
-                    case 't' :
+                    case 't':
                         state = 7638;
                         return true;
                 }
@@ -60016,28 +60016,28 @@ public class HTMLEntitiesParser {
                 break;
             case 7672:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7673;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7679;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7684;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7686;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7688;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7691;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7694;
                         return true;
-                    case 'u' :
+                    case 'u':
                         state = 7697;
                         return true;
                 }
@@ -60272,34 +60272,34 @@ public class HTMLEntitiesParser {
                 break;
             case 7702:
                 switch (current) {
-                    case 'a' :
+                    case 'a':
                         state = 7703;
                         return true;
-                    case 'c' :
+                    case 'c':
                         state = 7708;
                         return true;
-                    case 'd' :
+                    case 'd':
                         state = 7714;
                         return true;
-                    case 'e' :
+                    case 'e':
                         state = 7717;
                         return true;
-                    case 'f' :
+                    case 'f':
                         state = 7724;
                         return true;
-                    case 'h' :
+                    case 'h':
                         state = 7726;
                         return true;
-                    case 'i' :
+                    case 'i':
                         state = 7729;
                         return true;
-                    case 'o' :
+                    case 'o':
                         state = 7735;
                         return true;
-                    case 's' :
+                    case 's':
                         state = 7738;
                         return true;
-                    case 'w' :
+                    case 'w':
                         state = 7741;
                         return true;
                 }
