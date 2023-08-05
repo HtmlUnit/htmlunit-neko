@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLOptGroupElement;
@@ -23,49 +22,34 @@ import org.w3c.dom.html.HTMLOptGroupElement;
  * @see org.w3c.dom.html.HTMLOptGroupElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLOptGroupElementImpl
-    extends HTMLElementImpl
-    implements HTMLOptGroupElement
-{
+public class HTMLOptGroupElementImpl extends HTMLElementImpl implements HTMLOptGroupElement {
 
     @Override
-    public boolean getDisabled()
-    {
+    public boolean getDisabled() {
         return getBinary("disabled");
     }
 
-
     @Override
-    public void setDisabled( boolean disabled)
-    {
+    public void setDisabled(final boolean disabled) {
         setAttribute("disabled", disabled);
     }
 
-
-      @Override
-    public String getLabel()
-    {
-        return capitalize( getAttribute("label"));
+    @Override
+    public String getLabel() {
+        return capitalize(getAttribute("label"));
     }
 
-
     @Override
-    public void setLabel(final String label)
-    {
+    public void setLabel(final String label) {
         setAttribute("label", label);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLOptGroupElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLOptGroupElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

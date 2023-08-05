@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLModElement;
@@ -23,49 +22,34 @@ import org.w3c.dom.html.HTMLModElement;
  * @see org.w3c.dom.html.HTMLModElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLModElementImpl
-    extends HTMLElementImpl
-    implements HTMLModElement
-{
+public class HTMLModElementImpl extends HTMLElementImpl implements HTMLModElement {
 
     @Override
-    public String getCite()
-    {
+    public String getCite() {
         return getAttribute("cite");
     }
 
-
     @Override
-    public void setCite(final String cite)
-    {
+    public void setCite(final String cite) {
         setAttribute("cite", cite);
     }
 
-
-      @Override
-    public String getDateTime()
-    {
+    @Override
+    public String getDateTime() {
         return getAttribute("datetime");
     }
 
-
     @Override
-    public void setDateTime(final String dateTime)
-    {
+    public void setDateTime(final String dateTime) {
         setAttribute("datetime", dateTime);
     }
-
 
     /**
      * Constructor requires owner document and tag name.
      *
      * @param owner The owner HTML document
      */
-    public HTMLModElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLModElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

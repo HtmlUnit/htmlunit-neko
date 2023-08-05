@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -28,37 +27,28 @@ import org.w3c.dom.html.HTMLSelectElement;
  * @see org.w3c.dom.html.HTMLSelectElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLSelectElementImpl
-    extends HTMLElementImpl
-    implements HTMLSelectElement, HTMLFormControl
-{
+public class HTMLSelectElementImpl extends HTMLElementImpl implements HTMLSelectElement, HTMLFormControl {
+    private HTMLCollection    options_;
 
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
-      @Override
-    public String getValue()
-    {
+    @Override
+    public String getValue() {
         return getAttribute("value");
     }
 
-
     @Override
-    public void setValue(final String value)
-    {
+    public void setValue(final String value) {
         setAttribute("value", value);
     }
 
-
     @Override
-    public int getSelectedIndex()
-    {
-        NodeList    options;
-        int            i;
+    public int getSelectedIndex() {
+        final NodeList options;
+        int i;
 
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
@@ -66,18 +56,18 @@ public class HTMLSelectElementImpl
         // Locate the first selected OPTION and return its index. Note that
         // the OPTION might be under an OPTGROUP.
         options = getElementsByTagName("OPTION");
-        for ( i = 0 ; i < options.getLength() ; ++i)
-            if ( ( (HTMLOptionElement) options.item( i)).getSelected())
+        for (i = 0; i < options.getLength(); ++i) {
+            if (((HTMLOptionElement) options.item(i)).getSelected()) {
                 return i;
+            }
+        }
         return -1;
     }
 
-
     @Override
-    public void setSelectedIndex( int selectedIndex)
-    {
-        NodeList    options;
-        int            i;
+    public void setSelectedIndex(final int selectedIndex) {
+        final NodeList options;
+        int i;
 
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
@@ -85,109 +75,83 @@ public class HTMLSelectElementImpl
         // Change the select so all OPTIONs are off, except for the
         // selectIndex-th one.
         options = getElementsByTagName("OPTION");
-        for ( i = 0 ; i < options.getLength() ; ++i)
-            ( (HTMLOptionElementImpl) options.item( i)).setSelected( i == selectedIndex);
+        for (i = 0; i < options.getLength(); ++i) {
+            ((HTMLOptionElementImpl) options.item(i)).setSelected(i == selectedIndex);
+        }
     }
 
-
     @Override
-    public HTMLCollection getOptions()
-    {
-        if ( _options == null)
-            _options = new HTMLCollectionImpl( this, HTMLCollectionImpl.OPTION);
-        return _options;
+    public HTMLCollection getOptions() {
+        if (options_ == null) {
+            options_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.OPTION);
+        }
+        return options_;
     }
 
-
     @Override
-    public int getLength()
-    {
+    public int getLength() {
         return getOptions().getLength();
     }
 
-
     @Override
-    public boolean getDisabled()
-    {
+    public boolean getDisabled() {
         return getBinary("disabled");
     }
 
-
     @Override
-    public void setDisabled( boolean disabled)
-    {
+    public void setDisabled(final boolean disabled) {
         setAttribute("disabled", disabled);
     }
 
-
-      @Override
-    public boolean getMultiple()
-    {
+    @Override
+    public boolean getMultiple() {
         return getBinary("multiple");
     }
 
-
     @Override
-    public void setMultiple( boolean multiple)
-    {
+    public void setMultiple(final boolean multiple) {
         setAttribute("multiple", multiple);
     }
 
-
-      @Override
-    public String getName()
-    {
+    @Override
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public int getSize()
-    {
-        return getInteger( getAttribute("size"));
+    public int getSize() {
+        return getInteger(getAttribute("size"));
     }
 
-
     @Override
-    public void setSize( int size)
-    {
-        setAttribute("size", String.valueOf( size));
+    public void setSize(final int size) {
+        setAttribute("size", String.valueOf(size));
     }
 
-
     @Override
-    public int getTabIndex()
-    {
-        return getInteger( getAttribute("tabindex"));
+    public int getTabIndex() {
+        return getInteger(getAttribute("tabindex"));
     }
 
-
     @Override
-    public void setTabIndex(final int tabIndex)
-    {
+    public void setTabIndex(final int tabIndex) {
         setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
-
     @Override
-    public void add( HTMLElement element, HTMLElement before)
-    {
-        insertBefore( element, before);
+    public void add(final HTMLElement element, final HTMLElement before) {
+        insertBefore(element, before);
     }
 
-
     @Override
-    public void remove( int index)
-    {
-        NodeList    options;
-        Node        removed;
+    public void remove(final int index) {
+        final NodeList options;
+        final Node removed;
 
         // Use getElementsByTagName() which creates a snapshot of all the
         // OPTION elements under this SELECT. Access to the returned NodeList
@@ -195,22 +159,19 @@ public class HTMLSelectElementImpl
         // Remove the indexed OPTION from it's parent, this might be this
         // SELECT or an OPTGROUP.
         options = getElementsByTagName("OPTION");
-        removed = options.item( index);
-        if ( removed != null)
-            removed.getParentNode().removeChild ( removed);
+        removed = options.item(index);
+        if (removed != null) {
+            removed.getParentNode().removeChild(removed);
+        }
     }
 
-
     @Override
-    public void               blur()
-    {
+    public void               blur() {
         // No scripting in server-side DOM. This method is moot.
     }
 
-
     @Override
-    public void               focus()
-    {
+    public void               focus() {
         // No scripting in server-side DOM. This method is moot.
     }
 
@@ -228,9 +189,9 @@ public class HTMLSelectElementImpl
      * for getOptions() gets cleared.
      */
     @Override
-    public Node cloneNode(boolean deep) {
-        HTMLSelectElementImpl clonedNode = (HTMLSelectElementImpl)super.cloneNode( deep);
-        clonedNode._options = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLSelectElementImpl clonedNode = (HTMLSelectElementImpl) super.cloneNode(deep);
+        clonedNode.options_ = null;
         return clonedNode;
     }
 
@@ -239,14 +200,8 @@ public class HTMLSelectElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLSelectElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLSelectElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    private HTMLCollection    _options;
-
-
 }
 

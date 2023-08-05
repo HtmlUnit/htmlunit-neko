@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLHeadElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLHeadElement;
  * @see org.w3c.dom.html.HTMLHeadElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLHeadElementImpl
-    extends HTMLElementImpl
-    implements HTMLHeadElement
-{
+public class HTMLHeadElementImpl extends HTMLElementImpl implements HTMLHeadElement {
 
     @Override
-    public String getProfile()
-    {
+    public String getProfile() {
         return getAttribute("profile");
     }
 
-
     @Override
-    public void setProfile(final String profile)
-    {
+    public void setProfile(final String profile) {
         setAttribute("profile", profile);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLHeadElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLHeadElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

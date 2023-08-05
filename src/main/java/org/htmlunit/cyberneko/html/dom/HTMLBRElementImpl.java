@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLBRElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLBRElement;
  * @see org.w3c.dom.html.HTMLBRElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLBRElementImpl
-    extends HTMLElementImpl
-    implements HTMLBRElement
-{
+public class HTMLBRElementImpl extends HTMLElementImpl implements HTMLBRElement {
 
     @Override
-    public String getClear()
-    {
-        return capitalize( getAttribute("clear"));
+    public String getClear() {
+        return capitalize(getAttribute("clear"));
     }
 
-
     @Override
-    public void setClear(final String clear)
-    {
+    public void setClear(final String clear) {
         setAttribute("clear", clear);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLBRElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLBRElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -26,121 +25,92 @@ import org.w3c.dom.html.HTMLFormElement;
  * @see org.w3c.dom.html.HTMLFormElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLFormElementImpl
-    extends HTMLElementImpl
-    implements HTMLFormElement
-{
+public class HTMLFormElementImpl extends HTMLElementImpl implements HTMLFormElement {
+    /**
+     * Collection of all elements contained in this FORM.
+     */
+    private HTMLCollectionImpl    elements_;
 
     @Override
-    public HTMLCollection getElements()
-    {
-        if ( _elements == null)
-            _elements = new HTMLCollectionImpl( this, HTMLCollectionImpl.ELEMENT);
-        return _elements;
+    public HTMLCollection getElements() {
+        if (elements_ == null) {
+            elements_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.ELEMENT);
+        }
+        return elements_;
     }
 
-
     @Override
-    public int getLength()
-    {
+    public int getLength() {
         return getElements().getLength();
     }
 
-
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public String getAcceptCharset()
-    {
+    public String getAcceptCharset() {
         return getAttribute("accept-charset");
     }
 
-
     @Override
-    public void setAcceptCharset(final String acceptCharset)
-    {
+    public void setAcceptCharset(final String acceptCharset) {
         setAttribute("accept-charset", acceptCharset);
     }
 
-
-      @Override
-    public String getAction()
-    {
+    @Override
+    public String getAction() {
         return getAttribute("action");
     }
 
-
     @Override
-    public void setAction(final String action)
-    {
+    public void setAction(final String action) {
         setAttribute("action", action);
     }
 
-
-      @Override
-    public String getEnctype()
-    {
+    @Override
+    public String getEnctype() {
         return getAttribute("enctype");
     }
 
-
     @Override
-    public void setEnctype(final String enctype)
-    {
+    public void setEnctype(final String enctype) {
         setAttribute("enctype", enctype);
     }
 
-
-      @Override
-    public String getMethod()
-    {
-        return capitalize( getAttribute("method"));
+    @Override
+    public String getMethod() {
+        return capitalize(getAttribute("method"));
     }
 
-
     @Override
-    public void setMethod(final String method)
-    {
+    public void setMethod(final String method) {
         setAttribute("method", method);
     }
 
-
     @Override
-    public String getTarget()
-    {
+    public String getTarget() {
         return getAttribute("target");
     }
 
-
     @Override
-    public void setTarget(final String target)
-    {
+    public void setTarget(final String target) {
         setAttribute("target", target);
     }
 
-
     @Override
-    public void submit()
-    {
+    public void submit() {
         // No scripting in server-side DOM. This method is moot.
     }
 
-
     @Override
-    public void reset()
-    {
+    public void reset() {
         // No scripting in server-side DOM. This method is moot.
     }
 
@@ -158,9 +128,9 @@ public class HTMLFormElementImpl
      * for getElements() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep) {
-        HTMLFormElementImpl clonedNode = (HTMLFormElementImpl)super.cloneNode( deep);
-        clonedNode._elements = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLFormElementImpl clonedNode = (HTMLFormElementImpl) super.cloneNode(deep);
+        clonedNode.elements_ = null;
         return clonedNode;
     }
 
@@ -169,16 +139,8 @@ public class HTMLFormElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLFormElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLFormElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    /**
-     * Collection of all elements contained in this FORM.
-     */
-    private HTMLCollectionImpl    _elements;
-
 }
 

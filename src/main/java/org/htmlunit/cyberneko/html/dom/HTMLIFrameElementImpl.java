@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Document;
@@ -24,167 +23,120 @@ import org.w3c.dom.html.HTMLIFrameElement;
  * @see org.w3c.dom.html.HTMLIFrameElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLIFrameElementImpl
-    extends HTMLElementImpl
-    implements HTMLIFrameElement
-{
+public class HTMLIFrameElementImpl extends HTMLElementImpl implements HTMLIFrameElement {
 
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getFrameBorder()
-    {
+    public String getFrameBorder() {
         return getAttribute("frameborder");
     }
 
-
     @Override
-    public void setFrameBorder(final String frameBorder)
-    {
+    public void setFrameBorder(final String frameBorder) {
         setAttribute("frameborder", frameBorder);
     }
 
-
     @Override
-    public String getHeight()
-    {
+    public String getHeight() {
         return getAttribute("height");
     }
 
-
     @Override
-    public void setHeight(final String height)
-    {
+    public void setHeight(final String height) {
         setAttribute("height", height);
     }
 
     @Override
-    public String getLongDesc()
-    {
+    public String getLongDesc() {
         return getAttribute("longdesc");
     }
 
-
     @Override
-    public void setLongDesc(final String longDesc)
-    {
+    public void setLongDesc(final String longDesc) {
         setAttribute("longdesc", longDesc);
     }
 
-
     @Override
-    public String getMarginHeight()
-    {
+    public String getMarginHeight() {
         return getAttribute("marginheight");
     }
 
-
     @Override
-    public void setMarginHeight(final String marginHeight)
-    {
+    public void setMarginHeight(final String marginHeight) {
         setAttribute("marginheight", marginHeight);
     }
 
-
     @Override
-    public String getMarginWidth()
-    {
+    public String getMarginWidth() {
         return getAttribute("marginwidth");
     }
 
-
     @Override
-    public void setMarginWidth(final String marginWidth)
-    {
+    public void setMarginWidth(final String marginWidth) {
         setAttribute("marginwidth", marginWidth);
     }
 
-
-      @Override
-    public String getName()
-    {
+    @Override
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public String getScrolling()
-    {
-        return capitalize( getAttribute("scrolling"));
+    public String getScrolling() {
+        return capitalize(getAttribute("scrolling"));
     }
 
-
     @Override
-    public void setScrolling(final String scrolling)
-    {
+    public void setScrolling(final String scrolling) {
         setAttribute("scrolling", scrolling);
     }
 
-
-       @Override
-    public String getSrc()
-    {
+    @Override
+    public String getSrc() {
         return getAttribute("src");
     }
 
-
     @Override
-    public void setSrc(final String src)
-    {
+    public void setSrc(final String src) {
         setAttribute("src", src);
     }
 
-
-      @Override
-    public String getWidth()
-    {
+    @Override
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLIFrameElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLIFrameElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
 
     @Override
     public Document getContentDocument() {
         // TODO Auto-generated method stub
         return null;
     }
-
-
 }
-

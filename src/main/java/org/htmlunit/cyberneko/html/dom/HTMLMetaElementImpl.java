@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLMetaElement;
@@ -23,78 +22,54 @@ import org.w3c.dom.html.HTMLMetaElement;
  * @see org.w3c.dom.html.HTMLMetaElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLMetaElementImpl
-    extends HTMLElementImpl
-    implements HTMLMetaElement
-{
+public class HTMLMetaElementImpl extends HTMLElementImpl implements HTMLMetaElement {
 
     @Override
-    public String getContent()
-    {
+    public String getContent() {
         return getAttribute("content");
     }
 
-
     @Override
-    public void setContent(final String content)
-    {
+    public void setContent(final String content) {
         setAttribute("content", content);
     }
 
-
-
-      @Override
-    public String getHttpEquiv()
-    {
+    @Override
+    public String getHttpEquiv() {
         return getAttribute("http-equiv");
     }
 
-
     @Override
-    public void setHttpEquiv(final String httpEquiv)
-    {
+    public void setHttpEquiv(final String httpEquiv) {
         setAttribute("http-equiv", httpEquiv);
     }
 
-
-      @Override
-    public String getName()
-    {
+    @Override
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
-      @Override
-    public String getScheme()
-    {
+    @Override
+    public String getScheme() {
         return getAttribute("scheme");
     }
 
-
     @Override
-    public void setScheme(final String scheme)
-    {
+    public void setScheme(final String scheme) {
         setAttribute("scheme", scheme);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLMetaElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLMetaElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

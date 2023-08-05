@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -30,101 +29,88 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * @see org.w3c.dom.html.HTMLTableRowElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableRowElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableRowElement
-{
+public class HTMLTableRowElementImpl extends HTMLElementImpl implements HTMLTableRowElement {
+    private HTMLCollection cells_;
 
     @Override
-    public int getRowIndex()
-    {
+    public int getRowIndex() {
         Node    parent;
 
         parent = getParentNode();
-        if ( parent instanceof HTMLTableSectionElement) {
+        if (parent instanceof HTMLTableSectionElement) {
             parent = parent.getParentNode();
         }
-        if ( parent instanceof HTMLTableElement) {
-            return getRowIndex( parent);
+        if (parent instanceof HTMLTableElement) {
+            return getRowIndex(parent);
         }
         return -1;
     }
-
 
     @Override
-    public int getSectionRowIndex()
-    {
-        Node    parent;
+    public int getSectionRowIndex() {
+        final Node parent;
 
         parent = getParentNode();
-        if ( parent instanceof HTMLTableSectionElement) {
-            return getRowIndex( parent);
+        if (parent instanceof HTMLTableSectionElement) {
+            return getRowIndex(parent);
         }
         return -1;
     }
 
-
-    int getRowIndex( Node parent)
-    {
-        NodeList    rows;
-        int            i;
+    int getRowIndex(final Node parent) {
+        final NodeList rows;
+        int i;
 
         // Use getElementsByTagName() which creates a snapshot of all the
         // TR elements under the TABLE/section. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
-        rows = ( (HTMLElement) parent).getElementsByTagName("TR");
-        for ( i = 0 ; i < rows.getLength() ; ++i) {
-            if ( rows.item( i) == this) {
+        rows = ((HTMLElement) parent).getElementsByTagName("TR");
+        for (i = 0; i < rows.getLength(); ++i) {
+            if (rows.item(i) == this) {
                 return i;
             }
         }
         return -1;
     }
 
-
     @Override
-    public HTMLCollection  getCells()
-    {
-        if ( _cells == null) {
-            _cells = new HTMLCollectionImpl( this, HTMLCollectionImpl.CELL);
+    public HTMLCollection  getCells() {
+        if (cells_ == null) {
+            cells_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.CELL);
         }
-        return _cells;
+        return cells_;
     }
 
-
     @Override
-    public HTMLElement insertCell( int index)
-    {
-        Node        child;
-        HTMLElement    newCell;
+    public HTMLElement insertCell(int index) {
+        Node child;
+        final HTMLElement newCell;
 
-        newCell = new HTMLTableCellElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TD");
+        newCell = new HTMLTableCellElementImpl((HTMLDocumentImpl) getOwnerDocument(), "TD");
         child = getFirstChild();
-        while ( child != null) {
-            if ( child instanceof HTMLTableCellElement) {
-                if ( index == 0) {
-                    insertBefore( newCell, child);
+        while (child != null) {
+            if (child instanceof HTMLTableCellElement) {
+                if (index == 0) {
+                    insertBefore(newCell, child);
                     return newCell;
                 }
                 --index;
             }
             child = child.getNextSibling();
         }
-        appendChild( newCell);
+        appendChild(newCell);
         return newCell;
     }
 
-
     @Override
-    public void deleteCell( int index)
-    {
+    public void deleteCell(int index) {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null) {
-            if ( child instanceof HTMLTableCellElement) {
-                if ( index == 0) {
-                    removeChild ( child);
+        while (child != null) {
+            if (child instanceof HTMLTableCellElement) {
+                if (index == 0) {
+                    removeChild(child);
                     return;
                 }
                 --index;
@@ -133,44 +119,34 @@ public class HTMLTableRowElementImpl
         }
     }
 
-
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getBgColor()
-    {
+    public String getBgColor() {
         return getAttribute("bgcolor");
     }
 
-
     @Override
-    public void setBgColor(final String bgColor)
-    {
+    public void setBgColor(final String bgColor) {
         setAttribute("bgcolor", bgColor);
     }
 
-
     @Override
-    public String getCh()
-    {
+    public String getCh() {
         String    ch;
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1) {
-            ch = ch.substring( 0, 1);
+        if (ch != null && ch.length() > 1) {
+            ch = ch.substring(0, 1);
         }
         return ch;
     }
@@ -194,17 +170,13 @@ public class HTMLTableRowElementImpl
         setAttribute("charoff", chOff);
     }
 
-
     @Override
-    public String getVAlign()
-    {
-        return capitalize( getAttribute("valign"));
+    public String getVAlign() {
+        return capitalize(getAttribute("valign"));
     }
 
-
     @Override
-    public void setVAlign(final String vAlign)
-    {
+    public void setVAlign(final String vAlign) {
         setAttribute("valign", vAlign);
     }
 
@@ -213,9 +185,9 @@ public class HTMLTableRowElementImpl
      * for getCells() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep) {
-        HTMLTableRowElementImpl clonedNode = (HTMLTableRowElementImpl)super.cloneNode( deep);
-        clonedNode._cells = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLTableRowElementImpl clonedNode = (HTMLTableRowElementImpl) super.cloneNode(deep);
+        clonedNode.cells_ = null;
         return clonedNode;
     }
 
@@ -224,14 +196,8 @@ public class HTMLTableRowElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableRowElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableRowElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    HTMLCollection    _cells;
-
-
 }
 

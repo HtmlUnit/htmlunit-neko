@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLHtmlElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLHtmlElement;
  * @see org.w3c.dom.html.HTMLHtmlElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLHtmlElementImpl
-    extends HTMLElementImpl
-    implements HTMLHtmlElement
-{
+public class HTMLHtmlElementImpl extends HTMLElementImpl implements HTMLHtmlElement {
 
     @Override
-    public String getVersion()
-    {
-        return capitalize( getAttribute("version"));
+    public String getVersion() {
+        return capitalize(getAttribute("version"));
     }
 
-
     @Override
-    public void setVersion(final String version)
-    {
+    public void setVersion(final String version) {
         setAttribute("version", version);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLHtmlElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLHtmlElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

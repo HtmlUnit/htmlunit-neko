@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.htmlunit.cyberneko.xerces.dom.DeepNodeListImpl;
@@ -27,15 +26,12 @@ import org.w3c.dom.Node;
  *
  * @see DeepNodeListImpl
  */
-public class NameNodeListImpl
-    extends DeepNodeListImpl {
-
+public class NameNodeListImpl extends DeepNodeListImpl {
 
     /** Constructor. */
-    public NameNodeListImpl(NodeImpl rootNode, String tagName) {
-        super( rootNode, tagName);
+    public NameNodeListImpl(final NodeImpl rootNode, final String tagName) {
+        super(rootNode, tagName);
     }
-
 
     /**
      * Iterative tree-walker. When you have a Parent link, there's often no
@@ -44,7 +40,6 @@ public class NameNodeListImpl
      */
     @Override
     protected Node nextMatchingElementAfter(Node current) {
-
         Node next;
         while (current != null) {
             // Look down to first child.
@@ -60,12 +55,13 @@ public class NameNodeListImpl
             // Look up and right (but not past root!)
             else {
                 next = null;
-                for (; current != rootNode; // Stop when we return to starting point
+                for ( ; current != rootNode; // Stop when we return to starting point
                      current = current.getParentNode()) {
 
                     next = current.getNextSibling();
-                    if (next != null)
+                    if (next != null) {
                         break;
+                    }
                 }
                 current = next;
             }
@@ -73,10 +69,11 @@ public class NameNodeListImpl
             // Have we found an Element with the right tagName?
             // ("*" matches anything.)
             if (current != rootNode && current != null
-                && current.getNodeType() ==  Node.ELEMENT_NODE ) {
-                String name = ((ElementImpl) current).getAttribute("name");
-                if ("*".equals(name) || name.equals(tagName))
+                && current.getNodeType() ==  Node.ELEMENT_NODE) {
+                final String name = ((ElementImpl) current).getAttribute("name");
+                if ("*".equals(name) || name.equals(tagName)) {
                     return current;
+                }
             }
 
             // Otherwise continue walking the tree
@@ -84,7 +81,5 @@ public class NameNodeListImpl
 
         // Fell out of tree-walk; no more instances found
         return null;
-
-    } // nextMatchingElementAfter(int):Node
-
-} // class NameNodeListImpl
+    }
+}

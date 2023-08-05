@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLLegendElement;
@@ -23,20 +22,17 @@ import org.w3c.dom.html.HTMLLegendElement;
  * @see org.w3c.dom.html.HTMLLegendElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLLegendElementImpl
-    extends HTMLElementImpl
-    implements HTMLLegendElement
-{
+public class HTMLLegendElementImpl extends HTMLElementImpl implements HTMLLegendElement {
 
     @Override
-    public String getAccessKey()
-    {
+    public String getAccessKey() {
         String    accessKey;
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1)
-            accessKey = accessKey.substring( 0, 1);
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         return accessKey;
     }
 
@@ -44,7 +40,7 @@ public class HTMLLegendElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1);
+            accessKey = accessKey.substring(0, 1);
         }
         setAttribute("accesskey", accessKey);
     }
@@ -64,11 +60,7 @@ public class HTMLLegendElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLLegendElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLLegendElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

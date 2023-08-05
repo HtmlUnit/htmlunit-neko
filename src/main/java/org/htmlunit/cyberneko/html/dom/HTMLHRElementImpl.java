@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLHRElement;
@@ -23,77 +22,54 @@ import org.w3c.dom.html.HTMLHRElement;
  * @see org.w3c.dom.html.HTMLHRElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLHRElementImpl
-    extends HTMLElementImpl
-    implements HTMLHRElement
-{
+public class HTMLHRElementImpl extends HTMLElementImpl implements HTMLHRElement {
 
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public boolean getNoShade()
-    {
+    public boolean getNoShade() {
         return getBinary("noshade");
     }
 
-
     @Override
-    public void setNoShade( boolean noShade)
-    {
+    public void setNoShade(final boolean noShade) {
         setAttribute("noshade", noShade);
     }
 
-
     @Override
-    public String getSize()
-    {
+    public String getSize() {
         return getAttribute("size");
     }
 
-
     @Override
-    public void setSize(final String size)
-    {
+    public void setSize(final String size) {
         setAttribute("size", size);
     }
 
-
-      @Override
-    public String getWidth()
-    {
+    @Override
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLHRElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLHRElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

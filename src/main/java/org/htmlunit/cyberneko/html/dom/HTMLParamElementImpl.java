@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLParamElement;
@@ -23,77 +22,54 @@ import org.w3c.dom.html.HTMLParamElement;
  * @see org.w3c.dom.html.HTMLParamElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLParamElementImpl
-    extends HTMLElementImpl
-    implements HTMLParamElement
-{
+public class HTMLParamElementImpl extends HTMLElementImpl implements HTMLParamElement {
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         setAttribute("type", type);
     }
 
-
-      @Override
-    public String getValue()
-    {
+    @Override
+    public String getValue() {
         return getAttribute("value");
     }
 
-
     @Override
-    public void setValue(final String value)
-    {
+    public void setValue(final String value) {
         setAttribute("value", value);
     }
 
-
-      @Override
-    public String getValueType()
-    {
-        return capitalize( getAttribute("valuetype"));
+    @Override
+    public String getValueType() {
+        return capitalize(getAttribute("valuetype"));
     }
-
 
     @Override
-    public void setValueType(final String valuetype)
-    {
+    public void setValueType(final String valuetype) {
         setAttribute("valuetype", valuetype);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLParamElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLParamElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

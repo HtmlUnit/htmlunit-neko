@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -25,30 +24,24 @@ import org.w3c.dom.html.HTMLMapElement;
  * @see org.w3c.dom.html.HTMLMapElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLMapElementImpl
-    extends HTMLElementImpl
-    implements HTMLMapElement
-{
+public class HTMLMapElementImpl extends HTMLElementImpl implements HTMLMapElement {
+    private HTMLCollection areas_;
 
     @Override
-    public HTMLCollection getAreas()
-    {
-        if ( _areas == null)
-            _areas = new HTMLCollectionImpl( this, HTMLCollectionImpl.AREA);
-        return _areas;
+    public HTMLCollection getAreas() {
+        if (areas_ == null) {
+            areas_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.AREA);
+        }
+        return areas_;
     }
 
-
-      @Override
-    public String getName()
-    {
+    @Override
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
@@ -57,10 +50,9 @@ public class HTMLMapElementImpl
      * for getAreas() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep)
-    {
-        HTMLMapElementImpl clonedNode = (HTMLMapElementImpl)super.cloneNode( deep);
-        clonedNode._areas = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLMapElementImpl clonedNode = (HTMLMapElementImpl) super.cloneNode(deep);
+        clonedNode.areas_ = null;
         return clonedNode;
     }
 
@@ -69,14 +61,8 @@ public class HTMLMapElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLMapElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLMapElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    private HTMLCollection    _areas;
-
-
 }
 

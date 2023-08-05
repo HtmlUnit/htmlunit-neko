@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLTableColElement;
@@ -23,34 +22,27 @@ import org.w3c.dom.html.HTMLTableColElement;
  * @see org.w3c.dom.html.HTMLTableColElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableColElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableColElement
-{
+public class HTMLTableColElementImpl extends HTMLElementImpl implements HTMLTableColElement {
 
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getCh()
-    {
-        String    ch;
+    public String getCh() {
+        String ch;
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1)
-            ch = ch.substring( 0, 1);
+        if (ch != null && ch.length() > 1) {
+            ch = ch.substring(0, 1);
+        }
         return ch;
     }
 
@@ -68,64 +60,47 @@ public class HTMLTableColElementImpl
         return getAttribute("charoff");
     }
 
-
     @Override
     public void setChOff(final String chOff) {
         setAttribute("charoff", chOff);
     }
 
-
     @Override
-    public int getSpan()
-    {
-        return getInteger( getAttribute("span"));
+    public int getSpan() {
+        return getInteger(getAttribute("span"));
     }
 
-
     @Override
-    public void setSpan( int span)
-    {
-        setAttribute("span", String.valueOf( span));
+    public void setSpan(final int span) {
+        setAttribute("span", String.valueOf(span));
     }
 
-
     @Override
-    public String getVAlign()
-    {
-        return capitalize( getAttribute("valign"));
+    public String getVAlign() {
+        return capitalize(getAttribute("valign"));
     }
 
-
     @Override
-    public void setVAlign(final String vAlign)
-    {
+    public void setVAlign(final String vAlign) {
         setAttribute("valign", vAlign);
     }
 
     @Override
-    public String getWidth()
-    {
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableColElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableColElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

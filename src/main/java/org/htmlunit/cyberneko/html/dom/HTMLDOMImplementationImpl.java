@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
-
 
 import org.htmlunit.cyberneko.xerces.dom.DOMImplementationImpl;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.html.HTMLDOMImplementation;
 import org.w3c.dom.html.HTMLDocument;
-
 
 /**
  * Provides number of methods for performing operations that are independent
@@ -33,11 +30,7 @@ import org.w3c.dom.html.HTMLDocument;
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.DOMImplementation
  */
-public class HTMLDOMImplementationImpl
-    extends DOMImplementationImpl
-    implements HTMLDOMImplementation
-{
-
+public final class HTMLDOMImplementationImpl extends DOMImplementationImpl implements HTMLDOMImplementation {
 
     /**
      * Holds a reference to the single instance of the DOM implementation.
@@ -45,16 +38,13 @@ public class HTMLDOMImplementationImpl
      */
     private static final HTMLDOMImplementation _instance = new HTMLDOMImplementationImpl();
 
-
     /**
      * Private constructor assures that an object of this class cannot
      * be created. The only way to obtain an object is by calling {@link
      * #getDOMImplementation}.
      */
-    private HTMLDOMImplementationImpl()
-    {
+    private HTMLDOMImplementationImpl() {
     }
-
 
     /**
      * Create a new HTML document of the specified <TT>TITLE</TT> text.
@@ -63,18 +53,16 @@ public class HTMLDOMImplementationImpl
      * @return New HTML document
      */
     @Override
-    public final HTMLDocument createHTMLDocument(final String title)
-        throws DOMException
-    {
-    HTMLDocument doc;
+    public HTMLDocument createHTMLDocument(final String title) throws DOMException {
+        final HTMLDocument doc;
 
-    if ( title == null)
-        throw new NullPointerException("HTM014 Argument 'title' is null.");
-    doc = new HTMLDocumentImpl();
-    doc.setTitle( title);
-    return doc;
+        if (title == null) {
+            throw new NullPointerException("HTM014 Argument 'title' is null.");
+        }
+        doc = new HTMLDocumentImpl();
+        doc.setTitle(title);
+        return doc;
     }
-
 
     /**
      * Returns an instance of a {@link HTMLDOMImplementation} that can be
@@ -83,10 +71,7 @@ public class HTMLDOMImplementationImpl
      *
      * @return Reference to a valid DOM implementation
      */
-    public static HTMLDOMImplementation getHTMLDOMImplementation()
-    {
-    return _instance;
+    public static HTMLDOMImplementation getHTMLDOMImplementation() {
+        return _instance;
     }
-
-
 }

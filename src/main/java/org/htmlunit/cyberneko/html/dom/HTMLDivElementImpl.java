@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLDivElement;
@@ -23,34 +22,24 @@ import org.w3c.dom.html.HTMLDivElement;
  * @see org.w3c.dom.html.HTMLDivElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLDivElementImpl
-    extends HTMLElementImpl
-    implements HTMLDivElement
-{
+public class HTMLDivElementImpl extends HTMLElementImpl implements HTMLDivElement {
 
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLDivElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLDivElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }

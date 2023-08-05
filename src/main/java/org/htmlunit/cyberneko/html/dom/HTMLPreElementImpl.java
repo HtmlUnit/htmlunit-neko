@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLPreElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLPreElement;
  * @see org.w3c.dom.html.HTMLPreElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLPreElementImpl
-    extends HTMLElementImpl
-    implements HTMLPreElement
-{
+public class HTMLPreElementImpl extends HTMLElementImpl implements HTMLPreElement {
 
     @Override
-    public int getWidth()
-    {
-        return getInteger( getAttribute("width"));
+    public int getWidth() {
+        return getInteger(getAttribute("width"));
     }
-
 
     @Override
-    public void setWidth( int width)
-    {
-        setAttribute("width", String.valueOf( width));
+    public void setWidth(final int width) {
+        setAttribute("width", String.valueOf(width));
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLPreElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLPreElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

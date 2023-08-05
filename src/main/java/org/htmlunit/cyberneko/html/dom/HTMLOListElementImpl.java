@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLOListElement;
@@ -23,63 +22,44 @@ import org.w3c.dom.html.HTMLOListElement;
  * @see org.w3c.dom.html.HTMLOListElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLOListElementImpl
-    extends HTMLElementImpl
-    implements HTMLOListElement
-{
+public class HTMLOListElementImpl extends HTMLElementImpl implements HTMLOListElement {
 
     @Override
-    public boolean getCompact()
-    {
+    public boolean getCompact() {
         return getBinary("compact");
     }
 
-
     @Override
-    public void setCompact( boolean compact)
-    {
+    public void setCompact(final boolean compact) {
         setAttribute("compact", compact);
     }
 
-
-      @Override
-    public int getStart()
-    {
-        return getInteger( getAttribute("start"));
+    @Override
+    public int getStart() {
+        return getInteger(getAttribute("start"));
     }
 
-
     @Override
-    public void setStart( int start)
-    {
-        setAttribute("start", String.valueOf( start));
+    public void setStart(final int start) {
+        setAttribute("start", String.valueOf(start));
     }
 
-
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         setAttribute("type", type);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLOListElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLOListElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

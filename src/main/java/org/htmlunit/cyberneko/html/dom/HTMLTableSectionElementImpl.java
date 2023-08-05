@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -27,34 +26,29 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * @see org.w3c.dom.html.HTMLTableSectionElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableSectionElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableSectionElement
-{
+public class HTMLTableSectionElementImpl extends HTMLElementImpl implements HTMLTableSectionElement {
+
+    private HTMLCollectionImpl rows_;
 
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getCh()
-    {
+    public String getCh() {
         String    ch;
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1)
-            ch = ch.substring( 0, 1);
+        if (ch != null && ch.length() > 1) {
+            ch = ch.substring(0, 1);
+        }
         return ch;
     }
 
@@ -79,51 +73,42 @@ public class HTMLTableSectionElementImpl
 
     @Override
     public String getVAlign() {
-        return capitalize( getAttribute("valign"));
+        return capitalize(getAttribute("valign"));
     }
 
-
     @Override
-    public void setVAlign(final String vAlign)
-    {
+    public void setVAlign(final String vAlign) {
         setAttribute("valign", vAlign);
     }
 
-
     @Override
-    public HTMLCollection getRows()
-    {
-        if ( _rows == null)
-            _rows = new HTMLCollectionImpl( this, HTMLCollectionImpl.ROW);
-        return _rows;
+    public HTMLCollection getRows() {
+        if (rows_ == null) {
+            rows_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.ROW);
+        }
+        return rows_;
     }
 
-
     @Override
-    public HTMLElement insertRow( int index)
-    {
-        HTMLTableRowElementImpl    newRow;
+    public HTMLElement insertRow(final int index) {
+        final HTMLTableRowElementImpl newRow;
 
-        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR");
-        newRow.insertCell( 0);
-        if ( insertRowX( index, newRow) >= 0)
-            appendChild( newRow);
+        newRow = new HTMLTableRowElementImpl((HTMLDocumentImpl) getOwnerDocument(), "TR");
+        newRow.insertCell(0);
+        if (insertRowX(index, newRow) >= 0) {
+            appendChild(newRow);
+        }
         return newRow;
     }
 
-
-    int insertRowX( int index, HTMLTableRowElementImpl newRow)
-    {
-        Node    child;
+    int insertRowX(int index, final HTMLTableRowElementImpl newRow) {
+        Node child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableRowElement)
-            {
-                if ( index == 0)
-                {
-                    insertBefore( newRow, child);
+        while (child != null) {
+            if (child instanceof HTMLTableRowElement) {
+                if (index == 0) {
+                    insertBefore(newRow, child);
                     return -1;
                 }
                 --index;
@@ -133,26 +118,19 @@ public class HTMLTableSectionElementImpl
         return index;
     }
 
-
     @Override
-    public void deleteRow( int index)
-    {
-        deleteRowX( index);
+    public void deleteRow(final int index) {
+        deleteRowX(index);
     }
 
-
-    int deleteRowX( int index)
-    {
+    int deleteRowX(int index) {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableRowElement)
-            {
-                if ( index == 0)
-                {
-                    removeChild ( child);
+        while (child != null) {
+            if (child instanceof HTMLTableRowElement) {
+                if (index == 0) {
+                    removeChild(child);
                     return -1;
                 }
                 --index;
@@ -167,9 +145,9 @@ public class HTMLTableSectionElementImpl
      * for getRows() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep) {
-        HTMLTableSectionElementImpl clonedNode = (HTMLTableSectionElementImpl)super.cloneNode( deep);
-        clonedNode._rows = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLTableSectionElementImpl clonedNode = (HTMLTableSectionElementImpl) super.cloneNode(deep);
+        clonedNode.rows_ = null;
         return clonedNode;
     }
 
@@ -178,14 +156,7 @@ public class HTMLTableSectionElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableSectionElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableSectionElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    private HTMLCollectionImpl    _rows;
-
-
 }
-

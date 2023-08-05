@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLBodyElement;
@@ -23,105 +22,74 @@ import org.w3c.dom.html.HTMLBodyElement;
  * @see org.w3c.dom.html.HTMLBodyElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLBodyElementImpl
-    extends HTMLElementImpl
-    implements HTMLBodyElement
-{
+public class HTMLBodyElementImpl extends HTMLElementImpl implements HTMLBodyElement {
 
     @Override
-    public String getALink()
-    {
+    public String getALink() {
         return getAttribute("alink");
     }
 
-
     @Override
-    public void setALink(String aLink)
-    {
+    public void setALink(final String aLink) {
         setAttribute("alink", aLink);
     }
 
-
     @Override
-    public String getBackground()
-    {
+    public String getBackground() {
         return getAttribute("background");
     }
 
-
     @Override
-    public void setBackground(final String background)
-    {
+    public void setBackground(final String background) {
         setAttribute("background", background);
     }
 
-
     @Override
-    public String getBgColor()
-    {
+    public String getBgColor() {
         return getAttribute("bgcolor");
     }
 
-
     @Override
-    public void setBgColor(String bgColor)
-    {
+    public void setBgColor(final String bgColor) {
         setAttribute("bgcolor", bgColor);
     }
 
-
     @Override
-    public String getLink()
-    {
+    public String getLink() {
         return getAttribute("link");
     }
 
-
     @Override
-    public void setLink(String link)
-    {
+    public void setLink(final String link) {
         setAttribute("link", link);
     }
 
-
     @Override
-    public String getText()
-    {
+    public String getText() {
         return getAttribute("text");
     }
 
-
     @Override
-    public void setText(String text)
-    {
+    public void setText(final String text) {
         setAttribute("text", text);
     }
 
-
     @Override
-    public String getVLink()
-    {
+    public String getVLink() {
         return getAttribute("vlink");
     }
 
-
     @Override
-    public void  setVLink(String vLink)
-    {
+    public void  setVLink(final String vLink) {
         setAttribute("vlink", vLink);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLBodyElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLBodyElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

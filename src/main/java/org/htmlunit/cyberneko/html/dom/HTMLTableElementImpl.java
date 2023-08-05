@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -29,379 +28,326 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * @see org.w3c.dom.html.HTMLAnchorElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableElement
-{
+public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableElement {
+    private HTMLCollectionImpl rows_;
+    private HTMLCollectionImpl bodies_;
 
     @Override
-    public synchronized HTMLTableCaptionElement getCaption()
-    {
+    public synchronized HTMLTableCaptionElement getCaption() {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableCaptionElement &&
-                 child.getNodeName().equals("CAPTION"))
+        while (child != null) {
+            if (child instanceof HTMLTableCaptionElement && child.getNodeName().equals("CAPTION")) {
                 return (HTMLTableCaptionElement) child;
+            }
             child = child.getNextSibling();
         }
         return null;
     }
 
-
     @Override
-    public synchronized void setCaption( HTMLTableCaptionElement caption)
-    {
-        if ( caption != null && ! caption.getTagName().equals("CAPTION"))
+    public synchronized void setCaption(final HTMLTableCaptionElement caption) {
+        if (caption != null && !caption.getTagName().equals("CAPTION")) {
             throw new IllegalArgumentException("HTM016 Argument 'caption' is not an element of type <CAPTION>.");
+        }
+
         deleteCaption();
-        if ( caption != null)
-            appendChild( caption);
+        if (caption != null) {
+            appendChild(caption);
+        }
     }
 
-
     @Override
-    public synchronized HTMLElement createCaption()
-    {
+    public synchronized HTMLElement createCaption() {
         HTMLElement    section;
 
         section = getCaption();
-        if ( section != null)
+        if (section != null) {
             return section;
-        section = new HTMLTableCaptionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "CAPTION");
-        appendChild( section);
+        }
+
+        section = new HTMLTableCaptionElementImpl((HTMLDocumentImpl) getOwnerDocument(), "CAPTION");
+        appendChild(section);
         return section;
     }
 
-
     @Override
-    public synchronized void deleteCaption()
-    {
-        Node    old;
+    public synchronized void deleteCaption() {
+        final Node old;
 
         old = getCaption();
-        if ( old != null)
-            removeChild ( old);
+        if (old != null) {
+            removeChild(old);
+        }
     }
 
     @Override
-    public synchronized HTMLTableSectionElement getTHead()
-    {
+    public synchronized HTMLTableSectionElement getTHead() {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableSectionElement &&
-                 child.getNodeName().equals("THEAD"))
+        while (child != null) {
+            if (child instanceof HTMLTableSectionElement && child.getNodeName().equals("THEAD")) {
                 return (HTMLTableSectionElement) child;
+            }
             child = child.getNextSibling();
         }
         return null;
     }
 
-
     @Override
-    public synchronized void setTHead( HTMLTableSectionElement tHead)
-    {
-        if ( tHead != null && ! tHead.getTagName().equals("THEAD"))
+    public synchronized void setTHead(final HTMLTableSectionElement tHead) {
+        if (tHead != null && !tHead.getTagName().equals("THEAD")) {
             throw new IllegalArgumentException("HTM017 Argument 'tHead' is not an element of type <THEAD>.");
+        }
+
         deleteTHead();
-        if ( tHead != null)
-            appendChild( tHead);
+        if (tHead != null) {
+            appendChild(tHead);
+        }
     }
 
-
     @Override
-    public synchronized HTMLElement createTHead()
-    {
-        HTMLElement    section;
+    public synchronized HTMLElement createTHead() {
+        HTMLElement section;
 
         section = getTHead();
-        if ( section != null)
+        if (section != null) {
             return section;
-        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "THEAD");
-        appendChild( section);
+        }
+        section = new HTMLTableSectionElementImpl((HTMLDocumentImpl) getOwnerDocument(), "THEAD");
+        appendChild(section);
         return section;
     }
 
-
     @Override
-    public synchronized void deleteTHead()
-    {
-        Node    old;
+    public synchronized void deleteTHead() {
+        final Node old;
 
         old = getTHead();
-        if ( old != null)
-            removeChild ( old);
+        if (old != null) {
+            removeChild(old);
+        }
     }
 
     @Override
-    public synchronized HTMLTableSectionElement getTFoot()
-    {
+    public synchronized HTMLTableSectionElement getTFoot() {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableSectionElement &&
-                 child.getNodeName().equals("TFOOT"))
+        while (child != null) {
+            if (child instanceof HTMLTableSectionElement && child.getNodeName().equals("TFOOT")) {
                 return (HTMLTableSectionElement) child;
+            }
             child = child.getNextSibling();
         }
         return null;
     }
 
-
     @Override
-    public synchronized void setTFoot( HTMLTableSectionElement tFoot)
-    {
-        if ( tFoot != null && ! tFoot.getTagName().equals("TFOOT"))
+    public synchronized void setTFoot(final HTMLTableSectionElement tFoot) {
+        if (tFoot != null && !tFoot.getTagName().equals("TFOOT")) {
             throw new IllegalArgumentException("HTM018 Argument 'tFoot' is not an element of type <TFOOT>.");
+        }
+
         deleteTFoot();
-        if ( tFoot != null)
-            appendChild( tFoot);
+        if (tFoot != null) {
+            appendChild(tFoot);
+        }
     }
 
-
     @Override
-    public synchronized HTMLElement createTFoot()
-    {
+    public synchronized HTMLElement createTFoot() {
         HTMLElement    section;
 
         section = getTFoot();
-        if ( section != null)
+        if (section != null) {
             return section;
-        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TFOOT");
-        appendChild( section);
+        }
+
+        section = new HTMLTableSectionElementImpl((HTMLDocumentImpl) getOwnerDocument(), "TFOOT");
+        appendChild(section);
         return section;
     }
 
-
     @Override
-    public synchronized void deleteTFoot()
-    {
-        Node    old;
+    public synchronized void deleteTFoot() {
+        final Node old;
 
         old = getTFoot();
-        if ( old != null)
-            removeChild ( old);
+        if (old != null) {
+            removeChild(old);
+        }
     }
 
     @Override
-    public HTMLCollection getRows()
-    {
-        if ( _rows == null)
-            _rows = new HTMLCollectionImpl( this, HTMLCollectionImpl.ROW);
-        return _rows;
+    public HTMLCollection getRows() {
+        if (rows_ == null) {
+            rows_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.ROW);
+        }
+        return rows_;
     }
 
-
     @Override
-    public HTMLCollection getTBodies()
-    {
-        if ( _bodies == null)
-            _bodies = new HTMLCollectionImpl( this, HTMLCollectionImpl.TBODY);
-        return _bodies;
+    public HTMLCollection getTBodies() {
+        if (bodies_ == null) {
+            bodies_ = new HTMLCollectionImpl(this, HTMLCollectionImpl.TBODY);
+        }
+        return bodies_;
     }
 
-
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getBgColor()
-    {
+    public String getBgColor() {
         return getAttribute("bgcolor");
     }
 
-
     @Override
-    public void setBgColor(final String bgColor)
-    {
+    public void setBgColor(final String bgColor) {
         setAttribute("bgcolor", bgColor);
     }
 
-
     @Override
-    public String getBorder()
-    {
+    public String getBorder() {
         return getAttribute("border");
     }
 
-
     @Override
-    public void setBorder(final String border)
-    {
+    public void setBorder(final String border) {
         setAttribute("border", border);
     }
 
-
     @Override
-    public String getCellPadding()
-    {
+    public String getCellPadding() {
         return getAttribute("cellpadding");
     }
 
-
     @Override
-    public void setCellPadding(final String cellPadding)
-    {
+    public void setCellPadding(final String cellPadding) {
         setAttribute("cellpadding", cellPadding);
     }
 
-
     @Override
-    public String getCellSpacing()
-    {
+    public String getCellSpacing() {
         return getAttribute("cellspacing");
     }
 
-
     @Override
-    public void setCellSpacing(final String cellSpacing)
-    {
+    public void setCellSpacing(final String cellSpacing) {
         setAttribute("cellspacing", cellSpacing);
     }
 
-
     @Override
-    public String getFrame()
-    {
-        return capitalize( getAttribute("frame"));
+    public String getFrame() {
+        return capitalize(getAttribute("frame"));
     }
 
-
     @Override
-    public void setFrame(final String frame)
-    {
+    public void setFrame(final String frame) {
         setAttribute("frame", frame);
     }
 
-
     @Override
-    public String getRules()
-    {
-        return capitalize( getAttribute("rules"));
+    public String getRules() {
+        return capitalize(getAttribute("rules"));
     }
 
-
     @Override
-    public void setRules(final String rules)
-    {
+    public void setRules(final String rules) {
         setAttribute("rules", rules);
     }
 
-
     @Override
-    public String getSummary()
-    {
+    public String getSummary() {
         return getAttribute("summary");
     }
 
-
     @Override
-    public void setSummary(final String summary)
-    {
+    public void setSummary(final String summary) {
         setAttribute("summary", summary);
     }
 
-
-      @Override
-    public String getWidth()
-    {
+    @Override
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
 
-
     @Override
-    public HTMLElement insertRow( int index)
-    {
-        HTMLTableRowElementImpl    newRow;
+    public HTMLElement insertRow(final int index) {
+        final HTMLTableRowElementImpl newRow;
 
-        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR");
-        //newRow.insertCell( 0);
-        insertRowX( index, newRow);
+        newRow = new HTMLTableRowElementImpl((HTMLDocumentImpl) getOwnerDocument(), "TR");
+        //newRow.insertCell(0);
+        insertRowX(index, newRow);
         return newRow;
     }
 
-
-    void insertRowX( int index, HTMLTableRowElementImpl newRow)
-    {
-        Node    child;
-        Node    lastSection = null;
+    void insertRowX(int index, final HTMLTableRowElementImpl newRow) {
+        Node child;
+        Node lastSection = null;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableRowElement)
-            {
-                if ( index == 0)
-                {
-                    insertBefore( newRow, child);
+        while (child != null) {
+            if (child instanceof HTMLTableRowElement) {
+                if (index == 0) {
+                    insertBefore(newRow, child);
                     return;
                 }
             }
-            else
-            if ( child instanceof HTMLTableSectionElementImpl)
-            {
-                lastSection = child;
-                index = ( (HTMLTableSectionElementImpl) child).insertRowX( index, newRow);
-                if ( index < 0)
-                    return;
+            else {
+                if (child instanceof HTMLTableSectionElementImpl) {
+                    lastSection = child;
+                    index = ((HTMLTableSectionElementImpl) child).insertRowX(index, newRow);
+                    if (index < 0) {
+                        return;
+                    }
+                }
             }
             child = child.getNextSibling();
         }
-        if ( lastSection != null)
-            lastSection.appendChild( newRow);
-        else
-            appendChild( newRow);
+        if (lastSection != null) {
+            lastSection.appendChild(newRow);
+        }
+        else {
+            appendChild(newRow);
+        }
     }
 
-
     @Override
-    public synchronized void deleteRow( int index)
-    {
-        Node    child;
+    public synchronized void deleteRow(int index) {
+        Node child;
 
         child = getFirstChild();
-        while ( child != null)
-        {
-            if ( child instanceof HTMLTableRowElement)
-            {
-                if ( index == 0)
-                {
-                    removeChild ( child);
+        while (child != null) {
+            if (child instanceof HTMLTableRowElement) {
+                if (index == 0) {
+                    removeChild(child);
                     return;
                 }
                 --index;
             }
-            else
-            if ( child instanceof HTMLTableSectionElementImpl)
-            {
-                index = ( (HTMLTableSectionElementImpl) child).deleteRowX( index);
-                if ( index < 0)
-                    return;
+            else {
+                if (child instanceof HTMLTableSectionElementImpl) {
+                    index = ((HTMLTableSectionElementImpl) child).deleteRowX(index);
+                    if (index < 0) {
+                        return;
+                    }
+                }
             }
             child = child.getNextSibling();
         }
@@ -412,10 +358,10 @@ public class HTMLTableElementImpl
      * for getRows() and getTBodies() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep) {
-        HTMLTableElementImpl clonedNode = (HTMLTableElementImpl)super.cloneNode( deep);
-        clonedNode._rows = null;
-        clonedNode._bodies = null;
+    public Node cloneNode(final boolean deep) {
+        final HTMLTableElementImpl clonedNode = (HTMLTableElementImpl) super.cloneNode(deep);
+        clonedNode.rows_ = null;
+        clonedNode.bodies_ = null;
         return clonedNode;
     }
 
@@ -424,17 +370,8 @@ public class HTMLTableElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
-    private HTMLCollectionImpl    _rows;
-
-
-    private HTMLCollectionImpl    _bodies;
-
-
 }
 

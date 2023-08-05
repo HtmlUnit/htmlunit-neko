@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLLIElement;
@@ -23,49 +22,34 @@ import org.w3c.dom.html.HTMLLIElement;
  * @see org.w3c.dom.html.HTMLLIElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLLIElementImpl
-    extends HTMLElementImpl
-        implements HTMLLIElement
-{
+public class HTMLLIElementImpl extends HTMLElementImpl implements HTMLLIElement {
 
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         setAttribute("type", type);
     }
 
-
     @Override
-    public int getValue()
-    {
-        return getInteger( getAttribute("value"));
+    public int getValue() {
+        return getInteger(getAttribute("value"));
     }
 
-
     @Override
-    public void setValue( int value)
-    {
-        setAttribute("value", String.valueOf( value));
+    public void setValue(final int value) {
+        setAttribute("value", String.valueOf(value));
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLLIElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLLIElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

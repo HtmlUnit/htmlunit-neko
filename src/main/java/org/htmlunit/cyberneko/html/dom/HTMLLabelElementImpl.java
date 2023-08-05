@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLLabelElement;
@@ -23,20 +22,17 @@ import org.w3c.dom.html.HTMLLabelElement;
  * @see org.w3c.dom.html.HTMLLabelElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLLabelElementImpl
-    extends HTMLElementImpl
-    implements HTMLLabelElement, HTMLFormControl
-{
+public class HTMLLabelElementImpl extends HTMLElementImpl implements HTMLLabelElement, HTMLFormControl {
 
     @Override
-    public String getAccessKey()
-    {
+    public String getAccessKey() {
         String    accessKey;
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1)
-            accessKey = accessKey.substring( 0, 1);
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         return accessKey;
     }
 
@@ -44,7 +40,7 @@ public class HTMLLabelElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1);
+            accessKey = accessKey.substring(0, 1);
         }
         setAttribute("accesskey", accessKey);
     }
@@ -64,11 +60,7 @@ public class HTMLLabelElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLLabelElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLLabelElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

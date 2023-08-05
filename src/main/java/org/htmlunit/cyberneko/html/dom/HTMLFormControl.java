@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
-
 
 /**
  * Identifies control in a form, so they may be collected in a form elements
@@ -23,6 +21,5 @@ package org.htmlunit.cyberneko.html.dom;
  *
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  */
-public interface HTMLFormControl
-{
+public interface HTMLFormControl {
 }

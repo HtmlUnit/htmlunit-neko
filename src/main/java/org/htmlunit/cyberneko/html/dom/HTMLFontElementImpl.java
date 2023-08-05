@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLFontElement;
@@ -23,57 +22,39 @@ import org.w3c.dom.html.HTMLFontElement;
  * @see org.w3c.dom.html.HTMLFontElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLFontElementImpl
-    extends HTMLElementImpl
-    implements HTMLFontElement
-{
+public class HTMLFontElementImpl extends HTMLElementImpl implements HTMLFontElement {
 
     @Override
-    public String getColor()
-    {
-        return capitalize( getAttribute("color"));
+    public String getColor() {
+        return capitalize(getAttribute("color"));
     }
 
-
     @Override
-    public void setColor(final String color)
-    {
+    public void setColor(final String color) {
         setAttribute("color", color);
     }
 
-
     @Override
-    public String getFace()
-    {
-        return capitalize( getAttribute("face"));
+    public String getFace() {
+        return capitalize(getAttribute("face"));
     }
 
-
     @Override
-    public void setFace(final String face)
-    {
+    public void setFace(final String face) {
         setAttribute("face", face);
     }
 
-
     @Override
-    public String getSize()
-    {
+    public String getSize() {
         return getAttribute("size");
     }
 
-
     @Override
-    public void setSize(final String size)
-    {
+    public void setSize(final String size) {
         setAttribute("size", size);
     }
 
-
-    public HTMLFontElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLFontElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }

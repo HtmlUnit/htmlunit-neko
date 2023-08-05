@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLUListElement;
@@ -23,49 +22,34 @@ import org.w3c.dom.html.HTMLUListElement;
  * @see org.w3c.dom.html.HTMLUListElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLUListElementImpl
-    extends HTMLElementImpl
-    implements HTMLUListElement
-{
+public class HTMLUListElementImpl extends HTMLElementImpl implements HTMLUListElement {
 
     @Override
-    public boolean getCompact()
-    {
+    public boolean getCompact() {
         return getBinary("compact");
     }
 
-
     @Override
-    public void setCompact( boolean compact)
-    {
+    public void setCompact(final boolean compact) {
         setAttribute("compact", compact);
     }
 
-
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         setAttribute("type", type);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLUListElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLUListElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

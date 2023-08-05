@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLQuoteElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLQuoteElement;
  * @see org.w3c.dom.html.HTMLQuoteElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLQuoteElementImpl
-    extends HTMLElementImpl
-    implements HTMLQuoteElement
-{
+public class HTMLQuoteElementImpl extends HTMLElementImpl implements HTMLQuoteElement {
 
     @Override
-    public String getCite()
-    {
+    public String getCite() {
         return getAttribute("cite");
     }
 
-
     @Override
-    public void setCite(final String cite)
-    {
+    public void setCite(final String cite) {
         setAttribute("cite", cite);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLQuoteElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLQuoteElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

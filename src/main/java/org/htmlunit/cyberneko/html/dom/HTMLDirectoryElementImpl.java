@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLDirectoryElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLDirectoryElement;
  * @see org.w3c.dom.html.HTMLDirectoryElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLDirectoryElementImpl
-    extends HTMLElementImpl
-    implements HTMLDirectoryElement
-{
+public class HTMLDirectoryElementImpl extends HTMLElementImpl implements HTMLDirectoryElement {
 
     @Override
-    public boolean getCompact()
-    {
+    public boolean getCompact() {
         return getBinary("compact");
     }
 
-
     @Override
-    public void setCompact( boolean compact)
-    {
+    public void setCompact(final boolean compact) {
         setAttribute("compact", compact);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLDirectoryElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLDirectoryElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

@@ -107,32 +107,31 @@ public class NamespaceBinder extends DefaultFilter {
     private static final short NAMES_LOWERCASE = 2;
 
     /** Namespaces. */
-    private boolean fNamespaces;
+    private boolean fNamespaces_;
 
     /** Override namespaces. */
-    private boolean fOverrideNamespaces;
+    private boolean fOverrideNamespaces_;
 
     /** Insert namespaces. */
-    private boolean fInsertNamespaces;
+    private boolean fInsertNamespaces_;
 
     // properties
 
     /** Modify HTML element names. */
-    private short fNamesElems;
+    private short fNamesElems_;
 
     /** Namespaces URI. */
-    private String fNamespacesURI;
+    private String fNamespacesURI_;
 
     /** Namespace context. */
-    private final NamespaceSupport fNamespaceContext = new NamespaceSupport();
-
+    private final NamespaceSupport fNamespaceContext_ = new NamespaceSupport();
 
     /** QName. */
-    private final QName fQName = new QName();
+    private final QName fQName_ = new QName();
 
     private final HTMLConfiguration htmlConfiguration_;
 
-    public NamespaceBinder(HTMLConfiguration htmlConfiguration) {
+    public NamespaceBinder(final HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
     }
 
@@ -152,7 +151,7 @@ public class NamespaceBinder extends DefaultFilter {
      * feature.
      */
     @Override
-    public Boolean getFeatureDefault(String featureId) {
+    public Boolean getFeatureDefault(final String featureId) {
         for (int i = 0; i < RECOGNIZED_FEATURES.length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
                 return FEATURE_DEFAULTS[i];
@@ -177,7 +176,7 @@ public class NamespaceBinder extends DefaultFilter {
      * property.
      */
     @Override
-    public Object getPropertyDefault(String propertyId) {
+    public Object getPropertyDefault(final String propertyId) {
         for (int i = 0; i < RECOGNIZED_PROPERTIES.length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
                 return PROPERTY_DEFAULTS[i];
@@ -196,42 +195,40 @@ public class NamespaceBinder extends DefaultFilter {
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(XMLComponentManager manager)
+    public void reset(final XMLComponentManager manager)
         throws XMLConfigurationException {
         super.reset(manager);
 
         // features
-        fNamespaces = manager.getFeature(NAMESPACES);
-        fOverrideNamespaces = manager.getFeature(OVERRIDE_NAMESPACES);
-        fInsertNamespaces = manager.getFeature(INSERT_NAMESPACES);
+        fNamespaces_ = manager.getFeature(NAMESPACES);
+        fOverrideNamespaces_ = manager.getFeature(OVERRIDE_NAMESPACES);
+        fInsertNamespaces_ = manager.getFeature(INSERT_NAMESPACES);
 
         // get properties
-        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fNamespacesURI = String.valueOf(manager.getProperty(NAMESPACES_URI));
+        fNamesElems_ = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
+        fNamespacesURI_ = String.valueOf(manager.getProperty(NAMESPACES_URI));
 
         // initialize state
-        fNamespaceContext.reset();
+        fNamespaceContext_.reset();
     }
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext, Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
 
         // perform default handling
         // NOTE: using own namespace context
-        super.startDocument(locator,encoding,fNamespaceContext,augs);
+        super.startDocument(locator, encoding, fNamespaceContext_, augs);
     }
 
     /** Start element. */
     @Override
-    public void startElement(QName element, XMLAttributes attrs,
-                             Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
-            fNamespaceContext.pushContext();
+        if (fNamespaces_) {
+            fNamespaceContext_.pushContext();
             bindNamespaces(element, attrs);
         }
 
@@ -241,12 +238,11 @@ public class NamespaceBinder extends DefaultFilter {
 
     /** Empty element. */
     @Override
-    public void emptyElement(QName element, XMLAttributes attrs,
-                             Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
-            fNamespaceContext.pushContext();
+        if (fNamespaces_) {
+            fNamespaceContext_.pushContext();
             bindNamespaces(element, attrs);
         }
 
@@ -254,18 +250,18 @@ public class NamespaceBinder extends DefaultFilter {
         super.emptyElement(element, attrs, augs);
 
         // pop context
-        if (fNamespaces) {
-            fNamespaceContext.popContext();
+        if (fNamespaces_) {
+            fNamespaceContext_.popContext();
         }
     }
 
     /** End element. */
     @Override
-    public void endElement(QName element, Augmentations augs)
+    public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
 
         // bind namespaces, if needed
-        if (fNamespaces) {
+        if (fNamespaces_) {
             bindNamespaces(element, null);
         }
 
@@ -273,8 +269,8 @@ public class NamespaceBinder extends DefaultFilter {
         super.endElement(element, augs);
 
         // pop context
-        if (fNamespaces) {
-            fNamespaceContext.popContext();
+        if (fNamespaces_) {
+            fNamespaceContext_.popContext();
         }
     }
 
@@ -283,11 +279,11 @@ public class NamespaceBinder extends DefaultFilter {
     //
 
     // Splits a qualified name.
-    protected static void splitQName(QName qname) {
+    protected static void splitQName(final QName qname) {
         final int index = qname.rawname.indexOf(':');
         if (index != -1) {
-            qname.prefix = qname.rawname.substring(0,index);
-            qname.localpart  = qname.rawname.substring(index+1);
+            qname.prefix = qname.rawname.substring(0, index);
+            qname.localpart  = qname.rawname.substring(index + 1);
         }
     }
 
@@ -297,14 +293,18 @@ public class NamespaceBinder extends DefaultFilter {
     // @see #NAMES_NO_CHANGE
     // @see #NAMES_LOWERCASE
     // @see #NAMES_UPPERCASE
-    protected static short getNamesValue(String value) {
-        if ("lower".equals(value)) { return NAMES_LOWERCASE; }
-        if ("upper".equals(value)) { return NAMES_UPPERCASE; }
+    protected static short getNamesValue(final String value) {
+        if ("lower".equals(value)) {
+            return NAMES_LOWERCASE;
+        }
+        if ("upper".equals(value)) {
+            return NAMES_UPPERCASE;
+        }
         return NAMES_NO_CHANGE;
     }
 
     // Modifies the given name based on the specified mode.
-    protected static String modifyName(String name, short mode) {
+    protected static String modifyName(final String name, final short mode) {
         switch (mode) {
             case NAMES_UPPERCASE: return name.toUpperCase(Locale.ROOT);
             case NAMES_LOWERCASE: return name.toLowerCase(Locale.ROOT);
@@ -317,55 +317,54 @@ public class NamespaceBinder extends DefaultFilter {
     //
 
     // Binds namespaces.
-    protected void bindNamespaces(QName element, XMLAttributes attrs) {
+    protected void bindNamespaces(final QName element, final XMLAttributes attrs) {
 
         // split element qname
         splitQName(element);
 
         // declare namespace prefixes
         if (attrs != null) {
-            int attrCount = attrs.getLength();
+            final int attrCount = attrs.getLength();
             for (int i = attrCount - 1; i >= 0; i--) {
-                attrs.getName(i, fQName);
-                String aname = fQName.rawname;
-                final String ANAME = aname.toUpperCase(Locale.ROOT);
-                if (ANAME.startsWith("XMLNS:") || "XMLNS".equals(ANAME)) {
-                    final int anamelen = aname.length();
+                attrs.getName(i, fQName_);
+                String rawname = fQName_.rawname;
+                final String rawnameUC = rawname.toUpperCase(Locale.ROOT);
+                if (rawnameUC.startsWith("XMLNS:") || "XMLNS".equals(rawnameUC)) {
+                    final int anamelen = rawname.length();
 
                     // get parts
-                    String aprefix = anamelen > 5 ? aname.substring(0,5) : null;
-                    String alocal = anamelen > 5 ? aname.substring(6) : aname;
+                    String aprefix = anamelen > 5 ? rawname.substring(0, 5) : null;
+                    String alocal = anamelen > 5 ? rawname.substring(6) : rawname;
                     final String avalue = attrs.getValue(i);
 
                     // re-case parts and set them back into attributes
                     if (anamelen > 5) {
                         aprefix = modifyName(aprefix, NAMES_LOWERCASE);
-                        alocal = modifyName(alocal, fNamesElems);
-                        aname = aprefix + ':' + alocal;
+                        alocal = modifyName(alocal, fNamesElems_);
+                        rawname = aprefix + ':' + alocal;
                     }
                     else {
                         alocal = modifyName(alocal, NAMES_LOWERCASE);
-                        aname = alocal;
+                        rawname = alocal;
                     }
-                    fQName.setValues(aprefix, alocal, aname, null);
-                    attrs.setName(i, fQName);
+                    fQName_.setValues(aprefix, alocal, rawname, null);
+                    attrs.setName(i, fQName_);
 
                     // declare prefix
-                    final String prefix = alocal != aname ? alocal : "";
+                    final String prefix = alocal != rawname ? alocal : "";
                     String uri = avalue.length() > 0 ? avalue : null;
-                    if (fOverrideNamespaces &&
-                        prefix.equals(element.prefix) &&
-                        htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
-                        uri = fNamespacesURI;
+                    if (fOverrideNamespaces_ && prefix.equals(element.prefix)
+                            && htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
+                        uri = fNamespacesURI_;
                     }
-                    fNamespaceContext.declarePrefix(prefix, uri);
+                    fNamespaceContext_.declarePrefix(prefix, uri);
                 }
             }
         }
 
         // bind element
         String prefix = element.prefix != null ? element.prefix : "";
-        element.uri = fNamespaceContext.getURI(prefix);
+        element.uri = fNamespaceContext_.getURI(prefix);
         // REVISIT: The prefix of a qualified element name that is
         //          bound to a namespace is passed (as recent as
         //          Xerces 2.4.0) as "" for start elements and null
@@ -376,14 +375,13 @@ public class NamespaceBinder extends DefaultFilter {
         }
 
         // do we need to insert namespace bindings?
-        if (fInsertNamespaces && attrs != null &&
-                htmlConfiguration_.htmlElements_.getElement(element.localpart,null) != null) {
-            if (element.prefix == null ||
-                fNamespaceContext.getURI(element.prefix) == null) {
+        if (fInsertNamespaces_ && attrs != null
+                && htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
+            if (element.prefix == null || fNamespaceContext_.getURI(element.prefix) == null) {
                 final String xmlns = "xmlns" + ((element.prefix != null)
-                             ? ":"+element.prefix : "");
-                fQName.setValues(null, xmlns, xmlns, null);
-                attrs.addAttribute(fQName, "CDATA", fNamespacesURI);
+                             ? ":" + element.prefix : "");
+                fQName_.setValues(null, xmlns, xmlns, null);
+                attrs.addAttribute(fQName_, "CDATA", fNamespacesURI_);
                 bindNamespaces(element, attrs);
                 return;
             }
@@ -393,20 +391,20 @@ public class NamespaceBinder extends DefaultFilter {
         if (attrs != null) {
             final int attrCount = attrs.getLength();
             for (int i = 0; i < attrCount; i++) {
-                attrs.getName(i, fQName);
-                splitQName(fQName);
-                prefix = !"xmlns".equals(fQName.rawname)
-                       ? (fQName.prefix != null ? fQName.prefix : "") : "xmlns";
+                attrs.getName(i, fQName_);
+                splitQName(fQName_);
+                prefix = !"xmlns".equals(fQName_.rawname)
+                       ? (fQName_.prefix != null ? fQName_.prefix : "") : "xmlns";
                 // PATCH: Joseph Walton
                 if (!"".equals(prefix)) {
-                    fQName.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext.getURI(prefix);
+                    fQName_.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext_.getURI(prefix);
                 }
                 // NOTE: You would think the xmlns namespace would be handled
                 //       by NamespaceSupport but it's not. -Ac
-                if ("xmlns".equals(prefix) && fQName.uri == null) {
-                    fQName.uri = XMLNS_URI;
+                if ("xmlns".equals(prefix) && fQName_.uri == null) {
+                    fQName_.uri = XMLNS_URI;
                 }
-                attrs.setName(i, fQName);
+                attrs.setName(i, fQName_);
             }
         }
     }
@@ -455,8 +453,8 @@ public class NamespaceBinder extends DefaultFilter {
 
         /** Get URI. */
         @Override
-        public String getURI(String prefix) {
-            for (int i = fLevels[fTop]-1; i >= 0; i--) {
+        public String getURI(final String prefix) {
+            for (int i = fLevels[fTop] - 1; i >= 0; i--) {
                 final Entry entry = fEntries[i];
                 if (entry.prefix.equals(prefix)) {
                     return entry.uri;
@@ -468,13 +466,13 @@ public class NamespaceBinder extends DefaultFilter {
         /** Get declared prefix count. */
         @Override
         public int getDeclaredPrefixCount() {
-            return fLevels[fTop] - fLevels[fTop-1];
+            return fLevels[fTop] - fLevels[fTop - 1];
         }
 
         /** Get declared prefix at. */
         @Override
-        public String getDeclaredPrefixAt(int index) {
-            return fEntries[fLevels[fTop-1] + index].prefix;
+        public String getDeclaredPrefixAt(final int index) {
+            return fEntries[fLevels[fTop - 1] + index].prefix;
         }
 
         // Get parent context.
@@ -487,7 +485,7 @@ public class NamespaceBinder extends DefaultFilter {
         /** Reset. */
         @Override
         public void reset() {
-            fLevels[fTop = 1] = fLevels[fTop-1];
+            fLevels[fTop = 1] = fLevels[fTop - 1];
         }
 
         /** Push context. */
@@ -498,7 +496,7 @@ public class NamespaceBinder extends DefaultFilter {
                 System.arraycopy(fLevels, 0, iarray, 0, fLevels.length);
                 fLevels = iarray;
             }
-            fLevels[fTop] = fLevels[fTop-1];
+            fLevels[fTop] = fLevels[fTop - 1];
         }
 
         /** Pop context. */
@@ -511,7 +509,7 @@ public class NamespaceBinder extends DefaultFilter {
 
         /** Declare prefix. */
         @Override
-        public boolean declarePrefix(String prefix, String uri) {
+        public boolean declarePrefix(final String prefix, final String uri) {
             final int count = getDeclaredPrefixCount();
             for (int i = 0; i < count; i++) {
                 final String dprefix = getDeclaredPrefixAt(i);
@@ -530,7 +528,7 @@ public class NamespaceBinder extends DefaultFilter {
         }
 
         /** A namespace binding entry. */
-        static class Entry {
+        static final class Entry {
 
             //
             // Data
@@ -547,7 +545,7 @@ public class NamespaceBinder extends DefaultFilter {
             //
 
             /** Constructs an entry. */
-            public Entry(String prefix, String uri) {
+            Entry(final String prefix, final String uri) {
                 this.prefix = prefix;
                 this.uri = uri;
             }

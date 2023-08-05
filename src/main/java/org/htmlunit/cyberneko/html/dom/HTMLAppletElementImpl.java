@@ -13,184 +13,131 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLAppletElement;
-
 /**
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLAppletElement
  * @see HTMLElementImpl
  */
-public class HTMLAppletElementImpl
-    extends HTMLElementImpl
-    implements HTMLAppletElement
-{
-
+public class HTMLAppletElementImpl extends HTMLElementImpl implements HTMLAppletElement {
     @Override
-    public String getAlign()
-    {
+    public String getAlign() {
         return getAttribute("align");
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getAlt()
-    {
+    public String getAlt() {
         return getAttribute("alt");
     }
 
-
     @Override
-    public void setAlt(final String alt)
-    {
+    public void setAlt(final String alt) {
         setAttribute("alt", alt);
     }
 
-
     @Override
-    public String getArchive()
-    {
+    public String getArchive() {
         return getAttribute("archive");
     }
 
-
     @Override
-    public void setArchive(final String archive)
-    {
+    public void setArchive(final String archive) {
         setAttribute("archive", archive);
     }
 
-
     @Override
-    public String getCode()
-    {
+    public String getCode() {
         return getAttribute("code");
     }
 
-
     @Override
-    public void setCode(final String code)
-    {
+    public void setCode(final String code) {
         setAttribute("code", code);
     }
 
-
     @Override
-    public String getCodeBase()
-    {
+    public String getCodeBase() {
         return getAttribute("codebase");
     }
 
-
     @Override
-    public void setCodeBase(final String codeBase)
-    {
+    public void setCodeBase(final String codeBase) {
         setAttribute("codebase", codeBase);
     }
 
-
     @Override
-    public String getHeight()
-    {
+    public String getHeight() {
         return getAttribute("height");
     }
 
-
     @Override
-    public void setHeight(final String height)
-    {
+    public void setHeight(final String height) {
         setAttribute("height", height);
     }
 
-
     @Override
-    public String getHspace()
-    {
+    public String getHspace() {
         return getAttribute("height");
     }
 
-
     @Override
-    public void setHspace(final String height)
-    {
+    public void setHspace(final String height) {
         setAttribute("height", height);
     }
 
-
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public String getObject()
-    {
+    public String getObject() {
         return getAttribute("object");
     }
 
-
     @Override
-    public void setObject(final String object)
-    {
+    public void setObject(final String object) {
         setAttribute("object", object);
     }
 
-
     @Override
-    public String getVspace()
-    {
+    public String getVspace() {
         return getAttribute("vspace");
     }
 
-
     @Override
-    public void setVspace(final String vspace)
-    {
+    public void setVspace(final String vspace) {
         setAttribute("vspace", vspace);
     }
 
-
     @Override
-    public String getWidth()
-    {
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLAppletElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLAppletElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
 }
-

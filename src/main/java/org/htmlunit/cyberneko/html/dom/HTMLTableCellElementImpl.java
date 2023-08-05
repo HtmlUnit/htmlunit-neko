@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -25,30 +24,24 @@ import org.w3c.dom.html.HTMLTableRowElement;
  * @see org.w3c.dom.html.HTMLTableCellElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableCellElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableCellElement
-{
+public class HTMLTableCellElementImpl extends HTMLElementImpl implements HTMLTableCellElement {
 
     @Override
-    public int getCellIndex()
-    {
-        Node    parent;
-        Node    child;
-        int        index;
+    public int getCellIndex() {
+        final Node parent;
+        Node child;
+        int index;
 
         parent = getParentNode();
         index = 0;
-        if ( parent instanceof HTMLTableRowElement)
-        {
+        if (parent instanceof HTMLTableRowElement) {
             child = parent.getFirstChild();
-            while ( child != null)
-            {
-                if ( child instanceof HTMLTableCellElement)
-                {
-                    if ( child == this)
+            while (child != null) {
+                if (child instanceof HTMLTableCellElement) {
+                    if (child == this) {
                         return index;
-                    ++ index;
+                    }
+                    ++index;
                 }
                 child = child.getNextSibling();
             }
@@ -56,71 +49,55 @@ public class HTMLTableCellElementImpl
         return -1;
     }
 
-
     @Override
-    public String getAbbr()
-    {
+    public String getAbbr() {
         return getAttribute("abbr");
     }
 
-
     @Override
-    public void setAbbr(final String abbr)
-    {
+    public void setAbbr(final String abbr) {
         setAttribute("abbr", abbr);
     }
 
-
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getAxis()
-    {
+    public String getAxis() {
         return getAttribute("axis");
     }
 
-
     @Override
-    public void setAxis(final String axis)
-    {
+    public void setAxis(final String axis) {
         setAttribute("axis", axis);
     }
 
     @Override
-    public String getBgColor()
-    {
+    public String getBgColor() {
         return getAttribute("bgcolor");
     }
 
-
     @Override
-    public void setBgColor(final String bgColor)
-    {
+    public void setBgColor(final String bgColor) {
         setAttribute("bgcolor", bgColor);
     }
 
-
     @Override
-    public String getCh()
-    {
+    public String getCh() {
         String    ch;
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1)
-            ch = ch.substring( 0, 1);
+        if (ch != null && ch.length() > 1) {
+            ch = ch.substring(0, 1);
+        }
         return ch;
     }
 
@@ -138,134 +115,97 @@ public class HTMLTableCellElementImpl
         return getAttribute("charoff");
     }
 
-
     @Override
     public void setChOff(final String chOff) {
         setAttribute("charoff", chOff);
     }
 
-
     @Override
-    public int getColSpan()
-    {
-        return getInteger( getAttribute("colspan"));
+    public int getColSpan() {
+        return getInteger(getAttribute("colspan"));
     }
 
-
     @Override
-    public void setColSpan( int colspan)
-    {
-        setAttribute("colspan", String.valueOf( colspan));
+    public void setColSpan(final int colspan) {
+        setAttribute("colspan", String.valueOf(colspan));
     }
 
-
     @Override
-    public String getHeaders()
-    {
+    public String getHeaders() {
         return getAttribute("headers");
     }
 
-
     @Override
-    public void setHeaders(final String headers)
-    {
+    public void setHeaders(final String headers) {
         setAttribute("headers", headers);
     }
 
-
     @Override
-    public String getHeight()
-    {
+    public String getHeight() {
         return getAttribute("height");
     }
 
-
     @Override
-    public void setHeight(final String height)
-    {
+    public void setHeight(final String height) {
         setAttribute("height", height);
     }
 
-
-      @Override
-    public boolean getNoWrap()
-    {
+    @Override
+    public boolean getNoWrap() {
         return getBinary("nowrap");
     }
 
-
     @Override
-    public void setNoWrap( boolean noWrap)
-    {
+    public void setNoWrap(final boolean noWrap) {
         setAttribute("nowrap", noWrap);
     }
 
     @Override
-    public int getRowSpan()
-    {
-        return getInteger( getAttribute("rowspan"));
+    public int getRowSpan() {
+        return getInteger(getAttribute("rowspan"));
     }
 
-
     @Override
-    public void setRowSpan( int rowspan)
-    {
-        setAttribute("rowspan", String.valueOf( rowspan));
+    public void setRowSpan(final int rowspan) {
+        setAttribute("rowspan", String.valueOf(rowspan));
     }
 
-
     @Override
-    public String getScope()
-    {
+    public String getScope() {
         return getAttribute("scope");
     }
 
-
     @Override
-    public void setScope(final String scope)
-    {
+    public void setScope(final String scope) {
         setAttribute("scope", scope);
     }
 
-
     @Override
-    public String getVAlign()
-    {
-        return capitalize( getAttribute("valign"));
+    public String getVAlign() {
+        return capitalize(getAttribute("valign"));
     }
 
-
     @Override
-    public void setVAlign(final String vAlign)
-    {
+    public void setVAlign(final String vAlign) {
         setAttribute("valign", vAlign);
     }
 
-
-      @Override
-    public String getWidth()
-    {
+    @Override
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableCellElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableCellElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

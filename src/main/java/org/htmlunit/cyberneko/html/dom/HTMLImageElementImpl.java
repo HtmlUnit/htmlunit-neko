@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLImageElement;
@@ -23,203 +22,144 @@ import org.w3c.dom.html.HTMLImageElement;
  * @see org.w3c.dom.html.HTMLImageElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLImageElementImpl
-    extends HTMLElementImpl
-    implements HTMLImageElement
-{
+public class HTMLImageElementImpl extends HTMLElementImpl implements HTMLImageElement {
 
     @Override
-    public String getLowSrc()
-    {
+    public String getLowSrc() {
         return getAttribute("lowsrc");
     }
 
-
     @Override
-    public void setLowSrc(final String lowSrc)
-    {
+    public void setLowSrc(final String lowSrc) {
         setAttribute("lowsrc", lowSrc);
     }
 
-
-       @Override
-    public String getSrc()
-    {
+    @Override
+    public String getSrc() {
         return getAttribute("src");
     }
 
-
     @Override
-    public void setSrc(final String src)
-    {
+    public void setSrc(final String src) {
         setAttribute("src", src);
     }
 
-
-      @Override
-    public String getName()
-    {
+    @Override
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
     @Override
-    public String getAlt()
-    {
+    public String getAlt() {
         return getAttribute("alt");
     }
 
-
     @Override
-    public void setAlt(final String alt)
-    {
+    public void setAlt(final String alt) {
         setAttribute("alt", alt);
     }
 
-
     @Override
-    public String getBorder()
-    {
+    public String getBorder() {
         return getAttribute("border");
     }
 
-
     @Override
-    public void setBorder(final String border)
-    {
+    public void setBorder(final String border) {
         setAttribute("border", border);
     }
 
-
-      @Override
-    public String getHeight()
-    {
+    @Override
+    public String getHeight() {
         return getAttribute("height");
     }
 
-
     @Override
-    public void setHeight(final String height)
-    {
+    public void setHeight(final String height) {
         setAttribute("height", height);
     }
 
-
     @Override
-    public String getHspace()
-    {
+    public String getHspace() {
         return getAttribute("hspace");
     }
 
-
     @Override
-    public void setHspace(final String hspace)
-    {
+    public void setHspace(final String hspace) {
         setAttribute("hspace", hspace);
     }
 
-
     @Override
-    public boolean getIsMap()
-    {
+    public boolean getIsMap() {
         return getBinary("ismap");
     }
 
-
     @Override
-    public void setIsMap( boolean isMap)
-    {
+    public void setIsMap(final boolean isMap) {
         setAttribute("ismap", isMap);
     }
 
-
     @Override
-    public String getLongDesc()
-    {
+    public String getLongDesc() {
         return getAttribute("longdesc");
     }
 
-
     @Override
-    public void setLongDesc(final String longDesc)
-    {
+    public void setLongDesc(final String longDesc) {
         setAttribute("longdesc", longDesc);
     }
 
-
     @Override
-    public String getUseMap()
-    {
+    public String getUseMap() {
         return getAttribute("useMap");
     }
 
-
     @Override
-    public void setUseMap(final String useMap)
-    {
+    public void setUseMap(final String useMap) {
         setAttribute("useMap", useMap);
     }
 
-
     @Override
-    public String getVspace()
-    {
+    public String getVspace() {
         return getAttribute("vspace");
     }
 
-
     @Override
-    public void setVspace(final String vspace)
-    {
+    public void setVspace(final String vspace) {
         setAttribute("vspace", vspace);
     }
 
-
-      @Override
-    public String getWidth()
-    {
+    @Override
+    public String getWidth() {
         return getAttribute("width");
     }
 
-
     @Override
-    public void setWidth(final String width)
-    {
+    public void setWidth(final String width) {
         setAttribute("width", width);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLImageElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLImageElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

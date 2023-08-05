@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLFrameSetElement;
@@ -23,49 +22,34 @@ import org.w3c.dom.html.HTMLFrameSetElement;
  * @see org.w3c.dom.html.HTMLFrameSetElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLFrameSetElementImpl
-    extends HTMLElementImpl
-    implements HTMLFrameSetElement
-{
+public class HTMLFrameSetElementImpl extends HTMLElementImpl implements HTMLFrameSetElement {
 
     @Override
-    public String getCols()
-    {
+    public String getCols() {
         return getAttribute("cols");
     }
 
-
     @Override
-    public void setCols(final String cols)
-    {
+    public void setCols(final String cols) {
         setAttribute("cols", cols);
     }
 
-
     @Override
-    public String getRows()
-    {
+    public String getRows() {
         return getAttribute("rows");
     }
 
-
     @Override
-    public void setRows(final String rows)
-    {
+    public void setRows(final String rows) {
         setAttribute("rows", rows);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLFrameSetElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLFrameSetElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

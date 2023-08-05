@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLBaseElement;
@@ -23,48 +22,34 @@ import org.w3c.dom.html.HTMLBaseElement;
  * @see org.w3c.dom.html.HTMLBaseElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLBaseElementImpl
-    extends HTMLElementImpl
-    implements HTMLBaseElement
-{
+public class HTMLBaseElementImpl extends HTMLElementImpl implements HTMLBaseElement {
 
     @Override
-    public String getHref()
-    {
+    public String getHref() {
         return getAttribute("href");
     }
 
-
     @Override
-    public void setHref(final String href)
-    {
+    public void setHref(final String href) {
         setAttribute("href", href);
     }
 
     @Override
-    public String getTarget()
-    {
+    public String getTarget() {
         return getAttribute("target");
     }
 
-
     @Override
-    public void setTarget(final String target)
-    {
+    public void setTarget(final String target) {
         setAttribute("target", target);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLBaseElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLBaseElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLFieldSetElement;
@@ -23,21 +22,14 @@ import org.w3c.dom.html.HTMLFieldSetElement;
  * @see org.w3c.dom.html.HTMLFieldSetElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLFieldSetElementImpl
-    extends HTMLElementImpl
-    implements HTMLFieldSetElement, HTMLFormControl
-{
+public class HTMLFieldSetElementImpl extends HTMLElementImpl implements HTMLFieldSetElement, HTMLFormControl {
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLFieldSetElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLFieldSetElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

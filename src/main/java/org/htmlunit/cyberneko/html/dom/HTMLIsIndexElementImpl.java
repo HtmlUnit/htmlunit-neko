@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLIsIndexElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLIsIndexElement;
  * @see org.w3c.dom.html.HTMLIsIndexElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLIsIndexElementImpl
-    extends HTMLElementImpl
-    implements HTMLIsIndexElement
-{
+public class HTMLIsIndexElementImpl extends HTMLElementImpl implements HTMLIsIndexElement {
 
     @Override
-    public String getPrompt()
-    {
+    public String getPrompt() {
         return getAttribute("prompt");
     }
 
-
     @Override
-    public void setPrompt(final String prompt)
-    {
+    public void setPrompt(final String prompt) {
         setAttribute("prompt", prompt);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLIsIndexElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLIsIndexElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

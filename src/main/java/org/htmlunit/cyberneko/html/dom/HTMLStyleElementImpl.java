@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLStyleElement;
@@ -23,63 +22,44 @@ import org.w3c.dom.html.HTMLStyleElement;
  * @see org.w3c.dom.html.HTMLStyleElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLStyleElementImpl
-    extends HTMLElementImpl
-    implements HTMLStyleElement
-{
+public class HTMLStyleElementImpl extends HTMLElementImpl implements HTMLStyleElement {
 
     @Override
-    public boolean getDisabled()
-    {
+    public boolean getDisabled() {
         return getBinary("disabled");
     }
 
-
     @Override
-    public void setDisabled( boolean disabled)
-    {
+    public void setDisabled(final boolean disabled) {
         setAttribute("disabled", disabled);
     }
 
-
     @Override
-    public String getMedia()
-    {
+    public String getMedia() {
         return getAttribute("media");
     }
 
-
     @Override
-    public void setMedia(final String media)
-    {
+    public void setMedia(final String media) {
         setAttribute("media", media);
     }
 
-
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type)
-    {
+    public void setType(final String type) {
         setAttribute("type", type);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLStyleElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLStyleElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

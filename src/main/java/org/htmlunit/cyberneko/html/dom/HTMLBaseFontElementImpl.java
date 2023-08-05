@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLBaseFontElement;
@@ -23,63 +22,45 @@ import org.w3c.dom.html.HTMLBaseFontElement;
  * @see org.w3c.dom.html.HTMLBaseFontElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLBaseFontElementImpl
-    extends HTMLElementImpl
-    implements HTMLBaseFontElement
-{
+public class HTMLBaseFontElementImpl extends HTMLElementImpl implements HTMLBaseFontElement {
 
     @Override
-    public String getColor()
-    {
-        return capitalize( getAttribute("color"));
+    public String getColor() {
+        return capitalize(getAttribute("color"));
     }
 
-
     @Override
-    public void setColor(final String color)
-    {
+    public void setColor(final String color) {
         setAttribute("color", color);
     }
 
-
     @Override
-    public String getFace()
-    {
-        return capitalize( getAttribute("face"));
+    public String getFace() {
+        return capitalize(getAttribute("face"));
     }
 
-
     @Override
-    public void setFace(final String face)
-    {
+    public void setFace(final String face) {
         setAttribute("face", face);
     }
 
-
     @Override
-    public String getSize()
-    {
+    public String getSize() {
         return getAttribute("size");
     }
 
-
     @Override
-    public void setSize(final String size)
-    {
+    public void setSize(final String size) {
         setAttribute("size", size);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLBaseFontElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLBaseFontElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
 

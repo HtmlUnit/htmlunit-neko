@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLButtonElement;
@@ -23,20 +22,17 @@ import org.w3c.dom.html.HTMLButtonElement;
  * @see org.w3c.dom.html.HTMLButtonElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLButtonElementImpl
-    extends HTMLElementImpl
-    implements HTMLButtonElement, HTMLFormControl
-{
+public class HTMLButtonElementImpl extends HTMLElementImpl implements HTMLButtonElement, HTMLFormControl {
 
     @Override
-    public String getAccessKey()
-    {
+    public String getAccessKey() {
         String    accessKey;
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1)
-            accessKey = accessKey.substring( 0, 1);
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         return accessKey;
     }
 
@@ -55,78 +51,56 @@ public class HTMLButtonElementImpl
     }
 
     @Override
-    public void setDisabled(final boolean disabled)
-    {
+    public void setDisabled(final boolean disabled) {
         setAttribute("disabled", disabled);
     }
 
-
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public int getTabIndex()
-    {
-        try
-        {
-            return Integer.parseInt( getAttribute("tabindex"));
+    public int getTabIndex() {
+        try {
+            return Integer.parseInt(getAttribute("tabindex"));
         }
-        catch ( NumberFormatException except)
-        {
+        catch (final NumberFormatException except) {
             return 0;
         }
     }
 
-
     @Override
-    public void setTabIndex(final int tabIndex)
-    {
+    public void setTabIndex(final int tabIndex) {
         setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
-
     @Override
-    public String getType()
-    {
-        return capitalize( getAttribute("type"));
+    public String getType() {
+        return capitalize(getAttribute("type"));
     }
 
-
-      @Override
-    public String getValue()
-    {
+    @Override
+    public String getValue() {
         return getAttribute("value");
     }
 
-
     @Override
-    public void setValue(final String value)
-    {
+    public void setValue(final String value) {
         setAttribute("value", value);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLButtonElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLButtonElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

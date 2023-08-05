@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.filters;
 
 import org.htmlunit.cyberneko.HTMLComponent;
@@ -41,26 +40,26 @@ public class DefaultFilter
     implements XMLDocumentFilter, HTMLComponent {
 
     /** Document handler. */
-    private XMLDocumentHandler fDocumentHandler;
+    private XMLDocumentHandler fDocumentHandler_;
 
     /** Document source. */
     private XMLDocumentSource fDocumentSource;
 
     /** Sets the document handler. */
     @Override
-    public void setDocumentHandler(XMLDocumentHandler handler) {
-        fDocumentHandler = handler;
+    public void setDocumentHandler(final XMLDocumentHandler handler) {
+        fDocumentHandler_ = handler;
     }
 
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
-        return fDocumentHandler;
+        return fDocumentHandler_;
     }
 
     /** Sets the document source. */
     @Override
-    public void setDocumentSource(XMLDocumentSource source) {
+    public void setDocumentSource(final XMLDocumentSource source) {
         fDocumentSource = source;
     }
 
@@ -72,143 +71,142 @@ public class DefaultFilter
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext, Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.startDocument(locator, encoding, nscontext, augs);
         }
     }
 
     /** XML declaration. */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone, Augmentations augs)
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.xmlDecl(version, encoding, standalone, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.xmlDecl(version, encoding, standalone, augs);
         }
     }
 
     /** Doctype declaration. */
     @Override
-    public void doctypeDecl(String root, String publicId, String systemId, Augmentations augs)
+    public void doctypeDecl(final String root, final String publicId, final String systemId, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.doctypeDecl(root, publicId, systemId, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.doctypeDecl(root, publicId, systemId, augs);
         }
     }
 
     /** Comment. */
     @Override
-    public void comment(XMLString text, Augmentations augs)
+    public void comment(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.comment(text, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.comment(text, augs);
         }
     }
 
     /** Processing instruction. */
     @Override
-    public void processingInstruction(String target, XMLString data, Augmentations augs)
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.processingInstruction(target, data, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.processingInstruction(target, data, augs);
         }
     }
 
     /** Start element. */
     @Override
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startElement(element, attributes, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.startElement(element, attributes, augs);
         }
     }
 
     /** Empty element. */
     @Override
-    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
+    public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.emptyElement(element, attributes, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.emptyElement(element, attributes, augs);
         }
     }
 
     /** Characters. */
     @Override
-    public void characters(XMLString text, Augmentations augs)
+    public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.characters(text, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.characters(text, augs);
         }
     }
 
     /** Ignorable whitespace. */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs)
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.ignorableWhitespace(text, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.ignorableWhitespace(text, augs);
         }
     }
 
     /** Start general entity. */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs)
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startGeneralEntity(name, encoding, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.startGeneralEntity(name, encoding, augs);
         }
     }
 
     /** Text declaration. */
     @Override
-    public void textDecl(String version, String encoding, Augmentations augs)
+    public void textDecl(final String version, final String encoding, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.textDecl(version, encoding, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.textDecl(version, encoding, augs);
         }
     }
 
     /** End general entity. */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs)
+    public void endGeneralEntity(final String name, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endGeneralEntity(name, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.endGeneralEntity(name, augs);
         }
     }
 
     /** Start CDATA section. */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startCDATA(augs);
+    public void startCDATA(final Augmentations augs) throws XNIException {
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.startCDATA(augs);
         }
     }
 
     /** End CDATA section. */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endCDATA(augs);
+    public void endCDATA(final Augmentations augs) throws XNIException {
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.endCDATA(augs);
         }
     }
 
     /** End element. */
     @Override
-    public void endElement(QName element, Augmentations augs)
+    public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endElement(element, augs);
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.endElement(element, augs);
         }
     }
 
     /** End document. */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endDocument(augs);
+    public void endDocument(final Augmentations augs) throws XNIException {
+        if (fDocumentHandler_ != null) {
+            fDocumentHandler_.endDocument(augs);
         }
     }
 
@@ -232,7 +230,7 @@ public class DefaultFilter
      * feature.
      */
     @Override
-    public Boolean getFeatureDefault(String featureId) {
+    public Boolean getFeatureDefault(final String featureId) {
         return null;
     }
 
@@ -252,7 +250,7 @@ public class DefaultFilter
      * property.
      */
     @Override
-    public Object getPropertyDefault(String propertyId) {
+    public Object getPropertyDefault(final String propertyId) {
         return null;
     }
 
@@ -266,7 +264,7 @@ public class DefaultFilter
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(XMLComponentManager componentManager)
+    public void reset(final XMLComponentManager componentManager)
         throws XMLConfigurationException {
     }
 
@@ -287,7 +285,7 @@ public class DefaultFilter
      *                                   a critical error.
      */
     @Override
-    public void setFeature(String featureId, boolean state)
+    public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
     }
 
@@ -308,8 +306,7 @@ public class DefaultFilter
      *                                   a critical error.
      */
     @Override
-    public void setProperty(String propertyId, Object value)
-        throws XMLConfigurationException {
+    public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
     }
 
     //
@@ -323,7 +320,7 @@ public class DefaultFilter
      * @param array2 array2
      * @return the merged array
      */
-    protected static String[] merge(String[] array1, String[] array2) {
+    protected static String[] merge(final String[] array1, final String[] array2) {
 
         // shortcut merge
         if (array1 == array2) {

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLAreaElement;
@@ -23,20 +22,17 @@ import org.w3c.dom.html.HTMLAreaElement;
  * @see org.w3c.dom.html.HTMLAreaElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLAreaElementImpl
-    extends HTMLElementImpl
-    implements HTMLAreaElement
-{
+public class HTMLAreaElementImpl extends HTMLElementImpl implements HTMLAreaElement {
 
     @Override
-    public String getAccessKey()
-    {
+    public String getAccessKey() {
         String    accessKey;
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1)
-            accessKey = accessKey.substring( 0, 1);
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         return accessKey;
     }
 
@@ -44,7 +40,7 @@ public class HTMLAreaElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1);
+            accessKey = accessKey.substring(0, 1);
         }
         setAttribute("accesskey", accessKey);
     }
@@ -54,106 +50,77 @@ public class HTMLAreaElementImpl
         return getAttribute("alt");
     }
 
-
     @Override
-    public void setAlt(final String alt)
-    {
+    public void setAlt(final String alt) {
         setAttribute("alt", alt);
     }
 
     @Override
-    public String getCoords()
-    {
+    public String getCoords() {
         return getAttribute("coords");
     }
 
-
     @Override
-    public void setCoords(final String coords)
-    {
+    public void setCoords(final String coords) {
         setAttribute("coords", coords);
     }
 
-
     @Override
-    public String getHref()
-    {
+    public String getHref() {
         return getAttribute("href");
     }
 
-
     @Override
-    public void setHref(final String href)
-    {
+    public void setHref(final String href) {
         setAttribute("href", href);
     }
 
-
     @Override
-    public boolean getNoHref()
-    {
+    public boolean getNoHref() {
         return getBinary("nohref");
     }
 
-
     @Override
-    public void setNoHref( boolean nohref)
-    {
+    public void setNoHref(final boolean nohref) {
         setAttribute("nohref", nohref);
     }
 
-
     @Override
-    public String getShape()
-    {
-        return capitalize( getAttribute("shape"));
+    public String getShape() {
+        return capitalize(getAttribute("shape"));
     }
 
-
     @Override
-    public void setShape(final String shape)
-    {
+    public void setShape(final String shape) {
         setAttribute("shape", shape);
     }
 
-
     @Override
-    public int getTabIndex()
-    {
-        return getInteger( getAttribute("tabindex"));
+    public int getTabIndex() {
+        return getInteger(getAttribute("tabindex"));
     }
 
-
     @Override
-    public void setTabIndex(final int tabIndex)
-    {
+    public void setTabIndex(final int tabIndex) {
         setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
-
     @Override
-    public String getTarget()
-    {
+    public String getTarget() {
         return getAttribute("target");
     }
 
-
     @Override
-    public void setTarget(final String target)
-    {
+    public void setTarget(final String target) {
         setAttribute("target", target);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLAreaElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLAreaElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
 }
-

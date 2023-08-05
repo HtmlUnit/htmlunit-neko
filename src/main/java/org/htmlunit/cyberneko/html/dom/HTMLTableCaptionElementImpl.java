@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLTableCaptionElement;
@@ -23,35 +22,24 @@ import org.w3c.dom.html.HTMLTableCaptionElement;
  * @see org.w3c.dom.html.HTMLTableCaptionElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLTableCaptionElementImpl
-    extends HTMLElementImpl
-    implements HTMLTableCaptionElement
-{
+public class HTMLTableCaptionElementImpl extends HTMLElementImpl implements HTMLTableCaptionElement {
 
     @Override
-    public String getAlign()
-    {
+    public String getAlign() {
         return getAttribute("align");
     }
 
-
     @Override
-    public void setAlign(final String align)
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align);
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableCaptionElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLTableCaptionElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Document;
@@ -24,140 +23,100 @@ import org.w3c.dom.html.HTMLFrameElement;
  * @see org.w3c.dom.html.HTMLFrameElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLFrameElementImpl
-    extends HTMLElementImpl
-    implements HTMLFrameElement
-{
+public class HTMLFrameElementImpl extends HTMLElementImpl implements HTMLFrameElement {
 
     @Override
-    public String getFrameBorder()
-    {
+    public String getFrameBorder() {
         return getAttribute("frameborder");
     }
 
-
     @Override
-    public void setFrameBorder(final String frameBorder)
-    {
+    public void setFrameBorder(final String frameBorder) {
         setAttribute("frameborder", frameBorder);
     }
 
-
     @Override
-    public String getLongDesc()
-    {
+    public String getLongDesc() {
         return getAttribute("longdesc");
     }
 
-
     @Override
-    public void setLongDesc(final String longDesc)
-    {
+    public void setLongDesc(final String longDesc) {
         setAttribute("longdesc", longDesc);
     }
 
-
     @Override
-    public String getMarginHeight()
-    {
+    public String getMarginHeight() {
         return getAttribute("marginheight");
     }
 
-
     @Override
-    public void setMarginHeight(final String marginHeight)
-    {
+    public void setMarginHeight(final String marginHeight) {
         setAttribute("marginheight", marginHeight);
     }
 
-
     @Override
-    public String getMarginWidth()
-    {
+    public String getMarginWidth() {
         return getAttribute("marginwidth");
     }
 
-
     @Override
-    public void setMarginWidth(final String marginWidth)
-    {
+    public void setMarginWidth(final String marginWidth) {
         setAttribute("marginwidth", marginWidth);
     }
 
-
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name)
-    {
+    public void setName(final String name) {
         setAttribute("name", name);
     }
 
-
     @Override
-    public boolean getNoResize()
-    {
+    public boolean getNoResize() {
         return getBinary("noresize");
     }
 
-
     @Override
-    public void setNoResize( boolean noResize)
-    {
+    public void setNoResize(final boolean noResize) {
         setAttribute("noresize", noResize);
     }
 
-
     @Override
-    public String getScrolling()
-    {
-        return capitalize( getAttribute("scrolling"));
+    public String getScrolling() {
+        return capitalize(getAttribute("scrolling"));
     }
 
-
     @Override
-    public void setScrolling(final String scrolling)
-    {
+    public void setScrolling(final String scrolling) {
         setAttribute("scrolling", scrolling);
     }
 
-
     @Override
-    public String getSrc()
-    {
+    public String getSrc() {
         return getAttribute("src");
     }
 
-
     @Override
-    public void setSrc(final String src)
-    {
+    public void setSrc(final String src) {
         setAttribute("src", src);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLFrameElementImpl( HTMLDocumentImpl owner, String name)
-    {
-        super( owner, name);
+    public HTMLFrameElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
 
     @Override
     public Document getContentDocument() {
         // TODO Auto-generated method stub
         return null;
     }
-
-
 }
-
