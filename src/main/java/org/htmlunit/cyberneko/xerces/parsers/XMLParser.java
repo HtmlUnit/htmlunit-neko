@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.parsers;
 
 import java.io.IOException;
@@ -45,13 +44,13 @@ public abstract class XMLParser {
     protected static final String ERROR_HANDLER = Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
     /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = { ERROR_HANDLER, };
+    private static final String[] RECOGNIZED_PROPERTIES = {ERROR_HANDLER};
 
     /** The parser configuration. */
     protected final XMLParserConfiguration fConfiguration;
 
     // Default Constructor.
-    protected XMLParser(XMLParserConfiguration config) {
+    protected XMLParser(final XMLParserConfiguration config) {
         // save configuration
         fConfiguration = config;
 
@@ -68,7 +67,7 @@ public abstract class XMLParser {
      * @exception XNIException        on error
      * @exception java.io.IOException on error
      */
-    public void parse(XMLInputSource inputSource) throws XNIException, IOException {
+    public void parse(final XMLInputSource inputSource) throws XNIException, IOException {
 
         reset();
         fConfiguration.parse(inputSource);

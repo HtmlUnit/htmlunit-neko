@@ -159,7 +159,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     private XMLLocator fLocator;
 
     // Default constructor.
-    protected AbstractDOMParser(XMLParserConfiguration config, Class<? extends DocumentImpl> documentClass) {
+    protected AbstractDOMParser(final XMLParserConfiguration config, final Class<? extends DocumentImpl> documentClass) {
         super(config);
 
         // add recognized features
@@ -186,7 +186,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @param documentClass The document factory to use when constructing the DOM
      *                      tree.
      */
-    protected void setDocumentClass(Class<? extends DocumentImpl> documentClass) {
+    protected void setDocumentClass(final Class<? extends DocumentImpl> documentClass) {
         fDocumentClass = documentClass;
     }
 
@@ -250,22 +250,22 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException {
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>startGeneralEntity (" + name + ")");
         }
 
         setCharacterData(true);
-        EntityReference er = fDocument.createEntityReference(name);
+        final EntityReference er = fDocument.createEntityReference(name);
         if (fDocumentImpl != null) {
             // REVISIT: baseURI/actualEncoding
             // remove dependency on our implementation when DOM L3 is REC
             //
 
-            EntityReferenceImpl erImpl = (EntityReferenceImpl) er;
+            final EntityReferenceImpl erImpl = (EntityReferenceImpl) er;
             if (fDocumentType != null) {
                 // set actual encoding
-                NamedNodeMap entities = fDocumentType.getEntities();
+                final NamedNodeMap entities = fDocumentType.getEntities();
                 fCurrentEntityDecl = (EntityImpl) entities.getNamedItem(name);
                 if (fCurrentEntityDecl != null) {
                     fCurrentEntityDecl.setInputEncoding(encoding);
@@ -298,11 +298,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void textDecl(String version, String encoding, Augmentations augs) throws XNIException {
+    public void textDecl(final String version, final String encoding, final Augmentations augs) throws XNIException {
         if (fCurrentEntityDecl != null) {
             fCurrentEntityDecl.setXmlEncoding(encoding);
-            if (version != null)
+            if (version != null) {
                 fCurrentEntityDecl.setXmlVersion(version);
+            }
         }
     }
 
@@ -315,12 +316,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by application to signal an error.
      */
     @Override
-    public void comment(XMLString text, Augmentations augs) throws XNIException {
+    public void comment(final XMLString text, final Augmentations augs) throws XNIException {
         if (!fIncludeComments) {
             return;
         }
-        Comment comment = fDocument.createComment(text.toString());
 
+        final Comment comment = fDocument.createComment(text.toString());
         setCharacterData(false);
         fCurrentNode.appendChild(comment);
     }
@@ -342,12 +343,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>processingInstruction (" + target + ")");
         }
-        ProcessingInstruction pi = fDocument.createProcessingInstruction(target, data.toString());
 
+        final ProcessingInstruction pi = fDocument.createProcessingInstruction(target, data.toString());
         setCharacterData(false);
         fCurrentNode.appendChild(pi);
     }
@@ -374,8 +375,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext,
-            Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
 
         fLocator = locator;
         if (fDocumentClass == null) {
@@ -389,7 +389,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             fDocumentImpl.setInputEncoding(encoding);
             // set documentURI
             fDocumentImpl.setDocumentURI(locator.getExpandedSystemId());
-        } else {
+        }
+        else {
             // use specified document class
             try {
                 fDocument = fDocumentClass.newInstance();
@@ -406,7 +407,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     fDocumentImpl.setDocumentURI(locator.getExpandedSystemId());
                 }
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 throw new RuntimeException(DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
                         "CannotCreateDocumentClass", new Object[] {fDocumentClass.getSimpleName()}));
             }
@@ -428,12 +429,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
         // REVISIT: when DOM Level 3 is REC rely on Document.support
         // instead of specific class
         if (fDocumentImpl != null) {
-            if (version != null)
+            if (version != null) {
                 fDocumentImpl.setXmlVersion(version);
+            }
             fDocumentImpl.setXmlEncoding(encoding);
             fDocumentImpl.setXmlStandalone("yes".equals(standalone));
         }
@@ -452,7 +454,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs)
+    public void doctypeDecl(final String rootElement, final String publicId, final String systemId, final Augmentations augs)
             throws XNIException {
         if (fDocumentImpl != null) {
             fDocumentType = fDocumentImpl.createDocumentType(rootElement, publicId, systemId);
@@ -473,22 +475,22 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>startElement (" + element.rawname + ")");
         }
 
-        Element el = createElementNode(element);
-        int attrCount = attributes.getLength();
+        final Element el = createElementNode(element);
+        final int attrCount = attributes.getLength();
         boolean seenSchemaDefault = false;
         for (int i = 0; i < attrCount; i++) {
             attributes.getName(i, fAttrQName);
-            Attr attr = createAttrNode(fAttrQName);
+            final Attr attr = createAttrNode(fAttrQName);
 
-            String attrValue = attributes.getValue(i);
+            final String attrValue = attributes.getValue(i);
 
             attr.setValue(attrValue);
-            boolean specified = attributes.isSpecified(i);
+            final boolean specified = attributes.isSpecified(i);
             // Take special care of schema defaulted attributes. Calling the
             // non-namespace aware setAttributeNode() method could overwrite
             // another attribute with the same local name.
@@ -496,7 +498,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     && fAttrQName.uri != NamespaceContext.XMLNS_URI && fAttrQName.prefix == null))) {
                 el.setAttributeNodeNS(attr);
                 seenSchemaDefault = true;
-            } else {
+            }
+            else {
                 el.setAttributeNode(attr);
             }
             // NOTE: The specified value MUST be set after you set
@@ -504,12 +507,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // flag to "true" which may overwrite a "false"
             // value from the attribute list. -Ac
             if (fDocumentImpl != null) {
-                AttrImpl attrImpl = (AttrImpl) attr;
+                final AttrImpl attrImpl = (AttrImpl) attr;
                 String type = null;
                 boolean id = false;
 
                 // DTD
-                boolean isDeclared = false;
+                final boolean isDeclared = false;
                 // For DOM Level 3 TypeInfo, the type name must
                 // be null if this attribute has not been declared
                 // in the DTD.
@@ -544,7 +547,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
 
         startElement(element, attributes, augs);
         endElement(element, augs);
@@ -560,7 +563,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void characters(XMLString text, Augmentations augs) throws XNIException {
+    public void characters(final XMLString text, final Augmentations augs) throws XNIException {
 
         if (DEBUG_EVENTS) {
             System.out.println("==>characters(): " + text.toString());
@@ -571,23 +574,26 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 fCurrentCDATASection = fDocument.createCDATASection(text.toString());
                 fCurrentNode.appendChild(fCurrentCDATASection);
                 fCurrentNode = fCurrentCDATASection;
-            } else {
+            }
+            else {
                 fCurrentCDATASection.appendData(text.toString());
             }
-        } else {
+        }
+        else {
             // if type is union (XML Schema) it is possible that we receive
             // character call with empty data
             if (text.length == 0) {
                 return;
             }
 
-            Node child = fCurrentNode.getLastChild();
+            final Node child = fCurrentNode.getLastChild();
             if (child != null && child.getNodeType() == Node.TEXT_NODE) {
                 // collect all the data into the string buffer.
                 if (fFirstChunk) {
                     if (fDocumentImpl != null) {
                         fStringBuffer.append(((TextImpl) child).removeData());
-                    } else {
+                    }
+                    else {
                         fStringBuffer.append(((Text) child).getData());
                         child.setNodeValue(null);
                     }
@@ -596,9 +602,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 if (text.length > 0) {
                     fStringBuffer.append(text.ch, text.offset, text.length);
                 }
-            } else {
+            }
+            else {
                 fFirstChunk = true;
-                Text textNode = fDocument.createTextNode(text.toString());
+                final Text textNode = fDocument.createTextNode(text.toString());
                 fCurrentNode.appendChild(textNode);
             }
 
@@ -618,19 +625,20 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
 
         if (!fIncludeIgnorableWhitespace) {
             return;
         }
-        Node child = fCurrentNode.getLastChild();
+        final Node child = fCurrentNode.getLastChild();
         if (child != null && child.getNodeType() == Node.TEXT_NODE) {
-            Text textNode = (Text) child;
+            final Text textNode = (Text) child;
             textNode.appendData(text.toString());
-        } else {
-            Text textNode = fDocument.createTextNode(text.toString());
+        }
+        else {
+            final Text textNode = fDocument.createTextNode(text.toString());
             if (fDocumentImpl != null) {
-                TextImpl textNodeImpl = (TextImpl) textNode;
+                final TextImpl textNodeImpl = (TextImpl) textNode;
                 textNodeImpl.setIgnorableWhitespace(true);
             }
             fCurrentNode.appendChild(textNode);
@@ -646,7 +654,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endElement(QName element, Augmentations augs) throws XNIException {
+    public void endElement(final QName element, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>endElement (" + element.rawname + ")");
         }
@@ -662,8 +670,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
-
+    public void startCDATA(final Augmentations augs) throws XNIException {
         fInCDATASection = true;
         if (fCreateCDATANodes) {
             setCharacterData(false);
@@ -678,7 +685,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
+    public void endCDATA(final Augmentations augs) throws XNIException {
 
         fInCDATASection = false;
 
@@ -696,7 +703,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
+    public void endDocument(final Augmentations augs) throws XNIException {
         // REVISIT: when DOM Level 3 is REC rely on Document.support
         // instead of specific class
         // set the actual encoding and set DOM error checking back on
@@ -721,7 +728,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
+    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
             System.out.println("==>endGeneralEntity: (" + name + ")");
         }
@@ -730,13 +737,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         if (fDocumentType != null) {
             // get current entity declaration
-            NamedNodeMap entities = fDocumentType.getEntities();
+            final NamedNodeMap entities = fDocumentType.getEntities();
             fCurrentEntityDecl = (EntityImpl) entities.getNamedItem(name);
             if (fCurrentEntityDecl != null) {
                 if (fCurrentEntityDecl.getFirstChild() == null) {
                     Node child = fCurrentNode.getFirstChild();
                     while (child != null) {
-                        Node copy = child.cloneNode(true);
+                        final Node copy = child.cloneNode(true);
                         fCurrentEntityDecl.appendChild(copy);
                         child = child.getNextSibling();
                     }
@@ -749,20 +756,21 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (!fCreateEntityRefNodes) {
             // move entity reference children to the list of
             // siblings of its parent and remove entity reference
-            NodeList children = fCurrentNode.getChildNodes();
-            Node parent = fCurrentNode.getParentNode();
-            int length = children.getLength();
+            final NodeList children = fCurrentNode.getChildNodes();
+            final Node parent = fCurrentNode.getParentNode();
+            final int length = children.getLength();
             if (length > 0) {
 
                 // get previous sibling of the entity reference
                 Node node = fCurrentNode.getPreviousSibling();
                 // normalize text nodes
-                Node child = children.item(0);
+                final Node child = children.item(0);
                 if (node != null && node.getNodeType() == Node.TEXT_NODE && child.getNodeType() == Node.TEXT_NODE) {
                     ((Text) node).appendData(child.getNodeValue());
                     fCurrentNode.removeChild(child);
 
-                } else {
+                }
+                else {
                     node = parent.insertBefore(child, fCurrentNode);
                     handleBaseURI(node);
                 }
@@ -783,13 +791,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *
      * @param node the node
      */
-    protected final void handleBaseURI(Node node) {
+    protected final void handleBaseURI(final Node node) {
         if (fDocumentImpl != null) {
             // REVISIT: remove dependency on our implementation when
             // DOM L3 becomes REC
 
-            String baseURI;
-            short nodeType = node.getNodeType();
+            final String baseURI;
+            final short nodeType = node.getNodeType();
 
             if (nodeType == Node.ELEMENT_NODE) {
                 // if an element already has xml:base attribute
@@ -798,7 +806,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     if (((Element) node).getAttributeNodeNS("http://www.w3.org/XML/1998/namespace", "base") != null) {
                         return;
                     }
-                } else if (((Element) node).getAttributeNode("xml:base") != null) {
+                }
+                else if (((Element) node).getAttributeNode("xml:base") != null) {
                     return;
                 }
                 // retrive the baseURI from the entity reference
@@ -806,11 +815,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 if (baseURI != null && !baseURI.equals(fDocumentImpl.getDocumentURI())) {
                     if (fNamespaceAware) {
                         ((Element) node).setAttributeNS("http://www.w3.org/XML/1998/namespace", "xml:base", baseURI);
-                    } else {
+                    }
+                    else {
                         ((Element) node).setAttribute("xml:base", baseURI);
                     }
                 }
-            } else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
+            }
+            else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
                 baseURI = fCurrentNode.getBaseURI();
             }
         }
@@ -923,7 +934,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
 
         // wrap XNI exceptions as SAX exceptions
-        catch (XMLParseException e) {
+        catch (final XMLParseException e) {
             final Exception ex = e.getException();
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info and throw
@@ -970,12 +981,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception org.xml.sax.SAXException on error
      * @exception java.io.IOException      on error
      */
-    public void parse(InputSource inputSource) throws SAXException, IOException {
+    public void parse(final InputSource inputSource) throws SAXException, IOException {
 
         // parse document
         try {
-            XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(), inputSource.getSystemId(),
-                    null);
+            final XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(), inputSource.getSystemId(), null);
             xmlInputSource.setByteStream(inputSource.getByteStream());
             xmlInputSource.setCharacterStream(inputSource.getCharacterStream());
             xmlInputSource.setEncoding(inputSource.getEncoding());
@@ -983,12 +993,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
 
         // wrap XNI exceptions as SAX exceptions
-        catch (XMLParseException e) {
-            Exception ex = e.getException();
+        catch (final XMLParseException e) {
+            final Exception ex = e.getException();
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info and throw
                 // a SAXParseException
-                LocatorImpl locatorImpl = new LocatorImpl();
+                final LocatorImpl locatorImpl = new LocatorImpl();
                 locatorImpl.setPublicId(e.getPublicId());
                 locatorImpl.setSystemId(e.getExpandedSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
@@ -1004,8 +1014,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 throw (IOException) ex;
             }
             throw new SAXException(ex);
-        } catch (XNIException e) {
-            Exception ex = e.getException();
+        }
+        catch (final XNIException e) {
+            final Exception ex = e.getException();
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }
@@ -1039,17 +1050,18 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception java.lang.NullPointerException If the handler argument is null.
      * @see #getErrorHandler
      */
-    public void setErrorHandler(ErrorHandler errorHandler) {
-
+    public void setErrorHandler(final ErrorHandler errorHandler) {
         try {
-            XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
             if (xeh instanceof ErrorHandlerWrapper) {
-                ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
+                final ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
                 ehw.setErrorHandler(errorHandler);
-            } else {
+            }
+            else {
                 fConfiguration.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
             }
-        } catch (XMLConfigurationException e) {
+        }
+        catch (final XMLConfigurationException e) {
             // do nothing
         }
 
@@ -1065,11 +1077,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         ErrorHandler errorHandler = null;
         try {
-            XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
             if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
                 errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
             }
-        } catch (XMLConfigurationException e) {
+        }
+        catch (final XMLConfigurationException e) {
             // do nothing
         }
         return errorHandler;
@@ -1088,19 +1101,19 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception SAXNotSupportedException  If the requested feature is known, but
      *                                      the requested state is not supported.
      */
-    public void setFeature(String featureId, boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             fConfiguration.setFeature(featureId, state);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
-                throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] { identifier }));
+                throw new SAXNotRecognizedException(SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] {identifier}));
             }
 
             throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] { identifier }));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
 
     }
@@ -1118,19 +1131,18 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception SAXNotSupportedException              If the requested feature is
      *                                                  known but not supported.
      */
-    public boolean getFeature(String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             return fConfiguration.getFeature(featureId);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
-                throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] { identifier }));
+                throw new SAXNotRecognizedException(SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] {identifier}));
             }
 
-            throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] { identifier }));
+            throw new SAXNotSupportedException(SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
 
     }
@@ -1147,20 +1159,19 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception SAXNotSupportedException  If the requested property is known, but
      *                                      the requested value is not supported.
      */
-    public void setProperty(String propertyId, Object value)
+    public void setProperty(final String propertyId, final Object value)
             throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             fConfiguration.setProperty(propertyId, value);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
-                throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] { identifier }));
+                throw new SAXNotRecognizedException(SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] {identifier}));
             }
 
-            throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object[] { identifier }));
+            throw new SAXNotSupportedException(SAXMessageFormatter.formatMessage("property-not-supported", new Object[] {identifier}));
         }
 
     }
