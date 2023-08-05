@@ -36,9 +36,9 @@ public class HTMLOptGroupElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLOptGroupElementImpl
 
 
     @Override
-    public void setLabel(final String label )
+    public void setLabel(final String label)
     {
-        setAttribute("label", label );
+        setAttribute("label", label);
     }
 
 

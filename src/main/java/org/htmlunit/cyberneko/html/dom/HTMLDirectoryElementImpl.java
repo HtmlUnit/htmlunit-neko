@@ -36,9 +36,9 @@ public class HTMLDirectoryElementImpl
 
 
     @Override
-    public void setCompact( boolean compact )
+    public void setCompact( boolean compact)
     {
-        setAttribute("compact", compact );
+        setAttribute("compact", compact);
     }
 
 

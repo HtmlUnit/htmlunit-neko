@@ -36,9 +36,9 @@ public class HTMLTableColElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -49,8 +49,8 @@ public class HTMLTableColElementImpl
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1 )
-            ch = ch.substring( 0, 1 );
+        if ( ch != null && ch.length() > 1)
+            ch = ch.substring( 0, 1);
         return ch;
     }
 
@@ -60,7 +60,7 @@ public class HTMLTableColElementImpl
         if (ch != null && ch.length() > 1) {
             ch = ch.substring(0, 1);
         }
-        setAttribute("char", ch );
+        setAttribute("char", ch);
     }
 
     @Override
@@ -83,9 +83,9 @@ public class HTMLTableColElementImpl
 
 
     @Override
-    public void setSpan( int span )
+    public void setSpan( int span)
     {
-        setAttribute("span", String.valueOf( span ));
+        setAttribute("span", String.valueOf( span));
     }
 
 
@@ -97,9 +97,9 @@ public class HTMLTableColElementImpl
 
 
     @Override
-    public void setVAlign(final String vAlign )
+    public void setVAlign(final String vAlign)
     {
-        setAttribute("valign", vAlign );
+        setAttribute("valign", vAlign);
     }
 
     @Override
@@ -110,9 +110,9 @@ public class HTMLTableColElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

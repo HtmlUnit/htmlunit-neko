@@ -37,9 +37,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setCode(final String code )
+    public void setCode(final String code)
     {
-        setAttribute("code", code );
+        setAttribute("code", code);
     }
 
 
@@ -51,9 +51,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -65,9 +65,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setArchive(final String archive )
+    public void setArchive(final String archive)
     {
-        setAttribute("archive", archive );
+        setAttribute("archive", archive);
     }
 
     @Override
@@ -78,9 +78,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setBorder(final String border )
+    public void setBorder(final String border)
     {
-        setAttribute("border", border );
+        setAttribute("border", border);
     }
 
 
@@ -92,9 +92,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setCodeBase(final String codeBase )
+    public void setCodeBase(final String codeBase)
     {
-        setAttribute("codebase", codeBase );
+        setAttribute("codebase", codeBase);
     }
 
 
@@ -120,9 +120,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setData(final String data )
+    public void setData(final String data)
     {
-        setAttribute("data", data );
+        setAttribute("data", data);
     }
 
 
@@ -134,9 +134,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setDeclare( boolean declare )
+    public void setDeclare( boolean declare)
     {
-        setAttribute("declare", declare );
+        setAttribute("declare", declare);
     }
 
 
@@ -148,9 +148,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setHeight(final String height )
+    public void setHeight(final String height)
     {
-        setAttribute("height", height );
+        setAttribute("height", height);
     }
 
 
@@ -162,9 +162,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setHspace(final String hspace )
+    public void setHspace(final String hspace)
     {
-        setAttribute("hspace", hspace );
+        setAttribute("hspace", hspace);
     }
 
     @Override
@@ -189,9 +189,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setStandby(final String standby )
+    public void setStandby(final String standby)
     {
-        setAttribute("standby", standby );
+        setAttribute("standby", standby);
     }
 
       @Override
@@ -201,7 +201,7 @@ public class HTMLObjectElementImpl
         {
             return Integer.parseInt( getAttribute("tabindex"));
         }
-        catch ( NumberFormatException except )
+        catch ( NumberFormatException except)
         {
             return 0;
         }
@@ -237,9 +237,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setUseMap(final String useMap )
+    public void setUseMap(final String useMap)
     {
-        setAttribute("useMap", useMap );
+        setAttribute("useMap", useMap);
     }
 
 
@@ -251,9 +251,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setVspace(final String vspace )
+    public void setVspace(final String vspace)
     {
-        setAttribute("vspace", vspace );
+        setAttribute("vspace", vspace);
     }
 
 
@@ -265,9 +265,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

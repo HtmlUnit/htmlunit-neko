@@ -36,9 +36,9 @@ public class HTMLHtmlElementImpl
 
 
     @Override
-    public void setVersion(final String version )
+    public void setVersion(final String version)
     {
-        setAttribute("version", version );
+        setAttribute("version", version);
     }
 
 

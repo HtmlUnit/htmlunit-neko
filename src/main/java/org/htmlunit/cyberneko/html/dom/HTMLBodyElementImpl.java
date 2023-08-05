@@ -38,7 +38,7 @@ public class HTMLBodyElementImpl
     @Override
     public void setALink(String aLink)
     {
-        setAttribute("alink", aLink );
+        setAttribute("alink", aLink);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLBodyElementImpl
 
 
     @Override
-    public void setBackground(final String background )
+    public void setBackground(final String background)
     {
-        setAttribute("background", background );
+        setAttribute("background", background);
     }
 
 
@@ -66,7 +66,7 @@ public class HTMLBodyElementImpl
     @Override
     public void setBgColor(String bgColor)
     {
-        setAttribute("bgcolor", bgColor );
+        setAttribute("bgcolor", bgColor);
     }
 
 
@@ -80,7 +80,7 @@ public class HTMLBodyElementImpl
     @Override
     public void setLink(String link)
     {
-        setAttribute("link", link );
+        setAttribute("link", link);
     }
 
 
@@ -94,7 +94,7 @@ public class HTMLBodyElementImpl
     @Override
     public void setText(String text)
     {
-        setAttribute("text", text );
+        setAttribute("text", text);
     }
 
 
@@ -108,7 +108,7 @@ public class HTMLBodyElementImpl
     @Override
     public void  setVLink(String vLink)
     {
-        setAttribute("vlink", vLink );
+        setAttribute("vlink", vLink);
     }
 
 

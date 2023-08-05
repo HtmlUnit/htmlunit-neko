@@ -36,9 +36,9 @@ public class HTMLMetaElementImpl
 
 
     @Override
-    public void setContent(final String content )
+    public void setContent(final String content)
     {
-        setAttribute("content", content );
+        setAttribute("content", content);
     }
 
 
@@ -51,9 +51,9 @@ public class HTMLMetaElementImpl
 
 
     @Override
-    public void setHttpEquiv(final String httpEquiv )
+    public void setHttpEquiv(final String httpEquiv)
     {
-        setAttribute("http-equiv", httpEquiv );
+        setAttribute("http-equiv", httpEquiv);
     }
 
 
@@ -79,9 +79,9 @@ public class HTMLMetaElementImpl
 
 
     @Override
-    public void setScheme(final String scheme )
+    public void setScheme(final String scheme)
     {
-        setAttribute("scheme", scheme );
+        setAttribute("scheme", scheme);
     }
 
 

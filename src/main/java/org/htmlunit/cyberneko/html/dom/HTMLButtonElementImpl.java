@@ -35,18 +35,18 @@ public class HTMLButtonElementImpl
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if ( accessKey != null && accessKey.length() > 1)
+            accessKey = accessKey.substring( 0, 1);
         return accessKey;
     }
 
     @Override
-    public void setAccessKey(String accessKey ) {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring(0, 1);
         }
-        setAttribute("accesskey", accessKey );
+        setAttribute("accesskey", accessKey);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class HTMLButtonElementImpl
     @Override
     public void setDisabled(final boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -82,7 +82,7 @@ public class HTMLButtonElementImpl
         {
             return Integer.parseInt( getAttribute("tabindex"));
         }
-        catch ( NumberFormatException except )
+        catch ( NumberFormatException except)
         {
             return 0;
         }
@@ -111,9 +111,9 @@ public class HTMLButtonElementImpl
 
 
     @Override
-    public void setValue(final String value )
+    public void setValue(final String value)
     {
-        setAttribute("value", value );
+        setAttribute("value", value);
     }
 
 

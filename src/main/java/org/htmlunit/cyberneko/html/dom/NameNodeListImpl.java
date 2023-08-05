@@ -33,7 +33,7 @@ public class NameNodeListImpl
 
     /** Constructor. */
     public NameNodeListImpl(NodeImpl rootNode, String tagName) {
-    super( rootNode, tagname);
+        super( rootNode, tagName);
     }
 
 
@@ -73,7 +73,7 @@ public class NameNodeListImpl
             // Have we found an Element with the right tagName?
             // ("*" matches anything.)
             if (current != rootNode && current != null
-                && current.getNodeType() ==  Node.ELEMENT_NODE  ) {
+                && current.getNodeType() ==  Node.ELEMENT_NODE ) {
                 String name = ((ElementImpl) current).getAttribute("name");
                 if ("*".equals(name) || name.equals(tagName))
                     return current;

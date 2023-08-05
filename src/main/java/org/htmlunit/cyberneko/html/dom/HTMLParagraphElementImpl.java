@@ -36,9 +36,9 @@ public class HTMLParagraphElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 

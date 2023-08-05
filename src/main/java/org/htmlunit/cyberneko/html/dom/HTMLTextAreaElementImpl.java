@@ -37,10 +37,10 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setDefaultValue(final String defaultValue )
+    public void setDefaultValue(final String defaultValue)
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute("default-value", defaultValue );
+        setAttribute("default-value", defaultValue);
     }
 
 
@@ -52,8 +52,8 @@ public class HTMLTextAreaElementImpl
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if ( accessKey != null && accessKey.length() > 1)
+            accessKey = accessKey.substring( 0, 1);
         return accessKey;
     }
 
@@ -61,9 +61,9 @@ public class HTMLTextAreaElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1 );
+            accessKey = accessKey.substring( 0, 1);
         }
-        setAttribute("accesskey", accessKey );
+        setAttribute("accesskey", accessKey);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class HTMLTextAreaElementImpl
 
     @Override
     public void setCols(final int cols) {
-        setAttribute("cols", String.valueOf( cols ));
+        setAttribute("cols", String.valueOf( cols));
     }
 
     @Override
@@ -84,9 +84,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -112,9 +112,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setReadOnly( boolean readOnly )
+    public void setReadOnly( boolean readOnly)
     {
-        setAttribute("readonly", readOnly );
+        setAttribute("readonly", readOnly);
     }
 
 
@@ -126,9 +126,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setRows( int rows )
+    public void setRows( int rows)
     {
-        setAttribute("rows", String.valueOf( rows ));
+        setAttribute("rows", String.valueOf( rows));
     }
 
 
@@ -161,9 +161,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setValue(final String value )
+    public void setValue(final String value)
     {
-        setAttribute("value", value );
+        setAttribute("value", value);
     }
 
 

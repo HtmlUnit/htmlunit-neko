@@ -64,9 +64,9 @@ public class HTMLParamElementImpl
 
 
     @Override
-    public void setValue(final String value )
+    public void setValue(final String value)
     {
-        setAttribute("value", value );
+        setAttribute("value", value);
     }
 
 

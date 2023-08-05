@@ -63,15 +63,15 @@ public class HTMLDOMImplementationImpl
      * @return New HTML document
      */
     @Override
-    public final HTMLDocument createHTMLDocument(final String title )
+    public final HTMLDocument createHTMLDocument(final String title)
         throws DOMException
     {
     HTMLDocument doc;
 
-    if ( title == null )
+    if ( title == null)
         throw new NullPointerException("HTM014 Argument 'title' is null.");
     doc = new HTMLDocumentImpl();
-    doc.setTitle( title );
+    doc.setTitle( title);
     return doc;
     }
 

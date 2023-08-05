@@ -36,9 +36,9 @@ public class HTMLIsIndexElementImpl
 
 
     @Override
-    public void setPrompt(final String prompt )
+    public void setPrompt(final String prompt)
     {
-        setAttribute("prompt", prompt );
+        setAttribute("prompt", prompt);
     }
 
 

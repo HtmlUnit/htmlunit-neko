@@ -36,9 +36,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setCharset(final String charset )
+    public void setCharset(final String charset)
     {
-        setAttribute("charset", charset );
+        setAttribute("charset", charset);
     }
 
 
@@ -78,9 +78,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setHreflang(final String hreflang )
+    public void setHreflang(final String hreflang)
     {
-        setAttribute("hreflang", hreflang );
+        setAttribute("hreflang", hreflang);
     }
 
 
@@ -92,9 +92,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setMedia(final String media )
+    public void setMedia(final String media)
     {
-        setAttribute("media", media );
+        setAttribute("media", media);
     }
 
 

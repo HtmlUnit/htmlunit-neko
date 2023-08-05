@@ -36,9 +36,9 @@ public class HTMLHeadElementImpl
 
 
     @Override
-    public void setProfile(final String profile )
+    public void setProfile(final String profile)
     {
-        setAttribute("profile", profile );
+        setAttribute("profile", profile);
     }
 
 

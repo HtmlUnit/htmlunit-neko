@@ -37,9 +37,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setFrameBorder(final String frameBorder )
+    public void setFrameBorder(final String frameBorder)
     {
-        setAttribute("frameborder", frameBorder );
+        setAttribute("frameborder", frameBorder);
     }
 
 
@@ -51,9 +51,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setLongDesc(final String longDesc )
+    public void setLongDesc(final String longDesc)
     {
-        setAttribute("longdesc", longDesc );
+        setAttribute("longdesc", longDesc);
     }
 
 
@@ -65,9 +65,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setMarginHeight(final String marginHeight )
+    public void setMarginHeight(final String marginHeight)
     {
-        setAttribute("marginheight", marginHeight );
+        setAttribute("marginheight", marginHeight);
     }
 
 
@@ -79,9 +79,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setMarginWidth(final String marginWidth )
+    public void setMarginWidth(final String marginWidth)
     {
-        setAttribute("marginwidth", marginWidth );
+        setAttribute("marginwidth", marginWidth);
     }
 
 
@@ -107,9 +107,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setNoResize( boolean noResize )
+    public void setNoResize( boolean noResize)
     {
-        setAttribute("noresize", noResize );
+        setAttribute("noresize", noResize);
     }
 
 
@@ -121,9 +121,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setScrolling(final String scrolling )
+    public void setScrolling(final String scrolling)
     {
-        setAttribute("scrolling", scrolling );
+        setAttribute("scrolling", scrolling);
     }
 
 
@@ -135,9 +135,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setSrc(final String src )
+    public void setSrc(final String src)
     {
-        setAttribute("src", src );
+        setAttribute("src", src);
     }
 
 

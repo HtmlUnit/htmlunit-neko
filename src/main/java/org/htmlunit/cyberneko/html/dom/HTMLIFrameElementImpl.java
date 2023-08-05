@@ -37,9 +37,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -51,9 +51,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setFrameBorder(final String frameBorder )
+    public void setFrameBorder(final String frameBorder)
     {
-        setAttribute("frameborder", frameBorder );
+        setAttribute("frameborder", frameBorder);
     }
 
 
@@ -65,9 +65,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setHeight(final String height )
+    public void setHeight(final String height)
     {
-        setAttribute("height", height );
+        setAttribute("height", height);
     }
 
     @Override
@@ -78,9 +78,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setLongDesc(final String longDesc )
+    public void setLongDesc(final String longDesc)
     {
-        setAttribute("longdesc", longDesc );
+        setAttribute("longdesc", longDesc);
     }
 
 
@@ -92,9 +92,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setMarginHeight(final String marginHeight )
+    public void setMarginHeight(final String marginHeight)
     {
-        setAttribute("marginheight", marginHeight );
+        setAttribute("marginheight", marginHeight);
     }
 
 
@@ -106,9 +106,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setMarginWidth(final String marginWidth )
+    public void setMarginWidth(final String marginWidth)
     {
-        setAttribute("marginwidth", marginWidth );
+        setAttribute("marginwidth", marginWidth);
     }
 
 
@@ -134,9 +134,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setScrolling(final String scrolling )
+    public void setScrolling(final String scrolling)
     {
-        setAttribute("scrolling", scrolling );
+        setAttribute("scrolling", scrolling);
     }
 
 
@@ -148,9 +148,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setSrc(final String src )
+    public void setSrc(final String src)
     {
-        setAttribute("src", src );
+        setAttribute("src", src);
     }
 
 
@@ -162,9 +162,9 @@ public class HTMLIFrameElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

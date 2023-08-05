@@ -48,9 +48,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setValue(final String value )
+    public void setValue(final String value)
     {
-        setAttribute("value", value );
+        setAttribute("value", value);
     }
 
 
@@ -66,15 +66,15 @@ public class HTMLSelectElementImpl
         // Locate the first selected OPTION and return its index. Note that
         // the OPTION might be under an OPTGROUP.
         options = getElementsByTagName("OPTION");
-        for ( i = 0 ; i < options.getLength() ; ++i )
-            if ( ( (HTMLOptionElement) options.item( i )).getSelected())
+        for ( i = 0 ; i < options.getLength() ; ++i)
+            if ( ( (HTMLOptionElement) options.item( i)).getSelected())
                 return i;
         return -1;
     }
 
 
     @Override
-    public void setSelectedIndex( int selectedIndex )
+    public void setSelectedIndex( int selectedIndex)
     {
         NodeList    options;
         int            i;
@@ -85,16 +85,16 @@ public class HTMLSelectElementImpl
         // Change the select so all OPTIONs are off, except for the
         // selectIndex-th one.
         options = getElementsByTagName("OPTION");
-        for ( i = 0 ; i < options.getLength() ; ++i )
-            ( (HTMLOptionElementImpl) options.item( i )).setSelected( i == selectedIndex );
+        for ( i = 0 ; i < options.getLength() ; ++i)
+            ( (HTMLOptionElementImpl) options.item( i)).setSelected( i == selectedIndex);
     }
 
 
     @Override
     public HTMLCollection getOptions()
     {
-        if ( _options == null )
-            _options = new HTMLCollectionImpl( this, HTMLCollectionImpl.OPTION );
+        if ( _options == null)
+            _options = new HTMLCollectionImpl( this, HTMLCollectionImpl.OPTION);
         return _options;
     }
 
@@ -114,9 +114,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -128,9 +128,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setMultiple( boolean multiple )
+    public void setMultiple( boolean multiple)
     {
-        setAttribute("multiple", multiple );
+        setAttribute("multiple", multiple);
     }
 
 
@@ -156,9 +156,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setSize( int size )
+    public void setSize( int size)
     {
-        setAttribute("size", String.valueOf( size ));
+        setAttribute("size", String.valueOf( size));
     }
 
 
@@ -177,14 +177,14 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void add( HTMLElement element, HTMLElement before )
+    public void add( HTMLElement element, HTMLElement before)
     {
-        insertBefore( element, before );
+        insertBefore( element, before);
     }
 
 
     @Override
-    public void remove( int index )
+    public void remove( int index)
     {
         NodeList    options;
         Node        removed;
@@ -195,9 +195,9 @@ public class HTMLSelectElementImpl
         // Remove the indexed OPTION from it's parent, this might be this
         // SELECT or an OPTGROUP.
         options = getElementsByTagName("OPTION");
-        removed = options.item( index );
-        if ( removed != null )
-            removed.getParentNode().removeChild ( removed );
+        removed = options.item( index);
+        if ( removed != null)
+            removed.getParentNode().removeChild ( removed);
     }
 
 
@@ -229,7 +229,7 @@ public class HTMLSelectElementImpl
      */
     @Override
     public Node cloneNode(boolean deep) {
-        HTMLSelectElementImpl clonedNode = (HTMLSelectElementImpl)super.cloneNode( deep );
+        HTMLSelectElementImpl clonedNode = (HTMLSelectElementImpl)super.cloneNode( deep);
         clonedNode._options = null;
         return clonedNode;
     }

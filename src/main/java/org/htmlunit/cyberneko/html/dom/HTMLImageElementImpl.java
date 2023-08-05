@@ -36,9 +36,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setLowSrc(final String lowSrc )
+    public void setLowSrc(final String lowSrc)
     {
-        setAttribute("lowsrc", lowSrc );
+        setAttribute("lowsrc", lowSrc);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setSrc(final String src )
+    public void setSrc(final String src)
     {
-        setAttribute("src", src );
+        setAttribute("src", src);
     }
 
 
@@ -78,9 +78,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -92,9 +92,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setAlt(final String alt )
+    public void setAlt(final String alt)
     {
-        setAttribute("alt", alt );
+        setAttribute("alt", alt);
     }
 
 
@@ -106,9 +106,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setBorder(final String border )
+    public void setBorder(final String border)
     {
-        setAttribute("border", border );
+        setAttribute("border", border);
     }
 
 
@@ -120,9 +120,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setHeight(final String height )
+    public void setHeight(final String height)
     {
-        setAttribute("height", height );
+        setAttribute("height", height);
     }
 
 
@@ -134,9 +134,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setHspace(final String hspace )
+    public void setHspace(final String hspace)
     {
-        setAttribute("hspace", hspace );
+        setAttribute("hspace", hspace);
     }
 
 
@@ -148,9 +148,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setIsMap( boolean isMap )
+    public void setIsMap( boolean isMap)
     {
-        setAttribute("ismap", isMap );
+        setAttribute("ismap", isMap);
     }
 
 
@@ -162,9 +162,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setLongDesc(final String longDesc )
+    public void setLongDesc(final String longDesc)
     {
-        setAttribute("longdesc", longDesc );
+        setAttribute("longdesc", longDesc);
     }
 
 
@@ -176,9 +176,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setUseMap(final String useMap )
+    public void setUseMap(final String useMap)
     {
-        setAttribute("useMap", useMap );
+        setAttribute("useMap", useMap);
     }
 
 
@@ -190,9 +190,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setVspace(final String vspace )
+    public void setVspace(final String vspace)
     {
-        setAttribute("vspace", vspace );
+        setAttribute("vspace", vspace);
     }
 
 
@@ -204,9 +204,9 @@ public class HTMLImageElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

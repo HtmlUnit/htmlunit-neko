@@ -36,9 +36,9 @@ public class HTMLHRElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLHRElementImpl
 
 
     @Override
-    public void setNoShade( boolean noShade )
+    public void setNoShade( boolean noShade)
     {
-        setAttribute("noshade", noShade );
+        setAttribute("noshade", noShade);
     }
 
 
@@ -64,9 +64,9 @@ public class HTMLHRElementImpl
 
 
     @Override
-    public void setSize(final String size )
+    public void setSize(final String size)
     {
-        setAttribute("size", size );
+        setAttribute("size", size);
     }
 
 
@@ -78,9 +78,9 @@ public class HTMLHRElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

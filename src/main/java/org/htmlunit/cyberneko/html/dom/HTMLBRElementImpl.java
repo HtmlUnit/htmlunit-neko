@@ -36,9 +36,9 @@ public class HTMLBRElementImpl
 
 
     @Override
-    public void setClear(final String clear )
+    public void setClear(final String clear)
     {
-        setAttribute("clear", clear );
+        setAttribute("clear", clear);
     }
 
 

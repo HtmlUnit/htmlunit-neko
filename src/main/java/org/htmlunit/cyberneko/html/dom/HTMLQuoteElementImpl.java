@@ -36,9 +36,9 @@ public class HTMLQuoteElementImpl
 
 
     @Override
-    public void setCite(final String cite )
+    public void setCite(final String cite)
     {
-        setAttribute("cite", cite );
+        setAttribute("cite", cite);
     }
 
 

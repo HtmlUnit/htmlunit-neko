@@ -35,8 +35,8 @@ public class HTMLLabelElementImpl
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if ( accessKey != null && accessKey.length() > 1)
+            accessKey = accessKey.substring( 0, 1);
         return accessKey;
     }
 
@@ -44,9 +44,9 @@ public class HTMLLabelElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1 );
+            accessKey = accessKey.substring( 0, 1);
         }
-        setAttribute("accesskey", accessKey );
+        setAttribute("accesskey", accessKey);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class HTMLLabelElementImpl
 
     @Override
     public void setHtmlFor(final String htmlFor) {
-        setAttribute("for", htmlFor );
+        setAttribute("for", htmlFor);
     }
 
     /**

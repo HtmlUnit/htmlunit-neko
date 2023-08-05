@@ -34,8 +34,8 @@ public class HTMLFormElementImpl
     @Override
     public HTMLCollection getElements()
     {
-        if ( _elements == null )
-            _elements = new HTMLCollectionImpl( this, HTMLCollectionImpl.ELEMENT );
+        if ( _elements == null)
+            _elements = new HTMLCollectionImpl( this, HTMLCollectionImpl.ELEMENT);
         return _elements;
     }
 
@@ -69,9 +69,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setAcceptCharset(final String acceptCharset )
+    public void setAcceptCharset(final String acceptCharset)
     {
-        setAttribute("accept-charset", acceptCharset );
+        setAttribute("accept-charset", acceptCharset);
     }
 
 
@@ -83,9 +83,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setAction(final String action )
+    public void setAction(final String action)
     {
-        setAttribute("action", action );
+        setAttribute("action", action);
     }
 
 
@@ -111,9 +111,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setMethod(final String method )
+    public void setMethod(final String method)
     {
-        setAttribute("method", method );
+        setAttribute("method", method);
     }
 
 
@@ -158,8 +158,8 @@ public class HTMLFormElementImpl
      * for getElements() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep ) {
-        HTMLFormElementImpl clonedNode = (HTMLFormElementImpl)super.cloneNode( deep );
+    public Node cloneNode( boolean deep) {
+        HTMLFormElementImpl clonedNode = (HTMLFormElementImpl)super.cloneNode( deep);
         clonedNode._elements = null;
         return clonedNode;
     }

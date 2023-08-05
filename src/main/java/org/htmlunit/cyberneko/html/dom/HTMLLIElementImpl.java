@@ -50,9 +50,9 @@ public class HTMLLIElementImpl
 
 
     @Override
-    public void setValue( int value )
+    public void setValue( int value)
     {
-        setAttribute("value", String.valueOf( value ));
+        setAttribute("value", String.valueOf( value));
     }
 
 

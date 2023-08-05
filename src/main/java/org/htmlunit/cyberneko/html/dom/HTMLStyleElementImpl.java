@@ -36,9 +36,9 @@ public class HTMLStyleElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLStyleElementImpl
 
 
     @Override
-    public void setMedia(final String media )
+    public void setMedia(final String media)
     {
-        setAttribute("media", media );
+        setAttribute("media", media);
     }
 
 

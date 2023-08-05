@@ -36,9 +36,9 @@ public class HTMLFrameSetElementImpl
 
 
     @Override
-    public void setCols(final String cols )
+    public void setCols(final String cols)
     {
-        setAttribute("cols", cols );
+        setAttribute("cols", cols);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLFrameSetElementImpl
 
 
     @Override
-    public void setRows(final String rows )
+    public void setRows(final String rows)
     {
-        setAttribute("rows", rows );
+        setAttribute("rows", rows);
     }
 
 

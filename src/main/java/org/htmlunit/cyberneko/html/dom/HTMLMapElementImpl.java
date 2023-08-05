@@ -33,8 +33,8 @@ public class HTMLMapElementImpl
     @Override
     public HTMLCollection getAreas()
     {
-        if ( _areas == null )
-            _areas = new HTMLCollectionImpl( this, HTMLCollectionImpl.AREA );
+        if ( _areas == null)
+            _areas = new HTMLCollectionImpl( this, HTMLCollectionImpl.AREA);
         return _areas;
     }
 
@@ -57,9 +57,9 @@ public class HTMLMapElementImpl
      * for getAreas() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep )
+    public Node cloneNode( boolean deep)
     {
-        HTMLMapElementImpl clonedNode = (HTMLMapElementImpl)super.cloneNode( deep );
+        HTMLMapElementImpl clonedNode = (HTMLMapElementImpl)super.cloneNode( deep);
         clonedNode._areas = null;
         return clonedNode;
     }

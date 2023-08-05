@@ -37,10 +37,10 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setDefaultValue(final String defaultValue )
+    public void setDefaultValue(final String defaultValue)
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute("defaultValue", defaultValue );
+        setAttribute("defaultValue", defaultValue);
     }
 
 
@@ -53,10 +53,10 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setDefaultChecked( boolean defaultChecked )
+    public void setDefaultChecked( boolean defaultChecked)
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute("defaultChecked", defaultChecked );
+        setAttribute("defaultChecked", defaultChecked);
     }
 
 
@@ -68,9 +68,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setAccept(final String accept )
+    public void setAccept(final String accept)
     {
-        setAttribute("accept", accept );
+        setAttribute("accept", accept);
     }
 
 
@@ -81,8 +81,8 @@ public class HTMLInputElementImpl
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if ( accessKey != null && accessKey.length() > 1)
+            accessKey = accessKey.substring( 0, 1);
         return accessKey;
     }
 
@@ -91,9 +91,9 @@ public class HTMLInputElementImpl
     {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1 );
+            accessKey = accessKey.substring( 0, 1);
         }
-        setAttribute("accesskey", accessKey );
+        setAttribute("accesskey", accessKey);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class HTMLInputElementImpl
 
     @Override
     public void setAlt(final String alt) {
-        setAttribute("alt", alt );
+        setAttribute("alt", alt);
     }
 
 
@@ -125,9 +125,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setChecked( boolean checked )
+    public void setChecked( boolean checked)
     {
-        setAttribute("checked", checked );
+        setAttribute("checked", checked);
     }
 
 
@@ -139,9 +139,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled( boolean disabled)
     {
-        setAttribute("disabled", disabled );
+        setAttribute("disabled", disabled);
     }
 
 
@@ -153,9 +153,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setMaxLength( int maxLength )
+    public void setMaxLength( int maxLength)
     {
-        setAttribute("maxlength", String.valueOf( maxLength ));
+        setAttribute("maxlength", String.valueOf( maxLength));
     }
 
 
@@ -181,9 +181,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setReadOnly( boolean readOnly )
+    public void setReadOnly( boolean readOnly)
     {
-        setAttribute("readonly", readOnly );
+        setAttribute("readonly", readOnly);
     }
 
 
@@ -195,9 +195,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setSize(final String size )
+    public void setSize(final String size)
     {
-        setAttribute("size", size );
+        setAttribute("size", size);
     }
 
 
@@ -209,9 +209,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setSrc(final String src )
+    public void setSrc(final String src)
     {
-        setAttribute("src", src );
+        setAttribute("src", src);
     }
 
 
@@ -222,7 +222,7 @@ public class HTMLInputElementImpl
         {
             return Integer.parseInt( getAttribute("tabindex"));
         }
-        catch ( NumberFormatException except )
+        catch ( NumberFormatException except)
         {
             return 0;
         }
@@ -251,9 +251,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setUseMap(final String useMap )
+    public void setUseMap(final String useMap)
     {
-        setAttribute("useMap", useMap );
+        setAttribute("useMap", useMap);
     }
 
 
@@ -265,9 +265,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setValue(final String value )
+    public void setValue(final String value)
     {
-        setAttribute("value", value );
+        setAttribute("value", value);
     }
 
 

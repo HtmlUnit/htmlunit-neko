@@ -36,9 +36,9 @@ public class HTMLOListElementImpl
 
 
     @Override
-    public void setCompact( boolean compact )
+    public void setCompact( boolean compact)
     {
-        setAttribute("compact", compact );
+        setAttribute("compact", compact);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLOListElementImpl
 
 
     @Override
-    public void setStart( int start )
+    public void setStart( int start)
     {
-        setAttribute("start", String.valueOf( start ));
+        setAttribute("start", String.valueOf( start));
     }
 
 

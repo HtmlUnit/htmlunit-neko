@@ -36,9 +36,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setAlt(final String alt )
+    public void setAlt(final String alt)
     {
-        setAttribute("alt", alt );
+        setAttribute("alt", alt);
     }
 
 
@@ -64,9 +64,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setArchive(final String archive )
+    public void setArchive(final String archive)
     {
-        setAttribute("archive", archive );
+        setAttribute("archive", archive);
     }
 
 
@@ -78,9 +78,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setCode(final String code )
+    public void setCode(final String code)
     {
-        setAttribute("code", code );
+        setAttribute("code", code);
     }
 
 
@@ -92,9 +92,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setCodeBase(final String codeBase )
+    public void setCodeBase(final String codeBase)
     {
-        setAttribute("codebase", codeBase );
+        setAttribute("codebase", codeBase);
     }
 
 
@@ -106,9 +106,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setHeight(final String height )
+    public void setHeight(final String height)
     {
-        setAttribute("height", height );
+        setAttribute("height", height);
     }
 
 
@@ -120,9 +120,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setHspace(final String height )
+    public void setHspace(final String height)
     {
-        setAttribute("height", height );
+        setAttribute("height", height);
     }
 
 
@@ -148,9 +148,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setObject(final String object )
+    public void setObject(final String object)
     {
-        setAttribute("object", object );
+        setAttribute("object", object);
     }
 
 
@@ -162,9 +162,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setVspace(final String vspace )
+    public void setVspace(final String vspace)
     {
-        setAttribute("vspace", vspace );
+        setAttribute("vspace", vspace);
     }
 
 
@@ -176,9 +176,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setWidth(final String width )
+    public void setWidth(final String width)
     {
-        setAttribute("width", width );
+        setAttribute("width", width);
     }
 
 

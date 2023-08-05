@@ -36,9 +36,9 @@ public class HTMLFontElementImpl
 
 
     @Override
-    public void setColor(final String color )
+    public void setColor(final String color)
     {
-        setAttribute("color", color );
+        setAttribute("color", color);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLFontElementImpl
 
 
     @Override
-    public void setFace(final String face )
+    public void setFace(final String face)
     {
-        setAttribute("face", face );
+        setAttribute("face", face);
     }
 
 
@@ -64,9 +64,9 @@ public class HTMLFontElementImpl
 
 
     @Override
-    public void setSize(final String size )
+    public void setSize(final String size)
     {
-        setAttribute("size", size );
+        setAttribute("size", size);
     }
 
 

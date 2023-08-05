@@ -36,9 +36,9 @@ public class HTMLPreElementImpl
 
 
     @Override
-    public void setWidth( int width )
+    public void setWidth( int width)
     {
-        setAttribute("width", String.valueOf( width ));
+        setAttribute("width", String.valueOf( width));
     }
 
 

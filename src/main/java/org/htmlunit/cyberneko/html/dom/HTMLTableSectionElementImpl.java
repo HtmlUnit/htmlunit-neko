@@ -40,9 +40,9 @@ public class HTMLTableSectionElementImpl
 
 
     @Override
-    public void setAlign(final String align )
+    public void setAlign(final String align)
     {
-        setAttribute("align", align );
+        setAttribute("align", align);
     }
 
 
@@ -53,8 +53,8 @@ public class HTMLTableSectionElementImpl
 
         // Make sure that the access key is a single character.
         ch = getAttribute("char");
-        if ( ch != null && ch.length() > 1 )
-            ch = ch.substring( 0, 1 );
+        if ( ch != null && ch.length() > 1)
+            ch = ch.substring( 0, 1);
         return ch;
     }
 
@@ -64,7 +64,7 @@ public class HTMLTableSectionElementImpl
         if (ch != null && ch.length() > 1) {
             ch = ch.substring(0, 1);
         }
-        setAttribute("char", ch );
+        setAttribute("char", ch);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class HTMLTableSectionElementImpl
 
     @Override
     public void setChOff(final String chOff) {
-        setAttribute("charoff", chOff );
+        setAttribute("charoff", chOff);
     }
 
     @Override
@@ -84,46 +84,46 @@ public class HTMLTableSectionElementImpl
 
 
     @Override
-    public void setVAlign(final String vAlign )
+    public void setVAlign(final String vAlign)
     {
-        setAttribute("valign", vAlign );
+        setAttribute("valign", vAlign);
     }
 
 
     @Override
     public HTMLCollection getRows()
     {
-        if ( _rows == null )
-            _rows = new HTMLCollectionImpl( this, HTMLCollectionImpl.ROW );
+        if ( _rows == null)
+            _rows = new HTMLCollectionImpl( this, HTMLCollectionImpl.ROW);
         return _rows;
     }
 
 
     @Override
-    public HTMLElement insertRow( int index )
+    public HTMLElement insertRow( int index)
     {
         HTMLTableRowElementImpl    newRow;
 
         newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR");
-        newRow.insertCell( 0 );
-        if ( insertRowX( index, newRow ) >= 0 )
-            appendChild( newRow );
+        newRow.insertCell( 0);
+        if ( insertRowX( index, newRow) >= 0)
+            appendChild( newRow);
         return newRow;
     }
 
 
-    int insertRowX( int index, HTMLTableRowElementImpl newRow )
+    int insertRowX( int index, HTMLTableRowElementImpl newRow)
     {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
-            if ( child instanceof HTMLTableRowElement )
+            if ( child instanceof HTMLTableRowElement)
             {
-                if ( index == 0 )
+                if ( index == 0)
                 {
-                    insertBefore( newRow, child );
+                    insertBefore( newRow, child);
                     return -1;
                 }
                 --index;
@@ -135,24 +135,24 @@ public class HTMLTableSectionElementImpl
 
 
     @Override
-    public void deleteRow( int index )
+    public void deleteRow( int index)
     {
-        deleteRowX( index );
+        deleteRowX( index);
     }
 
 
-    int deleteRowX( int index )
+    int deleteRowX( int index)
     {
         Node    child;
 
         child = getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
-            if ( child instanceof HTMLTableRowElement )
+            if ( child instanceof HTMLTableRowElement)
             {
-                if ( index == 0 )
+                if ( index == 0)
                 {
-                    removeChild ( child );
+                    removeChild ( child);
                     return -1;
                 }
                 --index;
@@ -167,8 +167,8 @@ public class HTMLTableSectionElementImpl
      * for getRows() gets cleared.
      */
     @Override
-    public Node cloneNode( boolean deep ) {
-        HTMLTableSectionElementImpl clonedNode = (HTMLTableSectionElementImpl)super.cloneNode( deep );
+    public Node cloneNode( boolean deep) {
+        HTMLTableSectionElementImpl clonedNode = (HTMLTableSectionElementImpl)super.cloneNode( deep);
         clonedNode._rows = null;
         return clonedNode;
     }

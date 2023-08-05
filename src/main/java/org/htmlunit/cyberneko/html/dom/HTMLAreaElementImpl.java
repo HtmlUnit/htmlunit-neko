@@ -35,8 +35,8 @@ public class HTMLAreaElementImpl
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if ( accessKey != null && accessKey.length() > 1)
+            accessKey = accessKey.substring( 0, 1);
         return accessKey;
     }
 
@@ -44,9 +44,9 @@ public class HTMLAreaElementImpl
     public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
         if (accessKey != null && accessKey.length() > 1) {
-            accessKey = accessKey.substring( 0, 1 );
+            accessKey = accessKey.substring( 0, 1);
         }
-        setAttribute("accesskey", accessKey );
+        setAttribute("accesskey", accessKey);
     }
 
     @Override
@@ -56,9 +56,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setAlt(final String alt )
+    public void setAlt(final String alt)
     {
-        setAttribute("alt", alt );
+        setAttribute("alt", alt);
     }
 
     @Override
@@ -69,9 +69,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setCoords(final String coords )
+    public void setCoords(final String coords)
     {
-        setAttribute("coords", coords );
+        setAttribute("coords", coords);
     }
 
 
@@ -111,9 +111,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setShape(final String shape )
+    public void setShape(final String shape)
     {
-        setAttribute("shape", shape );
+        setAttribute("shape", shape);
     }
 
 

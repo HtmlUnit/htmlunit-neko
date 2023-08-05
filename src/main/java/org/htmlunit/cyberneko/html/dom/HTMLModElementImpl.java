@@ -36,9 +36,9 @@ public class HTMLModElementImpl
 
 
     @Override
-    public void setCite(final String cite )
+    public void setCite(final String cite)
     {
-        setAttribute("cite", cite );
+        setAttribute("cite", cite);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLModElementImpl
 
 
     @Override
-    public void setDateTime(final String dateTime )
+    public void setDateTime(final String dateTime)
     {
-        setAttribute("datetime", dateTime );
+        setAttribute("datetime", dateTime);
     }
 
 

@@ -210,9 +210,9 @@ public class HTMLDocumentImpl
         // If the HTML element is found, all other elements that might
         // precede it are placed inside the HTML element.
         html = getFirstChild();
-        while ( html != null )
+        while ( html != null)
         {
-            if ( html instanceof HTMLHtmlElement )
+            if ( html instanceof HTMLHtmlElement)
             {
                 return (HTMLElement) html;
             }
@@ -224,13 +224,13 @@ public class HTMLDocumentImpl
         // they appear now.
         html = new HTMLHtmlElementImpl( this, "HTML");
         child = getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
             next = child.getNextSibling();
-            html.appendChild( child );
+            html.appendChild( child);
             child = next;
         }
-        appendChild( html );
+        appendChild( html);
         return (HTMLElement) html;
     }
 
@@ -259,19 +259,19 @@ public class HTMLDocumentImpl
         // top-level element in the document. Get the first element in the
         // document that is called HEAD. Work with that.
         html = getDocumentElement();
-        synchronized ( html )
+        synchronized ( html)
         {
             head = html.getFirstChild();
-            while ( head != null && ! ( head instanceof HTMLHeadElement ))
+            while ( head != null && ! ( head instanceof HTMLHeadElement))
                 head = head.getNextSibling();
             // HEAD exists but might not be first element in HTML: make sure
             // it is and return it.
-            if ( head != null )
+            if ( head != null)
             {
-                synchronized ( head )
+                synchronized ( head)
                 {
                     child = html.getFirstChild();
-                    while ( child != null && child != head )
+                    while ( child != null && child != head)
                     {
                         next = child.getNextSibling();
                         head.insertBefore( child, head.getFirstChild());
@@ -302,9 +302,9 @@ public class HTMLDocumentImpl
         // and return the title's text (the Text node contained within).
         head = getHead();
         list = head.getElementsByTagName("TITLE");
-        if ( list.getLength() > 0 ) {
-            title = list.item( 0 );
-            return ( (HTMLTitleElement) title ).getText();
+        if ( list.getLength() > 0) {
+            title = list.item( 0);
+            return ( (HTMLTitleElement) title).getText();
         }
         // No TITLE found, return an empty string.
         return "";
@@ -312,7 +312,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public synchronized void setTitle(final String newTitle )
+    public synchronized void setTitle(final String newTitle)
     {
         HTMLElement head;
         NodeList    list;
@@ -323,19 +323,19 @@ public class HTMLDocumentImpl
         // and set the title's text (the Text node contained within).
         head = getHead();
         list = head.getElementsByTagName("TITLE");
-        if ( list.getLength() > 0 ) {
-            title = list.item( 0 );
-            if ( title.getParentNode() != head )
-                head.appendChild( title );
-            ( (HTMLTitleElement) title ).setText( newTitle );
+        if ( list.getLength() > 0) {
+            title = list.item( 0);
+            if ( title.getParentNode() != head)
+                head.appendChild( title);
+            ( (HTMLTitleElement) title).setText( newTitle);
         }
         else
         {
             // No TITLE found, create a new element and place it at the end
             // of the HEAD element.
             title = new HTMLTitleElementImpl( this, "TITLE");
-            ( (HTMLTitleElement) title ).setText( newTitle );
-            head.appendChild( title );
+            ( (HTMLTitleElement) title).setText( newTitle);
+            head.appendChild( title);
         }
     }
 
@@ -354,21 +354,21 @@ public class HTMLDocumentImpl
         // document that is called BODY. Work with that.
         html = getDocumentElement();
         head = getHead();
-        synchronized ( html )
+        synchronized ( html)
         {
             body = head.getNextSibling();
-            while ( body != null && ! ( body instanceof HTMLBodyElement )
-                    && ! ( body instanceof HTMLFrameSetElement ))
+            while ( body != null && ! ( body instanceof HTMLBodyElement)
+                    && ! ( body instanceof HTMLFrameSetElement))
                 body = body.getNextSibling();
 
             // BODY/FRAMESET exists but might not be second element in HTML
             // (after HEAD): make sure it is and return it.
-            if ( body != null )
+            if ( body != null)
             {
-                synchronized ( body )
+                synchronized ( body)
                 {
                     child = head.getNextSibling();
-                    while ( child != null && child != body )
+                    while ( child != null && child != body)
                     {
                         next = child.getNextSibling();
                         body.insertBefore( child, body.getFirstChild());
@@ -381,14 +381,14 @@ public class HTMLDocumentImpl
             // BODY does not exist, create a new one, place it in the HTML element
             // right after the HEAD and return it.
             body = new HTMLBodyElementImpl( this, "BODY");
-            html.appendChild( body );
+            html.appendChild( body);
         }
         return (HTMLElement) body;
     }
 
 
     @Override
-    public synchronized void setBody( HTMLElement newBody )
+    public synchronized void setBody( HTMLElement newBody)
     {
         Node    html;
         Node    body;
@@ -396,56 +396,56 @@ public class HTMLDocumentImpl
         Node    child;
         NodeList list;
 
-        synchronized ( newBody )
+        synchronized ( newBody)
         {
             // Call getDocumentElement() to get the HTML element that is also the
             // top-level element in the document. Get the first element in the
             // document that is called BODY. Work with that.
             html = getDocumentElement();
             head = getHead();
-            synchronized ( html )
+            synchronized ( html)
             {
                 list = this.getElementsByTagName("BODY");
-                if ( list.getLength() > 0 ) {
+                if ( list.getLength() > 0) {
                     // BODY exists but might not follow HEAD in HTML. If not,
                     // make it so and replce it. Start with the HEAD and make
                     // sure the BODY is the first element after the HEAD.
-                    body = list.item( 0 );
-                    synchronized ( body )
+                    body = list.item( 0);
+                    synchronized ( body)
                     {
                         child = head;
-                        while ( child != null )
+                        while ( child != null)
                         {
-                            if ( child instanceof Element )
+                            if ( child instanceof Element)
                             {
-                                if ( child != body )
-                                    html.insertBefore( newBody, child );
+                                if ( child != body)
+                                    html.insertBefore( newBody, child);
                                 else
-                                    html.replaceChild( newBody, body );
+                                    html.replaceChild( newBody, body);
                                 return;
                             }
                             child = child.getNextSibling();
                         }
-                        html.appendChild( newBody );
+                        html.appendChild( newBody);
                     }
                     return;
                 }
                 // BODY does not exist, place it in the HTML element
                 // right after the HEAD.
-                html.appendChild( newBody );
+                html.appendChild( newBody);
             }
         }
     }
 
 
     @Override
-    public synchronized Element getElementById(final String elementId )
+    public synchronized Element getElementById(final String elementId)
     {
         Element idElement = super.getElementById(elementId);
         if (idElement != null) {
             return idElement;
         }
-        return getElementById( elementId, this );
+        return getElementById( elementId, this);
     }
 
 
@@ -457,7 +457,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public final NodeList getElementsByTagName(final String tagname)
+    public final NodeList getElementsByTagName(final String tagName)
     {
         return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH));
     }
@@ -465,9 +465,9 @@ public class HTMLDocumentImpl
 
     @Override
     public final NodeList getElementsByTagNameNS(final String namespaceURI,
-                                                  String localname)
+                                                  String localName)
     {
-        if ( namespaceURI != null && namespaceURI.length() > 0 ) {
+        if ( namespaceURI != null && namespaceURI.length() > 0) {
             return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
         return super.getElementsByTagName( localName.toUpperCase(Locale.ENGLISH));
@@ -498,7 +498,7 @@ public class HTMLDocumentImpl
     @Override
     public Element createElementNS(final String namespaceURI, String qualifiedname)
     {
-        if ( namespaceURI == null || namespaceURI.length() == 0 ) {
+        if ( namespaceURI == null || namespaceURI.length() == 0) {
             return createElement( qualifiedname);
         }
         return super.createElementNS( namespaceURI, qualifiedname);
@@ -514,23 +514,23 @@ public class HTMLDocumentImpl
         // element class. If no class is found, generate a generic HTML element.
         // Do so also if an unexpected exception occurs.
         tagName = tagName.toUpperCase(Locale.ENGLISH);
-        elemClass = _elementTypesHTML.get( tagname);
-        if ( elemClass != null )
+        elemClass = _elementTypesHTML.get( tagName);
+        if ( elemClass != null)
         {
             // Get the constructor for the element. The signature specifies an
             // owner document and a tag name. Use the constructor to instantiate
             // a new object and return it.
             try
             {
-                cnst = elemClass.getConstructor( _elemClassSigHTML );
-                return (Element) cnst.newInstance( new Object[] { this, tagName } );
+                cnst = elemClass.getConstructor( _elemClassSigHTML);
+                return (Element) cnst.newInstance( new Object[] { this, tagName });
             }
             catch (Exception e)
             {
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
             }
         }
-        return new HTMLElementImpl( this, tagname);
+        return new HTMLElementImpl( this, tagName);
     }
 
 
@@ -585,7 +585,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public void setCookie(final String cookie )
+    public void setCookie(final String cookie)
     {
         // Information not available on server side.
     }
@@ -595,8 +595,8 @@ public class HTMLDocumentImpl
     public HTMLCollection getImages()
     {
         // For more information see HTMLCollection#collectionMatch
-        if ( _images == null )
-            _images = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.IMAGE );
+        if ( _images == null)
+            _images = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.IMAGE);
         return _images;
     }
 
@@ -605,8 +605,8 @@ public class HTMLDocumentImpl
     public HTMLCollection getApplets()
     {
         // For more information see HTMLCollection#collectionMatch
-        if ( _applets == null )
-            _applets = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.APPLET );
+        if ( _applets == null)
+            _applets = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.APPLET);
         return _applets;
     }
 
@@ -615,8 +615,8 @@ public class HTMLDocumentImpl
     public HTMLCollection getLinks()
     {
         // For more information see HTMLCollection#collectionMatch
-        if ( _links == null )
-            _links = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.LINK );
+        if ( _links == null)
+            _links = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.LINK);
         return _links;
     }
 
@@ -625,8 +625,8 @@ public class HTMLDocumentImpl
     public HTMLCollection getForms()
     {
         // For more information see HTMLCollection#collectionMatch
-        if ( _forms == null )
-            _forms = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.FORM );
+        if ( _forms == null)
+            _forms = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.FORM);
         return _forms;
     }
 
@@ -635,8 +635,8 @@ public class HTMLDocumentImpl
     public HTMLCollection getAnchors()
     {
         // For more information see HTMLCollection#collectionMatch
-        if ( _anchors == null )
-            _anchors = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.ANCHOR );
+        if ( _anchors == null)
+            _anchors = new HTMLCollectionImpl( getBody(), HTMLCollectionImpl.ANCHOR);
         return _anchors;
     }
 
@@ -646,7 +646,7 @@ public class HTMLDocumentImpl
     {
         // When called an in-memory is prepared. The document tree is still
         // accessible the old way, until this writer is closed.
-        if ( _writer == null )
+        if ( _writer == null)
             _writer = new StringWriter();
     }
 
@@ -655,7 +655,7 @@ public class HTMLDocumentImpl
     public void close()
     {
         // ! NOT IMPLEMENTED, REQUIRES PARSER !
-        if ( _writer != null )
+        if ( _writer != null)
         {
             _writer = null;
         }
@@ -663,25 +663,25 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public void write(final String text )
+    public void write(final String text)
     {
         // Write a string into the in-memory writer.
-        if ( _writer != null )
-            _writer.write( text );
+        if ( _writer != null)
+            _writer.write( text);
     }
 
 
     @Override
-    public void writeln(final String text )
+    public void writeln(final String text)
     {
         // Write a line into the in-memory writer.
-        if ( _writer != null )
+        if ( _writer != null)
             _writer.write( text + "\n");
     }
 
 
     @Override
-    public Node cloneNode( boolean deep )
+    public Node cloneNode( boolean deep)
     {
         HTMLDocumentImpl newdoc = new HTMLDocumentImpl();
         cloneNode(newdoc, deep);
@@ -714,20 +714,20 @@ public class HTMLDocumentImpl
      * @param elementId The <code>id</code> value to look for
      * @return The node in which to look for
      */
-    private Element getElementById(final String elementId, Node node )
+    private Element getElementById(final String elementId, Node node)
     {
         Node    child;
         Element    result;
 
         child = node.getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
-            if ( child instanceof Element )
+            if ( child instanceof Element)
             {
-                if ( elementId.equals( ( (Element) child ).getAttribute("id")))
+                if ( elementId.equals( ( (Element) child).getAttribute("id")))
                     return (Element) child;
-                result = getElementById( elementId, child );
-                if ( result != null )
+                result = getElementById( elementId, child);
+                if ( result != null)
                     return result;
             }
             child = child.getNextSibling();

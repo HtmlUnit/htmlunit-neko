@@ -39,10 +39,10 @@ public class HTMLTitleElementImpl
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
-            if ( child instanceof Text ) {
-                text.append(( (Text) child ).getData());
+            if ( child instanceof Text) {
+                text.append(( (Text) child).getData());
             }
             child = child.getNextSibling();
         }
@@ -51,7 +51,7 @@ public class HTMLTitleElementImpl
 
 
     @Override
-    public void setText(final String text )
+    public void setText(final String text)
     {
         Node    child;
         Node    next;
@@ -59,13 +59,13 @@ public class HTMLTitleElementImpl
         // Delete all the nodes and replace them with a single Text node.
         // This is the only approach that can handle comments and other nodes.
         child = getFirstChild();
-        while ( child != null )
+        while ( child != null)
         {
             next = child.getNextSibling();
-            removeChild( child );
+            removeChild( child);
             child = next;
         }
-        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild());
+        insertBefore( getOwnerDocument().createTextNode( text), getFirstChild());
     }
 
 
