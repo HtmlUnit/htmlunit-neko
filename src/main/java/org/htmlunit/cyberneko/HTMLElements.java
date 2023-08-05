@@ -42,157 +42,157 @@ public class HTMLElements {
     //       this assumption. -Ac
 
     public static final short A = 0;
-    public static final short ABBR = A+1;
-    public static final short ACRONYM = ABBR+1;
-    public static final short ADDRESS = ACRONYM+1;
-    public static final short APPLET = ADDRESS+1;
-    public static final short AREA = APPLET+1;
-    public static final short ARTICLE = AREA+1;
-    public static final short ASIDE = ARTICLE+1;
-    public static final short AUDIO = ASIDE+1;
-    public static final short B = AUDIO+1;
-    public static final short BASE = B+1;
-    public static final short BASEFONT = BASE+1;
-    public static final short BDI = BASEFONT+1;
-    public static final short BDO = BDI+1;
-    public static final short BGSOUND = BDO+1;
-    public static final short BIG = BGSOUND+1;
-    public static final short BLINK = BIG+1;
-    public static final short BLOCKQUOTE = BLINK+1;
-    public static final short BODY = BLOCKQUOTE+1;
-    public static final short BR = BODY+1;
-    public static final short BUTTON = BR+1;
-    public static final short CANVAS = BUTTON+1;
-    public static final short CAPTION = CANVAS+1;
-    public static final short CENTER = CAPTION+1;
-    public static final short CITE = CENTER+1;
-    public static final short CODE = CITE+1;
-    public static final short COL = CODE+1;
-    public static final short COLGROUP = COL+1;
-    public static final short COMMENT = COLGROUP+1;
-    public static final short DATA = COMMENT+1;
-    public static final short DATALIST = DATA+1;
-    public static final short DEL = DATALIST+1;
-    public static final short DETAILS = DEL+1;
-    public static final short DFN = DETAILS+1;
-    public static final short DIALOG = DFN+1;
-    public static final short DIR = DIALOG+1;
-    public static final short DIV = DIR+1;
-    public static final short DD = DIV+1;
-    public static final short DL = DD+1;
-    public static final short DT = DL+1;
-    public static final short EM = DT+1;
-    public static final short EMBED = EM+1;
-    public static final short FIELDSET = EMBED+1;
-    public static final short FIGCAPTION = FIELDSET+1;
-    public static final short FIGURE = FIGCAPTION+1;
-    public static final short FONT = FIGURE+1;
-    public static final short FOOTER = FONT+1;
-    public static final short FORM = FOOTER+1;
-    public static final short FRAME = FORM+1;
-    public static final short FRAMESET = FRAME+1;
-    public static final short H1 = FRAMESET+1;
-    public static final short H2 = H1+1;
-    public static final short H3 = H2+1;
-    public static final short H4 = H3+1;
-    public static final short H5 = H4+1;
-    public static final short H6 = H5+1;
-    public static final short HEAD = H6+1;
-    public static final short HEADER = HEAD+1;
-    public static final short HR = HEADER+1;
-    public static final short HTML = HR+1;
-    public static final short I = HTML+1;
-    public static final short IFRAME = I+1;
-    public static final short ILAYER = IFRAME+1;
-    public static final short IMG = ILAYER+1;
-    public static final short IMAGE = IMG+1;
-    public static final short INPUT = IMAGE+1;
-    public static final short INS = INPUT+1;
-    public static final short KBD = INS+1;
-    public static final short KEYGEN = KBD+1;
-    public static final short LABEL = KEYGEN+1;
-    public static final short LAYER = LABEL+1;
-    public static final short LEGEND = LAYER+1;
-    public static final short LI = LEGEND+1;
-    public static final short LINK = LI+1;
-    public static final short LISTING = LINK+1;
-    public static final short MAIN = LISTING+1;
-    public static final short MAP = MAIN+1;
-    public static final short MARK = MAP+1;
-    public static final short MARQUEE = MARK+1;
-    public static final short MENU = MARQUEE+1;
-    public static final short META = MENU+1;
-    public static final short METER = META+1;
-    public static final short MULTICOL = METER+1;
-    public static final short NAV = MULTICOL+1;
-    public static final short NEXTID = NAV+1;
-    public static final short NOBR = NEXTID+1;
-    public static final short NOEMBED = NOBR+1;
-    public static final short NOFRAMES = NOEMBED+1;
-    public static final short NOLAYER = NOFRAMES+1;
-    public static final short NOSCRIPT = NOLAYER+1;
-    public static final short OBJECT = NOSCRIPT+1;
-    public static final short OL = OBJECT+1;
-    public static final short OPTGROUP = OL+1;
-    public static final short OPTION = OPTGROUP+1;
-    public static final short P = OPTION+1;
-    public static final short PARAM = P+1;
-    public static final short PICTURE = PARAM+1;
-    public static final short PLAINTEXT = PICTURE+1;
-    public static final short PRE = PLAINTEXT+1;
-    public static final short PROGRESS = PRE+1;
-    public static final short Q = PROGRESS+1;
-    public static final short RB = Q+1;
-    public static final short RBC = RB+1;
-    public static final short RP = RBC+1;
-    public static final short RT = RP+1;
-    public static final short RTC = RT+1;
-    public static final short RUBY = RTC+1;
-    public static final short S = RUBY+1;
-    public static final short SAMP = S+1;
-    public static final short SCRIPT = SAMP+1;
-    public static final short SECTION = SCRIPT+1;
-    public static final short SELECT = SECTION+1;
-    public static final short SLOT = SELECT+1;
-    public static final short SMALL = SLOT+1;
-    public static final short SOUND = SMALL+1;
-    public static final short SOURCE = SOUND+1;
-    public static final short SPACER = SOURCE+1;
-    public static final short SPAN = SPACER+1;
-    public static final short STRIKE = SPAN+1;
-    public static final short STRONG = STRIKE+1;
-    public static final short STYLE = STRONG+1;
-    public static final short SUB = STYLE+1;
-    public static final short SUMMARY = SUB+1;
-    public static final short SUP = SUMMARY+1;
-    public static final short SVG = SUP+1;
-    public static final short TABLE = SVG+1;
-    public static final short TBODY = TABLE+1;
-    public static final short TD = TBODY+1;
-    public static final short TEMPLATE = TD+1;
-    public static final short TEXTAREA = TEMPLATE+1;
-    public static final short TFOOT = TEXTAREA+1;
-    public static final short TH = TFOOT+1;
-    public static final short THEAD = TH+1;
-    public static final short TIME = THEAD+1;
-    public static final short TITLE = TIME+1;
-    public static final short TR = TITLE+1;
-    public static final short TRACK = TR+1;
-    public static final short TT = TRACK+1;
-    public static final short OUTPUT = TT+1;
-    public static final short U = OUTPUT+1;
-    public static final short UL = U+1;
-    public static final short VAR = UL+1;
-    public static final short VIDEO = VAR+1;
-    public static final short WBR = VIDEO+1;
-    public static final short XML = WBR+1;
-    public static final short XMP = XML+1;
-    public static final short UNKNOWN = XMP+1;
+    public static final short ABBR = A + 1;
+    public static final short ACRONYM = ABBR + 1;
+    public static final short ADDRESS = ACRONYM + 1;
+    public static final short APPLET = ADDRESS + 1;
+    public static final short AREA = APPLET + 1;
+    public static final short ARTICLE = AREA + 1;
+    public static final short ASIDE = ARTICLE + 1;
+    public static final short AUDIO = ASIDE + 1;
+    public static final short B = AUDIO + 1;
+    public static final short BASE = B + 1;
+    public static final short BASEFONT = BASE + 1;
+    public static final short BDI = BASEFONT + 1;
+    public static final short BDO = BDI + 1;
+    public static final short BGSOUND = BDO + 1;
+    public static final short BIG = BGSOUND + 1;
+    public static final short BLINK = BIG + 1;
+    public static final short BLOCKQUOTE = BLINK + 1;
+    public static final short BODY = BLOCKQUOTE + 1;
+    public static final short BR = BODY + 1;
+    public static final short BUTTON = BR + 1;
+    public static final short CANVAS = BUTTON + 1;
+    public static final short CAPTION = CANVAS + 1;
+    public static final short CENTER = CAPTION + 1;
+    public static final short CITE = CENTER + 1;
+    public static final short CODE = CITE + 1;
+    public static final short COL = CODE + 1;
+    public static final short COLGROUP = COL + 1;
+    public static final short COMMENT = COLGROUP + 1;
+    public static final short DATA = COMMENT + 1;
+    public static final short DATALIST = DATA + 1;
+    public static final short DEL = DATALIST + 1;
+    public static final short DETAILS = DEL + 1;
+    public static final short DFN = DETAILS + 1;
+    public static final short DIALOG = DFN + 1;
+    public static final short DIR = DIALOG + 1;
+    public static final short DIV = DIR + 1;
+    public static final short DD = DIV + 1;
+    public static final short DL = DD + 1;
+    public static final short DT = DL + 1;
+    public static final short EM = DT + 1;
+    public static final short EMBED = EM + 1;
+    public static final short FIELDSET = EMBED + 1;
+    public static final short FIGCAPTION = FIELDSET + 1;
+    public static final short FIGURE = FIGCAPTION + 1;
+    public static final short FONT = FIGURE + 1;
+    public static final short FOOTER = FONT + 1;
+    public static final short FORM = FOOTER + 1;
+    public static final short FRAME = FORM + 1;
+    public static final short FRAMESET = FRAME + 1;
+    public static final short H1 = FRAMESET + 1;
+    public static final short H2 = H1 + 1;
+    public static final short H3 = H2 + 1;
+    public static final short H4 = H3 + 1;
+    public static final short H5 = H4 + 1;
+    public static final short H6 = H5 + 1;
+    public static final short HEAD = H6 + 1;
+    public static final short HEADER = HEAD + 1;
+    public static final short HR = HEADER + 1;
+    public static final short HTML = HR + 1;
+    public static final short I = HTML + 1;
+    public static final short IFRAME = I + 1;
+    public static final short ILAYER = IFRAME + 1;
+    public static final short IMG = ILAYER + 1;
+    public static final short IMAGE = IMG + 1;
+    public static final short INPUT = IMAGE + 1;
+    public static final short INS = INPUT + 1;
+    public static final short KBD = INS + 1;
+    public static final short KEYGEN = KBD + 1;
+    public static final short LABEL = KEYGEN + 1;
+    public static final short LAYER = LABEL + 1;
+    public static final short LEGEND = LAYER + 1;
+    public static final short LI = LEGEND + 1;
+    public static final short LINK = LI + 1;
+    public static final short LISTING = LINK + 1;
+    public static final short MAIN = LISTING + 1;
+    public static final short MAP = MAIN + 1;
+    public static final short MARK = MAP + 1;
+    public static final short MARQUEE = MARK + 1;
+    public static final short MENU = MARQUEE + 1;
+    public static final short META = MENU + 1;
+    public static final short METER = META + 1;
+    public static final short MULTICOL = METER + 1;
+    public static final short NAV = MULTICOL + 1;
+    public static final short NEXTID = NAV + 1;
+    public static final short NOBR = NEXTID + 1;
+    public static final short NOEMBED = NOBR + 1;
+    public static final short NOFRAMES = NOEMBED + 1;
+    public static final short NOLAYER = NOFRAMES + 1;
+    public static final short NOSCRIPT = NOLAYER + 1;
+    public static final short OBJECT = NOSCRIPT + 1;
+    public static final short OL = OBJECT + 1;
+    public static final short OPTGROUP = OL + 1;
+    public static final short OPTION = OPTGROUP + 1;
+    public static final short P = OPTION + 1;
+    public static final short PARAM = P + 1;
+    public static final short PICTURE = PARAM + 1;
+    public static final short PLAINTEXT = PICTURE + 1;
+    public static final short PRE = PLAINTEXT + 1;
+    public static final short PROGRESS = PRE + 1;
+    public static final short Q = PROGRESS + 1;
+    public static final short RB = Q + 1;
+    public static final short RBC = RB + 1;
+    public static final short RP = RBC + 1;
+    public static final short RT = RP + 1;
+    public static final short RTC = RT + 1;
+    public static final short RUBY = RTC + 1;
+    public static final short S = RUBY + 1;
+    public static final short SAMP = S + 1;
+    public static final short SCRIPT = SAMP + 1;
+    public static final short SECTION = SCRIPT + 1;
+    public static final short SELECT = SECTION + 1;
+    public static final short SLOT = SELECT + 1;
+    public static final short SMALL = SLOT + 1;
+    public static final short SOUND = SMALL + 1;
+    public static final short SOURCE = SOUND + 1;
+    public static final short SPACER = SOURCE + 1;
+    public static final short SPAN = SPACER + 1;
+    public static final short STRIKE = SPAN + 1;
+    public static final short STRONG = STRIKE + 1;
+    public static final short STYLE = STRONG + 1;
+    public static final short SUB = STYLE + 1;
+    public static final short SUMMARY = SUB + 1;
+    public static final short SUP = SUMMARY + 1;
+    public static final short SVG = SUP + 1;
+    public static final short TABLE = SVG + 1;
+    public static final short TBODY = TABLE + 1;
+    public static final short TD = TBODY + 1;
+    public static final short TEMPLATE = TD + 1;
+    public static final short TEXTAREA = TEMPLATE + 1;
+    public static final short TFOOT = TEXTAREA + 1;
+    public static final short TH = TFOOT + 1;
+    public static final short THEAD = TH + 1;
+    public static final short TIME = THEAD + 1;
+    public static final short TITLE = TIME + 1;
+    public static final short TR = TITLE + 1;
+    public static final short TRACK = TR + 1;
+    public static final short TT = TRACK + 1;
+    public static final short OUTPUT = TT + 1;
+    public static final short U = OUTPUT + 1;
+    public static final short UL = U + 1;
+    public static final short VAR = UL + 1;
+    public static final short VIDEO = VAR + 1;
+    public static final short WBR = VIDEO + 1;
+    public static final short XML = WBR + 1;
+    public static final short XMP = XML + 1;
+    public static final short UNKNOWN = XMP + 1;
 
     // information
 
     /** No such element. */
-    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY,HEAD}/*HTML*/, null);
+    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY, HEAD}/*HTML*/, null);
 
     public final Map<Short, Element> elementsByCode = new HashMap<>(256);
 
@@ -214,7 +214,7 @@ public class HTMLElements {
         // <!ENTITY % flow "%block; | %inline;">
 
         // initialize array of element information
-        elementsArray['A'-'A'] = new Element[] {
+        elementsArray['A' - 'A'] = new Element[] {
             // A - - (%inline;)* -(A)
             new Element(A, "A", Element.CONTAINER, BODY, new short[] {A}),
             // ABBR - - (%inline;)*
@@ -234,7 +234,7 @@ public class HTMLElements {
 
             new Element(AUDIO, "AUDIO", Element.CONTAINER, BODY, null),
         };
-        elementsArray['B'-'A'] = new Element[] {
+        elementsArray['B' - 'A'] = new Element[] {
             // B - - (%inline;)*
             new Element(B, "B", Element.INLINE, BODY, new short[] {SVG}),
             // BASE - O EMPTY
@@ -252,20 +252,20 @@ public class HTMLElements {
             // BLINK
             new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
             // BLOCKQUOTE - - (%block;|SCRIPT)+
-            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P,SVG}),
+            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P, SVG}),
             // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
-            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD,SVG}),
+            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD, SVG}),
             // BR - O EMPTY
             new Element(BR, "BR", Element.EMPTY, BODY, new short[]{SVG}),
             // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
             new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
         };
-        elementsArray['C'-'A'] = new Element[] {
+        elementsArray['C' - 'A'] = new Element[] {
             new Element(CANVAS, "CANVAS",  Element.CONTAINER, BODY, null),
             // CAPTION - - (%inline;)*
             new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
             // CENTER,
-            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P,SVG}),
+            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P, SVG}),
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
             // CODE - - (%inline;)*
@@ -273,11 +273,11 @@ public class HTMLElements {
             // COL - O EMPTY
             new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
             // COLGROUP - O (COL)*
-            new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL,COLGROUP}),
+            new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL, COLGROUP}),
             // COMMENT
             new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
         };
-        elementsArray['D'-'A'] = new Element[] {
+        elementsArray['D' - 'A'] = new Element[] {
             new Element(DATA, "DATA",  Element.CONTAINER, BODY, null),
 
             new Element(DATALIST, "DATALIST",  Element.CONTAINER, BODY, null),
@@ -293,21 +293,21 @@ public class HTMLElements {
             // DIR
             new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
             // DIV - - (%flow;)*
-            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P,SVG}),
+            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P, SVG}),
             // DD - O (%flow;)*
-            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT,DD,P,SVG}),
+            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
             // DL - - (DT|DD)+
-            new Element(DL, "DL", Element.BLOCK|Element.CONTAINER, BODY, new short[] {P,SVG}),
+            new Element(DL, "DL", Element.BLOCK | Element.CONTAINER, BODY, new short[] {P, SVG}),
             // DT - O (%inline;)*
-            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT,DD,P,SVG}),
+            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
         };
-        elementsArray['E'-'A'] = new Element[] {
+        elementsArray['E' - 'A'] = new Element[] {
             // EM - - (%inline;)*
             new Element(EM, "EM", Element.INLINE, BODY, new short[]{SVG}),
             // EMBED
             new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
         };
-        elementsArray['F'-'A'] = new Element[] {
+        elementsArray['F' - 'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
             new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
 
@@ -320,31 +320,31 @@ public class HTMLElements {
             new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
 
             // FORM - - (%block;|SCRIPT)+ -(FORM)
-            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY,TD,DIV}, new short[]{P}),
+            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY, TD, DIV}, new short[]{P}),
             // FRAME - O EMPTY
             new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
             new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, null),
         };
-        elementsArray['H'-'A'] = new Element[] {
+        elementsArray['H' - 'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
-            new Element(H1, "H1", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
-            new Element(H2, "H2", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
-            new Element(H3, "H3", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
-            new Element(H4, "H4", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
-            new Element(H5, "H5", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
-            new Element(H6, "H6", Element.BLOCK, new short[]{BODY,A}, new short[]{H1,H2,H3,H4,H5,H6,P,SVG}),
+            new Element(H1, "H1", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H2, "H2", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H3, "H3", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H4, "H4", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H5, "H5", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H6, "H6", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
             // HEAD O O (%head.content;) +(%head.misc;)
             new Element(HEAD, "HEAD", 0, HTML, null),
 
             new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
 
             // HR - O EMPTY
-            new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P,SVG}),
+            new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P, SVG}),
             // HTML O O (%html.content;)
             new Element(HTML, "HTML", 0, null, null),
         };
-        elementsArray['I'-'A'] = new Element[] {
+        elementsArray['I' - 'A'] = new Element[] {
             // I - - (%inline;)*
             new Element(I, "I", Element.INLINE, BODY, new short[]{SVG}),
             // IFRAME
@@ -360,13 +360,13 @@ public class HTMLElements {
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
         };
-        elementsArray['K'-'A'] = new Element[] {
+        elementsArray['K' - 'A'] = new Element[] {
             // KBD - - (%inline;)*
             new Element(KBD, "KBD", Element.INLINE, BODY, null),
             // KEYGEN
             new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
         };
-        elementsArray['L'-'A'] = new Element[] {
+        elementsArray['L' - 'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
             new Element(LABEL, "LABEL", Element.INLINE, BODY, null),
             // LAYER
@@ -508,39 +508,39 @@ public class HTMLElements {
             // TEXTAREA - - (#PCDATA)
             new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
             // TFOOT - O (TR)+
-            new Element(TFOOT, "TFOOT", 0, TABLE, new short[]{THEAD,TBODY,TFOOT,TD,TH,TR}),
+            new Element(TFOOT, "TFOOT", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR}),
             // TH - O (%flow;)*
-            new Element(TH, "TH", Element.CONTAINER, TR, TABLE, new short[]{TD,TH}),
+            new Element(TH, "TH", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
             // THEAD - O (TR)+
-            new Element(THEAD, "THEAD", 0, TABLE, new short[]{THEAD,TBODY,TFOOT,TD,TH,TR,COLGROUP}),
+            new Element(THEAD, "THEAD", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
 
             new Element(TIME, "TIME",  Element.CONTAINER, BODY, null),
             // TITLE - - (#PCDATA) -(%head.misc;)
-            new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD,BODY}, null),
+            new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD, BODY}, null),
             // TR - O (TH|TD)+
-            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{FORM,TD,TH,TR,COLGROUP,DIV}),
+            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
 
             new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
             // TT - - (%inline;)*
             new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
         };
-        elementsArray['U'-'A'] = new Element[] {
+        elementsArray['U' - 'A'] = new Element[] {
             // U,
             new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
             // UL - - (LI)+
-            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P,SVG}),
+            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P, SVG}),
         };
-        elementsArray['V'-'A'] = new Element[] {
+        elementsArray['V' - 'A'] = new Element[] {
             // VAR - - (%inline;)*
             new Element(VAR, "VAR", Element.INLINE, BODY, new short[]{SVG}),
 
             new Element(VIDEO, "VIDEO", Element.CONTAINER, BODY, null),
         };
-        elementsArray['W'-'A'] = new Element[] {
+        elementsArray['W' - 'A'] = new Element[] {
             // WBR
             new Element(WBR, "WBR", Element.EMPTY, BODY, null),
         };
-        elementsArray['X'-'A'] = new Element[] {
+        elementsArray['X' - 'A'] = new Element[] {
             // XML
             new Element(XML, "XML", 0, BODY, null),
             // XMP
@@ -719,7 +719,7 @@ public class HTMLElements {
          */
         public Element(final short code, final String name, final int flags,
                 final short[] parents, final short[] closes) {
-            this(code, name, flags, parents, (short)-1, closes);
+            this(code, name, flags, parents, (short) -1, closes);
         }
 
         /**
@@ -817,7 +817,7 @@ public class HTMLElements {
         @Override
         public boolean equals(final Object o) {
             if (o instanceof Element) {
-                return name.equals(((Element)o).name);
+                return name.equals(((Element) o).name);
             }
             return false;
         }

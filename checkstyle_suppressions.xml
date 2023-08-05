@@ -5,4 +5,8 @@
     "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 
 <suppressions>
+    <suppress checks="MissingSwitchDefault" files="HTMLEntitiesParser.java"/>
+    
+    <suppress checks="LineLength" files="DOMMessages.properties"/>
+    <suppress checks="LineLength" files="XMLMessages.properties"/>
 </suppressions>

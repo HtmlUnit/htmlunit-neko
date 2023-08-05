@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Node;
@@ -28,140 +27,110 @@ import org.w3c.dom.html.HTMLSelectElement;
  * @see org.w3c.dom.html.HTMLOptionElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLOptionElementImpl
-    extends HTMLElementImpl
-    implements HTMLOptionElement
-{
+public class HTMLOptionElementImpl extends HTMLElementImpl implements HTMLOptionElement {
 
     @Override
-    public boolean getDefaultSelected()
-    {
+    public boolean getDefaultSelected() {
         // ! NOT FULLY IMPLEMENTED !
-        return getBinary( "default-selected" );
+        return getBinary("default-selected");
     }
 
-
     @Override
-    public void setDefaultSelected( boolean defaultSelected )
-    {
+    public void setDefaultSelected(final boolean defaultSelected) {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute( "default-selected", defaultSelected );
+        setAttribute("default-selected", defaultSelected);
     }
 
-
     @Override
-    public String getText()
-    {
+    public String getText() {
         Node child;
-        StringBuilder text = new StringBuilder();
+        final StringBuilder text = new StringBuilder();
 
         // Find the Text nodes contained within this element and return their
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
-        while ( child != null )
-        {
-            if ( child instanceof Text ) {
-                text.append(( (Text) child ).getData());
+        while (child != null) {
+            if (child instanceof Text) {
+                text.append(((Text) child).getData());
             }
             child = child.getNextSibling();
         }
         return text.toString();
     }
 
-
     @Override
-    public int getIndex()
-    {
-        Node        parent;
-        NodeList    options;
-        int            i;
+    public int getIndex() {
+        Node parent;
+        final NodeList options;
+        int i;
 
         // Locate the parent SELECT. Note that this OPTION might be inside a
         // OPTGROUP inside the SELECT. Or it might not have a parent SELECT.
         // Everything is possible. If no parent is found, return -1.
         parent = getParentNode();
-        while ( parent != null && ! ( parent instanceof HTMLSelectElement ) )
+        while (parent != null && !(parent instanceof HTMLSelectElement)) {
             parent = parent.getParentNode();
-        if ( parent != null )
-        {
+        }
+        if (parent != null) {
             // Use getElementsByTagName() which creates a snapshot of all the
             // OPTION elements under the SELECT. Access to the returned NodeList
             // is very fast and the snapshot solves many synchronization problems.
-            options = ( (HTMLElement) parent ).getElementsByTagName( "OPTION" );
-            for ( i = 0 ; i < options.getLength() ; ++i )
-                if ( options.item( i ) == this )
+            options = ((HTMLElement) parent).getElementsByTagName("OPTION");
+            for (i = 0; i < options.getLength(); ++i) {
+                if (options.item(i) == this) {
                     return i;
+                }
+            }
         }
         return -1;
     }
 
+    @Override
+    public boolean getDisabled() {
+        return getBinary("disabled");
+    }
 
     @Override
-    public boolean getDisabled()
-    {
-        return getBinary( "disabled" );
+    public void setDisabled(final boolean disabled) {
+        setAttribute("disabled", disabled);
     }
-
 
     @Override
-    public void setDisabled( boolean disabled )
-    {
-        setAttribute( "disabled", disabled );
+    public String getLabel() {
+        return capitalize(getAttribute("label"));
     }
-
-
-      @Override
-    public String getLabel()
-    {
-        return capitalize( getAttribute( "label" ) );
-    }
-
 
     @Override
-    public void setLabel( String label )
-    {
-        setAttribute( "label", label );
+    public void setLabel(final String label) {
+        setAttribute("label", label);
     }
-
 
     @Override
-    public boolean getSelected()
-    {
-        return getBinary( "selected" );
+    public boolean getSelected() {
+        return getBinary("selected");
     }
-
 
     @Override
-    public void setSelected( boolean selected )
-    {
-        setAttribute( "selected", selected );
+    public void setSelected(final boolean selected) {
+        setAttribute("selected", selected);
     }
-
 
     @Override
-    public String getValue()
-    {
-        return getAttribute( "value" );
+    public String getValue() {
+        return getAttribute("value");
     }
-
 
     @Override
-    public void setValue( String value )
-    {
-        setAttribute( "value", value );
+    public void setValue(final String value) {
+        setAttribute("value", value);
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLOptionElementImpl( HTMLDocumentImpl owner, String name )
-    {
-        super( owner, name );
+    public HTMLOptionElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
-
