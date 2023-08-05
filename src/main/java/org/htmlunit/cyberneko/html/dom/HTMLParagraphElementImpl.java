@@ -31,14 +31,14 @@ public class HTMLParagraphElementImpl
     @Override
     public String getAlign()
     {
-        return getAttribute( "align" );
+        return getAttribute("align");
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 

@@ -34,7 +34,7 @@ public class HTMLButtonElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -42,40 +42,40 @@ public class HTMLButtonElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
@@ -84,7 +84,7 @@ public class HTMLButtonElementImpl
     {
         try
         {
-            return Integer.parseInt( getAttribute( "tabindex" ) );
+            return Integer.parseInt( getAttribute("tabindex"));
         }
         catch ( NumberFormatException except )
         {
@@ -96,28 +96,28 @@ public class HTMLButtonElementImpl
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getType()
     {
-        return capitalize( getAttribute( "type" ) );
+        return capitalize( getAttribute("type"));
     }
 
 
       @Override
     public String getValue()
     {
-        return getAttribute( "value" );
+        return getAttribute("value");
     }
 
 
     @Override
-    public void setValue( String value )
+    public void setValue(final String value )
     {
-        setAttribute( "value", value );
+        setAttribute("value", value );
     }
 
 

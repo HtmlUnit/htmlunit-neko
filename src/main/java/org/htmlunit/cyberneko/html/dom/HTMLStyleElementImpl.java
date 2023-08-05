@@ -31,42 +31,42 @@ public class HTMLStyleElementImpl
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
     @Override
     public String getMedia()
     {
-        return getAttribute( "media" );
+        return getAttribute("media");
     }
 
 
     @Override
-    public void setMedia( String media )
+    public void setMedia(final String media )
     {
-        setAttribute( "media", media );
+        setAttribute("media", media );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 

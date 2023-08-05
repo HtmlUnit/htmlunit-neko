@@ -51,7 +51,7 @@ public class HTMLTitleElementImpl
 
 
     @Override
-    public void setText( String text )
+    public void setText(final String text )
     {
         Node    child;
         Node    next;
@@ -65,7 +65,7 @@ public class HTMLTitleElementImpl
             removeChild( child );
             child = next;
         }
-        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
+        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild());
     }
 
 

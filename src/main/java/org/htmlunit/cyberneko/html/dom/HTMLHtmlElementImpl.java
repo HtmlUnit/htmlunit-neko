@@ -31,14 +31,14 @@ public class HTMLHtmlElementImpl
     @Override
     public String getVersion()
     {
-        return capitalize( getAttribute( "version" ) );
+        return capitalize( getAttribute("version"));
     }
 
 
     @Override
-    public void setVersion( String version )
+    public void setVersion(final String version )
     {
-        setAttribute( "version", version );
+        setAttribute("version", version );
     }
 
 

@@ -31,14 +31,14 @@ public class HTMLHeadElementImpl
     @Override
     public String getProfile()
     {
-        return getAttribute( "profile" );
+        return getAttribute("profile");
     }
 
 
     @Override
-    public void setProfile( String profile )
+    public void setProfile(final String profile )
     {
-        setAttribute( "profile", profile );
+        setAttribute("profile", profile );
     }
 
 

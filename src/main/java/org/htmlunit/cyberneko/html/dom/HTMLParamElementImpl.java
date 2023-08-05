@@ -31,56 +31,56 @@ public class HTMLParamElementImpl
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 
       @Override
     public String getValue()
     {
-        return getAttribute( "value" );
+        return getAttribute("value");
     }
 
 
     @Override
-    public void setValue( String value )
+    public void setValue(final String value )
     {
-        setAttribute( "value", value );
+        setAttribute("value", value );
     }
 
 
       @Override
     public String getValueType()
     {
-        return capitalize( getAttribute( "valuetype" ) );
+        return capitalize( getAttribute("valuetype"));
     }
 
 
     @Override
-    public void setValueType( String valueType )
+    public void setValueType(final String valueType )
     {
-        setAttribute( "valuetype", valueType );
+        setAttribute("valuetype", valueType );
     }
 
 

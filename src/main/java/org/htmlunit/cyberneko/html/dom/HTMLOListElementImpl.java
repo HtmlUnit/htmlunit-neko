@@ -31,42 +31,42 @@ public class HTMLOListElementImpl
     @Override
     public boolean getCompact()
     {
-        return getBinary( "compact" );
+        return getBinary("compact");
     }
 
 
     @Override
     public void setCompact( boolean compact )
     {
-        setAttribute( "compact", compact );
+        setAttribute("compact", compact );
     }
 
 
       @Override
     public int getStart()
     {
-        return getInteger( getAttribute( "start" ) );
+        return getInteger( getAttribute("start"));
     }
 
 
     @Override
     public void setStart( int start )
     {
-        setAttribute( "start", String.valueOf( start ) );
+        setAttribute("start", String.valueOf( start ));
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 

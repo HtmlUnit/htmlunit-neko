@@ -31,28 +31,28 @@ public class HTMLUListElementImpl
     @Override
     public boolean getCompact()
     {
-        return getBinary( "compact" );
+        return getBinary("compact");
     }
 
 
     @Override
     public void setCompact( boolean compact )
     {
-        setAttribute( "compact", compact );
+        setAttribute("compact", compact );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 

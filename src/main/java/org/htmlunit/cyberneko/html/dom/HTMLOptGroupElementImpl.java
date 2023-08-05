@@ -31,28 +31,28 @@ public class HTMLOptGroupElementImpl
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
       @Override
     public String getLabel()
     {
-        return capitalize( getAttribute( "label" ) );
+        return capitalize( getAttribute("label"));
     }
 
 
     @Override
-    public void setLabel( String label )
+    public void setLabel(final String label )
     {
-        setAttribute( "label", label );
+        setAttribute("label", label );
     }
 
 

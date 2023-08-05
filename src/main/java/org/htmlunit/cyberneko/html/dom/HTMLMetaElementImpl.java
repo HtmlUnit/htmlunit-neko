@@ -31,14 +31,14 @@ public class HTMLMetaElementImpl
     @Override
     public String getContent()
     {
-        return getAttribute( "content" );
+        return getAttribute("content");
     }
 
 
     @Override
-    public void setContent( String content )
+    public void setContent(final String content )
     {
-        setAttribute( "content", content );
+        setAttribute("content", content );
     }
 
 
@@ -46,42 +46,42 @@ public class HTMLMetaElementImpl
       @Override
     public String getHttpEquiv()
     {
-        return getAttribute( "http-equiv" );
+        return getAttribute("http-equiv");
     }
 
 
     @Override
-    public void setHttpEquiv( String httpEquiv )
+    public void setHttpEquiv(final String httpEquiv )
     {
-        setAttribute( "http-equiv", httpEquiv );
+        setAttribute("http-equiv", httpEquiv );
     }
 
 
       @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
       @Override
     public String getScheme()
     {
-        return getAttribute( "scheme" );
+        return getAttribute("scheme");
     }
 
 
     @Override
-    public void setScheme( String scheme )
+    public void setScheme(final String scheme )
     {
-        setAttribute( "scheme", scheme );
+        setAttribute("scheme", scheme );
     }
 
 

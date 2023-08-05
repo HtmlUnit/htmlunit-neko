@@ -32,166 +32,166 @@ public class HTMLObjectElementImpl
     @Override
     public String getCode()
     {
-        return getAttribute( "code" );
+        return getAttribute("code");
     }
 
 
     @Override
-    public void setCode( String code )
+    public void setCode(final String code )
     {
-        setAttribute( "code", code );
+        setAttribute("code", code );
     }
 
 
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getArchive()
     {
-        return getAttribute( "archive" );
+        return getAttribute("archive");
     }
 
 
     @Override
-    public void setArchive( String archive )
+    public void setArchive(final String archive )
     {
-        setAttribute( "archive", archive );
+        setAttribute("archive", archive );
     }
 
     @Override
     public String getBorder()
     {
-        return getAttribute( "border" );
+        return getAttribute("border");
     }
 
 
     @Override
-    public void setBorder( String border )
+    public void setBorder(final String border )
     {
-        setAttribute( "border", border );
+        setAttribute("border", border );
     }
 
 
     @Override
     public String getCodeBase()
     {
-        return getAttribute( "codebase" );
+        return getAttribute("codebase");
     }
 
 
     @Override
-    public void setCodeBase( String codeBase )
+    public void setCodeBase(final String codeBase )
     {
-        setAttribute( "codebase", codeBase );
+        setAttribute("codebase", codeBase );
     }
 
 
     @Override
     public String getCodeType()
     {
-        return getAttribute( "codetype" );
+        return getAttribute("codetype");
     }
 
 
     @Override
-    public void setCodeType( String codeType )
+    public void setCodeType(final String codeType )
     {
-        setAttribute( "codetype", codeType );
+        setAttribute("codetype", codeType );
     }
 
 
     @Override
     public String getData()
     {
-        return getAttribute( "data" );
+        return getAttribute("data");
     }
 
 
     @Override
-    public void setData( String data )
+    public void setData(final String data )
     {
-        setAttribute( "data", data );
+        setAttribute("data", data );
     }
 
 
       @Override
     public boolean getDeclare()
     {
-        return getBinary( "declare" );
+        return getBinary("declare");
     }
 
 
     @Override
     public void setDeclare( boolean declare )
     {
-        setAttribute( "declare", declare );
+        setAttribute("declare", declare );
     }
 
 
     @Override
     public String getHeight()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHeight( String height )
+    public void setHeight(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
 
     @Override
     public String getHspace()
     {
-        return getAttribute( "hspace" );
+        return getAttribute("hspace");
     }
 
 
     @Override
-    public void setHspace( String hspace )
+    public void setHspace(final String hspace )
     {
-        setAttribute( "hspace", hspace );
+        setAttribute("hspace", hspace );
     }
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getStandby()
     {
-        return getAttribute( "standby" );
+        return getAttribute("standby");
     }
 
 
     @Override
-    public void setStandby( String standby )
+    public void setStandby(final String standby )
     {
-        setAttribute( "standby", standby );
+        setAttribute("standby", standby );
     }
 
       @Override
@@ -199,7 +199,7 @@ public class HTMLObjectElementImpl
     {
         try
         {
-            return Integer.parseInt( getAttribute( "tabindex" ) );
+            return Integer.parseInt( getAttribute("tabindex"));
         }
         catch ( NumberFormatException except )
         {
@@ -211,63 +211,63 @@ public class HTMLObjectElementImpl
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 
     @Override
     public String getUseMap()
     {
-        return getAttribute( "useMap" );
+        return getAttribute("useMap");
     }
 
 
     @Override
-    public void setUseMap( String useMap )
+    public void setUseMap(final String useMap )
     {
-        setAttribute( "useMap", useMap );
+        setAttribute("useMap", useMap );
     }
 
 
     @Override
     public String getVspace()
     {
-        return getAttribute( "vspace" );
+        return getAttribute("vspace");
     }
 
 
     @Override
-    public void setVspace( String vspace )
+    public void setVspace(final String vspace )
     {
-        setAttribute( "vspace", vspace );
+        setAttribute("vspace", vspace );
     }
 
 
     @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

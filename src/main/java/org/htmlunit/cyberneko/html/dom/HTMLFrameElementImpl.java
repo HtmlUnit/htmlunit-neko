@@ -32,112 +32,112 @@ public class HTMLFrameElementImpl
     @Override
     public String getFrameBorder()
     {
-        return getAttribute( "frameborder" );
+        return getAttribute("frameborder");
     }
 
 
     @Override
-    public void setFrameBorder( String frameBorder )
+    public void setFrameBorder(final String frameBorder )
     {
-        setAttribute( "frameborder", frameBorder );
+        setAttribute("frameborder", frameBorder );
     }
 
 
     @Override
     public String getLongDesc()
     {
-        return getAttribute( "longdesc" );
+        return getAttribute("longdesc");
     }
 
 
     @Override
-    public void setLongDesc( String longDesc )
+    public void setLongDesc(final String longDesc )
     {
-        setAttribute( "longdesc", longDesc );
+        setAttribute("longdesc", longDesc );
     }
 
 
     @Override
     public String getMarginHeight()
     {
-        return getAttribute( "marginheight" );
+        return getAttribute("marginheight");
     }
 
 
     @Override
-    public void setMarginHeight( String marginHeight )
+    public void setMarginHeight(final String marginHeight )
     {
-        setAttribute( "marginheight", marginHeight );
+        setAttribute("marginheight", marginHeight );
     }
 
 
     @Override
     public String getMarginWidth()
     {
-        return getAttribute( "marginwidth" );
+        return getAttribute("marginwidth");
     }
 
 
     @Override
-    public void setMarginWidth( String marginWidth )
+    public void setMarginWidth(final String marginWidth )
     {
-        setAttribute( "marginwidth", marginWidth );
+        setAttribute("marginwidth", marginWidth );
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public boolean getNoResize()
     {
-        return getBinary( "noresize" );
+        return getBinary("noresize");
     }
 
 
     @Override
     public void setNoResize( boolean noResize )
     {
-        setAttribute( "noresize", noResize );
+        setAttribute("noresize", noResize );
     }
 
 
     @Override
     public String getScrolling()
     {
-        return capitalize( getAttribute( "scrolling" ) );
+        return capitalize( getAttribute("scrolling"));
     }
 
 
     @Override
-    public void setScrolling( String scrolling )
+    public void setScrolling(final String scrolling )
     {
-        setAttribute( "scrolling", scrolling );
+        setAttribute("scrolling", scrolling );
     }
 
 
     @Override
     public String getSrc()
     {
-        return getAttribute( "src" );
+        return getAttribute("src");
     }
 
 
     @Override
-    public void setSrc( String src )
+    public void setSrc(final String src )
     {
-        setAttribute( "src", src );
+        setAttribute("src", src );
     }
 
 

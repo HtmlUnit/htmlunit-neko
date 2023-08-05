@@ -31,84 +31,84 @@ public class HTMLBodyElementImpl
     @Override
     public String getALink()
     {
-        return getAttribute( "alink" );
+        return getAttribute("alink");
     }
 
 
     @Override
     public void setALink(String aLink)
     {
-        setAttribute( "alink", aLink );
+        setAttribute("alink", aLink );
     }
 
 
     @Override
     public String getBackground()
     {
-        return getAttribute( "background" );
+        return getAttribute("background");
     }
 
 
     @Override
-    public void setBackground( String background )
+    public void setBackground(final String background )
     {
-        setAttribute( "background", background );
+        setAttribute("background", background );
     }
 
 
     @Override
     public String getBgColor()
     {
-        return getAttribute( "bgcolor" );
+        return getAttribute("bgcolor");
     }
 
 
     @Override
     public void setBgColor(String bgColor)
     {
-        setAttribute( "bgcolor", bgColor );
+        setAttribute("bgcolor", bgColor );
     }
 
 
     @Override
     public String getLink()
     {
-        return getAttribute( "link" );
+        return getAttribute("link");
     }
 
 
     @Override
     public void setLink(String link)
     {
-        setAttribute( "link", link );
+        setAttribute("link", link );
     }
 
 
     @Override
     public String getText()
     {
-        return getAttribute( "text" );
+        return getAttribute("text");
     }
 
 
     @Override
     public void setText(String text)
     {
-        setAttribute( "text", text );
+        setAttribute("text", text );
     }
 
 
     @Override
     public String getVLink()
     {
-        return getAttribute( "vlink" );
+        return getAttribute("vlink");
     }
 
 
     @Override
     public void  setVLink(String vLink)
     {
-        setAttribute( "vlink", vLink );
+        setAttribute("vlink", vLink );
     }
 
 

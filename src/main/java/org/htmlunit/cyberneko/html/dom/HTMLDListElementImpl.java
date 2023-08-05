@@ -31,14 +31,14 @@ public class HTMLDListElementImpl
     @Override
     public boolean getCompact()
     {
-        return getBinary( "compact" );
+        return getBinary("compact");
     }
 
 
     @Override
     public void setCompact( boolean compact )
     {
-        setAttribute( "compact", compact );
+        setAttribute("compact", compact );
     }
 
 

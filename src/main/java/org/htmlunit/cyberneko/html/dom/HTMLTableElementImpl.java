@@ -43,7 +43,7 @@ public class HTMLTableElementImpl
         while ( child != null )
         {
             if ( child instanceof HTMLTableCaptionElement &&
-                 child.getNodeName().equals( "CAPTION" ) )
+                 child.getNodeName().equals("CAPTION"))
                 return (HTMLTableCaptionElement) child;
             child = child.getNextSibling();
         }
@@ -54,8 +54,8 @@ public class HTMLTableElementImpl
     @Override
     public synchronized void setCaption( HTMLTableCaptionElement caption )
     {
-        if ( caption != null && ! caption.getTagName().equals( "CAPTION" ) )
-            throw new IllegalArgumentException( "HTM016 Argument 'caption' is not an element of type <CAPTION>." );
+        if ( caption != null && ! caption.getTagName().equals("CAPTION"))
+            throw new IllegalArgumentException("HTM016 Argument 'caption' is not an element of type <CAPTION>.");
         deleteCaption();
         if ( caption != null )
             appendChild( caption );
@@ -70,7 +70,7 @@ public class HTMLTableElementImpl
         section = getCaption();
         if ( section != null )
             return section;
-        section = new HTMLTableCaptionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "CAPTION" );
+        section = new HTMLTableCaptionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "CAPTION");
         appendChild( section );
         return section;
     }
@@ -95,7 +95,7 @@ public class HTMLTableElementImpl
         while ( child != null )
         {
             if ( child instanceof HTMLTableSectionElement &&
-                 child.getNodeName().equals( "THEAD" ) )
+                 child.getNodeName().equals("THEAD"))
                 return (HTMLTableSectionElement) child;
             child = child.getNextSibling();
         }
@@ -106,8 +106,8 @@ public class HTMLTableElementImpl
     @Override
     public synchronized void setTHead( HTMLTableSectionElement tHead )
     {
-        if ( tHead != null && ! tHead.getTagName().equals( "THEAD" ) )
-            throw new IllegalArgumentException( "HTM017 Argument 'tHead' is not an element of type <THEAD>." );
+        if ( tHead != null && ! tHead.getTagName().equals("THEAD"))
+            throw new IllegalArgumentException("HTM017 Argument 'tHead' is not an element of type <THEAD>.");
         deleteTHead();
         if ( tHead != null )
             appendChild( tHead );
@@ -122,7 +122,7 @@ public class HTMLTableElementImpl
         section = getTHead();
         if ( section != null )
             return section;
-        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "THEAD" );
+        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "THEAD");
         appendChild( section );
         return section;
     }
@@ -147,7 +147,7 @@ public class HTMLTableElementImpl
         while ( child != null )
         {
             if ( child instanceof HTMLTableSectionElement &&
-                 child.getNodeName().equals( "TFOOT" ) )
+                 child.getNodeName().equals("TFOOT"))
                 return (HTMLTableSectionElement) child;
             child = child.getNextSibling();
         }
@@ -158,8 +158,8 @@ public class HTMLTableElementImpl
     @Override
     public synchronized void setTFoot( HTMLTableSectionElement tFoot )
     {
-        if ( tFoot != null && ! tFoot.getTagName().equals( "TFOOT" ) )
-            throw new IllegalArgumentException( "HTM018 Argument 'tFoot' is not an element of type <TFOOT>." );
+        if ( tFoot != null && ! tFoot.getTagName().equals("TFOOT"))
+            throw new IllegalArgumentException("HTM018 Argument 'tFoot' is not an element of type <TFOOT>.");
         deleteTFoot();
         if ( tFoot != null )
             appendChild( tFoot );
@@ -174,7 +174,7 @@ public class HTMLTableElementImpl
         section = getTFoot();
         if ( section != null )
             return section;
-        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TFOOT" );
+        section = new HTMLTableSectionElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TFOOT");
         appendChild( section );
         return section;
     }
@@ -211,126 +211,126 @@ public class HTMLTableElementImpl
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getBgColor()
     {
-        return getAttribute( "bgcolor" );
+        return getAttribute("bgcolor");
     }
 
 
     @Override
-    public void setBgColor( String bgColor )
+    public void setBgColor(final String bgColor )
     {
-        setAttribute( "bgcolor", bgColor );
+        setAttribute("bgcolor", bgColor );
     }
 
 
     @Override
     public String getBorder()
     {
-        return getAttribute( "border" );
+        return getAttribute("border");
     }
 
 
     @Override
-    public void setBorder( String border )
+    public void setBorder(final String border )
     {
-        setAttribute( "border", border );
+        setAttribute("border", border );
     }
 
 
     @Override
     public String getCellPadding()
     {
-        return getAttribute( "cellpadding" );
+        return getAttribute("cellpadding");
     }
 
 
     @Override
-    public void setCellPadding( String cellPadding )
+    public void setCellPadding(final String cellPadding )
     {
-        setAttribute( "cellpadding", cellPadding );
+        setAttribute("cellpadding", cellPadding );
     }
 
 
     @Override
     public String getCellSpacing()
     {
-        return getAttribute( "cellspacing" );
+        return getAttribute("cellspacing");
     }
 
 
     @Override
-    public void setCellSpacing( String cellSpacing )
+    public void setCellSpacing(final String cellSpacing )
     {
-        setAttribute( "cellspacing", cellSpacing );
+        setAttribute("cellspacing", cellSpacing );
     }
 
 
     @Override
     public String getFrame()
     {
-        return capitalize( getAttribute( "frame" ) );
+        return capitalize( getAttribute("frame"));
     }
 
 
     @Override
-    public void setFrame( String frame )
+    public void setFrame(final String frame )
     {
-        setAttribute( "frame", frame );
+        setAttribute("frame", frame );
     }
 
 
     @Override
     public String getRules()
     {
-        return capitalize( getAttribute( "rules" ) );
+        return capitalize( getAttribute("rules"));
     }
 
 
     @Override
-    public void setRules( String rules )
+    public void setRules(final String rules )
     {
-        setAttribute( "rules", rules );
+        setAttribute("rules", rules );
     }
 
 
     @Override
     public String getSummary()
     {
-        return getAttribute( "summary" );
+        return getAttribute("summary");
     }
 
 
     @Override
-    public void setSummary( String summary )
+    public void setSummary(final String summary )
     {
-        setAttribute( "summary", summary );
+        setAttribute("summary", summary );
     }
 
 
       @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 
@@ -339,7 +339,7 @@ public class HTMLTableElementImpl
     {
         HTMLTableRowElementImpl    newRow;
 
-        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR" );
+        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR");
         //newRow.insertCell( 0 );
         insertRowX( index, newRow );
         return newRow;

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.util.ArrayList;
@@ -28,17 +27,15 @@ import org.htmlunit.cyberneko.xerces.xni.XMLString;
  * in &lt;body&gt;
  * @author Marc Guillemot
  */
-class LostText
-{
+class LostText {
     /**
      * Pair of (text, augmentation)
      */
-    private static final class Entry
-    {
+    private static final class Entry {
         private final XMLString text_;
         private Augmentations augs_;
 
-        public Entry(final XMLString text, final Augmentations augs) {
+        Entry(final XMLString text, final Augmentations augs) {
             final char[] chars = new char[text.length];
             System.arraycopy(text.ch, text.offset, chars, 0, text.length);
             text_ = new XMLString(chars, 0, chars.length);
@@ -46,15 +43,15 @@ class LostText
         }
     }
 
-    private final List<Entry> entries = new ArrayList<>();
+    private final List<Entry> entries_ = new ArrayList<>();
 
     /**
      * Adds some text that need to be re-feed later. The information gets copied.
      */
-    public void add(final XMLString text, final Augmentations augs)
-    {
-        if (!entries.isEmpty() || text.toString().trim().length() > 0)
-            entries.add(new Entry(text, augs));
+    public void add(final XMLString text, final Augmentations augs) {
+        if (!entries_.isEmpty() || text.toString().trim().length() > 0) {
+            entries_.add(new Entry(text, augs));
+        }
     }
 
     /**
@@ -62,11 +59,11 @@ class LostText
      * @param tagBalancer the tag balancer that will receive the events
      */
     public void refeed(final XMLDocumentHandler tagBalancer) {
-        for (final Entry entry : new ArrayList<>(entries)) {
+        for (final Entry entry : new ArrayList<>(entries_)) {
             tagBalancer.characters(entry.text_, entry.augs_);
         }
         // not needed anymore once it has been used -> clear to free memory
-        entries.clear();
+        entries_.clear();
     }
 
     /**
@@ -74,13 +71,13 @@ class LostText
      * @return <code>true</code> if no lost text has been collected
      */
     public boolean isEmpty() {
-        return entries.isEmpty();
+        return entries_.isEmpty();
     }
 
     /**
      * Clears the list
      */
     public void clear() {
-        entries.clear();
+        entries_.clear();
     }
 }

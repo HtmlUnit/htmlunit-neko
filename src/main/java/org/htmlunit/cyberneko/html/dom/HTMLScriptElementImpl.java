@@ -51,7 +51,7 @@ public class HTMLScriptElementImpl
 
 
     @Override
-    public void setText( String text )
+    public void setText(final String text )
     {
         Node    child;
         Node    next;
@@ -65,90 +65,90 @@ public class HTMLScriptElementImpl
             removeChild( child );
             child = next;
         }
-        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild() );
+        insertBefore( getOwnerDocument().createTextNode( text ), getFirstChild());
     }
 
 
        @Override
     public String getHtmlFor()
     {
-        return getAttribute( "for" );
+        return getAttribute("for");
     }
 
 
     @Override
-    public void setHtmlFor( String htmlFor )
+    public void setHtmlFor(final String htmlFor )
     {
-        setAttribute( "for", htmlFor );
+        setAttribute("for", htmlFor );
     }
 
 
        @Override
     public String getEvent()
     {
-        return getAttribute( "event" );
+        return getAttribute("event");
     }
 
 
     @Override
-    public void setEvent( String event )
+    public void setEvent(final String event )
     {
-        setAttribute( "event", event );
+        setAttribute("event", event );
     }
 
        @Override
     public String getCharset()
     {
-        return getAttribute( "charset" );
+        return getAttribute("charset");
     }
 
 
     @Override
-    public void setCharset( String charset )
+    public void setCharset(final String charset )
     {
-        setAttribute( "charset", charset );
+        setAttribute("charset", charset );
     }
 
 
     @Override
     public boolean getDefer()
     {
-        return getBinary( "defer" );
+        return getBinary("defer");
     }
 
 
     @Override
     public void setDefer( boolean defer )
     {
-        setAttribute( "defer", defer );
+        setAttribute("defer", defer );
     }
 
 
        @Override
     public String getSrc()
     {
-        return getAttribute( "src" );
+        return getAttribute("src");
     }
 
 
     @Override
-    public void setSrc( String src )
+    public void setSrc(final String src )
     {
-        setAttribute( "src", src );
+        setAttribute("src", src );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 

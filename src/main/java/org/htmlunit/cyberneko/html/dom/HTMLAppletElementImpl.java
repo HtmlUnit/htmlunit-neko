@@ -31,154 +31,154 @@ public class HTMLAppletElementImpl
     @Override
     public String getAlign()
     {
-        return getAttribute( "align" );
+        return getAttribute("align");
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getAlt()
     {
-        return getAttribute( "alt" );
+        return getAttribute("alt");
     }
 
 
     @Override
-    public void setAlt( String alt )
+    public void setAlt(final String alt )
     {
-        setAttribute( "alt", alt );
+        setAttribute("alt", alt );
     }
 
 
     @Override
     public String getArchive()
     {
-        return getAttribute( "archive" );
+        return getAttribute("archive");
     }
 
 
     @Override
-    public void setArchive( String archive )
+    public void setArchive(final String archive )
     {
-        setAttribute( "archive", archive );
+        setAttribute("archive", archive );
     }
 
 
     @Override
     public String getCode()
     {
-        return getAttribute( "code" );
+        return getAttribute("code");
     }
 
 
     @Override
-    public void setCode( String code )
+    public void setCode(final String code )
     {
-        setAttribute( "code", code );
+        setAttribute("code", code );
     }
 
 
     @Override
     public String getCodeBase()
     {
-        return getAttribute( "codebase" );
+        return getAttribute("codebase");
     }
 
 
     @Override
-    public void setCodeBase( String codeBase )
+    public void setCodeBase(final String codeBase )
     {
-        setAttribute( "codebase", codeBase );
+        setAttribute("codebase", codeBase );
     }
 
 
     @Override
     public String getHeight()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHeight( String height )
+    public void setHeight(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
 
     @Override
     public String getHspace()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHspace( String height )
+    public void setHspace(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getObject()
     {
-        return getAttribute( "object" );
+        return getAttribute("object");
     }
 
 
     @Override
-    public void setObject( String object )
+    public void setObject(final String object )
     {
-        setAttribute( "object", object );
+        setAttribute("object", object );
     }
 
 
     @Override
     public String getVspace()
     {
-        return getAttribute( "vspace" );
+        return getAttribute("vspace");
     }
 
 
     @Override
-    public void setVspace( String vspace )
+    public void setVspace(final String vspace )
     {
-        setAttribute( "vspace", vspace );
+        setAttribute("vspace", vspace );
     }
 
 
     @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

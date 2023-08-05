@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
@@ -31,8 +30,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
  * </ul>
  * @author Marc Guillemot
  */
-public interface HTMLTagBalancingListener
-{
+public interface HTMLTagBalancingListener {
     // Notifies that the start element has been ignored.
     void ignoredStartElement(QName elem, XMLAttributes attrs, Augmentations augs);
 

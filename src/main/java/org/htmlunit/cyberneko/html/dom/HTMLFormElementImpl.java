@@ -50,84 +50,84 @@ public class HTMLFormElementImpl
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getAcceptCharset()
     {
-        return getAttribute( "accept-charset" );
+        return getAttribute("accept-charset");
     }
 
 
     @Override
-    public void setAcceptCharset( String acceptCharset )
+    public void setAcceptCharset(final String acceptCharset )
     {
-        setAttribute( "accept-charset", acceptCharset );
+        setAttribute("accept-charset", acceptCharset );
     }
 
 
       @Override
     public String getAction()
     {
-        return getAttribute( "action" );
+        return getAttribute("action");
     }
 
 
     @Override
-    public void setAction( String action )
+    public void setAction(final String action )
     {
-        setAttribute( "action", action );
+        setAttribute("action", action );
     }
 
 
       @Override
     public String getEnctype()
     {
-        return getAttribute( "enctype" );
+        return getAttribute("enctype");
     }
 
 
     @Override
-    public void setEnctype( String enctype )
+    public void setEnctype(final String enctype )
     {
-        setAttribute( "enctype", enctype );
+        setAttribute("enctype", enctype );
     }
 
 
       @Override
     public String getMethod()
     {
-        return capitalize( getAttribute( "method" ) );
+        return capitalize( getAttribute("method"));
     }
 
 
     @Override
-    public void setMethod( String method )
+    public void setMethod(final String method )
     {
-        setAttribute( "method", method );
+        setAttribute("method", method );
     }
 
 
     @Override
     public String getTarget()
     {
-        return getAttribute( "target" );
+        return getAttribute("target");
     }
 
 
     @Override
-    public void setTarget( String target )
+    public void setTarget(final String target )
     {
-        setAttribute( "target", target );
+        setAttribute("target", target );
     }
 
 

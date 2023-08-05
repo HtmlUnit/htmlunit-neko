@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.Element;
@@ -55,9 +54,7 @@ import org.w3c.dom.html.HTMLTableSectionElement;
  * @author <a href="mailto:arkin@exoffice.com">Assaf Arkin</a>
  * @see org.w3c.dom.html.HTMLCollection
  */
-class HTMLCollectionImpl
-    implements HTMLCollection
-{
+class HTMLCollectionImpl implements HTMLCollection {
 
     /**
      * Request collection of all anchors in document: &lt;A&gt; elements that
@@ -65,18 +62,15 @@ class HTMLCollectionImpl
      */
     static final short        ANCHOR = 1;
 
-
     /**
      * Request collection of all forms in document: &lt;FORM&gt; elements.
      */
     static final short        FORM = 2;
 
-
     /**
      * Request collection of all images in document: &lt;IMG&gt; elements.
      */
     static final short        IMAGE = 3;
-
 
     /**
      * Request collection of all Applets in document: &lt;APPLET&gt; and
@@ -84,13 +78,11 @@ class HTMLCollectionImpl
      */
     static final short        APPLET = 4;
 
-
     /**
      * Request collection of all links in document: &lt;A&gt; and &lt;AREA&gt;
      * elements (must have a <code>href</code> attribute).
      */
     static final short        LINK = 5;
-
 
     /**
      * Request collection of all options in selection: &lt;OPTION&gt; elements in
@@ -98,13 +90,11 @@ class HTMLCollectionImpl
      */
     static final short        OPTION = 6;
 
-
     /**
      * Request collection of all rows in table: &lt;TR&gt; elements in table or
      * table section.
      */
     static final short        ROW = 7;
-
 
     /**
      * Request collection of all form elements: &lt;INPUT&gt;, &lt;BUTTON&gt;,
@@ -112,13 +102,11 @@ class HTMLCollectionImpl
      */
     static final short        ELEMENT = 8;
 
-
     /**
      * Request collection of all areas in map: &lt;AREA&gt; element in &lt;MAP&gt;
      * (non recursive).
      */
     static final short        AREA = -1;
-
 
     /**
      * Request collection of all table bodies in table: &lt;TBODY&gt; element in
@@ -126,27 +114,23 @@ class HTMLCollectionImpl
      */
     static final short        TBODY = -2;
 
-
     /**
      * Request collection of all cells in row: &lt;TD&gt; and &lt;TH&gt;
      * elements in &lt;TR&gt; (non recursive).
      */
     static final short        CELL = -3;
 
-
     /**
      * Indicates what this collection is looking for. Holds one of the enumerated
      * values and used by {@link #collectionMatch}. Set by the constructor and
      * determine the collection's use for its life time.
      */
-    private final short            _lookingFor;
-
+    private final short lookingFor_;
 
     /**
      * This is the top level element underneath which the collection exists.
      */
-    private final Element            _topLevel;
-
+    private final Element topLevel_;
 
     /**
      * Construct a new collection that retrieves element of the specific type
@@ -156,14 +140,13 @@ class HTMLCollectionImpl
      * @param topLevel The element underneath which the collection exists
      * @param lookingFor Code indicating what elements to look for
      */
-    HTMLCollectionImpl( HTMLElement topLevel, short lookingFor )
-    {
-        if ( topLevel == null )
-            throw new NullPointerException( "HTM011 Argument 'topLevel' is null." );
-        _topLevel = topLevel;
-       _lookingFor = lookingFor;
+    HTMLCollectionImpl(final HTMLElement topLevel, final short lookingFor) {
+        if (topLevel == null) {
+            throw new NullPointerException("HTM011 Argument 'topLevel' is null.");
+        }
+        topLevel_ = topLevel;
+        lookingFor_ = lookingFor;
     }
-
 
     /**
      * Returns the length of the collection. This method might traverse the
@@ -172,12 +155,10 @@ class HTMLCollectionImpl
      * @return Length of the collection
      */
     @Override
-    public final int getLength()
-    {
+    public final int getLength() {
         // Call recursive function on top-level element.
-        return getLength( _topLevel );
+        return getLength(topLevel_);
     }
-
 
     /**
      * Retrieves the indexed node from the collection. Nodes are numbered in
@@ -188,14 +169,14 @@ class HTMLCollectionImpl
      * @return The specified node or null if no such node found
      */
     @Override
-    public final Node item( int index )
-    {
-        if ( index < 0 )
-            throw new IllegalArgumentException( "HTM012 Argument 'index' is negative." );
-        // Call recursive function on top-level element.
-        return item( _topLevel, new CollectionIndex( index ) );
-    }
+    public final Node item(final int index) {
+        if (index < 0) {
+            throw new IllegalArgumentException("HTM012 Argument 'index' is negative.");
+        }
 
+        // Call recursive function on top-level element.
+        return item(topLevel_, new CollectionIndex(index));
+    }
 
     /**
      * Retrieves the named node from the collection. The name is matched case
@@ -207,14 +188,14 @@ class HTMLCollectionImpl
      * @return The specified node or null if no such node found
      */
     @Override
-    public final Node namedItem( String name )
-    {
-        if ( name == null )
-            throw new NullPointerException( "HTM013 Argument 'name' is null." );
-        // Call recursive function on top-level element.
-        return namedItem( _topLevel, name );
-    }
+    public final Node namedItem(final String name) {
+        if (name == null) {
+            throw new NullPointerException("HTM013 Argument 'name' is null.");
+        }
 
+        // Call recursive function on top-level element.
+        return namedItem(topLevel_, name);
+    }
 
     /**
      * Recursive function returns the number of elements of a particular type
@@ -224,36 +205,33 @@ class HTMLCollectionImpl
      * @param topLevel Top level element from which to scan
      * @return Number of elements
      */
-    private int getLength( Element topLevel )
-    {
-        int        length;
-        Node    node;
+    private int getLength(final Element topLevel) {
+        int length;
+        Node node;
 
-        synchronized ( topLevel )
-        {
+        synchronized (topLevel) {
             // Always count from zero and traverse all the childs of the
             // current element in the order they appear.
             length = 0;
             node = topLevel.getFirstChild();
-            while ( node != null )
-            {
+            while (node != null) {
                 // If a particular node is an element (could be HTML or XML),
-        // do two things: if it's the one we're looking for, count
-        // another matched element; at any rate, traverse it's
-        // children as well.
-                if ( node instanceof Element )
-                {
-                    if ( collectionMatch( (Element) node, null ) )
-                        ++ length;
-                    else if ( recurse() )
-                        length += getLength( (Element) node );
+                // do two things: if it's the one we're looking for, count
+                // another matched element; at any rate, traverse it's
+                // children as well.
+                if (node instanceof Element) {
+                    if (collectionMatch((Element) node, null)) {
+                        ++length;
+                    }
+                    else if (recurse()) {
+                        length += getLength((Element) node);
+                    }
                 }
                 node = node.getNextSibling();
             }
         }
         return length;
     }
-
 
     /**
      * Recursive function returns the numbered element of a particular type
@@ -271,35 +249,32 @@ class HTMLCollectionImpl
      * @return Number of elements
      * @see CollectionIndex
      */
-    private Node item( Element topLevel, CollectionIndex index )
-    {
+    private Node item(final Element topLevel, final CollectionIndex index) {
         Node    node;
         Node    result;
 
-        synchronized ( topLevel )
-        {
+        synchronized (topLevel) {
             // Traverse all the childs of the current element in the order
-        // they appear. Count from the index backwards until you reach
-        // matching element with an index of zero. Return that element.
+            // they appear. Count from the index backwards until you reach
+            // matching element with an index of zero. Return that element.
             node = topLevel.getFirstChild();
-            while ( node != null )
-            {
+            while (node != null) {
                 // If a particular node is an element (could be HTML or XML),
-        // do two things: if it's the one we're looking for, decrease
-        // the index and if zero, return this node; at any rate,
-        // traverse it's children as well.
-                if ( node instanceof Element )
-                {
-                    if ( collectionMatch( (Element) node, null ) )
-                    {
-                        if ( index.isZero() )
+                // do two things: if it's the one we're looking for, decrease
+                // the index and if zero, return this node; at any rate,
+                // traverse it's children as well.
+                if (node instanceof Element) {
+                    if (collectionMatch((Element) node, null)) {
+                        if (index.isZero()) {
                             return node;
+                        }
                         index.decrement();
-                    } else if ( recurse() )
-                    {
-                        result = item( (Element) node, index );
-                        if ( result != null )
+                    }
+                    else if (recurse()) {
+                        result = item((Element) node, index);
+                        if (result != null) {
                             return result;
+                        }
                     }
                 }
                 node = node.getNextSibling();
@@ -307,7 +282,6 @@ class HTMLCollectionImpl
         }
         return null;
     }
-
 
     /**
      * Recursive function returns an element of a particular type with the
@@ -317,31 +291,28 @@ class HTMLCollectionImpl
      * @param name The named element to look for
      * @return The first named element found
      */
-    private  Node namedItem( Element topLevel, String name )
-    {
+    private  Node namedItem(final Element topLevel, final String name) {
         Node    node;
         Node    result;
 
-        synchronized ( topLevel )
-        {
+        synchronized (topLevel) {
             // Traverse all the childs of the current element in the order
-        // they appear.
+            // they appear.
             node = topLevel.getFirstChild();
-            while ( node != null )
-            {
+            while (node != null) {
                 // If a particular node is an element (could be HTML or XML),
                 // do two things: if it's the one we're looking for, and the
-        // name (id attribute) attribute is the one we're looking for,
-        // return this element; otherwise, traverse it's children.
-                if ( node instanceof Element )
-                {
-                    if ( collectionMatch( (Element) node, name ) )
+                // name (id attribute) attribute is the one we're looking for,
+                // return this element; otherwise, traverse it's children.
+                if (node instanceof Element) {
+                    if (collectionMatch((Element) node, name)) {
                         return node;
-                    else if ( recurse() )
-                    {
-                        result = namedItem( (Element) node, name );
-                        if ( result != null )
+                    }
+                    else if (recurse()) {
+                        result = namedItem((Element) node, name);
+                        if (result != null) {
                             return result;
+                        }
                     }
                 }
                 node = node.getNextSibling();
@@ -349,7 +320,6 @@ class HTMLCollectionImpl
             return node;
         }
     }
-
 
     /**
      * Returns true if scanning methods should iterate through the collection.
@@ -359,11 +329,9 @@ class HTMLCollectionImpl
      *
      * @return True if methods should recurse to traverse entire tree
      */
-    protected boolean recurse()
-    {
-        return _lookingFor > 0;
+    protected boolean recurse() {
+        return lookingFor_ > 0;
     }
-
 
     /**
      * Determines if current element matches based on what we're looking for.
@@ -376,93 +344,84 @@ class HTMLCollectionImpl
      * @param name The identifier name or null
      * @return The element matches what we're looking for
      */
-    protected boolean collectionMatch( Element elem, String name )
-    {
+    protected boolean collectionMatch(final Element elem, final String name) {
         boolean    match;
 
-        synchronized ( elem )
-        {
+        synchronized (elem) {
             // Begin with no matching. Depending on what we're looking for,
             // attempt to match based on the element type. This is the quickest
             // way to match involving only a cast. Do the expensive string
             // comparison later on.
             match = false;
-            switch ( _lookingFor )
-            {
-            case ANCHOR:
+            switch (lookingFor_) {
+                case ANCHOR:
                 // Anchor is an <A> element with a 'name' attribute. Otherwise, it's
                 // just a link.
-                match = ( elem instanceof HTMLAnchorElement ) &&
-                        elem.getAttribute( "name" ).length() > 0;
-                break;
-            case FORM:
-                // Any <FORM> element.
-                match = elem instanceof HTMLFormElement;
-                break;
-            case IMAGE:
-                // Any <IMG> element. <OBJECT> elements with images are not returned.
-                match = elem instanceof HTMLImageElement;
-                break;
-            case APPLET:
-                // Any <APPLET> element, and any <OBJECT> element which represents an
-                // Applet. This is determined by 'codetype' attribute being
-                // 'application/java' or 'classid' attribute starting with 'java:'.
-                match = ( elem instanceof HTMLAppletElement ) ||
-                        ( elem instanceof HTMLObjectElement &&
-                          ( "application/java".equals( elem.getAttribute( "codetype" ) ) ||
-                            elem.getAttribute( "classid" ).startsWith( "java:" ) ) );
-                break;
-            case ELEMENT:
-                // All form elements implement HTMLFormControl for easy identification.
-                match = elem instanceof HTMLFormControl;
-                break;
-            case LINK:
-                // Any <A> element, and any <AREA> elements with an 'href' attribute.
-                match = ( elem instanceof HTMLAnchorElement ||
-                            elem instanceof HTMLAreaElement ) &&
-                          elem.getAttribute( "href" ).length() > 0;
-                break;
-            case AREA:
-                // Any <AREA> element.
-                match = elem instanceof HTMLAreaElement;
-                break;
-            case OPTION:
-                // Any <OPTION> element.
-                match = elem instanceof HTMLOptionElement;
-                break;
-            case ROW:
-                // Any <TR> element.
-                match = elem instanceof HTMLTableRowElement;
-                break;
-            case TBODY:
-                // Any <TBODY> element (one of three table section types).
-                match = elem instanceof HTMLTableSectionElement && elem.getTagName().equals( "TBODY" );
-                break;
-            case CELL:
-                // Any <TD> or <TH> element.
-                match = elem instanceof HTMLTableCellElement;
-                break;
+                    match = (elem instanceof HTMLAnchorElement) && elem.getAttribute("name").length() > 0;
+                    break;
+                case FORM:
+                    // Any <FORM> element.
+                    match = elem instanceof HTMLFormElement;
+                    break;
+                case IMAGE:
+                    // Any <IMG> element. <OBJECT> elements with images are not returned.
+                    match = elem instanceof HTMLImageElement;
+                    break;
+                case APPLET:
+                    // Any <APPLET> element, and any <OBJECT> element which represents an
+                    // Applet. This is determined by 'codetype' attribute being
+                    // 'application/java' or 'classid' attribute starting with 'java:'.
+                    match = (elem instanceof HTMLAppletElement)
+                            || (elem instanceof HTMLObjectElement
+                            && ("application/java".equals(elem.getAttribute("codetype"))
+                                    || elem.getAttribute("classid").startsWith("java:")));
+                    break;
+                case ELEMENT:
+                    // All form elements implement HTMLFormControl for easy identification.
+                    match = elem instanceof HTMLFormControl;
+                    break;
+                case LINK:
+                    // Any <A> element, and any <AREA> elements with an 'href' attribute.
+                    match = (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
+                                && elem.getAttribute("href").length() > 0;
+                    break;
+                case AREA:
+                    // Any <AREA> element.
+                    match = elem instanceof HTMLAreaElement;
+                    break;
+                case OPTION:
+                    // Any <OPTION> element.
+                    match = elem instanceof HTMLOptionElement;
+                    break;
+                case ROW:
+                    // Any <TR> element.
+                    match = elem instanceof HTMLTableRowElement;
+                    break;
+                case TBODY:
+                    // Any <TBODY> element (one of three table section types).
+                    match = elem instanceof HTMLTableSectionElement && elem.getTagName().equals("TBODY");
+                    break;
+                case CELL:
+                    // Any <TD> or <TH> element.
+                    match = elem instanceof HTMLTableCellElement;
+                    break;
             }
 
             // If element type was matched and a name was specified, must also match
             // the name against either the 'id' or the 'name' attribute. The 'name'
             // attribute is relevant only for <A> elements for backward compatibility.
-            if ( match && name != null )
-            {
+            if (match && name != null) {
                 // If an anchor and 'name' attribute matches, return true. Otherwise,
                 // try 'id' attribute.
-                if ( elem instanceof HTMLAnchorElement &&
-                     name.equals( elem.getAttribute( "name" ) ) )
+                if (elem instanceof HTMLAnchorElement && name.equals(elem.getAttribute("name"))) {
                     return true;
-                match = name.equals( elem.getAttribute( "id" ) );
+                }
+                match = name.equals(elem.getAttribute("id"));
             }
         }
         return match;
     }
-
-
 }
-
 
 /**
  * {@link HTMLCollectionImpl#item(int)} must traverse down the tree and decrement the
@@ -474,27 +433,27 @@ class HTMLCollectionImpl
  *
  * @see HTMLCollectionImpl#item(int)
  */
-class CollectionIndex
-{
+class CollectionIndex {
+    /**
+     * Holds the actual value that is passed by reference using this class.
+     */
+    private int index_;
+
     /**
      * Decrements the index by one.
      */
-    void decrement()
-    {
-        -- _index;
+    void decrement() {
+        --index_;
     }
-
 
     /**
      * Returns true if index is zero (or negative).
      *
      * @return True if index is zero
      */
-    boolean isZero()
-    {
-        return _index <= 0;
+    boolean isZero() {
+        return index_ <= 0;
     }
-
 
     /**
      * Constructs a new index with the specified initial value. The index will
@@ -502,16 +461,7 @@ class CollectionIndex
      *
      * @param index The initial value
      */
-    CollectionIndex( int index )
-    {
-        _index = index;
+    CollectionIndex(final int index) {
+        index_ = index;
     }
-
-
-    /**
-     * Holds the actual value that is passed by reference using this class.
-     */
-    private int        _index;
-
-
 }

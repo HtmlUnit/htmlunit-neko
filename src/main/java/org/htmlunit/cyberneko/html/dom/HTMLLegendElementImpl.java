@@ -34,7 +34,7 @@ public class HTMLLegendElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -42,26 +42,26 @@ public class HTMLLegendElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public String getAlign()
     {
-        return getAttribute( "align" );
+        return getAttribute("align");
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 

@@ -60,55 +60,55 @@ public class HTMLTableCellElementImpl
     @Override
     public String getAbbr()
     {
-        return getAttribute( "abbr" );
+        return getAttribute("abbr");
     }
 
 
     @Override
-    public void setAbbr( String abbr )
+    public void setAbbr(final String abbr )
     {
-        setAttribute( "abbr", abbr );
+        setAttribute("abbr", abbr );
     }
 
 
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getAxis()
     {
-        return getAttribute( "axis" );
+        return getAttribute("axis");
     }
 
 
     @Override
-    public void setAxis( String axis )
+    public void setAxis(final String axis )
     {
-        setAttribute( "axis", axis );
+        setAttribute("axis", axis );
     }
 
     @Override
     public String getBgColor()
     {
-        return getAttribute( "bgcolor" );
+        return getAttribute("bgcolor");
     }
 
 
     @Override
-    public void setBgColor( String bgColor )
+    public void setBgColor(final String bgColor )
     {
-        setAttribute( "bgcolor", bgColor );
+        setAttribute("bgcolor", bgColor );
     }
 
 
@@ -118,7 +118,7 @@ public class HTMLTableCellElementImpl
         String    ch;
 
         // Make sure that the access key is a single character.
-        ch = getAttribute( "char" );
+        ch = getAttribute("char");
         if ( ch != null && ch.length() > 1 )
             ch = ch.substring( 0, 1 );
         return ch;
@@ -126,137 +126,137 @@ public class HTMLTableCellElementImpl
 
 
     @Override
-    public void setCh( String ch )
+    public void setCh(final String ch )
     {
         // Make sure that the access key is a single character.
         if ( ch != null && ch.length() > 1 )
             ch = ch.substring( 0, 1 );
-        setAttribute( "char", ch );
+        setAttribute("char", ch );
     }
 
 
     @Override
     public String getChOff()
     {
-        return getAttribute( "charoff" );
+        return getAttribute("charoff");
     }
 
 
     @Override
-    public void setChOff( String chOff )
+    public void setChOff(final String chOff )
     {
-        setAttribute( "charoff", chOff );
+        setAttribute("charoff", chOff );
     }
 
 
     @Override
     public int getColSpan()
     {
-        return getInteger( getAttribute( "colspan" ) );
+        return getInteger( getAttribute("colspan"));
     }
 
 
     @Override
     public void setColSpan( int colspan )
     {
-        setAttribute( "colspan", String.valueOf( colspan ) );
+        setAttribute("colspan", String.valueOf( colspan ));
     }
 
 
     @Override
     public String getHeaders()
     {
-        return getAttribute( "headers" );
+        return getAttribute("headers");
     }
 
 
     @Override
-    public void setHeaders( String headers )
+    public void setHeaders(final String headers )
     {
-        setAttribute( "headers", headers );
+        setAttribute("headers", headers );
     }
 
 
     @Override
     public String getHeight()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHeight( String height )
+    public void setHeight(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
 
       @Override
     public boolean getNoWrap()
     {
-        return getBinary( "nowrap" );
+        return getBinary("nowrap");
     }
 
 
     @Override
     public void setNoWrap( boolean noWrap )
     {
-        setAttribute( "nowrap", noWrap );
+        setAttribute("nowrap", noWrap );
     }
 
     @Override
     public int getRowSpan()
     {
-        return getInteger( getAttribute( "rowspan" ) );
+        return getInteger( getAttribute("rowspan"));
     }
 
 
     @Override
     public void setRowSpan( int rowspan )
     {
-        setAttribute( "rowspan", String.valueOf( rowspan ) );
+        setAttribute("rowspan", String.valueOf( rowspan ));
     }
 
 
     @Override
     public String getScope()
     {
-        return getAttribute( "scope" );
+        return getAttribute("scope");
     }
 
 
     @Override
-    public void setScope( String scope )
+    public void setScope(final String scope )
     {
-        setAttribute( "scope", scope );
+        setAttribute("scope", scope );
     }
 
 
     @Override
     public String getVAlign()
     {
-        return capitalize( getAttribute( "valign" ) );
+        return capitalize( getAttribute("valign"));
     }
 
 
     @Override
-    public void setVAlign( String vAlign )
+    public void setVAlign(final String vAlign )
     {
-        setAttribute( "valign", vAlign );
+        setAttribute("valign", vAlign );
     }
 
 
       @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

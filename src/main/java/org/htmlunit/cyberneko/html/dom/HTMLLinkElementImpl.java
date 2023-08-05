@@ -31,126 +31,126 @@ public class HTMLLinkElementImpl
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
     @Override
     public String getCharset()
     {
-        return getAttribute( "charset" );
+        return getAttribute("charset");
     }
 
 
     @Override
-    public void setCharset( String charset )
+    public void setCharset(final String charset )
     {
-        setAttribute( "charset", charset );
+        setAttribute("charset", charset );
     }
 
 
     @Override
     public String getHref()
     {
-        return getAttribute( "href" );
+        return getAttribute("href");
     }
 
 
     @Override
-    public void setHref( String href )
+    public void setHref(final String href )
     {
-        setAttribute( "href", href );
+        setAttribute("href", href );
     }
 
 
     @Override
     public String getHreflang()
     {
-        return getAttribute( "hreflang" );
+        return getAttribute("hreflang");
     }
 
 
     @Override
-    public void setHreflang( String hreflang )
+    public void setHreflang(final String hreflang )
     {
-        setAttribute( "hreflang", hreflang );
+        setAttribute("hreflang", hreflang );
     }
 
 
     @Override
     public String getMedia()
     {
-        return getAttribute( "media" );
+        return getAttribute("media");
     }
 
 
     @Override
-    public void setMedia( String media )
+    public void setMedia(final String media )
     {
-        setAttribute( "media", media );
+        setAttribute("media", media );
     }
 
 
     @Override
     public String getRel()
     {
-        return getAttribute( "rel" );
+        return getAttribute("rel");
     }
 
 
     @Override
-    public void setRel( String rel )
+    public void setRel(final String rel )
     {
-        setAttribute( "rel", rel );
+        setAttribute("rel", rel );
     }
 
 
     @Override
     public String getRev()
     {
-        return getAttribute( "rev" );
+        return getAttribute("rev");
     }
 
 
     @Override
-    public void setRev( String rev )
+    public void setRev(final String rev )
     {
-        setAttribute( "rev", rev );
+        setAttribute("rev", rev );
     }
 
 
     @Override
     public String getTarget()
     {
-        return getAttribute( "target" );
+        return getAttribute("target");
     }
 
 
     @Override
-    public void setTarget( String target )
+    public void setTarget(final String target )
     {
-        setAttribute( "target", target );
+        setAttribute("target", target );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 

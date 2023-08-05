@@ -31,56 +31,56 @@ public class HTMLHRElementImpl
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public boolean getNoShade()
     {
-        return getBinary( "noshade" );
+        return getBinary("noshade");
     }
 
 
     @Override
     public void setNoShade( boolean noShade )
     {
-        setAttribute( "noshade", noShade );
+        setAttribute("noshade", noShade );
     }
 
 
     @Override
     public String getSize()
     {
-        return getAttribute( "size" );
+        return getAttribute("size");
     }
 
 
     @Override
-    public void setSize( String size )
+    public void setSize(final String size )
     {
-        setAttribute( "size", size );
+        setAttribute("size", size );
     }
 
 
       @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

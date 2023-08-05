@@ -31,28 +31,28 @@ public class HTMLModElementImpl
     @Override
     public String getCite()
     {
-        return getAttribute( "cite" );
+        return getAttribute("cite");
     }
 
 
     @Override
-    public void setCite( String cite )
+    public void setCite(final String cite )
     {
-        setAttribute( "cite", cite );
+        setAttribute("cite", cite );
     }
 
 
       @Override
     public String getDateTime()
     {
-        return getAttribute( "datetime" );
+        return getAttribute("datetime");
     }
 
 
     @Override
-    public void setDateTime( String dateTime )
+    public void setDateTime(final String dateTime )
     {
-        setAttribute( "datetime", dateTime );
+        setAttribute("datetime", dateTime );
     }
 
 

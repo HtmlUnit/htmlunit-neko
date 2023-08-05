@@ -31,28 +31,28 @@ public class HTMLLIElementImpl
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 
     @Override
     public int getValue()
     {
-        return getInteger( getAttribute( "value" ) );
+        return getInteger( getAttribute("value"));
     }
 
 
     @Override
     public void setValue( int value )
     {
-        setAttribute( "value", String.valueOf( value ) );
+        setAttribute("value", String.valueOf( value ));
     }
 
 

@@ -31,14 +31,14 @@ public class HTMLQuoteElementImpl
     @Override
     public String getCite()
     {
-        return getAttribute( "cite" );
+        return getAttribute("cite");
     }
 
 
     @Override
-    public void setCite( String cite )
+    public void setCite(final String cite )
     {
-        setAttribute( "cite", cite );
+        setAttribute("cite", cite );
     }
 
 

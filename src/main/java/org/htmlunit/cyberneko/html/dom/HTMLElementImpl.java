@@ -52,57 +52,57 @@ public class HTMLElementImpl
      * @param tagName The element's tag name
      */
     public HTMLElementImpl( HTMLDocumentImpl owner, String tagName ) {
-        super( owner, tagName.toUpperCase(Locale.ENGLISH) );
+        super( owner, tagName.toUpperCase(Locale.ENGLISH));
     }
 
     @Override
     public String getId() {
-        return getAttribute( "id" );
+        return getAttribute("id");
     }
 
     @Override
-    public void setId( String id ) {
-        setAttribute( "id", id );
+    public void setId(final String id ) {
+        setAttribute("id", id );
     }
 
     @Override
     public String getTitle() {
-        return getAttribute( "title" );
+        return getAttribute("title");
     }
 
     @Override
-    public void setTitle( String title ) {
-        setAttribute( "title", title );
+    public void setTitle(final String title ) {
+        setAttribute("title", title );
     }
 
     @Override
     public String getLang() {
-        return getAttribute( "lang" );
+        return getAttribute("lang");
     }
 
     @Override
-    public void setLang( String lang ) {
-        setAttribute( "lang", lang );
+    public void setLang(final String lang ) {
+        setAttribute("lang", lang );
     }
 
     @Override
     public String getDir() {
-        return getAttribute( "dir" );
+        return getAttribute("dir");
     }
 
     @Override
-    public void setDir( String dir ) {
-        setAttribute( "dir", dir );
+    public void setDir(final String dir ) {
+        setAttribute("dir", dir );
     }
 
     @Override
     public String getClassName() {
-        return getAttribute( "class" );
+        return getAttribute("class");
     }
 
     @Override
-    public void setClassName( String className ) {
-        setAttribute( "class", className );
+    public void setClassName(final String className ) {
+        setAttribute("class", className );
     }
 
     /**
@@ -113,7 +113,7 @@ public class HTMLElementImpl
      * @param value The value of the attribute
      * @return The integer value, or zero if not a valid numeric string
      */
-    int getInteger( String value ) {
+    int getInteger(final String value ) {
         try {
             return Integer.parseInt( value );
         }
@@ -131,7 +131,7 @@ public class HTMLElementImpl
      * @param name The name of the attribute
      * @return True or false depending on whether the attribute has been set
      */
-    boolean getBinary( String attrName) {
+    boolean getBinary(final String attrName) {
         return getAttributeNode( attrName ) != null;
     }
 
@@ -143,7 +143,7 @@ public class HTMLElementImpl
      * @param name The name of the attribute
      * @param value The value of the attribute
      */
-    void setAttribute( String name, boolean value ) {
+    void setAttribute(final String name, boolean value ) {
         if ( value ) {
             setAttribute( name, name );
         }
@@ -153,45 +153,45 @@ public class HTMLElementImpl
     }
 
     @Override
-    public Attr getAttributeNode( String attrName ) {
-        return super.getAttributeNode( attrName.toLowerCase(Locale.ENGLISH) );
+    public Attr getAttributeNode(final String attrName ) {
+        return super.getAttributeNode( attrName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public Attr getAttributeNodeNS( String namespaceURI,
+    public Attr getAttributeNodeNS(final String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
             return super.getAttributeNodeNS( namespaceURI, localName );
         }
-        return super.getAttributeNode( localName.toLowerCase(Locale.ENGLISH) );
+        return super.getAttributeNode( localName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public String getAttribute( String attrName ) {
-        return super.getAttribute( attrName.toLowerCase(Locale.ENGLISH) );
+    public String getAttribute(final String attrName ) {
+        return super.getAttribute( attrName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public String getAttributeNS( String namespaceURI,
+    public String getAttributeNS(final String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
             return super.getAttributeNS( namespaceURI, localName );
         }
-        return super.getAttribute( localName.toLowerCase(Locale.ENGLISH) );
+        return super.getAttribute( localName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public final NodeList getElementsByTagName( String tagName ) {
-        return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH) );
+    public final NodeList getElementsByTagName(final String tagName ) {
+        return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH));
     }
 
     @Override
-    public final NodeList getElementsByTagNameNS( String namespaceURI,
+    public final NodeList getElementsByTagNameNS(final String namespaceURI,
             String localName ) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
-            return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH) );
+            return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
-        return super.getElementsByTagName( localName.toUpperCase(Locale.ENGLISH) );
+        return super.getElementsByTagName( localName.toUpperCase(Locale.ENGLISH));
     }
 
     /**
@@ -202,7 +202,7 @@ public class HTMLElementImpl
      * @param value The value of the attribute
      * @return The capitalized value
      */
-    String capitalize( String value ) {
+    String capitalize(final String value ) {
 
         char[]    chars;
         int        i;
@@ -228,7 +228,7 @@ public class HTMLElementImpl
      * @param attrName The name of the attribute
      * @return The capitalized value
      */
-    String getCapitalized( String attrName ) {
+    String getCapitalized(final String attrName ) {
         String    value;
         char[]    chars;
         int        i;

@@ -34,7 +34,7 @@ public class HTMLAreaElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -42,109 +42,109 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public String getAlt()
     {
-        return getAttribute( "alt" );
+        return getAttribute("alt");
     }
 
 
     @Override
-    public void setAlt( String alt )
+    public void setAlt(final String alt )
     {
-        setAttribute( "alt", alt );
+        setAttribute("alt", alt );
     }
 
     @Override
     public String getCoords()
     {
-        return getAttribute( "coords" );
+        return getAttribute("coords");
     }
 
 
     @Override
-    public void setCoords( String coords )
+    public void setCoords(final String coords )
     {
-        setAttribute( "coords", coords );
+        setAttribute("coords", coords );
     }
 
 
     @Override
     public String getHref()
     {
-        return getAttribute( "href" );
+        return getAttribute("href");
     }
 
 
     @Override
-    public void setHref( String href )
+    public void setHref(final String href )
     {
-        setAttribute( "href", href );
+        setAttribute("href", href );
     }
 
 
     @Override
     public boolean getNoHref()
     {
-        return getBinary( "nohref" );
+        return getBinary("nohref");
     }
 
 
     @Override
     public void setNoHref( boolean noHref )
     {
-        setAttribute( "nohref", noHref );
+        setAttribute("nohref", noHref );
     }
 
 
     @Override
     public String getShape()
     {
-        return capitalize( getAttribute( "shape" ) );
+        return capitalize( getAttribute("shape"));
     }
 
 
     @Override
-    public void setShape( String shape )
+    public void setShape(final String shape )
     {
-        setAttribute( "shape", shape );
+        setAttribute("shape", shape );
     }
 
 
     @Override
     public int getTabIndex()
     {
-        return getInteger( getAttribute( "tabindex" ) );
+        return getInteger( getAttribute("tabindex"));
     }
 
 
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getTarget()
     {
-        return getAttribute( "target" );
+        return getAttribute("target");
     }
 
 
     @Override
-    public void setTarget( String target )
+    public void setTarget(final String target )
     {
-        setAttribute( "target", target );
+        setAttribute("target", target );
     }
 
 

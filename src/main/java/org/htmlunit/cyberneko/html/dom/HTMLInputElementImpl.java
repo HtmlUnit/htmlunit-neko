@@ -32,15 +32,15 @@ public class HTMLInputElementImpl
     public String getDefaultValue()
     {
         // ! NOT FULLY IMPLEMENTED !
-        return getAttribute( "defaultValue" );
+        return getAttribute("defaultValue");
     }
 
 
     @Override
-    public void setDefaultValue( String defaultValue )
+    public void setDefaultValue(final String defaultValue )
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute( "defaultValue", defaultValue );
+        setAttribute("defaultValue", defaultValue );
     }
 
 
@@ -48,7 +48,7 @@ public class HTMLInputElementImpl
     public boolean getDefaultChecked()
     {
         // ! NOT FULLY IMPLEMENTED !
-        return getBinary( "defaultChecked" );
+        return getBinary("defaultChecked");
     }
 
 
@@ -56,21 +56,21 @@ public class HTMLInputElementImpl
     public void setDefaultChecked( boolean defaultChecked )
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute( "defaultChecked", defaultChecked );
+        setAttribute("defaultChecked", defaultChecked );
     }
 
 
     @Override
     public String getAccept()
     {
-        return getAttribute( "accept" );
+        return getAttribute("accept");
     }
 
 
     @Override
-    public void setAccept( String accept )
+    public void setAccept(final String accept )
     {
-        setAttribute( "accept", accept );
+        setAttribute("accept", accept );
     }
 
 
@@ -80,7 +80,7 @@ public class HTMLInputElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -88,138 +88,138 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getAlt()
     {
-        return getAttribute( "alt" );
+        return getAttribute("alt");
     }
 
 
     @Override
-    public void setAlt( String alt )
+    public void setAlt(final String alt )
     {
-        setAttribute( "alt", alt );
+        setAttribute("alt", alt );
     }
 
 
     @Override
     public boolean getChecked()
     {
-        return getBinary( "checked" );
+        return getBinary("checked");
     }
 
 
     @Override
     public void setChecked( boolean checked )
     {
-        setAttribute( "checked", checked );
+        setAttribute("checked", checked );
     }
 
 
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
     @Override
     public int getMaxLength()
     {
-        return getInteger( getAttribute( "maxlength" ) );
+        return getInteger( getAttribute("maxlength"));
     }
 
 
     @Override
     public void setMaxLength( int maxLength )
     {
-        setAttribute( "maxlength", String.valueOf( maxLength ) );
+        setAttribute("maxlength", String.valueOf( maxLength ));
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public boolean getReadOnly()
     {
-        return getBinary( "readonly" );
+        return getBinary("readonly");
     }
 
 
     @Override
     public void setReadOnly( boolean readOnly )
     {
-        setAttribute( "readonly", readOnly );
+        setAttribute("readonly", readOnly );
     }
 
 
     @Override
     public String getSize()
     {
-        return getAttribute( "size" );
+        return getAttribute("size");
     }
 
 
     @Override
-    public void setSize( String size )
+    public void setSize(final String size )
     {
-        setAttribute( "size", size );
+        setAttribute("size", size );
     }
 
 
     @Override
     public String getSrc()
     {
-        return getAttribute( "src" );
+        return getAttribute("src");
     }
 
 
     @Override
-    public void setSrc( String src )
+    public void setSrc(final String src )
     {
-        setAttribute( "src", src );
+        setAttribute("src", src );
     }
 
 
@@ -228,7 +228,7 @@ public class HTMLInputElementImpl
     {
         try
         {
-            return Integer.parseInt( getAttribute( "tabindex" ) );
+            return Integer.parseInt( getAttribute("tabindex"));
         }
         catch ( NumberFormatException except )
         {
@@ -240,42 +240,42 @@ public class HTMLInputElementImpl
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
     public String getUseMap()
     {
-        return getAttribute( "useMap" );
+        return getAttribute("useMap");
     }
 
 
     @Override
-    public void setUseMap( String useMap )
+    public void setUseMap(final String useMap )
     {
-        setAttribute( "useMap", useMap );
+        setAttribute("useMap", useMap );
     }
 
 
     @Override
     public String getValue()
     {
-        return getAttribute( "value" );
+        return getAttribute("value");
     }
 
 
     @Override
-    public void setValue( String value )
+    public void setValue(final String value )
     {
-        setAttribute( "value", value );
+        setAttribute("value", value );
     }
 
 

@@ -31,14 +31,14 @@ public class HTMLIsIndexElementImpl
     @Override
     public String getPrompt()
     {
-        return getAttribute( "prompt" );
+        return getAttribute("prompt");
     }
 
 
     @Override
-    public void setPrompt( String prompt )
+    public void setPrompt(final String prompt )
     {
-        setAttribute( "prompt", prompt );
+        setAttribute("prompt", prompt );
     }
 
 

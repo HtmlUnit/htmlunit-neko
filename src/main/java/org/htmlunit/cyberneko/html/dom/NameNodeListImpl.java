@@ -74,7 +74,7 @@ public class NameNodeListImpl
             // ("*" matches anything.)
             if (current != rootNode && current != null
                 && current.getNodeType() ==  Node.ELEMENT_NODE  ) {
-                String name = ((ElementImpl) current).getAttribute( "name" );
+                String name = ((ElementImpl) current).getAttribute("name");
                 if ("*".equals(name) || name.equals(tagName))
                     return current;
             }

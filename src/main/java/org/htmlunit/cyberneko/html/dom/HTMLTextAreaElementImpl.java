@@ -32,15 +32,15 @@ public class HTMLTextAreaElementImpl
     public String getDefaultValue()
     {
         // ! NOT FULLY IMPLEMENTED !
-        return getAttribute( "default-value" );
+        return getAttribute("default-value");
     }
 
 
     @Override
-    public void setDefaultValue( String defaultValue )
+    public void setDefaultValue(final String defaultValue )
     {
         // ! NOT FULLY IMPLEMENTED !
-        setAttribute( "default-value", defaultValue );
+        setAttribute("default-value", defaultValue );
     }
 
 
@@ -51,7 +51,7 @@ public class HTMLTextAreaElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -59,117 +59,117 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public int getCols()
     {
-        return getInteger( getAttribute( "cols" ) );
+        return getInteger( getAttribute("cols"));
     }
 
 
     @Override
     public void setCols( int cols )
     {
-        setAttribute( "cols", String.valueOf( cols ) );
+        setAttribute("cols", String.valueOf( cols ));
     }
 
 
     @Override
     public boolean getDisabled()
     {
-        return getBinary( "disabled" );
+        return getBinary("disabled");
     }
 
 
     @Override
     public void setDisabled( boolean disabled )
     {
-        setAttribute( "disabled", disabled );
+        setAttribute("disabled", disabled );
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public boolean getReadOnly()
     {
-        return getBinary( "readonly" );
+        return getBinary("readonly");
     }
 
 
     @Override
     public void setReadOnly( boolean readOnly )
     {
-        setAttribute( "readonly", readOnly );
+        setAttribute("readonly", readOnly );
     }
 
 
        @Override
     public int getRows()
     {
-        return getInteger( getAttribute( "rows" ) );
+        return getInteger( getAttribute("rows"));
     }
 
 
     @Override
     public void setRows( int rows )
     {
-        setAttribute( "rows", String.valueOf( rows ) );
+        setAttribute("rows", String.valueOf( rows ));
     }
 
 
        @Override
     public int getTabIndex()
     {
-        return getInteger( getAttribute( "tabindex" ) );
+        return getInteger( getAttribute("tabindex"));
     }
 
 
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
       @Override
     public String getValue()
     {
-        return getAttribute( "value" );
+        return getAttribute("value");
     }
 
 
     @Override
-    public void setValue( String value )
+    public void setValue(final String value )
     {
-        setAttribute( "value", value );
+        setAttribute("value", value );
     }
 
 

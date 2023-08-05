@@ -31,27 +31,27 @@ public class HTMLBaseElementImpl
     @Override
     public String getHref()
     {
-        return getAttribute( "href" );
+        return getAttribute("href");
     }
 
 
     @Override
-    public void setHref( String href )
+    public void setHref(final String href )
     {
-        setAttribute( "href", href );
+        setAttribute("href", href );
     }
 
     @Override
     public String getTarget()
     {
-        return getAttribute( "target" );
+        return getAttribute("target");
     }
 
 
     @Override
-    public void setTarget( String target )
+    public void setTarget(final String target )
     {
-        setAttribute( "target", target );
+        setAttribute("target", target );
     }
 
 

@@ -31,182 +31,182 @@ public class HTMLImageElementImpl
     @Override
     public String getLowSrc()
     {
-        return getAttribute( "lowsrc" );
+        return getAttribute("lowsrc");
     }
 
 
     @Override
-    public void setLowSrc( String lowSrc )
+    public void setLowSrc(final String lowSrc )
     {
-        setAttribute( "lowsrc", lowSrc );
+        setAttribute("lowsrc", lowSrc );
     }
 
 
        @Override
     public String getSrc()
     {
-        return getAttribute( "src" );
+        return getAttribute("src");
     }
 
 
     @Override
-    public void setSrc( String src )
+    public void setSrc(final String src )
     {
-        setAttribute( "src", src );
+        setAttribute("src", src );
     }
 
 
       @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getAlt()
     {
-        return getAttribute( "alt" );
+        return getAttribute("alt");
     }
 
 
     @Override
-    public void setAlt( String alt )
+    public void setAlt(final String alt )
     {
-        setAttribute( "alt", alt );
+        setAttribute("alt", alt );
     }
 
 
     @Override
     public String getBorder()
     {
-        return getAttribute( "border" );
+        return getAttribute("border");
     }
 
 
     @Override
-    public void setBorder( String border )
+    public void setBorder(final String border )
     {
-        setAttribute( "border", border );
+        setAttribute("border", border );
     }
 
 
       @Override
     public String getHeight()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHeight( String height )
+    public void setHeight(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
 
     @Override
     public String getHspace()
     {
-        return getAttribute( "hspace" );
+        return getAttribute("hspace");
     }
 
 
     @Override
-    public void setHspace( String hspace )
+    public void setHspace(final String hspace )
     {
-        setAttribute( "hspace", hspace );
+        setAttribute("hspace", hspace );
     }
 
 
     @Override
     public boolean getIsMap()
     {
-        return getBinary( "ismap" );
+        return getBinary("ismap");
     }
 
 
     @Override
     public void setIsMap( boolean isMap )
     {
-        setAttribute( "ismap", isMap );
+        setAttribute("ismap", isMap );
     }
 
 
     @Override
     public String getLongDesc()
     {
-        return getAttribute( "longdesc" );
+        return getAttribute("longdesc");
     }
 
 
     @Override
-    public void setLongDesc( String longDesc )
+    public void setLongDesc(final String longDesc )
     {
-        setAttribute( "longdesc", longDesc );
+        setAttribute("longdesc", longDesc );
     }
 
 
     @Override
     public String getUseMap()
     {
-        return getAttribute( "useMap" );
+        return getAttribute("useMap");
     }
 
 
     @Override
-    public void setUseMap( String useMap )
+    public void setUseMap(final String useMap )
     {
-        setAttribute( "useMap", useMap );
+        setAttribute("useMap", useMap );
     }
 
 
     @Override
     public String getVspace()
     {
-        return getAttribute( "vspace" );
+        return getAttribute("vspace");
     }
 
 
     @Override
-    public void setVspace( String vspace )
+    public void setVspace(final String vspace )
     {
-        setAttribute( "vspace", vspace );
+        setAttribute("vspace", vspace );
     }
 
 
       @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

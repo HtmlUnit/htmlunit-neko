@@ -222,7 +222,7 @@ public class HTMLDocumentImpl
         // HTML element must exist. Create a new element and dump the
         // entire contents of the document into it in the same order as
         // they appear now.
-        html = new HTMLHtmlElementImpl( this, "HTML" );
+        html = new HTMLHtmlElementImpl( this, "HTML");
         child = getFirstChild();
         while ( child != null )
         {
@@ -262,7 +262,7 @@ public class HTMLDocumentImpl
         synchronized ( html )
         {
             head = html.getFirstChild();
-            while ( head != null && ! ( head instanceof HTMLHeadElement ) )
+            while ( head != null && ! ( head instanceof HTMLHeadElement ))
                 head = head.getNextSibling();
             // HEAD exists but might not be first element in HTML: make sure
             // it is and return it.
@@ -274,7 +274,7 @@ public class HTMLDocumentImpl
                     while ( child != null && child != head )
                     {
                         next = child.getNextSibling();
-                        head.insertBefore( child, head.getFirstChild() );
+                        head.insertBefore( child, head.getFirstChild());
                         child = next;
                     }
                 }
@@ -283,8 +283,8 @@ public class HTMLDocumentImpl
 
             // Head does not exist, create a new one, place it at the top of the
             // HTML element and return it.
-            head = new HTMLHeadElementImpl( this, "HEAD" );
-            html.insertBefore( head, html.getFirstChild() );
+            head = new HTMLHeadElementImpl( this, "HEAD");
+            html.insertBefore( head, html.getFirstChild());
         }
         return (HTMLElement) head;
     }
@@ -301,7 +301,7 @@ public class HTMLDocumentImpl
         // When found, make sure the TITLE is a direct child of HEAD,
         // and return the title's text (the Text node contained within).
         head = getHead();
-        list = head.getElementsByTagName( "TITLE" );
+        list = head.getElementsByTagName("TITLE");
         if ( list.getLength() > 0 ) {
             title = list.item( 0 );
             return ( (HTMLTitleElement) title ).getText();
@@ -312,7 +312,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public synchronized void setTitle( String newTitle )
+    public synchronized void setTitle(final String newTitle )
     {
         HTMLElement head;
         NodeList    list;
@@ -322,7 +322,7 @@ public class HTMLDocumentImpl
         // When found, make sure the TITLE is a direct child of HEAD,
         // and set the title's text (the Text node contained within).
         head = getHead();
-        list = head.getElementsByTagName( "TITLE" );
+        list = head.getElementsByTagName("TITLE");
         if ( list.getLength() > 0 ) {
             title = list.item( 0 );
             if ( title.getParentNode() != head )
@@ -333,7 +333,7 @@ public class HTMLDocumentImpl
         {
             // No TITLE found, create a new element and place it at the end
             // of the HEAD element.
-            title = new HTMLTitleElementImpl( this, "TITLE" );
+            title = new HTMLTitleElementImpl( this, "TITLE");
             ( (HTMLTitleElement) title ).setText( newTitle );
             head.appendChild( title );
         }
@@ -358,7 +358,7 @@ public class HTMLDocumentImpl
         {
             body = head.getNextSibling();
             while ( body != null && ! ( body instanceof HTMLBodyElement )
-                    && ! ( body instanceof HTMLFrameSetElement ) )
+                    && ! ( body instanceof HTMLFrameSetElement ))
                 body = body.getNextSibling();
 
             // BODY/FRAMESET exists but might not be second element in HTML
@@ -371,7 +371,7 @@ public class HTMLDocumentImpl
                     while ( child != null && child != body )
                     {
                         next = child.getNextSibling();
-                        body.insertBefore( child, body.getFirstChild() );
+                        body.insertBefore( child, body.getFirstChild());
                         child = next;
                     }
                 }
@@ -380,7 +380,7 @@ public class HTMLDocumentImpl
 
             // BODY does not exist, create a new one, place it in the HTML element
             // right after the HEAD and return it.
-            body = new HTMLBodyElementImpl( this, "BODY" );
+            body = new HTMLBodyElementImpl( this, "BODY");
             html.appendChild( body );
         }
         return (HTMLElement) body;
@@ -405,7 +405,7 @@ public class HTMLDocumentImpl
             head = getHead();
             synchronized ( html )
             {
-                list = this.getElementsByTagName( "BODY" );
+                list = this.getElementsByTagName("BODY");
                 if ( list.getLength() > 0 ) {
                     // BODY exists but might not follow HEAD in HTML. If not,
                     // make it so and replce it. Start with the HEAD and make
@@ -439,7 +439,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public synchronized Element getElementById( String elementId )
+    public synchronized Element getElementById(final String elementId )
     {
         Element idElement = super.getElementById(elementId);
         if (idElement != null) {
@@ -450,27 +450,27 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public NodeList getElementsByName( String elementName )
+    public NodeList getElementsByName(final String elementName )
     {
         return new NameNodeListImpl( this, elementName );
     }
 
 
     @Override
-    public final NodeList getElementsByTagName( String tagName )
+    public final NodeList getElementsByTagName(final String tagName )
     {
-        return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH) );
+        return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH));
     }
 
 
     @Override
-    public final NodeList getElementsByTagNameNS( String namespaceURI,
+    public final NodeList getElementsByTagNameNS(final String namespaceURI,
                                                   String localName )
     {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
-            return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH) );
+            return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
-        return super.getElementsByTagName( localName.toUpperCase(Locale.ENGLISH) );
+        return super.getElementsByTagName( localName.toUpperCase(Locale.ENGLISH));
     }
 
 
@@ -496,7 +496,7 @@ public class HTMLDocumentImpl
     }
 
     @Override
-    public Element createElementNS( String namespaceURI, String qualifiedName )
+    public Element createElementNS(final String namespaceURI, String qualifiedName )
     {
         if ( namespaceURI == null || namespaceURI.length() == 0 ) {
             return createElement( qualifiedName );
@@ -506,7 +506,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public Element createElement( String tagName )
+    public Element createElement(final String tagName )
         throws DOMException
     {
         Class<?> elemClass;
@@ -529,7 +529,7 @@ public class HTMLDocumentImpl
             }
             catch (Exception e)
             {
-                throw new IllegalStateException( "HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
+                throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
             }
         }
         return new HTMLElementImpl( this, tagName );
@@ -547,10 +547,10 @@ public class HTMLDocumentImpl
      *   is not acceptable
      */
     @Override
-    public Attr createAttribute( String name )
+    public Attr createAttribute(final String name )
         throws DOMException
     {
-        return super.createAttribute( name.toLowerCase(Locale.ENGLISH) );
+        return super.createAttribute( name.toLowerCase(Locale.ENGLISH));
     }
 
 
@@ -587,7 +587,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public void setCookie( String cookie )
+    public void setCookie(final String cookie )
     {
         // Information not available on server side.
     }
@@ -665,7 +665,7 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public void write( String text )
+    public void write(final String text )
     {
         // Write a string into the in-memory writer.
         if ( _writer != null )
@@ -674,11 +674,11 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public void writeln( String text )
+    public void writeln(final String text )
     {
         // Write a line into the in-memory writer.
         if ( _writer != null )
-            _writer.write( text + "\n" );
+            _writer.write( text + "\n");
     }
 
 
@@ -716,7 +716,7 @@ public class HTMLDocumentImpl
      * @param elementId The <code>id</code> value to look for
      * @return The node in which to look for
      */
-    private Element getElementById( String elementId, Node node )
+    private Element getElementById(final String elementId, Node node )
     {
         Node    child;
         Element    result;
@@ -726,7 +726,7 @@ public class HTMLDocumentImpl
         {
             if ( child instanceof Element )
             {
-                if ( elementId.equals( ( (Element) child ).getAttribute( "id" ) ) )
+                if ( elementId.equals( ( (Element) child ).getAttribute("id")))
                     return (Element) child;
                 result = getElementById( elementId, child );
                 if ( result != null )

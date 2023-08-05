@@ -32,139 +32,139 @@ public class HTMLIFrameElementImpl
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getFrameBorder()
     {
-        return getAttribute( "frameborder" );
+        return getAttribute("frameborder");
     }
 
 
     @Override
-    public void setFrameBorder( String frameBorder )
+    public void setFrameBorder(final String frameBorder )
     {
-        setAttribute( "frameborder", frameBorder );
+        setAttribute("frameborder", frameBorder );
     }
 
 
     @Override
     public String getHeight()
     {
-        return getAttribute( "height" );
+        return getAttribute("height");
     }
 
 
     @Override
-    public void setHeight( String height )
+    public void setHeight(final String height )
     {
-        setAttribute( "height", height );
+        setAttribute("height", height );
     }
 
     @Override
     public String getLongDesc()
     {
-        return getAttribute( "longdesc" );
+        return getAttribute("longdesc");
     }
 
 
     @Override
-    public void setLongDesc( String longDesc )
+    public void setLongDesc(final String longDesc )
     {
-        setAttribute( "longdesc", longDesc );
+        setAttribute("longdesc", longDesc );
     }
 
 
     @Override
     public String getMarginHeight()
     {
-        return getAttribute( "marginheight" );
+        return getAttribute("marginheight");
     }
 
 
     @Override
-    public void setMarginHeight( String marginHeight )
+    public void setMarginHeight(final String marginHeight )
     {
-        setAttribute( "marginheight", marginHeight );
+        setAttribute("marginheight", marginHeight );
     }
 
 
     @Override
     public String getMarginWidth()
     {
-        return getAttribute( "marginwidth" );
+        return getAttribute("marginwidth");
     }
 
 
     @Override
-    public void setMarginWidth( String marginWidth )
+    public void setMarginWidth(final String marginWidth )
     {
-        setAttribute( "marginwidth", marginWidth );
+        setAttribute("marginwidth", marginWidth );
     }
 
 
       @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getScrolling()
     {
-        return capitalize( getAttribute( "scrolling" ) );
+        return capitalize( getAttribute("scrolling"));
     }
 
 
     @Override
-    public void setScrolling( String scrolling )
+    public void setScrolling(final String scrolling )
     {
-        setAttribute( "scrolling", scrolling );
+        setAttribute("scrolling", scrolling );
     }
 
 
        @Override
     public String getSrc()
     {
-        return getAttribute( "src" );
+        return getAttribute("src");
     }
 
 
     @Override
-    public void setSrc( String src )
+    public void setSrc(final String src )
     {
-        setAttribute( "src", src );
+        setAttribute("src", src );
     }
 
 
       @Override
     public String getWidth()
     {
-        return getAttribute( "width" );
+        return getAttribute("width");
     }
 
 
     @Override
-    public void setWidth( String width )
+    public void setWidth(final String width )
     {
-        setAttribute( "width", width );
+        setAttribute("width", width );
     }
 
 

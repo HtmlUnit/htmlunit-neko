@@ -35,14 +35,14 @@ public class HTMLTableSectionElementImpl
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
@@ -52,7 +52,7 @@ public class HTMLTableSectionElementImpl
         String    ch;
 
         // Make sure that the access key is a single character.
-        ch = getAttribute( "char" );
+        ch = getAttribute("char");
         if ( ch != null && ch.length() > 1 )
             ch = ch.substring( 0, 1 );
         return ch;
@@ -60,40 +60,40 @@ public class HTMLTableSectionElementImpl
 
 
     @Override
-    public void setCh( String ch )
+    public void setCh(final String ch )
     {
         // Make sure that the access key is a single character.
         if ( ch != null && ch.length() > 1 )
             ch = ch.substring( 0, 1 );
-        setAttribute( "char", ch );
+        setAttribute("char", ch );
     }
 
 
     @Override
     public String getChOff()
     {
-        return getAttribute( "charoff" );
+        return getAttribute("charoff");
     }
 
 
     @Override
-    public void setChOff( String chOff )
+    public void setChOff(final String chOff )
     {
-        setAttribute( "charoff", chOff );
+        setAttribute("charoff", chOff );
     }
 
 
     @Override
     public String getVAlign()
     {
-        return capitalize( getAttribute( "valign" ) );
+        return capitalize( getAttribute("valign"));
     }
 
 
     @Override
-    public void setVAlign( String vAlign )
+    public void setVAlign(final String vAlign )
     {
-        setAttribute( "valign", vAlign );
+        setAttribute("valign", vAlign );
     }
 
 
@@ -111,7 +111,7 @@ public class HTMLTableSectionElementImpl
     {
         HTMLTableRowElementImpl    newRow;
 
-        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR" );
+        newRow = new HTMLTableRowElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TR");
         newRow.insertCell( 0 );
         if ( insertRowX( index, newRow ) >= 0 )
             appendChild( newRow );

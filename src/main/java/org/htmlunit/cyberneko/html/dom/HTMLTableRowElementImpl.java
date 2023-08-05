@@ -72,7 +72,7 @@ public class HTMLTableRowElementImpl
         // Use getElementsByTagName() which creates a snapshot of all the
         // TR elements under the TABLE/section. Access to the returned NodeList
         // is very fast and the snapshot solves many synchronization problems.
-        rows = ( (HTMLElement) parent ).getElementsByTagName( "TR" );
+        rows = ( (HTMLElement) parent ).getElementsByTagName("TR");
         for ( i = 0 ; i < rows.getLength() ; ++i ) {
             if ( rows.item( i ) == this ) {
                 return i;
@@ -98,7 +98,7 @@ public class HTMLTableRowElementImpl
         Node        child;
         HTMLElement    newCell;
 
-        newCell = new HTMLTableCellElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TD" );
+        newCell = new HTMLTableCellElementImpl( (HTMLDocumentImpl) getOwnerDocument(), "TD");
         child = getFirstChild();
         while ( child != null ) {
             if ( child instanceof HTMLTableCellElement ) {
@@ -137,28 +137,28 @@ public class HTMLTableRowElementImpl
     @Override
     public String getAlign()
     {
-        return capitalize( getAttribute( "align" ) );
+        return capitalize( getAttribute("align"));
     }
 
 
     @Override
-    public void setAlign( String align )
+    public void setAlign(final String align )
     {
-        setAttribute( "align", align );
+        setAttribute("align", align );
     }
 
 
     @Override
     public String getBgColor()
     {
-        return getAttribute( "bgcolor" );
+        return getAttribute("bgcolor");
     }
 
 
     @Override
-    public void setBgColor( String bgColor )
+    public void setBgColor(final String bgColor )
     {
-        setAttribute( "bgcolor", bgColor );
+        setAttribute("bgcolor", bgColor );
     }
 
 
@@ -168,7 +168,7 @@ public class HTMLTableRowElementImpl
         String    ch;
 
         // Make sure that the access key is a single character.
-        ch = getAttribute( "char" );
+        ch = getAttribute("char");
         if ( ch != null && ch.length() > 1 ) {
             ch = ch.substring( 0, 1 );
         }
@@ -177,41 +177,41 @@ public class HTMLTableRowElementImpl
 
 
     @Override
-    public void setCh( String ch )
+    public void setCh(final String ch )
     {
         // Make sure that the access key is a single character.
         if ( ch != null && ch.length() > 1 ) {
             ch = ch.substring( 0, 1 );
         }
-        setAttribute( "char", ch );
+        setAttribute("char", ch );
     }
 
 
     @Override
     public String getChOff()
     {
-        return getAttribute( "charoff" );
+        return getAttribute("charoff");
     }
 
 
     @Override
-    public void setChOff( String chOff )
+    public void setChOff(final String chOff )
     {
-        setAttribute( "charoff", chOff );
+        setAttribute("charoff", chOff );
     }
 
 
     @Override
     public String getVAlign()
     {
-        return capitalize( getAttribute( "valign" ) );
+        return capitalize( getAttribute("valign"));
     }
 
 
     @Override
-    public void setVAlign( String vAlign )
+    public void setVAlign(final String vAlign )
     {
-        setAttribute( "valign", vAlign );
+        setAttribute("valign", vAlign );
     }
 
     /**

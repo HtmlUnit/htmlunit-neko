@@ -31,14 +31,14 @@ public class HTMLBRElementImpl
     @Override
     public String getClear()
     {
-        return capitalize( getAttribute( "clear" ) );
+        return capitalize( getAttribute("clear"));
     }
 
 
     @Override
-    public void setClear( String clear )
+    public void setClear(final String clear )
     {
-        setAttribute( "clear", clear );
+        setAttribute("clear", clear );
     }
 
 

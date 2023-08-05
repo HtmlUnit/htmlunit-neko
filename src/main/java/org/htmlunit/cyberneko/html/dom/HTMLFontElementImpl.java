@@ -31,42 +31,42 @@ public class HTMLFontElementImpl
     @Override
     public String getColor()
     {
-        return capitalize( getAttribute( "color" ) );
+        return capitalize( getAttribute("color"));
     }
 
 
     @Override
-    public void setColor( String color )
+    public void setColor(final String color )
     {
-        setAttribute( "color", color );
+        setAttribute("color", color );
     }
 
 
     @Override
     public String getFace()
     {
-        return capitalize( getAttribute( "face" ) );
+        return capitalize( getAttribute("face"));
     }
 
 
     @Override
-    public void setFace( String face )
+    public void setFace(final String face )
     {
-        setAttribute( "face", face );
+        setAttribute("face", face );
     }
 
 
     @Override
     public String getSize()
     {
-        return getAttribute( "size" );
+        return getAttribute("size");
     }
 
 
     @Override
-    public void setSize( String size )
+    public void setSize(final String size )
     {
-        setAttribute( "size", size );
+        setAttribute("size", size );
     }
 
 

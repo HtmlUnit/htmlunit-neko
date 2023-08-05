@@ -31,28 +31,28 @@ public class HTMLFrameSetElementImpl
     @Override
     public String getCols()
     {
-        return getAttribute( "cols" );
+        return getAttribute("cols");
     }
 
 
     @Override
-    public void setCols( String cols )
+    public void setCols(final String cols )
     {
-        setAttribute( "cols", cols );
+        setAttribute("cols", cols );
     }
 
 
     @Override
     public String getRows()
     {
-        return getAttribute( "rows" );
+        return getAttribute("rows");
     }
 
 
     @Override
-    public void setRows( String rows )
+    public void setRows(final String rows )
     {
-        setAttribute( "rows", rows );
+        setAttribute("rows", rows );
     }
 
 

@@ -33,7 +33,7 @@ public class HTMLAnchorElementImpl
         String    accessKey;
 
         // Make sure that the access key is a single character.
-        accessKey = getAttribute( "accesskey" );
+        accessKey = getAttribute("accesskey");
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
         return accessKey;
@@ -41,166 +41,166 @@ public class HTMLAnchorElementImpl
 
 
     @Override
-    public void setAccessKey( String accessKey )
+    public void setAccessKey(final String accessKey )
     {
         // Make sure that the access key is a single character.
         if ( accessKey != null && accessKey.length() > 1 )
             accessKey = accessKey.substring( 0, 1 );
-        setAttribute( "accesskey", accessKey );
+        setAttribute("accesskey", accessKey );
     }
 
 
     @Override
     public String getCharset()
     {
-        return getAttribute( "charset" );
+        return getAttribute("charset");
     }
 
 
     @Override
-    public void setCharset( String charset )
+    public void setCharset(final String charset )
     {
-        setAttribute( "charset", charset );
+        setAttribute("charset", charset );
     }
 
 
     @Override
     public String getCoords()
     {
-        return getAttribute( "coords" );
+        return getAttribute("coords");
     }
 
 
     @Override
-    public void setCoords( String coords )
+    public void setCoords(final String coords )
     {
-        setAttribute( "coords", coords );
+        setAttribute("coords", coords );
     }
 
 
     @Override
     public String getHref()
     {
-        return getAttribute( "href" );
+        return getAttribute("href");
     }
 
 
     @Override
-    public void setHref( String href )
+    public void setHref(final String href )
     {
-        setAttribute( "href", href );
+        setAttribute("href", href );
     }
 
 
     @Override
     public String getHreflang()
     {
-        return getAttribute( "hreflang" );
+        return getAttribute("hreflang");
     }
 
 
     @Override
-    public void setHreflang( String hreflang )
+    public void setHreflang(final String hreflang )
     {
-        setAttribute( "hreflang", hreflang );
+        setAttribute("hreflang", hreflang );
     }
 
 
     @Override
     public String getName()
     {
-        return getAttribute( "name" );
+        return getAttribute("name");
     }
 
 
     @Override
-    public void setName( String name )
+    public void setName(final String name )
     {
-        setAttribute( "name", name );
+        setAttribute("name", name );
     }
 
 
     @Override
     public String getRel()
     {
-        return getAttribute( "rel" );
+        return getAttribute("rel");
     }
 
 
     @Override
-    public void setRel( String rel )
+    public void setRel(final String rel )
     {
-        setAttribute( "rel", rel );
+        setAttribute("rel", rel );
     }
 
 
     @Override
     public String getRev()
     {
-        return getAttribute( "rev" );
+        return getAttribute("rev");
     }
 
 
     @Override
-    public void setRev( String rev )
+    public void setRev(final String rev )
     {
-        setAttribute( "rev", rev );
+        setAttribute("rev", rev );
     }
 
 
     @Override
     public String getShape()
     {
-        return capitalize( getAttribute( "shape" ) );
+        return capitalize( getAttribute("shape"));
     }
 
 
     @Override
-    public void setShape( String shape )
+    public void setShape(final String shape )
     {
-        setAttribute( "shape", shape );
+        setAttribute("shape", shape );
     }
 
 
     @Override
     public int getTabIndex()
     {
-        return this.getInteger( getAttribute( "tabindex" ) );
+        return this.getInteger( getAttribute("tabindex"));
     }
 
 
     @Override
     public void setTabIndex( int tabIndex )
     {
-        setAttribute( "tabindex", String.valueOf( tabIndex ) );
+        setAttribute("tabindex", String.valueOf( tabIndex ));
     }
 
 
     @Override
     public String getTarget()
     {
-        return getAttribute( "target" );
+        return getAttribute("target");
     }
 
 
     @Override
-    public void setTarget( String target )
+    public void setTarget(final String target )
     {
-        setAttribute( "target", target );
+        setAttribute("target", target );
     }
 
 
     @Override
     public String getType()
     {
-        return getAttribute( "type" );
+        return getAttribute("type");
     }
 
 
     @Override
-    public void setType( String type )
+    public void setType(final String type )
     {
-        setAttribute( "type", type );
+        setAttribute("type", type );
     }
 
 
