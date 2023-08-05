@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,7 +52,7 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <span class='value\r\n"
-                + "containing a newline'>spancontent</span>", new String[] { "html", "body" }, expected,
+                + "containing a newline'>spancontent</span>", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -72,7 +71,7 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <span class='value\n"
-                + "containing a newline'>spancontent</span>", new String[] { "html", "body" }, expected,
+                + "containing a newline'>spancontent</span>", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -89,7 +88,7 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <?instruct beforenl='content'\r\n"
-                + "  afternl=\"content\" ?>more text\r\n", new String[] { "html", "body" }, expected,
+                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -106,14 +105,13 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <?instruct beforenl='content'\n"
-                + "  afternl=\"content\" ?>more text\r\n", new String[] { "html", "body" }, expected,
+                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
-    public static void doTest(final String html, final String[] contextStack,
-            final String expected, String... features) throws Exception {
+    public static void doTest(final String html, final String[] contextStack, final String expected, final String... features) throws Exception {
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        for (String feature : features) {
+        for (final String feature : features) {
             parser.setFeature(feature, true);
         }
 
@@ -122,7 +120,7 @@ public class GeneralTest {
         }
 
         final StringWriter out = new StringWriter();
-        final XMLDocumentFilter[] filters = { new Writer(out) };
+        final XMLDocumentFilter[] filters = {new Writer(out)};
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
 
         final StringReader sr = new StringReader(html);

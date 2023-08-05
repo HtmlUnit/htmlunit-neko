@@ -94,8 +94,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             + Constants.INCLUDE_IGNORABLE_WHITESPACE;
 
     /** Recognized features. */
-    private static final String[] RECOGNIZED_FEATURES = { NAMESPACES, CREATE_ENTITY_REF_NODES, INCLUDE_COMMENTS_FEATURE,
-            CREATE_CDATA_NODES_FEATURE, INCLUDE_IGNORABLE_WHITESPACE };
+    private static final String[] RECOGNIZED_FEATURES = {
+        NAMESPACES,
+        CREATE_ENTITY_REF_NODES,
+        INCLUDE_COMMENTS_FEATURE,
+        CREATE_CDATA_NODES_FEATURE,
+        INCLUDE_IGNORABLE_WHITESPACE};
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {};
@@ -401,9 +405,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 if (locator != null) {
                     fDocumentImpl.setDocumentURI(locator.getExpandedSystemId());
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new RuntimeException(DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
-                        "CannotCreateDocumentClass", new Object[] { fDocumentClass.getSimpleName() }));
+                        "CannotCreateDocumentClass", new Object[] {fDocumentClass.getSimpleName()}));
             }
         }
         fCurrentNode = fDocument;
@@ -813,18 +818,20 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     // method to create an element node.
     // subclasses can override this method to create element nodes in other ways.
-    protected Element createElementNode(QName element) {
-        Element el;
+    protected Element createElementNode(final QName element) {
+        final Element el;
 
         if (fNamespaceAware) {
             // if we are using xerces DOM implementation, call our
             // own constructor to reuse the strings we have here.
             if (fDocumentImpl != null) {
                 el = fDocumentImpl.createElementNS(element.uri, element.rawname, element.localpart);
-            } else {
+            }
+            else {
                 el = fDocument.createElementNS(element.uri, element.rawname);
             }
-        } else {
+        }
+        else {
             el = fDocument.createElement(element.rawname);
         }
 
@@ -833,18 +840,20 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     // method to create an attribute node.
     // subclasses can override this method to create attribute nodes in other ways.
-    protected Attr createAttrNode(QName attrQName) {
-        Attr attr;
+    protected Attr createAttrNode(final QName attrQName) {
+        final Attr attr;
 
         if (fNamespaceAware) {
             if (fDocumentImpl != null) {
                 // if we are using xerces DOM implementation, call our
                 // own constructor to reuse the strings we have here.
                 attr = fDocumentImpl.createAttributeNS(attrQName.uri, attrQName.rawname, attrQName.localpart);
-            } else {
+            }
+            else {
                 attr = fDocument.createAttributeNS(attrQName.uri, attrQName.rawname);
             }
-        } else {
+        }
+        else {
             attr = fDocument.createAttribute(attrQName.rawname);
         }
 
@@ -864,7 +873,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * removed fFistChunk must be set to true, otherwise some data can be lost.
      *
      */
-    protected void setCharacterData(boolean sawChars) {
+    protected void setCharacterData(final boolean sawChars) {
 
         // handle character data
         fFirstChunk = sawChars;
@@ -872,14 +881,15 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         // if we have data in the buffer we must have created
         // a text node already.
 
-        Node child = fCurrentNode.getLastChild();
+        final Node child = fCurrentNode.getLastChild();
         if (child != null) {
             if (fStringBuffer.length() > 0) {
                 // REVISIT: should this check be performed?
                 if (child.getNodeType() == Node.TEXT_NODE) {
                     if (fDocumentImpl != null) {
                         ((TextImpl) child).replaceData(fStringBuffer.toString());
-                    } else {
+                    }
+                    else {
                         ((Text) child).setData(fStringBuffer.toString());
                     }
                 }
@@ -904,21 +914,21 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @exception org.xml.sax.SAXException Throws exception on SAX error.
      * @exception java.io.IOException      Throws exception on i/o error.
      */
-    public void parse(String systemId) throws SAXException, IOException {
+    public void parse(final String systemId) throws SAXException, IOException {
 
         // parse document
-        XMLInputSource source = new XMLInputSource(null, systemId, null);
+        final XMLInputSource source = new XMLInputSource(null, systemId, null);
         try {
             parse(source);
         }
 
         // wrap XNI exceptions as SAX exceptions
         catch (XMLParseException e) {
-            Exception ex = e.getException();
+            final Exception ex = e.getException();
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info and throw
                 // a SAXParseException
-                LocatorImpl locatorImpl = new LocatorImpl();
+                final LocatorImpl locatorImpl = new LocatorImpl();
                 locatorImpl.setPublicId(e.getPublicId());
                 locatorImpl.setSystemId(e.getExpandedSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
@@ -934,9 +944,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 throw (IOException) ex;
             }
             throw new SAXException(ex);
-        } catch (XNIException e) {
+        }
+        catch (final XNIException e) {
             e.printStackTrace();
-            Exception ex = e.getException();
+            final Exception ex = e.getException();
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }

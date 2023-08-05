@@ -136,7 +136,7 @@ public class CanonicalTest {
     private static String getResult(final File infile) throws IOException {
         try (StringWriter out = new StringWriter()) {
             // create filters
-            final XMLDocumentFilter[] filters = { new Writer(out) };
+            final XMLDocumentFilter[] filters = {new Writer(out)};
 
             // create parser
             final XMLParserConfiguration parser = new HTMLConfiguration();

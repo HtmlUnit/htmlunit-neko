@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.parsers;
 
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
@@ -45,7 +44,7 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      *
      * @param config the config
      */
-    protected AbstractXMLDocumentParser(XMLParserConfiguration config) {
+    protected AbstractXMLDocumentParser(final XMLParserConfiguration config) {
         super(config);
 
         // set handlers
@@ -75,9 +74,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      */
 
     @Override
-    public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext,
-            Augmentations augs) throws XNIException {
-    } // startDocument(XMLLocator,String)
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * Notifies of the presence of an XMLDecl line in the document. If present, this
@@ -93,8 +91,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
-    } // xmlDecl(String,String,String)
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * Notifies of the presence of the DOCTYPE line in the document.
@@ -109,9 +107,9 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs)
+    public void doctypeDecl(final String rootElement, final String publicId, final String systemId, final Augmentations augs)
             throws XNIException {
-    } // doctypeDecl(String,String,String)
+    }
 
     /**
      * The start of an element. If the document specifies the start element by using
@@ -126,8 +124,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-    } // startElement(QName,XMLAttributes)
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * An empty element.
@@ -140,12 +138,10 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-
+    public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
         startElement(element, attributes, augs);
         endElement(element, augs);
-
-    } // emptyElement(QName,XMLAttributes)
+    }
 
     /**
      * Character content.
@@ -156,8 +152,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void characters(XMLString text, Augmentations augs) throws XNIException {
-    } // characters(XMLString)
+    public void characters(final XMLString text, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * Ignorable whitespace. For this method to be called, the document source must
@@ -172,8 +168,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
-    } // ignorableWhitespace(XMLString)
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * The end of an element.
@@ -184,8 +180,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endElement(QName element, Augmentations augs) throws XNIException {
-    } // endElement(QName)
+    public void endElement(final QName element, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * The start of a CDATA section.
@@ -195,8 +191,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
-    } // startCDATA()
+    public void startCDATA(final Augmentations augs) throws XNIException {
+    }
 
     /**
      * The end of a CDATA section.
@@ -206,8 +202,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
-    } // endCDATA()
+    public void endCDATA(final Augmentations augs) throws XNIException {
+    }
 
     /**
      * The end of the document.
@@ -217,8 +213,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
-    } // endDocument()
+    public void endDocument(final Augmentations augs) throws XNIException {
+    }
 
     /**
      * This method notifies the start of an entity.
@@ -236,8 +232,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException {
-    } // startGeneralEntity(String,XMLResourceIdentifier,String,Augmentations)
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * Notifies of the presence of a TextDecl line in an entity. If present, this
@@ -257,8 +253,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void textDecl(String version, String encoding, Augmentations augs) throws XNIException {
-    } // textDecl(String, String, Augmentations)
+    public void textDecl(final String version, final String encoding, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * This method notifies the end of an entity.
@@ -272,8 +268,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
-    } // endGeneralEntity(String,Augmentations)
+    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * A comment.
@@ -284,8 +280,8 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @exception XNIException Thrown by application to signal an error.
      */
     @Override
-    public void comment(XMLString text, Augmentations augs) throws XNIException {
-    } // comment (XMLString, Augmentations)
+    public void comment(final XMLString text, final Augmentations augs) throws XNIException {
+    }
 
     /**
      * A processing instruction. Processing instructions consist of a target name
@@ -304,19 +300,18 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
-    } // processingInstruction(String, XMLString, Augmentations)
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    }
 
     /** Sets the document source */
     @Override
-    public void setDocumentSource(XMLDocumentSource source) {
+    public void setDocumentSource(final XMLDocumentSource source) {
         fDocumentSource = source;
-    } // setDocumentSource
+    }
 
     /** Returns the document source */
     @Override
     public XMLDocumentSource getDocumentSource() {
         return fDocumentSource;
-    } // getDocumentSource
-
-} // class AbstractXMLDocumentParser
+    }
+}

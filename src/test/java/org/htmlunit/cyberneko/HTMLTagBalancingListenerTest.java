@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,88 +37,85 @@ import org.junit.jupiter.api.Test;
  */
 public class HTMLTagBalancingListenerTest {
 
-   @Test
-   public void ignoredTags() throws Exception {
-       final String string = "<html><head><title>foo</title></head>"
-           + "<body>"
-           + "<body onload='alert(123)'>"
-           + "<div>"
-           + "<form action='foo'>"
-           + "  <input name='text1'/>"
-           + "</div>"
-           + "</form>"
+    @Test
+    public void ignoredTags() throws Exception {
+        final String string = "<html><head><title>foo</title></head>"
+            + "<body>"
+            + "<body onload='alert(123)'>"
+            + "<div>"
+            + "<form action='foo'>"
+            + "  <input name='text1'/>"
+            + "</div>"
+            + "</form>"
             + "</body></html>";
 
-       final TestParser parser = new TestParser();
-       final StringReader sr = new StringReader(string);
-       final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
+        final TestParser parser = new TestParser();
+        final StringReader sr = new StringReader(string);
+        final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
 
-       parser.parse(in);
+        parser.parse(in);
 
-       final String[] expectedMessages = {"start html", "start head", "start title", "end title", "end head",
-               "start body", "ignored start body",
-               "start div", "start form", "start input", "end input", "end form",
-               "end div", "ignored end form",
-               "end body", "end html"};
+        final String[] expectedMessages = {"start html", "start head", "start title", "end title", "end head",
+            "start body", "ignored start body",
+            "start div", "start form", "start input", "end input", "end form",
+            "end div", "ignored end form",
+            "end body", "end html"};
 
-       assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
     }
 
-   /**
-    * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17
-    * @throws Exception on error
-    */
-   @Test
-   public void reuse() throws Exception {
-       final String string = "<head><title>title</title></head><body><div>hello</div></body>";
+    /**
+     * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17
+     * @throws Exception on error
+     */
+    @Test
+    public void reuse() throws Exception {
+        final String string = "<head><title>title</title></head><body><div>hello</div></body>";
 
-       final TestParser parser = new TestParser();
-       final StringReader sr = new StringReader(string);
-       final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
+        final TestParser parser = new TestParser();
+        final StringReader sr = new StringReader(string);
+        final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
 
-       parser.parse(in);
+        parser.parse(in);
 
-       final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
-               "start body", "start div", "end div", "end body", "end HTML"};
+        final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
+            "start body", "start div", "end div", "end body", "end HTML"};
 
-       assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
 
-       parser.messages.clear();
-       parser.parse(new XMLInputSource(null, "foo", null, new StringReader(string), null));
-       assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
+        parser.messages.clear();
+        parser.parse(new XMLInputSource(null, "foo", null, new StringReader(string), null));
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
     }
 }
 
-class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener
-{
+class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener {
     final List<String> messages = new ArrayList<>();
-    TestParser() throws Exception
-    {
+
+    TestParser() throws Exception {
         super(new HTMLConfiguration());
         setFeature("http://cyberneko.org/html/features/balance-tags/ignore-outside-content", true);
     }
 
     @Override
-    public void startElement(QName element, XMLAttributes attributes,
-            Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
 
         messages.add("start " + element.rawname);
         super.startElement(element, attributes, augs);
     }
 
     @Override
-    public void ignoredEndElement(QName element, Augmentations augs) {
+    public void ignoredEndElement(final QName element, final Augmentations augs) {
         messages.add("ignored end " + element.rawname);
     }
 
     @Override
-    public void ignoredStartElement(QName element, XMLAttributes attrs,
-            Augmentations augs) {
+    public void ignoredStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs) {
         messages.add("ignored start " + element.rawname);
     }
 
     @Override
-    public void endElement(QName element, Augmentations augs) throws XNIException {
+    public void endElement(final QName element, final Augmentations augs) throws XNIException {
         messages.add("end " + element.rawname);
         super.endElement(element, augs);
     }

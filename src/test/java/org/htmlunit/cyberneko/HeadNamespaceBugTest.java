@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +51,7 @@ public class HeadNamespaceBugTest {
         source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body/></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
-        final AbstractSAXParser parser = new AbstractSAXParser(conf){};
+        final AbstractSAXParser parser = new AbstractSAXParser(conf) { };
         parser.setContentHandler(handler);
         parser.parse(source);
 

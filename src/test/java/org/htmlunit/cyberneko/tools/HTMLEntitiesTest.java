@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.tools;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,11 +36,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEuml() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "Euml ";
+        final String input = "Euml ";
         int i = 0;
-        while(parser.parse(input.charAt(i))) {
+        while (parser.parse(input.charAt(i))) {
             i++;
         }
         assertEquals("\u00CB", parser.getMatch());
@@ -51,11 +50,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEuml_() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "Euml; ";
+        final String input = "Euml; ";
         int i = 0;
-        while(parser.parse(input.charAt(i))) {
+        while (parser.parse(input.charAt(i))) {
             i++;
         }
         assertEquals("\u00CB", parser.getMatch());
@@ -65,11 +64,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEumlX() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "EumlX";
+        final String input = "EumlX";
         int i = 0;
-        while(parser.parse(input.charAt(i))) {
+        while (parser.parse(input.charAt(i))) {
             i++;
         }
 
@@ -81,11 +80,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEumX() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "EumX";
+        final String input = "EumX";
         int i = 0;
-        while(parser.parse(input.charAt(i))) {
+        while (parser.parse(input.charAt(i))) {
             i++;
         }
         assertNull(parser.getMatch());
@@ -95,11 +94,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEuroLt() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "euro<";
+        final String input = "euro<";
         int i = 0;
-        while(parser.parse(input.charAt(i))) {
+        while (parser.parse(input.charAt(i))) {
             i++;
         }
 
@@ -111,11 +110,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEuro() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "x80;";
+        final String input = "x80;";
         int i = 0;
-        while(parser.parseNumeric(input.charAt(i))) {
+        while (parser.parseNumeric(input.charAt(i))) {
             i++;
         }
 
@@ -125,11 +124,11 @@ public class HTMLEntitiesTest {
 
     @Test
     public void parseEuroMissingSemicolon() {
-        HTMLEntitiesParser parser = new HTMLEntitiesParser();
+        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
-        String input = "x80<";
+        final String input = "x80<";
         int i = 0;
-        while(parser.parseNumeric(input.charAt(i))) {
+        while (parser.parseNumeric(input.charAt(i))) {
             i++;
         }
 

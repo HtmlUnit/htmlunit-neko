@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -129,38 +128,38 @@ public class HTMLScannerTest {
 
     private static class EvaluateInputSourceFilter extends DefaultFilter {
 
-       private final List<String> collectedStrings = new ArrayList<>();
-       private static int counter = 1;
-       protected final HTMLConfiguration fConfiguration;
+        private final List<String> collectedStrings = new ArrayList<>();
+        private static int counter = 1;
+        protected final HTMLConfiguration fConfiguration;
 
-       public EvaluateInputSourceFilter(HTMLConfiguration config) {
-           fConfiguration = config;
-       }
+        EvaluateInputSourceFilter(final HTMLConfiguration config) {
+            fConfiguration = config;
+        }
 
-       @Override
-       public void startElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
-           collectedStrings.add("(" + element.rawname);
-       }
+        @Override
+        public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+            collectedStrings.add("(" + element.rawname);
+        }
 
-       @Override
-       public void endElement(QName element, Augmentations augs) throws XNIException {
-           collectedStrings.add(")" + element.rawname);
-           if ("SCRIPT".equalsIgnoreCase(element.localpart)) {
-               // act as if evaluation of document.write would insert the content
-               insert("<style type=\"text/css\" id=\"myStyle\">");
-               insert("  .nwr {white-space: nowrap;}");
-               insert("</style>");
-               insert("<div id=\"myDiv\"><span></span>");
-               insert("</div>");
-           }
-       }
+        @Override
+        public void endElement(final QName element, final Augmentations augs) throws XNIException {
+            collectedStrings.add(")" + element.rawname);
+            if ("SCRIPT".equalsIgnoreCase(element.localpart)) {
+                // act as if evaluation of document.write would insert the content
+                insert("<style type=\"text/css\" id=\"myStyle\">");
+                insert("  .nwr {white-space: nowrap;}");
+                insert("</style>");
+                insert("<div id=\"myDiv\"><span></span>");
+                insert("</div>");
+            }
+        }
 
         private void insert(final String string) {
             collectedStrings.add("~inserting");
             final XMLInputSource source = new XMLInputSource(null, "myTest" + counter++, null,
                                                       new StringReader(string), "UTF-8");
             fConfiguration.evaluateInputSource(source);
-       }
+        }
 
     }
 

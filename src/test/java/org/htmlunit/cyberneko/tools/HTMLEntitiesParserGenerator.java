@@ -125,7 +125,7 @@ public class HTMLEntitiesParserGenerator {
                     if (entity.length() - start.length() > 1) {
                         final int stateId = switchChar(entities, mapped, start + (char) c, states);
 
-                        state.switchCode += "                    case '" + (char) c +"':\n";
+                        state.switchCode += "                    case '" + (char) c + "':\n";
                         state.switchCode += "                        state = " + stateId + ";\n";
                         state.switchCode += "                        return true;\n";
 
@@ -230,7 +230,7 @@ public class HTMLEntitiesParserGenerator {
             props.load(stream);
         }
         catch (final IOException e) {
-            System.err.println("error: unable to load resource \""+filename+"\"");
+            System.err.println("error: unable to load resource \"" + filename + "\"");
         }
     }
 }

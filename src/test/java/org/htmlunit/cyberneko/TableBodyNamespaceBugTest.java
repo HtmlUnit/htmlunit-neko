@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,19 +39,19 @@ public class TableBodyNamespaceBugTest {
     */
     @Test
     public void headNamespace() throws Exception {
-       final int[] nbTags = {0};
+        final int[] nbTags = {0};
         final ContentHandler handler = new DefaultHandler() {
             @Override
             public void startElement(final String ns, final String name, final String qName, final Attributes atts) {
-               assertEquals("http://www.w3.org/1999/xhtml:" + name, ns + ":" + name);
-               ++nbTags[0];
+                assertEquals("http://www.w3.org/1999/xhtml:" + name, ns + ":" + name);
+                ++nbTags[0];
             }
         };
         final InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
-        final AbstractSAXParser parser = new AbstractSAXParser(conf){};
+        final AbstractSAXParser parser = new AbstractSAXParser(conf) { };
         parser.setContentHandler(handler);
         parser.parse(source);
 

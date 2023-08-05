@@ -53,8 +53,8 @@ public class ReadmeTest {
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.parse(in);
 
-        HTMLDocumentImpl doc = (HTMLDocumentImpl) parser.getDocument();
-        NodeList headings = doc.getElementsByTagName("h1");
+        final HTMLDocumentImpl doc = (HTMLDocumentImpl) parser.getDocument();
+        final NodeList headings = doc.getElementsByTagName("h1");
 
         System.out.println(headings.item(0));
     }
@@ -82,11 +82,11 @@ public class ReadmeTest {
 
     private static class MyContentHandler implements ContentHandler {
         @Override
-        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+        public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
         }
 
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+        public void startElement(final String uri, final String localName, final String qName, final Attributes atts) throws SAXException {
         }
 
         @Override
@@ -94,28 +94,27 @@ public class ReadmeTest {
         }
 
         @Override
-        public void skippedEntity(String name) throws SAXException {
+        public void skippedEntity(final String name) throws SAXException {
         }
 
         @Override
-        public void setDocumentLocator(Locator locator) {
+        public void setDocumentLocator(final Locator locator) {
         }
 
         @Override
-        public void processingInstruction(String target, String data)
-                throws SAXException {
+        public void processingInstruction(final String target, final String data) throws SAXException {
         }
 
         @Override
-        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+        public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
         }
 
         @Override
-        public void endPrefixMapping(String prefix) throws SAXException {
+        public void endPrefixMapping(final String prefix) throws SAXException {
         }
 
         @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
+        public void endElement(final String uri, final String localName, final String qName) throws SAXException {
         }
 
         @Override
@@ -123,7 +122,7 @@ public class ReadmeTest {
         }
 
         @Override
-        public void characters(char[] ch, int start, int length) throws SAXException {
+        public void characters(final char[] ch, final int start, final int length) throws SAXException {
         }
     }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.io.IOException;
@@ -29,10 +28,9 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
 class HTMLErrorHandler extends DefaultErrorHandler {
     private final java.io.Writer out_;
 
-    public HTMLErrorHandler(final java.io.Writer out) {
+    HTMLErrorHandler(final java.io.Writer out) {
         out_ = out;
     }
-
 
     /** @see DefaultErrorHandler#error(String,String,XMLParseException) */
     @Override
@@ -41,7 +39,7 @@ class HTMLErrorHandler extends DefaultErrorHandler {
         println("Err", key, exception);
     }
 
-    private void println(final String type, String key, XMLParseException exception) throws XNIException {
+    private void println(final String type, final String key, final XMLParseException exception) throws XNIException {
         try {
             out_.append("[").append(type).append("] ").append(key).append(" ").append(exception.getMessage()).append("\n");
         }

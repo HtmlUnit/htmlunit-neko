@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.parsers;
 
 import java.io.CharConversionException;
@@ -56,8 +55,7 @@ import org.xml.sax.ext.Locator2Impl;
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implements XMLReader // SAX2
-{
+public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implements XMLReader { // SAX2
 
     //
     // Constants
@@ -69,7 +67,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final String NAMESPACES = Constants.SAX_FEATURE_PREFIX + Constants.NAMESPACES_FEATURE;
 
     /** Recognized features. */
-    private static final String[] RECOGNIZED_FEATURES = { NAMESPACES, };
+    private static final String[] RECOGNIZED_FEATURES = {NAMESPACES};
 
     // properties
 
@@ -77,7 +75,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     protected static final String LEXICAL_HANDLER = Constants.SAX_PROPERTY_PREFIX + Constants.LEXICAL_HANDLER_PROPERTY;
 
     /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = { LEXICAL_HANDLER, };
+    private static final String[] RECOGNIZED_PROPERTIES = {LEXICAL_HANDLER};
 
     //
     // Data
@@ -130,7 +128,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     private final AttributesProxy fAttributesProxy = new AttributesProxy();
 
     // Default constructor.
-    protected AbstractSAXParser(XMLParserConfiguration config) {
+    protected AbstractSAXParser(final XMLParserConfiguration config) {
         super(config);
 
         config.addRecognizedFeatures(RECOGNIZED_FEATURES);
@@ -162,8 +160,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext,
-            Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
 
         fNamespaceContext = namespaceContext;
 
@@ -179,7 +176,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     fContentHandler.startDocument();
                 }
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -199,7 +197,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
         // the version need only be set once; if
         // document's XML 1.0|1.1, that's how it'll stay
         fVersion = version;
@@ -219,7 +217,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs)
+    public void doctypeDecl(final String rootElement, final String publicId, final String systemId, final Augmentations augs)
             throws XNIException {
 
         try {
@@ -227,7 +225,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             if (fLexicalHandler != null) {
                 fLexicalHandler.startDTD(rootElement, publicId, systemId);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
     } // doctypeDecl(String,String,String)
@@ -256,14 +255,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException {
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
                 fLexicalHandler.startEntity(name);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -289,18 +289,19 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
+    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
                 fLexicalHandler.endEntity(name);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
-    } // endEntity(String)
+    }
 
     /**
      * The start of an element. If the document specifies the start element by using
@@ -315,7 +316,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2
@@ -326,12 +327,13 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     startNamespaceMapping();
                 }
 
-                String uri = element.uri != null ? element.uri : "";
-                String localpart = fNamespaces ? element.localpart : "";
+                final String uri = element.uri != null ? element.uri : "";
+                final String localpart = fNamespaces ? element.localpart : "";
                 fAttributesProxy.setAttributes(attributes);
                 fContentHandler.startElement(uri, localpart, element.rawname, fAttributesProxy);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -346,7 +348,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void characters(XMLString text, Augmentations augs) throws XNIException {
+    public void characters(final XMLString text, final Augmentations augs) throws XNIException {
 
         // if type is union (XML Schema) it is possible that we receive
         // character call with empty data
@@ -359,7 +361,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             if (fContentHandler != null) {
                 fContentHandler.characters(text.ch, text.offset, text.length);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -378,14 +381,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.ignorableWhitespace(text.ch, text.offset, text.length);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -400,19 +404,20 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endElement(QName element, Augmentations augs) throws XNIException {
+    public void endElement(final QName element, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2
             if (fContentHandler != null) {
-                String uri = element.uri != null ? element.uri : "";
-                String localpart = fNamespaces ? element.localpart : "";
+                final String uri = element.uri != null ? element.uri : "";
+                final String localpart = fNamespaces ? element.localpart : "";
                 fContentHandler.endElement(uri, localpart, element.rawname);
                 if (fNamespaces) {
                     endNamespaceMapping();
                 }
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -426,14 +431,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
+    public void startCDATA(final Augmentations augs) throws XNIException {
 
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
                 fLexicalHandler.startCDATA();
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -447,14 +453,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
+    public void endCDATA(final Augmentations augs) throws XNIException {
 
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
                 fLexicalHandler.endCDATA();
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -469,14 +476,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by application to signal an error.
      */
     @Override
-    public void comment(XMLString text, Augmentations augs) throws XNIException {
+    public void comment(final XMLString text, final Augmentations augs) throws XNIException {
 
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
                 fLexicalHandler.comment(text.ch, 0, text.length);
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -499,7 +507,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
 
         //
         // REVISIT - I keep running into SAX apps that expect
@@ -512,7 +520,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             if (fContentHandler != null) {
                 fContentHandler.processingInstruction(target, data.toString());
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -526,14 +535,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
+    public void endDocument(final Augmentations augs) throws XNIException {
 
         try {
             // SAX2
             if (fContentHandler != null) {
                 fContentHandler.endDocument();
             }
-        } catch (SAXException e) {
+        }
+        catch (final SAXException e) {
             throw new XNIException(e);
         }
 
@@ -558,21 +568,21 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @exception java.io.IOException      Throws exception on i/o error.
      */
     @Override
-    public void parse(String systemId) throws SAXException, IOException {
+    public void parse(final String systemId) throws SAXException, IOException {
 
         // parse document
-        XMLInputSource source = new XMLInputSource(null, systemId, null);
+        final XMLInputSource source = new XMLInputSource(null, systemId, null);
         try {
             parse(source);
         }
 
         // wrap XNI exceptions as SAX exceptions
-        catch (XMLParseException e) {
-            Exception ex = e.getException();
+        catch (final XMLParseException e) {
+            final Exception ex = e.getException();
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info
                 // and throw a SAXParseException
-                Locator2Impl locatorImpl = new Locator2Impl();
+                final Locator2Impl locatorImpl = new Locator2Impl();
                 // since XMLParseExceptions know nothing about encoding,
                 // we cannot return anything meaningful in this context.
                 // We *could* consult the LocatorProxy, but the
@@ -594,8 +604,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw (IOException) ex;
             }
             throw new SAXException(ex);
-        } catch (XNIException e) {
-            Exception ex = e.getException();
+        }
+        catch (final XNIException e) {
+            final Exception ex = e.getException();
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }
@@ -614,12 +625,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * {@inheritDoc}
      */
     @Override
-    public void parse(InputSource inputSource) throws SAXException, IOException {
+    public void parse(final InputSource inputSource) throws SAXException, IOException {
 
         // parse document
         try {
-            XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(), inputSource.getSystemId(),
-                    null);
+            final XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(), inputSource.getSystemId(), null);
             xmlInputSource.setByteStream(inputSource.getByteStream());
             xmlInputSource.setCharacterStream(inputSource.getCharacterStream());
             xmlInputSource.setEncoding(inputSource.getEncoding());
@@ -627,12 +637,12 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         }
 
         // wrap XNI exceptions as SAX exceptions
-        catch (XMLParseException e) {
-            Exception ex = e.getException();
+        catch (final XMLParseException e) {
+            final Exception ex = e.getException();
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info
                 // and throw a SAXParseException
-                Locator2Impl locatorImpl = new Locator2Impl();
+                final Locator2Impl locatorImpl = new Locator2Impl();
                 // since XMLParseExceptions know nothing about encoding,
                 // we cannot return anything meaningful in this context.
                 // We *could* consult the LocatorProxy, but the
@@ -654,8 +664,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 throw (IOException) ex;
             }
             throw new SAXException(ex);
-        } catch (XNIException e) {
-            Exception ex = e.getException();
+        }
+        catch (final XNIException e) {
+            final Exception ex = e.getException();
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }
@@ -674,7 +685,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * {@inheritDoc}
      */
     @Override
-    public void setEntityResolver(EntityResolver resolver) {
+    public void setEntityResolver(final EntityResolver resolver) {
     }
 
     /**
@@ -707,17 +718,19 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @see #getErrorHandler
      */
     @Override
-    public void setErrorHandler(ErrorHandler errorHandler) {
+    public void setErrorHandler(final ErrorHandler errorHandler) {
 
         try {
-            XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
             if (xeh instanceof ErrorHandlerWrapper) {
-                ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
+                final ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
                 ehw.setErrorHandler(errorHandler);
-            } else {
+            }
+            else {
                 fConfiguration.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
             }
-        } catch (XMLConfigurationException e) {
+        }
+        catch (final XMLConfigurationException e) {
             // do nothing
         }
 
@@ -734,11 +747,12 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         ErrorHandler errorHandler = null;
         try {
-            XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
             if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
                 errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
             }
-        } catch (XMLConfigurationException e) {
+        }
+        catch (final XMLConfigurationException e) {
             // do nothing
         }
         return errorHandler;
@@ -760,9 +774,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @see #getDTDHandler
      */
     @Override
-    public void setDTDHandler(DTDHandler dtdHandler) {
+    public void setDTDHandler(final DTDHandler dtdHandler) {
         fDTDHandler = dtdHandler;
-    } // setDTDHandler(DTDHandler)
+    }
 
     //
     // Parser methods
@@ -786,7 +800,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @see #getContentHandler
      */
     @Override
-    public void setContentHandler(ContentHandler contentHandler) {
+    public void setContentHandler(final ContentHandler contentHandler) {
         fContentHandler = contentHandler;
     } // setContentHandler(ContentHandler)
 
@@ -826,7 +840,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *                                      the requested state is not supported.
      */
     @Override
-    public void setFeature(String featureId, boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             //
@@ -876,21 +890,22 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     // checking is supported -- mrglavas.
                     if (state) {
                         throw new SAXNotSupportedException(
-                                SAXMessageFormatter.formatMessage("true-not-supported", new Object[] { featureId }));
+                                SAXMessageFormatter.formatMessage("true-not-supported", new Object[] {featureId}));
                     }
                     return;
                 }
             }
 
             fConfiguration.setFeature(featureId, state);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] { identifier }));
+                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] {identifier}));
             }
             throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] { identifier }));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
 
     } // setFeature(String,boolean)
@@ -909,7 +924,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *                                                  known but not supported.
      */
     @Override
-    public boolean getFeature(String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             //
@@ -952,14 +967,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             }
 
             return fConfiguration.getFeature(featureId);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] { identifier }));
+                        SAXMessageFormatter.formatMessage("feature-not-recognized", new Object[] {identifier}));
             }
             throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] { identifier }));
+                    SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
 
     } // getFeature(String):boolean
@@ -977,7 +993,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *                                      the requested value is not supported.
      */
     @Override
-    public void setProperty(String propertyId, Object value)
+    public void setProperty(final String propertyId, final Object value)
             throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
@@ -998,23 +1014,25 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                         && propertyId.endsWith(Constants.LEXICAL_HANDLER_PROPERTY)) {
                     try {
                         setLexicalHandler((LexicalHandler) value);
-                    } catch (ClassCastException e) {
+                    }
+                    catch (final ClassCastException e) {
                         throw new SAXNotSupportedException(SAXMessageFormatter.formatMessage("incompatible-class",
-                                new Object[] { propertyId, "org.xml.sax.ext.LexicalHandler" }));
+                                new Object[] {propertyId, "org.xml.sax.ext.LexicalHandler"}));
                     }
                     return;
                 }
             }
 
             fConfiguration.setProperty(propertyId, value);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] { identifier }));
+                        SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] {identifier}));
             }
             throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object[] { identifier }));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object[] {identifier}));
         }
 
     } // setProperty(String,Object)
@@ -1033,7 +1051,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *                                                  known but not supported.
      */
     @Override
-    public Object getProperty(String propertyId) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public Object getProperty(final String propertyId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             //
@@ -1067,14 +1085,15 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             }
 
             return fConfiguration.getProperty(propertyId);
-        } catch (XMLConfigurationException e) {
-            String identifier = e.getIdentifier();
+        }
+        catch (final XMLConfigurationException e) {
+            final String identifier = e.getIdentifier();
             if (e.getType() == XMLConfigurationException.NOT_RECOGNIZED) {
                 throw new SAXNotRecognizedException(
-                        SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] { identifier }));
+                        SAXMessageFormatter.formatMessage("property-not-recognized", new Object[] {identifier}));
             }
             throw new SAXNotSupportedException(
-                    SAXMessageFormatter.formatMessage("property-not-supported", new Object[] { identifier }));
+                    SAXMessageFormatter.formatMessage("property-not-supported", new Object[] {identifier}));
         }
 
     }
@@ -1096,11 +1115,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @see #getLexicalHandler()
      * @see #setProperty(String, Object)
      */
-    protected void setLexicalHandler(LexicalHandler handler) throws SAXNotSupportedException {
+    protected void setLexicalHandler(final LexicalHandler handler) throws SAXNotSupportedException {
 
         if (fParseInProgress) {
             throw new SAXNotSupportedException(SAXMessageFormatter.formatMessage("property-not-parsing-supported",
-                    new Object[] { "http://xml.org/sax/properties/lexical-handler" }));
+                    new Object[] {"http://xml.org/sax/properties/lexical-handler"}));
         }
         fLexicalHandler = handler;
 
@@ -1121,7 +1140,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws SAXException on error
      */
     protected final void startNamespaceMapping() throws SAXException {
-        int count = fNamespaceContext.getDeclaredPrefixCount();
+        final int count = fNamespaceContext.getDeclaredPrefixCount();
         if (count > 0) {
             String prefix;
             String uri;
@@ -1139,7 +1158,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws SAXException on error
      */
     protected final void endNamespaceMapping() throws SAXException {
-        int count = fNamespaceContext.getDeclaredPrefixCount();
+        final int count = fNamespaceContext.getDeclaredPrefixCount();
         if (count > 0) {
             for (int i = 0; i < count; i++) {
                 fContentHandler.endPrefixMapping(fNamespaceContext.getDeclaredPrefixAt(i));
@@ -1175,7 +1194,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         private final XMLLocator fLocator;
 
         // Constructs an XML locator proxy.
-        public LocatorProxy(XMLLocator locator) {
+        public LocatorProxy(final XMLLocator locator) {
             fLocator = locator;
         }
 
@@ -1235,7 +1254,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         private XMLAttributes fAttributes;
 
         // Sets the XML attributes.
-        public void setAttributes(XMLAttributes attributes) {
+        public void setAttributes(final XMLAttributes attributes) {
             fAttributes = attributes;
         } // setAttributes(XMLAttributes)
 
@@ -1245,83 +1264,83 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         }
 
         @Override
-        public String getQName(int index) {
+        public String getQName(final int index) {
             return fAttributes.getQName(index);
         }
 
         @Override
-        public String getURI(int index) {
+        public String getURI(final int index) {
             // REVISIT: this hides the fact that internally we use
             // null instead of empty string
             // SAX requires URI to be a string or an empty string
-            String uri = fAttributes.getURI(index);
+            final String uri = fAttributes.getURI(index);
             return uri != null ? uri : "";
         }
 
         @Override
-        public String getLocalName(int index) {
+        public String getLocalName(final int index) {
             return fAttributes.getLocalName(index);
         }
 
         @Override
-        public String getType(int i) {
+        public String getType(final int i) {
             return fAttributes.getType(i);
         }
 
         @Override
-        public String getType(String name) {
+        public String getType(final String name) {
             return fAttributes.getType(name);
         }
 
         @Override
-        public String getType(String uri, String localName) {
+        public String getType(final String uri, final String localName) {
             return uri.length() == 0 ? fAttributes.getType(null, localName) : fAttributes.getType(uri, localName);
         }
 
         @Override
-        public String getValue(int i) {
+        public String getValue(final int i) {
             return fAttributes.getValue(i);
         }
 
         @Override
-        public String getValue(String name) {
+        public String getValue(final String name) {
             return fAttributes.getValue(name);
         }
 
         @Override
-        public String getValue(String uri, String localName) {
+        public String getValue(final String uri, final String localName) {
             return uri.length() == 0 ? fAttributes.getValue(null, localName) : fAttributes.getValue(uri, localName);
         }
 
         @Override
-        public int getIndex(String qName) {
+        public int getIndex(final String qName) {
             return fAttributes.getIndex(qName);
         }
 
         @Override
-        public int getIndex(String uri, String localPart) {
+        public int getIndex(final String uri, final String localPart) {
             return uri.length() == 0 ? fAttributes.getIndex(null, localPart) : fAttributes.getIndex(uri, localPart);
         }
 
         // Attributes2 methods
         // REVISIT: Localize exception messages. -- mrglavas
         @Override
-        public boolean isDeclared(int index) {
+        public boolean isDeclared(final int index) {
             return false;
         }
 
         @Override
-        public boolean isDeclared(String qName) {
+        public boolean isDeclared(final String qName) {
             return false;
         }
 
         @Override
-        public boolean isDeclared(String uri, String localName) {
+        public boolean isDeclared(final String uri, final String localName) {
             return false;
         }
 
         @Override
-        public boolean isSpecified(int index) {
+        public boolean isSpecified(final int index) {
             if (index < 0 || index >= fAttributes.getLength()) {
                 throw new ArrayIndexOutOfBoundsException(index);
             }
@@ -1329,8 +1348,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         }
 
         @Override
-        public boolean isSpecified(String qName) {
-            int index = getIndex(qName);
+        public boolean isSpecified(final String qName) {
+            final int index = getIndex(qName);
             if (index == -1) {
                 throw new IllegalArgumentException(qName);
             }
@@ -1338,13 +1357,13 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         }
 
         @Override
-        public boolean isSpecified(String uri, String localName) {
-            int index = getIndex(uri, localName);
+        public boolean isSpecified(final String uri, final String localName) {
+            final int index = getIndex(uri, localName);
             if (index == -1) {
                 throw new IllegalArgumentException(localName);
             }
             return fAttributes.isSpecified(index);
         }
 
-    } // class AttributesProxy
-} // class AbstractSAXParser
+    }
+}
