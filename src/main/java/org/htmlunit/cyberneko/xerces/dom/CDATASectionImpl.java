@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.CDATASection;
@@ -46,7 +45,7 @@ public class CDATASectionImpl extends TextImpl implements CDATASection {
      * @param ownerDoc the owner document
      * @param data     the data
      */
-    public CDATASectionImpl(CoreDocumentImpl ownerDoc, String data) {
+    public CDATASectionImpl(final CoreDocumentImpl ownerDoc, final String data) {
         super(ownerDoc, data);
     }
 

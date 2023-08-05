@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,7 +77,7 @@ public class DOMFragmentParserTest {
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
 
         final DOMImplementationLS impl =
-            (DOMImplementationLS)registry.getDOMImplementation("LS");
+            (DOMImplementationLS) registry.getDOMImplementation("LS");
 
         final LSSerializer writer = impl.createLSSerializer();
         String str = writer.writeToString(fragment);
@@ -88,11 +87,11 @@ public class DOMFragmentParserTest {
         assertEquals(xmlDecl + expected, str);
     }
 
-    public static void print(Node node, String indent) {
-        System.out.println(indent+node.getClass().getName());
+    public static void print(final Node node, final String indent) {
+        System.out.println(indent + node.getClass().getName());
         Node child = node.getFirstChild();
         while (child != null) {
-            print(child, indent+" ");
+            print(child, indent + " ");
             child = child.getNextSibling();
         }
     }
@@ -116,7 +115,7 @@ public class DOMFragmentParserTest {
 
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
         final DOMImplementationLS impl =
-            (DOMImplementationLS)registry.getDOMImplementation("LS");
+            (DOMImplementationLS) registry.getDOMImplementation("LS");
 
         final LSSerializer writer = impl.createLSSerializer();
         final String str1 = writer.writeToString(fragment1);

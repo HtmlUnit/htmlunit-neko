@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
-
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -114,22 +112,22 @@ public class Writer
      * Creates a writer with the specified output stream using UTF-8
      * encoding.
      */
-    public Writer(OutputStream stream) {
+    public Writer(final OutputStream stream) {
         this(stream, "UTF8");
     }
 
     /** Creates a writer with the specified output stream and encoding. */
-    public Writer(OutputStream stream, String encoding) {
+    public Writer(final OutputStream stream, final String encoding) {
         try {
             out = new PrintWriter(new OutputStreamWriter(stream, encoding), true);
         }
         catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException("JVM must have "+encoding+" decoder");
+            throw new RuntimeException("JVM must have " + encoding + " decoder");
         }
     }
 
     /** Creates a writer with the specified Java Writer. */
-    public Writer(java.io.Writer writer) {
+    public Writer(final java.io.Writer writer) {
         out = new PrintWriter(writer);
     }
 
@@ -141,32 +139,29 @@ public class Writer
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext, Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
         fStringBuffer.clear();
     }
 
     /** End document. */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
+    public void endDocument(final Augmentations augs) throws XNIException {
         chars();
     }
 
-
     /** XML declaration. */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone,
-                        Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
         doAugs(augs);
-        if (version!=null) {
+        if (version != null) {
             out.print("xversion ");
             out.println(version);
         }
-        if (encoding!=null) {
+        if (encoding != null) {
             out.print("xencoding ");
             out.println(encoding);
         }
-        if (standalone!=null) {
+        if (standalone != null) {
             out.print("xstandalone ");
             out.println(standalone);
         }
@@ -175,7 +170,7 @@ public class Writer
 
     /** Doctype declaration. */
     @Override
-    public void doctypeDecl(String root, String pubid, String sysid, Augmentations augs) throws XNIException {
+    public void doctypeDecl(final String root, final String pubid, final String sysid, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.print('!');
@@ -198,7 +193,7 @@ public class Writer
 
     /** Processing instruction. */
     @Override
-    public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.print('?');
@@ -213,7 +208,7 @@ public class Writer
 
     /** Comment. */
     @Override
-    public void comment(XMLString text, Augmentations augs) throws XNIException {
+    public void comment(final XMLString text, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.print('#');
@@ -224,7 +219,7 @@ public class Writer
 
     /** Start element. */
     @Override
-    public void startElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.print('(');
@@ -257,7 +252,7 @@ public class Writer
 
     /** End element. */
     @Override
-    public void endElement(QName element, Augmentations augs) throws XNIException {
+    public void endElement(final QName element, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.print(')');
@@ -268,16 +263,16 @@ public class Writer
 
     /** Empty element. */
     @Override
-    public void emptyElement(QName element, XMLAttributes attrs, Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
     }
 
     /** Characters. */
     @Override
-    public void characters(XMLString text, Augmentations augs) throws XNIException {
+    public void characters(final XMLString text, final Augmentations augs) throws XNIException {
         storeCharactersEnd(augs);
-        if(!fInCharacters) {
+        if (!fInCharacters) {
             storeCharactersStart(augs);
         }
         fInCharacters = true;
@@ -286,27 +281,24 @@ public class Writer
 
     /** Ignorable whitespace. */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException {
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
         characters(text, augs);
     }
 
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
+    public void startCDATA(final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.println("((CDATA");
     }
 
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
+    public void endCDATA(final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out.println("))CDATA");
         out.flush();
     }
-    //
-    // Protected methods
-    //
 
     /** Prints collected characters. */
     protected void chars() {
@@ -323,7 +315,7 @@ public class Writer
     }
 
     /** Prints the specified string. */
-    protected void print(String s) {
+    protected void print(final String s) {
         if (s != null) {
             final int length = s.length();
             for (int i = 0; i < length; i++) {
@@ -357,10 +349,10 @@ public class Writer
      * Print out the HTML augmentations for the given augs.  Prints nothing if
      * there are no HTML augmentations available.
      */
-    protected void doAugs(Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs;
-        if(evInfo != null) {
-            if(evInfo.isSynthesized()) {
+    protected void doAugs(final Augmentations augs) {
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
+        if (evInfo != null) {
+            if (evInfo.isSynthesized()) {
                 out.print("[synth]");
             }
             else {
@@ -386,9 +378,9 @@ public class Writer
      * for the start of the current block of characters.  Does nothing if there
      * are no HTML augmentations available.
      */
-    protected void storeCharactersStart(Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs;
-        if(evInfo != null) {
+    protected void storeCharactersStart(final Augmentations augs) {
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
+        if (evInfo != null) {
             fCharactersBeginLine = evInfo.getBeginLineNumber();
             fCharactersBeginColumn = evInfo.getBeginColumnNumber();
             fCharactersBeginCharacterOffset = evInfo.getBeginCharacterOffset();
@@ -400,9 +392,9 @@ public class Writer
      * for the end of the current block of characters.  Does nothing if there
      * are no HTML augmentations available.
      */
-    protected void storeCharactersEnd(Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo)augs;
-        if(evInfo != null) {
+    protected void storeCharactersEnd(final Augmentations augs) {
+        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
+        if (evInfo != null) {
             fCharactersEndLine = evInfo.getEndLineNumber();
             fCharactersEndColumn = evInfo.getEndColumnNumber();
             fCharactersEndCharacterOffset = evInfo.getEndCharacterOffset();
@@ -415,7 +407,7 @@ public class Writer
      * available.
      */
     protected void doCharactersAugs() {
-        if(fCharactersBeginLine >= 0) {
+        if (fCharactersBeginLine >= 0) {
             out.print('[');
             out.print(fCharactersBeginLine);
             out.print(',');
@@ -432,13 +424,8 @@ public class Writer
         }
     }
 
-    //
-    // Protected static methods
-    //
-
     /** Sorts the attribute names. */
-    protected static void sortAttrNames(XMLAttributes attrs,
-                                        String[] anames, String[] auris) {
+    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames, final String[] auris) {
         for (int i = 0; i < anames.length; i++) {
             anames[i] = attrs.getQName(i);
             auris[i] = attrs.getURI(i);
@@ -462,12 +449,8 @@ public class Writer
         }
     }
 
-    //
-    // MAIN
-    //
-
     /** Main program. */
-    public static void main(String[] argv) throws Exception {
+    public static void main(final String[] argv) throws Exception {
         final org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter[] filters = {
             new Writer(),
         };
@@ -481,4 +464,3 @@ public class Writer
         }
     }
 }
-

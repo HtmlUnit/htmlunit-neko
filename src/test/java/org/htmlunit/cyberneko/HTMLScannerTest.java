@@ -49,15 +49,15 @@ public class HTMLScannerTest {
     @Test
     public void isEncodingCompatible() {
         final HTMLScanner scanner = new HTMLScanner(new HTMLConfiguration());
-        assertTrue(scanner.isEncodingCompatible("ISO-8859-1","ISO-8859-1"));
-        assertTrue(scanner.isEncodingCompatible("UTF-8","UTF-8"));
-        assertTrue(scanner.isEncodingCompatible("UTF-16","UTF-16"));
-        assertTrue(scanner.isEncodingCompatible("US-ASCII","ISO-8859-1"));
-        assertTrue(scanner.isEncodingCompatible("UTF-8","ISO-8859-1"));
+        assertTrue(scanner.isEncodingCompatible("ISO-8859-1", "ISO-8859-1"));
+        assertTrue(scanner.isEncodingCompatible("UTF-8", "UTF-8"));
+        assertTrue(scanner.isEncodingCompatible("UTF-16", "UTF-16"));
+        assertTrue(scanner.isEncodingCompatible("US-ASCII", "ISO-8859-1"));
+        assertTrue(scanner.isEncodingCompatible("UTF-8", "ISO-8859-1"));
 
-        assertFalse(scanner.isEncodingCompatible("UTF-8","UTF-16"));
-        assertFalse(scanner.isEncodingCompatible("ISO-8859-1","UTF-16"));
-        assertFalse(scanner.isEncodingCompatible("UTF-16","Cp1252"));
+        assertFalse(scanner.isEncodingCompatible("UTF-8", "UTF-16"));
+        assertFalse(scanner.isEncodingCompatible("ISO-8859-1", "UTF-16"));
+        assertFalse(scanner.isEncodingCompatible("UTF-16", "Cp1252"));
     }
 
     @Test

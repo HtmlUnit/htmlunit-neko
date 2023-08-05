@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.tools;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class HTMLEntitiesParserGenerator {
     private static final class State {
         private static int idGen = HTMLEntitiesParser.STATE_START;
 
-        final int id;
+        int id;
         String switchCode;
         String ifCode;
         int branches;
@@ -46,7 +45,7 @@ public class HTMLEntitiesParserGenerator {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         final Properties props = new Properties();
 
         load0(props, "html_entities.properties");
@@ -55,25 +54,25 @@ public class HTMLEntitiesParserGenerator {
         final String[] mapped = new String[props.size()];
 
         int i = 0;
-        for (Object key : props.keySet()) {
+        for (final Object key : props.keySet()) {
             entities[i++] = key.toString();
         }
         Arrays.sort(entities);
-        for (i= 0; i < entities.length; i++) {
+        for (i = 0; i < entities.length; i++) {
             mapped[i] = props.getProperty(entities[i]);
         }
 
-        String start = "";
-        List<State> states = new LinkedList<>();
+        final String start = "";
+        final List<State> states = new LinkedList<>();
         switchChar(entities, mapped, start, states);
 
-        int splitter = 1000;
+        final int splitter = 1000;
         int count = 1;
         System.out.println("    private boolean parse" + count + "(final int current) {");
         System.out.println("        consumedCount++;");
         System.out.println("        switch (state) {");
 
-        for (State state : states) {
+        for (final State state : states) {
             if (state.id >= count * splitter) {
                 System.out.println("        }");
                 System.out.println("        return false;");
@@ -84,7 +83,7 @@ public class HTMLEntitiesParserGenerator {
                 System.out.println("        consumedCount++;");
                 System.out.println("        switch (state) {");
             }
-            System.out.println("            case " + state.id +":");
+            System.out.println("            case " + state.id + ":");
             if (state.branches < 3) {
                 System.out.print(state.ifCode);
             }
@@ -112,19 +111,19 @@ public class HTMLEntitiesParserGenerator {
 
     private static int switchChar(final String[] entities, final String[] mapped, final String start, final List<State> states) {
         int c = -1;
-        State state = new State();
+        final State state = new State();
         states.add(state);
 
         state.switchCode = "                switch (current) {\n";
         state.ifCode = "";
 
         for (int i = 0; i < entities.length; i++) {
-            String entity = entities[i];
+            final String entity = entities[i];
             if (entity.startsWith(start) && entity.length() > start.length()) {
                 if (entity.charAt(start.length()) != c) {
                     c = entity.charAt(start.length());
                     if (entity.length() - start.length() > 1) {
-                        int stateId = switchChar(entities, mapped, start + (char) c, states);
+                        final int stateId = switchChar(entities, mapped, start + (char) c, states);
 
                         state.switchCode += "                    case '" + (char) c +"':\n";
                         state.switchCode += "                        state = " + stateId + ";\n";
@@ -141,7 +140,8 @@ public class HTMLEntitiesParserGenerator {
                         state.ifCode += "                }\n";
 
                         state.branches++;
-                    } else {
+                    }
+                    else {
                         state.switchCode += "                    case '" + (char) c + "': // " + entity + "\n";
                         state.switchCode += "                        match = \"" + escape(mapped[i]) + "\";\n";
                         state.switchCode += "                        matchLength = consumedCount;\n";
@@ -157,10 +157,10 @@ public class HTMLEntitiesParserGenerator {
                         state.ifCode += "                    matchLength = consumedCount;\n";
 
                         // do we have to go on?
-                        if (i+1 < entities.length
-                                && entities[i+1].startsWith(start + (char)c)
-                                && entities[i+1].length() > start.length()+ 1) {
-                            int stateId = switchChar(entities, mapped, start + (char) c, states);
+                        if (i + 1 < entities.length
+                                && entities[i + 1].startsWith(start + (char) c)
+                                && entities[i + 1].length() > start.length() + 1) {
+                            final int stateId = switchChar(entities, mapped, start + (char) c, states);
                             state.switchCode += "                        state = " + stateId + ";\n";
                             state.switchCode += "                        return true;\n";
 
@@ -169,7 +169,8 @@ public class HTMLEntitiesParserGenerator {
                             state.ifCode += "                }\n";
 
                             state.branches++;
-                        } else {
+                        }
+                        else {
                             if (c == ';') {
                                 state.switchCode += "                        state = STATE_ENDS_WITH_SEMICOLON;\n";
                                 state.switchCode += "                        return false;\n";
@@ -179,7 +180,8 @@ public class HTMLEntitiesParserGenerator {
                                 state.ifCode += "                }\n";
 
                                 state.branches++;
-                            } else {
+                            }
+                            else {
                                 state.switchCode += "                        return false;\n";
 
                                 state.ifCode += "                    return false;\n";
@@ -198,10 +200,10 @@ public class HTMLEntitiesParserGenerator {
         return state.id;
     }
 
-    private static String escape(String input) {
-        StringBuilder b = new StringBuilder();
+    private static String escape(final String input) {
+        final StringBuilder b = new StringBuilder();
 
-        for (char c : input.toCharArray()) {
+        for (final char c : input.toCharArray()) {
             if ('\n' == c) {
                 b.append("\\n");
             }

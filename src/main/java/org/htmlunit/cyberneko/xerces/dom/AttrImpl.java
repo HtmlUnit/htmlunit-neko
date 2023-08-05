@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.Attr;
@@ -100,7 +99,7 @@ import org.w3c.dom.TypeInfo;
  */
 public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
-    /** DTD namespace. **/
+    /** DTD namespace. */
     protected static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
 
     /** This can either be a String or the first child node. */
@@ -119,7 +118,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @param ownerDocument the owner document
      * @param name          the name
      */
-    protected AttrImpl(CoreDocumentImpl ownerDocument, String name) {
+    protected AttrImpl(final CoreDocumentImpl ownerDocument, final String name) {
         super(ownerDocument);
         this.name = name;
         /* False for default attributes. */
@@ -131,7 +130,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     // Note: This only deals with part of the pb. It is expected to be
     // called after the Attr has been detached for one thing.
     // CoreDocumentImpl does all the work.
-    void rename(String name) {
+    void rename(final String name) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -142,7 +141,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     protected void makeChildNode() {
         if (hasStringValue()) {
             if (value != null) {
-                TextImpl text = (TextImpl) ownerDocument().createTextNode((String) value);
+                final TextImpl text = (TextImpl) ownerDocument().createTextNode((String) value);
                 value = text;
                 text.isFirstChild(true);
                 text.previousSibling = text;
@@ -157,7 +156,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * NON-DOM set the ownerDocument of this node and its children
      */
     @Override
-    protected void setOwnerDocument(CoreDocumentImpl doc) {
+    protected void setOwnerDocument(final CoreDocumentImpl doc) {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
@@ -180,12 +179,12 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        AttrImpl clone = (AttrImpl) super.cloneNode(deep);
+        final AttrImpl clone = (AttrImpl) super.cloneNode(deep);
 
         // take care of case where there are kids
         if (!clone.hasStringValue()) {
@@ -230,7 +229,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * value equals the default.
      */
     @Override
-    public void setNodeValue(String value) throws DOMException {
+    public void setNodeValue(final String value) throws DOMException {
         setValue(value);
     }
 
@@ -289,12 +288,12 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * to setting it to the empty string.
      */
     @Override
-    public void setValue(String newvalue) {
+    public void setValue(final String newvalue) {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
 
-        Element ownerElement = getOwnerElement();
-        String oldvalue;
+        final Element ownerElement = getOwnerElement();
+        final String oldvalue;
 
         if (needsSyncData()) {
             synchronizeData();
@@ -305,11 +304,12 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (value != null) {
             if (hasStringValue()) {
                 oldvalue = (String) value;
-            } else {
+            }
+            else {
                 // simply discard children if any
                 oldvalue = getValue();
                 // remove ref from first child to last child
-                ChildNode firstChild = (ChildNode) value;
+                final ChildNode firstChild = (ChildNode) value;
                 firstChild.previousSibling = null;
                 firstChild.isFirstChild(false);
                 firstChild.ownerNode = ownerDocument;
@@ -360,28 +360,32 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             return (String) value;
         }
 
-        ChildNode firstChild = (ChildNode) value;
+        final ChildNode firstChild = (ChildNode) value;
 
         String data;
         if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
             data = ((EntityReferenceImpl) firstChild).getEntityRefValue();
-        } else {
+        }
+        else {
             data = firstChild.getNodeValue();
         }
 
         ChildNode node = firstChild.nextSibling;
 
-        if (node == null || data == null)
+        if (node == null || data == null) {
             return (data == null) ? "" : data;
+        }
 
-        StringBuilder v = new StringBuilder(data);
+        final StringBuilder v = new StringBuilder(data);
         while (node != null) {
             if (node.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
                 data = ((EntityReferenceImpl) node).getEntityRefValue();
-                if (data == null)
+                if (data == null) {
                     return "";
+                }
                 v.append(data);
-            } else {
+            }
+            else {
                 v.append(node.getNodeValue());
             }
             node = node.nextSibling;
@@ -426,7 +430,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     // NON-DOM, for use by parser
-    public void setSpecified(boolean arg) {
+    public void setSpecified(final boolean arg) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -436,7 +440,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     // NON-DOM: used by the parser
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -543,7 +547,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node insertBefore(Node newChild, Node refChild) throws DOMException {
+    public Node insertBefore(final Node newChild, final Node refChild) throws DOMException {
         // Tail-call; optimizer should be able to do good things with.
         return internalInsertBefore(newChild, refChild, false);
     }
@@ -552,10 +556,10 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     // to control which mutation events are spawned. This version of the
     // insertBefore operation allows us to do so. It is not intended
     // for use by application programs.
-    Node internalInsertBefore(Node newChild, Node refChild, boolean replace) throws DOMException {
+    Node internalInsertBefore(final Node newChild, Node refChild, final boolean replace) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
-        boolean errorChecking = ownerDocument.errorChecking;
+        final CoreDocumentImpl ownerDocument = ownerDocument();
+        final boolean errorChecking = ownerDocument.errorChecking;
 
         if (newChild.getNodeType() == Node.DOCUMENT_FRAGMENT_NODE) {
             // SLOW BUT SAFE: We could insert the whole subtree without
@@ -580,8 +584,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                         kid != null; kid = kid.getNextSibling()) {
 
                     if (!ownerDocument.isKidOK(this, kid)) {
-                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
-                                "HIERARCHY_REQUEST_ERR", null);
+                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
                         throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
                     }
                 }
@@ -607,18 +610,16 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         if (errorChecking) {
             if (newChild.getOwnerDocument() != ownerDocument) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
             if (!ownerDocument.isKidOK(this, newChild)) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
             // refChild must be a child of this node (or null)
             if (refChild != null && refChild.getParentNode() != this) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
 
@@ -630,7 +631,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                 treeSafe = newChild != a;
             }
             if (!treeSafe) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR",
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR",
                         null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
@@ -642,15 +643,15 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         ownerDocument.insertingNode(this, replace);
 
         // Convert to internal type, to avoid repeated casting
-        ChildNode newInternal = (ChildNode) newChild;
+        final ChildNode newInternal = (ChildNode) newChild;
 
-        Node oldparent = newInternal.parentNode();
+        final Node oldparent = newInternal.parentNode();
         if (oldparent != null) {
             oldparent.removeChild(newInternal);
         }
 
         // Convert to internal type, to avoid repeated casting
-        ChildNode refInternal = (ChildNode) refChild;
+        final ChildNode refInternal = (ChildNode) refChild;
 
         // Attach up
         newInternal.ownerNode = this;
@@ -658,20 +659,22 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         // Attach before and after
         // Note: firstChild.previousSibling == lastChild!!
-        ChildNode firstChild = (ChildNode) value;
+        final ChildNode firstChild = (ChildNode) value;
         if (firstChild == null) {
             // this our first and only child
             value = newInternal; // firstchild = newInternal;
             newInternal.isFirstChild(true);
             newInternal.previousSibling = newInternal;
-        } else {
+        }
+        else {
             if (refInternal == null) {
                 // this is an append
-                ChildNode lastChild = firstChild.previousSibling;
+                final ChildNode lastChild = firstChild.previousSibling;
                 lastChild.nextSibling = newInternal;
                 newInternal.previousSibling = lastChild;
                 firstChild.previousSibling = newInternal;
-            } else {
+            }
+            else {
                 // this is an insert
                 if (refChild == firstChild) {
                     // at the head of the list
@@ -681,9 +684,10 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                     firstChild.previousSibling = newInternal;
                     value = newInternal; // firstChild = newInternal;
                     newInternal.isFirstChild(true);
-                } else {
+                }
+                else {
                     // somewhere in the middle
-                    ChildNode prev = refInternal.previousSibling;
+                    final ChildNode prev = refInternal.previousSibling;
                     newInternal.nextSibling = refInternal;
                     prev.nextSibling = newInternal;
                     refInternal.previousSibling = newInternal;
@@ -714,11 +718,11 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node removeChild(Node oldChild) throws DOMException {
+    public Node removeChild(final Node oldChild) throws DOMException {
         // Tail-call, should be optimizable
         if (hasStringValue()) {
             // we don't have any child per say so it can't be one of them!
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
         return internalRemoveChild(oldChild, false);
@@ -729,17 +733,17 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * which mutation events are spawned. This version of the removeChild operation
      * allows us to do so. It is not intended for use by application programs.
      */
-    Node internalRemoveChild(Node oldChild, boolean replace) throws DOMException {
+    Node internalRemoveChild(final Node oldChild, final boolean replace) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final         CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
 
-        ChildNode oldInternal = (ChildNode) oldChild;
+        final ChildNode oldInternal = (ChildNode) oldChild;
 
         // notify document
         ownerDocument.removingNode(this, oldInternal, replace);
@@ -751,27 +755,29 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             oldInternal.isFirstChild(false);
             // next line is: firstChild = oldInternal.nextSibling
             value = oldInternal.nextSibling;
-            ChildNode firstChild = (ChildNode) value;
+            final ChildNode firstChild = (ChildNode) value;
             if (firstChild != null) {
                 firstChild.isFirstChild(true);
                 firstChild.previousSibling = oldInternal.previousSibling;
             }
-        } else {
-            ChildNode prev = oldInternal.previousSibling;
-            ChildNode next = oldInternal.nextSibling;
+        }
+        else {
+            final ChildNode prev = oldInternal.previousSibling;
+            final ChildNode next = oldInternal.nextSibling;
             prev.nextSibling = next;
             if (next == null) {
                 // removing last child
-                ChildNode firstChild = (ChildNode) value;
+                final ChildNode firstChild = (ChildNode) value;
                 firstChild.previousSibling = prev;
-            } else {
+            }
+            else {
                 // removing some other child in the middle
                 next.previousSibling = prev;
             }
         }
 
         // Save previous sibling for normalization checking.
-        ChildNode oldPreviousSibling = oldInternal.previousSibling();
+        final ChildNode oldPreviousSibling = oldInternal.previousSibling();
 
         // Remove oldInternal's references to tree
         oldInternal.ownerNode = ownerDocument;
@@ -809,7 +815,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
+    public Node replaceChild(final Node newChild, final Node oldChild) throws DOMException {
 
         makeChildNode();
 
@@ -820,7 +826,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         // aggregations should be issued only once per user request.
 
         // notify document
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
         ownerDocument.replacingNode(this);
 
         internalInsertBefore(newChild, oldChild, true);
@@ -851,7 +857,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         ChildNode node = (ChildNode) value;
         int length = 0;
-        for (; node != null; node = node.nextSibling) {
+        for ( ; node != null; node = node.nextSibling) {
             length++;
         }
         return length;
@@ -866,7 +872,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @param index int
      */
     @Override
-    public Node item(int index) {
+    public Node item(final int index) {
 
         if (hasStringValue()) {
             if (index != 0 || value == null) {
@@ -885,7 +891,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         return node;
 
-    } // item(int):Node
+    }
 
     //
     // DOM3
@@ -896,7 +902,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * support deep equal. isEqualNode is always deep on Attr nodes.
      */
     @Override
-    public boolean isEqualNode(Node arg) {
+    public boolean isEqualNode(final Node arg) {
         return super.isEqualNode(arg);
     }
 
@@ -914,8 +920,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      *         type
      */
     @Override
-    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, int derivationMethod) {
-
+    public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
     }
 
@@ -946,18 +951,19 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      *
      * @throws NullPointerException if the inserted child is <code>null</code>
      */
-    void checkNormalizationAfterInsert(ChildNode insertedChild) {
+    void checkNormalizationAfterInsert(final ChildNode insertedChild) {
         // See if insertion caused this node to be unnormalized.
         if (insertedChild.getNodeType() == Node.TEXT_NODE) {
-            ChildNode prev = insertedChild.previousSibling();
-            ChildNode next = insertedChild.nextSibling;
+            final ChildNode prev = insertedChild.previousSibling();
+            final ChildNode next = insertedChild.nextSibling;
             // If an adjacent sibling of the new child is a text node,
             // flag this node as unnormalized.
             if ((prev != null && prev.getNodeType() == Node.TEXT_NODE)
                     || (next != null && next.getNodeType() == Node.TEXT_NODE)) {
                 isNormalized(false);
             }
-        } else {
+        }
+        else {
             // If the new child is not normalized,
             // then this node is inherently not normalized.
             if (!insertedChild.isNormalized()) {
@@ -977,13 +983,13 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * @param previousSibling the previous sibling of the removed child, or
      *                        <code>null</code>
      */
-    void checkNormalizationAfterRemove(ChildNode previousSibling) {
+    void checkNormalizationAfterRemove(final ChildNode previousSibling) {
         // See if removal caused this node to be unnormalized.
         // If the adjacent siblings of the removed child were both text nodes,
         // flag this node as unnormalized.
         if (previousSibling != null && previousSibling.getNodeType() == Node.TEXT_NODE) {
 
-            ChildNode next = previousSibling.nextSibling;
+            final ChildNode next = previousSibling.nextSibling;
             if (next != null && next.getNodeType() == Node.TEXT_NODE) {
                 isNormalized(false);
             }

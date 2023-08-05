@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DOMException;
@@ -38,7 +37,7 @@ public abstract class CharacterDataImpl extends ChildNode {
     /** Empty child nodes. */
     private static final NodeList singletonNodeList = new NodeList() {
         @Override
-        public Node item(int index) {
+        public Node item(final int index) {
             return null;
         }
 
@@ -54,7 +53,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @param ownerDocument the owner document
      * @param data          the data
      */
-    protected CharacterDataImpl(CoreDocumentImpl ownerDocument, String data) {
+    protected CharacterDataImpl(final CoreDocumentImpl ownerDocument, final String data) {
         super(ownerDocument);
         this.data = data;
     }
@@ -84,7 +83,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      *
      * @param value the value
      */
-    protected void setNodeValueInternal(String value) {
+    protected void setNodeValueInternal(final String value) {
         setNodeValueInternal(value, false);
     }
 
@@ -99,9 +98,9 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @param value   the value
      * @param replace flag to signal replace
      */
-    protected void setNodeValueInternal(String value, boolean replace) {
+    protected void setNodeValueInternal(final String value, final boolean replace) {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
         // revisit: may want to set the value in ownerDocument.
         // Default behavior, overridden in some subclasses
         if (needsSyncData()) {
@@ -109,7 +108,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         }
 
         // keep old value for document notification
-        String oldvalue = this.data;
+        final String oldvalue = this.data;
 
         // notify document
         ownerDocument.modifyingCharacterData(this, replace);
@@ -127,7 +126,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * notification to the document)
      */
     @Override
-    public void setNodeValue(String value) {
+    public void setNodeValue(final String value) {
 
         setNodeValueInternal(value);
 
@@ -167,7 +166,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      *
      * @param data the data
      */
-    public void appendData(String data) {
+    public void appendData(final String data) {
         if (data == null) {
             return;
         }
@@ -189,7 +188,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or greater than
      *                      length, or if count is negative.
      */
-    public void deleteData(int offset, int count) throws DOMException {
+    public void deleteData(final int offset, final int count) throws DOMException {
 
         internalDeleteData(offset, count, false);
     }
@@ -198,12 +197,12 @@ public abstract class CharacterDataImpl extends ChildNode {
     // to control which mutation events are spawned. This version of the
     // deleteData operation allows us to do so. It is not intended
     // for use by application programs.
-    void internalDeleteData(int offset, int count, boolean replace) throws DOMException {
+    void internalDeleteData(final int offset, final int count, final boolean replace) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (count < 0) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
                 throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
             }
         }
@@ -211,17 +210,18 @@ public abstract class CharacterDataImpl extends ChildNode {
         if (needsSyncData()) {
             synchronizeData();
         }
-        int tailLength = Math.max(data.length() - count - offset, 0);
+        final int tailLength = Math.max(data.length() - count - offset, 0);
         try {
-            String value = data.substring(0, offset)
+            final String value = data.substring(0, offset)
                     + (tailLength > 0 ? data.substring(offset + count, offset + count + tailLength) : "");
 
             setNodeValueInternal(value, replace);
 
             // notify document
             ownerDocument.deletedText(this, offset, count);
-        } catch (StringIndexOutOfBoundsException e) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+        }
+        catch (final StringIndexOutOfBoundsException e) {
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
     }
@@ -236,7 +236,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or greater than
      *                      length.
      */
-    public void insertData(int offset, String data) throws DOMException {
+    public void insertData(final int offset, final String data) throws DOMException {
 
         internalInsertData(offset, data, false);
     }
@@ -245,21 +245,22 @@ public abstract class CharacterDataImpl extends ChildNode {
     // to control which mutation events are spawned. This version of the
     // insertData operation allows us to do so. It is not intended
     // for use by application programs.
-    void internalInsertData(int offset, String data, boolean replace) throws DOMException {
+    void internalInsertData(final int offset, final String data, final boolean replace) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
         if (needsSyncData()) {
             synchronizeData();
         }
         try {
-            String value = new StringBuffer(this.data).insert(offset, data).toString();
+            final String value = new StringBuffer(this.data).insert(offset, data).toString();
 
             setNodeValueInternal(value, replace);
 
             // notify document
             ownerDocument.insertedText(this, offset, data.length());
-        } catch (StringIndexOutOfBoundsException e) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+        }
+        catch (final StringIndexOutOfBoundsException e) {
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
 
@@ -284,9 +285,9 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @throws DOMException INDEX_SIZE_ERR if offset is negative or greater than
      *                      length, or if count is negative.
      */
-    public void replaceData(int offset, int count, String data) throws DOMException {
+    public void replaceData(final int offset, final int count, final String data) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
 
         if (needsSyncData()) {
             synchronizeData();
@@ -296,7 +297,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         ownerDocument.replacingData(this);
 
         // keep old value for document notification
-        String oldvalue = this.data;
+        final String oldvalue = this.data;
 
         internalDeleteData(offset, count, true);
         internalInsertData(offset, data, true);
@@ -310,7 +311,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      *
      * @param value the value
      */
-    public void setData(String value) throws DOMException {
+    public void setData(final String value) throws DOMException {
         setNodeValue(value);
     }
 
@@ -335,19 +336,19 @@ public abstract class CharacterDataImpl extends ChildNode {
      *                      substring() will throw this DOMException advising the
      *                      user to instead retrieve the data in smaller chunks.
      */
-    public String substringData(int offset, int count) throws DOMException {
+    public String substringData(final int offset, final int count) throws DOMException {
 
         if (needsSyncData()) {
             synchronizeData();
         }
 
-        int length = data.length();
+        final int length = data.length();
         if (count < 0 || offset < 0 || offset > length - 1) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
 
-        int tailIndex = Math.min(offset + count, length);
+        final int tailIndex = Math.min(offset + count, length);
 
         return data.substring(offset, tailIndex);
 

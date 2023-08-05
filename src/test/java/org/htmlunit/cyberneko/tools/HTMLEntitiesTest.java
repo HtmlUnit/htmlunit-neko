@@ -169,8 +169,8 @@ public class HTMLEntitiesTest {
             "funfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfun" +
             "funfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfunfun" +
             "funfunfun&fin\"></html>";
-        InputStream byteStream = new ByteArrayInputStream(content.getBytes());
-        XMLInputSource inputSource = new XMLInputSource("", "", "", byteStream, "UTF-8");
+        final InputStream byteStream = new ByteArrayInputStream(content.getBytes());
+        final XMLInputSource inputSource = new XMLInputSource("", "", "", byteStream, "UTF-8");
         htmlConfiguration.parse(inputSource);
     }
 }

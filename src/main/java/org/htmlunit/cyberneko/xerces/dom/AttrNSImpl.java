@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
@@ -42,23 +41,23 @@ public class AttrNSImpl extends AttrImpl {
     private String localName;
 
     // DOM2: Constructor for Namespace implementation.
-    protected AttrNSImpl(CoreDocumentImpl ownerDocument, String namespaceURI, String qualifiedName) {
+    protected AttrNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI, final String qualifiedName) {
 
         super(ownerDocument, qualifiedName);
         setName(namespaceURI, qualifiedName);
     }
 
-    private void setName(String namespaceURI, String qname) {
-        CoreDocumentImpl ownerDocument = ownerDocument();
-        String prefix;
+    private void setName(final String namespaceURI, final String qname) {
+        final CoreDocumentImpl ownerDocument = ownerDocument();
+        final String prefix;
         // DOM Level 3: namespace URI is never empty string.
         this.namespaceURI = namespaceURI;
         if (namespaceURI != null) {
             this.namespaceURI = (namespaceURI.length() == 0) ? null : namespaceURI;
 
         }
-        int colon1 = qname.indexOf(':');
-        int colon2 = qname.lastIndexOf(':');
+        final int colon1 = qname.indexOf(':');
+        final int colon2 = qname.lastIndexOf(':');
         ownerDocument.checkNamespaceWF(qname, colon1, colon2);
         if (colon1 < 0) {
             // there is no prefix
@@ -69,12 +68,12 @@ public class AttrNSImpl extends AttrImpl {
                 if ("xmlns".equals(qname) && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
                         || (namespaceURI != null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
                                 && !"xmlns".equals(qname))) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
-                            null);
+                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
-        } else {
+        }
+        else {
             prefix = qname.substring(0, colon1);
             localName = qname.substring(colon2 + 1);
             ownerDocument.checkQName(prefix, localName);
@@ -83,7 +82,7 @@ public class AttrNSImpl extends AttrImpl {
     }
 
     // when local name is known
-    public AttrNSImpl(CoreDocumentImpl ownerDocument, String namespaceURI, String qualifiedName, String localName) {
+    public AttrNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI, final String qualifiedName, final String localName) {
         super(ownerDocument, qualifiedName);
 
         this.localName = localName;
@@ -91,7 +90,7 @@ public class AttrNSImpl extends AttrImpl {
     }
 
     // for DeferredAttrImpl
-    protected AttrNSImpl(CoreDocumentImpl ownerDocument, String value) {
+    protected AttrNSImpl(final CoreDocumentImpl ownerDocument, final String value) {
         super(ownerDocument, value);
     }
 
@@ -99,7 +98,7 @@ public class AttrNSImpl extends AttrImpl {
     // Note: This only deals with part of the pb. It is expected to be
     // called after the Attr has been detached for one thing.
     // CoreDocumentImpl does all the work.
-    void rename(String namespaceURI, String qualifiedName) {
+    void rename(final String namespaceURI, final String qualifiedName) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -151,7 +150,7 @@ public class AttrNSImpl extends AttrImpl {
         if (needsSyncData()) {
             synchronizeData();
         }
-        int index = name.indexOf(':');
+        final int index = name.indexOf(':');
         return index < 0 ? null : name.substring(0, index);
     }
 
@@ -173,7 +172,7 @@ public class AttrNSImpl extends AttrImpl {
      *                         contains an invalid character.
      */
     @Override
-    public void setPrefix(String prefix) throws DOMException {
+    public void setPrefix(final String prefix) throws DOMException {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -181,31 +180,28 @@ public class AttrNSImpl extends AttrImpl {
             if (prefix != null && prefix.length() != 0) {
 
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
-                            "INVALID_CHARACTER_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
                 if (namespaceURI == null || prefix.indexOf(':') >= 0) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
-                            null);
+                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
 
                 }
                 if ("xmlns".equals(prefix)) {
                     if (!namespaceURI.equals(xmlnsURI)) {
-                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
-                                null);
+                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
-                } else if ("xml".equals(prefix)) {
+                }
+                else if ("xml".equals(prefix)) {
                     if (!namespaceURI.equals(xmlURI)) {
-                        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
-                                null);
+                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
-                } else if ("xmlns".equals(name)) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR",
-                            null);
+                }
+                else if ("xmlns".equals(name)) {
+                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
@@ -214,7 +210,8 @@ public class AttrNSImpl extends AttrImpl {
         // update node name with new qualifiedName
         if (prefix != null && prefix.length() != 0) {
             name = prefix + ":" + localName;
-        } else {
+        }
+        else {
             name = localName;
         }
     }
@@ -259,7 +256,7 @@ public class AttrNSImpl extends AttrImpl {
      *         type
      */
     @Override
-    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, int derivationMethod) {
+    public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
     }
 

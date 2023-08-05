@@ -49,7 +49,7 @@ public class UTF8BOMSkipper
     //
 
     /** Constructs a UTF-8 BOM skipper. */
-    public UTF8BOMSkipper(InputStream stream) {
+    public UTF8BOMSkipper(final InputStream stream) {
         super(stream);
     }
 
@@ -90,7 +90,7 @@ public class UTF8BOMSkipper
 
     /** Reads bytes into specified buffer and returns total bytes read. */
     @Override
-    public int read(byte[] buffer, int offset, int length) throws IOException {
+    public int read(final byte[] buffer, final int offset, final int length) throws IOException {
 
         if (fStart || fFirst3Bytes != null) {
             for (int i = 0; i < length; i++) {
@@ -98,7 +98,7 @@ public class UTF8BOMSkipper
                 if (b == -1) {
                     return i > 0 ? i : -1;
                 }
-                buffer[offset + i] = (byte)b;
+                buffer[offset + i] = (byte) b;
             }
             return length;
         }

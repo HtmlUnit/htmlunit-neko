@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,7 +77,7 @@ public class CanonicalTest {
         });
         Collections.sort(dataFiles);
 
-        List<DynamicTest> tests = new ArrayList<>();
+        final List<DynamicTest> tests = new ArrayList<>();
         for (final File dataFile : dataFiles) {
             // suite.addTest(new CanonicalTest(dataFiles.get(i)));
             tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
@@ -86,10 +85,9 @@ public class CanonicalTest {
         return tests;
     }
 
-    protected void runTest(File dataFile) throws Exception {
+    protected void runTest(final File dataFile) throws Exception {
         final String dataLines = getResult(dataFile);
-        try
-        {
+        try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
             if (!canonicalFile.exists()) {
@@ -99,7 +97,7 @@ public class CanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
 
-            File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented");
+            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
@@ -109,13 +107,14 @@ public class CanonicalTest {
                     // expected
                 }
                 assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile);
-            } else {
+            }
+            else {
                 assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {
             final File output = new File(outputDir, dataFile.getName());
-            try (final PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
+            try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);
             }
             throw e;
