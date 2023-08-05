@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.util.ArrayList;
@@ -129,7 +128,7 @@ public class HTMLTagBalancer
     /**
      * &lt;font color="red"&gt;EXPERIMENTAL: may change in next release&lt;/font&gt;&lt;br/&gt;
      * Name of the property holding the stack of elements in which context a document fragment should be parsed.
-     **/
+     */
     public static final String FRAGMENT_CONTEXT_STACK = "http://cyberneko.org/html/properties/balance-tags/fragment-context-stack";
 
     /** Recognized properties. */
@@ -275,7 +274,7 @@ public class HTMLTagBalancer
 
     private final HTMLConfiguration htmlConfiguration_;
 
-    HTMLTagBalancer(HTMLConfiguration htmlConfiguration) {
+    HTMLTagBalancer(final HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
     }
 
@@ -285,7 +284,7 @@ public class HTMLTagBalancer
 
     /** Returns the default state for a feature. */
     @Override
-    public Boolean getFeatureDefault(String featureId) {
+    public Boolean getFeatureDefault(final String featureId) {
         final int length = RECOGNIZED_FEATURES != null ? RECOGNIZED_FEATURES.length : 0;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
@@ -297,7 +296,7 @@ public class HTMLTagBalancer
 
     /** Returns the default state for a property. */
     @Override
-    public Object getPropertyDefault(String propertyId) {
+    public Object getPropertyDefault(final String propertyId) {
         final int length = RECOGNIZED_PROPERTIES != null ? RECOGNIZED_PROPERTIES.length : 0;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -332,15 +331,14 @@ public class HTMLTagBalancer
         fNamespaces = manager.getFeature(NAMESPACES);
         fAugmentations = manager.getFeature(AUGMENTATIONS);
         fReportErrors = manager.getFeature(REPORT_ERRORS);
-        fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT) ||
-                            manager.getFeature(DOCUMENT_FRAGMENT_DEPRECATED);
+        fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT) || manager.getFeature(DOCUMENT_FRAGMENT_DEPRECATED);
         fIgnoreOutsideContent = manager.getFeature(IGNORE_OUTSIDE_CONTENT);
         fAllowSelfclosingIframe = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME);
         fAllowSelfclosingTags = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
 
         // get properties
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fErrorReporter = (HTMLErrorReporter)manager.getProperty(ERROR_REPORTER);
+        fErrorReporter = (HTMLErrorReporter) manager.getProperty(ERROR_REPORTER);
 
         fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
         fSeenAnything = false;
@@ -369,7 +367,7 @@ public class HTMLTagBalancer
 
     /** Sets a feature. */
     @Override
-    public void setFeature(String featureId, boolean state)
+    public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
 
         if (featureId.equals(AUGMENTATIONS)) {
@@ -388,7 +386,7 @@ public class HTMLTagBalancer
 
     /** Sets a property. */
     @Override
-    public void setProperty(String propertyId, Object value)
+    public void setProperty(final String propertyId, final Object value)
         throws XMLConfigurationException {
 
         if (propertyId.equals(NAMES_ELEMS)) {
@@ -403,7 +401,7 @@ public class HTMLTagBalancer
 
     /** Sets the document handler. */
     @Override
-    public void setDocumentHandler(XMLDocumentHandler handler) {
+    public void setDocumentHandler(final XMLDocumentHandler handler) {
         fDocumentHandler = handler;
     }
 
@@ -419,8 +417,7 @@ public class HTMLTagBalancer
 
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext, Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
 
         // reset state
@@ -448,8 +445,7 @@ public class HTMLTagBalancer
 
     /** XML declaration. */
     @Override
-    public void xmlDecl(String version, String encoding, String standalone,
-                        Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
         if (!fSeenAnything && fDocumentHandler != null) {
             fDocumentHandler.xmlDecl(version, encoding, standalone, augs);
         }
@@ -457,8 +453,8 @@ public class HTMLTagBalancer
 
     /** Doctype declaration. */
     @Override
-    public void doctypeDecl(String rootElementName, String publicId, String systemId,
-                            Augmentations augs) throws XNIException {
+    public void doctypeDecl(final String rootElementName, final String publicId,
+            final String systemId, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         if (fReportErrors) {
             if (fSeenRootElement) {
@@ -478,7 +474,7 @@ public class HTMLTagBalancer
 
     /** End document. */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
+    public void endDocument(final Augmentations augs) throws XNIException {
 
         // </body> and </html> have been buffered to consider outside content
         fIgnoreOutsideContent = true; // endElement should not ignore the elements passed from buffer
@@ -545,7 +541,7 @@ public class HTMLTagBalancer
 
     /** Comment. */
     @Override
-    public void comment(XMLString text, Augmentations augs) throws XNIException {
+    public void comment(final XMLString text, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
         if (fDocumentHandler != null) {
@@ -564,8 +560,7 @@ public class HTMLTagBalancer
 
     /** Processing instruction. */
     @Override
-    public void processingInstruction(String target, XMLString data,
-                                      Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
         if (fDocumentHandler != null) {
@@ -698,7 +693,8 @@ public class HTMLTagBalancer
         }
         else if (elementCode == HTMLElements.UNKNOWN) {
             consumeBufferedEndElements();
-        } else if (elementCode == HTMLElements.TABLE) {
+        }
+        else if (elementCode == HTMLElements.TABLE) {
             // check if inside another table
             //    tables are only valid inside td/th/caption
             //    otherwise close the surrounding table
@@ -737,7 +733,7 @@ public class HTMLTagBalancer
                 pname = modifyName(pname, fNamesElems);
                 if (fReportErrors) {
                     final String ename = elem.rawname;
-                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename,pname});
+                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
                 final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
@@ -756,7 +752,7 @@ public class HTMLTagBalancer
                         final QName qname = createQName(pname);
                         if (fReportErrors) {
                             final String ename = elem.rawname;
-                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename,pname});
+                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
                         }
                         final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
                         if (!parentCreated) {
@@ -798,7 +794,7 @@ public class HTMLTagBalancer
         // in head, no element has children
         if ((fElementStack.top > 1
                 && (fElementStack.peek().element.code == HTMLElements.SCRIPT))
-                || fElementStack.top > 2 && fElementStack.data[fElementStack.top-2].element.code == HTMLElements.HEAD) {
+                || fElementStack.top > 2 && fElementStack.data[fElementStack.top - 2].element.code == HTMLElements.HEAD) {
             final Info info = fElementStack.pop();
             if (fDocumentHandler != null) {
                 callEndElement(info.qname, synthesizedAugs());
@@ -814,12 +810,12 @@ public class HTMLTagBalancer
                     if (fReportErrors) {
                         final String ename = elem.rawname;
                         final String iname = info.qname.rawname;
-                        fErrorReporter.reportWarning("HTML2005", new Object[]{ename,iname});
+                        fErrorReporter.reportWarning("HTML2005", new Object[]{ename, iname});
                     }
                     for (int j = length - 1; j >= i; j--) {
                         info = fElementStack.pop();
                         if (j < fragmentContextStackSize_) {
-                            fragmentContextStackSize_ --;
+                            fragmentContextStackSize_--;
                         }
                         if (fDocumentHandler != null) {
                             // PATCH: Marc-Andr� Morissette
@@ -875,8 +871,7 @@ public class HTMLTagBalancer
      * the element has been forced.
      * @return <code>true</code> if creation could be done (TABLE's creation for instance can't be forced)
      */
-    private boolean forceStartElement(final QName elem, XMLAttributes attrs, final Augmentations augs)
-    throws XNIException {
+    private boolean forceStartElement(final QName elem, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
 
         forcedStartElement_ = true;
         startElement(elem, attrs, augs);
@@ -891,8 +886,7 @@ public class HTMLTagBalancer
 
     /** Empty element. */
     @Override
-    public void emptyElement(final QName element, XMLAttributes attrs, Augmentations augs)
-        throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         // browser ignore the closing indication for non empty tags like <form .../> but not for unknown element
         final HTMLElements.Element elem = getElement(element);
@@ -906,7 +900,7 @@ public class HTMLTagBalancer
 
     /** Start entity. */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException {
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
 
         // check for end of document
@@ -919,12 +913,12 @@ public class HTMLTagBalancer
             boolean insertBody = !fSeenRootElement;
             if (!insertBody) {
                 final Info info = fElementStack.peek();
-                if (info.element.code == HTMLElements.HEAD ||
-                    info.element.code == HTMLElements.HTML) {
+                if (info.element.code == HTMLElements.HEAD
+                        || info.element.code == HTMLElements.HTML) {
                     final String hname = modifyName("head", fNamesElems);
                     final String bname = modifyName("body", fNamesElems);
                     if (fReportErrors) {
-                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname,bname});
+                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
                     }
                     fQName.setValues(null, hname, hname, null);
                     endElement(fQName, synthesizedAugs());
@@ -956,7 +950,7 @@ public class HTMLTagBalancer
 
     /** Text declaration. */
     @Override
-    public void textDecl(String version, String encoding, Augmentations augs)
+    public void textDecl(final String version, final String encoding, Augmentations augs)
         throws XNIException {
         fSeenAnything = true;
 
@@ -974,7 +968,7 @@ public class HTMLTagBalancer
 
     /** End entity. */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs) throws XNIException {
+    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
 
         // check for end of document
         if (fSeenRootElementEnd) {
@@ -1067,12 +1061,11 @@ public class HTMLTagBalancer
             //       And here's some text.
             else if (!whitespace) {
                 final Info info = fElementStack.peek();
-                if (info.element.code == HTMLElements.HEAD ||
-                    info.element.code == HTMLElements.HTML) {
+                if (info.element.code == HTMLElements.HEAD || info.element.code == HTMLElements.HTML) {
                     final String hname = modifyName("head", fNamesElems);
                     final String bname = modifyName("body", fNamesElems);
                     if (fReportErrors) {
-                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname,bname});
+                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
                     }
                     forceStartBody();
                 }
@@ -1090,7 +1083,7 @@ public class HTMLTagBalancer
 
     /** Ignorable whitespace. */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs)
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
         throws XNIException {
         characters(text, augs);
     }
@@ -1109,11 +1102,11 @@ public class HTMLTagBalancer
         final HTMLElements.Element elem = getElement(element);
         final short elementCode = elem.code;
 
-
         if (!fTemplateFragment && fOpenedSelect) {
             if (elementCode == HTMLElements.SELECT) {
                 fOpenedSelect = false;
-            } else if (elementCode != HTMLElements.OPTION
+            }
+            else if (elementCode != HTMLElements.OPTION
                         && elementCode != HTMLElements.OPTGROUP
                         && elementCode != HTMLElements.SCRIPT) {
                 notifyDiscardedEndElement(element, augs);
@@ -1125,10 +1118,9 @@ public class HTMLTagBalancer
             fTemplateFragment = false;
         }
 
-
         // if we consider outside content, just buffer </body> and </html> to consider them at the very end
-        if (!fIgnoreOutsideContent &&
-            (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
+        if (!fIgnoreOutsideContent
+                && (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
             for (final Iterator<String> it = discardedStartElements.iterator(); it.hasNext();) {
                 if (element.rawname.equals(it.next())) {
                     it.remove();
@@ -1209,7 +1201,7 @@ public class HTMLTagBalancer
             if (fReportErrors && i < depth - 1) {
                 final String ename = modifyName(element.rawname, fNamesElems);
                 final String iname = info.qname.rawname;
-                fErrorReporter.reportWarning("HTML2007", new Object[]{ename,iname});
+                fErrorReporter.reportWarning("HTML2007", new Object[]{ename, iname});
             }
             if (fDocumentHandler != null) {
                 addBodyIfNeeded(info.element.code);
@@ -1236,7 +1228,7 @@ public class HTMLTagBalancer
 
     /** Sets the document source. */
     @Override
-    public void setDocumentSource(XMLDocumentSource source) {
+    public void setDocumentSource(final XMLDocumentSource source) {
         fDocumentSource = source;
     }
 
@@ -1256,20 +1248,19 @@ public class HTMLTagBalancer
         if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
             final int index = name.indexOf(':');
             if (index != -1) {
-                name = name.substring(index+1);
+                name = name.substring(index + 1);
             }
         }
         return htmlConfiguration_.htmlElements_.getElement(name);
     }
 
     // Call document handler start element.
-    protected final void callStartElement(QName element, XMLAttributes attrs,
-                                          Augmentations augs)
+    protected final void callStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs)
         throws XNIException {
         fDocumentHandler.startElement(element, attrs, augs);
     }
 
-    private void addBodyIfNeeded(short element) {
+    private void addBodyIfNeeded(final short element) {
         if (!fDocumentFragment && !fSeenFramesetElement && element == HTMLElements.HTML) {
             if (!fSeenHeadElement) {
                 final QName head = createQName("head");
@@ -1296,13 +1287,13 @@ public class HTMLTagBalancer
      *
      * @param element The element.
      */
-    protected final int getElementDepth(HTMLElements.Element element) {
+    protected final int getElementDepth(final HTMLElements.Element element) {
         final boolean container = element.isContainer();
         final short elementCode = element.code;
         final boolean tableBodyOrHtml = (elementCode == HTMLElements.TABLE)
             || (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
         int depth = -1;
-        for (int i = fElementStack.top - 1; i >=fragmentContextStackSize_; i--) {
+        for (int i = fElementStack.top - 1; i >= fragmentContextStackSize_; i--) {
             final Info info = fElementStack.data[i];
             if (info.element.code == element.code
                     && (elementCode != HTMLElements.UNKNOWN || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
@@ -1329,7 +1320,7 @@ public class HTMLTagBalancer
      * @param parents The parent elements.
      * @param bounds bounds
      */
-    protected int getParentDepth(HTMLElements.Element[] parents, short bounds) {
+    protected int getParentDepth(final HTMLElements.Element[] parents, final short bounds) {
         if (parents != null) {
             for (int i = fElementStack.top - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
@@ -1359,7 +1350,7 @@ public class HTMLTagBalancer
     //
 
     // Modifies the given name based on the specified mode.
-    protected static String modifyName(String name, short mode) {
+    protected static String modifyName(final String name, final short mode) {
         switch (mode) {
             case NAMES_UPPERCASE: return name.toUpperCase(Locale.ROOT);
             case NAMES_LOWERCASE: return name.toLowerCase(Locale.ROOT);
@@ -1372,7 +1363,7 @@ public class HTMLTagBalancer
      // @see #NAMES_NO_CHANGE
      // @see #NAMES_LOWERCASE
      // @see #NAMES_UPPERCASE
-    protected static short getNamesValue(String value) {
+    protected static short getNamesValue(final String value) {
         if ("lower".equals(value)) {
             return NAMES_LOWERCASE;
         }
@@ -1429,7 +1420,7 @@ public class HTMLTagBalancer
          * @param element The element qualified name.
          * @param qname qname
          */
-        public Info(HTMLElements.Element element, QName qname) {
+        public Info(final HTMLElements.Element element, final QName qname) {
             this(element, qname, null);
         }
 
@@ -1443,8 +1434,7 @@ public class HTMLTagBalancer
          * @param attributes The element attributes.
          * @param qname qname
          */
-        public Info(HTMLElements.Element element,
-                    QName qname, XMLAttributes attributes) {
+        public Info(final HTMLElements.Element element, final QName qname, final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);
             if (attributes != null) {
@@ -1492,7 +1482,7 @@ public class HTMLTagBalancer
         //
 
         // Pushes element information onto the stack.
-        public void push(Info info) {
+        public void push(final Info info) {
             if (top == data.length) {
                 final Info[] newarray = new Info[top + 10];
                 System.arraycopy(data, 0, newarray, 0, top);
@@ -1503,7 +1493,7 @@ public class HTMLTagBalancer
 
         // Peeks at the top of the stack.
         public Info peek() {
-            return data[top-1];
+            return data[top - 1];
         }
 
         // Pops the top item off of the stack.
@@ -1515,10 +1505,11 @@ public class HTMLTagBalancer
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("InfoStack(");
-            for (int i=top-1; i>=0; --i) {
+            for (int i = top - 1; i >= 0; --i) {
                 sb.append(data[i]);
-                if (i != 0)
+                if (i != 0) {
                     sb.append(", ");
+                }
             }
             sb.append(")");
             return sb.toString();
@@ -1543,8 +1534,9 @@ public class HTMLTagBalancer
      * Notifies the tagBalancingListener (if any) of an ignored end element
      */
     private void notifyDiscardedEndElement(final QName element, final Augmentations augs) {
-        if (tagBalancingListener != null)
+        if (tagBalancingListener != null) {
             tagBalancingListener.ignoredEndElement(element, augs);
+        }
     }
 
     /**
