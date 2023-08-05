@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.Iterator;
@@ -36,13 +35,13 @@ public class NamespaceSupport implements NamespaceContext {
      * default size can be set to anything as long as it is a power of 2 greater
      * than 1.
      *
-     * @see #fNamespaceSize
-     * @see #fContext
+     * @see #fNamespaceSize_
+     * @see #fContext_
      */
-    private String[] fNamespace = new String[16 * 2];
+    private String[] fNamespace_ = new String[16 * 2];
 
     /** The top of the namespace information array. */
-    private int fNamespaceSize;
+    private int fNamespaceSize_;
 
     // NOTE: The constructor depends on the initial context size
     // being at least 1. -Ac
@@ -52,14 +51,14 @@ public class NamespaceSupport implements NamespaceContext {
      * array. The index at the current context is the start index of declared
      * namespace bindings and runs to the size of the namespace information array.
      *
-     * @see #fNamespaceSize
+     * @see #fNamespaceSize_
      */
-    private int[] fContext = new int[8];
+    private int[] fContext_ = new int[8];
 
     /** The current context. */
-    private int fCurrentContext;
+    private int fCurrentContext_;
 
-    private String[] fPrefixes = new String[16];
+    private String[] fPrefixes_ = new String[16];
 
     /** Default constructor. */
     public NamespaceSupport() {
@@ -76,11 +75,11 @@ public class NamespaceSupport implements NamespaceContext {
     public void reset() {
 
         // reset namespace and context info
-        fNamespaceSize = 0;
-        fCurrentContext = 0;
-        fContext[fCurrentContext] = fNamespaceSize;
+        fNamespaceSize_ = 0;
+        fCurrentContext_ = 0;
+        fContext_[fCurrentContext_] = fNamespaceSize_;
 
-        ++fCurrentContext;
+        ++fCurrentContext_;
 
     } // reset(SymbolTable)
 
@@ -91,14 +90,14 @@ public class NamespaceSupport implements NamespaceContext {
     public void pushContext() {
 
         // extend the array, if necessary
-        if (fCurrentContext + 1 == fContext.length) {
-            int[] contextarray = new int[fContext.length * 2];
-            System.arraycopy(fContext, 0, contextarray, 0, fContext.length);
-            fContext = contextarray;
+        if (fCurrentContext_ + 1 == fContext_.length) {
+            final int[] contextarray = new int[fContext_.length * 2];
+            System.arraycopy(fContext_, 0, contextarray, 0, fContext_.length);
+            fContext_ = contextarray;
         }
 
         // push context
-        fContext[++fCurrentContext] = fNamespaceSize;
+        fContext_[++fCurrentContext_] = fNamespaceSize_;
 
     } // pushContext()
 
@@ -107,7 +106,7 @@ public class NamespaceSupport implements NamespaceContext {
      */
     @Override
     public void popContext() {
-        fNamespaceSize = fContext[fCurrentContext--];
+        fNamespaceSize_ = fContext_[fCurrentContext_--];
     } // popContext()
 
     /**
@@ -115,31 +114,31 @@ public class NamespaceSupport implements NamespaceContext {
      *      String)
      */
     @Override
-    public boolean declarePrefix(String prefix, String uri) {
+    public boolean declarePrefix(final String prefix, final String uri) {
         // see if prefix already exists in current context
-        for (int i = fNamespaceSize; i > fContext[fCurrentContext]; i -= 2) {
-            if (Objects.equals(prefix, fNamespace[i - 2])) {
+        for (int i = fNamespaceSize_; i > fContext_[fCurrentContext_]; i -= 2) {
+            if (Objects.equals(prefix, fNamespace_[i - 2])) {
                 // REVISIT: [Q] Should the new binding override the
                 // previously declared binding or should it
                 // it be ignored? -Ac
                 // NOTE: The SAX2 "NamespaceSupport" helper allows
                 // re-bindings with the new binding overwriting
                 // the previous binding. -Ac
-                fNamespace[i - 1] = uri;
+                fNamespace_[i - 1] = uri;
                 return true;
             }
         }
 
         // resize array, if needed
-        if (fNamespaceSize == fNamespace.length) {
-            String[] namespacearray = new String[fNamespaceSize * 2];
-            System.arraycopy(fNamespace, 0, namespacearray, 0, fNamespaceSize);
-            fNamespace = namespacearray;
+        if (fNamespaceSize_ == fNamespace_.length) {
+            final String[] namespacearray = new String[fNamespaceSize_ * 2];
+            System.arraycopy(fNamespace_, 0, namespacearray, 0, fNamespaceSize_);
+            fNamespace_ = namespacearray;
         }
 
         // bind prefix to uri in current context
-        fNamespace[fNamespaceSize++] = prefix;
-        fNamespace[fNamespaceSize++] = uri;
+        fNamespace_[fNamespaceSize_++] = prefix;
+        fNamespace_[fNamespaceSize_++] = uri;
 
         return true;
 
@@ -149,12 +148,12 @@ public class NamespaceSupport implements NamespaceContext {
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getURI(String)
      */
     @Override
-    public String getURI(String prefix) {
+    public String getURI(final String prefix) {
 
         // find prefix in current context
-        for (int i = fNamespaceSize; i > 0; i -= 2) {
-            if (Objects.equals(prefix, fNamespace[i - 2])) {
-                return fNamespace[i - 1];
+        for (int i = fNamespaceSize_; i > 0; i -= 2) {
+            if (Objects.equals(prefix, fNamespace_[i - 2])) {
+                return fNamespace_[i - 1];
             }
         }
 
@@ -168,15 +167,15 @@ public class NamespaceSupport implements NamespaceContext {
      */
     @Override
     public int getDeclaredPrefixCount() {
-        return (fNamespaceSize - fContext[fCurrentContext]) / 2;
+        return (fNamespaceSize_ - fContext_[fCurrentContext_]) / 2;
     } // getDeclaredPrefixCount():int
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getDeclaredPrefixAt(int)
      */
     @Override
-    public String getDeclaredPrefixAt(int index) {
-        return fNamespace[fContext[fCurrentContext] + index * 2];
+    public String getDeclaredPrefixAt(final int index) {
+        return fNamespace_[fContext_[fCurrentContext_] + index * 2];
     } // getDeclaredPrefixAt(int):String
 
     /**
@@ -187,11 +186,11 @@ public class NamespaceSupport implements NamespaceContext {
      *
      * @return true if the given prefix exists in the context
      */
-    public boolean containsPrefix(String prefix) {
+    public boolean containsPrefix(final String prefix) {
 
         // find prefix in current context
-        for (int i = fNamespaceSize; i > 0; i -= 2) {
-            if (Objects.equals(prefix, fNamespace[i - 2])) {
+        for (int i = fNamespaceSize_; i > 0; i -= 2) {
+            if (Objects.equals(prefix, fNamespace_[i - 2])) {
                 return true;
             }
         }
@@ -201,33 +200,33 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     protected final class Prefixes implements Iterator<String> {
-        private final String[] prefixes;
-        private int counter = 0;
-        private final int size;
+        private final String[] prefixes_;
+        private int counter_ = 0;
+        private final int size_;
 
-        public Prefixes(String[] prefixes, int size) {
-            this.prefixes = prefixes;
-            this.size = size;
+        public Prefixes(final String[] prefixes, final int size) {
+            this.prefixes_ = prefixes;
+            this.size_ = size;
         }
 
         @Override
         public boolean hasNext() {
-            return counter < size;
+            return counter_ < size_;
         }
 
         @Override
         public String next() {
-            if (counter < size) {
-                return fPrefixes[counter++];
+            if (counter_ < size_) {
+                return fPrefixes_[counter_++];
             }
             throw new NoSuchElementException("Illegal access to Namespace prefixes enumeration.");
         }
 
         @Override
         public String toString() {
-            StringBuilder buf = new StringBuilder();
-            for (int i = 0; i < size; i++) {
-                buf.append(prefixes[i]);
+            final StringBuilder buf = new StringBuilder();
+            for (int i = 0; i < size_; i++) {
+                buf.append(prefixes_[i]);
                 buf.append(' ');
             }
 

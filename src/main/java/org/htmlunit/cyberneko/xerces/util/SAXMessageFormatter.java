@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.MissingResourceException;
@@ -38,9 +37,8 @@ public class SAXMessageFormatter {
      * @throws MissingResourceException Thrown if the message with the specified key
      *                                  cannot be found.
      */
-    public static String formatMessage(String key, Object[] arguments) throws MissingResourceException {
-        final ResourceBundle resourceBundle = ResourceBundle
-                .getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
+    public static String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
+        final ResourceBundle resourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
 
         // format message
         String msg;
@@ -49,7 +47,8 @@ public class SAXMessageFormatter {
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                } catch (Exception e) {
+                }
+                catch (final Exception e) {
                     msg = resourceBundle.getString("FormatFailed");
                     msg += " " + resourceBundle.getString(key);
                 }
@@ -57,7 +56,7 @@ public class SAXMessageFormatter {
         }
 
         // error
-        catch (MissingResourceException e) {
+        catch (final MissingResourceException e) {
             msg = resourceBundle.getString("BadMessageKey");
             throw new MissingResourceException(key, msg, key);
         }
@@ -66,7 +65,7 @@ public class SAXMessageFormatter {
         if (msg == null) {
             msg = key;
             if (arguments.length > 0) {
-                StringBuilder str = new StringBuilder(msg);
+                final StringBuilder str = new StringBuilder(msg);
                 str.append('?');
                 for (int i = 0; i < arguments.length; i++) {
                     if (i > 0) {

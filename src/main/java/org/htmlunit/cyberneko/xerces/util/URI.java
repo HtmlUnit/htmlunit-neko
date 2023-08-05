@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.io.IOException;
@@ -47,9 +46,7 @@ import java.util.Locale;
  * scheme). Rather, it only knows the grammar and basic set of operations that
  * can be applied to a URI.
  *
- * @version $Id$
- *
- **********************************************************************/
+ */
 public class URI {
 
     /*******************************************************************
@@ -57,7 +54,7 @@ public class URI {
      * fields on a URI when an operation would result in an invalid URI
      * specification.
      *
-     ********************************************************************/
+     */
     public static class MalformedURIException extends IOException {
 
         private static final long serialVersionUID = -8343545858797571098L;
@@ -66,10 +63,10 @@ public class URI {
          * Constructs a <code>MalformedURIException</code> with the specified detail
          * message.
          *
-         * @param p_msg the detail message.
-         ******************************************************************/
-        public MalformedURIException(String p_msg) {
-            super(p_msg);
+         * @param msg the detail message.
+         */
+        public MalformedURIException(final String msg) {
+            super(msg);
         }
     }
 
@@ -193,32 +190,32 @@ public class URI {
     }
 
     /** Stores the scheme (usually the protocol) for this URI. */
-    private String m_scheme = null;
+    private String scheme_ = null;
 
     /** If specified, stores the userinfo for this URI; otherwise null */
-    private String m_userinfo = null;
+    private String userinfo_ = null;
 
     /** If specified, stores the host for this URI; otherwise null */
-    private String m_host = null;
+    private String host_ = null;
 
     /** If specified, stores the port for this URI; otherwise -1 */
-    private int m_port = -1;
+    private int port_ = -1;
 
     /**
      * If specified, stores the registry based authority for this URI; otherwise -1
      */
-    private String m_regAuthority = null;
+    private String regAuthority_ = null;
 
     /** If specified, stores the path for this URI; otherwise null */
-    private String m_path = null;
+    private String path_ = null;
 
     /**
      * If specified, stores the query string for this URI; otherwise null.
      */
-    private String m_queryString = null;
+    private String queryString_ = null;
 
     /** If specified, stores the fragment for this URI; otherwise null */
-    private String m_fragment = null;
+    private String fragment_ = null;
 
     /**
      * Construct a new URI from a URI specification string. If the specification
@@ -228,12 +225,12 @@ public class URI {
      * specification does not follow the "generic URI" syntax, the specification is
      * parsed into a scheme and scheme-specific part (stored as the path) only.
      *
-     * @param p_uriSpec the URI specification string (cannot be null or empty)
+     * @param uriSpec the URI specification string (cannot be null or empty)
      *
      * @exception MalformedURIException if p_uriSpec violates any syntax rules
      */
-    public URI(String p_uriSpec) throws MalformedURIException {
-        this((URI) null, p_uriSpec);
+    public URI(final String uriSpec) throws MalformedURIException {
+        this((URI) null, uriSpec);
     }
 
     /**
@@ -246,28 +243,28 @@ public class URI {
      * Construct a relative URI if boolean is assigned to "true" and p_uriSpec is
      * not valid absolute URI, instead of throwing an exception.
      *
-     * @param p_uriSpec           the URI specification string (cannot be null or
+     * @param uriSpec           the URI specification string (cannot be null or
      *                            empty)
      * @param allowNonAbsoluteURI true to permit non-absolute URIs, false otherwise.
      *
      * @exception MalformedURIException if p_uriSpec violates any syntax rules
      */
-    public URI(String p_uriSpec, boolean allowNonAbsoluteURI) throws MalformedURIException {
-        this(null, p_uriSpec, allowNonAbsoluteURI);
+    public URI(final String uriSpec, final boolean allowNonAbsoluteURI) throws MalformedURIException {
+        this(null, uriSpec, allowNonAbsoluteURI);
     }
 
     /**
      * Construct a new URI from a base URI and a URI specification string. The URI
      * specification string may be a relative URI.
      *
-     * @param p_base    the base URI (cannot be null if p_uriSpec is null or empty)
-     * @param p_uriSpec the URI specification string (cannot be null or empty if
+     * @param base    the base URI (cannot be null if p_uriSpec is null or empty)
+     * @param uriSpec the URI specification string (cannot be null or empty if
      *                  p_base is null)
      *
      * @exception MalformedURIException if p_uriSpec violates any syntax rules
      */
-    public URI(URI p_base, String p_uriSpec) throws MalformedURIException {
-        initialize(p_base, p_uriSpec);
+    public URI(final URI base, final String uriSpec) throws MalformedURIException {
+        initialize(base, uriSpec);
     }
 
     /**
@@ -276,16 +273,16 @@ public class URI {
      * boolean is assigned to "true" and p_uriSpec is not valid absolute URI and
      * p_base is null instead of throwing an exception.
      *
-     * @param p_base              the base URI (cannot be null if p_uriSpec is null
+     * @param base              the base URI (cannot be null if p_uriSpec is null
      *                            or empty)
-     * @param p_uriSpec           the URI specification string (cannot be null or
+     * @param uriSpec           the URI specification string (cannot be null or
      *                            empty if p_base is null)
      * @param allowNonAbsoluteURI true to permit non-absolute URIs, false otherwise.
      *
      * @exception MalformedURIException if p_uriSpec violates any syntax rules
      */
-    public URI(URI p_base, String p_uriSpec, boolean allowNonAbsoluteURI) throws MalformedURIException {
-        initialize(p_base, p_uriSpec, allowNonAbsoluteURI);
+    public URI(final URI base, final String uriSpec, final boolean allowNonAbsoluteURI) throws MalformedURIException {
+        initialize(base, uriSpec, allowNonAbsoluteURI);
     }
 
     /**
@@ -293,23 +290,23 @@ public class URI {
      * parts. Each component is validated for syntax and some basic semantic checks
      * are performed as well. See the individual setter methods for specifics.
      *
-     * @param p_scheme      the URI scheme (cannot be null or empty)
-     * @param p_host        the hostname, IPv4 address or IPv6 reference for the URI
-     * @param p_path        the URI path - if the path contains '?' or '#', then the
+     * @param scheme      the URI scheme (cannot be null or empty)
+     * @param host        the hostname, IPv4 address or IPv6 reference for the URI
+     * @param path        the URI path - if the path contains '?' or '#', then the
      *                      query string and/or fragment will be set from the path;
      *                      however, if the query and fragment are specified both in
      *                      the path and as separate parameters, an exception is
      *                      thrown
-     * @param p_queryString the URI query string (cannot be specified if path is
+     * @param queryString the URI query string (cannot be specified if path is
      *                      null)
-     * @param p_fragment    the URI fragment (cannot be specified if path is null)
+     * @param fragment    the URI fragment (cannot be specified if path is null)
      *
      * @exception MalformedURIException if any of the parameters violates syntax
      *                                  rules or semantic rules
      */
-    public URI(String p_scheme, String p_host, String p_path, String p_queryString, String p_fragment)
+    public URI(final String scheme, final String host, final String path, final String queryString, final String fragment)
             throws MalformedURIException {
-        this(p_scheme, null, p_host, -1, p_path, p_queryString, p_fragment);
+        this(scheme, null, host, -1, path, queryString, fragment);
     }
 
     /**
@@ -317,71 +314,71 @@ public class URI {
      * parts. Each component is validated for syntax and some basic semantic checks
      * are performed as well. See the individual setter methods for specifics.
      *
-     * @param p_scheme      the URI scheme (cannot be null or empty)
-     * @param p_userinfo    the URI userinfo (cannot be specified if host is null)
-     * @param p_host        the hostname, IPv4 address or IPv6 reference for the URI
-     * @param p_port        the URI port (may be -1 for "unspecified"; cannot be
+     * @param scheme      the URI scheme (cannot be null or empty)
+     * @param userinfo    the URI userinfo (cannot be specified if host is null)
+     * @param host        the hostname, IPv4 address or IPv6 reference for the URI
+     * @param port        the URI port (may be -1 for "unspecified"; cannot be
      *                      specified if host is null)
-     * @param p_path        the URI path - if the path contains '?' or '#', then the
+     * @param path        the URI path - if the path contains '?' or '#', then the
      *                      query string and/or fragment will be set from the path;
      *                      however, if the query and fragment are specified both in
      *                      the path and as separate parameters, an exception is
      *                      thrown
-     * @param p_queryString the URI query string (cannot be specified if path is
+     * @param queryString the URI query string (cannot be specified if path is
      *                      null)
-     * @param p_fragment    the URI fragment (cannot be specified if path is null)
+     * @param fragment    the URI fragment (cannot be specified if path is null)
      *
      * @exception MalformedURIException if any of the parameters violates syntax
      *                                  rules or semantic rules
      */
-    public URI(String p_scheme, String p_userinfo, String p_host, int p_port, String p_path, String p_queryString,
-            String p_fragment) throws MalformedURIException {
-        if (p_scheme == null || p_scheme.trim().length() == 0) {
+    public URI(final String scheme, final String userinfo, final String host, final int port, final String path, final String queryString,
+            final String fragment) throws MalformedURIException {
+        if (scheme == null || scheme.trim().length() == 0) {
             throw new MalformedURIException("Scheme is required!");
         }
 
-        if (p_host == null) {
-            if (p_userinfo != null) {
+        if (host == null) {
+            if (userinfo != null) {
                 throw new MalformedURIException("Userinfo may not be specified if host is not specified!");
             }
-            if (p_port != -1) {
+            if (port != -1) {
                 throw new MalformedURIException("Port may not be specified if host is not specified!");
             }
         }
 
-        if (p_path != null) {
-            if (p_path.indexOf('?') != -1 && p_queryString != null) {
+        if (path != null) {
+            if (path.indexOf('?') != -1 && queryString != null) {
                 throw new MalformedURIException("Query string cannot be specified in path and query string!");
             }
 
-            if (p_path.indexOf('#') != -1 && p_fragment != null) {
+            if (path.indexOf('#') != -1 && fragment != null) {
                 throw new MalformedURIException("Fragment cannot be specified in both the path and fragment!");
             }
         }
 
-        setScheme(p_scheme);
-        setHost(p_host);
-        setPort(p_port);
-        setUserinfo(p_userinfo);
-        setPath(p_path);
-        setQueryString(p_queryString);
-        setFragment(p_fragment);
+        setScheme(scheme);
+        setHost(host);
+        setPort(port);
+        setUserinfo(userinfo);
+        setPath(path);
+        setQueryString(queryString);
+        setFragment(fragment);
     }
 
     /**
      * Initialize all fields of this URI from another URI.
      *
-     * @param p_other the URI to copy (cannot be null)
+     * @param other the URI to copy (cannot be null)
      */
-    private void initialize(URI p_other) {
-        m_scheme = p_other.getScheme();
-        m_userinfo = p_other.getUserinfo();
-        m_host = p_other.getHost();
-        m_port = p_other.getPort();
-        m_regAuthority = p_other.getRegBasedAuthority();
-        m_path = p_other.getPath();
-        m_queryString = p_other.getQueryString();
-        m_fragment = p_other.getFragment();
+    private void initialize(final URI other) {
+        scheme_ = other.getScheme();
+        userinfo_ = other.getUserinfo();
+        host_ = other.getHost();
+        port_ = other.getPort();
+        regAuthority_ = other.getRegBasedAuthority();
+        path_ = other.getPath();
+        queryString_ = other.getQueryString();
+        fragment_ = other.getFragment();
     }
 
     /**
@@ -389,9 +386,9 @@ public class URI {
      * 2396 Section 4 and Appendix B for specifications on parsing the URI and
      * Section 5 for specifications on resolving relative URIs and relative paths.
      *
-     * @param p_base              the base URI (may be null if p_uriSpec is an
+     * @param base              the base URI (may be null if p_uriSpec is an
      *                            absolute URI)
-     * @param p_uriSpec           the URI spec string which may be an absolute or
+     * @param uriSpec           the URI spec string which may be an absolute or
      *                            relative URI (can only be null/empty if p_base is
      *                            not null)
      * @param allowNonAbsoluteURI true to permit non-absolute URIs, in case of
@@ -401,13 +398,13 @@ public class URI {
      *                                  absolute URI or if p_uriSpec violates syntax
      *                                  rules
      */
-    private void initialize(URI p_base, String p_uriSpec, boolean allowNonAbsoluteURI) throws MalformedURIException {
+    private void initialize(final URI base, final String uriSpec, final boolean allowNonAbsoluteURI) throws MalformedURIException {
 
-        int uriSpecLen = (p_uriSpec != null) ? p_uriSpec.length() : 0;
+        final int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
 
-        if (p_base == null && uriSpecLen == 0) {
+        if (base == null && uriSpecLen == 0) {
             if (allowNonAbsoluteURI) {
-                m_path = "";
+                path_ = "";
                 return;
             }
             throw new MalformedURIException("Cannot initialize URI with empty parameters.");
@@ -415,36 +412,38 @@ public class URI {
 
         // just make a copy of the base if spec is empty
         if (uriSpecLen == 0) {
-            initialize(p_base);
+            initialize(base);
             return;
         }
 
         int index = 0;
 
         // Check for scheme, which must be before '/', '?' or '#'.
-        int colonIdx = p_uriSpec.indexOf(':');
+        final int colonIdx = uriSpec.indexOf(':');
         if (colonIdx != -1) {
             final int searchFrom = colonIdx - 1;
             // search backwards starting from character before ':'.
-            int slashIdx = p_uriSpec.lastIndexOf('/', searchFrom);
-            int queryIdx = p_uriSpec.lastIndexOf('?', searchFrom);
-            int fragmentIdx = p_uriSpec.lastIndexOf('#', searchFrom);
+            final int slashIdx = uriSpec.lastIndexOf('/', searchFrom);
+            final int queryIdx = uriSpec.lastIndexOf('?', searchFrom);
+            final int fragmentIdx = uriSpec.lastIndexOf('#', searchFrom);
 
             if (colonIdx == 0 || slashIdx != -1 || queryIdx != -1 || fragmentIdx != -1) {
                 // A standalone base is a valid URI according to spec
-                if (colonIdx == 0 || (p_base == null && fragmentIdx != 0 && !allowNonAbsoluteURI)) {
+                if (colonIdx == 0 || (base == null && fragmentIdx != 0 && !allowNonAbsoluteURI)) {
                     throw new MalformedURIException("No scheme found in URI.");
                 }
-            } else {
-                initializeScheme(p_uriSpec);
-                index = m_scheme.length() + 1;
+            }
+            else {
+                initializeScheme(uriSpec);
+                index = scheme_.length() + 1;
 
                 // Neither 'scheme:' or 'scheme:#fragment' are valid URIs.
-                if (colonIdx == uriSpecLen - 1 || p_uriSpec.charAt(colonIdx + 1) == '#') {
+                if (colonIdx == uriSpecLen - 1 || uriSpec.charAt(colonIdx + 1) == '#') {
                     throw new MalformedURIException("Scheme specific part cannot be empty.");
                 }
             }
-        } else if (p_base == null && p_uriSpec.indexOf('#') != 0 && !allowNonAbsoluteURI) {
+        }
+        else if (base == null && uriSpec.indexOf('#') != 0 && !allowNonAbsoluteURI) {
             throw new MalformedURIException("No scheme found in URI.");
         }
 
@@ -458,13 +457,13 @@ public class URI {
         //
         // net_path = "//" authority [ abs_path ]
         // abs_path = "/" path_segments
-        if (((index + 1) < uriSpecLen) && (p_uriSpec.charAt(index) == '/' && p_uriSpec.charAt(index + 1) == '/')) {
+        if (((index + 1) < uriSpecLen) && (uriSpec.charAt(index) == '/' && uriSpec.charAt(index + 1) == '/')) {
             index += 2;
-            int startPos = index;
+            final int startPos = index;
 
             // Authority will be everything up to path, query or fragment
             while (index < uriSpecLen) {
-                char testChar = p_uriSpec.charAt(index);
+                final char testChar = uriSpec.charAt(index);
                 if (testChar == '/' || testChar == '?' || testChar == '#') {
                     break;
                 }
@@ -477,23 +476,24 @@ public class URI {
             if (index > startPos) {
                 // If we didn't find authority we need to back up. Attempt to
                 // match against abs_path next.
-                if (!initializeAuthority(p_uriSpec.substring(startPos, index))) {
+                if (!initializeAuthority(uriSpec.substring(startPos, index))) {
                     index = startPos - 2;
                 }
-            } else {
-                m_host = "";
+            }
+            else {
+                host_ = "";
             }
         }
 
-        initializePath(p_uriSpec, index);
+        initializePath(uriSpec, index);
 
         // Resolve relative URI to base URI - see RFC 2396 Section 5.2
         // In some cases, it might make more sense to throw an exception
         // (when scheme is specified is the string spec and the base URI
         // is also specified, for example), but we're just following the
         // RFC specifications
-        if (p_base != null) {
-            absolutize(p_base);
+        if (base != null) {
+            absolutize(base);
         }
     }
 
@@ -502,54 +502,56 @@ public class URI {
      * 2396 Section 4 and Appendix B for specifications on parsing the URI and
      * Section 5 for specifications on resolving relative URIs and relative paths.
      *
-     * @param p_base    the base URI (may be null if p_uriSpec is an absolute URI)
-     * @param p_uriSpec the URI spec string which may be an absolute or relative URI
+     * @param base    the base URI (may be null if p_uriSpec is an absolute URI)
+     * @param uriSpec the URI spec string which may be an absolute or relative URI
      *                  (can only be null/empty if p_base is not null)
      *
      * @exception MalformedURIException if p_base is null and p_uriSpec is not an
      *                                  absolute URI or if p_uriSpec violates syntax
      *                                  rules
      */
-    private void initialize(URI p_base, String p_uriSpec) throws MalformedURIException {
+    private void initialize(final URI base, final String uriSpec) throws MalformedURIException {
 
-        int uriSpecLen = (p_uriSpec != null) ? p_uriSpec.length() : 0;
+        final int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
 
-        if (p_base == null && uriSpecLen == 0) {
+        if (base == null && uriSpecLen == 0) {
             throw new MalformedURIException("Cannot initialize URI with empty parameters.");
         }
 
         // just make a copy of the base if spec is empty
         if (uriSpecLen == 0) {
-            initialize(p_base);
+            initialize(base);
             return;
         }
 
         int index = 0;
 
         // Check for scheme, which must be before '/', '?' or '#'.
-        int colonIdx = p_uriSpec.indexOf(':');
+        final int colonIdx = uriSpec.indexOf(':');
         if (colonIdx != -1) {
             final int searchFrom = colonIdx - 1;
             // search backwards starting from character before ':'.
-            int slashIdx = p_uriSpec.lastIndexOf('/', searchFrom);
-            int queryIdx = p_uriSpec.lastIndexOf('?', searchFrom);
-            int fragmentIdx = p_uriSpec.lastIndexOf('#', searchFrom);
+            final int slashIdx = uriSpec.lastIndexOf('/', searchFrom);
+            final int queryIdx = uriSpec.lastIndexOf('?', searchFrom);
+            final int fragmentIdx = uriSpec.lastIndexOf('#', searchFrom);
 
             if (colonIdx == 0 || slashIdx != -1 || queryIdx != -1 || fragmentIdx != -1) {
                 // A standalone base is a valid URI according to spec
-                if (colonIdx == 0 || (p_base == null && fragmentIdx != 0)) {
+                if (colonIdx == 0 || (base == null && fragmentIdx != 0)) {
                     throw new MalformedURIException("No scheme found in URI.");
                 }
-            } else {
-                initializeScheme(p_uriSpec);
-                index = m_scheme.length() + 1;
+            }
+            else {
+                initializeScheme(uriSpec);
+                index = scheme_.length() + 1;
 
                 // Neither 'scheme:' or 'scheme:#fragment' are valid URIs.
-                if (colonIdx == uriSpecLen - 1 || p_uriSpec.charAt(colonIdx + 1) == '#') {
+                if (colonIdx == uriSpecLen - 1 || uriSpec.charAt(colonIdx + 1) == '#') {
                     throw new MalformedURIException("Scheme specific part cannot be empty.");
                 }
             }
-        } else if (p_base == null && p_uriSpec.indexOf('#') != 0) {
+        }
+        else if (base == null && uriSpec.indexOf('#') != 0) {
             throw new MalformedURIException("No scheme found in URI.");
         }
 
@@ -563,13 +565,13 @@ public class URI {
         //
         // net_path = "//" authority [ abs_path ]
         // abs_path = "/" path_segments
-        if (((index + 1) < uriSpecLen) && (p_uriSpec.charAt(index) == '/' && p_uriSpec.charAt(index + 1) == '/')) {
+        if (((index + 1) < uriSpecLen) && (uriSpec.charAt(index) == '/' && uriSpec.charAt(index + 1) == '/')) {
             index += 2;
-            int startPos = index;
+            final int startPos = index;
 
             // Authority will be everything up to path, query or fragment
             while (index < uriSpecLen) {
-                char testChar = p_uriSpec.charAt(index);
+                final char testChar = uriSpec.charAt(index);
                 if (testChar == '/' || testChar == '?' || testChar == '#') {
                     break;
                 }
@@ -582,32 +584,33 @@ public class URI {
             if (index > startPos) {
                 // If we didn't find authority we need to back up. Attempt to
                 // match against abs_path next.
-                if (!initializeAuthority(p_uriSpec.substring(startPos, index))) {
+                if (!initializeAuthority(uriSpec.substring(startPos, index))) {
                     index = startPos - 2;
                 }
-            } else {
-                m_host = "";
+            }
+            else {
+                host_ = "";
             }
         }
 
-        initializePath(p_uriSpec, index);
+        initializePath(uriSpec, index);
 
         // Resolve relative URI to base URI - see RFC 2396 Section 5.2
         // In some cases, it might make more sense to throw an exception
         // (when scheme is specified is the string spec and the base URI
         // is also specified, for example), but we're just following the
         // RFC specifications
-        if (p_base != null) {
-            absolutize(p_base);
+        if (base != null) {
+            absolutize(base);
         }
     }
 
     /**
      * Absolutize URI with given base URI.
      *
-     * @param p_base base URI for absolutization
+     * @param base base URI for absolutization
      */
-    public void absolutize(URI p_base) {
+    public void absolutize(final URI base) {
 
         // check to see if this is the current doc - RFC 2396 5.2 #2
         // note that this is slightly different from the RFC spec in that
@@ -616,19 +619,19 @@ public class URI {
         // string or a fragment (e.g. "?y" or "#s") -
         // see <http://www.ics.uci.edu/~fielding/url/test1.html> which
         // identified this as a bug in the RFC
-        if (m_path.length() == 0 && m_scheme == null && m_host == null && m_regAuthority == null) {
-            m_scheme = p_base.getScheme();
-            m_userinfo = p_base.getUserinfo();
-            m_host = p_base.getHost();
-            m_port = p_base.getPort();
-            m_regAuthority = p_base.getRegBasedAuthority();
-            m_path = p_base.getPath();
+        if (path_.length() == 0 && scheme_ == null && host_ == null && regAuthority_ == null) {
+            scheme_ = base.getScheme();
+            userinfo_ = base.getUserinfo();
+            host_ = base.getHost();
+            port_ = base.getPort();
+            regAuthority_ = base.getRegBasedAuthority();
+            path_ = base.getPath();
 
-            if (m_queryString == null) {
-                m_queryString = p_base.getQueryString();
+            if (queryString_ == null) {
+                queryString_ = base.getQueryString();
 
-                if (m_fragment == null) {
-                    m_fragment = p_base.getFragment();
+                if (fragment_ == null) {
+                    fragment_ = base.getFragment();
                 }
             }
             return;
@@ -636,45 +639,48 @@ public class URI {
 
         // check for scheme - RFC 2396 5.2 #3
         // if we found a scheme, it means absolute URI, so we're done
-        if (m_scheme == null) {
-            m_scheme = p_base.getScheme();
-        } else {
+        if (scheme_ == null) {
+            scheme_ = base.getScheme();
+        }
+        else {
             return;
         }
 
         // check for authority - RFC 2396 5.2 #4
         // if we found a host, then we've got a network path, so we're done
-        if (m_host == null && m_regAuthority == null) {
-            m_userinfo = p_base.getUserinfo();
-            m_host = p_base.getHost();
-            m_port = p_base.getPort();
-            m_regAuthority = p_base.getRegBasedAuthority();
-        } else {
+        if (host_ == null && regAuthority_ == null) {
+            userinfo_ = base.getUserinfo();
+            host_ = base.getHost();
+            port_ = base.getPort();
+            regAuthority_ = base.getRegBasedAuthority();
+        }
+        else {
             return;
         }
 
         // check for absolute path - RFC 2396 5.2 #5
-        if (m_path.length() > 0 && m_path.startsWith("/")) {
+        if (path_.length() > 0 && path_.startsWith("/")) {
             return;
         }
 
         // if we get to this point, we need to resolve relative path
         // RFC 2396 5.2 #6
         String path = "";
-        String basePath = p_base.getPath();
+        final String basePath = base.getPath();
 
         // 6a - get all but the last segment of the base URI path
         if (basePath != null && basePath.length() > 0) {
-            int lastSlash = basePath.lastIndexOf('/');
+            final int lastSlash = basePath.lastIndexOf('/');
             if (lastSlash != -1) {
                 path = basePath.substring(0, lastSlash + 1);
             }
-        } else if (m_path.length() > 0) {
+        }
+        else if (path_.length() > 0) {
             path = "/";
         }
 
         // 6b - append the relative URI path
-        path = path.concat(m_path);
+        path = path.concat(path_);
 
         // 6c - remove all "./" where "." is a complete path segment
         int index;
@@ -700,10 +706,12 @@ public class URI {
                 if (!"..".equals(tempString.substring(segIndex))) {
                     path = path.substring(0, segIndex + 1).concat(path.substring(index + 4));
                     index = segIndex;
-                } else {
+                }
+                else {
                     index += 4;
                 }
-            } else {
+            }
+            else {
                 index += 4;
             }
         }
@@ -717,29 +725,29 @@ public class URI {
                 path = path.substring(0, segIndex + 1);
             }
         }
-        m_path = path;
+        path_ = path;
     }
 
     /**
      * Initialize the scheme for this URI from a URI string spec.
      *
-     * @param p_uriSpec the URI specification (cannot be null)
+     * @param uriSpec the URI specification (cannot be null)
      *
      * @exception MalformedURIException if URI does not have a conformant scheme
      */
-    private void initializeScheme(String p_uriSpec) throws MalformedURIException {
-        int uriSpecLen = p_uriSpec.length();
+    private void initializeScheme(final String uriSpec) throws MalformedURIException {
+        final int uriSpecLen = uriSpec.length();
         int index = 0;
         String scheme = null;
 
         while (index < uriSpecLen) {
-            char testChar = p_uriSpec.charAt(index);
+            final char testChar = uriSpec.charAt(index);
             if (testChar == ':' || testChar == '/' || testChar == '?' || testChar == '#') {
                 break;
             }
             index++;
         }
-        scheme = p_uriSpec.substring(0, index);
+        scheme = uriSpec.substring(0, index);
 
         if (scheme.length() == 0) {
             throw new MalformedURIException("No scheme found in URI.");
@@ -751,28 +759,28 @@ public class URI {
      * Initialize the authority (either server or registry based) for this URI from
      * a URI string spec.
      *
-     * @param p_uriSpec the URI specification (cannot be null)
+     * @param uriSpec the URI specification (cannot be null)
      *
      * @return true if the given string matched server or registry based authority
      */
-    private boolean initializeAuthority(String p_uriSpec) {
+    private boolean initializeAuthority(final String uriSpec) {
 
         int index = 0;
         int start = 0;
-        int end = p_uriSpec.length();
+        final int end = uriSpec.length();
 
         String userinfo = null;
 
         // userinfo is everything up to @
-        if (p_uriSpec.indexOf('@', start) != -1) {
+        if (uriSpec.indexOf('@', start) != -1) {
             while (index < end) {
-                char testChar = p_uriSpec.charAt(index);
+                final char testChar = uriSpec.charAt(index);
                 if (testChar == '@') {
                     break;
                 }
                 index++;
             }
-            userinfo = p_uriSpec.substring(start, index);
+            userinfo = uriSpec.substring(start, index);
             index++;
         }
 
@@ -782,22 +790,24 @@ public class URI {
         start = index;
         boolean hasPort = false;
         if (index < end) {
-            if (p_uriSpec.charAt(start) == '[') {
-                int bracketIndex = p_uriSpec.indexOf(']', start);
+            if (uriSpec.charAt(start) == '[') {
+                final int bracketIndex = uriSpec.indexOf(']', start);
                 index = (bracketIndex != -1) ? bracketIndex : end;
-                if (index + 1 < end && p_uriSpec.charAt(index + 1) == ':') {
+                if (index + 1 < end && uriSpec.charAt(index + 1) == ':') {
                     ++index;
                     hasPort = true;
-                } else {
+                }
+                else {
                     index = end;
                 }
-            } else {
-                int colonIndex = p_uriSpec.lastIndexOf(':', end);
+            }
+            else {
+                final int colonIndex = uriSpec.lastIndexOf(':', end);
                 index = (colonIndex > start) ? colonIndex : end;
                 hasPort = index != end;
             }
         }
-        host = p_uriSpec.substring(start, index);
+        host = uriSpec.substring(start, index);
         int port = -1;
         if (host.length() > 0) {
             // port
@@ -807,16 +817,18 @@ public class URI {
                 while (index < end) {
                     index++;
                 }
-                String portStr = p_uriSpec.substring(start, index);
+                final String portStr = uriSpec.substring(start, index);
                 if (portStr.length() > 0) {
                     // REVISIT: Remove this code.
                     // REVISIT: Remove this code.
                     // Store port value as string instead of integer.
                     try {
                         port = Integer.parseInt(portStr);
-                        if (port == -1)
+                        if (port == -1) {
                             --port;
-                    } catch (NumberFormatException nfe) {
+                        }
+                    }
+                    catch (final NumberFormatException nfe) {
                         port = -2;
                     }
                 }
@@ -824,17 +836,17 @@ public class URI {
         }
 
         if (isValidServerBasedAuthority(host, port, userinfo)) {
-            m_host = host;
-            m_port = port;
-            m_userinfo = userinfo;
+            host_ = host;
+            port_ = port;
+            userinfo_ = userinfo;
             return true;
         }
         // Note: Registry based authority is being removed from a
         // new spec for URI which would obsolete RFC 2396. If the
         // spec is added to XML errata, processing of reg_name
         // needs to be removed. - mrglavas.
-        else if (isValidRegistryBasedAuthority(p_uriSpec)) {
-            m_regAuthority = p_uriSpec;
+        else if (isValidRegistryBasedAuthority(uriSpec)) {
+            regAuthority_ = uriSpec;
             return true;
         }
         return false;
@@ -851,7 +863,7 @@ public class URI {
      * @return true if the given host, port, and userinfo compose a valid server
      *         authority
      */
-    private boolean isValidServerBasedAuthority(String host, int port, String userinfo) {
+    private boolean isValidServerBasedAuthority(final String host, final int port, final String userinfo) {
 
         // Check if the host is well formed.
         // Check that port is well formed if it exists.
@@ -867,15 +879,16 @@ public class URI {
             // Userinfo can contain alphanumerics, mark characters, escaped
             // and ';',':','&','=','+','$',','
             int index = 0;
-            int end = userinfo.length();
+            final int end = userinfo.length();
             while (index < end) {
-                char testChar = userinfo.charAt(index);
+                final char testChar = userinfo.charAt(index);
                 if (testChar == '%') {
                     if (index + 2 >= end || !isHex(userinfo.charAt(index + 1)) || !isHex(userinfo.charAt(index + 2))) {
                         return false;
                     }
                     index += 2;
-                } else if (!isUserinfoCharacter(testChar)) {
+                }
+                else if (!isUserinfoCharacter(testChar)) {
                     return false;
                 }
                 ++index;
@@ -891,9 +904,9 @@ public class URI {
      *
      * @return true if the given string is a registry based authority
      */
-    private boolean isValidRegistryBasedAuthority(String authority) {
+    private boolean isValidRegistryBasedAuthority(final String authority) {
         int index = 0;
-        int end = authority.length();
+        final int end = authority.length();
         char testChar;
 
         while (index < end) {
@@ -919,36 +932,36 @@ public class URI {
     /**
      * Initialize the path for this URI from a URI string spec.
      *
-     * @param p_uriSpec     the URI specification (cannot be null)
-     * @param p_nStartIndex the index to begin scanning from
+     * @param uriSpec     the URI specification (cannot be null)
+     * @param nStartIndex the index to begin scanning from
      *
      * @exception MalformedURIException if p_uriSpec violates syntax rules
      */
-    private void initializePath(String p_uriSpec, int p_nStartIndex) throws MalformedURIException {
-        if (p_uriSpec == null) {
+    private void initializePath(final String uriSpec, final int nStartIndex) throws MalformedURIException {
+        if (uriSpec == null) {
             throw new MalformedURIException("Cannot initialize path from null string!");
         }
 
-        int index = p_nStartIndex;
-        int start = p_nStartIndex;
-        int end = p_uriSpec.length();
+        int index = nStartIndex;
+        int start = nStartIndex;
+        final int end = uriSpec.length();
         char testChar = '\0';
 
         // path - everything up to query string or fragment
         if (start < end) {
             // RFC 2732 only allows '[' and ']' to appear in the opaque part.
-            if (getScheme() == null || p_uriSpec.charAt(start) == '/') {
+            if (getScheme() == null || uriSpec.charAt(start) == '/') {
 
                 // Scan path.
                 // abs_path = "/" path_segments
                 // rel_path = rel_segment [ abs_path ]
                 while (index < end) {
-                    testChar = p_uriSpec.charAt(index);
+                    testChar = uriSpec.charAt(index);
 
                     // check for valid escape sequence
                     if (testChar == '%') {
-                        if (index + 2 >= end || !isHex(p_uriSpec.charAt(index + 1))
-                                || !isHex(p_uriSpec.charAt(index + 2))) {
+                        if (index + 2 >= end || !isHex(uriSpec.charAt(index + 1))
+                                || !isHex(uriSpec.charAt(index + 2))) {
                             throw new MalformedURIException("Path contains invalid escape sequence!");
                         }
                         index += 2;
@@ -963,12 +976,13 @@ public class URI {
                     }
                     ++index;
                 }
-            } else {
+            }
+            else {
 
                 // Scan opaque part.
                 // opaque_part = uric_no_slash *uric
                 while (index < end) {
-                    testChar = p_uriSpec.charAt(index);
+                    testChar = uriSpec.charAt(index);
 
                     if (testChar == '?' || testChar == '#') {
                         break;
@@ -976,8 +990,8 @@ public class URI {
 
                     // check for valid escape sequence
                     if (testChar == '%') {
-                        if (index + 2 >= end || !isHex(p_uriSpec.charAt(index + 1))
-                                || !isHex(p_uriSpec.charAt(index + 2))) {
+                        if (index + 2 >= end || !isHex(uriSpec.charAt(index + 1))
+                                || !isHex(uriSpec.charAt(index + 2))) {
                             throw new MalformedURIException("Opaque part contains invalid escape sequence!");
                         }
                         index += 2;
@@ -994,29 +1008,30 @@ public class URI {
                 }
             }
         }
-        m_path = p_uriSpec.substring(start, index);
+        path_ = uriSpec.substring(start, index);
 
         // query - starts with ? and up to fragment or end
         if (testChar == '?') {
             index++;
             start = index;
             while (index < end) {
-                testChar = p_uriSpec.charAt(index);
+                testChar = uriSpec.charAt(index);
                 if (testChar == '#') {
                     break;
                 }
                 if (testChar == '%') {
-                    if (index + 2 >= end || !isHex(p_uriSpec.charAt(index + 1))
-                            || !isHex(p_uriSpec.charAt(index + 2))) {
+                    if (index + 2 >= end || !isHex(uriSpec.charAt(index + 1))
+                            || !isHex(uriSpec.charAt(index + 2))) {
                         throw new MalformedURIException("Query string contains invalid escape sequence!");
                     }
                     index += 2;
-                } else if (!isURICharacter(testChar)) {
+                }
+                else if (!isURICharacter(testChar)) {
                     throw new MalformedURIException("Query string contains invalid character: " + testChar);
                 }
                 index++;
             }
-            m_queryString = p_uriSpec.substring(start, index);
+            queryString_ = uriSpec.substring(start, index);
         }
 
         // fragment - starts with #
@@ -1024,20 +1039,21 @@ public class URI {
             index++;
             start = index;
             while (index < end) {
-                testChar = p_uriSpec.charAt(index);
+                testChar = uriSpec.charAt(index);
 
                 if (testChar == '%') {
-                    if (index + 2 >= end || !isHex(p_uriSpec.charAt(index + 1))
-                            || !isHex(p_uriSpec.charAt(index + 2))) {
+                    if (index + 2 >= end || !isHex(uriSpec.charAt(index + 1))
+                            || !isHex(uriSpec.charAt(index + 2))) {
                         throw new MalformedURIException("Fragment contains invalid escape sequence!");
                     }
                     index += 2;
-                } else if (!isURICharacter(testChar)) {
+                }
+                else if (!isURICharacter(testChar)) {
                     throw new MalformedURIException("Fragment contains invalid character: " + testChar);
                 }
                 index++;
             }
-            m_fragment = p_uriSpec.substring(start, index);
+            fragment_ = uriSpec.substring(start, index);
         }
     }
 
@@ -1047,7 +1063,7 @@ public class URI {
      * @return the scheme for this URI
      */
     public String getScheme() {
-        return m_scheme;
+        return scheme_;
     }
 
     /**
@@ -1057,44 +1073,44 @@ public class URI {
      * @return the scheme-specific part for this URI
      */
     public String getSchemeSpecificPart() {
-        StringBuilder schemespec = new StringBuilder();
+        final StringBuilder schemespec = new StringBuilder();
 
-        if (m_host != null || m_regAuthority != null) {
+        if (host_ != null || regAuthority_ != null) {
             schemespec.append("//");
 
             // Server based authority.
-            if (m_host != null) {
+            if (host_ != null) {
 
-                if (m_userinfo != null) {
-                    schemespec.append(m_userinfo);
+                if (userinfo_ != null) {
+                    schemespec.append(userinfo_);
                     schemespec.append('@');
                 }
 
-                schemespec.append(m_host);
+                schemespec.append(host_);
 
-                if (m_port != -1) {
+                if (port_ != -1) {
                     schemespec.append(':');
-                    schemespec.append(m_port);
+                    schemespec.append(port_);
                 }
             }
             // Registry based authority.
             else {
-                schemespec.append(m_regAuthority);
+                schemespec.append(regAuthority_);
             }
         }
 
-        if (m_path != null) {
-            schemespec.append(m_path);
+        if (path_ != null) {
+            schemespec.append(path_);
         }
 
-        if (m_queryString != null) {
+        if (queryString_ != null) {
             schemespec.append('?');
-            schemespec.append(m_queryString);
+            schemespec.append(queryString_);
         }
 
-        if (m_fragment != null) {
+        if (fragment_ != null) {
             schemespec.append('#');
-            schemespec.append(m_fragment);
+            schemespec.append(fragment_);
         }
 
         return schemespec.toString();
@@ -1106,7 +1122,7 @@ public class URI {
      * @return the userinfo for this URI (null if not specified).
      */
     public String getUserinfo() {
-        return m_userinfo;
+        return userinfo_;
     }
 
     /**
@@ -1115,7 +1131,7 @@ public class URI {
      * @return the host for this URI (null if not specified).
      */
     public String getHost() {
-        return m_host;
+        return host_;
     }
 
     /**
@@ -1124,7 +1140,7 @@ public class URI {
      * @return the port for this URI (-1 if not specified).
      */
     public int getPort() {
-        return m_port;
+        return port_;
     }
 
     /**
@@ -1133,7 +1149,7 @@ public class URI {
      * @return the registry based authority (null if not specified).
      */
     public String getRegBasedAuthority() {
-        return m_regAuthority;
+        return regAuthority_;
     }
 
     /**
@@ -1143,7 +1159,7 @@ public class URI {
      * @return the path for this URI.
      */
     public String getPath() {
-        return m_path;
+        return path_;
     }
 
     /**
@@ -1154,7 +1170,7 @@ public class URI {
      *         following it.
      */
     public String getQueryString() {
-        return m_queryString;
+        return queryString_;
     }
 
     /**
@@ -1165,63 +1181,64 @@ public class URI {
      *         following it.
      */
     public String getFragment() {
-        return m_fragment;
+        return fragment_;
     }
 
     /**
      * Set the scheme for this URI. The scheme is converted to lowercase before it
      * is set.
      *
-     * @param p_scheme the scheme for this URI (cannot be null)
+     * @param scheme the scheme for this URI (cannot be null)
      *
      * @exception MalformedURIException if p_scheme is not a conformant scheme name
      */
-    public void setScheme(String p_scheme) throws MalformedURIException {
-        if (p_scheme == null) {
+    public void setScheme(final String scheme) throws MalformedURIException {
+        if (scheme == null) {
             throw new MalformedURIException("Cannot set scheme from null string!");
         }
-        if (!isConformantSchemeName(p_scheme)) {
+        if (!isConformantSchemeName(scheme)) {
             throw new MalformedURIException("The scheme is not conformant.");
         }
 
-        m_scheme = p_scheme.toLowerCase(Locale.ROOT);
+        scheme_ = scheme.toLowerCase(Locale.ROOT);
     }
 
     /**
      * Set the userinfo for this URI. If a non-null value is passed in and the host
      * value is null, then an exception is thrown.
      *
-     * @param p_userinfo the userinfo for this URI
+     * @param userinfo the userinfo for this URI
      *
      * @exception MalformedURIException if p_userinfo contains invalid characters
      */
-    public void setUserinfo(String p_userinfo) throws MalformedURIException {
-        if (p_userinfo == null) {
-            m_userinfo = null;
+    public void setUserinfo(final String userinfo) throws MalformedURIException {
+        if (userinfo == null) {
+            userinfo_ = null;
             return;
         }
 
-        if (m_host == null) {
+        if (host_ == null) {
             throw new MalformedURIException("Userinfo cannot be set when host is null!");
         }
 
         // userinfo can contain alphanumerics, mark characters, escaped
         // and ';',':','&','=','+','$',','
         int index = 0;
-        int end = p_userinfo.length();
+        final int end = userinfo.length();
         while (index < end) {
-            char testChar = p_userinfo.charAt(index);
+            final char testChar = userinfo.charAt(index);
             if (testChar == '%') {
-                if (index + 2 >= end || !isHex(p_userinfo.charAt(index + 1)) || !isHex(p_userinfo.charAt(index + 2))) {
+                if (index + 2 >= end || !isHex(userinfo.charAt(index + 1)) || !isHex(userinfo.charAt(index + 2))) {
                     throw new MalformedURIException("Userinfo contains invalid escape sequence!");
                 }
-            } else if (!isUserinfoCharacter(testChar)) {
+            }
+            else if (!isUserinfoCharacter(testChar)) {
                 throw new MalformedURIException("Userinfo contains invalid character:" + testChar);
             }
             index++;
         }
 
-        m_userinfo = p_userinfo;
+        userinfo_ = userinfo;
     }
 
     /**
@@ -1235,25 +1252,26 @@ public class URI {
      * existed in this URI.
      * </p>
      *
-     * @param p_host the host for this URI
+     * @param host the host for this URI
      *
      * @exception MalformedURIException if p_host is not a valid IP address or DNS
      *                                  hostname.
      */
-    public void setHost(String p_host) throws MalformedURIException {
-        if (p_host == null || p_host.length() == 0) {
-            if (p_host != null) {
-                m_regAuthority = null;
+    public void setHost(final String host) throws MalformedURIException {
+        if (host == null || host.length() == 0) {
+            if (host != null) {
+                regAuthority_ = null;
             }
-            m_host = p_host;
-            m_userinfo = null;
-            m_port = -1;
+            host_ = host;
+            userinfo_ = null;
+            port_ = -1;
             return;
-        } else if (!isWellFormedAddress(p_host)) {
+        }
+        else if (!isWellFormedAddress(host)) {
             throw new MalformedURIException("Host is not a well formed address!");
         }
-        m_host = p_host;
-        m_regAuthority = null;
+        host_ = host;
+        regAuthority_ = null;
     }
 
     /**
@@ -1261,20 +1279,21 @@ public class URI {
      * specified, otherwise valid port numbers are between 0 and 65535. If a valid
      * port number is passed in and the host field is null, an exception is thrown.
      *
-     * @param p_port the port number for this URI
+     * @param port the port number for this URI
      *
      * @exception MalformedURIException if p_port is not -1 and not a valid port
      *                                  number
      */
-    public void setPort(int p_port) throws MalformedURIException {
-        if (p_port >= 0 && p_port <= 65535) {
-            if (m_host == null) {
+    public void setPort(final int port) throws MalformedURIException {
+        if (port >= 0 && port <= 65535) {
+            if (host_ == null) {
                 throw new MalformedURIException("Port cannot be set when host is null!");
             }
-        } else if (p_port != -1) {
+        }
+        else if (port != -1) {
             throw new MalformedURIException("Invalid port number!");
         }
-        m_port = p_port;
+        port_ = port;
     }
 
     /**
@@ -1285,17 +1304,18 @@ public class URI {
      * should start with a slash. For URIs that do not follow the generic URI
      * syntax, this method sets the scheme-specific part.
      *
-     * @param p_path the path for this URI (may be null)
+     * @param path the path for this URI (may be null)
      *
      * @exception MalformedURIException if p_path contains invalid characters
      */
-    public void setPath(String p_path) throws MalformedURIException {
-        if (p_path == null) {
-            m_path = null;
-            m_queryString = null;
-            m_fragment = null;
-        } else {
-            initializePath(p_path, 0);
+    public void setPath(final String path) throws MalformedURIException {
+        if (path == null) {
+            path_ = null;
+            queryString_ = null;
+            fragment_ = null;
+        }
+        else {
+            initializePath(path, 0);
         }
     }
 
@@ -1303,23 +1323,27 @@ public class URI {
      * Set the query string for this URI. A non-null value is valid only if this is
      * an URI conforming to the generic URI syntax and the path value is not null.
      *
-     * @param p_queryString the query string for this URI
+     * @param queryString the query string for this URI
      *
      * @exception MalformedURIException if p_queryString is not null and this URI
      *                                  does not conform to the generic URI syntax
      *                                  or if the path is null
      */
-    public void setQueryString(String p_queryString) throws MalformedURIException {
-        if (p_queryString == null) {
-            m_queryString = null;
-        } else if (!isGenericURI()) {
+    public void setQueryString(final String queryString) throws MalformedURIException {
+        if (queryString == null) {
+            queryString_ = null;
+        }
+        else if (!isGenericURI()) {
             throw new MalformedURIException("Query string can only be set for a generic URI!");
-        } else if (getPath() == null) {
+        }
+        else if (getPath() == null) {
             throw new MalformedURIException("Query string cannot be set when path is null!");
-        } else if (!isURIString(p_queryString)) {
+        }
+        else if (!isURIString(queryString)) {
             throw new MalformedURIException("Query string contains invalid character!");
-        } else {
-            m_queryString = p_queryString;
+        }
+        else {
+            queryString_ = queryString;
         }
     }
 
@@ -1327,51 +1351,55 @@ public class URI {
      * Set the fragment for this URI. A non-null value is valid only if this is a
      * URI conforming to the generic URI syntax and the path value is not null.
      *
-     * @param p_fragment the fragment for this URI
+     * @param fragment the fragment for this URI
      *
      * @exception MalformedURIException if p_fragment is not null and this URI does
      *                                  not conform to the generic URI syntax or if
      *                                  the path is null
      */
-    public void setFragment(String p_fragment) throws MalformedURIException {
-        if (p_fragment == null) {
-            m_fragment = null;
-        } else if (!isGenericURI()) {
+    public void setFragment(final String fragment) throws MalformedURIException {
+        if (fragment == null) {
+            fragment_ = null;
+        }
+        else if (!isGenericURI()) {
             throw new MalformedURIException("Fragment can only be set for a generic URI!");
-        } else if (getPath() == null) {
+        }
+        else if (getPath() == null) {
             throw new MalformedURIException("Fragment cannot be set when path is null!");
-        } else if (!isURIString(p_fragment)) {
+        }
+        else if (!isURIString(fragment)) {
             throw new MalformedURIException("Fragment contains invalid character!");
-        } else {
-            m_fragment = p_fragment;
+        }
+        else {
+            fragment_ = fragment;
         }
     }
 
     /**
      * Determines if the passed-in Object is equivalent to this URI.
      *
-     * @param p_test the Object to test for equality.
+     * @param test the Object to test for equality.
      *
      * @return true if p_test is a URI with all values equal to this URI, false
      *         otherwise
      */
     @Override
-    public boolean equals(Object p_test) {
-        if (p_test instanceof URI) {
-            URI testURI = (URI) p_test;
-            if (((m_scheme == null && testURI.m_scheme == null)
-                    || (m_scheme != null && testURI.m_scheme != null && m_scheme.equals(testURI.m_scheme)))
-                    && ((m_userinfo == null && testURI.m_userinfo == null) || (m_userinfo != null
-                            && testURI.m_userinfo != null && m_userinfo.equals(testURI.m_userinfo)))
-                    && ((m_host == null && testURI.m_host == null)
-                            || (m_host != null && testURI.m_host != null && m_host.equals(testURI.m_host)))
-                    && m_port == testURI.m_port
-                    && ((m_path == null && testURI.m_path == null)
-                            || (m_path != null && testURI.m_path != null && m_path.equals(testURI.m_path)))
-                    && ((m_queryString == null && testURI.m_queryString == null) || (m_queryString != null
-                            && testURI.m_queryString != null && m_queryString.equals(testURI.m_queryString)))
-                    && ((m_fragment == null && testURI.m_fragment == null) || (m_fragment != null
-                            && testURI.m_fragment != null && m_fragment.equals(testURI.m_fragment)))) {
+    public boolean equals(final Object test) {
+        if (test instanceof URI) {
+            final URI testURI = (URI) test;
+            if (((scheme_ == null && testURI.scheme_ == null)
+                    || (scheme_ != null && testURI.scheme_ != null && scheme_.equals(testURI.scheme_)))
+                    && ((userinfo_ == null && testURI.userinfo_ == null) || (userinfo_ != null
+                            && testURI.userinfo_ != null && userinfo_.equals(testURI.userinfo_)))
+                    && ((host_ == null && testURI.host_ == null)
+                            || (host_ != null && testURI.host_ != null && host_.equals(testURI.host_)))
+                    && port_ == testURI.port_
+                    && ((path_ == null && testURI.path_ == null)
+                            || (path_ != null && testURI.path_ != null && path_.equals(testURI.path_)))
+                    && ((queryString_ == null && testURI.queryString_ == null) || (queryString_ != null
+                            && testURI.queryString_ != null && queryString_.equals(testURI.queryString_)))
+                    && ((fragment_ == null && testURI.fragment_ == null) || (fragment_ != null
+                            && testURI.fragment_ != null && fragment_.equals(testURI.fragment_)))) {
                 return true;
             }
         }
@@ -1385,10 +1413,10 @@ public class URI {
      */
     @Override
     public String toString() {
-        StringBuilder uriSpecString = new StringBuilder();
+        final StringBuilder uriSpecString = new StringBuilder();
 
-        if (m_scheme != null) {
-            uriSpecString.append(m_scheme);
+        if (scheme_ != null) {
+            uriSpecString.append(scheme_);
             uriSpecString.append(':');
         }
         uriSpecString.append(getSchemeSpecificPart());
@@ -1403,7 +1431,7 @@ public class URI {
     public boolean isGenericURI() {
         // presence of the host (whether valid or empty) means
         // double-slashes which means generic uri
-        return m_host != null;
+        return host_ != null;
     }
 
     /**
@@ -1413,7 +1441,7 @@ public class URI {
      */
     public boolean isAbsoluteURI() {
         // presence of the scheme means absolute uri
-        return m_scheme != null;
+        return scheme_ != null;
     }
 
     /**
@@ -1421,19 +1449,19 @@ public class URI {
      * is conformant if it starts with an alphanumeric, and contains only
      * alphanumerics, '+','-' and '.'.
      *
-     * @param p_scheme the scheme
+     * @param scheme the scheme
      *
      * @return true if the scheme is conformant, false otherwise
      */
-    public static boolean isConformantSchemeName(String p_scheme) {
-        if (p_scheme == null || p_scheme.trim().length() == 0 || !isAlpha(p_scheme.charAt(0))) {
+    private static boolean isConformantSchemeName(final String scheme) {
+        if (scheme == null || scheme.trim().length() == 0 || !isAlpha(scheme.charAt(0))) {
             return false;
         }
 
         char testChar;
-        int schemeLength = p_scheme.length();
+        final int schemeLength = scheme.length();
         for (int i = 1; i < schemeLength; ++i) {
-            testChar = p_scheme.charAt(i);
+            testChar = scheme.charAt(i);
             if (!isSchemeCharacter(testChar)) {
                 return false;
             }
@@ -1455,12 +1483,12 @@ public class URI {
      * @return true if the string is a syntactically valid IPv4 address, IPv6
      *         reference or hostname
      */
-    public static boolean isWellFormedAddress(String address) {
+    public static boolean isWellFormedAddress(final String address) {
         if (address == null) {
             return false;
         }
 
-        int addrLength = address.length();
+        final int addrLength = address.length();
         if (addrLength == 0) {
             return false;
         }
@@ -1509,7 +1537,8 @@ public class URI {
                     return false;
                 }
                 labelCharCount = 0;
-            } else if (!isAlphanum(testChar) && testChar != '-') {
+            }
+            else if (!isAlphanum(testChar) && testChar != '-') {
                 return false;
             }
             // RFC 1034: Labels must be 63 characters or less.
@@ -1536,9 +1565,9 @@ public class URI {
      * @param address the address
      * @return true if the string is a syntactically valid IPv4 address
      */
-    public static boolean isWellFormedIPv4Address(String address) {
+    public static boolean isWellFormedIPv4Address(final String address) {
 
-        int addrLength = address.length();
+        final int addrLength = address.length();
         char testChar;
         int numDots = 0;
         int numDigits = 0;
@@ -1564,7 +1593,8 @@ public class URI {
                 if (++numDots > 3) {
                     return false;
                 }
-            } else if (!isDigit(testChar)) {
+            }
+            else if (!isDigit(testChar)) {
                 return false;
             }
             // Check that that there are no more than three digits
@@ -1574,8 +1604,8 @@ public class URI {
             }
             // Check that this segment is not greater than 255.
             else if (numDigits == 3) {
-                char first = address.charAt(i - 2);
-                char second = address.charAt(i - 1);
+                final char first = address.charAt(i - 2);
+                final char second = address.charAt(i - 1);
                 if (!(first < '2' || (first == '2' && (second < '5' || (second == '5' && testChar <= '5'))))) {
                     return false;
                 }
@@ -1605,11 +1635,11 @@ public class URI {
      * @param address the address
      * @return true if the string is a syntactically valid IPv6 reference
      */
-    public static boolean isWellFormedIPv6Reference(String address) {
+    public static boolean isWellFormedIPv6Reference(final String address) {
 
-        int addrLength = address.length();
+        final int addrLength = address.length();
         int index = 1;
-        int end = addrLength - 1;
+        final int end = addrLength - 1;
 
         // Check if string is a potential match for IPv6reference.
         if (!(addrLength > 2 && address.charAt(0) == '[' && address.charAt(end) == ']')) {
@@ -1617,7 +1647,7 @@ public class URI {
         }
 
         // Counter for the number of 16-bit sections read in the address.
-        int[] counter = new int[1];
+        final int[] counter = new int[1];
 
         // Scan hex sequence before possible '::' or IPv4 address.
         index = scanHexSequence(address, index, end, counter);
@@ -1647,12 +1677,13 @@ public class URI {
             else {
                 return (counter[0] == 6) && isWellFormedIPv4Address(address.substring(index + 1, end));
             }
-        } else {
+        }
+        else {
             return false;
         }
 
         // 3. Scan hex sequence after '::'.
-        int prevCount = counter[0];
+        final int prevCount = counter[0];
         index = scanHexSequence(address, index, end, counter);
 
         // We've either reached the end of the string, the address ends in
@@ -1676,16 +1707,16 @@ public class URI {
      * @return the index of the next character to scan, or -1 if the string cannot
      *         match a valid IPv6 address
      */
-    private static int scanHexSequence(String address, int index, int end, int[] counter) {
+    private static int scanHexSequence(final String address, int index, final int end, final int[] counter) {
 
         char testChar;
         int numDigits = 0;
-        int start = index;
+        final int start = index;
 
         // Trying to match the following productions:
         // hexseq = hex4 *( ":" hex4)
         // hex4 = 1*4HEXDIG
-        for (; index < end; ++index) {
+        for ( ; index < end; ++index) {
             testChar = address.charAt(index);
             if (testChar == ':') {
                 // IPv6 addresses are 128-bit, so there can be at most eight sections.
@@ -1702,7 +1733,7 @@ public class URI {
             // backup to just after the last valid character that matches hexseq.
             else if (!isHex(testChar)) {
                 if (testChar == '.' && numDigits < 4 && numDigits > 0 && counter[0] <= 6) {
-                    int back = index - numDigits - 1;
+                    final int back = index - numDigits - 1;
                     return (back >= start) ? back : (back + 1);
                 }
                 return -1;
@@ -1720,8 +1751,8 @@ public class URI {
      *
      * @return true if the char is betweeen '0' and '9', false otherwise
      */
-    private static boolean isDigit(char p_char) {
-        return p_char >= '0' && p_char <= '9';
+    private static boolean isDigit(final char chr) {
+        return chr >= '0' && chr <= '9';
     }
 
     /**
@@ -1730,8 +1761,8 @@ public class URI {
      * @return true if the char is betweeen '0' and '9', 'a' and 'f' or 'A' and 'F',
      *         false otherwise
      */
-    private static boolean isHex(char p_char) {
-        return p_char <= 'f' && (fgLookupTable[p_char] & ASCII_HEX_CHARACTERS) != 0;
+    private static boolean isHex(final char ch) {
+        return ch <= 'f' && (fgLookupTable[ch] & ASCII_HEX_CHARACTERS) != 0;
     }
 
     /**
@@ -1739,8 +1770,8 @@ public class URI {
      *
      * @return true if the char is alphabetic, false otherwise
      */
-    private static boolean isAlpha(char p_char) {
-        return (p_char >= 'a' && p_char <= 'z') || (p_char >= 'A' && p_char <= 'Z');
+    private static boolean isAlpha(final char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
     }
 
     /**
@@ -1748,8 +1779,8 @@ public class URI {
      *
      * @return true if the char is alphanumeric, false otherwise
      */
-    private static boolean isAlphanum(char p_char) {
-        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_ALPHA_NUMERIC) != 0;
+    private static boolean isAlphanum(final char ch) {
+        return ch <= 'z' && (fgLookupTable[ch] & MASK_ALPHA_NUMERIC) != 0;
     }
 
     /**
@@ -1758,8 +1789,8 @@ public class URI {
      *
      * @return true if the char is a URI character, false otherwise
      */
-    private static boolean isURICharacter(char p_char) {
-        return p_char <= '~' && (fgLookupTable[p_char] & MASK_URI_CHARACTER) != 0;
+    private static boolean isURICharacter(final char ch) {
+        return ch <= '~' && (fgLookupTable[ch] & MASK_URI_CHARACTER) != 0;
     }
 
     /**
@@ -1767,8 +1798,8 @@ public class URI {
      *
      * @return true if the char is a scheme character, false otherwise
      */
-    private static boolean isSchemeCharacter(char p_char) {
-        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_SCHEME_CHARACTER) != 0;
+    private static boolean isSchemeCharacter(final char ch) {
+        return ch <= 'z' && (fgLookupTable[ch] & MASK_SCHEME_CHARACTER) != 0;
     }
 
     /**
@@ -1776,8 +1807,8 @@ public class URI {
      *
      * @return true if the char is a userinfo character, false otherwise
      */
-    private static boolean isUserinfoCharacter(char p_char) {
-        return p_char <= 'z' && (fgLookupTable[p_char] & MASK_USERINFO_CHARACTER) != 0;
+    private static boolean isUserinfoCharacter(final char ch) {
+        return ch <= 'z' && (fgLookupTable[ch] & MASK_USERINFO_CHARACTER) != 0;
     }
 
     /**
@@ -1785,8 +1816,8 @@ public class URI {
      *
      * @return true if the char is a path character, false otherwise
      */
-    private static boolean isPathCharacter(char p_char) {
-        return p_char <= '~' && (fgLookupTable[p_char] & MASK_PATH_CHARACTER) != 0;
+    private static boolean isPathCharacter(final char ch) {
+        return ch <= '~' && (fgLookupTable[ch] & MASK_PATH_CHARACTER) != 0;
     }
 
     /**
@@ -1796,15 +1827,15 @@ public class URI {
      *
      * @return true if the string is comprised of uric, false otherwise
      */
-    private static boolean isURIString(String p_uric) {
-        if (p_uric == null) {
+    private static boolean isURIString(final String uric) {
+        if (uric == null) {
             return false;
         }
-        int end = p_uric.length();
+        final int end = uric.length();
         for (int i = 0; i < end; i++) {
-            char testChar = p_uric.charAt(i);
+            final char testChar = uric.charAt(i);
             if (testChar == '%') {
-                if (i + 2 >= end || !isHex(p_uric.charAt(i + 1)) || !isHex(p_uric.charAt(i + 2))) {
+                if (i + 2 >= end || !isHex(uric.charAt(i + 1)) || !isHex(uric.charAt(i + 2))) {
                     return false;
                 }
                 i += 2;
