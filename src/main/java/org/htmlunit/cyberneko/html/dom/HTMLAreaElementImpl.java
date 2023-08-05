@@ -40,20 +40,17 @@ public class HTMLAreaElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
+        if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring( 0, 1 );
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
     @Override
-    public String getAlt()
-    {
+    public String getAlt() {
         return getAttribute("alt");
     }
 
@@ -86,9 +83,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setHref(final String href )
+    public void setHref(final String href)
     {
-        setAttribute("href", href );
+        setAttribute("href", href);
     }
 
 
@@ -100,9 +97,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setNoHref( boolean noHref )
+    public void setNoHref( boolean nohref)
     {
-        setAttribute("nohref", noHref );
+        setAttribute("nohref", nohref);
     }
 
 
@@ -128,9 +125,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -142,9 +139,9 @@ public class HTMLAreaElementImpl
 
 
     @Override
-    public void setTarget(final String target )
+    public void setTarget(final String target)
     {
-        setAttribute("target", target );
+        setAttribute("target", target);
     }
 
 
@@ -153,9 +150,9 @@ public class HTMLAreaElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLAreaElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLAreaElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 }

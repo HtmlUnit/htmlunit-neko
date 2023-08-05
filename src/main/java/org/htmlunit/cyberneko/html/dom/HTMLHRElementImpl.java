@@ -89,9 +89,9 @@ public class HTMLHRElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLHRElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLHRElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

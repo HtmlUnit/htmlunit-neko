@@ -142,9 +142,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -170,9 +170,9 @@ public class HTMLSelectElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -239,9 +239,9 @@ public class HTMLSelectElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLSelectElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLSelectElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

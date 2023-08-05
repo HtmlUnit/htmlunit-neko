@@ -47,9 +47,9 @@ public class HTMLTableCaptionElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableCaptionElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLTableCaptionElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

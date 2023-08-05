@@ -450,14 +450,14 @@ public class HTMLDocumentImpl
 
 
     @Override
-    public NodeList getElementsByName(final String elementName )
+    public NodeList getElementsByName(final String elementname)
     {
-        return new NameNodeListImpl( this, elementName );
+        return new NameNodeListImpl( this, elementname);
     }
 
 
     @Override
-    public final NodeList getElementsByTagName(final String tagName )
+    public final NodeList getElementsByTagName(final String tagname)
     {
         return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH));
     }
@@ -465,7 +465,7 @@ public class HTMLDocumentImpl
 
     @Override
     public final NodeList getElementsByTagNameNS(final String namespaceURI,
-                                                  String localName )
+                                                  String localname)
     {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
             return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH));
@@ -496,19 +496,17 @@ public class HTMLDocumentImpl
     }
 
     @Override
-    public Element createElementNS(final String namespaceURI, String qualifiedName )
+    public Element createElementNS(final String namespaceURI, String qualifiedname)
     {
         if ( namespaceURI == null || namespaceURI.length() == 0 ) {
-            return createElement( qualifiedName );
+            return createElement( qualifiedname);
         }
-        return super.createElementNS( namespaceURI, qualifiedName );
+        return super.createElementNS( namespaceURI, qualifiedname);
     }
 
 
     @Override
-    public Element createElement(final String tagName )
-        throws DOMException
-    {
+    public Element createElement(String tagName) throws DOMException {
         Class<?> elemClass;
         Constructor<?> cnst;
 
@@ -516,7 +514,7 @@ public class HTMLDocumentImpl
         // element class. If no class is found, generate a generic HTML element.
         // Do so also if an unexpected exception occurs.
         tagName = tagName.toUpperCase(Locale.ENGLISH);
-        elemClass = _elementTypesHTML.get( tagName );
+        elemClass = _elementTypesHTML.get( tagname);
         if ( elemClass != null )
         {
             // Get the constructor for the element. The signature specifies an
@@ -532,7 +530,7 @@ public class HTMLDocumentImpl
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
             }
         }
-        return new HTMLElementImpl( this, tagName );
+        return new HTMLElementImpl( this, tagname);
     }
 
 
@@ -547,7 +545,7 @@ public class HTMLDocumentImpl
      *   is not acceptable
      */
     @Override
-    public Attr createAttribute(final String name )
+    public Attr createAttribute(final String name)
         throws DOMException
     {
         return super.createAttribute( name.toLowerCase(Locale.ENGLISH));

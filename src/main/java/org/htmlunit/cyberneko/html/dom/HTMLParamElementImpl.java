@@ -36,9 +36,9 @@ public class HTMLParamElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -50,9 +50,9 @@ public class HTMLParamElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -78,9 +78,9 @@ public class HTMLParamElementImpl
 
 
     @Override
-    public void setValueType(final String valueType )
+    public void setValueType(final String valuetype)
     {
-        setAttribute("valuetype", valueType );
+        setAttribute("valuetype", valuetype);
     }
 
 
@@ -89,9 +89,9 @@ public class HTMLParamElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLParamElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLParamElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

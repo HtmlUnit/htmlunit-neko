@@ -424,9 +424,9 @@ public class HTMLTableElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLTableElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

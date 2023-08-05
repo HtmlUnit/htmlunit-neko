@@ -33,9 +33,9 @@ public class HTMLFieldSetElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLFieldSetElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLFieldSetElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

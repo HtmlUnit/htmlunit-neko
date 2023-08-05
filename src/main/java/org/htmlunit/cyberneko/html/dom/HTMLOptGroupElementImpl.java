@@ -61,9 +61,9 @@ public class HTMLOptGroupElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLOptGroupElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLOptGroupElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

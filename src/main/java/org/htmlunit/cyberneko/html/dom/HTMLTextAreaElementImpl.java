@@ -57,34 +57,28 @@ public class HTMLTextAreaElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
+        if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring( 0, 1 );
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
     @Override
-    public int getCols()
-    {
+    public int getCols() {
         return getInteger( getAttribute("cols"));
     }
 
 
     @Override
-    public void setCols( int cols )
-    {
+    public void setCols(final int cols) {
         setAttribute("cols", String.valueOf( cols ));
     }
 
-
     @Override
-    public boolean getDisabled()
-    {
+    public boolean getDisabled() {
         return getBinary("disabled");
     }
 
@@ -104,9 +98,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -146,9 +140,9 @@ public class HTMLTextAreaElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -199,9 +193,9 @@ public class HTMLTextAreaElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTextAreaElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLTextAreaElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

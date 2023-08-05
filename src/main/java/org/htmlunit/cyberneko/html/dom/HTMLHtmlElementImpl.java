@@ -47,9 +47,9 @@ public class HTMLHtmlElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLHtmlElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLHtmlElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

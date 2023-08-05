@@ -106,9 +106,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setCodeType(final String codeType )
+    public void setCodeType(final String codetype)
     {
-        setAttribute("codetype", codeType );
+        setAttribute("codetype", codetype);
     }
 
 
@@ -175,9 +175,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -209,9 +209,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -223,9 +223,9 @@ public class HTMLObjectElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -277,9 +277,9 @@ public class HTMLObjectElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLObjectElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLObjectElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

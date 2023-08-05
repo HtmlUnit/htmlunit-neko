@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.io.IOException;
@@ -75,12 +74,11 @@ public class ReadmeTest {
 
         final SAXParser parser = new SAXParser();
 
-        ContentHandler myContentHandler = new MyContentHandler();
+        final ContentHandler myContentHandler = new MyContentHandler();
         parser.setContentHandler(myContentHandler);
 
         parser.parse(in);
     }
-
 
     private static class MyContentHandler implements ContentHandler {
         @Override

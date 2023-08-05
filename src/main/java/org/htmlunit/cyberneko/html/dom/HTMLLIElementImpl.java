@@ -36,9 +36,9 @@ public class HTMLLIElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -61,9 +61,9 @@ public class HTMLLIElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLLIElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLLIElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

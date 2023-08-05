@@ -47,9 +47,9 @@ public class HTMLIsIndexElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLIsIndexElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLIsIndexElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

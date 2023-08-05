@@ -47,9 +47,9 @@ public class HTMLPreElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLPreElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLPreElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

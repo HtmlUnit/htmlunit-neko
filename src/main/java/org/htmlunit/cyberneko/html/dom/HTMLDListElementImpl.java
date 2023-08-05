@@ -47,9 +47,9 @@ public class HTMLDListElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLDListElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLDListElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

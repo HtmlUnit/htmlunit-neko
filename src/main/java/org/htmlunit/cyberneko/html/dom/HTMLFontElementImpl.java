@@ -70,9 +70,9 @@ public class HTMLFontElementImpl
     }
 
 
-    public HTMLFontElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLFontElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

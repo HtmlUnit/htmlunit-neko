@@ -40,26 +40,22 @@ public class HTMLButtonElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey ) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
     @Override
-    public boolean getDisabled()
-    {
+    public boolean getDisabled() {
         return getBinary("disabled");
     }
 
-
     @Override
-    public void setDisabled( boolean disabled )
+    public void setDisabled(final boolean disabled)
     {
         setAttribute("disabled", disabled );
     }
@@ -73,9 +69,9 @@ public class HTMLButtonElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -94,9 +90,9 @@ public class HTMLButtonElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -126,9 +122,9 @@ public class HTMLButtonElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLButtonElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLButtonElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

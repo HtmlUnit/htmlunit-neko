@@ -93,9 +93,9 @@ public class HTMLFrameElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -146,9 +146,9 @@ public class HTMLFrameElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLFrameElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLFrameElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

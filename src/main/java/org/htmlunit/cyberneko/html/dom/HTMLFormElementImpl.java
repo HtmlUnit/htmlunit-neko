@@ -55,9 +55,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -97,9 +97,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setEnctype(final String enctype )
+    public void setEnctype(final String enctype)
     {
-        setAttribute("enctype", enctype );
+        setAttribute("enctype", enctype);
     }
 
 
@@ -125,9 +125,9 @@ public class HTMLFormElementImpl
 
 
     @Override
-    public void setTarget(final String target )
+    public void setTarget(final String target)
     {
-        setAttribute("target", target );
+        setAttribute("target", target);
     }
 
 
@@ -169,9 +169,9 @@ public class HTMLFormElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLFormElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLFormElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

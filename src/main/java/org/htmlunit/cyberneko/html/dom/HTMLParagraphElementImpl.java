@@ -47,9 +47,9 @@ public class HTMLParagraphElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLParagraphElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLParagraphElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

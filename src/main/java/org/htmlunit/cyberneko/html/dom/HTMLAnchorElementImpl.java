@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.html.dom;
 
 import org.w3c.dom.html.HTMLAnchorElement;
@@ -23,210 +22,156 @@ import org.w3c.dom.html.HTMLAnchorElement;
  * @see org.w3c.dom.html.HTMLAnchorElement
  * @see org.htmlunit.cyberneko.xerces.dom.ElementImpl
  */
-public class HTMLAnchorElementImpl
-    extends HTMLElementImpl
-    implements HTMLAnchorElement
-{
+public class HTMLAnchorElementImpl extends HTMLElementImpl implements HTMLAnchorElement {
+
     @Override
-    public String getAccessKey()
-    {
+    public String getAccessKey() {
         String    accessKey;
 
         // Make sure that the access key is a single character.
         accessKey = getAttribute("accesskey");
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
-            accessKey = accessKey.substring( 0, 1 );
-        setAttribute("accesskey", accessKey );
+        if (accessKey != null && accessKey.length() > 1) {
+            accessKey = accessKey.substring(0, 1);
+        }
+        setAttribute("accesskey", accessKey);
     }
 
-
     @Override
-    public String getCharset()
-    {
+    public String getCharset() {
         return getAttribute("charset");
     }
 
-
     @Override
-    public void setCharset(final String charset )
-    {
-        setAttribute("charset", charset );
+    public void setCharset(final String charset) {
+        setAttribute("charset", charset);
     }
 
-
     @Override
-    public String getCoords()
-    {
+    public String getCoords() {
         return getAttribute("coords");
     }
 
-
     @Override
-    public void setCoords(final String coords )
-    {
-        setAttribute("coords", coords );
+    public void setCoords(final String coords) {
+        setAttribute("coords", coords);
     }
 
-
     @Override
-    public String getHref()
-    {
+    public String getHref() {
         return getAttribute("href");
     }
 
-
     @Override
-    public void setHref(final String href )
-    {
-        setAttribute("href", href );
+    public void setHref(final String href) {
+        setAttribute("href", href);
     }
 
-
     @Override
-    public String getHreflang()
-    {
+    public String getHreflang() {
         return getAttribute("hreflang");
     }
 
-
     @Override
-    public void setHreflang(final String hreflang )
-    {
-        setAttribute("hreflang", hreflang );
+    public void setHreflang(final String hreflang) {
+        setAttribute("hreflang", hreflang);
     }
 
-
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getAttribute("name");
     }
 
-
     @Override
-    public void setName(final String name )
-    {
-        setAttribute("name", name );
+    public void setName(final String name) {
+        setAttribute("name", name);
     }
 
-
     @Override
-    public String getRel()
-    {
+    public String getRel() {
         return getAttribute("rel");
     }
 
-
     @Override
-    public void setRel(final String rel )
-    {
-        setAttribute("rel", rel );
+    public void setRel(final String rel) {
+        setAttribute("rel", rel);
     }
 
-
     @Override
-    public String getRev()
-    {
+    public String getRev() {
         return getAttribute("rev");
     }
 
-
     @Override
-    public void setRev(final String rev )
-    {
-        setAttribute("rev", rev );
+    public void setRev(final String rev) {
+        setAttribute("rev", rev);
     }
 
-
     @Override
-    public String getShape()
-    {
-        return capitalize( getAttribute("shape"));
+    public String getShape() {
+        return capitalize(getAttribute("shape"));
     }
 
-
     @Override
-    public void setShape(final String shape )
-    {
-        setAttribute("shape", shape );
+    public void setShape(final String shape) {
+        setAttribute("shape", shape);
     }
 
-
     @Override
-    public int getTabIndex()
-    {
-        return this.getInteger( getAttribute("tabindex"));
+    public int getTabIndex() {
+        return this.getInteger(getAttribute("tabindex"));
     }
 
-
     @Override
-    public void setTabIndex( int tabIndex )
-    {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+    public void setTabIndex(final int tabIndex) {
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
-
     @Override
-    public String getTarget()
-    {
+    public String getTarget() {
         return getAttribute("target");
     }
 
-
     @Override
-    public void setTarget(final String target )
-    {
-        setAttribute("target", target );
+    public void setTarget(final String target) {
+        setAttribute("target", target);
     }
 
-
     @Override
-    public String getType()
-    {
+    public String getType() {
         return getAttribute("type");
     }
 
-
     @Override
-    public void setType(final String type )
-    {
-        setAttribute("type", type );
+    public void setType(final String type) {
+        setAttribute("type", type);
     }
 
-
     @Override
-    public void blur()
-    {
+    public void blur() {
         // No scripting in server-side DOM. This method is moot.
     }
 
     @Override
-    public void focus()
-    {
+    public void focus() {
         // No scripting in server-side DOM. This method is moot.
     }
 
-
-      /**
+    /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLAnchorElementImpl( HTMLDocumentImpl owner, String name )
-    {
-        super( owner, name );
+    public HTMLAnchorElementImpl(final HTMLDocumentImpl owner, final String name) {
+        super(owner, name);
     }
-
-
 }
 

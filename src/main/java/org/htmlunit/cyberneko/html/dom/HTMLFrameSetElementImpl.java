@@ -61,9 +61,9 @@ public class HTMLFrameSetElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLFrameSetElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLFrameSetElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

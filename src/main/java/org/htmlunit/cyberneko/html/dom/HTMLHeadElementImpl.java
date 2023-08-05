@@ -47,9 +47,9 @@ public class HTMLHeadElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLHeadElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLHeadElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

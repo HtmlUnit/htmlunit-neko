@@ -64,9 +64,9 @@ public class HTMLOListElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -75,9 +75,9 @@ public class HTMLOListElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLOListElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLOListElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

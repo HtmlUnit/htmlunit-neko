@@ -86,41 +86,33 @@ public class HTMLInputElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
+    public void setAccessKey(String accessKey)
     {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
+        if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring( 0, 1 );
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
     @Override
-    public String getAlign()
-    {
-        return capitalize( getAttribute("align"));
+    public String getAlign() {
+        return capitalize(getAttribute("align"));
     }
 
-
     @Override
-    public void setAlign(final String align )
-    {
-        setAttribute("align", align );
+    public void setAlign(final String align) {
+        setAttribute("align", align);
     }
 
-
     @Override
-    public String getAlt()
-    {
+    public String getAlt() {
         return getAttribute("alt");
     }
 
-
     @Override
-    public void setAlt(final String alt )
-    {
+    public void setAlt(final String alt) {
         setAttribute("alt", alt );
     }
 
@@ -175,9 +167,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -238,9 +230,9 @@ public class HTMLInputElementImpl
 
 
     @Override
-    public void setTabIndex( int tabIndex )
+    public void setTabIndex(final int tabIndex)
     {
-        setAttribute("tabindex", String.valueOf( tabIndex ));
+        setAttribute("tabindex", String.valueOf(tabIndex));
     }
 
 
@@ -312,9 +304,9 @@ public class HTMLInputElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLInputElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLInputElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

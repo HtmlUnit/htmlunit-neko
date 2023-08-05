@@ -58,34 +58,27 @@ public class HTMLTableSectionElementImpl
         return ch;
     }
 
-
     @Override
-    public void setCh(final String ch )
-    {
-        // Make sure that the access key is a single character.
-        if ( ch != null && ch.length() > 1 )
-            ch = ch.substring( 0, 1 );
+    public void setCh(String ch) {
+        // Make sure that the char is a single character.
+        if (ch != null && ch.length() > 1) {
+            ch = ch.substring(0, 1);
+        }
         setAttribute("char", ch );
     }
 
-
     @Override
-    public String getChOff()
-    {
+    public String getChOff() {
         return getAttribute("charoff");
     }
 
-
     @Override
-    public void setChOff(final String chOff )
-    {
+    public void setChOff(final String chOff) {
         setAttribute("charoff", chOff );
     }
 
-
     @Override
-    public String getVAlign()
-    {
+    public String getVAlign() {
         return capitalize( getAttribute("valign"));
     }
 
@@ -185,9 +178,9 @@ public class HTMLTableSectionElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTableSectionElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLTableSectionElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

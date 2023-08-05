@@ -47,9 +47,9 @@ public class HTMLMapElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
     /**
@@ -69,9 +69,9 @@ public class HTMLMapElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLMapElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLMapElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

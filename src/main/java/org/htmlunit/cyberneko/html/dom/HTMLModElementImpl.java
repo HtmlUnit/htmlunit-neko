@@ -61,9 +61,9 @@ public class HTMLModElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLModElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLModElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

@@ -65,9 +65,9 @@ public class HTMLMetaElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -90,9 +90,9 @@ public class HTMLMetaElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLMetaElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLMetaElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

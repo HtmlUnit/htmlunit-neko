@@ -40,39 +40,33 @@ public class HTMLLabelElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
+        if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring( 0, 1 );
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
-       @Override
-    public String getHtmlFor()
-    {
+    @Override
+    public String getHtmlFor() {
         return getAttribute("for");
     }
 
-
     @Override
-    public void setHtmlFor(final String htmlFor )
-    {
+    public void setHtmlFor(final String htmlFor) {
         setAttribute("for", htmlFor );
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLLabelElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLLabelElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

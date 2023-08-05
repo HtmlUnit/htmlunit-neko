@@ -47,9 +47,9 @@ public class HTMLQuoteElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLQuoteElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLQuoteElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

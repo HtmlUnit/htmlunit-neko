@@ -36,9 +36,9 @@ public class HTMLBaseElementImpl
 
 
     @Override
-    public void setHref(final String href )
+    public void setHref(final String href)
     {
-        setAttribute("href", href );
+        setAttribute("href", href);
     }
 
     @Override
@@ -49,9 +49,9 @@ public class HTMLBaseElementImpl
 
 
     @Override
-    public void setTarget(final String target )
+    public void setTarget(final String target)
     {
-        setAttribute("target", target );
+        setAttribute("target", target);
     }
 
 
@@ -60,9 +60,9 @@ public class HTMLBaseElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLBaseElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLBaseElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

@@ -50,9 +50,9 @@ public class HTMLUListElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -61,9 +61,9 @@ public class HTMLUListElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLUListElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLUListElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

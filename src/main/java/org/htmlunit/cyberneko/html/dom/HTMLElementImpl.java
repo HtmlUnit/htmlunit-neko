@@ -51,7 +51,7 @@ public class HTMLElementImpl
      * @param owner The owner HTML document
      * @param tagName The element's tag name
      */
-    public HTMLElementImpl( HTMLDocumentImpl owner, String tagName ) {
+    public HTMLElementImpl( HTMLDocumentImpl owner, String tagname) {
         super( owner, tagName.toUpperCase(Locale.ENGLISH));
     }
 
@@ -101,8 +101,8 @@ public class HTMLElementImpl
     }
 
     @Override
-    public void setClassName(final String className ) {
-        setAttribute("class", className );
+    public void setClassName(final String classname) {
+        setAttribute("class", classname);
     }
 
     /**
@@ -132,7 +132,7 @@ public class HTMLElementImpl
      * @return True or false depending on whether the attribute has been set
      */
     boolean getBinary(final String attrName) {
-        return getAttributeNode( attrName ) != null;
+        return getAttributeNode( attrname) != null;
     }
 
     /**
@@ -145,49 +145,49 @@ public class HTMLElementImpl
      */
     void setAttribute(final String name, boolean value ) {
         if ( value ) {
-            setAttribute( name, name );
+            setAttribute( name, name);
         }
         else {
-            removeAttribute( name );
+            removeAttribute( name);
         }
     }
 
     @Override
-    public Attr getAttributeNode(final String attrName ) {
+    public Attr getAttributeNode(final String attrname) {
         return super.getAttributeNode( attrName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
     public Attr getAttributeNodeNS(final String namespaceURI,
-            String localName ) {
+            String localname) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
-            return super.getAttributeNodeNS( namespaceURI, localName );
+            return super.getAttributeNodeNS( namespaceURI, localname);
         }
         return super.getAttributeNode( localName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public String getAttribute(final String attrName ) {
+    public String getAttribute(final String attrname) {
         return super.getAttribute( attrName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
     public String getAttributeNS(final String namespaceURI,
-            String localName ) {
+            String localname) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
-            return super.getAttributeNS( namespaceURI, localName );
+            return super.getAttributeNS( namespaceURI, localname);
         }
         return super.getAttribute( localName.toLowerCase(Locale.ENGLISH));
     }
 
     @Override
-    public final NodeList getElementsByTagName(final String tagName ) {
+    public final NodeList getElementsByTagName(final String tagname) {
         return super.getElementsByTagName( tagName.toUpperCase(Locale.ENGLISH));
     }
 
     @Override
     public final NodeList getElementsByTagNameNS(final String namespaceURI,
-            String localName ) {
+            String localname) {
         if ( namespaceURI != null && namespaceURI.length() > 0 ) {
             return super.getElementsByTagNameNS( namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
@@ -228,12 +228,12 @@ public class HTMLElementImpl
      * @param attrName The name of the attribute
      * @return The capitalized value
      */
-    String getCapitalized(final String attrName ) {
+    String getCapitalized(final String attrname) {
         String    value;
         char[]    chars;
         int        i;
 
-        value = getAttribute( attrName );
+        value = getAttribute( attrname);
         if ( value != null ) {
             // Convert string to charactares. Convert the first one to upper case,
             // the other characters to lower case, and return the converted string.

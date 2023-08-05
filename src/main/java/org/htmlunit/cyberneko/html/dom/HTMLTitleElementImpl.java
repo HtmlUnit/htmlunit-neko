@@ -74,9 +74,9 @@ public class HTMLTitleElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLTitleElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLTitleElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

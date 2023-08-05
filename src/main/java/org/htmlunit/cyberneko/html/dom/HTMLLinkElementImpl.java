@@ -64,9 +64,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setHref(final String href )
+    public void setHref(final String href)
     {
-        setAttribute("href", href );
+        setAttribute("href", href);
     }
 
 
@@ -106,9 +106,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setRel(final String rel )
+    public void setRel(final String rel)
     {
-        setAttribute("rel", rel );
+        setAttribute("rel", rel);
     }
 
 
@@ -120,9 +120,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setRev(final String rev )
+    public void setRev(final String rev)
     {
-        setAttribute("rev", rev );
+        setAttribute("rev", rev);
     }
 
 
@@ -134,9 +134,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setTarget(final String target )
+    public void setTarget(final String target)
     {
-        setAttribute("target", target );
+        setAttribute("target", target);
     }
 
 
@@ -148,9 +148,9 @@ public class HTMLLinkElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -159,9 +159,9 @@ public class HTMLLinkElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLLinkElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLLinkElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

@@ -134,9 +134,9 @@ public class HTMLAppletElementImpl
 
 
     @Override
-    public void setName(final String name )
+    public void setName(final String name)
     {
-        setAttribute("name", name );
+        setAttribute("name", name);
     }
 
 
@@ -187,9 +187,9 @@ public class HTMLAppletElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLAppletElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLAppletElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 }

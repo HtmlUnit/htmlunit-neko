@@ -47,9 +47,9 @@ public class HTMLDirectoryElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLDirectoryElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLDirectoryElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

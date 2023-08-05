@@ -47,9 +47,9 @@ public class HTMLMenuElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLMenuElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLMenuElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

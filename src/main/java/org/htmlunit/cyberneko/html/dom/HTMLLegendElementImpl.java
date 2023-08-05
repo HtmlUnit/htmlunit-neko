@@ -40,39 +40,33 @@ public class HTMLLegendElementImpl
         return accessKey;
     }
 
-
     @Override
-    public void setAccessKey(final String accessKey )
-    {
+    public void setAccessKey(String accessKey) {
         // Make sure that the access key is a single character.
-        if ( accessKey != null && accessKey.length() > 1 )
+        if (accessKey != null && accessKey.length() > 1) {
             accessKey = accessKey.substring( 0, 1 );
+        }
         setAttribute("accesskey", accessKey );
     }
 
-
     @Override
-    public String getAlign()
-    {
+    public String getAlign() {
         return getAttribute("align");
     }
 
-
     @Override
-    public void setAlign(final String align )
-    {
+    public void setAlign(final String align) {
         setAttribute("align", align );
     }
-
 
     /**
      * Constructor requires owner document.
      *
      * @param owner The owner HTML document
      */
-    public HTMLLegendElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLLegendElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 

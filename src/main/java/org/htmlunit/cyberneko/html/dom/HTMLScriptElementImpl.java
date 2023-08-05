@@ -146,9 +146,9 @@ public class HTMLScriptElementImpl
 
 
     @Override
-    public void setType(final String type )
+    public void setType(final String type)
     {
-        setAttribute("type", type );
+        setAttribute("type", type);
     }
 
 
@@ -157,9 +157,9 @@ public class HTMLScriptElementImpl
      *
      * @param owner The owner HTML document
      */
-    public HTMLScriptElementImpl( HTMLDocumentImpl owner, String name )
+    public HTMLScriptElementImpl( HTMLDocumentImpl owner, String name)
     {
-        super( owner, name );
+        super( owner, name);
     }
 
 
