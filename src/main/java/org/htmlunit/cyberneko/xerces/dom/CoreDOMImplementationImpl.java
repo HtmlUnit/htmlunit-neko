@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.htmlunit.cyberneko.xerces.util.XMLChar;
@@ -69,9 +68,9 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
      *         and version.
      */
     @Override
-    public boolean hasFeature(String feature, String version) {
+    public boolean hasFeature(String feature, final String version) {
 
-        boolean anyVersion = version == null || version.length() == 0;
+        final boolean anyVersion = version == null || version.length() == 0;
 
         if (feature.startsWith("+")) {
             feature = feature.substring(1);
@@ -99,7 +98,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
      * @param systemID      The document type system identifier.
      */
     @Override
-    public DocumentType createDocumentType(String qualifiedName, String publicID, String systemID) {
+    public DocumentType createDocumentType(final String qualifiedName, final String publicID, final String systemID) {
         // REVISIT: this might allow creation of invalid name for DOCTYPE
         // xmlns prefix.
         // also there is no way for a user to turn off error checking.
@@ -107,15 +106,15 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         return new DocumentTypeImpl(null, qualifiedName, publicID, systemID);
     }
 
-    final void checkQName(String qname) {
-        int index = qname.indexOf(':');
-        int lastIndex = qname.lastIndexOf(':');
-        int length = qname.length();
+    final void checkQName(final String qname) {
+        final int index = qname.indexOf(':');
+        final int lastIndex = qname.lastIndexOf(':');
+        final int length = qname.length();
 
         // it is an error for NCName to have more than one ':'
         // check if it is valid QName [Namespace in XML production 6]
         if (index == 0 || index == length - 1 || lastIndex != index) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
             throw new DOMException(DOMException.NAMESPACE_ERR, msg);
         }
         int start = 0;
@@ -123,14 +122,12 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         if (index > 0) {
             // check that prefix is NCName
             if (!XMLChar.isNCNameStart(qname.charAt(start))) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
             for (int i = 1; i < index; i++) {
                 if (!XMLChar.isNCName(qname.charAt(i))) {
-                    String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
-                            "INVALID_CHARACTER_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
             }
@@ -140,14 +137,12 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         // check local part
         if (!XMLChar.isNCNameStart(qname.charAt(start))) {
             // REVISIT: add qname parameter to the message
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR",
-                    null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         for (int i = start + 1; i < length; i++) {
             if (!XMLChar.isNCName(qname.charAt(i))) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
         }
@@ -175,23 +170,23 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
      *                      used with a different document.
      */
     @Override
-    public Document createDocument(String namespaceURI, String qualifiedName, DocumentType doctype)
+    public Document createDocument(final String namespaceURI, final String qualifiedName, final DocumentType doctype)
             throws DOMException {
         if (doctype != null && doctype.getOwnerDocument() != null) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
             throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
         }
-        CoreDocumentImpl doc = createDocument(doctype);
+        final CoreDocumentImpl doc = createDocument(doctype);
         // If namespaceURI and qualifiedName are null return a Document with no document
         // element.
         if (qualifiedName != null || namespaceURI != null) {
-            Element e = doc.createElementNS(namespaceURI, qualifiedName);
+            final Element e = doc.createElementNS(namespaceURI, qualifiedName);
             doc.appendChild(e);
         }
         return doc;
     }
 
-    protected CoreDocumentImpl createDocument(DocumentType doctype) {
+    protected CoreDocumentImpl createDocument(final DocumentType doctype) {
         return new CoreDocumentImpl(doctype);
     }
 
@@ -201,7 +196,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
      * DOM Level 3 WD - Experimental.
      */
     @Override
-    public Object getFeature(String feature, String version) {
+    public Object getFeature(final String feature, final String version) {
         if (singleton.hasFeature(feature, version)) {
             return singleton;
         }

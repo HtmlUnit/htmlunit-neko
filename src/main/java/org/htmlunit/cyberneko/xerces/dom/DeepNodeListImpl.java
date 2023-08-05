@@ -78,7 +78,7 @@ public class DeepNodeListImpl implements NodeList {
      * @param rootNode the root node
      * @param tagName  the tag name
      */
-    public DeepNodeListImpl(NodeImpl rootNode, String tagName) {
+    public DeepNodeListImpl(final NodeImpl rootNode, final String tagName) {
         this.rootNode = rootNode;
         this.tagName = tagName;
         nodes = new ArrayList<>();
@@ -91,7 +91,7 @@ public class DeepNodeListImpl implements NodeList {
      * @param nsName   the namespace
      * @param tagName  the tag name
      */
-    public DeepNodeListImpl(NodeImpl rootNode, String nsName, String tagName) {
+    public DeepNodeListImpl(final NodeImpl rootNode, final String nsName, final String tagName) {
         this(rootNode, tagName);
         this.nsName = (nsName != null && nsName.length() != 0) ? nsName : null;
         enableNS = true;
@@ -111,7 +111,7 @@ public class DeepNodeListImpl implements NodeList {
      * {@inheritDoc}
      */
     @Override
-    public Node item(int index) {
+    public Node item(final int index) {
         Node thisNode;
 
         // Tree changed. Do it all from scratch!
@@ -131,7 +131,8 @@ public class DeepNodeListImpl implements NodeList {
         // Pick up where we left off (Which may be the beginning)
         if (currentSize == 0) {
             thisNode = rootNode;
-        } else {
+        }
+        else {
             thisNode = nodes.get(currentSize - 1);
         }
 
@@ -172,12 +173,13 @@ public class DeepNodeListImpl implements NodeList {
             // Look up and right (but not past root!)
             else {
                 next = null;
-                for (; current != rootNode; // Stop when we return to starting point
+                for ( ; current != rootNode; // Stop when we return to starting point
                         current = current.getParentNode()) {
 
                     next = current.getNextSibling();
-                    if (next != null)
+                    if (next != null) {
                         break;
+                    }
                 }
                 current = next;
             }
@@ -189,20 +191,22 @@ public class DeepNodeListImpl implements NodeList {
                     if ("*".equals(tagName) || ((ElementImpl) current).getTagName().equals(tagName)) {
                         return current;
                     }
-                } else {
+                }
+                else {
                     // DOM2: Namespace logic.
                     if ("*".equals(tagName)) {
                         if (nsName != null && "*".equals(nsName)) {
                             return current;
                         }
 
-                        ElementImpl el = (ElementImpl) current;
+                        final ElementImpl el = (ElementImpl) current;
                         if ((nsName == null && el.getNamespaceURI() == null)
                                 || (nsName != null && nsName.equals(el.getNamespaceURI()))) {
                             return current;
                         }
-                    } else {
-                        ElementImpl el = (ElementImpl) current;
+                    }
+                    else {
+                        final ElementImpl el = (ElementImpl) current;
                         if (el.getLocalName() != null && el.getLocalName().equals(tagName)) {
                             if (nsName != null && "*".equals(nsName)) {
                                 return current;

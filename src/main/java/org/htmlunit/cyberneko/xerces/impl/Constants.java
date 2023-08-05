@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.impl;
 
 import java.util.Enumeration;
@@ -100,15 +99,19 @@ public final class Constants {
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
 
     /** SAX properties. */
-    private static final String[] fgSAXProperties = { LEXICAL_HANDLER_PROPERTY, };
+    private static final String[] fgSAXProperties = {
+        LEXICAL_HANDLER_PROPERTY};
 
     /** Xerces features. */
-    private static final String[] fgXercesFeatures = { CONTINUE_AFTER_FATAL_ERROR_FEATURE,
-            CREATE_ENTITY_REF_NODES_FEATURE, INCLUDE_IGNORABLE_WHITESPACE,
-            NOTIFY_BUILTIN_REFS_FEATURE, STANDARD_URI_CONFORMANT_FEATURE, };
+    private static final String[] fgXercesFeatures = {
+        CONTINUE_AFTER_FATAL_ERROR_FEATURE,
+        CREATE_ENTITY_REF_NODES_FEATURE,
+        INCLUDE_IGNORABLE_WHITESPACE,
+        NOTIFY_BUILTIN_REFS_FEATURE,
+        STANDARD_URI_CONFORMANT_FEATURE};
 
     /** Xerces properties. */
-    private static final String[] fgXercesProperties = { ERROR_HANDLER_PROPERTY };
+    private static final String[] fgXercesProperties = {ERROR_HANDLER_PROPERTY};
 
     /** Empty enumeration. */
     private static final Enumeration<Object> fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
@@ -154,14 +157,14 @@ public final class Constants {
     static class ArrayEnumeration implements Enumeration<Object> {
 
         /** Array. */
-        private final Object[] array;
+        private final Object[] array_;
 
         /** Index. */
-        private int index;
+        private int index_;
 
         /** Constructs an array enumeration. */
-        public ArrayEnumeration(Object[] array) {
-            this.array = array;
+        ArrayEnumeration(final Object[] array) {
+            this.array_ = array;
         }
 
         /**
@@ -174,7 +177,7 @@ public final class Constants {
          */
         @Override
         public boolean hasMoreElements() {
-            return index < array.length;
+            return index_ < array_.length;
         } // hasMoreElement():boolean
 
         /**
@@ -187,8 +190,8 @@ public final class Constants {
          */
         @Override
         public Object nextElement() {
-            if (index < array.length) {
-                return array[index++];
+            if (index_ < array_.length) {
+                return array_[index_++];
             }
             throw new NoSuchElementException();
         }
@@ -196,23 +199,24 @@ public final class Constants {
     }
 
     // Prints all of the constants to standard output.
-    public static void main(String[] argv) {
+    public static void main(final String[] argv) {
         print("SAX properties:", SAX_PROPERTY_PREFIX, fgSAXProperties);
         print("Xerces features:", XERCES_FEATURE_PREFIX, fgXercesFeatures);
         print("Xerces properties:", XERCES_PROPERTY_PREFIX, fgXercesProperties);
     }
 
     // Prints a list of features/properties.
-    private static void print(String header, String prefix, Object[] array) {
+    private static void print(final String header, final String prefix, final Object[] array) {
         System.out.print(header);
         if (array.length > 0) {
             System.out.println();
-            for (Object o : array) {
+            for (final Object o : array) {
                 System.out.print("  ");
                 System.out.print(prefix);
                 System.out.println(o);
             }
-        } else {
+        }
+        else {
             System.out.println(" none.");
         }
     }
