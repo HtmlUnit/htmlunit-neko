@@ -1,12 +1,10 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Copyright 2017-2023 Ronald Brill
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,7 +57,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
     /**
      * Constructs a named node map.
-     * 
+     *
      * @param ownerNode the owner node
      */
     protected NamedNodeMapImpl(NodeImpl ownerNode) {
@@ -146,7 +144,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * certain types (those that have a "special" string value) cannot be stored as
      * the names would clash. This is seen as preferable to allowing nodes to be
      * aliased.
-     * 
+     *
      * @see org.w3c.dom.NamedNodeMap#setNamedItem
      * @return If the new Node replaces an existing node the replaced Node is
      *         returned, otherwise null is returned.
@@ -227,7 +225,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * {@inheritDoc}
      *
      * Removes a node specified by name.
-     * 
+     *
      * @param name The name of a node to remove.
      * @return The node removed from the map if a node with such a name exists.
      */
@@ -267,7 +265,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     /**
      * Cloning a NamedNodeMap is a DEEP OPERATION; it always clones all the nodes
      * contained in the map.
-     * 
+     *
      * @param ownerNode the owner node
      * @return the cloned map
      */
@@ -299,7 +297,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
     /**
      * NON-DOM set the ownerDocument of this node, and the attributes it contains
-     * 
+     *
      * @param doc the doc
      */
     protected void setOwnerDocument(CoreDocumentImpl doc) {
@@ -415,7 +413,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
     /**
      * NON-DOM: Remove attribute at specified index
-     * 
+     *
      * @param index the index to be removed
      */
     protected void removeItem(int index) {

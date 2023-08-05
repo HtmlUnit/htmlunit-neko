@@ -1,12 +1,10 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Copyright 2017-2023 Ronald Brill
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,7 +42,7 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
 
     /**
      * Constructs a document parser using the default symbol table and grammar pool.
-     * 
+     *
      * @param config the config
      */
     protected AbstractXMLDocumentParser(XMLParserConfiguration config) {
@@ -191,7 +189,7 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
 
     /**
      * The start of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -202,7 +200,7 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
 
     /**
      * The end of a CDATA section.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
@@ -213,7 +211,7 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
 
     /**
      * The end of the document.
-     * 
+     *
      * @param augs Additional information that may include infoset augmentations
      *
      * @throws XNIException Thrown by handler to signal an error.
