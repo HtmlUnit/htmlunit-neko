@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
@@ -33,22 +32,22 @@ import org.xml.sax.SAXParseException;
 public class ErrorHandlerWrapper implements XMLErrorHandler {
 
     /** The SAX error handler. */
-    private ErrorHandler fErrorHandler;
+    private ErrorHandler fErrorHandler_;
 
     // Wraps the specified SAX error handler.
-    public ErrorHandlerWrapper(ErrorHandler errorHandler) {
+    public ErrorHandlerWrapper(final ErrorHandler errorHandler) {
         setErrorHandler(errorHandler);
-    } // <init>(ErrorHandler)
+    }
 
     // Sets the SAX error handler.
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        fErrorHandler = errorHandler;
-    } // setErrorHandler(ErrorHandler)
+    public void setErrorHandler(final ErrorHandler errorHandler) {
+        fErrorHandler_ = errorHandler;
+    }
 
     /** @return the SAX error handler. */
     public ErrorHandler getErrorHandler() {
-        return fErrorHandler;
-    } // getErrorHandler():ErrorHandler
+        return fErrorHandler_;
+    }
 
     //
     // XMLErrorHandler methods
@@ -70,21 +69,23 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
      *                      document.
      */
     @Override
-    public void warning(String domain, String key, XMLParseException exception) throws XNIException {
+    public void warning(final String domain, final String key, final XMLParseException exception) throws XNIException {
 
-        if (fErrorHandler != null) {
-            SAXParseException saxException = createSAXParseException(exception);
+        if (fErrorHandler_ != null) {
+            final SAXParseException saxException = createSAXParseException(exception);
 
             try {
-                fErrorHandler.warning(saxException);
-            } catch (SAXParseException e) {
+                fErrorHandler_.warning(saxException);
+            }
+            catch (final SAXParseException e) {
                 throw createXMLParseException(e);
-            } catch (SAXException e) {
+            }
+            catch (final SAXException e) {
                 throw createXNIException(e);
             }
         }
 
-    } // warning(String,String,XMLParseException)
+    }
 
     /**
      * Reports an error. Errors are non-fatal and usually signify that the document
@@ -102,21 +103,23 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
      *                      document.
      */
     @Override
-    public void error(String domain, String key, XMLParseException exception) throws XNIException {
+    public void error(final String domain, final String key, final XMLParseException exception) throws XNIException {
 
-        if (fErrorHandler != null) {
-            SAXParseException saxException = createSAXParseException(exception);
+        if (fErrorHandler_ != null) {
+            final SAXParseException saxException = createSAXParseException(exception);
 
             try {
-                fErrorHandler.error(saxException);
-            } catch (SAXParseException e) {
+                fErrorHandler_.error(saxException);
+            }
+            catch (final SAXParseException e) {
                 throw createXMLParseException(e);
-            } catch (SAXException e) {
+            }
+            catch (final SAXException e) {
                 throw createXNIException(e);
             }
         }
 
-    } // error(String,String,XMLParseException)
+    }
 
     /**
      * Report a fatal error. Fatal errors usually occur when the document is not
@@ -140,39 +143,37 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
      *                      document.
      */
     @Override
-    public void fatalError(String domain, String key, XMLParseException exception) throws XNIException {
+    public void fatalError(final String domain, final String key, final XMLParseException exception) throws XNIException {
 
-        if (fErrorHandler != null) {
-            SAXParseException saxException = createSAXParseException(exception);
+        if (fErrorHandler_ != null) {
+            final SAXParseException saxException = createSAXParseException(exception);
 
             try {
-                fErrorHandler.fatalError(saxException);
-            } catch (SAXParseException e) {
+                fErrorHandler_.fatalError(saxException);
+            }
+            catch (final SAXParseException e) {
                 throw createXMLParseException(e);
-            } catch (SAXException e) {
+            }
+            catch (final SAXException e) {
                 throw createXNIException(e);
             }
         }
 
-    } // fatalError(String,String,XMLParseException)
-
-    //
-    // Protected methods
-    //
+    }
 
     // Creates a SAXParseException from an XMLParseException.
-    protected static SAXParseException createSAXParseException(XMLParseException exception) {
+    protected static SAXParseException createSAXParseException(final XMLParseException exception) {
         return new SAXParseException(exception.getMessage(), exception.getPublicId(), exception.getExpandedSystemId(),
                 exception.getLineNumber(), exception.getColumnNumber(), exception.getException());
-    } // createSAXParseException(XMLParseException):SAXParseException
+    }
 
     // Creates an XMLParseException from a SAXParseException. */
-    protected static XMLParseException createXMLParseException(SAXParseException exception) {
+    protected static XMLParseException createXMLParseException(final SAXParseException exception) {
         final String fPublicId = exception.getPublicId();
         final String fExpandedSystemId = exception.getSystemId();
         final int fLineNumber = exception.getLineNumber();
         final int fColumnNumber = exception.getColumnNumber();
-        XMLLocator location = new XMLLocator() {
+        final XMLLocator location = new XMLLocator() {
             @Override
             public String getPublicId() {
                 return fPublicId;
@@ -219,13 +220,13 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
             }
         };
         return new XMLParseException(location, exception.getMessage(), exception);
-    } // createXMLParseException(SAXParseException):XMLParseException
+    }
 
     // Creates an XNIException from a SAXException.
     // NOTE: care should be taken *not* to call this with a SAXParseException; this
     // will
     // lose information!!! */
-    protected static XNIException createXNIException(SAXException exception) {
+    protected static XNIException createXNIException(final SAXException exception) {
         return new XNIException(exception.getMessage(), exception);
-    } // createXNIException(SAXException):XMLParseException
-} // class ErrorHandlerWrapper
+    }
+}

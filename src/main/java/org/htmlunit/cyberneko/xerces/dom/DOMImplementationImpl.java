@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DOMImplementation;
@@ -56,11 +55,11 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
      *         and version.
      */
     @Override
-    public boolean hasFeature(String feature, String version) {
+    public boolean hasFeature(String feature, final String version) {
 
-        boolean result = super.hasFeature(feature, version);
+        final boolean result = super.hasFeature(feature, version);
         if (!result) {
-            boolean anyVersion = version == null || version.length() == 0;
+            final boolean anyVersion = version == null || version.length() == 0;
             if (feature.startsWith("+")) {
                 feature = feature.substring(1);
             }
@@ -77,7 +76,7 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
      * {@inheritDoc}
      */
     @Override
-    protected CoreDocumentImpl createDocument(DocumentType doctype) {
+    protected CoreDocumentImpl createDocument(final DocumentType doctype) {
         return new DocumentImpl(doctype);
     }
 

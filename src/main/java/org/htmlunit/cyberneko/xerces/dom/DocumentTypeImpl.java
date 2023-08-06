@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DOMException;
@@ -68,7 +67,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     // The following are required for compareDocumentPosition
     // Doctype number. Doc types which have no owner may be assigned
     // a number, on demand, for ordering purposes for compareDocumentPosition
-    private int doctypeNumber = 0;
+    private int doctypeNumber_ = 0;
 
     /**
      * Factory method for creating a document type node.
@@ -76,7 +75,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * @param ownerDocument the owner document
      * @param name          the name
      */
-    public DocumentTypeImpl(CoreDocumentImpl ownerDocument, String name) {
+    public DocumentTypeImpl(final CoreDocumentImpl ownerDocument, final String name) {
         super(ownerDocument);
 
         this.name = name;
@@ -90,7 +89,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     }
 
     // Factory method for creating a document type node.
-    public DocumentTypeImpl(CoreDocumentImpl ownerDocument, String qualifiedName, String publicID, String systemID) {
+    public DocumentTypeImpl(final CoreDocumentImpl ownerDocument, final String qualifiedName, final String publicID, final String systemID) {
         this(ownerDocument, qualifiedName);
         this.publicID = publicID;
         this.systemID = systemID;
@@ -131,7 +130,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
 
     // NON-DOM
     // Set the internalSubset given as a string.
-    public void setInternalSubset(String internalSubset) {
+    public void setInternalSubset(final String internalSubset) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -182,9 +181,9 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * Clones the node.
      */
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
-        DocumentTypeImpl newnode = (DocumentTypeImpl) super.cloneNode(deep);
+        final DocumentTypeImpl newnode = (DocumentTypeImpl) super.cloneNode(deep);
         // NamedNodeMaps must be cloned explicitly, to avoid sharing them.
         newnode.entities = entities.cloneMap(newnode);
         newnode.notations = notations.cloneMap(newnode);
@@ -210,7 +209,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * Set Node text content
      */
     @Override
-    public void setTextContent(String textContent) throws DOMException {
+    public void setTextContent(final String textContent) throws DOMException {
         // no-op
     }
 
@@ -221,7 +220,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * to support deep equal.
      */
     @Override
-    public boolean isEqualNode(Node arg) {
+    public boolean isEqualNode(final Node arg) {
 
         if (!super.isEqualNode(arg)) {
             return false;
@@ -230,7 +229,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        DocumentTypeImpl argDocType = (DocumentTypeImpl) arg;
+        final DocumentTypeImpl argDocType = (DocumentTypeImpl) arg;
 
         // test if the following string attributes are equal: publicId,
         // systemId, internalSubset.
@@ -262,39 +261,45 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         }
 
         // test if NamedNodeMaps entities and notations are equal
-        NamedNodeMapImpl argEntities = argDocType.entities;
+        final NamedNodeMapImpl argEntities = argDocType.entities;
 
-        if ((entities == null && argEntities != null) || (entities != null && argEntities == null))
+        if ((entities == null && argEntities != null) || (entities != null && argEntities == null)) {
             return false;
+        }
 
         if (entities != null && argEntities != null) {
-            if (entities.getLength() != argEntities.getLength())
+            if (entities.getLength() != argEntities.getLength()) {
                 return false;
+            }
 
             for (int index = 0; entities.item(index) != null; index++) {
-                Node entNode1 = entities.item(index);
-                Node entNode2 = argEntities.getNamedItem(entNode1.getNodeName());
+                final Node entNode1 = entities.item(index);
+                final Node entNode2 = argEntities.getNamedItem(entNode1.getNodeName());
 
-                if (!entNode1.isEqualNode(entNode2))
+                if (!entNode1.isEqualNode(entNode2)) {
                     return false;
+                }
             }
         }
 
-        NamedNodeMapImpl argNotations = argDocType.notations;
+        final NamedNodeMapImpl argNotations = argDocType.notations;
 
-        if ((notations == null && argNotations != null) || (notations != null && argNotations == null))
+        if ((notations == null && argNotations != null) || (notations != null && argNotations == null)) {
             return false;
+        }
 
         if (notations != null && argNotations != null) {
-            if (notations.getLength() != argNotations.getLength())
+            if (notations.getLength() != argNotations.getLength()) {
                 return false;
+            }
 
             for (int index = 0; notations.item(index) != null; index++) {
-                Node noteNode1 = notations.item(index);
-                Node noteNode2 = argNotations.getNamedItem(noteNode1.getNodeName());
+                final Node noteNode1 = notations.item(index);
+                final Node noteNode2 = argNotations.getNamedItem(noteNode1.getNodeName());
 
-                if (!noteNode1.isEqualNode(noteNode2))
+                if (!noteNode1.isEqualNode(noteNode2)) {
                     return false;
+                }
             }
         }
 
@@ -307,7 +312,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * NON-DOM set the ownerDocument of this node and its children
      */
     @Override
-    protected void setOwnerDocument(CoreDocumentImpl doc) {
+    protected void setOwnerDocument(final CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
         entities.setOwnerDocument(doc);
         notations.setOwnerDocument(doc);
@@ -323,17 +328,18 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     protected int getNodeNumber() {
         // If the doctype has a document owner, get the node number
         // relative to the owner doc
-        if (getOwnerDocument() != null)
+        if (getOwnerDocument() != null) {
             return super.getNodeNumber();
+        }
 
         // The doctype is disconnected and not associated with any document.
         // Assign the doctype a number relative to the implementation.
-        if (doctypeNumber == 0) {
+        if (doctypeNumber_ == 0) {
 
-            CoreDOMImplementationImpl cd = (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
-            doctypeNumber = cd.assignDocTypeNumber();
+            final CoreDOMImplementationImpl cd = (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
+            doctypeNumber_ = cd.assignDocTypeNumber();
         }
-        return doctypeNumber;
+        return doctypeNumber_;
     }
 
     /**
@@ -412,7 +418,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * {@inheritDoc}
      */
     @Override
-    public Object setUserData(String key, Object data, UserDataHandler handler) {
+    public Object setUserData(final String key, final Object data, final UserDataHandler handler) {
         return null;
     }
 
@@ -420,7 +426,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      * {@inheritDoc}
      */
     @Override
-    public Object getUserData(String key) {
+    public Object getUserData(final String key) {
         return null;
     }
 }

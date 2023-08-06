@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import java.util.MissingResourceException;
@@ -49,13 +48,14 @@ public class DOMMessageFormatter {
      * @throws MissingResourceException Thrown if the message with the specified key
      *                                  cannot be found.
      */
-    public static String formatMessage(String domain, String key, Object[] arguments) throws MissingResourceException {
+    public static String formatMessage(final String domain, final String key, final Object[] arguments) throws MissingResourceException {
         ResourceBundle resourceBundle = getResourceBundle(domain);
         if (resourceBundle == null) {
             init();
             resourceBundle = getResourceBundle(domain);
-            if (resourceBundle == null)
+            if (resourceBundle == null) {
                 throw new MissingResourceException("Unknown domain" + domain, null, key);
+            }
         }
         // format message
         String msg;
@@ -64,13 +64,14 @@ public class DOMMessageFormatter {
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                } catch (Exception e) {
+                }
+                catch (final Exception e) {
                     msg = resourceBundle.getString("FormatFailed");
                     msg += " " + resourceBundle.getString(key);
                 }
             }
         } // error
-        catch (MissingResourceException e) {
+        catch (final MissingResourceException e) {
             msg = resourceBundle.getString("BadMessageKey");
             throw new MissingResourceException(key, msg, key);
         }
@@ -79,7 +80,7 @@ public class DOMMessageFormatter {
         if (msg == null) {
             msg = key;
             if (arguments.length > 0) {
-                StringBuilder str = new StringBuilder(msg);
+                final StringBuilder str = new StringBuilder(msg);
                 str.append('?');
                 for (int i = 0; i < arguments.length; i++) {
                     if (i > 0) {
@@ -94,10 +95,11 @@ public class DOMMessageFormatter {
         return msg;
     }
 
-    static ResourceBundle getResourceBundle(String domain) {
+    static ResourceBundle getResourceBundle(final String domain) {
         if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
             return domResourceBundle;
-        } else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
+        }
+        else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
             return xmlResourceBundle;
         }
         return null;

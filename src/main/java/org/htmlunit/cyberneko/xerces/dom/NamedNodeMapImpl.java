@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import java.util.ArrayList;
@@ -46,9 +45,9 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
     protected short flags;
 
-    protected final static short READONLY = 0x1 << 0;
-    protected final static short CHANGED = 0x1 << 1;
-    protected final static short HASDEFAULTS = 0x1 << 2;
+    protected static final short READONLY = 0x1 << 0;
+    protected static final short CHANGED = 0x1 << 1;
+    protected static final short HASDEFAULTS = 0x1 << 2;
 
     /** Nodes. */
     protected List<Node> nodes;
@@ -60,7 +59,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *
      * @param ownerNode the owner node
      */
-    protected NamedNodeMapImpl(NodeImpl ownerNode) {
+    protected NamedNodeMapImpl(final NodeImpl ownerNode) {
         this.ownerNode = ownerNode;
     }
 
@@ -93,7 +92,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *         greater than or equal to getLength().
      */
     @Override
-    public Node item(int index) {
+    public Node item(final int index) {
         return (nodes != null && index < nodes.size()) ? nodes.get(index) : null;
     }
 
@@ -107,9 +106,8 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *         no value has been assigned to that name.
      */
     @Override
-    public Node getNamedItem(String name) {
-
-        int i = findNamePoint(name, 0);
+    public Node getNamedItem(final String name) {
+        final int i = findNamePoint(name, 0);
         return (i < 0) ? null : nodes.get(i);
 
     }
@@ -129,9 +127,8 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *         specified name did not identify any node in the map.
      */
     @Override
-    public Node getNamedItemNS(String namespaceURI, String localName) {
-
-        int i = findNamePoint(namespaceURI, localName);
+    public Node getNamedItemNS(final String namespaceURI, final String localName) {
+        final int i = findNamePoint(namespaceURI, localName);
         return (i < 0) ? null : nodes.get(i);
 
     }
@@ -156,13 +153,11 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * @exception org.w3c.dom.DOMException The exception description.
      */
     @Override
-    public Node setNamedItem(Node arg) throws DOMException {
-
-        CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
+    public Node setNamedItem(final Node arg) throws DOMException {
+        final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
             if (arg.getOwnerDocument() != ownerDocument) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -172,7 +167,8 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         if (i >= 0) {
             previous = (NodeImpl) nodes.get(i);
             nodes.set(i, arg);
-        } else {
+        }
+        else {
             i = -1 - i; // Insert point (may be end of list)
             if (null == nodes) {
                 nodes = new ArrayList<>(5);
@@ -186,13 +182,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * {@inheritDoc}
      */
     @Override
-    public Node setNamedItemNS(Node arg) throws DOMException {
+    public Node setNamedItemNS(final Node arg) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
             if (arg.getOwnerDocument() != ownerDocument) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -202,14 +197,16 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         if (i >= 0) {
             previous = (NodeImpl) nodes.get(i);
             nodes.set(i, arg);
-        } else {
+        }
+        else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
             i = findNamePoint(arg.getNodeName(), 0);
             if (i >= 0) {
                 previous = (NodeImpl) nodes.get(i);
                 nodes.add(i, arg);
-            } else {
+            }
+            else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
                     nodes = new ArrayList<>(5);
@@ -230,14 +227,14 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * @return The node removed from the map if a node with such a name exists.
      */
     @Override
-    public Node removeNamedItem(String name) throws DOMException {
-        int i = findNamePoint(name, 0);
+    public Node removeNamedItem(final String name) throws DOMException {
+        final int i = findNamePoint(name, 0);
         if (i < 0) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
-        NodeImpl n = (NodeImpl) nodes.get(i);
+        final NodeImpl n = (NodeImpl) nodes.get(i);
         nodes.remove(i);
 
         return n;
@@ -248,14 +245,14 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * {@inheritDoc}
      */
     @Override
-    public Node removeNamedItemNS(String namespaceURI, String name) throws DOMException {
-        int i = findNamePoint(namespaceURI, name);
+    public Node removeNamedItemNS(final String namespaceURI, final String name) throws DOMException {
+        final int i = findNamePoint(namespaceURI, name);
         if (i < 0) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
-        NodeImpl n = (NodeImpl) nodes.get(i);
+        final NodeImpl n = (NodeImpl) nodes.get(i);
         nodes.remove(i);
 
         return n;
@@ -269,25 +266,26 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * @param ownerNode the owner node
      * @return the cloned map
      */
-    public NamedNodeMapImpl cloneMap(NodeImpl ownerNode) {
-        NamedNodeMapImpl newmap = new NamedNodeMapImpl(ownerNode);
+    public NamedNodeMapImpl cloneMap(final NodeImpl ownerNode) {
+        final NamedNodeMapImpl newmap = new NamedNodeMapImpl(ownerNode);
         newmap.cloneContent(this);
         return newmap;
     }
 
-    protected void cloneContent(NamedNodeMapImpl srcmap) {
-        List<Node> srcnodes = srcmap.nodes;
+    protected void cloneContent(final NamedNodeMapImpl srcmap) {
+        final List<Node> srcnodes = srcmap.nodes;
         if (srcnodes != null) {
-            int size = srcnodes.size();
+            final int size = srcnodes.size();
             if (size != 0) {
                 if (nodes == null) {
                     nodes = new ArrayList<>(size);
-                } else {
+                }
+                else {
                     nodes.clear();
                 }
                 for (int i = 0; i < size; ++i) {
-                    NodeImpl n = (NodeImpl) srcmap.nodes.get(i);
-                    NodeImpl clone = (NodeImpl) n.cloneNode(true);
+                    final NodeImpl n = (NodeImpl) srcmap.nodes.get(i);
+                    final NodeImpl clone = (NodeImpl) n.cloneNode(true);
                     clone.isSpecified(n.isSpecified());
                     nodes.add(clone);
                 }
@@ -300,7 +298,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *
      * @param doc the doc
      */
-    protected void setOwnerDocument(CoreDocumentImpl doc) {
+    protected void setOwnerDocument(final CoreDocumentImpl doc) {
         if (nodes != null) {
             final int size = nodes.size();
             for (int i = 0; i < size; ++i) {
@@ -313,7 +311,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         return (flags & CHANGED) != 0;
     }
 
-    final void changed(boolean value) {
+    final void changed(final boolean value) {
         flags = (short) (value ? flags | CHANGED : flags & ~CHANGED);
     }
 
@@ -321,7 +319,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         return (flags & HASDEFAULTS) != 0;
     }
 
-    final void hasDefaults(boolean value) {
+    final void hasDefaults(final boolean value) {
         flags = (short) (value ? flags | HASDEFAULTS : flags & ~HASDEFAULTS);
     }
 
@@ -338,7 +336,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *         because I don't want to recompare the strings but don't want to burn
      *         bytes on a datatype to hold a flagged value.)
      */
-    protected int findNamePoint(String name, int start) {
+    protected int findNamePoint(final String name, final int start) {
 
         // Binary search
         int i = 0;
@@ -348,12 +346,14 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
             while (first <= last) {
                 i = (first + last) / 2;
-                int test = name.compareTo((nodes.get(i)).getNodeName());
+                final int test = name.compareTo((nodes.get(i)).getNodeName());
                 if (test == 0) {
                     return i; // Name found
-                } else if (test < 0) {
+                }
+                else if (test < 0) {
                     last = i - 1;
-                } else {
+                }
+                else {
                     first = i + 1;
                 }
             }
@@ -366,11 +366,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         return -1 - i; // not-found has to be encoded.
     }
 
-    protected int findNamePoint(String namespaceURI, String name) {
+    protected int findNamePoint(final String namespaceURI, final String name) {
         // This findNamePoint is for DOM Level 2 Namespaces.
 
-        if ((nodes == null) || (name == null))
+        if ((nodes == null) || (name == null)) {
             return -1;
+        }
 
         // This is a linear search through the same nodes ArrayList.
         // The ArrayList is sorted on the DOM Level 1 nodename.
@@ -381,16 +382,18 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         // as a secondary key.
         final int size = nodes.size();
         for (int i = 0; i < size; ++i) {
-            NodeImpl a = (NodeImpl) nodes.get(i);
-            String aNamespaceURI = a.getNamespaceURI();
-            String aLocalName = a.getLocalName();
+            final NodeImpl a = (NodeImpl) nodes.get(i);
+            final String aNamespaceURI = a.getNamespaceURI();
+            final String aLocalName = a.getLocalName();
             if (namespaceURI == null) {
-                if (aNamespaceURI == null
-                        && (name.equals(aLocalName) || (aLocalName == null && name.equals(a.getNodeName()))))
+                if (aNamespaceURI == null && (name.equals(aLocalName) || (aLocalName == null && name.equals(a.getNodeName())))) {
                     return i;
-            } else {
-                if (namespaceURI.equals(aNamespaceURI) && name.equals(aLocalName))
+                }
+            }
+            else {
+                if (namespaceURI.equals(aNamespaceURI) && name.equals(aLocalName)) {
                     return i;
+                }
             }
         }
         return -1;
@@ -398,14 +401,16 @@ public class NamedNodeMapImpl implements NamedNodeMap {
 
     // compare 2 nodes in the map. If a precedes b, return true, otherwise
     // return false
-    protected boolean precedes(Node a, Node b) {
+    protected boolean precedes(final Node a, final Node b) {
 
         if (nodes != null) {
-            for (Node node : nodes) {
-                if (node == a)
+            for (final Node node : nodes) {
+                if (node == a) {
                     return true;
-                if (node == b)
+                }
+                if (node == b) {
                     return false;
+                }
             }
         }
         return false;
@@ -416,30 +421,32 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *
      * @param index the index to be removed
      */
-    protected void removeItem(int index) {
+    protected void removeItem(final int index) {
         if (nodes != null && index < nodes.size()) {
             nodes.remove(index);
         }
     }
 
-    protected Node getItem(int index) {
+    protected Node getItem(final int index) {
         if (nodes != null) {
             return nodes.get(index);
         }
         return null;
     }
 
-    protected int addItem(Node arg) {
+    protected int addItem(final Node arg) {
         int i = findNamePoint(arg.getNamespaceURI(), arg.getLocalName());
         if (i >= 0) {
             nodes.set(i, arg);
-        } else {
+        }
+        else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
             i = findNamePoint(arg.getNodeName(), 0);
             if (i >= 0) {
                 nodes.add(i, arg);
-            } else {
+            }
+            else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
                     nodes = new ArrayList<>(5);
@@ -450,7 +457,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         return i;
     }
 
-    protected int getNamedItemIndex(String namespaceURI, String localName) {
+    protected int getNamedItemIndex(final String namespaceURI, final String localName) {
         return findNamePoint(namespaceURI, localName);
     }
 

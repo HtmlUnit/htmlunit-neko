@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DocumentType;
@@ -75,7 +74,7 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
     protected final String name;
 
     // Factory constructor.
-    public EntityReferenceImpl(CoreDocumentImpl ownerDoc, String name) {
+    public EntityReferenceImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
         this.name = name;
         needsSyncChildren(true);
@@ -111,8 +110,8 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
      * Clone node.
      */
     @Override
-    public Node cloneNode(boolean deep) {
-        EntityReferenceImpl er = (EntityReferenceImpl) super.cloneNode(deep);
+    public Node cloneNode(final boolean deep) {
+        final EntityReferenceImpl er = (EntityReferenceImpl) super.cloneNode(deep);
         return er;
     }
 
@@ -130,9 +129,9 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
         if (needsSyncData()) {
             synchronizeData();
         }
-        DocumentType doctype;
-        NamedNodeMap entities;
-        EntityImpl entDef;
+        final DocumentType doctype;
+        final NamedNodeMap entities;
+        final EntityImpl entDef;
         if (null != (doctype = getOwnerDocument().getDoctype()) && null != (entities = doctype.getEntities())) {
 
             entDef = (EntityImpl) entities.getNamedItem(getNodeName());
@@ -161,9 +160,11 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
         if (firstChild != null) {
             if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
                 value = ((EntityReferenceImpl) firstChild).getEntityRefValue();
-            } else if (firstChild.getNodeType() == Node.TEXT_NODE) {
+            }
+            else if (firstChild.getNodeType() == Node.TEXT_NODE) {
                 value = firstChild.getNodeValue();
-            } else {
+            }
+            else {
                 // invalid to have other types of nodes in attr value
                 return null;
             }
@@ -172,15 +173,17 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
                 return value;
             }
 
-            StringBuilder buff = new StringBuilder(value);
+            final StringBuilder buff = new StringBuilder(value);
             ChildNode next = firstChild.nextSibling;
             while (next != null) {
 
                 if (next.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
                     value = ((EntityReferenceImpl) next).getEntityRefValue();
-                } else if (next.getNodeType() == Node.TEXT_NODE) {
+                }
+                else if (next.getNodeType() == Node.TEXT_NODE) {
                     value = next.getNodeValue();
-                } else {
+                }
+                else {
                     // invalid to have other types of nodes in attr value
                     return null;
                 }
@@ -206,20 +209,21 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
         // no need to synchronize again
         needsSyncChildren(false);
 
-        DocumentType doctype;
-        NamedNodeMap entities;
-        EntityImpl entDef;
+        final DocumentType doctype;
+        final NamedNodeMap entities;
+        final EntityImpl entDef;
         if (null != (doctype = getOwnerDocument().getDoctype()) && null != (entities = doctype.getEntities())) {
 
             entDef = (EntityImpl) entities.getNamedItem(getNodeName());
 
             // No Entity by this name, stop here.
-            if (entDef == null)
+            if (entDef == null) {
                 return;
+            }
 
             // If entity's definition exists, clone its kids
             for (Node defkid = entDef.getFirstChild(); defkid != null; defkid = defkid.getNextSibling()) {
-                Node newkid = defkid.cloneNode(true);
+                final Node newkid = defkid.cloneNode(true);
                 insertBefore(newkid, null);
             }
         }

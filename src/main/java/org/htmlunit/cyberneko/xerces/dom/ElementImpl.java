@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.htmlunit.cyberneko.xerces.util.URI;
@@ -57,7 +56,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     protected AttributeMap attributes;
 
     // Factory constructor.
-    public ElementImpl(CoreDocumentImpl ownerDoc, String name) {
+    public ElementImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
         this.name = name;
         needsSyncData(true); // synchronizeData will initialize attributes
@@ -66,19 +65,18 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     // Support for DOM Level 3 renameNode method.
     // Note: This only deals with part of the pb. CoreDocumentImpl
     // does all the work.
-    void rename(String name) {
+    void rename(final String name) {
         if (needsSyncData()) {
             synchronizeData();
         }
         if (ownerDocument.errorChecking) {
-            int colon1 = name.indexOf(':');
+            final int colon1 = name.indexOf(':');
             if (colon1 != -1) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }
             if (!CoreDocumentImpl.isXMLName(name, ownerDocument.isXML11Version())) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
         }
@@ -140,9 +138,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * @see org.w3c.dom.Node#cloneNode(boolean)
      */
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
-        ElementImpl newnode = (ElementImpl) super.cloneNode(deep);
+        final ElementImpl newnode = (ElementImpl) super.cloneNode(deep);
         // Replicate NamedNodeMap rather than sharing it.
         if (attributes != null) {
             newnode.attributes = (AttributeMap) attributes.cloneMap(newnode);
@@ -170,9 +168,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             final Attr attrNode = getXMLBaseAttribute();
             if (attrNode != null) {
                 final String uri = attrNode.getNodeValue();
-                if (uri.length() != 0) {// attribute value is always empty string
+                if (uri.length() != 0) { // attribute value is always empty string
                     try {
-                        URI _uri = new URI(uri, true);
+                        final URI _uri = new URI(uri, true);
                         // If the URI is already absolute return it; otherwise it's relative and we need
                         // to resolve it.
                         if (_uri.isAbsoluteURI()) {
@@ -181,13 +179,14 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
                         // Make any parentURI into a URI object to use with the URI(URI, String)
                         // constructor
-                        String parentBaseURI = (this.ownerNode != null) ? this.ownerNode.getBaseURI() : null;
+                        final String parentBaseURI = (this.ownerNode != null) ? this.ownerNode.getBaseURI() : null;
                         if (parentBaseURI != null) {
                             try {
-                                URI _parentBaseURI = new URI(parentBaseURI);
+                                final URI _parentBaseURI = new URI(parentBaseURI);
                                 _uri.absolutize(_parentBaseURI);
                                 return _uri.toString();
-                            } catch (org.htmlunit.cyberneko.xerces.util.URI.MalformedURIException ex) {
+                            }
+                            catch (final org.htmlunit.cyberneko.xerces.util.URI.MalformedURIException ex) {
                                 // This should never happen: parent should have checked the URI and returned
                                 // null if invalid.
                                 return null;
@@ -195,7 +194,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
                         }
                         // REVISIT: what should happen in this case?
                         return null;
-                    } catch (org.htmlunit.cyberneko.xerces.util.URI.MalformedURIException ex) {
+                    }
+                    catch (final org.htmlunit.cyberneko.xerces.util.URI.MalformedURIException ex) {
                         return null;
                     }
                 }
@@ -218,7 +218,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
     // NON-DOM set the ownerDocument of this node, its children, and its attributes
     @Override
-    protected void setOwnerDocument(CoreDocumentImpl doc) {
+    protected void setOwnerDocument(final CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
         if (attributes != null) {
             attributes.setOwnerDocument(doc);
@@ -237,7 +237,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * structure information, see getAttributeNode().
      */
     @Override
-    public String getAttribute(String name) {
+    public String getAttribute(final String name) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -245,7 +245,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (attributes == null) {
             return "";
         }
-        Attr attr = (Attr) (attributes.getNamedItem(name));
+        final Attr attr = (Attr) (attributes.getNamedItem(name));
         return (attr == null) ? "" : attr.getValue();
 
     }
@@ -260,7 +260,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * If no matching attribute is available, returns null.
      */
     @Override
-    public Attr getAttributeNode(String name) {
+    public Attr getAttributeNode(final String name) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -289,7 +289,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * @see DeepNodeListImpl
      */
     @Override
-    public NodeList getElementsByTagName(String tagname) {
+    public NodeList getElementsByTagName(final String tagname) {
         return new DeepNodeListImpl(this, tagname);
     }
 
@@ -324,7 +324,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * case.
      */
     @Override
-    public void removeAttribute(String name) {
+    public void removeAttribute(final String name) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -353,14 +353,14 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *                      Element.
      */
     @Override
-    public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
+    public Attr removeAttributeNode(final Attr oldAttr) throws DOMException {
 
         if (needsSyncData()) {
             synchronizeData();
         }
 
         if (attributes == null) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
         return (Attr) attributes.removeItem(oldAttr);
@@ -386,7 +386,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *                      (Attribute factory will do that test for us.)
      */
     @Override
-    public void setAttribute(String name, String value) {
+    public void setAttribute(final String name, final String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -401,7 +401,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
             newAttr.setNodeValue(value);
             attributes.setNamedItem(newAttr);
-        } else {
+        }
+        else {
             newAttr.setNodeValue(value);
         }
 
@@ -422,7 +423,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *                      been assigned to another Element.
      */
     @Override
-    public Attr setAttributeNode(Attr newAttr) throws DOMException {
+    public Attr setAttributeNode(final Attr newAttr) throws DOMException {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -430,8 +431,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
         if (ownerDocument.errorChecking) {
             if (newAttr.getOwnerDocument() != ownerDocument) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -458,7 +458,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *         does not have a specified or default value.
      */
     @Override
-    public String getAttributeNS(String namespaceURI, String localName) {
+    public String getAttributeNS(final String namespaceURI, final String localName) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -468,10 +468,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             return "";
         }
 
-        Attr attr = (Attr) (attributes.getNamedItemNS(namespaceURI, localName));
+        final Attr attr = (Attr) (attributes.getNamedItemNS(namespaceURI, localName));
         return (attr == null) ? "" : attr.getValue();
 
-    } // getAttributeNS(String,String):String
+    }
 
     /**
      * {@inheritDoc}
@@ -499,16 +499,18 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * @param value         The value to set in string form.
      */
     @Override
-    public void setAttributeNS(String namespaceURI, String qualifiedName, String value) {
+    public void setAttributeNS(final String namespaceURI, final String qualifiedName, final String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
-        int index = qualifiedName.indexOf(':');
-        String prefix, localName;
+        final int index = qualifiedName.indexOf(':');
+        final String prefix;
+        final String localName;
         if (index < 0) {
             prefix = null;
             localName = qualifiedName;
-        } else {
+        }
+        else {
             prefix = qualifiedName.substring(0, index);
             localName = qualifiedName.substring(index + 1);
         }
@@ -522,11 +524,13 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             }
             newAttr.setNodeValue(value);
             attributes.setNamedItemNS(newAttr);
-        } else {
+        }
+        else {
             if (newAttr instanceof AttrNSImpl) {
                 // change prefix and value
                 ((AttrNSImpl) newAttr).name = (prefix != null) ? (prefix + ":" + localName) : localName;
-            } else {
+            }
+            else {
                 // This case may happen if user calls:
                 // elem.setAttribute("name", "value");
                 // elem.setAttributeNS(null, "name", "value");
@@ -560,7 +564,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * @param localName    The local name of the attribute to remove.
      */
     @Override
-    public void removeAttributeNS(String namespaceURI, String localName) {
+    public void removeAttributeNS(final String namespaceURI, final String localName) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -584,7 +588,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *         namespace URI or null if there is no such attribute.
      */
     @Override
-    public Attr getAttributeNodeNS(String namespaceURI, String localName) {
+    public Attr getAttributeNodeNS(final String namespaceURI, final String localName) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -620,15 +624,14 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *                      elements.
      */
     @Override
-    public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
+    public Attr setAttributeNodeNS(final Attr newAttr) throws DOMException {
 
         if (needsSyncData()) {
             synchronizeData();
         }
         if (ownerDocument.errorChecking) {
             if (newAttr.getOwnerDocument() != ownerDocument) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -660,7 +663,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * Introduced in DOM Level 2.
      */
     @Override
-    public boolean hasAttribute(String name) {
+    public boolean hasAttribute(final String name) {
         return getAttributeNode(name) != null;
     }
 
@@ -670,7 +673,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * Introduced in DOM Level 2.
      */
     @Override
-    public boolean hasAttributeNS(String namespaceURI, String localName) {
+    public boolean hasAttributeNS(final String namespaceURI, final String localName) {
         return getAttributeNodeNS(namespaceURI, localName) != null;
     }
 
@@ -693,7 +696,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * @return NodeList A new NodeList object containing all the matched Elements.
      */
     @Override
-    public NodeList getElementsByTagNameNS(String namespaceURI, String localName) {
+    public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
         return new DeepNodeListImpl(this, namespaceURI, localName);
     }
 
@@ -704,30 +707,31 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * ParentNode to check on attributes
      */
     @Override
-    public boolean isEqualNode(Node arg) {
+    public boolean isEqualNode(final Node arg) {
         if (!super.isEqualNode(arg)) {
             return false;
         }
-        boolean hasAttrs = hasAttributes();
+        final boolean hasAttrs = hasAttributes();
         if (hasAttrs != arg.hasAttributes()) {
             return false;
         }
         if (hasAttrs) {
-            NamedNodeMap map1 = getAttributes();
-            NamedNodeMap map2 = arg.getAttributes();
-            int len = map1.getLength();
+            final NamedNodeMap map1 = getAttributes();
+            final NamedNodeMap map2 = arg.getAttributes();
+            final int len = map1.getLength();
             if (len != map2.getLength()) {
                 return false;
             }
             for (int i = 0; i < len; i++) {
-                Node n1 = map1.item(i);
+                final Node n1 = map1.item(i);
                 if (n1.getLocalName() == null) { // DOM Level 1 Node
-                    Node n2 = map2.getNamedItem(n1.getNodeName());
+                    final Node n2 = map2.getNamedItem(n1.getNodeName());
                     if (n2 == null || !n1.isEqualNode(n2)) {
                         return false;
                     }
-                } else {
-                    Node n2 = map2.getNamedItemNS(n1.getNamespaceURI(), n1.getLocalName());
+                }
+                else {
+                    final Node n2 = map2.getNamedItemNS(n1.getNamespaceURI(), n1.getLocalName());
                     if (n2 == null || !n1.isEqualNode(n2)) {
                         return false;
                     }
@@ -743,20 +747,21 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
-    public void setIdAttributeNode(Attr at, boolean makeId) {
+    public void setIdAttributeNode(final Attr at, final boolean makeId) {
         if (needsSyncData()) {
             synchronizeData();
         }
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
         ((AttrImpl) at).isIdAttribute(makeId);
         if (!makeId) {
             ownerDocument.removeIdentifier(at.getValue());
-        } else {
+        }
+        else {
             ownerDocument.putIdentifier(at.getValue(), this);
         }
     }
@@ -767,20 +772,20 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
-    public void setIdAttribute(String name, boolean makeId) {
+    public void setIdAttribute(final String name, final boolean makeId) {
         if (needsSyncData()) {
             synchronizeData();
         }
-        Attr at = getAttributeNode(name);
+        final Attr at = getAttributeNode(name);
 
         if (at == null) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
@@ -788,7 +793,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         ((AttrImpl) at).isIdAttribute(makeId);
         if (!makeId) {
             ownerDocument.removeIdentifier(at.getValue());
-        } else {
+        }
+        else {
             ownerDocument.putIdentifier(at.getValue(), this);
         }
     }
@@ -799,27 +805,28 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * DOM Level 3: register the given attribute node as an ID attribute
      */
     @Override
-    public void setIdAttributeNS(String namespaceURI, String localName, boolean makeId) {
+    public void setIdAttributeNS(final String namespaceURI, final String localName, final boolean makeId) {
         if (needsSyncData()) {
             synchronizeData();
         }
-        Attr at = getAttributeNodeNS(namespaceURI, localName);
+        final Attr at = getAttributeNodeNS(namespaceURI, localName);
 
         if (at == null) {
-            String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
         ((AttrImpl) at).isIdAttribute(makeId);
         if (!makeId) {
             ownerDocument.removeIdentifier(at.getValue());
-        } else {
+        }
+        else {
             ownerDocument.putIdentifier(at.getValue(), this);
         }
     }
@@ -860,8 +867,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *         type
      */
     @Override
-    public boolean isDerivedFrom(String typeNamespaceArg, String typeNameArg, int derivationMethod) {
-
+    public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
     }
 
@@ -896,7 +902,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
     // support for DOM Level 3 renameNode method
     // @param el The element from which to take the attributes
-    void moveSpecifiedAttributes(ElementImpl el) {
+    void moveSpecifiedAttributes(final ElementImpl el) {
         if (needsSyncData()) {
             synchronizeData();
         }

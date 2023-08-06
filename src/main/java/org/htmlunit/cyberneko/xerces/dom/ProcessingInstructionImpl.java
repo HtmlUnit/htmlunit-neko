@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.Node;
@@ -27,12 +26,12 @@ import org.w3c.dom.ProcessingInstruction;
  */
 public class ProcessingInstructionImpl extends CharacterDataImpl implements ProcessingInstruction {
 
-    private final String target;
+    private final String target_;
 
     // Factory constructor.
-    public ProcessingInstructionImpl(CoreDocumentImpl ownerDoc, String target, String data) {
+    public ProcessingInstructionImpl(final CoreDocumentImpl ownerDoc, final String target, final String data) {
         super(ownerDoc, data);
-        this.target = target;
+        this.target_ = target;
     }
 
     /**
@@ -56,7 +55,7 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
         if (needsSyncData()) {
             synchronizeData();
         }
-        return target;
+        return target_;
     }
 
     /**
@@ -77,7 +76,7 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
         if (needsSyncData()) {
             synchronizeData();
         }
-        return target;
+        return target_;
 
     }
 

@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.Entity;
@@ -73,7 +72,7 @@ public class EntityImpl extends ParentNode implements Entity {
     protected String baseURI;
 
     // Factory constructor.
-    public EntityImpl(CoreDocumentImpl ownerDoc, String name) {
+    public EntityImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
         this.name = name;
     }
@@ -108,8 +107,8 @@ public class EntityImpl extends ParentNode implements Entity {
      * Clone node.
      */
     @Override
-    public Node cloneNode(boolean deep) {
-        EntityImpl newentity = (EntityImpl) super.cloneNode(deep);
+    public Node cloneNode(final boolean deep) {
+        final EntityImpl newentity = (EntityImpl) super.cloneNode(deep);
         return newentity;
     }
 
@@ -201,7 +200,7 @@ public class EntityImpl extends ParentNode implements Entity {
      *
      * @param id the id
      */
-    public void setPublicId(String id) {
+    public void setPublicId(final String id) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -216,7 +215,7 @@ public class EntityImpl extends ParentNode implements Entity {
      * null otherwise
      *
      */
-    public void setXmlEncoding(String value) {
+    public void setXmlEncoding(final String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -239,7 +238,7 @@ public class EntityImpl extends ParentNode implements Entity {
     }
 
     // NON-DOM, used to set the input encoding.
-    public void setInputEncoding(String inputEncoding) {
+    public void setInputEncoding(final String inputEncoding) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -250,7 +249,7 @@ public class EntityImpl extends ParentNode implements Entity {
     // version - An attribute specifying, as part of the text declaration,
     // the version number of this entity, when it is an external parsed entity.
     // This is null otherwise
-    public void setXmlVersion(String value) {
+    public void setXmlVersion(final String value) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -263,7 +262,7 @@ public class EntityImpl extends ParentNode implements Entity {
      *
      * @param id the id
      */
-    public void setSystemId(String id) {
+    public void setSystemId(final String id) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -279,7 +278,7 @@ public class EntityImpl extends ParentNode implements Entity {
      *
      * @param name the name
      */
-    public void setNotationName(String name) {
+    public void setNotationName(final String name) {
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -306,7 +305,7 @@ public class EntityImpl extends ParentNode implements Entity {
     }
 
     // NON-DOM: set base uri
-    public void setBaseURI(String uri) {
+    public void setBaseURI(final String uri) {
         if (needsSyncData()) {
             synchronizeData();
         }

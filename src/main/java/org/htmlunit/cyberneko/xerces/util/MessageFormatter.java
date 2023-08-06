@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.MissingResourceException;
@@ -44,5 +43,4 @@ public interface MessageFormatter {
      *                                  cannot be found.
      */
     String formatMessage(String key, Object[] arguments) throws MissingResourceException;
-
 }

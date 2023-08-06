@@ -76,7 +76,7 @@ public abstract class ParentNode extends ChildNode {
      *
      * @param ownerDocument the owner document
      */
-    protected ParentNode(CoreDocumentImpl ownerDocument) {
+    protected ParentNode(final CoreDocumentImpl ownerDocument) {
         super(ownerDocument);
         this.ownerDocument = ownerDocument;
     }
@@ -101,12 +101,12 @@ public abstract class ParentNode extends ChildNode {
      * copies of locked portions of the tree.
      */
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        ParentNode newnode = (ParentNode) super.cloneNode(deep);
+        final ParentNode newnode = (ParentNode) super.cloneNode(deep);
 
         // set owner document
         newnode.ownerDocument = ownerDocument;
@@ -157,7 +157,7 @@ public abstract class ParentNode extends ChildNode {
      * NON-DOM set the ownerDocument of this node and its children
      */
     @Override
-    protected void setOwnerDocument(CoreDocumentImpl doc) {
+    protected void setOwnerDocument(final CoreDocumentImpl doc) {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
@@ -266,7 +266,7 @@ public abstract class ParentNode extends ChildNode {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node insertBefore(Node newChild, Node refChild) throws DOMException {
+    public Node insertBefore(final Node newChild, final Node refChild) throws DOMException {
         // Tail-call; optimizer should be able to do good things with.
         return internalInsertBefore(newChild, refChild, false);
     } // insertBefore(Node,Node):Node
@@ -275,9 +275,9 @@ public abstract class ParentNode extends ChildNode {
     // to control which mutation events are spawned. This version of the
     // insertBefore operation allows us to do so. It is not intended
     // for use by application programs.
-    Node internalInsertBefore(Node newChild, Node refChild, boolean replace) throws DOMException {
+    Node internalInsertBefore(final Node newChild, Node refChild, final boolean replace) throws DOMException {
 
-        boolean errorChecking = ownerDocument.errorChecking;
+        final boolean errorChecking = ownerDocument.errorChecking;
 
         if (newChild.getNodeType() == Node.DOCUMENT_FRAGMENT_NODE) {
             // SLOW BUT SAFE: We could insert the whole subtree without
@@ -358,15 +358,15 @@ public abstract class ParentNode extends ChildNode {
         ownerDocument.insertingNode(this, replace);
 
         // Convert to internal type, to avoid repeated casting
-        ChildNode newInternal = (ChildNode) newChild;
+        final ChildNode newInternal = (ChildNode) newChild;
 
-        Node oldparent = newInternal.parentNode();
+        final Node oldparent = newInternal.parentNode();
         if (oldparent != null) {
             oldparent.removeChild(newInternal);
         }
 
         // Convert to internal type, to avoid repeated casting
-        ChildNode refInternal = (ChildNode) refChild;
+        final ChildNode refInternal = (ChildNode) refChild;
 
         // Attach up
         newInternal.ownerNode = this;
@@ -379,14 +379,16 @@ public abstract class ParentNode extends ChildNode {
             firstChild = newInternal;
             newInternal.isFirstChild(true);
             newInternal.previousSibling = newInternal;
-        } else {
+        }
+        else {
             if (refInternal == null) {
                 // this is an append
-                ChildNode lastChild = firstChild.previousSibling;
+                final ChildNode lastChild = firstChild.previousSibling;
                 lastChild.nextSibling = newInternal;
                 newInternal.previousSibling = lastChild;
                 firstChild.previousSibling = newInternal;
-            } else {
+            }
+            else {
                 // this is an insert
                 if (refChild == firstChild) {
                     // at the head of the list
@@ -396,9 +398,10 @@ public abstract class ParentNode extends ChildNode {
                     firstChild.previousSibling = newInternal;
                     firstChild = newInternal;
                     newInternal.isFirstChild(true);
-                } else {
+                }
+                else {
                     // somewhere in the middle
-                    ChildNode prev = refInternal.previousSibling;
+                    final ChildNode prev = refInternal.previousSibling;
                     newInternal.nextSibling = refInternal;
                     prev.nextSibling = newInternal;
                     refInternal.previousSibling = newInternal;
@@ -419,7 +422,8 @@ public abstract class ParentNode extends ChildNode {
                 // the cache to the new node to match the cached index
                 if (fNodeListCache.fChild == refInternal) {
                     fNodeListCache.fChild = newInternal;
-                } else {
+                }
+                else {
                     // otherwise just invalidate the cache
                     fNodeListCache.fChildIndex = -1;
                 }
@@ -448,7 +452,7 @@ public abstract class ParentNode extends ChildNode {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node removeChild(Node oldChild) throws DOMException {
+    public Node removeChild(final Node oldChild) throws DOMException {
         // Tail-call, should be optimizable
         return internalRemoveChild(oldChild, false);
     } // removeChild(Node) :Node
@@ -457,9 +461,9 @@ public abstract class ParentNode extends ChildNode {
     // to control which mutation events are spawned. This version of the
     // removeChild operation allows us to do so. It is not intended
     // for use by application programs.
-    Node internalRemoveChild(Node oldChild, boolean replace) throws DOMException {
+    Node internalRemoveChild(final Node oldChild, final boolean replace) throws DOMException {
 
-        CoreDocumentImpl ownerDocument = ownerDocument();
+        final CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
                 throw new DOMException(DOMException.NOT_FOUND_ERR,
@@ -467,7 +471,7 @@ public abstract class ParentNode extends ChildNode {
             }
         }
 
-        ChildNode oldInternal = (ChildNode) oldChild;
+        final ChildNode oldInternal = (ChildNode) oldChild;
 
         // notify document
         ownerDocument.removingNode(this, oldInternal, replace);
@@ -486,7 +490,8 @@ public abstract class ParentNode extends ChildNode {
                 if (fNodeListCache.fChild == oldInternal) {
                     fNodeListCache.fChildIndex--;
                     fNodeListCache.fChild = oldPreviousSibling;
-                } else {
+                }
+                else {
                     // otherwise just invalidate the cache
                     fNodeListCache.fChildIndex = -1;
                 }
@@ -503,14 +508,16 @@ public abstract class ParentNode extends ChildNode {
                 firstChild.isFirstChild(true);
                 firstChild.previousSibling = oldInternal.previousSibling;
             }
-        } else {
-            ChildNode prev = oldInternal.previousSibling;
-            ChildNode next = oldInternal.nextSibling;
+        }
+        else {
+            final ChildNode prev = oldInternal.previousSibling;
+            final ChildNode next = oldInternal.nextSibling;
             prev.nextSibling = next;
             if (next == null) {
                 // removing last child
                 firstChild.previousSibling = prev;
-            } else {
+            }
+            else {
                 // removing some other child in the middle
                 next.previousSibling = prev;
             }
@@ -554,7 +561,7 @@ public abstract class ParentNode extends ChildNode {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if this node is read-only.
      */
     @Override
-    public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
+    public Node replaceChild(final Node newChild, final Node oldChild) throws DOMException {
         // If Mutation Events are being generated, this operation might
         // throw aggregate events twice when modifying an Attr -- once
         // on insertion and once on removal. DOM Level 2 does not specify
@@ -582,13 +589,13 @@ public abstract class ParentNode extends ChildNode {
      */
     @Override
     public String getTextContent() throws DOMException {
-        Node child = getFirstChild();
+        final Node child = getFirstChild();
         if (child != null) {
-            Node next = child.getNextSibling();
+            final Node next = child.getNextSibling();
             if (next == null) {
                 return hasTextContent(child) ? child.getTextContent() : "";
             }
-            StringBuffer buf = new StringBuffer();
+            final StringBuffer buf = new StringBuffer();
             getTextContent(buf);
             return buf.toString();
         }
@@ -599,7 +606,7 @@ public abstract class ParentNode extends ChildNode {
      * {@inheritDoc}
      */
     @Override
-    void getTextContent(StringBuffer buf) throws DOMException {
+    void getTextContent(final StringBuffer buf) throws DOMException {
         Node child = getFirstChild();
         while (child != null) {
             if (hasTextContent(child)) {
@@ -610,7 +617,7 @@ public abstract class ParentNode extends ChildNode {
     }
 
     // internal method returning whether to take the given node's text content
-    final boolean hasTextContent(Node child) {
+    final boolean hasTextContent(final Node child) {
         return child.getNodeType() != Node.COMMENT_NODE && child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE
                 && (child.getNodeType() != Node.TEXT_NODE || !((TextImpl) child).isIgnorableWhitespace());
     }
@@ -619,7 +626,7 @@ public abstract class ParentNode extends ChildNode {
      * {@inheritDoc}
      */
     @Override
-    public void setTextContent(String textContent) throws DOMException {
+    public void setTextContent(final String textContent) throws DOMException {
         // get rid of any existing children
         Node child;
         while ((child = getFirstChild()) != null) {
@@ -660,7 +667,8 @@ public abstract class ParentNode extends ChildNode {
             if (fNodeListCache.fChildIndex != -1 && fNodeListCache.fChild != null) {
                 l = fNodeListCache.fChildIndex;
                 n = fNodeListCache.fChild;
-            } else {
+            }
+            else {
                 n = firstChild;
                 l = 0;
             }
@@ -692,7 +700,7 @@ public abstract class ParentNode extends ChildNode {
      *         bounds. Use to implement NodeList.item().
      * @param index the index
      */
-    private Node nodeListItem(int index) {
+    private Node nodeListItem(final int index) {
 
         if (fNodeListCache == null) {
             if (needsSyncChildren()) {
@@ -716,13 +724,15 @@ public abstract class ParentNode extends ChildNode {
                     i++;
                     n = n.nextSibling;
                 }
-            } else if (i > index) {
+            }
+            else if (i > index) {
                 while (i > index && n != null) {
                     i--;
                     n = n.previousSibling();
                 }
             }
-        } else {
+        }
+        else {
             // long way
             if (index < 0) {
                 return null;
@@ -738,7 +748,8 @@ public abstract class ParentNode extends ChildNode {
             fNodeListCache.fChildIndex = -1;
             fNodeListCache.fChild = null;
             ownerDocument.freeNodeListCache(fNodeListCache);
-        } else {
+        }
+        else {
             // otherwise update it
             fNodeListCache.fChildIndex = i;
             fNodeListCache.fChild = n;
@@ -757,9 +768,9 @@ public abstract class ParentNode extends ChildNode {
      * @param index int
      */
     @Override
-    public Node item(int index) {
+    public Node item(final int index) {
         return nodeListItem(index);
-    } // item(int):Node
+    }
 
     /**
      * Create a NodeList to access children that is use by subclass elements that
@@ -781,7 +792,7 @@ public abstract class ParentNode extends ChildNode {
             }
 
             @Override
-            public Node item(int index) {
+            public Node item(final int index) {
                 return nodeListItem(index);
             }
         };
@@ -798,7 +809,7 @@ public abstract class ParentNode extends ChildNode {
      * support deep equal.
      */
     @Override
-    public boolean isEqualNode(Node arg) {
+    public boolean isEqualNode(final Node arg) {
         if (!super.isEqualNode(arg)) {
             return false;
         }
@@ -840,18 +851,19 @@ public abstract class ParentNode extends ChildNode {
      *
      * @throws NullPointerException if the inserted child is <code>null</code>
      */
-    void checkNormalizationAfterInsert(ChildNode insertedChild) {
+    void checkNormalizationAfterInsert(final ChildNode insertedChild) {
         // See if insertion caused this node to be unnormalized.
         if (insertedChild.getNodeType() == Node.TEXT_NODE) {
-            ChildNode prev = insertedChild.previousSibling();
-            ChildNode next = insertedChild.nextSibling;
+            final ChildNode prev = insertedChild.previousSibling();
+            final ChildNode next = insertedChild.nextSibling;
             // If an adjacent sibling of the new child is a text node,
             // flag this node as unnormalized.
             if ((prev != null && prev.getNodeType() == Node.TEXT_NODE)
                     || (next != null && next.getNodeType() == Node.TEXT_NODE)) {
                 isNormalized(false);
             }
-        } else {
+        }
+        else {
             // If the new child is not normalized,
             // then this node is inherently not normalized.
             if (!insertedChild.isNormalized()) {
@@ -871,13 +883,13 @@ public abstract class ParentNode extends ChildNode {
      * @param previousSibling the previous sibling of the removed child, or
      *                        <code>null</code>
      */
-    void checkNormalizationAfterRemove(ChildNode previousSibling) {
+    void checkNormalizationAfterRemove(final ChildNode previousSibling) {
         // See if removal caused this node to be unnormalized.
         // If the adjacent siblings of the removed child were both text nodes,
         // flag this node as unnormalized.
         if (previousSibling != null && previousSibling.getNodeType() == Node.TEXT_NODE) {
 
-            ChildNode next = previousSibling.nextSibling;
+            final ChildNode next = previousSibling.nextSibling;
             if (next != null && next.getNodeType() == Node.TEXT_NODE) {
                 isNormalized(false);
             }

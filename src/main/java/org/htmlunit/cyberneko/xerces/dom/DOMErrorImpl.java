@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
@@ -41,10 +40,10 @@ import org.w3c.dom.DOMLocator;
 
 public class DOMErrorImpl implements DOMError {
 
-    private short fSeverity = DOMError.SEVERITY_WARNING;
-    private final String fMessage = null;
-    private DOMLocatorImpl fLocator = new DOMLocatorImpl();
-    private Exception fException = null;
+    private short fSeverity_ = DOMError.SEVERITY_WARNING;
+    private final String fMessage_ = null;
+    private DOMLocatorImpl fLocator_ = new DOMLocatorImpl();
+    private Exception fException_ = null;
 
     /** Default constructor. */
     public DOMErrorImpl() {
@@ -56,10 +55,10 @@ public class DOMErrorImpl implements DOMError {
      * @param severity  the severity
      * @param exception the exception
      */
-    public DOMErrorImpl(short severity, XMLParseException exception) {
-        fSeverity = severity;
-        fException = exception;
-        fLocator = createDOMLocator(exception);
+    public DOMErrorImpl(final short severity, final XMLParseException exception) {
+        fSeverity_ = severity;
+        fException_ = exception;
+        fLocator_ = createDOMLocator(exception);
     }
 
     /**
@@ -70,7 +69,7 @@ public class DOMErrorImpl implements DOMError {
      */
     @Override
     public short getSeverity() {
-        return fSeverity;
+        return fSeverity_;
     }
 
     /**
@@ -80,7 +79,7 @@ public class DOMErrorImpl implements DOMError {
      */
     @Override
     public String getMessage() {
-        return fMessage;
+        return fMessage_;
     }
 
     /**
@@ -90,7 +89,7 @@ public class DOMErrorImpl implements DOMError {
      */
     @Override
     public DOMLocator getLocation() {
-        return fLocator;
+        return fLocator_;
     }
 
     // method to get the DOMLocator Object
@@ -109,12 +108,12 @@ public class DOMErrorImpl implements DOMError {
      */
     @Override
     public Object getRelatedException() {
-        return fException;
+        return fException_;
     }
 
     public void reset() {
-        fSeverity = DOMError.SEVERITY_WARNING;
-        fException = null;
+        fSeverity_ = DOMError.SEVERITY_WARNING;
+        fException_ = null;
     }
 
     @Override

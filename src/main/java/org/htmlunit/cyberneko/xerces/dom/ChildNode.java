@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.Node;
@@ -38,7 +37,7 @@ public abstract class ChildNode extends NodeImpl {
      *
      * @param ownerDocument the owner document
      */
-    protected ChildNode(CoreDocumentImpl ownerDocument) {
+    protected ChildNode(final CoreDocumentImpl ownerDocument) {
         super(ownerDocument);
     }
 
@@ -69,9 +68,9 @@ public abstract class ChildNode extends NodeImpl {
      *      editable copies of locked portions of the tree.
      */
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
-        ChildNode newnode = (ChildNode) super.cloneNode(deep);
+        final ChildNode newnode = (ChildNode) super.cloneNode(deep);
 
         // Need to break the association w/ original kids
         newnode.previousSibling = null;

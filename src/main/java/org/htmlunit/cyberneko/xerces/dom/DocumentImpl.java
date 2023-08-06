@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.Attr;
@@ -55,7 +54,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      *
      * @param grammarAccess grammar access flag
      */
-    public DocumentImpl(boolean grammarAccess) {
+    public DocumentImpl(final boolean grammarAccess) {
         super(grammarAccess);
     }
 
@@ -64,7 +63,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      *
      * @param doctype the {@link DocumentType}
      */
-    public DocumentImpl(DocumentType doctype) {
+    public DocumentImpl(final DocumentType doctype) {
         super(doctype);
     }
 
@@ -74,7 +73,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * @param doctype       the {@link DocumentType}
      * @param grammarAccess grammar access flag
      */
-    public DocumentImpl(DocumentType doctype, boolean grammarAccess) {
+    public DocumentImpl(final DocumentType doctype, final boolean grammarAccess) {
         super(doctype, grammarAccess);
     }
 
@@ -89,9 +88,9 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * @param deep boolean, iff true replicate children
      */
     @Override
-    public Node cloneNode(boolean deep) {
+    public Node cloneNode(final boolean deep) {
 
-        DocumentImpl newdoc = new DocumentImpl();
+        final DocumentImpl newdoc = new DocumentImpl();
         cloneNode(newdoc, deep);
 
         return newdoc;
@@ -120,7 +119,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * objects can be notified.
      */
     @Override
-    void replacedText(CharacterDataImpl node) {
+    void replacedText(final CharacterDataImpl node) {
     }
 
     /**
@@ -130,7 +129,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * live objects can be notified.
      */
     @Override
-    void deletedText(CharacterDataImpl node, int offset, int count) {
+    void deletedText(final CharacterDataImpl node, final int offset, final int count) {
     }
 
     /**
@@ -140,7 +139,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * live objects can be notified.
      */
     @Override
-    void insertedText(CharacterDataImpl node, int offset, int count) {
+    void insertedText(final CharacterDataImpl node, final int offset, final int count) {
     }
 
     /**
@@ -166,8 +165,8 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      *                         not support the type of Event interface requested
      */
     @Override
-    public Event createEvent(String type) throws DOMException {
-        String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+    public Event createEvent(final String type) throws DOMException {
+        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
         throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
     }
 
@@ -177,7 +176,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a character data node has been modified
      */
     @Override
-    void modifyingCharacterData(NodeImpl node, boolean replace) {
+    void modifyingCharacterData(final NodeImpl node, final boolean replace) {
     }
 
     /**
@@ -186,7 +185,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a character data node has been modified
      */
     @Override
-    void modifiedCharacterData(NodeImpl node, String oldvalue, String value, boolean replace) {
+    void modifiedCharacterData(final NodeImpl node, final String oldvalue, final String value, final boolean replace) {
     }
 
     /**
@@ -195,7 +194,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a character data node has been replaced
      */
     @Override
-    void replacedCharacterData(NodeImpl node, String oldvalue, String value) {
+    void replacedCharacterData(final NodeImpl node, final String oldvalue, final String value) {
         // now that we have finished replacing data, we need to perform the same actions
         // that are required after a character data node has been modified
         // send the value of false for replace parameter so that mutation
@@ -209,7 +208,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node is about to be inserted in the tree.
      */
     @Override
-    void insertingNode(NodeImpl node, boolean replace) {
+    void insertingNode(final NodeImpl node, final boolean replace) {
     }
 
     /**
@@ -218,7 +217,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node has been inserted in the tree.
      */
     @Override
-    void insertedNode(NodeImpl node, NodeImpl newInternal, boolean replace) {
+    void insertedNode(final NodeImpl node, final NodeImpl newInternal, final boolean replace) {
     }
 
     /**
@@ -227,7 +226,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node is about to be removed from the tree.
      */
     @Override
-    void removingNode(NodeImpl node, NodeImpl oldChild, boolean replace) {
+    void removingNode(final NodeImpl node, final NodeImpl oldChild, final boolean replace) {
     }
 
     /**
@@ -236,7 +235,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node has been removed from the tree.
      */
     @Override
-    void removedNode(NodeImpl node, boolean replace) {
+    void removedNode(final NodeImpl node, final boolean replace) {
     }
 
     /**
@@ -245,7 +244,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node is about to be replaced in the tree.
      */
     @Override
-    void replacingNode(NodeImpl node) {
+    void replacingNode(final NodeImpl node) {
     }
 
     /**
@@ -255,7 +254,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * tree.
      */
     @Override
-    void replacingData(NodeImpl node) {
+    void replacingData(final NodeImpl node) {
     }
 
     /**
@@ -264,7 +263,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when a node has been replaced in the tree.
      */
     @Override
-    void replacedNode(NodeImpl node) {
+    void replacedNode(final NodeImpl node) {
     }
 
     /**
@@ -273,7 +272,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when an attribute value has been modified
      */
     @Override
-    void modifiedAttrValue(AttrImpl attr, String oldvalue) {
+    void modifiedAttrValue(final AttrImpl attr, final String oldvalue) {
     }
 
     /**
@@ -282,7 +281,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when an attribute node has been set
      */
     @Override
-    void setAttrNode(AttrImpl attr, AttrImpl previous) {
+    void setAttrNode(final AttrImpl attr, final AttrImpl previous) {
     }
 
     /**
@@ -291,7 +290,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when an attribute node has been removed
      */
     @Override
-    void removedAttrNode(AttrImpl attr, NodeImpl oldOwner, String name) {
+    void removedAttrNode(final AttrImpl attr, final NodeImpl oldOwner, final String name) {
     }
 
     /**
@@ -300,7 +299,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when an attribute node has been renamed
      */
     @Override
-    void renamedAttrNode(Attr oldAt, Attr newAt) {
+    void renamedAttrNode(final Attr oldAt, final Attr newAt) {
         // REVISIT: To be implemented!!!
     }
 
@@ -310,7 +309,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      * A method to be called when an element has been renamed
      */
     @Override
-    void renamedElement(Element oldEl, Element newEl) {
+    void renamedElement(final Element oldEl, final Element newEl) {
         // REVISIT: To be implemented!!!
     }
 }

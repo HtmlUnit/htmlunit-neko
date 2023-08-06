@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DOMException;
@@ -35,7 +34,7 @@ import org.w3c.dom.Text;
 public class TextImpl extends CharacterDataImpl implements Text {
 
     // Factory constructor.
-    public TextImpl(CoreDocumentImpl ownerDoc, String data) {
+    public TextImpl(final CoreDocumentImpl ownerDoc, final String data) {
         super(ownerDoc, data);
     }
 
@@ -59,7 +58,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
     }
 
     // NON-DOM: Set whether this Text is ignorable whitespace.
-    public void setIgnorableWhitespace(boolean ignore) {
+    public void setIgnorableWhitespace(final boolean ignore) {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -100,7 +99,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
             synchronizeData();
         }
 
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         if (data != null && data.length() != 0) {
             buffer.append(data);
         }
@@ -108,7 +107,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
         // concatenate text of logically adjacent text nodes to the left of this node in
         // the tree
         getWholeTextBackward(this.getPreviousSibling(), buffer, this.getParentNode());
-        String temp = buffer.toString();
+        final String temp = buffer.toString();
 
         // clear buffer
         buffer.setLength(0);
@@ -128,8 +127,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @param buf string buffer
      * @throws DOMException on error
      */
-    protected void insertTextContent(StringBuffer buf) throws DOMException {
-        String content = getNodeValue();
+    protected void insertTextContent(final StringBuffer buf) throws DOMException {
+        final String content = getNodeValue();
         if (content != null) {
             buf.insert(0, content);
         }
@@ -145,7 +144,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @return true - if execution was stopped because the type of node other than
      *         EntityRef, Text, CDATA is encountered, otherwise return false
      */
-    private boolean getWholeTextForward(Node node, StringBuffer buffer, Node parent) {
+    private boolean getWholeTextForward(Node node, final StringBuffer buffer, final Node parent) {
         // boolean to indicate whether node is a child of an entity reference
         boolean inEntRef = false;
 
@@ -154,14 +153,16 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         while (node != null) {
-            short type = node.getNodeType();
+            final short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 if (getWholeTextForward(node.getFirstChild(), buffer, node)) {
                     return true;
                 }
-            } else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
+            }
+            else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
                 ((NodeImpl) node).getTextContent(buffer);
-            } else {
+            }
+            else {
                 return true;
             }
 
@@ -190,7 +191,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @return true - if execution was stopped because the type of node other than
      *         EntityRef, Text, CDATA is encountered, otherwise return false
      */
-    private boolean getWholeTextBackward(Node node, StringBuffer buffer, Node parent) {
+    private boolean getWholeTextBackward(Node node, final StringBuffer buffer, final Node parent) {
 
         // boolean to indicate whether node is a child of an entity reference
         boolean inEntRef = false;
@@ -199,14 +200,16 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         while (node != null) {
-            short type = node.getNodeType();
+            final short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 if (getWholeTextBackward(node.getLastChild(), buffer, node)) {
                     return true;
                 }
-            } else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
+            }
+            else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
                 ((TextImpl) node).insertTextContent(buffer);
-            } else {
+            }
+            else {
                 return true;
             }
 
@@ -237,14 +240,13 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @return text - The Text node created with the specified content.
      */
     @Override
-    public Text replaceWholeText(String content) throws DOMException {
-
+    public Text replaceWholeText(final String content) throws DOMException {
         if (needsSyncData()) {
             synchronizeData();
         }
 
         // if the content is null
-        Node parent = this.getParentNode();
+        final Node parent = this.getParentNode();
         if (content == null || content.length() == 0) {
             // remove current node
             if (parent != null) { // check if node in the tree
@@ -263,7 +265,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         // replace the text node
-        Text currentNode;
+        final Text currentNode;
         this.setData(content);
         currentNode = this;
 
@@ -278,7 +280,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
                     || (prev.getNodeType() == Node.ENTITY_REFERENCE_NODE && hasTextOnlyChildren(prev))) {
                 parent.removeChild(prev);
                 prev = currentNode;
-            } else {
+            }
+            else {
                 break;
             }
             prev = prev.getPreviousSibling();
@@ -295,7 +298,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
                     || (next.getNodeType() == Node.ENTITY_REFERENCE_NODE && hasTextOnlyChildren(next))) {
                 parent.removeChild(next);
                 next = currentNode;
-            } else {
+            }
+            else {
                 break;
             }
             next = next.getNextSibling();
@@ -323,14 +327,14 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @return true - can replace text false - can't replace exception must be
      *         raised
      */
-    private boolean canModifyPrev(Node node) {
+    private boolean canModifyPrev(final Node node) {
         boolean textLastChild = false;
 
         Node prev = node.getPreviousSibling();
 
         while (prev != null) {
 
-            short type = prev.getNodeType();
+            final short type = prev.getNodeType();
 
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 // If the previous sibling was entityreference
@@ -347,11 +351,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
                 // be either only text,cadatsections or replaceable entity
                 // reference nodes or the last child should be neither of these
                 while (lastChild != null) {
-                    short lType = lastChild.getNodeType();
+                    final short lType = lastChild.getNodeType();
 
                     if (lType == Node.TEXT_NODE || lType == Node.CDATA_SECTION_NODE) {
                         textLastChild = true;
-                    } else if (lType == Node.ENTITY_REFERENCE_NODE) {
+                    }
+                    else if (lType == Node.ENTITY_REFERENCE_NODE) {
                         if (!canModifyPrev(lastChild)) {
                             return false;
                         }
@@ -359,7 +364,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
                         // only text, or non-text or ends with a
                         // non-text node.
                         textLastChild = true;
-                    } else {
+                    }
+                    else {
                         // If the last child was replaceable and others are not
                         // Text or CDataSection or replaceable EntityRef nodes
                         // return false.
@@ -367,9 +373,11 @@ public class TextImpl extends CharacterDataImpl implements Text {
                     }
                     lastChild = lastChild.getPreviousSibling();
                 }
-            } else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
+            }
+            else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
                 // If the previous sibling was text or cdatasection move to next
-            } else {
+            }
+            else {
                 // If the previous sibling was anything but text or
                 // cdatasection or an entity reference, stop search and
                 // return true
@@ -401,13 +409,13 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @return true - can replace text false - can't replace exception must be
      *         raised
      */
-    private boolean canModifyNext(Node node) {
+    private boolean canModifyNext(final Node node) {
         boolean textFirstChild = false;
 
         Node next = node.getNextSibling();
         while (next != null) {
 
-            short type = next.getNodeType();
+            final short type = next.getNodeType();
 
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 // If the previous sibling was entityreference
@@ -424,11 +432,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
                 // be either only text,cadatsections or replaceable entity
                 // reference nodes or the last child should be neither of these
                 while (firstChild != null) {
-                    short lType = firstChild.getNodeType();
+                    final short lType = firstChild.getNodeType();
 
                     if (lType == Node.TEXT_NODE || lType == Node.CDATA_SECTION_NODE) {
                         textFirstChild = true;
-                    } else if (lType == Node.ENTITY_REFERENCE_NODE) {
+                    }
+                    else if (lType == Node.ENTITY_REFERENCE_NODE) {
                         if (!canModifyNext(firstChild)) {
                             return false;
                         }
@@ -436,16 +445,19 @@ public class TextImpl extends CharacterDataImpl implements Text {
                         // only text, or non-text or ends with a
                         // non-text node.
                         textFirstChild = true;
-                    } else {
+                    }
+                    else {
                         // If the first child was replaceable text and next
                         // children are not, then return false
                         return !textFirstChild;
                     }
                     firstChild = firstChild.getNextSibling();
                 }
-            } else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
+            }
+            else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
                 // If the previous sibling was text or cdatasection move to next
-            } else {
+            }
+            else {
                 // If the next sibling was anything but text or
                 // cdatasection or an entity reference, stop search and
                 // return true
@@ -464,7 +476,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @param node the node
      * @return true - Contains text only children
      */
-    private boolean hasTextOnlyChildren(Node node) {
+    private boolean hasTextOnlyChildren(final Node node) {
 
         Node child = node;
 
@@ -474,7 +486,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
         child = child.getFirstChild();
         while (child != null) {
-            int type = child.getNodeType();
+            final int type = child.getNodeType();
 
             if (type == Node.ENTITY_REFERENCE_NODE) {
                 return hasTextOnlyChildren(child);
@@ -515,7 +527,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * @throws DOMException NO_MODIFICATION_ALLOWED_ERR if node is read-only.
      */
     @Override
-    public Text splitText(int offset) throws DOMException {
+    public Text splitText(final int offset) throws DOMException {
 
         if (needsSyncData()) {
             synchronizeData();
@@ -526,11 +538,11 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         // split text into two separate nodes
-        Text newText = getOwnerDocument().createTextNode(data.substring(offset));
+        final Text newText = getOwnerDocument().createTextNode(data.substring(offset));
         setNodeValue(data.substring(0, offset));
 
         // insert new text node
-        Node parentNode = getParentNode();
+        final Node parentNode = getParentNode();
         if (parentNode != null) {
             parentNode.insertBefore(newText, nextSibling);
         }
@@ -540,14 +552,14 @@ public class TextImpl extends CharacterDataImpl implements Text {
     }
 
     // NON-DOM (used by DOMParser): Reset data for the node.
-    public void replaceData(String value) {
+    public void replaceData(final String value) {
         data = value;
     }
 
     // NON-DOM (used by DOMParser: Sets data to empty string.
     // Returns the value the data was set to.
     public String removeData() {
-        String olddata = data;
+        final String olddata = data;
         data = "";
         return olddata;
     }

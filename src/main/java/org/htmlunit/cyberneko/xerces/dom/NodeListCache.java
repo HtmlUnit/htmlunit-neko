@@ -42,7 +42,7 @@ class NodeListCache {
      */
     NodeListCache next;
 
-    NodeListCache(ParentNode owner) {
+    NodeListCache(final ParentNode owner) {
         fOwner = owner;
     }
 }

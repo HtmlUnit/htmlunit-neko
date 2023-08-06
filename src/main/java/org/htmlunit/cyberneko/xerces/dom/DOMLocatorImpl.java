@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DOMLocator;
@@ -76,13 +75,12 @@ public class DOMLocatorImpl implements DOMLocator {
     public DOMLocatorImpl() {
     }
 
-    public DOMLocatorImpl(int lineNumber, int columnNumber, int utf16Offset, String uri) {
+    public DOMLocatorImpl(final int lineNumber, final int columnNumber, final int utf16Offset, final String uri) {
         fLineNumber = lineNumber;
         fColumnNumber = columnNumber;
         fUri = uri;
         fUtf16Offset = utf16Offset;
-    } // DOMLocatorImpl (int lineNumber, int columnNumber, int utf16Offset, String uri
-      // )
+    }
 
     /**
      * The line number where the error occured, or -1 if there is no line number
@@ -134,4 +132,4 @@ public class DOMLocatorImpl implements DOMLocator {
         return fUtf16Offset;
     }
 
-}// class DOMLocatorImpl
+}

@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.dom;
 
 import org.w3c.dom.DocumentFragment;
@@ -55,7 +54,7 @@ import org.w3c.dom.Node;
 public class DocumentFragmentImpl extends ParentNode implements DocumentFragment {
 
     // Factory constructor.
-    public DocumentFragmentImpl(CoreDocumentImpl ownerDoc) {
+    public DocumentFragmentImpl(final CoreDocumentImpl ownerDoc) {
         super(ownerDoc);
     }
 
