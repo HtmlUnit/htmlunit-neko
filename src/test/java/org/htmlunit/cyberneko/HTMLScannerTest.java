@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.filters.DefaultFilter;
-import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
+import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
@@ -161,31 +161,6 @@ public class HTMLScannerTest {
                                                       new StringReader(string), "UTF-8");
             configuration_.evaluateInputSource(source);
         }
-
-    }
-
-    @Test
-    public void reduceToContent() {
-        XMLStringBuffer buffer = new XMLStringBuffer("<!-- hello-->");
-
-        HTMLScanner.reduceToContent(buffer, "<!--", "-->");
-        assertEquals(" hello", buffer.toString());
-
-        buffer = new XMLStringBuffer("  \n <!-- hello-->\n");
-        HTMLScanner.reduceToContent(buffer, "<!--", "-->");
-        assertEquals(" hello", buffer.toString());
-
-        buffer = new XMLStringBuffer("hello");
-        HTMLScanner.reduceToContent(buffer, "<!--", "-->");
-        assertEquals("hello", buffer.toString());
-
-        buffer = new XMLStringBuffer("<!-- hello");
-        HTMLScanner.reduceToContent(buffer, "<!--", "-->");
-        assertEquals("<!-- hello", buffer.toString());
-
-        buffer = new XMLStringBuffer("<!--->");
-        HTMLScanner.reduceToContent(buffer, "<!--", "-->");
-        assertEquals("<!--->", buffer.toString());
     }
 
     /**

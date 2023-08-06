@@ -21,7 +21,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import org.htmlunit.cyberneko.filters.DefaultFilter;
-import org.htmlunit.cyberneko.xerces.util.XMLStringBuffer;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -42,7 +41,7 @@ public class Writer extends DefaultFilter {
     private PrintWriter out_ = new PrintWriter(System.out);
 
     /** String buffer for collecting text content. */
-    private final XMLStringBuffer stringBuffer_ = new XMLStringBuffer();
+    private final XMLString stringBuffer_ = new XMLString();
 
     /** Are we currently in the middle of a block of characters? */
     private boolean inCharacters_ = false;
@@ -179,7 +178,7 @@ public class Writer extends DefaultFilter {
         doAugs(augs);
         out_.print('?');
         out_.print(target);
-        if (data != null && data.length > 0) {
+        if (data != null && data.length() > 0) {
             out_.print(' ');
             print(data.toString());
         }
@@ -284,7 +283,7 @@ public class Writer extends DefaultFilter {
     /** Prints collected characters. */
     protected void chars() {
         inCharacters_ = false;
-        if (stringBuffer_.length == 0) {
+        if (stringBuffer_.length() == 0) {
             return;
         }
         doCharactersAugs();

@@ -462,7 +462,6 @@ public abstract class ParentNode extends ChildNode {
     // removeChild operation allows us to do so. It is not intended
     // for use by application programs.
     Node internalRemoveChild(final Node oldChild, final boolean replace) throws DOMException {
-
         final CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {

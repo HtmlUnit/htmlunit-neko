@@ -36,9 +36,7 @@ class LostText {
         private Augmentations augs_;
 
         Entry(final XMLString text, final Augmentations augs) {
-            final char[] chars = new char[text.length];
-            System.arraycopy(text.ch, text.offset, chars, 0, text.length);
-            text_ = new XMLString(chars, 0, chars.length);
+            text_ = text.clone();
             augs_ = augs;
         }
     }

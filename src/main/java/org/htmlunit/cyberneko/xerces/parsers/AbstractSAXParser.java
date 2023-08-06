@@ -352,14 +352,14 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         // if type is union (XML Schema) it is possible that we receive
         // character call with empty data
-        if (text.length == 0) {
+        if (text.length() == 0) {
             return;
         }
 
         try {
             // SAX2
             if (fContentHandler != null) {
-                fContentHandler.characters(text.ch, text.offset, text.length);
+                text.characters(fContentHandler);
             }
         }
         catch (final SAXException e) {
@@ -382,18 +382,16 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      */
     @Override
     public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
-
         try {
             // SAX2
             if (fContentHandler != null) {
-                fContentHandler.ignorableWhitespace(text.ch, text.offset, text.length);
+                text.ignorableWhitespace( fContentHandler);
             }
         }
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // ignorableWhitespace(XMLString)
+    }
 
     /**
      * The end of an element.
@@ -481,7 +479,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         try {
             // SAX2 extension
             if (fLexicalHandler != null) {
-                fLexicalHandler.comment(text.ch, 0, text.length);
+                text.comment(fLexicalHandler);
             }
         }
         catch (final SAXException e) {

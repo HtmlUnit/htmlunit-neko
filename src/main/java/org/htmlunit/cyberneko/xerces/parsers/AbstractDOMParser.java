@@ -105,7 +105,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     private static final String[] RECOGNIZED_PROPERTIES = {};
 
     private static final boolean DEBUG_EVENTS = false;
-    private static final boolean DEBUG_BASEURI = false;
 
     /** Create entity reference nodes. */
     protected boolean fCreateEntityRefNodes;
@@ -137,7 +136,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected EntityImpl fCurrentEntityDecl;
 
     /** Character buffer */
-    protected final StringBuffer fStringBuffer = new StringBuffer(50);
+    protected final StringBuilder fStringBuffer = new StringBuilder();
 
     protected boolean fNamespaceAware;
 
@@ -582,7 +581,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         else {
             // if type is union (XML Schema) it is possible that we receive
             // character call with empty data
-            if (text.length == 0) {
+            if (text.length() == 0) {
                 return;
             }
 
@@ -599,8 +598,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     }
                     fFirstChunk = false;
                 }
-                if (text.length > 0) {
-                    fStringBuffer.append(text.ch, text.offset, text.length);
+                if (text.length() > 0) {
+                    text.appendTo(fStringBuffer);
                 }
             }
             else {

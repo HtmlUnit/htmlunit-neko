@@ -150,9 +150,6 @@ public class HTMLTagBalancer
     /** Don't modify HTML names. */
     private static final short NAMES_NO_CHANGE = 0;
 
-    /** Match HTML element names. */
-    private static final short NAMES_MATCH = 0;
-
     /** Uppercase HTML names. */
     private static final short NAMES_UPPERCASE = 1;
 
@@ -1032,15 +1029,7 @@ public class HTMLTagBalancer
         }
 
         // is this text whitespace?
-        boolean whitespace = true;
-        final int limit = text.offset + text.length;
-        for (int i = text.offset; i < limit; i++) {
-            if (!Character.isWhitespace(text.ch[i])) {
-                whitespace = false;
-                break;
-            }
-        }
-
+        boolean whitespace = text.isWhitespace();
         if (!fDocumentFragment) {
             // handle bare characters
             if (!fSeenRootElement) {
