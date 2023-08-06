@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.parsers;
 
 import java.io.IOException;
@@ -134,7 +133,7 @@ public class DOMFragmentParser
      * @throws SAXException in case of sax error
      * @throws IOException in case of io problems
      */
-    public void parse(String systemId, DocumentFragment fragment)
+    public void parse(final String systemId, final DocumentFragment fragment)
         throws SAXException, IOException {
         parse(new InputSource(systemId), fragment);
     }
@@ -146,7 +145,7 @@ public class DOMFragmentParser
      * @throws SAXException in case of sax error
      * @throws IOException in case of io problems
      */
-    public void parse(InputSource source, DocumentFragment fragment)
+    public void parse(final InputSource source, final DocumentFragment fragment)
         throws SAXException, IOException {
 
         fCurrentNode = fDocumentFragment = fragment;
@@ -235,7 +234,7 @@ public class DOMFragmentParser
      *            requested feature is known, but the requested
      *            state is not supported.
      */
-    public void setFeature(String featureId, boolean state)
+    public void setFeature(final String featureId, final boolean state)
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
@@ -264,8 +263,7 @@ public class DOMFragmentParser
      * @exception SAXNotSupportedException If the
      *            requested feature is known but not supported.
      */
-    public boolean getFeature(String featureId)
-        throws SAXNotRecognizedException, SAXNotSupportedException {
+    public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
             return fParserConfiguration.getFeature(featureId);
@@ -294,7 +292,7 @@ public class DOMFragmentParser
      *            requested property is known, but the requested
      *            value is not supported.
      */
-    public void setProperty(String propertyId, Object value)
+    public void setProperty(final String propertyId, final Object value)
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
@@ -315,7 +313,7 @@ public class DOMFragmentParser
 
     /** Sets the document source. */
     @Override
-    public void setDocumentSource(XMLDocumentSource source) {
+    public void setDocumentSource(final XMLDocumentSource source) {
         fDocumentSource = source;
     }
 
@@ -329,23 +327,19 @@ public class DOMFragmentParser
 
     // Start document.
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext,
-                              Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
         fInCDATASection = false;
     }
 
     // XML declaration.
     @Override
-    public void xmlDecl(String version, String encoding,
-                        String standalone, Augmentations augs)
+    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs)
         throws XNIException {
     }
 
     // Document type declaration.
     @Override
-    public void doctypeDecl(String root, String pubid, String sysid,
-                            Augmentations augs) throws XNIException {
+    public void doctypeDecl(final String root, final String pubid, final String sysid, final Augmentations augs) throws XNIException {
     }
 
     // Processing instruction.
@@ -363,7 +357,7 @@ public class DOMFragmentParser
 
     // Comment.
     @Override
-    public void comment(XMLString text, Augmentations augs)
+    public void comment(final XMLString text, final Augmentations augs)
         throws XNIException {
         final Comment comment = fDocument.createComment(text.toString());
         fCurrentNode.appendChild(comment);
@@ -371,8 +365,7 @@ public class DOMFragmentParser
 
     // Start element.
     @Override
-    public void startElement(QName element, XMLAttributes attrs,
-                             Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         final Element elementNode = fDocument.createElement(element.rawname);
 
         if (attrs != null) {
@@ -391,21 +384,20 @@ public class DOMFragmentParser
 
     // Empty element.
     @Override
-    public void emptyElement(QName element, XMLAttributes attrs,
-                             Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
     }
 
     // Characters.
     @Override
-    public void characters(XMLString text, Augmentations augs)
+    public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
 
         if (fInCDATASection) {
             final Node node = fCurrentNode.getLastChild();
             if (node != null && node.getNodeType() == Node.CDATA_SECTION_NODE) {
-                final CDATASection cdata = (CDATASection)node;
+                final CDATASection cdata = (CDATASection) node;
                 cdata.appendData(text.toString());
             }
             else {
@@ -416,7 +408,7 @@ public class DOMFragmentParser
         else {
             final Node node = fCurrentNode.getLastChild();
             if (node != null && node.getNodeType() == Node.TEXT_NODE) {
-                final Text textNode = (Text)node;
+                final Text textNode = (Text) node;
                 textNode.appendData(text.toString());
             }
             else {
@@ -429,14 +421,14 @@ public class DOMFragmentParser
 
     /** Ignorable whitespace. */
     @Override
-    public void ignorableWhitespace(XMLString text, Augmentations augs)
+    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
         throws XNIException {
         characters(text, augs);
     }
 
     /** Start general entity. */
     @Override
-    public void startGeneralEntity(String name, String encoding, Augmentations augs)
+    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs)
         throws XNIException {
         final EntityReference entityRef = fDocument.createEntityReference(name);
         fCurrentNode.appendChild(entityRef);
@@ -445,20 +437,19 @@ public class DOMFragmentParser
 
     /** Text declaration. */
     @Override
-    public void textDecl(String version, String encoding,
-                         Augmentations augs) throws XNIException {
+    public void textDecl(final String version, String encoding, final Augmentations augs) throws XNIException {
     }
 
     /** End general entity. */
     @Override
-    public void endGeneralEntity(String name, Augmentations augs)
+    public void endGeneralEntity(final String name, final Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
     }
 
     /** Start CDATA section. */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
+    public void startCDATA(final Augmentations augs) throws XNIException {
         fInCDATASection = true;
     }
 
@@ -470,14 +461,14 @@ public class DOMFragmentParser
 
     /** End element. */
     @Override
-    public void endElement(QName element, Augmentations augs)
+    public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
         fCurrentNode = fCurrentNode.getParentNode();
     }
 
     /** End document. */
     @Override
-    public void endDocument(Augmentations augs) throws XNIException {
+    public void endDocument(final Augmentations augs) throws XNIException {
     }
 
     //

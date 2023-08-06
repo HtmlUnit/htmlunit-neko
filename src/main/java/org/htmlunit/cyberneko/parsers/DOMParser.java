@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.parsers;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
@@ -28,7 +27,7 @@ import org.htmlunit.cyberneko.xerces.parsers.AbstractDOMParser;
 public class DOMParser extends AbstractDOMParser {
 
     /** Default constructor. */
-    public DOMParser(Class<? extends DocumentImpl> documentClass) {
+    public DOMParser(final Class<? extends DocumentImpl> documentClass) {
         super(new HTMLConfiguration(), documentClass);
     }
 }
