@@ -61,7 +61,7 @@ public class HTMLTagBalancingListenerTest {
             "end div", "ignored end form",
             "end body", "end html"};
 
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
     }
 
     /**
@@ -81,42 +81,42 @@ public class HTMLTagBalancingListenerTest {
         final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
             "start body", "start div", "end div", "end body", "end HTML"};
 
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
 
-        parser.messages.clear();
+        parser.messages_.clear();
         parser.parse(new XMLInputSource(null, "foo", null, new StringReader(string), null));
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages.toString());
-    }
-}
-
-class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener {
-    final List<String> messages = new ArrayList<>();
-
-    TestParser() throws Exception {
-        super(new HTMLConfiguration());
-        setFeature("http://cyberneko.org/html/features/balance-tags/ignore-outside-content", true);
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
     }
 
-    @Override
-    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
+    private static final class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener {
+        private final List<String> messages_ = new ArrayList<>();
 
-        messages.add("start " + element.rawname);
-        super.startElement(element, attributes, augs);
-    }
+        TestParser() throws Exception {
+            super(new HTMLConfiguration());
+            setFeature("http://cyberneko.org/html/features/balance-tags/ignore-outside-content", true);
+        }
 
-    @Override
-    public void ignoredEndElement(final QName element, final Augmentations augs) {
-        messages.add("ignored end " + element.rawname);
-    }
+        @Override
+        public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
 
-    @Override
-    public void ignoredStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs) {
-        messages.add("ignored start " + element.rawname);
-    }
+            messages_.add("start " + element.rawname);
+            super.startElement(element, attributes, augs);
+        }
 
-    @Override
-    public void endElement(final QName element, final Augmentations augs) throws XNIException {
-        messages.add("end " + element.rawname);
-        super.endElement(element, augs);
+        @Override
+        public void ignoredEndElement(final QName element, final Augmentations augs) {
+            messages_.add("ignored end " + element.rawname);
+        }
+
+        @Override
+        public void ignoredStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs) {
+            messages_.add("ignored start " + element.rawname);
+        }
+
+        @Override
+        public void endElement(final QName element, final Augmentations augs) throws XNIException {
+            messages_.add("end " + element.rawname);
+            super.endElement(element, augs);
+        }
     }
 }

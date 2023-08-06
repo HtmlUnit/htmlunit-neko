@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.io.FilterInputStream;
@@ -28,58 +27,44 @@ import java.io.InputStream;
  *
  * @author Andy Clark
  */
-public class UTF8BOMSkipper
-    extends FilterInputStream {
-
-    //
-    // Data
-    //
+public class UTF8BOMSkipper extends FilterInputStream {
 
     /** Start of reading. */
-    private boolean fStart = true;
+    private boolean start_ = true;
 
     /** Byte offset. */
-    private int fOffset;
+    private int offset_;
 
     /** First three bytes. */
-    private int[] fFirst3Bytes;
-
-    //
-    // Constructors
-    //
+    private int[] first3Bytes_;
 
     /** Constructs a UTF-8 BOM skipper. */
     public UTF8BOMSkipper(final InputStream stream) {
         super(stream);
     }
 
-    //
-    // InputStream methods
-    //
-
     /** Returns the next byte. */
     @Override
     public int read() throws IOException {
-
         // read first three bytes in order to skip UTF-8 BOM, if present
-        if (fStart) {
-            fStart = false;
+        if (start_) {
+            start_ = false;
             final int b1 = super.read();
             final int b2 = super.read();
             final int b3 = super.read();
             if (b1 != 0xEF || b2 != 0xBB || b3 != 0xBF) {
-                fFirst3Bytes = new int[3];
-                fFirst3Bytes[0] = b1;
-                fFirst3Bytes[1] = b2;
-                fFirst3Bytes[2] = b3;
+                first3Bytes_ = new int[3];
+                first3Bytes_[0] = b1;
+                first3Bytes_[1] = b2;
+                first3Bytes_[2] = b3;
             }
         }
 
         // return read bytes
-        if (fFirst3Bytes != null) {
-            final int b = fFirst3Bytes[fOffset++];
-            if (fOffset == fFirst3Bytes.length) {
-                fFirst3Bytes = null;
+        if (first3Bytes_ != null) {
+            final int b = first3Bytes_[offset_++];
+            if (offset_ == first3Bytes_.length) {
+                first3Bytes_ = null;
             }
             return b;
         }
@@ -92,7 +77,7 @@ public class UTF8BOMSkipper
     @Override
     public int read(final byte[] buffer, final int offset, final int length) throws IOException {
 
-        if (fStart || fFirst3Bytes != null) {
+        if (start_ || first3Bytes_ != null) {
             for (int i = 0; i < length; i++) {
                 final int b = this.read();
                 if (b == -1) {
@@ -115,8 +100,8 @@ public class UTF8BOMSkipper
     /** Returns the number of bytes available. */
     @Override
     public int available() throws IOException {
-        if (fFirst3Bytes != null) {
-            return fFirst3Bytes.length - fOffset;
+        if (first3Bytes_ != null) {
+            return first3Bytes_.length - offset_;
         }
         return super.available();
     }

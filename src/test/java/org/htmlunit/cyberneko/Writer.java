@@ -36,77 +36,58 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  *
  * @author Andy Clark
  */
-public class Writer
-    extends DefaultFilter {
-
-    //
-    // Data
-    //
+public class Writer extends DefaultFilter {
 
     /** Writer. */
-    protected PrintWriter out = new PrintWriter(System.out);
-
-    // temp vars
+    private PrintWriter out_ = new PrintWriter(System.out);
 
     /** String buffer for collecting text content. */
-    private final XMLStringBuffer fStringBuffer = new XMLStringBuffer();
+    private final XMLStringBuffer stringBuffer_ = new XMLStringBuffer();
 
     /** Are we currently in the middle of a block of characters? */
-    private boolean fInCharacters = false;
+    private boolean inCharacters_ = false;
 
     /**
      * Beginning line number of the current block of characters (which may be
      * reported in several characters chunks).  Will be -1 if the parser
      * isn't producing HTML augmentations.
      */
-    private int fCharactersBeginLine = -1;
+    private int charactersBeginLine_ = -1;
 
     /**
      * Beginning column number of the current block of characters (which may be
      * reported in several characters chunks).  Will be -1 if the parser
      * isn't producing HTML augmentations.
      */
-    private int fCharactersBeginColumn = -1;
+    private int charactersBeginColumn_ = -1;
 
     /**
      * Beginning character offset of the current block of characters (which may
      * be reported in several characters chunks).  Will be -1 if the parser
      * isn't producing HTML augmentations.
      */
-    private int fCharactersBeginCharacterOffset = -1;
+    private int charactersBeginCharacterOffset_ = -1;
 
     /**
      * Ending line number of the current block of characters (which may be
      * reported in several characters chunks).  Will be -1 if the parser
      * isn't producing HTML augmentations.
      */
-    private int fCharactersEndLine = -1;
+    private int charactersEndLine_ = -1;
 
     /**
      * Ending column number of the current block of characters (which may be
      * reported in several characters chunks).  Will be -1 if the parser
      * isn't producing HTML augmentations.
      */
-    private int fCharactersEndColumn = -1;
+    private int charactersEndColumn_ = -1;
 
     /**
      * Ending character offset of the current block of characters (which may be
      * reported in several characters chunks).  Will be -1 if the parser isn't
      * producing HTML augmentations.
      */
-    private int fCharactersEndCharacterOffset = -1;
-
-    //
-    // Constructors
-    //
-
-    /**
-     * Creates a writer to the standard output stream using UTF-8
-     * encoding.
-     */
-    public Writer() {
-        this(System.out);
-    }
+    private int charactersEndCharacterOffset_ = -1;
 
     /**
      * Creates a writer with the specified output stream using UTF-8
@@ -119,7 +100,7 @@ public class Writer
     /** Creates a writer with the specified output stream and encoding. */
     public Writer(final OutputStream stream, final String encoding) {
         try {
-            out = new PrintWriter(new OutputStreamWriter(stream, encoding), true);
+            out_ = new PrintWriter(new OutputStreamWriter(stream, encoding), true);
         }
         catch (final UnsupportedEncodingException e) {
             throw new RuntimeException("JVM must have " + encoding + " decoder");
@@ -128,7 +109,7 @@ public class Writer
 
     /** Creates a writer with the specified Java Writer. */
     public Writer(final java.io.Writer writer) {
-        out = new PrintWriter(writer);
+        out_ = new PrintWriter(writer);
     }
 
     //
@@ -140,7 +121,7 @@ public class Writer
     /** Start document. */
     @Override
     public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
-        fStringBuffer.clear();
+        stringBuffer_.clear();
     }
 
     /** End document. */
@@ -154,18 +135,18 @@ public class Writer
     public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
         doAugs(augs);
         if (version != null) {
-            out.print("xversion ");
-            out.println(version);
+            out_.print("xversion ");
+            out_.println(version);
         }
         if (encoding != null) {
-            out.print("xencoding ");
-            out.println(encoding);
+            out_.print("xencoding ");
+            out_.println(encoding);
         }
         if (standalone != null) {
-            out.print("xstandalone ");
-            out.println(standalone);
+            out_.print("xstandalone ");
+            out_.println(standalone);
         }
-        out.flush();
+        out_.flush();
     }
 
     /** Doctype declaration. */
@@ -173,22 +154,22 @@ public class Writer
     public void doctypeDecl(final String root, final String pubid, final String sysid, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.print('!');
+        out_.print('!');
         if (root != null) {
-            out.print(root);
+            out_.print(root);
         }
-        out.println();
+        out_.println();
         if (pubid != null) {
-            out.print('p');
-            out.print(pubid);
-            out.println();
+            out_.print('p');
+            out_.print(pubid);
+            out_.println();
         }
         if (sysid != null) {
-            out.print('s');
-            out.print(sysid);
-            out.println();
+            out_.print('s');
+            out_.print(sysid);
+            out_.println();
         }
-        out.flush();
+        out_.flush();
     }
 
     /** Processing instruction. */
@@ -196,14 +177,14 @@ public class Writer
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.print('?');
-        out.print(target);
+        out_.print('?');
+        out_.print(target);
         if (data != null && data.length > 0) {
-            out.print(' ');
+            out_.print(' ');
             print(data.toString());
         }
-        out.println();
-        out.flush();
+        out_.println();
+        out_.flush();
     }
 
     /** Comment. */
@@ -211,10 +192,10 @@ public class Writer
     public void comment(final XMLString text, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.print('#');
+        out_.print('#');
         print(text.toString());
-        out.println();
-        out.flush();
+        out_.println();
+        out_.flush();
     }
 
     /** Start element. */
@@ -222,8 +203,8 @@ public class Writer
     public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.print('(');
-        out.print(element.rawname);
+        out_.print('(');
+        out_.print(element.rawname);
         if (attrs != null) {
             final int acount = attrs.getLength();
             if (acount > 0) {
@@ -232,22 +213,22 @@ public class Writer
                 sortAttrNames(attrs, anames, auris);
                 for (int i = 0; i < acount; i++) {
                     final String aname = anames[i];
-                    out.println();
-                    out.flush();
-                    out.print('A');
+                    out_.println();
+                    out_.flush();
+                    out_.print('A');
                     if (auris[i] != null) {
-                        out.print('{');
-                        out.print(auris[i]);
-                        out.print('}');
+                        out_.print('{');
+                        out_.print(auris[i]);
+                        out_.print('}');
                     }
-                    out.print(aname);
-                    out.print(' ');
+                    out_.print(aname);
+                    out_.print(' ');
                     print(attrs.getValue(aname));
                 }
             }
         }
-        out.println();
-        out.flush();
+        out_.println();
+        out_.flush();
     }
 
     /** End element. */
@@ -255,10 +236,10 @@ public class Writer
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.print(')');
-        out.print(element.rawname);
-        out.println();
-        out.flush();
+        out_.print(')');
+        out_.print(element.rawname);
+        out_.println();
+        out_.flush();
     }
 
     /** Empty element. */
@@ -272,11 +253,11 @@ public class Writer
     @Override
     public void characters(final XMLString text, final Augmentations augs) throws XNIException {
         storeCharactersEnd(augs);
-        if (!fInCharacters) {
+        if (!inCharacters_) {
             storeCharactersStart(augs);
         }
-        fInCharacters = true;
-        fStringBuffer.append(text);
+        inCharacters_ = true;
+        stringBuffer_.append(text);
     }
 
     /** Ignorable whitespace. */
@@ -289,29 +270,29 @@ public class Writer
     public void startCDATA(final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.println("((CDATA");
+        out_.println("((CDATA");
     }
 
     @Override
     public void endCDATA(final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
-        out.println("))CDATA");
-        out.flush();
+        out_.println("))CDATA");
+        out_.flush();
     }
 
     /** Prints collected characters. */
     protected void chars() {
-        fInCharacters = false;
-        if (fStringBuffer.length == 0) {
+        inCharacters_ = false;
+        if (stringBuffer_.length == 0) {
             return;
         }
         doCharactersAugs();
-        out.print('"');
-        print(fStringBuffer.toString());
-        out.println();
-        out.flush();
-        fStringBuffer.clear();
+        out_.print('"');
+        print(stringBuffer_.toString());
+        out_.println();
+        out_.flush();
+        stringBuffer_.clear();
     }
 
     /** Prints the specified string. */
@@ -321,25 +302,20 @@ public class Writer
             for (int i = 0; i < length; i++) {
                 final char c = s.charAt(i);
                 switch (c) {
-                    case '\n': {
-                        out.print("\\n");
+                    case '\n':
+                        out_.print("\\n");
                         break;
-                    }
-                    case '\r': {
-                        out.print("\\r");
+                    case '\r':
+                        out_.print("\\r");
                         break;
-                    }
-                    case '\t': {
-                        out.print("\\t");
+                    case '\t':
+                        out_.print("\\t");
                         break;
-                    }
-                    case '\\': {
-                        out.print("\\\\");
+                    case '\\':
+                        out_.print("\\\\");
                         break;
-                    }
-                    default: {
-                        out.print(c);
-                    }
+                    default:
+                        out_.print(c);
                 }
             }
         }
@@ -353,22 +329,22 @@ public class Writer
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
         if (evInfo != null) {
             if (evInfo.isSynthesized()) {
-                out.print("[synth]");
+                out_.print("[synth]");
             }
             else {
-                out.print('[');
-                out.print(evInfo.getBeginLineNumber());
-                out.print(',');
-                out.print(evInfo.getBeginColumnNumber());
-                out.print(',');
-                out.print(evInfo.getBeginCharacterOffset());
-                out.print(';');
-                out.print(evInfo.getEndLineNumber());
-                out.print(',');
-                out.print(evInfo.getEndColumnNumber());
-                out.print(',');
-                out.print(evInfo.getEndCharacterOffset());
-                out.print(']');
+                out_.print('[');
+                out_.print(evInfo.getBeginLineNumber());
+                out_.print(',');
+                out_.print(evInfo.getBeginColumnNumber());
+                out_.print(',');
+                out_.print(evInfo.getBeginCharacterOffset());
+                out_.print(';');
+                out_.print(evInfo.getEndLineNumber());
+                out_.print(',');
+                out_.print(evInfo.getEndColumnNumber());
+                out_.print(',');
+                out_.print(evInfo.getEndCharacterOffset());
+                out_.print(']');
             }
         }
     }
@@ -381,9 +357,9 @@ public class Writer
     protected void storeCharactersStart(final Augmentations augs) {
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
         if (evInfo != null) {
-            fCharactersBeginLine = evInfo.getBeginLineNumber();
-            fCharactersBeginColumn = evInfo.getBeginColumnNumber();
-            fCharactersBeginCharacterOffset = evInfo.getBeginCharacterOffset();
+            charactersBeginLine_ = evInfo.getBeginLineNumber();
+            charactersBeginColumn_ = evInfo.getBeginColumnNumber();
+            charactersBeginCharacterOffset_ = evInfo.getBeginCharacterOffset();
         }
     }
 
@@ -395,9 +371,9 @@ public class Writer
     protected void storeCharactersEnd(final Augmentations augs) {
         final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
         if (evInfo != null) {
-            fCharactersEndLine = evInfo.getEndLineNumber();
-            fCharactersEndColumn = evInfo.getEndColumnNumber();
-            fCharactersEndCharacterOffset = evInfo.getEndCharacterOffset();
+            charactersEndLine_ = evInfo.getEndLineNumber();
+            charactersEndColumn_ = evInfo.getEndColumnNumber();
+            charactersEndCharacterOffset_ = evInfo.getEndCharacterOffset();
         }
     }
 
@@ -407,20 +383,20 @@ public class Writer
      * available.
      */
     protected void doCharactersAugs() {
-        if (fCharactersBeginLine >= 0) {
-            out.print('[');
-            out.print(fCharactersBeginLine);
-            out.print(',');
-            out.print(fCharactersBeginColumn);
-            out.print(',');
-            out.print(fCharactersBeginCharacterOffset);
-            out.print(';');
-            out.print(fCharactersEndLine);
-            out.print(',');
-            out.print(fCharactersEndColumn);
-            out.print(',');
-            out.print(fCharactersEndCharacterOffset);
-            out.print(']');
+        if (charactersBeginLine_ >= 0) {
+            out_.print('[');
+            out_.print(charactersBeginLine_);
+            out_.print(',');
+            out_.print(charactersBeginColumn_);
+            out_.print(',');
+            out_.print(charactersBeginCharacterOffset_);
+            out_.print(';');
+            out_.print(charactersEndLine_);
+            out_.print(',');
+            out_.print(charactersEndColumn_);
+            out_.print(',');
+            out_.print(charactersEndCharacterOffset_);
+            out_.print(']');
         }
     }
 
@@ -446,21 +422,6 @@ public class Writer
                 auris[i] = auris[index];
                 auris[index] = tu;
             }
-        }
-    }
-
-    /** Main program. */
-    public static void main(final String[] argv) throws Exception {
-        final org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter[] filters = {
-            new Writer(),
-        };
-        final org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration parser =
-            new org.htmlunit.cyberneko.HTMLConfiguration();
-        parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
-        for (final String element : argv) {
-            final org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource source =
-                new org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource(null, element, null);
-            parser.parse(source);
         }
     }
 }

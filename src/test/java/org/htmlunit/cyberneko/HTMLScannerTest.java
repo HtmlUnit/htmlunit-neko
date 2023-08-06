@@ -81,7 +81,7 @@ public class HTMLScannerTest {
         final String[] expectedString = {"(html", "(head", "(title", ")title", ")head", "(body", "(script",
             ")script", "~inserting", "(style", "~inserting", "~inserting", ")style", "~inserting",
             "(div", "(span", ")span", "~inserting", ")div", "(div", "(a", ")a", ")div", ")body", ")html"};
-        assertEquals(Arrays.asList(expectedString), filter.collectedStrings);
+        assertEquals(Arrays.asList(expectedString), filter.collectedStrings_);
     }
 
     /**
@@ -104,7 +104,7 @@ public class HTMLScannerTest {
             parser.parse(source);
 
             final String[] expectedString = {"(html", "(head", "(title", ")title", ")head", "(body", ")body", ")html"};
-            assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings.toString());
+            assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings_.toString());
         }
         finally {
             Locale.setDefault(originalLocale);
@@ -128,22 +128,23 @@ public class HTMLScannerTest {
 
     private static class EvaluateInputSourceFilter extends DefaultFilter {
 
-        private final List<String> collectedStrings = new ArrayList<>();
-        private static int counter = 1;
-        protected final HTMLConfiguration fConfiguration;
+        private static int Counter_ = 1;
+
+        private final List<String> collectedStrings_ = new ArrayList<>();
+        private final HTMLConfiguration configuration_;
 
         EvaluateInputSourceFilter(final HTMLConfiguration config) {
-            fConfiguration = config;
+            configuration_ = config;
         }
 
         @Override
         public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-            collectedStrings.add("(" + element.rawname);
+            collectedStrings_.add("(" + element.rawname);
         }
 
         @Override
         public void endElement(final QName element, final Augmentations augs) throws XNIException {
-            collectedStrings.add(")" + element.rawname);
+            collectedStrings_.add(")" + element.rawname);
             if ("SCRIPT".equalsIgnoreCase(element.localpart)) {
                 // act as if evaluation of document.write would insert the content
                 insert("<style type=\"text/css\" id=\"myStyle\">");
@@ -155,10 +156,10 @@ public class HTMLScannerTest {
         }
 
         private void insert(final String string) {
-            collectedStrings.add("~inserting");
-            final XMLInputSource source = new XMLInputSource(null, "myTest" + counter++, null,
+            collectedStrings_.add("~inserting");
+            final XMLInputSource source = new XMLInputSource(null, "myTest" + Counter_++, null,
                                                       new StringReader(string), "UTF-8");
-            fConfiguration.evaluateInputSource(source);
+            configuration_.evaluateInputSource(source);
         }
 
     }
@@ -243,7 +244,7 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expectedString = {"(HTML", "(Head", "(tiTLE", ")tiTLE", ")Head", "(Body", ")Body", ")HTML"};
-        assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expectedString).toString(), filter.collectedStrings_.toString());
 
         // upper
         parser = new HTMLConfiguration();
@@ -254,7 +255,7 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expectedStringUpper = {"(HTML", "(HEAD", "(TITLE", ")TITLE", ")HEAD", "(BODY", ")BODY", ")HTML"};
-        assertEquals(Arrays.asList(expectedStringUpper).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expectedStringUpper).toString(), filter.collectedStrings_.toString());
 
         // upper
         parser = new HTMLConfiguration();
@@ -265,7 +266,7 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expectedStringLower = {"(html", "(head", "(title", ")title", ")head", "(body", ")body", ")html"};
-        assertEquals(Arrays.asList(expectedStringLower).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expectedStringLower).toString(), filter.collectedStrings_.toString());
     }
 
     /**
@@ -283,7 +284,7 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
-        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings_.toString());
     }
 
     /**
@@ -301,7 +302,7 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
-        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings_.toString());
     }
 
     /**
@@ -319,6 +320,6 @@ public class HTMLScannerTest {
         parser.parse(source);
 
         final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
-        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings.toString());
+        assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings_.toString());
     }
 }

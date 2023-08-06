@@ -30,19 +30,22 @@ import org.htmlunit.cyberneko.HTMLEntitiesParser;
  * @author Andy Clark
  * @author Ronald Brill
  */
-public class HTMLEntitiesParserGenerator {
+public final class HTMLEntitiesParserGenerator {
 
     private static final class State {
-        private static int idGen = HTMLEntitiesParser.STATE_START;
+        private static int IdGen_ = HTMLEntitiesParser.STATE_START;
 
-        int id;
-        String switchCode;
-        String ifCode;
-        int branches;
+        private int id_;
+        private String switchCode_;
+        private String ifCode_;
+        private int branches_;
 
-        public State() {
-            id = idGen++;
+        State() {
+            id_ = IdGen_++;
         }
+    }
+
+    private HTMLEntitiesParserGenerator() {
     }
 
     public static void main(final String[] args) {
@@ -73,7 +76,7 @@ public class HTMLEntitiesParserGenerator {
         System.out.println("        switch (state) {");
 
         for (final State state : states) {
-            if (state.id >= count * splitter) {
+            if (state.id_ >= count * splitter) {
                 System.out.println("        }");
                 System.out.println("        return false;");
                 System.out.println("    }");
@@ -83,12 +86,12 @@ public class HTMLEntitiesParserGenerator {
                 System.out.println("        consumedCount++;");
                 System.out.println("        switch (state) {");
             }
-            System.out.println("            case " + state.id + ":");
-            if (state.branches < 3) {
-                System.out.print(state.ifCode);
+            System.out.println("            case " + state.id_ + ":");
+            if (state.branches_ < 3) {
+                System.out.print(state.ifCode_);
             }
             else {
-                System.out.print(state.switchCode);
+                System.out.print(state.switchCode_);
             }
             System.out.println("                break;");
         }
@@ -114,8 +117,8 @@ public class HTMLEntitiesParserGenerator {
         final State state = new State();
         states.add(state);
 
-        state.switchCode = "                switch (current) {\n";
-        state.ifCode = "";
+        state.switchCode_ = "                switch (current) {\n";
+        state.ifCode_ = "";
 
         for (int i = 0; i < entities.length; i++) {
             final String entity = entities[i];
@@ -125,69 +128,69 @@ public class HTMLEntitiesParserGenerator {
                     if (entity.length() - start.length() > 1) {
                         final int stateId = switchChar(entities, mapped, start + (char) c, states);
 
-                        state.switchCode += "                    case '" + (char) c + "':\n";
-                        state.switchCode += "                        state = " + stateId + ";\n";
-                        state.switchCode += "                        return true;\n";
+                        state.switchCode_ += "                    case '" + (char) c + "':\n";
+                        state.switchCode_ += "                        state = " + stateId + ";\n";
+                        state.switchCode_ += "                        return true;\n";
 
-                        if (state.branches > 0) {
-                            state.ifCode += "                else if ('" + (char) c + "' == current) {\n";
+                        if (state.branches_ > 0) {
+                            state.ifCode_ += "                else if ('" + (char) c + "' == current) {\n";
                         }
                         else {
-                            state.ifCode += "                if ('" + (char) c + "' == current) {\n";
+                            state.ifCode_ += "                if ('" + (char) c + "' == current) {\n";
                         }
-                        state.ifCode += "                    state = " + stateId + ";\n";
-                        state.ifCode += "                    return true;\n";
-                        state.ifCode += "                }\n";
+                        state.ifCode_ += "                    state = " + stateId + ";\n";
+                        state.ifCode_ += "                    return true;\n";
+                        state.ifCode_ += "                }\n";
 
-                        state.branches++;
+                        state.branches_++;
                     }
                     else {
-                        state.switchCode += "                    case '" + (char) c + "': // " + entity + "\n";
-                        state.switchCode += "                        match = \"" + escape(mapped[i]) + "\";\n";
-                        state.switchCode += "                        matchLength = consumedCount;\n";
+                        state.switchCode_ += "                    case '" + (char) c + "': // " + entity + "\n";
+                        state.switchCode_ += "                        match = \"" + escape(mapped[i]) + "\";\n";
+                        state.switchCode_ += "                        matchLength = consumedCount;\n";
 
-                        state.ifCode += "                // " + entity + "\n";
-                        if (state.branches > 0) {
-                            state.ifCode += "                else if ('" + (char) c + "' == current) {\n";
+                        state.ifCode_ += "                // " + entity + "\n";
+                        if (state.branches_ > 0) {
+                            state.ifCode_ += "                else if ('" + (char) c + "' == current) {\n";
                         }
                         else {
-                            state.ifCode += "                if ('" + (char) c + "' == current) {\n";
+                            state.ifCode_ += "                if ('" + (char) c + "' == current) {\n";
                         }
-                        state.ifCode += "                    match = \"" + escape(mapped[i]) + "\";\n";
-                        state.ifCode += "                    matchLength = consumedCount;\n";
+                        state.ifCode_ += "                    match = \"" + escape(mapped[i]) + "\";\n";
+                        state.ifCode_ += "                    matchLength = consumedCount;\n";
 
                         // do we have to go on?
                         if (i + 1 < entities.length
                                 && entities[i + 1].startsWith(start + (char) c)
                                 && entities[i + 1].length() > start.length() + 1) {
                             final int stateId = switchChar(entities, mapped, start + (char) c, states);
-                            state.switchCode += "                        state = " + stateId + ";\n";
-                            state.switchCode += "                        return true;\n";
+                            state.switchCode_ += "                        state = " + stateId + ";\n";
+                            state.switchCode_ += "                        return true;\n";
 
-                            state.ifCode += "                    state = " + stateId + ";\n";
-                            state.ifCode += "                    return true;\n";
-                            state.ifCode += "                }\n";
+                            state.ifCode_ += "                    state = " + stateId + ";\n";
+                            state.ifCode_ += "                    return true;\n";
+                            state.ifCode_ += "                }\n";
 
-                            state.branches++;
+                            state.branches_++;
                         }
                         else {
                             if (c == ';') {
-                                state.switchCode += "                        state = STATE_ENDS_WITH_SEMICOLON;\n";
-                                state.switchCode += "                        return false;\n";
+                                state.switchCode_ += "                        state = STATE_ENDS_WITH_SEMICOLON;\n";
+                                state.switchCode_ += "                        return false;\n";
 
-                                state.ifCode += "                    state = STATE_ENDS_WITH_SEMICOLON;\n";
-                                state.ifCode += "                    return false;\n";
-                                state.ifCode += "                }\n";
+                                state.ifCode_ += "                    state = STATE_ENDS_WITH_SEMICOLON;\n";
+                                state.ifCode_ += "                    return false;\n";
+                                state.ifCode_ += "                }\n";
 
-                                state.branches++;
+                                state.branches_++;
                             }
                             else {
-                                state.switchCode += "                        return false;\n";
+                                state.switchCode_ += "                        return false;\n";
 
-                                state.ifCode += "                    return false;\n";
-                                state.ifCode += "                }\n";
+                                state.ifCode_ += "                    return false;\n";
+                                state.ifCode_ += "                }\n";
 
-                                state.branches++;
+                                state.branches_++;
                             }
                         }
                     }
@@ -195,9 +198,9 @@ public class HTMLEntitiesParserGenerator {
             }
         }
 
-        state.switchCode += "                }\n";
+        state.switchCode_ += "                }\n";
 
-        return state.id;
+        return state.id_;
     }
 
     private static String escape(final String input) {
@@ -230,7 +233,7 @@ public class HTMLEntitiesParserGenerator {
             props.load(stream);
         }
         catch (final IOException e) {
-            System.err.println("error: unable to load resource \"" + filename + "\"");
+            System.err.println("error: unable to load resource \"" + filename + "\" reson: " + e.getMessage());
         }
     }
 }
