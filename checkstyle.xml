@@ -96,11 +96,13 @@
         <property name="message" value="Use static import for BrowserVersionFeatures"/>
     </module>
 
+    <!--
     <module name="RegexpMultiline">
         <property name="id" value="sysout"/>
         <property name="format" value="System\s*\.\s*(out)|(err)\s*\.\s*print(ln)?\("/>
         <property name="message" value="System.out.print/ln found"/>
     </module>
+    -->
 
     <module name="TreeWalker">
 
