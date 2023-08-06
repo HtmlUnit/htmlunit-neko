@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.io.PrintWriter;
@@ -28,12 +27,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
  */
 public class DefaultErrorHandler implements XMLErrorHandler {
 
-    //
-    // Data
-    //
-
     /** Print writer. */
-    private final PrintWriter fOut;
+    private final PrintWriter fOut_;
 
     /**
      * Constructs an error handler that prints error messages to
@@ -41,63 +36,57 @@ public class DefaultErrorHandler implements XMLErrorHandler {
      */
     public DefaultErrorHandler() {
         this(new PrintWriter(System.err));
-    } // <init>()
+    }
 
     // Constructs an error handler that prints error messages to the
     // specified <code>PrintWriter</code>.
-    public DefaultErrorHandler(PrintWriter out) {
-        fOut = out;
-    } // <init>(PrintWriter)
-
-    //
-    // ErrorHandler methods
-    //
+    public DefaultErrorHandler(final PrintWriter out) {
+        fOut_ = out;
+    }
 
     /** Warning. */
     @Override
-    public void warning(String domain, String key, XMLParseException ex) throws XNIException {
+    public void warning(final String domain, final String key, final XMLParseException ex) throws XNIException {
         printError("Warning", ex);
-    } // warning(XMLParseException)
+    }
 
     /** Error. */
     @Override
-    public void error(String domain, String key, XMLParseException ex) throws XNIException {
+    public void error(final String domain, final String key, final XMLParseException ex) throws XNIException {
         printError("Error", ex);
-    } // error(XMLParseException)
+    }
 
     /** Fatal error. */
     @Override
-    public void fatalError(String domain, String key, XMLParseException ex) throws XNIException {
+    public void fatalError(final String domain, final String key, final XMLParseException ex) throws XNIException {
         printError("Fatal Error", ex);
         throw ex;
-    } // fatalError(XMLParseException)
+    }
 
     //
     // Private methods
     //
 
     /** Prints the error message. */
-    private void printError(String type, XMLParseException ex) {
-
-        fOut.print("[");
-        fOut.print(type);
-        fOut.print("] ");
+    private void printError(final String type, final XMLParseException ex) {
+        fOut_.print("[");
+        fOut_.print(type);
+        fOut_.print("] ");
         String systemId = ex.getExpandedSystemId();
         if (systemId != null) {
-            int index = systemId.lastIndexOf('/');
-            if (index != -1)
+            final int index = systemId.lastIndexOf('/');
+            if (index != -1) {
                 systemId = systemId.substring(index + 1);
-            fOut.print(systemId);
+            }
+            fOut_.print(systemId);
         }
-        fOut.print(':');
-        fOut.print(ex.getLineNumber());
-        fOut.print(':');
-        fOut.print(ex.getColumnNumber());
-        fOut.print(": ");
-        fOut.print(ex.getMessage());
-        fOut.println();
-        fOut.flush();
-
-    } // printError(String,SAXParseException)
-
-} // class DefaultErrorHandler
+        fOut_.print(':');
+        fOut_.print(ex.getLineNumber());
+        fOut_.print(':');
+        fOut_.print(ex.getColumnNumber());
+        fOut_.print(": ");
+        fOut_.print(ex.getMessage());
+        fOut_.println();
+        fOut_.flush();
+    }
+}

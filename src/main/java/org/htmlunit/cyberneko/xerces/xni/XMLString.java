@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.xni;
 
 /**
@@ -59,7 +58,7 @@ public class XMLString {
      * @param offset The offset into the character array.
      * @param length The length of characters from the offset.
      */
-    public XMLString(char[] ch, int offset, int length) {
+    public XMLString(final char[] ch, final int offset, final int length) {
         setValues(ch, offset, length);
     }
 
@@ -71,7 +70,7 @@ public class XMLString {
      * @param offset The offset into the character array.
      * @param length The length of characters from the offset.
      */
-    public void setValues(char[] ch, int offset, int length) {
+    public void setValues(final char[] ch, final int offset, final int length) {
         this.ch = ch;
         this.offset = offset;
         this.length = length;
@@ -86,7 +85,7 @@ public class XMLString {
      *
      * @param s the xml string value
      */
-    public void setValues(XMLString s) {
+    public void setValues(final XMLString s) {
         setValues(s.ch, s.offset, s.length);
     }
 
@@ -105,7 +104,7 @@ public class XMLString {
      * @param offset The offset into the character array.
      * @param length The length of characters from the offset.
      */
-    public boolean equals(char[] ch, int offset, int length) {
+    public boolean equals(final char[] ch, final int offset, final int length) {
         if ((ch == null) || (this.length != length)) {
             return false;
         }
@@ -124,7 +123,7 @@ public class XMLString {
      *
      * @param s The string to compare.
      */
-    public boolean equals(String s) {
+    public boolean equals(final String s) {
         if ((s == null) || (length != s.length())) {
             return false;
         }

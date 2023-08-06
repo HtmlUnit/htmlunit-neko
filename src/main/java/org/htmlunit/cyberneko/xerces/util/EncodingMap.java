@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.HashMap;
@@ -464,10 +463,10 @@ import java.util.HashMap;
  *
  * @author Ronald Brill
  */
-public class EncodingMap {
+public final class EncodingMap {
 
     /** fIANA2JavaMap */
-    private final static HashMap<String, String> fIANA2JavaMap = new HashMap<>();
+    private static final HashMap<String, String> fIANA2JavaMap = new HashMap<>();
 
     static {
         // add IANA to Java encoding mappings.
@@ -845,7 +844,7 @@ public class EncodingMap {
      *
      * @param ianaEncoding The IANA encoding name.
      */
-    public static String getIANA2JavaMapping(String ianaEncoding) {
+    public static String getIANA2JavaMapping(final String ianaEncoding) {
         return fIANA2JavaMap.get(ianaEncoding);
     }
 }

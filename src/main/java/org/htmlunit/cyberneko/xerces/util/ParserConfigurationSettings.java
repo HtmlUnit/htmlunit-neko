@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.ArrayList;
@@ -36,28 +35,28 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 public class ParserConfigurationSettings implements XMLComponentManager {
 
     /** Recognized properties. */
-    private final ArrayList<String> fRecognizedProperties;
+    private final ArrayList<String> fRecognizedProperties_;
 
     /** Properties. */
-    private final HashMap<String, Object> fProperties;
+    private final HashMap<String, Object> fProperties_;
 
     /** Recognized features. */
-    private final ArrayList<String> fRecognizedFeatures;
+    private final ArrayList<String> fRecognizedFeatures_;
 
     /** Features. */
-    private final HashMap<String, Boolean> fFeatures;
+    private final HashMap<String, Boolean> fFeatures_;
 
     // Constructs a parser configuration settings object with a
     // parent settings object.
     public ParserConfigurationSettings() {
 
         // create storage for recognized features and properties
-        fRecognizedFeatures = new ArrayList<>();
-        fRecognizedProperties = new ArrayList<>();
+        fRecognizedFeatures_ = new ArrayList<>();
+        fRecognizedProperties_ = new ArrayList<>();
 
         // create table for features and properties
-        fFeatures = new HashMap<>();
-        fProperties = new HashMap<>();
+        fFeatures_ = new HashMap<>();
+        fProperties_ = new HashMap<>();
     }
 
     /**
@@ -67,14 +66,14 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * @param featureIds An array of the additional feature identifiers to be
      *                   recognized.
      */
-    public void addRecognizedFeatures(String[] featureIds) {
+    public void addRecognizedFeatures(final String[] featureIds) {
 
         // add recognized features
-        int featureIdsCount = featureIds != null ? featureIds.length : 0;
+        final int featureIdsCount = featureIds != null ? featureIds.length : 0;
         for (int i = 0; i < featureIdsCount; i++) {
-            String featureId = featureIds[i];
-            if (!fRecognizedFeatures.contains(featureId)) {
-                fRecognizedFeatures.add(featureId);
+            final String featureId = featureIds[i];
+            if (!fRecognizedFeatures_.contains(featureId)) {
+                fRecognizedFeatures_.add(featureId);
             }
         }
 
@@ -98,12 +97,12 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                                                                                 not
      *                                                                                 known.
      */
-    public void setFeature(String featureId, boolean state) throws XMLConfigurationException {
+    public void setFeature(final String featureId, final boolean state) throws XMLConfigurationException {
 
         // check and store
         checkFeature(featureId);
 
-        fFeatures.put(featureId, state ? Boolean.TRUE : Boolean.FALSE);
+        fFeatures_.put(featureId, state ? Boolean.TRUE : Boolean.FALSE);
     }
 
     /**
@@ -113,14 +112,14 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * @param propertyIds An array of the additional property identifiers to be
      *                    recognized.
      */
-    public void addRecognizedProperties(String[] propertyIds) {
+    public void addRecognizedProperties(final String[] propertyIds) {
 
         // add recognizedProperties
-        int propertyIdsCount = propertyIds != null ? propertyIds.length : 0;
+        final int propertyIdsCount = propertyIds != null ? propertyIds.length : 0;
         for (int i = 0; i < propertyIdsCount; i++) {
-            String propertyId = propertyIds[i];
-            if (!fRecognizedProperties.contains(propertyId)) {
-                fRecognizedProperties.add(propertyId);
+            final String propertyId = propertyIds[i];
+            if (!fRecognizedProperties_.contains(propertyId)) {
+                fRecognizedProperties_.add(propertyId);
             }
         }
 
@@ -139,11 +138,11 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                                                                                 not
      *                                                                                 known.
      */
-    public void setProperty(String propertyId, Object value) throws XMLConfigurationException {
+    public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
 
         // check and store
         checkProperty(propertyId);
-        fProperties.put(propertyId, value);
+        fProperties_.put(propertyId, value);
 
     }
 
@@ -151,9 +150,9 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean getFeature(String featureId) throws XMLConfigurationException {
+    public boolean getFeature(final String featureId) throws XMLConfigurationException {
 
-        Boolean state = fFeatures.get(featureId);
+        final Boolean state = fFeatures_.get(featureId);
 
         if (state == null) {
             checkFeature(featureId);
@@ -166,9 +165,9 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * {@inheritDoc}
      */
     @Override
-    public Object getProperty(String propertyId) throws XMLConfigurationException {
+    public Object getProperty(final String propertyId) throws XMLConfigurationException {
 
-        Object propertyValue = fProperties.get(propertyId);
+        final Object propertyValue = fProperties_.get(propertyId);
 
         if (propertyValue == null) {
             checkProperty(propertyId);
@@ -192,11 +191,11 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                                                                                 not
      *                                                                                 known.
      */
-    protected void checkFeature(String featureId) throws XMLConfigurationException {
+    protected void checkFeature(final String featureId) throws XMLConfigurationException {
 
         // check feature
-        if (!fRecognizedFeatures.contains(featureId)) {
-            short type = XMLConfigurationException.NOT_RECOGNIZED;
+        if (!fRecognizedFeatures_.contains(featureId)) {
+            final short type = XMLConfigurationException.NOT_RECOGNIZED;
             throw new XMLConfigurationException(type, featureId);
         }
 
@@ -215,11 +214,11 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                                                                                 not
      *                                                                                 known.
      */
-    protected void checkProperty(String propertyId) throws XMLConfigurationException {
+    protected void checkProperty(final String propertyId) throws XMLConfigurationException {
 
         // check property
-        if (!fRecognizedProperties.contains(propertyId)) {
-            short type = XMLConfigurationException.NOT_RECOGNIZED;
+        if (!fRecognizedProperties_.contains(propertyId)) {
+            final short type = XMLConfigurationException.NOT_RECOGNIZED;
             throw new XMLConfigurationException(type, propertyId);
         }
     }

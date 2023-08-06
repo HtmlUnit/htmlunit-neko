@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.Arrays;
@@ -144,7 +143,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11Space(int c) {
+    public static boolean isXML11Space(final int c) {
         return c < 0x10000 && (XML11CHARS[c] & MASK_XML11_SPACE) != 0;
     }
 
@@ -158,7 +157,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11Valid(int c) {
+    public static boolean isXML11Valid(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_VALID) != 0) || (0x10000 <= c && c <= 0x10FFFF);
     }
 
@@ -167,7 +166,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11Invalid(int c) {
+    public static boolean isXML11Invalid(final int c) {
         return !isXML11Valid(c);
     }
 
@@ -179,7 +178,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11ValidLiteral(int c) {
+    public static boolean isXML11ValidLiteral(final int c) {
         return (c < 0x10000 && ((XML11CHARS[c] & MASK_XML11_VALID) != 0 && (XML11CHARS[c] & MASK_XML11_CONTROL) == 0))
                 || (0x10000 <= c && c <= 0x10FFFF);
     }
@@ -190,7 +189,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11Content(int c) {
+    public static boolean isXML11Content(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_CONTENT) != 0) || (0x10000 <= c && c <= 0x10FFFF);
     }
 
@@ -200,7 +199,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11InternalEntityContent(int c) {
+    public static boolean isXML11InternalEntityContent(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_CONTENT_INTERNAL) != 0) || (0x10000 <= c && c <= 0x10FFFF);
     }
 
@@ -210,7 +209,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11NameStart(int c) {
+    public static boolean isXML11NameStart(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME_START) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
@@ -220,7 +219,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11Name(int c) {
+    public static boolean isXML11Name(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME) != 0) || (c >= 0x10000 && c < 0xF0000);
     }
 
@@ -230,7 +229,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11NCNameStart(int c) {
+    public static boolean isXML11NCNameStart(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME_START) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
@@ -240,7 +239,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11NCName(int c) {
+    public static boolean isXML11NCName(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
@@ -252,7 +251,7 @@ public class XML11Char {
      *
      * @param c The character to check.
      */
-    public static boolean isXML11NameHighSurrogate(int c) {
+    public static boolean isXML11NameHighSurrogate(final int c) {
         return 0xD800 <= c && c <= 0xDB7F;
     }
 
@@ -266,7 +265,7 @@ public class XML11Char {
      * @param name string to check
      * @return true if name is a valid Name
      */
-    public static boolean isXML11ValidName(String name) {
+    public static boolean isXML11ValidName(final String name) {
         final int length = name.length();
         if (length == 0) {
             return false;
@@ -275,12 +274,13 @@ public class XML11Char {
         char ch = name.charAt(0);
         if (!isXML11NameStart(ch)) {
             if (length > 1 && isXML11NameHighSurrogate(ch)) {
-                char ch2 = name.charAt(1);
+                final char ch2 = name.charAt(1);
                 if (!XMLChar.isLowSurrogate(ch2) || !isXML11NameStart(XMLChar.supplemental(ch, ch2))) {
                     return false;
                 }
                 i = 2;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -288,11 +288,12 @@ public class XML11Char {
             ch = name.charAt(i);
             if (!isXML11Name(ch)) {
                 if (++i < length && isXML11NameHighSurrogate(ch)) {
-                    char ch2 = name.charAt(i);
+                    final char ch2 = name.charAt(i);
                     if (!XMLChar.isLowSurrogate(ch2) || !isXML11Name(XMLChar.supplemental(ch, ch2))) {
                         return false;
                     }
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -311,7 +312,7 @@ public class XML11Char {
      * @param ncName string to check
      * @return true if name is a valid NCName
      */
-    public static boolean isXML11ValidNCName(String ncName) {
+    public static boolean isXML11ValidNCName(final String ncName) {
         final int length = ncName.length();
         if (length == 0) {
             return false;
@@ -320,12 +321,13 @@ public class XML11Char {
         char ch = ncName.charAt(0);
         if (!isXML11NCNameStart(ch)) {
             if (length > 1 && isXML11NameHighSurrogate(ch)) {
-                char ch2 = ncName.charAt(1);
+                final char ch2 = ncName.charAt(1);
                 if (!XMLChar.isLowSurrogate(ch2) || !isXML11NCNameStart(XMLChar.supplemental(ch, ch2))) {
                     return false;
                 }
                 i = 2;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -333,11 +335,12 @@ public class XML11Char {
             ch = ncName.charAt(i);
             if (!isXML11NCName(ch)) {
                 if (++i < length && isXML11NameHighSurrogate(ch)) {
-                    char ch2 = ncName.charAt(i);
+                    final char ch2 = ncName.charAt(i);
                     if (!XMLChar.isLowSurrogate(ch2) || !isXML11NCName(XMLChar.supplemental(ch, ch2))) {
                         return false;
                     }
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -356,20 +359,21 @@ public class XML11Char {
      * @param nmtoken string to check
      * @return true if nmtoken is a valid Nmtoken
      */
-    public static boolean isXML11ValidNmtoken(String nmtoken) {
+    public static boolean isXML11ValidNmtoken(final String nmtoken) {
         final int length = nmtoken.length();
         if (length == 0) {
             return false;
         }
         for (int i = 0; i < length; ++i) {
-            char ch = nmtoken.charAt(i);
+            final char ch = nmtoken.charAt(i);
             if (!isXML11Name(ch)) {
                 if (++i < length && isXML11NameHighSurrogate(ch)) {
-                    char ch2 = nmtoken.charAt(i);
+                    final char ch2 = nmtoken.charAt(i);
                     if (!XMLChar.isLowSurrogate(ch2) || !isXML11Name(XMLChar.supplemental(ch, ch2))) {
                         return false;
                     }
-                } else {
+                }
+                else {
                     return false;
                 }
             }

@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.impl.msg;
 
 import java.util.MissingResourceException;
@@ -35,11 +34,7 @@ public class XMLMessageFormatter implements MessageFormatter {
     public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
     public static final String XMLNS_DOMAIN = "http://www.w3.org/TR/1999/REC-xml-names-19990114";
 
-    private ResourceBundle fResourceBundle = null;
-
-    //
-    // MessageFormatter methods
-    //
+    private ResourceBundle fResourceBundle_ = null;
 
     /**
      * Formats a message with the specified arguments.
@@ -55,29 +50,30 @@ public class XMLMessageFormatter implements MessageFormatter {
      *                                  cannot be found.
      */
     @Override
-    public String formatMessage(String key, Object[] arguments) throws MissingResourceException {
+    public String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
 
-        if (fResourceBundle == null) {
-            fResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
+        if (fResourceBundle_ == null) {
+            fResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
         }
 
         // format message
         String msg;
         try {
-            msg = fResourceBundle.getString(key);
+            msg = fResourceBundle_.getString(key);
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
-                } catch (Exception e) {
-                    msg = fResourceBundle.getString("FormatFailed");
-                    msg += " " + fResourceBundle.getString(key);
+                }
+                catch (final Exception e) {
+                    msg = fResourceBundle_.getString("FormatFailed");
+                    msg += " " + fResourceBundle_.getString(key);
                 }
             }
         }
 
         // error
-        catch (MissingResourceException e) {
-            msg = fResourceBundle.getString("BadMessageKey");
+        catch (final MissingResourceException e) {
+            msg = fResourceBundle_.getString("BadMessageKey");
             throw new MissingResourceException(key, msg, key);
         }
 
@@ -85,7 +81,7 @@ public class XMLMessageFormatter implements MessageFormatter {
         if (msg == null) {
             msg = key;
             if (arguments.length > 0) {
-                StringBuilder str = new StringBuilder(msg);
+                final StringBuilder str = new StringBuilder(msg);
                 str.append('?');
                 for (int i = 0; i < arguments.length; i++) {
                     if (i > 0) {

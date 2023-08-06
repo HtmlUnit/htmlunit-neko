@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 /**
@@ -25,15 +24,11 @@ package org.htmlunit.cyberneko.xerces.util;
  */
 final class XMLErrorCode {
 
-    //
-    // Data
-    //
+    /** error domain */
+    private String fDomain_;
 
-    /** error domain **/
-    private String fDomain;
-
-    /** message key **/
-    private String fKey;
+    /** message key */
+    private String fKey_;
 
     /**
      * <p>
@@ -43,9 +38,9 @@ final class XMLErrorCode {
      * @param domain The error domain.
      * @param key    The key of the error message.
      */
-    public XMLErrorCode(String domain, String key) {
-        fDomain = domain;
-        fKey = key;
+    XMLErrorCode(final String domain, final String key) {
+        fDomain_ = domain;
+        fKey_ = key;
     }
 
     /**
@@ -56,9 +51,9 @@ final class XMLErrorCode {
      * @param domain The error domain.
      * @param key    The key of the error message.
      */
-    public void setValues(String domain, String key) {
-        fDomain = domain;
-        fKey = key;
+    public void setValues(final String domain, final String key) {
+        fDomain_ = domain;
+        fKey_ = key;
     }
 
     /**
@@ -69,11 +64,12 @@ final class XMLErrorCode {
      * @param obj the object with which to compare.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof XMLErrorCode))
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof XMLErrorCode)) {
             return false;
-        XMLErrorCode err = (XMLErrorCode) obj;
-        return fDomain.equals(err.fDomain) && fKey.equals(err.fKey);
+        }
+        final XMLErrorCode err = (XMLErrorCode) obj;
+        return fDomain_.equals(err.fDomain_) && fKey_.equals(err.fKey_);
     }
 
     /**
@@ -85,6 +81,6 @@ final class XMLErrorCode {
      */
     @Override
     public int hashCode() {
-        return fDomain.hashCode() + fKey.hashCode();
+        return fDomain_.hashCode() + fKey_.hashCode();
     }
 }

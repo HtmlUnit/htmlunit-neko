@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.xni;
 
 /**
@@ -30,14 +29,14 @@ public class XNIException extends RuntimeException {
     private static final long serialVersionUID = 7447489736019161121L;
 
     /** The wrapped exception. */
-    private Exception fException = this;
+    private Exception fException_ = this;
 
     /**
      * Constructs an XNI exception with a message.
      *
      * @param message The exception message.
      */
-    public XNIException(String message) {
+    public XNIException(final String message) {
         super(message);
     }
 
@@ -46,9 +45,9 @@ public class XNIException extends RuntimeException {
      *
      * @param exception The wrapped exception.
      */
-    public XNIException(Exception exception) {
+    public XNIException(final Exception exception) {
         super(exception.getMessage());
-        fException = exception;
+        fException_ = exception;
     }
 
     /**
@@ -57,14 +56,14 @@ public class XNIException extends RuntimeException {
      * @param message   The exception message.
      * @param exception The wrapped exception.
      */
-    public XNIException(String message, Exception exception) {
+    public XNIException(final String message, final Exception exception) {
         super(message);
-        fException = exception;
+        fException_ = exception;
     }
 
     /** @return the wrapped exception. */
     public Exception getException() {
-        return fException != this ? fException : null;
+        return fException_ != this ? fException_ : null;
     }
 
     /**
@@ -80,8 +79,8 @@ public class XNIException extends RuntimeException {
      *                                  <code>Exception</code>
      */
     @Override
-    public synchronized Throwable initCause(Throwable throwable) {
-        if (fException != this) {
+    public synchronized Throwable initCause(final Throwable throwable) {
+        if (fException_ != this) {
             // TODO: Add error message.
             throw new IllegalStateException();
         }
@@ -89,7 +88,7 @@ public class XNIException extends RuntimeException {
             // TODO: Add error message.
             throw new IllegalArgumentException();
         }
-        fException = (Exception) throwable;
+        fException_ = (Exception) throwable;
         return this;
     }
 

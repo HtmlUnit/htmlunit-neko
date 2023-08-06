@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.xni;
 
 /**
@@ -56,12 +55,12 @@ public class QName implements Cloneable {
     }
 
     // Constructs a QName with the specified values.
-    public QName(String prefix, String localpart, String rawname, String uri) {
+    public QName(final String prefix, final String localpart, final String rawname, final String uri) {
         setValues(prefix, localpart, rawname, uri);
     }
 
     // Constructs a copy of the specified QName.
-    public QName(QName qname) {
+    public QName(final QName qname) {
         setValues(qname);
     }
 
@@ -70,7 +69,7 @@ public class QName implements Cloneable {
      *
      * @param qname The qualified name to be copied.
      */
-    public void setValues(QName qname) {
+    public void setValues(final QName qname) {
         prefix = qname.prefix;
         localpart = qname.localpart;
         rawname = qname.rawname;
@@ -85,7 +84,7 @@ public class QName implements Cloneable {
      * @param rawname   The qname rawname. (e.g. "a:foo")
      * @param uri       The URI binding. (e.g. "http://foo.com/mybinding")
      */
-    public void setValues(String prefix, String localpart, String rawname, String uri) {
+    public void setValues(final String prefix, final String localpart, final String rawname, final String uri) {
         this.prefix = prefix;
         this.localpart = localpart;
         this.rawname = rawname;
@@ -106,12 +105,13 @@ public class QName implements Cloneable {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (object instanceof QName) {
-            QName qname = (QName) object;
+            final QName qname = (QName) object;
             if (qname.uri != null) {
                 return qname.uri.equals(uri) && localpart == qname.localpart;
-            } else if (uri == null) {
+            }
+            else if (uri == null) {
                 return rawname == qname.rawname;
             }
             // fall through and return not equal
@@ -121,8 +121,7 @@ public class QName implements Cloneable {
 
     @Override
     public String toString() {
-
-        StringBuilder str = new StringBuilder();
+        final StringBuilder str = new StringBuilder();
         boolean comma = false;
         if (prefix != null) {
             str.append("prefix=\"").append(prefix).append('"');
@@ -149,7 +148,5 @@ public class QName implements Cloneable {
             str.append("uri=\"").append(uri).append('"');
         }
         return str.toString();
-
     }
-
 }

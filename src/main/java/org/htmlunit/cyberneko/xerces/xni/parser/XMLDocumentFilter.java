@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.xni.parser;
 
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
@@ -24,5 +23,4 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
  * @author Andy Clark, IBM
  */
 public interface XMLDocumentFilter extends XMLDocumentHandler, XMLDocumentSource {
-
-} // interface XMLDocumentFilter
+}

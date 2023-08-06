@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.util;
 
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
@@ -43,11 +42,11 @@ public class XMLStringBuffer extends XMLString {
         this(DEFAULT_SIZE);
     }
 
-    public XMLStringBuffer(int size) {
+    public XMLStringBuffer(final int size) {
         ch = new char[size];
     }
 
-    public XMLStringBuffer(String s) {
+    public XMLStringBuffer(final String s) {
         this(s.length());
         append(s);
     }
@@ -64,13 +63,13 @@ public class XMLStringBuffer extends XMLString {
      *
      * @param c thechar to append
      */
-    public void append(char c) {
+    public void append(final char c) {
         if (this.length + 1 > this.ch.length) {
             int newLength = this.ch.length * 2;
             if (newLength < this.ch.length + DEFAULT_SIZE) {
                 newLength = this.ch.length + DEFAULT_SIZE;
             }
-            char[] newch = new char[newLength];
+            final char[] newch = new char[newLength];
             System.arraycopy(this.ch, 0, newch, 0, this.length);
             this.ch = newch;
         }
@@ -83,14 +82,14 @@ public class XMLStringBuffer extends XMLString {
      *
      * @param s the string to append
      */
-    public void append(String s) {
-        int length = s.length();
+    public void append(final String s) {
+        final int length = s.length();
         if (this.length + length > this.ch.length) {
             int newLength = this.ch.length * 2;
             if (newLength < this.length + length + DEFAULT_SIZE) {
                 newLength = this.ch.length + length + DEFAULT_SIZE;
             }
-            char[] newch = new char[newLength];
+            final char[] newch = new char[newLength];
             System.arraycopy(this.ch, 0, newch, 0, this.length);
             this.ch = newch;
         }
@@ -105,13 +104,13 @@ public class XMLStringBuffer extends XMLString {
      * @param offset start
      * @param length length
      */
-    public void append(char[] ch, int offset, int length) {
+    public void append(final char[] ch, final int offset, final int length) {
         if (this.length + length > this.ch.length) {
             int newLength = this.ch.length * 2;
             if (newLength < this.length + length + DEFAULT_SIZE) {
                 newLength = this.ch.length + length + DEFAULT_SIZE;
             }
-            char[] newch = new char[newLength];
+            final char[] newch = new char[newLength];
             System.arraycopy(this.ch, 0, newch, 0, this.length);
             this.ch = newch;
         }
@@ -124,7 +123,7 @@ public class XMLStringBuffer extends XMLString {
      *
      * @param s xmlstring
      */
-    public void append(XMLString s) {
+    public void append(final XMLString s) {
         append(s.ch, s.offset, s.length);
     }
 }

@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko.xerces.xni.parser;
 
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
@@ -54,7 +53,7 @@ public class XMLConfigurationException extends XNIException {
      * @see #NOT_RECOGNIZED
      * @see #NOT_SUPPORTED
      */
-    public XMLConfigurationException(short type, String identifier) {
+    public XMLConfigurationException(final short type, final String identifier) {
         super(identifier);
         fType = type;
         fIdentifier = identifier;
@@ -71,7 +70,7 @@ public class XMLConfigurationException extends XNIException {
      * @see #NOT_RECOGNIZED
      * @see #NOT_SUPPORTED
      */
-    public XMLConfigurationException(short type, String identifier, String message) {
+    public XMLConfigurationException(final short type, final String identifier, final String message) {
         super(message);
         fType = type;
         fIdentifier = identifier;
