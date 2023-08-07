@@ -107,7 +107,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      */
     @Override
     public Node getNamedItem(final String name) {
-        final int i = findNamePoint(name, 0);
+        final int i = findNamePoint(name);
         return (i < 0) ? null : nodes.get(i);
 
     }
@@ -162,7 +162,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             }
         }
 
-        int i = findNamePoint(arg.getNodeName(), 0);
+        int i = findNamePoint(arg.getNodeName());
         NodeImpl previous = null;
         if (i >= 0) {
             previous = (NodeImpl) nodes.get(i);
@@ -201,7 +201,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
-            i = findNamePoint(arg.getNodeName(), 0);
+            i = findNamePoint(arg.getNodeName());
             if (i >= 0) {
                 previous = (NodeImpl) nodes.get(i);
                 nodes.add(i, arg);
@@ -228,7 +228,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      */
     @Override
     public Node removeNamedItem(final String name) throws DOMException {
-        final int i = findNamePoint(name, 0);
+        final int i = findNamePoint(name);
         if (i < 0) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
@@ -328,7 +328,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      * added.
      *
      * @param name  Name of a node to look up.
-     * @param start the start
      *
      * @return If positive or zero, the index of the found item. If negative, index
      *         of the appropriate point at which to insert the item, encoded as
@@ -336,12 +335,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
      *         because I don't want to recompare the strings but don't want to burn
      *         bytes on a datatype to hold a flagged value.)
      */
-    protected int findNamePoint(final String name, final int start) {
+    protected int findNamePoint(final String name) {
 
         // Binary search
         int i = 0;
         if (nodes != null) {
-            int first = start;
+            int first = 0;
             int last = nodes.size() - 1;
 
             while (first <= last) {
@@ -442,7 +441,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
-            i = findNamePoint(arg.getNodeName(), 0);
+            i = findNamePoint(arg.getNodeName());
             if (i >= 0) {
                 nodes.add(i, arg);
             }

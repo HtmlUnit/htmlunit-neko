@@ -39,17 +39,9 @@ public class AttributeMap extends NamedNodeMapImpl {
      * Constructs a named node map.
      *
      * @param ownerNode the owner node
-     * @param defaults  defaults
      */
-    protected AttributeMap(final ElementImpl ownerNode, final NamedNodeMapImpl defaults) {
+    protected AttributeMap(final ElementImpl ownerNode) {
         super(ownerNode);
-        if (defaults != null) {
-            // initialize map with the defaults
-            cloneContent(defaults);
-            if (nodes != null) {
-                hasDefaults(true);
-            }
-        }
     }
 
     /**
@@ -90,7 +82,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         argn.ownerNode = ownerNode;
         argn.isOwned(true);
 
-        int i = findNamePoint(argn.getNodeName(), 0);
+        int i = findNamePoint(argn.getNodeName());
         AttrImpl previous = null;
         if (i >= 0) {
             previous = (AttrImpl) nodes.get(i);
@@ -170,7 +162,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
-            i = findNamePoint(arg.getNodeName(), 0);
+            i = findNamePoint(arg.getNodeName());
             if (i >= 0) {
                 previous = (AttrImpl) nodes.get(i);
                 nodes.add(i, arg);
@@ -253,7 +245,7 @@ public class AttributeMap extends NamedNodeMapImpl {
      * @return the node
      */
     protected final Node internalRemoveNamedItem(final String name, final boolean raiseEx) {
-        final int i = findNamePoint(name, 0);
+        final int i = findNamePoint(name);
         if (i < 0) {
             if (raiseEx) {
                 final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
@@ -368,7 +360,7 @@ public class AttributeMap extends NamedNodeMapImpl {
     public NamedNodeMapImpl cloneMap(final NodeImpl ownerNode) {
         // Cloning a NamedNodeMap is a DEEP OPERATION; it always clones
         // all the nodes contained in the map.
-        final AttributeMap newmap = new AttributeMap((ElementImpl) ownerNode, null);
+        final AttributeMap newmap = new AttributeMap((ElementImpl) ownerNode);
         newmap.hasDefaults(hasDefaults());
         newmap.cloneContent(this);
         return newmap;
@@ -450,7 +442,7 @@ public class AttributeMap extends NamedNodeMapImpl {
             final int dsize = defaults.nodes.size();
             for (int n = 0; n < dsize; ++n) {
                 final AttrImpl d = (AttrImpl) defaults.nodes.get(n);
-                int i = findNamePoint(d.getNodeName(), 0);
+                int i = findNamePoint(d.getNodeName());
                 if (i < 0) {
                     i = -1 - i;
                     final NodeImpl clone = (NodeImpl) d.cloneNode(true);
@@ -482,7 +474,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         else {
             // If we can't find by namespaceURI, localName, then we find by
             // nodeName so we know where to insert.
-            i = findNamePoint(argn.getNodeName(), 0);
+            i = findNamePoint(argn.getNodeName());
             if (i >= 0) {
                 nodes.add(i, arg);
             }

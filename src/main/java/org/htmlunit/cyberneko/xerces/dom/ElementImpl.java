@@ -122,7 +122,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
         if (attributes == null) {
-            attributes = new AttributeMap(this, null);
+            attributes = new AttributeMap(this);
         }
         return attributes;
 
@@ -394,7 +394,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             newAttr = getOwnerDocument().createAttribute(name);
 
             if (attributes == null) {
-                attributes = new AttributeMap(this, null);
+                attributes = new AttributeMap(this);
             }
 
             newAttr.setNodeValue(value);
@@ -435,7 +435,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         }
 
         if (attributes == null) {
-            attributes = new AttributeMap(this, null);
+            attributes = new AttributeMap(this);
         }
         // This will throw INUSE if necessary
         return (Attr) attributes.setNamedItem(newAttr);
@@ -518,7 +518,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             // strings for prefix and localName.
             newAttr = getOwnerDocument().createAttributeNS(namespaceURI, qualifiedName);
             if (attributes == null) {
-                attributes = new AttributeMap(this, null);
+                attributes = new AttributeMap(this);
             }
             newAttr.setNodeValue(value);
             attributes.setNamedItemNS(newAttr);
@@ -635,7 +635,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         }
 
         if (attributes == null) {
-            attributes = new AttributeMap(this, null);
+            attributes = new AttributeMap(this);
         }
         // This will throw INUSE if necessary
         return (Attr) attributes.setNamedItemNS(newAttr);
@@ -906,7 +906,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         }
         if (el.hasAttributes()) {
             if (attributes == null) {
-                attributes = new AttributeMap(this, null);
+                attributes = new AttributeMap(this);
             }
             attributes.moveSpecifiedAttributes(el.attributes);
         }

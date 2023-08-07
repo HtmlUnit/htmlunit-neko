@@ -39,16 +39,12 @@ import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 public class XMLAttributesImpl implements XMLAttributes {
 
     /** Attribute information. */
-    private ArrayList<Attribute> fAttributes_;
+    private final ArrayList<Attribute> attributes_;
 
     /** Default constructor. */
     public XMLAttributesImpl() {
-        fAttributes_ = new ArrayList<>();
+        attributes_ = new ArrayList<>();
     }
-
-    //
-    // XMLAttributes methods
-    //
 
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
@@ -81,8 +77,8 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.value_ = value;
         attribute.specified_ = false;
 
-        fAttributes_.add(attribute);
-        return fAttributes_.size() - 1;
+        attributes_.add(attribute);
+        return attributes_.size() - 1;
 
     }
 
@@ -92,7 +88,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void removeAllAttributes() {
-        fAttributes_.clear();
+        attributes_.clear();
     }
 
     /**
@@ -105,7 +101,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void removeAttributeAt(final int attrIndex) {
-        fAttributes_.remove(attrIndex);
+        attributes_.remove(attrIndex);
     }
 
     /**
@@ -116,7 +112,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void setName(final int attrIndex, final QName attrName) {
-        fAttributes_.get(attrIndex).name_.setValues(attrName);
+        attributes_.get(attrIndex).name_.setValues(attrName);
     }
 
     /**
@@ -128,7 +124,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void getName(final int attrIndex, final QName attrName) {
-        attrName.setValues(fAttributes_.get(attrIndex).name_);
+        attrName.setValues(attributes_.get(attrIndex).name_);
     }
 
     /**
@@ -145,7 +141,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void setType(final int attrIndex, final String attrType) {
-        fAttributes_.get(attrIndex).type_ = attrType;
+        attributes_.get(attrIndex).type_ = attrType;
     }
 
     /**
@@ -157,7 +153,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void setValue(final int attrIndex, final String attrValue) {
-        final Attribute attribute = fAttributes_.get(attrIndex);
+        final Attribute attribute = attributes_.get(attrIndex);
         attribute.value_ = attrValue;
     }
 
@@ -169,7 +165,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void setSpecified(final int attrIndex, final boolean specified) {
-        fAttributes_.get(attrIndex).specified_ = specified;
+        attributes_.get(attrIndex).specified_ = specified;
     }
 
     /**
@@ -179,7 +175,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public boolean isSpecified(final int attrIndex) {
-        return fAttributes_.get(attrIndex).specified_;
+        return attributes_.get(attrIndex).specified_;
     }
 
     //
@@ -197,7 +193,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public int getLength() {
-        return fAttributes_.size();
+        return attributes_.size();
     } // getLength():int
 
     /**
@@ -231,7 +227,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return getReportableType(fAttributes_.get(index).type_);
+        return getReportableType(attributes_.get(index).type_);
     }
 
     /**
@@ -249,7 +245,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public String getType(final String qname) {
         final int index = getIndex(qname);
-        return index != -1 ? getReportableType(fAttributes_.get(index).type_) : null;
+        return index != -1 ? getReportableType(attributes_.get(index).type_) : null;
     }
 
     /**
@@ -271,7 +267,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes_.get(index).value_;
+        return attributes_.get(index).value_;
     }
 
     /**
@@ -289,7 +285,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public String getValue(final String qname) {
         final int index = getIndex(qname);
-        return index != -1 ? fAttributes_.get(index).value_ : null;
+        return index != -1 ? attributes_.get(index).value_ : null;
     }
 
     //
@@ -319,7 +315,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes_.get(index).name_.rawname;
+        return attributes_.get(index).name_.rawname;
     }
 
     //
@@ -335,7 +331,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public int getIndex(final String qName) {
         for (int i = 0; i < getLength(); i++) {
-            final Attribute attribute = fAttributes_.get(i);
+            final Attribute attribute = attributes_.get(i);
             if (attribute.name_.rawname != null && attribute.name_.rawname.equals(qName)) {
                 return i;
             }
@@ -353,7 +349,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public int getIndex(final String uri, final String localPart) {
         for (int i = 0; i < getLength(); i++) {
-            final Attribute attribute = fAttributes_.get(i);
+            final Attribute attribute = attributes_.get(i);
             if (attribute.name_.localpart != null && attribute.name_.localpart.equals(localPart)
                     && ((uri == attribute.name_.uri)
                             || (uri != null && attribute.name_.uri != null && attribute.name_.uri.equals(uri)))) {
@@ -376,7 +372,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes_.get(index).name_.localpart;
+        return attributes_.get(index).name_.localpart;
     }
 
     /**
@@ -392,7 +388,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        final String rawname = fAttributes_.get(index).name_.rawname;
+        final String rawname = attributes_.get(index).name_.rawname;
         return rawname != null ? rawname : "";
     }
 
@@ -412,7 +408,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public String getType(final String uri, final String localName) {
         final int index = getIndex(uri, localName);
-        return index != -1 ? getReportableType(fAttributes_.get(index).type_) : null;
+        return index != -1 ? getReportableType(attributes_.get(index).type_) : null;
     }
 
     /**
@@ -427,7 +423,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return fAttributes_.get(index).name_.uri;
+        return attributes_.get(index).name_.uri;
     }
 
     /**
@@ -481,7 +477,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         attribute.value_ = value;
         attribute.specified_ = false;
 
-        fAttributes_.add(attribute);
+        attributes_.add(attribute);
     }
 
     /**
