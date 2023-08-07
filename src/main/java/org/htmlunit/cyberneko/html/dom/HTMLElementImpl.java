@@ -124,7 +124,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
      * it is set and true is returned. If the attribute does not exist, false
      * is returned.
      *
-     * @param name The name of the attribute
+     * @param attrName The name of the attribute
      * @return True or false depending on whether the attribute has been set
      */
     boolean getBinary(final String attrName) {
@@ -217,7 +217,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
      * is returned. For example, the align values "LEFT" and "left" will both
      * return as "Left".
      *
-     * @param attrName The name of the attribute
+     * @param attrname The name of the attribute
      * @return The capitalized value
      */
     String getCapitalized(final String attrname) {

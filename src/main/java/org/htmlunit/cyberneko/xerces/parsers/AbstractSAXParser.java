@@ -767,8 +767,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * parse, and the SAX parser must begin using the new handler immediately.
      *
      * @param dtdHandler The DTD handler.
-     *
-     *
      * @see #getDTDHandler
      */
     @Override
