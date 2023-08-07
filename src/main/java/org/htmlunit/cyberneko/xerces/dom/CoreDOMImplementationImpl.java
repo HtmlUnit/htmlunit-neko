@@ -39,7 +39,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
     // Document and doctype counter. Used to assign order to documents and
     // doctypes without owners, on an demand basis. Used for
     // compareDocumentPosition
-    private int docAndDoctypeCounter = 0;
+    private int docAndDoctypeCounter_ = 0;
 
     /** Dom implementation singleton. */
     private static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
@@ -205,11 +205,11 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
 
     // NON-DOM: increment document/doctype counter
     protected synchronized int assignDocumentNumber() {
-        return ++docAndDoctypeCounter;
+        return ++docAndDoctypeCounter_;
     }
 
     // NON-DOM: increment document/doctype counter
     protected synchronized int assignDocTypeNumber() {
-        return ++docAndDoctypeCounter;
+        return ++docAndDoctypeCounter_;
     }
 }

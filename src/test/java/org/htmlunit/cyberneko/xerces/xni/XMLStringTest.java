@@ -26,63 +26,63 @@ public class XMLStringTest {
 
     @Test
     public void reduceToContent() {
-        XMLString buffer = new XMLString();
+        final XMLString xmlString = new XMLString();
 
-        buffer.clear().append("<!-- hello-->");
-        buffer.reduceToContent("<!--", "-->");
-        assertEquals(" hello", buffer.toString());
+        xmlString.clear().append("<!-- hello-->");
+        xmlString.reduceToContent("<!--", "-->");
+        assertEquals(" hello", xmlString.toString());
 
-        buffer.clear().append("  \n <!-- hello-->\n");
-        buffer.reduceToContent("<!--", "-->");
-        assertEquals(" hello", buffer.toString());
+        xmlString.clear().append("  \n <!-- hello-->\n");
+        xmlString.reduceToContent("<!--", "-->");
+        assertEquals(" hello", xmlString.toString());
 
-        buffer.clear().append("hello");
-        buffer.reduceToContent("<!--", "-->");
-        assertEquals("hello", buffer.toString());
+        xmlString.clear().append("hello");
+        xmlString.reduceToContent("<!--", "-->");
+        assertEquals("hello", xmlString.toString());
 
-        buffer.clear().append("<!-- hello");
-        buffer.reduceToContent("<!--", "-->");
-        assertEquals("<!-- hello", buffer.toString());
+        xmlString.clear().append("<!-- hello");
+        xmlString.reduceToContent("<!--", "-->");
+        assertEquals("<!-- hello", xmlString.toString());
 
-        buffer.clear().append("<!--->");
-        buffer.reduceToContent("<!--", "-->");
-        assertEquals("<!--->", buffer.toString());
+        xmlString.clear().append("<!--->");
+        xmlString.reduceToContent("<!--", "-->");
+        assertEquals("<!--->", xmlString.toString());
     }
 
     @Test
     public void trimWhitespaceAtEnd() {
-        XMLString buffer = new XMLString();
+        final XMLString xmlString = new XMLString();
 
-        buffer.clear().append("");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("", buffer.toString());
+        xmlString.clear().append("");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("", xmlString.toString());
 
-        buffer.clear().append("a");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("a", buffer.toString());
+        xmlString.clear().append("a");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("a", xmlString.toString());
 
-        buffer.clear().append(" a");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals(" a", buffer.toString());
+        xmlString.clear().append(" a");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals(" a", xmlString.toString());
 
-        buffer.clear().append("a b");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("a b", buffer.toString());
+        xmlString.clear().append("a b");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("a b", xmlString.toString());
 
-        buffer.clear().append("a ");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("a", buffer.toString());
+        xmlString.clear().append("a ");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("a", xmlString.toString());
 
-        buffer.clear().append("a  ");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("a", buffer.toString());
+        xmlString.clear().append("a  ");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("a", xmlString.toString());
 
-        buffer.clear().append(" ");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("", buffer.toString());
+        xmlString.clear().append(" ");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("", xmlString.toString());
 
-        buffer.clear().append("  ");
-        buffer.trimWhitespaceAtEnd();
-        assertEquals("", buffer.toString());
+        xmlString.clear().append("  ");
+        xmlString.trimWhitespaceAtEnd();
+        assertEquals("", xmlString.toString());
     }
 }

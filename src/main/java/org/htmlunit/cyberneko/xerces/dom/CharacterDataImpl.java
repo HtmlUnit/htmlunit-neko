@@ -32,7 +32,7 @@ import org.w3c.dom.NodeList;
  */
 public abstract class CharacterDataImpl extends ChildNode {
 
-    protected String data;
+    private String data_;
 
     /** Empty child nodes. */
     private static final NodeList singletonNodeList = new NodeList() {
@@ -55,7 +55,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      */
     protected CharacterDataImpl(final CoreDocumentImpl ownerDocument, final String data) {
         super(ownerDocument);
-        this.data = data;
+        data_ = data;
     }
 
     /**
@@ -74,7 +74,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return data;
+        return data_;
     }
 
     /**
@@ -108,12 +108,12 @@ public abstract class CharacterDataImpl extends ChildNode {
         }
 
         // keep old value for document notification
-        final String oldvalue = this.data;
+        final String oldvalue = this.data_;
 
         // notify document
         ownerDocument.modifyingCharacterData(this, replace);
 
-        this.data = value;
+        this.data_ = value;
 
         // notify document
         ownerDocument.modifiedCharacterData(this, oldvalue, value, replace);
@@ -141,7 +141,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return data;
+        return data_;
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return data.length();
+        return data_.length();
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             synchronizeData();
         }
 
-        setNodeValue(this.data + data);
+        setNodeValue(this.data_ + data);
     }
 
     /**
@@ -210,10 +210,10 @@ public abstract class CharacterDataImpl extends ChildNode {
         if (needsSyncData()) {
             synchronizeData();
         }
-        final int tailLength = Math.max(data.length() - count - offset, 0);
+        final int tailLength = Math.max(data_.length() - count - offset, 0);
         try {
-            final String value = data.substring(0, offset)
-                    + (tailLength > 0 ? data.substring(offset + count, offset + count + tailLength) : "");
+            final String value = data_.substring(0, offset)
+                    + (tailLength > 0 ? data_.substring(offset + count, offset + count + tailLength) : "");
 
             setNodeValueInternal(value, replace);
 
@@ -252,7 +252,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             synchronizeData();
         }
         try {
-            final String value = new StringBuilder(this.data).insert(offset, data).toString();
+            final String value = new StringBuilder(this.data_).insert(offset, data).toString();
 
             setNodeValueInternal(value, replace);
 
@@ -297,12 +297,12 @@ public abstract class CharacterDataImpl extends ChildNode {
         ownerDocument.replacingData(this);
 
         // keep old value for document notification
-        final String oldvalue = this.data;
+        final String oldvalue = this.data_;
 
         internalDeleteData(offset, count, true);
         internalInsertData(offset, data, true);
 
-        ownerDocument.replacedCharacterData(this, oldvalue, this.data);
+        ownerDocument.replacedCharacterData(this, oldvalue, this.data_);
 
     }
 
@@ -342,7 +342,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             synchronizeData();
         }
 
-        final int length = data.length();
+        final int length = data_.length();
         if (count < 0 || offset < 0 || offset > length - 1) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
@@ -350,7 +350,7 @@ public abstract class CharacterDataImpl extends ChildNode {
 
         final int tailIndex = Math.min(offset + count, length);
 
-        return data.substring(offset, tailIndex);
+        return data_.substring(offset, tailIndex);
 
     }
 }

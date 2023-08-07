@@ -28,7 +28,7 @@ public class CommentImpl extends CharacterDataImpl implements Comment {
      * @param ownerDoc the owner document
      * @param data     the data
      */
-    public CommentImpl(CoreDocumentImpl ownerDoc, String data) {
+    public CommentImpl(final CoreDocumentImpl ownerDoc, final String data) {
         super(ownerDoc, data);
     }
 

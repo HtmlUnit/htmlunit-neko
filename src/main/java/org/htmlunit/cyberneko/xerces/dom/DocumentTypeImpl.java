@@ -44,25 +44,25 @@ import org.w3c.dom.UserDataHandler;
 public class DocumentTypeImpl extends ParentNode implements DocumentType {
 
     /** Document type name. */
-    private final String name;
+    private final String name_;
 
     /** Entities. */
-    private NamedNodeMapImpl entities;
+    private NamedNodeMapImpl entities_;
 
     /** Notations. */
-    private NamedNodeMapImpl notations;
+    private NamedNodeMapImpl notations_;
 
     /** Elements. */
-    private NamedNodeMapImpl elements;
+    private NamedNodeMapImpl elements_;
 
     // DOM2: support public ID.
-    private String publicID;
+    private String publicID_;
 
     // DOM2: support system ID.
-    private String systemID;
+    private String systemID_;
 
     // DOM2: support internal subset.
-    private String internalSubset;
+    private String internalSubset_;
 
     // The following are required for compareDocumentPosition
     // Doctype number. Doc types which have no owner may be assigned
@@ -78,21 +78,21 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     public DocumentTypeImpl(final CoreDocumentImpl ownerDocument, final String name) {
         super(ownerDocument);
 
-        this.name = name;
+        name_ = name;
         // DOM
-        entities = new NamedNodeMapImpl(this);
-        notations = new NamedNodeMapImpl(this);
+        entities_ = new NamedNodeMapImpl(this);
+        notations_ = new NamedNodeMapImpl(this);
 
         // NON-DOM
-        elements = new NamedNodeMapImpl(this);
+        elements_ = new NamedNodeMapImpl(this);
 
     }
 
     // Factory method for creating a document type node.
     public DocumentTypeImpl(final CoreDocumentImpl ownerDocument, final String qualifiedName, final String publicID, final String systemID) {
         this(ownerDocument, qualifiedName);
-        this.publicID = publicID;
-        this.systemID = systemID;
+        publicID_ = publicID;
+        systemID_ = systemID;
 
     }
 
@@ -109,7 +109,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return publicID;
+        return publicID_;
     }
 
     /**
@@ -125,7 +125,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return systemID;
+        return systemID_;
     }
 
     // NON-DOM
@@ -134,7 +134,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        this.internalSubset = internalSubset;
+        this.internalSubset_ = internalSubset;
     }
 
     /**
@@ -150,7 +150,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return internalSubset;
+        return internalSubset_;
     }
 
     /**
@@ -172,7 +172,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return name;
+        return name_;
     }
 
     /**
@@ -185,9 +185,9 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
 
         final DocumentTypeImpl newnode = (DocumentTypeImpl) super.cloneNode(deep);
         // NamedNodeMaps must be cloned explicitly, to avoid sharing them.
-        newnode.entities = entities.cloneMap(newnode);
-        newnode.notations = notations.cloneMap(newnode);
-        newnode.elements = elements.cloneMap(newnode);
+        newnode.entities_ = entities_.cloneMap(newnode);
+        newnode.notations_ = notations_.cloneMap(newnode);
+        newnode.elements_ = elements_.cloneMap(newnode);
 
         return newnode;
 
@@ -261,19 +261,19 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         }
 
         // test if NamedNodeMaps entities and notations are equal
-        final NamedNodeMapImpl argEntities = argDocType.entities;
+        final NamedNodeMapImpl argEntities = argDocType.entities_;
 
-        if ((entities == null && argEntities != null) || (entities != null && argEntities == null)) {
+        if ((entities_ == null && argEntities != null) || (entities_ != null && argEntities == null)) {
             return false;
         }
 
-        if (entities != null && argEntities != null) {
-            if (entities.getLength() != argEntities.getLength()) {
+        if (entities_ != null && argEntities != null) {
+            if (entities_.getLength() != argEntities.getLength()) {
                 return false;
             }
 
-            for (int index = 0; entities.item(index) != null; index++) {
-                final Node entNode1 = entities.item(index);
+            for (int index = 0; entities_.item(index) != null; index++) {
+                final Node entNode1 = entities_.item(index);
                 final Node entNode2 = argEntities.getNamedItem(entNode1.getNodeName());
 
                 if (!entNode1.isEqualNode(entNode2)) {
@@ -282,19 +282,19 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
             }
         }
 
-        final NamedNodeMapImpl argNotations = argDocType.notations;
+        final NamedNodeMapImpl argNotations = argDocType.notations_;
 
-        if ((notations == null && argNotations != null) || (notations != null && argNotations == null)) {
+        if ((notations_ == null && argNotations != null) || (notations_ != null && argNotations == null)) {
             return false;
         }
 
-        if (notations != null && argNotations != null) {
-            if (notations.getLength() != argNotations.getLength()) {
+        if (notations_ != null && argNotations != null) {
+            if (notations_.getLength() != argNotations.getLength()) {
                 return false;
             }
 
-            for (int index = 0; notations.item(index) != null; index++) {
-                final Node noteNode1 = notations.item(index);
+            for (int index = 0; notations_.item(index) != null; index++) {
+                final Node noteNode1 = notations_.item(index);
                 final Node noteNode2 = argNotations.getNamedItem(noteNode1.getNodeName());
 
                 if (!noteNode1.isEqualNode(noteNode2)) {
@@ -314,9 +314,9 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
     @Override
     protected void setOwnerDocument(final CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
-        entities.setOwnerDocument(doc);
-        notations.setOwnerDocument(doc);
-        elements.setOwnerDocument(doc);
+        entities_.setOwnerDocument(doc);
+        notations_.setOwnerDocument(doc);
+        elements_.setOwnerDocument(doc);
     }
 
     /**
@@ -354,7 +354,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return name;
+        return name_;
 
     }
 
@@ -387,7 +387,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        return entities;
+        return entities_;
     }
 
     /**
@@ -402,7 +402,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        return notations;
+        return notations_;
     }
 
     // NON-DOM: Access the collection of ElementDefinitions.
@@ -411,7 +411,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        return elements;
+        return elements_;
     }
 
     /**

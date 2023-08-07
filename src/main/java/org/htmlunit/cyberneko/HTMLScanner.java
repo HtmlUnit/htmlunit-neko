@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.htmlunit.cyberneko;
 
 import java.io.EOFException;
@@ -261,6 +260,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     // states
 
+    private static final char REPLACEMENT_CHARACTER = '\uFFFD'; // the � character
+
     /** State: content. */
     protected static final short STATE_CONTENT = 0;
 
@@ -314,49 +315,46 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     // features
 
     /** Augmentations. */
-    protected boolean fAugmentations;
+    private boolean fAugmentations_;
 
     /** Report errors. */
-    protected boolean fReportErrors;
+    private boolean fReportErrors_;
 
     /** Strip CDATA delimiters from SCRIPT tags. */
-    protected boolean fScriptStripCDATADelims;
+    private boolean fScriptStripCDATADelims_;
 
     /** Strip comment delimiters from SCRIPT tags. */
-    protected boolean fScriptStripCommentDelims;
+    private boolean fScriptStripCommentDelims_;
 
     /** Strip CDATA delimiters from STYLE tags. */
-    protected boolean fStyleStripCDATADelims;
+    private boolean fStyleStripCDATADelims_;
 
     /** Strip comment delimiters from STYLE tags. */
-    protected boolean fStyleStripCommentDelims;
+    private boolean fStyleStripCommentDelims_;
 
     /** Ignore specified character set. */
-    protected boolean fIgnoreSpecifiedCharset;
+    private boolean fIgnoreSpecifiedCharset_;
 
     /** CDATA sections. */
-    protected boolean fCDATASections;
+    private boolean fCDATASections_;
 
     /** Override doctype declaration public and system identifiers. */
-    protected boolean fOverrideDoctype;
+    private boolean fOverrideDoctype_;
 
     /** Insert document type declaration. */
-    protected boolean fInsertDoctype;
+    private boolean fInsertDoctype_;
 
     /** Normalize attribute values. */
-    protected boolean fNormalizeAttributes;
+    private boolean fNormalizeAttributes_;
 
     /** Parse noscript content. */
-    protected boolean fParseNoScriptContent;
-
-    /** Parse noframes content. */
-    protected boolean fParseNoFramesContent;
+    private boolean fParseNoScriptContent_;
 
     /** Allows self closing iframe tags. */
-    protected boolean fAllowSelfclosingIframe;
+    private boolean fAllowSelfclosingIframe_;
 
     /** Allows self closing tags. */
-    protected boolean fAllowSelfclosingTags;
+    private boolean fAllowSelfclosingTags_;
 
     // properties
 
@@ -453,17 +451,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** Single boolean array. */
     private final boolean[] fSingleBoolean = {false};
 
-    private final char REPLACEMENT_CHARACTER = '\uFFFD'; // the � character
-
     private final HTMLConfiguration htmlConfiguration_;
 
-    HTMLScanner(HTMLConfiguration htmlConfiguration) {
+    HTMLScanner(final HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
     }
-
-    //
-    // Public methods
-    //
 
     /**
      * Pushes an input source onto the current entity stack. This enables the
@@ -477,7 +469,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      * @param inputSource The new input source to start scanning.
      * @see #evaluateInputSource(XMLInputSource)
      */
-    public void pushInputSource(XMLInputSource inputSource) {
+    public void pushInputSource(final XMLInputSource inputSource) {
         final Reader reader = getReader(inputSource);
 
         fCurrentEntityStack.push(fCurrentEntity);
@@ -563,14 +555,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
     }
 
-    //
-    // XMLLocator methods
-    //
-
     /** Returns the encoding. */
     @Override
     public String getEncoding() {
-        return fCurrentEntity != null ? fCurrentEntity.encoding : null;
+        return fCurrentEntity != null ? fCurrentEntity.encoding_ : null;
     }
 
     /** Returns the public identifier. */
@@ -627,7 +615,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** Returns the default state for a feature. */
     @Override
-    public Boolean getFeatureDefault(String featureId) {
+    public Boolean getFeatureDefault(final String featureId) {
         final int length = RECOGNIZED_FEATURES != null ? RECOGNIZED_FEATURES.length : 0;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
@@ -639,7 +627,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** Returns the default state for a property. */
     @Override
-    public Object getPropertyDefault(String propertyId) {
+    public Object getPropertyDefault(final String propertyId) {
         final int length = RECOGNIZED_PROPERTIES != null ? RECOGNIZED_PROPERTIES.length : 0;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
@@ -648,10 +636,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
         return null;
     }
-
-    //
-    // XMLComponent methods
-    //
 
     /** Returns recognized features. */
     @Override
@@ -667,23 +651,23 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** Resets the component. */
     @Override
-    public void reset(XMLComponentManager manager) throws XMLConfigurationException {
+    public void reset(final XMLComponentManager manager) throws XMLConfigurationException {
 
         // get features
-        fAugmentations = manager.getFeature(AUGMENTATIONS);
-        fReportErrors = manager.getFeature(REPORT_ERRORS);
-        fScriptStripCDATADelims = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
-        fScriptStripCommentDelims = manager.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
-        fStyleStripCDATADelims = manager.getFeature(STYLE_STRIP_CDATA_DELIMS);
-        fStyleStripCommentDelims = manager.getFeature(STYLE_STRIP_COMMENT_DELIMS);
-        fIgnoreSpecifiedCharset = manager.getFeature(IGNORE_SPECIFIED_CHARSET);
-        fCDATASections = manager.getFeature(CDATA_SECTIONS);
-        fOverrideDoctype = manager.getFeature(OVERRIDE_DOCTYPE);
-        fInsertDoctype = manager.getFeature(INSERT_DOCTYPE);
-        fNormalizeAttributes = manager.getFeature(NORMALIZE_ATTRIBUTES);
-        fParseNoScriptContent = manager.getFeature(PARSE_NOSCRIPT_CONTENT);
-        fAllowSelfclosingIframe = manager.getFeature(ALLOW_SELFCLOSING_IFRAME);
-        fAllowSelfclosingTags = manager.getFeature(ALLOW_SELFCLOSING_TAGS);
+        fAugmentations_ = manager.getFeature(AUGMENTATIONS);
+        fReportErrors_ = manager.getFeature(REPORT_ERRORS);
+        fScriptStripCDATADelims_ = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
+        fScriptStripCommentDelims_ = manager.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
+        fStyleStripCDATADelims_ = manager.getFeature(STYLE_STRIP_CDATA_DELIMS);
+        fStyleStripCommentDelims_ = manager.getFeature(STYLE_STRIP_COMMENT_DELIMS);
+        fIgnoreSpecifiedCharset_ = manager.getFeature(IGNORE_SPECIFIED_CHARSET);
+        fCDATASections_ = manager.getFeature(CDATA_SECTIONS);
+        fOverrideDoctype_ = manager.getFeature(OVERRIDE_DOCTYPE);
+        fInsertDoctype_ = manager.getFeature(INSERT_DOCTYPE);
+        fNormalizeAttributes_ = manager.getFeature(NORMALIZE_ATTRIBUTES);
+        fParseNoScriptContent_ = manager.getFeature(PARSE_NOSCRIPT_CONTENT);
+        fAllowSelfclosingIframe_ = manager.getFeature(ALLOW_SELFCLOSING_IFRAME);
+        fAllowSelfclosingTags_ = manager.getFeature(ALLOW_SELFCLOSING_TAGS);
 
         // get properties
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
@@ -699,37 +683,37 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     public void setFeature(final String featureId, final boolean state) {
 
         if (featureId.equals(AUGMENTATIONS)) {
-            fAugmentations = state;
+            fAugmentations_ = state;
         }
         else if (featureId.equals(IGNORE_SPECIFIED_CHARSET)) {
-            fIgnoreSpecifiedCharset = state;
+            fIgnoreSpecifiedCharset_ = state;
         }
         else if (featureId.equals(SCRIPT_STRIP_CDATA_DELIMS)) {
-            fScriptStripCDATADelims = state;
+            fScriptStripCDATADelims_ = state;
         }
         else if (featureId.equals(SCRIPT_STRIP_COMMENT_DELIMS)) {
-            fScriptStripCommentDelims = state;
+            fScriptStripCommentDelims_ = state;
         }
         else if (featureId.equals(STYLE_STRIP_CDATA_DELIMS)) {
-            fStyleStripCDATADelims = state;
+            fStyleStripCDATADelims_ = state;
         }
         else if (featureId.equals(STYLE_STRIP_COMMENT_DELIMS)) {
-            fStyleStripCommentDelims = state;
+            fStyleStripCommentDelims_ = state;
         }
         else if (featureId.equals(PARSE_NOSCRIPT_CONTENT)) {
-            fParseNoScriptContent = state;
+            fParseNoScriptContent_ = state;
         }
         else if (featureId.equals(ALLOW_SELFCLOSING_IFRAME)) {
-            fAllowSelfclosingIframe = state;
+            fAllowSelfclosingIframe_ = state;
         }
         else if (featureId.equals(ALLOW_SELFCLOSING_TAGS)) {
-            fAllowSelfclosingTags = state;
+            fAllowSelfclosingTags_ = state;
         }
     }
 
     /** Sets a property. */
     @Override
-    public void setProperty(String propertyId, Object value) throws XMLConfigurationException {
+    public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
 
         if (propertyId.equals(NAMES_ELEMS)) {
             fNamesElems = getNamesValue(String.valueOf(value));
@@ -753,7 +737,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** Sets the input source. */
     @Override
-    public void setInputSource(XMLInputSource source) throws IOException {
+    public void setInputSource(final XMLInputSource source) throws IOException {
 
         // reset state
         fElementCount = 0;
@@ -797,7 +781,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             if (encodings[0] == null) {
                 encodings[0] = fDefaultIANAEncoding;
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportWarning("HTML1000", null);
                 }
             }
@@ -805,7 +789,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 encodings[1] = EncodingMap.getIANA2JavaMapping(encodings[0].toUpperCase(Locale.ROOT));
                 if (encodings[1] == null) {
                     encodings[1] = encodings[0];
-                    if (fReportErrors) {
+                    if (fReportErrors_) {
                         fErrorReporter.reportWarning("HTML1001", new Object[] {encodings[0]});
                     }
                 }
@@ -852,7 +836,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     //
 
     // Returns the value of the specified attribute, ignoring case.
-    protected static String getValue(final XMLAttributes attrs, String aname) {
+    protected static String getValue(final XMLAttributes attrs, final String aname) {
         if (attrs != null) {
             final int length = attrs.getLength();
             for (int i = 0; i < length; i++) {
@@ -1028,7 +1012,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     }
 
     // Sets the scanner state.
-    protected void setScannerState(short state) {
+    protected void setScannerState(final short state) {
         fScannerState = state;
         if (DEBUG_SCANNER_STATE) {
             System.out.print("$$$ setScannerState(");
@@ -1065,7 +1049,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         if (skipSpaces()) {
             root = scanName(true);
             if (root == null) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1014", null);
                 }
             }
@@ -1102,7 +1086,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
 
         if (fDocumentHandler != null) {
-            if (fOverrideDoctype) {
+            if (fOverrideDoctype_) {
                 pubid = fDoctypePubid;
                 sysid = fDoctypeSysid;
             }
@@ -1139,7 +1123,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
             }
             if (c == -1) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1007", null);
                 }
                 throw new EOFException();
@@ -1155,7 +1139,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded("(scanName: ");
         }
-        if (fCurrentEntity.offset == fCurrentEntity.length) {
+        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
             if (fCurrentEntity.load(0) == -1) {
                 if (DEBUG_BUFFER) {
                     fCurrentEntity.debugBufferIfNeeded(")scanName: ");
@@ -1163,7 +1147,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 return null;
             }
         }
-        int offset = fCurrentEntity.offset;
+        int offset = fCurrentEntity.offset_;
         while (true) {
             while (fCurrentEntity.hasNext()) {
                 final char c = fCurrentEntity.getNextChar();
@@ -1173,9 +1157,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     break;
                 }
             }
-            if (fCurrentEntity.offset == fCurrentEntity.length) {
-                final int length = fCurrentEntity.length - offset;
-                System.arraycopy(fCurrentEntity.buffer, offset, fCurrentEntity.buffer, 0, length);
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                final int length = fCurrentEntity.length_ - offset;
+                System.arraycopy(fCurrentEntity.buffer_, offset, fCurrentEntity.buffer_, 0, length);
                 final int count = fCurrentEntity.load(length);
                 offset = 0;
                 if (count == -1) {
@@ -1186,8 +1170,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 break;
             }
         }
-        final int length = fCurrentEntity.offset - offset;
-        final String name = length > 0 ? new String(fCurrentEntity.buffer, offset, length) : null;
+        final int length = fCurrentEntity.offset_ - offset;
+        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
@@ -1258,7 +1242,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 str.append(match);
             }
             else {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportWarning("HTML1004", null);
                 }
 
@@ -1306,10 +1290,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     protected boolean skip(final String s, final boolean caseSensitive) throws IOException {
         final int length = s != null ? s.length() : 0;
         for (int i = 0; i < length; i++) {
-            if (fCurrentEntity.offset == fCurrentEntity.length) {
-                System.arraycopy(fCurrentEntity.buffer, fCurrentEntity.offset - i, fCurrentEntity.buffer, 0, i);
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                System.arraycopy(fCurrentEntity.buffer_, fCurrentEntity.offset_ - i, fCurrentEntity.buffer_, 0, i);
                 if (fCurrentEntity.load(i) == -1) {
-                    fCurrentEntity.offset = 0;
+                    fCurrentEntity.offset_ = 0;
                     return false;
                 }
             }
@@ -1335,7 +1319,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         int depth = 1;
         boolean slashgt = false;
         OUTER: while (true) {
-            if (fCurrentEntity.offset == fCurrentEntity.length) {
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
                 if (fCurrentEntity.load(0) == -1) {
                     break OUTER;
                 }
@@ -1352,7 +1336,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                 }
                 else if (c == '/') {
-                    if (fCurrentEntity.offset == fCurrentEntity.length) {
+                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
                         if (fCurrentEntity.load(0) == -1) {
                             break OUTER;
                         }
@@ -1388,7 +1372,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
         boolean spaces = false;
         while (true) {
-            if (fCurrentEntity.offset == fCurrentEntity.length) {
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
                 if (fCurrentEntity.load(0) == -1) {
                     break;
                 }
@@ -1432,21 +1416,21 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 c = fCurrentEntity.getNextChar();
                 if (c == '\r') {
                     newlines++;
-                    if (fCurrentEntity.offset == fCurrentEntity.length) {
-                        fCurrentEntity.offset = newlines;
+                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                        fCurrentEntity.offset_ = newlines;
                         if (fCurrentEntity.load(newlines) == -1) {
                             break;
                         }
                     }
                     if (fCurrentEntity.getCurrentChar() == '\n') {
-                        fCurrentEntity.offset++;
+                        fCurrentEntity.offset_++;
                         fCurrentEntity.characterOffset_++;
                     }
                 }
                 else if (c == '\n') {
                     newlines++;
-                    if (fCurrentEntity.offset == fCurrentEntity.length) {
-                        fCurrentEntity.offset = newlines;
+                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                        fCurrentEntity.offset_ = newlines;
                         if (fCurrentEntity.load(newlines) == -1) {
                             break;
                         }
@@ -1457,7 +1441,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     break;
                 }
             }
-            while (fCurrentEntity.offset < fCurrentEntity.length - 1);
+            while (fCurrentEntity.offset_ < fCurrentEntity.length_ - 1);
             fCurrentEntity.incLine(newlines);
         }
         if (DEBUG_BUFFER) {
@@ -1470,7 +1454,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     // Returns an augmentations object with a location item added.
     protected final Augmentations locationAugs() {
-        if (fAugmentations) {
+        if (fAugmentations_) {
             return new LocationItem(fBeginLineNumber, fBeginColumnNumber, fBeginCharacterOffset, fEndLineNumber,
                     fEndColumnNumber, fEndCharacterOffset);
         }
@@ -1479,7 +1463,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
-        if (fAugmentations) {
+        if (fAugmentations_) {
             return SYNTHESIZED_ITEM;
         }
         return null;
@@ -1515,7 +1499,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 str.append(chars, 0, chars.length);
             }
             catch (final IllegalArgumentException e) { // when value is not valid as UTF-16
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     if (name == null) {
                         name = "&#" + value + ';';
                     }
@@ -1545,7 +1529,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 str.append(chars, 0, chars.length);
             }
             catch (final IllegalArgumentException e) { // when value is not valid as UTF-16
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     if (name == null) {
                         name = "&#" + value + ';';
                     }
@@ -1597,17 +1581,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    public static class CurrentEntity {
-
-        //
-        // Data
-        //
+    public static final class CurrentEntity {
 
         /** Character stream. */
         private Reader stream_;
 
         /** Encoding. */
-        private String encoding;
+        private String encoding_;
 
         /** Public identifier. */
         public final String publicId;
@@ -1631,30 +1611,25 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private int columnNumber_ = 1;
 
         /** Character offset in the file. */
-        public int characterOffset_ = 0;
+        private int characterOffset_ = 0;
 
         // buffer
 
         /** Character buffer. */
-        public char[] buffer = new char[DEFAULT_BUFFER_SIZE];
+        private char[] buffer_ = new char[DEFAULT_BUFFER_SIZE];
 
         /** Offset into character buffer. */
-        public int offset = 0;
+        private int offset_ = 0;
 
         /** Length of characters read into character buffer. */
-        public int length = 0;
+        private int length_ = 0;
 
         private boolean endReached_ = false;
 
-        //
-        // Constructors
-        //
-
         // Constructs an entity from the specified stream.
-        public CurrentEntity(Reader stream, String encoding, String publicId, String baseSystemId,
-                String literalSystemId, String expandedSystemId) {
+        public CurrentEntity(final Reader stream, final String encoding, final String publicId, final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
             stream_ = stream;
-            this.encoding = encoding;
+            this.encoding_ = encoding;
             this.publicId = publicId;
             this.baseSystemId = baseSystemId;
             this.literalSystemId = literalSystemId;
@@ -1662,7 +1637,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
 
         private char getCurrentChar() {
-            return buffer[offset];
+            return buffer_[offset_];
         }
 
         /**
@@ -1671,7 +1646,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private char getNextChar() {
             characterOffset_++;
             columnNumber_++;
-            return buffer[offset++];
+            return buffer_[offset_++];
         }
 
         private void closeQuietly() {
@@ -1687,7 +1662,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * Indicates if there are characters left.
          */
         boolean hasNext() {
-            return offset < length;
+            return offset_ < length_;
         }
 
         /**
@@ -1698,24 +1673,24 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @return count
          * @throws IOException in case of io problems
          */
-        protected int load(int loadOffset) throws IOException {
+        protected int load(final int loadOffset) throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(load: ");
             }
             // resize buffer, if needed
-            if (loadOffset == buffer.length) {
-                final int adjust = buffer.length / 4;
-                final char[] array = new char[buffer.length + adjust];
-                System.arraycopy(buffer, 0, array, 0, length);
-                buffer = array;
+            if (loadOffset == buffer_.length) {
+                final int adjust = buffer_.length / 4;
+                final char[] array = new char[buffer_.length + adjust];
+                System.arraycopy(buffer_, 0, array, 0, length_);
+                buffer_ = array;
             }
             // read a block of characters
-            final int count = stream_.read(buffer, loadOffset, buffer.length - loadOffset);
+            final int count = stream_.read(buffer_, loadOffset, buffer_.length - loadOffset);
             if (count == -1) {
                 endReached_ = true;
             }
-            length = count != -1 ? count + loadOffset : loadOffset;
-            this.offset = loadOffset;
+            length_ = count != -1 ? count + loadOffset : loadOffset;
+            this.offset_ = loadOffset;
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")load: ", " -> " + count);
             }
@@ -1727,7 +1702,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(read: ");
             }
-            if (offset == length) {
+            if (offset_ == length_) {
                 if (endReached_) {
                     return -1;
                 }
@@ -1738,7 +1713,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     return -1;
                 }
             }
-            final char c = buffer[offset++];
+            final char c = buffer_[offset_++];
             characterOffset_++;
             columnNumber_++;
 
@@ -1758,39 +1733,34 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (DEBUG_BUFFER) {
                 System.out.print(prefix);
                 System.out.print('[');
-                System.out.print(length);
+                System.out.print(length_);
                 System.out.print(' ');
-                System.out.print(offset);
-                if (length > 0) {
+                System.out.print(offset_);
+                if (length_ > 0) {
                     System.out.print(" \"");
-                    for (int i = 0; i < length; i++) {
-                        if (i == offset) {
+                    for (int i = 0; i < length_; i++) {
+                        if (i == offset_) {
                             System.out.print('^');
                         }
-                        final char c = buffer[i];
+                        final char c = buffer_[i];
                         switch (c) {
-                            case '\r': {
+                            case '\r':
                                 System.out.print("\\r");
                                 break;
-                            }
-                            case '\n': {
+                            case '\n':
                                 System.out.print("\\n");
                                 break;
-                            }
-                            case '\t': {
+                            case '\t':
                                 System.out.print("\\t");
                                 break;
-                            }
-                            case '"': {
+                            case '"':
                                 System.out.print("\\\"");
                                 break;
-                            }
-                            default: {
+                            default:
                                 System.out.print(c);
-                            }
                         }
                     }
-                    if (offset == length) {
+                    if (offset_ == length_) {
                         System.out.print('^');
                     }
                     System.out.print('"');
@@ -1803,22 +1773,25 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         private void setStream(final InputStreamReader inputStreamReader) {
             stream_ = inputStreamReader;
-            offset = length = characterOffset_ = 0;
-            lineNumber_ = columnNumber_ = 1;
-            encoding = inputStreamReader.getEncoding();
+            offset_ = 0;
+            length_ = 0;
+            characterOffset_ = 0;
+            lineNumber_ = 1;
+            columnNumber_ = 1;
+            encoding_ = inputStreamReader.getEncoding();
         }
 
         /**
          * Goes back, cancelling the effect of the previous read() call.
          */
         private void rewind() {
-            offset--;
+            offset_--;
             characterOffset_--;
             columnNumber_--;
         }
 
-        private void rewind(int i) {
-            offset -= i;
+        private void rewind(final int i) {
+            offset_ -= i;
             characterOffset_ -= i;
             columnNumber_ -= i;
         }
@@ -1828,7 +1801,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             columnNumber_ = 1;
         }
 
-        private void incLine(int nbLines) {
+        private void incLine(final int nbLines) {
             lineNumber_ += nbLines;
             columnNumber_ = 1;
         }
@@ -1844,17 +1817,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             this.characterOffset_ = characterOffset;
 
             // TODO RBRi
-            this.buffer = xmlBuffer.getChars();
-            this.offset = 0;
-            this.length = xmlBuffer.length();
+            this.buffer_ = xmlBuffer.getChars();
+            this.offset_ = 0;
+            this.length_ = xmlBuffer.length();
         }
 
         private int getColumnNumber() {
             return columnNumber_;
         }
 
-        private void restorePosition(int originalOffset, int originalColumnNumber, int originalCharacterOffset) {
-            this.offset = originalOffset;
+        private void restorePosition(final int originalOffset, final int originalColumnNumber, final int originalCharacterOffset) {
+            this.offset_ = originalOffset;
             this.columnNumber_ = originalColumnNumber;
             this.characterOffset_ = originalCharacterOffset;
         }
@@ -1872,14 +1845,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     public class ContentScanner implements Scanner {
 
         /** A qualified name. */
-        private final QName fQName = new QName();
+        private final QName qName_ = new QName();
 
         /** Attributes. */
-        private final XMLAttributesImpl fAttributes = new XMLAttributesImpl();
-
-        //
-        // Scanner methods
-        //
+        private final XMLAttributesImpl attributes_ = new XMLAttributesImpl();
 
         /** Scan. */
         @Override
@@ -1913,7 +1882,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         case STATE_MARKUP_BRACKET: {
                             final int c = fCurrentEntity.read();
                             if (c == -1) {
-                                if (fReportErrors) {
+                                if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1003", null);
                                 }
                                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
@@ -1941,7 +1910,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                     scanDoctype();
                                 }
                                 else {
-                                    if (fReportErrors) {
+                                    if (fReportErrors_) {
                                         fErrorReporter.reportError("HTML1002", null);
                                     }
                                     skipMarkup(true);
@@ -1968,13 +1937,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 if ("script".equals(enameLC)) {
                                     scanScriptContent();
                                 }
-                                else if (!fAllowSelfclosingTags && !fAllowSelfclosingIframe && "iframe".equals(enameLC)) {
+                                else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
                                     scanUntilEndTag("iframe");
                                 }
-                                else if (!fParseNoScriptContent && "noscript".equals(enameLC)) {
+                                else if (!fParseNoScriptContent_ && "noscript".equals(enameLC)) {
                                     scanUntilEndTag("noscript");
                                 }
-                                else if (!fParseNoFramesContent && "noframes".equals(enameLC)) {
+                                else if ("noframes".equals(enameLC)) {
                                     scanUntilEndTag("noframes");
                                 }
                                 else if ("noembed".equals(enameLC)) {
@@ -2006,7 +1975,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 final NamespaceContext nscontext = new NamespaceSupport();
                                 fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
                             }
-                            if (fInsertDoctype && fDocumentHandler != null) {
+                            if (fInsertDoctype_ && fDocumentHandler != null) {
                                 String root = htmlConfiguration_.htmlElements_.getElement(HTMLElements.HTML).name;
                                 root = modifyName(root, fNamesElems);
                                 final String pubid = fDoctypePubid;
@@ -2057,7 +2026,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @throws IOException on error
          */
         private void scanUntilEndTag(final String tagName) throws IOException {
-            final XMLString buffer = new XMLString();
+            final XMLString xmlString = new XMLString();
             final String end = "/" + tagName;
             final int lengthToScan = tagName.length() + 2;
 
@@ -2079,24 +2048,23 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        buffer.append('\n');
+                        xmlString.append('\n');
                     }
                 }
                 else {
-                    appendChar(buffer, c, null);
+                    appendChar(xmlString, c, null);
                 }
             }
-            if (buffer.length() > 0 && fDocumentHandler != null) {
+            if (xmlString.length() > 0 && fDocumentHandler != null) {
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(buffer, locationAugs());
+                fDocumentHandler.characters(xmlString, locationAugs());
             }
         }
 
         private void scanScriptContent() throws IOException {
-
-            final XMLString buffer = new XMLString();
+            final XMLString xmlString = new XMLString();
             boolean waitForEndComment = false;
             boolean invalidComment = false;
             while (true) {
@@ -2104,7 +2072,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 if (c == -1) {
                     break;
                 }
-                else if (c == '-' && buffer.endsWith("<!-")) {
+                else if (c == '-' && xmlString.endsWith("<!-")) {
                     waitForEndComment = endCommentAvailable();
                 }
                 else if (!waitForEndComment && c == '<') {
@@ -2116,10 +2084,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                 }
                 else if (c == '>') {
-                    if (buffer.endsWith("--")) {
+                    if (xmlString.endsWith("--")) {
                         waitForEndComment = false;
                     }
-                    if (buffer.endsWith("--!")) {
+                    if (xmlString.endsWith("--!")) {
                         invalidComment = true;
                         waitForEndComment = false;
                     }
@@ -2129,34 +2097,34 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        buffer.append('\n');
+                        xmlString.append('\n');
                     }
                 }
                 else {
-                    appendChar(buffer, c, null);
+                    appendChar(xmlString, c, null);
                 }
             }
 
-            if (fScriptStripCommentDelims) {
+            if (fScriptStripCommentDelims_) {
                 if (invalidComment) {
-                    buffer.reduceToContent("<!--", "--!>");
+                    xmlString.reduceToContent("<!--", "--!>");
                 }
                 else {
-                    buffer.reduceToContent("<!--", "-->");
+                    xmlString.reduceToContent("<!--", "-->");
                 }
             }
-            if (fScriptStripCDATADelims) {
-                buffer.reduceToContent("<![CDATA[", "]]>");
+            if (fScriptStripCDATADelims_) {
+                xmlString.reduceToContent("<![CDATA[", "]]>");
             }
 
-            if (buffer.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (xmlString.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
-                    System.out.println("characters(" + buffer + ")");
+                    System.out.println("characters(" + xmlString + ")");
                 }
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(buffer, locationAugs());
+                fDocumentHandler.characters(xmlString, locationAugs());
             }
         }
 
@@ -2169,7 +2137,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @throws IOException in case of io problems
          */
         protected String nextContent(final int len) throws IOException {
-            final int originalOffset = fCurrentEntity.offset;
+            final int originalOffset = fCurrentEntity.offset_;
             final int originalColumnNumber = fCurrentEntity.getColumnNumber();
             final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
 
@@ -2177,9 +2145,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             int nbRead;
             for (nbRead = 0; nbRead < len; ++nbRead) {
                 // read() should not clear the buffer
-                if (fCurrentEntity.offset == fCurrentEntity.length) {
-                    if (fCurrentEntity.length == fCurrentEntity.buffer.length) {
-                        fCurrentEntity.load(fCurrentEntity.buffer.length);
+                if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                    if (fCurrentEntity.length_ == fCurrentEntity.buffer_.length) {
+                        fCurrentEntity.load(fCurrentEntity.buffer_.length);
                     }
                     else { // everything was already loaded
                         break;
@@ -2208,16 +2176,16 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fStringBuffer.clear();
             while (true) {
                 final int newlines = skipNewlines();
-                if (newlines == 0 && fCurrentEntity.offset == fCurrentEntity.length) {
+                if (newlines == 0 && fCurrentEntity.offset_ == fCurrentEntity.length_) {
                     if (DEBUG_BUFFER) {
                         fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
                     }
                     break;
                 }
                 char c;
-                final int offset = fCurrentEntity.offset - newlines;
-                for (int i = offset; i < fCurrentEntity.offset; i++) {
-                    fCurrentEntity.buffer[i] = '\n';
+                final int offset = fCurrentEntity.offset_ - newlines;
+                for (int i = offset; i < fCurrentEntity.offset_; i++) {
+                    fCurrentEntity.buffer_[i] = '\n';
                 }
                 while (fCurrentEntity.hasNext()) {
                     c = fCurrentEntity.getNextChar();
@@ -2226,22 +2194,22 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break;
                     }
                 }
-                if (fCurrentEntity.offset > offset && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (fCurrentEntity.offset_ > offset && fDocumentHandler != null && fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
-                        final XMLString xmlString = new XMLString(fCurrentEntity.buffer, offset,
-                                fCurrentEntity.offset - offset);
+                        final XMLString xmlString = new XMLString(fCurrentEntity.buffer_, offset,
+                                fCurrentEntity.offset_ - offset);
                         System.out.println("characters(" + xmlString + ")");
                     }
                     fEndLineNumber = fCurrentEntity.getLineNumber();
                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                    fStringBuffer.append(fCurrentEntity.buffer, offset, fCurrentEntity.offset - offset);
+                    fStringBuffer.append(fCurrentEntity.buffer_, offset, fCurrentEntity.offset_ - offset);
                 }
                 if (DEBUG_BUFFER) {
                     fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
                 }
 
-                final boolean hasNext = fCurrentEntity.offset < fCurrentEntity.buffer.length;
+                final boolean hasNext = fCurrentEntity.offset_ < fCurrentEntity.buffer_.length;
                 final int next = hasNext ? fCurrentEntity.getCurrentChar() : -1;
 
                 if (next == '&' || next == '<' || next == -1) {
@@ -2261,7 +2229,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 fCurrentEntity.debugBufferIfNeeded("(scanCDATA: ");
             }
             fStringBuffer.clear();
-            if (fCDATASections) {
+            if (fCDATASections_) {
                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                     fEndLineNumber = fCurrentEntity.getLineNumber();
                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
@@ -2276,14 +2244,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 fStringBuffer.append("[CDATA[");
             }
             final boolean eof = scanMarkupContent(fStringBuffer, ']');
-            if (!fCDATASections) {
+            if (!fCDATASections_) {
                 fStringBuffer.append("]]");
             }
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                if (fCDATASections) {
+                if (fCDATASections_) {
                     if (DEBUG_CALLBACKS) {
                         System.out.println("characters(" + fStringBuffer + ")");
                     }
@@ -2316,16 +2284,16 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fEndLineNumber = fCurrentEntity.getLineNumber();
             fEndColumnNumber = fCurrentEntity.getColumnNumber();
             fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-            XMLString buffer = new XMLString();
-            boolean eof = scanMarkupContent(buffer, '-');
+            XMLString xmlString = new XMLString();
+            boolean eof = scanMarkupContent(xmlString, '-');
             // no --> found, comment with end only with >
             if (eof) {
-                fCurrentEntity.resetBuffer(buffer, fEndLineNumber, fEndColumnNumber, fEndCharacterOffset);
-                buffer = new XMLString(); // take a new one to avoid interactions
+                fCurrentEntity.resetBuffer(xmlString, fEndLineNumber, fEndColumnNumber, fEndCharacterOffset);
+                xmlString = new XMLString(); // take a new one to avoid interactions
                 while (true) {
                     final int c = fCurrentEntity.read();
                     if (c == -1) {
-                        if (fReportErrors) {
+                        if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
                         eof = true;
@@ -2335,12 +2303,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         fCurrentEntity.rewind();
                         final int newlines = skipNewlines();
                         for (int i = 0; i < newlines; i++) {
-                            buffer.append('\n');
+                            xmlString.append('\n');
                         }
                         continue;
                     }
                     else if (c != '>') {
-                        appendChar(buffer, c, null);
+                        appendChar(xmlString, c, null);
                         continue;
                     }
                     eof = false;
@@ -2349,12 +2317,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
-                    System.out.println("comment(" + buffer + ")");
+                    System.out.println("comment(" + xmlString + ")");
                 }
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.comment(buffer, locationAugs());
+                fDocumentHandler.comment(xmlString, locationAugs());
             }
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded(")scanComment: ");
@@ -2365,12 +2333,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
 
         // Scans markup content.
-        protected boolean scanMarkupContent(final XMLString buffer, final char cend) throws IOException {
+        protected boolean scanMarkupContent(final XMLString xmlString, final char cend) throws IOException {
             int c;
             OUTER: while (true) {
                 c = fCurrentEntity.read();
                 if (c == -1) {
-                    if (fReportErrors) {
+                    if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
                     }
                     break;
@@ -2386,13 +2354,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break;
                     }
                     if (c == -1) {
-                        if (fReportErrors) {
+                        if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
                         break OUTER;
                     }
                     if (count < 2) {
-                        buffer.append(cend);
+                        xmlString.append(cend);
                         // if (c != -1) {
                         fCurrentEntity.rewind();
                         // }
@@ -2400,13 +2368,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     if (c != '>') {
                         for (int i = 0; i < count; i++) {
-                            buffer.append(cend);
+                            xmlString.append(cend);
                         }
                         fCurrentEntity.rewind();
                         continue;
                     }
                     for (int i = 0; i < count - 2; i++) {
-                        buffer.append(cend);
+                        xmlString.append(cend);
                     }
                     break;
                 }
@@ -2414,11 +2382,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        buffer.append('\n');
+                        xmlString.append('\n');
                     }
                     continue;
                 }
-                appendChar(buffer, c, null);
+                appendChar(xmlString, c, null);
             }
             return c == -1;
         }
@@ -2428,7 +2396,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded("(scanPI: ");
             }
-            if (fReportErrors) {
+            if (fReportErrors_) {
                 fErrorReporter.reportWarning("HTML1008", null);
             }
 
@@ -2447,7 +2415,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.offset--;
+                                fCurrentEntity.offset_--;
                                 fCurrentEntity.characterOffset_--;
                             }
                         }
@@ -2483,7 +2451,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.offset--;
+                                fCurrentEntity.offset_--;
                                 fCurrentEntity.characterOffset_--;
                             }
                         }
@@ -2518,30 +2486,30 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 final int beginLineNumber = fBeginLineNumber;
                 final int beginColumnNumber = fBeginColumnNumber;
                 final int beginCharacterOffset = fBeginCharacterOffset;
-                fAttributes.removeAllAttributes();
+                attributes_.removeAllAttributes();
                 int aindex = 0;
-                while (scanPseudoAttribute(fAttributes)) {
+                while (scanPseudoAttribute(attributes_)) {
                     // if we haven't scanned a value, remove the entry as values have special
                     // signification
-                    if (fAttributes.getValue(aindex).length() == 0) {
-                        fAttributes.removeAttributeAt(aindex);
+                    if (attributes_.getValue(aindex).length() == 0) {
+                        attributes_.removeAttributeAt(aindex);
                     }
                     else {
-                        fAttributes.getName(aindex, fQName);
-                        fQName.rawname = fQName.rawname.toLowerCase(Locale.ROOT);
-                        fAttributes.setName(aindex, fQName);
+                        attributes_.getName(aindex, qName_);
+                        qName_.rawname = qName_.rawname.toLowerCase(Locale.ROOT);
+                        attributes_.setName(aindex, qName_);
                         aindex++;
                     }
                 }
                 if (fDocumentHandler != null) {
-                    final String version = fAttributes.getValue("version");
-                    final String encoding = fAttributes.getValue("encoding");
-                    final String standalone = fAttributes.getValue("standalone");
+                    final String version = attributes_.getValue("version");
+                    final String encoding = attributes_.getValue("encoding");
+                    final String standalone = attributes_.getValue("standalone");
 
                     // if the encoding is successfully changed, the stream will be processed again
                     // with the right encoding an we will come here again but without need to change
                     // the encoding
-                    final boolean xmlDeclNow = fIgnoreSpecifiedCharset || !changeEncoding(encoding);
+                    final boolean xmlDeclNow = fIgnoreSpecifiedCharset_ || !changeEncoding(encoding);
                     if (xmlDeclNow) {
                         fBeginLineNumber = beginLineNumber;
                         fBeginColumnNumber = beginColumnNumber;
@@ -2567,12 +2535,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @return ename
          * @throws IOException in case of io problems
          */
-        protected String scanStartElement(boolean[] empty) throws IOException {
+        protected String scanStartElement(final boolean[] empty) throws IOException {
             String ename = scanName(true);
             final int length = ename != null ? ename.length() : 0;
             final int c = length > 0 ? ename.charAt(0) : -1;
             if (length == 0 || !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1009", null);
                 }
                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
@@ -2586,27 +2554,27 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 return null;
             }
             ename = modifyName(ename, fNamesElems);
-            fAttributes.removeAllAttributes();
+            attributes_.removeAllAttributes();
             final int beginLineNumber = fBeginLineNumber;
             final int beginColumnNumber = fBeginColumnNumber;
             final int beginCharacterOffset = fBeginCharacterOffset;
-            while (scanAttribute(fAttributes, empty)) {
+            while (scanAttribute(attributes_, empty)) {
                 // do nothing
             }
             fBeginLineNumber = beginLineNumber;
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
             if (fByteStream != null && fElementDepth == -1) {
-                if ("META".equalsIgnoreCase(ename) && !fIgnoreSpecifiedCharset) {
+                if ("META".equalsIgnoreCase(ename) && !fIgnoreSpecifiedCharset_) {
                     if (DEBUG_CHARSET) {
                         System.out.println("+++ <META>");
                     }
-                    final String httpEquiv = getValue(fAttributes, "http-equiv");
+                    final String httpEquiv = getValue(attributes_, "http-equiv");
                     if (httpEquiv != null && "content-type".equalsIgnoreCase(httpEquiv)) {
                         if (DEBUG_CHARSET) {
                             System.out.println("+++ @content-type: \"" + httpEquiv + '"');
                         }
-                        String content = getValue(fAttributes, "content");
+                        String content = getValue(attributes_, "content");
                         if (content != null) {
                             content = removeSpaces(content);
                             final int index1 = content.toLowerCase(Locale.ROOT).indexOf("charset=");
@@ -2619,7 +2587,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         }
                     }
                     else {
-                        final String metaCharset = getValue(fAttributes, "charset");
+                        final String metaCharset = getValue(attributes_, "charset");
                         if (metaCharset != null) {
                             changeEncoding(metaCharset);
                         }
@@ -2640,18 +2608,18 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
             }
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
-                fQName.setValues(null, ename, ename, null);
+                qName_.setValues(null, ename, ename, null);
                 if (DEBUG_CALLBACKS) {
-                    System.out.println("startElement(" + fQName + ',' + fAttributes + ")");
+                    System.out.println("startElement(" + qName_ + ',' + attributes_ + ")");
                 }
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
                 if (empty[0] && !"BR".equalsIgnoreCase(ename)) {
-                    fDocumentHandler.emptyElement(fQName, fAttributes, locationAugs());
+                    fDocumentHandler.emptyElement(qName_, attributes_, locationAugs());
                 }
                 else {
-                    fDocumentHandler.startElement(fQName, fAttributes, locationAugs());
+                    fDocumentHandler.startElement(qName_, attributes_, locationAugs());
                 }
             }
             return ename;
@@ -2694,14 +2662,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 if (javaEncoding == null) {
                     javaEncoding = charset;
-                    if (fReportErrors) {
+                    if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
                     }
                 }
                 // patch: Marc Guillemot
                 if (!javaEncoding.equals(fJavaEncoding)) {
                     if (!isEncodingCompatible(javaEncoding, fJavaEncoding)) {
-                        if (fReportErrors) {
+                        if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1015", new Object[] {javaEncoding, fJavaEncoding});
                         }
                     }
@@ -2717,7 +2685,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
             }
             catch (final UnsupportedEncodingException e) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1010", new Object[] {charset});
                 }
                 // NOTE: If the encoding change doesn't work,
@@ -2749,7 +2717,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @return success
          * @throws IOException in case of io problems
          */
-        protected boolean scanPseudoAttribute(XMLAttributesImpl attributes) throws IOException {
+        protected boolean scanPseudoAttribute(final XMLAttributesImpl attributes) throws IOException {
             return scanAttribute(attributes, fSingleBoolean, '?');
         }
 
@@ -2764,14 +2732,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @return success
          * @throws IOException in case of io problems
          */
-        protected boolean scanAttribute(XMLAttributesImpl attributes, boolean[] empty, char endc) throws IOException {
+        protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty, final char endc) throws IOException {
             final boolean skippedSpaces = skipSpaces();
             fBeginLineNumber = fCurrentEntity.getLineNumber();
             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
             int c = fCurrentEntity.read();
             if (c == -1) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1007", null);
                 }
                 return false;
@@ -2781,7 +2749,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             else if (c == '<') {
                 fCurrentEntity.rewind();
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1016", null);
                 }
                 return false;
@@ -2789,7 +2757,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fCurrentEntity.rewind();
             String aname = scanName(false);
             if (aname == null) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1011", null);
                 }
 
@@ -2802,21 +2770,21 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 aname = '=' + scanName(false);
             }
-            if (!skippedSpaces && fReportErrors) {
+            if (!skippedSpaces && fReportErrors_) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
             }
             aname = modifyName(aname, fNamesAttrs);
             skipSpaces();
             c = fCurrentEntity.read();
             if (c == -1) {
-                if (fReportErrors) {
+                if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1007", null);
                 }
                 throw new EOFException();
             }
             if (c == '/' || c == '>') {
-                fQName.setValues(null, aname, aname, null);
-                attributes.addAttribute(fQName, "CDATA", "");
+                qName_.setValues(null, aname, aname, null);
+                attributes.addAttribute(qName_, "CDATA", "");
                 attributes.setSpecified(attributes.getLength() - 1, true);
                 if (c == '/') {
                     fCurrentEntity.rewind();
@@ -2828,15 +2796,15 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 skipSpaces();
                 c = fCurrentEntity.read();
                 if (c == -1) {
-                    if (fReportErrors) {
+                    if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
                     }
                     throw new EOFException();
                 }
                 // Xiaowei/Ac: Fix for <a href=/cgi-bin/myscript>...</a>
                 if (c == '>') {
-                    fQName.setValues(null, aname, aname, null);
-                    attributes.addAttribute(fQName, "CDATA", "");
+                    qName_.setValues(null, aname, aname, null);
+                    attributes.addAttribute(qName_, "CDATA", "");
                     attributes.setSpecified(attributes.getLength() - 1, true);
                     return false;
                 }
@@ -2846,7 +2814,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     while (true) {
                         c = fCurrentEntity.read();
                         if (c == -1) {
-                            if (fReportErrors) {
+                            if (fReportErrors_) {
                                 fErrorReporter.reportError("HTML1007", null);
                             }
                             throw new EOFException();
@@ -2870,9 +2838,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             appendChar(fStringBuffer, c, null);
                         }
                     }
-                    fQName.setValues(null, aname, aname, null);
+                    qName_.setValues(null, aname, aname, null);
                     final String avalue = fStringBuffer.toString();
-                    attributes.addAttribute(fQName, "CDATA", avalue);
+                    attributes.addAttribute(qName_, "CDATA", avalue);
 
                     final int lastattr = attributes.getLength() - 1;
                     attributes.setSpecified(lastattr, true);
@@ -2882,10 +2850,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 boolean isStart = true;
                 boolean prevSpace = false;
                 do {
-                    final boolean acceptSpace = !fNormalizeAttributes || (!isStart && !prevSpace);
+                    final boolean acceptSpace = !fNormalizeAttributes_ || (!isStart && !prevSpace);
                     c = fCurrentEntity.read();
                     if (c == -1) {
-                        if (fReportErrors) {
+                        if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
                         throw new EOFException();
@@ -2902,7 +2870,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     else if (c == ' ' || c == '\t') {
                         if (acceptSpace) {
-                            fStringBuffer.append(fNormalizeAttributes ? ' ' : (char) c);
+                            fStringBuffer.append(fNormalizeAttributes_ ? ' ' : (char) c);
                         }
                     }
                     else if (c == '\r' || c == '\n') {
@@ -2916,7 +2884,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             }
                         }
                         if (acceptSpace) {
-                            fStringBuffer.append(fNormalizeAttributes ? ' ' : '\n');
+                            fStringBuffer.append(fNormalizeAttributes_ ? ' ' : '\n');
                         }
                         fCurrentEntity.incLine();
                     }
@@ -2929,21 +2897,21 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 while (c != quote);
 
-                if (fNormalizeAttributes && fStringBuffer.length() > 0) {
+                if (fNormalizeAttributes_ && fStringBuffer.length() > 0) {
                     // trailing whitespace already normalized to single space
                     fStringBuffer.trimWhitespaceAtEnd();
                 }
 
-                fQName.setValues(null, aname, aname, null);
+                qName_.setValues(null, aname, aname, null);
                 final String avalue = fStringBuffer.toString();
-                attributes.addAttribute(fQName, "CDATA", avalue);
+                attributes.addAttribute(qName_, "CDATA", avalue);
 
                 final int lastattr = attributes.getLength() - 1;
                 attributes.setSpecified(lastattr, true);
             }
             else {
-                fQName.setValues(null, aname, aname, null);
-                attributes.addAttribute(fQName, "CDATA", "");
+                qName_.setValues(null, aname, aname, null);
+                attributes.addAttribute(qName_, "CDATA", "");
                 attributes.setSpecified(attributes.getLength() - 1, true);
                 fCurrentEntity.rewind();
             }
@@ -2953,35 +2921,31 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         // Scans an end element.
         protected void scanEndElement() throws IOException {
             String ename = scanName(true);
-            if (fReportErrors && ename == null) {
+            if (fReportErrors_ && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
             skipMarkup(false);
             if (ename != null) {
                 ename = modifyName(ename, fNamesElems);
                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
-                    fQName.setValues(null, ename, ename, null);
+                    qName_.setValues(null, ename, ename, null);
                     if (DEBUG_CALLBACKS) {
-                        System.out.println("endElement(" + fQName + ")");
+                        System.out.println("endElement(" + qName_ + ")");
                     }
                     fEndLineNumber = fCurrentEntity.getLineNumber();
                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                    fDocumentHandler.endElement(fQName, locationAugs());
+                    fDocumentHandler.endElement(qName_, locationAugs());
                 }
             }
         }
 
-        //
-        // Private methods
-        //
-
         /**
          * Returns true if the given element has an end-tag.
          */
-        private boolean isEnded(String ename) {
-            final String content = new String(fCurrentEntity.buffer, fCurrentEntity.offset,
-                    fCurrentEntity.length - fCurrentEntity.offset);
+        private boolean isEnded(final String ename) {
+            final String content = new String(fCurrentEntity.buffer_, fCurrentEntity.offset_,
+                    fCurrentEntity.length_ - fCurrentEntity.offset_);
             return content.toLowerCase(Locale.ROOT).contains("</" + ename.toLowerCase(Locale.ROOT) + ">");
         }
     }
@@ -3014,17 +2978,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         // temp vars
 
         /** A qualified name. */
-        private final QName fQName = new QName();
+        private final QName fQName_ = new QName();
 
         /** A string buffer. */
-        private final XMLString xmlStringBuffer = new XMLString();
+        private final XMLString xmlString_ = new XMLString();
 
         //
         // Public methods
         //
 
         // Sets the element name.
-        public Scanner setElementName(String ename) {
+        public Scanner setElementName(final String ename) {
             fElementName = ename;
             fStyle = "STYLE".equalsIgnoreCase(fElementName);
             fTextarea = "TEXTAREA".equalsIgnoreCase(fElementName);
@@ -3050,7 +3014,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
                             final int c = fCurrentEntity.read();
                             if (c == -1) {
-                                if (fReportErrors) {
+                                if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1007", null);
                                 }
                                 throw new EOFException();
@@ -3061,17 +3025,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             }
                             if (c == '&') {
                                 if (fTextarea || fTitle) {
-                                    scanEntityRef(xmlStringBuffer, true);
+                                    scanEntityRef(xmlString_, true);
                                     continue;
                                 }
-                                xmlStringBuffer.clear();
-                                xmlStringBuffer.append('&');
+                                xmlString_.clear();
+                                xmlString_.append('&');
                             }
                             else {
                                 fCurrentEntity.rewind();
-                                xmlStringBuffer.clear();
+                                xmlString_.clear();
                             }
-                            scanCharacters(xmlStringBuffer, -1);
+                            scanCharacters(xmlString_, -1);
                             break;
                         }
                         case STATE_MARKUP_BRACKET: {
@@ -3084,14 +3048,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                         if (fCurrentEntity.read() == '>') {
                                             ename = modifyName(ename, fNamesElems);
                                             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
-                                                fQName.setValues(null, ename, ename, null);
+                                                fQName_.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {
-                                                    System.out.println("endElement(" + fQName + ")");
+                                                    System.out.println("endElement(" + fQName_ + ")");
                                                 }
                                                 fEndLineNumber = fCurrentEntity.getLineNumber();
                                                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                                                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                                                fDocumentHandler.endElement(fQName, locationAugs());
+                                                fDocumentHandler.endElement(fQName_, locationAugs());
                                             }
                                             setScanner(fContentScanner);
                                             setScannerState(STATE_CONTENT);
@@ -3099,21 +3063,21 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                         }
                                         fCurrentEntity.rewind();
                                     }
-                                    xmlStringBuffer.clear();
-                                    xmlStringBuffer.append("</");
-                                    xmlStringBuffer.append(ename);
+                                    xmlString_.clear();
+                                    xmlString_.append("</");
+                                    xmlString_.append(ename);
                                 }
                                 else {
-                                    xmlStringBuffer.clear();
-                                    xmlStringBuffer.append("</");
+                                    xmlString_.clear();
+                                    xmlString_.append("</");
                                 }
                             }
                             else {
-                                xmlStringBuffer.clear();
-                                xmlStringBuffer.append('<');
-                                appendChar(xmlStringBuffer, c, null);
+                                xmlString_.clear();
+                                xmlString_.append('<');
+                                appendChar(xmlString_, c, null);
                             }
-                            scanCharacters(xmlStringBuffer, delimiter);
+                            scanCharacters(xmlString_, delimiter);
                             setScannerState(STATE_CONTENT);
                             break;
                         }
@@ -3134,10 +3098,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             while (next || complete);
             return true;
         }
-
-        //
-        // Protected methods
-        //
 
         // Scan characters.
         protected void scanCharacters(final XMLString buffer, final int delimiter) throws IOException {
@@ -3168,10 +3128,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
 
             if (fStyle) {
-                if (fStyleStripCommentDelims) {
+                if (fStyleStripCommentDelims_) {
                     buffer.reduceToContent("<!--", "-->");
                 }
-                if (fStyleStripCDATADelims) {
+                if (fStyleStripCDATADelims_) {
                     buffer.reduceToContent("<![CDATA[", "]]>");
                 }
             }
@@ -3197,15 +3157,15 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     public class PlainTextScanner implements Scanner {
 
         /** A string buffer. */
-        private final XMLString xmlStringBuffer = new XMLString();
+        private final XMLString xmlString_ = new XMLString();
 
         @Override
-        public boolean scan(boolean complete) throws IOException {
-            scanCharacters(xmlStringBuffer);
+        public boolean scan(final boolean complete) throws IOException {
+            scanCharacters(xmlString_);
             return false;
         }
 
-        protected void scanCharacters(XMLString buffer) throws IOException {
+        protected void scanCharacters(final XMLString buffer) throws IOException {
             while (true) {
                 final int c = fCurrentEntity.read();
 
@@ -3256,85 +3216,67 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    public static class PlaybackInputStream extends FilterInputStream {
-
-        //
-        // Constants
-        //
+    private static final class PlaybackInputStream extends FilterInputStream {
 
         /** Set to true to debug playback. */
         private static final boolean DEBUG_PLAYBACK = false;
 
-        //
-        // Data
-        //
-
-        // state
-
         /** Playback mode. */
-        protected boolean fPlayback = false;
+        private boolean playback_ = false;
 
         /** Buffer cleared. */
-        protected boolean fCleared = false;
+        private boolean cleared_ = false;
 
         /** Encoding detected. */
-        protected boolean fDetected = false;
+        private boolean detected_ = false;
 
         // buffer info
 
         /** Byte buffer. */
-        protected byte[] fByteBuffer = new byte[1024];
+        private byte[] byteBuffer_ = new byte[1024];
 
         /** Offset into byte buffer during playback. */
-        protected int fByteOffset = 0;
+        private int byteOffset_ = 0;
 
         /** Length of bytes read into byte buffer. */
-        protected int fByteLength = 0;
+        private int byteLength_ = 0;
 
         /** Pushback offset. */
-        public int fPushbackOffset = 0;
+        private int pushbackOffset_ = 0;
 
         /** Pushback length. */
-        public int fPushbackLength = 0;
-
-        //
-        // Constructors
-        //
+        private int pushbackLength_ = 0;
 
         // Constructor.
-        public PlaybackInputStream(InputStream in) {
+        PlaybackInputStream(final InputStream in) {
             super(in);
         }
 
-        //
-        // Public methods
-        //
-
         // Detect encoding.
-        public void detectEncoding(String[] encodings) throws IOException {
-            if (fDetected) {
+        public void detectEncoding(final String[] encodings) throws IOException {
+            if (detected_) {
                 throw new IOException("Should not detect encoding twice.");
             }
-            fDetected = true;
+            detected_ = true;
             final int b1 = read();
             if (b1 == -1) {
                 return;
             }
             final int b2 = read();
             if (b2 == -1) {
-                fPushbackLength = 1;
+                pushbackLength_ = 1;
                 return;
             }
             // UTF-8 BOM: 0xEFBBBF
             if (b1 == 0xEF && b2 == 0xBB) {
                 final int b3 = read();
                 if (b3 == 0xBF) {
-                    fPushbackOffset = 3;
+                    pushbackOffset_ = 3;
                     encodings[0] = "UTF-8";
                     encodings[1] = "UTF8";
                     return;
                 }
-                fPushbackLength = 3;
+                pushbackLength_ = 3;
             }
             // UTF-16 LE BOM: 0xFFFE
             if (b1 == 0xFF && b2 == 0xFE) {
@@ -3349,12 +3291,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 return;
             }
             // unknown
-            fPushbackLength = 2;
+            pushbackLength_ = 2;
         }
 
         /** Playback buffer contents. */
         public void playback() {
-            fPlayback = true;
+            playback_ = true;
         }
 
         /**
@@ -3365,9 +3307,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * the buffer will be cleared automatically at the end of playback.
          */
         public void clear() {
-            if (!fPlayback) {
-                fCleared = true;
-                fByteBuffer = null;
+            if (!playback_) {
+                cleared_ = true;
+                byteBuffer_ = null;
             }
         }
 
@@ -3381,17 +3323,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (DEBUG_PLAYBACK) {
                 System.out.println("(read");
             }
-            if (fPushbackOffset < fPushbackLength) {
-                return fByteBuffer[fPushbackOffset++];
+            if (pushbackOffset_ < pushbackLength_) {
+                return byteBuffer_[pushbackOffset_++];
             }
-            if (fCleared) {
+            if (cleared_) {
                 return in.read();
             }
-            if (fPlayback) {
-                final int c = fByteBuffer[fByteOffset++];
-                if (fByteOffset == fByteLength) {
-                    fCleared = true;
-                    fByteBuffer = null;
+            if (playback_) {
+                final int c = byteBuffer_[byteOffset_++];
+                if (byteOffset_ == byteLength_) {
+                    cleared_ = true;
+                    byteBuffer_ = null;
                 }
                 if (DEBUG_PLAYBACK) {
                     System.out.println(")read -> " + (char) c);
@@ -3400,12 +3342,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             final int c = in.read();
             if (c != -1) {
-                if (fByteLength == fByteBuffer.length) {
-                    final byte[] newarray = new byte[fByteLength + 1024];
-                    System.arraycopy(fByteBuffer, 0, newarray, 0, fByteLength);
-                    fByteBuffer = newarray;
+                if (byteLength_ == byteBuffer_.length) {
+                    final byte[] newarray = new byte[byteLength_ + 1024];
+                    System.arraycopy(byteBuffer_, 0, newarray, 0, byteLength_);
+                    byteBuffer_ = newarray;
                 }
-                fByteBuffer[fByteLength++] = (byte) c;
+                byteBuffer_[byteLength_++] = (byte) c;
             }
             if (DEBUG_PLAYBACK) {
                 System.out.println(")read -> " + (char) c);
@@ -3415,49 +3357,49 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         /** Read an array of bytes. */
         @Override
-        public int read(byte[] array) throws IOException {
+        public int read(final byte[] array) throws IOException {
             return read(array, 0, array.length);
         }
 
         /** Read an array of bytes. */
         @Override
-        public int read(byte[] array, int offset, int length) throws IOException {
+        public int read(final byte[] array, final int offset, int length) throws IOException {
             if (DEBUG_PLAYBACK) {
                 System.out.println(")read(" + offset + ',' + length + ')');
             }
-            if (fPushbackOffset < fPushbackLength) {
-                int count = fPushbackLength - fPushbackOffset;
+            if (pushbackOffset_ < pushbackLength_) {
+                int count = pushbackLength_ - pushbackOffset_;
                 if (count > length) {
                     count = length;
                 }
-                System.arraycopy(fByteBuffer, fPushbackOffset, array, offset, count);
-                fPushbackOffset += count;
+                System.arraycopy(byteBuffer_, pushbackOffset_, array, offset, count);
+                pushbackOffset_ += count;
                 return count;
             }
-            if (fCleared) {
+            if (cleared_) {
                 return in.read(array, offset, length);
             }
-            if (fPlayback) {
-                if (fByteOffset + length > fByteLength) {
-                    length = fByteLength - fByteOffset;
+            if (playback_) {
+                if (byteOffset_ + length > byteLength_) {
+                    length = byteLength_ - byteOffset_;
                 }
-                System.arraycopy(fByteBuffer, fByteOffset, array, offset, length);
-                fByteOffset += length;
-                if (fByteOffset == fByteLength) {
-                    fCleared = true;
-                    fByteBuffer = null;
+                System.arraycopy(byteBuffer_, byteOffset_, array, offset, length);
+                byteOffset_ += length;
+                if (byteOffset_ == byteLength_) {
+                    cleared_ = true;
+                    byteBuffer_ = null;
                 }
                 return length;
             }
             final int count = in.read(array, offset, length);
             if (count != -1) {
-                if (fByteLength + count > fByteBuffer.length) {
-                    final byte[] newarray = new byte[fByteLength + count + 512];
-                    System.arraycopy(fByteBuffer, 0, newarray, 0, fByteLength);
-                    fByteBuffer = newarray;
+                if (byteLength_ + count > byteBuffer_.length) {
+                    final byte[] newarray = new byte[byteLength_ + count + 512];
+                    System.arraycopy(byteBuffer_, 0, newarray, 0, byteLength_);
+                    byteBuffer_ = newarray;
                 }
-                System.arraycopy(array, offset, fByteBuffer, fByteLength, count);
-                fByteLength += count;
+                System.arraycopy(array, offset, byteBuffer_, byteLength_, count);
+                byteLength_ += count;
             }
             if (DEBUG_PLAYBACK) {
                 System.out.println(")read(" + offset + ',' + length + ") -> " + count);
@@ -3471,34 +3413,33 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    protected static class LocationItem implements HTMLEventInfo {
+    private static final class LocationItem implements HTMLEventInfo {
 
         /** Beginning line number. */
-        private final int fBeginLineNumber;
+        private final int beginLineNumber_;
 
         /** Beginning column number. */
-        private final int fBeginColumnNumber;
+        private final int beginColumnNumber_;
 
         /** Beginning character offset. */
-        private final int fBeginCharacterOffset;
+        private final int beginCharacterOffset_;
 
         /** Ending line number. */
-        private final int fEndLineNumber;
+        private final int endLineNumber_;
 
         /** Ending column number. */
-        private final int fEndColumnNumber;
+        private final int endColumnNumber_;
 
         /** Ending character offset. */
-        private final int fEndCharacterOffset;
+        private final int endCharacterOffset_;
 
-        public LocationItem(int beginLine, int beginColumn, int beginOffset, int endLine, int endColumn,
-                int endOffset) {
-            fBeginLineNumber = beginLine;
-            fBeginColumnNumber = beginColumn;
-            fBeginCharacterOffset = beginOffset;
-            fEndLineNumber = endLine;
-            fEndColumnNumber = endColumn;
-            fEndCharacterOffset = endOffset;
+        LocationItem(final int beginLine, final int beginColumn, final int beginOffset, final int endLine, final int endColumn, final int endOffset) {
+            beginLineNumber_ = beginLine;
+            beginColumnNumber_ = beginColumn;
+            beginCharacterOffset_ = beginOffset;
+            endLineNumber_ = endLine;
+            endColumnNumber_ = endColumn;
+            endCharacterOffset_ = endOffset;
         }
 
         /**
@@ -3506,7 +3447,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getBeginLineNumber() {
-            return fBeginLineNumber;
+            return beginLineNumber_;
         }
 
         /**
@@ -3514,7 +3455,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getBeginColumnNumber() {
-            return fBeginColumnNumber;
+            return beginColumnNumber_;
         }
 
         /**
@@ -3522,7 +3463,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getBeginCharacterOffset() {
-            return fBeginCharacterOffset;
+            return beginCharacterOffset_;
         }
 
         /**
@@ -3530,7 +3471,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getEndLineNumber() {
-            return fEndLineNumber;
+            return endLineNumber_;
         }
 
         /**
@@ -3538,7 +3479,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getEndColumnNumber() {
-            return fEndColumnNumber;
+            return endColumnNumber_;
         }
 
         /**
@@ -3546,7 +3487,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         @Override
         public int getEndCharacterOffset() {
-            return fEndCharacterOffset;
+            return endCharacterOffset_;
         }
 
         // other information
@@ -3565,17 +3506,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         @Override
         public String toString() {
             final StringBuilder str = new StringBuilder();
-            str.append(fBeginLineNumber);
+            str.append(beginLineNumber_);
             str.append(':');
-            str.append(fBeginColumnNumber);
+            str.append(beginColumnNumber_);
             str.append(':');
-            str.append(fBeginCharacterOffset);
+            str.append(beginCharacterOffset_);
             str.append(':');
-            str.append(fEndLineNumber);
+            str.append(endLineNumber_);
             str.append(':');
-            str.append(fEndColumnNumber);
+            str.append(endColumnNumber_);
             str.append(':');
-            str.append(fEndCharacterOffset);
+            str.append(endCharacterOffset_);
             return str.toString();
         }
     }
@@ -3620,8 +3561,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded("(read: ");
         }
-        if (fCurrentEntity.offset == fCurrentEntity.length) {
-            if (fCurrentEntity.load(fCurrentEntity.length) < 1) {
+        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+            if (fCurrentEntity.load(fCurrentEntity.length_) < 1) {
                 if (DEBUG_BUFFER) {
                     System.out.println(")read: -> -1");
                 }
@@ -3639,7 +3580,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     // loading further data if needed, without to reset the buffer
     private boolean endCommentAvailable() throws IOException {
         int nbCaret = 0;
-        final int originalOffset = fCurrentEntity.offset;
+        final int originalOffset = fCurrentEntity.offset_;
         final int originalColumnNumber = fCurrentEntity.getColumnNumber();
         final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
 
