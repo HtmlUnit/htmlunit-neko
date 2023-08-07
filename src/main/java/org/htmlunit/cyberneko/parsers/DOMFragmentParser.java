@@ -58,73 +58,50 @@ import org.xml.sax.SAXParseException;
  *
  * @author Andy Clark
  */
-public class DOMFragmentParser
-    implements XMLDocumentHandler {
-
-    //
-    // Constants
-    //
-
-    // features
+public class DOMFragmentParser implements XMLDocumentHandler {
 
     /** Document fragment balancing only. */
-    protected static final String DOCUMENT_FRAGMENT =
-        "http://cyberneko.org/html/features/document-fragment";
+    protected static final String DOCUMENT_FRAGMENT = "http://cyberneko.org/html/features/document-fragment";
 
     /** Recognized features. */
     protected static final String[] RECOGNIZED_FEATURES = {
         DOCUMENT_FRAGMENT,
     };
 
-    // properties
-
     /** Property identifier: error handler. */
-    protected static final String ERROR_HANDLER =
-        Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
+    protected static final String ERROR_HANDLER = Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 
     /** Recognized properties. */
     protected static final String[] RECOGNIZED_PROPERTIES = {
         ERROR_HANDLER,
     };
 
-    //
-    // Data
-    //
-
     /** Parser configuration. */
-    protected final XMLParserConfiguration fParserConfiguration;
+    private final XMLParserConfiguration parserConfiguration_;
 
     /** Document source. */
-    protected XMLDocumentSource fDocumentSource;
+    private XMLDocumentSource documentSource_;
 
     /** DOM document fragment. */
-    protected DocumentFragment fDocumentFragment;
+    private DocumentFragment documentFragment_;
 
     /** Document. */
-    protected Document fDocument;
+    private Document document_;
 
     /** Current node. */
-    protected Node fCurrentNode;
+    private Node currentNode_;
 
     /** True if within a CDATA section. */
-    protected boolean fInCDATASection;
-
-    //
-    // Constructors
-    //
+    private boolean inCDATASection_;
 
     /** Default constructor. */
     public DOMFragmentParser() {
-        fParserConfiguration = new HTMLConfiguration();
-        fParserConfiguration.addRecognizedFeatures(RECOGNIZED_FEATURES);
-        fParserConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
-        fParserConfiguration.setFeature(DOCUMENT_FRAGMENT, true);
-        fParserConfiguration.setDocumentHandler(this);
+        parserConfiguration_ = new HTMLConfiguration();
+        parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
+        parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
+        parserConfiguration_.setFeature(DOCUMENT_FRAGMENT, true);
+        parserConfiguration_.setDocumentHandler(this);
     }
-
-    //
-    // Public methods
-    //
 
     /**
      * Parses a document fragment
@@ -148,8 +125,9 @@ public class DOMFragmentParser
     public void parse(final InputSource source, final DocumentFragment fragment)
         throws SAXException, IOException {
 
-        fCurrentNode = fDocumentFragment = fragment;
-        fDocument = fDocumentFragment.getOwnerDocument();
+        currentNode_ = fragment;
+        documentFragment_ = fragment;
+        document_ = documentFragment_.getOwnerDocument();
 
         try {
             final String pubid = source.getPublicId();
@@ -163,7 +141,7 @@ public class DOMFragmentParser
             inputSource.setByteStream(stream);
             inputSource.setCharacterStream(reader);
 
-            fParserConfiguration.parse(inputSource);
+            parserConfiguration_.parse(inputSource);
         }
         catch (final XMLParseException e) {
             final Exception ex = e.getException();
@@ -192,8 +170,8 @@ public class DOMFragmentParser
      *            argument is null.
      * @see #getErrorHandler
      */
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        fParserConfiguration.setErrorHandler(new ErrorHandlerWrapper(errorHandler));
+    public void setErrorHandler(final ErrorHandler errorHandler) {
+        parserConfiguration_.setErrorHandler(new ErrorHandlerWrapper(errorHandler));
     }
 
     /**
@@ -208,10 +186,9 @@ public class DOMFragmentParser
         ErrorHandler errorHandler = null;
         try {
             final XMLErrorHandler xmlErrorHandler =
-                (XMLErrorHandler)fParserConfiguration.getProperty(ERROR_HANDLER);
-            if (xmlErrorHandler != null &&
-                xmlErrorHandler instanceof ErrorHandlerWrapper) {
-                errorHandler = ((ErrorHandlerWrapper)xmlErrorHandler).getErrorHandler();
+                (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
+            if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
+                errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
             }
         }
         catch (final XMLConfigurationException e) {
@@ -238,7 +215,7 @@ public class DOMFragmentParser
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            fParserConfiguration.setFeature(featureId, state);
+            parserConfiguration_.setFeature(featureId, state);
         }
         catch (final XMLConfigurationException e) {
             final String message = e.getMessage();
@@ -266,7 +243,7 @@ public class DOMFragmentParser
     public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            return fParserConfiguration.getFeature(featureId);
+            return parserConfiguration_.getFeature(featureId);
         }
         catch (final XMLConfigurationException e) {
             final String message = e.getMessage();
@@ -296,7 +273,7 @@ public class DOMFragmentParser
         throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            fParserConfiguration.setProperty(propertyId, value);
+            parserConfiguration_.setProperty(propertyId, value);
         }
         catch (final XMLConfigurationException e) {
             final String message = e.getMessage();
@@ -314,13 +291,13 @@ public class DOMFragmentParser
     /** Sets the document source. */
     @Override
     public void setDocumentSource(final XMLDocumentSource source) {
-        fDocumentSource = source;
+        documentSource_ = source;
     }
 
     /** Returns the document source. */
     @Override
     public XMLDocumentSource getDocumentSource() {
-        return fDocumentSource;
+        return documentSource_;
     }
 
     // since Xerces 2.2.0
@@ -328,7 +305,7 @@ public class DOMFragmentParser
     // Start document.
     @Override
     public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
-        fInCDATASection = false;
+        inCDATASection_ = false;
     }
 
     // XML declaration.
@@ -350,8 +327,8 @@ public class DOMFragmentParser
 
         final String s = data.toString();
         if (XMLChar.isValidName(s)) {
-            final ProcessingInstruction pi = fDocument.createProcessingInstruction(target, s);
-            fCurrentNode.appendChild(pi);
+            final ProcessingInstruction pi = document_.createProcessingInstruction(target, s);
+            currentNode_.appendChild(pi);
         }
     }
 
@@ -359,14 +336,14 @@ public class DOMFragmentParser
     @Override
     public void comment(final XMLString text, final Augmentations augs)
         throws XNIException {
-        final Comment comment = fDocument.createComment(text.toString());
-        fCurrentNode.appendChild(comment);
+        final Comment comment = document_.createComment(text.toString());
+        currentNode_.appendChild(comment);
     }
 
     // Start element.
     @Override
     public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-        final Element elementNode = fDocument.createElement(element.rawname);
+        final Element elementNode = document_.createElement(element.rawname);
 
         if (attrs != null) {
             final int count = attrs.getLength();
@@ -378,8 +355,8 @@ public class DOMFragmentParser
                 }
             }
         }
-        fCurrentNode.appendChild(elementNode);
-        fCurrentNode = elementNode;
+        currentNode_.appendChild(elementNode);
+        currentNode_ = elementNode;
     }
 
     // Empty element.
@@ -394,26 +371,26 @@ public class DOMFragmentParser
     public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
 
-        if (fInCDATASection) {
-            final Node node = fCurrentNode.getLastChild();
+        if (inCDATASection_) {
+            final Node node = currentNode_.getLastChild();
             if (node != null && node.getNodeType() == Node.CDATA_SECTION_NODE) {
                 final CDATASection cdata = (CDATASection) node;
                 cdata.appendData(text.toString());
             }
             else {
-                final CDATASection cdata = fDocument.createCDATASection(text.toString());
-                fCurrentNode.appendChild(cdata);
+                final CDATASection cdata = document_.createCDATASection(text.toString());
+                currentNode_.appendChild(cdata);
             }
         }
         else {
-            final Node node = fCurrentNode.getLastChild();
+            final Node node = currentNode_.getLastChild();
             if (node != null && node.getNodeType() == Node.TEXT_NODE) {
                 final Text textNode = (Text) node;
                 textNode.appendData(text.toString());
             }
             else {
-                final Text textNode = fDocument.createTextNode(text.toString());
-                fCurrentNode.appendChild(textNode);
+                final Text textNode = document_.createTextNode(text.toString());
+                currentNode_.appendChild(textNode);
             }
         }
 
@@ -430,40 +407,40 @@ public class DOMFragmentParser
     @Override
     public void startGeneralEntity(final String name, final String encoding, final Augmentations augs)
         throws XNIException {
-        final EntityReference entityRef = fDocument.createEntityReference(name);
-        fCurrentNode.appendChild(entityRef);
-        fCurrentNode = entityRef;
+        final EntityReference entityRef = document_.createEntityReference(name);
+        currentNode_.appendChild(entityRef);
+        currentNode_ = entityRef;
     }
 
     /** Text declaration. */
     @Override
-    public void textDecl(final String version, String encoding, final Augmentations augs) throws XNIException {
+    public void textDecl(final String version, final String encoding, final Augmentations augs) throws XNIException {
     }
 
     /** End general entity. */
     @Override
     public void endGeneralEntity(final String name, final Augmentations augs)
         throws XNIException {
-        fCurrentNode = fCurrentNode.getParentNode();
+        currentNode_ = currentNode_.getParentNode();
     }
 
     /** Start CDATA section. */
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {
-        fInCDATASection = true;
+        inCDATASection_ = true;
     }
 
     /** End CDATA section. */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
-        fInCDATASection = false;
+    public void endCDATA(final Augmentations augs) throws XNIException {
+        inCDATASection_ = false;
     }
 
     /** End element. */
     @Override
     public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
-        fCurrentNode = fCurrentNode.getParentNode();
+        currentNode_ = currentNode_.getParentNode();
     }
 
     /** End document. */
