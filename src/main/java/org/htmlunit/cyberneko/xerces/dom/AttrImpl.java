@@ -103,7 +103,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     protected static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
 
     /** This can either be a String or the first child node. */
-    private Object value = null;
+    private Object value_ = null;
 
     /** Attribute name. */
     protected String name;
@@ -140,9 +140,9 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     // create a real text node as child if we don't have one yet
     protected void makeChildNode() {
         if (hasStringValue()) {
-            if (value != null) {
-                final TextImpl text = (TextImpl) ownerDocument().createTextNode((String) value);
-                value = text;
+            if (value_ != null) {
+                final TextImpl text = (TextImpl) ownerDocument().createTextNode((String) value_);
+                value_ = text;
                 text.isFirstChild(true);
                 text.previousSibling = text;
                 text.ownerNode = this;
@@ -162,7 +162,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         super.setOwnerDocument(doc);
         if (!hasStringValue()) {
-            for (ChildNode child = (ChildNode) value; child != null; child = child.nextSibling) {
+            for (ChildNode child = (ChildNode) value_; child != null; child = child.nextSibling) {
                 child.setOwnerDocument(doc);
             }
         }
@@ -190,12 +190,12 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (!clone.hasStringValue()) {
 
             // Need to break the association w/ original kids
-            clone.value = null;
+            clone.value_ = null;
 
             // Cloning an Attribute always clones its children,
             // since they represent its value, no matter whether this
             // is a deep clone or not
-            for (Node child = (Node) value; child != null; child = child.getNextSibling()) {
+            for (Node child = (Node) value_; child != null; child = child.getNextSibling()) {
                 clone.appendChild(child.cloneNode(true));
             }
         }
@@ -301,21 +301,21 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        if (value != null) {
+        if (value_ != null) {
             if (hasStringValue()) {
-                oldvalue = (String) value;
+                oldvalue = (String) value_;
             }
             else {
                 // simply discard children if any
                 oldvalue = getValue();
                 // remove ref from first child to last child
-                final ChildNode firstChild = (ChildNode) value;
+                final ChildNode firstChild = (ChildNode) value_;
                 firstChild.previousSibling = null;
                 firstChild.isFirstChild(false);
                 firstChild.ownerNode = ownerDocument;
             }
             // then remove ref to current value
-            value = null;
+            value_ = null;
             needsSyncChildren(false);
 
             if (isIdAttribute() && ownerElement != null) {
@@ -330,7 +330,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         // since we need to combine the remove and insert.
         isSpecified(true);
         // directly store the string
-        value = newvalue;
+        value_ = newvalue;
         hasStringValue(true);
         changed();
 
@@ -353,14 +353,14 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        if (value == null) {
+        if (value_ == null) {
             return "";
         }
         if (hasStringValue()) {
-            return (String) value;
+            return (String) value_;
         }
 
-        final ChildNode firstChild = (ChildNode) value;
+        final ChildNode firstChild = (ChildNode) value_;
 
         String data;
         if (firstChild.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
@@ -459,7 +459,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
-        return value != null;
+        return value_ != null;
     }
 
     /**
@@ -495,7 +495,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             synchronizeChildren();
         }
         makeChildNode();
-        return (Node) value;
+        return (Node) value_;
 
     }
 
@@ -515,7 +515,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     final ChildNode lastChild() {
         // last child is stored as the previous sibling of first child
         makeChildNode();
-        return value != null ? ((ChildNode) value).previousSibling : null;
+        return value_ != null ? ((ChildNode) value_).previousSibling : null;
     }
 
     /**
@@ -659,10 +659,10 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         // Attach before and after
         // Note: firstChild.previousSibling == lastChild!!
-        final ChildNode firstChild = (ChildNode) value;
+        final ChildNode firstChild = (ChildNode) value_;
         if (firstChild == null) {
             // this our first and only child
-            value = newInternal; // firstchild = newInternal;
+            value_ = newInternal; // firstchild = newInternal;
             newInternal.isFirstChild(true);
             newInternal.previousSibling = newInternal;
         }
@@ -682,7 +682,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                     newInternal.nextSibling = firstChild;
                     newInternal.previousSibling = firstChild.previousSibling;
                     firstChild.previousSibling = newInternal;
-                    value = newInternal; // firstChild = newInternal;
+                    value_ = newInternal; // firstChild = newInternal;
                     newInternal.isFirstChild(true);
                 }
                 else {
@@ -750,12 +750,12 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         // Patch linked list around oldChild
         // Note: lastChild == firstChild.previousSibling
-        if (oldInternal == value) { // oldInternal == firstChild
+        if (oldInternal == value_) { // oldInternal == firstChild
             // removing first child
             oldInternal.isFirstChild(false);
             // next line is: firstChild = oldInternal.nextSibling
-            value = oldInternal.nextSibling;
-            final ChildNode firstChild = (ChildNode) value;
+            value_ = oldInternal.nextSibling;
+            final ChildNode firstChild = (ChildNode) value_;
             if (firstChild != null) {
                 firstChild.isFirstChild(true);
                 firstChild.previousSibling = oldInternal.previousSibling;
@@ -767,7 +767,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             prev.nextSibling = next;
             if (next == null) {
                 // removing last child
-                final ChildNode firstChild = (ChildNode) value;
+                final ChildNode firstChild = (ChildNode) value_;
                 firstChild.previousSibling = prev;
             }
             else {
@@ -855,7 +855,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         if (hasStringValue()) {
             return 1;
         }
-        ChildNode node = (ChildNode) value;
+        ChildNode node = (ChildNode) value_;
         int length = 0;
         for ( ; node != null; node = node.nextSibling) {
             length++;
@@ -875,17 +875,17 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     public Node item(final int index) {
 
         if (hasStringValue()) {
-            if (index != 0 || value == null) {
+            if (index != 0 || value_ == null) {
                 return null;
             }
             makeChildNode();
-            return (Node) value;
+            return (Node) value_;
         }
         if (index < 0) {
             return null;
         }
 
-        ChildNode node = (ChildNode) value;
+        ChildNode node = (ChildNode) value_;
         for (int i = 0; i < index && node != null; i++) {
             node = node.nextSibling;
         }

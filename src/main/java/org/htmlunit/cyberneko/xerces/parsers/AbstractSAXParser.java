@@ -385,7 +385,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         try {
             // SAX2
             if (fContentHandler != null) {
-                text.ignorableWhitespace( fContentHandler);
+                text.ignorableWhitespace(fContentHandler);
             }
         }
         catch (final SAXException e) {

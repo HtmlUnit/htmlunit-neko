@@ -1029,7 +1029,7 @@ public class HTMLTagBalancer
         }
 
         // is this text whitespace?
-        boolean whitespace = text.isWhitespace();
+        final boolean whitespace = text.isWhitespace();
         if (!fDocumentFragment) {
             // handle bare characters
             if (!fSeenRootElement) {

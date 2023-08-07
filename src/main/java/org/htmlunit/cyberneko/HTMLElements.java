@@ -630,10 +630,6 @@ public class HTMLElements {
      */
     public static class Element {
 
-        //
-        // Constants
-        //
-
         /** Inline element. */
         public static final int INLINE = 0x01;
 
@@ -648,10 +644,6 @@ public class HTMLElements {
 
         /** Special element. */
         public static final int SPECIAL = 0x10;
-
-        //
-        // Data
-        //
 
         /** The element code. */
         public final short code;
@@ -673,10 +665,6 @@ public class HTMLElements {
 
         /** List of elements this element can close. */
         public final short[] closes;
-
-        //
-        // Constructors
-        //
 
         /**
          * Constructs an element object.

@@ -107,32 +107,28 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     protected static final String ERROR_DOMAIN = "http://cyberneko.org/html";
 
     /** Document handler. */
-    private XMLDocumentHandler fDocumentHandler;
+    private XMLDocumentHandler documentHandler_;
 
     /** Error handler. */
-    private XMLErrorHandler fErrorHandler;
-
-    // state
+    private XMLErrorHandler errorHandler_;
 
     /**
      * Stream opened by parser. Therefore, must close stream manually upon
      * termination of parsing.
      */
-    private boolean fCloseStream;
+    private boolean closeStream_;
 
     /** Components. */
-    private final List<HTMLComponent> fHTMLComponents = new ArrayList<>(2);
+    private final List<HTMLComponent> htmlComponents_ = new ArrayList<>(2);
 
     /** Document scanner. */
-    private final HTMLScanner fDocumentScanner = createDocumentScanner();
+    private final HTMLScanner documentScanner_ = createDocumentScanner();
 
     /** HTML tag balancer. */
-    private final HTMLTagBalancer fTagBalancer = new HTMLTagBalancer(this);
+    private final HTMLTagBalancer tagBalancer_ = new HTMLTagBalancer(this);
 
     /** Namespace binder. */
-    private final NamespaceBinder fNamespaceBinder = new NamespaceBinder(this);
-
-    // other components
+    private final NamespaceBinder namespaceBinder_ = new NamespaceBinder(this);
 
     public final HTMLElements htmlElements_;
 
@@ -145,13 +141,9 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         htmlElements_ = htmlElements;
 
         // add components
-        addComponent(fDocumentScanner);
-        addComponent(fTagBalancer);
-        addComponent(fNamespaceBinder);
-
-        //
-        // features
-        //
+        addComponent(documentScanner_);
+        addComponent(tagBalancer_);
+        addComponent(namespaceBinder_);
 
         // recognized features
         final String[] recognizedFeatures = {
@@ -187,10 +179,6 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         return new HTMLScanner(this);
     }
 
-    //
-    // Public methods
-    //
-
     /**
      * Pushes an input source onto the current entity stack. This
      * enables the scanner to transparently scan new content (e.g.
@@ -208,7 +196,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
      * @see #evaluateInputSource(XMLInputSource)
      */
     public void pushInputSource(final XMLInputSource inputSource) {
-        fDocumentScanner.pushInputSource(inputSource);
+        documentScanner_.pushInputSource(inputSource);
     }
 
     /**
@@ -220,18 +208,15 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
      * @see #pushInputSource(XMLInputSource)
      */
     public void evaluateInputSource(final XMLInputSource inputSource) {
-        fDocumentScanner.evaluateInputSource(inputSource);
+        documentScanner_.evaluateInputSource(inputSource);
     }
-
-    // XMLParserConfiguration methods
-    //
 
     // Sets a feature.
     @Override
     public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
-        for (final HTMLComponent component : fHTMLComponents) {
+        for (final HTMLComponent component : htmlComponents_) {
             component.setFeature(featureId, state);
         }
     }
@@ -253,7 +238,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
             }
         }
 
-        for (final HTMLComponent component : fHTMLComponents) {
+        for (final HTMLComponent component : htmlComponents_) {
             component.setProperty(propertyId, value);
         }
     }
@@ -261,28 +246,28 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     // Sets the document handler.
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
-        fDocumentHandler = handler;
+        documentHandler_ = handler;
         if (handler instanceof HTMLTagBalancingListener) {
-            fTagBalancer.setTagBalancingListener((HTMLTagBalancingListener) handler);
+            tagBalancer_.setTagBalancingListener((HTMLTagBalancingListener) handler);
         }
     }
 
     /** @return the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
-        return fDocumentHandler;
+        return documentHandler_;
     }
 
     // Sets the error handler.
     @Override
     public void setErrorHandler(final XMLErrorHandler handler) {
-        fErrorHandler = handler;
+        errorHandler_ = handler;
     }
 
     /** @return the error handler. */
     @Override
     public XMLErrorHandler getErrorHandler() {
-        return fErrorHandler;
+        return errorHandler_;
     }
 
     /** Parses a document. */
@@ -291,12 +276,6 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         setInputSource(source);
         parse(true);
     }
-
-    //
-    // XMLPullParserConfiguration methods
-    //
-
-    // parsing
 
     /**
      * Sets the input source for the document to parse.
@@ -314,8 +293,8 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     public void setInputSource(final XMLInputSource inputSource)
         throws XMLConfigurationException, IOException {
         reset();
-        fCloseStream = inputSource.getByteStream() == null && inputSource.getCharacterStream() == null;
-        fDocumentScanner.setInputSource(inputSource);
+        closeStream_ = inputSource.getByteStream() == null && inputSource.getCharacterStream() == null;
+        documentScanner_.setInputSource(inputSource);
     }
 
     /**
@@ -337,7 +316,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     @Override
     public boolean parse(final boolean complete) throws XNIException, IOException {
         try {
-            final boolean more = fDocumentScanner.scanDocument(complete);
+            final boolean more = documentScanner_.scanDocument(complete);
             if (!more) {
                 cleanup();
             }
@@ -356,18 +335,14 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
      */
     @Override
     public void cleanup() {
-        fDocumentScanner.cleanup(fCloseStream);
+        documentScanner_.cleanup(closeStream_);
     }
-
-    //
-    // Protected methods
-    //
 
     // Adds a component.
     protected void addComponent(final HTMLComponent component) {
 
         // add component to list
-        fHTMLComponents.add(component);
+        htmlComponents_.add(component);
 
         // add recognized features and set default states
         final String[] features = component.getRecognizedFeatures();
@@ -398,21 +373,21 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     protected void reset() throws XMLConfigurationException {
 
         // reset components
-        for (final HTMLComponent component : fHTMLComponents) {
+        for (final HTMLComponent component : htmlComponents_) {
             component.reset(this);
         }
 
         // configure pipeline
-        XMLDocumentSource lastSource = fDocumentScanner;
+        XMLDocumentSource lastSource = documentScanner_;
         if (getFeature(NAMESPACES)) {
-            lastSource.setDocumentHandler(fNamespaceBinder);
-            fNamespaceBinder.setDocumentSource(fTagBalancer);
-            lastSource = fNamespaceBinder;
+            lastSource.setDocumentHandler(namespaceBinder_);
+            namespaceBinder_.setDocumentSource(tagBalancer_);
+            lastSource = namespaceBinder_;
         }
 
-        lastSource.setDocumentHandler(fTagBalancer);
-        fTagBalancer.setDocumentSource(fDocumentScanner);
-        lastSource = fTagBalancer;
+        lastSource.setDocumentHandler(tagBalancer_);
+        tagBalancer_.setDocumentSource(documentScanner_);
+        lastSource = tagBalancer_;
 
         final XMLDocumentFilter[] filters = (XMLDocumentFilter[]) getProperty(FILTERS);
         if (filters != null) {
@@ -422,12 +397,8 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
                 lastSource = filter;
             }
         }
-        lastSource.setDocumentHandler(fDocumentHandler);
+        lastSource.setDocumentHandler(documentHandler_);
     }
-
-    //
-    // Interfaces
-    //
 
     /**
      * Defines an error reporter for reporting HTML errors. There is no such
@@ -447,26 +418,21 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
      *
      * @author Andy Clark
      */
-    protected class ErrorReporter
-        implements HTMLErrorReporter {
+    protected class ErrorReporter implements HTMLErrorReporter {
 
         /** Error messages. */
-        private ResourceBundle fErrorMessages;
-
-        //
-        // HTMLErrorReporter methods
-        //
+        private ResourceBundle errorMessages_;
 
         /** Format message without reporting error. */
         @Override
         public String formatMessage(final String key, final Object[] args) {
             if (!getFeature(SIMPLE_ERROR_FORMAT)) {
-                if (fErrorMessages == null) {
-                    fErrorMessages =
+                if (errorMessages_ == null) {
+                    errorMessages_ =
                         ResourceBundle.getBundle("org/htmlunit/cyberneko/res/ErrorMessages");
                 }
                 try {
-                    final String value = fErrorMessages.getString(key);
+                    final String value = errorMessages_.getString(key);
                     return MessageFormat.format(value, args);
                 }
                 catch (final MissingResourceException e) {
@@ -480,8 +446,8 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         @Override
         public void reportWarning(final String key, final Object[] args)
             throws XMLParseException {
-            if (fErrorHandler != null) {
-                fErrorHandler.warning(ERROR_DOMAIN, key, createException(key, args));
+            if (errorHandler_ != null) {
+                errorHandler_.warning(ERROR_DOMAIN, key, createException(key, args));
             }
         }
 
@@ -489,19 +455,15 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         @Override
         public void reportError(final String key, final Object[] args)
             throws XMLParseException {
-            if (fErrorHandler != null) {
-                fErrorHandler.error(ERROR_DOMAIN, key, createException(key, args));
+            if (errorHandler_ != null) {
+                errorHandler_.error(ERROR_DOMAIN, key, createException(key, args));
             }
         }
-
-        //
-        // Protected methods
-        //
 
         // Creates parse exception.
         protected XMLParseException createException(final String key, final Object[] args) {
             final String message = formatMessage(key, args);
-            return new XMLParseException(fDocumentScanner, message);
+            return new XMLParseException(documentScanner_, message);
         }
 
         // Format simple message.

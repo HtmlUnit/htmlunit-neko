@@ -68,7 +68,6 @@ public class XMLString {
         builder_.append(c);
     }
 
-
     public void append(final String str) {
         builder_.append(str);
     }
@@ -95,7 +94,7 @@ public class XMLString {
             return false;
         }
 
-        return string.equals(builder_.substring(length() -l));
+        return string.equals(builder_.substring(length() - l));
     }
 
     // Reduces the buffer to the content between start and end marker when
@@ -148,14 +147,14 @@ public class XMLString {
 
     @Deprecated
     public char[] getChars() {
-        char[] chars = new char[builder_.length()];
+        final char[] chars = new char[builder_.length()];
         builder_.getChars(0, builder_.length(), chars, 0);
         return chars;
     }
 
     @Override
     public XMLString clone() {
-        XMLString clone = new XMLString();
+        final XMLString clone = new XMLString();
         clone.builder_.append(builder_);
         return clone;
     }
@@ -190,7 +189,7 @@ public class XMLString {
         clear();
     }
 
-    public void appendTo(StringBuilder stringBuilder) {
+    public void appendTo(final StringBuilder stringBuilder) {
         stringBuilder.append(builder_);
     }
 
