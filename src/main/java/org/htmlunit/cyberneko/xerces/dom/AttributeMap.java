@@ -233,7 +233,7 @@ public class AttributeMap extends NamedNodeMapImpl {
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
-        return remove((AttrImpl) item, index, true);
+        return remove((AttrImpl) item, index);
     }
 
     /**
@@ -255,11 +255,10 @@ public class AttributeMap extends NamedNodeMapImpl {
             return null;
         }
 
-        return remove((AttrImpl) nodes.get(i), i, true);
+        return remove((AttrImpl) nodes.get(i), i);
     }
 
-    private Node remove(final AttrImpl attr, final int index, final boolean addDefault) {
-
+    private Node remove(final AttrImpl attr, final int index) {
         final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         final String name = attr.getNodeName();
         if (attr.isIdAttribute()) {
@@ -268,14 +267,11 @@ public class AttributeMap extends NamedNodeMapImpl {
 
         nodes.remove(index);
 
-        // changed(true);
-
         // remove reference to owner
         attr.ownerNode = ownerDocument;
         attr.isOwned(false);
 
-        // make sure it won't be mistaken with defaults in case it's
-        // reused
+        // make sure it won't be mistaken with defaults in case it's reused
         attr.isSpecified(true);
         attr.isIdAttribute(false);
 
@@ -405,51 +401,12 @@ public class AttributeMap extends NamedNodeMapImpl {
         for (int i = nsize - 1; i >= 0; i--) {
             final AttrImpl attr = (AttrImpl) srcmap.nodes.get(i);
             if (attr.isSpecified()) {
-                srcmap.remove(attr, i, false);
+                srcmap.remove(attr, i);
                 if (attr.getLocalName() != null) {
                     setNamedItem(attr);
                 }
                 else {
                     setNamedItemNS(attr);
-                }
-            }
-        }
-    }
-
-    /**
-     * Get this AttributeMap in sync with the given "defaults" map.
-     *
-     * @param defaults The default attributes map to sync with.
-     */
-    protected void reconcileDefaults(final NamedNodeMapImpl defaults) {
-
-        // remove any existing default
-        final int nsize = (nodes != null) ? nodes.size() : 0;
-        for (int i = nsize - 1; i >= 0; --i) {
-            final AttrImpl attr = (AttrImpl) nodes.get(i);
-            if (!attr.isSpecified()) {
-                remove(attr, i, false);
-            }
-        }
-        // add the new defaults
-        if (defaults == null) {
-            return;
-        }
-        if (nodes == null || nodes.size() == 0) {
-            cloneContent(defaults);
-        }
-        else {
-            final int dsize = defaults.nodes.size();
-            for (int n = 0; n < dsize; ++n) {
-                final AttrImpl d = (AttrImpl) defaults.nodes.get(n);
-                int i = findNamePoint(d.getNodeName());
-                if (i < 0) {
-                    i = -1 - i;
-                    final NodeImpl clone = (NodeImpl) d.cloneNode(true);
-                    clone.ownerNode = ownerNode;
-                    clone.isOwned(true);
-                    clone.isSpecified(false);
-                    nodes.add(i, clone);
                 }
             }
         }

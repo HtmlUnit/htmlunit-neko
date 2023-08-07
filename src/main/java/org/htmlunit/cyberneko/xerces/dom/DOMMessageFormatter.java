@@ -31,9 +31,6 @@ public class DOMMessageFormatter {
     private static ResourceBundle domResourceBundle = null;
     private static ResourceBundle xmlResourceBundle = null;
 
-    DOMMessageFormatter() {
-    }
-
     /**
      * Formats a message with the specified arguments.
      *

@@ -89,11 +89,6 @@ public class AttrNSImpl extends AttrImpl {
         this.namespaceURI = namespaceURI;
     }
 
-    // for DeferredAttrImpl
-    protected AttrNSImpl(final CoreDocumentImpl ownerDocument, final String value) {
-        super(ownerDocument, value);
-    }
-
     // Support for DOM Level 3 renameNode method.
     // Note: This only deals with part of the pb. It is expected to be
     // called after the Attr has been detached for one thing.
