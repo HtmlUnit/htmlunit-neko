@@ -14,8 +14,6 @@
  */
 package org.htmlunit.cyberneko.xerces.util;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
@@ -57,8 +55,6 @@ public class NamespaceSupport implements NamespaceContext {
 
     /** The current context. */
     private int fCurrentContext_;
-
-    private String[] fPrefixes_ = new String[16];
 
     /** Default constructor. */
     public NamespaceSupport() {
@@ -177,61 +173,4 @@ public class NamespaceSupport implements NamespaceContext {
     public String getDeclaredPrefixAt(final int index) {
         return fNamespace_[fContext_[fCurrentContext_] + index * 2];
     } // getDeclaredPrefixAt(int):String
-
-    /**
-     * Checks whether a binding or unbinding for the given prefix exists in the
-     * context.
-     *
-     * @param prefix The prefix to look up.
-     *
-     * @return true if the given prefix exists in the context
-     */
-    public boolean containsPrefix(final String prefix) {
-
-        // find prefix in current context
-        for (int i = fNamespaceSize_; i > 0; i -= 2) {
-            if (Objects.equals(prefix, fNamespace_[i - 2])) {
-                return true;
-            }
-        }
-
-        // prefix not found
-        return false;
-    }
-
-    protected final class Prefixes implements Iterator<String> {
-        private final String[] prefixes_;
-        private int counter_ = 0;
-        private final int size_;
-
-        public Prefixes(final String[] prefixes, final int size) {
-            this.prefixes_ = prefixes;
-            this.size_ = size;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return counter_ < size_;
-        }
-
-        @Override
-        public String next() {
-            if (counter_ < size_) {
-                return fPrefixes_[counter_++];
-            }
-            throw new NoSuchElementException("Illegal access to Namespace prefixes enumeration.");
-        }
-
-        @Override
-        public String toString() {
-            final StringBuilder buf = new StringBuilder();
-            for (int i = 0; i < size_; i++) {
-                buf.append(prefixes_[i]);
-                buf.append(' ');
-            }
-
-            return buf.toString();
-        }
-
-    }
 }
