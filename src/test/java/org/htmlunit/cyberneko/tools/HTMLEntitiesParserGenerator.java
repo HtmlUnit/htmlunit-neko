@@ -35,7 +35,7 @@ public final class HTMLEntitiesParserGenerator {
     private static final class State {
         private static int IdGen_ = HTMLEntitiesParser.STATE_START;
 
-        private int id_;
+        private final int id_;
         private String switchCode_;
         private String ifCode_;
         private int branches_;

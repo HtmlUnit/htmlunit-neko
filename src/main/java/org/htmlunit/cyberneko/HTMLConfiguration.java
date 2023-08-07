@@ -134,9 +134,6 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
 
     // other components
 
-    /** Error reporter. */
-    private final HTMLErrorReporter fErrorReporter = new ErrorReporter();
-
     public final HTMLElements htmlElements_;
 
     /** Default constructor. */
@@ -183,7 +180,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         addRecognizedProperties(recognizedProperties);
         setProperty(NAMES_ELEMS, "default");
         setProperty(NAMES_ATTRS, "lower");
-        setProperty(ERROR_REPORTER, fErrorReporter);
+        setProperty(ERROR_REPORTER, new ErrorReporter());
     }
 
     protected HTMLScanner createDocumentScanner() {
