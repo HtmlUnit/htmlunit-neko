@@ -47,9 +47,6 @@ public class DOMLocatorImpl implements DOMLocator {
      */
     public int fLineNumber = -1;
 
-    /** related data node */
-    public final Node fRelatedNode = null;
-
     /**
      * The URI where the error occured, or null if there is no URI available.
      */
@@ -110,7 +107,7 @@ public class DOMLocatorImpl implements DOMLocator {
 
     @Override
     public Node getRelatedNode() {
-        return fRelatedNode;
+        return null;
     }
 
     /**

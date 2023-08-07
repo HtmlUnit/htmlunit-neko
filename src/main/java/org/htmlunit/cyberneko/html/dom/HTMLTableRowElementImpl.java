@@ -141,11 +141,9 @@ public class HTMLTableRowElementImpl extends HTMLElementImpl implements HTMLTabl
 
     @Override
     public String getCh() {
-        String    ch;
-
         // Make sure that the access key is a single character.
-        ch = getAttribute("char");
-        if (ch != null && ch.length() > 1) {
+        String ch = getAttribute("char");
+        if (ch.length() > 1) {
             ch = ch.substring(0, 1);
         }
         return ch;

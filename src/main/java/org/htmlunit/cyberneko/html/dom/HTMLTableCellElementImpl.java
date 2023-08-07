@@ -93,7 +93,7 @@ public class HTMLTableCellElementImpl extends HTMLElementImpl implements HTMLTab
     public String getCh() {
         // Make sure that the access key is a single character.
         String ch = getAttribute("char");
-        if (ch != null && ch.length() > 1) {
+        if (ch.length() > 1) {
             ch = ch.substring(0, 1);
         }
         return ch;

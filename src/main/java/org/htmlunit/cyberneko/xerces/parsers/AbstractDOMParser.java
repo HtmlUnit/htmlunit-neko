@@ -507,23 +507,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // value from the attribute list. -Ac
             if (fDocumentImpl != null) {
                 final AttrImpl attrImpl = (AttrImpl) attr;
-                String type = null;
-                boolean id = false;
 
                 // DTD
-                final boolean isDeclared = false;
                 // For DOM Level 3 TypeInfo, the type name must
                 // be null if this attribute has not been declared
                 // in the DTD.
-                if (isDeclared) {
-                    type = attributes.getType(i);
-                    id = "ID".equals(type);
-                }
-                attrImpl.setType(type);
-
-                if (id) {
-                    ((ElementImpl) el).setIdAttributeNode(attr, true);
-                }
+                attrImpl.setType(null);
 
                 attrImpl.setSpecified(specified);
                 // REVISIT: Handle entities in attribute value.

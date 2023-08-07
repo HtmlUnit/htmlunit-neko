@@ -26,11 +26,9 @@ public class HTMLAnchorElementImpl extends HTMLElementImpl implements HTMLAnchor
 
     @Override
     public String getAccessKey() {
-        String    accessKey;
-
         // Make sure that the access key is a single character.
-        accessKey = getAttribute("accesskey");
-        if (accessKey != null && accessKey.length() > 1) {
+        String accessKey = getAttribute("accesskey");
+        if (accessKey.length() > 1) {
             accessKey = accessKey.substring(0, 1);
         }
         return accessKey;

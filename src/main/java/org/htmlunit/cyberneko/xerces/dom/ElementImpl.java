@@ -238,7 +238,6 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      */
     @Override
     public String getAttribute(final String name) {
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -247,7 +246,6 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         }
         final Attr attr = (Attr) (attributes.getNamedItem(name));
         return (attr == null) ? "" : attr.getValue();
-
     }
 
     /**
