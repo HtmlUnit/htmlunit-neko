@@ -112,6 +112,7 @@ public final class HTMLEntitiesParserGenerator {
         System.out.println("    }");
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     private static int switchChar(final String[] entities, final String[] mapped, final String start, final List<State> states) {
         int c = -1;
         final State state = new State();
