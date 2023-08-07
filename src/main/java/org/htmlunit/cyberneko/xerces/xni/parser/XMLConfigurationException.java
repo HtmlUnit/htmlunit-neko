@@ -34,14 +34,10 @@ public class XMLConfigurationException extends XNIException {
     public static final short NOT_SUPPORTED = 1;
 
     /** Exception type. */
-    private final short fType;
+    private final short type_;
 
     /** Identifier. */
-    private final String fIdentifier;
-
-    //
-    // Constructors
-    //
+    private final String identifier_;
 
     /**
      * Constructs a configuration exception with the specified type and
@@ -55,8 +51,8 @@ public class XMLConfigurationException extends XNIException {
      */
     public XMLConfigurationException(final short type, final String identifier) {
         super(identifier);
-        fType = type;
-        fIdentifier = identifier;
+        type_ = type;
+        identifier_ = identifier;
     } // <init>(short,String)
 
     /**
@@ -72,13 +68,9 @@ public class XMLConfigurationException extends XNIException {
      */
     public XMLConfigurationException(final short type, final String identifier, final String message) {
         super(message);
-        fType = type;
-        fIdentifier = identifier;
-    } // <init>(short,String,String)
-
-    //
-    // Public methods
-    //
+        type_ = type;
+        identifier_ = identifier;
+    }
 
     /**
      * @return the exception type.
@@ -87,12 +79,11 @@ public class XMLConfigurationException extends XNIException {
      * @see #NOT_SUPPORTED
      */
     public short getType() {
-        return fType;
-    } // getType():short
+        return type_;
+    }
 
     /** @return the feature or property identifier. */
     public String getIdentifier() {
-        return fIdentifier;
-    } // getIdentifier():String
-
-} // class XMLConfigurationException
+        return identifier_;
+    }
+}

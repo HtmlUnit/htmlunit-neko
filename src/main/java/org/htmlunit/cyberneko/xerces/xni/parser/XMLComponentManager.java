@@ -28,6 +28,7 @@ package org.htmlunit.cyberneko.xerces.xni.parser;
  * @author Andy Clark, IBM
  */
 public interface XMLComponentManager {
+
     /**
      * @param featureId The feature identifier.
      * @return the state of a feature.

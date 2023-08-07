@@ -29,37 +29,37 @@ public class XMLParseException extends XNIException {
     private static final long serialVersionUID = -1306660736099956209L;
 
     /** Public identifier. */
-    private String fPublicId_;
+    private String publicId_;
 
     /** literal System identifier. */
-    private String fLiteralSystemId_;
+    private String literalSystemId_;
 
     /** expanded System identifier. */
-    private String fExpandedSystemId_;
+    private String expandedSystemId_;
 
     /** Base system identifier. */
-    private String fBaseSystemId_;
+    private String baseSystemId_;
 
     /** Line number. */
-    private int fLineNumber_ = -1;
+    private int lineNumber_ = -1;
 
     /** Column number. */
-    private int fColumnNumber_ = -1;
+    private int columnNumber_ = -1;
 
     /** Character offset. */
-    private int fCharacterOffset_ = -1;
+    private int characterOffset_ = -1;
 
     // Constructs a parse exception.
     public XMLParseException(final XMLLocator locator, final String message) {
         super(message);
         if (locator != null) {
-            fPublicId_ = locator.getPublicId();
-            fLiteralSystemId_ = locator.getLiteralSystemId();
-            fExpandedSystemId_ = locator.getExpandedSystemId();
-            fBaseSystemId_ = locator.getBaseSystemId();
-            fLineNumber_ = locator.getLineNumber();
-            fColumnNumber_ = locator.getColumnNumber();
-            fCharacterOffset_ = locator.getCharacterOffset();
+            publicId_ = locator.getPublicId();
+            literalSystemId_ = locator.getLiteralSystemId();
+            expandedSystemId_ = locator.getExpandedSystemId();
+            baseSystemId_ = locator.getBaseSystemId();
+            lineNumber_ = locator.getLineNumber();
+            columnNumber_ = locator.getColumnNumber();
+            characterOffset_ = locator.getCharacterOffset();
         }
     }
 
@@ -67,75 +67,75 @@ public class XMLParseException extends XNIException {
     public XMLParseException(final XMLLocator locator, final String message, final Exception exception) {
         super(message, exception);
         if (locator != null) {
-            fPublicId_ = locator.getPublicId();
-            fLiteralSystemId_ = locator.getLiteralSystemId();
-            fExpandedSystemId_ = locator.getExpandedSystemId();
-            fBaseSystemId_ = locator.getBaseSystemId();
-            fLineNumber_ = locator.getLineNumber();
-            fColumnNumber_ = locator.getColumnNumber();
-            fCharacterOffset_ = locator.getCharacterOffset();
+            publicId_ = locator.getPublicId();
+            literalSystemId_ = locator.getLiteralSystemId();
+            expandedSystemId_ = locator.getExpandedSystemId();
+            baseSystemId_ = locator.getBaseSystemId();
+            lineNumber_ = locator.getLineNumber();
+            columnNumber_ = locator.getColumnNumber();
+            characterOffset_ = locator.getCharacterOffset();
         }
     }
 
     /** @return the public identifier. */
     public String getPublicId() {
-        return fPublicId_;
+        return publicId_;
     }
 
     /** @return the expanded system identifier. */
     public String getExpandedSystemId() {
-        return fExpandedSystemId_;
+        return expandedSystemId_;
     }
 
     /** @return the literal system identifier. */
     public String getLiteralSystemId() {
-        return fLiteralSystemId_;
+        return literalSystemId_;
     }
 
     /** @return the base system identifier. */
     public String getBaseSystemId() {
-        return fBaseSystemId_;
+        return baseSystemId_;
     }
 
     /** @return the line number. */
     public int getLineNumber() {
-        return fLineNumber_;
+        return lineNumber_;
     }
 
     /** @return the row number. */
     public int getColumnNumber() {
-        return fColumnNumber_;
+        return columnNumber_;
     }
 
     /** @return the character offset. */
     public int getCharacterOffset() {
-        return fCharacterOffset_;
+        return characterOffset_;
     }
 
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        if (fPublicId_ != null) {
-            str.append(fPublicId_);
+        if (publicId_ != null) {
+            str.append(publicId_);
         }
         str.append(':');
-        if (fLiteralSystemId_ != null) {
-            str.append(fLiteralSystemId_);
+        if (literalSystemId_ != null) {
+            str.append(literalSystemId_);
         }
         str.append(':');
-        if (fExpandedSystemId_ != null) {
-            str.append(fExpandedSystemId_);
+        if (expandedSystemId_ != null) {
+            str.append(expandedSystemId_);
         }
         str.append(':');
-        if (fBaseSystemId_ != null) {
-            str.append(fBaseSystemId_);
+        if (baseSystemId_ != null) {
+            str.append(baseSystemId_);
         }
         str.append(':');
-        str.append(fLineNumber_);
+        str.append(lineNumber_);
         str.append(':');
-        str.append(fColumnNumber_);
+        str.append(columnNumber_);
         str.append(':');
-        str.append(fCharacterOffset_);
+        str.append(characterOffset_);
         str.append(':');
         String message = getMessage();
         if (message == null) {

@@ -32,22 +32,22 @@ import java.io.Reader;
 public class XMLInputSource {
 
     /** Public identifier. */
-    private String fPublicId_;
+    private String publicId_;
 
     /** System identifier. */
-    private String fSystemId_;
+    private String systemId_;
 
     /** Base system identifier. */
-    private String fBaseSystemId_;
+    private String baseSystemId_;
 
     /** Byte stream. */
-    private InputStream fByteStream_;
+    private InputStream byteStream_;
 
     /** Character stream. */
-    private Reader fCharStream_;
+    private Reader charStream_;
 
     /** Encoding. */
-    private String fEncoding_;
+    private String encoding_;
 
     /**
      * Constructs an input source from just the public and system identifiers,
@@ -64,9 +64,9 @@ public class XMLInputSource {
      *                     identifier, if possible.
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId) {
-        fPublicId_ = publicId;
-        fSystemId_ = systemId;
-        fBaseSystemId_ = baseSystemId;
+        publicId_ = publicId;
+        systemId_ = systemId;
+        baseSystemId_ = baseSystemId;
     }
 
     /**
@@ -84,11 +84,11 @@ public class XMLInputSource {
      * @param encoding     The encoding of the byte stream, if known.
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId, final InputStream byteStream, final String encoding) {
-        fPublicId_ = publicId;
-        fSystemId_ = systemId;
-        fBaseSystemId_ = baseSystemId;
-        fByteStream_ = byteStream;
-        fEncoding_ = encoding;
+        publicId_ = publicId;
+        systemId_ = systemId;
+        baseSystemId_ = baseSystemId;
+        byteStream_ = byteStream;
+        encoding_ = encoding;
     }
 
     /**
@@ -107,11 +107,11 @@ public class XMLInputSource {
      *                     reader, if known.
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId, final Reader charStream, final String encoding) {
-        fPublicId_ = publicId;
-        fSystemId_ = systemId;
-        fBaseSystemId_ = baseSystemId;
-        fCharStream_ = charStream;
-        fEncoding_ = encoding;
+        publicId_ = publicId;
+        systemId_ = systemId;
+        baseSystemId_ = baseSystemId;
+        charStream_ = charStream;
+        encoding_ = encoding;
     }
 
     //
@@ -124,12 +124,12 @@ public class XMLInputSource {
      * @param publicId The new public identifier.
      */
     public void setPublicId(final String publicId) {
-        fPublicId_ = publicId;
+        publicId_ = publicId;
     }
 
     /** @return the public identifier. */
     public String getPublicId() {
-        return fPublicId_;
+        return publicId_;
     }
 
     /**
@@ -138,12 +138,12 @@ public class XMLInputSource {
      * @param systemId The new system identifier.
      */
     public void setSystemId(final String systemId) {
-        fSystemId_ = systemId;
+        systemId_ = systemId;
     }
 
     /** @return the system identifier. */
     public String getSystemId() {
-        return fSystemId_;
+        return systemId_;
     }
 
     /**
@@ -152,12 +152,12 @@ public class XMLInputSource {
      * @param baseSystemId The new base system identifier.
      */
     public void setBaseSystemId(final String baseSystemId) {
-        fBaseSystemId_ = baseSystemId;
+        baseSystemId_ = baseSystemId;
     }
 
     /** @return the base system identifier. */
     public String getBaseSystemId() {
-        return fBaseSystemId_;
+        return baseSystemId_;
     }
 
     /**
@@ -169,12 +169,12 @@ public class XMLInputSource {
      * @param byteStream The new byte stream.
      */
     public void setByteStream(final InputStream byteStream) {
-        fByteStream_ = byteStream;
+        byteStream_ = byteStream;
     }
 
     /** @return the byte stream. */
     public InputStream getByteStream() {
-        return fByteStream_;
+        return byteStream_;
     }
 
     /**
@@ -188,12 +188,12 @@ public class XMLInputSource {
      * @see #setEncoding(String)
      */
     public void setCharacterStream(final Reader charStream) {
-        fCharStream_ = charStream;
+        charStream_ = charStream;
     }
 
     /** @return the character stream. */
     public Reader getCharacterStream() {
-        return fCharStream_;
+        return charStream_;
     }
 
     /**
@@ -202,11 +202,11 @@ public class XMLInputSource {
      * @param encoding The new encoding.
      */
     public void setEncoding(final String encoding) {
-        fEncoding_ = encoding;
+        encoding_ = encoding;
     }
 
     /** @return the encoding of the stream, or null if not known. */
     public String getEncoding() {
-        return fEncoding_;
+        return encoding_;
     }
 }

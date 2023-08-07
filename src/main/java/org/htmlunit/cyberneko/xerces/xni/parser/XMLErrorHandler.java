@@ -27,10 +27,6 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  */
 public interface XMLErrorHandler {
 
-    //
-    // XMLErrorHandler methods
-    //
-
     /**
      * Reports a warning. Warnings are non-fatal and can be safely ignored by most
      * applications.
@@ -87,5 +83,4 @@ public interface XMLErrorHandler {
      *                      document.
      */
     void fatalError(String domain, String key, XMLParseException exception) throws XNIException;
-
-} // interface XMLErrorHandler
+}
