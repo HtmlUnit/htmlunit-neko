@@ -252,7 +252,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             synchronizeData();
         }
         try {
-            final String value = new StringBuffer(this.data).insert(offset, data).toString();
+            final String value = new StringBuilder(this.data).insert(offset, data).toString();
 
             setNodeValueInternal(value, replace);
 
