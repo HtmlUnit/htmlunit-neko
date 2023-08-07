@@ -15,25 +15,7 @@
 package org.htmlunit.cyberneko.xerces.xni;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
-import org.htmlunit.cyberneko.filters.DefaultFilter;
-import org.htmlunit.cyberneko.xerces.xni.Augmentations;
-import org.htmlunit.cyberneko.xerces.xni.QName;
-import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
-import org.htmlunit.cyberneko.xerces.xni.XMLString;
-import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.Test;
 
 /**

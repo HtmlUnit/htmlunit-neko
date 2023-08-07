@@ -23,7 +23,6 @@ import org.htmlunit.cyberneko.xerces.dom.AttrImpl;
 import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
-import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.htmlunit.cyberneko.xerces.dom.EntityImpl;
 import org.htmlunit.cyberneko.xerces.dom.EntityReferenceImpl;
 import org.htmlunit.cyberneko.xerces.dom.TextImpl;
