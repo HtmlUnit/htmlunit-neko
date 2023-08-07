@@ -99,24 +99,24 @@ public class TextImpl extends CharacterDataImpl implements Text {
             synchronizeData();
         }
 
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder builder = new StringBuilder();
         if (data != null && data.length() != 0) {
-            buffer.append(data);
+            builder.append(data);
         }
 
         // concatenate text of logically adjacent text nodes to the left of this node in
         // the tree
-        getWholeTextBackward(this.getPreviousSibling(), buffer, this.getParentNode());
-        final String temp = buffer.toString();
+        getWholeTextBackward(this.getPreviousSibling(), builder, this.getParentNode());
+        final String temp = builder.toString();
 
         // clear buffer
-        buffer.setLength(0);
+        builder.setLength(0);
 
         // concatenate text of logically adjacent text nodes to the right of this node
         // in the tree
-        getWholeTextForward(this.getNextSibling(), buffer, this.getParentNode());
+        getWholeTextForward(this.getNextSibling(), builder, this.getParentNode());
 
-        return temp + buffer;
+        return temp + builder;
 
     }
 
@@ -124,13 +124,13 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * internal method taking a StringBuffer in parameter and inserts the text
      * content at the start of the buffer
      *
-     * @param buf string buffer
+     * @param builder string buffer
      * @throws DOMException on error
      */
-    protected void insertTextContent(final StringBuffer buf) throws DOMException {
+    protected void insertTextContent(final StringBuilder builder) throws DOMException {
         final String content = getNodeValue();
         if (content != null) {
-            buf.insert(0, content);
+            builder.insert(0, content);
         }
     }
 
@@ -139,12 +139,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * this node
      *
      * @param node   the node
-     * @param buffer the buffer
+     * @param builder the {@link StringBuilder}
      * @param parent the parent
      * @return true - if execution was stopped because the type of node other than
      *         EntityRef, Text, CDATA is encountered, otherwise return false
      */
-    private boolean getWholeTextForward(Node node, final StringBuffer buffer, final Node parent) {
+    private boolean getWholeTextForward(Node node, final StringBuilder builder, final Node parent) {
         // boolean to indicate whether node is a child of an entity reference
         boolean inEntRef = false;
 
@@ -155,12 +155,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
         while (node != null) {
             final short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
-                if (getWholeTextForward(node.getFirstChild(), buffer, node)) {
+                if (getWholeTextForward(node.getFirstChild(), builder, node)) {
                     return true;
                 }
             }
             else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
-                ((NodeImpl) node).getTextContent(buffer);
+                ((NodeImpl) node).getTextContent(builder);
             }
             else {
                 return true;
@@ -174,7 +174,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
         // adjacent
         // text nodes
         if (inEntRef) {
-            getWholeTextForward(parent.getNextSibling(), buffer, parent.getParentNode());
+            getWholeTextForward(parent.getNextSibling(), builder, parent.getParentNode());
             return true;
         }
 
@@ -186,12 +186,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
      * node
      *
      * @param node   the node
-     * @param buffer the buffer
+     * @param builder the {@link StringBuilder}
      * @param parent the parent
      * @return true - if execution was stopped because the type of node other than
      *         EntityRef, Text, CDATA is encountered, otherwise return false
      */
-    private boolean getWholeTextBackward(Node node, final StringBuffer buffer, final Node parent) {
+    private boolean getWholeTextBackward(Node node, final StringBuilder builder, final Node parent) {
 
         // boolean to indicate whether node is a child of an entity reference
         boolean inEntRef = false;
@@ -202,12 +202,12 @@ public class TextImpl extends CharacterDataImpl implements Text {
         while (node != null) {
             final short type = node.getNodeType();
             if (type == Node.ENTITY_REFERENCE_NODE) {
-                if (getWholeTextBackward(node.getLastChild(), buffer, node)) {
+                if (getWholeTextBackward(node.getLastChild(), builder, node)) {
                     return true;
                 }
             }
             else if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE) {
-                ((TextImpl) node).insertTextContent(buffer);
+                ((TextImpl) node).insertTextContent(builder);
             }
             else {
                 return true;
@@ -221,7 +221,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
         // adjacent
         // text nodes
         if (inEntRef) {
-            getWholeTextBackward(parent.getPreviousSibling(), buffer, parent.getParentNode());
+            getWholeTextBackward(parent.getPreviousSibling(), builder, parent.getParentNode());
             return true;
         }
 

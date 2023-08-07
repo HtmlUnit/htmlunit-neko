@@ -1009,11 +1009,11 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         return getNodeValue(); // overriden in some subclasses
     }
 
-    // internal method taking a StringBuffer in parameter
-    void getTextContent(final StringBuffer buf) throws DOMException {
+    // internal method taking a StringBuilder in parameter
+    void getTextContent(final StringBuilder builder) throws DOMException {
         final String content = getNodeValue();
         if (content != null) {
-            buf.append(content);
+            builder.append(content);
         }
     }
 

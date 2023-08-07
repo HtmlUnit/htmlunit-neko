@@ -594,9 +594,9 @@ public abstract class ParentNode extends ChildNode {
             if (next == null) {
                 return hasTextContent(child) ? child.getTextContent() : "";
             }
-            final StringBuffer buf = new StringBuffer();
-            getTextContent(buf);
-            return buf.toString();
+            final StringBuilder builder = new StringBuilder();
+            getTextContent(builder);
+            return builder.toString();
         }
         return "";
     }
@@ -605,11 +605,11 @@ public abstract class ParentNode extends ChildNode {
      * {@inheritDoc}
      */
     @Override
-    void getTextContent(final StringBuffer buf) throws DOMException {
+    void getTextContent(final StringBuilder builder) throws DOMException {
         Node child = getFirstChild();
         while (child != null) {
             if (hasTextContent(child)) {
-                ((NodeImpl) child).getTextContent(buf);
+                ((NodeImpl) child).getTextContent(builder);
             }
             child = child.getNextSibling();
         }
