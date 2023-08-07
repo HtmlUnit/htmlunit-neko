@@ -39,7 +39,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 public class XMLAttributesImpl implements XMLAttributes {
 
     /** Attribute information. */
-    private ArrayList<Attribute> fAttributes_ = new ArrayList<>();
+    private ArrayList<Attribute> fAttributes_;
 
     /** Default constructor. */
     public XMLAttributesImpl() {

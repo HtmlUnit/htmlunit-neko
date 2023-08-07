@@ -38,7 +38,7 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 public class Writer extends DefaultFilter {
 
     /** Writer. */
-    private PrintWriter out_ = new PrintWriter(System.out);
+    private final PrintWriter out_;
 
     /** String buffer for collecting text content. */
     private final XMLString stringBuffer_ = new XMLString();
@@ -87,14 +87,6 @@ public class Writer extends DefaultFilter {
      * producing HTML augmentations.
      */
     private int charactersEndCharacterOffset_ = -1;
-
-    /**
-     * Creates a writer with the specified output stream using UTF-8
-     * encoding.
-     */
-    public Writer(final OutputStream stream) {
-        this(stream, "UTF8");
-    }
 
     /** Creates a writer with the specified output stream and encoding. */
     public Writer(final OutputStream stream, final String encoding) {

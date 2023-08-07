@@ -230,7 +230,7 @@ public class URI {
      * @exception MalformedURIException if p_uriSpec violates any syntax rules
      */
     public URI(final String uriSpec) throws MalformedURIException {
-        this((URI) null, uriSpec);
+        this(null, uriSpec);
     }
 
     /**
