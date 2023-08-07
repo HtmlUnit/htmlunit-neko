@@ -100,8 +100,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         final StringBuilder builder = new StringBuilder();
-        if (data != null && data.length() != 0) {
-            builder.append(data);
+        if (data_ != null && data_.length() != 0) {
+            builder.append(data_);
         }
 
         // concatenate text of logically adjacent text nodes to the left of this node in
@@ -532,14 +532,14 @@ public class TextImpl extends CharacterDataImpl implements Text {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (offset < 0 || offset > data.length()) {
+        if (offset < 0 || offset > data_.length()) {
             throw new DOMException(DOMException.INDEX_SIZE_ERR,
                     DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null));
         }
 
         // split text into two separate nodes
-        final Text newText = getOwnerDocument().createTextNode(data.substring(offset));
-        setNodeValue(data.substring(0, offset));
+        final Text newText = getOwnerDocument().createTextNode(data_.substring(offset));
+        setNodeValue(data_.substring(0, offset));
 
         // insert new text node
         final Node parentNode = getParentNode();
@@ -553,14 +553,14 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     // NON-DOM (used by DOMParser): Reset data for the node.
     public void replaceData(final String value) {
-        data = value;
+        data_ = value;
     }
 
     // NON-DOM (used by DOMParser: Sets data to empty string.
     // Returns the value the data was set to.
     public String removeData() {
-        final String olddata = data;
-        data = "";
+        final String olddata = data_;
+        data_ = "";
         return olddata;
     }
 }

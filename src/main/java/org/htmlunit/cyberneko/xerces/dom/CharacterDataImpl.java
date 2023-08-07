@@ -32,7 +32,7 @@ import org.w3c.dom.NodeList;
  */
 public abstract class CharacterDataImpl extends ChildNode {
 
-    private String data_;
+    protected String data_;
 
     /** Empty child nodes. */
     private static final NodeList singletonNodeList = new NodeList() {
