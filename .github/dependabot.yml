@@ -4,3 +4,5 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+      # version 9.3 was the last one working with jdk8
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
