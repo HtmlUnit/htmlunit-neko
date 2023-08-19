@@ -1,4 +1,7 @@
-.classpath
-.project
-.settings/
-target/
+/target/
+/.classpath
+/.project
+/.settings/
+/.checkstyle
+/.idea/
+
