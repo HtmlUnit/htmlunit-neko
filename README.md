@@ -107,7 +107,7 @@ If you use maven please add:
         <version>3.6.0-SNAPSHOT</version>
     </dependency>
 
-You have to add the sonatype snapshot repository to your pom distributionManagement section also:
+You have to add the sonatype snapshot repository to your pom `repositories` section also:
 
     <repository>
         <id>OSS Sonatype snapshots</id>
