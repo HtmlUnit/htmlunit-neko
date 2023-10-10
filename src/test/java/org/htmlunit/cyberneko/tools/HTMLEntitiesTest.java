@@ -21,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
 import org.htmlunit.cyberneko.HTMLEntitiesParser;
@@ -172,4 +174,40 @@ public class HTMLEntitiesTest {
         final XMLInputSource inputSource = new XMLInputSource("", "", "", byteStream, "UTF-8");
         htmlConfiguration.parse(inputSource);
     }
+
+    /**
+     * Test all entities
+     * @throws IOException
+     */
+    @Test
+    public void allEntities() throws IOException {
+        final Properties props = new Properties();
+        try (InputStream stream = HTMLEntitiesParserGenerator.class.getResourceAsStream("html_entities.properties")) {
+            props.load(stream);
+        }
+
+        props.forEach((k, v) -> {
+            String key = (String) k;
+            String value = (String) v;
+
+            // we might have an empty line in it
+            if (key.isEmpty()) {
+                return;
+            }
+
+            final HTMLEntitiesParser parser = new HTMLEntitiesParser();
+
+            int i = 0;
+            String parserInput = key + " ";
+            while (parser.parse(parserInput.charAt(i))) {
+                i++;
+            }
+
+            assertEquals(value, parser.getMatch());
+            assertEquals(key.endsWith(";") ? 0 : 1, parser.getRewindCount());
+            assertEquals(key.endsWith(";"), parser.endsWithSemicolon());
+        });
+    }
 }
+
+
