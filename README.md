@@ -8,12 +8,13 @@ But since the development was discontinued around 2014, we started our own fork,
 As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j).
 This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sourceforge.htmlunit/neko-htmlunit)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
 ### Project News
-[HtmlUnit@Twitter][3]
+
+[HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
 ### Latest release Version 3.6.0 / October 3, 2023
 
@@ -225,3 +226,4 @@ Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino/NekoHtml in t
 
 [2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
 [3]: https://twitter.com/HtmlUnit "https://twitter.com/HtmlUnit"
+[4]: https://fosstodon.org/@HtmlUnit
