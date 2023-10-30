@@ -16,7 +16,7 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
-### Latest release Version 3.6.0 / October 3, 2023
+### Latest release Version 3.7.0 / October 30, 2023
 
 #### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -34,7 +34,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>3.6.0</version>
+    <version>3.7.0</version>
 </dependency>
 ```
 
@@ -43,7 +43,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.6.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.7.0'
 ```
 
 ## HowTo use
@@ -191,7 +191,7 @@ This part is intended for committer who are packaging a release.
 * Create the version on Github
     * login to Github and open project https://github.com/HtmlUnit/htmlunit-neko
     * click Releases > Draft new release
-    * fill the tag and title field with the release number (e.g. 3.6.0)
+    * fill the tag and title field with the release number (e.g. 3.7.0)
     * append 
         * neko-htmlunit-3.xx-javadoc.jar
         * neko-htmlunit-3.xx-javadoc.jar.asc
