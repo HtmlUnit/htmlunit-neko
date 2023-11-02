@@ -450,7 +450,7 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     /** getXMLParserConfiguration */
     public XMLParserConfiguration getXMLParserConfiguration() {
-        return this.parserConfiguration_;
+        return parserConfiguration_;
     }
 
     //

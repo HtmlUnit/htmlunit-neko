@@ -485,11 +485,6 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         }
     }
 
-    /** getDocumentHandler */
-    public XMLDocumentHandler getDocumentHandler_() {
-        return documentHandler_;
-    }
-
     /** getHtmlComponents_ */
     public List<HTMLComponent> getHtmlComponents_() {
         return htmlComponents_;
