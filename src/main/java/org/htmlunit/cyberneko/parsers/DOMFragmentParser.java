@@ -448,6 +448,11 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     public void endDocument(final Augmentations augs) throws XNIException {
     }
 
+    /** getXMLParserConfiguration */
+    public XMLParserConfiguration getXMLParserConfiguration() {
+        return this.parserConfiguration_;
+    }
+
     //
     // DEBUG
     //
