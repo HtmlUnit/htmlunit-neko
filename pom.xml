@@ -24,7 +24,7 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs.version>4.7.3</spotbugs.version>
+        <spotbugs.version>4.8.1</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
         <dependencycheck.version>8.4.0</dependencycheck.version>
     </properties>
