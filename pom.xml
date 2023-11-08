@@ -24,9 +24,9 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs.version>4.7.3</spotbugs.version>
+        <spotbugs.version>4.8.1</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>8.4.0</dependencycheck.version>
+        <dependencycheck.version>8.4.2</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -46,7 +46,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.2.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -136,7 +136,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
@@ -168,7 +168,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-pmd-plugin</artifactId>
-            <version>3.21.0</version>
+            <version>3.21.2</version>
             <dependencies>
                 <dependency>
                     <groupId>net.sourceforge.pmd</groupId>
