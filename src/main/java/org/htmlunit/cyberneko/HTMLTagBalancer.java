@@ -422,7 +422,7 @@ public class HTMLTagBalancer
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
             for (final QName name : fragmentContextStack_) {
-                final Element elt = htmlConfiguration_.htmlElements_.getElement(name.localpart);
+                final Element elt = htmlConfiguration_.getHtmlElements().getElement(name.localpart);
                 fElementStack.push(new Info(elt, name));
             }
 
@@ -1240,7 +1240,7 @@ public class HTMLTagBalancer
                 name = name.substring(index + 1);
             }
         }
-        return htmlConfiguration_.htmlElements_.getElement(name);
+        return htmlConfiguration_.getHtmlElements().getElement(name);
     }
 
     // Call document handler start element.

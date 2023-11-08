@@ -1949,7 +1949,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 else if ("noembed".equals(enameLC)) {
                                     scanUntilEndTag("noembed");
                                 }
-                                else if (ename != null && htmlConfiguration_.htmlElements_.getElement(enameLC).isSpecial()
+                                else if (ename != null && htmlConfiguration_.getHtmlElements().getElement(enameLC).isSpecial()
                                         && (!"title".equals(enameLC) || isEnded(enameLC))) {
                                     if ("plaintext".equals(enameLC)) {
                                         setScanner(new PlainTextScanner());
@@ -1976,7 +1976,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
                             }
                             if (fInsertDoctype_ && fDocumentHandler != null) {
-                                String root = htmlConfiguration_.htmlElements_.getElement(HTMLElements.HTML).name;
+                                String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
                                 root = modifyName(root, fNamesElems);
                                 final String pubid = fDoctypePubid;
                                 final String sysid = fDoctypeSysid;
@@ -2598,7 +2598,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fByteStream = null;
                 }
                 else {
-                    final HTMLElements.Element element = htmlConfiguration_.htmlElements_.getElement(ename);
+                    final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
                     if (element.parent != null && element.parent.length > 0) {
                         if (element.parent[0].code == HTMLElements.BODY) {
                             fByteStream.clear();

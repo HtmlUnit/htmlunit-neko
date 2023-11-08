@@ -130,7 +130,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     /** Namespace binder. */
     private final NamespaceBinder namespaceBinder_ = new NamespaceBinder(this);
 
-    public final HTMLElements htmlElements_;
+    private final HTMLElements htmlElements_;
 
     /** Default constructor. */
     public HTMLConfiguration() {
@@ -268,6 +268,31 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     @Override
     public XMLErrorHandler getErrorHandler() {
         return errorHandler_;
+    }
+
+    /** @return the HTMLElements */
+    public HTMLElements getHtmlElements() {
+        return htmlElements_;
+    }
+
+    /** @return the list of HTMLComponents */
+    public List<HTMLComponent> getHtmlComponents() {
+        return htmlComponents_;
+    }
+
+    /** @return the DocumentScanner */
+    public HTMLScanner getDocumentScanner() {
+        return documentScanner_;
+    }
+
+    /** @return the TagBalancer */
+    public HTMLTagBalancer getTagBalancer() {
+        return tagBalancer_;
+    }
+
+    /** @return the NamespaceBinder */
+    public NamespaceBinder getNamespaceBinder() {
+        return namespaceBinder_;
     }
 
     /** Parses a document. */

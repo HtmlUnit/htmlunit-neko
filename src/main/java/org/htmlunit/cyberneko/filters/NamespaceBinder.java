@@ -354,7 +354,7 @@ public class NamespaceBinder extends DefaultFilter {
                     final String prefix = alocal != rawname ? alocal : "";
                     String uri = avalue.length() > 0 ? avalue : null;
                     if (fOverrideNamespaces_ && prefix.equals(element.prefix)
-                            && htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
+                            && htmlConfiguration_.getHtmlElements().getElement(element.localpart, null) != null) {
                         uri = fNamespacesURI_;
                     }
                     fNamespaceContext_.declarePrefix(prefix, uri);
@@ -376,7 +376,7 @@ public class NamespaceBinder extends DefaultFilter {
 
         // do we need to insert namespace bindings?
         if (fInsertNamespaces_ && attrs != null
-                && htmlConfiguration_.htmlElements_.getElement(element.localpart, null) != null) {
+                && htmlConfiguration_.getHtmlElements().getElement(element.localpart, null) != null) {
             if (element.prefix == null || fNamespaceContext_.getURI(element.prefix) == null) {
                 final String xmlns = "xmlns" + ((element.prefix != null)
                              ? ":" + element.prefix : "");
