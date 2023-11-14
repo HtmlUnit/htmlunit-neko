@@ -1220,6 +1220,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             return returnEntityRefString(str, content);
         }
 
+        // we read regular entities such as &lt; here
         while (nextChar != -1 && parser.parse(nextChar)) {
             nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
@@ -1227,6 +1228,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
         }
 
+        // hopefully, we got something, otherwise we have to go
+        // the error route
         final String match = parser.getMatch();
         if (match == null) {
             final String consumed = str.toString();
