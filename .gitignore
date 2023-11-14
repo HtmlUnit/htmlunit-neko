@@ -1,4 +1,5 @@
 /target/
+/benchmark/target/
 /.classpath
 /.project
 /.settings/
