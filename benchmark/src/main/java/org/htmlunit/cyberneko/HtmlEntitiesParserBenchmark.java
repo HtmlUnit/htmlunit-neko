@@ -39,15 +39,19 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import org.htmlunit.cyberneko.util.HtmlEntities;
-import org.htmlunit.cyberneko.util.HtmlEntities.Resolver;
+import org.htmlunit.benchmark.util.FastRandom;
+import org.htmlunit.cyberneko.util.HtmlEntities1;
+import org.htmlunit.cyberneko.util.HtmlEntities1.Resolver;
 import org.htmlunit.cyberneko.util.HtmlEntities2;
+import org.htmlunit.cyberneko.util.HtmlEntities3;
+import org.htmlunit.cyberneko.util.HtmlEntities4;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -69,12 +73,18 @@ public class HtmlEntitiesParserBenchmark {
     final List<String> keys = new ArrayList<>();
     final List<String> values = new ArrayList<>();
 
+    @Param({"true", "false"})
+    boolean random;
+
+    @Param({"true", "false"})
+    boolean onlyCommon;
+
     final Random r = new Random();
 
     @Setup
     public void setup(BenchmarkParams params) throws IOException {
         final Properties props = new Properties();
-        try (InputStream stream = HtmlEntitiesParserBenchmark.class.getResourceAsStream("html_entities.properties")) {
+        try (InputStream stream = HtmlEntitiesParserBenchmark.class.getResourceAsStream(onlyCommon ? "html_entities_common.properties" : "html_entities.properties")) {
             props.load(stream);
         }
 
@@ -87,8 +97,20 @@ public class HtmlEntitiesParserBenchmark {
                 return;
             }
 
-            keys.add(key + " ");
-            values.add(value);
+            // we need randomness to avoid that the setup data looks identical to the quueried data
+            if (random)
+            {
+                FastRandom r = new FastRandom();
+                int pos = r.nextInt(keys.size() + 1);
+
+                keys.add(pos, key.endsWith(";") ? key :  key + " ");
+                values.add(pos, value);
+            }
+            else
+            {
+                keys.add(key.endsWith(";") ? key :  key + " ");
+                values.add(value);
+            }
         });
     }
 
@@ -120,11 +142,11 @@ public class HtmlEntitiesParserBenchmark {
     public String newParser1() {
         String lastHit = null;
 
-        final Resolver resolver = new HtmlEntities.Resolver();
+        final Resolver resolver = new HtmlEntities1.Resolver();
 
         for (int i = 0; i < keys.size(); i++) {
             // already got a space at the end
-            String parserInput = keys.get(i);
+            String parserInput = keys.get(i) + " ";
 
             resolver.reset();
 
@@ -177,11 +199,79 @@ public class HtmlEntitiesParserBenchmark {
         return lastHit;
     }
 
+    @Benchmark
+    public String newParser3() {
+        String lastHit = null;
+        HtmlEntities3.get();
+
+        for (int i = 0; i < keys.size(); i++) {
+            // already got a space at the end
+            String parserInput = keys.get(i);
+
+            HtmlEntities3.Level result = null;
+
+            for (int x = 0; ; x++) {
+                HtmlEntities3.Level r = HtmlEntities3.get().lookup(parserInput.charAt(x), result);
+                if (r.endNode) {
+                    result = r;
+                    break;
+                }
+                else if (result == r) {
+                    // no more stuff to match, last one was the last match
+                    break;
+                }
+                result = r;
+            }
+
+            lastHit = result.resolvedValue;
+            if (!values.get(i).equals(lastHit))
+            {
+                throw new RuntimeException("Darn");
+            }
+        }
+
+        return lastHit;
+    }
+
+    @Benchmark
+    public String newParser4() {
+        String lastHit = null;
+        HtmlEntities4.get();
+
+        for (int i = 0; i < keys.size(); i++) {
+            // already got a space at the end
+            String parserInput = keys.get(i);
+
+            HtmlEntities4.Level result = null;
+
+            for (int x = 0; ; x++) {
+                HtmlEntities4.Level r = HtmlEntities4.get().lookup(parserInput.charAt(x), result);
+                if (r.endNode) {
+                    result = r;
+                    break;
+                }
+                else if (result == r) {
+                    // no more stuff to match, last one was the last match
+                    break;
+                }
+                result = r;
+            }
+
+            lastHit = result.resolvedValue;
+            if (!values.get(i).equals(lastHit))
+            {
+                throw new RuntimeException("Darn");
+            }
+        }
+
+        return lastHit;
+    }
+
     public static void main(String[] args) throws RunnerException
     {
         Options opt = new OptionsBuilder()
                 // important, otherwise we will run all tests!
-                .include(HtmlEntitiesParserBenchmark.class.getSimpleName() + ".newParser2")
+                .include(HtmlEntitiesParserBenchmark.class.getSimpleName() + ".newParser3")
                 // 0 is needed for debugging, not for running
                 .forks(0)
                 .build();

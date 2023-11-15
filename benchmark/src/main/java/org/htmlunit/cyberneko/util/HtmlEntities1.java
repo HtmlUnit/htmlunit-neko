@@ -16,9 +16,9 @@ import org.htmlunit.cyberneko.HtmlEntitiesParserBenchmark;
  * that as state for the next iterations. The tree itself does not
  * keep an active state when being used.
  */
-public class HtmlEntities
+public class HtmlEntities1
 {
-    private final static HtmlEntities instance = new HtmlEntities();
+    private final static HtmlEntities1 instance = new HtmlEntities1();
 
     private String[] entities = new String[0];
     private ValueNode[] values = new ValueNode[0];
@@ -26,7 +26,7 @@ public class HtmlEntities
     /**
      * Constructor
      */
-    private HtmlEntities()
+    private HtmlEntities1()
     {
         // read the entities defined in the data taken from
         try (InputStream stream = HtmlEntitiesParserBenchmark.class.getResourceAsStream("html_entities.properties"))
@@ -59,7 +59,7 @@ public class HtmlEntities
      * Returns the singleton. The singleton is stateless and can safely be used in a multi-threaded
      * context. The
      */
-    public static HtmlEntities get()
+    public static HtmlEntities1 get()
     {
         return instance;
     }
@@ -236,7 +236,7 @@ public class HtmlEntities
             this.consumedCount++;
             this.data.append((char) character);
 
-            ValueNode newState = HtmlEntities.get().lookup(data.toString(), state.position);
+            ValueNode newState = HtmlEntities1.get().lookup(data.toString(), state.position);
 
             if (newState == null)
             {
