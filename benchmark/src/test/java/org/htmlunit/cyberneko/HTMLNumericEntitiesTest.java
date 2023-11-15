@@ -40,6 +40,34 @@ public class HTMLNumericEntitiesTest {
     }
 
     @Test
+    public void parseEuroUppercase() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "X80;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u20ac", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseBroken() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "A80;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u20ac", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
     public void parseLTAsDecimal() {
         final HtmlNumericEntities parser = new HtmlNumericEntities();
 
@@ -54,6 +82,21 @@ public class HTMLNumericEntitiesTest {
     }
 
     @Test
+    public void parseLTAsDecimalBroken() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "60 ";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("<", parser.getMatch());
+        assertEquals(1, parser.getRewindCount());
+    }
+
+
+    @Test
     public void parseEuroMissingSemicolon() {
         final HtmlNumericEntities parser = new HtmlNumericEntities();
 
@@ -65,6 +108,90 @@ public class HTMLNumericEntitiesTest {
 
         assertEquals("\u20ac", parser.getMatch());
         assertEquals(1, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseNullChar() {
+        final HTMLEntitiesParser_Old parser = new HTMLEntitiesParser_Old();
+
+        final String input = "x00;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\uFFFD", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseOverflowRange() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "x11FFFF;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\uFFFD", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseSurrogate() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "xD800;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\uFFFD", parser.getMatch());
+        assertEquals(6, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseNonCharacterLow() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "x80;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u20AC", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseNonCharacterHighLowercase() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "x9f;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u0178", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseNonCharacterHighUppercase() {
+        final HtmlNumericEntities parser = new HtmlNumericEntities();
+
+        final String input = "x9F;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u0178", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
     }
 }
 
