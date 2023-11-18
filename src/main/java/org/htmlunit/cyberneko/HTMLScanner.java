@@ -1190,9 +1190,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             return returnEntityRefString(str, content);
         }
         str.append((char) nextChar);
-        final HTMLEntitiesParser parser = new HTMLEntitiesParser();
 
         if ('#' == nextChar) {
+            final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+
             nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
@@ -1221,28 +1222,57 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
 
         // we read regular entities such as &lt; here
-        while (nextChar != -1 && parser.parse(nextChar)) {
+        int readCount = 1;
+        HTMLEntitiesParser.Level result = null;
+        HTMLEntitiesParser.Level lastMatchingResult = null;
+
+        while (nextChar != -1) {
+            HTMLEntitiesParser.Level intermediateResult = HTMLEntitiesParser.get().lookup(nextChar, result);
+
+            if (intermediateResult.endNode)
+            {
+                result = intermediateResult;
+                break;
+            }
+            if (intermediateResult == result)
+            {
+                // nothing changed, more characters have not done anything
+                break;
+            }
+            if (intermediateResult.isMatch)
+            {
+                lastMatchingResult = intermediateResult;
+            }
+            result = intermediateResult;
+
             nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
+                readCount++;
             }
+        }
+        // it might happen that we read &lta but need just &lt so
+        // we have to go back to the last match
+        if (!result.isMatch && lastMatchingResult != null)
+        {
+            result = lastMatchingResult;
         }
 
         // hopefully, we got something, otherwise we have to go
         // the error route
-        final String match = parser.getMatch();
-        if (match == null) {
-            final String consumed = str.toString();
-            fCurrentEntity.rewind(consumed.length() - 1);
+        if (!result.isMatch) {
+            // Entity not found, rewind and continue
+            // broken from here, aka keeping everything
+            fCurrentEntity.rewind(readCount);
             str.clear();
             str.append('&');
         }
         else {
-            fCurrentEntity.rewind(parser.getRewindCount());
+            fCurrentEntity.rewind(readCount - result.length);
 
-            if (parser.endsWithSemicolon()) {
+            if (result.endsWithSemicolon) {
                 str.clear();
-                str.append(match);
+                str.append(result.resolvedValue);
             }
             else {
                 if (fReportErrors_) {
@@ -1251,27 +1281,27 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
                 if (content) {
                     str.clear();
-                    str.append(match);
+                    str.append(result.resolvedValue);
                 }
                 else {
                     // look ahead
                     final String consumed = str.toString();
-                    final int matchLength = parser.getMatchLength() + 1;
+                    final int matchLength = result.length + 1;
                     if (matchLength < consumed.length()) {
                         nextChar = consumed.charAt(matchLength);
                         if ('=' == nextChar || '0' <= nextChar && nextChar <= '9' || 'A' <= nextChar && nextChar <= 'Z'
                                 || 'a' <= nextChar && nextChar <= 'z') {
                             str.clear();
-                            str.append(consumed.substring(0, parser.getMatchLength() + 1));
+                            str.append(consumed.substring(0, result.length + 1));
                         }
                         else {
                             str.clear();
-                            str.append(match);
+                            str.append(result.resolvedValue);
                         }
                     }
                     else {
                         str.clear();
-                        str.append(match);
+                        str.append(result.resolvedValue);
                     }
                 }
             }
