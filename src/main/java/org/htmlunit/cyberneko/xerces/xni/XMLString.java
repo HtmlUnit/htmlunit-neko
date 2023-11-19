@@ -189,6 +189,10 @@ public class XMLString {
         clear();
     }
 
+    public void delete(int start, int end) {
+        builder_.delete(start, end);
+    }
+
     public void appendTo(final StringBuilder stringBuilder) {
         stringBuilder.append(builder_);
     }
