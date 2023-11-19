@@ -17,17 +17,17 @@ package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.htmlunit.cyberneko.util.HtmlNumericEntities;
+import org.htmlunit.cyberneko.util.HTMLNumericEntitiesParser;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HTMLNumericEntities}.
  * @author René Schwietzke
  */
-public class HTMLNumericEntitiesTest {
+public class HTMLNumericEntitiesParserTest {
     @Test
     public void parseEuro() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x80;";
         int i = 0;
@@ -41,7 +41,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseEuroUppercase() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "X80;";
         int i = 0;
@@ -55,7 +55,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseBroken() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "A80;";
         int i = 0;
@@ -63,13 +63,13 @@ public class HTMLNumericEntitiesTest {
             i++;
         }
 
-        assertEquals("\u20ac", parser.getMatch());
-        assertEquals(0, parser.getRewindCount());
+        assertEquals(null, parser.getMatch());
+        assertEquals(1, parser.getRewindCount());
     }
 
     @Test
     public void parseLTAsDecimal() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "60;";
         int i = 0;
@@ -83,7 +83,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseLTAsDecimalBroken() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "60 ";
         int i = 0;
@@ -98,7 +98,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseEuroMissingSemicolon() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x80<";
         int i = 0;
@@ -126,7 +126,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseOverflowRange() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x11FFFF;";
         int i = 0;
@@ -140,7 +140,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseSurrogate() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "xD800;";
         int i = 0;
@@ -154,7 +154,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseNonCharacterLow() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x80;";
         int i = 0;
@@ -168,7 +168,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseNonCharacterHighLowercase() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x9f;";
         int i = 0;
@@ -182,7 +182,7 @@ public class HTMLNumericEntitiesTest {
 
     @Test
     public void parseNonCharacterHighUppercase() {
-        final HtmlNumericEntities parser = new HtmlNumericEntities();
+        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
 
         final String input = "x9F;";
         int i = 0;

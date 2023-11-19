@@ -27,7 +27,7 @@ package org.htmlunit.cyberneko.util;
  *
  * @author Ronald Brill
  */
-public class HtmlNumericEntities {
+public class HTMLNumericEntitiesParser {
     public static final int STATE_START = 0;
     private static final int STATE_ENDS_WITH_SEMICOLON = -2;
 
@@ -58,7 +58,7 @@ public class HtmlNumericEntities {
         return STATE_ENDS_WITH_SEMICOLON == state;
     }
 
-    public HtmlNumericEntities() {
+    public HTMLNumericEntitiesParser() {
         state = STATE_START;
     }
 

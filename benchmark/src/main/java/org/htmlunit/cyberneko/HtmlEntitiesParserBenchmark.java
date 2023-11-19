@@ -44,7 +44,7 @@ import org.htmlunit.cyberneko.util.HtmlEntities1;
 import org.htmlunit.cyberneko.util.HtmlEntities1.Resolver;
 import org.htmlunit.cyberneko.util.HtmlEntities2;
 import org.htmlunit.cyberneko.util.HtmlEntities3;
-import org.htmlunit.cyberneko.util.HtmlEntities4;
+import org.htmlunit.cyberneko.util.HTMLEntitiesParser;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -236,16 +236,16 @@ public class HtmlEntitiesParserBenchmark {
     @Benchmark
     public String newParser4() {
         String lastHit = null;
-        HtmlEntities4.get();
+        HTMLEntitiesParser.get();
 
         for (int i = 0; i < keys.size(); i++) {
             // already got a space at the end
             String parserInput = keys.get(i);
 
-            HtmlEntities4.Level result = null;
+            HTMLEntitiesParser.Level result = null;
 
             for (int x = 0; ; x++) {
-                HtmlEntities4.Level r = HtmlEntities4.get().lookup(parserInput.charAt(x), result);
+                HTMLEntitiesParser.Level r = HTMLEntitiesParser.get().lookup(parserInput.charAt(x), result);
                 if (r.endNode) {
                     result = r;
                     break;

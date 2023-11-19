@@ -1,36 +1,74 @@
+/*
+ * Copyright 2002-2009 Andy Clark, Marc Guillemot
+ * Copyright 2017-2023 Ronald Brill
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.htmlunit.cyberneko.util;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Properties;
 
-import javax.management.RuntimeErrorException;
-
-import org.htmlunit.cyberneko.HtmlEntitiesParserBenchmark;
-
 /**
- * This is a very specialized tree class for storing HTML entities
- * with the ability to look them up in stages. It is driven by an
- * char (presented as int) and results in finding a String result at
- * the end. We return the last tree node as result, so we can keep
- * that as state for the next iterations. The tree itself does not
- * keep an active state when being used.
+ * This is a very specialized class for storing HTML entities with the ability
+ * to look them up in stages. It is stateless and hence it use is memory friendly.
+ * Additionally, it is not generated code rather it sets itself up from a file at
+ * first use and stays fixed from now on.
+ *
+ * Because it is stateless, it delegates the state handling to the user in the
+ * sense of how many characters one saw and when to stop doing things.
+ *
+ *
+ *
+ * @author René Schwietzke
  */
-public class HtmlEntities4
+public class HTMLEntitiesParser
 {
-    private final static HtmlEntities4 instance = new HtmlEntities4();
+    // These are some benchmark results of a comparison old vs. new parser. onlyCommon is a test with just 7 out of
+    // 2231 entities (most common such as lt gt and more). Random means, we are not feeding the parser the data
+    // the test data in the same order, but vary them.
+    //
+    // As you can see, the new parser is up to 20x faster for common entities and 8x faster when checking all.
+    //
+    // Benchmark                               (onlyCommon)  (random)  Mode  Cnt        Score        Error  Units
+    // HtmlEntitiesParserBenchmark.newParser4          true      true  avgt    3      135.647 ±     13.500  ns/op
+    // HtmlEntitiesParserBenchmark.newParser4          true     false  avgt    3      132.972 ±      4.807  ns/op
+    // HtmlEntitiesParserBenchmark.newParser4         false      true  avgt    3   240162.769 ±   3538.438  ns/op
+    // HtmlEntitiesParserBenchmark.newParser4         false     false  avgt    3   206904.535 ±  53584.038  ns/op
+    // HtmlEntitiesParserBenchmark.oldParser           true      true  avgt    3     3320.223 ±    178.501  ns/op
+    // HtmlEntitiesParserBenchmark.oldParser           true     false  avgt    3     3097.086 ±     48.238  ns/op
+    // HtmlEntitiesParserBenchmark.oldParser          false      true  avgt    3  1584678.257 ±  65965.438  ns/op
+    // HtmlEntitiesParserBenchmark.oldParser          false     false  avgt    3  1604853.180 ±  73638.435  ns/op
 
+    /*
+     * Our single instance of the parser
+     */
+    private final static HTMLEntitiesParser instance = new HTMLEntitiesParser();
+
+    /*
+     * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size
+     * it employs a different lookup on the characters (calculation rather comparison).
+     */
     private RootLevel rootLevel = new RootLevel();
 
     /**
      * Constructor
      */
-    private HtmlEntities4()
+    private HTMLEntitiesParser()
     {
         // read the entities defined in the data taken from
-        try (InputStream stream = HtmlEntitiesParserBenchmark.class.getResourceAsStream("html_entities.properties"))
+        try (InputStream stream = HTMLEntitiesParser.class.getResourceAsStream("html_entities.properties"))
         {
             final Properties props = new Properties();
             props.load(stream);
@@ -60,32 +98,37 @@ public class HtmlEntities4
      * Returns the singleton. The singleton is stateless and can safely be used in a multi-threaded
      * context. The
      */
-    public static HtmlEntities4 get()
+    public static HTMLEntitiesParser get()
     {
         return instance;
     }
 
-    public Optional<Level> lookup(final String entityName)
+    public Level lookup(final String entityName)
     {
         Level lastResult = this.rootLevel;
+        Level lastMatchingResult = null;
+
         for (int i = 0; i < entityName.length(); i++)
         {
             Level result = lastResult.lookup(entityName.charAt(i));
 
             if (result.endNode)
             {
-                lastResult = result;
-                break;
+                return result;
             }
             if (result == lastResult)
             {
                 // nothing changed, more characters have not done anything
-                break;
+                return lastMatchingResult == null ? lastResult : lastMatchingResult;
+            }
+            if (result.isMatch)
+            {
+                lastMatchingResult = result;
             }
             lastResult = result;
         }
 
-        return Optional.of(lastResult);
+        return lastMatchingResult == null ? lastResult : lastMatchingResult;
     }
 
     public Level lookup(final int character, final Level level)
@@ -100,8 +143,7 @@ public class HtmlEntities4
         @Override
         public Level lookup(int character)
         {
-            // fastpath?
-            // just calculate the pos
+            // fastpath, just calculate the pos
             final int pos = character - offset;
             if (pos >=0 && pos < this.nextLevel.length)
             {
@@ -113,10 +155,10 @@ public class HtmlEntities4
             }
         }
 
-        /**
+        /*
          * Optimizes the layout after creation but not for every level
          */
-        public void optimize()
+        protected void optimize()
         {
             // are we final already?
             if (offset > 0)
@@ -127,7 +169,8 @@ public class HtmlEntities4
             // ok, smallest char is the start
             this.offset = this.characters[0];
 
-            // get us new level array
+            // get us new level array covering the smallest char in [0] and the largest in the last pos,
+            // we might have holes, but not too many, hence this is faster than iterating or a binary search
             final Level[] newNextLevel = new Level[this.characters[this.characters.length - 1] - offset + 1];
 
             // arrange entry according to charactercode
@@ -282,11 +325,12 @@ public class HtmlEntities4
                 }
                 if (c == character)
                 {
-                    // we are over position
+                    // we are at position
                     return this.nextLevel[i];
                 }
                 else
                 {
+                    // ok, too far and have not found it, abort with current state
                     return this;
                 }
             }
