@@ -1263,8 +1263,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         // the error route
         if (result.isMatch) {
             // in case we overran because the entity was broken or
-            // not terminate by a ;, we have to reset the char
-            // position
+            // not terminated by a ;, we have to reset the char
+            // position because we read one more char than the entity has
             fCurrentEntity.rewind(readCount - result.length);
 
             // if we have a correct character that is terminate by ;
@@ -1278,20 +1278,37 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fErrorReporter.reportWarning("HTML1004", null);
                 }
 
+                // If there is a match
+                // {
+                //      If the character reference was consumed as part of an attribute, and the last character matched is not
+                //      a U+003B SEMICOLON character (;), and the next input character is either a U+003D EQUALS SIGN character (=)
+                //      or an ASCII alphanumeric,
+                //      then, for historical reasons, flush code points consumed as a character reference and switch to the return state.
+
+                //      Otherwise:
+                //      1. If the last character matched is not a U+003B SEMICOLON character (;), then this is a missing-semicolon-after-character-reference parse error.
+                //      2. Set the temporary buffer to the empty string. Append one or two characters corresponding to the character reference name
+                //      (as given by the second column of the named character references table) to the temporary buffer.
+                //      3. Flush code points consumed as a character reference. Switch to the return state.
+                // }
+                // Otherwise
+                // {
+                //      Flush code points consumed as a character reference. Switch to the ambiguous ampersand state.
+                // }
                 if (content) {
                     str.clear();
                     str.append(result.resolvedValue);
                 }
                 else {
                     // look ahead
-                    final String consumed = str.toString();
+                    // 13.2.5.73
                     final int matchLength = result.length + 1;
-                    if (matchLength < consumed.length()) {
-                        nextChar = consumed.charAt(matchLength);
+                    if (matchLength < str.length()) {
+                        nextChar = str.charAt(matchLength);
                         if ('=' == nextChar || '0' <= nextChar && nextChar <= '9' || 'A' <= nextChar && nextChar <= 'Z'
                                 || 'a' <= nextChar && nextChar <= 'z') {
-                            str.clear();
-                            str.append(consumed.substring(0, result.length + 1));
+                            // we just shorten our temp str instead of copying stuff around
+                            str.delete(result.length + 1, str.length() + 1);
                         }
                         else {
                             str.clear();
