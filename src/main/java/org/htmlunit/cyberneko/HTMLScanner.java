@@ -1192,7 +1192,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         str.append((char) nextChar);
 
         if ('#' == nextChar) {
-            final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+            final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
             nextChar = readPreservingBufferContent();
             if (nextChar != -1) {
@@ -1223,24 +1223,24 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         // we read regular entities such as &lt; here
         int readCount = 1;
-        HTMLEntitiesParser.Level result = null;
-        HTMLEntitiesParser.Level lastMatchingResult = null;
+        // this will be our state of the parsing, we have to feed that back to the parser
+        HTMLNamedEntitiesParser.State result = null;
+        // in case of incorrect entities such as &notin where we are supposed to recognize
+        // &not, we have to keep the last matching state, so we can fall back to it
+        HTMLNamedEntitiesParser.State lastMatchingResult = null;
 
         while (nextChar != -1) {
-            HTMLEntitiesParser.Level intermediateResult = HTMLEntitiesParser.get().lookup(nextChar, result);
+            HTMLNamedEntitiesParser.State intermediateResult = HTMLNamedEntitiesParser.get().lookup(nextChar, result);
 
-            if (intermediateResult.endNode)
-            {
+            if (intermediateResult.endNode) {
                 result = intermediateResult;
                 break;
             }
-            if (intermediateResult == result)
-            {
+            if (intermediateResult == result) {
                 // nothing changed, more characters have not done anything
                 break;
             }
-            if (intermediateResult.isMatch)
-            {
+            if (intermediateResult.isMatch) {
                 lastMatchingResult = intermediateResult;
             }
             result = intermediateResult;
@@ -1251,6 +1251,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 readCount++;
             }
         }
+
         // it might happen that we read &lta but need just &lt so
         // we have to go back to the last match
         if (!result.isMatch && lastMatchingResult != null)
@@ -1260,16 +1261,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         // hopefully, we got something, otherwise we have to go
         // the error route
-        if (!result.isMatch) {
-            // Entity not found, rewind and continue
-            // broken from here, aka keeping everything
-            fCurrentEntity.rewind(readCount);
-            str.clear();
-            str.append('&');
-        }
-        else {
+        if (result.isMatch) {
+            // in case we overran because the entity was broken or
+            // not terminate by a ;, we have to reset the char
+            // position
             fCurrentEntity.rewind(readCount - result.length);
 
+            // if we have a correct character that is terminate by ;
+            // we can keep things simple
             if (result.endsWithSemicolon) {
                 str.clear();
                 str.append(result.resolvedValue);
@@ -1306,6 +1305,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
             }
         }
+        else {
+            // Entity not found, rewind and continue
+            // broken from here, aka keeping everything
+            fCurrentEntity.rewind(readCount);
+            str.clear();
+            str.append('&');
+        }
+
         return returnEntityRefString(str, content);
     }
 

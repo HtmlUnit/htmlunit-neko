@@ -1,6 +1,7 @@
 /*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
  * Copyright 2017-2023 Ronald Brill
+ * Copyright 2017-2023 René Schwietzke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,25 +22,28 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * This is a very specialized class for storing HTML entities with the ability
- * to look them up in stages. It is stateless and hence it use is memory friendly.
+ * This is a very specialized class for recognizing HTML named entities with the ability
+ * to look them up in stages. It is stateless and hence memory friendly.
  * Additionally, it is not generated code rather it sets itself up from a file at
- * first use and stays fixed from now on.
+ * first use and stays fixed from now on. Technically, it is not a parser anymore,
+ * because it does not have a state that matches the HTML standard:
+ * <a href="https://html.spec.whatwg.org/multipage/parsing.html#character-reference-state">
+ * 12.2.5.72 Character reference state</a>
  *
- * Because it is stateless, it delegates the state handling to the user in the
+ * <p>Because it is stateless, it delegates the state handling to the user in the
  * sense of how many characters one saw and when to stop doing things.
- *
- *
  *
  * @author René Schwietzke
  */
-public class HTMLEntitiesParser
+public class HTMLNamedEntitiesParser
 {
-    // These are some benchmark results of a comparison old vs. new parser. onlyCommon is a test with just 7 out of
+    // These are some benchmark results of a comparison old vs. new parser. "onlyCommon" is a test with just 7 out of
     // 2231 entities (most common such as lt gt and more). Random means, we are not feeding the parser the data
-    // the test data in the same order, but vary them.
+    // the test data in the same order all the time, but vary it.
     //
     // As you can see, the new parser is up to 20x faster for common entities and 8x faster when checking all.
+    //
+    // T14s Gen 1 AMD, 32 GB memory
     //
     // Benchmark                               (onlyCommon)  (random)  Mode  Cnt        Score        Error  Units
     // HtmlEntitiesParserBenchmark.newParser4          true      true  avgt    3      135.647 ±     13.500  ns/op
@@ -54,21 +58,21 @@ public class HTMLEntitiesParser
     /*
      * Our single instance of the parser
      */
-    private final static HTMLEntitiesParser instance = new HTMLEntitiesParser();
+    private final static HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
 
     /*
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size
      * it employs a different lookup on the characters (calculation rather comparison).
      */
-    private RootLevel rootLevel = new RootLevel();
+    private RootState rootLevel = new RootState();
 
     /**
      * Constructor
      */
-    private HTMLEntitiesParser()
+    private HTMLNamedEntitiesParser()
     {
         // read the entities defined in the data taken from
-        try (InputStream stream = HTMLEntitiesParser.class.getResourceAsStream("html_entities.properties"))
+        try (InputStream stream = HTMLNamedEntitiesParser.class.getResourceAsStream("html_entities.properties"))
         {
             final Properties props = new Properties();
             props.load(stream);
@@ -98,19 +102,19 @@ public class HTMLEntitiesParser
      * Returns the singleton. The singleton is stateless and can safely be used in a multi-threaded
      * context. The
      */
-    public static HTMLEntitiesParser get()
+    public static HTMLNamedEntitiesParser get()
     {
         return instance;
     }
 
-    public Level lookup(final String entityName)
+    public State lookup(final String entityName)
     {
-        Level lastResult = this.rootLevel;
-        Level lastMatchingResult = null;
+        State lastResult = this.rootLevel;
+        State lastMatchingResult = null;
 
         for (int i = 0; i < entityName.length(); i++)
         {
-            Level result = lastResult.lookup(entityName.charAt(i));
+            State result = lastResult.lookup(entityName.charAt(i));
 
             if (result.endNode)
             {
@@ -131,17 +135,17 @@ public class HTMLEntitiesParser
         return lastMatchingResult == null ? lastResult : lastMatchingResult;
     }
 
-    public Level lookup(final int character, final Level level)
+    public State lookup(final int character, final State level)
     {
         return level != null ? level.lookup(character) : rootLevel.lookup(character);
     }
 
-    public static class RootLevel extends Level
+    public static class RootState extends State
     {
         private int offset = 0;
 
         @Override
-        public Level lookup(int character)
+        public State lookup(int character)
         {
             // fastpath, just calculate the pos
             final int pos = character - offset;
@@ -171,13 +175,13 @@ public class HTMLEntitiesParser
 
             // get us new level array covering the smallest char in [0] and the largest in the last pos,
             // we might have holes, but not too many, hence this is faster than iterating or a binary search
-            final Level[] newNextLevel = new Level[this.characters[this.characters.length - 1] - offset + 1];
+            final State[] newNextLevel = new State[this.characters[this.characters.length - 1] - offset + 1];
 
             // arrange entry according to charactercode
             for (int i = 0; i < this.characters.length; i++)
             {
                 final int c = this.characters[i];
-                final Level level = this.nextLevel[i];
+                final State level = this.nextLevel[i];
 
                 newNextLevel[c - offset] = level;
             }
@@ -190,11 +194,11 @@ public class HTMLEntitiesParser
 
     }
 
-    public static class Level
+    public static class State
     {
         private final int depth;
         int[] characters = new int[0];
-        Level[] nextLevel = new Level[0];
+        State[] nextLevel = new State[0];
 
         public final String entityOrFragment;
         public String resolvedValue;
@@ -203,7 +207,7 @@ public class HTMLEntitiesParser
         public boolean isMatch;
         public boolean endNode;
 
-        public Level()
+        public State()
         {
             this.entityOrFragment = "";
             this.length = 0;
@@ -214,7 +218,7 @@ public class HTMLEntitiesParser
             this.endNode = false;
         }
 
-        public Level(final int depth, final String entityFragment, final String resolvedValue)
+        public State(final int depth, final String entityFragment, final String resolvedValue)
         {
             if (depth == entityFragment.length())
             {
@@ -295,7 +299,7 @@ public class HTMLEntitiesParser
                 {
                     // we insert at the end, so no move needed
                 }
-                final Level newLevel = new Level(this.depth + 1, entity, resolvedValue);
+                final State newLevel = new State(this.depth + 1, entity, resolvedValue);
                 this.characters[newPos] = c;
                 this.nextLevel[newPos] = newLevel;
 
@@ -312,7 +316,7 @@ public class HTMLEntitiesParser
             }
         }
 
-        public Level lookup(int character)
+        public State lookup(int character)
         {
             // because we have sorted arrays, we can be more efficient here
             final int length = this.characters.length;
