@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 public class HTMLNumericEntitiesParserTest {
     @Test
     public void parseEuro() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x80;";
         int i = 0;
@@ -40,7 +40,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseEuroUppercase() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "X80;";
         int i = 0;
@@ -54,7 +54,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseBroken() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "A80;";
         int i = 0;
@@ -68,7 +68,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseLTAsDecimal() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "60;";
         int i = 0;
@@ -82,7 +82,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseLTAsDecimalBroken() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "60 ";
         int i = 0;
@@ -97,7 +97,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseEuroMissingSemicolon() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x80<";
         int i = 0;
@@ -111,7 +111,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseNullChar() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x00;";
         int i = 0;
@@ -125,7 +125,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseOverflowRange() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x11FFFF;";
         int i = 0;
@@ -139,7 +139,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseSurrogate() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "xD800;";
         int i = 0;
@@ -153,7 +153,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseNonCharacterLow() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x80;";
         int i = 0;
@@ -167,7 +167,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseNonCharacterHighLowercase() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x9f;";
         int i = 0;
@@ -181,7 +181,7 @@ public class HTMLNumericEntitiesParserTest {
 
     @Test
     public void parseNonCharacterHighUppercase() {
-        final HTMLNumericEntitiesParser parser = new HTMLNumericEntitiesParser();
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
         final String input = "x9F;";
         int i = 0;
