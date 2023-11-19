@@ -33,8 +33,10 @@ public class HTMLNumericEntitiesParser {
 
     private static final int STATE_HEXADECIMAL_CHAR = -102;
     private static final int STATE_DECIMAL_CHAR = -104;
+    private static final int STATE_HEXADECIMAL_START = -103;
 
     private static final int STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING = -105;
+    private static final int STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE = -106;
 
     private int state;
     private int consumedCount;
@@ -231,7 +233,10 @@ public class HTMLNumericEntitiesParser {
         switch (state) {
             case STATE_START:
                 if ('X' == current || 'x' == current) {
-                    state = STATE_HEXADECIMAL_CHAR;
+                    // spec suggests a HEX START state
+                    // 13.2.5.76 Hexadecimal character reference start state
+                    state = STATE_HEXADECIMAL_START;
+                    code = 0;
                     return true;
                 }
                 if ('0' <= current && current <= '9') {
@@ -240,7 +245,30 @@ public class HTMLNumericEntitiesParser {
                     return true;
                 }
                 break;
-            case STATE_HEXADECIMAL_CHAR:
+            case STATE_HEXADECIMAL_START:
+                // block addresses &#x and &#x; cases
+                // Ideally we would just change state and reconsume,
+                // but the parser impl does not permit that, hence
+                // duplicate code here
+                if ('0' <= current && current <= '9') {
+                    state = STATE_HEXADECIMAL_CHAR;
+                    code = (code * 16) + current - 0x30;
+                    return true;
+                }
+                if ('A' <= current && current <= 'F') {
+                    state = STATE_HEXADECIMAL_CHAR;
+                    code = (code * 16) + current - 0x37;
+                    return true;
+                }
+                if ('a' <= current && current <= 'f') {
+                    state = STATE_HEXADECIMAL_CHAR;
+                    code = (code * 16) + current - 0x57;
+                    return true;
+                }
+
+                state = STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE;
+                break;
+           case STATE_HEXADECIMAL_CHAR:
                 if ('0' <= current && current <= '9') {
                     code = (code * 16) + current - 0x30;
                     return true;
