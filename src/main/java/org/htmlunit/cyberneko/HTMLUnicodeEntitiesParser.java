@@ -254,10 +254,10 @@ public class HTMLUnicodeEntitiesParser {
                 }
                 break;
             case STATE_HEXADECIMAL_START:
-                // block addresses &#x and &#x; cases
+                // this block addresses &#x and &#x; cases
                 // Ideally we would just change state and reconsume,
                 // but the parser impl does not permit that, hence
-                // duplicate code here
+                // some duplicate code here
                 if ('0' <= current && current <= '9') {
                     state = STATE_HEXADECIMAL_CHAR;
                     code = (code * 16) + current - 0x30;
