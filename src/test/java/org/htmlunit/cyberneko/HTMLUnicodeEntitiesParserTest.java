@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link HTMLNumericEntities}.
+ * Unit tests for {@link HTMLUnicodeEntitiesParser}.
  * @author René Schwietzke
  */
-public class HTMLNumericEntitiesParserTest {
+public class HTMLUnicodeEntitiesParserTest {
     @Test
     public void parseEuro() {
         final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
