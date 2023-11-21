@@ -1,7 +1,7 @@
 /*
  * Copyright 2002-2009 Andy Clark, Marc Guillemot
  * Copyright 2017-2023 Ronald Brill
- * Copyright 2017-2023 René Schwietzke
+ * Copyright 2023 René Schwietzke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class HTMLNamedEntitiesParser
     //
     // As you can see, the new parser is up to 20x faster for common entities and 8x faster when checking all.
     //
-    // T14s Gen 1 AMD, 32 GB memory
+    // T14s Gen 1 AMD, 32 GB memory, newParser4 is this implementation here
     //
     // Benchmark                               (onlyCommon)  (random)  Mode  Cnt        Score        Error  Units
     // HtmlEntitiesParserBenchmark.newParser4          true      true  avgt    3      135.647 ±     13.500  ns/op
@@ -56,33 +56,33 @@ public class HTMLNamedEntitiesParser
     // HtmlEntitiesParserBenchmark.oldParser          false     false  avgt    3  1604853.180 ±  73638.435  ns/op
 
     /*
-     * Our single instance of the parser
+     * Our single instance of the parser, we don't have state, so we are safe
      */
     private final static HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
 
     /*
-     * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size
+     * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
      * it employs a different lookup on the characters (calculation rather comparison).
      */
     private RootState rootLevel = new RootState();
 
     /**
-     * Constructor
+     * Constructor. It builds the parser state from an entity defining properties file. This file has been taken
+     * from https://html.spec.whatwg.org/multipage/named-characters.html (JSON version) and converted
+     * appropriately.
      */
-    private HTMLNamedEntitiesParser()
-    {
+    private HTMLNamedEntitiesParser() {
         // read the entities defined in the data taken from
-        try (InputStream stream = HTMLNamedEntitiesParser.class.getResourceAsStream("html_entities.properties"))
-        {
+        try (InputStream stream = HTMLNamedEntitiesParser.class.getResourceAsStream("html_entities.properties")) {
             final Properties props = new Properties();
             props.load(stream);
 
             props.forEach((k, v) -> {
-                String key = (String) k;
-                String value = (String) v;
+                final String key = (String) k;
+                final String value = (String) v;
 
                 // we might have an empty line in it
-                if (key.isEmpty()) {
+                if (key.trim().isEmpty()) {
                     return;
                 }
 
@@ -92,41 +92,54 @@ public class HTMLNamedEntitiesParser
             // make the root more efficient, rest stays simple
             this.rootLevel.optimize();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
+            // we are doomed and hence can break the entire setup due to some incorrect classpath
+            // or build
             throw new RuntimeException("Unable to initilaize the HTML entities from file");
         }
     }
 
     /**
      * Returns the singleton. The singleton is stateless and can safely be used in a multi-threaded
-     * context. The
+     * context.
+     *
+     * @return the singleton instance of the parser, can never be null
      */
     public static HTMLNamedEntitiesParser get()
     {
         return instance;
     }
 
-    public State lookup(final String entityName)
-    {
+    /**
+     * Utility method, mostly for testing, that allows us to look up and entity from a string
+     * instead from single characters.
+     *
+     * @param entityName the entity to look up
+     * @return a state that resembles the result, will never be null
+     */
+    public State lookup(final String entityName) {
         State lastResult = this.rootLevel;
         State lastMatchingResult = null;
 
-        for (int i = 0; i < entityName.length(); i++)
-        {
+        for (int i = 0; i < entityName.length(); i++) {
             State result = lastResult.lookup(entityName.charAt(i));
 
-            if (result.endNode)
-            {
+            if (result.endNode) {
+                // we found the last matching possible entity in the pseudo tree
+                // we can finish here, there is nothing beyond that point
                 return result;
             }
-            if (result == lastResult)
-            {
+            if (result == lastResult) {
                 // nothing changed, more characters have not done anything
+                // in case we have see something that was a match before, return
+                // to that state
                 return lastMatchingResult == null ? lastResult : lastMatchingResult;
             }
-            if (result.isMatch)
-            {
+            if (result.isMatch) {
+                // in case this is a match but not an endnode, we keep that state
+                // for later, in case any further chars take us into the wrong direction
+                // standard dictates to stop when we don't have a match and return
+                // to the last known match, if any
                 lastMatchingResult = result;
             }
             lastResult = result;
@@ -135,80 +148,61 @@ public class HTMLNamedEntitiesParser
         return lastMatchingResult == null ? lastResult : lastMatchingResult;
     }
 
-    public State lookup(final int character, final State level)
-    {
-        return level != null ? level.lookup(character) : rootLevel.lookup(character);
+    /**
+     * Pseudo parses and entity character by character. We assume that we get
+     * presented with the chars after the starting ampersand. This parser does
+     * not supported unicode entities, hence this has to be handled differently.
+     *
+     * @param character the next character, should not be the ampersand ever
+     * @param state the last known state or null in case we start to parse
+     *
+     * @return the current state, which might be a valid final result, see {@link State}
+     */
+    public State lookup(final int character, final State state) {
+        return state != null ? state.lookup(character) : rootLevel.lookup(character);
     }
 
-    public static class RootState extends State
-    {
-        private int offset = 0;
-
-        @Override
-        public State lookup(int character)
-        {
-            // fastpath, just calculate the pos
-            final int pos = character - offset;
-            if (pos >=0 && pos < this.nextLevel.length)
-            {
-                return this.nextLevel[pos];
-            }
-            else
-            {
-                return this;
-            }
-        }
-
-        /*
-         * Optimizes the layout after creation but not for every level
-         */
-        protected void optimize()
-        {
-            // are we final already?
-            if (offset > 0)
-            {
-                return;
-            }
-
-            // ok, smallest char is the start
-            this.offset = this.characters[0];
-
-            // get us new level array covering the smallest char in [0] and the largest in the last pos,
-            // we might have holes, but not too many, hence this is faster than iterating or a binary search
-            final State[] newNextLevel = new State[this.characters[this.characters.length - 1] - offset + 1];
-
-            // arrange entry according to charactercode
-            for (int i = 0; i < this.characters.length; i++)
-            {
-                final int c = this.characters[i];
-                final State level = this.nextLevel[i];
-
-                newNextLevel[c - offset] = level;
-            }
-
-            // take it live
-            this.nextLevel = newNextLevel;
-            // free memory, because we not longer need that
-            this.characters = null;
-        }
-
-    }
-
-    public static class State
-    {
+    /**
+     * Our "level" in the treeish structure that keeps its static state and the next level
+     * underneath.
+     */
+    public static class State {
+        // what is the current depth aka amount of characters seen
         private final int depth;
-        int[] characters = new int[0];
-        State[] nextLevel = new State[0];
 
+        // The characters at this level
+        // The state at the same position holds the matching result
+        int[] characters = new int[0];
+
+        // The matching states at this level
+        // we intentionally have not build a unified data structure
+        // between characters and state, keep it simple!
+        State[] nextState = new State[0];
+
+        // our current fragment or full entity, so for the entity "copy;"
+        // you will have c, co, cop, copy, and copy; on each state level
         public final String entityOrFragment;
+
+        // what shall we resolve to? if we don't resolve, this is null!!!
         public String resolvedValue;
+
+        // the length of the entity fragment
         public final int length;
+
+        // tell us, if this is ending with a semicolon
         public final boolean endsWithSemicolon;
+
+        // does this entity fragment match a resolved value?
         public boolean isMatch;
+
+        // is this the end of the look up level structure, this the end
+        // and hence it shall be a match
         public boolean endNode;
 
-        public State()
-        {
+        /**
+         * Create the empty state
+         */
+        protected State() {
             this.entityOrFragment = "";
             this.length = 0;
             this.depth = 0;
@@ -218,10 +212,11 @@ public class HTMLNamedEntitiesParser
             this.endNode = false;
         }
 
-        public State(final int depth, final String entityFragment, final String resolvedValue)
-        {
-            if (depth == entityFragment.length())
-            {
+        /**
+         * Create us a new state that describes itself nicely
+         */
+        protected State(final int depth, final String entityFragment, final String resolvedValue) {
+            if (depth == entityFragment.length()) {
                 // we are at the end
                 this.entityOrFragment = entityFragment;
                 this.length = entityFragment.length();
@@ -231,8 +226,7 @@ public class HTMLNamedEntitiesParser
                 this.resolvedValue = resolvedValue;
                 this.endNode = entityFragment.endsWith(";");
             }
-            else
-            {
+            else {
                 // intermediate state
                 final String currentFragment = entityFragment.substring(0, depth);
 
@@ -246,32 +240,45 @@ public class HTMLNamedEntitiesParser
             }
         }
 
-
-        public void updateNonSemicolonEntity(final String entity, final String resolvedValue)
-        {
-            if (entity.endsWith(";"))
-            {
-                // nothing to do
+        /**
+         * We have a special in between state because some entities exist as correct
+         * entity with a semicolon at the end and as legacy version without. We want
+         * to look up both correctly, hence when we build the data set, we have to
+         * unmark an existing one as final one and insert one more.
+         *
+         * @param entity the entity to look up
+         * @param resolvedValue the value it will resolve to
+         */
+        protected void updateNonSemicolonEntity(final String entity, final String resolvedValue) {
+            if (entity.endsWith(";")) {
+                // nothing to do, perfect entity
                 return;
             }
-            if (entity.length() == this.depth)
-            {
-                // safety check
-                if (!entity.equals(this.entityOrFragment))
-                {
+
+            // our entity is legacy (no ;) and so we have to see if we know the ; version already
+            if (entity.length() == this.depth) {
+                // safety check, just for the initial programming and later updates then
+                // for daily life
+                if (!entity.equals(this.entityOrFragment)) {
                     throw new RuntimeException("Illegal state reached");
                 }
 
+                // declare this an intermediate match
+                this.endNode = false;
                 this.isMatch = true;
                 this.resolvedValue = resolvedValue;
             }
         }
 
-        public void add(final String entity, final String resolvedValue)
-        {
+        /**
+         * Add a new entity to the pseudo-tree
+         *
+         * @param entity the entity to look for later
+         * @param resolvedValue the value it resolves to
+         */
+        protected void add(final String entity, final String resolvedValue) {
             // ok, any characters left?
-            if (this.depth >= entity.length())
-            {
+            if (this.depth >= entity.length()) {
                 // no reason to go any further
                 return;
             }
@@ -282,65 +289,131 @@ public class HTMLNamedEntitiesParser
             // do I already know it?
             final int pos = Arrays.binarySearch(characters, c);
 
-            if (pos < 0)
-            {
+            if (pos < 0) {
                 // we don't know it, make the size bigger and get us the new pos
-                this.nextLevel = Arrays.copyOf(this.nextLevel, this.nextLevel.length + 1);
+                this.nextState = Arrays.copyOf(this.nextState, this.nextState.length + 1);
                 this.characters = Arrays.copyOf(this.characters, this.characters.length + 1);
                 final int newPos = -(pos + 1);
 
                 // move stuff first
-                if (newPos != this.characters.length - 1)
-                {
+                if (newPos != this.characters.length - 1) {
                     System.arraycopy(this.characters, newPos, this.characters, newPos + 1, this.characters.length - newPos - 1);
-                    System.arraycopy(this.nextLevel, newPos, this.nextLevel, newPos + 1, this.nextLevel.length - newPos - 1);
+                    System.arraycopy(this.nextState, newPos, this.nextState, newPos + 1, this.nextState.length - newPos - 1);
                 }
-                else
-                {
+                else {
                     // we insert at the end, so no move needed
                 }
                 final State newLevel = new State(this.depth + 1, entity, resolvedValue);
                 this.characters[newPos] = c;
-                this.nextLevel[newPos] = newLevel;
+                this.nextState[newPos] = newLevel;
 
                 // update next level
                 newLevel.add(entity, resolvedValue);
             }
-            else
-            {
+            else {
                 // ok, if this one is without a ; and we have the full entity, we
                 // have a mismatch between one with and one without ;
                 // change the level
-                this.nextLevel[pos].updateNonSemicolonEntity(entity, resolvedValue);
-                this.nextLevel[pos].add(entity, resolvedValue);
+                this.nextState[pos].updateNonSemicolonEntity(entity, resolvedValue);
+                this.nextState[pos].add(entity, resolvedValue);
             }
         }
 
-        public State lookup(int character)
-        {
+        /**
+         * Lookup the state by iterating over the chars at this state, should not be that
+         * many and due to the small size of the array, should be cache only
+         *
+         * @param character the char to look up
+         * @return the next state or the same in case the character was not found
+         */
+        protected State lookup(final int character) {
             // because we have sorted arrays, we can be more efficient here
             final int length = this.characters.length;
-            for (int i = 0; i < length; i++)
-            {
+
+            for (int i = 0; i < length; i++) {
                 final int c = this.characters[i];
-                if (c < character)
-                {
+
+                // are we still under, simply continue
+                if (c < character) {
                     continue;
                 }
-                if (c == character)
-                {
+
+                if (c == character) {
                     // we are at position
-                    return this.nextLevel[i];
+                    return this.nextState[i];
                 }
-                else
-                {
+                else {
                     // ok, too far and have not found it, abort with current state
                     return this;
                 }
             }
 
+            // nothing found, maybe array was empty
             return this;
         }
+    }
+
+    /**
+     * This is our initial state and has a special optimization applied. We
+     * don't iterate, we jump by character code to the position.
+     */
+    protected static class RootState extends State {
+        // the smallest character determines this
+        private int offset = 0;
+
+        @Override
+        public State lookup(int character) {
+            // fastpath, just calculate the pos
+            final int pos = character - offset;
+
+            // in case we don't have a matching char, return
+            // this state, if we end up in a hole with null,
+            // we do the same
+            if (pos >=0 && pos < this.nextState.length) {
+                final State s = this.nextState[pos];
+                return s != null ? s : this;
+            }
+            else {
+                return this;
+            }
+        }
+
+        /*
+         * Optimizes the layout after creation. This is only applied to the root state
+         * because it is a wider range of characters. It does not make sense for the substates,
+         * because we would get arrays with large holes and that makes the cache go bust.
+         */
+        protected void optimize() {
+            // are we final already?
+            if (offset > 0) {
+                // that is just for later to tell us that we don't understand our
+                // own code anymore and called that incorrectly
+                throw new RuntimeException("Optimiize was called twice");
+            }
+
+            // ok, smallest char is the start
+            this.offset = this.characters[0];
+
+            // get us new a level array covering the smallest char in [0] and the largest in the last pos,
+            // we might have holes, but not too many, hence this is faster than iterating or a binary search
+            final State[] newNextLevel = new State[this.characters[this.characters.length - 1] - offset + 1];
+
+            // arrange entries according to charactercode
+            for (int i = 0; i < this.characters.length; i++) {
+                final int c = this.characters[i];
+                final State level = this.nextState[i];
+
+                newNextLevel[c - offset] = level;
+            }
+
+            // take it live
+            this.nextState = newNextLevel;
+
+            // free memory, because we not longer need that, doesn't save a ton
+            // but it might also help to discover programming mistakes
+            this.characters = null;
+        }
+
     }
 
 }

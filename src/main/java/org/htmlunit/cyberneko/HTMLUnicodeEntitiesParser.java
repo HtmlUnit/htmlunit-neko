@@ -228,6 +228,14 @@ public class HTMLUnicodeEntitiesParser {
         matchLength = consumedCount;
     }
 
+    /**
+     * Parses a numeric entity such as #x64; or #42; The
+     * ampersand must not be presented.
+     *
+     * @param current the next character to check
+     *
+     * @return if we have reached the end of the parsing
+     */
     public boolean parseNumeric(final int current) {
         consumedCount++;
         switch (state) {

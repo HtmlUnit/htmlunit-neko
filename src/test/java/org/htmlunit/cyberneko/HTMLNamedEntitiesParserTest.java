@@ -11,11 +11,10 @@ import java.util.Properties;
 import org.htmlunit.cyberneko.HTMLNamedEntitiesParser.State;
 import org.junit.jupiter.api.Test;
 
-public class HTMLEntitiesParserTest
+public class HTMLNamedEntitiesParserTest
 {
     @Test
-    public void happyPath()
-    {
+    public void happyPath() {
         final State r = HTMLNamedEntitiesParser.get().lookup("Beta;");
         assertTrue(r.isMatch);
         assertTrue(r.endNode);
@@ -27,8 +26,7 @@ public class HTMLEntitiesParserTest
     }
 
     @Test
-    public void happyPathOneCharDiff()
-    {
+    public void happyPathOneCharDiff() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("Colon;");
             assertTrue(r.isMatch);
@@ -52,8 +50,7 @@ public class HTMLEntitiesParserTest
     }
 
     @Test
-    public void happyPathTwoVersionEntity()
-    {
+    public void happyPathTwoVersionEntity() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("gt");
             assertEquals("gt", r.entityOrFragment);
@@ -77,8 +74,7 @@ public class HTMLEntitiesParserTest
     }
 
     @Test
-    public void happyPathTwoVersionEntity2()
-    {
+    public void happyPathTwoVersionEntity2() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("ccedil");
             assertEquals("ccedil", r.entityOrFragment);
@@ -102,8 +98,7 @@ public class HTMLEntitiesParserTest
     }
 
     @Test
-    public void fullyUnknown()
-    {
+    public void fullyUnknown() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("abc;");
             assertFalse(r.isMatch);
@@ -120,64 +115,104 @@ public class HTMLEntitiesParserTest
      * This must resolve to &not !!
      */
     @Test
-    public void notit()
-    {
-        {
-            final State r = HTMLNamedEntitiesParser.get().lookup("notit;");
-            assertTrue(r.isMatch);
-            assertFalse(r.endNode);
-            assertFalse(r.endsWithSemicolon);
+    public void notit() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("notit;");
+        assertTrue(r.isMatch);
+        assertFalse(r.endNode);
+        assertFalse(r.endsWithSemicolon);
 
-            assertEquals("\u00AC", r.resolvedValue);
-            assertEquals("not", r.entityOrFragment);
-            assertEquals(3, r.length);
-        }
+        assertEquals("\u00AC", r.resolvedValue);
+        assertEquals("not", r.entityOrFragment);
+        assertEquals(3, r.length);
     }
 
     /**
      * This resolve to &not;
      */
     @Test
-    public void notSemicolon()
-    {
-        {
-            final State r = HTMLNamedEntitiesParser.get().lookup("not;");
-            assertTrue(r.isMatch);
-            assertTrue(r.endNode);
-            assertTrue(r.endsWithSemicolon);
+    public void notSemicolon() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("not;");
+        assertTrue(r.isMatch);
+        assertTrue(r.endNode);
+        assertTrue(r.endsWithSemicolon);
 
-            assertEquals("\u00AC", r.resolvedValue);
-            assertEquals("not;", r.entityOrFragment);
-            assertEquals(4, r.length);
-        }
+        assertEquals("\u00AC", r.resolvedValue);
+        assertEquals("not;", r.entityOrFragment);
+        assertEquals(4, r.length);
     }
 
     /**
      * This resolve to &not
      */
     @Test
-    public void nothash()
-    {
-        {
-            final State r = HTMLNamedEntitiesParser.get().lookup("not#");
-            assertTrue(r.isMatch);
-            assertFalse(r.endNode);
-            assertFalse(r.endsWithSemicolon);
+    public void notHash() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("not#");
+        assertTrue(r.isMatch);
+        assertFalse(r.endNode);
+        assertFalse(r.endsWithSemicolon);
 
-            assertEquals("\u00AC", r.resolvedValue);
-            assertEquals("not", r.entityOrFragment);
-            assertEquals(3, r.length);
-        }
+        assertEquals("\u00AC", r.resolvedValue);
+        assertEquals("not", r.entityOrFragment);
+        assertEquals(3, r.length);
+    }
+
+    /**
+     * See that we can handle something out of the range of indexed
+     * chars
+     */
+    @Test
+    public void smallerThanA() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("9ot#");
+        assertFalse(r.isMatch);
+        assertFalse(r.endNode);
+        assertFalse(r.endsWithSemicolon);
+
+        assertEquals(null, r.resolvedValue);
+        assertEquals("", r.entityOrFragment);
+        assertEquals(0, r.length);
+    }
+
+    /**
+     * See that we can handle something out of the range of indexed
+     * chars
+     */
+    @Test
+    public void largeThanLowercaseZ() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("{any");
+        assertFalse(r.isMatch);
+        assertFalse(r.endNode);
+        assertFalse(r.endsWithSemicolon);
+
+        assertEquals(null, r.resolvedValue);
+        assertEquals("", r.entityOrFragment);
+        assertEquals(0, r.length);
+    }
+
+    /**
+     * Handle chars that are in the holes of our look up on
+     * the root level
+     */
+    @Test
+    public void oneCharInAHoleWithoutNextLevel() {
+        final State r = HTMLNamedEntitiesParser.get().lookup("[any");
+        assertFalse(r.isMatch);
+        assertFalse(r.endNode);
+        assertFalse(r.endsWithSemicolon);
+
+        assertEquals(null, r.resolvedValue);
+        assertEquals("", r.entityOrFragment);
+        assertEquals(0, r.length);
     }
 
     /**
      * Test all entities
+     *
      * @throws IOException
      */
     @Test
     public void allEntitiesWithSemicolonFull() throws IOException {
         final Properties props = new Properties();
-        try (InputStream stream = HTMLEntitiesParserTest.class.getResourceAsStream("html_entities.properties")) {
+        try (InputStream stream = HTMLNamedEntitiesParserTest.class.getResourceAsStream("html_entities.properties")) {
             props.load(stream);
         }
 
@@ -193,13 +228,12 @@ public class HTMLEntitiesParserTest
 
             final State r = HTMLNamedEntitiesParser.get().lookup(key);
             assertTrue(r.isMatch);
-            if (key.endsWith(";"))
-            {
+
+            if (key.endsWith(";")) {
                 assertTrue(r.endNode);
                 assertTrue(r.endsWithSemicolon);
             }
-            else
-            {
+            else {
                 // no ; means it is never and end node, because this
                 // is for legacy entities
                 assertFalse(r.endNode);
@@ -211,5 +245,4 @@ public class HTMLEntitiesParserTest
             assertEquals(key.length(), r.length);
         });
     }
-
 }
