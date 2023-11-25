@@ -189,7 +189,7 @@ public class XMLString {
         clear();
     }
 
-    public void delete(int start, int end) {
+    public void delete(final int start, final int end) {
         builder_.delete(start, end);
     }
 

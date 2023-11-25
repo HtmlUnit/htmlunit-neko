@@ -23,6 +23,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
 
 /**
  * Error handler for test purposes: just logs the errors to the provided PrintWriter.
+ *
  * @author Marc Guillemot
  */
 class HTMLErrorHandler extends DefaultErrorHandler {

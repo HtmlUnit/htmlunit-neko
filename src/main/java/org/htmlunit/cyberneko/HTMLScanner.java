@@ -82,6 +82,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * @author Andy Clark
  * @author Marc Guillemot
  * @author Ahmed Ashour
+ * @author Ronald Brill
  */
 public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponent {
 
@@ -1254,8 +1255,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         // it might happen that we read &lta but need just &lt so
         // we have to go back to the last match
-        if (!result.isMatch && lastMatchingResult != null)
-        {
+        if (!result.isMatch && lastMatchingResult != null) {
             result = lastMatchingResult;
         }
 

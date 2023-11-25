@@ -276,7 +276,7 @@ public class HTMLUnicodeEntitiesParser {
 
                 state = STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE;
                 break;
-           case STATE_HEXADECIMAL_CHAR:
+            case STATE_HEXADECIMAL_CHAR:
                 if ('0' <= current && current <= '9') {
                     code = (code * 16) + current - 0x30;
                     return true;

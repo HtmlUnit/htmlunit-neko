@@ -21,7 +21,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link HTMLUnicodeEntitiesParser}.
+ *
  * @author René Schwietzke
+ * @author Ronald Brill
  */
 public class HTMLUnicodeEntitiesParserTest {
     @Test
@@ -93,7 +95,6 @@ public class HTMLUnicodeEntitiesParserTest {
         assertEquals("<", parser.getMatch());
         assertEquals(1, parser.getRewindCount());
     }
-
 
     @Test
     public void parseEuroMissingSemicolon() {
@@ -193,5 +194,3 @@ public class HTMLUnicodeEntitiesParserTest {
         assertEquals(0, parser.getRewindCount());
     }
 }
-
-

@@ -34,9 +34,9 @@ import java.util.Properties;
  * sense of how many characters one saw and when to stop doing things.
  *
  * @author René Schwietzke
+ * @author Ronald Brill
  */
-public class HTMLNamedEntitiesParser
-{
+public final class HTMLNamedEntitiesParser {
     // These are some benchmark results of a comparison old vs. new parser. "onlyCommon" is a test with just 7 out of
     // 2231 entities (most common such as lt gt and more). Random means, we are not feeding the parser the data
     // the test data in the same order all the time, but vary it.
@@ -58,7 +58,7 @@ public class HTMLNamedEntitiesParser
     /*
      * Our single instance of the parser, we don't have state, so we are safe
      */
-    private final static HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
+    private static final HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
 
     /*
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
@@ -92,7 +92,7 @@ public class HTMLNamedEntitiesParser
             // make the root more efficient, rest stays simple
             this.rootLevel.optimize();
         }
-        catch (IOException e) {
+        catch (final IOException e) {
             // we are doomed and hence can break the entire setup due to some incorrect classpath
             // or build
             throw new RuntimeException("Unable to initilaize the HTML entities from file");
@@ -105,8 +105,7 @@ public class HTMLNamedEntitiesParser
      *
      * @return the singleton instance of the parser, can never be null
      */
-    public static HTMLNamedEntitiesParser get()
-    {
+    public static HTMLNamedEntitiesParser get() {
         return instance;
     }
 
@@ -122,7 +121,7 @@ public class HTMLNamedEntitiesParser
         State lastMatchingResult = null;
 
         for (int i = 0; i < entityName.length(); i++) {
-            State result = lastResult.lookup(entityName.charAt(i));
+            final State result = lastResult.lookup(entityName.charAt(i));
 
             if (result.endNode) {
                 // we found the last matching possible entity in the pseudo tree
@@ -342,10 +341,8 @@ public class HTMLNamedEntitiesParser
                     // we are at position
                     return this.nextState[i];
                 }
-                else {
-                    // ok, too far and have not found it, abort with current state
-                    return this;
-                }
+                // ok, too far and have not found it, abort with current state
+                return this;
             }
 
             // nothing found, maybe array was empty
@@ -362,20 +359,18 @@ public class HTMLNamedEntitiesParser
         private int offset = 0;
 
         @Override
-        public State lookup(int character) {
+        public State lookup(final int character) {
             // fastpath, just calculate the pos
             final int pos = character - offset;
 
             // in case we don't have a matching char, return
             // this state, if we end up in a hole with null,
             // we do the same
-            if (pos >=0 && pos < this.nextState.length) {
+            if (pos >= 0 && pos < this.nextState.length) {
                 final State s = this.nextState[pos];
                 return s != null ? s : this;
             }
-            else {
-                return this;
-            }
+            return this;
         }
 
         /*
