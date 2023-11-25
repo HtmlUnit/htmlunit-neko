@@ -14,14 +14,12 @@
  */
 package org.htmlunit.cyberneko.xerces.impl;
 
-import java.util.Enumeration;
-import java.util.NoSuchElementException;
-
 /**
  * Commonly used constants.
  * <p>
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public final class Constants {
     /** SAX feature prefix ("http://xml.org/sax/features/"). */
@@ -70,9 +68,6 @@ public final class Constants {
     /** Xerces features prefix ("http://apache.org/xml/features/"). */
     public static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
 
-    /** Continue after fatal error feature ("continue-after-fatal-error"). */
-    public static final String CONTINUE_AFTER_FATAL_ERROR_FEATURE = "continue-after-fatal-error";
-
     /** Create entity reference nodes feature ("dom/create-entity-ref-nodes"). */
     public static final String CREATE_ENTITY_REF_NODES_FEATURE = "dom/create-entity-ref-nodes";
 
@@ -80,15 +75,6 @@ public final class Constants {
      * Include ignorable whitespace feature ("dom/include-ignorable-whitespace").
      */
     public static final String INCLUDE_IGNORABLE_WHITESPACE = "dom/include-ignorable-whitespace";
-
-    /**
-     * Notify built-in (&amp;amp;, etc.) references feature
-     * (scanner/notify-builtin-refs").
-     */
-    public static final String NOTIFY_BUILTIN_REFS_FEATURE = "scanner/notify-builtin-refs";
-
-    /** Standard URI conformant feature ("standard-uri-conformant"). */
-    public static final String STANDARD_URI_CONFORMANT_FEATURE = "standard-uri-conformant";
 
     // xerces properties
 
@@ -98,126 +84,4 @@ public final class Constants {
     /** Error handler property ("internal/error-handler"). */
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
 
-    /** SAX properties. */
-    private static final String[] fgSAXProperties = {
-        LEXICAL_HANDLER_PROPERTY};
-
-    /** Xerces features. */
-    private static final String[] fgXercesFeatures = {
-        CONTINUE_AFTER_FATAL_ERROR_FEATURE,
-        CREATE_ENTITY_REF_NODES_FEATURE,
-        INCLUDE_IGNORABLE_WHITESPACE,
-        NOTIFY_BUILTIN_REFS_FEATURE,
-        STANDARD_URI_CONFORMANT_FEATURE};
-
-    /** Xerces properties. */
-    private static final String[] fgXercesProperties = {ERROR_HANDLER_PROPERTY};
-
-    /** Empty enumeration. */
-    private static final Enumeration<Object> fgEmptyEnumeration = new ArrayEnumeration(new Object[] {});
-
-    //
-    // Constructors
-    //
-
-    /** This class cannot be instantiated. */
-    private Constants() {
-    }
-
-    //
-    // Public methods
-    //
-
-    /** @return an enumeration of the SAX properties. */
-    public static Enumeration<Object> getSAXProperties() {
-        return fgSAXProperties.length > 0 ? new ArrayEnumeration(fgSAXProperties) : fgEmptyEnumeration;
-    }
-
-    // xerces
-
-    /** @return an enumeration of the Xerces features. */
-    public static Enumeration<Object> getXercesFeatures() {
-        return fgXercesFeatures.length > 0 ? new ArrayEnumeration(fgXercesFeatures) : fgEmptyEnumeration;
-    }
-
-    /** @return an enumeration of the Xerces properties. */
-    public static Enumeration<Object> getXercesProperties() {
-        return fgXercesProperties.length > 0 ? new ArrayEnumeration(fgXercesProperties) : fgEmptyEnumeration;
-    }
-
-    //
-    // Classes
-    //
-
-    /**
-     * An array enumeration.
-     *
-     * @author Andy Clark, IBM
-     */
-    static class ArrayEnumeration implements Enumeration<Object> {
-
-        /** Array. */
-        private final Object[] array_;
-
-        /** Index. */
-        private int index_;
-
-        /** Constructs an array enumeration. */
-        ArrayEnumeration(final Object[] array) {
-            this.array_ = array;
-        }
-
-        /**
-         * {@inheritDoc}
-         *
-         * Tests if this enumeration contains more elements.
-         *
-         * @return <code>true</code> if this enumeration contains more elements;
-         *         <code>false</code> otherwise.
-         */
-        @Override
-        public boolean hasMoreElements() {
-            return index_ < array_.length;
-        } // hasMoreElement():boolean
-
-        /**
-         * {@inheritDoc}
-         *
-         * Returns the next element of this enumeration.
-         *
-         * @return the next element of this enumeration.
-         * @exception NoSuchElementException if no more elements exist.
-         */
-        @Override
-        public Object nextElement() {
-            if (index_ < array_.length) {
-                return array_[index_++];
-            }
-            throw new NoSuchElementException();
-        }
-
-    }
-
-    // Prints all of the constants to standard output.
-    public static void main(final String[] argv) {
-        print("SAX properties:", SAX_PROPERTY_PREFIX, fgSAXProperties);
-        print("Xerces features:", XERCES_FEATURE_PREFIX, fgXercesFeatures);
-        print("Xerces properties:", XERCES_PROPERTY_PREFIX, fgXercesProperties);
-    }
-
-    // Prints a list of features/properties.
-    private static void print(final String header, final String prefix, final Object[] array) {
-        System.out.print(header);
-        if (array.length > 0) {
-            System.out.println();
-            for (final Object o : array) {
-                System.out.print("  ");
-                System.out.print(prefix);
-                System.out.println(o);
-            }
-        }
-        else {
-            System.out.println(" none.");
-        }
-    }
 }
