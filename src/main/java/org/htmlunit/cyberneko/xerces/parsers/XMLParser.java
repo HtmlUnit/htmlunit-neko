@@ -16,7 +16,6 @@ package org.htmlunit.cyberneko.xerces.parsers;
 
 import java.io.IOException;
 
-import org.htmlunit.cyberneko.xerces.impl.Constants;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;

@@ -23,13 +23,11 @@ package org.htmlunit.cyberneko.xerces.xni;
  * explicitly catch them, if so desired.
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public class XNIException extends RuntimeException {
 
     private static final long serialVersionUID = 7447489736019161121L;
-
-    /** The wrapped exception. */
-    private Exception fException_ = this;
 
     /**
      * Constructs an XNI exception with a message.
@@ -46,8 +44,7 @@ public class XNIException extends RuntimeException {
      * @param exception The wrapped exception.
      */
     public XNIException(final Exception exception) {
-        super(exception.getMessage());
-        fException_ = exception;
+        super(exception.getMessage(), exception);
     }
 
     /**
@@ -57,44 +54,11 @@ public class XNIException extends RuntimeException {
      * @param exception The wrapped exception.
      */
     public XNIException(final String message, final Exception exception) {
-        super(message);
-        fException_ = exception;
+        super(message, exception);
     }
 
     /** @return the wrapped exception. */
     public Exception getException() {
-        return fException_ != this ? fException_ : null;
-    }
-
-    /**
-     * Initializes the cause of this <code>XNIException</code>. The value must be an
-     * instance of <code>Exception</code> or <code>null</code>.
-     *
-     * @param throwable the cause
-     * @return this exception
-     *
-     * @throws IllegalStateException    if a cause has already been set
-     * @throws IllegalArgumentException if the cause is this exception
-     * @throws ClassCastException       if the cause is not assignable to
-     *                                  <code>Exception</code>
-     */
-    @Override
-    public synchronized Throwable initCause(final Throwable throwable) {
-        if (fException_ != this) {
-            // TODO: Add error message.
-            throw new IllegalStateException();
-        }
-        if (throwable == this) {
-            // TODO: Add error message.
-            throw new IllegalArgumentException();
-        }
-        fException_ = (Exception) throwable;
-        return this;
-    }
-
-    /** @return the cause of this <code>XNIException</code>. */
-    @Override
-    public Throwable getCause() {
-        return getException();
+        return (Exception) getCause();
     }
 }

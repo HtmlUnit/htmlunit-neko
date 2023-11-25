@@ -25,7 +25,6 @@ import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.EntityImpl;
 import org.htmlunit.cyberneko.xerces.dom.EntityReferenceImpl;
 import org.htmlunit.cyberneko.xerces.dom.TextImpl;
-import org.htmlunit.cyberneko.xerces.impl.Constants;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;

@@ -17,7 +17,6 @@ package org.htmlunit.cyberneko.xerces.parsers;
 import java.io.CharConversionException;
 import java.io.IOException;
 
-import org.htmlunit.cyberneko.xerces.impl.Constants;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;

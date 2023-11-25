@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
-import org.htmlunit.cyberneko.xerces.impl.Constants;
+import org.htmlunit.cyberneko.xerces.parsers.Constants;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.XMLChar;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
