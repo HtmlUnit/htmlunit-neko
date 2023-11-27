@@ -1571,11 +1571,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     }
 
     /**
-     * Append a character to a StringBuffer. The character is an int value, and can
+     * Append a character to a StringBuilder. The character is an int value, and can
      * either be a single UTF-16 character or a supplementary character represented
      * by two UTF-16 code points.
      *
-     * @param str   The StringBuffer to append to.
+     * @param str   The StringBuilder to append to.
      * @param value The character value.
      * @param name  to be used for error reporting
      */
@@ -1592,7 +1592,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     fErrorReporter.reportError("HTML1005", new Object[] {name});
                 }
-                fStringBuffer.append(REPLACEMENT_CHARACTER);
+                str.append(REPLACEMENT_CHARACTER);
             }
         }
         else {
