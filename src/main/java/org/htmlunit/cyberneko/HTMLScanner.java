@@ -24,8 +24,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Locale;
-import java.util.Stack;
 
+import org.htmlunit.cyberneko.util.MiniStack;
 import org.htmlunit.cyberneko.xerces.util.EncodingMap;
 import org.htmlunit.cyberneko.xerces.util.NamespaceSupport;
 import org.htmlunit.cyberneko.xerces.util.URI;
@@ -402,7 +402,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     protected CurrentEntity fCurrentEntity;
 
     /** The current entity stack. */
-    protected final Stack<CurrentEntity> fCurrentEntityStack = new Stack<>();
+    protected final MiniStack<CurrentEntity> fCurrentEntityStack = new MiniStack<>();
 
     /** The current scanner. */
     protected Scanner fScanner;
@@ -732,7 +732,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         fElementCount = 0;
         fElementDepth = -1;
         fByteStream = null;
-        fCurrentEntityStack.removeAllElements();
+        fCurrentEntityStack.clear();
 
         fBeginLineNumber = 1;
         fBeginColumnNumber = 1;
@@ -2035,7 +2035,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                 }
                 catch (final EOFException e) {
-                    if (fCurrentEntityStack.empty()) {
+                    if (fCurrentEntityStack.isEmpty()) {
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
@@ -3185,7 +3185,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 catch (final EOFException e) {
                     setScanner(fContentScanner);
-                    if (fCurrentEntityStack.empty()) {
+                    if (fCurrentEntityStack.isEmpty()) {
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
