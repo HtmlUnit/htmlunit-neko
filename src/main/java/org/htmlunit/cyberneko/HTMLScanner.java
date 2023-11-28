@@ -2883,13 +2883,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             break;
                         }
                         if (c == '&') {
-                            final int ce = scanEntityRef(fStringBuffer2, false);
-                            if (ce != -1) {
-                                appendChar(fStringBuffer, ce, null);
-                            }
-                            else {
-                                fStringBuffer.append(fStringBuffer2);
-                            }
+                            scanEntityRef(fStringBuffer2, false);
+                            fStringBuffer.append(fStringBuffer2);
                         }
                         else {
                             appendChar(fStringBuffer, c, null);
