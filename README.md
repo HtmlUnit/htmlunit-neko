@@ -16,7 +16,7 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
-### Latest release Version 3.8.0 / November 18, 2023
+### Latest release Version 3.9.0 / December 03, 2023
 
 #### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -34,7 +34,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>3.8.0</version>
+    <version>3.9.0</version>
 </dependency>
 ```
 
@@ -43,7 +43,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.8.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '3.9.0'
 ```
 
 ## HowTo use
@@ -105,7 +105,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>3.9.0-SNAPSHOT</version>
+        <version>3.10.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom `repositories` section also:
