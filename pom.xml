@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>3.9.0</version>
+    <version>3.10.0-SNAPSHOT</version>
     <name>HtmlUnit NekoHtml</name>
     <organization>
         <name>HtmlUnit</name>
@@ -24,9 +24,9 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs.version>4.8.1</spotbugs.version>
+        <spotbugs.version>4.8.2</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>8.4.3</dependencycheck.version>
+        <dependencycheck.version>9.0.4</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -87,7 +87,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.6.3</version>
                 <configuration>
                     <doclint>none</doclint>
                     <quiet>true</quiet>
@@ -153,7 +153,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.1.0</version>
+                <version>4.8.2.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
