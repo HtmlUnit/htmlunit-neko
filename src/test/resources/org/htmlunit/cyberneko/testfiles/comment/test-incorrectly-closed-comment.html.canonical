@@ -1,14 +1,19 @@
+!html
 (html
 (head
-"\n    
-(script
-"\n        <!-- yy --!>\n        var loc = 7;\n    
-)script
-"\n
 )head
 (body
-"\n    
-#xx 
-"\n\n
+(div
+"1
+)div
+# in comment 
+(div
+"2
+)div
+# in bang comment 
+(div
+"3
+)div
+"-->
 )body
 )html

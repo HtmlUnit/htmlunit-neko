@@ -2300,7 +2300,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             else {
                 fStringBuffer.append("[CDATA[");
             }
-            final boolean eof = scanMarkupContent(fStringBuffer, ']');
+            final boolean eof = scanCDataContent(fStringBuffer);
             if (!fCDATASections_) {
                 fStringBuffer.append("]]");
             }
@@ -2342,7 +2342,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fEndColumnNumber = fCurrentEntity.getColumnNumber();
             fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
             XMLString xmlString = new XMLString();
-            boolean eof = scanMarkupContent(xmlString, '-');
+            boolean eof = scanCommentContent(xmlString);
             // no --> found, comment with end only with >
             if (eof) {
                 fCurrentEntity.resetBuffer(xmlString, fEndLineNumber, fEndColumnNumber, fEndCharacterOffset);
@@ -2389,8 +2389,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
         }
 
-        // Scans markup content.
-        protected boolean scanMarkupContent(final XMLString xmlString, final char cend) throws IOException {
+        // Scans comment content.
+        protected boolean scanCommentContent(final XMLString xmlString) throws IOException {
             int c;
             OUTER: while (true) {
                 c = fCurrentEntity.read();
@@ -2398,13 +2398,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
                     }
-                    break;
+                    return true;
                 }
-                else if (c == cend) {
+
+                if (c == '-') {
                     int count = 1;
                     while (true) {
                         c = fCurrentEntity.read();
-                        if (c == cend) {
+                        if (c == '-') {
                             count++;
                             continue;
                         }
@@ -2417,21 +2418,104 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break OUTER;
                     }
                     if (count < 2) {
-                        xmlString.append(cend);
-                        // if (c != -1) {
+                        xmlString.append('-');
                         fCurrentEntity.rewind();
-                        // }
+                        continue;
+                    }
+
+                    if (c == '!') {
+                        c = fCurrentEntity.read();
+                        if (c == -1) {
+                            if (fReportErrors_) {
+                                fErrorReporter.reportError("HTML1007", null);
+                            }
+                            return true;
+                        }
+
+                        if (c == '>') {
+                            for (int i = 0; i < count - 3; i++) {
+                                xmlString.append('-');
+                            }
+                            break;
+                        }
+
+                        for (int i = 0; i < count; i++) {
+                            xmlString.append('-');
+                        }
+                        xmlString.append('!');
+                        fCurrentEntity.rewind();
+                        continue;
+                    }
+
+                    if (c == '>') {
+                        for (int i = 0; i < count - 2; i++) {
+                            xmlString.append('-');
+                        }
+                        break;
+                    }
+
+                    for (int i = 0; i < count; i++) {
+                        xmlString.append('-');
+                    }
+                    fCurrentEntity.rewind();
+                    continue;
+                }
+                else if (c == '\n' || c == '\r') {
+                    fCurrentEntity.rewind();
+                    final int newlines = skipNewlines();
+                    for (int i = 0; i < newlines; i++) {
+                        xmlString.append('\n');
+                    }
+                    continue;
+                }
+                appendChar(xmlString, c, null);
+            }
+
+            return c == -1;
+        }
+
+        // Scans cdata content.
+        protected boolean scanCDataContent(final XMLString xmlString) throws IOException {
+            int c;
+            OUTER: while (true) {
+                c = fCurrentEntity.read();
+                if (c == -1) {
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1007", null);
+                    }
+                    return true;
+                }
+
+                if (c == ']') {
+                    int count = 1;
+                    while (true) {
+                        c = fCurrentEntity.read();
+                        if (c == ']') {
+                            count++;
+                            continue;
+                        }
+                        break;
+                    }
+                    if (c == -1) {
+                        if (fReportErrors_) {
+                            fErrorReporter.reportError("HTML1007", null);
+                        }
+                        break OUTER;
+                    }
+                    if (count < 2) {
+                        xmlString.append(']');
+                        fCurrentEntity.rewind();
                         continue;
                     }
                     if (c != '>') {
                         for (int i = 0; i < count; i++) {
-                            xmlString.append(cend);
+                            xmlString.append(']');
                         }
                         fCurrentEntity.rewind();
                         continue;
                     }
                     for (int i = 0; i < count - 2; i++) {
-                        xmlString.append(cend);
+                        xmlString.append(']');
                     }
                     break;
                 }
@@ -2445,6 +2529,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 appendChar(xmlString, c, null);
             }
+
             return c == -1;
         }
 
