@@ -2433,7 +2433,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         }
 
                         if (c == '>') {
-                            for (int i = 0; i < count - 3; i++) {
+                            for (int i = 0; i < count - 2; i++) {
                                 xmlString.append('-');
                             }
                             break;
