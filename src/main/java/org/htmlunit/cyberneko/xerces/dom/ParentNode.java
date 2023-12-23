@@ -124,8 +124,7 @@ public abstract class ParentNode extends ChildNode {
         }
 
         return newnode;
-
-    } // cloneNode(boolean):Node
+    }
 
     /**
      * {@inheritDoc}
@@ -215,8 +214,7 @@ public abstract class ParentNode extends ChildNode {
             synchronizeChildren();
         }
         return firstChild;
-
-    } // getFirstChild():Node
+    }
 
     /**
      * {@inheritDoc}
@@ -228,8 +226,7 @@ public abstract class ParentNode extends ChildNode {
             synchronizeChildren();
         }
         return lastChild();
-
-    } // getLastChild():Node
+    }
 
     final ChildNode lastChild() {
         // last child is stored as the previous sibling of first child
@@ -268,7 +265,7 @@ public abstract class ParentNode extends ChildNode {
     public Node insertBefore(final Node newChild, final Node refChild) throws DOMException {
         // Tail-call; optimizer should be able to do good things with.
         return internalInsertBefore(newChild, refChild, false);
-    } // insertBefore(Node,Node):Node
+    }
 
     // NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
     // to control which mutation events are spawned. This version of the
@@ -435,8 +432,7 @@ public abstract class ParentNode extends ChildNode {
         checkNormalizationAfterInsert(newInternal);
 
         return newChild;
-
-    } // internalInsertBefore(Node,Node,boolean):Node
+    }
 
     /**
      * {@inheritDoc}
@@ -454,7 +450,7 @@ public abstract class ParentNode extends ChildNode {
     public Node removeChild(final Node oldChild) throws DOMException {
         // Tail-call, should be optimizable
         return internalRemoveChild(oldChild, false);
-    } // removeChild(Node) :Node
+    }
 
     // NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able
     // to control which mutation events are spawned. This version of the
@@ -535,8 +531,7 @@ public abstract class ParentNode extends ChildNode {
         checkNormalizationAfterRemove(oldPreviousSibling);
 
         return oldInternal;
-
-    } // internalRemoveChild(Node,boolean):Node
+    }
 
     /**
      * {@inheritDoc}
@@ -794,11 +789,7 @@ public abstract class ParentNode extends ChildNode {
                 return nodeListItem(index);
             }
         };
-    } // getChildNodesUnoptimized():NodeList
-
-    //
-    // DOM2: methods, getters, setters
-    //
+    }
 
     /**
      * {@inheritDoc}
@@ -868,7 +859,7 @@ public abstract class ParentNode extends ChildNode {
                 isNormalized(false);
             }
         }
-    } // checkNormalizationAfterInsert(ChildNode)
+    }
 
     /**
      * Checks the normalized of this node after removing a child. If the removed

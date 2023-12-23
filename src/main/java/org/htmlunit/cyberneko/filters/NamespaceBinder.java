@@ -433,20 +433,12 @@ public class NamespaceBinder extends DefaultFilter {
         /** The entries. */
         protected Entry[] fEntries = new Entry[10];
 
-        //
-        // Constructors
-        //
-
         /** Default constructor. */
         public NamespaceSupport() {
             pushContext();
             declarePrefix("xml", NamespaceContext.XML_URI);
             declarePrefix("xmlns", NamespaceContext.XMLNS_URI);
         }
-
-        //
-        // NamespaceContext methods
-        //
 
         // since Xerces 2.0.0-beta2 (old XNI namespaces)
 
@@ -529,19 +521,11 @@ public class NamespaceBinder extends DefaultFilter {
         /** A namespace binding entry. */
         static final class Entry {
 
-            //
-            // Data
-            //
-
             /** Prefix. */
             public final String prefix;
 
             /** URI. */
             public final String uri;
-
-            //
-            // Constructors
-            //
 
             /** Constructs an entry. */
             Entry(final String prefix, final String uri) {

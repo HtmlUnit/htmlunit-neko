@@ -86,10 +86,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  */
 public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponent {
 
-    //
-    // Constants
-    //
-
     // doctype info: HTML 4.01 strict
 
     /** HTML 4.01 strict public identifier ("-//W3C//DTD HTML 4.01//EN"). */
@@ -610,10 +606,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         return fCurrentEntity != null ? fCurrentEntity.getCharacterOffset() : -1;
     }
 
-    //
-    // HTMLComponent methods
-    //
-
     /** Returns the default state for a feature. */
     @Override
     public Boolean getFeatureDefault(final String featureId) {
@@ -732,10 +724,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
     }
 
-    //
-    // XMLDocumentScanner methods
-    //
-
     /** Sets the input source. */
     @Override
     public void setInputSource(final XMLInputSource source) throws IOException {
@@ -831,10 +819,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     }
-
-    //
-    // Protected static methods
-    //
 
     // Returns the value of the specified attribute, ignoring case.
     protected static String getValue(final XMLAttributes attrs, final String aname) {
@@ -1526,19 +1510,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         return null;
     }
 
-    //
-    // Protected static methods
-    //
-
     // Returns true if the name is a built-in XML general entity reference.
     protected static boolean builtinXmlRef(final String name) {
         return "amp".equals(name) || "lt".equals(name) || "gt".equals(name) || "quot".equals(name)
                 || "apos".equals(name);
     }
-
-    //
-    // Private methods
-    //
 
     /**
      * Append a character to an XMLStringBuffer. The character is an int value, and
@@ -1600,20 +1576,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
     }
 
-    //
-    // Interfaces
-    //
-
     /**
      * Basic scanner interface.
      *
      * @author Andy Clark
      */
     public interface Scanner {
-
-        //
-        // Scanner methods
-        //
 
         /**
          * Scans part of the document. This interface allows scanning to be performed in
@@ -1628,10 +1596,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         boolean scan(boolean complete) throws IOException;
     }
-
-    //
-    // Classes
-    //
 
     /**
      * Current entity.
@@ -2232,10 +2196,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             return new String(buff, 0, nbRead);
         }
 
-        //
-        // Protected methods
-        //
-
         // Scans characters.
         protected void scanCharacters() throws IOException {
             if (DEBUG_BUFFER) {
@@ -2283,8 +2243,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 if (next == '&' || next == '<' || next == -1) {
                     break;
                 }
-
-            } // end while
+            }
 
             if (fStringBuffer.length() != 0) {
                 fDocumentHandler.characters(fStringBuffer, locationAugs());
@@ -3107,10 +3066,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      */
     public class SpecialScanner implements Scanner {
 
-        //
-        // Data
-        //
-
         /** Name of element whose content needs to be scanned as text. */
         protected String fElementName;
 
@@ -3131,10 +3086,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         /** A string buffer. */
         private final XMLString xmlString_ = new XMLString();
 
-        //
-        // Public methods
-        //
-
         // Sets the element name.
         public Scanner setElementName(final String ename) {
             fElementName = ename;
@@ -3143,10 +3094,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fTitle = "TITLE".equalsIgnoreCase(fElementName);
             return this;
         }
-
-        //
-        // Scanner methods
-        //
 
         /** Scan. */
         @Override
@@ -3460,10 +3407,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 byteBuffer_ = null;
             }
         }
-
-        //
-        // InputStream methods
-        //
 
         /** Read a byte. */
         @Override

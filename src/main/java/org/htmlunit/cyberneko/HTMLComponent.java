@@ -27,10 +27,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 public interface HTMLComponent
     extends XMLComponent {
 
-    //
-    // HTMLComponent methods
-    //
-
     /**
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this

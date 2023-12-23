@@ -214,7 +214,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     // NON-DOM Returns the xml:base attribute.
     protected Attr getXMLBaseAttribute() {
         return (Attr) attributes.getNamedItem("xml:base");
-    } // getXMLBaseAttribute():Attr
+    }
 
     // NON-DOM set the ownerDocument of this node, its children, and its attributes
     @Override
@@ -332,8 +332,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         }
 
         attributes.internalRemoveNamedItem(name, false);
-
-    } // removeAttribute(String)
+    }
 
     /**
      * {@inheritDoc}
@@ -595,8 +594,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             return null;
         }
         return (Attr) attributes.getNamedItemNS(namespaceURI, localName);
-
-    } // getAttributeNodeNS(String,String):Attr
+    }
 
     /**
      * {@inheritDoc}
@@ -891,12 +889,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      */
     @Override
     protected void synchronizeData() {
-
         // no need to sync in the future
         needsSyncData(false);
-
-        // attributes
-    } // synchronizeData()
+    }
 
     // support for DOM Level 3 renameNode method
     // @param el The element from which to take the attributes

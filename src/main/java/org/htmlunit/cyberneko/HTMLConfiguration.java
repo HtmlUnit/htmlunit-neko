@@ -69,10 +69,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  */
 public class HTMLConfiguration extends ParserConfigurationSettings implements XMLParserConfiguration {
 
-    //
-    // Constants
-    //
-
     // features
 
     /** Namespaces. */

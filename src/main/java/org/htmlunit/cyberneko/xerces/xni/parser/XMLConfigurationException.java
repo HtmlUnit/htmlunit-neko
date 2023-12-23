@@ -53,7 +53,7 @@ public class XMLConfigurationException extends XNIException {
         super(identifier);
         type_ = type;
         identifier_ = identifier;
-    } // <init>(short,String)
+    }
 
     /**
      * Constructs a configuration exception with the specified type,

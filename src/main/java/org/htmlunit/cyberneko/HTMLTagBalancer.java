@@ -70,10 +70,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 public class HTMLTagBalancer
     implements XMLDocumentFilter, HTMLComponent {
 
-    //
-    // Constants
-    //
-
     // features
 
     /** Namespaces. */
@@ -275,10 +271,6 @@ public class HTMLTagBalancer
         htmlConfiguration_ = htmlConfiguration;
     }
 
-    //
-    // HTMLComponent methods
-    //
-
     /** Returns the default state for a feature. */
     @Override
     public Boolean getFeatureDefault(final String featureId) {
@@ -302,10 +294,6 @@ public class HTMLTagBalancer
         }
         return null;
     }
-
-    //
-    // XMLComponent methods
-    //
 
     /** Returns recognized features. */
     @Override
@@ -392,10 +380,6 @@ public class HTMLTagBalancer
         }
     }
 
-    //
-    // XMLDocumentSource methods
-    //
-
     /** Sets the document handler. */
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
@@ -407,10 +391,6 @@ public class HTMLTagBalancer
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
     }
-
-    //
-    // XMLDocumentHandler methods
-    //
 
     /** Start document. */
     @Override
@@ -1227,10 +1207,6 @@ public class HTMLTagBalancer
         return fDocumentSource;
     }
 
-    //
-    // Protected methods
-    //
-
     // Returns an HTML element.
     protected HTMLElements.Element getElement(final QName elementName) {
         String name = elementName.rawname;
@@ -1334,10 +1310,6 @@ public class HTMLTagBalancer
         return null;
     }
 
-    //
-    // Protected static methods
-    //
-
     // Modifies the given name based on the specified mode.
     protected static String modifyName(final String name, final short mode) {
         switch (mode) {
@@ -1362,10 +1334,6 @@ public class HTMLTagBalancer
         return NAMES_NO_CHANGE;
     }
 
-    //
-    // Classes
-    //
-
     /**
      * Element info for each start element. This information is used when
      * closing unbalanced inline elements. For example:
@@ -1383,10 +1351,6 @@ public class HTMLTagBalancer
      */
     public static class Info {
 
-        //
-        // Data
-        //
-
         /** The element. */
         public final HTMLElements.Element element;
 
@@ -1395,10 +1359,6 @@ public class HTMLTagBalancer
 
         /** The element attributes. */
         public XMLAttributes attributes;
-
-        //
-        // Constructors
-        //
 
         /**
          * Creates an element information object.
@@ -1456,19 +1416,11 @@ public class HTMLTagBalancer
     /** Unsynchronized stack of element information. */
     public static class InfoStack {
 
-        //
-        // Data
-        //
-
         /** The top of the stack. */
         public int top;
 
         /** The stack data. */
         public Info[] data = new Info[10];
-
-        //
-        // Public methods
-        //
 
         // Pushes element information onto the stack.
         public void push(final Info info) {

@@ -37,10 +37,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
  */
 public interface HTMLErrorReporter {
 
-    //
-    // HTMLErrorReporter methods
-    //
-
     /**
      * Format message without reporting error.
      * @param key key

@@ -227,4 +227,4 @@ public interface XMLDocumentFragmentHandler {
      */
     void endDocumentFragment(Augmentations augmentations) throws XNIException;
 
-} // interface XMLDocumentFragmentHandler
+}

@@ -392,7 +392,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         return v.toString();
 
-    } // getValue():String
+    }
 
     /**
      * {@inheritDoc} The "specified" flag is true if and only if this attribute's
@@ -411,12 +411,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             synchronizeData();
         }
         return isSpecified();
-
-    } // getSpecified():boolean
-
-    //
-    // Attr2 methods
-    //
+    }
 
     /**
      * {@inheritDoc} Returns the element node that this attribute is associated
@@ -482,8 +477,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             synchronizeChildren();
         }
         return this;
-
-    } // getChildNodes():NodeList
+    }
 
     /**
      * {@inheritDoc}
@@ -704,8 +698,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         checkNormalizationAfterInsert(newInternal);
 
         return newChild;
-
-    } // internalInsertBefore(Node,Node,int):Node
+    }
 
     /**
      * Remove a child from this Node. The removed child's subtree remains intact so
@@ -726,7 +719,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
         return internalRemoveChild(oldChild, false);
-    } // removeChild(Node) :Node
+    }
 
     /**
      * NON-DOM INTERNAL: Within DOM actions,we sometimes need to be able to control
@@ -793,8 +786,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         checkNormalizationAfterRemove(oldPreviousSibling);
 
         return oldInternal;
-
-    } // internalRemoveChild(Node,int):Node
+    }
 
     /**
      * Make newChild occupy the location that oldChild used to have. Note that
@@ -861,8 +853,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             length++;
         }
         return length;
-
-    } // getLength():int
+    }
 
     /**
      * NodeList method: Return the Nth immediate child of this node, or null if the
@@ -970,7 +961,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                 isNormalized(false);
             }
         }
-    } // checkNormalizationAfterInsert(ChildNode)
+    }
 
     /**
      * Checks the normalized of this node after removing a child. If the removed

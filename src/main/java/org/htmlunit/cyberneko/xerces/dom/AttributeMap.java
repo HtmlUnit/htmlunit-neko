@@ -110,7 +110,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         }
         return previous;
 
-    } // setNamedItem(Node):Node
+    }
 
     /**
      * Adds an attribute using its namespaceURI and localName.
@@ -360,7 +360,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         newmap.hasDefaults(hasDefaults());
         newmap.cloneContent(this);
         return newmap;
-    } // cloneMap():AttributeMap
+    }
 
     /**
      * Override parent's method to set the ownerNode correctly

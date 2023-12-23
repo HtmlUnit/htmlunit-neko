@@ -178,10 +178,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         return attributes_.get(attrIndex).specified_;
     }
 
-    //
-    // AttributeList and Attributes methods
-    //
-
     /**
      * Return the number of attributes in the list.
      *
@@ -194,7 +190,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     @Override
     public int getLength() {
         return attributes_.size();
-    } // getLength():int
+    }
 
     /**
      * Look up an attribute's type by index.

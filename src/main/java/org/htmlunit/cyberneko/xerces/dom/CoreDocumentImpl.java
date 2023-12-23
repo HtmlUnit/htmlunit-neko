@@ -147,9 +147,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     private int nodeCounter_ = 0;
     private Map<Node, Integer> nodeTable_;
     private boolean xml11Version_ = false; // by default 1.0
-    //
-    // Static initialization
-    //
 
     static {
 
@@ -166,11 +163,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
         kidOK[DOCUMENT_TYPE_NODE] = kidOK[PROCESSING_INSTRUCTION_NODE] = kidOK[COMMENT_NODE] = kidOK[TEXT_NODE] = kidOK[CDATA_SECTION_NODE] = kidOK[NOTATION_NODE] = 0;
 
-    } // static
-
-    //
-    // Constructors
-    //
+    }
 
     /**
      * NON-DOM: Actually creating a Document is outside the DOM's spec, since it has
@@ -329,8 +322,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         return newChild;
-
-    } // insertBefore(Node,Node):Node
+    }
 
     /**
      * Since insertBefore caches the docElement (and, currently, docType),
@@ -354,8 +346,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         return oldChild;
-
-    } // removeChild(Node):Node
+    }
 
     /**
      * Since we cache the docElement (and, currently, docType), replaceChild has to
@@ -522,8 +513,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new ProcessingInstructionImpl(this, target, data);
-
-    } // createProcessingInstruction(String,String):ProcessingInstruction
+    }
 
     /**
      * Factory method; creates a Text node having this Document as its OwnerDoc.
@@ -1497,8 +1487,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         identifiers_.put(idName, element);
-
-    } // putIdentifier(String,Element)
+    }
 
     /**
      * Returns a previously registered element with the specified identifier name,
@@ -1531,7 +1520,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
         }
         return null;
-    } // getIdentifier(String):Element
+    }
 
     /**
      * Removes a previously registered element with the specified identifier name.

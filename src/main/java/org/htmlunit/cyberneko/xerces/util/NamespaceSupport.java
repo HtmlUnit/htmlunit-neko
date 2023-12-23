@@ -58,11 +58,7 @@ public class NamespaceSupport implements NamespaceContext {
 
     /** Default constructor. */
     public NamespaceSupport() {
-    } // <init>()
-
-    //
-    // Public methods
-    //
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#reset()
@@ -76,8 +72,7 @@ public class NamespaceSupport implements NamespaceContext {
         fContext_[fCurrentContext_] = fNamespaceSize_;
 
         ++fCurrentContext_;
-
-    } // reset(SymbolTable)
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#pushContext()
@@ -94,8 +89,7 @@ public class NamespaceSupport implements NamespaceContext {
 
         // push context
         fContext_[++fCurrentContext_] = fNamespaceSize_;
-
-    } // pushContext()
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#popContext()
@@ -103,7 +97,7 @@ public class NamespaceSupport implements NamespaceContext {
     @Override
     public void popContext() {
         fNamespaceSize_ = fContext_[fCurrentContext_--];
-    } // popContext()
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#declarePrefix(String,
@@ -137,8 +131,7 @@ public class NamespaceSupport implements NamespaceContext {
         fNamespace_[fNamespaceSize_++] = uri;
 
         return true;
-
-    } // declarePrefix(String,String):boolean
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getURI(String)
@@ -155,8 +148,7 @@ public class NamespaceSupport implements NamespaceContext {
 
         // prefix not found
         return null;
-
-    } // getURI(String):String
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getDeclaredPrefixCount()
@@ -164,7 +156,7 @@ public class NamespaceSupport implements NamespaceContext {
     @Override
     public int getDeclaredPrefixCount() {
         return (fNamespaceSize_ - fContext_[fCurrentContext_]) / 2;
-    } // getDeclaredPrefixCount():int
+    }
 
     /**
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getDeclaredPrefixAt(int)
@@ -172,5 +164,5 @@ public class NamespaceSupport implements NamespaceContext {
     @Override
     public String getDeclaredPrefixAt(final int index) {
         return fNamespace_[fContext_[fCurrentContext_] + index * 2];
-    } // getDeclaredPrefixAt(int):String
+    }
 }

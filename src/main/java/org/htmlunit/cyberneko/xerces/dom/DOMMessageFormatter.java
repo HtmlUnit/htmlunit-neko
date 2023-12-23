@@ -67,7 +67,7 @@ public class DOMMessageFormatter {
                     msg += " " + resourceBundle.getString(key);
                 }
             }
-        } // error
+        }
         catch (final MissingResourceException e) {
             msg = resourceBundle.getString("BadMessageKey");
             throw new MissingResourceException(key, msg, key);

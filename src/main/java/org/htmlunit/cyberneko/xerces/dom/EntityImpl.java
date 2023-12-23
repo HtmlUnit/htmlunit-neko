@@ -192,7 +192,7 @@ public class EntityImpl extends ParentNode implements Entity {
         }
         return notationName;
 
-    } // getNotationName():String
+    }
 
     /**
      * DOM Level 2: The public identifier associated with the entity. If not

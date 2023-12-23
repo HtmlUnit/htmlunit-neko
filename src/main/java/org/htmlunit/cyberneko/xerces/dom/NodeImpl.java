@@ -95,10 +95,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     protected static final short NORMALIZED = 0x1 << 8;
     protected static final short ID = 0x1 << 9;
 
-    //
-    // Constructors
-    //
-
     /**
      * No public constructor; only subclasses of Node should be instantiated, and
      * those normally via a Document's factory methods
@@ -110,7 +106,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     protected NodeImpl(final CoreDocumentImpl ownerDocument) {
         // as long as we do not have any owner, ownerNode is our ownerDocument
         ownerNode = ownerDocument;
-    } // <init>(CoreDocumentImpl)
+    }
 
     /**
      * {@inheritDoc}
@@ -228,8 +224,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         newnode.isOwned(false);
 
         return newnode;
-
-    } // cloneNode(boolean):Node
+    }
 
     /**
      * {@inheritDoc}

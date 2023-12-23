@@ -30,10 +30,6 @@ import java.util.TreeMap;
  */
 public class HTMLElements {
 
-    //
-    // Constants
-    //
-
     // element codes
 
     // NOTE: The element codes *must* start with 0 and increment in
@@ -196,10 +192,6 @@ public class HTMLElements {
     public final Map<Short, Element> elementsByCode = new HashMap<>(256);
 
     public final Map<String, Element> elementsByName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-
-    //
-    // Static initializer
-    //
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];

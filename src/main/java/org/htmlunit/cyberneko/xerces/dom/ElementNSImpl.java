@@ -85,7 +85,7 @@ public class ElementNSImpl extends ElementImpl {
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
-        } // there is a prefix
+        }
         else {
             prefix = qname.substring(0, colon1);
             localName = qname.substring(colon2 + 1);

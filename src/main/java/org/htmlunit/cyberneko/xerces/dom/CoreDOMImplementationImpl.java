@@ -83,7 +83,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
                         && (anyVersion || "1.0".equals(version) || "1.1".equals(version)))
                 || ("LS".equalsIgnoreCase(feature) && (anyVersion || "3.0".equals(version)))
                 || ("ElementTraversal".equalsIgnoreCase(feature) && (anyVersion || "1.0".equals(version)));
-    } // hasFeature(String,String):boolean
+    }
 
     /**
      * {@inheritDoc}

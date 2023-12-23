@@ -25,10 +25,6 @@ import org.htmlunit.cyberneko.xerces.xni.Augmentations;
  */
 public interface HTMLEventInfo extends Augmentations {
 
-    //
-    // HTMLEventInfo methods
-    //
-
     // location information
 
     /**

@@ -409,7 +409,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             }
         }
         fCurrentNode = fDocument;
-    } // startDocument(String,String)
+    }
 
     /**
      * Notifies of the presence of an XMLDecl line in the document. If present, this
@@ -533,11 +533,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
-
         startElement(element, attributes, augs);
         endElement(element, augs);
-
-    } // emptyElement(QName,XMLAttributes)
+    }
 
     /**
      * Character content.
@@ -764,7 +762,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     node = parent.insertBefore(children.item(0), fCurrentNode);
                     handleBaseURI(node);
                 }
-            } // length > 0
+            }
             parent.removeChild(fCurrentNode);
             fCurrentNode = parent;
         }
@@ -892,8 +890,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // reset string buffer
                 fStringBuffer.setLength(0);
             }
-
-        } // end-if child !=null
+        }
     }
 
     /**

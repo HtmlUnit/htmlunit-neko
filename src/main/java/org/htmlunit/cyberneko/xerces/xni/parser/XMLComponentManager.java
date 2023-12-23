@@ -45,4 +45,4 @@ public interface XMLComponentManager {
      */
     Object getProperty(String propertyId) throws XMLConfigurationException;
 
-} // interface XMLComponentManager
+}

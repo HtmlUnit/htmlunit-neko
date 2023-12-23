@@ -179,8 +179,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // startDocument(locator,encoding,augs)
+    }
 
     /**
      * Notifies of the presence of an XMLDecl line in the document. If present, this
@@ -201,7 +200,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         // document's XML 1.0|1.1, that's how it'll stay
         fVersion = version;
         fStandalone = "yes".equals(standalone);
-    } // xmlDecl(String,String,String)
+    }
 
     /**
      * Notifies of the presence of the DOCTYPE line in the document.
@@ -228,7 +227,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-    } // doctypeDecl(String,String,String)
+    }
 
     /**
      * This method notifies of the start of an entity. The DTD has the pseudo-name
@@ -265,8 +264,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // startGeneralEntity(String,String,String,String,String)
+    }
 
     /**
      * This method notifies the end of an entity. The DTD has the pseudo-name of
@@ -335,8 +333,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // startElement(QName,XMLAttributes)
+    }
 
     /**
      * Character content.
@@ -364,8 +361,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // characters(XMLString)
+    }
 
     /**
      * Ignorable whitespace. For this method to be called, the document source must
@@ -417,8 +413,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // endElement(QName)
+    }
 
     /**
      * The start of a CDATA section.
@@ -439,8 +434,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // startCDATA()
+    }
 
     /**
      * The end of a CDATA section.
@@ -461,8 +455,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // endCDATA()
+    }
 
     /**
      * A comment.
@@ -484,8 +477,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // comment(XMLString)
+    }
 
     /**
      * A processing instruction. Processing instructions consist of a target name
@@ -521,8 +513,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // processingInstruction(String,XMLString)
+    }
 
     /**
      * The end of the document.
@@ -543,12 +534,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final SAXException e) {
             throw new XNIException(e);
         }
-
-    } // endDocument()
-
-    //
-    // Parser and XMLReader methods
-    //
+    }
 
     /**
      * Parses the input source specified by the given system identifier.
@@ -615,8 +601,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             }
             throw new SAXException(ex);
         }
-
-    } // parse(String)
+    }
 
     /**
      * {@inheritDoc}
@@ -675,8 +660,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             }
             throw new SAXException(ex);
         }
-
-    } // parse(InputSource)
+    }
 
     /**
      * {@inheritDoc}
@@ -730,8 +714,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         catch (final XMLConfigurationException e) {
             // do nothing
         }
-
-    } // setErrorHandler(ErrorHandler)
+    }
 
     /**
      * Return the current error handler.
@@ -753,8 +736,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             // do nothing
         }
         return errorHandler;
-
-    } // getErrorHandler():ErrorHandler
+    }
 
     /**
      * Allow an application to register a DTD event handler.
@@ -797,7 +779,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     @Override
     public void setContentHandler(final ContentHandler contentHandler) {
         fContentHandler = contentHandler;
-    } // setContentHandler(ContentHandler)
+    }
 
     /**
      * Return the current content handler.
@@ -809,7 +791,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     @Override
     public ContentHandler getContentHandler() {
         return fContentHandler;
-    } // getContentHandler():ContentHandler
+    }
 
     /**
      * Return the current DTD handler.
@@ -820,7 +802,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     @Override
     public DTDHandler getDTDHandler() {
         return fDTDHandler;
-    } // getDTDHandler():DTDHandler
+    }
 
     /**
      * Set the state of any feature in a SAX2 parser. The parser might not recognize
@@ -902,8 +884,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             throw new SAXNotSupportedException(
                     SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
-
-    } // setFeature(String,boolean)
+    }
 
     /**
      * Query the state of a feature.
@@ -972,8 +953,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             throw new SAXNotSupportedException(
                     SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
-
-    } // getFeature(String):boolean
+    }
 
     /**
      * Set the value of any property in a SAX2 parser. The parser might not
@@ -1029,8 +1009,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             throw new SAXNotSupportedException(
                     SAXMessageFormatter.formatMessage("property-not-supported", new Object[] {identifier}));
         }
-
-    } // setProperty(String,Object)
+    }
 
     /**
      * Query the value of a property.
@@ -1176,12 +1155,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         // features
         fNamespaces = fConfiguration.getFeature(NAMESPACES);
-
-    } // reset()
-
-    //
-    // Classes
-    //
+    }
 
     protected static final class LocatorProxy implements Locator2 {
 
@@ -1251,7 +1225,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         // Sets the XML attributes.
         public void setAttributes(final XMLAttributes attributes) {
             fAttributes = attributes;
-        } // setAttributes(XMLAttributes)
+        }
 
         @Override
         public int getLength() {
