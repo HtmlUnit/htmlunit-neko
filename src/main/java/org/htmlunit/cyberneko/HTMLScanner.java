@@ -1951,11 +1951,22 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             }
                             if (c == '!') {
                                 // process some strange self closing comments first
-                                if (skip("--->", false) || skip("-->", false) || skip("->", false) || skip(">", false)) {
+                                if (skip("--->", false)
+                                        || skip("-->", false)
+                                        || skip("->", false)
+                                        || skip(">", false)) {
                                     fEndLineNumber = fCurrentEntity.getLineNumber();
                                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
                                     fDocumentHandler.comment(new XMLString(), locationAugs());
+                                }
+                                else if (skip("-!>", false)) {
+                                    fEndLineNumber = fCurrentEntity.getLineNumber();
+                                    fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                                    fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                                    final XMLString str = new XMLString();
+                                    str.append("-!");
+                                    fDocumentHandler.comment(str, locationAugs());
                                 }
                                 else if (skip("--", false)) {
                                     scanComment();
