@@ -1,0 +1,9 @@
+(HTML
+(head
+)head
+(BODY
+(textarea
+"<script>alert('x');</script>
+)textarea
+)BODY
+)HTML
