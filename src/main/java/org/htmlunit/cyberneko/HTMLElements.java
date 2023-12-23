@@ -564,7 +564,7 @@ public class HTMLElements {
         }
     }
 
-    public void setElement(Element element) {
+    public void setElement(final Element element) {
         elementsByCode.put(element.code, element);
         elementsByName.put(element.name, element);
         defineParents(element);

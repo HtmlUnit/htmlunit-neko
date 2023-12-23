@@ -947,7 +947,7 @@ public class HTMLTagBalancer
 
     /** Text declaration. */
     @Override
-    public void textDecl(final String version, final String encoding, Augmentations augs)
+    public void textDecl(final String version, final String encoding, final Augmentations augs)
         throws XNIException {
         fSeenAnything = true;
 
