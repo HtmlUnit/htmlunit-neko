@@ -1017,13 +1017,13 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         if (nodeTable_ == null) {
             nodeTable_ = new WeakHashMap<>();
             num = --nodeCounter_;
-            nodeTable_.put(node, new Integer(num));
+            nodeTable_.put(node, Integer.valueOf(num));
         }
         else {
             final Integer n = nodeTable_.get(node);
             if (n == null) {
                 num = --nodeCounter_;
-                nodeTable_.put(node, new Integer(num));
+                nodeTable_.put(node, Integer.valueOf(num));
             }
             else {
                 num = n.intValue();
