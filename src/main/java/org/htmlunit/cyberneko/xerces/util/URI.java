@@ -190,13 +190,13 @@ public class URI {
     }
 
     /** Stores the scheme (usually the protocol) for this URI. */
-    private String scheme_ = null;
+    private String scheme_;
 
     /** If specified, stores the userinfo for this URI; otherwise null */
-    private String userinfo_ = null;
+    private String userinfo_;
 
     /** If specified, stores the host for this URI; otherwise null */
-    private String host_ = null;
+    private String host_;
 
     /** If specified, stores the port for this URI; otherwise -1 */
     private int port_ = -1;
@@ -204,18 +204,18 @@ public class URI {
     /**
      * If specified, stores the registry based authority for this URI; otherwise -1
      */
-    private String regAuthority_ = null;
+    private String regAuthority_;
 
     /** If specified, stores the path for this URI; otherwise null */
-    private String path_ = null;
+    private String path_;
 
     /**
      * If specified, stores the query string for this URI; otherwise null.
      */
-    private String queryString_ = null;
+    private String queryString_;
 
     /** If specified, stores the fragment for this URI; otherwise null */
-    private String fragment_ = null;
+    private String fragment_;
 
     /**
      * Construct a new URI from a URI specification string. If the specification

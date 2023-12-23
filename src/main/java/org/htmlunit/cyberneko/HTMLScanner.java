@@ -3370,13 +3370,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private static final boolean DEBUG_PLAYBACK = false;
 
         /** Playback mode. */
-        private boolean playback_ = false;
+        private boolean playback_;
 
         /** Buffer cleared. */
-        private boolean cleared_ = false;
+        private boolean cleared_;
 
         /** Encoding detected. */
-        private boolean detected_ = false;
+        private boolean detected_;
 
         // buffer info
 
@@ -3384,16 +3384,16 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private byte[] byteBuffer_ = new byte[1024];
 
         /** Offset into byte buffer during playback. */
-        private int byteOffset_ = 0;
+        private int byteOffset_;
 
         /** Length of bytes read into byte buffer. */
-        private int byteLength_ = 0;
+        private int byteLength_;
 
         /** Pushback offset. */
-        private int pushbackOffset_ = 0;
+        private int pushbackOffset_;
 
         /** Pushback length. */
-        private int pushbackLength_ = 0;
+        private int pushbackLength_;
 
         // Constructor.
         PlaybackInputStream(final InputStream in) {
