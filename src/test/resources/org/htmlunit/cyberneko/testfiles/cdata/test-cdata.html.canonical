@@ -4,7 +4,7 @@
 (BODY
 (p
 "P1
-#[CDATA[<h1>Header</h1>]]
+#[CDATA[Header < &gt;]]
 "\n
 )p
 (p

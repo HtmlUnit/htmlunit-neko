@@ -2271,9 +2271,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 fStringBuffer.append("[CDATA[");
             }
             final boolean eof = scanCDataContent(fStringBuffer);
-            if (!fCDATASections_) {
-                fStringBuffer.append("]]");
-            }
+
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                 fEndLineNumber = fCurrentEntity.getLineNumber();
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
@@ -2453,7 +2451,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
                     }
-                    return true;
+                    break;
                 }
 
                 if (c == ']') {
@@ -2489,6 +2487,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     break;
                 }
+                else if (c == '>') {
+                    // don't add the ]] to the buffer
+                    return false;
+                }
                 else if (c == '\n' || c == '\r') {
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
@@ -2500,6 +2502,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 appendChar(xmlString, c, null);
             }
 
+            if (!fCDATASections_) {
+                fStringBuffer.append("]]");
+            }
             return c == -1;
         }
 
