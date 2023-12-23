@@ -36,7 +36,7 @@ public final class HTMLDOMImplementationImpl extends DOMImplementationImpl imple
      * Holds a reference to the single instance of the DOM implementation.
      * Only one instance is required since this class is multiple entry.
      */
-    private static final HTMLDOMImplementation _instance = new HTMLDOMImplementationImpl();
+    private static final HTMLDOMImplementation INSTANCE = new HTMLDOMImplementationImpl();
 
     /**
      * Private constructor assures that an object of this class cannot
@@ -72,6 +72,6 @@ public final class HTMLDOMImplementationImpl extends DOMImplementationImpl imple
      * @return Reference to a valid DOM implementation
      */
     public static HTMLDOMImplementation getHTMLDOMImplementation() {
-        return _instance;
+        return INSTANCE;
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package org.htmlunit.cyberneko;
+package org.htmlunit.cyberneko;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -823,11 +823,13 @@ public class HTMLElements {
          * @return <code>true</code> if <code>element</code> belongs to the {@link #parent}
          */
         public boolean isParent(final Element element) {
-            if (parent == null)
+            if (parent == null) {
                 return false;
+            }
             for (final Element element2 : parent) {
-                if (element.code == element2.code)
+                if (element.code == element2.code) {
                     return true;
+                }
             }
             return false;
         }
