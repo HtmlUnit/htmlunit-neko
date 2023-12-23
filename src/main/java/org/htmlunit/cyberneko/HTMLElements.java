@@ -778,10 +778,6 @@ public class HTMLElements {
             return false;
         }
 
-        //
-        // Object methods
-        //
-
         /**
          * @return a hash code for this object.
          */
