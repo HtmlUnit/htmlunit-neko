@@ -84,4 +84,6 @@ public final class Constants {
     /** Error handler property ("internal/error-handler"). */
     public static final String ERROR_HANDLER_PROPERTY = "internal/error-handler";
 
+    private Constants() {
+    }
 }

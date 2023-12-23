@@ -109,4 +109,7 @@ public class DOMMessageFormatter {
         DomResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
         XmlResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
     }
+
+    private DOMMessageFormatter() {
+    }
 }

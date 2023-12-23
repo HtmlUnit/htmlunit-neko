@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
  */
 public class SAXMessageFormatter {
 
+    private SAXMessageFormatter() {
+    }
+
     /**
      * Formats a message with the specified arguments.
      *
