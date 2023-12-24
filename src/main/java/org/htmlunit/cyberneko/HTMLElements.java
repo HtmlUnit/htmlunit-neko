@@ -444,7 +444,7 @@ public class HTMLElements {
             // RT
             new Element(RT, "RT", Element.INLINE, BODY, null),
             // RTC
-            new Element(RTC, "RTC", 0, BODY, null),
+            new Element(RTC, "RTC", Element.INLINE, BODY, null),
             // RUBY
             new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{SVG}),
         };
