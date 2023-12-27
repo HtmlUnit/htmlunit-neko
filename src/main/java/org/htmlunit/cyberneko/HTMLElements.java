@@ -647,9 +647,6 @@ public class HTMLElements {
         public final int flags;
 
         /** Parent elements. */
-        public short[] parentCodes;
-
-        /** Parent elements. */
         public Element[] parent;
 
         /** The bounding element code. */
@@ -657,6 +654,9 @@ public class HTMLElements {
 
         /** List of elements this element can close. */
         public final short[] closes;
+
+        /** Parent elements. */
+        private short[] parentCodes;
 
         /**
          * Constructs an element object.
