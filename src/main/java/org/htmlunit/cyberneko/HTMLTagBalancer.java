@@ -669,6 +669,11 @@ public class HTMLTagBalancer
                 }
             }
         }
+        else if (fSeenHeadElement && !fSeenFramesetElement
+                    && elementCode == HTMLElements.FRAME) {
+            notifyDiscardedStartElement(elem, attrs, augs);
+            return;
+        }
         else if (elementCode == HTMLElements.UNKNOWN) {
             consumeBufferedEndElements();
         }
