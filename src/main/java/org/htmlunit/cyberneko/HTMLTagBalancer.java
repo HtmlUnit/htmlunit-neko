@@ -669,7 +669,9 @@ public class HTMLTagBalancer
                 }
             }
         }
-        else if (fSeenHeadElement && !fSeenFramesetElement
+        else if (fSeenHeadElement
+                    && !fSeenFramesetElement
+                    && !fOpenedSvg
                     && elementCode == HTMLElements.FRAME) {
             notifyDiscardedStartElement(elem, attrs, augs);
             return;
