@@ -1,9 +1,9 @@
 (HTML
 (head
 Aid outer
+)head
+(BODY
 (command
 )command
-)head
-(body
-)body
+)BODY
 )HTML
