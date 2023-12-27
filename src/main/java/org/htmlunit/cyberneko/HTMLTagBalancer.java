@@ -594,7 +594,8 @@ public class HTMLTagBalancer
             }
             else if (elementCode != HTMLElements.OPTION
                         && elementCode != HTMLElements.OPTGROUP
-                        && elementCode != HTMLElements.SCRIPT) {
+                        && elementCode != HTMLElements.SCRIPT
+                        && elementCode != HTMLElements.HR) {
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }

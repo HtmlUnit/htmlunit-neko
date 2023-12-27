@@ -331,7 +331,7 @@ public class HTMLElements {
             new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
 
             // HR - O EMPTY
-            new Element(HR, "HR", Element.EMPTY, BODY, new short[]{P, SVG}),
+            new Element(HR, "HR", Element.EMPTY, new short[]{BODY, SELECT}, new short[]{P, SVG}),
             // HTML O O (%html.content;)
             new Element(HTML, "HTML", 0, null, null),
         };
