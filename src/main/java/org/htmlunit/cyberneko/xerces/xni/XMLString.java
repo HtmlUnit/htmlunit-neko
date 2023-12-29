@@ -40,6 +40,7 @@ import org.xml.sax.ext.LexicalHandler;
  * @author Eric Ye, IBM
  * @author Andy Clark, IBM
  * @author Ronald Brill
+ * @author Ren&eacute; Schwietzke
  */
 public class XMLString {
 
@@ -50,6 +51,15 @@ public class XMLString {
      */
     public XMLString() {
         builder_ = new StringBuilder();
+    }
+
+    /**
+     * Constructs an XMLString.
+     *
+     * @param initialCapacity desired initial capacity
+     */
+    public XMLString(final int initialCapacity) {
+        builder_ = new StringBuilder(initialCapacity);
     }
 
     /**
