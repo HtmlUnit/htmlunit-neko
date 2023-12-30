@@ -17,9 +17,12 @@ package org.htmlunit.cyberneko.html.dom;
 
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
+import org.htmlunit.cyberneko.util.FastHashMap;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.w3c.dom.Attr;
@@ -55,6 +58,28 @@ import org.w3c.dom.html.HTMLTitleElement;
  * @see org.w3c.dom.html.HTMLDocument
  */
 public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
+
+    /**
+     * All valid HTML5 tags without deprecated elements
+     * https://www.tutorialrepublic.com/html-reference/html5-tags.php
+     */
+    private static final String[] HTML5ELEMENTS = {
+            "A", "ABBR", "ADDRESS", "AREA", "ARTICLE", "ASIDE", "AUDIO",
+            "B", "BASE", "BDI", "BDO", "BLOCKQUOTE", "BODY", "BR", "BUTTON",
+            "CANVAS", "CAPTION", "CITE", "CODE", "COL", "COLGROUP", "DATA",
+            "DATALIST", "DD", "DEL", "DETAILS", "DFN", "DIALOG", "DIV",
+            "DL", "DT", "EM", "EMBED", "FIELDSET", "FIGCAPTION", "FIGURE",
+            "FOOTER", "FORM", "HEAD", "HEADER", "HGROUP", "H1", "HR", "HTML",
+            "I", "IFRAME", "IMG", "INPUT", "INS", "KBD", "KEYGEN", "LABEL",
+            "LEGEND", "LI", "LINK", "MAIN", "MAP", "MARK", "MENU", "MENUITEM",
+            "META", "METER", "NAV", "NOSCRIPT", "OBJECT", "OL", "OPTGROUP",
+            "OPTION", "OUTPUT", "P", "PARAM", "PICTURE", "PRE", "PROGRESS",
+            "Q", "RP", "RT", "RUBY", "S", "SAMP", "SCRIPT", "SECTION",
+            "SELECT", "SMALL", "SOURCE", "SPAN", "STRONG", "STYLE", "SUB",
+            "SUMMARY", "SUP", "SVG", "TABLE", "TBODY", "TD", "TEMPLATE",
+            "TEXTAREA", "TFOOT", "TH", "THEAD", "TIME", "TITLE", "TR",
+            "TRACK", "U", "UL", "VAR", "VIDEO", "WBR"
+    };
 
     /**
      * Holds <code>HTMLCollectionImpl</code> object with live collection of all
@@ -102,7 +127,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      *
      * @see #createElement
      */
-    private static final HashMap<String, Class<? extends HTMLElementImpl>> elementTypesHTML_ = new HashMap<>();
+    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLLower_ = new FastHashMap<>(11, 0.5f);
+    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLUpper_ = new FastHashMap<>(11, 0.5f);
 
     /**
      * Signature used to locate constructor of HTML element classes. This
@@ -113,69 +139,108 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
     private static final Class<?>[]    elemClassSigHTML_ = new Class[] {HTMLDocumentImpl.class, String.class};
 
     static {
-        elementTypesHTML_.put("A", HTMLAnchorElementImpl.class);
-        elementTypesHTML_.put("APPLET", HTMLAppletElementImpl.class);
-        elementTypesHTML_.put("AREA", HTMLAreaElementImpl.class);
-        elementTypesHTML_.put("BASE",  HTMLBaseElementImpl.class);
-        elementTypesHTML_.put("BASEFONT", HTMLBaseFontElementImpl.class);
-        elementTypesHTML_.put("BLOCKQUOTE", HTMLQuoteElementImpl.class);
-        elementTypesHTML_.put("BODY", HTMLBodyElementImpl.class);
-        elementTypesHTML_.put("BR", HTMLBRElementImpl.class);
-        elementTypesHTML_.put("BUTTON", HTMLButtonElementImpl.class);
-        elementTypesHTML_.put("DEL", HTMLModElementImpl.class);
-        elementTypesHTML_.put("DIR", HTMLDirectoryElementImpl.class);
-        elementTypesHTML_.put("DIV",  HTMLDivElementImpl.class);
-        elementTypesHTML_.put("DL", HTMLDListElementImpl.class);
-        elementTypesHTML_.put("FIELDSET", HTMLFieldSetElementImpl.class);
-        elementTypesHTML_.put("FONT", HTMLFontElementImpl.class);
-        elementTypesHTML_.put("FORM", HTMLFormElementImpl.class);
-        elementTypesHTML_.put("FRAME", HTMLFrameElementImpl.class);
-        elementTypesHTML_.put("FRAMESET", HTMLFrameSetElementImpl.class);
-        elementTypesHTML_.put("HEAD", HTMLHeadElementImpl.class);
-        elementTypesHTML_.put("H1", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("H2", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("H3", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("H4", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("H5", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("H6", HTMLHeadingElementImpl.class);
-        elementTypesHTML_.put("HR", HTMLHRElementImpl.class);
-        elementTypesHTML_.put("HTML", HTMLHtmlElementImpl.class);
-        elementTypesHTML_.put("IFRAME", HTMLIFrameElementImpl.class);
-        elementTypesHTML_.put("IMG", HTMLImageElementImpl.class);
-        elementTypesHTML_.put("INPUT", HTMLInputElementImpl.class);
-        elementTypesHTML_.put("INS", HTMLModElementImpl.class);
-        elementTypesHTML_.put("ISINDEX", HTMLIsIndexElementImpl.class);
-        elementTypesHTML_.put("LABEL", HTMLLabelElementImpl.class);
-        elementTypesHTML_.put("LEGEND", HTMLLegendElementImpl.class);
-        elementTypesHTML_.put("LI", HTMLLIElementImpl.class);
-        elementTypesHTML_.put("LINK", HTMLLinkElementImpl.class);
-        elementTypesHTML_.put("MAP", HTMLMapElementImpl.class);
-        elementTypesHTML_.put("MENU", HTMLMenuElementImpl.class);
-        elementTypesHTML_.put("META", HTMLMetaElementImpl.class);
-        elementTypesHTML_.put("OBJECT", HTMLObjectElementImpl.class);
-        elementTypesHTML_.put("OL", HTMLOListElementImpl.class);
-        elementTypesHTML_.put("OPTGROUP", HTMLOptGroupElementImpl.class);
-        elementTypesHTML_.put("OPTION", HTMLOptionElementImpl.class);
-        elementTypesHTML_.put("P", HTMLParagraphElementImpl.class);
-        elementTypesHTML_.put("PARAM", HTMLParamElementImpl.class);
-        elementTypesHTML_.put("PRE", HTMLPreElementImpl.class);
-        elementTypesHTML_.put("Q", HTMLQuoteElementImpl.class);
-        elementTypesHTML_.put("SCRIPT", HTMLScriptElementImpl.class);
-        elementTypesHTML_.put("SELECT", HTMLSelectElementImpl.class);
-        elementTypesHTML_.put("STYLE", HTMLStyleElementImpl.class);
-        elementTypesHTML_.put("TABLE", HTMLTableElementImpl.class);
-        elementTypesHTML_.put("CAPTION", HTMLTableCaptionElementImpl.class);
-        elementTypesHTML_.put("TD", HTMLTableCellElementImpl.class);
-        elementTypesHTML_.put("TH", HTMLTableCellElementImpl.class);
-        elementTypesHTML_.put("COL", HTMLTableColElementImpl.class);
-        elementTypesHTML_.put("COLGROUP", HTMLTableColElementImpl.class);
-        elementTypesHTML_.put("TR", HTMLTableRowElementImpl.class);
-        elementTypesHTML_.put("TBODY", HTMLTableSectionElementImpl.class);
-        elementTypesHTML_.put("THEAD", HTMLTableSectionElementImpl.class);
-        elementTypesHTML_.put("TFOOT", HTMLTableSectionElementImpl.class);
-        elementTypesHTML_.put("TEXTAREA", HTMLTextAreaElementImpl.class);
-        elementTypesHTML_.put("TITLE", HTMLTitleElementImpl.class);
-        elementTypesHTML_.put("UL", HTMLUListElementImpl.class);
+        final Map<String, Class<? extends HTMLElementImpl>> tMap = new HashMap<>();
+
+        // register all HTML5 elements that are not deprecated as simple
+        // HTMLElementImpl first and overwrite them later
+        // https://developer.mozilla.org/en-US/docs/Web/HTML/Element
+        Arrays.stream(HTML5ELEMENTS).forEach(t -> tMap.put(t, HTMLElementImpl.class));
+
+        tMap.put("A", HTMLAnchorElementImpl.class);
+        tMap.put("APPLET", HTMLAppletElementImpl.class);
+        tMap.put("AREA", HTMLAreaElementImpl.class);
+        tMap.put("BASE",  HTMLBaseElementImpl.class);
+        tMap.put("BASEFONT", HTMLBaseFontElementImpl.class);
+        tMap.put("BLOCKQUOTE", HTMLQuoteElementImpl.class);
+        tMap.put("BODY", HTMLBodyElementImpl.class);
+        tMap.put("BR", HTMLBRElementImpl.class);
+        tMap.put("BUTTON", HTMLButtonElementImpl.class);
+        tMap.put("DEL", HTMLModElementImpl.class);
+        tMap.put("DIR", HTMLDirectoryElementImpl.class);
+        tMap.put("DIV",  HTMLDivElementImpl.class);
+        tMap.put("DL", HTMLDListElementImpl.class);
+        tMap.put("FIELDSET", HTMLFieldSetElementImpl.class);
+        tMap.put("FONT", HTMLFontElementImpl.class);
+        tMap.put("FORM", HTMLFormElementImpl.class);
+        tMap.put("FRAME", HTMLFrameElementImpl.class);
+        tMap.put("FRAMESET", HTMLFrameSetElementImpl.class);
+        tMap.put("HEAD", HTMLHeadElementImpl.class);
+        tMap.put("H1", HTMLHeadingElementImpl.class);
+        tMap.put("H2", HTMLHeadingElementImpl.class);
+        tMap.put("H3", HTMLHeadingElementImpl.class);
+        tMap.put("H4", HTMLHeadingElementImpl.class);
+        tMap.put("H5", HTMLHeadingElementImpl.class);
+        tMap.put("H6", HTMLHeadingElementImpl.class);
+        tMap.put("HR", HTMLHRElementImpl.class);
+        tMap.put("HTML", HTMLHtmlElementImpl.class);
+        tMap.put("IFRAME", HTMLIFrameElementImpl.class);
+        tMap.put("IMG", HTMLImageElementImpl.class);
+        tMap.put("INPUT", HTMLInputElementImpl.class);
+        tMap.put("INS", HTMLModElementImpl.class);
+        tMap.put("ISINDEX", HTMLIsIndexElementImpl.class);
+        tMap.put("LABEL", HTMLLabelElementImpl.class);
+        tMap.put("LEGEND", HTMLLegendElementImpl.class);
+        tMap.put("LI", HTMLLIElementImpl.class);
+        tMap.put("LINK", HTMLLinkElementImpl.class);
+        tMap.put("MAP", HTMLMapElementImpl.class);
+        tMap.put("MENU", HTMLMenuElementImpl.class);
+        tMap.put("META", HTMLMetaElementImpl.class);
+        tMap.put("OBJECT", HTMLObjectElementImpl.class);
+        tMap.put("OL", HTMLOListElementImpl.class);
+        tMap.put("OPTGROUP", HTMLOptGroupElementImpl.class);
+        tMap.put("OPTION", HTMLOptionElementImpl.class);
+        tMap.put("P", HTMLParagraphElementImpl.class);
+        tMap.put("PARAM", HTMLParamElementImpl.class);
+        tMap.put("PRE", HTMLPreElementImpl.class);
+        tMap.put("Q", HTMLQuoteElementImpl.class);
+        tMap.put("SCRIPT", HTMLScriptElementImpl.class);
+        tMap.put("SELECT", HTMLSelectElementImpl.class);
+        tMap.put("STYLE", HTMLStyleElementImpl.class);
+        tMap.put("TABLE", HTMLTableElementImpl.class);
+        tMap.put("CAPTION", HTMLTableCaptionElementImpl.class);
+        tMap.put("TD", HTMLTableCellElementImpl.class);
+        tMap.put("TH", HTMLTableCellElementImpl.class);
+        tMap.put("COL", HTMLTableColElementImpl.class);
+        tMap.put("COLGROUP", HTMLTableColElementImpl.class);
+        tMap.put("TR", HTMLTableRowElementImpl.class);
+        tMap.put("TBODY", HTMLTableSectionElementImpl.class);
+        tMap.put("THEAD", HTMLTableSectionElementImpl.class);
+        tMap.put("TFOOT", HTMLTableSectionElementImpl.class);
+        tMap.put("TEXTAREA", HTMLTextAreaElementImpl.class);
+        tMap.put("TITLE", HTMLTitleElementImpl.class);
+        tMap.put("UL", HTMLUListElementImpl.class);
+
+        // also put all lowercase versions here to safe on lookup
+        tMap.entrySet().forEach(e -> {
+            final String key = e.getKey();
+            final Class<? extends HTMLElementImpl> value = e.getValue();
+
+            final String uKey = key.toUpperCase(Locale.ENGLISH);
+            final String lKey = key.toLowerCase(Locale.ENGLISH);
+
+          try
+          {
+              final Constructor<? extends HTMLElementImpl> ctr = value.getConstructor(elemClassSigHTML_);
+
+              final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
+              elementTypesHTMLUpper_.put(uKey, holder);
+              elementTypesHTMLLower_.put(lKey, holder);
+          }
+          catch (NoSuchMethodException | SecurityException ex)
+          {
+              throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
+          }
+        });
+    }
+
+    static class ElementTypesHTMLHolder {
+        public final String tagName;
+        public final Constructor<? extends HTMLElementImpl> ctr;
+
+        public ElementTypesHTMLHolder(final String tagName, final Constructor<? extends HTMLElementImpl> ctr) {
+            this.tagName = tagName;
+            this.ctr = ctr;
+        }
     }
 
     /**
@@ -456,27 +521,29 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public Element createElement(String tagName) throws DOMException {
-        final Class<?> elemClass;
-        final Constructor<?> cnst;
-
         // First, make sure tag name is all upper case, next get the associated
         // element class. If no class is found, generate a generic HTML element.
         // Do so also if an unexpected exception occurs.
-        tagName = tagName.toUpperCase(Locale.ENGLISH);
-        elemClass = elementTypesHTML_.get(tagName);
-        if (elemClass != null) {
+        ElementTypesHTMLHolder htmlHolder = elementTypesHTMLLower_.get(tagName);
+        if (htmlHolder == null) {
+            // try uppercase but only if needed and don't use this string to create
+            // the element but the stored one to keep the memory usage low when the
+            // tree is kept in memory longer
+            htmlHolder = elementTypesHTMLUpper_.get(tagName.toUpperCase(Locale.ENGLISH));
+        }
+
+        if (htmlHolder != null) {
             // Get the constructor for the element. The signature specifies an
             // owner document and a tag name. Use the constructor to instantiate
             // a new object and return it.
             try {
-                cnst = elemClass.getConstructor(elemClassSigHTML_);
-                return (Element) cnst.newInstance(new Object[] {this, tagName});
+                return (Element) htmlHolder.ctr.newInstance(new Object[] {this, htmlHolder.tagName});
             }
             catch (final Exception e) {
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
             }
         }
-        return new HTMLElementImpl(this, tagName);
+        return new HTMLElementImpl(this, tagName.toUpperCase(Locale.ENGLISH));
     }
 
     /**
@@ -620,9 +687,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         }
 
         // check whether a class change is required
-        final Class<?> newClass = elementTypesHTML_.get(newNodeName.toUpperCase(Locale.ENGLISH));
-        final Class<?> oldClass = elementTypesHTML_.get(el.getTagName());
-        return newClass == oldClass;
+        final Constructor<?> newCtr = elementTypesHTMLUpper_.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr;
+        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName()).ctr;
+        return newCtr == oldCtr;
     }
 
     /**
