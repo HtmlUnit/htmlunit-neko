@@ -1165,8 +1165,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         while (true) {
             while (fCurrentEntity.hasNext()) {
                 final char c = fCurrentEntity.getNextChar();
-                if ((strict && (!Character.isLetterOrDigit(c) && c != '-' && c != '.' && c != ':' && c != '_'))
-                        || (!strict && (Character.isWhitespace(c) || c == '=' || c == '/' || c == '>'))) {
+                // this has been split up to cater to the needs of branch prediction
+                if (strict && (!Character.isLetterOrDigit(c) && c != '-' && c != '.' && c != ':' && c != '_')) {
+                    fCurrentEntity.rewind();
+                    break;
+                }
+                // we check for the regular space first because isWhitespace is no inlineable and hence expensive
+                // regular space should be the norm as well as newlines
+                else if (!strict && (c == ' ' || c == '\n' || c == '=' || c == '/' || c == '>' || Character.isWhitespace(c))) {
                     fCurrentEntity.rewind();
                     break;
                 }
@@ -2046,7 +2052,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break;
                     }
                 }
-                if (c == '\r' || c == '\n') {
+                if (c == '\n' || c == '\r') {
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
