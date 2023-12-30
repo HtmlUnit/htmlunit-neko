@@ -307,11 +307,18 @@ public class XMLAttributesImpl implements XMLAttributes {
      *         range.
      * @see #getLength
      */
-    public String getName(final int index) {
+    public String getNameRawName(final int index) {
         if (index < 0 || index >= getLength()) {
             return null;
         }
         return attributes_.get(index).name_.rawname;
+    }
+
+    /**
+     * Returns the full QName of the name of this attribute.
+     */
+    public QName getName(final int index) {
+        return attributes_.get(index).name_;
     }
 
     //

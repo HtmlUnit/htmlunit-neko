@@ -91,6 +91,16 @@ public class QName implements Cloneable {
         this.uri = uri;
     }
 
+    // Splits a qualified name.
+    public QName splitQName() {
+        final int index = this.rawname.indexOf(':');
+        if (index != -1) {
+            this.prefix = this.rawname.substring(0, index);
+            this.localpart  = this.rawname.substring(index + 1);
+        }
+        return this;
+    }
+
     @Override
     public Object clone() {
         return new QName(this);

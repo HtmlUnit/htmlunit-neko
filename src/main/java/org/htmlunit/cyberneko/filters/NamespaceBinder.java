@@ -274,19 +274,6 @@ public class NamespaceBinder extends DefaultFilter {
     }
 
     //
-    // Protected static methods
-    //
-
-    // Splits a qualified name.
-    protected static void splitQName(final QName qname) {
-        final int index = qname.rawname.indexOf(':');
-        if (index != -1) {
-            qname.prefix = qname.rawname.substring(0, index);
-            qname.localpart  = qname.rawname.substring(index + 1);
-        }
-    }
-
-    //
     // Converts HTML names string value to constant value.
     //
     // @see #NAMES_NO_CHANGE
@@ -317,18 +304,22 @@ public class NamespaceBinder extends DefaultFilter {
 
     // Binds namespaces.
     protected void bindNamespaces(final QName element, final XMLAttributes attrs) {
-
         // split element qname
-        splitQName(element);
+        element.splitQName();
 
         // declare namespace prefixes
         if (attrs != null) {
             final int attrCount = attrs.getLength();
+
             for (int i = attrCount - 1; i >= 0; i--) {
                 attrs.getName(i, fQName_);
                 String rawname = fQName_.rawname;
-                final String rawnameUC = rawname.toUpperCase(Locale.ROOT);
-                if (rawnameUC.startsWith("XMLNS:") || "XMLNS".equals(rawnameUC)) {
+                // we don't uppercase anymore, instead we lowercase, because most
+                // of the time, we are lowercase already and save on memory because
+                // we don't convert it
+                final String rawnameUC = rawname.toLowerCase(Locale.ROOT);
+
+                if ("xmlns".equals(rawnameUC) || rawnameUC.startsWith("xmlns:")) {
                     final int anamelen = rawname.length();
 
                     // get parts
@@ -337,20 +328,24 @@ public class NamespaceBinder extends DefaultFilter {
                     final String avalue = attrs.getValue(i);
 
                     // re-case parts and set them back into attributes
+                    final String prefix;
                     if (anamelen > 5) {
                         aprefix = modifyName(aprefix, NAMES_LOWERCASE);
                         alocal = modifyName(alocal, fNamesElems_);
                         rawname = aprefix + ':' + alocal;
+                        prefix = alocal;
                     }
                     else {
                         alocal = modifyName(alocal, NAMES_LOWERCASE);
                         rawname = alocal;
+                        prefix = "";
                     }
                     fQName_.setValues(aprefix, alocal, rawname, null);
                     attrs.setName(i, fQName_);
 
-                    // declare prefix
-                    final String prefix = alocal != rawname ? alocal : "";
+                    // declare prefix, this is moved up to avoid
+                    // another if
+                    // final String prefix = alocal != rawname ? alocal : "";
                     String uri = avalue.length() > 0 ? avalue : null;
                     if (fOverrideNamespaces_ && prefix.equals(element.prefix)
                             && htmlConfiguration_.getHtmlElements().getElement(element.localpart, null) != null) {
@@ -362,8 +357,7 @@ public class NamespaceBinder extends DefaultFilter {
         }
 
         // bind element
-        String prefix = element.prefix != null ? element.prefix : "";
-        element.uri = fNamespaceContext_.getURI(prefix);
+        element.uri = fNamespaceContext_.getURI(element.prefix != null ? element.prefix : "");
         // REVISIT: The prefix of a qualified element name that is
         //          bound to a namespace is passed (as recent as
         //          Xerces 2.4.0) as "" for start elements and null
@@ -390,20 +384,22 @@ public class NamespaceBinder extends DefaultFilter {
         if (attrs != null) {
             final int attrCount = attrs.getLength();
             for (int i = 0; i < attrCount; i++) {
-                attrs.getName(i, fQName_);
-                splitQName(fQName_);
-                prefix = !"xmlns".equals(fQName_.rawname)
-                       ? (fQName_.prefix != null ? fQName_.prefix : "") : "xmlns";
-                // PATCH: Joseph Walton
-                if (!"".equals(prefix)) {
-                    fQName_.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext_.getURI(prefix);
+                final QName qName = attrs.getName(i).splitQName();
+
+                final String prefix = !"xmlns".equals(qName.rawname)
+                       ? (qName.prefix != null ? qName.prefix : "") : "xmlns";
+                // PATCH: Joseph Walton, if we have a non-empty prefix
+                if (prefix.length() > 0) {
+                    qName.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext_.getURI(prefix);
                 }
                 // NOTE: You would think the xmlns namespace would be handled
                 //       by NamespaceSupport but it's not. -Ac
-                if ("xmlns".equals(prefix) && fQName_.uri == null) {
-                    fQName_.uri = XMLNS_URI;
+                if (qName.uri == null && "xmlns".equals(prefix)) {
+                    qName.uri = XMLNS_URI;
                 }
-                attrs.setName(i, fQName_);
+                // no need to set it, we already worked on the reference,
+                // less copying of things make it more efficient
+                // attrs.setName(i, fQName_);
             }
         }
     }
