@@ -48,7 +48,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
      * @param tagName The element's tag name
      */
     public HTMLElementImpl(final HTMLDocumentImpl owner, final String tagName) {
-        super(owner, tagName.toUpperCase(Locale.ENGLISH));
+        super(owner, tagName);
     }
 
     @Override

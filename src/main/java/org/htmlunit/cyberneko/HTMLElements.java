@@ -17,8 +17,8 @@ package org.htmlunit.cyberneko;
 
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
+
+import org.htmlunit.cyberneko.util.FastHashMap;
 
 /**
  * Collection of HTML element information.
@@ -189,9 +189,14 @@ public class HTMLElements {
     /** No such element. */
    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY}, null);
 
-    public final Map<Short, Element> elementsByCode = new HashMap<>(256);
+    // these fields became private to avoid exposing them for indirect modification
+    // this cannot be final because HtmlUnit might add to that
+    private Element[] elementsByCode;
 
-    public final Map<String, Element> elementsByName = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    // keep the list here for later modification
+    private final HashMap<String, Element> elementsByNameForReference = new HashMap<>();
+    // this is a optimized version which will be later queried
+    private final FastHashMap<String, Element> elementsByNameOptimized = new FastHashMap<>(311, 0.50f);
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -542,31 +547,54 @@ public class HTMLElements {
         for (final Element[] elements : elementsArray) {
             if (elements != null) {
                 for (final Element element : elements) {
-                    elementsByCode.put(element.code, element);
-                    elementsByName.put(element.name, element);
+                    this.elementsByNameForReference.put(element.name, element);
                 }
             }
         }
 
-        elementsByCode.put(NO_SUCH_ELEMENT.code, NO_SUCH_ELEMENT);
-
-        // initialize cross references to parent elements
-        for (final Element element : elementsByCode.values()) {
-            defineParents(element);
-        }
+        // setup optimized versions
+        setupOptimizedVersions();
     }
 
     public void setElement(final Element element) {
-        elementsByCode.put(element.code, element);
-        elementsByName.put(element.name, element);
-        defineParents(element);
+        this.elementsByNameForReference.put(element.name, element);
+
+        // rebuild the information "trees"
+        setupOptimizedVersions();
+    }
+
+    private void setupOptimizedVersions() {
+        // we got x amount of elements + 1 unknown
+        // put that into an array instead of a map, that
+        // is a faster look up and avoids equals
+        // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
+        // list here, we might get a list with holes, so check the range first
+        final int size = elementsByNameForReference.values().stream().mapToInt(v -> v.code).max().getAsInt();
+        elementsByCode = new Element[Math.max(size, NO_SUCH_ELEMENT.code) + 1];
+        elementsByNameForReference.values().forEach(v -> elementsByCode[v.code] = v);
+        elementsByCode[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
+
+        // initialize cross references to parent elements
+        for (final Element element : elementsByCode) {
+            if (element != null) {
+                defineParents(element);
+            }
+        }
+        // get us a second version that is lowercase stringified to
+        // reduce lookup overhead
+        for (final Element element : elementsByCode) {
+            // we might have holes due to HtmlUnitNekoHtmlParser
+            if (element != null) {
+                elementsByNameOptimized.put(element.name.toLowerCase(Locale.ROOT), element);
+            }
+        }
     }
 
     private void defineParents(final Element element) {
         if (element.parentCodes != null) {
             element.parent = new Element[element.parentCodes.length];
             for (int j = 0; j < element.parentCodes.length; j++) {
-                element.parent[j] = elementsByCode.get(element.parentCodes[j]);
+                element.parent[j] = elementsByCode[element.parentCodes[j]];
             }
             element.parentCodes = null;
         }
@@ -582,7 +610,7 @@ public class HTMLElements {
      * @param code The element code.
      */
     public final Element getElement(final short code) {
-        return elementsByCode.get(code);
+        return elementsByCode[code];
     }
 
     /**
@@ -608,7 +636,16 @@ public class HTMLElements {
      * @param element The default element to return if not found.
      */
     public final Element getElement(final String ename, final Element element) {
-        return elementsByName.getOrDefault(ename, element);
+        // check the current form casing first, which is mostly lowercase only
+        Element r = elementsByNameOptimized.get(ename);
+        if (r == null) {
+            // we have found it in its current form, which
+            // is hopefully mainly lowercase or uppercase, so try
+            // all lowercase
+            r = elementsByNameOptimized.get(ename.toLowerCase(Locale.ROOT));
+        }
+        // return fallback element if needed
+        return r != null ? r : element;
     }
 
     //
@@ -642,6 +679,9 @@ public class HTMLElements {
 
         /** The element name. */
         public final String name;
+
+        /** The element name. */
+        public final String lowercaseName;
 
         /** Informational flags. */
         public final int flags;
@@ -715,6 +755,7 @@ public class HTMLElements {
                 final short[] parents, final short bounds, final short[] closes) {
             this.code = code;
             this.name = name;
+            this.lowercaseName = name.toLowerCase(Locale.ROOT);
             this.flags = flags;
             this.parentCodes = parents;
             this.parent = null;
@@ -792,7 +833,8 @@ public class HTMLElements {
         @Override
         public boolean equals(final Object o) {
             if (o instanceof Element) {
-                return name.equals(((Element) o).name);
+                Element e = (Element) o;
+                return lowercaseName.equals(e.name) || name.equals(e.name);
             }
             return false;
         }
