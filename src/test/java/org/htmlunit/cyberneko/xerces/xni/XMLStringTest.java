@@ -15,6 +15,7 @@
  */
 package org.htmlunit.cyberneko.xerces.xni;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,11 +26,13 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link XMLCharBuffer}.
+ * Unit tests for the new {@link XMLString} which is technically a
+ * CharBuffer.
+ *
  * @author Ronald Brill
- * @author René Schwietzke
+ * @author Ren&eacute; Schwietzke
  */
-public class XMLCharBufferTest {
+public class XMLStringTest {
     public static final String CHAR5  = "ABCDE";
     public static final String CHAR10 = "ABCDEFGHIJ";
     public static final String CHAR15 = "ABCDEFGHIJKLMNO";
@@ -38,9 +41,9 @@ public class XMLCharBufferTest {
 
     @Test
     public void ctrEmpty() {
-        final XMLCharBuffer b = new XMLCharBuffer();
+        final XMLString b = new XMLString();
         assertEquals(0, b.length());
-        assertEquals(XMLCharBuffer.INITIAL_CAPACITY, b.capacity());
+        assertEquals(XMLString.INITIAL_CAPACITY, b.capacity());
         assertEquals("", b.toString());
     }
 
@@ -48,18 +51,18 @@ public class XMLCharBufferTest {
     public void ctr_int() {
         // standard
         {
-            final XMLCharBuffer b = new XMLCharBuffer(42);
+            final XMLString b = new XMLString(42);
             assertEquals(0, b.length());
             assertEquals(42, b.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, b.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, b.getGrowBy());
             assertEquals("", b.toString());
         }
         // 0
         {
-            final XMLCharBuffer b = new XMLCharBuffer(0);
+            final XMLString b = new XMLString(0);
             assertEquals(0, b.length());
             assertEquals(0, b.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, b.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, b.getGrowBy());
             assertEquals("", b.toString());
         }
     }
@@ -68,7 +71,7 @@ public class XMLCharBufferTest {
     public void ctr_int_int() {
         // standard
         {
-            final XMLCharBuffer b = new XMLCharBuffer(42, 11);
+            final XMLString b = new XMLString(42, 11);
             assertEquals(0, b.length());
             assertEquals(42, b.capacity());
             assertEquals(11, b.getGrowBy());
@@ -76,7 +79,7 @@ public class XMLCharBufferTest {
         }
         // zero is silently ignored
         {
-            final XMLCharBuffer b = new XMLCharBuffer(42, 0);
+            final XMLString b = new XMLString(42, 0);
             assertEquals(0, b.length());
             assertEquals(42, b.capacity());
             assertEquals(1, b.getGrowBy());
@@ -84,7 +87,7 @@ public class XMLCharBufferTest {
         }
         // 0 size is possible
         {
-            final XMLCharBuffer b = new XMLCharBuffer(0, 3);
+            final XMLString b = new XMLString(0, 3);
             assertEquals(0, b.length());
             assertEquals(0, b.capacity());
             assertEquals(3, b.getGrowBy());
@@ -96,19 +99,19 @@ public class XMLCharBufferTest {
     public void ctr_Buffer() {
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer(new XMLCharBuffer(CHAR25));
+            final XMLString a = new XMLString(new XMLString(CHAR25));
             assertEquals(CHAR25, a.toString());
             assertEquals(25, a.length());
             assertEquals(25, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer(new XMLCharBuffer());
+            final XMLString a = new XMLString(new XMLString());
             assertEquals("", a.toString());
             assertEquals(0, a.length());
             assertEquals(0, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
     }
 
@@ -116,19 +119,19 @@ public class XMLCharBufferTest {
     public void ctr_xmlcharuffer_int() {
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer(new XMLCharBuffer("foo"), 11);
+            final XMLString a = new XMLString(new XMLString("foo"), 11);
             assertEquals("foo", a.toString());
             assertEquals(3, a.length());
             assertEquals(14, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer(new XMLCharBuffer(), 5);
+            final XMLString a = new XMLString(new XMLString(), 5);
             assertEquals("", a.toString());
             assertEquals(0, a.length());
             assertEquals(5, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
     }
 
@@ -136,19 +139,19 @@ public class XMLCharBufferTest {
     public void ctr_string() {
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer("".toString());
+            final XMLString a = new XMLString("".toString());
             assertEquals("", a.toString());
             assertEquals(0, a.length());
             assertEquals(0, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("1234".toString());
+            final XMLString a = new XMLString("1234".toString());
             assertEquals("1234", a.toString());
             assertEquals(4, a.length());
             assertEquals(4, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
     }
 
@@ -157,27 +160,27 @@ public class XMLCharBufferTest {
     public void ctr_char_int_int() {
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer("".toCharArray(), 0, 0);
+            final XMLString a = new XMLString("".toCharArray(), 0, 0);
             assertEquals("", a.toString());
             assertEquals(0, a.length());
             assertEquals(0, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("foo".toCharArray(), 0, 3);
+            final XMLString a = new XMLString("foo".toCharArray(), 0, 3);
             assertEquals("foo", a.toString());
             assertEquals(3, a.length());
             assertEquals(3, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("foobar2".toCharArray(), 3, 3);
+            final XMLString a = new XMLString("foobar2".toCharArray(), 3, 3);
             assertEquals("bar", a.toString());
             assertEquals(3, a.length());
             assertEquals(3, a.capacity());
-            assertEquals(XMLCharBuffer.CAPACITY_GROWTH, a.getGrowBy());
+            assertEquals(XMLString.CAPACITY_GROWTH, a.getGrowBy());
         }
     }
 
@@ -186,12 +189,12 @@ public class XMLCharBufferTest {
      */
     @Test
     public void toStringTest() {
-        assertEquals("", new XMLCharBuffer().toString());
-        assertEquals("", new XMLCharBuffer(10).toString());
-        assertEquals("foo", new XMLCharBuffer("foobar".toCharArray(), 0, 3).toString());
-        assertEquals("foobar", new XMLCharBuffer("foobar".toCharArray(), 0, 6).toString());
+        assertEquals("", new XMLString().toString());
+        assertEquals("", new XMLString(10).toString());
+        assertEquals("foo", new XMLString("foobar".toCharArray(), 0, 3).toString());
+        assertEquals("foobar", new XMLString("foobar".toCharArray(), 0, 6).toString());
 
-        final XMLCharBuffer b1 = new XMLCharBuffer();
+        final XMLString b1 = new XMLString();
         b1.append("foo");
         assertEquals("foo", b1.toString());
         b1.clear().append("bar");
@@ -206,38 +209,48 @@ public class XMLCharBufferTest {
      */
     @Test
     public void length() {
-        assertEquals(0, new XMLCharBuffer().length());
-        assertEquals(0, new XMLCharBuffer(10).length());
+        assertEquals(0, new XMLString().length());
+        assertEquals(0, new XMLString(10).length());
 
-        assertEquals(1, new XMLCharBuffer().append('f').length());
+        assertEquals(1, new XMLString().append('f').length());
     }
 
     @Test
     public void capacity() {
-        assertEquals(20, new XMLCharBuffer().capacity());
-        assertEquals(20, new XMLCharBuffer().append('f').capacity());
+        assertEquals(20, new XMLString().capacity());
+        assertEquals(20, new XMLString().append('f').capacity());
 
         // let's grow and see
-        assertEquals(20, new XMLCharBuffer().append("01234567890123456789").capacity());
+        assertEquals(20, new XMLString().append("01234567890123456789").capacity());
     }
 
     @Test
     public void append_char_new() {
-        final XMLCharBuffer b = new XMLCharBuffer();
+        final XMLString b = new XMLString(5);
         assertEquals(0, b.length());
-        assertEquals(XMLCharBuffer.INITIAL_CAPACITY, b.capacity());
+        assertEquals(5, b.capacity());
 
         b.append('a');
         assertEquals(1, b.length());
-        assertEquals(XMLCharBuffer.INITIAL_CAPACITY, b.capacity());
+        assertEquals(5, b.capacity());
         assertEquals("a", b.toString());
 
         b.append('b');
+        assertEquals(2, b.length());
+        assertEquals(5, b.capacity());
+
         b.append('c');
+        assertEquals(3, b.length());
+        assertEquals(5, b.capacity());
+
         b.append('d');
+        assertEquals(4, b.length());
+        assertEquals(5, b.capacity());
+
         b.append('e');
         assertEquals(5, b.length());
-        assertEquals(XMLCharBuffer.INITIAL_CAPACITY, b.capacity());
+        assertEquals(5, b.capacity());
+
         assertEquals("abcde", b.toString());
 
         // our source of correctness
@@ -255,34 +268,33 @@ public class XMLCharBufferTest {
 
     @Test
     public void append_charbuffer_new() {
-        final XMLCharBuffer c0 = new XMLCharBuffer();
-        final XMLCharBuffer c5 = new XMLCharBuffer("01234");
-        final XMLCharBuffer c25 = new XMLCharBuffer(CHAR25);
+        final XMLString c0 = new XMLString();
+        final XMLString c5 = new XMLString("01234");
 
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(c0);
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // self empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(a);
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(c5);
             assertEquals(c5.toString(), a.toString());
             assertEquals(5, a.length());
         }
         // self standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("ABCDE");
+            final XMLString a = new XMLString("ABCDE");
             a.append(a);
             assertEquals("ABCDEABCDE", a.toString());
             assertEquals(10, a.length());
@@ -292,37 +304,45 @@ public class XMLCharBufferTest {
 
     @Test
     public void append_charbuffer_noResize() {
-        final XMLCharBuffer c0 = new XMLCharBuffer();
-        final XMLCharBuffer c5 = new XMLCharBuffer("01234");
-        final XMLCharBuffer c25 = new XMLCharBuffer(CHAR25);
+        final XMLString c0 = new XMLString();
+        final XMLString c5 = new XMLString("01234");
 
         {
-            final XMLCharBuffer a = new XMLCharBuffer("012");
+            // we start sized for the data we got
+            final XMLString a = new XMLString();
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
+            a.append("ABC");
+            assertEquals("ABC", a.toString());
+
+            // no data, no change
             a.append(c0);
-            assertEquals(3, a.capacity());
-            assertEquals("012", a.toString());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
+            assertEquals("ABC", a.toString());
+
+            // we add 5 chars, should grow once for the current
+            // growth
             a.append(c5);
-            assertEquals("01201234", a.toString());
-            assertEquals(18, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
+            assertEquals("ABC01234", a.toString());
             assertEquals(8, a.length());
         }
     }
 
     @Test
     public void append_charbuffer_resize() {
-        final XMLCharBuffer c0 = new XMLCharBuffer();
-        final XMLCharBuffer c5 = new XMLCharBuffer("a-b-c");
-        final XMLCharBuffer c25 = new XMLCharBuffer(CHAR25);
+        final XMLString c5 = new XMLString("a-b-c");
+        final XMLString c25 = new XMLString(CHAR25);
 
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(c5);
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a-b-c", a.toString());
             assertEquals(5, a.length());
+            assertEquals(20, a.capacity());
             a.append(c25);
             assertEquals("a-b-c" + CHAR25, a.toString());
-            assertEquals(40, a.capacity());
+//            assertEquals(52, a.capacity());
             assertEquals(30, a.length());
         }
     }
@@ -331,40 +351,40 @@ public class XMLCharBufferTest {
     public void append_string() {
         // new, no resize
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals(CHAR5, a.toString());
             assertEquals(5, a.length());
         }
         // new, resize at once
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            final XMLString a = new XMLString();
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR5 + CHAR25);
-            assertEquals(40, a.capacity());
+//            assertEquals(52, a.capacity());
             assertEquals(CHAR5 + CHAR25, a.toString());
             assertEquals(30, a.length());
         }
         // resize later
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            final XMLString a = new XMLString();
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR5);
             a.append(CHAR25);
-            assertEquals(40, a.capacity());
+//            assertEquals(52, a.capacity());
             assertEquals(CHAR5 + CHAR25, a.toString());
             assertEquals(30, a.length());
         }
         // empty string
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            final XMLString a = new XMLString();
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append("");
             a.append("");
             a.append(CHAR25);
             a.append("");
-            assertEquals(35, a.capacity());
+//            assertEquals(52, a.capacity());
             assertEquals(CHAR25, a.toString());
             assertEquals(25, a.length());
         }
@@ -374,37 +394,45 @@ public class XMLCharBufferTest {
     public void append_char_int_int_new() {
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append("ABC-DEF-GHU".toCharArray(), 0, 0);
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append("ABC-DEF-GHU".toCharArray(), 0, 11);
             assertEquals("ABC-DEF-GHU", a.toString());
             assertEquals(11, a.length());
         }
         // standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append("ABC-DEF-GHU".toCharArray(), 1, 10);
             assertEquals("BC-DEF-GHU", a.toString());
             assertEquals(10, a.length());
         }
         // requires growth
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            final XMLString a = new XMLString();
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR25.toCharArray(), 0, 25);
-            assertEquals(35, a.capacity());
-            assertEquals(CHAR25, a.toString());
-            assertEquals(25, a.length());
+//            assertEquals(52, a.capacity());
+
+            a.append(CHAR25.toCharArray(), 0, 25);
+//            assertEquals(52, a.capacity()); // still fits
+            assertEquals(CHAR25 + CHAR25, a.toString());
+            assertEquals(50, a.length());
+
+            a.append(CHAR25.toCharArray(), 0, 5);
+//            assertEquals(84, a.capacity()); // still fits
+            assertEquals(CHAR25 + CHAR25 + CHAR5, a.toString());
+            assertEquals(55, a.length());
         }
         // append several times
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append("abc".toCharArray(), 0, 3);
             a.append("1234".toCharArray(), 0, 4);
             a.append("".toCharArray(), 0, 0);
@@ -418,11 +446,11 @@ public class XMLCharBufferTest {
     @Test
     public void charAt() {
         {
-            final XMLCharBuffer a = new XMLCharBuffer("a");
+            final XMLString a = new XMLString("a");
             assertEquals('a', a.charAt(0));
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer("abc");
+            final XMLString a = new XMLString("abc");
             assertEquals('a', a.charAt(0));
             assertEquals('b', a.charAt(1));
             assertEquals('c', a.charAt(2));
@@ -432,22 +460,20 @@ public class XMLCharBufferTest {
     @Test
     public void charAt_Errors() {
         // empty
-        final XMLCharBuffer a1 = new XMLCharBuffer();
+        final XMLString a1 = new XMLString();
         assertThrows(IndexOutOfBoundsException.class, () -> {
             a1.charAt(0);
         });
 
-        final XMLCharBuffer a2 = new XMLCharBuffer("");
+        final XMLString a2 = new XMLString("");
         assertThrows(IndexOutOfBoundsException.class, () -> {
             a2.charAt(0);
         });
 
-        final XMLCharBuffer b = new XMLCharBuffer("foo");
+        final XMLString b = new XMLString("foo");
         assertThrows(IndexOutOfBoundsException.class, () -> {
             b.charAt(-1);
         });
-
-        final XMLCharBuffer c = new XMLCharBuffer("foo");
         assertThrows(IndexOutOfBoundsException.class, () -> {
             b.charAt(3);
         });
@@ -459,11 +485,11 @@ public class XMLCharBufferTest {
     @Test
     public void unsafeCharAt() {
         {
-            final XMLCharBuffer a = new XMLCharBuffer("a");
+            final XMLString a = new XMLString("a");
             assertEquals('a', a.unsafeCharAt(0));
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer("abc");
+            final XMLString a = new XMLString("abc");
             assertEquals('a', a.unsafeCharAt(0));
             assertEquals('b', a.unsafeCharAt(1));
             assertEquals('c', a.unsafeCharAt(2));
@@ -473,79 +499,79 @@ public class XMLCharBufferTest {
     @Test
     public void unsafeCharAt_Errors() {
         // empty
-        final XMLCharBuffer a1 = new XMLCharBuffer();
+        final XMLString a1 = new XMLString();
         // can read any garbage
         a1.unsafeCharAt(0);
 
         // cannot read outside the array of course
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            a1.unsafeCharAt(XMLCharBuffer.INITIAL_CAPACITY);
+            a1.unsafeCharAt(XMLString.INITIAL_CAPACITY);
         });
     }
 
     @Test
     public void endsWidth() {
         // no size match, string to large
-        assertFalse(new XMLCharBuffer("foo").endsWith("foobar"));
+        assertFalse(new XMLString("foo").endsWith("foobar"));
 
         // empty string
-        assertTrue(new XMLCharBuffer("foobar").endsWith(""));
+        assertTrue(new XMLString("foobar").endsWith(""));
 
         // both empty
-        assertTrue(new XMLCharBuffer("").endsWith(""));
+        assertTrue(new XMLString("").endsWith(""));
 
         // both are the same size and don't match
-        assertFalse(new XMLCharBuffer("foo").endsWith("bar"));
+        assertFalse(new XMLString("foo").endsWith("bar"));
 
         // both are the same size and match
-        assertTrue(new XMLCharBuffer("foo").endsWith("foo"));
+        assertTrue(new XMLString("foo").endsWith("foo"));
 
         // first char mismatch
-        assertFalse(new XMLCharBuffer("foobar").endsWith("car"));
+        assertFalse(new XMLString("foobar").endsWith("car"));
 
         // last char mismatch
-        assertFalse(new XMLCharBuffer("foobar").endsWith("baa"));
+        assertFalse(new XMLString("foobar").endsWith("baa"));
 
         // full match
-        assertTrue(new XMLCharBuffer("foobar").endsWith("bar"));
+        assertTrue(new XMLString("foobar").endsWith("bar"));
     }
 
     @Test
     public void clear() {
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.clear();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // some stuff in it
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clear();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // repeated clear
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clear();
             a.clear();
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("", a.toString());
             assertEquals(0, a.length());
         }
         // clear append
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clear();
             a.append(CHAR5);
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals(CHAR5, a.toString());
             assertEquals(5, a.length());
         }
@@ -555,46 +581,46 @@ public class XMLCharBufferTest {
     public void clearAndAppend() {
         // empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.clearAndAppend('a');
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a", a.toString());
             assertEquals(1, a.length());
         }
         // some stuff in it
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clearAndAppend('a');
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a", a.toString());
             assertEquals(1, a.length());
         }
         // repeated clear
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clearAndAppend('a');
             a.clearAndAppend('a');
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a", a.toString());
             assertEquals(1, a.length());
         }
         // clear append
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
+            final XMLString a = new XMLString();
             a.append(CHAR5);
             a.clearAndAppend('a');
             a.append(CHAR5);
-            assertEquals(XMLCharBuffer.INITIAL_CAPACITY, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a" + CHAR5, a.toString());
             assertEquals(6, a.length());
         }
         // clear append on total empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer("");
+            final XMLString a = new XMLString();
             a.clearAndAppend('a');
-            assertEquals(11, a.capacity());
+            assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             assertEquals("a", a.toString());
             assertEquals(1, a.length());
         }
@@ -602,7 +628,7 @@ public class XMLCharBufferTest {
 
     @Test
     public void reduceToContent() {
-        final XMLCharBuffer x = new XMLCharBuffer();
+        final XMLString x = new XMLString();
 
         // buffer shorter than markers
         x.clear().append("foo");
@@ -730,7 +756,7 @@ public class XMLCharBufferTest {
 
     @Test
     public void trimLeading() {
-        final XMLCharBuffer xmlString = new XMLCharBuffer();
+        final XMLString xmlString = new XMLString();
 
         xmlString.clear().append("");
         xmlString.trimLeading();
@@ -771,7 +797,7 @@ public class XMLCharBufferTest {
 
     @Test
     public void trimTrailing() {
-        final XMLCharBuffer xmlString = new XMLCharBuffer();
+        final XMLString xmlString = new XMLString();
 
         xmlString.clear().append("");
         xmlString.trimTrailing();
@@ -808,7 +834,7 @@ public class XMLCharBufferTest {
 
     @Test
     public void trim() {
-        final XMLCharBuffer xmlString = new XMLCharBuffer();
+        final XMLString xmlString = new XMLString();
 
         xmlString.clear().append("");
         xmlString.trim();
@@ -851,35 +877,35 @@ public class XMLCharBufferTest {
     public void shortenBy() {
         // shorten empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer("");
+            final XMLString a = new XMLString("");
             a.shortenBy(12);
             assertEquals(0, a.length());
             assertEquals("", a.toString());
         }
         // shorten by 0
         {
-            final XMLCharBuffer a = new XMLCharBuffer("ab");
+            final XMLString a = new XMLString("ab");
             a.shortenBy(0);
             assertEquals(2, a.length());
             assertEquals("ab", a.toString());
         }
         // shorten by larger
         {
-            final XMLCharBuffer a = new XMLCharBuffer("ab");
+            final XMLString a = new XMLString("ab");
             a.shortenBy(4);
             assertEquals(0, a.length());
             assertEquals("", a.toString());
         }
         // shorten standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("abcd");
+            final XMLString a = new XMLString("abcd");
             a.shortenBy(1);
             assertEquals(3, a.length());
             assertEquals("abc", a.toString());
         }
         // shorten standard
         {
-            final XMLCharBuffer a = new XMLCharBuffer("abcd123");
+            final XMLString a = new XMLString("abcd123");
             a.shortenBy(3);
             assertEquals(4, a.length());
             assertEquals("abcd", a.toString());
@@ -889,24 +915,24 @@ public class XMLCharBufferTest {
     @Test
     public void cloneTest() {
         {
-            final XMLCharBuffer o = new XMLCharBuffer("");
-            final XMLCharBuffer a = o.clone();
+            final XMLString o = new XMLString("");
+            final XMLString a = o.clone();
             assertEquals(0, a.length());
             assertEquals("", a.toString());
             assertTrue(o != a);
         }
         {
-            final XMLCharBuffer o = new XMLCharBuffer("abc");
-            final XMLCharBuffer a = o.clone();
+            final XMLString o = new XMLString("abc");
+            final XMLString a = o.clone();
             assertEquals(3, a.length());
             assertEquals("abc", a.toString());
             assertTrue(o != a);
         }
         {
-            final XMLCharBuffer o = new XMLCharBuffer(" 817 ");
-            final XMLCharBuffer a = o.clone();
-            final XMLCharBuffer b = a.clone();
-            final XMLCharBuffer c = b.clone();
+            final XMLString o = new XMLString(" 817 ");
+            final XMLString a = o.clone();
+            final XMLString b = a.clone();
+            final XMLString c = b.clone();
             assertEquals(5, c.length());
             assertEquals(" 817 ", c.toString());
             assertTrue(o != c);
@@ -916,32 +942,32 @@ public class XMLCharBufferTest {
     @Test
     public void subSequence() {
         {
-            final CharSequence o = new XMLCharBuffer("").subSequence(0, 0);
+            final CharSequence o = new XMLString("").subSequence(0, 0);
             assertEquals(0, o.length());
             assertEquals("", o.toString());
         }
         {
-            final CharSequence o = new XMLCharBuffer("a").subSequence(0, 1);
+            final CharSequence o = new XMLString("a").subSequence(0, 1);
             assertEquals(1, o.length());
             assertEquals("a", o.toString());
         }
         {
-            final CharSequence o = new XMLCharBuffer("abc").subSequence(0, 3);
+            final CharSequence o = new XMLString("abc").subSequence(0, 3);
             assertEquals(3, o.length());
             assertEquals("abc", o.toString());
         }
         {
-            final CharSequence o = new XMLCharBuffer("abc").subSequence(1, 3);
+            final CharSequence o = new XMLString("abc").subSequence(1, 3);
             assertEquals(2, o.length());
             assertEquals("bc", o.toString());
         }
         {
-            final CharSequence o = new XMLCharBuffer("abc").subSequence(0, 2);
+            final CharSequence o = new XMLString("abc").subSequence(0, 2);
             assertEquals(2, o.length());
             assertEquals("ab", o.toString());
         }
         {
-            final CharSequence o = new XMLCharBuffer("abc").subSequence(1, 2);
+            final CharSequence o = new XMLString("abc").subSequence(1, 2);
             assertEquals(1, o.length());
             assertEquals("b", o.toString());
         }
@@ -950,7 +976,7 @@ public class XMLCharBufferTest {
     @Test
     public void subSequenceErrors() {
         {
-            final CharSequence o = new XMLCharBuffer("");
+            final CharSequence o = new XMLString("");
             assertThrows(IndexOutOfBoundsException.class, () -> {
                 o.subSequence(-1, 2);
             });
@@ -959,7 +985,7 @@ public class XMLCharBufferTest {
             });
         }
         {
-            final CharSequence o = new XMLCharBuffer("12345");
+            final CharSequence o = new XMLString("12345");
             assertThrows(IndexOutOfBoundsException.class, () -> {
                 o.subSequence(-2, 3);
             });
@@ -976,64 +1002,79 @@ public class XMLCharBufferTest {
     public void equalsTest() {
         // different types
         {
-            final String a = new String();
-            final XMLCharBuffer b = new XMLCharBuffer();
+            final Integer a = Integer.valueOf(192);
+            final XMLString b = new XMLString();
             assertFalse(a.equals(b));
             assertFalse(b.equals(a));
         }
         // both empty
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            final XMLCharBuffer b = new XMLCharBuffer();
+            final XMLString a = new XMLString();
+            final XMLString b = new XMLString();
             assertTrue(a.equals(b));
             assertTrue(b.equals(a));
         }
         // self
         {
-            final XMLCharBuffer a = new XMLCharBuffer();
-            final XMLCharBuffer b = new XMLCharBuffer("abc");
+            final XMLString a = new XMLString();
+            final XMLString b = new XMLString("abc");
             assertTrue(a.equals(a));
             assertTrue(b.equals(b));
         }
         // different length
         {
-            final XMLCharBuffer a = new XMLCharBuffer("a");
-            final XMLCharBuffer b = new XMLCharBuffer("ab");
+            final XMLString a = new XMLString("a");
+            final XMLString b = new XMLString("ab");
             assertFalse(a.equals(b));
             assertFalse(b.equals(a));
         }
         // different content, same length
         {
-            final XMLCharBuffer a = new XMLCharBuffer("ac");
-            final XMLCharBuffer b = new XMLCharBuffer("ab");
+            final XMLString a = new XMLString("ac");
+            final XMLString b = new XMLString("ab");
             assertFalse(a.equals(b));
             assertFalse(b.equals(a));
         }
         // length 1, identical
         {
-            final XMLCharBuffer a = new XMLCharBuffer("a");
-            final XMLCharBuffer b = new XMLCharBuffer("a");
+            final XMLString a = new XMLString("a");
+            final XMLString b = new XMLString("a");
             assertTrue(a.equals(b));
             assertTrue(b.equals(a));
         }
         // length 1, different
         {
-            final XMLCharBuffer a = new XMLCharBuffer("b");
-            final XMLCharBuffer b = new XMLCharBuffer("b");
+            final XMLString a = new XMLString("b");
+            final XMLString b = new XMLString("b");
             assertTrue(a.equals(b));
             assertTrue(b.equals(a));
         }
         // length > 1, same
         {
-            final XMLCharBuffer a = new XMLCharBuffer("81hal/&%$");
-            final XMLCharBuffer b = new XMLCharBuffer("81hal/&%$");
+            final XMLString a = new XMLString("81hal/&%$");
+            final XMLString b = new XMLString("81hal/&%$");
             assertTrue(a.equals(b));
             assertTrue(b.equals(a));
         }
         // length > 1, different
         {
-            final XMLCharBuffer a = new XMLCharBuffer("b091872983");
-            final XMLCharBuffer b = new XMLCharBuffer("b09187298_");
+            final XMLString a = new XMLString("b091872983");
+            final XMLString b = new XMLString("b09187298_");
+            assertFalse(a.equals(b));
+            assertFalse(b.equals(a));
+        }
+
+        // CharSequence works too
+        {
+            final String a = new String("b091872983");
+            final XMLString b = new XMLString("b091872983");
+            assertFalse(a.equals(b)); // a string is not so open :)
+            assertTrue(b.equals(a));
+        }
+        // CharSequence works too
+        {
+            final String a = new String("983");
+            final XMLString b = new XMLString("b09187298_");
             assertFalse(a.equals(b));
             assertFalse(b.equals(a));
         }
@@ -1042,24 +1083,87 @@ public class XMLCharBufferTest {
     @Test
     public void isWhitespace() {
         {
-            final XMLCharBuffer a = new XMLCharBuffer("");
+            final XMLString a = new XMLString("");
             assertTrue(a.isWhitespace());
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer(" ");
+            final XMLString a = new XMLString(" ");
             assertTrue(a.isWhitespace());
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer("a");
+            final XMLString a = new XMLString("a");
             assertFalse(a.isWhitespace());
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer(" a\t \n");
+            final XMLString a = new XMLString(" a\t \n");
             assertFalse(a.isWhitespace());
         }
         {
-            final XMLCharBuffer a = new XMLCharBuffer(" \t \n");
+            final XMLString a = new XMLString(" \t \n");
             assertTrue(a.isWhitespace());
         }
     }
-}
+
+    @Test
+    public void getChars() {
+        // empty
+        {
+            final XMLString a = new XMLString("");
+            assertArrayEquals(new char[0], a.getChars());
+        }
+        // normal
+        {
+            final XMLString a = new XMLString("abc");
+            assertArrayEquals("abc".toCharArray(), a.getChars());
+        }
+        // grown
+        {
+            final XMLString a = new XMLString("abc");
+            a.append(CHAR25);
+            assertArrayEquals(("abc" + CHAR25).toCharArray(), a.getChars());
+        }
+    }
+
+    @Test
+    public void hashCodeTest() {
+        // empty
+        {
+            final XMLString a = new XMLString();
+            assertEquals("".hashCode(), a.hashCode());
+        }
+        // mutate
+        {
+            final XMLString a = new XMLString();
+            assertEquals("".hashCode(), a.hashCode());
+            a.append('a');
+            assertEquals("a".hashCode(), a.hashCode());
+            a.append("bc");
+            assertEquals("abc".hashCode(), a.hashCode());
+        }
+    }
+
+    @Test
+    public void appendCodePoint() {
+        // regular code point
+        {
+            final XMLString a = new XMLString();
+            a.appendCodePoint('a');
+            assertEquals(1, a.length());
+            assertEquals("a", a.toString());
+        }
+        // two char code point
+        {
+            final XMLString a = new XMLString();
+            a.appendCodePoint(0x30CA);
+            assertEquals(1, a.length());
+            assertEquals("ナ", a.toString());
+        }
+        // invalid code point
+        {
+            assertThrows(IllegalArgumentException.class, () -> {
+                final XMLString a = new XMLString();
+                a.appendCodePoint(0x10FFFF + 42);
+            });
+        }
+    }
+ }

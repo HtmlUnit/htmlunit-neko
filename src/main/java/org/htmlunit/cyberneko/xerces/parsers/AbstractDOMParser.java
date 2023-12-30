@@ -31,8 +31,8 @@ import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
-import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
+import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLErrorHandler;
@@ -133,7 +133,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected EntityImpl fCurrentEntityDecl;
 
     /** Character buffer */
-    protected final StringBuilder fStringBuffer = new StringBuilder();
+    protected final XMLString fStringBuffer = new XMLString();
 
     protected boolean fNamespaceAware;
 
@@ -218,7 +218,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCurrentNode = null;
 
         // reset string buffer
-        fStringBuffer.setLength(0);
+        fStringBuffer.clear();
 
         // reset state information
         fInCDATASection = false;
@@ -583,7 +583,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     fFirstChunk = false;
                 }
                 if (text.length() > 0) {
-                    text.appendTo(fStringBuffer);
+                    text.append(fStringBuffer);
                 }
             }
             else {
@@ -888,7 +888,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     }
                 }
                 // reset string buffer
-                fStringBuffer.setLength(0);
+                fStringBuffer.clear();
             }
         }
     }

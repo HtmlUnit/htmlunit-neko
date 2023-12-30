@@ -19,10 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link XMLString}.
+ * Unit tests for {@link XMLString}. These tests are here to ensure
+ * compatibility with the old XMLString implementation before version
+ * 3.10.0
+ *
  * @author Ronald Brill
  */
-public class XMLStringTest {
+public class XMLStringLegacyTest {
 
     @Test
     public void reduceToContent() {

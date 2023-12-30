@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
-import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
+import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 
 /**
  * Container for text that should be hold and re-feed later like text before &lt;html&gt; that will be re-feed
