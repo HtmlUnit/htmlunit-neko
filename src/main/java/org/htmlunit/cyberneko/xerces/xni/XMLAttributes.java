@@ -114,13 +114,22 @@ public interface XMLAttributes {
     void setName(int attrIndex, QName attrName);
 
     /**
-     * Sets the fields in the given QName structure with the values of the attribute
+     * Gets the fields in the given QName structure with the values of the attribute
      * name at the specified index.
      *
      * @param attrIndex The attribute index.
      * @param attrName  The attribute name structure to fill in.
      */
     void getName(int attrIndex, QName attrName);
+
+    /**
+     * Returns the QName structure of the name. Because QName is a modifiable
+     * data structure, make sure you know what you do when you take this
+     * shortcut route.
+     *
+     * @param attrIndex The attribute index.
+     */
+    QName getName(int attrIndex);
 
     /**
      * Look up an attribute's Namespace URI by index.
