@@ -103,7 +103,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     protected static final String DTD_URI = "http://www.w3.org/TR/REC-xml";
 
     /** This can either be a String or the first child node. */
-    private Object value_ = null;
+    private Object value_;
 
     /** Attribute name. */
     protected String name;
