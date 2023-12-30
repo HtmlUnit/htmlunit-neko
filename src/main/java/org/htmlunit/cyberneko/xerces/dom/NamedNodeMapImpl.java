@@ -14,9 +14,9 @@
  */
 package org.htmlunit.cyberneko.xerces.dom;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.htmlunit.cyberneko.util.SimpleArrayList;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -171,9 +171,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         else {
             i = -1 - i; // Insert point (may be end of list)
             if (null == nodes) {
-                nodes = new ArrayList<>(5);
+                nodes = new SimpleArrayList<>(1);
+                nodes.add(arg);
             }
-            nodes.add(i, arg);
+            else {
+                nodes.add(i, arg);
+            }
         }
         return previous;
     }
@@ -209,9 +212,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
-                    nodes = new ArrayList<>(5);
+                    nodes = new SimpleArrayList<>(1);
+                    nodes.add(arg);
                 }
-                nodes.add(i, arg);
+                else {
+                    nodes.add(i, arg);
+                }
             }
         }
         return previous;
@@ -278,7 +284,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             final int size = srcnodes.size();
             if (size != 0) {
                 if (nodes == null) {
-                    nodes = new ArrayList<>(size);
+                    nodes = new SimpleArrayList<>(size);
                 }
                 else {
                     nodes.clear();
@@ -448,9 +454,12 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             else {
                 i = -1 - i; // Insert point (may be end of list)
                 if (null == nodes) {
-                    nodes = new ArrayList<>(5);
+                    nodes = new SimpleArrayList<>(1);
+                    nodes.add(arg);
                 }
-                nodes.add(i, arg);
+                else {
+                    nodes.add(i, arg);
+                }
             }
         }
         return i;
