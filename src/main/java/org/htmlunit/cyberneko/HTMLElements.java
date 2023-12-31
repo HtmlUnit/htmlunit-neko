@@ -320,7 +320,7 @@ public class HTMLElements {
             // FRAME - O EMPTY
             new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
-            new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, null),
+            new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, new short[]{HEAD}),
         };
         elementsArray['H' - 'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*

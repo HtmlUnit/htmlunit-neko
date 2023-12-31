@@ -620,6 +620,15 @@ public class HTMLTagBalancer
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
+
+            // maybe we had some text before...
+            consumeEarlyTextIfNeeded();
+            // check body again
+            if (fSeenBodyElement) {
+                notifyDiscardedStartElement(elem, attrs, augs);
+                return;
+            }
+
             fSeenFramesetElement = true;
         }
         else if (elementCode == HTMLElements.BODY) {
