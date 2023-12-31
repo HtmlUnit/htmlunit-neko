@@ -18,7 +18,6 @@ import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
-import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
