@@ -317,6 +317,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * Returns the full QName of the name of this attribute.
      */
+    @Override
     public QName getName(final int index) {
         return attributes_.get(index).name_;
     }

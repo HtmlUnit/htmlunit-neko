@@ -537,7 +537,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             // owner document and a tag name. Use the constructor to instantiate
             // a new object and return it.
             try {
-                return (Element) htmlHolder.ctr.newInstance(new Object[] {this, htmlHolder.tagName});
+                return htmlHolder.ctr.newInstance(new Object[] {this, htmlHolder.tagName});
             }
             catch (final Exception e) {
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);

@@ -252,6 +252,7 @@ public class XMLString implements CharSequence {
      *
      * @return the length of the charbuffer data
      */
+    @Override
     public int length() {
         return length_;
     }

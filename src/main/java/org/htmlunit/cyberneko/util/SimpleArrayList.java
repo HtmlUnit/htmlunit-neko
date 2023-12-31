@@ -76,6 +76,7 @@ public class SimpleArrayList<T> implements List<T>
      *            the element to add
      * @return true if added and for this impl it is always true
      */
+    @Override
     @SuppressWarnings("unchecked")
     public boolean add(T element)
     {
@@ -118,14 +119,16 @@ public class SimpleArrayList<T> implements List<T>
      *            the position
      * @return the element at this position
      */
+    @Override
     public T get(int index)
     {
-        return (T) data[index];
+        return data[index];
     }
 
     /**
      * Returns the size of this list
      */
+    @Override
     public int size()
     {
         return size;
@@ -216,21 +219,25 @@ public class SimpleArrayList<T> implements List<T>
             this.size = to - from + 1;
         }
 
+        @Override
         public boolean add(K o)
         {
             throw new UnsupportedOperationException("Cannot modify the partition");
         }
 
+        @Override
         public K get(int index)
         {
-            return (K) super.get(index + from);
+            return super.get(index + from);
         }
 
+        @Override
         public int size()
         {
             return size;
         }
 
+        @Override
         public K[] toArray()
         {
             throw new UnsupportedOperationException("unimplemented");
