@@ -34,9 +34,9 @@ import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
-import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
+import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
@@ -2356,7 +2356,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
 
         // Scans markup content.
-        protected boolean scanMarkupContent(final XMLString buffer, final char cend) throws IOException {
+        protected boolean scanCommentContent(final XMLString buffer) throws IOException {
             int c;
             OUTER: while (true) {
                 c = fCurrentEntity.read();
@@ -2384,7 +2384,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break OUTER;
                     }
                     if (count < 2) {
-                        xmlString.append('-');
+                    	buffer.append('-');
                         fCurrentEntity.rewind();
                         continue;
                     }
@@ -2400,28 +2400,28 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
                         if (c == '>') {
                             for (int i = 0; i < count - 2; i++) {
-                                xmlString.append('-');
+                            	buffer.append('-');
                             }
                             break;
                         }
 
                         for (int i = 0; i < count; i++) {
-                            xmlString.append('-');
+                        	buffer.append('-');
                         }
-                        xmlString.append('!');
+                        buffer.append('!');
                         fCurrentEntity.rewind();
                         continue;
                     }
 
                     if (c == '>') {
                         for (int i = 0; i < count - 2; i++) {
-                            xmlString.append('-');
+                        	buffer.append('-');
                         }
                         break;
                     }
 
                     for (int i = 0; i < count; i++) {
-                        xmlString.append('-');
+                    	buffer.append('-');
                     }
                     fCurrentEntity.rewind();
                     continue;
@@ -2430,11 +2430,18 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        xmlString.append('\n');
+                    	buffer.append('\n');
                     }
                     continue;
                 }
-                appendChar(xmlString, c, null);
+                try {
+                    buffer.appendCodePoint(c);
+                }
+                catch (IllegalArgumentException e) {
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
+                    }
+                }
             }
 
             return c == -1;
@@ -2469,20 +2476,19 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break OUTER;
                     }
                     if (count < 2) {
-                        buffer.append(cend);
-                        // if (c != -1) {
+                        xmlString.append(']');
                         fCurrentEntity.rewind();
                         continue;
                     }
                     if (c != '>') {
                         for (int i = 0; i < count; i++) {
-                            buffer.append(cend);
+                            xmlString.append(']');
                         }
                         fCurrentEntity.rewind();
                         continue;
                     }
                     for (int i = 0; i < count - 2; i++) {
-                        buffer.append(cend);
+                        xmlString.append(']');
                     }
                     break;
                 }
@@ -2494,12 +2500,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        buffer.append('\n');
+                        xmlString.append('\n');
                     }
                     continue;
                 }
                 try {
-                    buffer.appendCodePoint(c);
+                	xmlString.appendCodePoint(c);
                 }
                 catch (IllegalArgumentException e) {
                     if (fReportErrors_) {
