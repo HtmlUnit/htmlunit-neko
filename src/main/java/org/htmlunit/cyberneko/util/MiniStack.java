@@ -78,9 +78,7 @@ public class MiniStack<E> {
 
             return e;
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     /**
@@ -124,7 +122,7 @@ public class MiniStack<E> {
     /**
      * Returns the current size of the stack.
      *
-     * @return the size of the stack, always >= 0
+     * @return the size of the stack, always &gt;= 0
      */
     public int size() {
         return pos_ + 1;
