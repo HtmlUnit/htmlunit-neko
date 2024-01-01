@@ -295,7 +295,7 @@ public class XMLString implements CharSequence {
             this.length_++;
         }
         else {
-        	// the rare case when we don't have any buffer at hand
+            // the rare case when we don't have any buffer at hand
             append(c);
         }
 
@@ -344,7 +344,7 @@ public class XMLString implements CharSequence {
      * @deprecated Use the new method {@link #trimToContent(String, String)} instead.
      */
     public XMLString reduceToContent(final String startMarker, final String endMarker) {
-    	return trimToContent(startMarker, endMarker);
+        return trimToContent(startMarker, endMarker);
     }
 
     /**
@@ -368,15 +368,15 @@ public class XMLString implements CharSequence {
 
         // run over starting whitespaces
         int sPos = 0;
-        for (; sPos < this.length_ - markerLength; sPos++) {
+        for ( ; sPos < this.length_ - markerLength; sPos++) {
             if (!Character.isWhitespace(this.data_[sPos])) {
                 break;
             }
         }
 
         // run over ending whitespaces
-        int ePos = this.length_ - 1 ;
-        for (; ePos > sPos - markerLength; ePos--) {
+        int ePos = this.length_ - 1;
+        for ( ; ePos > sPos - markerLength; ePos--) {
             if (!Character.isWhitespace(this.data_[ePos])) {
                 break;
             }
@@ -451,7 +451,7 @@ public class XMLString implements CharSequence {
     public XMLString trimLeading() {
         // run over starting whitespace
         int sPos = 0;
-        for (; sPos < this.length_; sPos++) {
+        for ( ; sPos < this.length_; sPos++) {
             if (!Character.isWhitespace(this.data_[sPos])) {
                 break;
             }
@@ -478,7 +478,6 @@ public class XMLString implements CharSequence {
         return this;
     }
 
-
     /**
      * Removes all whitespace at the end.
      * If all are whitespace, we get an empty buffer
@@ -488,7 +487,7 @@ public class XMLString implements CharSequence {
      * @deprecated Use {@link #trimTrailing()} instead.
      */
     public XMLString trimWhitespaceAtEnd() {
-    	return trimTrailing();
+        return trimTrailing();
     }
 
     /**
@@ -500,7 +499,7 @@ public class XMLString implements CharSequence {
     public XMLString trimTrailing() {
         // run over ending whitespaces
         int ePos = this.length_ - 1;
-        for (; ePos >= 0; ePos--) {
+        for ( ; ePos >= 0; ePos--) {
             if (!Character.isWhitespace(this.data_[ePos])) {
                 break;
             }
@@ -546,12 +545,10 @@ public class XMLString implements CharSequence {
      */
     @Override
     public String toString() {
-    	if (this.length_ > 0) {
-    		return new String(this.data_, 0, this.length_);
-    	}
-    	else {
-    		return "";
-    	}
+        if (this.length_ > 0) {
+            return new String(this.data_, 0, this.length_);
+        }
+        return "";
     }
 
     /**
@@ -566,8 +563,7 @@ public class XMLString implements CharSequence {
      *      in case one tries to read outside of valid buffer range
      */
     @Override
-    public char charAt(final int index)
-    {
+    public char charAt(final int index) {
         if (index > this.length_ - 1 || index < 0) {
             throw new IndexOutOfBoundsException(
                             "Tried to read outside of the valid buffer data");
@@ -610,12 +606,10 @@ public class XMLString implements CharSequence {
      * returned sequence is <tt>end - start</tt>, so if <tt>start == end</tt>
      * then an empty sequence is returned.
      *
-     * @param   start   the start index, inclusive
-     * @param   end     the end index, exclusive
-     *
-     * @return  the specified subsequence
-     *
-     * @throws  IndexOutOfBoundsException
+     * @param start the start index, inclusive
+     * @param end the end index, exclusive
+     * @return the specified subsequence
+     * @throws IndexOutOfBoundsException
      *          if <tt>start</tt> or <tt>end</tt> are negative,
      *          if <tt>end</tt> is greater than <tt>length()</tt>,
      *          or if <tt>start</tt> is greater than <tt>end</tt>
@@ -652,7 +646,7 @@ public class XMLString implements CharSequence {
         if (o instanceof CharSequence) {
             final CharSequence ob = (CharSequence) o;
 
-            if (ob.length() != this.length_ ) {
+            if (ob.length() != this.length_) {
                 return false;
             }
 

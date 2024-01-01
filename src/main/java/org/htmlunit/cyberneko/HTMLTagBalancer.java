@@ -978,7 +978,7 @@ public class HTMLTagBalancer
 
     /** Start CDATA section. */
     @Override
-    public void startCDATA(Augmentations augs) throws XNIException {
+    public void startCDATA(final Augmentations augs) throws XNIException {
         fSeenAnything = true;
 
         consumeEarlyTextIfNeeded();
@@ -997,7 +997,7 @@ public class HTMLTagBalancer
 
     /** End CDATA section. */
     @Override
-    public void endCDATA(Augmentations augs) throws XNIException {
+    public void endCDATA(final Augmentations augs) throws XNIException {
 
         // check for end of document
         if (fSeenRootElementEnd) {
@@ -1258,7 +1258,7 @@ public class HTMLTagBalancer
     }
 
     // Call document handler end element.
-    protected final void callEndElement(QName element, Augmentations augs)
+    protected final void callEndElement(final QName element, final Augmentations augs)
         throws XNIException {
         fDocumentHandler.endElement(element, augs);
     }

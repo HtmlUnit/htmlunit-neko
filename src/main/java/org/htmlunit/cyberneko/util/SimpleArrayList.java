@@ -30,8 +30,7 @@ import java.util.ListIterator;
  * @author Rene Schwietzke
  * @since 7.0.0
  */
-public class SimpleArrayList<T> implements List<T>
-{
+public class SimpleArrayList<T> implements List<T> {
     private T[] data;
 
     private int size;
@@ -42,8 +41,7 @@ public class SimpleArrayList<T> implements List<T>
      *
      * @param list
      */
-    SimpleArrayList(final SimpleArrayList<T> list)
-    {
+    SimpleArrayList(final SimpleArrayList<T> list) {
         data = list.data;
         size = list.size;
     }
@@ -55,8 +53,7 @@ public class SimpleArrayList<T> implements List<T>
      *            the capacity
      */
     @SuppressWarnings("unchecked")
-    public SimpleArrayList(final int capacity)
-    {
+    public SimpleArrayList(final int capacity) {
         data = (T[]) new Object[capacity];
     }
 
@@ -64,8 +61,7 @@ public class SimpleArrayList<T> implements List<T>
      * Create a new list with a default capacity.
      */
     @SuppressWarnings("unchecked")
-    public SimpleArrayList()
-    {
+    public SimpleArrayList() {
         data = (T[]) new Object[10];
     }
 
@@ -78,11 +74,9 @@ public class SimpleArrayList<T> implements List<T>
      */
     @Override
     @SuppressWarnings("unchecked")
-    public boolean add(T element)
-    {
+    public boolean add(final T element) {
         final int length = this.data.length;
-        if (this.size == length)
-        {
+        if (this.size == length) {
             final T[] newData = (T[]) new Object[(length << 1) + 2];
             System.arraycopy(this.data, 0, newData, 0, length);
             this.data = newData;
@@ -95,11 +89,9 @@ public class SimpleArrayList<T> implements List<T>
     }
 
     @Override
-    public void add(int index, T element)
-    {
+    public void add(final int index, final T element) {
         final int length = this.data.length;
-        if (this.size == length)
-        {
+        if (this.size == length) {
             final T[] newData = (T[]) new Object[(length << 1) + 2];
             System.arraycopy(data, 0, newData, 0, length);
             data = newData;
@@ -120,8 +112,7 @@ public class SimpleArrayList<T> implements List<T>
      * @return the element at this position
      */
     @Override
-    public T get(int index)
-    {
+    public T get(final int index) {
         return data[index];
     }
 
@@ -129,8 +120,7 @@ public class SimpleArrayList<T> implements List<T>
      * Returns the size of this list
      */
     @Override
-    public int size()
-    {
+    public int size() {
         return size;
     }
 
@@ -140,8 +130,7 @@ public class SimpleArrayList<T> implements List<T>
      * @return an array of the elements
      */
     @Override
-    public Object[] toArray()
-    {
+    public Object[] toArray() {
         return Arrays.copyOf(this.data, this.size);
     }
 
@@ -152,8 +141,7 @@ public class SimpleArrayList<T> implements List<T>
      */
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T[] toArray(T[] array)
-    {
+    public <T> T[] toArray(final T[] array) {
         return (T[]) Arrays.copyOf(this.data, this.size, array.getClass());
     }
 
@@ -161,8 +149,7 @@ public class SimpleArrayList<T> implements List<T>
      * Clears the list by setting the size to zero. It does not release any elements for performance purposes.
      */
     @Override
-    public void clear()
-    {
+    public void clear() {
         // are are not releasing any references, this is because of speed aka less memory
         // access needed
         this.size = 0;
@@ -176,27 +163,22 @@ public class SimpleArrayList<T> implements List<T>
      *            how many list do we want
      * @return a list of lists
      */
-    public List<List<T>> partition(int count)
-    {
+    public List<List<T>> partition(final int count) {
         final int _count;
-        if (count > size)
-        {
+        if (count > size) {
             _count = size;
         }
-        else
-        {
+        else {
             _count = count <= 0 ? 1 : count;
         }
 
         final SimpleArrayList<List<T>> result = new SimpleArrayList<>(count);
 
         final int newSize = (int) Math.ceil((double) size / (double) _count);
-        for (int i = 0; i < _count; i++)
-        {
-            int from = i * newSize;
+        for (int i = 0; i < _count; i++) {
+            final int from = i * newSize;
             int to = from + newSize - 1;
-            if (to >= size)
-            {
+            if (to >= size) {
                 to = size - 1;
             }
             result.add(new Partition<>(this, from, to));
@@ -205,14 +187,11 @@ public class SimpleArrayList<T> implements List<T>
         return result;
     }
 
-    class Partition<K> extends SimpleArrayList<K>
-    {
+    class Partition<K> extends SimpleArrayList<K> {
         private final int from;
-
         private final int size;
 
-        public Partition(final SimpleArrayList<K> list, final int from, final int to)
-        {
+        Partition(final SimpleArrayList<K> list, final int from, final int to) {
             super(list);
 
             this.from = from;
@@ -220,88 +199,74 @@ public class SimpleArrayList<T> implements List<T>
         }
 
         @Override
-        public boolean add(K o)
-        {
+        public boolean add(final K o) {
             throw new UnsupportedOperationException("Cannot modify the partition");
         }
 
         @Override
-        public K get(int index)
-        {
+        public K get(final int index) {
             return super.get(index + from);
         }
 
         @Override
-        public int size()
-        {
+        public int size() {
             return size;
         }
 
         @Override
-        public K[] toArray()
-        {
+        public K[] toArray() {
             throw new UnsupportedOperationException("unimplemented");
         }
 
     }
 
     @Override
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean contains(Object o)
-    {
+    public boolean contains(final Object o) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public Iterator<T> iterator()
-    {
+    public Iterator<T> iterator() {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean remove(Object o)
-    {
+    public boolean remove(final Object o) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean containsAll(Collection<?> c)
-    {
+    public boolean containsAll(final Collection<?> c) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c)
-    {
+    public boolean addAll(final Collection<? extends T> c) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c)
-    {
+    public boolean addAll(final int index, final Collection<? extends T> c) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean removeAll(Collection<?> c)
-    {
+    public boolean removeAll(final Collection<?> c) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public boolean retainAll(Collection<?> c)
-    {
+    public boolean retainAll(final Collection<?> c) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public T set(int index, T element)
-    {
+    public T set(final int index, final T element) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -312,8 +277,7 @@ public class SimpleArrayList<T> implements List<T>
      * @return the previous value at position index
      */
     @Override
-    public T remove(int index)
-    {
+    public T remove(final int index) {
         final T t = this.data[index];
         System.arraycopy(this.data, index + 1, this.data, index, this.size - index - 1);
         this.size--;
@@ -322,32 +286,27 @@ public class SimpleArrayList<T> implements List<T>
     }
 
     @Override
-    public int indexOf(Object o)
-    {
+    public int indexOf(final Object o) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public int lastIndexOf(Object o)
-    {
+    public int lastIndexOf(final Object o) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public ListIterator<T> listIterator()
-    {
+    public ListIterator<T> listIterator() {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public ListIterator<T> listIterator(int index)
-    {
+    public ListIterator<T> listIterator(final int index) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
     @Override
-    public List<T> subList(int fromIndex, int toIndex)
-    {
+    public List<T> subList(final int fromIndex, final int toIndex) {
         throw new UnsupportedOperationException("unimplemented");
     }
 }

@@ -23,7 +23,7 @@ import java.util.Arrays;
  * @since 3.10.0
  */
 public class MiniStack<E> {
-	// our data
+    // our data
     private Object[] elements_;
 
     // our current position in the stack
@@ -70,7 +70,7 @@ public class MiniStack<E> {
      */
     @SuppressWarnings("unchecked")
     public E pop() {
-        if ( pos_ >= 0) {
+        if (pos_ >= 0) {
             final E e = (E) this.elements_[pos_];
             // ensure ref is clean to allow GC
             this.elements_[pos_] = null;
@@ -99,7 +99,7 @@ public class MiniStack<E> {
      *
      * @param element the element to add
      */
-    public void push(E element) {
+    public void push(final E element) {
         pos_++;
 
         // check if we need room, grow by about a cache line

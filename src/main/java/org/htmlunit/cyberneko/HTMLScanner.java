@@ -472,7 +472,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         this.htmlConfiguration_ = htmlConfiguration;
     }
 
-
     /**
      * Pushes an input source onto the current entity stack. This enables the
      * scanner to transparently scan new content (e.g. the output written by an
@@ -1127,7 +1126,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     try {
                         str.appendCodePoint(c);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (final IllegalArgumentException e) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
@@ -1681,7 +1680,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (count == -1) {
                 this.length_ = loadOffset;
                 this.endReached_ = true;
-            } else {
+            }
+            else {
                 this.length_ = count + loadOffset;
             }
             this.offset_ = loadOffset;
@@ -2063,7 +2063,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     try {
                         fScanUntilEndTag.appendCodePoint(c);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (final IllegalArgumentException e) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
@@ -2121,7 +2121,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     try {
                         fScanScriptContent.appendCodePoint(c);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (final IllegalArgumentException e) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
@@ -2327,7 +2327,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         try {
                             fScanComment.appendCodePoint(c);
                         }
-                        catch (IllegalArgumentException e) {
+                        catch (final IllegalArgumentException e) {
                             if (fReportErrors_) {
                                 fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                             }
@@ -2384,7 +2384,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         break OUTER;
                     }
                     if (count < 2) {
-                    	buffer.append('-');
+                        buffer.append('-');
                         fCurrentEntity.rewind();
                         continue;
                     }
@@ -2400,13 +2400,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
                         if (c == '>') {
                             for (int i = 0; i < count - 2; i++) {
-                            	buffer.append('-');
+                                buffer.append('-');
                             }
                             break;
                         }
 
                         for (int i = 0; i < count; i++) {
-                        	buffer.append('-');
+                            buffer.append('-');
                         }
                         buffer.append('!');
                         fCurrentEntity.rewind();
@@ -2415,13 +2415,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
                     if (c == '>') {
                         for (int i = 0; i < count - 2; i++) {
-                        	buffer.append('-');
+                            buffer.append('-');
                         }
                         break;
                     }
 
                     for (int i = 0; i < count; i++) {
-                    	buffer.append('-');
+                        buffer.append('-');
                     }
                     fCurrentEntity.rewind();
                     continue;
@@ -2430,14 +2430,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fCurrentEntity.rewind();
                     final int newlines = skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                    	buffer.append('\n');
+                        buffer.append('\n');
                     }
                     continue;
                 }
                 try {
                     buffer.appendCodePoint(c);
                 }
-                catch (IllegalArgumentException e) {
+                catch (final IllegalArgumentException e) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                     }
@@ -2505,9 +2505,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     continue;
                 }
                 try {
-                	xmlString.appendCodePoint(c);
+                    xmlString.appendCodePoint(c);
                 }
-                catch (IllegalArgumentException e) {
+                catch (final IllegalArgumentException e) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                     }
@@ -2602,7 +2602,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         try {
                             fStringBuffer.appendCodePoint(c);
                         }
-                        catch (IllegalArgumentException e) {
+                        catch (final IllegalArgumentException e) {
                             if (fReportErrors_) {
                                 fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                             }
@@ -2968,7 +2968,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             try {
                                 fStringBuffer.appendCodePoint(c);
                             }
-                            catch (IllegalArgumentException e) {
+                            catch (final IllegalArgumentException e) {
                                 if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                                 }
@@ -3024,7 +3024,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             try {
                                 fStringBuffer.appendCodePoint(ce);
                             }
-                            catch (IllegalArgumentException e) {
+                            catch (final IllegalArgumentException e) {
                                 if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1005", new Object[] {"&#" + ce + ';'});
                                 }
@@ -3040,7 +3040,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         try {
                             fStringBuffer.appendCodePoint(c);
                         }
-                        catch (IllegalArgumentException e) {
+                        catch (final IllegalArgumentException e) {
                             if (fReportErrors_) {
                                 fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                             }
@@ -3218,7 +3218,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 try {
                                     charBuffer_.appendCodePoint(c);
                                 }
-                                catch (IllegalArgumentException e) {
+                                catch (final IllegalArgumentException e) {
                                     if (fReportErrors_) {
                                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                                     }
@@ -3273,7 +3273,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     try {
                         buffer.appendCodePoint(c);
                     }
-                    catch (IllegalArgumentException e) {
+                    catch (final IllegalArgumentException e) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
@@ -3330,7 +3330,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 try {
                     buffer.appendCodePoint(c);
                 }
-                catch (IllegalArgumentException e) {
+                catch (final IllegalArgumentException e) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                     }

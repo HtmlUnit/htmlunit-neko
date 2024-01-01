@@ -187,7 +187,7 @@ public class HTMLElements {
     // information
 
     /** No such element. */
-   public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY}, null);
+    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY}, null);
 
     // these fields became private to avoid exposing them for indirect modification
     // this cannot be final because HtmlUnit might add to that
@@ -833,7 +833,7 @@ public class HTMLElements {
         @Override
         public boolean equals(final Object o) {
             if (o instanceof Element) {
-                Element e = (Element) o;
+                final Element e = (Element) o;
                 return lowercaseName.equals(e.name) || name.equals(e.name);
             }
             return false;

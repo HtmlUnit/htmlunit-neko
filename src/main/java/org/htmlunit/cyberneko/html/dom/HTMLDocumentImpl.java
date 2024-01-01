@@ -64,21 +64,21 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      * https://www.tutorialrepublic.com/html-reference/html5-tags.php
      */
     private static final String[] HTML5ELEMENTS = {
-            "A", "ABBR", "ADDRESS", "AREA", "ARTICLE", "ASIDE", "AUDIO",
-            "B", "BASE", "BDI", "BDO", "BLOCKQUOTE", "BODY", "BR", "BUTTON",
-            "CANVAS", "CAPTION", "CITE", "CODE", "COL", "COLGROUP", "DATA",
-            "DATALIST", "DD", "DEL", "DETAILS", "DFN", "DIALOG", "DIV",
-            "DL", "DT", "EM", "EMBED", "FIELDSET", "FIGCAPTION", "FIGURE",
-            "FOOTER", "FORM", "HEAD", "HEADER", "HGROUP", "H1", "HR", "HTML",
-            "I", "IFRAME", "IMG", "INPUT", "INS", "KBD", "KEYGEN", "LABEL",
-            "LEGEND", "LI", "LINK", "MAIN", "MAP", "MARK", "MENU", "MENUITEM",
-            "META", "METER", "NAV", "NOSCRIPT", "OBJECT", "OL", "OPTGROUP",
-            "OPTION", "OUTPUT", "P", "PARAM", "PICTURE", "PRE", "PROGRESS",
-            "Q", "RP", "RT", "RUBY", "S", "SAMP", "SCRIPT", "SECTION",
-            "SELECT", "SMALL", "SOURCE", "SPAN", "STRONG", "STYLE", "SUB",
-            "SUMMARY", "SUP", "SVG", "TABLE", "TBODY", "TD", "TEMPLATE",
-            "TEXTAREA", "TFOOT", "TH", "THEAD", "TIME", "TITLE", "TR",
-            "TRACK", "U", "UL", "VAR", "VIDEO", "WBR"
+        "A", "ABBR", "ADDRESS", "AREA", "ARTICLE", "ASIDE", "AUDIO",
+        "B", "BASE", "BDI", "BDO", "BLOCKQUOTE", "BODY", "BR", "BUTTON",
+        "CANVAS", "CAPTION", "CITE", "CODE", "COL", "COLGROUP", "DATA",
+        "DATALIST", "DD", "DEL", "DETAILS", "DFN", "DIALOG", "DIV",
+        "DL", "DT", "EM", "EMBED", "FIELDSET", "FIGCAPTION", "FIGURE",
+        "FOOTER", "FORM", "HEAD", "HEADER", "HGROUP", "H1", "HR", "HTML",
+        "I", "IFRAME", "IMG", "INPUT", "INS", "KBD", "KEYGEN", "LABEL",
+        "LEGEND", "LI", "LINK", "MAIN", "MAP", "MARK", "MENU", "MENUITEM",
+        "META", "METER", "NAV", "NOSCRIPT", "OBJECT", "OL", "OPTGROUP",
+        "OPTION", "OUTPUT", "P", "PARAM", "PICTURE", "PRE", "PROGRESS",
+        "Q", "RP", "RT", "RUBY", "S", "SAMP", "SCRIPT", "SECTION",
+        "SELECT", "SMALL", "SOURCE", "SPAN", "STRONG", "STYLE", "SUB",
+        "SUMMARY", "SUP", "SVG", "TABLE", "TBODY", "TD", "TEMPLATE",
+        "TEXTAREA", "TFOOT", "TH", "THEAD", "TIME", "TITLE", "TR",
+        "TRACK", "U", "UL", "VAR", "VIDEO", "WBR"
     };
 
     /**
@@ -218,18 +218,16 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             final String uKey = key.toUpperCase(Locale.ENGLISH);
             final String lKey = key.toLowerCase(Locale.ENGLISH);
 
-          try
-          {
-              final Constructor<? extends HTMLElementImpl> ctr = value.getConstructor(elemClassSigHTML_);
+            try {
+                final Constructor<? extends HTMLElementImpl> ctr = value.getConstructor(elemClassSigHTML_);
 
-              final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
-              elementTypesHTMLUpper_.put(uKey, holder);
-              elementTypesHTMLLower_.put(lKey, holder);
-          }
-          catch (NoSuchMethodException | SecurityException ex)
-          {
-              throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
-          }
+                final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
+                elementTypesHTMLUpper_.put(uKey, holder);
+                elementTypesHTMLLower_.put(lKey, holder);
+            }
+            catch (NoSuchMethodException | SecurityException ex) {
+                throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
+            }
         });
     }
 
@@ -237,7 +235,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         public final String tagName;
         public final Constructor<? extends HTMLElementImpl> ctr;
 
-        public ElementTypesHTMLHolder(final String tagName, final Constructor<? extends HTMLElementImpl> ctr) {
+        ElementTypesHTMLHolder(final String tagName, final Constructor<? extends HTMLElementImpl> ctr) {
             this.tagName = tagName;
             this.ctr = ctr;
         }
@@ -520,7 +518,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
     }
 
     @Override
-    public Element createElement(String tagName) throws DOMException {
+    public Element createElement(final String tagName) throws DOMException {
         // First, make sure tag name is all upper case, next get the associated
         // element class. If no class is found, generate a generic HTML element.
         // Do so also if an unexpected exception occurs.
