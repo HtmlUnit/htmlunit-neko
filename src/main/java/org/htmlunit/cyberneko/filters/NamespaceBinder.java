@@ -309,7 +309,7 @@ public class NamespaceBinder extends DefaultFilter {
 
             for (int i = attrCount - 1; i >= 0; i--) {
                 attrs.getName(i, fQName_);
-                String rawname = fQName_.rawname;
+                String rawname = fQName_.getRawname();
                 // we don't uppercase anymore, instead we lowercase, because most
                 // of the time, we are lowercase already and save on memory because
                 // we don't convert it
@@ -343,8 +343,8 @@ public class NamespaceBinder extends DefaultFilter {
                     // another if
                     // final String prefix = alocal != rawname ? alocal : "";
                     String uri = avalue.length() > 0 ? avalue : null;
-                    if (fOverrideNamespaces_ && prefix.equals(element.prefix)
-                            && htmlConfiguration_.getHtmlElements().getElement(element.localpart, null) != null) {
+                    if (fOverrideNamespaces_ && prefix.equals(element.getPrefix())
+                            && htmlConfiguration_.getHtmlElements().getElement(element.getLocalpart(), null) != null) {
                         uri = fNamespacesURI_;
                     }
                     fNamespaceContext_.declarePrefix(prefix, uri);
@@ -353,22 +353,22 @@ public class NamespaceBinder extends DefaultFilter {
         }
 
         // bind element
-        element.uri = fNamespaceContext_.getURI(element.prefix != null ? element.prefix : "");
+        element.setUri(fNamespaceContext_.getURI(element.getPrefix() != null ? element.getPrefix() : ""));
         // REVISIT: The prefix of a qualified element name that is
         //          bound to a namespace is passed (as recent as
         //          Xerces 2.4.0) as "" for start elements and null
         //          for end elements. Why? One of them is a bug,
         //          clearly. -Ac
-        if (element.uri != null && element.prefix == null) {
-            element.prefix = "";
+        if (element.getUri() != null && element.getPrefix() == null) {
+            element.setPrefix("");
         }
 
         // do we need to insert namespace bindings?
         if (fInsertNamespaces_ && attrs != null
-                && htmlConfiguration_.getHtmlElements().getElement(element.localpart, null) != null) {
-            if (element.prefix == null || fNamespaceContext_.getURI(element.prefix) == null) {
-                final String xmlns = "xmlns" + ((element.prefix != null)
-                             ? ":" + element.prefix : "");
+                && htmlConfiguration_.getHtmlElements().getElement(element.getLocalpart(), null) != null) {
+            if (element.getPrefix() == null || fNamespaceContext_.getURI(element.getPrefix()) == null) {
+                final String xmlns = "xmlns" + ((element.getPrefix() != null)
+                             ? ":" + element.getPrefix() : "");
                 fQName_.setValues(null, xmlns, xmlns, null);
                 attrs.addAttribute(fQName_, "CDATA", fNamespacesURI_);
                 bindNamespaces(element, attrs);
@@ -382,16 +382,16 @@ public class NamespaceBinder extends DefaultFilter {
             for (int i = 0; i < attrCount; i++) {
                 final QName qName = attrs.getName(i).splitQName();
 
-                final String prefix = !"xmlns".equals(qName.rawname)
-                       ? (qName.prefix != null ? qName.prefix : "") : "xmlns";
+                final String prefix = !"xmlns".equals(qName.getRawname())
+                       ? (qName.getPrefix() != null ? qName.getPrefix() : "") : "xmlns";
                 // PATCH: Joseph Walton, if we have a non-empty prefix
                 if (prefix.length() > 0) {
-                    qName.uri = "xml".equals(prefix) ? XML_URI : fNamespaceContext_.getURI(prefix);
+                    qName.setUri("xml".equals(prefix) ? XML_URI : fNamespaceContext_.getURI(prefix));
                 }
                 // NOTE: You would think the xmlns namespace would be handled
                 //       by NamespaceSupport but it's not. -Ac
-                if (qName.uri == null && "xmlns".equals(prefix)) {
-                    qName.uri = XMLNS_URI;
+                if (qName.getUri() == null && "xmlns".equals(prefix)) {
+                    qName.setUri(XMLNS_URI);
                 }
                 // no need to set it, we already worked on the reference,
                 // less copying of things make it more efficient

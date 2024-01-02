@@ -472,7 +472,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     @Override
     public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
-            System.out.println("==>startElement (" + element.rawname + ")");
+            System.out.println("==>startElement (" + element.getRawname() + ")");
         }
 
         final Element el = createElementNode(element);
@@ -489,8 +489,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // Take special care of schema defaulted attributes. Calling the
             // non-namespace aware setAttributeNode() method could overwrite
             // another attribute with the same local name.
-            if (!specified && (seenSchemaDefault || (fAttrQName.uri != null
-                    && fAttrQName.uri != NamespaceContext.XMLNS_URI && fAttrQName.prefix == null))) {
+            if (!specified && (seenSchemaDefault || (fAttrQName.getUri() != null
+                    && fAttrQName.getUri() != NamespaceContext.XMLNS_URI && fAttrQName.getPrefix() == null))) {
                 el.setAttributeNodeNS(attr);
                 seenSchemaDefault = true;
             }
@@ -638,7 +638,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     @Override
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
         if (DEBUG_EVENTS) {
-            System.out.println("==>endElement (" + element.rawname + ")");
+            System.out.println("==>endElement (" + element.getRawname() + ")");
         }
         setCharacterData(false);
         fCurrentNode = fCurrentNode.getParentNode();
@@ -818,14 +818,14 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // if we are using xerces DOM implementation, call our
             // own constructor to reuse the strings we have here.
             if (fDocumentImpl != null) {
-                el = fDocumentImpl.createElementNS(element.uri, element.rawname, element.localpart);
+                el = fDocumentImpl.createElementNS(element.getUri(), element.getRawname(), element.getLocalpart());
             }
             else {
-                el = fDocument.createElementNS(element.uri, element.rawname);
+                el = fDocument.createElementNS(element.getUri(), element.getRawname());
             }
         }
         else {
-            el = fDocument.createElement(element.rawname);
+            el = fDocument.createElement(element.getRawname());
         }
 
         return el;
@@ -840,14 +840,14 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             if (fDocumentImpl != null) {
                 // if we are using xerces DOM implementation, call our
                 // own constructor to reuse the strings we have here.
-                attr = fDocumentImpl.createAttributeNS(attrQName.uri, attrQName.rawname, attrQName.localpart);
+                attr = fDocumentImpl.createAttributeNS(attrQName.getUri(), attrQName.getRawname(), attrQName.getLocalpart());
             }
             else {
-                attr = fDocument.createAttributeNS(attrQName.uri, attrQName.rawname);
+                attr = fDocument.createAttributeNS(attrQName.getUri(), attrQName.getRawname());
             }
         }
         else {
-            attr = fDocument.createAttribute(attrQName.rawname);
+            attr = fDocument.createAttribute(attrQName.getRawname());
         }
 
         return attr;

@@ -307,7 +307,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return attributes_.get(index).name_.rawname;
+        return attributes_.get(index).name_.getRawname();
     }
 
     /**
@@ -328,7 +328,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     public int getIndex(final String qName) {
         for (int i = 0; i < getLength(); i++) {
             final Attribute attribute = attributes_.get(i);
-            if (attribute.name_.rawname != null && attribute.name_.rawname.equals(qName)) {
+            if (attribute.name_.getRawname() != null && attribute.name_.getRawname().equals(qName)) {
                 return i;
             }
         }
@@ -346,9 +346,9 @@ public class XMLAttributesImpl implements XMLAttributes {
     public int getIndex(final String uri, final String localPart) {
         for (int i = 0; i < getLength(); i++) {
             final Attribute attribute = attributes_.get(i);
-            if (attribute.name_.localpart != null && attribute.name_.localpart.equals(localPart)
-                    && ((uri == attribute.name_.uri)
-                            || (uri != null && attribute.name_.uri != null && attribute.name_.uri.equals(uri)))) {
+            if (attribute.name_.getLocalpart() != null && attribute.name_.getLocalpart().equals(localPart)
+                    && ((uri == attribute.name_.getUri())
+                            || (uri != null && attribute.name_.getUri() != null && attribute.name_.getUri().equals(uri)))) {
                 return i;
             }
         }
@@ -368,7 +368,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return attributes_.get(index).name_.localpart;
+        return attributes_.get(index).name_.getLocalpart();
     }
 
     /**
@@ -384,7 +384,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        final String rawname = attributes_.get(index).name_.rawname;
+        final String rawname = attributes_.get(index).name_.getRawname();
         return rawname != null ? rawname : "";
     }
 
@@ -419,7 +419,7 @@ public class XMLAttributesImpl implements XMLAttributes {
         if (index < 0 || index >= getLength()) {
             return null;
         }
-        return attributes_.get(index).name_.uri;
+        return attributes_.get(index).name_.getUri();
     }
 
     /**

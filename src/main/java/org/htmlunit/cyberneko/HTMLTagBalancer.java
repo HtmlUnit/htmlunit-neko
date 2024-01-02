@@ -402,7 +402,7 @@ public class HTMLTagBalancer
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
             for (final QName name : fragmentContextStack_) {
-                final Element elt = htmlConfiguration_.getHtmlElements().getElement(name.localpart);
+                final Element elt = htmlConfiguration_.getHtmlElements().getElement(name.getLocalpart());
                 fElementStack.push(new Info(elt, name));
             }
 
@@ -481,7 +481,7 @@ public class HTMLTagBalancer
             for (int i = 0; i < length; i++) {
                 final Info info = fElementStack.pop();
                 if (fReportErrors) {
-                    final String ename = info.qname.rawname;
+                    final String ename = info.qname.getRawname();
                     fErrorReporter.reportWarning("HTML2001", new Object[]{ename});
                 }
                 if (fDocumentHandler != null) {
@@ -726,7 +726,7 @@ public class HTMLTagBalancer
                 String pname = preferedParent.name;
                 pname = modifyName(pname, fNamesElems);
                 if (fReportErrors) {
-                    final String ename = elem.rawname;
+                    final String ename = elem.getRawname();
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
@@ -745,7 +745,7 @@ public class HTMLTagBalancer
                         final String pname = modifyName(preferedParent.name, fNamesElems);
                         final QName qname = createQName(pname);
                         if (fReportErrors) {
-                            final String ename = elem.rawname;
+                            final String ename = elem.getRawname();
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
                         }
                         final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
@@ -802,8 +802,8 @@ public class HTMLTagBalancer
                 // does it close the element we're looking at?
                 if (element.closes(info.element.code)) {
                     if (fReportErrors) {
-                        final String ename = elem.rawname;
-                        final String iname = info.qname.rawname;
+                        final String ename = elem.getRawname();
+                        final String iname = info.qname.getRawname();
                         fErrorReporter.reportWarning("HTML2005", new Object[]{ename, iname});
                     }
                     for (int j = length - 1; j >= i; j--) {
@@ -937,7 +937,7 @@ public class HTMLTagBalancer
     private void forceStartBody() {
         final QName body = createQName("body");
         if (fReportErrors) {
-            fErrorReporter.reportWarning("HTML2006", new Object[]{body.localpart});
+            fErrorReporter.reportWarning("HTML2006", new Object[]{body.getLocalpart()});
         }
         forceStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
     }
@@ -1108,7 +1108,7 @@ public class HTMLTagBalancer
         if (!fIgnoreOutsideContent
                 && (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
             for (final Iterator<String> it = discardedStartElements.iterator(); it.hasNext();) {
-                if (element.rawname.equals(it.next())) {
+                if (element.getRawname().equals(it.next())) {
                     it.remove();
                     return;
                 }
@@ -1185,8 +1185,8 @@ public class HTMLTagBalancer
         for (int i = 0; i < depth; i++) {
             final Info info = fElementStack.pop();
             if (fReportErrors && i < depth - 1) {
-                final String ename = modifyName(element.rawname, fNamesElems);
-                final String iname = info.qname.rawname;
+                final String ename = modifyName(element.getRawname(), fNamesElems);
+                final String iname = info.qname.getRawname();
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename, iname});
             }
             if (fDocumentHandler != null) {
@@ -1203,7 +1203,7 @@ public class HTMLTagBalancer
                 final Info info = fInlineStack.pop();
                 final XMLAttributes attributes = info.attributes;
                 if (fReportErrors) {
-                    final String iname = info.qname.rawname;
+                    final String iname = info.qname.getRawname();
                     fErrorReporter.reportWarning("HTML2008", new Object[]{iname});
                 }
                 forceStartElement(info.qname, attributes, synthesizedAugs());
@@ -1226,8 +1226,8 @@ public class HTMLTagBalancer
 
     // Returns an HTML element.
     protected HTMLElements.Element getElement(final QName elementName) {
-        String name = elementName.rawname;
-        if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.uri)) {
+        String name = elementName.getRawname();
+        if (fNamespaces && NamespaceBinder.XHTML_1_0_URI.equals(elementName.getUri())) {
             final int index = name.indexOf(':');
             if (index != -1) {
                 name = name.substring(index + 1);
@@ -1485,7 +1485,7 @@ public class HTMLTagBalancer
         if (tagBalancingListener != null) {
             tagBalancingListener.ignoredStartElement(elem, attrs, augs);
         }
-        discardedStartElements.add(elem.rawname);
+        discardedStartElements.add(elem.getRawname());
     }
 
     /**

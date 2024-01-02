@@ -339,7 +339,7 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     // Start element.
     @Override
     public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-        final Element elementNode = document_.createElement(element.rawname);
+        final Element elementNode = document_.createElement(element.getRawname());
 
         if (attrs != null) {
             final int count = attrs.getLength();

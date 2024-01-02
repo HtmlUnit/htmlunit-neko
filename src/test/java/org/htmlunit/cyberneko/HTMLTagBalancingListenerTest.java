@@ -99,23 +99,23 @@ public class HTMLTagBalancingListenerTest {
         @Override
         public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
 
-            messages_.add("start " + element.rawname);
+            messages_.add("start " + element.getRawname());
             super.startElement(element, attributes, augs);
         }
 
         @Override
         public void ignoredEndElement(final QName element, final Augmentations augs) {
-            messages_.add("ignored end " + element.rawname);
+            messages_.add("ignored end " + element.getRawname());
         }
 
         @Override
         public void ignoredStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs) {
-            messages_.add("ignored start " + element.rawname);
+            messages_.add("ignored start " + element.getRawname());
         }
 
         @Override
         public void endElement(final QName element, final Augmentations augs) throws XNIException {
-            messages_.add("end " + element.rawname);
+            messages_.add("end " + element.getRawname());
             super.endElement(element, augs);
         }
     }

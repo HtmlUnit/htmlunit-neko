@@ -31,24 +31,24 @@ public class QName implements Cloneable {
     /**
      * The qname prefix. For example, the prefix for the qname "a:foo" is "a".
      */
-    public String prefix;
+    private String prefix_;
 
     /**
      * The qname localpart. For example, the localpart for the qname "a:foo" is
      * "foo".
      */
-    public String localpart;
+    private String localpart_;
 
     /**
      * The qname rawname. For example, the rawname for the qname "a:foo" is "a:foo".
      */
-    public String rawname;
+    private String rawname_;
 
     /**
      * The URI to which the qname prefix is bound. This binding must be performed by
      * a XML Namespaces aware processor.
      */
-    public String uri;
+    private String uri_;
 
     /** Default constructor. */
     public QName() {
@@ -64,16 +64,44 @@ public class QName implements Cloneable {
         setValues(qname);
     }
 
+    public String getPrefix() {
+        return prefix_;
+    }
+
+    public void setPrefix(final String prefix) {
+        prefix_ = prefix;
+    }
+
+    public String getLocalpart() {
+        return localpart_;
+    }
+
+    public String getRawname() {
+        return rawname_;
+    }
+
+    public void setRawname(final String rawname) {
+        rawname_ = rawname;
+    }
+
+    public String getUri() {
+        return uri_;
+    }
+
+    public void setUri(final String uri) {
+        uri_ = uri;
+    }
+
     /**
      * Convenience method to set the values of the qname components.
      *
      * @param qname The qualified name to be copied.
      */
     public void setValues(final QName qname) {
-        prefix = qname.prefix;
-        localpart = qname.localpart;
-        rawname = qname.rawname;
-        uri = qname.uri;
+        prefix_ = qname.prefix_;
+        localpart_ = qname.localpart_;
+        rawname_ = qname.rawname_;
+        uri_ = qname.uri_;
     }
 
     /**
@@ -85,18 +113,18 @@ public class QName implements Cloneable {
      * @param uri       The URI binding. (e.g. "http://foo.com/mybinding")
      */
     public void setValues(final String prefix, final String localpart, final String rawname, final String uri) {
-        this.prefix = prefix;
-        this.localpart = localpart;
-        this.rawname = rawname;
-        this.uri = uri;
+        prefix_ = prefix;
+        localpart_ = localpart;
+        rawname_ = rawname;
+        uri_ = uri;
     }
 
     // Splits a qualified name.
     public QName splitQName() {
-        final int index = this.rawname.indexOf(':');
+        final int index = this.rawname_.indexOf(':');
         if (index != -1) {
-            this.prefix = this.rawname.substring(0, index);
-            this.localpart  = this.rawname.substring(index + 1);
+            this.prefix_ = this.rawname_.substring(0, index);
+            this.localpart_  = this.rawname_.substring(index + 1);
         }
         return this;
     }
@@ -108,21 +136,21 @@ public class QName implements Cloneable {
 
     @Override
     public int hashCode() {
-        if (uri != null) {
-            return uri.hashCode() + ((localpart != null) ? localpart.hashCode() : 0);
+        if (uri_ != null) {
+            return uri_.hashCode() + ((localpart_ != null) ? localpart_.hashCode() : 0);
         }
-        return (rawname != null) ? rawname.hashCode() : 0;
+        return (rawname_ != null) ? rawname_.hashCode() : 0;
     }
 
     @Override
     public boolean equals(final Object object) {
         if (object instanceof QName) {
             final QName qname = (QName) object;
-            if (qname.uri != null) {
-                return qname.uri.equals(uri) && localpart == qname.localpart;
+            if (qname.uri_ != null) {
+                return qname.uri_.equals(uri_) && localpart_ == qname.localpart_;
             }
-            else if (uri == null) {
-                return rawname == qname.rawname;
+            else if (uri_ == null) {
+                return rawname_ == qname.rawname_;
             }
             // fall through and return not equal
         }
@@ -133,29 +161,29 @@ public class QName implements Cloneable {
     public String toString() {
         final StringBuilder str = new StringBuilder();
         boolean comma = false;
-        if (prefix != null) {
-            str.append("prefix=\"").append(prefix).append('"');
+        if (prefix_ != null) {
+            str.append("prefix=\"").append(prefix_).append('"');
             comma = true;
         }
-        if (localpart != null) {
+        if (localpart_ != null) {
             if (comma) {
                 str.append(',');
             }
-            str.append("localpart=\"").append(localpart).append('"');
+            str.append("localpart=\"").append(localpart_).append('"');
             comma = true;
         }
-        if (rawname != null) {
+        if (rawname_ != null) {
             if (comma) {
                 str.append(',');
             }
-            str.append("rawname=\"").append(rawname).append('"');
+            str.append("rawname=\"").append(rawname_).append('"');
             comma = true;
         }
-        if (uri != null) {
+        if (uri_ != null) {
             if (comma) {
                 str.append(',');
             }
-            str.append("uri=\"").append(uri).append('"');
+            str.append("uri=\"").append(uri_).append('"');
         }
         return str.toString();
     }

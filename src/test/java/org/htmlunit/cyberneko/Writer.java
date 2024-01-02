@@ -195,7 +195,7 @@ public class Writer extends DefaultFilter {
         chars();
         doAugs(augs);
         out_.print('(');
-        out_.print(element.rawname);
+        out_.print(element.getRawname());
         if (attrs != null) {
             final int acount = attrs.getLength();
             if (acount > 0) {
@@ -228,7 +228,7 @@ public class Writer extends DefaultFilter {
         chars();
         doAugs(augs);
         out_.print(')');
-        out_.print(element.rawname);
+        out_.print(element.getRawname());
         out_.println();
         out_.flush();
     }

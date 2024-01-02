@@ -258,8 +258,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     // states
 
-    private static final char REPLACEMENT_CHARACTER = '\uFFFD'; // the � character
-
     /** State: content. */
     protected static final short STATE_CONTENT = 0;
 
@@ -1141,10 +1139,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             return str.toString();
         }
-        else {
-            fCurrentEntity.rewind();
-            return null;
-        }
+        fCurrentEntity.rewind();
+        return null;
     }
 
     // Scans a name.
@@ -2632,7 +2628,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     else {
                         attributes_.getName(aindex, qName_);
-                        qName_.rawname = qName_.rawname.toLowerCase(Locale.ROOT);
+                        qName_.setRawname(qName_.getRawname().toLowerCase(Locale.ROOT));
                         attributes_.setName(aindex, qName_);
                         aindex++;
                     }

@@ -25,8 +25,6 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  */
 public class XMLConfigurationException extends XNIException {
 
-    private static final long serialVersionUID = 8987025467104000713L;
-
     /** Exception type: identifier not recognized. */
     public static final short NOT_RECOGNIZED = 0;
 

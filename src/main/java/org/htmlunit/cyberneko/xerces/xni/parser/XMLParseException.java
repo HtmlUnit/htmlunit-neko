@@ -26,8 +26,6 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  */
 public class XMLParseException extends XNIException {
 
-    private static final long serialVersionUID = -1306660736099956209L;
-
     /** Public identifier. */
     private String publicId_;
 

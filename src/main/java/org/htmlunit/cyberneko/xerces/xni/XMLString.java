@@ -699,16 +699,15 @@ public class XMLString implements CharSequence {
         if (value <= Character.MAX_VALUE) {
             return this.append((char) value);
         }
-        else {
-            try {
-                final char[] chars = Character.toChars(value);
-                return this.append(chars, 0, chars.length);
-            }
-            catch (final IllegalArgumentException e) {
-                // when value is not valid as UTF-16
-                this.append(REPLACEMENT_CHARACTER);
-                throw e;
-            }
+
+        try {
+            final char[] chars = Character.toChars(value);
+            return this.append(chars, 0, chars.length);
+        }
+        catch (final IllegalArgumentException e) {
+            // when value is not valid as UTF-16
+            this.append(REPLACEMENT_CHARACTER);
+            throw e;
         }
     }
 

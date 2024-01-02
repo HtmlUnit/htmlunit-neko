@@ -316,10 +316,10 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                     startNamespaceMapping();
                 }
 
-                final String uri = element.uri != null ? element.uri : "";
-                final String localpart = fNamespaces ? element.localpart : "";
+                final String uri = element.getUri() != null ? element.getUri() : "";
+                final String localpart = fNamespaces ? element.getLocalpart() : "";
                 fAttributesProxy.setAttributes(attributes);
-                fContentHandler.startElement(uri, localpart, element.rawname, fAttributesProxy);
+                fContentHandler.startElement(uri, localpart, element.getRawname(), fAttributesProxy);
             }
         }
         catch (final SAXException e) {
@@ -394,9 +394,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         try {
             // SAX2
             if (fContentHandler != null) {
-                final String uri = element.uri != null ? element.uri : "";
-                final String localpart = fNamespaces ? element.localpart : "";
-                fContentHandler.endElement(uri, localpart, element.rawname);
+                final String uri = element.getUri() != null ? element.getUri() : "";
+                final String localpart = fNamespaces ? element.getLocalpart() : "";
+                fContentHandler.endElement(uri, localpart, element.getRawname());
                 if (fNamespaces) {
                     endNamespaceMapping();
                 }
