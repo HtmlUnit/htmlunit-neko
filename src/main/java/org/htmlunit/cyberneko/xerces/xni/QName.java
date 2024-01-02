@@ -121,10 +121,10 @@ public class QName implements Cloneable {
 
     // Splits a qualified name.
     public QName splitQName() {
-        final int index = this.rawname_.indexOf(':');
+        final int index = rawname_.indexOf(':');
         if (index != -1) {
-            this.prefix_ = this.rawname_.substring(0, index);
-            this.localpart_  = this.rawname_.substring(index + 1);
+            prefix_ = rawname_.substring(0, index);
+            localpart_  = rawname_.substring(index + 1);
         }
         return this;
     }
