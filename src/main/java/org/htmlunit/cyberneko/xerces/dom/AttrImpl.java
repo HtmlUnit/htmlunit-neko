@@ -832,10 +832,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         return oldChild;
     }
 
-    //
-    // NodeList methods
-    //
-
     /**
      * NodeList method: Count the immediate children of this node
      *
@@ -884,10 +880,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
     }
 
-    //
-    // DOM3
-    //
-
     /**
      * DOM Level 3 WD- Experimental. Override inherited behavior from ParentNode to
      * support deep equal. isEqualNode is always deep on Attr nodes.
@@ -914,10 +906,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
     }
-
-    //
-    // Protected methods
-    //
 
     /**
      * Override this method in subclass to hook in efficient internal data

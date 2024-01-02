@@ -298,10 +298,6 @@ public class NamespaceBinder extends DefaultFilter {
         return name;
     }
 
-    //
-    // Protected methods
-    //
-
     // Binds namespaces.
     protected void bindNamespaces(final QName element, final XMLAttributes attrs) {
         // split element qname
@@ -404,10 +400,6 @@ public class NamespaceBinder extends DefaultFilter {
         }
     }
 
-    //
-    // Classes
-    //
-
     /**
      * This namespace context object implements the old and new XNI
      * <code>NamespaceContext</code> interface methods so that it can
@@ -415,10 +407,6 @@ public class NamespaceBinder extends DefaultFilter {
      */
     public static class NamespaceSupport
         implements NamespaceContext {
-
-        //
-        // Data
-        //
 
         /** Top of the levels list. */
         protected int fTop = 0;

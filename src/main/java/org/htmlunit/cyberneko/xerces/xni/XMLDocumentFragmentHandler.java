@@ -27,10 +27,6 @@ package org.htmlunit.cyberneko.xerces.xni;
  */
 public interface XMLDocumentFragmentHandler {
 
-    //
-    // XMLDocumentFragmentHandler methods
-    //
-
     /**
      * The start of the document fragment.
      *

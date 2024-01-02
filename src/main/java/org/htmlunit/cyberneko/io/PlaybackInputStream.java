@@ -140,10 +140,6 @@ public final class PlaybackInputStream extends InputStream {
         }
     }
 
-    //
-    // InputStream methods
-    //
-
     /** Read a byte. */
     @Override
     public int read() throws IOException {

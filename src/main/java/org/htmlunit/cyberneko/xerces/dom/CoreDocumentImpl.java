@@ -585,12 +585,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         return CoreDOMImplementationImpl.getDOMImplementation();
     }
 
-    //
-    // Public methods
-    //
-
-    // properties
-
     /**
      * Sets whether the DOM implementation performs error checking upon operations.
      * Turning off error checking only affects the following DOM checks:
@@ -1544,10 +1538,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     }
 
-    //
-    // DOM2: Namespace methods
-    //
-
     /**
      * Introduced in DOM Level 2.
      * <p>
@@ -1645,10 +1635,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
         return new DeepNodeListImpl(this, namespaceURI, localName);
     }
-
-    //
-    // Object methods
-    //
 
     /** Clone. */
     @Override

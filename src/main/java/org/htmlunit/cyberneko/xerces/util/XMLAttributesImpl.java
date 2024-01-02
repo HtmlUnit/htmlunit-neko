@@ -284,10 +284,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         return index != -1 ? attributes_.get(index).value_ : null;
     }
 
-    //
-    // AttributeList methods
-    //
-
     /**
      * Return the name of an attribute in this list (by position).
      *
@@ -321,10 +317,6 @@ public class XMLAttributesImpl implements XMLAttributes {
     public QName getName(final int index) {
         return attributes_.get(index).name_;
     }
-
-    //
-    // Attributes methods
-    //
 
     /**
      * Look up the index of an attribute by XML 1.0 qualified name.

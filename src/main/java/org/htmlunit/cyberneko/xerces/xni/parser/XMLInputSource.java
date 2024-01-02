@@ -114,10 +114,6 @@ public class XMLInputSource {
         encoding_ = encoding;
     }
 
-    //
-    // Public methods
-    //
-
     /**
      * Sets the public identifier.
      *

@@ -473,10 +473,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
     }
 
-    //
-    // NodeList methods
-    //
-
     /**
      * {@inheritDoc} NodeList method: Count the immediate children of this node
      * <P>
@@ -497,10 +493,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     public Node item(final int index) {
         return null;
     }
-
-    //
-    // DOM2: methods, getters, setters
-    //
 
     /**
      * Puts all <code>Text</code> nodes in the full depth of the sub-tree underneath
@@ -644,10 +636,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         return null;
     }
 
-    //
-    // EventTarget support
-    //
-
     @Override
     public void addEventListener(final String type, final EventListener listener, final boolean useCapture) {
         // simply forward to Document
@@ -664,10 +652,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     public boolean dispatchEvent(final Event event) {
         return false;
     }
-
-    //
-    // Public DOM Level 3 methods
-    //
 
     /**
      * The absolute base URI of this node or <code>null</code> if undefined. This
@@ -1480,10 +1464,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     public Object getUserData(final String key) {
         return null;
     }
-
-    //
-    // Protected methods
-    //
 
     /**
      * Denotes that this node has changed.

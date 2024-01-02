@@ -191,12 +191,12 @@ public class HTMLElements {
 
     // these fields became private to avoid exposing them for indirect modification
     // this cannot be final because HtmlUnit might add to that
-    private Element[] elementsByCode;
+    private Element[] elementsByCode_;
 
     // keep the list here for later modification
-    private final HashMap<String, Element> elementsByNameForReference = new HashMap<>();
+    private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
     // this is a optimized version which will be later queried
-    private final FastHashMap<String, Element> elementsByNameOptimized = new FastHashMap<>(311, 0.50f);
+    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.50f);
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -547,7 +547,7 @@ public class HTMLElements {
         for (final Element[] elements : elementsArray) {
             if (elements != null) {
                 for (final Element element : elements) {
-                    this.elementsByNameForReference.put(element.name, element);
+                    this.elementsByNameForReference_.put(element.name, element);
                 }
             }
         }
@@ -557,7 +557,7 @@ public class HTMLElements {
     }
 
     public void setElement(final Element element) {
-        this.elementsByNameForReference.put(element.name, element);
+        this.elementsByNameForReference_.put(element.name, element);
 
         // rebuild the information "trees"
         setupOptimizedVersions();
@@ -569,23 +569,23 @@ public class HTMLElements {
         // is a faster look up and avoids equals
         // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
         // list here, we might get a list with holes, so check the range first
-        final int size = elementsByNameForReference.values().stream().mapToInt(v -> v.code).max().getAsInt();
-        elementsByCode = new Element[Math.max(size, NO_SUCH_ELEMENT.code) + 1];
-        elementsByNameForReference.values().forEach(v -> elementsByCode[v.code] = v);
-        elementsByCode[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
+        final int size = elementsByNameForReference_.values().stream().mapToInt(v -> v.code).max().getAsInt();
+        elementsByCode_ = new Element[Math.max(size, NO_SUCH_ELEMENT.code) + 1];
+        elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
+        elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
         // initialize cross references to parent elements
-        for (final Element element : elementsByCode) {
+        for (final Element element : elementsByCode_) {
             if (element != null) {
                 defineParents(element);
             }
         }
         // get us a second version that is lowercase stringified to
         // reduce lookup overhead
-        for (final Element element : elementsByCode) {
+        for (final Element element : elementsByCode_) {
             // we might have holes due to HtmlUnitNekoHtmlParser
             if (element != null) {
-                elementsByNameOptimized.put(element.name.toLowerCase(Locale.ROOT), element);
+                elementsByNameOptimized_.put(element.name.toLowerCase(Locale.ROOT), element);
             }
         }
     }
@@ -594,15 +594,11 @@ public class HTMLElements {
         if (element.parentCodes != null) {
             element.parent = new Element[element.parentCodes.length];
             for (int j = 0; j < element.parentCodes.length; j++) {
-                element.parent[j] = elementsByCode[element.parentCodes[j]];
+                element.parent[j] = elementsByCode_[element.parentCodes[j]];
             }
             element.parentCodes = null;
         }
     }
-
-    //
-    // Public static methods
-    //
 
     /**
      * @return the element information for the specified element code.
@@ -610,7 +606,7 @@ public class HTMLElements {
      * @param code The element code.
      */
     public final Element getElement(final short code) {
-        return elementsByCode[code];
+        return elementsByCode_[code];
     }
 
     /**
@@ -637,20 +633,16 @@ public class HTMLElements {
      */
     public final Element getElement(final String ename, final Element element) {
         // check the current form casing first, which is mostly lowercase only
-        Element r = elementsByNameOptimized.get(ename);
+        Element r = elementsByNameOptimized_.get(ename);
         if (r == null) {
             // we have found it in its current form, which
             // is hopefully mainly lowercase or uppercase, so try
             // all lowercase
-            r = elementsByNameOptimized.get(ename.toLowerCase(Locale.ROOT));
+            r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
         }
         // return fallback element if needed
         return r != null ? r : element;
     }
-
-    //
-    // Classes
-    //
 
     /**
      * Element information.
@@ -762,10 +754,6 @@ public class HTMLElements {
             this.bounds = bounds;
             this.closes = closes;
         }
-
-        //
-        // Public methods
-        //
 
         /**
          * @return true if this element is an inline element.

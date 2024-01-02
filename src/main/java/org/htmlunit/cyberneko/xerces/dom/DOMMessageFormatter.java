@@ -23,13 +23,13 @@ import java.util.ResourceBundle;
  *
  * @author Sandy Gao, IBM
  */
-public class DOMMessageFormatter {
+public final class DOMMessageFormatter {
 
     public static final String DOM_DOMAIN = "http://www.w3.org/dom/DOMTR";
     public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
 
-    private static ResourceBundle DomResourceBundle;
-    private static ResourceBundle XmlResourceBundle;
+    private static ResourceBundle DomResourceBundle_;
+    private static ResourceBundle XmlResourceBundle_;
 
     /**
      * Formats a message with the specified arguments.
@@ -94,10 +94,10 @@ public class DOMMessageFormatter {
 
     static ResourceBundle getResourceBundle(final String domain) {
         if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
-            return DomResourceBundle;
+            return DomResourceBundle_;
         }
         else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
-            return XmlResourceBundle;
+            return XmlResourceBundle_;
         }
         return null;
     }
@@ -106,8 +106,8 @@ public class DOMMessageFormatter {
      * Initialize Message Formatter.
      */
     public static void init() {
-        DomResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
-        XmlResourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
+        DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
+        XmlResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
     }
 
     private DOMMessageFormatter() {

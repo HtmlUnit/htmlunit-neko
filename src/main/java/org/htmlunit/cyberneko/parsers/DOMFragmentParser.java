@@ -284,10 +284,6 @@ public class DOMFragmentParser implements XMLDocumentHandler {
         }
     }
 
-    //
-    // XMLDocumentHandler methods
-    //
-
     /** Sets the document source. */
     @Override
     public void setDocumentSource(final XMLDocumentSource source) {
@@ -453,10 +449,6 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     public XMLParserConfiguration getXMLParserConfiguration() {
         return parserConfiguration_;
     }
-
-    //
-    // DEBUG
-    //
 
     /*
     public static void print(Node node) {

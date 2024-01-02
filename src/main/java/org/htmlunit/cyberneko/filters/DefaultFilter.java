@@ -210,10 +210,6 @@ public class DefaultFilter
         }
     }
 
-    //
-    // HTMLComponent methods
-    //
-
     /**
      * Returns a list of feature identifiers that are recognized by
      * this component. This method may return null if no features
@@ -308,10 +304,6 @@ public class DefaultFilter
     @Override
     public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
     }
-
-    //
-    // Protected static methods
-    //
 
     /**
      * Utility method for merging string arrays for recognized features

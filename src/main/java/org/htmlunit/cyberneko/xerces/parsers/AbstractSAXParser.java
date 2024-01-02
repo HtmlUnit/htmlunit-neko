@@ -56,10 +56,6 @@ import org.xml.sax.ext.Locator2Impl;
  */
 public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implements XMLReader { // SAX2
 
-    //
-    // Constants
-    //
-
     // features
 
     /** Feature identifier: namespaces. */
@@ -75,10 +71,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {LEXICAL_HANDLER};
-
-    //
-    // Data
-    //
 
     // features
 
@@ -498,11 +490,9 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     @Override
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
 
-        //
         // REVISIT - I keep running into SAX apps that expect
         // null data to be an empty string, which is contrary
         // to the comment for this method in the SAX API.
-        //
 
         try {
             // SAX2
@@ -755,14 +745,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         fDTDHandler = dtdHandler;
     }
 
-    //
-    // Parser methods
-    //
-
-    //
-    // XMLReader methods
-    //
-
     /**
      * Allow an application to register a content event handler.
      * <p>
@@ -820,10 +802,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            //
-            // SAX2 Features
-            //
-
             if (featureId.startsWith(Constants.SAX_FEATURE_PREFIX)) {
                 final int suffixLength = featureId.length() - Constants.SAX_FEATURE_PREFIX.length();
 
@@ -860,7 +838,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 // http://xml.org/sax/features/unicode-normalization-checking
                 // controls whether Unicode normalization checking is performed
                 // as per Appendix B of the XML 1.1 specification
-                //
                 if (suffixLength == Constants.UNICODE_NORMALIZATION_CHECKING_FEATURE.length()
                         && featureId.endsWith(Constants.UNICODE_NORMALIZATION_CHECKING_FEATURE)) {
                     // REVISIT: Allow this feature to be set once Unicode normalization
@@ -903,10 +880,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            //
-            // SAX2 Features
-            //
-
             if (featureId.startsWith(Constants.SAX_FEATURE_PREFIX)) {
                 final int suffixLength = featureId.length() - Constants.SAX_FEATURE_PREFIX.length();
 
@@ -972,10 +945,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            //
-            // SAX2 core properties
-            //
-
             if (propertyId.startsWith(Constants.SAX_PROPERTY_PREFIX)) {
                 final int suffixLength = propertyId.length() - Constants.SAX_PROPERTY_PREFIX.length();
 

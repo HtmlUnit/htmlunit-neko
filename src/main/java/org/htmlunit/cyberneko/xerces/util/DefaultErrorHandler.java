@@ -63,10 +63,6 @@ public class DefaultErrorHandler implements XMLErrorHandler {
         throw ex;
     }
 
-    //
-    // Private methods
-    //
-
     /** Prints the error message. */
     private void printError(final String type, final XMLParseException ex) {
         fOut_.print("[");

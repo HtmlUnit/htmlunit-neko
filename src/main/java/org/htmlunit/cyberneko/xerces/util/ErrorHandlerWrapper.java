@@ -49,10 +49,6 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
         return fErrorHandler_;
     }
 
-    //
-    // XMLErrorHandler methods
-    //
-
     /**
      * Reports a warning. Warnings are non-fatal and can be safely ignored by most
      * applications.

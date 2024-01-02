@@ -154,10 +154,6 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         setFeature(REPORT_ERRORS, false);
         setFeature(SIMPLE_ERROR_FORMAT, false);
 
-        //
-        // properties
-        //
-
         // recognized properties
         final String[] recognizedProperties = {
             NAMES_ELEMS,

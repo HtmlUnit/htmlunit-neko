@@ -36,10 +36,6 @@ import java.util.Arrays;
  */
 public class XML11Char {
 
-    //
-    // Constants
-    //
-
     /** Character flags for XML 1.1. */
     private static final byte[] XML11CHARS = new byte[1 << 16];
 

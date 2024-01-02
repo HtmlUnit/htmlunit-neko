@@ -256,7 +256,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         if (fDocumentImpl != null) {
             // REVISIT: baseURI/actualEncoding
             // remove dependency on our implementation when DOM L3 is REC
-            //
 
             final EntityReferenceImpl erImpl = (EntityReferenceImpl) er;
             if (fDocumentType != null) {

@@ -53,9 +53,7 @@ public final class Constants {
     /** Document XML version property ("document-xml-version"). */
     public static final String DOCUMENT_XML_VERSION_PROPERTY = "document-xml-version";
 
-    //
     // DOM features
-    //
 
     /** Comments feature ("include-comments"). */
     public static final String INCLUDE_COMMENTS_FEATURE = "include-comments";
