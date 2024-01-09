@@ -2173,7 +2173,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     break;
                 case DOUBLE_ESCAPED_LT:
-                    if (closeIndex < 6) {
+                    if (closeIndex < 7) {
                         if (Character.toLowerCase(c) == "/script".charAt(closeIndex)) {
                             closeIndex++;
                         } else if (c == '<') {
