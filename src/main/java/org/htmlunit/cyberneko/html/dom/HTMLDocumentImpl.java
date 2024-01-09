@@ -378,17 +378,13 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public synchronized HTMLElement getBody() {
-        final Node html;
-        final Node head;
         Node body;
-        Node child;
-        Node next;
 
         // Call getDocumentElement() to get the HTML element that is also the
         // top-level element in the document. Get the first element in the
         // document that is called BODY. Work with that.
-        html = getDocumentElement();
-        head = getHead();
+        final Element html = getDocumentElement();
+        final HTMLElement head = getHead();
         synchronized (html) {
             body = head.getNextSibling();
             while (body != null && !(body instanceof HTMLBodyElement)
@@ -400,9 +396,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             // (after HEAD): make sure it is and return it.
             if (body != null) {
                 synchronized (body) {
-                    child = head.getNextSibling();
+                    Node child = head.getNextSibling();
                     while (child != null && child != body) {
-                        next = child.getNextSibling();
+                        final Node next = child.getNextSibling();
                         body.insertBefore(child, body.getFirstChild());
                         child = next;
                     }
@@ -420,27 +416,21 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public synchronized void setBody(final HTMLElement newBody) {
-        final Node html;
-        final Node body;
-        final Node head;
-        Node child;
-        final NodeList list;
-
         synchronized (newBody) {
             // Call getDocumentElement() to get the HTML element that is also the
             // top-level element in the document. Get the first element in the
             // document that is called BODY. Work with that.
-            html = getDocumentElement();
-            head = getHead();
+            final Element html = getDocumentElement();
+            final HTMLElement head = getHead();
             synchronized (html) {
-                list = this.getElementsByTagName("BODY");
+                final NodeList list = this.getElementsByTagName("BODY");
                 if (list.getLength() > 0) {
                     // BODY exists but might not follow HEAD in HTML. If not,
-                    // make it so and replce it. Start with the HEAD and make
+                    // make it so and replace it. Start with the HEAD and make
                     // sure the BODY is the first element after the HEAD.
-                    body = list.item(0);
+                    final Node body = list.item(0);
                     synchronized (body) {
-                        child = head;
+                        Node child = head;
                         while (child != null) {
                             if (child instanceof Element) {
                                 if (child != body) {
