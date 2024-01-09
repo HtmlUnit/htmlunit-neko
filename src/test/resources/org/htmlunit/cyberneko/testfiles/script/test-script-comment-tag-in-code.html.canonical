@@ -3,7 +3,7 @@
 )head
 (body
 (script
-"<!-- console.log('<script>'); console.log('</script>'); -->
+"<!-- console.log('<script>'); console.log('<script    >'); -->
 )script
 "abc
 )body

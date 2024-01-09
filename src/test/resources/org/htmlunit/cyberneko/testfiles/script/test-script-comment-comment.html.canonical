@@ -1,0 +1,10 @@
+(HTML
+(head
+)head
+(body
+(script
+"<!-- ab <!-- cd --> ef --> gh
+)script
+"xy
+)body
+)HTML
