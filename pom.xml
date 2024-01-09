@@ -26,7 +26,7 @@
         <checkstyle.version>9.3</checkstyle.version>
         <spotbugs.version>4.8.3</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>9.0.7</dependencycheck.version>
+        <dependencycheck.version>9.0.8</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -42,7 +42,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.0</version>
+                <version>3.12.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
