@@ -6,7 +6,12 @@
 "\n
 (script
 Alanguage javascript
-"<!-- alert(1);</script>\n<script language='javascript'>alert(1);-->
+"<!-- alert(1);
+)script
+"\n
+(script
+Alanguage javascript
+"alert(1);-->
 )script
 "\n
 )head

@@ -1,0 +1,10 @@
+(HTML
+(head
+)head
+(body
+(script
+"<!-- console.log('a'); --!>
+)script
+"abc
+)body
+)HTML
