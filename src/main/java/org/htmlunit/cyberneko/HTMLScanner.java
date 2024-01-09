@@ -1827,6 +1827,22 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
     }
 
+    /*
+     * Script parsing states based on https://html.spec.whatwg.org/multipage/parsing.html#script-data-state
+     */
+    private enum ScanScriptState {
+        /** Script data state */
+        DATA,
+        /** Script data escaped state */
+        ESCAPED,
+        /** Script data escaped less-than sign state */
+        ESCAPED_LT,
+        /** Script data double escaped state */
+        DOUBLE_ESCAPED,
+        /** Script data double escaped less-than sign state */
+        DOUBLE_ESCAPED_LT,
+    }
+
     /**
      * The primary HTML document scanner.
      *
@@ -2077,33 +2093,110 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private void scanScriptContent() throws IOException {
             fScanScriptContent.clear();
 
-            boolean waitForEndComment = false;
+            ScanScriptState state = ScanScriptState.DATA;
+            int closeIndex = 0;
+            int openIndex = 0;
             boolean invalidComment = false;
 
+            OUTER:
             while (true) {
                 final int c = fCurrentEntity.read();
                 if (c == -1) {
+                    break OUTER;
+                }
+
+                switch (state) {
+                case DATA:
+                    if (c == '-' && fScanScriptContent.endsWith("<!-")) {
+                        state = ScanScriptState.ESCAPED;
+                    } else if (c == '<') {
+                        final String next = nextContent(8) + " ";
+                        if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
+                                && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                            fCurrentEntity.rewind();
+                            break OUTER;
+                        }
+                    }
                     break;
-                }
-                else if (c == '-' && fScanScriptContent.endsWith("<!-")) {
-                    waitForEndComment = endCommentAvailable();
-                }
-                else if (!waitForEndComment && c == '<') {
-                    final String next = nextContent(8) + " ";
-                    if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
-                            && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
-                        fCurrentEntity.rewind();
-                        break;
+                case ESCAPED:
+                    if (c == '>') {
+                        if (fScanScriptContent.endsWith("--")) {
+                            state = ScanScriptState.DATA;
+                        }
+                        else if (fScanScriptContent.endsWith("--!")) {
+                            state = ScanScriptState.DATA;
+                            invalidComment = true;
+                        }
                     }
-                }
-                else if (c == '>') {
-                    if (fScanScriptContent.endsWith("--")) {
-                        waitForEndComment = false;
+                    else if (c == '<') {
+                        final String next = nextContent(8) + " ";
+                        if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
+                                && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                            fCurrentEntity.rewind();
+                            break OUTER;
+                        }
+                        openIndex = 0;
+                        state = ScanScriptState.ESCAPED_LT;
                     }
-                    if (fScanScriptContent.endsWith("--!")) {
-                        invalidComment = true;
-                        waitForEndComment = false;
+                    break;
+                case ESCAPED_LT:
+                    if (openIndex < 6) {
+                        if (Character.toLowerCase(c) == "script".charAt(openIndex)) {
+                            openIndex++;
+                        } else {
+                            state = ScanScriptState.ESCAPED;
+                        }
+                    } else if (openIndex == 6) {
+                        if (Character.isWhitespace(c)) {
+                            openIndex++;
+                        } else if (c == '>') {
+                            // buffer must not end with "--"
+                            state = ScanScriptState.DOUBLE_ESCAPED;
+                        } else {
+                            state = ScanScriptState.ESCAPED;
+                        }
+                    } else {
+                        if (c == '>') {
+                            if (fScanScriptContent.endsWith("--")) {
+                                state = ScanScriptState.DATA;
+                            } else {
+                                state = ScanScriptState.DOUBLE_ESCAPED;
+                            }
+                        }
                     }
+                    break;
+                case DOUBLE_ESCAPED:
+                    if (c == '>' && fScanScriptContent.endsWith("--")) {
+                        state = ScanScriptState.DATA;
+                    } else if (c == '<') {
+                        state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                    }
+                    break;
+                case DOUBLE_ESCAPED_LT:
+                    if (closeIndex < 6) {
+                        if (Character.toLowerCase(c) == "/script".charAt(closeIndex)) {
+                            closeIndex++;
+                        } else if (c == '<') {
+                            state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                            closeIndex = 0;
+                        } else {
+                            state = ScanScriptState.DOUBLE_ESCAPED;
+                        }
+                    } else {
+                        if (c == '>') {
+                            state = ScanScriptState.ESCAPED;
+                        } else if (Character.isWhitespace(c)) {
+                            // skip white space
+                            // </script(\s)*>
+                            //         ^^^^^
+                        } else if (c == '<') {
+                            state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                            closeIndex = 0;
+                        } else {
+                            state = ScanScriptState.DOUBLE_ESCAPED;
+                        }
+                    }
+                    break;
                 }
 
                 if (c == '\r' || c == '\n') {
@@ -3519,36 +3612,5 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fCurrentEntity.debugBufferIfNeeded(")read: ", " -> " + c);
         }
         return c;
-    }
-
-    // Indicates if the end comment --> (or --!>) is available,
-    // loading further data if needed, without to reset the buffer
-    private boolean endCommentAvailable() throws IOException {
-        int nbCaret = 0;
-        final int originalOffset = fCurrentEntity.offset_;
-        final int originalColumnNumber = fCurrentEntity.getColumnNumber();
-        final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
-
-        while (true) {
-            final int c = readPreservingBufferContent();
-            if (c == -1) {
-                fCurrentEntity.restorePosition(originalOffset, originalColumnNumber, originalCharacterOffset);
-                return false;
-            }
-            else if (c == '>' && nbCaret >= 2) {
-                fCurrentEntity.restorePosition(originalOffset, originalColumnNumber, originalCharacterOffset);
-                return true;
-            }
-            else if (c == '!' && nbCaret >= 2) {
-                // ignore to support --!> also
-                // maybe we have to emit a warning
-            }
-            else if (c == '-') {
-                nbCaret++;
-            }
-            else {
-                nbCaret = 0;
-            }
-        }
     }
 }
