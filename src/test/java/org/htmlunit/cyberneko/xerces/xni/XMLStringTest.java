@@ -348,6 +348,39 @@ public class XMLStringTest {
     }
 
     @Test
+    public void append2_noResize() {
+        final XMLString c1 = new XMLString();
+        c1.append('0', '2');
+        assertEquals(2, c1.length());
+        assertEquals("02", c1.toString());
+
+        c1.append('4', 'A');
+        assertEquals(4, c1.length());
+        assertEquals("024A", c1.toString());
+    }
+
+    @Test
+    public void append2_resize() {
+        final XMLString c1 = new XMLString();
+        final XMLString c2 = new XMLString().append('0');
+
+        final StringBuilder a1 = new StringBuilder();
+        final StringBuilder a2 = new StringBuilder("0");
+
+        {
+        	for (int i = 0; i < 64; i++) {
+        		c1.append('0', '1');
+        		c2.append('1', '0');
+        		a1.append('0').append('1');
+        		a2.append('1').append('0');
+        	}
+        	assertEquals(a1.toString(), c1.toString());
+        	assertEquals(a2.toString(), c2.toString());
+        }
+    }
+
+
+    @Test
     public void append_string() {
         // new, no resize
         {
