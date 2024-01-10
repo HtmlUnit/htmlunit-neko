@@ -169,8 +169,11 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Removed the growing part from append to allow better inlining because
-     * it is called so often, we want to have it as small as possible.
+     * Appends a single character to the buffer but growing it first without
+     * checking if needed.
+     *
+     * @param c the character to append
+     * @return this instance
      */
     private void growByAtLeastOne() {
         final int newSize = Math.max(this.growBy_ + 1, (this.data_.length << 1) + 2);
@@ -195,6 +198,27 @@ public class XMLString implements CharSequence {
         this.data_[oldLength] = c;
 
         return this;
+    }
+
+    /**
+     * Append two characters at once, mainly to make
+     * a codePoint add more efficient
+     *
+     * @param c the character to append
+     * @return this instance
+     */
+    public XMLString append(final char c1, final char c2) {
+    	if (this.length_ + 1 < this.data_.length) {
+    		this.data_[this.length_++] = c1;
+    		this.data_[this.length_++] = c2;
+    	}
+    	else {
+    		// that part is less efficient but happens less often
+    		append(c1);
+    		append(c2);
+    	}
+
+    	return this;
     }
 
     /**
@@ -704,19 +728,19 @@ public class XMLString implements CharSequence {
      *          {@code codePoint} is not a valid Unicode code point.
      */
     public XMLString appendCodePoint(final int value) {
-        if (value <= Character.MAX_VALUE) {
-            return this.append((char) value);
-        }
-
-        try {
-            final char[] chars = Character.toChars(value);
-            return this.append(chars, 0, chars.length);
-        }
-        catch (final IllegalArgumentException e) {
-            // when value is not valid as UTF-16
-            this.append(REPLACEMENT_CHARACTER);
-            throw e;
-        }
+    	if (Character.isBmpCodePoint(value)) {
+    		return this.append((char) value);
+    	}
+    	else if (Character.isValidCodePoint(value)) {
+    		// as seen in the JDK, avoid a char array in between
+    		this.append(Character.highSurrogate(value), Character.lowSurrogate(value));
+    		return this;
+    	}
+    	else {
+    		// when value is not valid as UTF-16
+    		this.append(REPLACEMENT_CHARACTER);
+    		throw new IllegalArgumentException();
+    	}
     }
 
     // this stuff is here for performance reasons to avoid a copy
