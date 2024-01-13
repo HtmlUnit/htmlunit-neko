@@ -3149,15 +3149,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
                 qName_.setValues(null, aname, aname, null);
                 final String avalue = fStringBuffer.toString();
-                attributes.addAttribute(qName_, "CDATA", avalue);
-
-                final int lastattr = attributes.getLength() - 1;
-                attributes.setSpecified(lastattr, true);
+                final int pos = attributes.addAttribute(qName_, "CDATA", avalue);
+                attributes.setSpecified(pos, true);
             }
             else {
                 qName_.setValues(null, aname, aname, null);
-                attributes.addAttribute(qName_, "CDATA", "");
-                attributes.setSpecified(attributes.getLength() - 1, true);
+                final int pos = attributes.addAttribute(qName_, "CDATA", "");
+                attributes.setSpecified(pos, true);
                 fCurrentEntity.rewind();
             }
             return true;
