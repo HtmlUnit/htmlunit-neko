@@ -3072,7 +3072,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     attributes.setSpecified(lastattr, true);
                     return true;
                 }
-                final char quote = (char) c;
+                final int currentQuoteType = c;
                 boolean isStart = true;
                 boolean prevSpace = false;
                 do {
@@ -3124,7 +3124,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         }
                         prevSpace = false;
                     }
-                    else if (c != quote) {
+                    else if (c != currentQuoteType) {
                         isStart = false;
                         try {
                             fStringBuffer.appendCodePoint(c);
@@ -3140,7 +3140,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     // prevSpace = c == ' ' || c == '\t' || c == '\r' || c == '\n';
                     isStart = isStart && prevSpace;
                 }
-                while (c != quote);
+                while (c != currentQuoteType);
 
                 if (fNormalizeAttributes_ && fStringBuffer.length() > 0) {
                     // trailing whitespace already normalized to single space
