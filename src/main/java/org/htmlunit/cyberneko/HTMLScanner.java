@@ -3044,7 +3044,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             throw new EOFException();
                         }
                         // Xiaowei/Ac: Fix for <a href=/broken/>...</a>
-                        if (Character.isWhitespace((char) c) || c == '>') {
+                        if (c == '>' || Character.isWhitespace(c)) {
                             // fCharOffset--;
                             fCurrentEntity.rewind();
                             break;
