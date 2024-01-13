@@ -169,6 +169,15 @@ public class XMLString implements CharSequence {
     }
 
     /**
+     * Removed the growing part from append to allow better inlining because
+     * it is called so often, we want to have it as small as possible.
+     */
+    private void growByAtLeastOne() {
+        final int newSize = Math.max(this.growBy_ + 1, (this.data_.length << 1) + 2);
+        this.data_ = Arrays.copyOf(this.data_, newSize);
+    }
+
+    /**
      * Appends a single character to the buffer.
      *
      * @param c the character to append
@@ -177,11 +186,10 @@ public class XMLString implements CharSequence {
     public XMLString append(final char c) {
         final int oldLength = this.length_++;
 
-        // ensureCapacity is not inlined by the compiler, so put that here for the most
-        // called method of all appends. Duplicate code, but for a reason.
+        // ensureCapacity is too large, so we keep things small here and
+        // also allow to keep the grow part external
         if (oldLength == this.data_.length) {
-            final int newSize = Math.max(oldLength + this.growBy_, (this.data_.length << 1) + 2);
-            this.data_ = Arrays.copyOf(this.data_, newSize);
+        	growByAtLeastOne();
         }
 
         this.data_[oldLength] = c;
