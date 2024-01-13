@@ -176,7 +176,7 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     private void growByAtLeastOne() {
-        final int newSize = Math.max(this.growBy_ + 1, (this.data_.length << 1) + 2);
+        final int newSize = Math.max(this.growBy_, (this.data_.length << 1) + 2);
         this.data_ = Arrays.copyOf(this.data_, newSize);
     }
 
