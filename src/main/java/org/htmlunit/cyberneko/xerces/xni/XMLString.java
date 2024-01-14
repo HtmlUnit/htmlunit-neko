@@ -204,7 +204,8 @@ public class XMLString implements CharSequence {
      * Append two characters at once, mainly to make
      * a codePoint add more efficient
      *
-     * @param c the character to append
+     * @param c1 the first character to append
+     * @param c2 the second character to append
      * @return this instance
      */
     public XMLString append(final char c1, final char c2) {

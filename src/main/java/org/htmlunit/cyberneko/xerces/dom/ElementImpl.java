@@ -50,15 +50,15 @@ import org.w3c.dom.TypeInfo;
 public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
     /** Element name. */
-    protected String name;
+    protected String name_;
 
     /** Attributes. */
-    protected AttributeMap attributes;
+    protected AttributeMap attributes_;
 
     // Factory constructor.
     public ElementImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
-        this.name = name;
+        name_ = name;
         needsSyncData(true); // synchronizeData will initialize attributes
     }
 
@@ -80,7 +80,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
         }
-        this.name = name;
+        name_ = name;
     }
 
     /**
@@ -104,7 +104,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return name;
+        return name_;
     }
 
     /**
@@ -121,10 +121,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (attributes == null) {
-            attributes = new AttributeMap(this);
+        if (attributes_ == null) {
+            attributes_ = new AttributeMap(this);
         }
-        return attributes;
+        return attributes_;
 
     }
 
@@ -142,8 +142,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
         final ElementImpl newnode = (ElementImpl) super.cloneNode(deep);
         // Replicate NamedNodeMap rather than sharing it.
-        if (attributes != null) {
-            newnode.attributes = (AttributeMap) attributes.cloneMap(newnode);
+        if (attributes_ != null) {
+            newnode.attributes_ = (AttributeMap) attributes_.cloneMap(newnode);
         }
         return newnode;
 
@@ -164,7 +164,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         // XML Base (http://www.w3.org/TR/xmlbase/#granularity)
         // 1. The base URI specified by an xml:base attribute on the element,
         // if one exists
-        if (attributes != null) {
+        if (attributes_ != null) {
             final Attr attrNode = getXMLBaseAttribute();
             if (attrNode != null) {
                 final String uri = attrNode.getNodeValue();
@@ -213,15 +213,15 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
     // NON-DOM Returns the xml:base attribute.
     protected Attr getXMLBaseAttribute() {
-        return (Attr) attributes.getNamedItem("xml:base");
+        return (Attr) attributes_.getNamedItem("xml:base");
     }
 
     // NON-DOM set the ownerDocument of this node, its children, and its attributes
     @Override
     protected void setOwnerDocument(final CoreDocumentImpl doc) {
         super.setOwnerDocument(doc);
-        if (attributes != null) {
-            attributes.setOwnerDocument(doc);
+        if (attributes_ != null) {
+            attributes_.setOwnerDocument(doc);
         }
     }
 
@@ -241,10 +241,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (attributes == null) {
+        if (attributes_ == null) {
             return "";
         }
-        final Attr attr = (Attr) (attributes.getNamedItem(name));
+        final Attr attr = (Attr) (attributes_.getNamedItem(name));
         return (attr == null) ? "" : attr.getValue();
     }
 
@@ -263,10 +263,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (attributes == null) {
+        if (attributes_ == null) {
             return null;
         }
-        return (Attr) attributes.getNamedItem(name);
+        return (Attr) attributes_.getNamedItem(name);
 
     }
 
@@ -304,7 +304,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return name;
+        return name_;
     }
 
     /**
@@ -327,11 +327,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
 
-        if (attributes == null) {
+        if (attributes_ == null) {
             return;
         }
 
-        attributes.internalRemoveNamedItem(name, false);
+        attributes_.internalRemoveNamedItem(name, false);
     }
 
     /**
@@ -356,11 +356,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
 
-        if (attributes == null) {
+        if (attributes_ == null) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
-        return (Attr) attributes.removeItem(oldAttr);
+        return (Attr) attributes_.removeItem(oldAttr);
 
     }
 
@@ -392,12 +392,12 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (newAttr == null) {
             newAttr = getOwnerDocument().createAttribute(name);
 
-            if (attributes == null) {
-                attributes = new AttributeMap(this);
+            if (attributes_ == null) {
+                attributes_ = new AttributeMap(this);
             }
 
             newAttr.setNodeValue(value);
-            attributes.setNamedItem(newAttr);
+            attributes_.setNamedItem(newAttr);
         }
         else {
             newAttr.setNodeValue(value);
@@ -433,11 +433,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             }
         }
 
-        if (attributes == null) {
-            attributes = new AttributeMap(this);
+        if (attributes_ == null) {
+            attributes_ = new AttributeMap(this);
         }
         // This will throw INUSE if necessary
-        return (Attr) attributes.setNamedItem(newAttr);
+        return (Attr) attributes_.setNamedItem(newAttr);
 
     }
 
@@ -461,11 +461,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
 
-        if (attributes == null) {
+        if (attributes_ == null) {
             return "";
         }
 
-        final Attr attr = (Attr) (attributes.getNamedItemNS(namespaceURI, localName));
+        final Attr attr = (Attr) (attributes_.getNamedItemNS(namespaceURI, localName));
         return (attr == null) ? "" : attr.getValue();
 
     }
@@ -516,11 +516,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             // REVISIT: this is not efficient, we are creating twice the same
             // strings for prefix and localName.
             newAttr = getOwnerDocument().createAttributeNS(namespaceURI, qualifiedName);
-            if (attributes == null) {
-                attributes = new AttributeMap(this);
+            if (attributes_ == null) {
+                attributes_ = new AttributeMap(this);
             }
             newAttr.setNodeValue(value);
-            attributes.setNamedItemNS(newAttr);
+            attributes_.setNamedItemNS(newAttr);
         }
         else {
             if (newAttr instanceof AttrNSImpl) {
@@ -536,7 +536,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
                 // note this might cause events to be propagated or user data to be lost
                 newAttr = ((CoreDocumentImpl) getOwnerDocument()).createAttributeNS(namespaceURI, qualifiedName,
                         localName);
-                attributes.setNamedItemNS(newAttr);
+                attributes_.setNamedItemNS(newAttr);
             }
 
             newAttr.setNodeValue(value);
@@ -566,11 +566,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
 
-        if (attributes == null) {
+        if (attributes_ == null) {
             return;
         }
 
-        attributes.internalRemoveNamedItemNS(namespaceURI, name, false);
+        attributes_.internalRemoveNamedItemNS(namespaceURI, name_, false);
 
     }
 
@@ -590,10 +590,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        if (attributes == null) {
+        if (attributes_ == null) {
             return null;
         }
-        return (Attr) attributes.getNamedItemNS(namespaceURI, localName);
+        return (Attr) attributes_.getNamedItemNS(namespaceURI, localName);
     }
 
     /**
@@ -632,11 +632,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             }
         }
 
-        if (attributes == null) {
-            attributes = new AttributeMap(this);
+        if (attributes_ == null) {
+            attributes_ = new AttributeMap(this);
         }
         // This will throw INUSE if necessary
-        return (Attr) attributes.setNamedItemNS(newAttr);
+        return (Attr) attributes_.setNamedItemNS(newAttr);
 
     }
 
@@ -650,7 +650,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return attributes != null && attributes.getLength() != 0;
+        return attributes_ != null && attributes_.getLength() != 0;
     }
 
     /**
@@ -900,10 +900,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             synchronizeData();
         }
         if (el.hasAttributes()) {
-            if (attributes == null) {
-                attributes = new AttributeMap(this);
+            if (attributes_ == null) {
+                attributes_ = new AttributeMap(this);
             }
-            attributes.moveSpecifiedAttributes(el.attributes);
+            attributes_.moveSpecifiedAttributes(el.attributes_);
         }
     }
 }

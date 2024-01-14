@@ -63,13 +63,13 @@ import org.w3c.dom.NodeList;
  */
 public class DeepNodeListImpl implements NodeList {
 
-    protected final NodeImpl rootNode; // Where the search started
-    protected final String tagName; // Or "*" to mean all-tags-acceptable
-    private int changes = 0;
-    private ArrayList<Node> nodes;
+    protected final NodeImpl rootNode_; // Where the search started
+    protected final String tagName_; // Or "*" to mean all-tags-acceptable
+    private int changes_ = 0;
+    private ArrayList<Node> nodes_;
 
-    private String nsName;
-    private boolean enableNS = false;
+    private String nsName_;
+    private boolean enableNS_ = false;
 
     /**
      * Constructor.
@@ -78,9 +78,9 @@ public class DeepNodeListImpl implements NodeList {
      * @param tagName  the tag name
      */
     public DeepNodeListImpl(final NodeImpl rootNode, final String tagName) {
-        this.rootNode = rootNode;
-        this.tagName = tagName;
-        nodes = new ArrayList<>();
+        rootNode_ = rootNode;
+        tagName_ = tagName;
+        nodes_ = new ArrayList<>();
     }
 
     /**
@@ -92,8 +92,8 @@ public class DeepNodeListImpl implements NodeList {
      */
     public DeepNodeListImpl(final NodeImpl rootNode, final String nsName, final String tagName) {
         this(rootNode, tagName);
-        this.nsName = (nsName != null && nsName.length() != 0) ? nsName : null;
-        enableNS = true;
+        nsName_ = (nsName != null && nsName.length() != 0) ? nsName : null;
+        enableNS_ = true;
     }
 
     /**
@@ -103,7 +103,7 @@ public class DeepNodeListImpl implements NodeList {
     public int getLength() {
         // Preload all matching elements. (Stops when we run out of subtree!)
         item(java.lang.Integer.MAX_VALUE);
-        return nodes.size();
+        return nodes_.size();
     }
 
     /**
@@ -114,32 +114,32 @@ public class DeepNodeListImpl implements NodeList {
         Node thisNode;
 
         // Tree changed. Do it all from scratch!
-        if (rootNode.changes() != changes) {
-            nodes = new ArrayList<>();
-            changes = rootNode.changes();
+        if (rootNode_.changes() != changes_) {
+            nodes_ = new ArrayList<>();
+            changes_ = rootNode_.changes();
         }
 
         // In the cache
-        final int currentSize = nodes.size();
+        final int currentSize = nodes_.size();
         if (index < currentSize) {
-            return nodes.get(index);
+            return nodes_.get(index);
         }
 
         // Not yet seen
 
         // Pick up where we left off (Which may be the beginning)
         if (currentSize == 0) {
-            thisNode = rootNode;
+            thisNode = rootNode_;
         }
         else {
-            thisNode = nodes.get(currentSize - 1);
+            thisNode = nodes_.get(currentSize - 1);
         }
 
         // Add nodes up to the one we're looking for
-        while (thisNode != null && index >= nodes.size()) {
+        while (thisNode != null && index >= nodes_.size()) {
             thisNode = nextMatchingElementAfter(thisNode);
             if (thisNode != null) {
-                nodes.add(thisNode);
+                nodes_.add(thisNode);
             }
         }
 
@@ -165,14 +165,14 @@ public class DeepNodeListImpl implements NodeList {
             }
 
             // Look right to sibling (but not from root!)
-            else if (current != rootNode && null != (next = current.getNextSibling())) {
+            else if (current != rootNode_ && null != (next = current.getNextSibling())) {
                 current = next;
             }
 
             // Look up and right (but not past root!)
             else {
                 next = null;
-                for ( ; current != rootNode; // Stop when we return to starting point
+                for ( ; current != rootNode_; // Stop when we return to starting point
                         current = current.getParentNode()) {
 
                     next = current.getNextSibling();
@@ -185,34 +185,34 @@ public class DeepNodeListImpl implements NodeList {
 
             // Have we found an Element with the right tagName?
             // ("*" matches anything.)
-            if (current != rootNode && current != null && current.getNodeType() == Node.ELEMENT_NODE) {
-                if (!enableNS) {
-                    if ("*".equals(tagName) || ((ElementImpl) current).getTagName().equals(tagName)) {
+            if (current != rootNode_ && current != null && current.getNodeType() == Node.ELEMENT_NODE) {
+                if (!enableNS_) {
+                    if ("*".equals(tagName_) || ((ElementImpl) current).getTagName().equals(tagName_)) {
                         return current;
                     }
                 }
                 else {
                     // DOM2: Namespace logic.
-                    if ("*".equals(tagName)) {
-                        if (nsName != null && "*".equals(nsName)) {
+                    if ("*".equals(tagName_)) {
+                        if (nsName_ != null && "*".equals(nsName_)) {
                             return current;
                         }
 
                         final ElementImpl el = (ElementImpl) current;
-                        if ((nsName == null && el.getNamespaceURI() == null)
-                                || (nsName != null && nsName.equals(el.getNamespaceURI()))) {
+                        if ((nsName_ == null && el.getNamespaceURI() == null)
+                                || (nsName_ != null && nsName_.equals(el.getNamespaceURI()))) {
                             return current;
                         }
                     }
                     else {
                         final ElementImpl el = (ElementImpl) current;
-                        if (el.getLocalName() != null && el.getLocalName().equals(tagName)) {
-                            if (nsName != null && "*".equals(nsName)) {
+                        if (el.getLocalName() != null && el.getLocalName().equals(tagName_)) {
+                            if (nsName_ != null && "*".equals(nsName_)) {
                                 return current;
                             }
 
-                            if ((nsName == null && el.getNamespaceURI() == null)
-                                    || (nsName != null && nsName.equals(el.getNamespaceURI()))) {
+                            if ((nsName_ == null && el.getNamespaceURI() == null)
+                                    || (nsName_ != null && nsName_.equals(el.getNamespaceURI()))) {
                                 return current;
                             }
                         }

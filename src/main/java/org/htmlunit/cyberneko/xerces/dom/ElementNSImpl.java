@@ -124,7 +124,7 @@ public class ElementNSImpl extends ElementImpl {
         if (needsSyncData()) {
             synchronizeData();
         }
-        this.name = qualifiedName;
+        this.name_ = qualifiedName;
         setName(namespaceURI, qualifiedName);
     }
 
@@ -171,8 +171,8 @@ public class ElementNSImpl extends ElementImpl {
         if (needsSyncData()) {
             synchronizeData();
         }
-        final int index = name.indexOf(':');
-        return index < 0 ? null : name.substring(0, index);
+        final int index = name_.indexOf(':');
+        return index < 0 ? null : name_.substring(0, index);
     }
 
     /**
@@ -218,10 +218,10 @@ public class ElementNSImpl extends ElementImpl {
         }
         // update node name with new qualifiedName
         if (prefix != null && prefix.length() != 0) {
-            name = prefix + ":" + localName;
+            name_ = prefix + ":" + localName;
         }
         else {
-            name = localName;
+            name_ = localName;
         }
     }
 
@@ -248,7 +248,7 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     protected Attr getXMLBaseAttribute() {
-        return (Attr) attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace", "base");
+        return (Attr) attributes_.getNamedItemNS("http://www.w3.org/XML/1998/namespace", "base");
     }
 
     /**

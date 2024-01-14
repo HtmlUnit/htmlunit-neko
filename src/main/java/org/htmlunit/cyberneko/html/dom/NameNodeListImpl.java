@@ -48,14 +48,14 @@ public class NameNodeListImpl extends DeepNodeListImpl {
             }
 
             // Look right to sibling (but not from root!)
-            else if (current != rootNode && null != (next = current.getNextSibling())) {
+            else if (current != rootNode_ && null != (next = current.getNextSibling())) {
                 current = next;
             }
 
             // Look up and right (but not past root!)
             else {
                 next = null;
-                for ( ; current != rootNode; // Stop when we return to starting point
+                for ( ; current != rootNode_; // Stop when we return to starting point
                      current = current.getParentNode()) {
 
                     next = current.getNextSibling();
@@ -68,10 +68,10 @@ public class NameNodeListImpl extends DeepNodeListImpl {
 
             // Have we found an Element with the right tagName?
             // ("*" matches anything.)
-            if (current != rootNode && current != null
+            if (current != rootNode_ && current != null
                 && current.getNodeType() ==  Node.ELEMENT_NODE) {
                 final String name = ((ElementImpl) current).getAttribute("name");
-                if ("*".equals(name) || name.equals(tagName)) {
+                if ("*".equals(name) || name.equals(tagName_)) {
                     return current;
                 }
             }

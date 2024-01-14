@@ -308,33 +308,33 @@ public class FastHashMapTest {
     }
 
     static class MockKey<T extends Comparable<T>> implements Comparable<MockKey<T>> {
-        public final T key;
-        public final int hash;
+        public final T key_;
+        public final int hash_;
 
         MockKey(final int hash, final T key) {
-            this.hash = hash;
-            this.key = key;
+            this.hash_ = hash;
+            this.key_ = key;
         }
 
         @Override
         public int hashCode() {
-            return hash;
+            return hash_;
         }
 
         @Override
         public boolean equals(final Object o) {
             final MockKey<T> t = (MockKey<T>) o;
-            return hash == o.hashCode() && key.equals(t.key);
+            return hash_ == o.hashCode() && key_.equals(t.key_);
         }
 
         @Override
         public String toString() {
-            return "MockKey [key=" + key + ", hash=" + hash + "]";
+            return "MockKey [key=" + key_ + ", hash=" + hash_ + "]";
         }
 
         @Override
         public int compareTo(final MockKey<T> o) {
-            return o.key.compareTo(this.key);
+            return o.key_.compareTo(this.key_);
         }
     }
 }
