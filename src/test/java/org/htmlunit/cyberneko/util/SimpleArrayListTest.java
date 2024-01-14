@@ -22,11 +22,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class SimpleArrayListTest
-{
+public class SimpleArrayListTest {
     @Test
-    public void create()
-    {
+    public void create() {
         {
             final SimpleArrayList<String> l = new SimpleArrayList<>();
             assertEquals(0, l.size());
@@ -34,8 +32,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void createSized()
-    {
+    public void createSized() {
         {
             final SimpleArrayList<String> l = new SimpleArrayList<>(5);
             assertEquals(0, l.size());
@@ -48,8 +45,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void fillZeroSize()
-    {
+    public void fillZeroSize() {
         final SimpleArrayList<String> l = new SimpleArrayList<>(0);
         l.add("a");
         l.add("b");
@@ -61,8 +57,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void fill()
-    {
+    public void fill() {
         final SimpleArrayList<String> l = new SimpleArrayList<>(5);
         l.add("a");
         l.add("b");
@@ -78,20 +73,17 @@ public class SimpleArrayListTest
         assertEquals("e", l.get(4));
 
         // no growth
-        try
-        {
+        try {
             l.get(5);
             fail();
         }
-        catch(IndexOutOfBoundsException e)
-        {
+        catch (final IndexOutOfBoundsException e) {
             // yeah... expected
         }
     }
 
     @Test
-    public void fillAndGrow()
-    {
+    public void fillAndGrow() {
         final SimpleArrayList<String> l = new SimpleArrayList<>(2);
         l.add("a");
         l.add("b");
@@ -103,20 +95,17 @@ public class SimpleArrayListTest
         assertEquals(4, l.size());
 
         // limited growth
-        try
-        {
+        try {
             l.get(6);
             fail("Position exists");
         }
-        catch(IndexOutOfBoundsException e)
-        {
+        catch (final IndexOutOfBoundsException e) {
             // yeah... expected
         }
     }
 
     @Test
-    public void partitionHappy()
-    {
+    public void partitionHappy() {
         final SimpleArrayList<Integer> list = new SimpleArrayList<>(1);
         list.add(1);
         list.add(2);
@@ -125,7 +114,7 @@ public class SimpleArrayListTest
         list.add(5);
         list.add(6);
 
-        List<List<Integer>> result = list.partition(3);
+        final List<List<Integer>> result = list.partition(3);
         assertEquals(3, result.size());
 
         assertEquals(2, result.get(0).size());
@@ -142,8 +131,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void partitionSize1()
-    {
+    public void partitionSize1() {
         final SimpleArrayList<Integer> list = new SimpleArrayList<>(1);
         list.add(1);
         list.add(2);
@@ -152,7 +140,7 @@ public class SimpleArrayListTest
         list.add(5);
         list.add(6);
 
-        List<List<Integer>> result = list.partition(6);
+        final List<List<Integer>> result = list.partition(6);
         assertEquals(6, result.size());
 
         assertEquals(1, result.get(0).size());
@@ -175,8 +163,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void partitionEndBucketNotEven()
-    {
+    public void partitionEndBucketNotEven() {
 
         final SimpleArrayList<Integer> list = new SimpleArrayList<>(1);
         list.add(1);
@@ -185,7 +172,7 @@ public class SimpleArrayListTest
         list.add(4);
         list.add(5);
 
-        List<List<Integer>> result = list.partition(3);
+        final List<List<Integer>> result = list.partition(3);
         assertEquals(3, result.size());
 
         assertEquals(2, result.get(0).size());
@@ -201,14 +188,13 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void partitionCountTooLarge()
-    {
+    public void partitionCountTooLarge() {
         final SimpleArrayList<Integer> list = new SimpleArrayList<>(1);
         list.add(1);
         list.add(2);
         list.add(3);
 
-        List<List<Integer>> result = list.partition(4);
+        final List<List<Integer>> result = list.partition(4);
         assertEquals(3, result.size());
 
         assertEquals(1, result.get(0).size());
@@ -223,8 +209,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void clear()
-    {
+    public void clear() {
         final SimpleArrayList<String> l = new SimpleArrayList<>(5);
         l.add("a");
         l.add("b");
@@ -255,8 +240,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void toArray()
-    {
+    public void toArray() {
         final SimpleArrayList<String> l = new SimpleArrayList<>(4);
         l.add("a");
         l.add("b");
@@ -288,8 +272,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void remove()
-    {
+    public void remove() {
         // remove first
         {
             final SimpleArrayList<String> l = new SimpleArrayList<>(10);
@@ -341,8 +324,7 @@ public class SimpleArrayListTest
     }
 
     @Test
-    public void addAt()
-    {
+    public void addAt() {
         // add to empty and no size
         {
             final SimpleArrayList<String> l = new SimpleArrayList<>(0);

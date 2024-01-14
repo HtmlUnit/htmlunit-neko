@@ -122,7 +122,6 @@ public class MiniStackTest {
         }
     }
 
-
     @Test
     public void size() {
         // empty

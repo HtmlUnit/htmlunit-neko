@@ -38,44 +38,44 @@ public class HTMLUnicodeEntitiesParser {
     private static final int STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING = -105;
     private static final int STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE = -106;
 
-    private int state;
-    private int consumedCount;
-    private String match;
-    private int code;
-    private int matchLength;
+    private int state_;
+    private int consumedCount_;
+    private String match_;
+    private int code_;
+    private int matchLength_;
 
     public String getMatch() {
-        return match;
+        return match_;
     }
 
     public int getMatchLength() {
-        return matchLength;
+        return matchLength_;
     }
 
     public int getRewindCount() {
-        return consumedCount - matchLength;
+        return consumedCount_ - matchLength_;
     }
 
     public boolean endsWithSemicolon() {
-        return STATE_ENDS_WITH_SEMICOLON == state;
+        return STATE_ENDS_WITH_SEMICOLON == state_;
     }
 
     public HTMLUnicodeEntitiesParser() {
-        state = STATE_START;
+        state_ = STATE_START;
     }
 
     public void setMatchFromCode() {
         // If the number is 0x00, then this is a null-character-reference parse error. Set the character reference code to 0xFFFD.
         // If the number is greater than 0x10FFFF, then this is a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
-        if ((0x00 == code) || (code > 0x10FFFF)) {
-            match = "\uFFFD";
-            matchLength = consumedCount;
+        if ((0x00 == code_) || (code_ > 0x10FFFF)) {
+            match_ = "\uFFFD";
+            matchLength_ = consumedCount_;
             return;
         }
 
         // If the number is a surrogate, then this is a surrogate-character-reference parse error. Set the character reference code to 0xFFFD
-        if (Character.isSurrogate((char) code)) {
-            match = "\uFFFD";
+        if (Character.isSurrogate((char) code_)) {
+            match_ = "\uFFFD";
             return;
         }
 
@@ -85,147 +85,147 @@ public class HTMLUnicodeEntitiesParser {
 
         // If the number is one of the numbers in the first column of the following table, then find the row with that number in the first column,
         // and set the character reference code to the number in the second column of that row.
-        switch (code) {
+        switch (code_) {
             case 0x80:
-                match = "\u20AC";
-                matchLength = consumedCount;
+                match_ = "\u20AC";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x82:
-                match = "\u201A";
-                matchLength = consumedCount;
+                match_ = "\u201A";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x83:
-                match = "\u0192";
-                matchLength = consumedCount;
+                match_ = "\u0192";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x84:
-                match = "\u201E";
-                matchLength = consumedCount;
+                match_ = "\u201E";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x85:
-                match = "\u2026";
-                matchLength = consumedCount;
+                match_ = "\u2026";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x86:
-                match = "\u2020";
-                matchLength = consumedCount;
+                match_ = "\u2020";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x87:
-                match = "\u2021";
-                matchLength = consumedCount;
+                match_ = "\u2021";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x88:
-                match = "\u02C6";
-                matchLength = consumedCount;
+                match_ = "\u02C6";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x89:
-                match = "\u2030";
-                matchLength = consumedCount;
+                match_ = "\u2030";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x8A:
-                match = "\u0160";
-                matchLength = consumedCount;
+                match_ = "\u0160";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x8B:
-                match = "\u2039";
-                matchLength = consumedCount;
+                match_ = "\u2039";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x8C:
-                match = "\u0152";
-                matchLength = consumedCount;
+                match_ = "\u0152";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x8E:
-                match = "\u017D";
-                matchLength = consumedCount;
+                match_ = "\u017D";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x91:
-                match = "\u2018";
-                matchLength = consumedCount;
+                match_ = "\u2018";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x92:
-                match = "\u2019";
-                matchLength = consumedCount;
+                match_ = "\u2019";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x93:
-                match = "\u201C";
-                matchLength = consumedCount;
+                match_ = "\u201C";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x94:
-                match = "\u201D";
-                matchLength = consumedCount;
+                match_ = "\u201D";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x95:
-                match = "\u2022";
-                matchLength = consumedCount;
+                match_ = "\u2022";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x96:
-                match = "\u2013";
-                matchLength = consumedCount;
+                match_ = "\u2013";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x97:
-                match = "\u2014";
-                matchLength = consumedCount;
+                match_ = "\u2014";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x98:
-                match = "\u20DC";
-                matchLength = consumedCount;
+                match_ = "\u20DC";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x99:
-                match = "\u2122";
-                matchLength = consumedCount;
+                match_ = "\u2122";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x9A:
-                match = "\u0161";
-                matchLength = consumedCount;
+                match_ = "\u0161";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x9B:
-                match = "\u203A";
-                matchLength = consumedCount;
+                match_ = "\u203A";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x9C:
-                match = "\u0153";
-                matchLength = consumedCount;
+                match_ = "\u0153";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x9E:
-                match = "\u017E";
-                matchLength = consumedCount;
+                match_ = "\u017E";
+                matchLength_ = consumedCount_;
                 return;
 
             case 0x9F:
-                match = "\u0178";
-                matchLength = consumedCount;
+                match_ = "\u0178";
+                matchLength_ = consumedCount_;
                 return;
 
             default:
                 break;
         }
-        match = new String(Character.toChars(code));
-        matchLength = consumedCount;
+        match_ = new String(Character.toChars(code_));
+        matchLength_ = consumedCount_;
     }
 
     /**
@@ -237,19 +237,19 @@ public class HTMLUnicodeEntitiesParser {
      * @return if we have reached the end of the parsing
      */
     public boolean parseNumeric(final int current) {
-        consumedCount++;
-        switch (state) {
+        consumedCount_++;
+        switch (state_) {
             case STATE_START:
                 if ('X' == current || 'x' == current) {
                     // spec suggests a HEX START state
                     // 13.2.5.76 Hexadecimal character reference start state
-                    state = STATE_HEXADECIMAL_START;
-                    code = 0;
+                    state_ = STATE_HEXADECIMAL_START;
+                    code_ = 0;
                     return true;
                 }
                 if ('0' <= current && current <= '9') {
-                    state = STATE_DECIMAL_CHAR;
-                    code = (code * 10) + current - 0x30;
+                    state_ = STATE_DECIMAL_CHAR;
+                    code_ = (code_ * 10) + current - 0x30;
                     return true;
                 }
                 break;
@@ -259,34 +259,34 @@ public class HTMLUnicodeEntitiesParser {
                 // but the parser impl does not permit that, hence
                 // some duplicate code here
                 if ('0' <= current && current <= '9') {
-                    state = STATE_HEXADECIMAL_CHAR;
-                    code = (code * 16) + current - 0x30;
+                    state_ = STATE_HEXADECIMAL_CHAR;
+                    code_ = (code_ * 16) + current - 0x30;
                     return true;
                 }
                 if ('A' <= current && current <= 'F') {
-                    state = STATE_HEXADECIMAL_CHAR;
-                    code = (code * 16) + current - 0x37;
+                    state_ = STATE_HEXADECIMAL_CHAR;
+                    code_ = (code_ * 16) + current - 0x37;
                     return true;
                 }
                 if ('a' <= current && current <= 'f') {
-                    state = STATE_HEXADECIMAL_CHAR;
-                    code = (code * 16) + current - 0x57;
+                    state_ = STATE_HEXADECIMAL_CHAR;
+                    code_ = (code_ * 16) + current - 0x57;
                     return true;
                 }
 
-                state = STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE;
+                state_ = STATE_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE;
                 break;
             case STATE_HEXADECIMAL_CHAR:
                 if ('0' <= current && current <= '9') {
-                    code = (code * 16) + current - 0x30;
+                    code_ = (code_ * 16) + current - 0x30;
                     return true;
                 }
                 if ('A' <= current && current <= 'F') {
-                    code = (code * 16) + current - 0x37;
+                    code_ = (code_ * 16) + current - 0x37;
                     return true;
                 }
                 if ('a' <= current && current <= 'f') {
-                    code = (code * 16) + current - 0x57;
+                    code_ = (code_ * 16) + current - 0x57;
                     return true;
                 }
                 if (';' == current) {
@@ -294,13 +294,13 @@ public class HTMLUnicodeEntitiesParser {
                     return false;
                 }
 
-                state = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
+                state_ = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
                 setMatchFromCode();
-                matchLength = consumedCount - 1;
+                matchLength_ = consumedCount_ - 1;
                 break;
             case STATE_DECIMAL_CHAR:
                 if ('0' <= current && current <= '9') {
-                    code = (code * 10) + current - 0x30;
+                    code_ = (code_ * 10) + current - 0x30;
                     return true;
                 }
                 if (';' == current) {
@@ -308,9 +308,9 @@ public class HTMLUnicodeEntitiesParser {
                     return false;
                 }
 
-                state = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
+                state_ = STATE_NUMERIC_CHAR_END_SEMICOLON_MISSING;
                 setMatchFromCode();
-                matchLength = consumedCount - 1;
+                matchLength_ = consumedCount_ - 1;
                 break;
         }
         return false;

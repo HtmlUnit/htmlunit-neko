@@ -27,11 +27,9 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
-public class FastHashMapTest
-{
+public class FastHashMapTest {
     @Test
-    public void happyPath()
-    {
+    public void happyPath() {
         final FastHashMap<String, Integer> f = new FastHashMap<>(3, 0.5f);
         f.put("a", 1);
         f.put("b", 2);
@@ -56,8 +54,7 @@ public class FastHashMapTest
     }
 
     @Test
-    public void keys()
-    {
+    public void keys() {
         final FastHashMap<String, Integer> f = new FastHashMap<>(3, 0.5f);
         f.put("aa", 1);
         f.put("bb", 2);
@@ -103,8 +100,7 @@ public class FastHashMapTest
     }
 
     @Test
-    public void values()
-    {
+    public void values() {
         final FastHashMap<String, Integer> f = new FastHashMap<>(3, 0.5f);
         f.put("aa", 1);
         f.put("bb", 2);
@@ -135,8 +131,7 @@ public class FastHashMapTest
     }
 
     @Test
-    public void remove()
-    {
+    public void remove() {
         final FastHashMap<String, Integer> f = new FastHashMap<>(3, 0.5f);
         f.put("a", 1);
         f.put("b", 2);
@@ -165,8 +160,7 @@ public class FastHashMapTest
     }
 
     @Test
-    public void clear()
-    {
+    public void clear() {
         final FastHashMap<String, Integer> m = new FastHashMap<String, Integer>();
         m.put("a", 1);
         assertEquals(1, m.size());
@@ -201,9 +195,8 @@ public class FastHashMapTest
     }
 
     @Test
-    public void collision()
-    {
-        FastHashMap<MockKey<String>, String> f = new FastHashMap<MockKey<String>, String>(13, 0.5f);
+    public void collision() {
+        final FastHashMap<MockKey<String>, String> f = new FastHashMap<MockKey<String>, String>(13, 0.5f);
         IntStream.range(0, 15).forEach(i -> {
             f.put(new MockKey<String>(12, "k" + i), "v" + i);
         });
@@ -238,8 +231,7 @@ public class FastHashMapTest
      * Overflow initial size with collision keys. Some hash code for all keys.
      */
     @Test
-    public void overflow()
-    {
+    public void overflow() {
         final FastHashMap<MockKey<String>, Integer> m = new FastHashMap<>(5, 0.5f);
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 152)
             .mapToObj(Integer::valueOf)
@@ -261,8 +253,7 @@ public class FastHashMapTest
      * Try to hit all slots with bad hashcodes
      */
     @Test
-    public void hitEachSlot()
-    {
+    public void hitEachSlot() {
         final FastHashMap<MockKey<String>, Integer> m = new FastHashMap<>(15, 0.9f);
 
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 150)
@@ -316,42 +307,35 @@ public class FastHashMapTest
         assertEquals(0, m.values().size());
     }
 
-    static class MockKey<T extends Comparable<T>> implements Comparable<MockKey<T>>
-    {
+    static class MockKey<T extends Comparable<T>> implements Comparable<MockKey<T>> {
         public final T key;
         public final int hash;
 
-        public MockKey(int hash, T key)
-        {
+        MockKey(final int hash, final T key) {
             this.hash = hash;
             this.key = key;
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
             return hash;
         }
 
         @Override
-        public boolean equals(Object o)
-        {
-            MockKey<T> t = (MockKey<T>) o;
+        public boolean equals(final Object o) {
+            final MockKey<T> t = (MockKey<T>) o;
             return hash == o.hashCode() && key.equals(t.key);
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return "MockKey [key=" + key + ", hash=" + hash + "]";
         }
 
         @Override
-        public int compareTo(MockKey<T> o)
-        {
+        public int compareTo(final MockKey<T> o) {
             return o.key.compareTo(this.key);
         }
-
     }
 }
 

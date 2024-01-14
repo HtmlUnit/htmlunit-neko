@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  *
  * @author Michael Glavassevich, IBM
  */
-public class SAXMessageFormatter {
+public final class SAXMessageFormatter {
 
     private SAXMessageFormatter() {
     }

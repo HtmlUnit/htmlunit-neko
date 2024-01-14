@@ -7,6 +7,12 @@
 <suppressions>
     <suppress checks="MissingSwitchDefault" files="HTMLEntitiesParser.java"/>
     
+    <suppress checks="AvoidNestedBlocks" files="FastHashMapTest.java"/>
+    <suppress checks="AvoidNestedBlocks" files="HTMLNamedEntitiesParserTest.java"/>
+    <suppress checks="AvoidNestedBlocks" files="MiniStackTest.java"/>
+    <suppress checks="AvoidNestedBlocks" files="SimpleArrayListTest.java"/>
+    <suppress checks="AvoidNestedBlocks" files="XMLStringTest.java"/>
+    
     <suppress checks="LineLength" files="DOMMessages.properties"/>
     <suppress checks="LineLength" files="XMLMessages.properties"/>
     

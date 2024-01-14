@@ -155,7 +155,6 @@ public class XMLStringTest {
         }
     }
 
-
     @Test
     public void ctr_char_int_int() {
         // empty
@@ -368,17 +367,16 @@ public class XMLStringTest {
         final StringBuilder a2 = new StringBuilder("0");
 
         {
-        	for (int i = 0; i < 64; i++) {
-        		c1.append('0', '1');
-        		c2.append('1', '0');
-        		a1.append('0').append('1');
-        		a2.append('1').append('0');
-        	}
-        	assertEquals(a1.toString(), c1.toString());
-        	assertEquals(a2.toString(), c2.toString());
+            for (int i = 0; i < 64; i++) {
+                c1.append('0', '1');
+                c2.append('1', '0');
+                a1.append('0').append('1');
+                a2.append('1').append('0');
+            }
+            assertEquals(a1.toString(), c1.toString());
+            assertEquals(a2.toString(), c2.toString());
         }
     }
-
 
     @Test
     public void append_string() {
@@ -700,7 +698,7 @@ public class XMLStringTest {
         assertEquals("foo", x.toString());
 
         // start and end, both with whitespace
-        x.clear().append(" \tSfooE \n");
+        x.clear().append("     SfooE \n");
         x.trimToContent("S", "E");
         assertEquals(3, x.length());
         assertEquals("foo", x.toString());
@@ -713,7 +711,7 @@ public class XMLStringTest {
 
         // start and end, both with whitespace
         // no content but markers
-        x.clear().append(" \tSE \n");
+        x.clear().append("     SE \n");
         x.trimToContent("S", "E");
         assertEquals(0, x.length());
         assertEquals("", x.toString());
@@ -815,7 +813,7 @@ public class XMLStringTest {
         xmlString.trimLeading();
         assertEquals("abckasd", xmlString.toString());
 
-        xmlString.clear().append(" \t a");
+        xmlString.clear().append("      a");
         xmlString.trimLeading();
         assertEquals("a", xmlString.toString());
 
@@ -1128,11 +1126,11 @@ public class XMLStringTest {
             assertFalse(a.isWhitespace());
         }
         {
-            final XMLString a = new XMLString(" a\t \n");
+            final XMLString a = new XMLString(" a     \n");
             assertFalse(a.isWhitespace());
         }
         {
-            final XMLString a = new XMLString(" \t \n");
+            final XMLString a = new XMLString("      \n");
             assertTrue(a.isWhitespace());
         }
     }
@@ -1199,4 +1197,4 @@ public class XMLStringTest {
             });
         }
     }
- }
+}

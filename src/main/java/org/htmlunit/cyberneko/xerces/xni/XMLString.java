@@ -192,7 +192,7 @@ public class XMLString implements CharSequence {
         // ensureCapacity is too large, so we keep things small here and
         // also allow to keep the grow part external
         if (oldLength == this.data_.length) {
-        	growByAtLeastOne();
+            growByAtLeastOne();
         }
 
         this.data_[oldLength] = c;
@@ -208,17 +208,17 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final char c1, final char c2) {
-    	if (this.length_ + 1 < this.data_.length) {
-    		this.data_[this.length_++] = c1;
-    		this.data_[this.length_++] = c2;
-    	}
-    	else {
-    		// that part is less efficient but happens less often
-    		append(c1);
-    		append(c2);
-    	}
+        if (this.length_ + 1 < this.data_.length) {
+            this.data_[this.length_++] = c1;
+            this.data_[this.length_++] = c2;
+        }
+        else {
+            // that part is less efficient but happens less often
+            append(c1);
+            append(c2);
+        }
 
-    	return this;
+        return this;
     }
 
     /**
@@ -728,19 +728,19 @@ public class XMLString implements CharSequence {
      *          {@code codePoint} is not a valid Unicode code point.
      */
     public XMLString appendCodePoint(final int value) {
-    	if (Character.isBmpCodePoint(value)) {
-    		return this.append((char) value);
-    	}
-    	else if (Character.isValidCodePoint(value)) {
-    		// as seen in the JDK, avoid a char array in between
-    		this.append(Character.highSurrogate(value), Character.lowSurrogate(value));
-    		return this;
-    	}
-    	else {
-    		// when value is not valid as UTF-16
-    		this.append(REPLACEMENT_CHARACTER);
-    		throw new IllegalArgumentException();
-    	}
+        if (Character.isBmpCodePoint(value)) {
+            return this.append((char) value);
+        }
+        else if (Character.isValidCodePoint(value)) {
+            // as seen in the JDK, avoid a char array in between
+            this.append(Character.highSurrogate(value), Character.lowSurrogate(value));
+            return this;
+        }
+        else {
+            // when value is not valid as UTF-16
+            this.append(REPLACEMENT_CHARACTER);
+            throw new IllegalArgumentException();
+        }
     }
 
     // this stuff is here for performance reasons to avoid a copy
