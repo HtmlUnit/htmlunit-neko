@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2023 Xceptance Software Technologies GmbH
+ * Copyright (c) 2005-2024 René Schwietzke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,12 @@ import java.util.List;
  * https://github.com/mikvor/hashmapTest/blob/master/src/main/java/map/objobj/ObjObjMap.java
  * No concrete license specified at the source. The project is public domain.
  *
- * Not thread-safe!
+ * Not thread-safe! Null support was removed.
  *
- * Null support was removed.
+ * @param <K> the type of the key
+ * @param <V> the type of the value
  *
+ * @author Ren&eacute; Schwietzke
  * @since 3.10.0
  */
 public class FastHashMap<K, V> {
@@ -35,18 +37,18 @@ public class FastHashMap<K, V> {
     private static final Object REMOVED_KEY = new Object();
 
     /** Keys and values */
-    private Object[] m_data;
+    private Object[] m_data_;
 
     /** Fill factor, must be between (0 and 1) */
-    private final float m_fillFactor;
+    private final float m_fillFactor_;
     /** We will resize a map once it reaches this size */
-    private int m_threshold;
+    private int m_threshold_;
     /** Current map size */
-    private int m_size;
+    private int m_size_;
     /** Mask to calculate the original position */
-    private int m_mask;
+    private int m_mask_;
     /** Mask to wrap the actual array pointer */
-    private int m_mask2;
+    private int m_mask2_;
 
     public FastHashMap() {
         this(13, 0.5f);
@@ -61,19 +63,19 @@ public class FastHashMap<K, V> {
             throw new IllegalArgumentException("Size must be positive!");
         }
         final int capacity = arraySize(size, fillFactor);
-        m_mask = capacity - 1;
-        m_mask2 = capacity * 2 - 1;
-        m_fillFactor = fillFactor;
+        m_mask_ = capacity - 1;
+        m_mask2_ = capacity * 2 - 1;
+        m_fillFactor_ = fillFactor;
 
-        m_data = new Object[capacity * 2];
-        Arrays.fill(m_data, FREE_KEY);
+        m_data_ = new Object[capacity * 2];
+        Arrays.fill(m_data_, FREE_KEY);
 
-        m_threshold = (int) (capacity * fillFactor);
+        m_threshold_ = (int) (capacity * fillFactor);
     }
 
     public V get(final K key) {
-        int ptr = (key.hashCode() & m_mask) << 1;
-        Object k = m_data[ ptr ];
+        int ptr = (key.hashCode() & m_mask_) << 1;
+        Object k = m_data_[ ptr ];
 
         if (k == FREE_KEY) {
           //end of chain already
@@ -82,41 +84,41 @@ public class FastHashMap<K, V> {
 
         //we check FREE and REMOVED prior to this call
         if (k.hashCode() == key.hashCode() && k.equals(key)) {
-            return (V) m_data[ ptr + 1 ];
+            return (V) m_data_[ ptr + 1 ];
         }
 
         while (true) {
-            ptr = (ptr + 2) & m_mask2; //that's next index
-            k = m_data[ ptr ];
+            ptr = (ptr + 2) & m_mask2_; //that's next index
+            k = m_data_[ ptr ];
             if (k == FREE_KEY) {
                 return null;
             }
             if (k.hashCode() == key.hashCode() && k.equals(key)) {
-                return (V) m_data[ ptr + 1 ];
+                return (V) m_data_[ ptr + 1 ];
             }
         }
     }
 
     public V put(final K key, final V value) {
         int ptr = getStartIndex(key) << 1;
-        Object k = m_data[ptr];
+        Object k = m_data_[ptr];
 
         if (k == FREE_KEY) {
             //end of chain already
-            m_data[ ptr ] = key;
-            m_data[ ptr + 1 ] = value;
-            if (m_size >= m_threshold) {
-                rehash(m_data.length * 2); //size is set inside
+            m_data_[ ptr ] = key;
+            m_data_[ ptr + 1 ] = value;
+            if (m_size_ >= m_threshold_) {
+                rehash(m_data_.length * 2); //size is set inside
             }
             else {
-                ++m_size;
+                ++m_size_;
             }
             return null;
         }
         else if (k.equals(key)) {
             //we check FREE and REMOVED prior to this call
-            final Object ret = m_data[ ptr + 1 ];
-            m_data[ ptr + 1 ] = value;
+            final Object ret = m_data_[ ptr + 1 ];
+            m_data_[ ptr + 1 ] = value;
             return (V) ret;
         }
 
@@ -128,26 +130,26 @@ public class FastHashMap<K, V> {
 
         while (true) {
             // that's next index calculation
-            ptr = (ptr + 2) & m_mask2;
-            k = m_data[ ptr ];
+            ptr = (ptr + 2) & m_mask2_;
+            k = m_data_[ ptr ];
             if (k == FREE_KEY) {
                 if (firstRemoved != -1) {
                     ptr = firstRemoved;
                 }
-                m_data[ ptr ] = key;
-                m_data[ ptr + 1 ] = value;
-                if (m_size >= m_threshold) {
+                m_data_[ ptr ] = key;
+                m_data_[ ptr + 1 ] = value;
+                if (m_size_ >= m_threshold_) {
                     //size is set inside
-                    rehash(m_data.length * 2);
+                    rehash(m_data_.length * 2);
                 }
                 else {
-                    ++m_size;
+                    ++m_size_;
                 }
                 return null;
             }
             else if (k.equals(key)) {
-                final Object ret = m_data[ ptr + 1 ];
-                m_data[ ptr + 1 ] = value;
+                final Object ret = m_data_[ ptr + 1 ];
+                m_data_[ ptr + 1 ] = value;
                 return (V) ret;
             }
             else if (k == REMOVED_KEY) {
@@ -160,62 +162,62 @@ public class FastHashMap<K, V> {
 
     public V remove(final K key) {
         int ptr = getStartIndex(key) << 1;
-        Object k = m_data[ ptr ];
+        Object k = m_data_[ ptr ];
         if (k == FREE_KEY) {
             // end of chain already
             return null;
         }
         else if (k.equals(key)) {
             // we check FREE and REMOVED prior to this call
-            --m_size;
-            if (m_data[ (ptr + 2) & m_mask2 ] == FREE_KEY) {
-                m_data[ ptr ] = FREE_KEY;
+            --m_size_;
+            if (m_data_[ (ptr + 2) & m_mask2_ ] == FREE_KEY) {
+                m_data_[ ptr ] = FREE_KEY;
             }
             else {
-                m_data[ ptr ] = REMOVED_KEY;
+                m_data_[ ptr ] = REMOVED_KEY;
             }
-            final V ret = (V) m_data[ ptr + 1 ];
-            m_data[ ptr + 1 ] = null;
+            final V ret = (V) m_data_[ ptr + 1 ];
+            m_data_[ ptr + 1 ] = null;
             return ret;
         }
         while (true) {
             //that's next index calculation
-            ptr = (ptr + 2) & m_mask2;
-            k = m_data[ ptr ];
+            ptr = (ptr + 2) & m_mask2_;
+            k = m_data_[ ptr ];
             if (k == FREE_KEY) {
                 return null;
             }
             else if (k.equals(key)) {
-                --m_size;
-                if (m_data[ (ptr + 2) & m_mask2 ] == FREE_KEY) {
-                    m_data[ ptr ] = FREE_KEY;
+                --m_size_;
+                if (m_data_[ (ptr + 2) & m_mask2_ ] == FREE_KEY) {
+                    m_data_[ ptr ] = FREE_KEY;
                 }
                 else {
-                    m_data[ ptr ] = REMOVED_KEY;
+                    m_data_[ ptr ] = REMOVED_KEY;
                 }
-                final V ret = (V) m_data[ ptr + 1 ];
-                m_data[ ptr + 1 ] = null;
+                final V ret = (V) m_data_[ ptr + 1 ];
+                m_data_[ ptr + 1 ] = null;
                 return ret;
             }
         }
     }
 
     public int size() {
-        return m_size;
+        return m_size_;
     }
 
     private void rehash(final int newCapacity) {
-        m_threshold = (int) (newCapacity / 2 * m_fillFactor);
-        m_mask = newCapacity / 2 - 1;
-        m_mask2 = newCapacity - 1;
+        m_threshold_ = (int) (newCapacity / 2 * m_fillFactor_);
+        m_mask_ = newCapacity / 2 - 1;
+        m_mask2_ = newCapacity - 1;
 
-        final int oldCapacity = m_data.length;
-        final Object[] oldData = m_data;
+        final int oldCapacity = m_data_.length;
+        final Object[] oldData = m_data_;
 
-        m_data = new Object[ newCapacity ];
-        Arrays.fill(m_data, FREE_KEY);
+        m_data_ = new Object[ newCapacity ];
+        Arrays.fill(m_data_, FREE_KEY);
 
-        m_size = 0;
+        m_size_ = 0;
 
         for (int i = 0; i < oldCapacity; i += 2) {
             final Object oldKey = oldData[ i ];
@@ -233,9 +235,9 @@ public class FastHashMap<K, V> {
     public List<K> keys() {
         final List<K> result = new ArrayList<>();
 
-        final int length = m_data.length;
+        final int length = m_data_.length;
         for (int i = 0; i < length; i += 2) {
-            final Object o = m_data[i];
+            final Object o = m_data_[i];
             if (o != FREE_KEY && o != REMOVED_KEY) {
                 result.add((K) o);
             }
@@ -252,11 +254,11 @@ public class FastHashMap<K, V> {
     public List<V> values() {
         final List<V> result = new ArrayList<>();
 
-        final int length = m_data.length;
+        final int length = m_data_.length;
         for (int i = 0; i < length; i += 2) {
-            final Object o = m_data[i];
+            final Object o = m_data_[i];
             if (o != FREE_KEY && o != REMOVED_KEY) {
-                result.add((V) m_data[i + 1]);
+                result.add((V) m_data_[i + 1]);
             }
         }
 
@@ -268,13 +270,13 @@ public class FastHashMap<K, V> {
      * It won't shrink the underlying array!
      */
     public void clear() {
-        this.m_size = 0;
-        Arrays.fill(m_data, FREE_KEY);
+        this.m_size_ = 0;
+        Arrays.fill(m_data_, FREE_KEY);
     }
 
     public int getStartIndex(final Object key) {
         //key is not null here
-        return key.hashCode() & m_mask;
+        return key.hashCode() & m_mask_;
     }
 
     /** Return the least power of two greater than or equal to the specified value.
