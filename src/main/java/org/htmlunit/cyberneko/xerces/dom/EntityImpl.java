@@ -48,33 +48,33 @@ import org.w3c.dom.Node;
 public class EntityImpl extends ParentNode implements Entity {
 
     /** Entity name. */
-    protected final String name;
+    private final String name_;
 
     /** Public identifier. */
-    protected String publicId;
+    private String publicId_;
 
     /** System identifier. */
-    protected String systemId;
+    private String systemId_;
 
     /** Encoding */
-    protected String encoding;
+    private String encoding_;
 
     /** Input Encoding */
-    protected String inputEncoding;
+    private String inputEncoding_;
 
     /** Version */
-    protected String version;
+    private String version_;
 
     /** Notation name. */
-    protected String notationName;
+    private String notationName_;
 
     /** base uri */
-    protected String baseURI;
+    private String baseURI_;
 
     // Factory constructor.
     public EntityImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
-        this.name = name;
+        name_ = name;
     }
 
     /**
@@ -98,7 +98,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return name;
+        return name_;
     }
 
     /**
@@ -124,7 +124,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return publicId;
+        return publicId_;
 
     }
 
@@ -140,7 +140,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return systemId;
+        return systemId_;
 
     }
 
@@ -156,7 +156,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return version;
+        return version_;
 
     }
 
@@ -173,7 +173,7 @@ public class EntityImpl extends ParentNode implements Entity {
             synchronizeData();
         }
 
-        return encoding;
+        return encoding_;
 
     }
 
@@ -190,7 +190,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return notationName;
+        return notationName_;
 
     }
 
@@ -205,7 +205,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        publicId = id;
+        publicId_ = id;
 
     }
 
@@ -219,7 +219,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        encoding = value;
+        encoding_ = value;
     }
 
     /**
@@ -234,7 +234,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return inputEncoding;
+        return inputEncoding_;
     }
 
     // NON-DOM, used to set the input encoding.
@@ -242,7 +242,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        this.inputEncoding = inputEncoding;
+        inputEncoding_ = inputEncoding;
     }
 
     // NON-DOM
@@ -253,7 +253,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        version = value;
+        version_ = value;
     }
 
     /**
@@ -266,7 +266,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        systemId = id;
+        systemId_ = id;
 
     }
 
@@ -282,7 +282,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        notationName = name;
+        notationName_ = name;
 
     }
 
@@ -301,7 +301,7 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        return (baseURI != null) ? baseURI : getOwnerDocument().getBaseURI();
+        return (baseURI_ != null) ? baseURI_ : getOwnerDocument().getBaseURI();
     }
 
     // NON-DOM: set base uri
@@ -309,6 +309,6 @@ public class EntityImpl extends ParentNode implements Entity {
         if (needsSyncData()) {
             synchronizeData();
         }
-        baseURI = uri;
+        baseURI_ = uri;
     }
 }

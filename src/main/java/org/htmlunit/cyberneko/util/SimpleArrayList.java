@@ -32,7 +32,6 @@ import java.util.ListIterator;
  */
 public class SimpleArrayList<T> implements List<T> {
     private T[] data;
-
     private int size;
 
     /**
@@ -188,14 +187,14 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     class Partition<K> extends SimpleArrayList<K> {
-        private final int from;
-        private final int size;
+        private final int from_;
+        private final int size_;
 
         Partition(final SimpleArrayList<K> list, final int from, final int to) {
             super(list);
 
-            this.from = from;
-            this.size = to - from + 1;
+            from_ = from;
+            size_ = to - from + 1;
         }
 
         @Override
@@ -205,12 +204,12 @@ public class SimpleArrayList<T> implements List<T> {
 
         @Override
         public K get(final int index) {
-            return super.get(index + from);
+            return super.get(index + from_);
         }
 
         @Override
         public int size() {
-            return size;
+            return size_;
         }
 
         @Override

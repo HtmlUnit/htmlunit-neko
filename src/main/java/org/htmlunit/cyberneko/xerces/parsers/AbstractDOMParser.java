@@ -159,16 +159,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         super(config);
 
         // add recognized features
-        fConfiguration.addRecognizedFeatures(RECOGNIZED_FEATURES);
+        parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
 
         // set default values
-        fConfiguration.setFeature(CREATE_ENTITY_REF_NODES, true);
-        fConfiguration.setFeature(INCLUDE_IGNORABLE_WHITESPACE, true);
-        fConfiguration.setFeature(INCLUDE_COMMENTS_FEATURE, true);
-        fConfiguration.setFeature(CREATE_CDATA_NODES_FEATURE, true);
+        parserConfiguration_.setFeature(CREATE_ENTITY_REF_NODES, true);
+        parserConfiguration_.setFeature(INCLUDE_IGNORABLE_WHITESPACE, true);
+        parserConfiguration_.setFeature(INCLUDE_COMMENTS_FEATURE, true);
+        parserConfiguration_.setFeature(CREATE_CDATA_NODES_FEATURE, true);
 
         // add recognized properties
-        fConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
+        parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
 
         setDocumentClass(documentClass);
     }
@@ -201,15 +201,15 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         super.reset();
 
         // get feature state
-        fCreateEntityRefNodes = fConfiguration.getFeature(CREATE_ENTITY_REF_NODES);
+        fCreateEntityRefNodes = parserConfiguration_.getFeature(CREATE_ENTITY_REF_NODES);
 
-        fIncludeIgnorableWhitespace = fConfiguration.getFeature(INCLUDE_IGNORABLE_WHITESPACE);
+        fIncludeIgnorableWhitespace = parserConfiguration_.getFeature(INCLUDE_IGNORABLE_WHITESPACE);
 
-        fNamespaceAware = fConfiguration.getFeature(NAMESPACES);
+        fNamespaceAware = parserConfiguration_.getFeature(NAMESPACES);
 
-        fIncludeComments = fConfiguration.getFeature(INCLUDE_COMMENTS_FEATURE);
+        fIncludeComments = parserConfiguration_.getFeature(INCLUDE_COMMENTS_FEATURE);
 
-        fCreateCDATANodes = fConfiguration.getFeature(CREATE_CDATA_NODES_FEATURE);
+        fCreateCDATANodes = parserConfiguration_.getFeature(CREATE_CDATA_NODES_FEATURE);
 
         // reset dom information
         fDocument = null;
@@ -1033,13 +1033,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     public void setErrorHandler(final ErrorHandler errorHandler) {
         try {
-            final XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xeh = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
             if (xeh instanceof ErrorHandlerWrapper) {
                 final ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
                 ehw.setErrorHandler(errorHandler);
             }
             else {
-                fConfiguration.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
+                parserConfiguration_.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
             }
         }
         catch (final XMLConfigurationException e) {
@@ -1058,7 +1058,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
         ErrorHandler errorHandler = null;
         try {
-            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
             if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
                 errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
             }
@@ -1085,7 +1085,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            fConfiguration.setFeature(featureId, state);
+            parserConfiguration_.setFeature(featureId, state);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -1115,7 +1115,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            return fConfiguration.getFeature(featureId);
+            return parserConfiguration_.getFeature(featureId);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -1144,7 +1144,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             throws SAXNotRecognizedException, SAXNotSupportedException {
 
         try {
-            fConfiguration.setProperty(propertyId, value);
+            parserConfiguration_.setProperty(propertyId, value);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -1161,6 +1161,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @return this parser's XMLParserConfiguration.
      */
     public XMLParserConfiguration getXMLParserConfiguration() {
-        return fConfiguration;
+        return parserConfiguration_;
     }
 }

@@ -692,13 +692,13 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     public void setErrorHandler(final ErrorHandler errorHandler) {
 
         try {
-            final XMLErrorHandler xeh = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xeh = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
             if (xeh instanceof ErrorHandlerWrapper) {
                 final ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
                 ehw.setErrorHandler(errorHandler);
             }
             else {
-                fConfiguration.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
+                parserConfiguration_.setProperty(ERROR_HANDLER, new ErrorHandlerWrapper(errorHandler));
             }
         }
         catch (final XMLConfigurationException e) {
@@ -717,7 +717,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         ErrorHandler errorHandler = null;
         try {
-            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) fConfiguration.getProperty(ERROR_HANDLER);
+            final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
             if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
                 errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
             }
@@ -808,7 +808,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 // http://xml.org/sax/features/namespaces
                 if (suffixLength == Constants.NAMESPACES_FEATURE.length()
                         && featureId.endsWith(Constants.NAMESPACES_FEATURE)) {
-                    fConfiguration.setFeature(featureId, state);
+                    parserConfiguration_.setFeature(featureId, state);
                     fNamespaces = state;
                     return;
                 }
@@ -850,7 +850,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 }
             }
 
-            fConfiguration.setFeature(featureId, state);
+            parserConfiguration_.setFeature(featureId, state);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -915,7 +915,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 }
             }
 
-            return fConfiguration.getFeature(featureId);
+            return parserConfiguration_.getFeature(featureId);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -967,7 +967,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 }
             }
 
-            fConfiguration.setProperty(propertyId, value);
+            parserConfiguration_.setProperty(propertyId, value);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -1027,7 +1027,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 }
             }
 
-            return fConfiguration.getProperty(propertyId);
+            return parserConfiguration_.getProperty(propertyId);
         }
         catch (final XMLConfigurationException e) {
             final String identifier = e.getIdentifier();
@@ -1123,7 +1123,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         fStandalone = false;
 
         // features
-        fNamespaces = fConfiguration.getFeature(NAMESPACES);
+        fNamespaces = parserConfiguration_.getFeature(NAMESPACES);
     }
 
     protected static final class LocatorProxy implements Locator2 {

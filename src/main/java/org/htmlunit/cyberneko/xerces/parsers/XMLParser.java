@@ -46,15 +46,15 @@ public abstract class XMLParser {
     private static final String[] RECOGNIZED_PROPERTIES = {ERROR_HANDLER};
 
     /** The parser configuration. */
-    protected final XMLParserConfiguration fConfiguration;
+    protected final XMLParserConfiguration parserConfiguration_;
 
     // Default Constructor.
     protected XMLParser(final XMLParserConfiguration config) {
         // save configuration
-        fConfiguration = config;
+        parserConfiguration_ = config;
 
         // add default recognized properties
-        fConfiguration.addRecognizedProperties(RECOGNIZED_PROPERTIES);
+        parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
 
     }
 
@@ -69,7 +69,7 @@ public abstract class XMLParser {
     public void parse(final XMLInputSource inputSource) throws XNIException, IOException {
 
         reset();
-        fConfiguration.parse(inputSource);
+        parserConfiguration_.parse(inputSource);
 
     }
 
