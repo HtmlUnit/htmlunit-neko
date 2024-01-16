@@ -3,9 +3,9 @@
 )head
 (BODY
 (foo
-)foo
 (title
 "ti1234
 )title
+)foo
 )BODY
 )html

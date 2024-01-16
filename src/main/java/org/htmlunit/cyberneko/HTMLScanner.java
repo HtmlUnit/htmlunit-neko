@@ -1193,6 +1193,66 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         return name;
     }
 
+    // Scans a tag name.
+    protected String scanTagName() throws IOException {
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded("(scanName: ");
+        }
+        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+            if (fCurrentEntity.load(0) == -1) {
+                if (DEBUG_BUFFER) {
+                    fCurrentEntity.debugBufferIfNeeded(")scanName: ");
+                }
+                return null;
+            }
+        }
+        int offset = fCurrentEntity.offset_;
+        boolean isFirst = true;
+
+        while (true) {
+            while (fCurrentEntity.hasNext()) {
+                final char c = fCurrentEntity.getNextChar();
+
+                if (isFirst) {
+                    isFirst = false;
+
+                    // first char has to be ASCII alpha
+                    if (!('A' <= c && c <= 'Z' || 'a' <= c && c <= 'z')) {
+                        fCurrentEntity.rewind();
+                        break;
+                    }
+                }
+                else {
+                    if (c == '\t' || c == '\r' || c == '\n' || c == ' ' || c == 0
+                            || c == '/' || c == '>') {
+                        fCurrentEntity.rewind();
+                        break;
+                    }
+                }
+            }
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                final int length = fCurrentEntity.length_ - offset;
+                System.arraycopy(fCurrentEntity.buffer_, offset, fCurrentEntity.buffer_, 0, length);
+                final int count = fCurrentEntity.load(length);
+                offset = 0;
+                if (count == -1) {
+                    break;
+                }
+            }
+            else {
+                break;
+            }
+        }
+
+        final int length = fCurrentEntity.offset_ - offset;
+        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
+        }
+
+        return name;
+    }
+
     // Scans an entity reference.
     protected int scanEntityRef(final XMLString str, final boolean content) throws IOException {
         str.clearAndAppend('&');
@@ -2775,10 +2835,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @throws IOException in case of io problems
          */
         protected String scanStartElement(final boolean[] empty) throws IOException {
-            String ename = scanName(true);
+            String ename = scanTagName();
             final int length = ename != null ? ename.length() : 0;
-            final int c = length > 0 ? ename.charAt(0) : -1;
-            if (length == 0 || !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+            if (length == 0) {
                 if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1009", null);
                 }
@@ -2802,8 +2861,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fBeginLineNumber = beginLineNumber;
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
-            if (fByteStream != null && fElementDepth == -1) {
-                if ("META".equalsIgnoreCase(ename) && !fIgnoreSpecifiedCharset_) {
+            if (fElementDepth == -1) {
+                if (fByteStream != null && !fIgnoreSpecifiedCharset_ && "META".equalsIgnoreCase(ename)) {
                     if (DEBUG_CHARSET) {
                         System.out.println("+++ <META>");
                     }
@@ -2831,13 +2890,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         }
                     }
                 }
-                else if ("BODY".equalsIgnoreCase(ename)) {
+                else if (fByteStream != null && "BODY".equalsIgnoreCase(ename)) {
                     fByteStream.clear();
                     fByteStream = null;
                 }
                 else {
                     final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
-                    if (element.parent != null && element.parent.length > 0) {
+                    if (element.code == HTMLElements.UNKNOWN) {
+                        empty[0] = false;
+                    }
+
+                    if (fByteStream != null && element.parent != null && element.parent.length > 0) {
                         if (element.parent[0].code == HTMLElements.BODY) {
                             fByteStream.clear();
                             fByteStream = null;
@@ -2845,6 +2908,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                 }
             }
+
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                 qName_.setValues(null, ename, ename, null);
                 if (DEBUG_CALLBACKS) {
@@ -3177,7 +3241,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         // Scans an end element.
         protected void scanEndElement() throws IOException {
-            String ename = scanName(true);
+            String ename = scanTagName();
             if (fReportErrors_ && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
