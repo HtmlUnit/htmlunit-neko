@@ -18,12 +18,16 @@ package org.htmlunit.cyberneko.xerces.xni;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Locale;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Unit tests for the new {@link XMLString} which is technically a
@@ -341,7 +345,7 @@ public class XMLStringTest {
             assertEquals(20, a.capacity());
             a.append(c25);
             assertEquals("a-b-c" + CHAR25, a.toString());
-//            assertEquals(52, a.capacity());
+            //            assertEquals(52, a.capacity());
             assertEquals(30, a.length());
         }
     }
@@ -393,7 +397,7 @@ public class XMLStringTest {
             final XMLString a = new XMLString();
             assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR5 + CHAR25);
-//            assertEquals(52, a.capacity());
+            //            assertEquals(52, a.capacity());
             assertEquals(CHAR5 + CHAR25, a.toString());
             assertEquals(30, a.length());
         }
@@ -403,7 +407,7 @@ public class XMLStringTest {
             assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR5);
             a.append(CHAR25);
-//            assertEquals(52, a.capacity());
+            //            assertEquals(52, a.capacity());
             assertEquals(CHAR5 + CHAR25, a.toString());
             assertEquals(30, a.length());
         }
@@ -415,7 +419,7 @@ public class XMLStringTest {
             a.append("");
             a.append(CHAR25);
             a.append("");
-//            assertEquals(52, a.capacity());
+            //            assertEquals(52, a.capacity());
             assertEquals(CHAR25, a.toString());
             assertEquals(25, a.length());
         }
@@ -449,15 +453,15 @@ public class XMLStringTest {
             final XMLString a = new XMLString();
             assertEquals(XMLString.INITIAL_CAPACITY, a.capacity());
             a.append(CHAR25.toCharArray(), 0, 25);
-//            assertEquals(52, a.capacity());
+            //            assertEquals(52, a.capacity());
 
             a.append(CHAR25.toCharArray(), 0, 25);
-//            assertEquals(52, a.capacity()); // still fits
+            //            assertEquals(52, a.capacity()); // still fits
             assertEquals(CHAR25 + CHAR25, a.toString());
             assertEquals(50, a.length());
 
             a.append(CHAR25.toCharArray(), 0, 5);
-//            assertEquals(84, a.capacity()); // still fits
+            //            assertEquals(84, a.capacity()); // still fits
             assertEquals(CHAR25 + CHAR25 + CHAR5, a.toString());
             assertEquals(55, a.length());
         }
@@ -655,6 +659,28 @@ public class XMLStringTest {
             assertEquals("a", a.toString());
             assertEquals(1, a.length());
         }
+    }
+
+    @Test
+    public void prepend() {
+        final XMLString x = new XMLString();
+        x.prepend('x');
+        assertEquals("x", x.toString());
+
+        final XMLString a = new XMLString("foo");
+        a.prepend('=');
+        assertEquals("=foo", a.toString());
+
+        // just push something into the string to see if we have growth pain
+        final XMLString b = new XMLString("foo");
+        String exB = "foo";
+        String src = "This is a test of the prepending";
+        for (int i = 0; i < src.length(); i++) {
+            final char c = src.charAt(i);
+            exB = c + exB;
+            b.prepend(c);
+        }
+        assertEquals(exB, b.toString());
     }
 
     @Test
@@ -1178,23 +1204,156 @@ public class XMLStringTest {
         // regular code point
         {
             final XMLString a = new XMLString();
-            a.appendCodePoint('a');
+            assertTrue(a.appendCodePoint('a'));
             assertEquals(1, a.length());
             assertEquals("a", a.toString());
         }
         // two char code point
         {
             final XMLString a = new XMLString();
-            a.appendCodePoint(0x30CA);
+            assertTrue(a.appendCodePoint(0x30CA));
             assertEquals(1, a.length());
             assertEquals("ナ", a.toString());
         }
         // invalid code point
         {
-            assertThrows(IllegalArgumentException.class, () -> {
-                final XMLString a = new XMLString();
-                a.appendCodePoint(0x10FFFF + 42);
-            });
+            final XMLString a = new XMLString();
+            assertFalse(a.appendCodePoint(0x10FFFF + 42));
         }
+    }
+
+    /**
+     * @see XMLString#equalsIgnoreCase(CharSequence)
+     */
+    @Test
+    public void equalsIgnoreCase_Self() {
+        final XMLString a = new XMLString();
+        assertTrue(a.equalsIgnoreCase(a));
+
+        final XMLString b = new XMLString("text");
+        assertTrue(b.equalsIgnoreCase(b));
+
+        final XMLString c = new XMLString("tEXt");
+        assertTrue(c.equalsIgnoreCase(c));
+    }
+
+    @Test
+    public void equalsIgnoreCase_Null() {
+        final XMLString a = new XMLString();
+        assertFalse(a.equalsIgnoreCase(null));
+
+        final XMLString b = new XMLString();
+        assertFalse(b.equalsIgnoreCase(null));
+    }
+
+    @Test
+    public void equalsIgnoreCase_Empty() {
+        final XMLString a = new XMLString("");
+        final XMLString b = new XMLString();
+        assertTrue(a.equalsIgnoreCase(b));
+        assertTrue(b.equalsIgnoreCase(a));
+        assertTrue(a.equalsIgnoreCase(""));
+        assertTrue(b.equalsIgnoreCase(""));
+    }
+
+    @Test
+    public void equalsIgnoreCase_LengthDifference() {
+        final XMLString a = new XMLString("ab");
+        final XMLString b = new XMLString("abc");
+        assertFalse(a.equalsIgnoreCase(b));
+        assertFalse(b.equalsIgnoreCase(a));
+    }
+
+    @Test
+    public void equalsIgnoreCase_Same() {
+        final XMLString a = new XMLString("a");
+        final XMLString A = new XMLString("A");
+        assertTrue(a.equalsIgnoreCase(A));
+        assertTrue(A.equalsIgnoreCase("a"));
+        assertTrue(a.equalsIgnoreCase("A"));
+        assertTrue(a.equalsIgnoreCase("a"));
+        assertTrue(A.equalsIgnoreCase("A"));
+
+        final XMLString a1 = new XMLString("iasDJ7(/&%$§%&/()1726781aaA");
+        final XMLString a2 = new XMLString("iasDj7(/&%$§%&/()1726781aaa");
+        assertTrue(a1.equalsIgnoreCase(a2));
+        assertTrue(a2.equalsIgnoreCase(a1));
+        assertTrue(a1.equalsIgnoreCase("iasDJ7(/&%$§%&/()1726781aaA"));
+        assertTrue(a2.equalsIgnoreCase("iasDj7(/&%$§%&/()1726781aaa"));
+
+        final XMLString a3 = new XMLString("a92 3   u2wquherqhw herjqhw Ö");
+        final XMLString b3 = new XMLString("a92 3   u2wquherqhw herjqhw ö");
+        assertTrue(a3.equalsIgnoreCase(b3));
+        assertTrue(b3.equalsIgnoreCase(a3));
+        assertTrue(a3.equalsIgnoreCase("a92 3   u2wquherqhw herjqhw ö"));
+        assertTrue(b3.equalsIgnoreCase("a92 3   u2wquherqhw herjqhw Ö"));
+    }
+
+    @Test
+    public void equalsIgnoreCase_Difference() {
+        final XMLString a = new XMLString("a");
+        final XMLString b = new XMLString("b");
+        assertFalse(a.equalsIgnoreCase(b));
+        assertFalse(a.equalsIgnoreCase("b"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "éäöü€", "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр" })
+    public void equalsIgnoreCase_MoreChallengingLocales(final String s) {
+        final String upper = s.toUpperCase();
+        final String lower = s.toLowerCase();
+
+        final XMLString a = new XMLString(s);
+        final XMLString l = new XMLString(upper);
+        final XMLString u = new XMLString(lower);
+
+        assertTrue(a.equalsIgnoreCase(l));
+        assertTrue(a.equalsIgnoreCase(u));
+        assertTrue(l.equalsIgnoreCase(a));
+        assertTrue(l.equalsIgnoreCase(u));
+        assertTrue(u.equalsIgnoreCase(a));
+        assertTrue(u.equalsIgnoreCase(l));
+        assertTrue(a.equalsIgnoreCase(upper));
+        assertTrue(a.equalsIgnoreCase(lower));
+    }
+
+    @Test
+    public void equalsIgnoreCase_NoMatch() {
+        // even the JDK says no to that! ß becomes double-S
+        final XMLString a = new XMLString("Straße");
+        assertFalse(a.equalsIgnoreCase("STRASSE"));
+        assertNotEquals("Straße", "Straße".toUpperCase());
+    }
+
+    /**
+     * @see XMLString#toLowerCase()
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {
+//            "𘀀", // UTF-16
+            "A", "a", "",
+//            "HtmlUnit", "éäöü€",
+//            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
+//            "Foo\uD840" // supplemental char aka UTF-16
+            })
+    public void toLowerCase(final String s) {
+        final XMLString a = new XMLString(s);
+        assertEquals(s.toLowerCase(Locale.ROOT), a.toLowerCase(Locale.ROOT).toString());
+    }
+
+    /**
+     * @see XMLString#toUpperCase()
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "𘀀", // UTF-16
+            "", "A", "a",
+            "HtmlUnit", "éäöü€",
+            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
+            "Foo\uD840" // supplemental char aka UTF-16
+            })
+    public void toUpperCase(final String s) {
+        final XMLString a = new XMLString(s);
+        assertEquals(s.toUpperCase(Locale.ROOT), a.toUpperCase(Locale.ROOT).toString());
     }
 }
