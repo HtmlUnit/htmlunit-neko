@@ -2994,26 +2994,33 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          */
         protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty) throws IOException {
             final boolean skippedSpaces = skipSpaces();
+
             fBeginLineNumber = fCurrentEntity.getLineNumber();
             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
+
             int c = fCurrentEntity.read();
-            if (c == -1) {
-                if (fReportErrors_) {
-                    fErrorReporter.reportError("HTML1007", null);
+
+            // try to jump over that at once
+            if (c <= '>') {
+                if (c == -1) {
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1007", null);
+                    }
+                    return false;
                 }
-                return false;
-            }
-            else if (c == '>') {
-                return false;
-            }
-            else if (c == '<') {
-                fCurrentEntity.rewind();
-                if (fReportErrors_) {
-                    fErrorReporter.reportError("HTML1016", null);
+                if (c == '>') {
+                    return false;
                 }
-                return false;
+                if (c == '<') {
+                    fCurrentEntity.rewind();
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1016", null);
+                    }
+                    return false;
+                }
             }
+
             fCurrentEntity.rewind();
             String aname = scanName(false);
             if (aname == null) {
@@ -3111,20 +3118,28 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 do {
                     final boolean acceptSpace = !fNormalizeAttributes_ || (!isStart && !prevSpace);
                     c = fCurrentEntity.read();
-                    if (c == -1) {
-                        if (fReportErrors_) {
-                            fErrorReporter.reportError("HTML1007", null);
+                    // jump as far as possible
+                    if (c <= ' ') {
+                        if (c == -1) {
+                            if (fReportErrors_) {
+                                fErrorReporter.reportError("HTML1007", null);
+                            }
+                            throw new EOFException();
                         }
-                        throw new EOFException();
-                    }
-                    if (c == ' ' || c == '\t') {
-                        if (acceptSpace) {
-                            fStringBuffer.append(fNormalizeAttributes_ ? ' ' : (char) c);
+                        if (c == ' ' || c == '\t') {
+                            if (acceptSpace) {
+                                fStringBuffer.append(fNormalizeAttributes_ ? ' ' : (char) c);
+                            }
+                            prevSpace = true;
                         }
-                        prevSpace = true;
-                    }
-                    else if (c == '\n' || c == '\r') {
-                        if (c == '\r') {
+                        else if (c == '\n') {
+                            if (acceptSpace) {
+                                fStringBuffer.append(fNormalizeAttributes_ ? ' ' : '\n');
+                            }
+                            fCurrentEntity.incLine();
+                            prevSpace = true;
+                        }
+                        else if (c == '\r') {
                             final int c2 = fCurrentEntity.read();
                             if (c2 == '\n') {
                                 c = c2;
@@ -3132,12 +3147,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             else if (c2 != -1) {
                                 fCurrentEntity.rewind();
                             }
+                            if (acceptSpace) {
+                                fStringBuffer.append(fNormalizeAttributes_ ? ' ' : '\n');
+                            }
+                            fCurrentEntity.incLine();
+                            prevSpace = true;
                         }
-                        if (acceptSpace) {
-                            fStringBuffer.append(fNormalizeAttributes_ ? ' ' : '\n');
-                        }
-                        fCurrentEntity.incLine();
-                        prevSpace = true;
                     }
                     else if (c == '&') {
                         isStart = false;
