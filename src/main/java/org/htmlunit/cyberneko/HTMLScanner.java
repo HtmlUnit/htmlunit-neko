@@ -1761,7 +1761,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     return -1;
                 }
             }
-            final char c = buffer_[offset_++];
+            final char c = buffer_[offset_];
+            offset_++;
             characterOffset_++;
             columnNumber_++;
 
