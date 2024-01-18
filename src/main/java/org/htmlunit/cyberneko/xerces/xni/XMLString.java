@@ -15,7 +15,9 @@
 package org.htmlunit.cyberneko.xerces.xni;
 
 import java.util.Arrays;
+import java.util.Locale;
 
+import org.htmlunit.cyberneko.util.FastHashMap;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
@@ -187,7 +189,7 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final char c) {
-        final int oldLength = this.length_++;
+        final int oldLength = this.length_;
 
         // ensureCapacity is too large, so we keep things small here and
         // also allow to keep the grow part external
@@ -196,6 +198,7 @@ public class XMLString implements CharSequence {
         }
 
         this.data_[oldLength] = c;
+        this.length_++;
 
         return this;
     }
@@ -276,6 +279,29 @@ public class XMLString implements CharSequence {
         ensureCapacity(this.length_);
 
         System.arraycopy(src, offset, this.data_, start, length);
+
+        return this;
+    }
+
+    /**
+     * Inserts a character at the beginning
+     *
+     * @param c the char to insert at the beginning
+     * @return this instance
+     */
+    public XMLString prepend(final char c) {
+        final int oldLength = this.length_;
+
+        // ensureCapacity is too large, so we keep things small here and
+        // also allow to keep the grow part external
+        if (oldLength == this.data_.length) {
+            growByAtLeastOne();
+        }
+
+        // shift all to the right by one
+        System.arraycopy(this.data_, 0, this.data_, 1, oldLength);
+        this.data_[0] = c;
+        this.length_++;
 
         return this;
     }
@@ -585,6 +611,22 @@ public class XMLString implements CharSequence {
     }
 
     /**
+     * Returns a string representation of this buffer using a cache as
+     * source to avoid duplicates.
+     *
+     * @return a string of the content of this buffer
+     */
+    public String toString(final FastHashMap<CharSequence, String> cache) {
+        String s = cache.get(this);
+        if (s == null) {
+            s = this.toString();
+            // don't cache the XMLString, it is mutable!!!
+            cache.put(s, s);
+        }
+        return s;
+    }
+
+    /**
      * Returns the char a the given position. Will complain if
      * we try to read outside the range. We do a range check here
      * because we might not notice when we are within the buffer
@@ -685,7 +727,7 @@ public class XMLString implements CharSequence {
 
             // ok, in JDK 11 or up, we could use an
             // Arrays.mismatch, but we cannot do that
-            // due to JDK 8 compatibility
+            // due to JDK 8 compatibility @TODO RS
             for (int i = 0; i < this.length_; i++) {
                 if (ob.charAt(i) != this.data_[i]) {
                     return false;
@@ -728,20 +770,213 @@ public class XMLString implements CharSequence {
      * @throws IllegalArgumentException if the specified
      *          {@code codePoint} is not a valid Unicode code point.
      */
-    public XMLString appendCodePoint(final int value) {
+    public boolean appendCodePoint(final int value) {
         if (Character.isBmpCodePoint(value)) {
-            return this.append((char) value);
+            this.append((char) value);
         }
         else if (Character.isValidCodePoint(value)) {
             // as seen in the JDK, avoid a char array in between
             this.append(Character.highSurrogate(value), Character.lowSurrogate(value));
-            return this;
         }
         else {
             // when value is not valid as UTF-16
             this.append(REPLACEMENT_CHARACTER);
-            throw new IllegalArgumentException();
+            return false;
         }
+        return true;
+    }
+
+    /**
+     * This uppercases an XMLString in place and will likely not
+     * consume extra memory unless the character might grow. This
+     * conversion can be incorrect for certain characters from some
+     * locales. See {@link String#toUpperCase()}.
+     *
+     * <p>We cannot correctly deal with ß for instance.
+     *
+     * <p>Note: We change the current XMLString and don't get a copy back
+     * but this instance.
+     *
+     * @param the locale to use in case we have to bail out and convert
+     *        using String, this also means, that the result is not perfect
+     *        when comparing to {@link String#toLowerCase(Locale)}
+     * @return this updated instance
+     */
+    public XMLString toUpperCase(final Locale locale) {
+        // Ok, as soon as we something complicated, we bail out
+        // and take the expensive route
+        boolean gaveUp = false;
+        for (int i = 0 ; i < this.length_; i++) {
+            final char c = this.data_[i];
+
+            if (Character.isHighSurrogate(c)) {
+                // give up, we have UTF-16 here
+                gaveUp = true;
+                break;
+            }
+            else {
+                // we know it is a unicode value and not a code point, so
+                // char to int is safe
+                final int upperCasePoint = Character.toUpperCase((int) c);
+                this.data_[i] = (char) upperCasePoint;
+            }
+        }
+
+        // we converted inline and nicely
+        if (!gaveUp) {
+            return this;
+        }
+
+        // go expensive using String
+        final String s = this.toString().toUpperCase(locale);
+
+        // put the XMLString together again
+        final int newLength = s.length();
+        if (this.data_.length < newLength) {
+            this.data_ = new char[newLength];
+        }
+
+        // copy everything and fix the length
+        for (int i = 0; i < newLength; i++) {
+            this.data_[i] = s.charAt(i);
+        }
+        this.length_ = newLength;
+
+        return this;
+    }
+
+    /**
+     * This lowercases an XMLString in place and will likely not
+     * consume extra memory unless the character might grow. This
+     * conversion can be incorrect for certain characters from some
+     * locales. See {@link String#toUpperCase()}.
+     *
+     * <p>Note: We change the current XMLString and don't get a copy back
+     * but this instance.
+     *
+     * @param the locale to use in case we have to bail out and convert
+     *        using String, this also means, that the result is not perfect
+     *        when comparing to {@link String#toLowerCase(Locale)}
+     * @return this updated instance
+     */
+    public XMLString toLowerCase(final Locale locale) {
+        // Ok, as soon as we something complicated, we bail out
+        // and take the expensive route
+        boolean gaveUp = false;
+        for (int i = 0 ; i < this.length_; i++) {
+            final char c = this.data_[i];
+
+            if (Character.isHighSurrogate(c)) {
+                // give up, we have UTF-16 here
+                gaveUp = true;
+                break;
+            }
+            else {
+                // we know it is a unicode value and not a code point, so
+                // char to int is safe
+                final int lowerCasePoint = Character.toLowerCase((int) c);
+                this.data_[i] = (char) lowerCasePoint;
+            }
+        }
+
+        // we converted inline and nicely
+        if (!gaveUp) {
+            return this;
+        }
+
+        // go expensive using String
+        final String s = this.toString().toLowerCase(locale);
+
+        // put the XMLString together again
+        final int newLength = s.length();
+        if (this.data_.length < newLength) {
+            this.data_ = new char[newLength];
+        }
+
+        // copy everything and fix the length
+        for (int i = 0; i < newLength; i++) {
+            this.data_[i] = s.charAt(i);
+        }
+        this.length_ = newLength;
+
+        return this;
+    }
+
+    /**
+     * Compares a CharSequence with an XMLString in a null-safe manner.
+     * For more, see {@link #equalsIgnoreCase(CharSequence)}. The XMLString
+     * can be null, but the CharSequence must not be null. This mimic the
+     * typical use case "string".equalsIgnoreCase(null) which returns false
+     * without raising an exception.
+     *
+     * @param sequence the sequence to compare to, null is permitted
+     * @param s the XMLString to use for comparison
+     * @return true if the sequence matches case-insensive, false otherwise
+     */
+    public static boolean equalsIgnoreCase(final CharSequence sequence, XMLString s) {
+        if (s == null) {
+            return false;
+        }
+        else {
+            return s.equalsIgnoreCase(sequence);
+        }
+    }
+
+    /**
+     * Compares this with a CharSequence in a case-insensitive manner.
+     *
+     * <p>This code might have subtle edge-case defects for some rare locales
+     * and related characters. See {@link java.lang.String#toLowerCase(Locale)}.
+     * The locales tr, at, lt and the extra letters GREEK CAPITAL LETTER SIGMA
+     * and LATIN CAPITAL LETTER I WITH DOT ABOVE are our challengers. If the
+     * input would match with {@link #equals(Object)}, everything is fine, just
+     * in case we have to check for a casing difference, we might see a problem.
+     *
+     * <p>But this is for XML/HTML characters and we know what we compare, hence
+     * this should not be any issue for us.
+     *
+     * @param s the sequence to compare to, null is permitted
+     * @return true if the sequences match case-insensive, false otherwise
+     */
+    public boolean equalsIgnoreCase(final CharSequence s) {
+        if (s == null || s.length() != this.length_) {
+            return false;
+        }
+
+        // ok, in JDK 11 or up, we could use an
+        // Arrays.mismatch, but we cannot do that
+        // due to JDK 8 compatibility @TODO RS
+        for (int i = 0; i < this.length_; i++) {
+            final char c1 = this.data_[i];
+            final char c2 = s.charAt(i);
+
+            // if this compares nicely, we are good, if this does not
+            // compare we lowercase and compare, if this fails, we
+            // fall back to String and hence it becomes expensive
+            if (c1 == c2) {
+                continue;
+            }
+
+            // this behaves likes the JDK does, uppercase first, and later
+            // we try lowercase again for the Georgian alphabet
+            final char c1u = Character.toUpperCase(c1);
+            final char c2u = Character.toUpperCase(c2);
+            if (c1u == c2u) {
+                continue;
+            }
+
+            final char c1l = Character.toLowerCase(c1);
+            final char c2l = Character.toLowerCase(c2);
+            if (c1l == c2l) {
+                continue;
+            }
+
+            // does not match, stop here
+            return false;
+        }
+
+        // length and content match, be happy
+        return true;
     }
 
     // this stuff is here for performance reasons to avoid a copy
