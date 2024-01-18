@@ -1506,7 +1506,7 @@ public class HTMLTagBalancer
 
         ElementEntry(final QName element, final Augmentations augs) {
             name_ = new QName(element);
-            augs_ = augs;
+            augs_ = augs == null ? null : augs.clone();
         }
     }
 }

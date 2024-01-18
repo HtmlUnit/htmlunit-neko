@@ -28,6 +28,13 @@ package org.htmlunit.cyberneko.xerces.xni;
  *
  * @author Elena Litani, IBM
  */
-
 public interface Augmentations {
+    /**
+     * Clones this Augmentation in case one has to keep the reference.
+     * The standard interface says, storing the original reference is
+     * not legal.
+     *
+     * @return a full copy of this augmentations holder
+     */
+    public Augmentations clone();
 }
