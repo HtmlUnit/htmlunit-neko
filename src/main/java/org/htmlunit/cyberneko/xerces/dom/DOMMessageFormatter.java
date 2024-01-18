@@ -26,10 +26,8 @@ import java.util.ResourceBundle;
 public final class DOMMessageFormatter {
 
     public static final String DOM_DOMAIN = "http://www.w3.org/dom/DOMTR";
-    public static final String XML_DOMAIN = "http://www.w3.org/TR/1998/REC-xml-19980210";
 
     private static ResourceBundle DomResourceBundle_;
-    private static ResourceBundle XmlResourceBundle_;
 
     /**
      * Formats a message with the specified arguments.
@@ -96,9 +94,6 @@ public final class DOMMessageFormatter {
         if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
             return DomResourceBundle_;
         }
-        else if (domain == XML_DOMAIN || domain.equals(XML_DOMAIN)) {
-            return XmlResourceBundle_;
-        }
         return null;
     }
 
@@ -107,7 +102,6 @@ public final class DOMMessageFormatter {
      */
     public static void init() {
         DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
-        XmlResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.XMLMessages");
     }
 
     private DOMMessageFormatter() {
