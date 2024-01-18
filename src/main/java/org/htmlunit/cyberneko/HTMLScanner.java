@@ -1304,7 +1304,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         while (nextChar != -1) {
             final HTMLNamedEntitiesParser.State intermediateResult = HTMLNamedEntitiesParser.get().lookup(nextChar, result);
 
-            if (intermediateResult.endNode) {
+            if (intermediateResult.endNode_) {
                 result = intermediateResult;
                 break;
             }
@@ -1312,7 +1312,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 // nothing changed, more characters have not done anything
                 break;
             }
-            if (intermediateResult.isMatch) {
+            if (intermediateResult.isMatch_) {
                 lastMatchingResult = intermediateResult;
             }
             result = intermediateResult;
@@ -1326,22 +1326,22 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         // it might happen that we read &lta but need just &lt so
         // we have to go back to the last match
-        if (!result.isMatch && lastMatchingResult != null) {
+        if (!result.isMatch_ && lastMatchingResult != null) {
             result = lastMatchingResult;
         }
 
         // hopefully, we got something, otherwise we have to go
         // the error route
-        if (result.isMatch) {
+        if (result.isMatch_) {
             // in case we overran because the entity was broken or
             // not terminated by a ;, we have to reset the char
             // position because we read one more char than the entity has
-            fCurrentEntity.rewind(readCount - result.length);
+            fCurrentEntity.rewind(readCount - result.length_);
 
             // if we have a correct character that is terminate by ;
             // we can keep things simple
-            if (result.endsWithSemicolon) {
-                str.clear().append(result.resolvedValue);
+            if (result.endsWithSemicolon_) {
+                str.clear().append(result.resolvedValue_);
             }
             else {
                 if (fReportErrors_) {
@@ -1366,25 +1366,25 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 //      Flush code points consumed as a character reference. Switch to the ambiguous ampersand state.
                 // }
                 if (content) {
-                    str.clear().append(result.resolvedValue);
+                    str.clear().append(result.resolvedValue_);
                 }
                 else {
                     // look ahead
                     // 13.2.5.73
-                    final int matchLength = result.length + 1;
+                    final int matchLength = result.length_ + 1;
                     if (matchLength < str.length()) {
                         nextChar = str.charAt(matchLength);
                         if ('=' == nextChar || '0' <= nextChar && nextChar <= '9' || 'A' <= nextChar && nextChar <= 'Z'
                                 || 'a' <= nextChar && nextChar <= 'z') {
                             // we just shorten our temp str instead of copying stuff around
-                            str.shortenBy(str.length() - result.length - 1);
+                            str.shortenBy(str.length() - result.length_ - 1);
                         }
                         else {
-                            str.clear().append(result.resolvedValue);
+                            str.clear().append(result.resolvedValue_);
                         }
                     }
                     else {
-                        str.clear().append(result.resolvedValue);
+                        str.clear().append(result.resolvedValue_);
                     }
                 }
             }

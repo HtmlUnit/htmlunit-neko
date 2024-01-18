@@ -37,36 +37,36 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void happyPath() {
         final State r = HTMLNamedEntitiesParser.get().lookup("Beta;");
-        assertTrue(r.isMatch);
-        assertTrue(r.endNode);
-        assertTrue(r.endsWithSemicolon);
+        assertTrue(r.isMatch_);
+        assertTrue(r.endNode_);
+        assertTrue(r.endsWithSemicolon_);
 
-        assertEquals("\u0392", r.resolvedValue);
-        assertEquals("Beta;", r.entityOrFragment);
-        assertEquals(5, r.length);
+        assertEquals("\u0392", r.resolvedValue_);
+        assertEquals("Beta;", r.entityOrFragment_);
+        assertEquals(5, r.length_);
     }
 
     @Test
     public void happyPathOneCharDiff() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("Colon;");
-            assertTrue(r.isMatch);
-            assertTrue(r.endNode);
-            assertTrue(r.endsWithSemicolon);
+            assertTrue(r.isMatch_);
+            assertTrue(r.endNode_);
+            assertTrue(r.endsWithSemicolon_);
 
-            assertEquals("\u2237", r.resolvedValue);
-            assertEquals("Colon;", r.entityOrFragment);
-            assertEquals(6, r.length);
+            assertEquals("\u2237", r.resolvedValue_);
+            assertEquals("Colon;", r.entityOrFragment_);
+            assertEquals(6, r.length_);
         }
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("Colone;");
-            assertTrue(r.isMatch);
-            assertTrue(r.endNode);
-            assertTrue(r.endsWithSemicolon);
+            assertTrue(r.isMatch_);
+            assertTrue(r.endNode_);
+            assertTrue(r.endsWithSemicolon_);
 
-            assertEquals("\u2A74", r.resolvedValue);
-            assertEquals("Colone;", r.entityOrFragment);
-            assertEquals(7, r.length);
+            assertEquals("\u2A74", r.resolvedValue_);
+            assertEquals("Colone;", r.entityOrFragment_);
+            assertEquals(7, r.length_);
         }
     }
 
@@ -74,23 +74,23 @@ public class HTMLNamedEntitiesParserTest {
     public void happyPathTwoVersionEntity() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("gt");
-            assertEquals("gt", r.entityOrFragment);
-            assertTrue(r.isMatch);
-            assertFalse(r.endNode);
-            assertFalse(r.endsWithSemicolon);
+            assertEquals("gt", r.entityOrFragment_);
+            assertTrue(r.isMatch_);
+            assertFalse(r.endNode_);
+            assertFalse(r.endsWithSemicolon_);
 
-            assertEquals(">", r.resolvedValue);
-            assertEquals(2, r.length);
+            assertEquals(">", r.resolvedValue_);
+            assertEquals(2, r.length_);
         }
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("gt;");
-            assertEquals("gt;", r.entityOrFragment);
-            assertTrue(r.isMatch);
-            assertTrue(r.endNode);
-            assertTrue(r.endsWithSemicolon);
+            assertEquals("gt;", r.entityOrFragment_);
+            assertTrue(r.isMatch_);
+            assertTrue(r.endNode_);
+            assertTrue(r.endsWithSemicolon_);
 
-            assertEquals(">", r.resolvedValue);
-            assertEquals(3, r.length);
+            assertEquals(">", r.resolvedValue_);
+            assertEquals(3, r.length_);
         }
     }
 
@@ -98,23 +98,23 @@ public class HTMLNamedEntitiesParserTest {
     public void happyPathTwoVersionEntity2() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("ccedil");
-            assertEquals("ccedil", r.entityOrFragment);
-            assertTrue(r.isMatch);
-            assertFalse(r.endNode);
-            assertFalse(r.endsWithSemicolon);
+            assertEquals("ccedil", r.entityOrFragment_);
+            assertTrue(r.isMatch_);
+            assertFalse(r.endNode_);
+            assertFalse(r.endsWithSemicolon_);
 
-            assertEquals("\u00E7", r.resolvedValue);
-            assertEquals(6, r.length);
+            assertEquals("\u00E7", r.resolvedValue_);
+            assertEquals(6, r.length_);
         }
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("ccedil;");
-            assertEquals("ccedil;", r.entityOrFragment);
-            assertTrue(r.isMatch);
-            assertTrue(r.endNode);
-            assertTrue(r.endsWithSemicolon);
+            assertEquals("ccedil;", r.entityOrFragment_);
+            assertTrue(r.isMatch_);
+            assertTrue(r.endNode_);
+            assertTrue(r.endsWithSemicolon_);
 
-            assertEquals("\u00E7", r.resolvedValue);
-            assertEquals(7, r.length);
+            assertEquals("\u00E7", r.resolvedValue_);
+            assertEquals(7, r.length_);
         }
     }
 
@@ -122,13 +122,13 @@ public class HTMLNamedEntitiesParserTest {
     public void fullyUnknown() {
         {
             final State r = HTMLNamedEntitiesParser.get().lookup("abc;");
-            assertFalse(r.isMatch);
-            assertFalse(r.endNode);
-            assertFalse(r.endsWithSemicolon);
+            assertFalse(r.isMatch_);
+            assertFalse(r.endNode_);
+            assertFalse(r.endsWithSemicolon_);
 
-            assertEquals(null, r.resolvedValue);
-            assertEquals("ab", r.entityOrFragment);
-            assertEquals(2, r.length);
+            assertEquals(null, r.resolvedValue_);
+            assertEquals("ab", r.entityOrFragment_);
+            assertEquals(2, r.length_);
         }
     }
 
@@ -138,13 +138,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void notit() {
         final State r = HTMLNamedEntitiesParser.get().lookup("notit;");
-        assertTrue(r.isMatch);
-        assertFalse(r.endNode);
-        assertFalse(r.endsWithSemicolon);
+        assertTrue(r.isMatch_);
+        assertFalse(r.endNode_);
+        assertFalse(r.endsWithSemicolon_);
 
-        assertEquals("\u00AC", r.resolvedValue);
-        assertEquals("not", r.entityOrFragment);
-        assertEquals(3, r.length);
+        assertEquals("\u00AC", r.resolvedValue_);
+        assertEquals("not", r.entityOrFragment_);
+        assertEquals(3, r.length_);
     }
 
     /**
@@ -153,13 +153,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void notSemicolon() {
         final State r = HTMLNamedEntitiesParser.get().lookup("not;");
-        assertTrue(r.isMatch);
-        assertTrue(r.endNode);
-        assertTrue(r.endsWithSemicolon);
+        assertTrue(r.isMatch_);
+        assertTrue(r.endNode_);
+        assertTrue(r.endsWithSemicolon_);
 
-        assertEquals("\u00AC", r.resolvedValue);
-        assertEquals("not;", r.entityOrFragment);
-        assertEquals(4, r.length);
+        assertEquals("\u00AC", r.resolvedValue_);
+        assertEquals("not;", r.entityOrFragment_);
+        assertEquals(4, r.length_);
     }
 
     /**
@@ -168,13 +168,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void notHash() {
         final State r = HTMLNamedEntitiesParser.get().lookup("not#");
-        assertTrue(r.isMatch);
-        assertFalse(r.endNode);
-        assertFalse(r.endsWithSemicolon);
+        assertTrue(r.isMatch_);
+        assertFalse(r.endNode_);
+        assertFalse(r.endsWithSemicolon_);
 
-        assertEquals("\u00AC", r.resolvedValue);
-        assertEquals("not", r.entityOrFragment);
-        assertEquals(3, r.length);
+        assertEquals("\u00AC", r.resolvedValue_);
+        assertEquals("not", r.entityOrFragment_);
+        assertEquals(3, r.length_);
     }
 
     /**
@@ -184,13 +184,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void smallerThanA() {
         final State r = HTMLNamedEntitiesParser.get().lookup("9ot#");
-        assertFalse(r.isMatch);
-        assertFalse(r.endNode);
-        assertFalse(r.endsWithSemicolon);
+        assertFalse(r.isMatch_);
+        assertFalse(r.endNode_);
+        assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue);
-        assertEquals("", r.entityOrFragment);
-        assertEquals(0, r.length);
+        assertEquals(null, r.resolvedValue_);
+        assertEquals("", r.entityOrFragment_);
+        assertEquals(0, r.length_);
     }
 
     /**
@@ -200,13 +200,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void largeThanLowercaseZ() {
         final State r = HTMLNamedEntitiesParser.get().lookup("{any");
-        assertFalse(r.isMatch);
-        assertFalse(r.endNode);
-        assertFalse(r.endsWithSemicolon);
+        assertFalse(r.isMatch_);
+        assertFalse(r.endNode_);
+        assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue);
-        assertEquals("", r.entityOrFragment);
-        assertEquals(0, r.length);
+        assertEquals(null, r.resolvedValue_);
+        assertEquals("", r.entityOrFragment_);
+        assertEquals(0, r.length_);
     }
 
     /**
@@ -216,13 +216,13 @@ public class HTMLNamedEntitiesParserTest {
     @Test
     public void oneCharInAHoleWithoutNextLevel() {
         final State r = HTMLNamedEntitiesParser.get().lookup("[any");
-        assertFalse(r.isMatch);
-        assertFalse(r.endNode);
-        assertFalse(r.endsWithSemicolon);
+        assertFalse(r.isMatch_);
+        assertFalse(r.endNode_);
+        assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue);
-        assertEquals("", r.entityOrFragment);
-        assertEquals(0, r.length);
+        assertEquals(null, r.resolvedValue_);
+        assertEquals("", r.entityOrFragment_);
+        assertEquals(0, r.length_);
     }
 
     /**
@@ -248,22 +248,22 @@ public class HTMLNamedEntitiesParserTest {
             }
 
             final State r = HTMLNamedEntitiesParser.get().lookup(key);
-            assertTrue(r.isMatch);
+            assertTrue(r.isMatch_);
 
             if (key.endsWith(";")) {
-                assertTrue(r.endNode);
-                assertTrue(r.endsWithSemicolon);
+                assertTrue(r.endNode_);
+                assertTrue(r.endsWithSemicolon_);
             }
             else {
                 // no ; means it is never and end node, because this
                 // is for legacy entities
-                assertFalse(r.endNode);
-                assertFalse(r.endsWithSemicolon);
+                assertFalse(r.endNode_);
+                assertFalse(r.endsWithSemicolon_);
             }
 
-            assertEquals(value, r.resolvedValue);
-            assertEquals(key, r.entityOrFragment);
-            assertEquals(key.length(), r.length);
+            assertEquals(value, r.resolvedValue_);
+            assertEquals(key, r.entityOrFragment_);
+            assertEquals(key.length(), r.length_);
         });
     }
 }

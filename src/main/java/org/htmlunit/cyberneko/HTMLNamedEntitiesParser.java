@@ -64,7 +64,7 @@ public final class HTMLNamedEntitiesParser {
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
      * it employs a different lookup on the characters (calculation rather comparison).
      */
-    private RootState rootLevel = new RootState();
+    private RootState rootLevel_ = new RootState();
 
     /**
      * Constructor. It builds the parser state from an entity defining properties file. This file has been taken
@@ -86,11 +86,11 @@ public final class HTMLNamedEntitiesParser {
                     return;
                 }
 
-                this.rootLevel.add(key, value);
+                rootLevel_.add(key, value);
             });
 
             // make the root more efficient, rest stays simple
-            this.rootLevel.optimize();
+            rootLevel_.optimize();
         }
         catch (final IOException e) {
             // we are doomed and hence can break the entire setup due to some incorrect classpath
@@ -117,13 +117,13 @@ public final class HTMLNamedEntitiesParser {
      * @return a state that resembles the result, will never be null
      */
     public State lookup(final String entityName) {
-        State lastResult = this.rootLevel;
+        State lastResult = rootLevel_;
         State lastMatchingResult = null;
 
         for (int i = 0; i < entityName.length(); i++) {
             final State result = lastResult.lookup(entityName.charAt(i));
 
-            if (result.endNode) {
+            if (result.endNode_) {
                 // we found the last matching possible entity in the pseudo tree
                 // we can finish here, there is nothing beyond that point
                 return result;
@@ -134,7 +134,7 @@ public final class HTMLNamedEntitiesParser {
                 // to that state
                 return lastMatchingResult == null ? lastResult : lastMatchingResult;
             }
-            if (result.isMatch) {
+            if (result.isMatch_) {
                 // in case this is a match but not an endnode, we keep that state
                 // for later, in case any further chars take us into the wrong direction
                 // standard dictates to stop when we don't have a match and return
@@ -158,7 +158,7 @@ public final class HTMLNamedEntitiesParser {
      * @return the current state, which might be a valid final result, see {@link State}
      */
     public State lookup(final int character, final State state) {
-        return state != null ? state.lookup(character) : rootLevel.lookup(character);
+        return state != null ? state.lookup(character) : rootLevel_.lookup(character);
     }
 
     /**
@@ -167,48 +167,48 @@ public final class HTMLNamedEntitiesParser {
      */
     public static class State {
         // what is the current depth aka amount of characters seen
-        private final int depth;
+        private final int depth_;
 
         // The characters at this level
         // The state at the same position holds the matching result
-        int[] characters = new int[0];
+        int[] characters_ = new int[0];
 
         // The matching states at this level
         // we intentionally have not build a unified data structure
         // between characters and state, keep it simple!
-        State[] nextState = new State[0];
+        State[] nextState_ = new State[0];
 
         // our current fragment or full entity, so for the entity "copy;"
         // you will have c, co, cop, copy, and copy; on each state level
-        public final String entityOrFragment;
+        public final String entityOrFragment_;
 
         // what shall we resolve to? if we don't resolve, this is null!!!
-        public String resolvedValue;
+        public String resolvedValue_;
 
         // the length of the entity fragment
-        public final int length;
+        public final int length_;
 
         // tell us, if this is ending with a semicolon
-        public final boolean endsWithSemicolon;
+        public final boolean endsWithSemicolon_;
 
         // does this entity fragment match a resolved value?
-        public boolean isMatch;
+        public boolean isMatch_;
 
         // is this the end of the look up level structure, this the end
         // and hence it shall be a match
-        public boolean endNode;
+        public boolean endNode_;
 
         /**
          * Create the empty state
          */
         protected State() {
-            this.entityOrFragment = "";
-            this.length = 0;
-            this.depth = 0;
-            this.endsWithSemicolon = false;
-            this.isMatch = false;
-            this.resolvedValue = null;
-            this.endNode = false;
+            entityOrFragment_ = "";
+            length_ = 0;
+            depth_ = 0;
+            endsWithSemicolon_ = false;
+            isMatch_ = false;
+            resolvedValue_ = null;
+            endNode_ = false;
         }
 
         /**
@@ -217,25 +217,25 @@ public final class HTMLNamedEntitiesParser {
         protected State(final int depth, final String entityFragment, final String resolvedValue) {
             if (depth == entityFragment.length()) {
                 // we are at the end
-                this.entityOrFragment = entityFragment;
-                this.length = entityFragment.length();
-                this.depth = entityFragment.length();
-                this.endsWithSemicolon = entityFragment.endsWith(";");
-                this.isMatch = true;
-                this.resolvedValue = resolvedValue;
-                this.endNode = entityFragment.endsWith(";");
+                entityOrFragment_ = entityFragment;
+                length_ = entityFragment.length();
+                depth_ = entityFragment.length();
+                endsWithSemicolon_ = entityFragment.endsWith(";");
+                isMatch_ = true;
+                resolvedValue_ = resolvedValue;
+                endNode_ = entityFragment.endsWith(";");
             }
             else {
                 // intermediate state
                 final String currentFragment = entityFragment.substring(0, depth);
 
-                this.entityOrFragment = currentFragment;
-                this.length = currentFragment.length();
-                this.depth = depth;
-                this.endsWithSemicolon = false;
-                this.isMatch = false;
-                this.resolvedValue = null;
-                this.endNode = false;
+                entityOrFragment_ = currentFragment;
+                length_ = currentFragment.length();
+                depth_ = depth;
+                endsWithSemicolon_ = false;
+                isMatch_ = false;
+                resolvedValue_ = null;
+                endNode_ = false;
             }
         }
 
@@ -255,17 +255,17 @@ public final class HTMLNamedEntitiesParser {
             }
 
             // our entity is legacy (no ;) and so we have to see if we know the ; version already
-            if (entity.length() == this.depth) {
+            if (entity.length() == depth_) {
                 // safety check, just for the initial programming and later updates then
                 // for daily life
-                if (!entity.equals(this.entityOrFragment)) {
+                if (!entity.equals(entityOrFragment_)) {
                     throw new RuntimeException("Illegal state reached");
                 }
 
                 // declare this an intermediate match
-                this.endNode = false;
-                this.isMatch = true;
-                this.resolvedValue = resolvedValue;
+                endNode_ = false;
+                isMatch_ = true;
+                resolvedValue_ = resolvedValue;
             }
         }
 
@@ -277,34 +277,34 @@ public final class HTMLNamedEntitiesParser {
          */
         protected void add(final String entity, final String resolvedValue) {
             // ok, any characters left?
-            if (this.depth >= entity.length()) {
+            if (depth_ >= entity.length()) {
                 // no reason to go any further
                 return;
             }
 
             // get me my character
-            final char c = entity.charAt(this.depth);
+            final char c = entity.charAt(depth_);
 
             // do I already know it?
-            final int pos = Arrays.binarySearch(characters, c);
+            final int pos = Arrays.binarySearch(characters_, c);
 
             if (pos < 0) {
                 // we don't know it, make the size bigger and get us the new pos
-                this.nextState = Arrays.copyOf(this.nextState, this.nextState.length + 1);
-                this.characters = Arrays.copyOf(this.characters, this.characters.length + 1);
+                nextState_ = Arrays.copyOf(nextState_, nextState_.length + 1);
+                characters_ = Arrays.copyOf(characters_, characters_.length + 1);
                 final int newPos = -(pos + 1);
 
                 // move stuff first
-                if (newPos != this.characters.length - 1) {
-                    System.arraycopy(this.characters, newPos, this.characters, newPos + 1, this.characters.length - newPos - 1);
-                    System.arraycopy(this.nextState, newPos, this.nextState, newPos + 1, this.nextState.length - newPos - 1);
+                if (newPos != characters_.length - 1) {
+                    System.arraycopy(characters_, newPos, characters_, newPos + 1, characters_.length - newPos - 1);
+                    System.arraycopy(nextState_, newPos, nextState_, newPos + 1, nextState_.length - newPos - 1);
                 }
                 else {
                     // we insert at the end, so no move needed
                 }
-                final State newLevel = new State(this.depth + 1, entity, resolvedValue);
-                this.characters[newPos] = c;
-                this.nextState[newPos] = newLevel;
+                final State newLevel = new State(depth_ + 1, entity, resolvedValue);
+                characters_[newPos] = c;
+                nextState_[newPos] = newLevel;
 
                 // update next level
                 newLevel.add(entity, resolvedValue);
@@ -313,8 +313,8 @@ public final class HTMLNamedEntitiesParser {
                 // ok, if this one is without a ; and we have the full entity, we
                 // have a mismatch between one with and one without ;
                 // change the level
-                this.nextState[pos].updateNonSemicolonEntity(entity, resolvedValue);
-                this.nextState[pos].add(entity, resolvedValue);
+                nextState_[pos].updateNonSemicolonEntity(entity, resolvedValue);
+                nextState_[pos].add(entity, resolvedValue);
             }
         }
 
@@ -327,10 +327,10 @@ public final class HTMLNamedEntitiesParser {
          */
         protected State lookup(final int character) {
             // because we have sorted arrays, we can be more efficient here
-            final int length = this.characters.length;
+            final int length = characters_.length;
 
             for (int i = 0; i < length; i++) {
-                final int c = this.characters[i];
+                final int c = characters_[i];
 
                 // are we still under, simply continue
                 if (c < character) {
@@ -339,7 +339,7 @@ public final class HTMLNamedEntitiesParser {
 
                 if (c == character) {
                     // we are at position
-                    return this.nextState[i];
+                    return nextState_[i];
                 }
                 // ok, too far and have not found it, abort with current state
                 return this;
@@ -356,18 +356,18 @@ public final class HTMLNamedEntitiesParser {
      */
     protected static class RootState extends State {
         // the smallest character determines this
-        private int offset = 0;
+        private int offset_ = 0;
 
         @Override
         public State lookup(final int character) {
             // fastpath, just calculate the pos
-            final int pos = character - offset;
+            final int pos = character - offset_;
 
             // in case we don't have a matching char, return
             // this state, if we end up in a hole with null,
             // we do the same
-            if (pos >= 0 && pos < this.nextState.length) {
-                final State s = this.nextState[pos];
+            if (pos >= 0 && pos < nextState_.length) {
+                final State s = nextState_[pos];
                 return s != null ? s : this;
             }
             return this;
@@ -380,35 +380,33 @@ public final class HTMLNamedEntitiesParser {
          */
         protected void optimize() {
             // are we final already?
-            if (offset > 0) {
+            if (offset_ > 0) {
                 // that is just for later to tell us that we don't understand our
                 // own code anymore and called that incorrectly
                 throw new RuntimeException("Optimiize was called twice");
             }
 
             // ok, smallest char is the start
-            this.offset = this.characters[0];
+            offset_ = characters_[0];
 
             // get us new a level array covering the smallest char in [0] and the largest in the last pos,
             // we might have holes, but not too many, hence this is faster than iterating or a binary search
-            final State[] newNextLevel = new State[this.characters[this.characters.length - 1] - offset + 1];
+            final State[] newNextLevel = new State[characters_[characters_.length - 1] - offset_ + 1];
 
             // arrange entries according to charactercode
-            for (int i = 0; i < this.characters.length; i++) {
-                final int c = this.characters[i];
-                final State level = this.nextState[i];
+            for (int i = 0; i < characters_.length; i++) {
+                final int c = characters_[i];
+                final State level = nextState_[i];
 
-                newNextLevel[c - offset] = level;
+                newNextLevel[c - offset_] = level;
             }
 
             // take it live
-            this.nextState = newNextLevel;
+            nextState_ = newNextLevel;
 
             // free memory, because we not longer need that, doesn't save a ton
             // but it might also help to discover programming mistakes
-            this.characters = null;
+            characters_ = null;
         }
-
     }
-
 }
