@@ -15,6 +15,7 @@
  */
 package org.htmlunit.cyberneko;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -802,7 +803,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             fIANAEncoding = encodings[0];
             fJavaEncoding = encodings[1];
             encoding = fIANAEncoding;
-            reader = new InputStreamReader(fByteStream, fJavaEncoding);
+            reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
         }
         fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
 
