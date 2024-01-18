@@ -37,7 +37,7 @@ class LostText {
 
         Entry(final XMLString text, final Augmentations augs) {
             text_ = text.clone();
-            augs_ = augs;
+            augs_ = augs == null ? null : augs.clone();
         }
     }
 

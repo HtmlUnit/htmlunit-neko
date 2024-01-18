@@ -463,6 +463,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     private final HTMLConfiguration htmlConfiguration_;
 
     /**
+     * Our location item, to be reused because {@link Augmentations}
+     * says so, so let's save on memory
+     */
+    private final LocationItem fLocationItem = new LocationItem();
+
+    /**
      * Creates a new HTMLScanner with the given configuration
      *
      * @param htmlConfiguration the configuration to use
@@ -1579,9 +1585,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     // Returns an augmentations object with a location item added.
     protected final Augmentations locationAugs() {
+        // we don't have to create a new LocationItem all the time, because the interface says:
+        // Methods that receive Augmentations are required to copy the information
+        // if it is to be saved for use beyond the scope of the method.
         if (fAugmentations_) {
-            return new LocationItem(fBeginLineNumber, fBeginColumnNumber, fBeginCharacterOffset, fEndLineNumber,
+            fLocationItem.setValues(fBeginLineNumber, fBeginColumnNumber, fBeginCharacterOffset, fEndLineNumber,
                     fEndColumnNumber, fEndCharacterOffset);
+            return fLocationItem;
         }
         return null;
     }
@@ -3485,30 +3495,44 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     private static final class LocationItem implements HTMLEventInfo {
 
         /** Beginning line number. */
-        private final int beginLineNumber_;
+        private int beginLineNumber_;
 
         /** Beginning column number. */
-        private final int beginColumnNumber_;
+        private int beginColumnNumber_;
 
         /** Beginning character offset. */
-        private final int beginCharacterOffset_;
+        private int beginCharacterOffset_;
 
         /** Ending line number. */
-        private final int endLineNumber_;
+        private int endLineNumber_;
 
         /** Ending column number. */
-        private final int endColumnNumber_;
+        private int endColumnNumber_;
 
         /** Ending character offset. */
-        private final int endCharacterOffset_;
+        private int endCharacterOffset_;
 
-        LocationItem(final int beginLine, final int beginColumn, final int beginOffset, final int endLine, final int endColumn, final int endOffset) {
+        public void setValues(final int beginLine, final int beginColumn, final int beginOffset,
+                final int endLine, final int endColumn, final int endOffset) {
             beginLineNumber_ = beginLine;
             beginColumnNumber_ = beginColumn;
             beginCharacterOffset_ = beginOffset;
             endLineNumber_ = endLine;
             endColumnNumber_ = endColumn;
             endCharacterOffset_ = endOffset;
+        }
+
+        /**
+         * We need a cloning way to keep reference. See the main interface.
+         *
+         * @returns a copy of this state
+         */
+        @Override
+        public Augmentations clone() {
+            final LocationItem clone = new LocationItem();
+            clone.setValues(beginLineNumber_, beginColumnNumber_, beginCharacterOffset_,
+                    endLineNumber_, endColumnNumber_, endCharacterOffset_);
+            return clone;
         }
 
         /**

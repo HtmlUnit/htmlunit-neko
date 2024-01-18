@@ -128,6 +128,16 @@ public interface HTMLEventInfo extends Augmentations {
         }
 
         /**
+         * Save to return this instance because it does not have state
+         *
+         * @return this instance
+         */
+        @Override
+        public Augmentations clone() {
+            return this;
+        }
+
+        /**
          * @return a string representation of this object.
          */
         @Override
