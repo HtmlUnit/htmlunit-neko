@@ -2837,9 +2837,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             final int beginLineNumber = fBeginLineNumber;
             final int beginColumnNumber = fBeginColumnNumber;
             final int beginCharacterOffset = fBeginCharacterOffset;
-            while (scanAttribute(attributes_, empty)) {
+
+            while (scanAttribute(attributes_, empty, '/')) {
                 // do nothing
             }
+
             fBeginLineNumber = beginLineNumber;
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
