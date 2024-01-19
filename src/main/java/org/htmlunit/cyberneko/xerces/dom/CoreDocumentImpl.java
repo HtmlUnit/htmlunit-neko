@@ -149,7 +149,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     private boolean xml11Version_ = false; // by default 1.0
 
     static {
-
         kidOK = new int[13];
 
         kidOK[DOCUMENT_NODE] = 1 << ELEMENT_NODE | 1 << PROCESSING_INSTRUCTION_NODE | 1 << COMMENT_NODE
@@ -162,7 +161,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         kidOK[ATTRIBUTE_NODE] = 1 << TEXT_NODE | 1 << ENTITY_REFERENCE_NODE;
 
         kidOK[DOCUMENT_TYPE_NODE] = kidOK[PROCESSING_INSTRUCTION_NODE] = kidOK[COMMENT_NODE] = kidOK[TEXT_NODE] = kidOK[CDATA_SECTION_NODE] = kidOK[NOTATION_NODE] = 0;
-
     }
 
     /**
@@ -252,7 +250,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     // internal method to share code with subclass
     protected void cloneNode(final CoreDocumentImpl newdoc, final boolean deep) {
-
         // clone the children by importing them
         if (needsSyncChildren()) {
             synchronizeChildren();
@@ -277,7 +274,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         // experimental
         newdoc.allowGrammarAccess = allowGrammarAccess;
         newdoc.errorChecking = errorChecking;
-
     }
 
     /**
@@ -294,7 +290,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Node insertBefore(final Node newChild, final Node refChild) throws DOMException {
-
         // Only one such child permitted
         final int type = newChild.getNodeType();
         if (errorChecking) {
@@ -333,7 +328,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Node removeChild(final Node oldChild) throws DOMException {
-
         super.removeChild(oldChild);
 
         // If remove succeeded, un-cache the kid appropriately
@@ -357,7 +351,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Node replaceChild(final Node newChild, final Node oldChild) throws DOMException {
-
         // Adopt orphan doctypes
         if (newChild.getOwnerDocument() == null && newChild instanceof DocumentTypeImpl) {
             ((DocumentTypeImpl) newChild).ownerDocument = this;
@@ -410,7 +403,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Attr createAttribute(final String name) throws DOMException {
-
         if (errorChecking && !isXMLName(name, xml11Version_)) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
@@ -464,13 +456,13 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Element createElement(final String tagName) throws DOMException {
-
-        if (errorChecking && !isXMLName(tagName, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
-            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
-        }
+        // don't check the name here - this is done by the HTMLScanner and
+        // not all valid html tag names are valid xml names
+        //        if (errorChecking && !isXMLName(tagName, xml11Version_)) {
+        //            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+        //            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
+        //        }
         return new ElementImpl(this, tagName);
-
     }
 
     /**
@@ -484,7 +476,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public EntityReference createEntityReference(final String name) throws DOMException {
-
         if (errorChecking && !isXMLName(name, xml11Version_)) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
@@ -507,7 +498,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public ProcessingInstruction createProcessingInstruction(final String target, final String data) throws DOMException {
-
         if (errorChecking && !isXMLName(target, xml11Version_)) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
@@ -774,7 +764,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Node renameNode(final Node n, final String namespaceURI, final String name) throws DOMException {
-
         if (errorChecking && n.getOwnerDocument() != this && n != this) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
             throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
@@ -1428,7 +1417,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
     }
 
-    // identifier maintenence
     /**
      * Introduced in DOM Level 2 Returns the Element whose ID is given by elementId.
      * If no such element exists, returns null. Behavior is not defined if more than
@@ -1494,7 +1482,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @see #removeIdentifier(String)
      */
     public Element getIdentifier(final String idName) {
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -1525,7 +1512,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @see #getIdentifier(String)
      */
     public void removeIdentifier(final String idName) {
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -1535,7 +1521,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         identifiers_.remove(idName);
-
     }
 
     /**
@@ -1723,8 +1708,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     protected int changes() {
         return changes;
     }
-
-    // NodeListCache pool
 
     /**
      * Returns a NodeListCache for the given node.
