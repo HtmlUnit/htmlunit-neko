@@ -266,7 +266,8 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(final int index, final T element) {
-        throw new UnsupportedOperationException("unimplemented");
+        this.data[index] = element;
+        return element;
     }
 
     /**

@@ -390,4 +390,46 @@ public class SimpleArrayListTest {
             assertEquals("c", l.get(2));
         }
     }
+
+    @Test
+    public void set() {
+        // set first
+        {
+            final SimpleArrayList<String> l = new SimpleArrayList<>(10);
+            l.add("a");
+            l.add("b");
+            l.add("c");
+            assertEquals(3, l.size());
+            l.set(0, "x");
+            assertEquals(3, l.size());
+            assertEquals("x", l.get(0));
+            assertEquals("b", l.get(1));
+            assertEquals("c", l.get(2));
+        }
+        // set  middle
+        {
+            final SimpleArrayList<String> l = new SimpleArrayList<>(10);
+            l.add("a");
+            l.add("b");
+            l.add("c");
+            assertEquals(3, l.size());
+            l.set(1, "x");
+            assertEquals(3, l.size());
+            assertEquals("a", l.get(0));
+            assertEquals("x", l.get(1));
+            assertEquals("c", l.get(2));
+        }
+        // set end
+        {
+            final SimpleArrayList<String> l = new SimpleArrayList<>(10);
+            l.add("a");
+            l.add("b");
+            l.add("c");
+            assertEquals(3, l.size());
+            l.set(2, "x");
+            assertEquals("a", l.get(0));
+            assertEquals("b", l.get(1));
+            assertEquals("x", l.get(2));
+        }
+    }
 }
