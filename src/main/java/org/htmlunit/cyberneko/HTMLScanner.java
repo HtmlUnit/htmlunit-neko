@@ -3514,8 +3514,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 fEndColumnNumber = fCurrentEntity.getColumnNumber();
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
                 fDocumentHandler.characters(buffer, locationAugs());
-                fDocumentHandler.endDocument(locationAugs());
             }
+            fDocumentHandler.endDocument(locationAugs());
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
             }
