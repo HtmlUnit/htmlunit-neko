@@ -55,7 +55,6 @@ public abstract class XMLParser {
 
         // add default recognized properties
         parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
-
     }
 
     /**
@@ -67,10 +66,8 @@ public abstract class XMLParser {
      * @exception java.io.IOException on error
      */
     public void parse(final XMLInputSource inputSource) throws XNIException, IOException {
-
         reset();
         parserConfiguration_.parse(inputSource);
-
     }
 
     /**

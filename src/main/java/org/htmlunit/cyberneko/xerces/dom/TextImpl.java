@@ -59,12 +59,10 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     // NON-DOM: Set whether this Text is ignorable whitespace.
     public void setIgnorableWhitespace(final boolean ignore) {
-
         if (needsSyncData()) {
             synchronizeData();
         }
         isIgnorableWhitespace(ignore);
-
     }
 
     /**
@@ -94,7 +92,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public String getWholeText() {
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -117,7 +114,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
         getWholeTextForward(this.getNextSibling(), builder, this.getParentNode());
 
         return temp + builder;
-
     }
 
     /**
@@ -502,12 +498,10 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     // NON-DOM: Returns whether this Text is ignorable whitespace.
     public boolean isIgnorableWhitespace() {
-
         if (needsSyncData()) {
             synchronizeData();
         }
         return internalIsIgnorableWhitespace();
-
     }
 
     /**
@@ -528,7 +522,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public Text splitText(final int offset) throws DOMException {
-
         if (needsSyncData()) {
             synchronizeData();
         }
@@ -548,7 +541,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
         }
 
         return newText;
-
     }
 
     // NON-DOM (used by DOMParser): Reset data for the node.
