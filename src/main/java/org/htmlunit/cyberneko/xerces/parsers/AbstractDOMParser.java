@@ -546,7 +546,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      */
     @Override
     public void characters(final XMLString text, final Augmentations augs) throws XNIException {
-
         if (DEBUG_EVENTS) {
             System.out.println("==>characters(): " + text.toString());
         }
@@ -582,7 +581,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     fFirstChunk = false;
                 }
                 if (text.length() > 0) {
-                    text.append(fStringBuffer);
+                    fStringBuffer.append(text);
                 }
             }
             else {
@@ -1055,7 +1054,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * @see #setErrorHandler
      */
     public ErrorHandler getErrorHandler() {
-
         ErrorHandler errorHandler = null;
         try {
             final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
@@ -1067,7 +1065,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // do nothing
         }
         return errorHandler;
-
     }
 
     /**
@@ -1083,7 +1080,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      *                                      the requested state is not supported.
      */
     public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
-
         try {
             parserConfiguration_.setFeature(featureId, state);
         }
@@ -1096,7 +1092,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             throw new SAXNotSupportedException(
                     SAXMessageFormatter.formatMessage("feature-not-supported", new Object[] {identifier}));
         }
-
     }
 
     /**
