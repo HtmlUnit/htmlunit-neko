@@ -2,10 +2,7 @@
 (head
 )head
 (BODY
-(p
-)p
 (plaintext
-"plain</plaintext>
 )plaintext
 )BODY
 )HTML

@@ -35,12 +35,33 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.htmlunit.cyberneko.parsers.DOMParser;
+import org.htmlunit.cyberneko.xerces.dom.CDATASectionImpl;
+import org.htmlunit.cyberneko.xerces.dom.CommentImpl;
+import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
+import org.htmlunit.cyberneko.xerces.dom.DocumentTypeImpl;
+import org.htmlunit.cyberneko.xerces.dom.ElementNSImpl;
+import org.htmlunit.cyberneko.xerces.dom.NodeImpl;
+import org.htmlunit.cyberneko.xerces.dom.ProcessingInstructionImpl;
+import org.htmlunit.cyberneko.xerces.dom.TextImpl;
+import org.htmlunit.cyberneko.xerces.util.DefaultErrorHandler;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.opentest4j.AssertionFailedError;
+import org.w3c.dom.Attr;
+import org.w3c.dom.DOMError;
+import org.w3c.dom.DOMErrorHandler;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import com.sun.webkit.dom.CharacterDataImpl;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -79,14 +100,15 @@ public class CanonicalTest {
 
         final List<DynamicTest> tests = new ArrayList<>();
         for (final File dataFile : dataFiles) {
-            // suite.addTest(new CanonicalTest(dataFiles.get(i)));
             tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest("[dom] "+ dataFile.getName(), () -> runDomTest(dataFile)));
         }
         return tests;
     }
 
     protected void runTest(final File dataFile) throws Exception {
         final String dataLines = getResult(dataFile);
+
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
@@ -106,6 +128,7 @@ public class CanonicalTest {
                 catch (final AssertionFailedError e) {
                     // expected
                 }
+
                 assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile);
             }
             else {
@@ -116,6 +139,53 @@ public class CanonicalTest {
             final File output = new File(outputDir, dataFile.getName());
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);
+            }
+            throw e;
+        }
+    }
+
+    protected void runDomTest(final File dataFile) throws Exception {
+        final String domDataLines = getDomResult(dataFile);
+
+        try {
+            // prepare for future changes where canonical files are next to test file
+            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-dom");
+            if (!canonicalFile.exists()) {
+                canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
+
+                if (!canonicalFile.exists()) {
+                    canonicalFile = new File(canonicalDir, dataFile.getName() + "-dom");
+
+                    if (!canonicalFile.exists()) {
+                        canonicalFile = new File(canonicalDir, dataFile.getName());
+                    }
+                }
+            }
+
+            if (!canonicalFile.exists()) {
+                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
+            }
+
+            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented-dom");
+            if (nyiFile.exists()) {
+                try {
+                    assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                    fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
+                }
+                catch (final AssertionFailedError e) {
+                    // expected
+                }
+
+                assertEquals(getCanonical(nyiFile), domDataLines, "NYI: " + dataFile);
+            }
+            else {
+                assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+            }
+        }
+        catch (final AssertionFailedError e) {
+            final File output = new File(outputDir, dataFile.getName());
+            try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
+                pw.print(domDataLines);
             }
             throw e;
         }
@@ -143,6 +213,7 @@ public class CanonicalTest {
 
             // parser settings
             parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+
             final String infilename = infile.toString();
             final File insettings = new File(infilename + ".settings");
             if (insettings.exists()) {
@@ -176,5 +247,228 @@ public class CanonicalTest {
             }
             return sb.toString();
         }
+    }
+
+    private static String getDomResult(final File infile) throws Exception {
+        try (StringWriter out = new StringWriter()) {
+            final DOMParser parser = new DOMParser(null);
+
+            final String infilename = infile.toString();
+            final File insettings = new File(infilename + ".settings");
+            if (insettings.exists()) {
+                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                    String settingline;
+                    while ((settingline = settings.readLine()) != null) {
+                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                        final String type = tokenizer.nextToken();
+                        final String id = tokenizer.nextToken();
+                        final String value = tokenizer.nextToken();
+                        if ("feature".equals(type)) {
+                            parser.setFeature(id, "true".equals(value));
+                            /* feature not implemented
+                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
+                                parser.setErrorHandler(new ErrorHandler() {
+                                    @Override
+                                    public void warning(SAXParseException exception) throws SAXException {
+                                        out.append("[warning]").append(exception.getMessage());
+                                    }
+
+                                    @Override
+                                    public void fatalError(SAXParseException exception) throws SAXException {
+                                        out.append("[error]").append(exception.getMessage());
+                                    }
+
+                                    @Override
+                                    public void error(SAXParseException exception) throws SAXException {
+                                        out.append("[error]").append(exception.getMessage());
+                                    }
+                                });
+                            }
+                            */
+                        }
+                        else {
+                            parser.setProperty(id, value);
+                        }
+                    }
+                }
+            }
+
+            // parse
+            parser.parse(new XMLInputSource(null, infilename, null));
+
+            CoreDocumentImpl doc = (CoreDocumentImpl) parser.getDocument();
+
+            final StringBuilder sb = new StringBuilder();
+
+            // first the error handler output
+            final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+
+            write(sb, doc);
+
+            return sb.toString();
+        }
+    }
+
+    private static void write(final StringBuilder out, final CoreDocumentImpl doc) {
+        if (doc.getXmlEncoding() != null && doc.getXmlEncoding().length() > 0) {
+            out.append("xencoding ");
+            out.append(normalize(doc.getXmlEncoding()));
+            out.append('\n');
+        }
+
+        NodeList childNodes = doc.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node childNode = childNodes.item(i);
+
+            if (childNode instanceof CDATASectionImpl) {
+                write(out, (CDATASectionImpl) childNode);
+            }
+            else if (childNode instanceof TextImpl) {
+                write(out, (TextImpl) childNode);
+            }
+            else if (childNode instanceof CommentImpl) {
+                write(out, (CommentImpl) childNode);
+            }
+            else if (childNode instanceof DocumentTypeImpl) {
+                write(out, (DocumentTypeImpl) childNode);
+            }
+            else if (childNode instanceof ProcessingInstructionImpl) {
+                write(out, (ProcessingInstructionImpl) childNode);
+            }
+            else if (childNode instanceof NodeImpl) {
+                write(out, (NodeImpl) childNode);
+            }
+        }
+    }
+
+    private static void write(final StringBuilder out, final NodeImpl node) {
+        out.append('(');
+        out.append(node.getNodeName()).append("\n");
+
+        // attributes
+        NamedNodeMap attributes = node.getAttributes();
+        if (attributes != null) {
+            for (int i = 0; i < attributes.getLength(); i++) {
+                Node attribute = attributes.item(i);
+
+                if (attribute instanceof Attr) {
+                    write(out, (Attr) attribute);
+                }
+                else {
+                    throw new RuntimeException("");
+                }
+            }
+        }
+
+        // child nodes
+        NodeList childNodes = node.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node childNode = childNodes.item(i);
+
+            if (childNode instanceof CDATASectionImpl) {
+                write(out, (CDATASectionImpl) childNode);
+            }
+            else if (childNode instanceof TextImpl) {
+                write(out, (TextImpl) childNode);
+            }
+            else if (childNode instanceof CommentImpl) {
+                write(out, (CommentImpl) childNode);
+            }
+            else if (childNode instanceof DocumentTypeImpl) {
+                write(out, (DocumentTypeImpl) childNode);
+            }
+            else if (childNode instanceof ProcessingInstructionImpl) {
+                write(out, (ProcessingInstructionImpl) childNode);
+            }
+            else if (childNode instanceof NodeImpl) {
+                write(out, (NodeImpl) childNode);
+            }
+            else {
+                throw new RuntimeException("");
+            }
+        }
+
+        out.append(')')
+        .append(node.getNodeName())
+        .append('\n');
+    }
+
+    private static void write(final StringBuilder out, final TextImpl text) {
+        out.append('"')
+            .append(normalize(text.getTextContent()))
+            .append('\n');
+    }
+
+    private static void write(final StringBuilder out, final CDATASectionImpl cdata) {
+        out.append("((CDATA\n\"")
+            .append(normalize(cdata.getTextContent()))
+            .append('\n')
+            .append("))CDATA\n");
+    }
+
+    private static void write(final StringBuilder out, final CommentImpl comment) {
+        out.append('#')
+            .append(normalize(comment.getNodeValue()))
+            .append('\n');
+    }
+
+    private static void write(final StringBuilder out, final ProcessingInstructionImpl processingInstruction) {
+        out.append('?')
+            .append(processingInstruction.getTarget());
+        if (processingInstruction.getData() != null && processingInstruction.getData().length() > 0) {
+            out.append(' ')
+                .append(normalize(processingInstruction.getData()));
+        }
+        out.append('\n');
+    }
+
+    private static void write(final StringBuilder out, final DocumentTypeImpl documentType) {
+        out.append('!');
+        boolean addNl = true;
+        if (documentType.getName() != null && documentType.getName().length() > 0) {
+            out.append(normalize(documentType.getName()));
+            out.append('\n');
+            addNl = false;
+        }
+        if (documentType.getPublicId() != null && documentType.getPublicId().length() > 0) {
+            out.append('p');
+            out.append(normalize(documentType.getPublicId()));
+            out.append('\n');
+            addNl = false;
+        }
+        if (documentType.getSystemId() != null && documentType.getSystemId().length() > 0) {
+            out.append('s');
+            out.append(normalize(documentType.getSystemId()));
+            out.append('\n');
+            addNl = false;
+        }
+        if (addNl) {
+            out.append('\n');
+        }
+    }
+
+    private static void write(final StringBuilder out, final Attr attr) {
+        out.append('A');
+        if (attr.getNamespaceURI() != null && attr.getNamespaceURI().length() > 0) {
+            out.append('{')
+                .append(attr.getNamespaceURI())
+                .append('}');
+        }
+
+        out.append(normalize(attr.getName()))
+            .append(' ')
+            .append(normalize(attr.getValue()))
+            .append('\n');
+    }
+
+    private static String normalize(final String value) {
+        return value
+                .replace("\\", "\\\\")
+                .replace("\n", "\\n")
+                .replace("\t", "\\t");
     }
 }
