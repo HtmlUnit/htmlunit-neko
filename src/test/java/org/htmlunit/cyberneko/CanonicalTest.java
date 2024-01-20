@@ -38,6 +38,7 @@ import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.parsers.DOMFragmentParser;
 import org.htmlunit.cyberneko.parsers.DOMParser;
+import org.htmlunit.cyberneko.parsers.SAXParser;
 import org.htmlunit.cyberneko.xerces.dom.CDATASectionImpl;
 import org.htmlunit.cyberneko.xerces.dom.CommentImpl;
 import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
@@ -56,6 +57,13 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.LexicalHandler;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -97,6 +105,7 @@ public class CanonicalTest {
             tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
             tests.add(DynamicTest.dynamicTest("[dom] "+ dataFile.getName(), () -> runDomTest(dataFile)));
             tests.add(DynamicTest.dynamicTest("[frg] "+ dataFile.getName(), () -> runDomFragmentTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest("[sax] "+ dataFile.getName(), () -> runSaxTest(dataFile)));
         }
         return tests;
     }
@@ -232,6 +241,54 @@ public class CanonicalTest {
             else {
                 // for the moment check only no exception is thrown
                 // assertEquals(getCanonical(canonicalFile).toLowerCase(Locale.ROOT), domDataLines, dataFile.toString());
+            }
+        }
+        catch (final AssertionFailedError e) {
+            final File output = new File(outputDir, dataFile.getName());
+            try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
+                pw.print(domDataLines);
+            }
+            throw e;
+        }
+    }
+
+
+    protected void runSaxTest(final File dataFile) throws Exception {
+        final String domDataLines = getSaxResult(dataFile);
+
+        try {
+            // prepare for future changes where canonical files are next to test file
+            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-sax");
+            if (!canonicalFile.exists()) {
+                canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
+
+                if (!canonicalFile.exists()) {
+                    canonicalFile = new File(canonicalDir, dataFile.getName() + "-sax");
+
+                    if (!canonicalFile.exists()) {
+                        canonicalFile = new File(canonicalDir, dataFile.getName());
+                    }
+                }
+            }
+
+            if (!canonicalFile.exists()) {
+                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
+            }
+
+            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented-dom");
+            if (nyiFile.exists()) {
+                try {
+                    assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                    fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
+                }
+                catch (final AssertionFailedError e) {
+                    // expected
+                }
+
+                assertEquals(getCanonical(nyiFile), domDataLines, "NYI: " + dataFile);
+            }
+            else {
+                assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {
@@ -500,8 +557,9 @@ public class CanonicalTest {
     }
 
     private static void write(final StringBuilder out, final NodeImpl node) {
-        out.append('(');
-        out.append(node.getNodeName()).append("\n");
+        out.append('(')
+            .append(node.getNodeName())
+            .append("\n");
 
         // attributes
         NamedNodeMap attributes = node.getAttributes();
@@ -547,8 +605,8 @@ public class CanonicalTest {
         }
 
         out.append(')')
-        .append(node.getNodeName())
-        .append('\n');
+            .append(node.getNodeName())
+            .append('\n');
     }
 
     private static void write(final StringBuilder out, final TextImpl text) {
@@ -625,4 +683,278 @@ public class CanonicalTest {
                 .replace("\n", "\\n")
                 .replace("\t", "\\t");
     }
+
+    private static String getSaxResult(final File infile) throws Exception {
+        try (StringWriter out = new StringWriter()) {
+            final SAXParser parser = new SAXParser();
+
+            final String infilename = infile.toString();
+            final File insettings = new File(infilename + ".settings");
+            if (insettings.exists()) {
+                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                    String settingline;
+                    while ((settingline = settings.readLine()) != null) {
+                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                        final String type = tokenizer.nextToken();
+                        final String id = tokenizer.nextToken();
+                        final String value = tokenizer.nextToken();
+                        if ("feature".equals(type)) {
+                            parser.setFeature(id, "true".equals(value));
+                            /* feature not implemented
+                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
+                                parser.setErrorHandler(new ErrorHandler() {
+                                    @Override
+                                    public void warning(SAXParseException exception) throws SAXException {
+                                        out.append("[warning]").append(exception.getMessage());
+                                    }
+
+                                    @Override
+                                    public void fatalError(SAXParseException exception) throws SAXException {
+                                        out.append("[error]").append(exception.getMessage());
+                                    }
+
+                                    @Override
+                                    public void error(SAXParseException exception) throws SAXException {
+                                        out.append("[error]").append(exception.getMessage());
+                                    }
+                                });
+                            }
+                            */
+                        }
+                        else {
+                            parser.setProperty(id, value);
+                        }
+                    }
+                }
+            }
+
+            // parse
+            SaxHandler saxHandler = new SaxHandler(out);
+            parser.setContentHandler(saxHandler);
+            parser.setProperty("http://xml.org/sax/properties/lexical-handler", saxHandler);
+            parser.setErrorHandler(saxHandler);
+            parser.parse(new XMLInputSource(null, infilename, null));
+
+            final StringBuilder sb = new StringBuilder();
+
+            // first the error handler output
+            final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+
+            return sb.toString();
+        }
+    }
+
+    public static final class SaxHandler implements ContentHandler, LexicalHandler, ErrorHandler {
+        private final StringWriter out_;
+        private boolean lastWasChar_;
+
+        public SaxHandler(final StringWriter out) {
+            out_ = out;
+            lastWasChar_ = false;
+        }
+
+        @Override
+        public void setDocumentLocator(Locator locator) {
+            characters();
+        }
+
+        @Override
+        public void startDocument() throws SAXException {
+            characters();
+        }
+
+        @Override
+        public void endDocument() throws SAXException {
+            characters();
+        }
+
+        @Override
+        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+            characters();
+        }
+
+        @Override
+        public void endPrefixMapping(String prefix) throws SAXException {
+            characters();
+        }
+
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes atts)
+                throws SAXException {
+            characters();
+
+            out_.append('(')
+                .append(qName)
+                .append("\n");
+
+            ArrayList<String> attNames = new ArrayList<>();
+            for (int i = 0; i < atts.getLength(); i++) {
+                attNames.add(atts.getQName(i));
+            }
+
+            Collections.sort(attNames);
+
+            for (String attName : attNames) {
+                out_.append('A');
+                int i = atts.getIndex(attName);
+                if (atts.getURI(i) != null && atts.getURI(i).length() > 0) {
+                    out_.append('{')
+                        .append(atts.getURI(i))
+                        .append('}');
+                }
+
+                out_.append(normalize(atts.getQName(i)))
+                    .append(' ')
+                    .append(normalize(atts.getValue(i)))
+                    .append('\n');
+            }
+        }
+
+        @Override
+        public void endElement(String uri, String localName, String qName) throws SAXException {
+            characters();
+
+            out_.append(')')
+                .append(qName)
+                .append("\n");
+        }
+
+        @Override
+        public void characters(char[] ch, int start, int length) throws SAXException {
+            if (lastWasChar_) {
+                out_.append(normalize(String.copyValueOf(ch, start, length)));
+                return;
+            }
+
+            out_.append('"')
+                .append(normalize(String.copyValueOf(ch, start, length)));
+            lastWasChar_ = true;
+        }
+
+        @Override
+        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+            characters();
+
+            out_.append("# ignorableWhitespace")
+                .append('\n');
+        }
+
+        @Override
+        public void processingInstruction(String target, String data) throws SAXException {
+            characters();
+
+            out_.append('?')
+                .append(target);
+            if (data != null && data.length() > 0) {
+                out_.append(' ')
+                    .append(normalize(data));
+            }
+            out_.append('\n');
+        }
+
+        @Override
+        public void skippedEntity(String name) throws SAXException {
+            characters();
+
+            out_.append("# skippedEntity\n");
+        }
+
+        @Override
+        public void startDTD(String name, String publicId, String systemId) throws SAXException {
+            characters();
+
+            out_.append('!');
+            boolean addNl = true;
+            if (name != null && name.length() > 0) {
+                out_.append(normalize(name));
+                out_.append('\n');
+                addNl = false;
+            }
+            if (publicId != null && publicId.length() > 0) {
+                out_.append('p');
+                out_.append(normalize(publicId));
+                out_.append('\n');
+                addNl = false;
+            }
+            if (systemId != null && systemId.length() > 0) {
+                out_.append('s');
+                out_.append(normalize(systemId));
+                out_.append('\n');
+                addNl = false;
+            }
+            if (addNl) {
+                out_.append('\n');
+            }
+        }
+
+        @Override
+        public void endDTD() throws SAXException {
+            characters();
+
+            out_.append("# endDTD\n");
+        }
+
+        @Override
+        public void startEntity(String name) throws SAXException {
+            characters();
+
+            out_.append("# startEntity\n");
+        }
+
+        @Override
+        public void endEntity(String name) throws SAXException {
+            characters();
+
+            out_.append("# endEntity\n");
+        }
+
+        @Override
+        public void startCDATA() throws SAXException {
+            characters();
+
+            out_.append("((CDATA\n");
+        }
+
+        @Override
+        public void endCDATA() throws SAXException {
+            characters();
+
+            out_.append("))CDATA\n");
+        }
+
+        @Override
+        public void comment(char[] ch, int start, int length) throws SAXException {
+            characters();
+
+            out_.append('#')
+                .append(normalize(String.copyValueOf(ch, start, length)))
+                .append('\n');
+        }
+
+        private void characters() {
+            if (lastWasChar_) {
+                out_.append('\n');
+                lastWasChar_ = false;
+            }
+        }
+
+        @Override
+        public void warning(SAXParseException exception) throws SAXException {
+            out_.append("# warning\n");
+        }
+
+        @Override
+        public void error(SAXParseException exception) throws SAXException {
+            out_.append("# error\n");
+        }
+
+        @Override
+        public void fatalError(SAXParseException exception) throws SAXException {
+            out_.append("# fatalError\n");
+        }
+    };
 }

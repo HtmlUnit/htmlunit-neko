@@ -1,0 +1,9 @@
+(HTML
+(head
+)head
+(body
+"Text before 
+#[CDATA[ text in CDATA]]
+" text after\n
+)body
+)HTML
