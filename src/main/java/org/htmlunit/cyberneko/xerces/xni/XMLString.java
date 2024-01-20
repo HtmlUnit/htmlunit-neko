@@ -611,17 +611,68 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Returns a string representation of this buffer using a cache as
-     * source to avoid duplicates.
+     * Returns a string representation of a buffer. This will be a copy
+     * operation. If the buffer is empty, we get a constant empty String back
+     * to avoid any overhead. Method exists to deliver null-safety.
      *
+     * @
      * @return a string of the content of this buffer
      */
-    public String toString(final FastHashMap<CharSequence, String> cache) {
+    public static String toString(final XMLString seq) {
+        if (seq == null) {
+            return null;
+        }
+        if (seq.length_ > 0) {
+            return new String(seq.data_, 0, seq.length_);
+        }
+        return "";
+    }
+
+    /**
+     * Returns a string representation of this buffer using a cache as
+     * source to avoid duplicates. You have to make sure that the cache
+     * support concurrency in case you use that in a concurrent context.
+     *
+     * <p> The cache will be filled with a copy of the XMLString to ensure
+     * immutability. This copy is minimally sized.
+     *
+     * @param cache the cache to be used
+     * @return a string of the content of this buffer, preferably taken from the cache
+     *
+     */
+    public String toString(final FastHashMap<XMLString, String> cache) {
         String s = cache.get(this);
         if (s == null) {
             s = this.toString();
-            // don't cache the XMLString, it is mutable!!!
-            cache.put(s, s);
+            // cache a copy of the string, because it would mutate otherwise
+            cache.put(this.clone(), s);
+        }
+        return s;
+    }
+
+    /**
+     * Returns a string representation of the buffer using a cache as
+     * source to avoid duplicates. You have to make sure that the cache
+     * support concurrency in case you use that in a concurrent context.
+     *
+     * <p> The cache will be filled with a copy of the XMLString to ensure
+     * immutability. This copy is minimally sized.
+     *
+     * @param seq the XMLString to convert
+     * @param cache the cache to be used
+     * @return a string of the content of this buffer, preferably taken from the cache, null
+     *         if seq was null
+     *
+     */
+    public static String toString(final XMLString seq, final FastHashMap<XMLString, String> cache) {
+        if (seq == null) {
+            return null;
+        }
+        String s = cache.get(seq);
+        if (s == null) {
+            s = seq.toString();
+            // cache a copy of the string, because it would mutate otherwise
+            cache.put(seq.clone(), s);
         }
         return s;
     }
@@ -741,6 +792,25 @@ public class XMLString implements CharSequence {
         return false;
     }
 
+    /**
+     * Compares a CharSequence with an XMLString in a null-safe manner.
+     * For more, see {@link #equals(CharSequence)}. The XMLString
+     * can be null, but the CharSequence must not be null. This mimics the
+     * typical use case "string".equalsIgnoreCase(null) which returns false
+     * without raising an exception.
+     *
+     * @param sequence the sequence to compare to, null is permitted
+     * @param s the XMLString to use for comparison
+     * @return true if the sequence matches case-insensive, false otherwise
+     */
+    public static boolean equals(final CharSequence sequence, XMLString s) {
+        if (s == null) {
+            return false;
+        }
+        else {
+            return s.equals(sequence);
+        }
+    }
     /**
      * We don't cache the hashcode because we mutate often. Don't use this in
      * hashmaps as key. But you can use that to look up in a hashmap against
@@ -977,6 +1047,100 @@ public class XMLString implements CharSequence {
 
         // length and content match, be happy
         return true;
+    }
+
+    /**
+     * Code shared by String and StringBuffer to do searches. The
+     * source is the character array being searched, and the target
+     * is the string being searched for.
+     *
+     * @param   source       the characters being searched.
+     * @param   sourceOffset offset of the source string.
+     * @param   sourceCount  count of the source string.
+     * @param   target       the characters being searched for.
+     * @param   targetOffset offset of the target string.
+     * @param   targetCount  count of the target string.
+     * @param   fromIndex    the index to begin searching from.
+     *
+     * @return the first position both array match
+     */
+    private static int indexOf(char[] source, int sourceOffset, int sourceCount,
+                               char[] target, int targetOffset, int targetCount,
+                               int fromIndex) {
+
+        if (fromIndex >= sourceCount) {
+            return (targetCount == 0 ? sourceCount : -1);
+        }
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        if (targetCount == 0) {
+            return fromIndex;
+        }
+
+        char first = target[targetOffset];
+        int max = sourceOffset + (sourceCount - targetCount);
+
+        for (int i = sourceOffset + fromIndex; i <= max; i++) {
+            /* Look for first character. */
+            if (source[i] != first) {
+                while (++i <= max && source[i] != first);
+            }
+
+            /* Found first character, now look at the rest of v2 */
+            if (i <= max) {
+                int j = i + 1;
+                int end = j + targetCount - 1;
+                for (int k = targetOffset + 1; j < end && source[j] == target[k]; j++, k++);
+
+                if (j == end) {
+                    /* Found whole string. */
+                    return i - sourceOffset;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Find the first occurrence of a char
+     *
+     * @param c the char to search
+     * @return the position or -1 otherwise
+     */
+    public int indexOf(final char c)
+    {
+        for (int i = 0; i < this.length_; i++)
+        {
+            if (this.data_[i] == c)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Search for the first occurrence of another buffer in this buffer
+     *
+     * @param s the buffer to be search for
+     * @return the first found position or -1 if not found
+     */
+    public int indexOf(final XMLString s)
+    {
+        return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) : -1;
+    }
+
+    /**
+     * See if this string contains the other
+     *
+     * @param s the XMLString to search and match
+     * @return true if s is in this string or false otherwise
+     */
+    public boolean contains(final XMLString s)
+    {
+        return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) > -1 : false;
     }
 
     // this stuff is here for performance reasons to avoid a copy
