@@ -19,12 +19,16 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Locale;
 import java.util.Random;
+import java.util.function.BiFunction;
 
+import org.htmlunit.cyberneko.util.FastHashMap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -204,6 +208,24 @@ public class XMLStringTest {
         assertEquals("bar", b1.toString());
         b1.append("more than anything today in the world 0123456");
         assertEquals("barmore than anything today in the world 0123456", b1.toString());
+    }
+
+    /*
+     * toString(FastHashMap)
+     */
+    @Test
+    public void toStringCacheTest() {
+        final FastHashMap<XMLString, String> cache = new FastHashMap<>(10, 0.5f);
+
+        XMLString x1 = new XMLString("abc");
+        XMLString x2 = new XMLString("abc");
+        XMLString x3 = new XMLString("12");
+
+        String s1 = x1.toString(cache);
+        String s2 = x2.toString(cache);
+        String s3 = x3.toString(cache);
+        assertSame(s1, s2);
+        assertNotSame(s2, s3);
     }
 
     /*
@@ -1330,12 +1352,12 @@ public class XMLStringTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {
-//            "𘀀", // UTF-16
+            //            "𘀀", // UTF-16
             "A", "a", "",
-//            "HtmlUnit", "éäöü€",
-//            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
-//            "Foo\uD840" // supplemental char aka UTF-16
-            })
+            //            "HtmlUnit", "éäöü€",
+            //            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
+            //            "Foo\uD840" // supplemental char aka UTF-16
+    })
     public void toLowerCase(final String s) {
         final XMLString a = new XMLString(s);
         assertEquals(s.toLowerCase(Locale.ROOT), a.toLowerCase(Locale.ROOT).toString());
@@ -1351,9 +1373,61 @@ public class XMLStringTest {
             "HtmlUnit", "éäöü€",
             "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
             "Foo\uD840" // supplemental char aka UTF-16
-            })
+    })
     public void toUpperCase(final String s) {
         final XMLString a = new XMLString(s);
         assertEquals(s.toUpperCase(Locale.ROOT), a.toUpperCase(Locale.ROOT).toString());
+    }
+
+    @Test
+    public void indexOf_char()
+    {
+        assertEquals(-1, new XMLString().indexOf('c'));
+        assertEquals(-1, new XMLString("").indexOf('c'));
+        assertEquals(0, new XMLString("a").indexOf('a'));
+        assertEquals(0, new XMLString("aa").indexOf('a'));
+        assertEquals(1, new XMLString("abc").indexOf('b'));
+        assertEquals(2, new XMLString("abc").indexOf('c'));
+    }
+
+    @Test
+    public void indexOf_XMLString()
+    {
+        final BiFunction<String, String, Integer> t = (s1, s2)
+                -> new XMLString(s1).indexOf(s2 != null ? new XMLString(s2) : null);
+
+        assertEquals(0, t.apply("", ""));
+        assertEquals(-1, t.apply("", null));
+        assertEquals(-1, t.apply("", "a"));
+        assertEquals(0, t.apply("a", ""));
+        assertEquals(-1, t.apply("abc", "d"));
+        assertEquals(-1, t.apply("abc", "abcd"));
+        assertEquals(0, t.apply("abc", "abc"));
+        assertEquals(-1, t.apply("abc", "abb"));
+        assertEquals(0, t.apply("abc", "a"));
+        assertEquals(1, t.apply("abc", "b"));
+        assertEquals(2, t.apply("abc", "c"));
+        assertEquals(1, t.apply("abc", "bc"));
+        assertEquals(0, t.apply("abcabc", "abc"));
+    }
+
+    @Test
+    public void contains_XMLString()
+    {
+        final BiFunction<String, String, Boolean> t = (s1, s2)
+                -> new XMLString(s1).contains(s2 != null ? new XMLString(s2) : null);
+
+        assertEquals(true, t.apply("", ""));
+        assertEquals(false, t.apply("", null));
+        assertEquals(false, t.apply("", "a"));
+        assertEquals(true, t.apply("a", ""));
+        assertEquals(false, t.apply("abc", "d"));
+        assertEquals(false, t.apply("abc", "abcd"));
+        assertEquals(true, t.apply("abc", "abc"));
+        assertEquals(true, t.apply("abc", "a"));
+        assertEquals(true, t.apply("abc", "b"));
+        assertEquals(true, t.apply("abc", "c"));
+        assertEquals(true, t.apply("abc", "bc"));
+        assertEquals(true, t.apply("abcabc", "abc"));
     }
 }
