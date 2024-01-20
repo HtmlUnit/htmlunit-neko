@@ -700,26 +700,6 @@ public class CanonicalTest {
                         final String value = tokenizer.nextToken();
                         if ("feature".equals(type)) {
                             parser.setFeature(id, "true".equals(value));
-                            /* feature not implemented
-                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
-                                parser.setErrorHandler(new ErrorHandler() {
-                                    @Override
-                                    public void warning(SAXParseException exception) throws SAXException {
-                                        out.append("[warning]").append(exception.getMessage());
-                                    }
-
-                                    @Override
-                                    public void fatalError(SAXParseException exception) throws SAXException {
-                                        out.append("[error]").append(exception.getMessage());
-                                    }
-
-                                    @Override
-                                    public void error(SAXParseException exception) throws SAXException {
-                                        out.append("[error]").append(exception.getMessage());
-                                    }
-                                });
-                            }
-                            */
                         }
                         else {
                             parser.setProperty(id, value);
@@ -839,8 +819,7 @@ public class CanonicalTest {
         public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
             characters();
 
-            out_.append("# ignorableWhitespace")
-                .append('\n');
+            out_.append("# ignorableWhitespace\n");
         }
 
         @Override
