@@ -74,17 +74,19 @@ public class FastHashMap<K, V> {
     }
 
     public V get(final K key) {
-        int ptr = (key.hashCode() & m_mask_) << 1;
-        Object k = m_data_[ ptr ];
+        final int srcHashCode = key.hashCode();
+
+        int ptr = (srcHashCode & m_mask) << 1;
+        Object k = m_data[ptr];
 
         if (k == FREE_KEY) {
-          //end of chain already
+            //end of chain already
             return null;
         }
 
         //we check FREE and REMOVED prior to this call
-        if (k.hashCode() == key.hashCode() && k.equals(key)) {
-            return (V) m_data_[ ptr + 1 ];
+        if (k.hashCode() == srcHashCode && k.equals(key)) {
+            return (V) m_data[ptr + 1];
         }
 
         while (true) {
@@ -93,8 +95,8 @@ public class FastHashMap<K, V> {
             if (k == FREE_KEY) {
                 return null;
             }
-            if (k.hashCode() == key.hashCode() && k.equals(key)) {
-                return (V) m_data_[ ptr + 1 ];
+            if (k.hashCode() == srcHashCode && k.equals(key)) {
+                return (V) m_data[ptr + 1];
             }
         }
     }
@@ -233,7 +235,7 @@ public class FastHashMap<K, V> {
      * @return
      */
     public List<K> keys() {
-        final List<K> result = new ArrayList<>();
+        final List<K> result = new ArrayList<>(this.size());
 
         final int length = m_data_.length;
         for (int i = 0; i < length; i += 2) {
@@ -252,7 +254,7 @@ public class FastHashMap<K, V> {
      * @return
      */
     public List<V> values() {
-        final List<V> result = new ArrayList<>();
+        final List<V> result = new ArrayList<>(this.size());
 
         final int length = m_data_.length;
         for (int i = 0; i < length; i += 2) {
@@ -274,7 +276,7 @@ public class FastHashMap<K, V> {
         Arrays.fill(m_data_, FREE_KEY);
     }
 
-    public int getStartIndex(final Object key) {
+    private int getStartIndex(final Object key) {
         //key is not null here
         return key.hashCode() & m_mask_;
     }
