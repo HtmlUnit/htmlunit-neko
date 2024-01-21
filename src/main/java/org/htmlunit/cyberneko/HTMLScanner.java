@@ -3160,10 +3160,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         protected void scanAttributeUnquotedValue(
                 final CurrentEntity currentEntity,
                 final XMLString buffer) throws IOException {
-            int c;
-
             while (true) {
-                c = currentEntity.read();
+                final int c = currentEntity.read();
 
                 if (c == -1) {
                     if (fReportErrors_) {
