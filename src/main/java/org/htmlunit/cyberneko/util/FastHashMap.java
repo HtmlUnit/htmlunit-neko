@@ -76,8 +76,8 @@ public class FastHashMap<K, V> {
     public V get(final K key) {
         final int srcHashCode = key.hashCode();
 
-        int ptr = (srcHashCode & m_mask) << 1;
-        Object k = m_data[ptr];
+        int ptr = (srcHashCode & m_mask_) << 1;
+        Object k = m_data_[ptr];
 
         if (k == FREE_KEY) {
             //end of chain already
@@ -86,7 +86,7 @@ public class FastHashMap<K, V> {
 
         //we check FREE and REMOVED prior to this call
         if (k.hashCode() == srcHashCode && k.equals(key)) {
-            return (V) m_data[ptr + 1];
+            return (V) m_data_[ptr + 1];
         }
 
         while (true) {
@@ -96,7 +96,7 @@ public class FastHashMap<K, V> {
                 return null;
             }
             if (k.hashCode() == srcHashCode && k.equals(key)) {
-                return (V) m_data[ptr + 1];
+                return (V) m_data_[ptr + 1];
             }
         }
     }
