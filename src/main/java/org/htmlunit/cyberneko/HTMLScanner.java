@@ -2787,7 +2787,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 final int beginCharacterOffset = fBeginCharacterOffset;
                 attributes_.removeAllAttributes();
                 int aindex = 0;
-                while (scanPseudoAttribute(attributes_)) {
+
+                while (scanAttribute(attributes_, fSingleBoolean)) {
                     // if we haven't scanned a value, remove the entry as values have special
                     // signification
                     if (attributes_.getValue(aindex).length() == 0) {
@@ -3009,32 +3010,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
          * @throws IOException in case of io problems
          */
         protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty) throws IOException {
-            return scanAttribute(attributes, empty, '/');
-        }
-
-        /**
-         * Scans a pseudo attribute.
-         *
-         * @param attributes The list of attributes.
-         * @return success
-         * @throws IOException in case of io problems
-         */
-        protected boolean scanPseudoAttribute(final XMLAttributesImpl attributes) throws IOException {
-            return scanAttribute(attributes, fSingleBoolean, '?');
-        }
-
-        /**
-         * Scans an attribute, pseudo or real.
-         *
-         * @param attributes The list of attributes.
-         * @param empty      Is used for a second return value to indicate whether the
-         *                   start element tag is empty (e.g. "/&gt;").
-         * @param endc       The end character that appears before the closing angle
-         *                   bracket ('&gt;').
-         * @return success
-         * @throws IOException in case of io problems
-         */
-        protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty, final char endc) throws IOException {
             final boolean skippedSpaces = skipSpaces();
             fBeginLineNumber = fCurrentEntity.getLineNumber();
             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
