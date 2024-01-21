@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 import org.htmlunit.cyberneko.parsers.DOMFragmentParser;
 import org.htmlunit.cyberneko.parsers.DOMParser;
@@ -50,8 +51,9 @@ import org.htmlunit.cyberneko.xerces.dom.TextImpl;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.opentest4j.AssertionFailedError;
 import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
@@ -79,8 +81,7 @@ public class CanonicalTest {
     private static final File canonicalDir = new File("src/test/resources/org/htmlunit/cyberneko/testfiles/canonical");
     private static final File outputDir = new File("target/data/output");
 
-    @TestFactory
-    public Iterable<DynamicTest> suite() {
+    private static Stream<Arguments> testFiles() {
         // System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 
@@ -99,18 +100,12 @@ public class CanonicalTest {
             }
         });
         Collections.sort(dataFiles);
-
-        final List<DynamicTest> tests = new ArrayList<>();
-        for (final File dataFile : dataFiles) {
-            tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[dom] " + dataFile.getName(), () -> runDomTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[frg] " + dataFile.getName(), () -> runDomFragmentTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[sax] " + dataFile.getName(), () -> runSaxTest(dataFile)));
-        }
-        return tests;
+        return dataFiles.stream().map(f -> Arguments.of(f));
     }
 
-    protected void runTest(final File dataFile) throws Exception {
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runTest(final File dataFile) throws Exception {
         final String dataLines = getResult(dataFile);
 
         try {
@@ -148,7 +143,9 @@ public class CanonicalTest {
         }
     }
 
-    protected void runDomTest(final File dataFile) throws Exception {
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runDomTest(final File dataFile) throws Exception {
         final String domDataLines = getDomResult(dataFile);
 
         try {
@@ -195,7 +192,9 @@ public class CanonicalTest {
         }
     }
 
-    protected void runDomFragmentTest(final File dataFile) throws Exception {
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runDomFragmentTest(final File dataFile) throws Exception {
         final String domDataLines = getDomFragmentResult(dataFile);
 
         try {
@@ -250,7 +249,9 @@ public class CanonicalTest {
         }
     }
 
-    protected void runSaxTest(final File dataFile) throws Exception {
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runSaxTest(final File dataFile) throws Exception {
         final String domDataLines = getSaxResult(dataFile);
 
         try {
