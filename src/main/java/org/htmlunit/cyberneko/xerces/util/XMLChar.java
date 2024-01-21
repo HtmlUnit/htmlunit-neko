@@ -36,35 +36,16 @@ import java.util.Arrays;
  * @author Michael Glavassevich, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
  */
-public class XMLChar {
+public final class XMLChar {
 
     /** Character flags. */
     private static final byte[] CHARS = new byte[1 << 16];
-
-    /** Valid character mask. */
-    public static final int MASK_VALID = 0x01;
-
-    /** Space character mask. */
-    public static final int MASK_SPACE = 0x02;
 
     /** Name start character mask. */
     public static final int MASK_NAME_START = 0x04;
 
     /** Name character mask. */
     public static final int MASK_NAME = 0x08;
-
-    /** Pubid character mask. */
-    public static final int MASK_PUBID = 0x10;
-
-    /**
-     * Content character mask. Special characters are those that can be considered
-     * the start of markup, such as '&lt;' and '&amp;'. The various newline
-     * characters are considered special as well. All other valid XML characters can
-     * be considered content.
-     * <p>
-     * This is an optimization for the inner loop of character scanning.
-     */
-    public static final int MASK_CONTENT = 0x20;
 
     /** NCName start character mask. */
     public static final int MASK_NCNAME_START = 0x40;
@@ -696,16 +677,9 @@ public class XMLChar {
         Arrays.fill(CHARS, 44032, 55204, (byte) -19); // Fill 11172 of value (byte) -19
         Arrays.fill(CHARS, 55204, 55296, (byte) 33); // Fill 92 of value (byte) 33
         Arrays.fill(CHARS, 57344, 65534, (byte) 33); // Fill 8190 of value (byte) 33
-
     }
 
-    /**
-     * @return true if the specified character is a supplemental character.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isSupplemental(final int c) {
-        return c >= 0x10000 && c <= 0x10FFFF;
+    private XMLChar() {
     }
 
     /**
@@ -720,91 +694,12 @@ public class XMLChar {
     }
 
     /**
-     * @return the high surrogate of a supplemental character
-     *
-     * @param c The supplemental character to "split".
-     */
-    public static char highSurrogate(final int c) {
-        return (char) (((c - 0x00010000) >> 10) + 0xD800);
-    }
-
-    /**
-     * @return the low surrogate of a supplemental character
-     *
-     * @param c The supplemental character to "split".
-     */
-    public static char lowSurrogate(final int c) {
-        return (char) (((c - 0x00010000) & 0x3FF) + 0xDC00);
-    }
-
-    /**
-     * @return whether the given character is a high surrogate
-     *
-     * @param c The character to check.
-     */
-    public static boolean isHighSurrogate(final int c) {
-        return 0xD800 <= c && c <= 0xDBFF;
-    }
-
-    /**
      * @return whether the given character is a low surrogate
      *
      * @param c The character to check.
      */
     public static boolean isLowSurrogate(final int c) {
         return 0xDC00 <= c && c <= 0xDFFF;
-    }
-
-    /**
-     * @return true if the specified character is valid. This method also checks the
-     *         surrogate character range from 0x10000 to 0x10FFFF.
-     *         <p>
-     *         If the program chooses to apply the mask directly to the
-     *         <code>CHARS</code> array, then they are responsible for checking the
-     *         surrogate character range.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isValid(final int c) {
-        return (c < 0x10000 && (CHARS[c] & MASK_VALID) != 0) || (0x10000 <= c && c <= 0x10FFFF);
-    }
-
-    /**
-     * @return true if the specified character is invalid.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isInvalid(final int c) {
-        return !isValid(c);
-    }
-
-    /**
-     * @return true if the specified character can be considered content.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isContent(final int c) {
-        return (c < 0x10000 && (CHARS[c] & MASK_CONTENT) != 0) || (0x10000 <= c && c <= 0x10FFFF);
-    }
-
-    /**
-     * @return true if the specified character can be considered markup. Markup
-     *         characters include '&lt;', '&amp;', and '%'.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isMarkup(final int c) {
-        return c == '<' || c == '&' || c == '%';
-    }
-
-    /**
-     * @return true if the specified character is a space character as defined by
-     *         production [3] in the XML 1.0 specification.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isSpace(final int c) {
-        return c <= 0x20 && (CHARS[c] & MASK_SPACE) != 0;
     }
 
     /**
@@ -845,16 +740,6 @@ public class XMLChar {
      */
     public static boolean isNCName(final int c) {
         return c < 0x10000 && (CHARS[c] & MASK_NCNAME) != 0;
-    }
-
-    /**
-     * @return true if the specified character is a valid Pubid character as defined
-     *         by production [13] in the XML 1.0 specification.
-     *
-     * @param c The character to check.
-     */
-    public static boolean isPubid(final int c) {
-        return c < 0x10000 && (CHARS[c] & MASK_PUBID) != 0;
     }
 
     /*
@@ -911,110 +796,5 @@ public class XMLChar {
             }
         }
         return true;
-    }
-
-    /*
-     * [7] Nmtoken ::= (NameChar)+
-     */
-    /**
-     * Check to see if a string is a valid Nmtoken according to [7] in the XML 1.0
-     * Recommendation
-     *
-     * @param nmtoken string to check
-     * @return true if nmtoken is a valid Nmtoken
-     */
-    public static boolean isValidNmtoken(final String nmtoken) {
-        final int length = nmtoken.length();
-        if (length == 0) {
-            return false;
-        }
-        for (int i = 0; i < length; ++i) {
-            final char ch = nmtoken.charAt(i);
-            if (!isName(ch)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @return true if the encoding name is a valid IANA encoding. This method does
-     *         not verify that there is a decoder available for this encoding, only
-     *         that the characters are valid for an IANA encoding name.
-     *
-     * @param ianaEncoding The IANA encoding name.
-     */
-    public static boolean isValidIANAEncoding(final String ianaEncoding) {
-        if (ianaEncoding != null) {
-            final int length = ianaEncoding.length();
-            if (length > 0) {
-                char c = ianaEncoding.charAt(0);
-                if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
-                    for (int i = 1; i < length; i++) {
-                        c = ianaEncoding.charAt(i);
-                        if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9') && c != '.' && c != '_'
-                                && c != '-') {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @return true if the encoding name is a valid Java encoding. This method does
-     *         not verify that there is a decoder available for this encoding, only
-     *         that the characters are valid for an Java encoding name.
-     *
-     * @param javaEncoding The Java encoding name.
-     */
-    public static boolean isValidJavaEncoding(final String javaEncoding) {
-        if (javaEncoding != null) {
-            final int length = javaEncoding.length();
-            if (length > 0) {
-                for (int i = 1; i < length; i++) {
-                    final char c = javaEncoding.charAt(i);
-                    if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9') && c != '.' && c != '_'
-                            && c != '-') {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Trims space characters as defined by production [3] in the XML 1.0
-     * specification from both ends of the given string.
-     *
-     * @param value the string to be trimmed
-     * @return the given string with the space characters trimmed from both ends
-     */
-    public static String trim(final String value) {
-        int start;
-        int end;
-        final int lengthMinusOne = value.length() - 1;
-        for (start = 0; start <= lengthMinusOne; ++start) {
-            if (!isSpace(value.charAt(start))) {
-                break;
-            }
-        }
-        for (end = lengthMinusOne; end >= start; --end) {
-            if (!isSpace(value.charAt(end))) {
-                break;
-            }
-        }
-        if (start == 0 && end == lengthMinusOne) {
-            return value;
-        }
-        if (start > lengthMinusOne) {
-            return "";
-        }
-        return value.substring(start, end + 1);
     }
 }
