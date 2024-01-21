@@ -834,19 +834,19 @@ public class XMLString implements CharSequence {
      * can either be a single UTF-16 character or a supplementary character
      * represented by two UTF-16 code points.
      *
-     * @param value The character value.
+     * @param codePoint The character value.
      * @return this instance for fluid programming
      *
      * @throws IllegalArgumentException if the specified
      *          {@code codePoint} is not a valid Unicode code point.
      */
-    public boolean appendCodePoint(final int value) {
-        if (Character.isBmpCodePoint(value)) {
-            this.append((char) value);
+    public boolean appendCodePoint(final int codePoint) {
+        if (Character.isBmpCodePoint(codePoint)) {
+            this.append((char) codePoint);
         }
-        else if (Character.isValidCodePoint(value)) {
+        else if (Character.isValidCodePoint(codePoint)) {
             // as seen in the JDK, avoid a char array in between
-            this.append(Character.highSurrogate(value), Character.lowSurrogate(value));
+            this.append(Character.highSurrogate(codePoint), Character.lowSurrogate(codePoint));
         }
         else {
             // when value is not valid as UTF-16
