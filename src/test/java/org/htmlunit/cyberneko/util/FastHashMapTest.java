@@ -308,12 +308,12 @@ public class FastHashMapTest {
     }
 
     static class MockKey<T extends Comparable<T>> implements Comparable<MockKey<T>> {
-        public final T key_;
-        public final int hash_;
+        private final T key_;
+        private final int hash_;
 
         MockKey(final int hash, final T key) {
-            this.hash_ = hash;
-            this.key_ = key;
+            hash_ = hash;
+            key_ = key;
         }
 
         @Override

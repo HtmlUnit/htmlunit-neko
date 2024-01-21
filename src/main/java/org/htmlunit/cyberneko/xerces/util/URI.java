@@ -17,7 +17,7 @@ package org.htmlunit.cyberneko.xerces.util;
 import java.io.IOException;
 import java.util.Locale;
 
-/**********************************************************************
+/**
  * A class to represent a Uniform Resource Identifier (URI). This class is
  * designed to handle the parsing of URIs and provide access to the various
  * components (scheme, host, port, userinfo, path, query string and fragment)
@@ -49,7 +49,7 @@ import java.util.Locale;
  */
 public class URI {
 
-    /*******************************************************************
+    /**
      * MalformedURIExceptions are thrown in the process of building a URI or setting
      * fields on a URI when an operation would result in an invalid URI
      * specification.
@@ -57,9 +57,7 @@ public class URI {
      */
     public static class MalformedURIException extends IOException {
 
-        private static final long serialVersionUID = -8343545858797571098L;
-
-        /*****************************************************************
+        /**
          * Constructs a <code>MalformedURIException</code> with the specified detail
          * message.
          *

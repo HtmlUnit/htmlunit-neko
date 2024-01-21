@@ -595,12 +595,12 @@ public class HTMLElements {
     }
 
     private void defineParents(final Element element) {
-        if (element.parentCodes != null) {
-            element.parent = new Element[element.parentCodes.length];
-            for (int j = 0; j < element.parentCodes.length; j++) {
-                element.parent[j] = elementsByCode_[element.parentCodes[j]];
+        if (element.parentCodes_ != null) {
+            element.parent = new Element[element.parentCodes_.length];
+            for (int j = 0; j < element.parentCodes_.length; j++) {
+                element.parent[j] = elementsByCode_[element.parentCodes_[j]];
             }
-            element.parentCodes = null;
+            element.parentCodes_ = null;
         }
     }
 
@@ -622,9 +622,9 @@ public class HTMLElements {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
             element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),
-                                NO_SUCH_ELEMENT.flags, NO_SUCH_ELEMENT.parentCodes, NO_SUCH_ELEMENT.closes);
+                                NO_SUCH_ELEMENT.flags, NO_SUCH_ELEMENT.parentCodes_, NO_SUCH_ELEMENT.closes);
             element.parent = NO_SUCH_ELEMENT.parent;
-            element.parentCodes = NO_SUCH_ELEMENT.parentCodes;
+            element.parentCodes_ = NO_SUCH_ELEMENT.parentCodes_;
         }
         return element;
     }
@@ -707,7 +707,7 @@ public class HTMLElements {
         public final short[] closes;
 
         /** Parent elements. */
-        private short[] parentCodes;
+        private short[] parentCodes_;
 
         /**
          * Constructs an element object.
@@ -768,7 +768,7 @@ public class HTMLElements {
             this.name = name;
             this.lowercaseName = name.toLowerCase(Locale.ROOT);
             this.flags = flags;
-            this.parentCodes = parents;
+            this.parentCodes_ = parents;
             this.parent = null;
             this.bounds = bounds;
             this.closes = closes;

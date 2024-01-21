@@ -1682,7 +1682,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private boolean endReached_ = false;
 
         // Constructs an entity from the specified stream.
-        public CurrentEntity(final Reader stream, final String encoding, final String publicId, final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
+        public CurrentEntity(final Reader stream, final String encoding, final String publicId,
+                final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
             stream_ = stream;
             this.encoding_ = encoding;
             this.publicId = publicId;
