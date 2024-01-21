@@ -158,7 +158,7 @@ public class CanonicalTest {
                 canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                 if (!canonicalFile.exists()) {
-                    canonicalFile = new File(canonicalDir, dataFile.getName() + "-dom");
+                    canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-dom");
 
                     if (!canonicalFile.exists()) {
                         canonicalFile = new File(canonicalDir, dataFile.getName());
@@ -208,10 +208,10 @@ public class CanonicalTest {
                     canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                     if (!canonicalFile.exists()) {
-                        canonicalFile = new File(canonicalDir, dataFile.getName() + "-frg");
+                        canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-frg");
 
                         if (!canonicalFile.exists()) {
-                            canonicalFile = new File(canonicalDir, dataFile.getName() + "-dom");
+                            canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-dom");
 
                             if (!canonicalFile.exists()) {
                                 canonicalFile = new File(canonicalDir, dataFile.getName());
@@ -261,7 +261,7 @@ public class CanonicalTest {
                 canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                 if (!canonicalFile.exists()) {
-                    canonicalFile = new File(canonicalDir, dataFile.getName() + "-sax");
+                    canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-sax");
 
                     if (!canonicalFile.exists()) {
                         canonicalFile = new File(canonicalDir, dataFile.getName());
