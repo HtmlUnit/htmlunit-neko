@@ -1,0 +1,13 @@
+(p
+"P1
+#[CDATA[cdata1]]]
+"\n
+)p
+(p
+"P2
+#[CDATA[cdata2]]]]
+"\n
+)p
+(p
+"P3
+)p

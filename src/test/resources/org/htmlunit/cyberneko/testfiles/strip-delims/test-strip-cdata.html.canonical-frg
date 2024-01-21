@@ -1,0 +1,7 @@
+(script
+"\nxhtml script content\n
+)script
+"\n
+(h1
+"Foo
+)h1

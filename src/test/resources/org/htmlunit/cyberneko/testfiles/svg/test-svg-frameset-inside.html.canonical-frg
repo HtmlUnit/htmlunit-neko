@@ -1,0 +1,16 @@
+(html
+"\n
+(head
+"\n
+(script
+"alert('test');
+)script
+"\n\n
+)head
+(body
+(svg
+(frameset
+)frameset
+)svg
+)body
+)html

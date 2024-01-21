@@ -1,0 +1,20 @@
+(html
+(head
+(title
+"foo
+)title
+"\n
+(script
+Alanguage javascript
+"<!-- alert(1);
+)script
+"\n
+(script
+Alanguage javascript
+"alert(1);
+)script
+"\n\n
+)head
+(body
+)body
+)html

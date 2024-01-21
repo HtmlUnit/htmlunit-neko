@@ -1,0 +1,9 @@
+" 
+(dialog
+"before
+(dialog
+"inner
+)dialog
+"after
+)dialog
+" 

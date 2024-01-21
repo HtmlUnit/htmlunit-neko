@@ -1,0 +1,15 @@
+(html
+"\n
+(head
+"\n    
+(script
+"\n        <!-- yy --!>\n        var loc = 7;\n    
+)script
+"\n\n
+)head
+(body
+"\n    
+#xx 
+"\n\n\n
+)body
+)html

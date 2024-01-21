@@ -1,0 +1,13 @@
+(p
+"outer paragraph\n
+)p
+(p
+"inner paragraph
+(br
+)br
+"second line in inner paragraph\n
+)p
+"second line in outer paragrapth\n
+(p
+)p
+"outside paragraph tags

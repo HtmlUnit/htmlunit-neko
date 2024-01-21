@@ -1,0 +1,18 @@
+(html
+(head
+)head
+(body
+(div
+"1
+)div
+# in comment 
+(div
+"2
+)div
+# in bang comment 
+(div
+"3
+)div
+"-->
+)body
+)html

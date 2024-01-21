@@ -1,0 +1,23 @@
+(html
+"\n
+(meta
+Acontent no-cache
+Ahttp-equiv Pragma
+)meta
+"\n
+(head
+"\n
+(title
+"Title
+)title
+"\n
+(meta
+Acontent text/html; charset=iso-8859-1
+Ahttp-equiv Content-Type
+)meta
+"\n\n
+)head
+(body
+"\n\n
+)body
+)html

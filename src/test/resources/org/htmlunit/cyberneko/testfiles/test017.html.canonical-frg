@@ -1,0 +1,12 @@
+(table
+"\n
+(TBODY
+(tr
+(td
+(input
+Atype text
+)input
+)td
+)tr
+)TBODY
+)table

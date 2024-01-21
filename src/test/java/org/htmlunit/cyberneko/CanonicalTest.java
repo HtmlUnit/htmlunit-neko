@@ -235,12 +235,10 @@ public class CanonicalTest {
                     // expected
                 }
 
-                // for the moment check only no exception is thrown
-                // assertEquals(getCanonical(nyiFile).toLowerCase(Locale.ROOT), domDataLines, "NYI: " + dataFile);
+                assertEquals(getCanonical(nyiFile).toLowerCase(Locale.ROOT), domDataLines, "NYI: " + dataFile);
             }
             else {
-                // for the moment check only no exception is thrown
-                // assertEquals(getCanonical(canonicalFile).toLowerCase(Locale.ROOT), domDataLines, dataFile.toString());
+                assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {
@@ -481,18 +479,7 @@ public class CanonicalTest {
                 sb.append(line).append('\n');
             }
 
-            final StringBuilder content = new StringBuilder();
-            write(content, fragment);
-            String contentString = content.toString().toLowerCase(Locale.ROOT);
-
-            if (contentString.contains("(html\n(head\n")) {
-                sb.append(contentString);
-            }
-            else {
-                sb.append("(html\n(head\n)head\n(body\n");
-                sb.append(contentString);
-                sb.append(")body\n)html\n");
-            }
+            write(sb, fragment);
 
             return sb.toString();
         }

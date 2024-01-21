@@ -1,0 +1,20 @@
+(table
+(COLGROUP
+(col
+Awidth 7
+)col
+(col
+Awidth 1
+)col
+)COLGROUP
+(tbody
+(tr
+(td
+"seven
+)td
+(td
+"One
+)td
+)tr
+)tbody
+)table

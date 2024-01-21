@@ -1,0 +1,17 @@
+(html
+(head
+(title
+"first
+)title
+"\n
+)head
+(frameset
+Acols 100%
+"\n  
+(frame
+Aid frame1
+Asrc foo
+)frame
+"\n
+)frameset
+)html

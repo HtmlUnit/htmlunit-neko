@@ -1,0 +1,13 @@
+(html
+(head
+"\n
+(script
+Asrc foo.js
+)script
+"\n
+)head
+(body
+Aonload doIt()
+"foo
+)body
+)html

@@ -1,0 +1,18 @@
+(table
+(tbody
+(form
+)form
+(input
+Aname xyz
+Atype hidden
+)input
+(input
+Atype submit
+Avalue Submit
+)input
+(tr
+(td
+)td
+)tr
+)tbody
+)table

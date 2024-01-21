@@ -1,0 +1,7 @@
+(HTML
+(head
+(script
+"<!-- outer <script >inner</scri</script>
+)script
+)head
+)HTML

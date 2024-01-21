@@ -1,0 +1,7 @@
+(script
+" on comment line\nhtml script content\n//
+)script
+"\n
+(h1
+"Foo
+)h1

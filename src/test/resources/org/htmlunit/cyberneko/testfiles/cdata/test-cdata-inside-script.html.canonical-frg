@@ -1,0 +1,7 @@
+(script
+"\n<![CDATA[\nxhtml script content\n]]>\n
+)script
+"\n
+(h1
+"Foo
+)h1

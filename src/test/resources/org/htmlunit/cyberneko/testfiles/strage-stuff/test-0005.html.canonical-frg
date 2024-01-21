@@ -1,0 +1,7 @@
+(style
+"b<![cdata[
+)style
+(a
+Ahref javascript:alert(1)
+"test
+)a

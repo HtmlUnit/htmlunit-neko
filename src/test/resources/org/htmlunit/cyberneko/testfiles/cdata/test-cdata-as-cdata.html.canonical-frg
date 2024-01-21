@@ -1,0 +1,5 @@
+"Text before 
+((CDATA
+" text in CDATA
+))CDATA
+" text after\n
