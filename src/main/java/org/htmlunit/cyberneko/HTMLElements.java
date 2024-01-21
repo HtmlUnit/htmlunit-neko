@@ -195,8 +195,13 @@ public class HTMLElements {
 
     // keep the list here for later modification
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
+
     // this is a optimized version which will be later queried
-    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.50f);
+    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.70f);
+
+    // this map helps us to know what elements we don't have and speed things up
+    private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
+
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -635,13 +640,28 @@ public class HTMLElements {
         // check the current form casing first, which is mostly lowercase only
         Element r = elementsByNameOptimized_.get(ename);
         if (r == null) {
-            // we have found it in its current form, which
-            // is hopefully mainly lowercase or uppercase, so try
-            // all lowercase
+            // check first if we know that we don't know and avoid the
+            // lowercasing later
+            if (unknownElements_.get(ename) != null) {
+                // we added it to the cache, so we know it has been
+                // queried once unsuccessfully before
+                return element;
+            }
+
+            // we have not found it in its current form, might be uppercase
+            // or mixed case, so try all lowercase for sanity, we speculated that
+            // good HTML is mostly all lowercase in the first place so this is the
+            // fallback for atypical HTML
+            // we also have not seen that element missing yet
             r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
+
+            // remember that we had a miss
+            if (r == null) {
+                unknownElements_.put(ename, Boolean.TRUE);
+                return element;
+            }
         }
-        // return fallback element if needed
-        return r != null ? r : element;
+        return r;
     }
 
     /**
