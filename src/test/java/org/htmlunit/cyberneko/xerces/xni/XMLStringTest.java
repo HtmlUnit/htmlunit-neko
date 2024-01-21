@@ -217,13 +217,14 @@ public class XMLStringTest {
     public void toStringCacheTest() {
         final FastHashMap<XMLString, String> cache = new FastHashMap<>(10, 0.5f);
 
-        XMLString x1 = new XMLString("abc");
-        XMLString x2 = new XMLString("abc");
-        XMLString x3 = new XMLString("12");
+        final XMLString x1 = new XMLString("abc");
+        final XMLString x2 = new XMLString("abc");
+        final XMLString x3 = new XMLString("12");
 
-        String s1 = x1.toString(cache);
-        String s2 = x2.toString(cache);
-        String s3 = x3.toString(cache);
+        final String s1 = x1.toString(cache);
+        final String s2 = x2.toString(cache);
+        final String s3 = x3.toString(cache);
+
         assertSame(s1, s2);
         assertNotSame(s2, s3);
     }
@@ -696,7 +697,7 @@ public class XMLStringTest {
         // just push something into the string to see if we have growth pain
         final XMLString b = new XMLString("foo");
         String exB = "foo";
-        String src = "This is a test of the prepending";
+        final String src = "This is a test of the prepending";
         for (int i = 0; i < src.length(); i++) {
             final char c = src.charAt(i);
             exB = c + exB;
@@ -1289,12 +1290,12 @@ public class XMLStringTest {
     @Test
     public void equalsIgnoreCase_Same() {
         final XMLString a = new XMLString("a");
-        final XMLString A = new XMLString("A");
-        assertTrue(a.equalsIgnoreCase(A));
-        assertTrue(A.equalsIgnoreCase("a"));
+        final XMLString aUC = new XMLString("A");
+        assertTrue(a.equalsIgnoreCase(aUC));
+        assertTrue(aUC.equalsIgnoreCase("a"));
         assertTrue(a.equalsIgnoreCase("A"));
         assertTrue(a.equalsIgnoreCase("a"));
-        assertTrue(A.equalsIgnoreCase("A"));
+        assertTrue(aUC.equalsIgnoreCase("A"));
 
         final XMLString a1 = new XMLString("iasDJ7(/&%$§%&/()1726781aaA");
         final XMLString a2 = new XMLString("iasDj7(/&%$§%&/()1726781aaa");
@@ -1352,11 +1353,11 @@ public class XMLStringTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {
-            //            "𘀀", // UTF-16
-            "A", "a", "",
-            //            "HtmlUnit", "éäöü€",
-            //            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
-            //            "Foo\uD840" // supplemental char aka UTF-16
+        // "𘀀", // UTF-16
+        "A", "a", ""
+        // "HtmlUnit", "éäöü€",
+        // "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
+        // "Foo\uD840" // supplemental char aka UTF-16
     })
     public void toLowerCase(final String s) {
         final XMLString a = new XMLString(s);
@@ -1368,11 +1369,11 @@ public class XMLStringTest {
      */
     @ParameterizedTest
     @ValueSource(strings = {
-            "𘀀", // UTF-16
-            "", "A", "a",
-            "HtmlUnit", "éäöü€",
-            "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
-            "Foo\uD840" // supplemental char aka UTF-16
+        "𘀀", // UTF-16
+        "", "A", "a",
+        "HtmlUnit", "éäöü€",
+        "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр", // some unicode
+        "Foo\uD840" // supplemental char aka UTF-16
     })
     public void toUpperCase(final String s) {
         final XMLString a = new XMLString(s);
@@ -1380,8 +1381,7 @@ public class XMLStringTest {
     }
 
     @Test
-    public void indexOf_char()
-    {
+    public void indexOf_char() {
         assertEquals(-1, new XMLString().indexOf('c'));
         assertEquals(-1, new XMLString("").indexOf('c'));
         assertEquals(0, new XMLString("a").indexOf('a'));
@@ -1391,8 +1391,7 @@ public class XMLStringTest {
     }
 
     @Test
-    public void indexOf_XMLString()
-    {
+    public void indexOf_XMLString() {
         final BiFunction<String, String, Integer> t = (s1, s2)
                 -> new XMLString(s1).indexOf(s2 != null ? new XMLString(s2) : null);
 
@@ -1412,8 +1411,7 @@ public class XMLStringTest {
     }
 
     @Test
-    public void contains_XMLString()
-    {
+    public void contains_XMLString() {
         final BiFunction<String, String, Boolean> t = (s1, s2)
                 -> new XMLString(s1).contains(s2 != null ? new XMLString(s2) : null);
 

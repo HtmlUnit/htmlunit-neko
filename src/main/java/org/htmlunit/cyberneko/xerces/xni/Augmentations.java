@@ -36,5 +36,5 @@ public interface Augmentations {
      *
      * @return a full copy of this augmentations holder
      */
-    public Augmentations clone();
+    Augmentations clone();
 }

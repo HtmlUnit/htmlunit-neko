@@ -232,12 +232,12 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
     }
 
     static class ElementTypesHTMLHolder {
-        public final String tagName;
-        public final Constructor<? extends HTMLElementImpl> ctr;
+        public final String tagName_;
+        public final Constructor<? extends HTMLElementImpl> ctr_;
 
         ElementTypesHTMLHolder(final String tagName, final Constructor<? extends HTMLElementImpl> ctr) {
-            this.tagName = tagName;
-            this.ctr = ctr;
+            tagName_ = tagName;
+            ctr_ = ctr;
         }
     }
 
@@ -525,7 +525,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             // owner document and a tag name. Use the constructor to instantiate
             // a new object and return it.
             try {
-                return htmlHolder.ctr.newInstance(new Object[] {this, htmlHolder.tagName});
+                return htmlHolder.ctr_.newInstance(new Object[] {this, htmlHolder.tagName_});
             }
             catch (final Exception e) {
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);
@@ -675,8 +675,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         }
 
         // check whether a class change is required
-        final Constructor<?> newCtr = elementTypesHTMLUpper_.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr;
-        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName()).ctr;
+        final Constructor<?> newCtr = elementTypesHTMLUpper_.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr_;
+        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName()).ctr_;
         return newCtr == oldCtr;
     }
 

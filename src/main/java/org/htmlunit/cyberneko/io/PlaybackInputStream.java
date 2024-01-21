@@ -72,11 +72,11 @@ public final class PlaybackInputStream extends InputStream {
     private int pushbackLength_ = 0;
 
     /** Our inputstream */
-    private final InputStream in;
+    private final InputStream in_;
 
     // Constructor.
-    public PlaybackInputStream(final InputStream in) {
-        this.in = in;
+    public PlaybackInputStream(final InputStream inputStream) {
+        in_ = inputStream;
     }
 
     // Detect encoding.
@@ -148,7 +148,7 @@ public final class PlaybackInputStream extends InputStream {
         }
         // this should be the normal state, hence we do that first
         if (cleared_) {
-            return in.read();
+            return in_.read();
         }
         if (pushbackOffset_ < pushbackLength_) {
             return byteBuffer_[pushbackOffset_++];
@@ -164,7 +164,7 @@ public final class PlaybackInputStream extends InputStream {
             }
             return c;
         }
-        final int c = in.read();
+        final int c = in_.read();
         if (c != -1) {
             if (byteLength_ == byteBuffer_.length) {
                 final byte[] newarray = new byte[byteLength_ + 1024];
@@ -193,7 +193,7 @@ public final class PlaybackInputStream extends InputStream {
         }
         // this should be the normal state, hence we do that first
         if (cleared_) {
-            return in.read(array, offset, length);
+            return in_.read(array, offset, length);
         }
         if (pushbackOffset_ < pushbackLength_) {
             int count = pushbackLength_ - pushbackOffset_;
@@ -216,7 +216,7 @@ public final class PlaybackInputStream extends InputStream {
             }
             return length;
         }
-        final int count = in.read(array, offset, length);
+        final int count = in_.read(array, offset, length);
         if (count != -1) {
             if (byteLength_ + count > byteBuffer_.length) {
                 final byte[] newarray = new byte[byteLength_ + count + 512];

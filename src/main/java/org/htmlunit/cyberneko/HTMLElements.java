@@ -202,7 +202,6 @@ public class HTMLElements {
     // this map helps us to know what elements we don't have and speed things up
     private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
 
-
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
         // <!ENTITY % heading "H1|H2|H3|H4|H5|H6">

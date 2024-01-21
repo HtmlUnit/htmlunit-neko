@@ -103,9 +103,9 @@ public class CanonicalTest {
         final List<DynamicTest> tests = new ArrayList<>();
         for (final File dataFile : dataFiles) {
             tests.add(DynamicTest.dynamicTest(dataFile.getName(), () -> runTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[dom] "+ dataFile.getName(), () -> runDomTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[frg] "+ dataFile.getName(), () -> runDomFragmentTest(dataFile)));
-            tests.add(DynamicTest.dynamicTest("[sax] "+ dataFile.getName(), () -> runSaxTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest("[dom] " + dataFile.getName(), () -> runDomTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest("[frg] " + dataFile.getName(), () -> runDomFragmentTest(dataFile)));
+            tests.add(DynamicTest.dynamicTest("[sax] " + dataFile.getName(), () -> runSaxTest(dataFile)));
         }
         return tests;
     }
@@ -249,7 +249,6 @@ public class CanonicalTest {
             throw e;
         }
     }
-
 
     protected void runSaxTest(final File dataFile) throws Exception {
         final String domDataLines = getSaxResult(dataFile);
@@ -403,7 +402,7 @@ public class CanonicalTest {
             // parse
             parser.parse(new XMLInputSource(null, infilename, null));
 
-            CoreDocumentImpl doc = (CoreDocumentImpl) parser.getDocument();
+            final CoreDocumentImpl doc = (CoreDocumentImpl) parser.getDocument();
 
             final StringBuilder sb = new StringBuilder();
 
@@ -492,9 +491,9 @@ public class CanonicalTest {
             out.append('\n');
         }
 
-        NodeList childNodes = doc.getChildNodes();
+        final NodeList childNodes = doc.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
-            Node childNode = childNodes.item(i);
+            final Node childNode = childNodes.item(i);
 
             if (childNode instanceof CDATASectionImpl) {
                 write(out, (CDATASectionImpl) childNode);
@@ -518,9 +517,9 @@ public class CanonicalTest {
     }
 
     private static void write(final StringBuilder out, final DocumentFragmentImpl doc) {
-        NodeList childNodes = doc.getChildNodes();
+        final NodeList childNodes = doc.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
-            Node childNode = childNodes.item(i);
+            final Node childNode = childNodes.item(i);
 
             if (childNode instanceof CDATASectionImpl) {
                 write(out, (CDATASectionImpl) childNode);
@@ -549,10 +548,10 @@ public class CanonicalTest {
             .append("\n");
 
         // attributes
-        NamedNodeMap attributes = node.getAttributes();
+        final NamedNodeMap attributes = node.getAttributes();
         if (attributes != null) {
             for (int i = 0; i < attributes.getLength(); i++) {
-                Node attribute = attributes.item(i);
+                final Node attribute = attributes.item(i);
 
                 if (attribute instanceof Attr) {
                     write(out, (Attr) attribute);
@@ -564,9 +563,9 @@ public class CanonicalTest {
         }
 
         // child nodes
-        NodeList childNodes = node.getChildNodes();
+        final NodeList childNodes = node.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
-            Node childNode = childNodes.item(i);
+            final Node childNode = childNodes.item(i);
 
             if (childNode instanceof CDATASectionImpl) {
                 write(out, (CDATASectionImpl) childNode);
@@ -696,7 +695,7 @@ public class CanonicalTest {
             }
 
             // parse
-            SaxHandler saxHandler = new SaxHandler(out);
+            final SaxHandler saxHandler = new SaxHandler(out);
             parser.setContentHandler(saxHandler);
             parser.setProperty("http://xml.org/sax/properties/lexical-handler", saxHandler);
             parser.setErrorHandler(saxHandler);
@@ -725,7 +724,7 @@ public class CanonicalTest {
         }
 
         @Override
-        public void setDocumentLocator(Locator locator) {
+        public void setDocumentLocator(final Locator locator) {
             characters();
         }
 
@@ -740,17 +739,17 @@ public class CanonicalTest {
         }
 
         @Override
-        public void startPrefixMapping(String prefix, String uri) throws SAXException {
+        public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
             characters();
         }
 
         @Override
-        public void endPrefixMapping(String prefix) throws SAXException {
+        public void endPrefixMapping(final String prefix) throws SAXException {
             characters();
         }
 
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes atts)
+        public void startElement(final String uri, final String localName, final String qName, final Attributes atts)
                 throws SAXException {
             characters();
 
@@ -758,16 +757,16 @@ public class CanonicalTest {
                 .append(qName)
                 .append("\n");
 
-            ArrayList<String> attNames = new ArrayList<>();
+            final ArrayList<String> attNames = new ArrayList<>();
             for (int i = 0; i < atts.getLength(); i++) {
                 attNames.add(atts.getQName(i));
             }
 
             Collections.sort(attNames);
 
-            for (String attName : attNames) {
+            for (final String attName : attNames) {
                 out_.append('A');
-                int i = atts.getIndex(attName);
+                final int i = atts.getIndex(attName);
                 if (atts.getURI(i) != null && atts.getURI(i).length() > 0) {
                     out_.append('{')
                         .append(atts.getURI(i))
@@ -782,7 +781,7 @@ public class CanonicalTest {
         }
 
         @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
+        public void endElement(final String uri, final String localName, final String qName) throws SAXException {
             characters();
 
             out_.append(')')
@@ -791,7 +790,7 @@ public class CanonicalTest {
         }
 
         @Override
-        public void characters(char[] ch, int start, int length) throws SAXException {
+        public void characters(final char[] ch, final int start, final int length) throws SAXException {
             if (lastWasChar_) {
                 out_.append(normalize(String.copyValueOf(ch, start, length)));
                 return;
@@ -803,14 +802,14 @@ public class CanonicalTest {
         }
 
         @Override
-        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+        public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
             characters();
 
             out_.append("# ignorableWhitespace\n");
         }
 
         @Override
-        public void processingInstruction(String target, String data) throws SAXException {
+        public void processingInstruction(final String target, final String data) throws SAXException {
             characters();
 
             out_.append('?')
@@ -823,14 +822,14 @@ public class CanonicalTest {
         }
 
         @Override
-        public void skippedEntity(String name) throws SAXException {
+        public void skippedEntity(final String name) throws SAXException {
             characters();
 
             out_.append("# skippedEntity\n");
         }
 
         @Override
-        public void startDTD(String name, String publicId, String systemId) throws SAXException {
+        public void startDTD(final String name, final String publicId, final String systemId) throws SAXException {
             characters();
 
             out_.append('!');
@@ -865,14 +864,14 @@ public class CanonicalTest {
         }
 
         @Override
-        public void startEntity(String name) throws SAXException {
+        public void startEntity(final String name) throws SAXException {
             characters();
 
             out_.append("# startEntity\n");
         }
 
         @Override
-        public void endEntity(String name) throws SAXException {
+        public void endEntity(final String name) throws SAXException {
             characters();
 
             out_.append("# endEntity\n");
@@ -893,7 +892,7 @@ public class CanonicalTest {
         }
 
         @Override
-        public void comment(char[] ch, int start, int length) throws SAXException {
+        public void comment(final char[] ch, final int start, final int length) throws SAXException {
             characters();
 
             out_.append('#')
@@ -909,18 +908,18 @@ public class CanonicalTest {
         }
 
         @Override
-        public void warning(SAXParseException exception) throws SAXException {
+        public void warning(final SAXParseException exception) throws SAXException {
             out_.append("# warning\n");
         }
 
         @Override
-        public void error(SAXParseException exception) throws SAXException {
+        public void error(final SAXParseException exception) throws SAXException {
             out_.append("# error\n");
         }
 
         @Override
-        public void fatalError(SAXParseException exception) throws SAXException {
+        public void fatalError(final SAXParseException exception) throws SAXException {
             out_.append("# fatalError\n");
         }
-    };
+    }
 }

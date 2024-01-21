@@ -803,13 +803,11 @@ public class XMLString implements CharSequence {
      * @param s the XMLString to use for comparison
      * @return true if the sequence matches case-insensive, false otherwise
      */
-    public static boolean equals(final CharSequence sequence, XMLString s) {
+    public static boolean equals(final CharSequence sequence, final XMLString s) {
         if (s == null) {
             return false;
         }
-        else {
-            return s.equals(sequence);
-        }
+        return s.equals(sequence);
     }
     /**
      * We don't cache the hashcode because we mutate often. Don't use this in
@@ -876,7 +874,7 @@ public class XMLString implements CharSequence {
         // Ok, as soon as we something complicated, we bail out
         // and take the expensive route
         boolean gaveUp = false;
-        for (int i = 0 ; i < this.length_; i++) {
+        for (int i = 0; i < this.length_; i++) {
             final char c = this.data_[i];
 
             if (Character.isHighSurrogate(c)) {
@@ -884,12 +882,10 @@ public class XMLString implements CharSequence {
                 gaveUp = true;
                 break;
             }
-            else {
-                // we know it is a unicode value and not a code point, so
-                // char to int is safe
-                final int upperCasePoint = Character.toUpperCase((int) c);
-                this.data_[i] = (char) upperCasePoint;
-            }
+            // we know it is a unicode value and not a code point, so
+            // char to int is safe
+            final int upperCasePoint = Character.toUpperCase((int) c);
+            this.data_[i] = (char) upperCasePoint;
         }
 
         // we converted inline and nicely
@@ -933,7 +929,7 @@ public class XMLString implements CharSequence {
         // Ok, as soon as we something complicated, we bail out
         // and take the expensive route
         boolean gaveUp = false;
-        for (int i = 0 ; i < this.length_; i++) {
+        for (int i = 0; i < this.length_; i++) {
             final char c = this.data_[i];
 
             if (Character.isHighSurrogate(c)) {
@@ -941,12 +937,10 @@ public class XMLString implements CharSequence {
                 gaveUp = true;
                 break;
             }
-            else {
-                // we know it is a unicode value and not a code point, so
-                // char to int is safe
-                final int lowerCasePoint = Character.toLowerCase((int) c);
-                this.data_[i] = (char) lowerCasePoint;
-            }
+            // we know it is a unicode value and not a code point, so
+            // char to int is safe
+            final int lowerCasePoint = Character.toLowerCase((int) c);
+            this.data_[i] = (char) lowerCasePoint;
         }
 
         // we converted inline and nicely
@@ -983,13 +977,11 @@ public class XMLString implements CharSequence {
      * @param s the XMLString to use for comparison
      * @return true if the sequence matches case-insensive, false otherwise
      */
-    public static boolean equalsIgnoreCase(final CharSequence sequence, XMLString s) {
+    public static boolean equalsIgnoreCase(final CharSequence sequence, final XMLString s) {
         if (s == null) {
             return false;
         }
-        else {
-            return s.equalsIgnoreCase(sequence);
-        }
+        return s.equalsIgnoreCase(sequence);
     }
 
     /**
@@ -1054,22 +1046,22 @@ public class XMLString implements CharSequence {
      * source is the character array being searched, and the target
      * is the string being searched for.
      *
-     * @param   source       the characters being searched.
-     * @param   sourceOffset offset of the source string.
-     * @param   sourceCount  count of the source string.
-     * @param   target       the characters being searched for.
-     * @param   targetOffset offset of the target string.
-     * @param   targetCount  count of the target string.
-     * @param   fromIndex    the index to begin searching from.
+     * @param source       the characters being searched.
+     * @param sourceOffset offset of the source string.
+     * @param sourceCount  count of the source string.
+     * @param target       the characters being searched for.
+     * @param targetOffset offset of the target string.
+     * @param targetCount  count of the target string.
+     * @param fromIndex    the index to begin searching from.
      *
      * @return the first position both array match
      */
-    private static int indexOf(char[] source, int sourceOffset, int sourceCount,
-                               char[] target, int targetOffset, int targetCount,
+    private static int indexOf(final char[] source, final int sourceOffset, final int sourceCount,
+                               final char[] target, final int targetOffset, final int targetCount,
                                int fromIndex) {
 
         if (fromIndex >= sourceCount) {
-            return (targetCount == 0 ? sourceCount : -1);
+            return targetCount == 0 ? sourceCount : -1;
         }
         if (fromIndex < 0) {
             fromIndex = 0;
@@ -1078,20 +1070,24 @@ public class XMLString implements CharSequence {
             return fromIndex;
         }
 
-        char first = target[targetOffset];
-        int max = sourceOffset + (sourceCount - targetCount);
+        final char first = target[targetOffset];
+        final int max = sourceOffset + (sourceCount - targetCount);
 
         for (int i = sourceOffset + fromIndex; i <= max; i++) {
             /* Look for first character. */
             if (source[i] != first) {
-                while (++i <= max && source[i] != first);
+                while (++i <= max && source[i] != first) {
+                    // empty
+                }
             }
 
             /* Found first character, now look at the rest of v2 */
             if (i <= max) {
                 int j = i + 1;
-                int end = j + targetCount - 1;
-                for (int k = targetOffset + 1; j < end && source[j] == target[k]; j++, k++);
+                final int end = j + targetCount - 1;
+                for (int k = targetOffset + 1; j < end && source[j] == target[k]; j++, k++) {
+                    // empty
+                }
 
                 if (j == end) {
                     /* Found whole string. */
@@ -1108,12 +1104,9 @@ public class XMLString implements CharSequence {
      * @param c the char to search
      * @return the position or -1 otherwise
      */
-    public int indexOf(final char c)
-    {
-        for (int i = 0; i < this.length_; i++)
-        {
-            if (this.data_[i] == c)
-            {
+    public int indexOf(final char c) {
+        for (int i = 0; i < this.length_; i++) {
+            if (this.data_[i] == c) {
                 return i;
             }
         }
@@ -1127,8 +1120,7 @@ public class XMLString implements CharSequence {
      * @param s the buffer to be search for
      * @return the first found position or -1 if not found
      */
-    public int indexOf(final XMLString s)
-    {
+    public int indexOf(final XMLString s) {
         return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) : -1;
     }
 
@@ -1138,8 +1130,7 @@ public class XMLString implements CharSequence {
      * @param s the XMLString to search and match
      * @return true if s is in this string or false otherwise
      */
-    public boolean contains(final XMLString s)
-    {
+    public boolean contains(final XMLString s) {
         return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) > -1 : false;
     }
 
