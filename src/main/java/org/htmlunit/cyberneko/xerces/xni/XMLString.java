@@ -615,7 +615,6 @@ public class XMLString implements CharSequence {
      * operation. If the buffer is empty, we get a constant empty String back
      * to avoid any overhead. Method exists to deliver null-safety.
      *
-     * @
      * @return a string of the content of this buffer
      */
     public static String toString(final XMLString seq) {
@@ -794,7 +793,7 @@ public class XMLString implements CharSequence {
 
     /**
      * Compares a CharSequence with an XMLString in a null-safe manner.
-     * For more, see {@link #equals(CharSequence)}. The XMLString
+     * For more, see {@link #equals(Object)}. The XMLString
      * can be null, but the CharSequence must not be null. This mimics the
      * typical use case "string".equalsIgnoreCase(null) which returns false
      * without raising an exception.
@@ -865,7 +864,7 @@ public class XMLString implements CharSequence {
      * <p>Note: We change the current XMLString and don't get a copy back
      * but this instance.
      *
-     * @param the locale to use in case we have to bail out and convert
+     * @param locale the locale to use in case we have to bail out and convert
      *        using String, this also means, that the result is not perfect
      *        when comparing to {@link String#toLowerCase(Locale)}
      * @return this updated instance
@@ -920,7 +919,7 @@ public class XMLString implements CharSequence {
      * <p>Note: We change the current XMLString and don't get a copy back
      * but this instance.
      *
-     * @param the locale to use in case we have to bail out and convert
+     * @param locale the locale to use in case we have to bail out and convert
      *        using String, this also means, that the result is not perfect
      *        when comparing to {@link String#toLowerCase(Locale)}
      * @return this updated instance

@@ -230,9 +230,7 @@ public class FastHashMap<K, V> {
     }
 
     /**
-     * Returns a list of all values
-     *
-     * @return
+     * @return a list of all keys
      */
     public List<K> keys() {
         final List<K> result = new ArrayList<>(this.size());
@@ -249,9 +247,7 @@ public class FastHashMap<K, V> {
     }
 
     /**
-     * Returns a list of all values
-     *
-     * @return
+     * @return a list of all values
      */
     public List<V> values() {
         final List<V> result = new ArrayList<>(this.size());
