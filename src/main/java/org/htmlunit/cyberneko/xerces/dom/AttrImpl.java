@@ -274,7 +274,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public String getName() {
-
         if (needsSyncData()) {
             synchronizeData();
         }

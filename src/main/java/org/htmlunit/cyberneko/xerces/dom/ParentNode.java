@@ -457,8 +457,8 @@ public abstract class ParentNode extends ChildNode {
     // removeChild operation allows us to do so. It is not intended
     // for use by application programs.
     Node internalRemoveChild(final Node oldChild, final boolean replace) throws DOMException {
-        final CoreDocumentImpl ownerDocument = ownerDocument();
-        if (ownerDocument.errorChecking) {
+        final CoreDocumentImpl ownerDoc = ownerDocument();
+        if (ownerDoc.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
                 throw new DOMException(DOMException.NOT_FOUND_ERR,
                         DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
@@ -468,7 +468,7 @@ public abstract class ParentNode extends ChildNode {
         final ChildNode oldInternal = (ChildNode) oldChild;
 
         // notify document
-        ownerDocument.removingNode(this, oldInternal, replace);
+        ownerDoc.removingNode(this, oldInternal, replace);
 
         // Save previous sibling for normalization checking.
         final ChildNode oldPreviousSibling = oldInternal.previousSibling();
@@ -518,7 +518,7 @@ public abstract class ParentNode extends ChildNode {
         }
 
         // Remove oldInternal's references to tree
-        oldInternal.ownerNode = ownerDocument;
+        oldInternal.ownerNode = ownerDoc;
         oldInternal.isOwned(false);
         oldInternal.nextSibling = null;
         oldInternal.previousSibling = null;
@@ -526,7 +526,7 @@ public abstract class ParentNode extends ChildNode {
         changed();
 
         // notify document
-        ownerDocument.removedNode(this, replace);
+        ownerDoc.removedNode(this, replace);
 
         checkNormalizationAfterRemove(oldPreviousSibling);
 
@@ -610,7 +610,7 @@ public abstract class ParentNode extends ChildNode {
     }
 
     // internal method returning whether to take the given node's text content
-    final boolean hasTextContent(final Node child) {
+    final static boolean hasTextContent(final Node child) {
         return child.getNodeType() != Node.COMMENT_NODE && child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE
                 && (child.getNodeType() != Node.TEXT_NODE || !((TextImpl) child).isIgnorableWhitespace());
     }
@@ -637,7 +637,7 @@ public abstract class ParentNode extends ChildNode {
      *
      * @return the length
      */
-    private int nodeListGetLength() {
+    int nodeListGetLength() {
 
         if (fNodeListCache == null) {
             if (needsSyncChildren()) {
@@ -693,7 +693,7 @@ public abstract class ParentNode extends ChildNode {
      *         bounds. Use to implement NodeList.item().
      * @param index the index
      */
-    private Node nodeListItem(final int index) {
+    Node nodeListItem(final int index) {
 
         if (fNodeListCache == null) {
             if (needsSyncChildren()) {

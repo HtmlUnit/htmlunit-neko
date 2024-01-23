@@ -32,8 +32,8 @@ class LostText {
      * Pair of (text, augmentation)
      */
     private static final class Entry {
-        private final XMLString text_;
-        private final Augmentations augs_;
+        final XMLString text_;
+        final Augmentations augs_;
 
         Entry(final XMLString text, final Augmentations augs) {
             text_ = text.clone();

@@ -482,7 +482,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @param type attribute type
      * @return the value passed in or NMTOKEN if it's an enumerated type.
      */
-    private String getReportableType(final String type) {
+    private static String getReportableType(final String type) {
 
         if (type.charAt(0) == '(') {
             return "NMTOKEN";
@@ -495,17 +495,17 @@ public class XMLAttributesImpl implements XMLAttributes {
      *
      * @author Andy Clark, IBM
      */
-    private static final class Attribute {
+    static final class Attribute {
         /** Name. */
-        private final QName name_ = new QName();
+        final QName name_ = new QName();
 
         /** Type. */
-        private String type_;
+        String type_;
 
         /** Value. */
-        private String value_;
+        String value_;
 
         /** Specified. */
-        private boolean specified_;
+        boolean specified_;
     }
 }

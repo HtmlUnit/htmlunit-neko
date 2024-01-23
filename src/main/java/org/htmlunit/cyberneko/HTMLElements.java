@@ -707,7 +707,7 @@ public class HTMLElements {
         public final short[] closes;
 
         /** Parent elements. */
-        private short[] parentCodes_;
+        short[] parentCodes_;
 
         /**
          * Constructs an element object.

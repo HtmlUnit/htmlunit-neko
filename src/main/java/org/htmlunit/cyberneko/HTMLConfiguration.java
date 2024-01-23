@@ -106,7 +106,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     private XMLDocumentHandler documentHandler_;
 
     /** Error handler. */
-    private XMLErrorHandler errorHandler_;
+    XMLErrorHandler errorHandler_;
 
     /**
      * Stream opened by parser. Therefore, must close stream manually upon
@@ -118,7 +118,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     private final List<HTMLComponent> htmlComponents_ = new ArrayList<>(2);
 
     /** Document scanner. */
-    private final HTMLScanner documentScanner_ = createDocumentScanner();
+    final HTMLScanner documentScanner_ = createDocumentScanner();
 
     /** HTML tag balancer. */
     private final HTMLTagBalancer tagBalancer_ = new HTMLTagBalancer(this);

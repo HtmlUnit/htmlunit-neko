@@ -664,7 +664,7 @@ public class CanonicalTest {
             .append('\n');
     }
 
-    private static String normalize(final String value) {
+    static String normalize(final String value) {
         return value
                 .replace("\\", "\\\\")
                 .replace("\n", "\\n")

@@ -318,43 +318,43 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     private boolean fAugmentations_;
 
     /** Report errors. */
-    private boolean fReportErrors_;
+    boolean fReportErrors_;
 
     /** Strip CDATA delimiters from SCRIPT tags. */
-    private boolean fScriptStripCDATADelims_;
+    boolean fScriptStripCDATADelims_;
 
     /** Strip comment delimiters from SCRIPT tags. */
-    private boolean fScriptStripCommentDelims_;
+    boolean fScriptStripCommentDelims_;
 
     /** Strip CDATA delimiters from STYLE tags. */
-    private boolean fStyleStripCDATADelims_;
+    boolean fStyleStripCDATADelims_;
 
     /** Strip comment delimiters from STYLE tags. */
-    private boolean fStyleStripCommentDelims_;
+    boolean fStyleStripCommentDelims_;
 
     /** Ignore specified character set. */
-    private boolean fIgnoreSpecifiedCharset_;
+    boolean fIgnoreSpecifiedCharset_;
 
     /** CDATA sections. */
-    private boolean fCDATASections_;
+    boolean fCDATASections_;
 
     /** Override doctype declaration public and system identifiers. */
     private boolean fOverrideDoctype_;
 
     /** Insert document type declaration. */
-    private boolean fInsertDoctype_;
+    boolean fInsertDoctype_;
 
     /** Normalize attribute values. */
-    private boolean fNormalizeAttributes_;
+    boolean fNormalizeAttributes_;
 
     /** Parse noscript content. */
-    private boolean fParseNoScriptContent_;
+    boolean fParseNoScriptContent_;
 
     /** Allows self closing iframe tags. */
-    private boolean fAllowSelfclosingIframe_;
+    boolean fAllowSelfclosingIframe_;
 
     /** Allows self closing tags. */
-    private boolean fAllowSelfclosingTags_;
+    boolean fAllowSelfclosingTags_;
 
     // properties
 
@@ -402,7 +402,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     protected PlaybackInputStream fByteStream;
 
     /** Current entity. */
-    protected CurrentEntity fCurrentEntity;
+    CurrentEntity fCurrentEntity;
 
     /** The current entity stack. */
     protected final MiniStack<CurrentEntity> fCurrentEntityStack = new MiniStack<>();
@@ -446,21 +446,21 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     protected final XMLString fStringBuffer = new XMLString();
 
     /** String buffer. */
-    private final XMLString fStringBuffer2 = new XMLString();
+    final XMLString fStringBuffer2 = new XMLString();
 
     /** String buffer, larger because scripts areas are larger */
-    private final XMLString fScanScriptContent = new XMLString(128);
+    final XMLString fScanScriptContent = new XMLString(128);
 
-    private final XMLString fScanUntilEndTag = new XMLString();
+    final XMLString fScanUntilEndTag = new XMLString();
 
-    private final XMLString fScanComment = new XMLString();
+    final XMLString fScanComment = new XMLString();
 
     private final XMLString fScanLiteral = new XMLString();
 
     /** Single boolean array. */
-    private final boolean[] fSingleBoolean = {false};
+    final boolean[] fSingleBoolean = {false};
 
-    private final HTMLConfiguration htmlConfiguration_;
+    final HTMLConfiguration htmlConfiguration_;
 
     /**
      * Our location item, to be reused because {@link Augmentations}
@@ -1636,13 +1636,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    public static final class CurrentEntity {
+    private static final class CurrentEntity {
 
         /** Character stream. */
         private Reader stream_;
 
         /** Encoding. */
-        private String encoding_;
+        String encoding_;
 
         /** Public identifier. */
         public final String publicId;
@@ -1654,7 +1654,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         public final String literalSystemId;
 
         /** Expanded system identifier. */
-        public final String expandedSystemId;
+        final String expandedSystemId;
 
         /** XML version. */
         public final String version = "1.0";
@@ -1666,23 +1666,23 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private int columnNumber_ = 1;
 
         /** Character offset in the file. */
-        private int characterOffset_ = 0;
+        int characterOffset_ = 0;
 
         // buffer
 
         /** Character buffer. */
-        private char[] buffer_ = new char[DEFAULT_BUFFER_SIZE];
+        char[] buffer_ = new char[DEFAULT_BUFFER_SIZE];
 
         /** Offset into character buffer. */
-        private int offset_ = 0;
+        int offset_ = 0;
 
         /** Length of characters read into character buffer. */
-        private int length_ = 0;
+        int length_ = 0;
 
         private boolean endReached_ = false;
 
         // Constructs an entity from the specified stream.
-        public CurrentEntity(final Reader stream, final String encoding, final String publicId,
+        CurrentEntity(final Reader stream, final String encoding, final String publicId,
                 final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
             stream_ = stream;
             this.encoding_ = encoding;
@@ -1692,20 +1692,20 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             this.expandedSystemId = expandedSystemId;
         }
 
-        private char getCurrentChar() {
+        char getCurrentChar() {
             return buffer_[offset_];
         }
 
         /**
          * @return the current character and moves to next one.
          */
-        private char getNextChar() {
+        char getNextChar() {
             characterOffset_++;
             columnNumber_++;
             return buffer_[offset_++];
         }
 
-        private void closeQuietly() {
+        void closeQuietly() {
             try {
                 stream_.close();
             }
@@ -1833,7 +1833,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
         }
 
-        private void setStream(final InputStreamReader inputStreamReader) {
+        void setStream(final InputStreamReader inputStreamReader) {
             stream_ = inputStreamReader;
             offset_ = 0;
             length_ = 0;
@@ -1846,24 +1846,24 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         /**
          * Goes back, cancelling the effect of the previous read() call.
          */
-        private void rewind() {
+        void rewind() {
             offset_--;
             characterOffset_--;
             columnNumber_--;
         }
 
-        private void rewind(final int i) {
+        void rewind(final int i) {
             offset_ -= i;
             characterOffset_ -= i;
             columnNumber_ -= i;
         }
 
-        private void incLine() {
+        void incLine() {
             lineNumber_++;
             columnNumber_ = 1;
         }
 
-        private void incLine(final int nbLines) {
+        void incLine(final int nbLines) {
             lineNumber_ += nbLines;
             columnNumber_ = 1;
         }
@@ -1872,7 +1872,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             return lineNumber_;
         }
 
-        private void resetBuffer(final XMLString xmlBuffer, final int lineNumber, final int columnNumber,
+        void resetBuffer(final XMLString xmlBuffer, final int lineNumber, final int columnNumber,
                 final int characterOffset) {
             lineNumber_ = lineNumber;
             columnNumber_ = columnNumber;
@@ -1884,17 +1884,17 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             this.length_ = xmlBuffer.length();
         }
 
-        private int getColumnNumber() {
+        int getColumnNumber() {
             return columnNumber_;
         }
 
-        private void restorePosition(final int originalOffset, final int originalColumnNumber, final int originalCharacterOffset) {
+        void restorePosition(final int originalOffset, final int originalColumnNumber, final int originalCharacterOffset) {
             this.offset_ = originalOffset;
             this.columnNumber_ = originalColumnNumber;
             this.characterOffset_ = originalCharacterOffset;
         }
 
-        private int getCharacterOffset() {
+        int getCharacterOffset() {
             return characterOffset_;
         }
     }
@@ -3522,7 +3522,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    private static final class LocationItem implements HTMLEventInfo {
+    static final class LocationItem implements HTMLEventInfo {
 
         /** Beginning line number. */
         private int beginLineNumber_;
@@ -3649,7 +3649,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      * tag specifying the new encoding. This means that the byte representation of
      * some minimal html markup must be the same in both encodings
      */
-    boolean isEncodingCompatible(final String encoding1, final String encoding2) {
+    static boolean isEncodingCompatible(final String encoding1, final String encoding2) {
         try {
             try {
                 return canRoundtrip(encoding1, encoding2);

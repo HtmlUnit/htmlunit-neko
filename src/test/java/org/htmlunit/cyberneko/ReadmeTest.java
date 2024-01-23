@@ -80,7 +80,7 @@ public class ReadmeTest {
         parser.parse(in);
     }
 
-    private static class MyContentHandler implements ContentHandler {
+    static class MyContentHandler implements ContentHandler {
         @Override
         public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
         }
