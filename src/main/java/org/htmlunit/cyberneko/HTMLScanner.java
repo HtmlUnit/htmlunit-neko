@@ -1636,7 +1636,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      *
      * @author Andy Clark
      */
-    public final class CurrentEntity {
+    public static final class CurrentEntity {
 
         /** Character stream. */
         private Reader stream_;
@@ -2838,9 +2838,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                     fStringBuffer.clearAndAppend('<');
-                    if (length > 0) {
-                        fStringBuffer.append(ename);
-                    }
                     fDocumentHandler.characters(fStringBuffer, null);
                 }
                 return null;
