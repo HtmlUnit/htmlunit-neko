@@ -1080,7 +1080,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // REVISIT: is it possible that prefix is empty string?
                 if (prefix == null || prefix.length() == 0) {
                     if (namespaceURI == null) {
-                        return namespace == namespaceURI;
+                        return namespace == null;
                     }
                     return namespaceURI.equals(namespace);
                 }
@@ -1207,7 +1207,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 final String prefix = this.getPrefix();
                 if (namespace != null) {
                     // REVISIT: is it possible that prefix is empty string?
-                    if (specifiedPrefix == null && prefix == specifiedPrefix) {
+                    if (specifiedPrefix == null && prefix == null) {
                         // looking for default namespace
                         return namespace;
                     }
