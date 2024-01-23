@@ -23,6 +23,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
+        <junit.version>5.10.1</junit.version>
+
         <checkstyle.version>9.3</checkstyle.version>
         <spotbugs.version>4.8.3</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
@@ -33,13 +35,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -100,7 +102,6 @@
                     <!--doclint>html,missing,reference,syntax<doclint-->
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>
-                    <excludePackageNames>netscape:netscape.*</excludePackageNames>
                 </configuration>
                 <executions>
                     <execution>
