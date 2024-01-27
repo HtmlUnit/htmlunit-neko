@@ -28,7 +28,7 @@
         <checkstyle.version>9.3</checkstyle.version>
         <spotbugs.version>4.8.3</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>9.0.8</dependencycheck.version>
+        <dependencycheck.version>9.0.9</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -159,7 +159,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.2.0</version>
+                <version>4.8.3.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
