@@ -118,7 +118,7 @@ public class CanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
 
-            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented");
+            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
@@ -167,7 +167,7 @@ public class CanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
             }
 
-            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented-dom");
+            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
@@ -224,7 +224,7 @@ public class CanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
             }
 
-            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented-dom");
+            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
@@ -234,7 +234,7 @@ public class CanonicalTest {
                     // expected
                 }
 
-                assertEquals(getCanonical(nyiFile).toLowerCase(Locale.ROOT), domDataLines, "NYI: " + dataFile);
+                assertEquals(getCanonical(nyiFile), domDataLines, "NYI: " + dataFile);
             }
             else {
                 assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
@@ -273,7 +273,7 @@ public class CanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
             }
 
-            final File nyiFile = new File(dataFile.getParentFile(), dataFile.getName() + ".notyetimplemented-dom");
+            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());

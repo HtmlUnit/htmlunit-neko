@@ -2889,13 +2889,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fByteStream = null;
                 }
                 else {
-                    final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
-                    if (element.code == HTMLElements.UNKNOWN) {
-                        empty[0] = false;
-                    }
-
-                    if (fByteStream != null && element.parent != null && element.parent.length > 0) {
-                        if (element.parent[0].code == HTMLElements.BODY) {
+                    if (fByteStream != null) {
+                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
+                        if (element.parent != null
+                                && element.parent.length > 0
+                                && element.parent[0].code == HTMLElements.BODY) {
                             fByteStream.clear();
                             fByteStream = null;
                         }
