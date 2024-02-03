@@ -1,0 +1,8 @@
+(script
+Asrc /jenkins
+"\n//<![CDATA[\n
+)script
+(script
+Asrc /jenkins.js
+"\n//]]\n
+)script
