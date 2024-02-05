@@ -222,77 +222,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     }
 
     /**
-     * This method notifies of the start of an entity. The DTD has the pseudo-name
-     * of "[dtd]" parameter entity names start with '%'; and general entity names
-     * are just the entity name.
-     * <p>
-     * <strong>Note:</strong> Since the document is an entity, the handler will be
-     * notified of the start of the document entity by calling the startEntity
-     * method with the entity name "[xml]" <em>before</em> calling the startDocument
-     * method. When exposing entity boundaries through the SAX API, the document
-     * entity is never reported, however.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name     The name of the entity.
-     * @param encoding The auto-detected IANA encoding name of the entity stream.
-     *                 This value will be null in those situations where the entity
-     *                 encoding is not auto-detected (e.g. internal parameter
-     *                 entities).
-     * @param augs     Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
-
-        try {
-            // SAX2 extension
-            if (fLexicalHandler != null) {
-                fLexicalHandler.startEntity(name);
-            }
-        }
-        catch (final SAXException e) {
-            throw new XNIException(e);
-        }
-    }
-
-    /**
-     * This method notifies the end of an entity. The DTD has the pseudo-name of
-     * "[dtd]" parameter entity names start with '%'; and general entity names are
-     * just the entity name.
-     * <p>
-     * <strong>Note:</strong> Since the document is an entity, the handler will be
-     * notified of the end of the document entity by calling the endEntity method
-     * with the entity name "[xml]" <em>after</em> calling the endDocument method.
-     * When exposing entity boundaries through the SAX API, the document entity is
-     * never reported, however.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name The name of the entity.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
-
-        try {
-            // SAX2 extension
-            if (fLexicalHandler != null) {
-                fLexicalHandler.endEntity(name);
-            }
-        }
-        catch (final SAXException e) {
-            throw new XNIException(e);
-        }
-
-    }
-
-    /**
      * The start of an element. If the document specifies the start element by using
      * an empty tag, then the startElement method will immediately be followed by
      * the endElement method, with no intervening methods.
@@ -348,31 +277,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             // SAX2
             if (fContentHandler != null) {
                 text.characters(fContentHandler);
-            }
-        }
-        catch (final SAXException e) {
-            throw new XNIException(e);
-        }
-    }
-
-    /**
-     * Ignorable whitespace. For this method to be called, the document source must
-     * have some way of determining that the text containing only whitespace
-     * characters should be considered ignorable. For example, the validator can
-     * determine if a length of whitespace characters in the document are ignorable
-     * based on the element content model.
-     *
-     * @param text The ignorable whitespace.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
-        try {
-            // SAX2
-            if (fContentHandler != null) {
-                text.ignorableWhitespace(fContentHandler);
             }
         }
         catch (final SAXException e) {

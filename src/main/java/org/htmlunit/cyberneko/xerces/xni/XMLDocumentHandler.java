@@ -134,55 +134,6 @@ public interface XMLDocumentHandler {
     void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException;
 
     /**
-     * This method notifies the start of a general entity.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name     The name of the general entity.
-     * @param encoding The auto-detected IANA encoding name of the entity stream.
-     *                 This value will be null in those situations where the entity
-     *                 encoding is not auto-detected (e.g. internal entities or a
-     *                 document entity that is parsed from a java.io.Reader).
-     * @param augs     Additional information that may include infoset augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    void startGeneralEntity(String name, String encoding, Augmentations augs) throws XNIException;
-
-    /**
-     * Notifies of the presence of a TextDecl line in an entity. If present, this
-     * method will be called immediately following the startEntity call.
-     * <p>
-     * <strong>Note:</strong> This method will never be called for the document
-     * entity; it is only called for external general entities referenced in
-     * document content.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param version  The XML version, or null if not specified.
-     * @param encoding The IANA encoding name of the entity.
-     * @param augs     Additional information that may include infoset augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    void textDecl(String version, String encoding, Augmentations augs) throws XNIException;
-
-    /**
-     * This method notifies the end of a general entity.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name The name of the entity.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    void endGeneralEntity(String name, Augmentations augs) throws XNIException;
-
-    /**
      * Character content.
      *
      * @param text The content.
@@ -191,20 +142,6 @@ public interface XMLDocumentHandler {
      * @exception XNIException Thrown by handler to signal an error.
      */
     void characters(XMLString text, Augmentations augs) throws XNIException;
-
-    /**
-     * Ignorable whitespace. For this method to be called, the document source must
-     * have some way of determining that the text containing only whitespace
-     * characters should be considered ignorable. For example, the validator can
-     * determine if a length of whitespace characters in the document are ignorable
-     * based on the element content model.
-     *
-     * @param text The ignorable whitespace.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    void ignorableWhitespace(XMLString text, Augmentations augs) throws XNIException;
 
     /**
      * The end of an element.

@@ -23,7 +23,6 @@ import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.EntityImpl;
-import org.htmlunit.cyberneko.xerces.dom.EntityReferenceImpl;
 import org.htmlunit.cyberneko.xerces.dom.TextImpl;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
@@ -45,10 +44,7 @@ import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 import org.xml.sax.ErrorHandler;
@@ -226,80 +222,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         fCurrentCDATASection = null;
 
         fBaseURIStack.removeAllElements();
-    }
-
-    /**
-     * This method notifies the start of a general entity.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name       The name of the general entity.
-     * @param encoding   The auto-detected IANA encoding name of the entity stream.
-     *                   This value will be null in those situations where the
-     *                   entity encoding is not auto-detected (e.g. internal
-     *                   entities or a document entity that is parsed from a
-     *                   java.io.Reader).
-     * @param augs       Additional information that may include infoset
-     *                   augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
-        if (DEBUG_EVENTS) {
-            System.out.println("==>startGeneralEntity (" + name + ")");
-        }
-
-        setCharacterData(true);
-        final EntityReference er = fDocument.createEntityReference(name);
-        if (fDocumentImpl != null) {
-            // REVISIT: baseURI/actualEncoding
-            // remove dependency on our implementation when DOM L3 is REC
-
-            final EntityReferenceImpl erImpl = (EntityReferenceImpl) er;
-            if (fDocumentType != null) {
-                // set actual encoding
-                final NamedNodeMap entities = fDocumentType.getEntities();
-                fCurrentEntityDecl = (EntityImpl) entities.getNamedItem(name);
-                if (fCurrentEntityDecl != null) {
-                    fCurrentEntityDecl.setInputEncoding(encoding);
-                }
-
-            }
-            // we don't need synchronization now, because entity ref will be
-            // expanded anyway. Synch only needed when user creates entityRef node
-            erImpl.needsSyncChildren(false);
-        }
-        fCurrentNode.appendChild(er);
-        fCurrentNode = er;
-    }
-
-    /**
-     * Notifies of the presence of a TextDecl line in an entity. If present, this
-     * method will be called immediately following the startEntity call.
-     * <p>
-     * <strong>Note:</strong> This method will never be called for the document
-     * entity; it is only called for external general entities referenced in
-     * document content.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param version  The XML version, or null if not specified.
-     * @param encoding The IANA encoding name of the entity.
-     * @param augs     Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void textDecl(final String version, final String encoding, final Augmentations augs) throws XNIException {
-        if (fCurrentEntityDecl != null) {
-            fCurrentEntityDecl.setXmlEncoding(encoding);
-            if (version != null) {
-                fCurrentEntityDecl.setXmlVersion(version);
-            }
-        }
     }
 
     /**
@@ -594,39 +516,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Ignorable whitespace. For this method to be called, the document source must
-     * have some way of determining that the text containing only whitespace
-     * characters should be considered ignorable. For example, the validator can
-     * determine if a length of whitespace characters in the document are ignorable
-     * based on the element content model.
-     *
-     * @param text The ignorable whitespace.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
-
-        if (!fIncludeIgnorableWhitespace) {
-            return;
-        }
-        final Node child = fCurrentNode.getLastChild();
-        if (child != null && child.getNodeType() == Node.TEXT_NODE) {
-            final Text textNode = (Text) child;
-            textNode.appendData(text.toString());
-        }
-        else {
-            final Text textNode = fDocument.createTextNode(text.toString());
-            if (fDocumentImpl != null) {
-                final TextImpl textNodeImpl = (TextImpl) textNode;
-                textNodeImpl.setIgnorableWhitespace(true);
-            }
-            fCurrentNode.appendChild(textNode);
-        }
-    }
-
-    /**
      * The end of an element.
      *
      * @param element The name of the element.
@@ -695,75 +584,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             fDocumentImpl.setStrictErrorChecking(true);
         }
         fCurrentNode = null;
-    }
-
-    /**
-     * This method notifies the end of a general entity.
-     * <p>
-     * <strong>Note:</strong> This method is not called for entity references
-     * appearing as part of attribute values.
-     *
-     * @param name The name of the entity.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @exception XNIException Thrown by handler to signal an error.
-     */
-    @Override
-    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
-        if (DEBUG_EVENTS) {
-            System.out.println("==>endGeneralEntity: (" + name + ")");
-        }
-
-        setCharacterData(true);
-
-        if (fDocumentType != null) {
-            // get current entity declaration
-            final NamedNodeMap entities = fDocumentType.getEntities();
-            fCurrentEntityDecl = (EntityImpl) entities.getNamedItem(name);
-            if (fCurrentEntityDecl != null) {
-                if (fCurrentEntityDecl.getFirstChild() == null) {
-                    Node child = fCurrentNode.getFirstChild();
-                    while (child != null) {
-                        final Node copy = child.cloneNode(true);
-                        fCurrentEntityDecl.appendChild(copy);
-                        child = child.getNextSibling();
-                    }
-                }
-                fCurrentEntityDecl = null;
-            }
-
-        }
-
-        if (!fCreateEntityRefNodes) {
-            // move entity reference children to the list of
-            // siblings of its parent and remove entity reference
-            final NodeList children = fCurrentNode.getChildNodes();
-            final Node parent = fCurrentNode.getParentNode();
-            final int length = children.getLength();
-            if (length > 0) {
-
-                // get previous sibling of the entity reference
-                Node node = fCurrentNode.getPreviousSibling();
-                // normalize text nodes
-                final Node child = children.item(0);
-                if (node != null && node.getNodeType() == Node.TEXT_NODE && child.getNodeType() == Node.TEXT_NODE) {
-                    ((Text) node).appendData(child.getNodeValue());
-                    fCurrentNode.removeChild(child);
-
-                }
-                else {
-                    node = parent.insertBefore(child, fCurrentNode);
-                    handleBaseURI(node);
-                }
-
-                for (int i = 1; i < length; i++) {
-                    node = parent.insertBefore(children.item(0), fCurrentNode);
-                    handleBaseURI(node);
-                }
-            }
-            parent.removeChild(fCurrentNode);
-            fCurrentNode = parent;
-        }
     }
 
     /**

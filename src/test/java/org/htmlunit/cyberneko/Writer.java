@@ -251,12 +251,6 @@ public class Writer extends DefaultFilter {
         stringBuffer_.append(text);
     }
 
-    /** Ignorable whitespace. */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs) throws XNIException {
-        characters(text, augs);
-    }
-
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {
         chars();

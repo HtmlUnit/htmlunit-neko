@@ -42,7 +42,6 @@ import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
@@ -390,34 +389,6 @@ public class DOMFragmentParser implements XMLDocumentHandler {
             }
         }
 
-    }
-
-    /** Ignorable whitespace. */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
-        throws XNIException {
-        characters(text, augs);
-    }
-
-    /** Start general entity. */
-    @Override
-    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs)
-        throws XNIException {
-        final EntityReference entityRef = document_.createEntityReference(name);
-        currentNode_.appendChild(entityRef);
-        currentNode_ = entityRef;
-    }
-
-    /** Text declaration. */
-    @Override
-    public void textDecl(final String version, final String encoding, final Augmentations augs) throws XNIException {
-    }
-
-    /** End general entity. */
-    @Override
-    public void endGeneralEntity(final String name, final Augmentations augs)
-        throws XNIException {
-        currentNode_ = currentNode_.getParentNode();
     }
 
     /** Start CDATA section. */

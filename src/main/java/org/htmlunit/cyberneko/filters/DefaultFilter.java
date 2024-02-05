@@ -141,42 +141,6 @@ public class DefaultFilter
         }
     }
 
-    /** Ignorable whitespace. */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
-        throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.ignorableWhitespace(text, augs);
-        }
-    }
-
-    /** Start general entity. */
-    @Override
-    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs)
-        throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.startGeneralEntity(name, encoding, augs);
-        }
-    }
-
-    /** Text declaration. */
-    @Override
-    public void textDecl(final String version, final String encoding, final Augmentations augs)
-        throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.textDecl(version, encoding, augs);
-        }
-    }
-
-    /** End general entity. */
-    @Override
-    public void endGeneralEntity(final String name, final Augmentations augs)
-        throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.endGeneralEntity(name, augs);
-        }
-    }
-
     /** Start CDATA section. */
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {

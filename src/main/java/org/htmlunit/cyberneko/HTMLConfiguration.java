@@ -92,7 +92,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
     /** Pipeline filters. */
-    protected static final String FILTERS = "http://cyberneko.org/html/properties/filters";
+    public static final String FILTERS = "http://cyberneko.org/html/properties/filters";
 
     /** Error reporter. */
     protected static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";

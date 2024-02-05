@@ -53,8 +53,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * <ul>
  * <li>http://cyberneko.org/html/features/augmentations
  * <li>http://cyberneko.org/html/features/report-errors
- * <li>http://apache.org/xml/features/scanner/notify-builtin-refs
- * <li>http://cyberneko.org/html/features/scanner/notify-builtin-refs
  * <li>http://cyberneko.org/html/features/scanner/script/strip-cdata-delims
  * <li>http://cyberneko.org/html/features/scanner/script/strip-comment-delims
  * <li>http://cyberneko.org/html/features/scanner/style/strip-cdata-delims

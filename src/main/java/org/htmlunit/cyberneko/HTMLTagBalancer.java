@@ -892,45 +892,6 @@ public class HTMLTagBalancer
         }
     }
 
-    /** Start entity. */
-    @Override
-    public void startGeneralEntity(final String name, final String encoding, final Augmentations augs) throws XNIException {
-        fSeenAnything = true;
-
-        // check for end of document
-        if (fSeenRootElementEnd) {
-            return;
-        }
-
-        // insert body, if needed
-        if (!fDocumentFragment) {
-            boolean insertBody = !fSeenRootElement;
-            if (!insertBody) {
-                final Info info = fElementStack.peek();
-                if (info.element.code == HTMLElements.HEAD
-                        || info.element.code == HTMLElements.HTML) {
-                    final String hname = modifyName("head", fNamesElems);
-                    final String bname = modifyName("body", fNamesElems);
-                    if (fReportErrors) {
-                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
-                    }
-                    fQName.setValues(null, hname, hname, null);
-                    endElement(fQName, synthesizedAugs());
-                    insertBody = true;
-                }
-            }
-            if (insertBody) {
-                forceStartBody();
-            }
-        }
-
-        // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startGeneralEntity(name, encoding, augs);
-        }
-
-    }
-
     /**
      * Generates a missing <body> (which creates missing <head> when needed)
      */
@@ -940,40 +901,6 @@ public class HTMLTagBalancer
             fErrorReporter.reportWarning("HTML2006", new Object[]{body.getLocalpart()});
         }
         forceStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
-    }
-
-    /** Text declaration. */
-    @Override
-    public void textDecl(final String version, final String encoding, final Augmentations augs)
-        throws XNIException {
-        fSeenAnything = true;
-
-        // check for end of document
-        if (fSeenRootElementEnd) {
-            return;
-        }
-
-        // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.textDecl(version, encoding, augs);
-        }
-
-    }
-
-    /** End entity. */
-    @Override
-    public void endGeneralEntity(final String name, final Augmentations augs) throws XNIException {
-
-        // check for end of document
-        if (fSeenRootElementEnd) {
-            return;
-        }
-
-        // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endGeneralEntity(name, augs);
-        }
-
     }
 
     /** Start CDATA section. */
@@ -1065,13 +992,6 @@ public class HTMLTagBalancer
             fDocumentHandler.characters(text, augs);
         }
 
-    }
-
-    /** Ignorable whitespace. */
-    @Override
-    public void ignorableWhitespace(final XMLString text, final Augmentations augs)
-        throws XNIException {
-        characters(text, augs);
     }
 
     /** End element. */
