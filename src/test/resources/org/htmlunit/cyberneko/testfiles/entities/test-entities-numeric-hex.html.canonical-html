@@ -1,6 +1,6 @@
-<HTML><head></head><BODY><div>&AMP;&num;</div>
-<div>&AMP;&num;x</div>
-<div>&AMP;&num;x&semi;</div>
+<HTML><head></head><BODY><div>&amp;&num;</div>
+<div>&amp;&num;x</div>
+<div>&amp;&num;x&semi;</div>
 <div></div>
 <div>0</div>
 <div>0</div></BODY></HTML>

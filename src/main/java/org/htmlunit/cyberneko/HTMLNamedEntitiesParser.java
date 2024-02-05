@@ -97,7 +97,9 @@ public final class HTMLNamedEntitiesParser {
 
                 key = "&" + key;
                 String ref = entities_.get(value);
-                if (ref == null || ref.length() < key.length()) {
+                if (ref == null
+                        || ref.length() < key.length()
+                        || (ref.length() == key.length() && ref.compareTo(key) < 1)) {
                     entities_.put(value, key);
                 }
             });

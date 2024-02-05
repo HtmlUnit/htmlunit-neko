@@ -1,6 +1,6 @@
-<HTML><head></head><BODY><div>&AMP;</div>
-<div>&AMP;u</div>
-<div>&AMP;uu</div>
-<div>&AMP;uum</div>
+<HTML><head></head><BODY><div>&amp;</div>
+<div>&amp;u</div>
+<div>&amp;uu</div>
+<div>&amp;uum</div>
 <div>&uuml;</div>
 <div>&uuml;</div></BODY></HTML>
