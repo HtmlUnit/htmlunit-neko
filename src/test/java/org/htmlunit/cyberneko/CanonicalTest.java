@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Stream;
 
+import org.htmlunit.cyberneko.filters.HTMLWriterFilter;
 import org.htmlunit.cyberneko.parsers.DOMFragmentParser;
 import org.htmlunit.cyberneko.parsers.DOMParser;
 import org.htmlunit.cyberneko.parsers.SAXParser;
@@ -135,6 +136,50 @@ public class CanonicalTest {
         }
         catch (final AssertionFailedError e) {
             final File output = new File(outputDir, dataFile.getName());
+            try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
+                pw.print(dataLines);
+            }
+            throw e;
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runHtmlWriterTest(final File dataFile) throws Exception {
+        final String dataLines = getHtmlWriterFilterResult(dataFile);
+
+        try {
+            // prepare for future changes where canonical files are next to test file
+            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-html");
+            if (!canonicalFile.exists()) {
+                canonicalFile = new File(canonicalDir, dataFile.getName());
+            }
+            if (!canonicalFile.exists()) {
+                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
+            }
+
+            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
+            if (nyiFile.exists()) {
+                try {
+                    assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
+                    fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
+                }
+                catch (final AssertionFailedError e) {
+                    // expected
+                }
+
+                assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile);
+            }
+            else {
+                assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
+            }
+        }
+        catch (final AssertionFailedError e) {
+            File output = new File(outputDir, dataFile.getName() + ".canonical-html");
+            if (!dataFile.getParent().endsWith("testfiles")) {
+                new File(outputDir, dataFile.getParentFile().getName()).mkdir();
+                output = new File(outputDir, dataFile.getParentFile().getName() + "/" + dataFile.getName() + ".canonical-html");
+            }
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);
             }
@@ -313,6 +358,52 @@ public class CanonicalTest {
         try (StringWriter out = new StringWriter()) {
             // create filters
             final XMLDocumentFilter[] filters = {new Writer(out)};
+
+            // create parser
+            final XMLParserConfiguration parser = new HTMLConfiguration();
+
+            // parser settings
+            parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+
+            final String infilename = infile.toString();
+            final File insettings = new File(infilename + ".settings");
+            if (insettings.exists()) {
+                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                    String settingline;
+                    while ((settingline = settings.readLine()) != null) {
+                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                        final String type = tokenizer.nextToken();
+                        final String id = tokenizer.nextToken();
+                        final String value = tokenizer.nextToken();
+                        if ("feature".equals(type)) {
+                            parser.setFeature(id, "true".equals(value));
+                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
+                                parser.setErrorHandler(new HTMLErrorHandler(out));
+                            }
+                        }
+                        else {
+                            parser.setProperty(id, value);
+                        }
+                    }
+                }
+            }
+
+            // parse
+            parser.parse(new XMLInputSource(null, infilename, null));
+            final BufferedReader reader = new BufferedReader(new StringReader(out.toString()));
+            final StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
+        }
+    }
+
+    private static String getHtmlWriterFilterResult(final File infile) throws Exception {
+        try (StringWriter out = new StringWriter()) {
+            // create filters
+            final XMLDocumentFilter[] filters = {new HTMLWriterFilter(out, "UTF-8", new HTMLElements())};
 
             // create parser
             final XMLParserConfiguration parser = new HTMLConfiguration();

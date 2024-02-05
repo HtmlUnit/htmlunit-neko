@@ -1,0 +1,3 @@
+<HTML><head></head><BODY><p>P1<!--[CDATA[cdata1]]]-->
+</p><p>P2<!--[CDATA[cdata2]]]]-->
+</p><p>P3</p></BODY></HTML>

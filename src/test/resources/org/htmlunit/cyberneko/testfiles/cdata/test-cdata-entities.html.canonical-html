@@ -1,0 +1,6 @@
+<html><head></head><body>
+<!--[CDATA[
+&
+above shouldn't be encoded
+]]-->
+</body></html>

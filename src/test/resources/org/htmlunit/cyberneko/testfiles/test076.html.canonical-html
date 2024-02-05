@@ -1,0 +1,4 @@
+<HTML><head></head><BODY><p>outer paragraph
+</p><p>inner paragraph<br>second line in inner paragraph
+</p>second line in outer paragrapth
+<p></p>outside paragraph tags</BODY></HTML>

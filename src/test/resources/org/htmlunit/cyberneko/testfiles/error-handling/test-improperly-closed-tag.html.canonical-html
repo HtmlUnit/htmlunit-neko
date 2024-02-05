@@ -1,0 +1,4 @@
+[Warn] HTML1000 No character encoding indicator at beginning of document.
+<html><head></head><body><div>[Err] HTML1016 Error parsing attribute name.
+<span></span></div>
+</body></html>

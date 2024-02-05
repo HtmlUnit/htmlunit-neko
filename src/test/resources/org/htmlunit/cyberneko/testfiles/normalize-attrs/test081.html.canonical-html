@@ -1,0 +1,22 @@
+<!--one
+two
+
+three
+
+
+-->
+<html attr="one two three"><head></head><body>
+&lbrack;one
+two
+
+three
+
+
+&rbrack;
+<textarea>one
+two
+
+three
+
+
+</textarea></body></html>

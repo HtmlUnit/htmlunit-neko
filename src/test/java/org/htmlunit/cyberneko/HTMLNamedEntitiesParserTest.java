@@ -18,6 +18,7 @@ package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -265,5 +266,22 @@ public class HTMLNamedEntitiesParserTest {
             assertEquals(key, r.entityOrFragment_);
             assertEquals(key.length(), r.length_);
         });
+    }
+
+    /**
+     * Test lookupEntityRefFor()
+     *
+     * @throws IOException
+     */
+    @Test
+    public void lookupEntityRefFor() throws IOException {
+        assertNull(HTMLNamedEntitiesParser.get().lookupEntityRefFor("a"));
+
+        assertEquals("&auml;", HTMLNamedEntitiesParser.get().lookupEntityRefFor("ä"));
+        assertEquals("&Ouml;", HTMLNamedEntitiesParser.get().lookupEntityRefFor("Ö"));
+
+        // make sure we return the entry with the semicolon at end
+        assertEquals("&yacute;", HTMLNamedEntitiesParser.get().lookupEntityRefFor("\u00FD"));
+
     }
 }

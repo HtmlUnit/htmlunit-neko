@@ -1,0 +1,4 @@
+<html><head></head><body>
+<iframe name="testFrame" src="testFrame.html"></iframe>
+<div id="aButton">test text</div>
+</body></html>

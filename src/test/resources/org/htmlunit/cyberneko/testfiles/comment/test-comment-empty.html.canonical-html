@@ -1,0 +1,7 @@
+<HTML><head></head><BODY><div>before1<!---->after1</div>
+<div>before2<!---->after2</div>
+<div>before3<!---->after3</div>
+<div>before4<!---->after4</div>
+<div>before5<!---->after5</div>
+<div>before6&lt;&gt;after6</div>
+</BODY></HTML>

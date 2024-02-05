@@ -1,0 +1,14 @@
+<HTML><head></head><BODY><table>
+ <TBODY><tr>
+  <td>
+   <table>
+    <TBODY><tr>
+     <td>cell 1</td>
+     <td>
+   </td></tr></TBODY></table>
+  </td>
+ </tr>
+ <tr>
+  <td>cell 2</td>
+ </tr>
+</TBODY></table></BODY></HTML>

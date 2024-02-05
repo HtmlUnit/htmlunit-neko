@@ -1,0 +1,3 @@
+<html><head>
+<script>alert('test');</script>
+</head><body><svg><frameset></frameset></svg></body></html>
