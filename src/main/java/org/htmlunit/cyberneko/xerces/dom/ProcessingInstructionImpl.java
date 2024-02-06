@@ -95,6 +95,6 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
         if (needsSyncData()) {
             synchronizeData();
         }
-        return ownerNode.getBaseURI();
+        return ownerNode_.getBaseURI();
     }
 }

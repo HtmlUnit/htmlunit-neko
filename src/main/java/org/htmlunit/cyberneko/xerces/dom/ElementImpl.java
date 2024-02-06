@@ -179,7 +179,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
                         // Make any parentURI into a URI object to use with the URI(URI, String)
                         // constructor
-                        final String parentBaseURI = (this.ownerNode != null) ? this.ownerNode.getBaseURI() : null;
+                        final String parentBaseURI = (this.ownerNode_ != null) ? this.ownerNode_.getBaseURI() : null;
                         if (parentBaseURI != null) {
                             try {
                                 final URI _parentBaseURI = new URI(parentBaseURI);
@@ -208,7 +208,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         // containing the element
 
         // ownerNode serves as a parent or as document
-        return (this.ownerNode != null) ? this.ownerNode.getBaseURI() : null;
+        return (this.ownerNode_ != null) ? this.ownerNode_.getBaseURI() : null;
     }
 
     // NON-DOM Returns the xml:base attribute.

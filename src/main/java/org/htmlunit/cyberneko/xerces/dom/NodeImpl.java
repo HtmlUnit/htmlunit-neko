@@ -80,9 +80,10 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     /** Element definition node type. */
     public static final short ELEMENT_DEFINITION_NODE = 21;
 
-    protected NodeImpl ownerNode; // typically the parent but not always!
+    // typically the parent but not always!
+    protected NodeImpl ownerNode_;
 
-    private short flags;
+    private short flags_;
 
     protected static final short READONLY = 0x1 << 0;
     protected static final short SYNCDATA = 0x1 << 1;
@@ -105,7 +106,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      */
     protected NodeImpl(final CoreDocumentImpl ownerDocument) {
         // as long as we do not have any owner, ownerNode is our ownerDocument
-        ownerNode = ownerDocument;
+        ownerNode_ = ownerDocument;
     }
 
     /**
@@ -220,7 +221,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         }
 
         // Need to break the association w/ original kids
-        newnode.ownerNode = ownerDocument();
+        newnode.ownerNode_ = ownerDocument();
         newnode.isOwned(false);
 
         return newnode;
@@ -238,9 +239,9 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         // if we have an owner simply forward the request
         // otherwise ownerNode is our ownerDocument
         if (isOwned()) {
-            return ownerNode.ownerDocument();
+            return ownerNode_.ownerDocument();
         }
-        return (Document) ownerNode;
+        return (Document) ownerNode_;
     }
 
     /**
@@ -251,9 +252,9 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         // if we have an owner simply forward the request
         // otherwise ownerNode is our ownerDocument
         if (isOwned()) {
-            return ownerNode.ownerDocument();
+            return ownerNode_.ownerDocument();
         }
-        return (CoreDocumentImpl) ownerNode;
+        return (CoreDocumentImpl) ownerNode_;
     }
 
     // NON-DOM set the ownerDocument of this node
@@ -264,7 +265,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         // if we have an owner we rely on it to have it right
         // otherwise ownerNode is our ownerDocument
         if (!isOwned()) {
-            ownerNode = doc;
+            ownerNode_ = doc;
         }
     }
 
@@ -1117,8 +1118,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // type is unknown
                 return false;
             case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode.getNodeType() == Node.ELEMENT_NODE) {
-                    return ownerNode.isDefaultNamespace(namespaceURI);
+                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+                    return ownerNode_.isDefaultNamespace(namespaceURI);
 
                 }
                 return false;
@@ -1174,8 +1175,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // type is unknown
                 return null;
             case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode.getNodeType() == Node.ELEMENT_NODE) {
-                    return ownerNode.lookupPrefix(namespaceURI);
+                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+                    return ownerNode_.lookupPrefix(namespaceURI);
 
                 }
                 return null;
@@ -1260,8 +1261,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // type is unknown
                 return null;
             case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode.getNodeType() == Node.ELEMENT_NODE) {
-                    return ownerNode.lookupNamespaceURI(specifiedPrefix);
+                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+                    return ownerNode_.lookupNamespaceURI(specifiedPrefix);
 
                 }
                 return null;
@@ -1495,80 +1496,80 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final boolean needsSyncData() {
-        return (flags & SYNCDATA) != 0;
+        return (flags_ & SYNCDATA) != 0;
     }
 
     final void needsSyncData(final boolean value) {
-        flags = (short) (value ? flags | SYNCDATA : flags & ~SYNCDATA);
+        flags_ = (short) (value ? flags_ | SYNCDATA : flags_ & ~SYNCDATA);
     }
 
     final boolean needsSyncChildren() {
-        return (flags & SYNCCHILDREN) != 0;
+        return (flags_ & SYNCCHILDREN) != 0;
     }
 
     public final void needsSyncChildren(final boolean value) {
-        flags = (short) (value ? flags | SYNCCHILDREN : flags & ~SYNCCHILDREN);
+        flags_ = (short) (value ? flags_ | SYNCCHILDREN : flags_ & ~SYNCCHILDREN);
     }
 
     final boolean isOwned() {
-        return (flags & OWNED) != 0;
+        return (flags_ & OWNED) != 0;
     }
 
     final void isOwned(final boolean value) {
-        flags = (short) (value ? flags | OWNED : flags & ~OWNED);
+        flags_ = (short) (value ? flags_ | OWNED : flags_ & ~OWNED);
     }
 
     final boolean isFirstChild() {
-        return (flags & FIRSTCHILD) != 0;
+        return (flags_ & FIRSTCHILD) != 0;
     }
 
     final void isFirstChild(final boolean value) {
-        flags = (short) (value ? flags | FIRSTCHILD : flags & ~FIRSTCHILD);
+        flags_ = (short) (value ? flags_ | FIRSTCHILD : flags_ & ~FIRSTCHILD);
     }
 
     final boolean isSpecified() {
-        return (flags & SPECIFIED) != 0;
+        return (flags_ & SPECIFIED) != 0;
     }
 
     final void isSpecified(final boolean value) {
-        flags = (short) (value ? flags | SPECIFIED : flags & ~SPECIFIED);
+        flags_ = (short) (value ? flags_ | SPECIFIED : flags_ & ~SPECIFIED);
     }
 
     // inconsistent name to avoid clash with public method on TextImpl
     final boolean internalIsIgnorableWhitespace() {
-        return (flags & IGNORABLEWS) != 0;
+        return (flags_ & IGNORABLEWS) != 0;
     }
 
     final void isIgnorableWhitespace(final boolean value) {
-        flags = (short) (value ? flags | IGNORABLEWS : flags & ~IGNORABLEWS);
+        flags_ = (short) (value ? flags_ | IGNORABLEWS : flags_ & ~IGNORABLEWS);
     }
 
     final boolean hasStringValue() {
-        return (flags & HASSTRING) != 0;
+        return (flags_ & HASSTRING) != 0;
     }
 
     final void hasStringValue(final boolean value) {
-        flags = (short) (value ? flags | HASSTRING : flags & ~HASSTRING);
+        flags_ = (short) (value ? flags_ | HASSTRING : flags_ & ~HASSTRING);
     }
 
     final boolean isNormalized() {
-        return (flags & NORMALIZED) != 0;
+        return (flags_ & NORMALIZED) != 0;
     }
 
     final void isNormalized(final boolean value) {
         // See if flag should propagate to parent.
-        if (!value && isNormalized() && ownerNode != null) {
-            ownerNode.isNormalized(false);
+        if (!value && isNormalized() && ownerNode_ != null) {
+            ownerNode_.isNormalized(false);
         }
-        flags = (short) (value ? flags | NORMALIZED : flags & ~NORMALIZED);
+        flags_ = (short) (value ? flags_ | NORMALIZED : flags_ & ~NORMALIZED);
     }
 
     final boolean isIdAttribute() {
-        return (flags & ID) != 0;
+        return (flags_ & ID) != 0;
     }
 
     final void isIdAttribute(final boolean value) {
-        flags = (short) (value ? flags | ID : flags & ~ID);
+        flags_ = (short) (value ? flags_ | ID : flags_ & ~ID);
     }
 
     // NON-DOM method for debugging convenience.

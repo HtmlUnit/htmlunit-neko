@@ -144,8 +144,8 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                 final TextImpl text = (TextImpl) ownerDocument().createTextNode((String) value_);
                 value_ = text;
                 text.isFirstChild(true);
-                text.previousSibling = text;
-                text.ownerNode = this;
+                text.previousSibling_ = text;
+                text.ownerNode_ = this;
                 text.isOwned(true);
             }
             hasStringValue(false);
@@ -162,7 +162,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         super.setOwnerDocument(doc);
         if (!hasStringValue()) {
-            for (ChildNode child = (ChildNode) value_; child != null; child = child.nextSibling) {
+            for (ChildNode child = (ChildNode) value_; child != null; child = child.nextSibling_) {
                 child.setOwnerDocument(doc);
             }
         }
@@ -309,9 +309,9 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                 oldvalue = getValue();
                 // remove ref from first child to last child
                 final ChildNode firstChild = (ChildNode) value_;
-                firstChild.previousSibling = null;
+                firstChild.previousSibling_ = null;
                 firstChild.isFirstChild(false);
-                firstChild.ownerNode = ownerDocument;
+                firstChild.ownerNode_ = ownerDocument;
             }
             // then remove ref to current value
             value_ = null;
@@ -369,7 +369,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             data = firstChild.getNodeValue();
         }
 
-        ChildNode node = firstChild.nextSibling;
+        ChildNode node = firstChild.nextSibling_;
 
         if (node == null || data == null) {
             return (data == null) ? "" : data;
@@ -387,7 +387,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             else {
                 v.append(node.getNodeValue());
             }
-            node = node.nextSibling;
+            node = node.nextSibling_;
         }
         return v.toString();
 
@@ -420,7 +420,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     public Element getOwnerElement() {
         // if we have an owner, ownerNode is our ownerElement, otherwise it's
         // our ownerDocument and we don't have an ownerElement
-        return (Element) (isOwned() ? ownerNode : null);
+        return (Element) (isOwned() ? ownerNode_ : null);
     }
 
     // NON-DOM, for use by parser
@@ -508,7 +508,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     final ChildNode lastChild() {
         // last child is stored as the previous sibling of first child
         makeChildNode();
-        return value_ != null ? ((ChildNode) value_).previousSibling : null;
+        return value_ != null ? ((ChildNode) value_).previousSibling_ : null;
     }
 
     /**
@@ -647,7 +647,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         final ChildNode refInternal = (ChildNode) refChild;
 
         // Attach up
-        newInternal.ownerNode = this;
+        newInternal.ownerNode_ = this;
         newInternal.isOwned(true);
 
         // Attach before and after
@@ -657,34 +657,34 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             // this our first and only child
             value_ = newInternal; // firstchild = newInternal;
             newInternal.isFirstChild(true);
-            newInternal.previousSibling = newInternal;
+            newInternal.previousSibling_ = newInternal;
         }
         else {
             if (refInternal == null) {
                 // this is an append
-                final ChildNode lastChild = firstChild.previousSibling;
-                lastChild.nextSibling = newInternal;
-                newInternal.previousSibling = lastChild;
-                firstChild.previousSibling = newInternal;
+                final ChildNode lastChild = firstChild.previousSibling_;
+                lastChild.nextSibling_ = newInternal;
+                newInternal.previousSibling_ = lastChild;
+                firstChild.previousSibling_ = newInternal;
             }
             else {
                 // this is an insert
                 if (refChild == firstChild) {
                     // at the head of the list
                     firstChild.isFirstChild(false);
-                    newInternal.nextSibling = firstChild;
-                    newInternal.previousSibling = firstChild.previousSibling;
-                    firstChild.previousSibling = newInternal;
+                    newInternal.nextSibling_ = firstChild;
+                    newInternal.previousSibling_ = firstChild.previousSibling_;
+                    firstChild.previousSibling_ = newInternal;
                     value_ = newInternal; // firstChild = newInternal;
                     newInternal.isFirstChild(true);
                 }
                 else {
                     // somewhere in the middle
-                    final ChildNode prev = refInternal.previousSibling;
-                    newInternal.nextSibling = refInternal;
-                    prev.nextSibling = newInternal;
-                    refInternal.previousSibling = newInternal;
-                    newInternal.previousSibling = prev;
+                    final ChildNode prev = refInternal.previousSibling_;
+                    newInternal.nextSibling_ = refInternal;
+                    prev.nextSibling_ = newInternal;
+                    refInternal.previousSibling_ = newInternal;
+                    newInternal.previousSibling_ = prev;
                 }
             }
         }
@@ -746,25 +746,25 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             // removing first child
             oldInternal.isFirstChild(false);
             // next line is: firstChild = oldInternal.nextSibling
-            value_ = oldInternal.nextSibling;
+            value_ = oldInternal.nextSibling_;
             final ChildNode firstChild = (ChildNode) value_;
             if (firstChild != null) {
                 firstChild.isFirstChild(true);
-                firstChild.previousSibling = oldInternal.previousSibling;
+                firstChild.previousSibling_ = oldInternal.previousSibling_;
             }
         }
         else {
-            final ChildNode prev = oldInternal.previousSibling;
-            final ChildNode next = oldInternal.nextSibling;
-            prev.nextSibling = next;
+            final ChildNode prev = oldInternal.previousSibling_;
+            final ChildNode next = oldInternal.nextSibling_;
+            prev.nextSibling_ = next;
             if (next == null) {
                 // removing last child
                 final ChildNode firstChild = (ChildNode) value_;
-                firstChild.previousSibling = prev;
+                firstChild.previousSibling_ = prev;
             }
             else {
                 // removing some other child in the middle
-                next.previousSibling = prev;
+                next.previousSibling_ = prev;
             }
         }
 
@@ -772,10 +772,10 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         final ChildNode oldPreviousSibling = oldInternal.previousSibling();
 
         // Remove oldInternal's references to tree
-        oldInternal.ownerNode = ownerDocument;
+        oldInternal.ownerNode_ = ownerDocument;
         oldInternal.isOwned(false);
-        oldInternal.nextSibling = null;
-        oldInternal.previousSibling = null;
+        oldInternal.nextSibling_ = null;
+        oldInternal.previousSibling_ = null;
 
         changed();
 
@@ -844,7 +844,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         }
         ChildNode node = (ChildNode) value_;
         int length = 0;
-        for ( ; node != null; node = node.nextSibling) {
+        for ( ; node != null; node = node.nextSibling_) {
             length++;
         }
         return length;
@@ -873,7 +873,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         ChildNode node = (ChildNode) value_;
         for (int i = 0; i < index && node != null; i++) {
-            node = node.nextSibling;
+            node = node.nextSibling_;
         }
         return node;
 
@@ -933,7 +933,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         // See if insertion caused this node to be unnormalized.
         if (insertedChild.getNodeType() == Node.TEXT_NODE) {
             final ChildNode prev = insertedChild.previousSibling();
-            final ChildNode next = insertedChild.nextSibling;
+            final ChildNode next = insertedChild.nextSibling_;
             // If an adjacent sibling of the new child is a text node,
             // flag this node as unnormalized.
             if ((prev != null && prev.getNodeType() == Node.TEXT_NODE)
@@ -967,7 +967,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         // flag this node as unnormalized.
         if (previousSibling != null && previousSibling.getNodeType() == Node.TEXT_NODE) {
 
-            final ChildNode next = previousSibling.nextSibling;
+            final ChildNode next = previousSibling.nextSibling_;
             if (next != null && next.getNodeType() == Node.TEXT_NODE) {
                 isNormalized(false);
             }

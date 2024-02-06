@@ -266,7 +266,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
 
             // Copy children into new document.
-            for (ChildNode kid = firstChild; kid != null; kid = kid.nextSibling) {
+            for (ChildNode kid = firstChild; kid != null; kid = kid.nextSibling_) {
                 newdoc.appendChild(newdoc.importNode(kid, true, true, reversedIdentifiers));
             }
         }

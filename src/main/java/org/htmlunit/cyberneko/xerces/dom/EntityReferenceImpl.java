@@ -169,12 +169,12 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
                 return null;
             }
 
-            if (firstChild.nextSibling == null) {
+            if (firstChild.nextSibling_ == null) {
                 return value;
             }
 
             final StringBuilder buff = new StringBuilder(value);
-            ChildNode next = firstChild.nextSibling;
+            ChildNode next = firstChild.nextSibling_;
             while (next != null) {
 
                 if (next.getNodeType() == Node.ENTITY_REFERENCE_NODE) {
@@ -188,7 +188,7 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
                     return null;
                 }
                 buff.append(value);
-                next = next.nextSibling;
+                next = next.nextSibling_;
 
             }
             return buff.toString();

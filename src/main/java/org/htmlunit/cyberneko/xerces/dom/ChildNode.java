@@ -24,10 +24,10 @@ import org.w3c.dom.Node;
 public abstract class ChildNode extends NodeImpl {
 
     /** Previous sibling. */
-    protected ChildNode previousSibling;
+    protected ChildNode previousSibling_;
 
     /** Next sibling. */
-    protected ChildNode nextSibling;
+    protected ChildNode nextSibling_;
 
     /**
      * No public constructor; only subclasses of Node should be instantiated, and
@@ -73,8 +73,8 @@ public abstract class ChildNode extends NodeImpl {
         final ChildNode newnode = (ChildNode) super.cloneNode(deep);
 
         // Need to break the association w/ original kids
-        newnode.previousSibling = null;
-        newnode.nextSibling = null;
+        newnode.previousSibling_ = null;
+        newnode.nextSibling_ = null;
         newnode.isFirstChild(false);
 
         return newnode;
@@ -88,7 +88,7 @@ public abstract class ChildNode extends NodeImpl {
     public Node getParentNode() {
         // if we have an owner, ownerNode is our parent, otherwise it's
         // our ownerDocument and we don't have a parent
-        return isOwned() ? ownerNode : null;
+        return isOwned() ? ownerNode_ : null;
     }
 
     /*
@@ -98,7 +98,7 @@ public abstract class ChildNode extends NodeImpl {
     final NodeImpl parentNode() {
         // if we have an owner, ownerNode is our parent, otherwise it's
         // our ownerDocument and we don't have a parent
-        return isOwned() ? ownerNode : null;
+        return isOwned() ? ownerNode_ : null;
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class ChildNode extends NodeImpl {
      */
     @Override
     public Node getNextSibling() {
-        return nextSibling;
+        return nextSibling_;
     }
 
     /**
@@ -116,7 +116,7 @@ public abstract class ChildNode extends NodeImpl {
     public Node getPreviousSibling() {
         // if we are the firstChild, previousSibling actually refers to our
         // parent's lastChild, but we hide that
-        return isFirstChild() ? null : previousSibling;
+        return isFirstChild() ? null : previousSibling_;
     }
 
     /*
@@ -126,6 +126,6 @@ public abstract class ChildNode extends NodeImpl {
     final ChildNode previousSibling() {
         // if we are the firstChild, previousSibling actually refers to our
         // parent's lastChild, but we hide that
-        return isFirstChild() ? null : previousSibling;
+        return isFirstChild() ? null : previousSibling_;
     }
 }

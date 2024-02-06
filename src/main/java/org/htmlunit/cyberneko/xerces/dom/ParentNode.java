@@ -118,7 +118,7 @@ public abstract class ParentNode extends ChildNode {
 
         // Then, if deep, clone the kids too.
         if (deep) {
-            for (ChildNode child = firstChild; child != null; child = child.nextSibling) {
+            for (ChildNode child = firstChild; child != null; child = child.nextSibling_) {
                 newnode.appendChild(child.cloneNode(true));
             }
         }
@@ -161,7 +161,7 @@ public abstract class ParentNode extends ChildNode {
         }
         super.setOwnerDocument(doc);
         ownerDocument = doc;
-        for (ChildNode child = firstChild; child != null; child = child.nextSibling) {
+        for (ChildNode child = firstChild; child != null; child = child.nextSibling_) {
             child.setOwnerDocument(doc);
         }
     }
@@ -230,7 +230,7 @@ public abstract class ParentNode extends ChildNode {
 
     final ChildNode lastChild() {
         // last child is stored as the previous sibling of first child
-        return firstChild != null ? firstChild.previousSibling : null;
+        return firstChild != null ? firstChild.previousSibling_ : null;
     }
 
     /**
@@ -365,7 +365,7 @@ public abstract class ParentNode extends ChildNode {
         final ChildNode refInternal = (ChildNode) refChild;
 
         // Attach up
-        newInternal.ownerNode = this;
+        newInternal.ownerNode_ = this;
         newInternal.isOwned(true);
 
         // Attach before and after
@@ -374,34 +374,34 @@ public abstract class ParentNode extends ChildNode {
             // this our first and only child
             firstChild = newInternal;
             newInternal.isFirstChild(true);
-            newInternal.previousSibling = newInternal;
+            newInternal.previousSibling_ = newInternal;
         }
         else {
             if (refInternal == null) {
                 // this is an append
-                final ChildNode lastChild = firstChild.previousSibling;
-                lastChild.nextSibling = newInternal;
-                newInternal.previousSibling = lastChild;
-                firstChild.previousSibling = newInternal;
+                final ChildNode lastChild = firstChild.previousSibling_;
+                lastChild.nextSibling_ = newInternal;
+                newInternal.previousSibling_ = lastChild;
+                firstChild.previousSibling_ = newInternal;
             }
             else {
                 // this is an insert
                 if (refChild == firstChild) {
                     // at the head of the list
                     firstChild.isFirstChild(false);
-                    newInternal.nextSibling = firstChild;
-                    newInternal.previousSibling = firstChild.previousSibling;
-                    firstChild.previousSibling = newInternal;
+                    newInternal.nextSibling_ = firstChild;
+                    newInternal.previousSibling_ = firstChild.previousSibling_;
+                    firstChild.previousSibling_ = newInternal;
                     firstChild = newInternal;
                     newInternal.isFirstChild(true);
                 }
                 else {
                     // somewhere in the middle
-                    final ChildNode prev = refInternal.previousSibling;
-                    newInternal.nextSibling = refInternal;
-                    prev.nextSibling = newInternal;
-                    refInternal.previousSibling = newInternal;
-                    newInternal.previousSibling = prev;
+                    final ChildNode prev = refInternal.previousSibling_;
+                    newInternal.nextSibling_ = refInternal;
+                    prev.nextSibling_ = newInternal;
+                    refInternal.previousSibling_ = newInternal;
+                    newInternal.previousSibling_ = prev;
                 }
             }
         }
@@ -497,31 +497,31 @@ public abstract class ParentNode extends ChildNode {
         if (oldInternal == firstChild) {
             // removing first child
             oldInternal.isFirstChild(false);
-            firstChild = oldInternal.nextSibling;
+            firstChild = oldInternal.nextSibling_;
             if (firstChild != null) {
                 firstChild.isFirstChild(true);
-                firstChild.previousSibling = oldInternal.previousSibling;
+                firstChild.previousSibling_ = oldInternal.previousSibling_;
             }
         }
         else {
-            final ChildNode prev = oldInternal.previousSibling;
-            final ChildNode next = oldInternal.nextSibling;
-            prev.nextSibling = next;
+            final ChildNode prev = oldInternal.previousSibling_;
+            final ChildNode next = oldInternal.nextSibling_;
+            prev.nextSibling_ = next;
             if (next == null) {
                 // removing last child
-                firstChild.previousSibling = prev;
+                firstChild.previousSibling_ = prev;
             }
             else {
                 // removing some other child in the middle
-                next.previousSibling = prev;
+                next.previousSibling_ = prev;
             }
         }
 
         // Remove oldInternal's references to tree
-        oldInternal.ownerNode = ownerDoc;
+        oldInternal.ownerNode_ = ownerDoc;
         oldInternal.isOwned(false);
-        oldInternal.nextSibling = null;
-        oldInternal.previousSibling = null;
+        oldInternal.nextSibling_ = null;
+        oldInternal.previousSibling_ = null;
 
         changed();
 
@@ -610,8 +610,9 @@ public abstract class ParentNode extends ChildNode {
     }
 
     // internal method returning whether to take the given node's text content
-    final static boolean hasTextContent(final Node child) {
-        return child.getNodeType() != Node.COMMENT_NODE && child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE
+    static final boolean hasTextContent(final Node child) {
+        return child.getNodeType() != Node.COMMENT_NODE
+                && child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE
                 && (child.getNodeType() != Node.TEXT_NODE || !((TextImpl) child).isIgnorableWhitespace());
     }
 
@@ -667,7 +668,7 @@ public abstract class ParentNode extends ChildNode {
             }
             while (n != null) {
                 l++;
-                n = n.nextSibling;
+                n = n.nextSibling_;
             }
             fNodeListCache.fLength = l;
         }
@@ -715,7 +716,7 @@ public abstract class ParentNode extends ChildNode {
             if (i < index) {
                 while (i < index && n != null) {
                     i++;
-                    n = n.nextSibling;
+                    n = n.nextSibling_;
                 }
             }
             else if (i > index) {
@@ -732,7 +733,7 @@ public abstract class ParentNode extends ChildNode {
             }
             n = firstChild;
             for (i = 0; i < index && n != null; i++) {
-                n = n.nextSibling;
+                n = n.nextSibling_;
             }
         }
 
@@ -844,7 +845,7 @@ public abstract class ParentNode extends ChildNode {
         // See if insertion caused this node to be unnormalized.
         if (insertedChild.getNodeType() == Node.TEXT_NODE) {
             final ChildNode prev = insertedChild.previousSibling();
-            final ChildNode next = insertedChild.nextSibling;
+            final ChildNode next = insertedChild.nextSibling_;
             // If an adjacent sibling of the new child is a text node,
             // flag this node as unnormalized.
             if ((prev != null && prev.getNodeType() == Node.TEXT_NODE)
@@ -878,7 +879,7 @@ public abstract class ParentNode extends ChildNode {
         // flag this node as unnormalized.
         if (previousSibling != null && previousSibling.getNodeType() == Node.TEXT_NODE) {
 
-            final ChildNode next = previousSibling.nextSibling;
+            final ChildNode next = previousSibling.nextSibling_;
             if (next != null && next.getNodeType() == Node.TEXT_NODE) {
                 isNormalized(false);
             }

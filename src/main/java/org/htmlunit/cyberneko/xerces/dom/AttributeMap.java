@@ -79,7 +79,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         }
 
         // set owner
-        argn.ownerNode = ownerNode;
+        argn.ownerNode_ = ownerNode;
         argn.isOwned(true);
 
         int i = findNamePoint(argn.getNodeName());
@@ -87,7 +87,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         if (i >= 0) {
             previous = (AttrImpl) nodes.get(i);
             nodes.set(i, arg);
-            previous.ownerNode = ownerNode.ownerDocument();
+            previous.ownerNode_ = ownerNode.ownerDocument();
             previous.isOwned(false);
             // make sure it won't be mistaken with defaults in case it's reused
             previous.isSpecified(true);
@@ -149,7 +149,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         }
 
         // set owner
-        argn.ownerNode = ownerNode;
+        argn.ownerNode_ = ownerNode;
         argn.isOwned(true);
 
         int i = findNamePoint(argn.getNamespaceURI(), argn.getLocalName());
@@ -157,7 +157,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         if (i >= 0) {
             previous = (AttrImpl) nodes.get(i);
             nodes.set(i, arg);
-            previous.ownerNode = ownerNode.ownerDocument();
+            previous.ownerNode_ = ownerNode.ownerDocument();
             previous.isOwned(false);
             // make sure it won't be mistaken with defaults in case it's reused
             previous.isSpecified(true);
@@ -274,7 +274,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         nodes.remove(index);
 
         // remove reference to owner
-        attr.ownerNode = ownerDocument;
+        attr.ownerNode_ = ownerDocument;
         attr.isOwned(false);
 
         // make sure it won't be mistaken with defaults in case it's reused
@@ -341,7 +341,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         // changed(true);
 
         // remove reference to owner
-        n.ownerNode = ownerDocument;
+        n.ownerNode_ = ownerDocument;
         n.isOwned(false);
         // make sure it won't be mistaken with defaults in case it's
         // reused
@@ -390,7 +390,7 @@ public class AttributeMap extends NamedNodeMapImpl {
                     final NodeImpl clone = (NodeImpl) n.cloneNode(true);
                     clone.isSpecified(n.isSpecified());
                     nodes.add(clone);
-                    clone.ownerNode = ownerNode;
+                    clone.ownerNode_ = ownerNode;
                     clone.isOwned(true);
                 }
             }
@@ -427,7 +427,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         final AttrImpl argn = (AttrImpl) arg;
 
         // set owner
-        argn.ownerNode = ownerNode;
+        argn.ownerNode_ = ownerNode;
         argn.isOwned(true);
 
         int i = findNamePoint(argn.getNamespaceURI(), argn.getLocalName());

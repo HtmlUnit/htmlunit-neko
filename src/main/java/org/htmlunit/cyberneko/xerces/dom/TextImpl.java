@@ -537,7 +537,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
         // insert new text node
         final Node parentNode = getParentNode();
         if (parentNode != null) {
-            parentNode.insertBefore(newText, nextSibling);
+            parentNode.insertBefore(newText, nextSibling_);
         }
 
         return newText;
