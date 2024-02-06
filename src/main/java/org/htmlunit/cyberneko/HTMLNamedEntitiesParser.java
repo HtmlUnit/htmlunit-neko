@@ -96,7 +96,7 @@ public final class HTMLNamedEntitiesParser {
                 rootLevel_.add(key, value);
 
                 key = "&" + key;
-                String ref = entities_.get(value);
+                final String ref = entities_.get(value);
                 if (ref == null
                         || ref.length() < key.length()
                         || (ref.length() == key.length() && ref.compareTo(key) < 1)) {
@@ -179,7 +179,7 @@ public final class HTMLNamedEntitiesParser {
     /**
      * @return the entity ref for the given key (usually a single char) or null
      */
-    public String lookupEntityRefFor(String key) {
+    public String lookupEntityRefFor(final String key) {
         return entities_.get(key);
     }
 

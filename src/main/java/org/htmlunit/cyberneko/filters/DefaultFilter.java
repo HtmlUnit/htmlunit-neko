@@ -40,41 +40,41 @@ public class DefaultFilter
     implements XMLDocumentFilter, HTMLComponent {
 
     /** Document handler. */
-    private XMLDocumentHandler fDocumentHandler_;
+    private XMLDocumentHandler documentHandler_;
 
     /** Document source. */
-    private XMLDocumentSource fDocumentSource;
+    private XMLDocumentSource documentSource_;
 
     /** Sets the document handler. */
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
-        fDocumentHandler_ = handler;
+        documentHandler_ = handler;
     }
 
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
-        return fDocumentHandler_;
+        return documentHandler_;
     }
 
     /** Sets the document source. */
     @Override
     public void setDocumentSource(final XMLDocumentSource source) {
-        fDocumentSource = source;
+        documentSource_ = source;
     }
 
     /** Returns the document source. */
     @Override
     public XMLDocumentSource getDocumentSource() {
-        return fDocumentSource;
+        return documentSource_;
     }
 
     /** Start document. */
     @Override
     public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.startDocument(locator, encoding, nscontext, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.startDocument(locator, encoding, nscontext, augs);
         }
     }
 
@@ -82,8 +82,8 @@ public class DefaultFilter
     @Override
     public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.xmlDecl(version, encoding, standalone, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.xmlDecl(version, encoding, standalone, augs);
         }
     }
 
@@ -91,8 +91,8 @@ public class DefaultFilter
     @Override
     public void doctypeDecl(final String root, final String publicId, final String systemId, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.doctypeDecl(root, publicId, systemId, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.doctypeDecl(root, publicId, systemId, augs);
         }
     }
 
@@ -100,8 +100,8 @@ public class DefaultFilter
     @Override
     public void comment(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.comment(text, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.comment(text, augs);
         }
     }
 
@@ -109,8 +109,8 @@ public class DefaultFilter
     @Override
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.processingInstruction(target, data, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.processingInstruction(target, data, augs);
         }
     }
 
@@ -118,8 +118,8 @@ public class DefaultFilter
     @Override
     public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.startElement(element, attributes, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.startElement(element, attributes, augs);
         }
     }
 
@@ -127,8 +127,8 @@ public class DefaultFilter
     @Override
     public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.emptyElement(element, attributes, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.emptyElement(element, attributes, augs);
         }
     }
 
@@ -136,24 +136,24 @@ public class DefaultFilter
     @Override
     public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.characters(text, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.characters(text, augs);
         }
     }
 
     /** Start CDATA section. */
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.startCDATA(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.startCDATA(augs);
         }
     }
 
     /** End CDATA section. */
     @Override
     public void endCDATA(final Augmentations augs) throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.endCDATA(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.endCDATA(augs);
         }
     }
 
@@ -161,16 +161,16 @@ public class DefaultFilter
     @Override
     public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.endElement(element, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.endElement(element, augs);
         }
     }
 
     /** End document. */
     @Override
     public void endDocument(final Augmentations augs) throws XNIException {
-        if (fDocumentHandler_ != null) {
-            fDocumentHandler_.endDocument(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.endDocument(augs);
         }
     }
 

@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 
 import org.htmlunit.cyberneko.HTMLElements;
 import org.htmlunit.cyberneko.HTMLNamedEntitiesParser;
@@ -56,28 +57,25 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 public class HTMLWriterFilter extends DefaultFilter {
 
     /** The encoding. */
-    protected String fEncoding;
+    private String encoding_;
 
     /**
      * The print writer used for serializing the document with the
      * appropriate character encoding.
      */
-    protected PrintWriter fPrinter;
+    private PrintWriter printer_;
 
     /** Seen root element. */
-    protected boolean fSeenRootElement;
-
-    /** Seen http-equiv directive. */
-    protected boolean fSeenHttpEquiv;
+    private boolean seenRootElement_;
 
     /** Element depth. */
-    protected int fElementDepth;
+    private int elementDepth_;
 
     /** Normalize character content. */
-    protected boolean fNormalize;
+    private boolean normalize_;
 
     /** Print characters. */
-    protected boolean fPrintChars;
+    private boolean printChars_;
 
     private final HTMLElements htmlElements_;
 
@@ -86,10 +84,10 @@ public class HTMLWriterFilter extends DefaultFilter {
         // Note: UTF-8 should *always* be a supported encoding. Although,
         //       I've heard of the old M$ JVM not supporting it! Amazing. -Ac
         try {
-            fEncoding = "UTF-8";
-            fPrinter = new PrintWriter(new OutputStreamWriter(System.out, fEncoding));
+            encoding_ = "UTF-8";
+            printer_ = new PrintWriter(new OutputStreamWriter(System.out, encoding_));
         }
-        catch (UnsupportedEncodingException e) {
+        catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e.getMessage());
         }
         htmlElements_ = new HTMLElements();
@@ -103,7 +101,7 @@ public class HTMLWriterFilter extends DefaultFilter {
      * @param encoding The encoding to be used for the output. The encoding name
      *                 should be an official IANA encoding name.
      */
-    public HTMLWriterFilter(OutputStream outputStream, String encoding)
+    public HTMLWriterFilter(final OutputStream outputStream, final String encoding)
         throws UnsupportedEncodingException {
         this(new OutputStreamWriter(outputStream, encoding), encoding, new HTMLElements());
     }
@@ -116,200 +114,181 @@ public class HTMLWriterFilter extends DefaultFilter {
      * @param encoding The encoding to be used for the output. The encoding name
      *                 should be an official IANA encoding name.
      */
-    public HTMLWriterFilter(java.io.Writer writer, String encoding, HTMLElements htmlElements) {
-        fEncoding = encoding;
+    public HTMLWriterFilter(final Writer writer, final String encoding, final HTMLElements htmlElements) {
+        encoding_ = encoding;
         if (writer instanceof PrintWriter) {
-            fPrinter = (PrintWriter)writer;
+            printer_ = (PrintWriter) writer;
         }
         else {
-            fPrinter = new PrintWriter(writer);
+            printer_ = new PrintWriter(writer);
         }
         htmlElements_ = htmlElements;
     }
 
-
     /** Start document. */
     @Override
-    public void startDocument(XMLLocator locator, String encoding,
-                              NamespaceContext nscontext, Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding,
+            final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
-        fSeenRootElement = false;
-        fSeenHttpEquiv = false;
-        fElementDepth = 0;
-        fNormalize = true;
-        fPrintChars = true;
+        seenRootElement_ = false;
+        elementDepth_ = 0;
+        normalize_ = true;
+        printChars_ = true;
         super.startDocument(locator, encoding, nscontext, augs);
     }
 
     /** Comment. */
     @Override
-    public void comment(XMLString text, Augmentations augs)
+    public void comment(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fSeenRootElement && fElementDepth <= 0) {
-            fPrinter.println();
+        if (seenRootElement_ && elementDepth_ <= 0) {
+            printer_.println();
         }
-        fPrinter.print("<!--");
+        printer_.print("<!--");
         printCharacters(text, false);
-        fPrinter.print("-->");
-        if (!fSeenRootElement) {
-            fPrinter.println();
+        printer_.print("-->");
+        if (!seenRootElement_) {
+            printer_.println();
         }
-        fPrinter.flush();
+        printer_.flush();
     }
 
     /** Start element. */
     @Override
-    public void startElement(QName element, XMLAttributes attributes, Augmentations augs)
+    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        fSeenRootElement = true;
-        fElementDepth++;
-        fNormalize = !htmlElements_.getElement(element.getRawname()).isSpecial();
+        seenRootElement_ = true;
+        elementDepth_++;
+        normalize_ = !htmlElements_.getElement(element.getRawname()).isSpecial();
         printStartElement(element, attributes);
         super.startElement(element, attributes, augs);
     }
 
     /** Empty element. */
     @Override
-    public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs)
+    public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
-        fSeenRootElement = true;
+        seenRootElement_ = true;
         printStartElement(element, attributes);
         super.emptyElement(element, attributes, augs);
     }
 
     /** Characters. */
     @Override
-    public void characters(XMLString text, Augmentations augs)
+    public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (fPrintChars) {
-            printCharacters(text, fNormalize);
+        if (printChars_) {
+            printCharacters(text, normalize_);
         }
         super.characters(text, augs);
     }
 
     /** End element. */
     @Override
-    public void endElement(QName element, Augmentations augs)
+    public void endElement(final QName element, final Augmentations augs)
         throws XNIException {
-        fElementDepth--;
-        fNormalize = true;
-        /***
-        // NOTE: Not sure if this is what should be done in the case where
-        //       the encoding is not explitly declared within the HEAD. So
-        //       I'm leaving it commented out for now. -Ac
-        if (element.rawname.equalsIgnoreCase("head") && !fSeenHttpEquiv) {
-            boolean capitalize = Character.isUpperCase(element.rawname.charAt(0));
-            String ename = capitalize ? "META" : "meta";
-            QName qname = new QName(null, ename, ename, null);
-            XMLAttributes attrs = new XMLAttributesImpl();
-            QName aname = new QName(null, "http-equiv", "http-equiv", null);
-            attrs.addAttribute(aname, "CDATA", "Content-Type");
-            aname.setValues(null, "content", "content", null);
-            attrs.addAttribute(aname, "CDATA", "text/html; charset="+fEncoding);
-            super.emptyElement(qname, attrs, null);
-        }
-        /***/
+        elementDepth_--;
+        normalize_ = true;
         printEndElement(element);
         super.endElement(element, augs);
     }
 
     /** Print attribute value. */
-    protected void printAttributeValue(String text) {
-        int length = text.length();
+    protected void printAttributeValue(final String text) {
+        final int length = text.length();
         for (int j = 0; j < length; j++) {
-            char c = text.charAt(j);
+            final char c = text.charAt(j);
             if (c == '"') {
-                fPrinter.print("&quot;");
+                printer_.print("&quot;");
             }
             else {
-                fPrinter.print(c);
+                printer_.print(c);
             }
         }
-        fPrinter.flush();
+        printer_.flush();
     }
 
     /** Print characters. */
-    protected void printCharacters(XMLString text, boolean normalize) {
+    protected void printCharacters(final XMLString text, final boolean normalize) {
         if (normalize) {
             for (int i = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
+                final char c = text.charAt(i);
                 if (c != '\n') {
-                    String entity = HTMLNamedEntitiesParser.get().lookupEntityRefFor(Character.toString(c));
+                    final String entity = HTMLNamedEntitiesParser.get().lookupEntityRefFor(Character.toString(c));
                     if (entity != null) {
-                        fPrinter.print(entity);
+                        printer_.print(entity);
                     }
                     else {
-                        fPrinter.print(c);
+                        printer_.print(c);
                     }
                 }
                 else {
-                    fPrinter.println();
+                    printer_.println();
                 }
             }
         }
         else {
             for (int i = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                fPrinter.print(c);
+                final char c = text.charAt(i);
+                printer_.print(c);
             }
         }
-        fPrinter.flush();
+        printer_.flush();
     }
 
     /** Print start element. */
-    protected void printStartElement(QName element, XMLAttributes attributes) {
+    protected void printStartElement(final QName element, final XMLAttributes attributes) {
 
         // modify META[@http-equiv='content-type']/@content value
         int contentIndex = -1;
         String originalContent = null;
         if (element.getRawname().toLowerCase().equals("meta")) {
             String httpEquiv = null;
-            int length = attributes.getLength();
+            final int length = attributes.getLength();
             for (int i = 0; i < length; i++) {
-                String aname = attributes.getQName(i).toLowerCase();
-                if (aname.equals("http-equiv")) {
+                final String aname = attributes.getQName(i).toLowerCase();
+                if ("http-equiv".equals(aname)) {
                     httpEquiv = attributes.getValue(i);
                 }
-                else if (aname.equals("content")) {
+                else if ("content".equals(aname)) {
                     contentIndex = i;
                 }
             }
             if (httpEquiv != null && httpEquiv.toLowerCase().equals("content-type")) {
-                fSeenHttpEquiv = true;
                 String content = null;
                 if (contentIndex != -1) {
                     originalContent = attributes.getValue(contentIndex);
                     content = originalContent.toLowerCase();
                 }
                 if (content != null) {
-                    int charsetIndex = content.indexOf("charset=");
+                    final int charsetIndex = content.indexOf("charset=");
                     if (charsetIndex != -1) {
                         content = content.substring(0, charsetIndex + 8);
                     }
                     else {
                         content += ";charset=";
                     }
-                    content += fEncoding;
+                    content += encoding_;
                     attributes.setValue(contentIndex, content);
                 }
             }
         }
 
         // print element
-        fPrinter.print('<');
-        fPrinter.print(element.getRawname());
-        int attrCount = attributes != null ? attributes.getLength() : 0;
+        printer_.print('<');
+        printer_.print(element.getRawname());
+        final int attrCount = attributes != null ? attributes.getLength() : 0;
         for (int i = 0; i < attrCount; i++) {
-            String aname = attributes.getQName(i);
-            String avalue = attributes.getValue(i);
-            fPrinter.print(' ');
-            fPrinter.print(aname);
-            fPrinter.print("=\"");
+            final String aname = attributes.getQName(i);
+            final String avalue = attributes.getValue(i);
+            printer_.print(' ');
+            printer_.print(aname);
+            printer_.print("=\"");
             printAttributeValue(avalue);
-            fPrinter.print('"');
+            printer_.print('"');
         }
-        fPrinter.print('>');
-        fPrinter.flush();
+        printer_.print('>');
+        printer_.flush();
 
         // return original META[@http-equiv]/@content value
         if (contentIndex != -1 && originalContent != null) {
@@ -318,11 +297,11 @@ public class HTMLWriterFilter extends DefaultFilter {
     }
 
     /** Print end element. */
-    protected void printEndElement(QName element) {
-        fPrinter.print("</");
-        fPrinter.print(element.getRawname());
-        fPrinter.print('>');
-        fPrinter.flush();
+    protected void printEndElement(final QName element) {
+        printer_.print("</");
+        printer_.print(element.getRawname());
+        printer_.print('>');
+        printer_.flush();
     }
 
 //    /** Main. */
