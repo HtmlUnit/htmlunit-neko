@@ -59,12 +59,8 @@ import org.xml.sax.SAXParseException;
  */
 public class DOMFragmentParser implements XMLDocumentHandler {
 
-    /** Document fragment balancing only. */
-    protected static final String DOCUMENT_FRAGMENT = "http://cyberneko.org/html/features/document-fragment";
-
     /** Recognized features. */
     protected static final String[] RECOGNIZED_FEATURES = {
-        DOCUMENT_FRAGMENT,
     };
 
     /** Property identifier: error handler. */
@@ -98,7 +94,7 @@ public class DOMFragmentParser implements XMLDocumentHandler {
         parserConfiguration_ = new HTMLConfiguration();
         parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
         parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
-        parserConfiguration_.setFeature(DOCUMENT_FRAGMENT, true);
+        parserConfiguration_.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
         parserConfiguration_.setDocumentHandler(this);
     }
 
