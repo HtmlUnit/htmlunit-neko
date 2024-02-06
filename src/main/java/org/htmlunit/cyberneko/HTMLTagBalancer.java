@@ -81,9 +81,6 @@ public class HTMLTagBalancer
     /** Report errors. */
     protected static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
 
-    /** Document fragment balancing only (deprecated). */
-    protected static final String DOCUMENT_FRAGMENT_DEPRECATED = "http://cyberneko.org/html/features/document-fragment";
-
     /** Document fragment balancing only. */
     protected static final String DOCUMENT_FRAGMENT = "http://cyberneko.org/html/features/balance-tags/document-fragment";
 
@@ -95,14 +92,12 @@ public class HTMLTagBalancer
         NAMESPACES,
         AUGMENTATIONS,
         REPORT_ERRORS,
-        DOCUMENT_FRAGMENT_DEPRECATED,
         DOCUMENT_FRAGMENT,
         IGNORE_OUTSIDE_CONTENT,
     };
 
     /** Recognized features defaults. */
     private static final Boolean[] RECOGNIZED_FEATURES_DEFAULTS = {
-        null,
         null,
         null,
         null,
@@ -316,7 +311,7 @@ public class HTMLTagBalancer
         fNamespaces = manager.getFeature(NAMESPACES);
         fAugmentations = manager.getFeature(AUGMENTATIONS);
         fReportErrors = manager.getFeature(REPORT_ERRORS);
-        fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT) || manager.getFeature(DOCUMENT_FRAGMENT_DEPRECATED);
+        fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT);
         fIgnoreOutsideContent = manager.getFeature(IGNORE_OUTSIDE_CONTENT);
         fAllowSelfclosingIframe = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME);
         fAllowSelfclosingTags = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
