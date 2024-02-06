@@ -66,14 +66,6 @@ public final class Constants {
     /** Xerces features prefix ("http://apache.org/xml/features/"). */
     public static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
 
-    /** Create entity reference nodes feature ("dom/create-entity-ref-nodes"). */
-    public static final String CREATE_ENTITY_REF_NODES_FEATURE = "dom/create-entity-ref-nodes";
-
-    /**
-     * Include ignorable whitespace feature ("dom/include-ignorable-whitespace").
-     */
-    public static final String INCLUDE_IGNORABLE_WHITESPACE = "dom/include-ignorable-whitespace";
-
     // xerces properties
 
     /** Xerces properties prefix ("http://apache.org/xml/properties/"). */

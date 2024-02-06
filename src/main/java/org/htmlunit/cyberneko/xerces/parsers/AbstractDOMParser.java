@@ -70,10 +70,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** Feature id: namespace. */
     protected static final String NAMESPACES = Constants.SAX_FEATURE_PREFIX + Constants.NAMESPACES_FEATURE;
 
-    /** Feature id: create entity ref nodes. */
-    protected static final String CREATE_ENTITY_REF_NODES = Constants.XERCES_FEATURE_PREFIX
-            + Constants.CREATE_ENTITY_REF_NODES_FEATURE;
-
     /** Feature id: include comments. */
     protected static final String INCLUDE_COMMENTS_FEATURE = Constants.XERCES_FEATURE_PREFIX
             + Constants.INCLUDE_COMMENTS_FEATURE;
@@ -82,28 +78,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     protected static final String CREATE_CDATA_NODES_FEATURE = Constants.XERCES_FEATURE_PREFIX
             + Constants.CREATE_CDATA_NODES_FEATURE;
 
-    /** Feature id: include ignorable whitespace. */
-    protected static final String INCLUDE_IGNORABLE_WHITESPACE = Constants.XERCES_FEATURE_PREFIX
-            + Constants.INCLUDE_IGNORABLE_WHITESPACE;
-
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
         NAMESPACES,
-        CREATE_ENTITY_REF_NODES,
         INCLUDE_COMMENTS_FEATURE,
-        CREATE_CDATA_NODES_FEATURE,
-        INCLUDE_IGNORABLE_WHITESPACE};
+        CREATE_CDATA_NODES_FEATURE};
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {};
 
     private static final boolean DEBUG_EVENTS = false;
-
-    /** Create entity reference nodes. */
-    protected boolean fCreateEntityRefNodes;
-
-    /** Include ignorable whitespace. */
-    protected boolean fIncludeIgnorableWhitespace;
 
     /** Include Comments. */
     protected boolean fIncludeComments;
@@ -158,8 +142,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
 
         // set default values
-        parserConfiguration_.setFeature(CREATE_ENTITY_REF_NODES, true);
-        parserConfiguration_.setFeature(INCLUDE_IGNORABLE_WHITESPACE, true);
         parserConfiguration_.setFeature(INCLUDE_COMMENTS_FEATURE, true);
         parserConfiguration_.setFeature(CREATE_CDATA_NODES_FEATURE, true);
 
@@ -197,10 +179,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         super.reset();
 
         // get feature state
-        fCreateEntityRefNodes = parserConfiguration_.getFeature(CREATE_ENTITY_REF_NODES);
-
-        fIncludeIgnorableWhitespace = parserConfiguration_.getFeature(INCLUDE_IGNORABLE_WHITESPACE);
-
         fNamespaceAware = parserConfiguration_.getFeature(NAMESPACES);
 
         fIncludeComments = parserConfiguration_.getFeature(INCLUDE_COMMENTS_FEATURE);
