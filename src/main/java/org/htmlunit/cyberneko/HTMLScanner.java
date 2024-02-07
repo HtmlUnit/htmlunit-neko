@@ -3055,8 +3055,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             if (c == '/' || c == '>') {
                 qName_.setValues(null, aname, aname, null);
-                attributes.addAttribute(qName_, "CDATA", "");
-                attributes.setSpecified(attributes.getLength() - 1, true);
+                attributes.addAttribute(qName_, "CDATA", "", true);
                 if (c == '/') {
                     fCurrentEntity.rewind();
                     empty[0] = skipMarkup(false);
@@ -3079,8 +3078,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
 
                     qName_.setValues(null, aname, aname, null);
-                    final int pos = attributes.addAttribute(qName_, "CDATA", avalue.toString());
-                    attributes.setSpecified(pos, true);
+                    attributes.addAttribute(qName_, "CDATA", avalue.toString(), true);
 
                     return true;
                 }
@@ -3098,8 +3096,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 // Xiaowei/Ac: Fix for <a href=/cgi-bin/myscript>...</a>
                 if (c == '>') {
                     qName_.setValues(null, aname, aname, null);
-                    attributes.addAttribute(qName_, "CDATA", "");
-                    attributes.setSpecified(attributes.getLength() - 1, true);
+                    attributes.addAttribute(qName_, "CDATA", "", true);
                     return false;
                 }
 
@@ -3109,15 +3106,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 scanAttributeUnquotedValue(fCurrentEntity, avalue);
 
                 qName_.setValues(null, aname, aname, null);
-                final int pos = attributes.addAttribute(qName_, "CDATA", avalue.toString());
-                attributes.setSpecified(pos, true);
+                attributes.addAttribute(qName_, "CDATA", avalue.toString(), true);
 
                 return true;
             }
 
             qName_.setValues(null, aname, aname, null);
-            final int pos = attributes.addAttribute(qName_, "CDATA", "");
-            attributes.setSpecified(pos, true);
+            attributes.addAttribute(qName_, "CDATA", "", true);
 
             fCurrentEntity.rewind();
             return true;

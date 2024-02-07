@@ -70,16 +70,19 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public int addAttribute(final QName name, final String type, final String value) {
+        addAttribute(name, type, value, false);
+        return attributes_.size() - 1;
+    }
+
+    public void addAttribute(final QName name, final String type, final String value, final boolean specified) {
         // set values
         final Attribute attribute = new Attribute();
         attribute.name_.setValues(name);
         attribute.type_ = type;
         attribute.value_ = value;
-        attribute.specified_ = false;
+        attribute.specified_ = specified;
 
         attributes_.add(attribute);
-        return attributes_.size() - 1;
-
     }
 
     /**
