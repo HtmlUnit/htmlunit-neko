@@ -15,6 +15,7 @@
  */
 package org.htmlunit.cyberneko.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,7 @@ import java.util.List;
  * @author Ren&eacute; Schwietzke
  * @since 3.10.0
  */
-public class FastHashMap<K, V> {
+public class FastHashMap<K, V> implements Serializable {
     private static final Object FREE_KEY = new Object();
     private static final Object REMOVED_KEY = new Object();
 
