@@ -1335,7 +1335,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         // hopefully, we got something, otherwise we have to go
         // the error route
         if (result.isMatch_) {
-            // in case we overran because the entity was broken or
+            // in case we overrun because the entity was broken or
             // not terminated by a ;, we have to reset the char
             // position because we read one more char than the entity has
             fCurrentEntity.rewind(readCount - result.length_);
@@ -1790,45 +1790,43 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         /** Prints the contents of the character buffer to standard out. */
         private void debugBufferIfNeeded(final String prefix, final String suffix) {
-            if (DEBUG_BUFFER) {
-                System.out.print(prefix);
-                System.out.print('[');
-                System.out.print(length_);
-                System.out.print(' ');
-                System.out.print(offset_);
-                if (length_ > 0) {
-                    System.out.print(" \"");
-                    for (int i = 0; i < length_; i++) {
-                        if (i == offset_) {
-                            System.out.print('^');
-                        }
-                        final char c = buffer_[i];
-                        switch (c) {
-                            case '\r':
-                                System.out.print("\\r");
-                                break;
-                            case '\n':
-                                System.out.print("\\n");
-                                break;
-                            case '\t':
-                                System.out.print("\\t");
-                                break;
-                            case '"':
-                                System.out.print("\\\"");
-                                break;
-                            default:
-                                System.out.print(c);
-                        }
-                    }
-                    if (offset_ == length_) {
+            System.out.print(prefix);
+            System.out.print('[');
+            System.out.print(length_);
+            System.out.print(' ');
+            System.out.print(offset_);
+            if (length_ > 0) {
+                System.out.print(" \"");
+                for (int i = 0; i < length_; i++) {
+                    if (i == offset_) {
                         System.out.print('^');
                     }
-                    System.out.print('"');
+                    final char c = buffer_[i];
+                    switch (c) {
+                        case '\r':
+                            System.out.print("\\r");
+                            break;
+                        case '\n':
+                            System.out.print("\\n");
+                            break;
+                        case '\t':
+                            System.out.print("\\t");
+                            break;
+                        case '"':
+                            System.out.print("\\\"");
+                            break;
+                        default:
+                            System.out.print(c);
+                    }
                 }
-                System.out.print(']');
-                System.out.print(suffix);
-                System.out.println();
+                if (offset_ == length_) {
+                    System.out.print('^');
+                }
+                System.out.print('"');
             }
+            System.out.print(']');
+            System.out.print(suffix);
+            System.out.println();
         }
 
         void setStream(final InputStreamReader inputStreamReader) {
@@ -3678,19 +3676,19 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     // Reads a single character, preserving the old buffer content
     protected int readPreservingBufferContent() throws IOException {
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(read: ");
+            fCurrentEntity.debugBufferIfNeeded("(readPreserving: ");
         }
         if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
             if (fCurrentEntity.load(fCurrentEntity.length_) < 1) {
                 if (DEBUG_BUFFER) {
-                    System.out.println(")read: -> -1");
+                    System.out.println(")readPreserving: -> -1");
                 }
                 return -1;
             }
         }
         final char c = fCurrentEntity.getNextChar();
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")read: ", " -> " + c);
+            fCurrentEntity.debugBufferIfNeeded(")readPreserving: ", " -> " + c);
         }
         return c;
     }
