@@ -37,8 +37,6 @@ import java.util.List;
  * @since 3.10.0
  */
 public class FastHashMap<K, V> implements Serializable {
-    private static final long serialVersionUID = -1561234553969821385L;
-
     private static final Object FREE_KEY = new Object();
     private static final Object REMOVED_KEY = new Object();
 
@@ -327,7 +325,7 @@ public class FastHashMap<K, V> implements Serializable {
      * @throws IOException when the reading from the source fails
      * @throws ClassNotFoundException in case we cannot restore a class
      */
-    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+    private void readObject(final ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
         // perform the default de-serialization first
         aInputStream.defaultReadObject();
 
