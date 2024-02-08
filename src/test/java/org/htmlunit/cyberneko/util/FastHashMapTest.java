@@ -19,6 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -234,10 +239,10 @@ public class FastHashMapTest {
     public void overflow() {
         final FastHashMap<MockKey<String>, Integer> m = new FastHashMap<>(5, 0.5f);
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 152)
-            .mapToObj(Integer::valueOf)
-            .collect(
-                     Collectors.toMap(i -> new MockKey<String>(1, "k" + i),
-                                      i -> i));
+                .mapToObj(Integer::valueOf)
+                .collect(
+                        Collectors.toMap(i -> new MockKey<String>(1, "k" + i),
+                                i -> i));
 
         // add all
         data.forEach((k, v) -> m.put(k, v));
@@ -256,28 +261,81 @@ public class FastHashMapTest {
     @Test
     public void growFromSmall_InfiniteLoopIsssue() {
         for (int initSize = 1; initSize < 100; initSize++) {
-//            System.out.println("Initial Size: " + initSize);
             final FastHashMap<Integer, Integer> m = new FastHashMap<>(initSize, 0.7f);
 
             for (int i = 0; i < 300; i++) {
-//                System.out.println(" Iteration: " + i);
-
                 // add one
                 m.put(i, i);
 
                 // ask for all
                 for (int j = 0; j <= i; j++) {
-//                    System.out.println("  Get: " + j);
                     assertEquals(Integer.valueOf(j), m.get(j));
                 }
 
                 // ask for something else
                 for (int j = -1; j >= -100; j--) {
-//                    System.out.println("  Get Null: " + j);
                     assertNull(m.get(j));
                 }
             }
         }
+    }
+
+    /**
+     * Test serialization, should work out of the box, just to
+     * ensure nobody removes that
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @Test
+    public void serializable() throws IOException, ClassNotFoundException {
+        final FastHashMap<String, Integer> src = new FastHashMap<>();
+
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer);
+        objectOutputStream.writeObject(src);
+        objectOutputStream.close();
+
+        final ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()));
+        final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
+        objectInputStream.close();
+
+        assertEquals(src.size(), copy.size());
+
+        // clone still works
+        copy.put("test", 1);
+        assertEquals(1, copy.get("test"));
+    }
+
+    /**
+     * Test serialization, should work out of the box, just to
+     * ensure nobody removes that
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @Test
+    public void serializable_notEmpty() throws IOException, ClassNotFoundException {
+        final FastHashMap<String, Integer> src = new FastHashMap<>();
+        src.put("a", 1);
+        src.put("b", 2);
+        src.put("c", 3);
+        src.put("d", 4);
+        src.remove("b");
+
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer);
+        objectOutputStream.writeObject(src);
+        objectOutputStream.close();
+
+        final ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()));
+        final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
+        objectInputStream.close();
+
+        assertEquals(src.size(), copy.size());
+        assertEquals(1, copy.get("a"));
+        assertEquals(3, copy.get("c"));
+        assertEquals(4, copy.get("d"));
     }
 
     /**
@@ -288,17 +346,17 @@ public class FastHashMapTest {
         final FastHashMap<MockKey<String>, Integer> m = new FastHashMap<>(15, 0.9f);
 
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 150)
-            .mapToObj(Integer::valueOf)
-            .collect(
-                     Collectors.toMap(i -> new MockKey<String>(i, "k1" + i),
-                                      i -> i));
+                .mapToObj(Integer::valueOf)
+                .collect(
+                        Collectors.toMap(i -> new MockKey<String>(i, "k1" + i),
+                                i -> i));
 
         // add the same hash codes again but other keys
         data.putAll(IntStream.range(0, 150)
-            .mapToObj(Integer::valueOf)
-            .collect(
-                     Collectors.toMap(i -> new MockKey<String>(i, "k2" + i),
-                                      i -> i)));
+                .mapToObj(Integer::valueOf)
+                .collect(
+                        Collectors.toMap(i -> new MockKey<String>(i, "k2" + i),
+                                i -> i)));
         // add all
         data.forEach((k, v) -> m.put(k, v));
         // verify

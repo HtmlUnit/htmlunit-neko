@@ -15,6 +15,9 @@
  */
 package org.htmlunit.cyberneko.util;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +37,8 @@ import java.util.List;
  * @since 3.10.0
  */
 public class FastHashMap<K, V> implements Serializable {
+    private static final long serialVersionUID = -1561234553969821385L;
+
     private static final Object FREE_KEY = new Object();
     private static final Object REMOVED_KEY = new Object();
 
@@ -52,7 +57,7 @@ public class FastHashMap<K, V> implements Serializable {
     private int m_mask2_;
 
     public FastHashMap() {
-        this(13, 0.5f);
+        this(7, 0.5f);
     }
 
     public FastHashMap(final int size, final float fillFactor) {
@@ -313,5 +318,55 @@ public class FastHashMap<K, V> implements Serializable {
             throw new IllegalArgumentException("Too large (" + expected + " expected elements with load factor " + f + ")");
         }
         return (int) s;
+    }
+
+    /**
+     * We have to overwrite the import due to the use of static object as marker
+     *
+     * @param aInputStream the inputstream to read from
+     * @throws IOException when the reading from the source fails
+     * @throws ClassNotFoundException in case we cannot restore a class
+     */
+    private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException {
+        // perform the default de-serialization first
+        aInputStream.defaultReadObject();
+
+        // we have to restore order
+        final Object[] srcData = Arrays.copyOf(this.m_data_, this.m_data_.length);
+
+        // now, empty it the original map
+        clear();
+
+        // sort things in, so we get a nice clean new map, this will
+        // also cleanup what was previously a removed entry, we have not
+        // kept that information anyway
+        for (int i = 0; i < srcData.length; i += 2) {
+            final Object key = srcData[i];
+
+            if (key != null) {
+                final V value = (V) srcData[i + 1];
+                put((K) key, value);
+            }
+        }
+    }
+
+    /**
+     * We have to overwrite the export due to the use of static object as marker
+     *
+     * @param aOutputStream the stream to write to
+     * @throws IOException when a problem during writing occurs
+     */
+    private void writeObject(final ObjectOutputStream aOutputStream) throws IOException {
+        // we will remove all placeholder object references,
+        // when putting it back together, we rebuild the map from scratch
+        for (int i = 0; i < this.m_data_.length; i++) {
+            final Object entry = this.m_data_[i];
+            if (entry == FREE_KEY || entry == REMOVED_KEY) {
+                this.m_data_[i] = null;
+            }
+        }
+
+        // perform the default serialization for all non-transient, non-static fields
+        aOutputStream.defaultWriteObject();
     }
 }
