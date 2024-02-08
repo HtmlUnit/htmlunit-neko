@@ -2,10 +2,9 @@
 (head
 "\n
 (title
-"Unclosed title\n
+"Unclosed title\n</head>\n<body>Hello there</body>\n</html>
 )title
 )head
 (body
-"Hello there
 )body
 )html

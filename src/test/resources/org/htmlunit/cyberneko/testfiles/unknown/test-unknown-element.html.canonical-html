@@ -1,4 +1,5 @@
-<html><head><title>foo</title></head><body>
+<html><head><title>foo</head>
+<body>
 <a>Here is an <unknown>unknown element</unknown> in some inline text</a>
 <div>and <unknown>here</unknown> in some block text</div>
 <p>and <unknown>here</unknown> in a paragraph</p>
@@ -12,4 +13,4 @@
 <unknown>
 <div>and a div</div>
 </unknown>
-</body></html>
+</body></html></title></head><body></body></html>

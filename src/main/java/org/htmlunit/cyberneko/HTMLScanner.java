@@ -2036,8 +2036,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                 else if ("noembed".equals(enameLC)) {
                                     scanUntilEndTag("noembed");
                                 }
-                                else if (ename != null && htmlConfiguration_.getHtmlElements().getElement(enameLC).isSpecial()
-                                        && (!"title".equals(enameLC) || isEnded(enameLC))) {
+                                else if (ename != null && htmlConfiguration_.getHtmlElements().getElement(enameLC).isSpecial()) {
                                     if ("plaintext".equals(enameLC)) {
                                         setScanner(new PlainTextScanner());
                                     }
@@ -3252,15 +3251,6 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     fDocumentHandler.endElement(qName_, locationAugs());
                 }
             }
-        }
-
-        /**
-         * Returns true if the given element has an end-tag.
-         */
-        private boolean isEnded(final String ename) {
-            final String content = new String(fCurrentEntity.buffer_, fCurrentEntity.offset_,
-                    fCurrentEntity.length_ - fCurrentEntity.offset_);
-            return content.toLowerCase(Locale.ROOT).contains("</" + ename.toLowerCase(Locale.ROOT) + ">");
         }
     }
 

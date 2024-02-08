@@ -3,10 +3,7 @@
 (foo
 )foo
 (title
-"ti
+"ti</head><body>1234</body></html>
 )title
 )head
-(body
-"1234
-)body
 )html

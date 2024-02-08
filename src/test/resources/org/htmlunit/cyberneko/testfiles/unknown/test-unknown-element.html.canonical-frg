@@ -1,58 +1,7 @@
 (html
 (head
 (title
-"foo\n
+"foo</head>\n<body>\n<a>Here is an <unknown>unknown element</unknown> in some inline text</a>\n<div>and <unknown>here</unknown> in some block text</div>\n<p>and <unknown>here</unknown> in a paragraph</p>\n\n<unknown>\n<p>containing p tag</p>\n</unknown>\n<unknown>\n<a>a tag</a>\n</unknown>\n<unknown>\n<div>and a div</div>\n</unknown>\n</body></html>
 )title
 )head
-(body
-"\n
-(a
-"Here is an 
-(unknown
-"unknown element
-)unknown
-" in some inline text
-)a
-"\n
-(div
-"and 
-(unknown
-"here
-)unknown
-" in some block text
-)div
-"\n
-(p
-"and 
-(unknown
-"here
-)unknown
-" in a paragraph
-)p
-"\n\n
-(unknown
-"\n
-(p
-"containing p tag
-)p
-"\n
-)unknown
-"\n
-(unknown
-"\n
-(a
-"a tag
-)a
-"\n
-)unknown
-"\n
-(unknown
-"\n
-(div
-"and a div
-)div
-"\n
-)unknown
-"\n
-)body
 )html

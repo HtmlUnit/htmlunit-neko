@@ -4,7 +4,7 @@
 (BODY
 (foo
 (title
-"ti1234
+"ti</head><body>1234</body></html>
 )title
 )foo
 )BODY

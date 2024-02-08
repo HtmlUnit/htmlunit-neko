@@ -1,3 +1,5 @@
 <html><head>
 <title>Unclosed title
-</title></head><body>Hello there</body></html>
+</head>
+<body>Hello there</body>
+</html></title></head><body></body></html>
