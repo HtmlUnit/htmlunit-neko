@@ -49,7 +49,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
     // Constructs a parser configuration settings object with a
     // parent settings object.
     public ParserConfigurationSettings() {
-
         // create storage for recognized features and properties
         fRecognizedFeatures_ = new ArrayList<>();
         fRecognizedProperties_ = new ArrayList<>();
@@ -67,7 +66,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                   recognized.
      */
     public void addRecognizedFeatures(final String[] featureIds) {
-
         // add recognized features
         final int featureIdsCount = featureIds != null ? featureIds.length : 0;
         for (int i = 0; i < featureIdsCount; i++) {
@@ -76,7 +74,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
                 fRecognizedFeatures_.add(featureId);
             }
         }
-
     }
 
     /**
@@ -90,15 +87,9 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * @param state     The requested state of the feature (true or false).
      *
      * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
-     *                                                                                 the
-     *                                                                                 requested
-     *                                                                                 feature
-     *                                                                                 is
-     *                                                                                 not
-     *                                                                                 known.
+     *            the requested feature is not known.
      */
     public void setFeature(final String featureId, final boolean state) throws XMLConfigurationException {
-
         // check and store
         checkFeature(featureId);
 
@@ -113,7 +104,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *                    recognized.
      */
     public void addRecognizedProperties(final String[] propertyIds) {
-
         // add recognizedProperties
         final int propertyIdsCount = propertyIds != null ? propertyIds.length : 0;
         for (int i = 0; i < propertyIdsCount; i++) {
@@ -122,7 +112,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
                 fRecognizedProperties_.add(propertyId);
             }
         }
-
     }
 
     /**
@@ -131,19 +120,12 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * @param propertyId the property id
      * @param value      the value
      * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
-     *                                                                                 the
-     *                                                                                 requested
-     *                                                                                 feature
-     *                                                                                 is
-     *                                                                                 not
-     *                                                                                 known.
+     *            the requested feature is not known.
      */
     public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
-
         // check and store
         checkProperty(propertyId);
         fProperties_.put(propertyId, value);
-
     }
 
     /**
@@ -151,7 +133,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      */
     @Override
     public boolean getFeature(final String featureId) throws XMLConfigurationException {
-
         final Boolean state = fFeatures_.get(featureId);
 
         if (state == null) {
@@ -166,7 +147,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      */
     @Override
     public Object getProperty(final String propertyId) throws XMLConfigurationException {
-
         final Object propertyValue = fProperties_.get(propertyId);
 
         if (propertyValue == null) {
@@ -174,7 +154,6 @@ public class ParserConfigurationSettings implements XMLComponentManager {
         }
 
         return propertyValue;
-
     }
 
     /**
@@ -184,21 +163,14 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      * @param featureId The unique identifier (URI) of the feature.
      *
      * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
-     *                                                                                 the
-     *                                                                                 requested
-     *                                                                                 feature
-     *                                                                                 is
-     *                                                                                 not
-     *                                                                                 known.
+     *            the requested feature is not known.
      */
     protected void checkFeature(final String featureId) throws XMLConfigurationException {
-
         // check feature
         if (!fRecognizedFeatures_.contains(featureId)) {
             final short type = XMLConfigurationException.NOT_RECOGNIZED;
             throw new XMLConfigurationException(type, featureId);
         }
-
     }
 
     /**
@@ -207,15 +179,9 @@ public class ParserConfigurationSettings implements XMLComponentManager {
      *
      * @param propertyId The unique identifier (URI) of the property being set.
      * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
-     *                                                                                 the
-     *                                                                                 requested
-     *                                                                                 feature
-     *                                                                                 is
-     *                                                                                 not
-     *                                                                                 known.
+     *            the requested feature is not known.
      */
     protected void checkProperty(final String propertyId) throws XMLConfigurationException {
-
         // check property
         if (!fRecognizedProperties_.contains(propertyId)) {
             final short type = XMLConfigurationException.NOT_RECOGNIZED;

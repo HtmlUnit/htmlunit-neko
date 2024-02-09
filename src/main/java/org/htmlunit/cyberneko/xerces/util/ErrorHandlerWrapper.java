@@ -220,8 +220,7 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
 
     // Creates an XNIException from a SAXException.
     // NOTE: care should be taken *not* to call this with a SAXParseException; this
-    // will
-    // lose information!!! */
+    // will lose information!!! */
     protected static XNIException createXNIException(final SAXException exception) {
         return new XNIException(exception.getMessage(), exception);
     }
