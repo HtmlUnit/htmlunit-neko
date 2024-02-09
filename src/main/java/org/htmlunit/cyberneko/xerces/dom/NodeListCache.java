@@ -36,7 +36,7 @@ class NodeListCache {
     ParentNode fOwner;
 
     /**
-     * Pointer to the next object on the list, only meaningful when actully stored
+     * Pointer to the next object on the list, only meaningful when actually stored
      * in the free list.
      */
     NodeListCache next;
