@@ -34,7 +34,6 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * Balances tags in an HTML document. This component receives document events
@@ -185,9 +184,6 @@ public class HTMLTagBalancer
     protected HTMLErrorReporter fErrorReporter;
 
     // connections
-
-    /** The document source. */
-    protected XMLDocumentSource fDocumentSource;
 
     /** The document handler. */
     protected XMLDocumentHandler fDocumentHandler;
@@ -1125,18 +1121,6 @@ public class HTMLTagBalancer
             }
         }
 
-    }
-
-    /** Sets the document source. */
-    @Override
-    public void setDocumentSource(final XMLDocumentSource source) {
-        fDocumentSource = source;
-    }
-
-    /** Returns the document source. */
-    @Override
-    public XMLDocumentSource getDocumentSource() {
-        return fDocumentSource;
     }
 
     // Returns an HTML element.

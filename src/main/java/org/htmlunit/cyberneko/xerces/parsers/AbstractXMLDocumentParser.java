@@ -36,9 +36,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  */
 public abstract class AbstractXMLDocumentParser extends XMLParser implements XMLDocumentHandler {
 
-    /** Document source */
-    protected XMLDocumentSource fDocumentSource;
-
     /**
      * Constructs a document parser using the default symbol table and grammar pool.
      *
@@ -230,17 +227,5 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      */
     @Override
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
-    }
-
-    /** Sets the document source */
-    @Override
-    public void setDocumentSource(final XMLDocumentSource source) {
-        fDocumentSource = source;
-    }
-
-    /** Returns the document source */
-    @Override
-    public XMLDocumentSource getDocumentSource() {
-        return fDocumentSource;
     }
 }
