@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>3.11.2-SNAPSHOT</version>
+    <version>3.11.2</version>
     <name>HtmlUnit NekoHtml</name>
     <organization>
         <name>HtmlUnit</name>
@@ -171,28 +171,51 @@
                     <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-pmd-plugin</artifactId>
-            <version>3.21.2</version>
-            <dependencies>
-                <dependency>
-                    <groupId>net.sourceforge.pmd</groupId>
-                    <artifactId>pmd-core</artifactId>
-                    <version>${pmd.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>net.sourceforge.pmd</groupId>
-                    <artifactId>pmd-java</artifactId>
-                    <version>${pmd.version}</version>
-                </dependency>
-            </dependencies>
-            <configuration>
-                <rulesets>
-                    <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
-                </rulesets>
-            </configuration>
-        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.21.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-core</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>1.8.0</version>
+                                </requireJavaVersion>
+                                <dependencyConvergence />
+                            </rules>
+                        </configuration>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <licenses>
