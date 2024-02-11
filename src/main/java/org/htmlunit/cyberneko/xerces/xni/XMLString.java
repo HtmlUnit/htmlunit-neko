@@ -597,7 +597,7 @@ public class XMLString implements CharSequence {
 
     /**
      * Returns a string representation of this buffer. This will be a copy
-     * operation. If the buffer is emoty, we get a constant empty String back
+     * operation. If the buffer is empty, we get a constant empty String back
      * to avoid any overhead.
      *
      * @return a string of the content of this buffer
