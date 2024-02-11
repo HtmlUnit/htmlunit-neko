@@ -966,9 +966,9 @@ public class HTMLTagBalancer
             else if (!whitespace) {
                 final Info info = fElementStack.peek();
                 if (info.element.code == HTMLElements.HEAD || info.element.code == HTMLElements.HTML) {
-                    final String hname = modifyName("head", fNamesElems);
-                    final String bname = modifyName("body", fNamesElems);
                     if (fReportErrors) {
+                        final String hname = modifyName("head", fNamesElems);
+                        final String bname = modifyName("body", fNamesElems);
                         fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
                     }
                     forceStartBody();
