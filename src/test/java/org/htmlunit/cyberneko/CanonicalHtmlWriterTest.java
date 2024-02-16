@@ -21,13 +21,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.util.StringTokenizer;
 
+import org.htmlunit.cyberneko.filters.HTMLWriterFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
@@ -44,16 +44,16 @@ import org.opentest4j.AssertionFailedError;
  * @author Ahmed Ashour
  * @author Ronald Brill
  */
-public class CanonicalTest extends AbstractCanonicalTest {
+public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
 
     @ParameterizedTest
     @MethodSource("testFiles")
-    public void runTest(final File dataFile) throws Exception {
-        final String dataLines = getResult(dataFile);
+    public void runHtmlWriterTest(final File dataFile) throws Exception {
+        final String dataLines = getHtmlWriterFilterResult(dataFile);
 
         try {
             // prepare for future changes where canonical files are next to test file
-            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
+            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-html");
             if (!canonicalFile.exists()) {
                 canonicalFile = new File(canonicalDir, dataFile.getName());
             }
@@ -78,7 +78,11 @@ public class CanonicalTest extends AbstractCanonicalTest {
             }
         }
         catch (final AssertionFailedError e) {
-            final File output = new File(outputDir, dataFile.getName());
+            File output = new File(outputDir, dataFile.getName() + ".canonical-html");
+            if (!dataFile.getParent().endsWith("testfiles")) {
+                new File(outputDir, dataFile.getParentFile().getName()).mkdir();
+                output = new File(outputDir, dataFile.getParentFile().getName() + "/" + dataFile.getName() + ".canonical-html");
+            }
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);
             }
@@ -86,10 +90,10 @@ public class CanonicalTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getResult(final File infile) throws IOException {
+    private static String getHtmlWriterFilterResult(final File infile) throws Exception {
         try (StringWriter out = new StringWriter()) {
             // create filters
-            final XMLDocumentFilter[] filters = {new Writer(out)};
+            final XMLDocumentFilter[] filters = {new HTMLWriterFilter(out, "UTF-8", new HTMLElements())};
 
             // create parser
             final XMLParserConfiguration parser = new HTMLConfiguration();
