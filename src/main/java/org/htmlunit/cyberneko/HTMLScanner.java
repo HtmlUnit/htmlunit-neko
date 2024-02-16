@@ -2037,6 +2037,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                                     scanUntilEndTag("noembed");
                                 }
                                 else if (ename != null && htmlConfiguration_.getHtmlElements().getElement(enameLC).isSpecial()) {
+                                    // title inside svg
+                                    if ("title".equals(enameLC)
+                                            && htmlConfiguration_.getTagBalancer().fOpenedSvg) {
+                                        setScannerState(STATE_CONTENT);
+                                        break;
+                                    }
+
                                     if ("plaintext".equals(enameLC)) {
                                         setScanner(new PlainTextScanner());
                                     }
