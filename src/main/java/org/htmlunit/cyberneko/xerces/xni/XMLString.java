@@ -67,9 +67,9 @@ public class XMLString implements CharSequence {
      * Constructs an XMLCharBuffer with a default size.
      */
     public XMLString() {
-        this.data_ = new char[INITIAL_CAPACITY];
-        this.length_ = 0;
-        this.growBy_ = CAPACITY_GROWTH;
+        data_ = new char[INITIAL_CAPACITY];
+        length_ = 0;
+        growBy_ = CAPACITY_GROWTH;
     }
 
     /**
@@ -88,9 +88,9 @@ public class XMLString implements CharSequence {
      * @param growBy by how much do we want to grow when needed
      */
     public XMLString(final int startSize, final int growBy) {
-        this.data_ = new char[startSize];
-        this.length_ = 0;
-        this.growBy_ = Math.max(1, growBy);
+        data_ = new char[startSize];
+        length_ = 0;
+        growBy_ = Math.max(1, growBy);
     }
 
     /**
@@ -112,9 +112,9 @@ public class XMLString implements CharSequence {
      * @param addCapacity how much capacity to add to origin length
      */
     public XMLString(final XMLString src, final int addCapacity) {
-        this.data_ = Arrays.copyOf(src.data_, src.length_ + Math.max(0, addCapacity));
-        this.length_ = src.length();
-        this.growBy_ = Math.max(1, CAPACITY_GROWTH);
+        data_ = Arrays.copyOf(src.data_, src.length_ + Math.max(0, addCapacity));
+        length_ = src.length();
+        growBy_ = Math.max(1, CAPACITY_GROWTH);
     }
 
     /**
@@ -125,9 +125,9 @@ public class XMLString implements CharSequence {
      * @param src the string to copy from
      */
     public XMLString(final String src) {
-        this.data_ = src.toCharArray();
-        this.length_ = src.length();
-        this.growBy_ = CAPACITY_GROWTH;
+        data_ = src.toCharArray();
+        length_ = src.length();
+        growBy_ = CAPACITY_GROWTH;
     }
 
     /**
@@ -153,9 +153,9 @@ public class XMLString implements CharSequence {
      * @param minimumCapacity how much space do we need at least
      */
     private void ensureCapacity(final int minimumCapacity) {
-        if (minimumCapacity > this.data_.length) {
-            final int newSize = Math.max(minimumCapacity + this.growBy_, (this.data_.length << 1) + 2);
-            this.data_ = Arrays.copyOf(this.data_, newSize);
+        if (minimumCapacity > data_.length) {
+            final int newSize = Math.max(minimumCapacity + growBy_, (data_.length << 1) + 2);
+            data_ = Arrays.copyOf(data_, newSize);
         }
     }
 
@@ -167,7 +167,7 @@ public class XMLString implements CharSequence {
      * @return the current capacity, not taken any usage into account
      */
     public int capacity() {
-        return this.data_.length;
+        return data_.length;
     }
 
     /**
@@ -178,8 +178,8 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     private void growByAtLeastOne() {
-        final int newSize = Math.max(this.growBy_, (this.data_.length << 1) + 2);
-        this.data_ = Arrays.copyOf(this.data_, newSize);
+        final int newSize = Math.max(growBy_, (data_.length << 1) + 2);
+        data_ = Arrays.copyOf(data_, newSize);
     }
 
     /**
@@ -189,16 +189,16 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final char c) {
-        final int oldLength = this.length_;
+        final int oldLength = length_;
 
         // ensureCapacity is too large, so we keep things small here and
         // also allow to keep the grow part external
-        if (oldLength == this.data_.length) {
+        if (oldLength == data_.length) {
             growByAtLeastOne();
         }
 
-        this.data_[oldLength] = c;
-        this.length_++;
+        data_[oldLength] = c;
+        length_++;
 
         return this;
     }
@@ -212,9 +212,9 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final char c1, final char c2) {
-        if (this.length_ + 1 < this.data_.length) {
-            this.data_[this.length_++] = c1;
-            this.data_[this.length_++] = c2;
+        if (length_ + 1 < data_.length) {
+            data_[length_++] = c1;
+            data_[length_++] = c2;
         }
         else {
             // that part is less efficient but happens less often
@@ -232,15 +232,15 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final String src) {
-        final int start = this.length_;
-        this.length_ = this.length_ + src.length();
-        ensureCapacity(this.length_);
+        final int start = length_;
+        length_ = length_ + src.length();
+        ensureCapacity(length_);
 
         // copy char by char because we don't get a copy for free
         // from a string yet, this might change when immutable arrays
         // make it into Java, but that will not be very soon
         for (int i = 0; i < src.length(); i++) {
-            this.data_[start + i] = src.charAt(i);
+            data_[start + i] = src.charAt(i);
         }
 
         return this;
@@ -253,11 +253,11 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final XMLString src) {
-        final int start = this.length_;
-        this.length_ = this.length_ + src.length();
-        ensureCapacity(this.length_);
+        final int start = length_;
+        length_ = length_ + src.length();
+        ensureCapacity(length_);
 
-        System.arraycopy(src.data_, 0, this.data_, start, src.length_);
+        System.arraycopy(src.data_, 0, data_, start, src.length_);
 
         return this;
     }
@@ -273,12 +273,12 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final char[] src, final int offset, final int length) {
-        final int start = this.length_;
-        this.length_ = start + length;
+        final int start = length_;
+        length_ = start + length;
 
-        ensureCapacity(this.length_);
+        ensureCapacity(length_);
 
-        System.arraycopy(src, offset, this.data_, start, length);
+        System.arraycopy(src, offset, data_, start, length);
 
         return this;
     }
@@ -290,18 +290,18 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString prepend(final char c) {
-        final int oldLength = this.length_;
+        final int oldLength = length_;
 
         // ensureCapacity is too large, so we keep things small here and
         // also allow to keep the grow part external
-        if (oldLength == this.data_.length) {
+        if (oldLength == data_.length) {
             growByAtLeastOne();
         }
 
         // shift all to the right by one
-        System.arraycopy(this.data_, 0, this.data_, 1, oldLength);
-        this.data_[0] = c;
-        this.length_++;
+        System.arraycopy(data_, 0, data_, 1, oldLength);
+        data_[0] = c;
+        length_++;
 
         return this;
     }
@@ -323,7 +323,7 @@ public class XMLString implements CharSequence {
      *      array in case we have to
      */
     public int getGrowBy() {
-        return this.growBy_;
+        return growBy_;
     }
 
     /**
@@ -333,7 +333,7 @@ public class XMLString implements CharSequence {
      * @return this instance for fluid programming
      */
     public XMLString clear() {
-        this.length_ = 0;
+        length_ = 0;
 
         return this;
     }
@@ -347,11 +347,11 @@ public class XMLString implements CharSequence {
      * @return this instance for fluid programming
      */
     public XMLString clearAndAppend(final char c) {
-        this.length_ = 0;
+        length_ = 0;
 
-        if (this.data_.length > 0) {
-            this.data_[this.length_] = c;
-            this.length_++;
+        if (data_.length > 0) {
+            data_[length_] = c;
+            length_++;
         }
         else {
             // the rare case when we don't have any buffer at hand
@@ -371,16 +371,16 @@ public class XMLString implements CharSequence {
      */
     public boolean endsWith(final String s) {
         // length does not match, cannot be the end
-        if (this.length_ < s.length()) {
+        if (length_ < s.length()) {
             return false;
         }
 
         // check the string by each char, avoids a copy of the string
-        final int start = this.length_ - s.length();
+        final int start = length_ - s.length();
 
         // change this to Arrays.mismatch when going JDK 11 or higher
         for (int i = 0; i < s.length(); i++) {
-            if (this.data_[i + start] != s.charAt(i)) {
+            if (data_[i + start] != s.charAt(i)) {
                 return false;
             }
         }
@@ -421,22 +421,22 @@ public class XMLString implements CharSequence {
     public XMLString trimToContent(final String startMarker, final String endMarker) {
         // if both are longer or same length than content, don't do anything
         final int markerLength = startMarker.length() + endMarker.length();
-        if (markerLength >= this.length_) {
+        if (markerLength >= length_) {
             return this;
         }
 
         // run over starting whitespaces
         int sPos = 0;
-        for ( ; sPos < this.length_ - markerLength; sPos++) {
-            if (!Character.isWhitespace(this.data_[sPos])) {
+        for ( ; sPos < length_ - markerLength; sPos++) {
+            if (!Character.isWhitespace(data_[sPos])) {
                 break;
             }
         }
 
         // run over ending whitespaces
-        int ePos = this.length_ - 1;
+        int ePos = length_ - 1;
         for ( ; ePos > sPos - markerLength; ePos--) {
-            if (!Character.isWhitespace(this.data_[ePos])) {
+            if (!Character.isWhitespace(data_[ePos])) {
                 break;
             }
         }
@@ -450,7 +450,7 @@ public class XMLString implements CharSequence {
 
         // check the start
         for (int i = 0; i < startMarker.length(); i++) {
-            if (startMarker.charAt(i) != this.data_[i + sPos]) {
+            if (startMarker.charAt(i) != data_[i + sPos]) {
                 // no start match, stop and don't do anything
                 return this;
             }
@@ -460,7 +460,7 @@ public class XMLString implements CharSequence {
         // occurred
         final int endStartCheckPos = ePos - endMarker.length() + 1;
         for (int i = 0; i < endMarker.length(); i++) {
-            if (endMarker.charAt(i) != this.data_[endStartCheckPos + i]) {
+            if (endMarker.charAt(i) != data_[endStartCheckPos + i]) {
                 // no start match, stop and don't do anything
                 return this;
             }
@@ -468,11 +468,11 @@ public class XMLString implements CharSequence {
 
         // shift left and cut length
         final int newLength = ePos - sPos + 1 - markerLength;
-        System.arraycopy(this.data_,
+        System.arraycopy(data_,
                         sPos + startMarker.length(),
-                        this.data_,
+                        data_,
                         0, newLength);
-        this.length_ = newLength;
+        length_ = newLength;
 
         return this;
     }
@@ -483,8 +483,8 @@ public class XMLString implements CharSequence {
      * @return true if we have only whitespace, false otherwise
      */
     public boolean isWhitespace() {
-        for (int i = 0; i < this.length_; i++) {
-            if (!Character.isWhitespace(this.data_[i])) {
+        for (int i = 0; i < length_; i++) {
+            if (!Character.isWhitespace(data_[i])) {
                 return false;
             }
         }
@@ -510,8 +510,8 @@ public class XMLString implements CharSequence {
     public XMLString trimLeading() {
         // run over starting whitespace
         int sPos = 0;
-        for ( ; sPos < this.length_; sPos++) {
-            if (!Character.isWhitespace(this.data_[sPos])) {
+        for ( ; sPos < length_; sPos++) {
+            if (!Character.isWhitespace(data_[sPos])) {
                 break;
             }
         }
@@ -520,19 +520,19 @@ public class XMLString implements CharSequence {
             // nothing to do
             return this;
         }
-        else if (sPos == this.length_) {
+        else if (sPos == length_) {
             // only whitespace
-            this.length_ = 0;
+            length_ = 0;
             return this;
         }
 
         // shift left
-        final int newLength = this.length_ - sPos;
-        System.arraycopy(this.data_,
+        final int newLength = length_ - sPos;
+        System.arraycopy(data_,
                         sPos,
-                        this.data_,
+                        data_,
                         0, newLength);
-        this.length_ = newLength;
+        length_ = newLength;
 
         return this;
     }
@@ -557,14 +557,14 @@ public class XMLString implements CharSequence {
      */
     public XMLString trimTrailing() {
         // run over ending whitespaces
-        int ePos = this.length_ - 1;
+        int ePos = length_ - 1;
         for ( ; ePos >= 0; ePos--) {
-            if (!Character.isWhitespace(this.data_[ePos])) {
+            if (!Character.isWhitespace(data_[ePos])) {
                 break;
             }
         }
 
-        this.length_ = ePos + 1;
+        length_ = ePos + 1;
 
         return this;
     }
@@ -580,8 +580,8 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString shortenBy(final int count) {
-        final int newLength = this.length_ - count;
-        this.length_ = newLength < 0 ? 0 : newLength;
+        final int newLength = length_ - count;
+        length_ = newLength < 0 ? 0 : newLength;
 
         return this;
     }
@@ -592,7 +592,7 @@ public class XMLString implements CharSequence {
      * @return a copy of the underlying char darta
      */
     public char[] getChars() {
-        return Arrays.copyOf(this.data_, this.length_);
+        return Arrays.copyOf(data_, length_);
     }
 
     /**
@@ -604,8 +604,8 @@ public class XMLString implements CharSequence {
      */
     @Override
     public String toString() {
-        if (this.length_ > 0) {
-            return new String(this.data_, 0, this.length_);
+        if (length_ > 0) {
+            return new String(data_, 0, length_);
         }
         return "";
     }
@@ -642,9 +642,9 @@ public class XMLString implements CharSequence {
     public String toString(final FastHashMap<XMLString, String> cache) {
         String s = cache.get(this);
         if (s == null) {
-            s = this.toString();
+            s = toString();
             // cache a copy of the string, because it would mutate otherwise
-            cache.put(this.clone(), s);
+            cache.put(clone(), s);
         }
         return s;
     }
@@ -689,12 +689,12 @@ public class XMLString implements CharSequence {
      */
     @Override
     public char charAt(final int index) {
-        if (index > this.length_ - 1 || index < 0) {
+        if (index > length_ - 1 || index < 0) {
             throw new IndexOutOfBoundsException(
                             "Tried to read outside of the valid buffer data");
         }
 
-        return this.data_[index];
+        return data_[index];
     }
 
     /**
@@ -710,7 +710,7 @@ public class XMLString implements CharSequence {
      * @return the char at the position
      */
     public char unsafeCharAt(final int index) {
-        return this.data_[index];
+        return data_[index];
     }
 
     /**
@@ -746,7 +746,7 @@ public class XMLString implements CharSequence {
         if (start < 0) {
             throw new StringIndexOutOfBoundsException(start);
         }
-        if (end > this.length_) {
+        if (end > length_) {
             throw new StringIndexOutOfBoundsException(end);
         }
 
@@ -755,7 +755,7 @@ public class XMLString implements CharSequence {
             throw new StringIndexOutOfBoundsException(l);
         }
 
-        return new String(this.data_, start, l);
+        return new String(data_, start, l);
     }
 
     /**
@@ -771,15 +771,15 @@ public class XMLString implements CharSequence {
         if (o instanceof CharSequence) {
             final CharSequence ob = (CharSequence) o;
 
-            if (ob.length() != this.length_) {
+            if (ob.length() != length_) {
                 return false;
             }
 
             // ok, in JDK 11 or up, we could use an
             // Arrays.mismatch, but we cannot do that
             // due to JDK 8 compatibility @TODO RS
-            for (int i = 0; i < this.length_; i++) {
-                if (ob.charAt(i) != this.data_[i]) {
+            for (int i = 0; i < length_; i++) {
+                if (ob.charAt(i) != data_[i]) {
                     return false;
                 }
             }
@@ -819,8 +819,8 @@ public class XMLString implements CharSequence {
     public int hashCode() {
         int h = 0;
 
-        for (int i = 0; i < this.length_; i++) {
-            h = ((h << 5) - h) + this.data_[i];
+        for (int i = 0; i < length_; i++) {
+            h = ((h << 5) - h) + data_[i];
         }
 
         return h;
@@ -839,15 +839,15 @@ public class XMLString implements CharSequence {
      */
     public boolean appendCodePoint(final int codePoint) {
         if (Character.isBmpCodePoint(codePoint)) {
-            this.append((char) codePoint);
+            append((char) codePoint);
         }
         else if (Character.isValidCodePoint(codePoint)) {
             // as seen in the JDK, avoid a char array in between
-            this.append(Character.highSurrogate(codePoint), Character.lowSurrogate(codePoint));
+            append(Character.highSurrogate(codePoint), Character.lowSurrogate(codePoint));
         }
         else {
             // when value is not valid as UTF-16
-            this.append(REPLACEMENT_CHARACTER);
+            append(REPLACEMENT_CHARACTER);
             return false;
         }
         return true;
@@ -873,8 +873,8 @@ public class XMLString implements CharSequence {
         // Ok, as soon as we something complicated, we bail out
         // and take the expensive route
         boolean gaveUp = false;
-        for (int i = 0; i < this.length_; i++) {
-            final char c = this.data_[i];
+        for (int i = 0; i < length_; i++) {
+            final char c = data_[i];
 
             if (Character.isHighSurrogate(c)) {
                 // give up, we have UTF-16 here
@@ -884,7 +884,7 @@ public class XMLString implements CharSequence {
             // we know it is a unicode value and not a code point, so
             // char to int is safe
             final int upperCasePoint = Character.toUpperCase((int) c);
-            this.data_[i] = (char) upperCasePoint;
+            data_[i] = (char) upperCasePoint;
         }
 
         // we converted inline and nicely
@@ -893,19 +893,19 @@ public class XMLString implements CharSequence {
         }
 
         // go expensive using String
-        final String s = this.toString().toUpperCase(locale);
+        final String s = toString().toUpperCase(locale);
 
         // put the XMLString together again
         final int newLength = s.length();
-        if (this.data_.length < newLength) {
-            this.data_ = new char[newLength];
+        if (data_.length < newLength) {
+            data_ = new char[newLength];
         }
 
         // copy everything and fix the length
         for (int i = 0; i < newLength; i++) {
-            this.data_[i] = s.charAt(i);
+            data_[i] = s.charAt(i);
         }
-        this.length_ = newLength;
+        length_ = newLength;
 
         return this;
     }
@@ -928,8 +928,8 @@ public class XMLString implements CharSequence {
         // Ok, as soon as we something complicated, we bail out
         // and take the expensive route
         boolean gaveUp = false;
-        for (int i = 0; i < this.length_; i++) {
-            final char c = this.data_[i];
+        for (int i = 0; i < length_; i++) {
+            final char c = data_[i];
 
             if (Character.isHighSurrogate(c)) {
                 // give up, we have UTF-16 here
@@ -939,7 +939,7 @@ public class XMLString implements CharSequence {
             // we know it is a unicode value and not a code point, so
             // char to int is safe
             final int lowerCasePoint = Character.toLowerCase((int) c);
-            this.data_[i] = (char) lowerCasePoint;
+            data_[i] = (char) lowerCasePoint;
         }
 
         // we converted inline and nicely
@@ -948,19 +948,19 @@ public class XMLString implements CharSequence {
         }
 
         // go expensive using String
-        final String s = this.toString().toLowerCase(locale);
+        final String s = toString().toLowerCase(locale);
 
         // put the XMLString together again
         final int newLength = s.length();
-        if (this.data_.length < newLength) {
-            this.data_ = new char[newLength];
+        if (data_.length < newLength) {
+            data_ = new char[newLength];
         }
 
         // copy everything and fix the length
         for (int i = 0; i < newLength; i++) {
-            this.data_[i] = s.charAt(i);
+            data_[i] = s.charAt(i);
         }
-        this.length_ = newLength;
+        length_ = newLength;
 
         return this;
     }
@@ -1000,15 +1000,15 @@ public class XMLString implements CharSequence {
      * @return true if the sequences match case-insensive, false otherwise
      */
     public boolean equalsIgnoreCase(final CharSequence s) {
-        if (s == null || s.length() != this.length_) {
+        if (s == null || s.length() != length_) {
             return false;
         }
 
         // ok, in JDK 11 or up, we could use an
         // Arrays.mismatch, but we cannot do that
         // due to JDK 8 compatibility @TODO RS
-        for (int i = 0; i < this.length_; i++) {
-            final char c1 = this.data_[i];
+        for (int i = 0; i < length_; i++) {
+            final char c1 = data_[i];
             final char c2 = s.charAt(i);
 
             // if this compares nicely, we are good, if this does not
@@ -1104,8 +1104,8 @@ public class XMLString implements CharSequence {
      * @return the position or -1 otherwise
      */
     public int indexOf(final char c) {
-        for (int i = 0; i < this.length_; i++) {
-            if (this.data_[i] == c) {
+        for (int i = 0; i < length_; i++) {
+            if (data_[i] == c) {
                 return i;
             }
         }
@@ -1120,7 +1120,7 @@ public class XMLString implements CharSequence {
      * @return the first found position or -1 if not found
      */
     public int indexOf(final XMLString s) {
-        return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) : -1;
+        return s != null ? indexOf(data_, 0, length_, s.data_, 0, s.length_, 0) : -1;
     }
 
     /**
@@ -1130,21 +1130,21 @@ public class XMLString implements CharSequence {
      * @return true if s is in this string or false otherwise
      */
     public boolean contains(final XMLString s) {
-        return s != null ? indexOf(this.data_, 0, this.length_, s.data_, 0, s.length_, 0) > -1 : false;
+        return s != null ? indexOf(data_, 0, length_, s.data_, 0, s.length_, 0) > -1 : false;
     }
 
     // this stuff is here for performance reasons to avoid a copy
     // it has been taken from the old XMLString and because there was no JavaDoc
     // we still don't have any, legacy code
     public void characters(final ContentHandler contentHandler) throws SAXException {
-        contentHandler.characters(this.data_, 0, length_);
+        contentHandler.characters(data_, 0, length_);
     }
 
     public void ignorableWhitespace(final ContentHandler contentHandler) throws SAXException {
-        contentHandler.ignorableWhitespace(this.data_, 0, length_);
+        contentHandler.ignorableWhitespace(data_, 0, length_);
     }
 
     public void comment(final LexicalHandler lexicalHandler) throws SAXException {
-        lexicalHandler.comment(this.data_, 0, length_);
+        lexicalHandler.comment(data_, 0, length_);
     }
 }
