@@ -87,7 +87,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     protected static final int OWNED = 0x1 << 3;
     protected static final int FIRSTCHILD = 0x1 << 4;
     protected static final int SPECIFIED = 0x1 << 5;
-    protected static final int IGNORABLEWS = 0x1 << 6;
     protected static final int HASSTRING = 0x1 << 7;
     protected static final int NORMALIZED = 0x1 << 8;
     protected static final int ID = 0x1 << 9;
@@ -1503,15 +1502,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
     final void isSpecified(final boolean value) {
         flags_ = value ? flags_ | SPECIFIED : flags_ & ~SPECIFIED;
-    }
-
-    // inconsistent name to avoid clash with public method on TextImpl
-    final boolean internalIsIgnorableWhitespace() {
-        return (flags_ & IGNORABLEWS) != 0;
-    }
-
-    final void isIgnorableWhitespace(final boolean value) {
-        flags_ = value ? flags_ | IGNORABLEWS : flags_ & ~IGNORABLEWS;
     }
 
     final boolean hasStringValue() {

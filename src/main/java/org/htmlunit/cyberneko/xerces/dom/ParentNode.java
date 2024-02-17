@@ -613,7 +613,7 @@ public abstract class ParentNode extends ChildNode {
     static final boolean hasTextContent(final Node child) {
         return child.getNodeType() != Node.COMMENT_NODE
                 && child.getNodeType() != Node.PROCESSING_INSTRUCTION_NODE
-                && (child.getNodeType() != Node.TEXT_NODE || !((TextImpl) child).isIgnorableWhitespace());
+                && (child.getNodeType() == Node.TEXT_NODE);
     }
 
     /*

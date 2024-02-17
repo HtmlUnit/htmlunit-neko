@@ -57,11 +57,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
         return "#text";
     }
 
-    // NON-DOM: Set whether this Text is ignorable whitespace.
-    public void setIgnorableWhitespace(final boolean ignore) {
-        isIgnorableWhitespace(ignore);
-    }
-
     /**
      * {@inheritDoc}
      *
@@ -74,8 +69,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public boolean isElementContentWhitespace() {
-        // REVISIT: is this implemenation correct?
-        return internalIsIgnorableWhitespace();
+        return false;
     }
 
     /**
@@ -480,11 +474,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
             child = child.getNextSibling();
         }
         return true;
-    }
-
-    // NON-DOM: Returns whether this Text is ignorable whitespace.
-    public boolean isIgnorableWhitespace() {
-        return internalIsIgnorableWhitespace();
     }
 
     /**
