@@ -956,9 +956,6 @@ public class HTMLTagBalancer
         if (!fDocumentFragment) {
             // handle bare characters
             if (!fSeenRootElement) {
-                if (whitespace) {
-                    return;
-                }
                 forceStartBody();
             }
 
