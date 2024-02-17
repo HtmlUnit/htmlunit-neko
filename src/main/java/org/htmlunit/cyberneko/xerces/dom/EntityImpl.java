@@ -95,9 +95,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getNodeName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name_;
     }
 
@@ -120,10 +117,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getPublicId() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return publicId_;
 
     }
@@ -136,10 +129,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getSystemId() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return systemId_;
 
     }
@@ -152,10 +141,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getXmlVersion() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return version_;
 
     }
@@ -168,11 +153,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getXmlEncoding() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         return encoding_;
 
     }
@@ -186,10 +166,6 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getNotationName() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return notationName_;
 
     }
@@ -201,10 +177,6 @@ public class EntityImpl extends ParentNode implements Entity {
      * @param id the id
      */
     public void setPublicId(final String id) {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         publicId_ = id;
 
     }
@@ -216,9 +188,6 @@ public class EntityImpl extends ParentNode implements Entity {
      *
      */
     public void setXmlEncoding(final String value) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         encoding_ = value;
     }
 
@@ -231,17 +200,11 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getInputEncoding() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return inputEncoding_;
     }
 
     // NON-DOM, used to set the input encoding.
     public void setInputEncoding(final String inputEncoding) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         inputEncoding_ = inputEncoding;
     }
 
@@ -250,9 +213,6 @@ public class EntityImpl extends ParentNode implements Entity {
     // the version number of this entity, when it is an external parsed entity.
     // This is null otherwise
     public void setXmlVersion(final String value) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         version_ = value;
     }
 
@@ -263,9 +223,6 @@ public class EntityImpl extends ParentNode implements Entity {
      * @param id the id
      */
     public void setSystemId(final String id) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         systemId_ = id;
 
     }
@@ -279,9 +236,6 @@ public class EntityImpl extends ParentNode implements Entity {
      * @param name the name
      */
     public void setNotationName(final String name) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         notationName_ = name;
 
     }
@@ -297,18 +251,11 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public String getBaseURI() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return (baseURI_ != null) ? baseURI_ : getOwnerDocument().getBaseURI();
     }
 
     // NON-DOM: set base uri
     public void setBaseURI(final String uri) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         baseURI_ = uri;
     }
 }

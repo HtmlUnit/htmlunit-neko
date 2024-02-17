@@ -22,7 +22,6 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**

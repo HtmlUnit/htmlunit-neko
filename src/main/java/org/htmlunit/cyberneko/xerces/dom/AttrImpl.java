@@ -131,9 +131,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     // called after the Attr has been detached for one thing.
     // CoreDocumentImpl does all the work.
     void rename(final String name) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         this.name = name;
     }
 
@@ -180,15 +177,14 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
     @Override
     public Node cloneNode(final boolean deep) {
-
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
+
         final AttrImpl clone = (AttrImpl) super.cloneNode(deep);
 
         // take care of case where there are kids
         if (!clone.hasStringValue()) {
-
             // Need to break the association w/ original kids
             clone.value_ = null;
 
@@ -216,9 +212,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public String getNodeName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name;
     }
 
@@ -274,9 +267,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public String getName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name;
 
     }
@@ -288,19 +278,15 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public void setValue(final String newvalue) {
-
         final CoreDocumentImpl ownerDocument = ownerDocument();
-
         final Element ownerElement = getOwnerElement();
-        final String oldvalue;
 
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
         if (value_ != null) {
+            final String oldvalue;
+
             if (hasStringValue()) {
                 oldvalue = (String) value_;
             }
@@ -345,10 +331,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public String getValue() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         if (needsSyncChildren()) {
             synchronizeChildren();
         }
@@ -405,10 +387,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public boolean getSpecified() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return isSpecified();
     }
 
@@ -425,10 +403,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
     // NON-DOM, for use by parser
     public void setSpecified(final boolean arg) {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         isSpecified(arg);
 
     }

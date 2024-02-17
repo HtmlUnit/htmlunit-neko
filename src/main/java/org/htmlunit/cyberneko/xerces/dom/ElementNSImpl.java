@@ -121,10 +121,7 @@ public class ElementNSImpl extends ElementImpl {
     // Note: This only deals with part of the pb. CoreDocumentImpl
     // does all the work.
     void rename(final String namespaceURI, final String qualifiedName) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        this.name_ = qualifiedName;
+        name_ = qualifiedName;
         setName(namespaceURI, qualifiedName);
     }
 
@@ -147,9 +144,6 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     public String getNamespaceURI() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return namespaceURI;
     }
 
@@ -167,10 +161,6 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     public String getPrefix() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         final int index = name_.indexOf(':');
         return index < 0 ? null : name_.substring(0, index);
     }
@@ -194,9 +184,6 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     public void setPrefix(final String prefix) throws DOMException {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         if (ownerDocument.errorChecking) {
             if (prefix != null && prefix.length() != 0) {
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument.isXML11Version())) {
@@ -235,9 +222,6 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     public String getLocalName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return localName;
     }
 
@@ -286,9 +270,6 @@ public class ElementNSImpl extends ElementImpl {
      */
     @Override
     public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return false;
     }
 }

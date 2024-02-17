@@ -52,9 +52,6 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
      */
     @Override
     public String getNodeName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return target_;
     }
 
@@ -73,9 +70,6 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
      */
     @Override
     public String getTarget() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return target_;
 
     }
@@ -91,10 +85,6 @@ public class ProcessingInstructionImpl extends CharacterDataImpl implements Proc
      */
     @Override
     public String getBaseURI() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return ownerNode_.getBaseURI();
     }
 }

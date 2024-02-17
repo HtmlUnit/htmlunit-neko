@@ -98,9 +98,6 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
      */
     @Override
     public String getNodeName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name;
     }
 
@@ -126,9 +123,6 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
      */
     @Override
     public String getBaseURI() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         final DocumentType doctype;
         final NamedNodeMap entities;
         final EntityImpl entDef;

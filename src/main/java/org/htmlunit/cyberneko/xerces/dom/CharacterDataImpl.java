@@ -71,9 +71,6 @@ public abstract class CharacterDataImpl extends ChildNode {
      */
     @Override
     public String getNodeValue() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return data_;
     }
 
@@ -103,9 +100,6 @@ public abstract class CharacterDataImpl extends ChildNode {
         final CoreDocumentImpl ownerDocument = ownerDocument();
         // revisit: may want to set the value in ownerDocument.
         // Default behavior, overridden in some subclasses
-        if (needsSyncData()) {
-            synchronizeData();
-        }
 
         // keep old value for document notification
         final String oldvalue = this.data_;
@@ -138,9 +132,6 @@ public abstract class CharacterDataImpl extends ChildNode {
      * @return character data currently stored in this node.
      */
     public String getData() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return data_;
     }
 
@@ -152,9 +143,6 @@ public abstract class CharacterDataImpl extends ChildNode {
      */
     @Override
     public int getLength() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return data_.length();
     }
 
@@ -169,9 +157,6 @@ public abstract class CharacterDataImpl extends ChildNode {
     public void appendData(final String data) {
         if (data == null) {
             return;
-        }
-        if (needsSyncData()) {
-            synchronizeData();
         }
 
         setNodeValue(this.data_ + data);
@@ -207,9 +192,6 @@ public abstract class CharacterDataImpl extends ChildNode {
             }
         }
 
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         final int tailLength = Math.max(data_.length() - count - offset, 0);
         try {
             final String value = data_.substring(0, offset)
@@ -248,9 +230,6 @@ public abstract class CharacterDataImpl extends ChildNode {
     void internalInsertData(final int offset, final String data, final boolean replace) throws DOMException {
 
         final CoreDocumentImpl ownerDocument = ownerDocument();
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         try {
             final String value = new StringBuilder(this.data_).insert(offset, data).toString();
 
@@ -288,10 +267,6 @@ public abstract class CharacterDataImpl extends ChildNode {
     public void replaceData(final int offset, final int count, final String data) throws DOMException {
 
         final CoreDocumentImpl ownerDocument = ownerDocument();
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
 
         // notify document
         ownerDocument.replacingData(this);
@@ -337,11 +312,6 @@ public abstract class CharacterDataImpl extends ChildNode {
      *                      user to instead retrieve the data in smaller chunks.
      */
     public String substringData(final int offset, final int count) throws DOMException {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         final int length = data_.length();
         if (count < 0 || offset < 0 || offset > length - 1) {
             final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);

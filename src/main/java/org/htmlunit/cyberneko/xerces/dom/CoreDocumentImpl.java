@@ -1379,11 +1379,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         final Node top = node;
 
         while (null != node) {
-
-            if (((NodeImpl) node).needsSyncData()) {
-                ((NodeImpl) node).synchronizeData();
-            }
-
             final NamedNodeMap attributes = node.getAttributes();
             if (attributes != null) {
                 final int length = attributes.getLength();
@@ -1460,10 +1455,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             return;
         }
 
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         if (identifiers_ == null) {
             identifiers_ = new HashMap<>();
         }
@@ -1482,10 +1473,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @see #removeIdentifier(String)
      */
     public Element getIdentifier(final String idName) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         if (identifiers_ == null) {
             return null;
         }
@@ -1512,10 +1499,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @see #getIdentifier(String)
      */
     public void removeIdentifier(final String idName) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         if (identifiers_ == null) {
             return;
         }

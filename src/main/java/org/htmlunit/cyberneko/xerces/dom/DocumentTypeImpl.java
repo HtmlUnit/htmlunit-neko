@@ -106,9 +106,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public String getPublicId() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return publicID_;
     }
 
@@ -122,19 +119,13 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public String getSystemId() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return systemID_;
     }
 
     // NON-DOM
     // Set the internalSubset given as a string.
     public void setInternalSubset(final String internalSubset) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-        this.internalSubset_ = internalSubset;
+        internalSubset_ = internalSubset;
     }
 
     /**
@@ -147,9 +138,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public String getInternalSubset() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return internalSubset_;
     }
 
@@ -169,9 +157,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public String getNodeName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name_;
     }
 
@@ -224,10 +209,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
 
         if (!super.isEqualNode(arg)) {
             return false;
-        }
-
-        if (needsSyncData()) {
-            synchronizeData();
         }
         final DocumentTypeImpl argDocType = (DocumentTypeImpl) arg;
 
@@ -350,10 +331,6 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
      */
     @Override
     public String getName() {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return name_;
 
     }

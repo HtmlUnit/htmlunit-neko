@@ -50,9 +50,9 @@ public class AttrNSImpl extends AttrImpl {
         final CoreDocumentImpl ownerDocument = ownerDocument();
         final String prefix;
         // DOM Level 3: namespace URI is never empty string.
-        this.namespaceURI_ = namespaceURI;
+        namespaceURI_ = namespaceURI;
         if (namespaceURI != null) {
-            this.namespaceURI_ = (namespaceURI.length() == 0) ? null : namespaceURI;
+            namespaceURI_ = (namespaceURI.length() == 0) ? null : namespaceURI;
 
         }
         final int colon1 = qname.indexOf(':');
@@ -85,7 +85,7 @@ public class AttrNSImpl extends AttrImpl {
         super(ownerDocument, qualifiedName);
 
         this.localName_ = localName;
-        this.namespaceURI_ = namespaceURI;
+        namespaceURI_ = namespaceURI;
     }
 
     // Support for DOM Level 3 renameNode method.
@@ -116,9 +116,6 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public String getNamespaceURI() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         // REVIST: This code could/should be done at a lower-level, such that
         // the namespaceURI is set properly upon creation. However, there still
         // seems to be some DOM spec interpretation grey-area.
@@ -138,9 +135,6 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public String getPrefix() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         final int index = name.indexOf(':');
         return index < 0 ? null : name.substring(0, index);
     }
@@ -164,9 +158,6 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public void setPrefix(final String prefix) throws DOMException {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         if (ownerDocument().errorChecking) {
             if (prefix != null && prefix.length() != 0) {
 
@@ -217,9 +208,6 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public String getLocalName() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return localName_;
     }
 

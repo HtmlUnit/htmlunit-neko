@@ -59,9 +59,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     // NON-DOM: Set whether this Text is ignorable whitespace.
     public void setIgnorableWhitespace(final boolean ignore) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         isIgnorableWhitespace(ignore);
     }
 
@@ -78,9 +75,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
     @Override
     public boolean isElementContentWhitespace() {
         // REVISIT: is this implemenation correct?
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return internalIsIgnorableWhitespace();
     }
 
@@ -92,10 +86,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public String getWholeText() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         final StringBuilder builder = new StringBuilder();
         if (data_ != null && data_.length() != 0) {
             builder.append(data_);
@@ -237,10 +227,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public Text replaceWholeText(final String content) throws DOMException {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         // if the content is null
         final Node parent = this.getParentNode();
         if (content == null || content.length() == 0) {
@@ -498,9 +484,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     // NON-DOM: Returns whether this Text is ignorable whitespace.
     public boolean isIgnorableWhitespace() {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         return internalIsIgnorableWhitespace();
     }
 
@@ -522,9 +505,6 @@ public class TextImpl extends CharacterDataImpl implements Text {
      */
     @Override
     public Text splitText(final int offset) throws DOMException {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         if (offset < 0 || offset > data_.length()) {
             throw new DOMException(DOMException.INDEX_SIZE_ERR,
                     DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null));

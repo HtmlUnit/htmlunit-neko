@@ -77,24 +77,20 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     public static final short DOCUMENT_POSITION_IS_CONTAINED = 0x10;
     public static final short DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
 
-    /** Element definition node type. */
-    public static final short ELEMENT_DEFINITION_NODE = 21;
-
     // typically the parent but not always!
     protected NodeImpl ownerNode_;
 
-    private short flags_;
+    private int flags_;
 
-    protected static final short READONLY = 0x1 << 0;
-    protected static final short SYNCDATA = 0x1 << 1;
-    protected static final short SYNCCHILDREN = 0x1 << 2;
-    protected static final short OWNED = 0x1 << 3;
-    protected static final short FIRSTCHILD = 0x1 << 4;
-    protected static final short SPECIFIED = 0x1 << 5;
-    protected static final short IGNORABLEWS = 0x1 << 6;
-    protected static final short HASSTRING = 0x1 << 7;
-    protected static final short NORMALIZED = 0x1 << 8;
-    protected static final short ID = 0x1 << 9;
+    protected static final int READONLY = 0x1 << 0;
+    protected static final int SYNCCHILDREN = 0x1 << 2;
+    protected static final int OWNED = 0x1 << 3;
+    protected static final int FIRSTCHILD = 0x1 << 4;
+    protected static final int SPECIFIED = 0x1 << 5;
+    protected static final int IGNORABLEWS = 0x1 << 6;
+    protected static final int HASSTRING = 0x1 << 7;
+    protected static final int NORMALIZED = 0x1 << 8;
+    protected static final int ID = 0x1 << 9;
 
     /**
      * No public constructor; only subclasses of Node should be instantiated, and
@@ -205,11 +201,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      */
     @Override
     public Node cloneNode(final boolean deep) {
-
-        if (needsSyncData()) {
-            synchronizeData();
-        }
-
         final NodeImpl newnode;
         try {
             newnode = (NodeImpl) clone();
@@ -259,9 +250,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
     // NON-DOM set the ownerDocument of this node
     protected void setOwnerDocument(final CoreDocumentImpl doc) {
-        if (needsSyncData()) {
-            synchronizeData();
-        }
         // if we have an owner we rely on it to have it right
         // otherwise ownerNode is our ownerDocument
         if (!isOwned()) {
@@ -688,7 +676,6 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      */
     @Override
     public short compareDocumentPosition(final Node other) throws DOMException {
-
         // If the nodes are the same, no flags should be set
         if (this == other) {
             return 0;
@@ -1486,29 +1473,12 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         return ownerDocument().changes();
     }
 
-    /**
-     * Override this method in subclass to hook in efficient internal data
-     * structure.
-     */
-    protected void synchronizeData() {
-        // By default just change the flag to avoid calling this method again
-        needsSyncData(false);
-    }
-
-    final boolean needsSyncData() {
-        return (flags_ & SYNCDATA) != 0;
-    }
-
-    final void needsSyncData(final boolean value) {
-        flags_ = (short) (value ? flags_ | SYNCDATA : flags_ & ~SYNCDATA);
-    }
-
     final boolean needsSyncChildren() {
         return (flags_ & SYNCCHILDREN) != 0;
     }
 
     public final void needsSyncChildren(final boolean value) {
-        flags_ = (short) (value ? flags_ | SYNCCHILDREN : flags_ & ~SYNCCHILDREN);
+        flags_ = value ? flags_ | SYNCCHILDREN : flags_ & ~SYNCCHILDREN;
     }
 
     final boolean isOwned() {
@@ -1516,7 +1486,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void isOwned(final boolean value) {
-        flags_ = (short) (value ? flags_ | OWNED : flags_ & ~OWNED);
+        flags_ = value ? flags_ | OWNED : flags_ & ~OWNED;
     }
 
     final boolean isFirstChild() {
@@ -1524,7 +1494,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void isFirstChild(final boolean value) {
-        flags_ = (short) (value ? flags_ | FIRSTCHILD : flags_ & ~FIRSTCHILD);
+        flags_ = value ? flags_ | FIRSTCHILD : flags_ & ~FIRSTCHILD;
     }
 
     final boolean isSpecified() {
@@ -1532,7 +1502,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void isSpecified(final boolean value) {
-        flags_ = (short) (value ? flags_ | SPECIFIED : flags_ & ~SPECIFIED);
+        flags_ = value ? flags_ | SPECIFIED : flags_ & ~SPECIFIED;
     }
 
     // inconsistent name to avoid clash with public method on TextImpl
@@ -1541,7 +1511,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void isIgnorableWhitespace(final boolean value) {
-        flags_ = (short) (value ? flags_ | IGNORABLEWS : flags_ & ~IGNORABLEWS);
+        flags_ = value ? flags_ | IGNORABLEWS : flags_ & ~IGNORABLEWS;
     }
 
     final boolean hasStringValue() {
@@ -1549,7 +1519,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void hasStringValue(final boolean value) {
-        flags_ = (short) (value ? flags_ | HASSTRING : flags_ & ~HASSTRING);
+        flags_ = value ? flags_ | HASSTRING : flags_ & ~HASSTRING;
     }
 
     final boolean isNormalized() {
@@ -1561,7 +1531,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         if (!value && isNormalized() && ownerNode_ != null) {
             ownerNode_.isNormalized(false);
         }
-        flags_ = (short) (value ? flags_ | NORMALIZED : flags_ & ~NORMALIZED);
+        flags_ = value ? flags_ | NORMALIZED : flags_ & ~NORMALIZED;
     }
 
     final boolean isIdAttribute() {
@@ -1569,7 +1539,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     final void isIdAttribute(final boolean value) {
-        flags_ = (short) (value ? flags_ | ID : flags_ & ~ID);
+        flags_ = value ? flags_ | ID : flags_ & ~ID;
     }
 
     // NON-DOM method for debugging convenience.
