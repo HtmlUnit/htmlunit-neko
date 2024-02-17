@@ -29,7 +29,6 @@ package org.htmlunit.cyberneko;
  */
 public class HTMLUnicodeEntitiesParser {
     public static final int STATE_START = 0;
-    private static final int STATE_ENDS_WITH_SEMICOLON = -2;
 
     private static final int STATE_HEXADECIMAL_CHAR = -102;
     private static final int STATE_DECIMAL_CHAR = -104;
@@ -48,16 +47,8 @@ public class HTMLUnicodeEntitiesParser {
         return match_;
     }
 
-    public int getMatchLength() {
-        return matchLength_;
-    }
-
     public int getRewindCount() {
         return consumedCount_ - matchLength_;
-    }
-
-    public boolean endsWithSemicolon() {
-        return STATE_ENDS_WITH_SEMICOLON == state_;
     }
 
     public HTMLUnicodeEntitiesParser() {
