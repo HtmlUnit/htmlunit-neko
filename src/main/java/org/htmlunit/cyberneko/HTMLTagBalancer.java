@@ -65,6 +65,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
  *
  * @author Andy Clark
  * @author Marc Guillemot
+ * @author Ronald Brill
  */
 public class HTMLTagBalancer
     implements XMLDocumentFilter, HTMLComponent {
@@ -785,10 +786,17 @@ public class HTMLTagBalancer
                 callEndElement(info.qname, synthesizedAugs());
             }
         }
+
         if (element.closes != null) {
             int length = fElementStack.top;
             for (int i = length - 1; i >= 0; i--) {
                 Info info = fElementStack.data[i];
+
+                // html elements do not close the title element
+                // see https://svgwg.org/svg2-draft/struct.html#DescriptionAndTitleElements
+                if (fOpenedSvg && info.element.code == HTMLElements.TITLE) {
+                    break;
+                }
 
                 // does it close the element we're looking at?
                 if (element.closes(info.element.code)) {
