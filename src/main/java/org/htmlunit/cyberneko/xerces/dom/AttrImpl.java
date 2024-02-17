@@ -154,9 +154,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     protected void setOwnerDocument(final CoreDocumentImpl doc) {
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         super.setOwnerDocument(doc);
         if (!hasStringValue()) {
             for (ChildNode child = (ChildNode) value_; child != null; child = child.nextSibling_) {
@@ -177,10 +174,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
     @Override
     public Node cloneNode(final boolean deep) {
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
-
         final AttrImpl clone = (AttrImpl) super.cloneNode(deep);
 
         // take care of case where there are kids
@@ -281,9 +274,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         final CoreDocumentImpl ownerDocument = ownerDocument();
         final Element ownerElement = getOwnerElement();
 
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         if (value_ != null) {
             final String oldvalue;
 
@@ -331,9 +321,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public String getValue() {
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         if (value_ == null) {
             return "";
         }
@@ -424,9 +411,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public boolean hasChildNodes() {
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         return value_ != null;
     }
 
@@ -445,10 +429,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     @Override
     public NodeList getChildNodes() {
         // JKESS: KNOWN ISSUE HERE
-
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         return this;
     }
 
@@ -457,13 +437,8 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public Node getFirstChild() {
-
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         makeChildNode();
         return (Node) value_;
-
     }
 
     /**
@@ -471,12 +446,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      */
     @Override
     public Node getLastChild() {
-
-        if (needsSyncChildren()) {
-            synchronizeChildren();
-        }
         return lastChild();
-
     }
 
     final ChildNode lastChild() {
@@ -569,10 +539,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             removeChild(newChild);
             insertBefore(newChild, refChild);
             return newChild;
-        }
-
-        if (needsSyncChildren()) {
-            synchronizeChildren();
         }
 
         if (errorChecking) {
@@ -878,15 +844,6 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     @Override
     public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
-    }
-
-    /**
-     * Override this method in subclass to hook in efficient internal data
-     * structure.
-     */
-    protected void synchronizeChildren() {
-        // By default just change the flag to avoid calling this method again
-        needsSyncChildren(false);
     }
 
     /**
