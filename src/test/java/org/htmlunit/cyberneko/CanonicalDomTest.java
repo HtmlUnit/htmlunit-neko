@@ -47,8 +47,8 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
 
     @ParameterizedTest
     @MethodSource("testFiles")
-    public void runDomTest(final File dataFile) throws Exception {
-        final String domDataLines = getDomResult(dataFile);
+    public void runTest(final File dataFile) throws Exception {
+        final String domDataLines = getResult(dataFile);
 
         try {
             // prepare for future changes where canonical files are next to test file
@@ -94,7 +94,7 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getDomResult(final File infile) throws Exception {
+    private static String getResult(final File infile) throws Exception {
         try (StringWriter out = new StringWriter()) {
             final DOMParser parser = new DOMParser(null);
 

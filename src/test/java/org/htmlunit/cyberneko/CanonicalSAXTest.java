@@ -46,8 +46,8 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
 
     @ParameterizedTest
     @MethodSource("testFiles")
-    public void runSaxTest(final File dataFile) throws Exception {
-        final String domDataLines = getSaxResult(dataFile);
+    public void runTest(final File dataFile) throws Exception {
+        final String domDataLines = getResult(dataFile);
 
         try {
             // prepare for future changes where canonical files are next to test file
@@ -93,7 +93,7 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getSaxResult(final File infile) throws Exception {
+    private static String getResult(final File infile) throws Exception {
         try (StringWriter out = new StringWriter()) {
             final SAXParser parser = new SAXParser();
 

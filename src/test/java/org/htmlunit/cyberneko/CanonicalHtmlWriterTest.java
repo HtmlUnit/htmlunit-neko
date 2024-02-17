@@ -48,8 +48,8 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
 
     @ParameterizedTest
     @MethodSource("testFiles")
-    public void runHtmlWriterTest(final File dataFile) throws Exception {
-        final String dataLines = getHtmlWriterFilterResult(dataFile);
+    public void runTest(final File dataFile) throws Exception {
+        final String dataLines = getResult(dataFile);
 
         try {
             // prepare for future changes where canonical files are next to test file
@@ -90,7 +90,7 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getHtmlWriterFilterResult(final File infile) throws Exception {
+    private static String getResult(final File infile) throws Exception {
         try (StringWriter out = new StringWriter()) {
             // create filters
             final XMLDocumentFilter[] filters = {new HTMLWriterFilter(out, "UTF-8", new HTMLElements())};
