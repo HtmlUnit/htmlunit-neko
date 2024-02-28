@@ -534,15 +534,15 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
-            do {
-                fScanner.scan(false);
+            while (fScanner.scan(false)) {
+                // do nothing
             }
-            while (fScannerState != STATE_END_DOCUMENT);
         }
         catch (final IOException e) {
             // ignore
         }
-        setScanner(previousScanner);
+        // preserve the plaintext scanning process
+        setScanner(fScanner instanceof PlainTextScanner ? new PlainTextScanner() : previousScanner);
         setScannerState(previousScannerState);
         fCurrentEntity = previousEntity;
     }
@@ -2094,6 +2094,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                             throw new RuntimeException("unknown scanner state: " + fScannerState);
                         }
                     }
+
+                    if (fScanner instanceof PlainTextScanner) {
+                        return true;
+                    }
                 }
                 catch (final EOFException e) {
                     if (fCurrentEntityStack.isEmpty()) {
@@ -3464,11 +3468,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
         @Override
         public boolean scan(final boolean complete) throws IOException {
-            scanCharacters(xmlString_);
+            scanCharacters(xmlString_, complete);
             return false;
         }
 
-        protected void scanCharacters(final XMLString buffer) throws IOException {
+        protected void scanCharacters(final XMLString buffer, final boolean complete) throws IOException {
             while (true) {
                 final int c = fCurrentEntity.read();
 
@@ -3496,7 +3500,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
                 fDocumentHandler.characters(buffer, locationAugs());
             }
-            fDocumentHandler.endDocument(locationAugs());
+            if (complete) {
+                fDocumentHandler.endDocument(locationAugs());
+            }
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
             }
