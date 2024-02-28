@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
+import org.htmlunit.cyberneko.util.FastHashMap;
+
 /**
  * This is a very specialized class for recognizing HTML named entities with the ability
  * to look them up in stages. It is stateless and hence memory friendly.
@@ -66,6 +68,11 @@ public final class HTMLNamedEntitiesParser {
      */
     private RootState rootLevel = new RootState();
 
+    /*
+     * Support back mapping from char to entity.
+     */
+    private FastHashMap<String, String> entities_ = new FastHashMap<>();
+
     /**
      * Constructor. It builds the parser state from an entity defining properties file. This file has been taken
      * from https://html.spec.whatwg.org/multipage/named-characters.html (JSON version) and converted
@@ -78,7 +85,7 @@ public final class HTMLNamedEntitiesParser {
             props.load(stream);
 
             props.forEach((k, v) -> {
-                final String key = (String) k;
+                String key = (String) k;
                 final String value = (String) v;
 
                 // we might have an empty line in it
@@ -87,6 +94,13 @@ public final class HTMLNamedEntitiesParser {
                 }
 
                 this.rootLevel.add(key, value);
+                key = "&" + key;
+                String ref = entities_.get(value);
+                if (ref == null
+                        || ref.length() < key.length()
+                        || (ref.length() == key.length() && ref.compareTo(key) < 1)) {
+                    entities_.put(value, key);
+                }
             });
 
             // make the root more efficient, rest stays simple
@@ -97,6 +111,13 @@ public final class HTMLNamedEntitiesParser {
             // or build
             throw new RuntimeException("Unable to initilaize the HTML entities from file");
         }
+    }
+
+    /**
+     * @return the entity ref for the given key (usually a single char) or null
+     */
+    public String lookupEntityRefFor(String key) {
+        return entities_.get(key);
     }
 
     /**
