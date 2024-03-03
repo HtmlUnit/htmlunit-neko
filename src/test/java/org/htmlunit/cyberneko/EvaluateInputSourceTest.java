@@ -77,7 +77,6 @@ public class EvaluateInputSourceTest {
         doTest(html, htmlEval, expected);
     }
 
-
     @Test
     public void plaintext() throws Exception {
         final String html =
@@ -115,7 +114,7 @@ public class EvaluateInputSourceTest {
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
 
         final StringWriter out = new StringWriter();
-        Writer writer = new Writer(out) {
+        final Writer writer = new Writer(out) {
             @Override
             public void endElement(final QName element, final Augmentations augs) throws XNIException {
                 super.endElement(element, augs);
@@ -126,7 +125,7 @@ public class EvaluateInputSourceTest {
                 }
             }
         };
-        final XMLDocumentFilter[] filters = { writer };
+        final XMLDocumentFilter[] filters = {writer};
         parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
 
         final StringReader sr = new StringReader(html);
