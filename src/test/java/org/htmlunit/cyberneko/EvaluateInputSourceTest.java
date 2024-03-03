@@ -96,22 +96,16 @@ public class EvaluateInputSourceTest {
                 "<plaintext>foo";
 
         final String expected =
-                "!html" + NL
-                + "(html" + NL
+                "(html" + NL
                 + "(head" + NL
-                + "(title" + NL
-                + "\"Test" + NL
-                + ")title" + NL
-                + ")head" + NL
-                + "(body" + NL
-                + "\"  " + NL
                 + "(script" + NL
                 + ")script" + NL
-                + "(p" + NL
-                + "\"paragraph" + NL
-                + ")p" + NL
-                + "\"  bar" + NL
-                + ")body" + NL
+                + ")head" + NL
+                + "(BODY" + NL
+                + "(plaintext" + NL
+                + "\"foo<title>Test</title></head><body>  bar</body></html>" + NL
+                + ")plaintext" + NL
+                + ")BODY" + NL
                 + ")html";
 
         doTest(html, htmlEval, expected);
