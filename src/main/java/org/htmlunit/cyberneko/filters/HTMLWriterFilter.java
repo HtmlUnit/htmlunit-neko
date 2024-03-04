@@ -57,27 +57,27 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 public class HTMLWriterFilter extends DefaultFilter {
 
     /** The encoding. */
-    private String encoding_;
+    protected String encoding_;
 
     /**
      * The print writer used for serializing the document with the
      * appropriate character encoding.
      */
-    private PrintWriter printer_;
+    protected PrintWriter printer_;
 
     /** Seen root element. */
-    private boolean seenRootElement_;
+    protected boolean seenRootElement_;
 
     /** Element depth. */
-    private int elementDepth_;
+    protected int elementDepth_;
 
     /** Normalize character content. */
-    private boolean normalize_;
+    protected boolean normalize_;
 
     /** Print characters. */
-    private boolean printChars_;
+    protected boolean printChars_;
 
-    private final HTMLElements htmlElements_;
+    protected final HTMLElements htmlElements_;
 
     /** Constructs a writer filter that prints to standard out. */
     public HTMLWriterFilter() {
@@ -341,7 +341,7 @@ public class HTMLWriterFilter extends DefaultFilter {
 //    }
 //
 //    /** Print usage. */
-//    private static void printUsage() {
+//    protected static void printUsage() {
 //        System.err.println("usage: java "+HtmlWriterFilter.class.getName()+" (options) file ...");
 //        System.err.println();
 //        System.err.println("options:");
