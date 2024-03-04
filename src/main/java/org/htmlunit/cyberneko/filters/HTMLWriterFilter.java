@@ -75,9 +75,6 @@ public class HTMLWriterFilter extends DefaultFilter {
     /** Normalize character content. */
     private boolean normalize_;
 
-    /** Print characters. */
-    private boolean printChars_;
-
     private final HTMLElements htmlElements_;
 
     /** Constructs a writer filter that prints to standard out. */
@@ -132,7 +129,6 @@ public class HTMLWriterFilter extends DefaultFilter {
         seenRootElement_ = false;
         elementDepth_ = 0;
         normalize_ = true;
-        printChars_ = true;
         super.startDocument(locator, encoding, nscontext, augs);
     }
 
@@ -176,9 +172,7 @@ public class HTMLWriterFilter extends DefaultFilter {
     @Override
     public void characters(final XMLString text, final Augmentations augs)
         throws XNIException {
-        if (printChars_) {
-            printCharacters(text, normalize_);
-        }
+        printCharacters(text, normalize_);
         super.characters(text, augs);
     }
 
@@ -302,8 +296,8 @@ public class HTMLWriterFilter extends DefaultFilter {
         printer_.flush();
     }
 
-    protected PrintWriter getPrintWriter() {
-        return printer_;
+    protected void print(String content) {
+        printer_.print(content);
     }
 
     protected boolean hasSeenRootElement() {
@@ -316,9 +310,5 @@ public class HTMLWriterFilter extends DefaultFilter {
 
     protected boolean getNormalize() {
         return normalize_;
-    }
-
-    protected boolean getPrintChars() {
-        return printChars_;
     }
 }
