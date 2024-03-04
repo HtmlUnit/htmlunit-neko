@@ -341,7 +341,7 @@ public class HTMLWriterFilter extends DefaultFilter {
 //    }
 //
 //    /** Print usage. */
-//    protected static void printUsage() {
+//    private static void printUsage() {
 //        System.err.println("usage: java "+HtmlWriterFilter.class.getName()+" (options) file ...");
 //        System.err.println();
 //        System.err.println("options:");
