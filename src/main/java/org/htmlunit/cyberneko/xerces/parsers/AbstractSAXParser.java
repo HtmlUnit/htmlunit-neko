@@ -1164,8 +1164,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             return uri.length() == 0 ? fAttributes.getIndex(null, localPart) : fAttributes.getIndex(uri, localPart);
         }
 
-        // Attributes2 methods
-        // REVISIT: Localize exception messages. -- mrglavas
         @Override
         public boolean isDeclared(final int index) {
             return false;
