@@ -1311,14 +1311,10 @@ public class HTMLTagBalancer
                 final int length = attributes.getLength();
                 if (length > 0) {
                     final QName aqname = new QName();
-                    final XMLAttributes newattrs = new XMLAttributesImpl();
+                    final XMLAttributesImpl newattrs = new XMLAttributesImpl();
                     for (int i = 0; i < length; i++) {
                         attributes.getName(i, aqname);
-                        final String type = attributes.getType(i);
-                        final String value = attributes.getValue(i);
-                        final boolean specified = attributes.isSpecified(i);
-                        newattrs.addAttribute(aqname, type, value);
-                        newattrs.setSpecified(i, specified);
+                        newattrs.addAttribute(aqname, attributes.getType(i), attributes.getValue(i), attributes.isSpecified(i));
                     }
                     this.attributes = newattrs;
                 }

@@ -64,6 +64,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * <li>http://cyberneko.org/html/features/parse-noscript-content
  * <li>http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe
  * <li>http://cyberneko.org/html/features/scanner/allow-selfclosing-tags
+ * <li>http://cyberneko.org/html/features/scanner/normalize-attrs
+ * <li>http://cyberneko.org/html/features/scanner/non-normalized-attrs
  * </ul>
  * <p>
  * This component recognizes the following properties:
@@ -183,6 +185,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** Normalize attribute values. */
     protected static final String NORMALIZE_ATTRIBUTES = "http://cyberneko.org/html/features/scanner/normalize-attrs";
 
+    /** Normalize attribute values. */
+    protected static final String NON_NORMALIZED_ATTRIBUTES = "http://cyberneko.org/html/features/scanner/non-normalized-attrs";
+
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
         AUGMENTATIONS,
@@ -196,6 +201,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         OVERRIDE_DOCTYPE,
         INSERT_DOCTYPE,
         NORMALIZE_ATTRIBUTES,
+        NON_NORMALIZED_ATTRIBUTES,
         PARSE_NOSCRIPT_CONTENT,
         ALLOW_SELFCLOSING_IFRAME,
         ALLOW_SELFCLOSING_TAGS, };
@@ -204,6 +210,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     private static final Boolean[] RECOGNIZED_FEATURES_DEFAULTS = {
         null,
         null,
+        Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
@@ -345,6 +352,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** Normalize attribute values. */
     boolean fNormalizeAttributes_;
 
+    /** Store non normalized attribute value also. */
+    boolean fNonNormalizedAttributes_;
+
     /** Parse noscript content. */
     boolean fParseNoScriptContent_;
 
@@ -443,7 +453,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** String buffer. */
     protected final XMLString fStringBuffer = new XMLString();
 
-    /** String buffer. */
+    /** String buffer used when resolving entity refs. */
     final XMLString fStringBuffer2 = new XMLString();
 
     /** String buffer, larger because scripts areas are larger */
@@ -679,6 +689,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         fOverrideDoctype_ = manager.getFeature(OVERRIDE_DOCTYPE);
         fInsertDoctype_ = manager.getFeature(INSERT_DOCTYPE);
         fNormalizeAttributes_ = manager.getFeature(NORMALIZE_ATTRIBUTES);
+        fNonNormalizedAttributes_ = manager.getFeature(NON_NORMALIZED_ATTRIBUTES);
         fParseNoScriptContent_ = manager.getFeature(PARSE_NOSCRIPT_CONTENT);
         fAllowSelfclosingIframe_ = manager.getFeature(ALLOW_SELFCLOSING_IFRAME);
         fAllowSelfclosingTags_ = manager.getFeature(ALLOW_SELFCLOSING_TAGS);

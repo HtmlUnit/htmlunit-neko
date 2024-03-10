@@ -74,6 +74,27 @@ public class XMLAttributesImpl implements XMLAttributes {
         return attributes_.size() - 1;
     }
 
+    /**
+     * Adds an attribute. The attribute's non-normalized value of the attribute will
+     * have the same value as the attribute value. Also, the added attribute will be
+     * marked as specified in the XML instance document unless set otherwise using
+     * the <code>setSpecified</code> method.
+     * <p>
+     * This method differs from <code>addAttribute</code> in that it does not check
+     * if an attribute of the same name already exists in the list before adding it.
+     * In order to improve performance of namespace processing, this method allows
+     * uniqueness checks to be deferred until all the namespace information is
+     * available after the entire attribute specification has been read.
+     * <p>
+     * <strong>Caution:</strong> If this method is called it should not be mixed
+     * with calls to <code>addAttribute</code> unless it has been determined that
+     * all the attribute names are unique.
+     *
+     * @param name  the attribute name
+     * @param type  the attribute type
+     * @param value the attribute value
+     * @param specified the specified attribute value
+     */
     public void addAttribute(final QName name, final String type, final String value, final boolean specified) {
         // set values
         final Attribute attribute = new Attribute();
@@ -444,41 +465,6 @@ public class XMLAttributesImpl implements XMLAttributes {
         return index != -1 ? getValue(index) : null;
     }
 
-    // Implementation methods
-
-    /**
-     * Adds an attribute. The attribute's non-normalized value of the attribute will
-     * have the same value as the attribute value. Also, the added attribute will be
-     * marked as specified in the XML instance document unless set otherwise using
-     * the <code>setSpecified</code> method.
-     * <p>
-     * This method differs from <code>addAttribute</code> in that it does not check
-     * if an attribute of the same name already exists in the list before adding it.
-     * In order to improve performance of namespace processing, this method allows
-     * uniqueness checks to be deferred until all the namespace information is
-     * available after the entire attribute specification has been read.
-     * <p>
-     * <strong>Caution:</strong> If this method is called it should not be mixed
-     * with calls to <code>addAttribute</code> unless it has been determined that
-     * all the attribute names are unique.
-     *
-     * @param name  the attribute name
-     * @param type  the attribute type
-     * @param value the attribute value
-     *
-     * @see #setSpecified
-     */
-    public void addAttributeNS(final QName name, final String type, final String value) {
-        // set values
-        final Attribute attribute = new Attribute();
-        attribute.name_.setValues(name);
-        attribute.type_ = type;
-        attribute.value_ = value;
-        attribute.specified_ = false;
-
-        attributes_.add(attribute);
-    }
-
     /**
      * Returns the value passed in or NMTOKEN if it's an enumerated type.
      *
@@ -495,8 +481,6 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /**
      * Attribute information.
-     *
-     * @author Andy Clark, IBM
      */
     static final class Attribute {
         /** Name. */
