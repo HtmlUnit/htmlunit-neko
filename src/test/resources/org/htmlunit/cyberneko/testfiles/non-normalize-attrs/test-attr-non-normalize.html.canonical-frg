@@ -23,11 +23,11 @@ Aa aB
 )div
 "\n
 (div
-Aa B
+Aa   B
 )div
 "\n
 (div
-Aa B
+Aa B 
 )div
 "\n
 (div
@@ -35,8 +35,7 @@ Aa 񂪼
 )div
 "\n
 (div
-Aa B
-Aabc 
+Aa B abc
 )div
 "\n
 (div
@@ -48,7 +47,11 @@ Aa &Uumlabc
 )div
 "\n
 (div
-Aa Ü
+Aa Ü abc
+)div
+"\n
+(div
+Aa &Uuml=abc
 )div
 "\n
 (div
@@ -61,12 +64,4 @@ Aa Üabc
 "\n
 (div
 Aa &abc;abc
-)div
-"\n\n
-(div
-Aa 
-)div
-"\n
-(div
-Aa 
 )div

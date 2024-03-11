@@ -200,8 +200,9 @@ public class Writer extends DefaultFilter {
             final int acount = attrs.getLength();
             if (acount > 0) {
                 final String[] anames = new String[acount];
+                final String[] anamesNonNormalized = new String[acount];
                 final String[] auris = new String[acount];
-                sortAttrNames(attrs, anames, auris);
+                sortAttrNames(attrs, anames, anamesNonNormalized, auris);
                 for (int i = 0; i < acount; i++) {
                     final String aname = anames[i];
                     out_.println();
@@ -215,6 +216,11 @@ public class Writer extends DefaultFilter {
                     out_.print(aname);
                     out_.print(' ');
                     print(attrs.getValue(aname));
+
+                    if(anamesNonNormalized[i] != null && !anamesNonNormalized[i].equals(attrs.getValue(aname))) {
+                        out_.print(" / ");
+                        out_.print(anamesNonNormalized[i]);
+                    }
                 }
             }
         }
@@ -386,9 +392,10 @@ public class Writer extends DefaultFilter {
     }
 
     /** Sorts the attribute names. */
-    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames, final String[] auris) {
+    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames, final String[] anamesNonNormalized, final String[] auris) {
         for (int i = 0; i < anames.length; i++) {
             anames[i] = attrs.getQName(i);
+            anamesNonNormalized[i] = attrs.getNonNormalizedValue(i);
             auris[i] = attrs.getURI(i);
         }
         // NOTE: This is super inefficient but it doesn't really matter. -Ac
@@ -403,6 +410,11 @@ public class Writer extends DefaultFilter {
                 final String tn = anames[i];
                 anames[i] = anames[index];
                 anames[index] = tn;
+
+                final String tnn = anamesNonNormalized[i];
+                anamesNonNormalized[i] = anamesNonNormalized[index];
+                anamesNonNormalized[index] = tnn;
+
                 final String tu = auris[i];
                 auris[i] = auris[index];
                 auris[index] = tu;

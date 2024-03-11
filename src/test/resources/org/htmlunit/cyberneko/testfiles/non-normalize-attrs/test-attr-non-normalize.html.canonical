@@ -7,44 +7,43 @@ Aa abcd
 )div
 "\n
 (div
-Aa <
+Aa < / &lt;
 )div
 "\n
 (div
-Aa *
+Aa * / &#42;
 )div
 "\n
 (div
-Aa B
+Aa B / &#x42;
 )div
 "\n
 (div
-Aa BCDEF
+Aa BCDEF / &#x42;&#x43;&#x44;&#x45;&#x46;
 )div
 "\n
 (div
-Aa aB
+Aa aB / a&#x42;
 )div
 "\n
 (div
-Aa B
+Aa   B /   &#x42;
 )div
 "\n
 (div
-Aa B
+Aa B  / &#x42; 
 )div
 "\n
 (div
-Aa 񂪼
+Aa 񂪼 / &#x42abc'
 )div
 "\n
 (div
-Aa B
-Aabc 
+Aa B abc / &#x42  abc
 )div
 "\n
 (div
-Aa Ü
+Aa Ü / &Uuml'
 )div
 "\n
 (div
@@ -52,28 +51,23 @@ Aa &Uumlabc
 )div
 "\n
 (div
-Aa Ü
-Aabc' 
+Aa Ü abc / &Uuml  abc
 )div
 "\n
 (div
-Aa Ü
+Aa &Uuml=abc
 )div
 "\n
 (div
-Aa Üabc
+Aa Ü / &Uuml;
+)div
+"\n
+(div
+Aa Üabc / &Uuml;abc
 )div
 "\n
 (div
 Aa &abc;abc
-)div
-"\n\n
-(div
-Aa 
-)div
-"\n
-(div
-Aa 
 )div
 )BODY
 )HTML

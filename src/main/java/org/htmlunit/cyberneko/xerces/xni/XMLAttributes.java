@@ -286,22 +286,14 @@ public interface XMLAttributes {
      */
     String getValue(String uri, String localName);
 
-//    /**
-//     * Sets the non-normalized value of the attribute at the specified index.
-//     *
-//     * @param attrIndex The attribute index.
-//     * @param attrValue The new non-normalized attribute value.
-//     */
-//    void setNonNormalizedValue(int attrIndex, String attrValue);
-//
-//    /**
-//     * @return the non-normalized value of the attribute at the specified index. If
-//     *         no non-normalized value is set, this method will return the same
-//     *         value as the <code>getValue(int)</code> method.
-//     *
-//     * @param attrIndex The attribute index.
-//     */
-//    String getNonNormalizedValue(int attrIndex);
+    /**
+     * @return the non-normalized value of the attribute at the specified index. If
+     *         no non-normalized value is set, this method will return the same
+     *         value as the <code>getValue(int)</code> method.
+     *
+     * @param attrIndex The attribute index.
+     */
+    String getNonNormalizedValue(int attrIndex);
 
     /**
      * Sets whether an attribute is specified in the instance document or not.

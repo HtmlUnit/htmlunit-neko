@@ -106,6 +106,17 @@ public class XMLAttributesImpl implements XMLAttributes {
         attributes_.add(attribute);
     }
 
+    public void addAttribute(final QName name, final String type, final String value, final String nonNormalizedValue, final boolean specified) {
+        final AttributeExt attribute = new AttributeExt();
+        attribute.name_.setValues(name);
+        attribute.type_ = type;
+        attribute.value_ = value;
+        attribute.nonNormalizedValue_ = nonNormalizedValue;
+        attribute.specified_ = specified;
+
+        attributes_.add(attribute);
+    }
+
     /**
      * Removes all of the attributes. This method will also remove all entities
      * associated to the attributes.
@@ -466,6 +477,17 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getNonNormalizedValue(int index) {
+        if (index < 0 || index >= getLength()) {
+            return null;
+        }
+        return attributes_.get(index).getNonNormalizedValue();
+    }
+
+    /**
      * Returns the value passed in or NMTOKEN if it's an enumerated type.
      *
      * @param type attribute type
@@ -482,7 +504,7 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * Attribute information.
      */
-    static final class Attribute {
+    static class Attribute {
         /** Name. */
         final QName name_ = new QName();
 
@@ -494,5 +516,21 @@ public class XMLAttributesImpl implements XMLAttributes {
 
         /** Specified. */
         boolean specified_;
+
+        String getNonNormalizedValue() {
+            return value_;
+        }
+    }
+
+    /**
+     * Attribute information.
+     */
+    static class AttributeExt extends Attribute {
+        String nonNormalizedValue_;
+
+        @Override
+        String getNonNormalizedValue() {
+            return nonNormalizedValue_;
+        }
     }
 }
