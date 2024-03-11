@@ -1,0 +1,17 @@
+<HTML><head></head><BODY><div a="abcd"></div>
+<div a="<"></div>
+<div a="*"></div>
+<div a="B"></div>
+<div a="BCDEF"></div>
+<div a="aB"></div>
+<div a="  B"></div>
+<div a="B "></div>
+<div a="񂪼"></div>
+<div a="B abc"></div>
+<div a="Ü"></div>
+<div a="&Uumlabc"></div>
+<div a="Ü abc"></div>
+<div a="&Uuml=abc"></div>
+<div a="Ü"></div>
+<div a="Üabc"></div>
+<div a="&abc;abc"></div></BODY></HTML>
