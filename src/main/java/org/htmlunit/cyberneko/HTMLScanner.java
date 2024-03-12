@@ -483,7 +483,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
      * @param htmlConfiguration the configuration to use
      */
     HTMLScanner(final HTMLConfiguration htmlConfiguration) {
-        this.htmlConfiguration_ = htmlConfiguration;
+        htmlConfiguration_ = htmlConfiguration;
     }
 
     /**
@@ -1700,7 +1700,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         private int lineNumber_ = 1;
 
         /** Column number. */
-        private int columnNumber_ = 1;
+        int columnNumber_ = 1;
 
         /** Character offset in the file. */
         int characterOffset_ = 0;
@@ -1722,7 +1722,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         CurrentEntity(final Reader stream, final String encoding, final String publicId,
                 final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
             stream_ = stream;
-            this.encoding_ = encoding;
+            encoding_ = encoding;
             this.publicId = publicId;
             this.baseSystemId = baseSystemId;
             this.literalSystemId = literalSystemId;
@@ -1771,22 +1771,22 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 debugBufferIfNeeded("(load: ");
             }
             // resize buffer, if needed
-            if (loadOffset == this.buffer_.length) {
-                final int adjust = this.buffer_.length / 4;
+            if (loadOffset == buffer_.length) {
+                final int adjust = buffer_.length / 4;
                 final char[] array = new char[buffer_.length + adjust];
-                System.arraycopy(this.buffer_, 0, array, 0, this.length_);
-                this.buffer_ = array;
+                System.arraycopy(buffer_, 0, array, 0, length_);
+                buffer_ = array;
             }
             // read a block of characters
             final int count = stream_.read(buffer_, loadOffset, buffer_.length - loadOffset);
             if (count == -1) {
-                this.length_ = loadOffset;
-                this.endReached_ = true;
+                length_ = loadOffset;
+                endReached_ = true;
             }
             else {
-                this.length_ = count + loadOffset;
+                length_ = count + loadOffset;
             }
-            this.offset_ = loadOffset;
+            offset_ = loadOffset;
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")load: ", " -> " + count);
             }
@@ -1911,22 +1911,16 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 final int characterOffset) {
             lineNumber_ = lineNumber;
             columnNumber_ = columnNumber;
-            this.characterOffset_ = characterOffset;
+            characterOffset_ = characterOffset;
 
             // TODO RBRi
-            this.buffer_ = xmlBuffer.getChars();
-            this.offset_ = 0;
-            this.length_ = xmlBuffer.length();
+            buffer_ = xmlBuffer.getChars();
+            offset_ = 0;
+            length_ = xmlBuffer.length();
         }
 
         int getColumnNumber() {
             return columnNumber_;
-        }
-
-        void restorePosition(final int originalOffset, final int originalColumnNumber, final int originalCharacterOffset) {
-            this.offset_ = originalOffset;
-            this.columnNumber_ = originalColumnNumber;
-            this.characterOffset_ = originalCharacterOffset;
         }
 
         int getCharacterOffset() {
@@ -2398,7 +2392,12 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
                 buff[nbRead] = (char) c;
             }
-            fCurrentEntity.restorePosition(originalOffset, originalColumnNumber, originalCharacterOffset);
+
+            // restore position
+            fCurrentEntity.offset_ = originalOffset;
+            fCurrentEntity.columnNumber_ = originalColumnNumber;
+            fCurrentEntity.characterOffset_ = originalCharacterOffset;
+
             return new String(buff, 0, nbRead);
         }
 
