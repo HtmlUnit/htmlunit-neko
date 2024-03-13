@@ -2341,10 +2341,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             for (nbRead = 0; nbRead < len; ++nbRead) {
                 // read() should not clear the buffer
                 if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                    if (fCurrentEntity.length_ == fCurrentEntity.buffer_.length) {
-                        fCurrentEntity.load(fCurrentEntity.buffer_.length);
-                    }
-                    else { // everything was already loaded
+                    final int count = fCurrentEntity.load(fCurrentEntity.offset_);
+                    if (count == -1) {
                         break;
                     }
                 }
