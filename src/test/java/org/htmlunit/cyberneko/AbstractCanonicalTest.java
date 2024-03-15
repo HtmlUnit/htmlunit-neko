@@ -87,7 +87,7 @@ public abstract class AbstractCanonicalTest {
 
     protected static String getCanonical(final File infile) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new UTF8BOMSkipper(new FileInputStream(infile)), StandardCharsets.UTF_8))) {
+                new FileInputStream(infile), StandardCharsets.UTF_8))) {
             final StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
