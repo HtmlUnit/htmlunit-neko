@@ -128,10 +128,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     // features
 
     /** Include infoset augmentations. */
-    protected static final String AUGMENTATIONS = "http://cyberneko.org/html/features/augmentations";
+    public static final String AUGMENTATIONS = "http://cyberneko.org/html/features/augmentations";
 
     /** Report errors. */
-    protected static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
+    public static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
 
     /**
      * Strip HTML comment delimiters ("&lt;!&minus;&minus;" and
@@ -183,10 +183,10 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     public static final String ALLOW_SELFCLOSING_TAGS = "http://cyberneko.org/html/features/scanner/allow-selfclosing-tags";
 
     /** Normalize attribute values. */
-    protected static final String NORMALIZE_ATTRIBUTES = "http://cyberneko.org/html/features/scanner/normalize-attrs";
+    public static final String NORMALIZE_ATTRIBUTES = "http://cyberneko.org/html/features/scanner/normalize-attrs";
 
     /** Store the plain attribute values also. */
-    protected static final String PLAIN_ATTRIBUTE_VALUES = "http://cyberneko.org/html/features/scanner/plain-attr-values";
+    public static final String PLAIN_ATTRIBUTE_VALUES = "http://cyberneko.org/html/features/scanner/plain-attr-values";
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
