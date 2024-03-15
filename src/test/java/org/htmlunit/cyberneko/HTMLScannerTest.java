@@ -20,7 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -294,5 +296,48 @@ public class HTMLScannerTest {
 
         final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
         assertEquals(Arrays.asList(expected).toString(), filter.collectedStrings_.toString());
+    }
+
+    /**
+     * Regression test https://github.com/HtmlUnit/htmlunit-neko/pull/98.
+     * @throws Exception on error
+     */
+    @Test
+    public void reader() throws Exception {
+        final String string = "<html><body>"
+                + "<script type='text/javascript'>//<!-- /* <![CDATA[ */ function foo() {} /* ]]> */ // --> </script>"
+                + "</body></html>";
+
+        final String[] expected = {
+                "(html",
+                "(head",
+                ")head",
+                "(body",
+                "(script",
+                "Atype text/javascript",
+                "\"//<!-- /* <![CDATA[ */ function foo() {} /* ]]> */ // --> ",
+                ")script",
+                ")body",
+                ")html"
+                };
+
+        try (StringWriter out = new StringWriter()) {
+            final HTMLConfiguration parser = new HTMLConfiguration();
+            final Writer filter = new Writer(new PrintWriter(out));
+            parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+
+            StringReader testReader = new StringReader(string) {
+                @Override
+                public int read(char[] cbuf, int off, int len) throws IOException {
+                    // this simulates the return of a smaller buffer
+                    return super.read(cbuf, off, 1);
+                }
+            };
+
+            final XMLInputSource source = new XMLInputSource(null, "myTest", null, testReader, "UTF-8");
+            parser.parse(source);
+
+            assertEquals(String.join("\r\n", expected), out.toString().trim());
+        }
     }
 }
