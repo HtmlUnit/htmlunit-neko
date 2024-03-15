@@ -1,0 +1,53 @@
+(HTML
+(head
+)head
+(BODY
+(div
+Aa abcd
+)div
+"\n
+(div
+Aa abcd /  abcd
+)div
+"\n
+(div
+Aa abcd /   abcd
+)div
+"\n
+(div
+Aa abcd / abcd 
+)div
+"\n
+(div
+Aa abcd / abcd  
+)div
+"\n
+(div
+Aa ab cd
+)div
+"\n
+(div
+Aa ab cd / ab  cd 
+)div
+"\n
+(div
+Aa ab c d / ab
+c
+
+d
+
+
+ 
+)div
+"\n\n
+(div
+Aa < / &lt;
+)div
+"\n
+(div
+Aa < > /  &lt;
+&gt;  
+)div
+"\n
+)BODY
+)HTML
