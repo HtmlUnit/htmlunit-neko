@@ -27,6 +27,7 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * This class implements a filter that simply passes document
@@ -41,6 +42,8 @@ public class DefaultFilter
     /** Document handler. */
     private XMLDocumentHandler documentHandler_;
 
+    private XMLDocumentSource documentSource_;
+
     /** Sets the document handler. */
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
@@ -51,6 +54,22 @@ public class DefaultFilter
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return documentHandler_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDocumentSource(final XMLDocumentSource source) {
+        documentSource_ = source;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public XMLDocumentSource getDocumentSource() {
+        return documentSource_;
     }
 
     /** Start document. */
