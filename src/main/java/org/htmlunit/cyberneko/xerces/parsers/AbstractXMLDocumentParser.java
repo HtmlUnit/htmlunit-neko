@@ -22,6 +22,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
@@ -34,6 +35,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  * @author Andy Clark, IBM
  */
 public abstract class AbstractXMLDocumentParser extends XMLParser implements XMLDocumentHandler {
+
+    private XMLDocumentSource documentSource_;
 
     /**
      * Constructs a document parser using the default symbol table and grammar pool.
@@ -226,5 +229,21 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      */
     @Override
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDocumentSource(final XMLDocumentSource source) {
+        documentSource_ = source;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public XMLDocumentSource getDocumentSource() {
+        return documentSource_;
     }
 }

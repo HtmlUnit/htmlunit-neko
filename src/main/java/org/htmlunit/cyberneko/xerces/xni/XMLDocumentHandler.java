@@ -14,6 +14,8 @@
  */
 package org.htmlunit.cyberneko.xerces.xni;
 
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
+
 /**
  * The document handler interface defines callback methods to report information
  * items in XML documents. Parser components interested in document information
@@ -177,4 +179,13 @@ public interface XMLDocumentHandler {
      * @exception XNIException Thrown by handler to signal an error.
      */
     void endDocument(Augmentations augs) throws XNIException;
-}
+
+    /**
+     * Sets the document source.
+     *
+     * @param source the new source
+     */
+    void setDocumentSource(XMLDocumentSource source);
+
+    /** @return the document source. */
+    XMLDocumentSource getDocumentSource();}

@@ -34,6 +34,7 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 
 /**
  * Balances tags in an HTML document. This component receives document events
@@ -186,8 +187,10 @@ public class HTMLTagBalancer
 
     // connections
 
+    private XMLDocumentSource documentSource_;
+
     /** The document handler. */
-    protected XMLDocumentHandler fDocumentHandler;
+    private XMLDocumentHandler documentHandler_;
 
     // state
 
@@ -375,13 +378,29 @@ public class HTMLTagBalancer
     /** Sets the document handler. */
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
-        fDocumentHandler = handler;
+        documentHandler_ = handler;
     }
 
     /** Returns the document handler. */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
-        return fDocumentHandler;
+        return documentHandler_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDocumentSource(final XMLDocumentSource source) {
+        documentSource_ = source;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public XMLDocumentSource getDocumentSource() {
+        return documentSource_;
     }
 
     /** Start document. */
@@ -404,8 +423,8 @@ public class HTMLTagBalancer
         }
 
         // pass on event
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startDocument(locator, encoding, nscontext, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.startDocument(locator, encoding, nscontext, augs);
         }
 
     }
@@ -415,8 +434,8 @@ public class HTMLTagBalancer
     /** XML declaration. */
     @Override
     public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
-        if (!fSeenAnything && fDocumentHandler != null) {
-            fDocumentHandler.xmlDecl(version, encoding, standalone, augs);
+        if (!fSeenAnything && documentHandler_ != null) {
+            documentHandler_.xmlDecl(version, encoding, standalone, augs);
         }
     }
 
@@ -435,8 +454,8 @@ public class HTMLTagBalancer
         }
         if (!fSeenRootElement && !fSeenDoctype) {
             fSeenDoctype = true;
-            if (fDocumentHandler != null) {
-                fDocumentHandler.doctypeDecl(rootElementName, publicId, systemId, augs);
+            if (documentHandler_ != null) {
+                documentHandler_.doctypeDecl(rootElementName, publicId, systemId, augs);
             }
         }
     }
@@ -454,7 +473,7 @@ public class HTMLTagBalancer
             if (fReportErrors) {
                 fErrorReporter.reportError("HTML2000", null);
             }
-            if (fDocumentHandler != null) {
+            if (documentHandler_ != null) {
                 fSeenRootElementEnd = false;
                 forceStartBody(); // will force <html> and <head></head>
                 final String body = modifyName("body", fNamesElems);
@@ -476,7 +495,7 @@ public class HTMLTagBalancer
                     final String ename = info.qname.getRawname();
                     fErrorReporter.reportWarning("HTML2001", new Object[]{ename});
                 }
-                if (fDocumentHandler != null) {
+                if (documentHandler_ != null) {
                     addBodyIfNeeded(info.element.code);
                     callEndElement(info.qname, synthesizedAugs());
                 }
@@ -484,8 +503,8 @@ public class HTMLTagBalancer
         }
 
         // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endDocument(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.endDocument(augs);
         }
 
     }
@@ -513,8 +532,8 @@ public class HTMLTagBalancer
     public void comment(final XMLString text, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
-        if (fDocumentHandler != null) {
-            fDocumentHandler.comment(text, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.comment(text, augs);
         }
     }
 
@@ -532,8 +551,8 @@ public class HTMLTagBalancer
     public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
-        if (fDocumentHandler != null) {
-            fDocumentHandler.processingInstruction(target, data, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.processingInstruction(target, data, augs);
         }
     }
 
@@ -661,7 +680,7 @@ public class HTMLTagBalancer
                         || info.element.code == HTMLElements.TBODY
                         || info.element.code == HTMLElements.TFOOT
                         || info.element.code == HTMLElements.TABLE) {
-                    if (fDocumentHandler != null) {
+                    if (documentHandler_ != null) {
                         callStartElement(elem, attrs, augs);
                         callEndElement(createQName("form"), synthesizedAugs());
                     }
@@ -782,7 +801,7 @@ public class HTMLTagBalancer
                 && (fElementStack.peek().element.code == HTMLElements.SCRIPT))
                 || fElementStack.top > 2 && fElementStack.data[fElementStack.top - 2].element.code == HTMLElements.HEAD) {
             final Info info = fElementStack.pop();
-            if (fDocumentHandler != null) {
+            if (documentHandler_ != null) {
                 callEndElement(info.qname, synthesizedAugs());
             }
         }
@@ -810,7 +829,7 @@ public class HTMLTagBalancer
                         if (j < fragmentContextStackSize_) {
                             fragmentContextStackSize_--;
                         }
-                        if (fDocumentHandler != null) {
+                        if (documentHandler_ != null) {
                             // PATCH: Marc-Andr� Morissette
                             callEndElement(info.qname, synthesizedAugs());
                         }
@@ -833,8 +852,8 @@ public class HTMLTagBalancer
             if (attrs == null) {
                 attrs = new XMLAttributesImpl();
             }
-            if (fDocumentHandler != null) {
-                fDocumentHandler.emptyElement(elem, attrs, augs);
+            if (documentHandler_ != null) {
+                documentHandler_.emptyElement(elem, attrs, augs);
             }
         }
         else {
@@ -843,7 +862,7 @@ public class HTMLTagBalancer
             if (attrs == null) {
                 attrs = new XMLAttributesImpl();
             }
-            if (fDocumentHandler != null) {
+            if (documentHandler_ != null) {
                 callStartElement(elem, attrs, augs);
             }
         }
@@ -915,8 +934,8 @@ public class HTMLTagBalancer
         }
 
         // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.startCDATA(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.startCDATA(augs);
         }
 
     }
@@ -931,8 +950,8 @@ public class HTMLTagBalancer
         }
 
         // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.endCDATA(augs);
+        if (documentHandler_ != null) {
+            documentHandler_.endCDATA(augs);
         }
 
     }
@@ -984,8 +1003,8 @@ public class HTMLTagBalancer
         fSeenCharacters = fSeenCharacters || !whitespace;
 
         // call handler
-        if (fDocumentHandler != null) {
-            fDocumentHandler.characters(text, augs);
+        if (documentHandler_ != null) {
+            documentHandler_.characters(text, augs);
         }
 
     }
@@ -1105,7 +1124,7 @@ public class HTMLTagBalancer
                 final String iname = info.qname.getRawname();
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename, iname});
             }
-            if (fDocumentHandler != null) {
+            if (documentHandler_ != null) {
                 addBodyIfNeeded(info.element.code);
                 // PATCH: Marc-Andr� Morissette
                 callEndElement(info.qname, i < depth - 1 ? synthesizedAugs() : augs);
@@ -1143,7 +1162,7 @@ public class HTMLTagBalancer
     // Call document handler start element.
     protected final void callStartElement(final QName element, final XMLAttributes attrs, final Augmentations augs)
         throws XNIException {
-        fDocumentHandler.startElement(element, attrs, augs);
+        documentHandler_.startElement(element, attrs, augs);
     }
 
     private void addBodyIfNeeded(final short element) {
@@ -1164,7 +1183,7 @@ public class HTMLTagBalancer
     // Call document handler end element.
     protected final void callEndElement(final QName element, final Augmentations augs)
         throws XNIException {
-        fDocumentHandler.endElement(element, augs);
+        documentHandler_.endElement(element, augs);
     }
 
     /**

@@ -32,6 +32,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLErrorHandler;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
@@ -72,6 +73,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     /** Parser configuration. */
     private final XMLParserConfiguration parserConfiguration_;
+
+    private XMLDocumentSource documentSource_;
 
     /** DOM document fragment. */
     private DocumentFragment documentFragment_;
@@ -399,6 +402,22 @@ public class DOMFragmentParser implements XMLDocumentHandler {
      * @return the XMLParserConfiguration */
     public XMLParserConfiguration getXMLParserConfiguration() {
         return parserConfiguration_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDocumentSource(final XMLDocumentSource source) {
+        documentSource_ = source;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public XMLDocumentSource getDocumentSource() {
+        return documentSource_;
     }
 
     /*

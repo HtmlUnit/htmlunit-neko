@@ -398,16 +398,19 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         XMLDocumentSource lastSource = documentScanner_;
         if (getFeature(NAMESPACES)) {
             lastSource.setDocumentHandler(namespaceBinder_);
+            namespaceBinder_.setDocumentSource(tagBalancer_);
             lastSource = namespaceBinder_;
         }
 
         lastSource.setDocumentHandler(tagBalancer_);
+        tagBalancer_.setDocumentSource(documentScanner_);
         lastSource = tagBalancer_;
 
         final XMLDocumentFilter[] filters = (XMLDocumentFilter[]) getProperty(FILTERS);
         if (filters != null) {
             for (final XMLDocumentFilter filter : filters) {
                 lastSource.setDocumentHandler(filter);
+                filter.setDocumentSource(lastSource);
                 lastSource = filter;
             }
         }
