@@ -93,6 +93,35 @@ Using the SAXParser is straigtforward - simple provide your own org.xml.sax.Cont
     parser.parse(in);
 
 
+### Features
+The behavior of the scanner/parser can be influenced via a series of switches.
+
+    parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
+
+Supported features:
+
+  * AUGMENTATIONS - Include infoset augmentations
+  * REPORT_ERRORS - Report errors
+
+  * SCRIPT_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
+  * SCRIPT_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
+
+  * STYLE_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
+  * STYLE_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
+  
+  * IGNORE_SPECIFIED_CHARSET -Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
+  * CDATA_SECTIONS - Scan CDATA sections
+  * OVERRIDE_DOCTYPE - Override doctype declaration public and system identifiers
+  * INSERT_DOCTYPE - Insert document type declaration
+  * PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
+
+  * ALLOW_SELFCLOSING_IFRAME - Allows self closing &lt;iframe/&gt; tag
+  * ALLOW_SELFCLOSING_TAGS - Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+
+  * NORMALIZE_ATTRIBUTES - Normalize attribute values
+  * PLAIN_ATTRIBUTE_VALUES - Store the plain attribute values also
+
+
 ### Last CI build
 The latest builds are available from our
 [Jenkins CI build server][2]
