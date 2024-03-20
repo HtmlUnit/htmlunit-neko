@@ -32,6 +32,8 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 /**
  * This class implements an filter to output "canonical" files for
  * regression testing.
+ * This uses a PrintWriter internally - the line break are therefore
+ * done using System.lineSeparator().
  *
  * @author Andy Clark
  */

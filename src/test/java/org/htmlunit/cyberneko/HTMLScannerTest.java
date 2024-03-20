@@ -323,7 +323,7 @@ public class HTMLScannerTest {
 
         try (StringWriter out = new StringWriter()) {
             final HTMLConfiguration parser = new HTMLConfiguration();
-            final Writer filter = new Writer(new PrintWriter(out));
+            final Writer filter = new Writer(out);
             parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
 
             StringReader testReader = new StringReader(string) {
@@ -337,7 +337,7 @@ public class HTMLScannerTest {
             final XMLInputSource source = new XMLInputSource(null, "myTest", null, testReader, "UTF-8");
             parser.parse(source);
 
-            assertEquals(String.join("\r\n", expected), out.toString().trim());
+            assertEquals(String.join(System.lineSeparator(), expected), out.toString().trim());
         }
     }
 }
