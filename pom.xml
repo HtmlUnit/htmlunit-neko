@@ -28,7 +28,7 @@
         <checkstyle.version>9.3</checkstyle.version>
         <spotbugs.version>4.8.3</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>9.0.9</dependencycheck.version>
+        <dependencycheck.version>9.0.10</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -50,7 +50,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
+                <version>3.13.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -114,7 +114,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -159,7 +159,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.3.0</version>
+                <version>4.8.3.1</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
