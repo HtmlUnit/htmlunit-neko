@@ -230,25 +230,25 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     // properties
 
     /** Modify HTML element names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
+    public static final String NAMES_ELEMS = "http://cyberneko.org/html/properties/names/elems";
 
     /** Modify HTML attribute names: { "upper", "lower", "default" }. */
-    protected static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
+    public static final String NAMES_ATTRS = "http://cyberneko.org/html/properties/names/attrs";
 
     /** Default encoding. */
-    protected static final String DEFAULT_ENCODING = "http://cyberneko.org/html/properties/default-encoding";
+    public static final String DEFAULT_ENCODING = "http://cyberneko.org/html/properties/default-encoding";
 
     /** Error reporter. */
-    protected static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";
+    public static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";
 
     /** Encoding translator. */
-    protected static final String ENCODING_TRANSLATOR = "http://cyberneko.org/html/properties/encoding-translator";
+    public static final String ENCODING_TRANSLATOR = "http://cyberneko.org/html/properties/encoding-translator";
 
     /** Doctype declaration public identifier. */
-    protected static final String DOCTYPE_PUBID = "http://cyberneko.org/html/properties/doctype/pubid";
+    public static final String DOCTYPE_PUBID = "http://cyberneko.org/html/properties/doctype/pubid";
 
     /** Doctype declaration system identifier. */
-    protected static final String DOCTYPE_SYSID = "http://cyberneko.org/html/properties/doctype/sysid";
+    public static final String DOCTYPE_SYSID = "http://cyberneko.org/html/properties/doctype/sysid";
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {

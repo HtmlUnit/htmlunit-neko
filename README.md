@@ -185,7 +185,7 @@ For this also
    * set the property to a different EncodingTranslator if you like
  * the new class org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator implements the new mapping
  * the (old) class org.htmlunit.cyberneko.xerces.util.EncodingMap is still there; you can use this as
-   encoding translator if you like to have the old translation behavior (parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);)
+   encoding translator if you like to have the old translation behavior (parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE))
 
 
 ## Porting from 2.x to 3.x
