@@ -100,26 +100,46 @@ The behavior of the scanner/parser can be influenced via a series of switches.
 
 Supported features:
 
-  * AUGMENTATIONS - Include infoset augmentations
-  * REPORT_ERRORS - Report errors
+* AUGMENTATIONS - Include infoset augmentations
+* REPORT_ERRORS - Report errors
 
-  * SCRIPT_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
-  * SCRIPT_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
+* SCRIPT_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
+* SCRIPT_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
 
-  * STYLE_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
-  * STYLE_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
-  
-  * IGNORE_SPECIFIED_CHARSET -Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
-  * CDATA_SECTIONS - Scan CDATA sections
-  * OVERRIDE_DOCTYPE - Override doctype declaration public and system identifiers
-  * INSERT_DOCTYPE - Insert document type declaration
-  * PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
+* STYLE_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
+* STYLE_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
 
-  * ALLOW_SELFCLOSING_IFRAME - Allows self closing &lt;iframe/&gt; tag
-  * ALLOW_SELFCLOSING_TAGS - Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+* IGNORE_SPECIFIED_CHARSET -Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
+* CDATA_SECTIONS - Scan CDATA sections
+* OVERRIDE_DOCTYPE - Override doctype declaration public and system identifiers
+* INSERT_DOCTYPE - Insert document type declaration
+* PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
 
-  * NORMALIZE_ATTRIBUTES - Normalize attribute values
-  * PLAIN_ATTRIBUTE_VALUES - Store the plain attribute values also
+* ALLOW_SELFCLOSING_IFRAME - Allows self closing &lt;iframe/&gt; tag
+* ALLOW_SELFCLOSING_TAGS - Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+
+* NORMALIZE_ATTRIBUTES - Normalize attribute values
+* PLAIN_ATTRIBUTE_VALUES - Store the plain attribute values also
+
+
+### Properties
+The behavior of the scanner/parser can be influenced via a series of switches.
+
+    parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);
+
+Supported properties:
+
+* NAMES_ELEMS - "upper", "lower", "default"
+* NAMES_ATTRS - "upper", "lower", "default"
+
+* DEFAULT_ENCODING
+
+* ERROR_REPORTER - Error reporter; an instance of org.htmlunit.cyberneko.HTMLErrorReporter or null
+* ENCODING_TRANSLATOR - an implementation of org.htmlunit.cyberneko.xerces.util.EncodingTranslator
+
+* DOCTYPE_PUBID - Doctype declaration public identifier
+* DOCTYPE_SYSID - Doctype declaration system identifier. */
+
 
 
 ### Last CI build
@@ -162,10 +182,10 @@ For this also
 
  * a new interface org.htmlunit.cyberneko.xerces.util.EncodingTranslator was introduced
  * a new property 'http://cyberneko.org/html/properties/encoding-translator' is now supported
-   * you set the property to a different EncodingTranslator if you like
+   * set the property to a different EncodingTranslator if you like
  * the new class org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator implements the new mapping
  * the (old) class org.htmlunit.cyberneko.xerces.util.EncodingMap is still there; you can use this as
-   encoding translator if you like to have the old translation behavior
+   encoding translator if you like to have the old translation behavior (parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);)
 
 
 ## Porting from 2.x to 3.x
