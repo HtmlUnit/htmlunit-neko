@@ -152,6 +152,22 @@ You have to add the sonatype snapshot repository to your pom `repositories` sect
     </repository>
 
 
+## Porting from 3.x to 4.x
+
+Version 4.x introduces a major change in the handling of encodings - the mapping from the encoding
+label found in the meta tag to the encoding to be used for parsing the document got some significant
+changes. Starting with version 4.0 the mapping is now in sync with the [spec](https://encoding.spec.whatwg.org/#names-and-labels).
+
+For this also
+
+    * a new interface org.htmlunit.cyberneko.xerces.util.EncodingTranslator was introduced
+    * a new property 'http://cyberneko.org/html/properties/encoding-translator' is now supported
+      * you set the property to a different EncodingTranslator if you like
+    * the new class org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator implements the new mapping
+    * the (old) class org.htmlunit.cyberneko.xerces.util.EncodingMap is still there; you can use this as
+      encoding translator if you like to have the old translation behavior
+
+
 ## Porting from 2.x to 3.x
 
 Usually the upgrade should be simple:
