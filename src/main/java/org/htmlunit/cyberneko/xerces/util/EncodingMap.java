@@ -15,6 +15,7 @@
 package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * EncodingMap is a convenience class which handles conversions between IANA
@@ -463,7 +464,12 @@ import java.util.HashMap;
  *
  * @author Ronald Brill
  */
-public final class EncodingMap {
+public final class EncodingMap implements EncodingTranslator {
+
+    /**
+     * Singleton.
+     */
+    public static final EncodingMap INSTANCE = new EncodingMap();
 
     /** fIANA2JavaMap */
     private static final HashMap<String, String> fIANA2JavaMap = new HashMap<>();
@@ -844,7 +850,13 @@ public final class EncodingMap {
      *
      * @param ianaEncoding The IANA encoding name.
      */
-    public static String getIANA2JavaMapping(final String ianaEncoding) {
-        return fIANA2JavaMap.get(ianaEncoding);
+    @Override
+    public String encodingNameFromLabel(final String charsetLabel) {
+        if (charsetLabel == null || charsetLabel.length() < 2) {
+            return null;
+        }
+
+        String label = charsetLabel.trim().toUpperCase(Locale.ROOT);
+        return fIANA2JavaMap.get(label);
     }
 }

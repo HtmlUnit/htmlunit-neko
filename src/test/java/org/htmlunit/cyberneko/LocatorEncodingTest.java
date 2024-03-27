@@ -93,6 +93,6 @@ public class LocatorEncodingTest {
         };
         parser.setContentHandler(contentHandler);
         parser.parse(new InputSource(input));
-        assertEquals("UTF8", ((Locator2) locators[0]).getEncoding());
+        assertEquals("utf-8", ((Locator2) locators[0]).getEncoding());
     }
 }

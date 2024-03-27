@@ -21,14 +21,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.io.PlaybackInputStream;
 import org.htmlunit.cyberneko.util.MiniStack;
-import org.htmlunit.cyberneko.xerces.util.EncodingMap;
+import org.htmlunit.cyberneko.xerces.util.EncodingTranslator;
 import org.htmlunit.cyberneko.xerces.util.NamespaceSupport;
+import org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator;
 import org.htmlunit.cyberneko.xerces.util.URI;
 import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
@@ -74,6 +76,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * <li>http://cyberneko.org/html/properties/names/attrs
  * <li>http://cyberneko.org/html/properties/default-encoding
  * <li>http://cyberneko.org/html/properties/error-reporter
+ * <li>http://cyberneko.org/html/properties/encoding-translator
  * <li>http://cyberneko.org/html/properties/doctype/pubid
  * <li>http://cyberneko.org/html/properties/doctype/sysid
  * </ul>
@@ -238,6 +241,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** Error reporter. */
     protected static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";
 
+    /** Encoding translator. */
+    protected static final String ENCODING_TRANSLATOR = "http://cyberneko.org/html/properties/encoding-translator";
+
     /** Doctype declaration public identifier. */
     protected static final String DOCTYPE_PUBID = "http://cyberneko.org/html/properties/doctype/pubid";
 
@@ -250,6 +256,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         NAMES_ATTRS,
         DEFAULT_ENCODING,
         ERROR_REPORTER,
+        ENCODING_TRANSLATOR,
         DOCTYPE_PUBID,
         DOCTYPE_SYSID};
 
@@ -259,6 +266,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         null,
         "Windows-1252",
         null,
+        StandardEncodingTranslator.INSTANCE,
         HTML_4_01_TRANSITIONAL_PUBID,
         HTML_4_01_TRANSITIONAL_SYSID};
 
@@ -377,6 +385,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** Error reporter. */
     protected HTMLErrorReporter fErrorReporter;
+
+    /** Error reporter. */
+    protected EncodingTranslator fEncodingTranslator;
 
     /** Doctype declaration public identifier. */
     protected String fDoctypePubid;
@@ -700,6 +711,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
         fDefaultIANAEncoding = String.valueOf(manager.getProperty(DEFAULT_ENCODING));
         fErrorReporter = (HTMLErrorReporter) manager.getProperty(ERROR_REPORTER);
+        fEncodingTranslator = (EncodingTranslator) manager.getProperty(ENCODING_TRANSLATOR);
         fDoctypePubid = String.valueOf(manager.getProperty(DOCTYPE_PUBID));
         fDoctypeSysid = String.valueOf(manager.getProperty(DOCTYPE_SYSID));
     }
@@ -808,7 +820,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
             }
             if (encodings[1] == null) {
-                encodings[1] = EncodingMap.getIANA2JavaMapping(encodings[0].toUpperCase(Locale.ROOT));
+                encodings[1] = fEncodingTranslator.encodingNameFromLabel(encodings[0]);
                 if (encodings[1] == null) {
                     encodings[1] = encodings[0];
                     if (fReportErrors_) {
@@ -1868,14 +1880,14 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             System.out.println();
         }
 
-        void setStream(final InputStreamReader inputStreamReader) {
+        void setStream(final Reader inputStreamReader, String encoding) {
             stream_ = inputStreamReader;
             offset_ = 0;
             length_ = 0;
             characterOffset_ = 0;
             lineNumber_ = 1;
             columnNumber_ = 1;
-            encoding_ = inputStreamReader.getEncoding();
+            encoding_ = encoding;
         }
 
         /**
@@ -2991,7 +3003,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             charset = charset.trim();
             boolean encodingChanged = false;
             try {
-                String javaEncoding = EncodingMap.getIANA2JavaMapping(charset.toUpperCase(Locale.ROOT));
+                String javaEncoding = fEncodingTranslator.encodingNameFromLabel(charset);
                 if (DEBUG_CHARSET) {
                     System.out.println("+++ ianaEncoding: " + charset);
                     System.out.println("+++ javaEncoding: " + javaEncoding);
@@ -3002,9 +3014,19 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
                     }
                 }
-                // patch: Marc Guillemot
+
                 if (!javaEncoding.equals(fJavaEncoding)) {
-                    if (!isEncodingCompatible(javaEncoding, fJavaEncoding)) {
+                    if ("replacement".equalsIgnoreCase(javaEncoding)) {
+                        fJavaEncoding = javaEncoding;
+                        // use a simple string reader to implement the charset
+                        fCurrentEntity.setStream(new StringReader("\uFFFD"), javaEncoding);
+                        fByteStream.playback();
+                        // start from the beginning, without re-using the nodes already parsed
+                        fElementDepth = 0;
+                        fElementCount = 0;
+                        encodingChanged = true;
+                    }
+                    else if (!isEncodingCompatible(javaEncoding, fJavaEncoding)) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1015", new Object[] {javaEncoding, fJavaEncoding});
                         }
@@ -3012,8 +3034,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     // change the charset
                     else {
                         fJavaEncoding = javaEncoding;
-                        fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding));
+                        fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding), javaEncoding);
                         fByteStream.playback();
+                        // skip the already parsed elements
                         fElementDepth = fElementCount;
                         fElementCount = 0;
                         encodingChanged = true;
