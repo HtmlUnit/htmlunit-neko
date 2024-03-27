@@ -160,22 +160,22 @@ changes. Starting with version 4.0 the mapping is now in sync with the [spec](ht
 
 For this also
 
-    * a new interface org.htmlunit.cyberneko.xerces.util.EncodingTranslator was introduced
-    * a new property 'http://cyberneko.org/html/properties/encoding-translator' is now supported
-      * you set the property to a different EncodingTranslator if you like
-    * the new class org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator implements the new mapping
-    * the (old) class org.htmlunit.cyberneko.xerces.util.EncodingMap is still there; you can use this as
-      encoding translator if you like to have the old translation behavior
+ * a new interface org.htmlunit.cyberneko.xerces.util.EncodingTranslator was introduced
+ * a new property 'http://cyberneko.org/html/properties/encoding-translator' is now supported
+   * you set the property to a different EncodingTranslator if you like
+ * the new class org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator implements the new mapping
+ * the (old) class org.htmlunit.cyberneko.xerces.util.EncodingMap is still there; you can use this as
+   encoding translator if you like to have the old translation behavior
 
 
 ## Porting from 2.x to 3.x
 
 Usually the upgrade should be simple:
 
-    * change your pom.xml to switch to the new artifact
-    * adjust the imports
-        * net.sourceforge.htmlunit.cyberneko -> org.htmlunit.cyberneko
-        * net.sourceforge.htmlunit.xerces -> org.htmlunit.cyberneko.xerces
+ * change your pom.xml to switch to the new artifact
+ * adjust the imports
+   * net.sourceforge.htmlunit.cyberneko -> org.htmlunit.cyberneko
+   * net.sourceforge.htmlunit.xerces -> org.htmlunit.cyberneko.xerces
 
 But we have removed some features and some classes in version 3.
 If you have any problems or if you miss something important for your project, please open an issue.
