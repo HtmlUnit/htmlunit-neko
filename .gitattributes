@@ -14,3 +14,5 @@ src/test/resources/org/htmlunit/cyberneko/testfiles/test-augmentations-following
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-augmentations-script-content.html  binary
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-newline-in-attribute-lf.html       binary
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-newline-in-pi-lf.html              binary
+
+src/test/resources/org/htmlunit/cyberneko/testfiles/meta/test-meta-charset-shift_jis.html   binary

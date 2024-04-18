@@ -364,6 +364,35 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         ENCODING_FROM_LABEL.put("x-user-defined", "x-user-defined");
     }
 
+    /** <a href="https://docs.rs/encoding_rs/latest/encoding_rs/#notable-differences-from-iana-naming">Differences from iana naming</a> */
+    private static final Map<String, String> ENCODING_TO_IANA_ENCODING;
+
+    static {
+        ENCODING_TO_IANA_ENCODING = new HashMap<>();
+
+        /*
+         * Some WHATWG encodings are not the same as IANA encodings of the same names so names need to
+         * be converted for compatibility.
+         *
+         * For example, the WHATWG encoding of "shift_jis" has mappings of IANA's "windows-31j"
+         * (https://encoding.spec.whatwg.org/shift_jis.html) rather than the IANA's "shift_jis"
+         * (JIS X 0208).
+         *
+         * This distinction is vague and hard to find official information but is actually noted in
+         * Wikipedia: "This has led the WHATWG HTML standard to treat the encoding labels shift_jis and
+         * windows-31j interchangeably, and use the Windows variant for its "Shift_JIS" encoder and
+         * decoder." -- https://en.wikipedia.org/wiki/Code_page_932_(Microsoft_Windows)
+         *
+         * The same page references "Notable Differences from IANA Naming"
+         * (https://docs.rs/encoding_rs/latest/encoding_rs/#notable-differences-from-iana-naming)
+         * which has other candidates so that is the initial source of the entries in this list.
+         */
+        ENCODING_TO_IANA_ENCODING.put("big5", "big5-hkscs");
+        ENCODING_TO_IANA_ENCODING.put("euc-kr", "windows-949");
+        ENCODING_TO_IANA_ENCODING.put("shift_jis", "windows-31j");
+        ENCODING_TO_IANA_ENCODING.put("x-mac-cyrillic", "x-mac-ukrainian");
+    }
+
     private StandardEncodingTranslator() {
     }
 
@@ -378,6 +407,14 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
             return null;
         }
         String label = charsetLabel.trim().toLowerCase(Locale.ROOT);
-        return ENCODING_FROM_LABEL.get(label);
+        String ianaEncoding = ENCODING_FROM_LABEL.get(label);
+        if ("replacement".equals(ianaEncoding)) {
+            return "replacement";
+        }
+
+        // Convert WHATWG names to IANA names
+        ianaEncoding = ENCODING_TO_IANA_ENCODING.getOrDefault(ianaEncoding, ianaEncoding);
+        // Convert our IANA encoding names to Java charset names
+        return EncodingMap.INSTANCE.encodingNameFromLabel(ianaEncoding);
     }
 }

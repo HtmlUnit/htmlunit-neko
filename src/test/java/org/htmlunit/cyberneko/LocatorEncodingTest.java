@@ -38,61 +38,81 @@ import org.xml.sax.ext.Locator2;
 public class LocatorEncodingTest {
 
     @Test
-    public void test() throws SAXException, IOException {
+    public void provided() throws SAXException, IOException {
         final String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<html></html>";
         final ByteArrayInputStream input = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
         final SAXParser parser = new SAXParser();
 
         final Locator[] locators = {null};
 
-        final ContentHandler contentHandler = new ContentHandler() {
-            @Override
-            public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
-            }
-
-            @Override
-            public void startElement(final String uri, final String localName, final String qName, final Attributes atts) throws SAXException {
-            }
-
-            @Override
-            public void startDocument() throws SAXException {
-            }
-
-            @Override
-            public void skippedEntity(final String name) throws SAXException {
-            }
-
-            @Override
-            public void setDocumentLocator(final Locator locator) {
-                locators[0] = locator;
-            }
-
-            @Override
-            public void processingInstruction(final String target, final String data) throws SAXException {
-            }
-
-            @Override
-            public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
-            }
-
-            @Override
-            public void endPrefixMapping(final String prefix) throws SAXException {
-            }
-
-            @Override
-            public void endElement(final String uri, final String localName, final String qName) throws SAXException {
-            }
-
-            @Override
-            public void endDocument() throws SAXException {
-            }
-
-            @Override
-            public void characters(final char[] ch, final int start, final int length) throws SAXException {
-            }
-        };
-        parser.setContentHandler(contentHandler);
+        parser.setContentHandler(new TestContentHandler(locators));
         parser.parse(new InputSource(input));
-        assertEquals("utf-8", ((Locator2) locators[0]).getEncoding());
+        assertEquals("UTF-8", ((Locator2) locators[0]).getEncoding());
     }
+
+    @Test
+    public void guess() throws SAXException, IOException {
+        final String content = "<?xml version=\"1.0\"?>\n<html></html>";
+        final ByteArrayInputStream input = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+        final SAXParser parser = new SAXParser();
+
+        final Locator[] locators = {null};
+
+        parser.setContentHandler(new TestContentHandler(locators));
+        parser.parse(new InputSource(input));
+        assertEquals("Windows-1252", ((Locator2) locators[0]).getEncoding());
+    }
+
+    static final class TestContentHandler implements ContentHandler {
+        private final Locator[] locators_;
+
+        public TestContentHandler(final Locator[] locators) {
+            locators_ = locators;
+        }
+
+        @Override
+        public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
+        }
+
+        @Override
+        public void startElement(final String uri, final String localName, final String qName, final Attributes atts) throws SAXException {
+        }
+
+        @Override
+        public void startDocument() throws SAXException {
+        }
+
+        @Override
+        public void skippedEntity(final String name) throws SAXException {
+        }
+
+        @Override
+        public void setDocumentLocator(final Locator locator) {
+            locators_[0] = locator;
+        }
+
+        @Override
+        public void processingInstruction(final String target, final String data) throws SAXException {
+        }
+
+        @Override
+        public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
+        }
+
+        @Override
+        public void endPrefixMapping(final String prefix) throws SAXException {
+        }
+
+        @Override
+        public void endElement(final String uri, final String localName, final String qName) throws SAXException {
+        }
+
+        @Override
+        public void endDocument() throws SAXException {
+        }
+
+        @Override
+        public void characters(final char[] ch, final int start, final int length) throws SAXException {
+        }
+    };
 }

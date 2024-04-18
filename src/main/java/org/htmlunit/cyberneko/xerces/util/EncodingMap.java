@@ -781,7 +781,7 @@ public final class EncodingMap implements EncodingTranslator {
         fIANA2JavaMap.put("US", "ASCII");
         fIANA2JavaMap.put("IBM367", "ASCII");
         fIANA2JavaMap.put("CP367", "ASCII");
-        fIANA2JavaMap.put("UTF-8", "UTF8");
+        fIANA2JavaMap.put("UTF-8", "UTF-8");
         fIANA2JavaMap.put("UTF-16", "UTF-16");
         fIANA2JavaMap.put("UTF-16BE", "UnicodeBig");
         fIANA2JavaMap.put("UTF-16LE", "UnicodeLittle");
