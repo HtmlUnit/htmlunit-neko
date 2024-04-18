@@ -378,6 +378,8 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
             return null;
         }
         String label = charsetLabel.trim().toLowerCase(Locale.ROOT);
-        return ENCODING_FROM_LABEL.get(label);
+        String ianaEncoding = ENCODING_FROM_LABEL.get(label);
+        // Convert our IANA encoding names to Java charset names
+        return EncodingMap.INSTANCE.encodingNameFromLabel(ianaEncoding);
     }
 }
