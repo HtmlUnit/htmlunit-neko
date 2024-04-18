@@ -23,6 +23,8 @@ import java.util.Map;
  * https://encoding.spec.whatwg.org/#names-and-labels</a>
  *
  * @author Ronald Brill
+ * @author Lai Quang Duong
+ * @author Atsushi Nakagawa
  */
 public final class StandardEncodingTranslator implements EncodingTranslator {
 
@@ -30,6 +32,8 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      * Singleton.
      */
     public static final StandardEncodingTranslator INSTANCE = new StandardEncodingTranslator();
+
+    public static final String REPLACEMENT = "replacement";
 
     /** <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a> */
     private static final Map<String, String> ENCODING_FROM_LABEL;
@@ -340,12 +344,12 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         // ------------------------------------
 
         // replacement
-        ENCODING_FROM_LABEL.put("csiso2022kr", "replacement");
-        ENCODING_FROM_LABEL.put("hz-gb-2312", "replacement");
-        ENCODING_FROM_LABEL.put("iso-2022-cn", "replacement");
-        ENCODING_FROM_LABEL.put("iso-2022-cn-ext", "replacement");
-        ENCODING_FROM_LABEL.put("iso-2022-kr", "replacement");
-        ENCODING_FROM_LABEL.put("replacement", "replacement");
+        ENCODING_FROM_LABEL.put("csiso2022kr", REPLACEMENT);
+        ENCODING_FROM_LABEL.put("hz-gb-2312", REPLACEMENT);
+        ENCODING_FROM_LABEL.put("iso-2022-cn", REPLACEMENT);
+        ENCODING_FROM_LABEL.put("iso-2022-cn-ext", REPLACEMENT);
+        ENCODING_FROM_LABEL.put("iso-2022-kr", REPLACEMENT);
+        ENCODING_FROM_LABEL.put("replacement", REPLACEMENT);
 
         // utf-16be
         ENCODING_FROM_LABEL.put("unicodefffe", "utf-16be");
@@ -408,8 +412,8 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         }
         String label = charsetLabel.trim().toLowerCase(Locale.ROOT);
         String ianaEncoding = ENCODING_FROM_LABEL.get(label);
-        if ("replacement".equals(ianaEncoding)) {
-            return "replacement";
+        if (REPLACEMENT.equals(ianaEncoding)) {
+            return REPLACEMENT;
         }
 
         // Convert WHATWG names to IANA names

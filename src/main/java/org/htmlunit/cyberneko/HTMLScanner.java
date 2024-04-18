@@ -830,10 +830,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             fIANAEncoding = encodings[0];
             fJavaEncoding = encodings[1];
-            encoding = fIANAEncoding;
             reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
         }
-        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
+        fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
 
         // set scanner and state
         setScanner(fContentScanner);
@@ -3016,7 +3015,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 }
 
                 if (!javaEncoding.equals(fJavaEncoding)) {
-                    if ("replacement".equalsIgnoreCase(javaEncoding)) {
+                    if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(javaEncoding)) {
                         fJavaEncoding = javaEncoding;
                         // use a simple string reader to implement the charset
                         fCurrentEntity.setStream(new StringReader("\uFFFD"), javaEncoding);
