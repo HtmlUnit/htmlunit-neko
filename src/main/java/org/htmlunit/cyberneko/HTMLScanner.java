@@ -3008,7 +3008,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     System.out.println("+++ ianaEncoding: " + charset);
                     System.out.println("+++ javaEncoding: " + javaEncoding);
                 }
-                if (javaEncoding == null || (!Charset.isSupported(charset) && charset != StandardEncodingTranslator.REPLACEMENT)) {
+                if (javaEncoding == null
+                        || (StandardEncodingTranslator.REPLACEMENT != javaEncoding && !Charset.isSupported(javaEncoding))) {
                     javaEncoding = charset;
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
