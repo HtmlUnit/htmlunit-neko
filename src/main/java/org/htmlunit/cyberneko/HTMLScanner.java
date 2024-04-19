@@ -24,6 +24,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.io.PlaybackInputStream;
@@ -821,7 +822,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             if (encodings[1] == null) {
                 encodings[1] = fEncodingTranslator.encodingNameFromLabel(encodings[0]);
-                if (encodings[1] == null) {
+                if (encodings[1] == null || !Charset.isSupported(encodings[1])) {
                     encodings[1] = encodings[0];
                     if (fReportErrors_) {
                         fErrorReporter.reportWarning("HTML1001", new Object[] {encodings[0]});
@@ -3007,7 +3008,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     System.out.println("+++ ianaEncoding: " + charset);
                     System.out.println("+++ javaEncoding: " + javaEncoding);
                 }
-                if (javaEncoding == null) {
+                if (javaEncoding == null || (!Charset.isSupported(charset) && charset != StandardEncodingTranslator.REPLACEMENT)) {
                     javaEncoding = charset;
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
