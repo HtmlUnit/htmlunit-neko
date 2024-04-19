@@ -16,3 +16,4 @@ src/test/resources/org/htmlunit/cyberneko/testfiles/test-newline-in-attribute-lf
 src/test/resources/org/htmlunit/cyberneko/testfiles/test-newline-in-pi-lf.html              binary
 
 src/test/resources/org/htmlunit/cyberneko/testfiles/meta/test-meta-charset-shift_jis.html   binary
+src/test/resources/org/htmlunit/cyberneko/testfiles/meta/test-meta-charset-koi8-u.html      binary
