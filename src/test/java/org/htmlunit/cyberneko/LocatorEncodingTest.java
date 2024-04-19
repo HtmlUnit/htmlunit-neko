@@ -47,7 +47,7 @@ public class LocatorEncodingTest {
 
         parser.setContentHandler(new TestContentHandler(locators));
         parser.parse(new InputSource(input));
-        assertEquals("UTF-8", ((Locator2) locators[0]).getEncoding());
+        assertEquals("utf-8", ((Locator2) locators[0]).getEncoding());
     }
 
     @Test
