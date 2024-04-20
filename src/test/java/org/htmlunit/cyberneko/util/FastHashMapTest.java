@@ -292,19 +292,21 @@ public class FastHashMapTest {
         final FastHashMap<String, Integer> src = new FastHashMap<>();
 
         final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer);
-        objectOutputStream.writeObject(src);
-        objectOutputStream.close();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer)) {
+            objectOutputStream.writeObject(src);
+            objectOutputStream.close();
+        }
 
-        final ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()));
-        final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
-        objectInputStream.close();
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
+            final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
 
-        assertEquals(src.size(), copy.size());
+            assertEquals(src.size(), copy.size());
 
-        // clone still works
-        copy.put("test", 1);
-        assertEquals(1, copy.get("test"));
+            // clone still works
+            copy.put("test", 1);
+            assertEquals(1, copy.get("test"));
+        }
+
     }
 
     /**
@@ -324,18 +326,19 @@ public class FastHashMapTest {
         src.remove("b");
 
         final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer);
-        objectOutputStream.writeObject(src);
-        objectOutputStream.close();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer)) {
+            objectOutputStream.writeObject(src);
+            objectOutputStream.close();
+        }
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
+            final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
+            objectInputStream.close();
 
-        final ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()));
-        final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
-        objectInputStream.close();
-
-        assertEquals(src.size(), copy.size());
-        assertEquals(1, copy.get("a"));
-        assertEquals(3, copy.get("c"));
-        assertEquals(4, copy.get("d"));
+            assertEquals(src.size(), copy.size());
+            assertEquals(1, copy.get("a"));
+            assertEquals(3, copy.get("c"));
+            assertEquals(4, copy.get("d"));
+        }
     }
 
     /**
