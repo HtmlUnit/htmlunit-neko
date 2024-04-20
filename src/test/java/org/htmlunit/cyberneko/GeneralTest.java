@@ -54,7 +54,7 @@ public class GeneralTest {
             + "[2,34,63;2,41,70])span" + NL
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
-        doTest("some text <span class='value" + NL
+        doTest("some text <span class='value\r\n"
                 + "containing a newline'>spancontent</span>", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
@@ -90,8 +90,8 @@ public class GeneralTest {
             + "[2,23,63;3,1,74]\"more text\\n" + NL
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
-        doTest("some text <?instruct beforenl='content'" + NL
-                + "  afternl=\"content\" ?>more text" + NL, new String[] {"html", "body"}, expected,
+        doTest("some text <?instruct beforenl='content'\r\n"
+                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -108,7 +108,7 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <?instruct beforenl='content'\n"
-                + "  afternl=\"content\" ?>more text" + NL, new String[] {"html", "body"}, expected,
+                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
