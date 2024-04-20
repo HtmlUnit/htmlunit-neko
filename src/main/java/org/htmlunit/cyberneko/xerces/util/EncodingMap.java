@@ -846,9 +846,7 @@ public final class EncodingMap implements EncodingTranslator {
     }
 
     /**
-     * @return the Java encoding name for the specified IANA encoding name.
-     *
-     * @param ianaEncoding The IANA encoding name.
+     * {@inheritDoc}
      */
     @Override
     public String encodingNameFromLabel(final String charsetLabel) {
