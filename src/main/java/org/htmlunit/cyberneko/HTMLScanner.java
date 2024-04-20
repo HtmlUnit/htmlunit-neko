@@ -526,6 +526,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         final Reader reader = inputSource.getCharacterStream();
         if (reader == null) {
             try {
+                if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(fJavaEncoding)) {
+                    return new StringReader("\uFFFD");
+                }
                 return new InputStreamReader(inputSource.getByteStream(), fJavaEncoding);
             }
             catch (final UnsupportedEncodingException e) {
@@ -822,7 +825,8 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             if (encodings[1] == null) {
                 encodings[1] = fEncodingTranslator.encodingNameFromLabel(encodings[0]);
-                if (encodings[1] == null || !Charset.isSupported(encodings[1])) {
+                if (encodings[1] == null
+                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(encodings[1]) && !Charset.isSupported(encodings[1]))) {
                     encodings[1] = encodings[0];
                     if (fReportErrors_) {
                         fErrorReporter.reportWarning("HTML1001", new Object[] {encodings[0]});
@@ -831,7 +835,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             }
             fIANAEncoding = encodings[0];
             fJavaEncoding = encodings[1];
-            reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
+
+            if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(fJavaEncoding)) {
+                reader = new BufferedReader(new StringReader("\uFFFD"));
+            }
+            else {
+                reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
+            }
         }
         fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
 
@@ -3009,7 +3019,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     System.out.println("+++ javaEncoding: " + javaEncoding);
                 }
                 if (javaEncoding == null
-                        || (StandardEncodingTranslator.REPLACEMENT != javaEncoding && !Charset.isSupported(javaEncoding))) {
+                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(javaEncoding) && !Charset.isSupported(javaEncoding))) {
                     javaEncoding = charset;
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
