@@ -103,15 +103,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Lexical handler. */
     protected LexicalHandler fLexicalHandler;
 
-    // state
-
-    /**
-     * True if a parse is in progress. This state is needed because some
-     * features/properties cannot be set while parsing (e.g. validation and
-     * namespaces).
-     */
-    protected final boolean fParseInProgress = false;
-
     // track the version of the document being parsed
     protected String fVersion;
 
@@ -963,13 +954,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @see #setProperty(String, Object)
      */
     protected void setLexicalHandler(final LexicalHandler handler) throws SAXNotSupportedException {
-
-        if (fParseInProgress) {
-            throw new SAXNotSupportedException(SAXMessageFormatter.formatMessage("property-not-parsing-supported",
-                    new Object[] {"http://xml.org/sax/properties/lexical-handler"}));
-        }
         fLexicalHandler = handler;
-
     }
 
     /**
