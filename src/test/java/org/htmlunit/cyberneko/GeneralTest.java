@@ -54,7 +54,7 @@ public class GeneralTest {
             + "[2,34,63;2,41,70])span" + NL
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
-        doTest("some text <span class='value\r\n"
+        doTest("some text <span class='value" + NL
                 + "containing a newline'>spancontent</span>", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
@@ -90,8 +90,8 @@ public class GeneralTest {
             + "[2,23,63;3,1,74]\"more text\\n" + NL
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
-        doTest("some text <?instruct beforenl='content'\r\n"
-                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
+        doTest("some text <?instruct beforenl='content'" + NL
+                + "  afternl=\"content\" ?>more text" + NL, new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -108,7 +108,7 @@ public class GeneralTest {
             + "[synth])body" + NL
             + "[synth])HTML" + NL;
         doTest("some text <?instruct beforenl='content'\n"
-                + "  afternl=\"content\" ?>more text\r\n", new String[] {"html", "body"}, expected,
+                + "  afternl=\"content\" ?>more text" + NL, new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 
@@ -155,12 +155,12 @@ public class GeneralTest {
         in.setEncoding("replacement");
         parser.parse(in);
 
-        final String expected = "(HTML\r\n"
-                + "(head\r\n"
-                + ")head\r\n"
-                + "(body\r\n"
-                + "\"\uFFFD\r\n"
-                + ")body\r\n"
+        final String expected = "(HTML" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"\uFFFD" + NL
+                + ")body" + NL
                 + ")html";
         assertEquals(expected.trim(), out.toString().trim());
     }
@@ -178,12 +178,12 @@ public class GeneralTest {
         in.setEncoding("csiso2022kr");
         parser.parse(in);
 
-        final String expected = "(HTML\r\n"
-                + "(head\r\n"
-                + ")head\r\n"
-                + "(body\r\n"
-                + "\"\uFFFD\r\n"
-                + ")body\r\n"
+        final String expected = "(HTML" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"\uFFFD" + NL
+                + ")body" + NL
                 + ")html";
         assertEquals(expected.trim(), out.toString().trim());
     }
