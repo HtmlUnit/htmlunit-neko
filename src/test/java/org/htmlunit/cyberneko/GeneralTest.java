@@ -17,8 +17,10 @@ package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 import org.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import org.htmlunit.cyberneko.parsers.DOMParser;
@@ -26,6 +28,7 @@ import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.InputSource;
 
 /**
  * Unit tests for the parser not done as {@link CanonicalTest}.
@@ -137,5 +140,51 @@ public class GeneralTest {
         }
 
         return qnames;
+    }
+
+    @Test
+    public void parseInputSourceReplacement() throws Exception {
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+
+        final StringWriter out = new StringWriter();
+        final XMLDocumentFilter[] filters = {new Writer(out)};
+        parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+
+        final String html = "some text";
+        final InputSource in = new InputSource(new ByteArrayInputStream(html.getBytes(StandardCharsets.UTF_8)));
+        in.setEncoding("replacement");
+        parser.parse(in);
+
+        final String expected = "(HTML\r\n"
+                + "(head\r\n"
+                + ")head\r\n"
+                + "(body\r\n"
+                + "\"\uFFFD\r\n"
+                + ")body\r\n"
+                + ")html";
+        assertEquals(expected.trim(), out.toString().trim());
+    }
+
+    @Test
+    public void parseInputSourceResolvesToReplacement() throws Exception {
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+
+        final StringWriter out = new StringWriter();
+        final XMLDocumentFilter[] filters = {new Writer(out)};
+        parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+
+        final String html = "some text";
+        final InputSource in = new InputSource(new ByteArrayInputStream(html.getBytes(StandardCharsets.UTF_8)));
+        in.setEncoding("csiso2022kr");
+        parser.parse(in);
+
+        final String expected = "(HTML\r\n"
+                + "(head\r\n"
+                + ")head\r\n"
+                + "(body\r\n"
+                + "\"\uFFFD\r\n"
+                + ")body\r\n"
+                + ")html";
+        assertEquals(expected.trim(), out.toString().trim());
     }
 }
