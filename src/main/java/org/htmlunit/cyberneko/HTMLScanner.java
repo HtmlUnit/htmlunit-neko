@@ -34,6 +34,7 @@ import org.htmlunit.cyberneko.xerces.util.NamespaceSupport;
 import org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator;
 import org.htmlunit.cyberneko.xerces.util.URI;
 import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
+import org.htmlunit.cyberneko.xerces.util.XUserDefinedInputStreamReader;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -529,6 +530,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                 if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(fJavaEncoding)) {
                     return new StringReader("\uFFFD");
                 }
+                if (XUserDefinedInputStreamReader.USER_DEFINED.equalsIgnoreCase(fJavaEncoding)) {
+                    return new XUserDefinedInputStreamReader(inputSource.getByteStream());
+                }
                 return new InputStreamReader(inputSource.getByteStream(), fJavaEncoding);
             }
             catch (final UnsupportedEncodingException e) {
@@ -826,7 +830,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
             if (encodings[1] == null) {
                 encodings[1] = fEncodingTranslator.encodingNameFromLabel(encodings[0]);
                 if (encodings[1] == null
-                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(encodings[1]) && !Charset.isSupported(encodings[1]))) {
+                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(encodings[1])
+                                && !XUserDefinedInputStreamReader.USER_DEFINED.equalsIgnoreCase(encodings[1])
+                                && !Charset.isSupported(encodings[1]))) {
                     encodings[1] = encodings[0];
                     if (fReportErrors_) {
                         fErrorReporter.reportWarning("HTML1001", new Object[] {encodings[0]});
@@ -838,6 +844,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
             if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(fJavaEncoding)) {
                 reader = new BufferedReader(new StringReader("\uFFFD"));
+            }
+            else if (XUserDefinedInputStreamReader.USER_DEFINED.equalsIgnoreCase(fJavaEncoding)) {
+                reader = new BufferedReader(new XUserDefinedInputStreamReader(fByteStream));
             }
             else {
                 reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
@@ -3019,7 +3028,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     System.out.println("+++ javaEncoding: " + javaEncoding);
                 }
                 if (javaEncoding == null
-                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(javaEncoding) && !Charset.isSupported(javaEncoding))) {
+                        || (!StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(javaEncoding)
+                                && !XUserDefinedInputStreamReader.USER_DEFINED.equalsIgnoreCase(javaEncoding)
+                                && !Charset.isSupported(javaEncoding))) {
                     javaEncoding = charset;
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1001", new Object[] {charset});
@@ -3034,6 +3045,16 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                         fByteStream.playback();
                         // start from the beginning, without re-using the nodes already parsed
                         fElementDepth = 0;
+                        fElementCount = 0;
+                        encodingChanged = true;
+                    }
+                    else if (XUserDefinedInputStreamReader.USER_DEFINED.equalsIgnoreCase(javaEncoding)) {
+                        fJavaEncoding = javaEncoding;
+                        // use a simple string reader to implement the charset
+                        fCurrentEntity.setStream(new XUserDefinedInputStreamReader(fByteStream), javaEncoding);
+                        fByteStream.playback();
+                        // skip the already parsed elements
+                        fElementDepth = fElementCount;
                         fElementCount = 0;
                         encodingChanged = true;
                     }

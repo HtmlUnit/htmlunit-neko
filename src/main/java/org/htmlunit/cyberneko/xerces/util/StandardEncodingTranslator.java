@@ -46,11 +46,6 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      */
     public static final String REPLACEMENT = "replacement";
 
-    /**
-     * https://encoding.spec.whatwg.org/#x-user-defined
-     */
-    public static final String USER_DEFINED = "x-user-defined";
-
     /** <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a> */
     //@VisibleForTesting
     static final Map<String, String> ENCODING_FROM_LABEL;
@@ -382,7 +377,7 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         ENCODING_FROM_LABEL.put("utf-16le", "utf-16le");
 
         // x-user-defined
-        ENCODING_FROM_LABEL.put("x-user-defined", USER_DEFINED);
+        ENCODING_FROM_LABEL.put("x-user-defined", "x-user-defined");
     }
 
     /** <a href="https://docs.rs/encoding_rs/latest/encoding_rs/#notable-differences-from-iana-naming">Differences from iana naming</a> */
@@ -434,10 +429,6 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
 
         // This seems to be the preferred alternative for iso-8859-8-i (https://bugs.openjdk.org/browse/JDK-8195686)
         IANA_TO_JAVA_ENCODINGS.put("iso-8859-8-i", "iso-8859-8");
-
-        // These are special WHATWG definitions and not Java charset names
-        IANA_TO_JAVA_ENCODINGS.put(REPLACEMENT, REPLACEMENT);
-        IANA_TO_JAVA_ENCODINGS.put(USER_DEFINED, USER_DEFINED);
     }
 
     private StandardEncodingTranslator() {

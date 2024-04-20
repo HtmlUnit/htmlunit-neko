@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2024-2024 Atsushi Nakagawa
+ * Copyright (c) 2024-2024 Ronald Brill
+ * Copyright (c) 2024 Atsushi Nakagawa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,9 @@ import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * @author Atsushi Nakagawa
+ */
 public class StandardEncodingTranslatorTest {
 
     @Test
