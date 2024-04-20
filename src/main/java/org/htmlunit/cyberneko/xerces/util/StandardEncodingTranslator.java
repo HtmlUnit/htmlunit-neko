@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.htmlunit.cyberneko.HTMLScanner;
+
 /**
  * EncodingTranslator based on <a href='https://encoding.spec.whatwg.org/#names-and-labels'>
  * https://encoding.spec.whatwg.org/#names-and-labels</a>
@@ -34,7 +36,16 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      */
     public static final StandardEncodingTranslator INSTANCE = new StandardEncodingTranslator();
 
+    /**
+     * https://encoding.spec.whatwg.org/#replacement
+     *
+     * For the moment we are using this constant in the {@link HTMLScanner} to support
+     * this encoding. Another option might be to install a proper charset impl in the
+     * jvm (like https://github.com/lovasoa/replacement-charset-java) but this might
+     * introduce some behavior changes for the whole vm and therefore we handle it here.
+     */
     public static final String REPLACEMENT = "replacement";
+
     public static final String USER_DEFINED = "x-user-defined";
 
     /** <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a> */
