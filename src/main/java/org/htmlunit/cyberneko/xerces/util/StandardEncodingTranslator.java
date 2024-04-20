@@ -46,6 +46,9 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      */
     public static final String REPLACEMENT = "replacement";
 
+    /**
+     * https://encoding.spec.whatwg.org/#x-user-defined
+     */
     public static final String USER_DEFINED = "x-user-defined";
 
     /** <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a> */
@@ -451,11 +454,11 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         if (charsetLabel == null || charsetLabel.length() < 2) {
             return null;
         }
-        String label = charsetLabel.trim().toLowerCase(Locale.ROOT);
-        String ianaEncoding = ENCODING_FROM_LABEL.get(label);
+        final String label = charsetLabel.trim().toLowerCase(Locale.ROOT);
+        final String whatwgEncoding = ENCODING_FROM_LABEL.get(label);
 
         // Convert WHATWG names to IANA names
-        ianaEncoding = ENCODING_TO_IANA_ENCODING.getOrDefault(ianaEncoding, ianaEncoding);
+        final String ianaEncoding = ENCODING_TO_IANA_ENCODING.getOrDefault(whatwgEncoding, whatwgEncoding);
         // Convert our IANA encoding names to Java charset names
         return IANA_TO_JAVA_ENCODINGS.getOrDefault(ianaEncoding, ianaEncoding);
     }
