@@ -46,9 +46,11 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      */
     public static final String REPLACEMENT = "replacement";
 
-    /** <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a> */
-    //@VisibleForTesting
-    static final Map<String, String> ENCODING_FROM_LABEL;
+    /**
+     * <a href="https://encoding.spec.whatwg.org/#names-and-labels">Encoding names and labels</a>
+     * Made public to let other also use this (like HtmlUnit TextDecoder).
+     */
+    public static final Map<String, String> ENCODING_FROM_LABEL;
 
     static {
         ENCODING_FROM_LABEL = new HashMap<>();
@@ -380,8 +382,11 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
         ENCODING_FROM_LABEL.put("x-user-defined", "x-user-defined");
     }
 
-    /** <a href="https://docs.rs/encoding_rs/latest/encoding_rs/#notable-differences-from-iana-naming">Differences from iana naming</a> */
-    private static final Map<String, String> ENCODING_TO_IANA_ENCODING;
+    /**
+     * <a href="https://docs.rs/encoding_rs/latest/encoding_rs/#notable-differences-from-iana-naming">Differences from iana naming</a>
+     * Made public to let other also use this (like HtmlUnit TextDecoder).
+     */
+    public static final Map<String, String> ENCODING_TO_IANA_ENCODING;
 
     static {
         ENCODING_TO_IANA_ENCODING = new HashMap<>();
@@ -415,8 +420,10 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
      * Some encodings were not supported in earlier versions of Java but added later. We avoid
      * defining "unsupported" encodings in this list since it is entirely platform dependent. This
      * means encodingNameFromLabel() can return names not supported by various Java versions.
+     *
+     * Made public to let other also use this (like HtmlUnit TextDecoder).
      */
-    private static final Map<String, String> IANA_TO_JAVA_ENCODINGS;
+    public static final Map<String, String> IANA_TO_JAVA_ENCODINGS;
 
     static {
         IANA_TO_JAVA_ENCODINGS = new HashMap<>();
