@@ -58,7 +58,11 @@ public class StandardEncodingTranslatorTest {
 
         // Special WHATWG definitions
         assertEquals("replacement", StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("replacement"));
-        assertEquals("x-user-defined", StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("x-user-defined"));
+
+        // the spec says...
+        // assertEquals("x-user-defined", StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("x-user-defined"));
+        // but browsers are doing
+        assertEquals("windows-1252", StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("x-user-defined"));
 
         assertEquals(null, StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("foo"));
     }
@@ -75,6 +79,10 @@ public class StandardEncodingTranslatorTest {
         // Added in Java 10 (https://bugs.openjdk.org/browse/JDK-8186751)
         unsupported.remove("iso-8859-16");
 
-        assertEquals("[iso-8859-14, iso-8859-10, replacement, x-user-defined]", unsupported.toString());
+        // x-user-defined is replaced by windows-1252 like browsers do
+        // so x-user-defined will pass
+        unsupported.remove("x-user-defined");
+
+        assertEquals("[iso-8859-14, iso-8859-10, replacement]", unsupported.toString());
     }
 }

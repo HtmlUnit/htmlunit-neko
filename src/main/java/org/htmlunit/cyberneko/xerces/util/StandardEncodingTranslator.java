@@ -436,6 +436,9 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
 
         // This seems to be the preferred alternative for iso-8859-8-i (https://bugs.openjdk.org/browse/JDK-8195686)
         IANA_TO_JAVA_ENCODINGS.put("iso-8859-8-i", "iso-8859-8");
+
+        // x-user-defined is replaced by windows-1252 like all browsers do
+        IANA_TO_JAVA_ENCODINGS.put("x-user-defined", "windows-1252");
     }
 
     private StandardEncodingTranslator() {
