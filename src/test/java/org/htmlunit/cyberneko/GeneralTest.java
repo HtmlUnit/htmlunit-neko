@@ -16,17 +16,21 @@
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.charset.UnsupportedCharsetException;
 
 import org.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import org.htmlunit.cyberneko.parsers.DOMParser;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 
@@ -183,6 +187,38 @@ public class GeneralTest {
                 + ")head" + NL
                 + "(body" + NL
                 + "\"\uFFFD" + NL
+                + ")body" + NL
+                + ")html";
+        assertEquals(expected.trim(), out.toString().trim());
+    }
+
+    @Test
+    public void parseInputSourceIANAEncoding() throws Exception {
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+
+        final StringWriter out = new StringWriter();
+        final XMLDocumentFilter[] filters = {new Writer(out)};
+        parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
+
+        final String html = "some text ©€π√";
+        final InputSource in = new InputSource(new ByteArrayInputStream(html.getBytes(Charset.forName("x-MacRoman"))));
+        in.setEncoding("macintosh");
+        parser.parse(in);
+
+        try {
+            // not supported by the jdk
+            Charset.forName("macintosh");
+            Assertions.fail("UnsupportedCharsetException expected");
+        }
+        catch (UnsupportedCharsetException e) {
+            // expected
+        };
+
+        final String expected = "(HTML" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"some text ©€π√" + NL
                 + ")body" + NL
                 + ")html";
         assertEquals(expected.trim(), out.toString().trim());
