@@ -16,7 +16,7 @@ This made it possible to remove many unneeded parts and dependencies to ensure e
 
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
-### Latest release Version 4.0.0 / April 1, 2024
+### Latest release Version 4.1.0 / April 28, 2024
 
 #### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 #### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
@@ -34,7 +34,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0</version>
 </dependency>
 ```
 
@@ -43,7 +43,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.0.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.1.0'
 ```
 
 ## HowTo use
@@ -135,7 +135,9 @@ Supported properties:
 * DEFAULT_ENCODING
 
 * ERROR_REPORTER - Error reporter; an instance of org.htmlunit.cyberneko.HTMLErrorReporter or null
-* ENCODING_TRANSLATOR - an implementation of org.htmlunit.cyberneko.xerces.util.EncodingTranslator
+* ENCODING_TRANSLATOR - an implementation of org.htmlunit.cyberneko.xerces.util.EncodingTranslator. Starting with version 4.0.0
+  the default encoding translator is set to the StandardEncodingTranslator which provides a much better and standard compliant
+  handling of encodings. You can switch back the EncodingMap, if you still need the old behavior.
 
 * DOCTYPE_PUBID - Doctype declaration public identifier
 * DOCTYPE_SYSID - Doctype declaration system identifier. */
@@ -154,7 +156,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.2.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom `repositories` section also:
@@ -238,9 +240,14 @@ Every contribution - from bug reports to feature requests, typos to full new fea
 This part is intended for committer who are packaging a release.
 
 * Check all your files are checked in
-* Execute "mvn -U clean test" to be sure all tests are passing
-* Execute "mvn versions:display-plugin-updates" to check if all maven plugins are up to date
-* Execute "mvn versions:display-dependency-updates" to check if all dependencies are up to date
+* Execute these mvn commands to be sure all tests are passing and everything is up to data
+
+```
+   mvn versions:display-plugin-updates
+   mvn versions:display-dependency-updates
+   mvn -U clean test
+```
+
 * Update the version number in pom.xml and readme.md
 * Commit the changes
 
@@ -258,18 +265,18 @@ This part is intended for committer who are packaging a release.
 * Create the version on Github
     * login to Github and open project https://github.com/HtmlUnit/htmlunit-neko
     * click Releases > Draft new release
-    * fill the tag and title field with the release number (e.g. 3.7.0)
+    * fill the tag and title field with the release number (e.g. 4.0.0)
     * append 
-        * neko-htmlunit-3.xx-javadoc.jar
-        * neko-htmlunit-3.xx-javadoc.jar.asc
-        * neko-htmlunit-3.xx-sources.jar
-        * neko-htmlunit-3.xx-sources.jar.asc
-        * neko-htmlunit-3.xx-tests.jar
-        * neko-htmlunit-3.xx-tests.jar.asc
-        * neko-htmlunit-3.xx.jar
-        * neko-htmlunit-3.xx.jar.asc
-        * neko-htmlunit-3.xx.pom
-        * neko-htmlunit-3.xx.pom.asc 
+        * neko-htmlunit-4.xx-javadoc.jar
+        * neko-htmlunit-4.xx-javadoc.jar.asc
+        * neko-htmlunit-4.xx-sources.jar
+        * neko-htmlunit-4.xx-sources.jar.asc
+        * neko-htmlunit-4.xx-tests.jar
+        * neko-htmlunit-4.xx-tests.jar.asc
+        * neko-htmlunit-4.xx.jar
+        * neko-htmlunit-4.xx.jar.asc
+        * neko-htmlunit-4.xx.pom
+        * neko-htmlunit-4.xx.pom.asc 
     * and publish the release 
 
 * Update the version number in pom.xml to start next snapshot development
