@@ -28,7 +28,7 @@
         <checkstyle.version>9.3</checkstyle.version>
         <spotbugs.version>4.8.4</spotbugs.version>
         <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>9.1.0</dependencycheck.version>
+        <dependencycheck.version>9.2.0</dependencycheck.version>
     </properties>
 
     <dependencies>
