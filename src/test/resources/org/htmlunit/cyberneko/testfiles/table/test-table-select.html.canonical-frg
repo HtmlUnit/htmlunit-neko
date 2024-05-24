@@ -1,0 +1,14 @@
+(table
+(SELECT
+Aname Lang
+(OPTION
+Avalue da
+"Dansk
+)OPTION
+(OPTION
+Aselected selected
+Avalue en
+"English
+)OPTION
+)SELECT
+)table
