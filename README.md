@@ -1,12 +1,12 @@
 # HtmlUnit - NekoHtml Parser
 
-This is the code repository of the HTML parser used by HtmlUnit.
+The **Htmlunit-NekoHtml** Parser is a HTML scanner and tag balancer that enables application programmers to parse HTML documents
+and access the information using standard XML interfaces.  
+The parser can scan HTML files and "fix up" many common mistakes that human (and computer) authors make in writing HTML documents.  
+NekoHTML adds missing parent elements; automatically closes elements with optional end tags; and can handle mismatched inline element tags.
 
-HtmlUnit has been using CyberNeko HTML parser (http://nekohtml.sourceforge.net/) for a long time.
-But since the development was discontinued around 2014, we started our own fork, which now has many improvements.
-
-As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j).
-This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
+The **Htmlunit-NekoHtml** Parser has no external dependencies at all, requires Java 8 and works also on Android.  
+The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit)
 
@@ -281,6 +281,15 @@ This part is intended for committer who are packaging a release.
 
 * Update the version number in pom.xml to start next snapshot development
 * Update the htmlunit pom to use the new release
+
+## History
+
+HtmlUnit has been using CyberNeko HTML parser (http://nekohtml.sourceforge.net/) for a long time.
+But since the development was discontinued around 2014, we started our own fork, which now has many improvements.
+
+As of version 2.68.0, neko-htmlunit also uses its own fork of Xerces (https://github.com/apache/xerces2-j).
+This forked code is integrated into the code base to further reduce the external dependencies.  
+This made it possible to remove many unneeded parts and dependencies to ensure e.g. compatibility with Android.
 
 ## Authors
 
