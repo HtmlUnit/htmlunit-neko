@@ -17,12 +17,10 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
 ### Latest release Version 4.1.0 / April 28, 2024
-
-#### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
-#### HtmlUnit - NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
-
-#### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
-#### HtmlUnit - NekoHtml Parser suffers from a denial of service via crafted Processing Instruction vulnerability on versions 2.26 and below.Please update to at least version 2.27.
+##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
+Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption. Please update to at least version 2.62.0.
+##### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
+Htmlunit-NekoHtml Parser suffers from a denial of service via crafted Processing Instruction vulnerability on versions 2.26 and below.Please update to at least version 2.27.
 
 ## Get it!
 
