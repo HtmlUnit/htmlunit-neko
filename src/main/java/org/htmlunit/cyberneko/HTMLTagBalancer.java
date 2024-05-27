@@ -219,6 +219,9 @@ public class HTMLTagBalancer
     protected boolean fSeenRootElementEnd;
 
     /** True if seen {@code head} element. */
+    protected boolean fSeenRealHtmlElement;
+
+    /** True if seen {@code head} element. */
     protected boolean fSeenHeadElement;
 
     /** True if seen {@code body} element. */
@@ -325,6 +328,7 @@ public class HTMLTagBalancer
         fSeenDoctype = false;
         fSeenRootElement = false;
         fSeenRootElementEnd = false;
+        fSeenRealHtmlElement = false;
         fSeenHeadElement = false;
         fSeenBodyElement = false;
         fSeenBodyElementEnd = false;
@@ -612,6 +616,10 @@ public class HTMLTagBalancer
             }
         }
 
+        if (elementCode == HTMLElements.HTML && !isForcedCreation) {
+            fSeenRealHtmlElement = true;
+        }
+
         if (elementCode == HTMLElements.HEAD) {
             if (fSeenHeadElement) {
                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -725,8 +733,11 @@ public class HTMLTagBalancer
         // check proper parent
         if (element.parent != null && !fOpenedSvg) {
             final HTMLElements.Element preferedParent = element.parent[0];
-            if (fDocumentFragment && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
+            if (fDocumentFragment
+                    && !fSeenRealHtmlElement
+                    && (preferedParent.code == HTMLElements.HEAD || preferedParent.code == HTMLElements.BODY)) {
                 // nothing, don't force HEAD or BODY creation for a document fragment
+                // if there was no explicit head before
             }
             else if (fTemplateFragment
                         && fElementStack.top > 0

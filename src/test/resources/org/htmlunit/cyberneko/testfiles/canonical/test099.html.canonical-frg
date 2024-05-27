@@ -1,8 +1,9 @@
 (HTML
 Axmlns:ie 
 (head
+)head
+(BODY
 (mainA6
-)mainA6
 (META
 Acontent text/html; charset=ISO-8859-1
 Ahttp-equiv Content-Type
@@ -10,5 +11,6 @@ Ahttp-equiv Content-Type
 (h1
 "Foo
 )h1
-)head
+)mainA6
+)BODY
 )HTML

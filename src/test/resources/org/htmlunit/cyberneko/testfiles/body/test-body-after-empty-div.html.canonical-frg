@@ -1,12 +1,12 @@
 (html
+(head
+)head
+(BODY
 (div
 Aid 1
 )div
-(head
-)head
-(body
 (div
 Aid 2
 )div
-)body
+)BODY
 )html
