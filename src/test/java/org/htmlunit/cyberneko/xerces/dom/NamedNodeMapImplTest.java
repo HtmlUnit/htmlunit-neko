@@ -21,17 +21,17 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Node;
 
 /**
- * Unit tests for {@link AttributeMap}.
+ * Unit tests for {@link NamedNodeMapImpl}.
  *
  * @author Ronald Brill
  */
-public class AttributeMapTest {
+public class NamedNodeMapImplTest {
 
     @Test
     public void cloneEmpty() throws Exception {
         DocumentImpl doc = new DocumentImpl();
         ElementImpl elem = new ElementImpl(doc, "TestElem");
-        AttributeMap map = new AttributeMap(elem);
+        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
         assertEquals(0, map.getLength());
 
         NamedNodeMapImpl clone = map.cloneMap(elem);
@@ -43,7 +43,7 @@ public class AttributeMapTest {
     public void cloneOneAttribute() throws Exception {
         DocumentImpl doc = new DocumentImpl();
         ElementImpl elem = new ElementImpl(doc, "TestElem");
-        AttributeMap map = new AttributeMap(elem);
+        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
         assertEquals(0, map.getLength());
 
         Node attr = new AttrImpl(doc, "TestAttr");
