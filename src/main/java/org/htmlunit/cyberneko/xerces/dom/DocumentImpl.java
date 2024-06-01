@@ -50,31 +50,12 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
     }
 
     /**
-     * Constructor.
-     *
-     * @param grammarAccess grammar access flag
-     */
-    public DocumentImpl(final boolean grammarAccess) {
-        super(grammarAccess);
-    }
-
-    /**
      * For DOM2 support. The createDocument factory method is in DOMImplementation.
      *
      * @param doctype the {@link DocumentType}
      */
     public DocumentImpl(final DocumentType doctype) {
         super(doctype);
-    }
-
-    /**
-     * For DOM2 support.
-     *
-     * @param doctype       the {@link DocumentType}
-     * @param grammarAccess grammar access flag
-     */
-    public DocumentImpl(final DocumentType doctype, final boolean grammarAccess) {
-        super(doctype, grammarAccess);
     }
 
     /**

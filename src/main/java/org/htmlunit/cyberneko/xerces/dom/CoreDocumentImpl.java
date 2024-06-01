@@ -129,9 +129,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     // experimental
 
-    /** Allow grammar access. */
-    protected boolean allowGrammarAccess;
-
     /** Bypass error checking. */
     protected boolean errorChecking = true;
 
@@ -168,18 +165,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * to operate in terms of a particular implementation.
      */
     public CoreDocumentImpl() {
-        this(false);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param grammarAccess grammar acess flag
-     */
-    public CoreDocumentImpl(final boolean grammarAccess) {
         super(null);
         ownerDocument = this;
-        allowGrammarAccess = grammarAccess;
     }
 
     /**
@@ -188,17 +175,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @param doctype the {@link DocumentType}
      */
     public CoreDocumentImpl(final DocumentType doctype) {
-        this(doctype, false);
-    }
-
-    /**
-     * For DOM2 support.
-     *
-     * @param doctype       the {@link DocumentType}
-     * @param grammarAccess grammar access flag
-     */
-    public CoreDocumentImpl(final DocumentType doctype, final boolean grammarAccess) {
-        this(grammarAccess);
+        this();
         if (doctype != null) {
             final DocumentTypeImpl doctypeImpl;
             try {
@@ -272,7 +249,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         }
 
         // experimental
-        newdoc.allowGrammarAccess = allowGrammarAccess;
         newdoc.errorChecking = errorChecking;
     }
 
@@ -1670,9 +1646,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @return true or false
      */
     protected boolean isKidOK(final Node parent, final Node child) {
-        if (allowGrammarAccess && parent.getNodeType() == Node.DOCUMENT_TYPE_NODE) {
-            return child.getNodeType() == Node.ELEMENT_NODE;
-        }
         return 0 != (kidOK[parent.getNodeType()] & 1 << child.getNodeType());
     }
 
