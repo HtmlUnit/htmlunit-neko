@@ -38,7 +38,6 @@ public class AttributeMapTest {
         assertEquals(0, clone.getLength());
     }
 
-
     @Test
     public void cloneOneAttribute() throws Exception {
         DocumentImpl doc = new DocumentImpl();

@@ -21,35 +21,37 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Node;
 
 /**
- * Unit tests for {@link NamedNodeMapImpl}.
+ * Unit tests for {@link TextImpl}.
  *
  * @author Ronald Brill
  */
-public class NamedNodeMapImplTest {
+public class TextImplTest {
 
     @Test
-    public void cloneEmpty() throws Exception {
+    public void ctor() throws Exception {
         DocumentImpl doc = new DocumentImpl();
-        ElementImpl elem = new ElementImpl(doc, "TestElem");
-        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
-        assertEquals(0, map.getLength());
+        TextImpl text = new TextImpl(doc, "Neko");
 
-        NamedNodeMapImpl clone = map.cloneMap(elem);
-        assertEquals(0, clone.getLength());
+        assertEquals("Neko", text.getData());
     }
 
     @Test
-    public void cloneOneAttribute() throws Exception {
+    public void replaceWholeTextSimple() throws Exception {
         DocumentImpl doc = new DocumentImpl();
-        ElementImpl elem = new ElementImpl(doc, "TestElem");
-        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
-        assertEquals(0, map.getLength());
+        TextImpl text = new TextImpl(doc, "Neko");
 
-        Node attr = new AttrImpl(doc, "TestAttr");
-        map.setNamedItem(attr);
-        assertEquals(1, map.getLength());
+        text.replaceWholeText("new text");
+        assertEquals("new text", text.getData());
+    }
 
-        NamedNodeMapImpl clone = map.cloneMap(elem);
-        assertEquals(1, clone.getLength());
+    @Test
+    public void cloneNode() throws Exception {
+        DocumentImpl doc = new DocumentImpl();
+        TextImpl text = new TextImpl(doc, "Neko");
+
+        Node clone = text.cloneNode(true);
+        assertEquals(3, clone.getNodeType());
+
+        assertEquals("Neko", ((TextImpl) clone).getData());
     }
 }
