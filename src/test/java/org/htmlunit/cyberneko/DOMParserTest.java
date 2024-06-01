@@ -15,18 +15,12 @@
  */
 package org.htmlunit.cyberneko;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.StringReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 import org.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import org.htmlunit.cyberneko.parsers.DOMParser;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.api.Test;
-import org.xml.sax.InputSource;
 
 /**
  * Unit tests for {@link DOMParser}.
