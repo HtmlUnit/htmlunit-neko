@@ -32,6 +32,11 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for {@link FastHashMap}.
+ *
+ * @author René Schwietzke
+ */
 public class FastHashMapTest {
     @Test
     public void happyPath() {

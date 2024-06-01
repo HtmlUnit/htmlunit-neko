@@ -22,6 +22,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for {@link SimpleArrayList}.
+ *
+ * @author René Schwietzke
+ */
 public class SimpleArrayListTest {
     @Test
     public void create() {
