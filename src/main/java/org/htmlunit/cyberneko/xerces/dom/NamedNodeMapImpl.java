@@ -421,28 +421,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     }
 
     /**
-     * NON-DOM: Remove attribute at specified index
-     *
-     * @param index the index to be removed
-     */
-    protected void removeItem(final int index) {
-        if (nodes != null && index < nodes.size()) {
-            nodes.remove(index);
-        }
-    }
-
-    protected Node getItem(final int index) {
-        if (nodes != null) {
-            return nodes.get(index);
-        }
-        return null;
-    }
-
-    protected int getNamedItemIndex(final String namespaceURI, final String localName) {
-        return findNamePoint(namespaceURI, localName);
-    }
-
-    /**
      * NON-DOM remove all elements from this map
      */
     public void removeAll() {
