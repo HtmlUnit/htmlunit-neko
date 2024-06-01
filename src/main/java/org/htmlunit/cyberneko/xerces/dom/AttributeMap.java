@@ -417,44 +417,4 @@ public class AttributeMap extends NamedNodeMapImpl {
             }
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected final int addItem(final Node arg) {
-
-        final AttrImpl argn = (AttrImpl) arg;
-
-        // set owner
-        argn.ownerNode_ = ownerNode;
-        argn.isOwned(true);
-
-        int i = findNamePoint(argn.getNamespaceURI(), argn.getLocalName());
-        if (i >= 0) {
-            nodes.set(i, arg);
-        }
-        else {
-            // If we can't find by namespaceURI, localName, then we find by
-            // nodeName so we know where to insert.
-            i = findNamePoint(argn.getNodeName());
-            if (i >= 0) {
-                nodes.add(i, arg);
-            }
-            else {
-                i = -1 - i; // Insert point (may be end of list)
-                if (null == nodes) {
-                    nodes = new SimpleArrayList<>(1);
-                    nodes.add(arg);
-                }
-                else {
-                    nodes.add(i, arg);
-                }
-            }
-        }
-
-        // notify document
-        ownerNode.ownerDocument().setAttrNode(argn, null);
-        return i;
-    }
 }

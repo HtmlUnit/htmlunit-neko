@@ -407,7 +407,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     // compare 2 nodes in the map. If a precedes b, return true, otherwise
     // return false
     protected boolean precedes(final Node a, final Node b) {
-
         if (nodes != null) {
             for (final Node node : nodes) {
                 if (node == a) {
@@ -437,32 +436,6 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             return nodes.get(index);
         }
         return null;
-    }
-
-    protected int addItem(final Node arg) {
-        int i = findNamePoint(arg.getNamespaceURI(), arg.getLocalName());
-        if (i >= 0) {
-            nodes.set(i, arg);
-        }
-        else {
-            // If we can't find by namespaceURI, localName, then we find by
-            // nodeName so we know where to insert.
-            i = findNamePoint(arg.getNodeName());
-            if (i >= 0) {
-                nodes.add(i, arg);
-            }
-            else {
-                i = -1 - i; // Insert point (may be end of list)
-                if (null == nodes) {
-                    nodes = new SimpleArrayList<>(1);
-                    nodes.add(arg);
-                }
-                else {
-                    nodes.add(i, arg);
-                }
-            }
-        }
-        return i;
     }
 
     protected int getNamedItemIndex(final String namespaceURI, final String localName) {
