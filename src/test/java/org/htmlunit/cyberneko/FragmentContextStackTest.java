@@ -30,17 +30,26 @@ public class FragmentContextStackTest {
 
     @Test
     public void simple() throws Exception {
-        final String expected = "(div" + NL
+        String expected = "(div" + NL
             + "(span" + NL
             + "\"hello" + NL
             + ")span" + NL
             + ")div" + NL;
         GeneralTest.doTest("<div><span>hello</span>", new String[] {"html", "body"}, expected, FEATURES);
 
-        GeneralTest.doTest("<div><span>hello</span>", new String[] {"html"}, expected, FEATURES);
-
         GeneralTest.doTest("<div><span>hello</span>", new String[]{}, expected, FEATURES);
         GeneralTest.doTest("<div><span>hello</span>", null, expected, FEATURES);
+
+        expected = "(head" + NL
+                + ")head" + NL
+                + "(BODY" + NL
+                + "(div" + NL
+                + "(span" + NL
+                + "\"hello" + NL
+                + ")span" + NL
+                + ")div" + NL
+                + ")BODY" + NL;
+        GeneralTest.doTest("<div><span>hello</span>", new String[] {"html"}, expected, FEATURES);
     }
 
     @Test
@@ -74,9 +83,23 @@ public class FragmentContextStackTest {
     }
 
     @Test
-    public void fragmentShouldNotCloseSelect() throws Exception {
-        GeneralTest.doTest("<select><option>Two</option></select>", new String[] {"html", "body", "select"},
-                ")null" + NL + "(select" + NL + "(option" + NL + "\"Two" + NL + ")option" + NL + ")select",
+    public void fragmentSelect() throws Exception {
+        GeneralTest.doTest("<select><option>Two</option>", new String[] {"html", "body"},
+                "(select" + NL + "(option" + NL + "\"Two" + NL + ")option" + NL + ")select",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentOptionSelectFromStack() throws Exception {
+        GeneralTest.doTest("<option>Two</option>", new String[] {"html", "body", "select"},
+                "(option" + NL + "\"Two" + NL + ")option",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentShouldCloseSelectFromStack() throws Exception {
+        GeneralTest.doTest("<select><option>Two</option>", new String[] {"html", "body", "select"},
+                "(option" + NL + "\"Two" + NL + ")option",
                 FEATURES);
     }
 }

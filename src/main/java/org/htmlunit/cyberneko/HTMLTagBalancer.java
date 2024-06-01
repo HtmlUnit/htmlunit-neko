@@ -323,7 +323,6 @@ public class HTMLTagBalancer
         fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
         fErrorReporter = (HTMLErrorReporter) manager.getProperty(ERROR_REPORTER);
 
-        fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
         fSeenAnything = false;
         fSeenDoctype = false;
         fSeenRootElement = false;
@@ -337,8 +336,32 @@ public class HTMLTagBalancer
         fTemplateFragment = false;
 
         fOpenedForm = false;
-        fOpenedSvg = false;
         fOpenedSelect = false;
+        fOpenedSvg = false;
+
+        fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
+        if (fragmentContextStack_ != null) {
+            fSeenAnything = fragmentContextStack_.length > 0;
+            for (QName qname : fragmentContextStack_) {
+                if ("html".equalsIgnoreCase(qname.getLocalpart())) {
+                    fSeenRootElement = true;
+                    fSeenRealHtmlElement = true;
+                }
+                else if ("body".equalsIgnoreCase(qname.getLocalpart())) {
+                    fSeenHeadElement = true;
+                    fSeenBodyElement = true;
+                }
+                else if ("form".equalsIgnoreCase(qname.getLocalpart())) {
+                    fOpenedForm = true;
+                }
+                else if ("select".equalsIgnoreCase(qname.getLocalpart())) {
+                    fOpenedSelect = true;
+                }
+                else if ("svg".equalsIgnoreCase(qname.getLocalpart())) {
+                    fOpenedSvg = true;
+                }
+            }
+        }
 
         lostText_.clear();
 
