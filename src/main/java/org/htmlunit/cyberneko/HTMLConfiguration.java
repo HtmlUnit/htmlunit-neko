@@ -26,6 +26,7 @@ import org.htmlunit.cyberneko.filters.NamespaceBinder;
 import org.htmlunit.cyberneko.xerces.util.ParserConfigurationSettings;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
@@ -115,7 +116,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     private boolean closeStream_;
 
     /** Components. */
-    private final List<HTMLComponent> htmlComponents_ = new ArrayList<>(2);
+    private final List<XMLComponent> xmlComponents_ = new ArrayList<>(2);
 
     /** Document scanner. */
     final HTMLScanner documentScanner_ = createDocumentScanner();
@@ -208,7 +209,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
         super.setFeature(featureId, state);
-        for (final HTMLComponent component : htmlComponents_) {
+        for (final XMLComponent component : xmlComponents_) {
             component.setFeature(featureId, state);
         }
     }
@@ -223,14 +224,14 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
             final XMLDocumentFilter[] filters = (XMLDocumentFilter[]) getProperty(FILTERS);
             if (filters != null) {
                 for (final XMLDocumentFilter filter : filters) {
-                    if (filter instanceof HTMLComponent) {
-                        addComponent((HTMLComponent) filter);
+                    if (filter instanceof XMLComponent) {
+                        addComponent((XMLComponent) filter);
                     }
                 }
             }
         }
 
-        for (final HTMLComponent component : htmlComponents_) {
+        for (final XMLComponent component : xmlComponents_) {
             component.setProperty(propertyId, value);
         }
     }
@@ -267,9 +268,9 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         return htmlElements_;
     }
 
-    /** @return the list of HTMLComponents */
-    public List<HTMLComponent> getHtmlComponents() {
-        return htmlComponents_;
+    /** @return the list of XMLComponents */
+    public List<XMLComponent> getXmlComponents() {
+        return xmlComponents_;
     }
 
     /** @return the DocumentScanner */
@@ -356,10 +357,10 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     }
 
     // Adds a component.
-    protected void addComponent(final HTMLComponent component) {
+    protected void addComponent(final XMLComponent component) {
 
         // add component to list
-        htmlComponents_.add(component);
+        xmlComponents_.add(component);
 
         // add recognized features and set default states
         final String[] features = component.getRecognizedFeatures();
@@ -390,7 +391,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     protected void reset() throws XMLConfigurationException {
 
         // reset components
-        for (final HTMLComponent component : htmlComponents_) {
+        for (final XMLComponent component : xmlComponents_) {
             component.reset(this);
         }
 

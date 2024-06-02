@@ -42,6 +42,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentScanner;
@@ -90,7 +91,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * @author Ronald Brill
  * @author Ren&eacute; Schwietzke
  */
-public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponent {
+public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent {
 
     // doctype info: HTML 4.01 strict
 
