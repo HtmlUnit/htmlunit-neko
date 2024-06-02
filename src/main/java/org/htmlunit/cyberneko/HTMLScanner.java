@@ -322,6 +322,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent
     /** Set to true to debug callbacks. */
     protected static final boolean DEBUG_CALLBACKS = false;
 
+    // static vars
+
+    /** Synthesized event info item. */
+    protected static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
+
     // features
 
     /** Augmentations. */
@@ -1655,7 +1660,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         if (fAugmentations_) {
-            return SynthesizedItem.INSTANCE;
+            return SYNTHESIZED_ITEM;
         }
         return null;
     }
@@ -3619,66 +3624,11 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent
     }
 
     /**
-     * To detect if 2 encoding are compatible, both must be able to read the meta
-     * tag specifying the new encoding. This means that the byte representation of
-     * some minimal html markup must be the same in both encodings
-     */
-    static boolean isEncodingCompatible(final String encoding1, final String encoding2) {
-        try {
-            try {
-                return canRoundtrip(encoding1, encoding2);
-            }
-            catch (final UnsupportedOperationException e) {
-                // if encoding1 only supports decode, we can test it the other way to only
-                // decode with it
-                try {
-                    return canRoundtrip(encoding2, encoding1);
-                }
-                catch (final UnsupportedOperationException e1) {
-                    // encoding2 only supports decode too. Time to give up.
-                    return false;
-                }
-            }
-        }
-        catch (final UnsupportedEncodingException e) {
-            return false;
-        }
-    }
-
-    private static boolean canRoundtrip(final String encodeCharset, final String decodeCharset)
-            throws UnsupportedEncodingException {
-        final String reference = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=";
-        final byte[] bytesEncoding1 = reference.getBytes(encodeCharset);
-        final String referenceWithEncoding2 = new String(bytesEncoding1, decodeCharset);
-        return reference.equals(referenceWithEncoding2);
-    }
-
-    // Reads a single character, preserving the old buffer content
-    protected int readPreservingBufferContent() throws IOException {
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(readPreserving: ");
-        }
-        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(fCurrentEntity.length_) < 1) {
-                if (DEBUG_BUFFER) {
-                    System.out.println(")readPreserving: -> -1");
-                }
-                return -1;
-            }
-        }
-        final char c = fCurrentEntity.getNextChar();
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")readPreserving: ", " -> " + c);
-        }
-        return c;
-    }
-
-    /**
      * Location infoset item.
      *
      * @author Andy Clark
      */
-    static final class LocationItem implements Augmentations {
+    static final class LocationItem implements HTMLEventInfo {
 
         /** Beginning line number. */
         private int beginLineNumber_;
@@ -3801,88 +3751,57 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent
     }
 
     /**
-     * Synthesized infoset item.
-     *
-     * @author Andy Clark
+     * To detect if 2 encoding are compatible, both must be able to read the meta
+     * tag specifying the new encoding. This means that the byte representation of
+     * some minimal html markup must be the same in both encodings
      */
-    static final class SynthesizedItem implements Augmentations {
-        static final SynthesizedItem INSTANCE = new SynthesizedItem();
-
-        private SynthesizedItem() {
+    static boolean isEncodingCompatible(final String encoding1, final String encoding2) {
+        try {
+            try {
+                return canRoundtrip(encoding1, encoding2);
+            }
+            catch (final UnsupportedOperationException e) {
+                // if encoding1 only supports decode, we can test it the other way to only
+                // decode with it
+                try {
+                    return canRoundtrip(encoding2, encoding1);
+                }
+                catch (final UnsupportedOperationException e1) {
+                    // encoding2 only supports decode too. Time to give up.
+                    return false;
+                }
+            }
         }
-
-        /**
-         * @return the line number of the beginning of this event.
-         */
-        @Override
-        public int getBeginLineNumber() {
-            return -1;
+        catch (final UnsupportedEncodingException e) {
+            return false;
         }
+    }
 
-        /**
-         * @return the column number of the beginning of this event.
-         */
-        @Override
-        public int getBeginColumnNumber() {
-            return -1;
-        }
+    private static boolean canRoundtrip(final String encodeCharset, final String decodeCharset)
+            throws UnsupportedEncodingException {
+        final String reference = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;charset=";
+        final byte[] bytesEncoding1 = reference.getBytes(encodeCharset);
+        final String referenceWithEncoding2 = new String(bytesEncoding1, decodeCharset);
+        return reference.equals(referenceWithEncoding2);
+    }
 
-        /**
-         * @return the character offset of the beginning of this event.
-         */
-        @Override
-        public int getBeginCharacterOffset() {
-            return -1;
+    // Reads a single character, preserving the old buffer content
+    protected int readPreservingBufferContent() throws IOException {
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded("(readPreserving: ");
         }
-
-        /**
-         * @return the line number of the end of this event.
-         */
-        @Override
-        public int getEndLineNumber() {
-            return -1;
+        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+            if (fCurrentEntity.load(fCurrentEntity.length_) < 1) {
+                if (DEBUG_BUFFER) {
+                    System.out.println(")readPreserving: -> -1");
+                }
+                return -1;
+            }
         }
-
-        /**
-         * @return the column number of the end of this event.
-         */
-        @Override
-        public int getEndColumnNumber() {
-            return -1;
+        final char c = fCurrentEntity.getNextChar();
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded(")readPreserving: ", " -> " + c);
         }
-
-        /**
-         * @return the character offset of the end of this event.
-         */
-        @Override
-        public int getEndCharacterOffset() {
-            return -1;
-        }
-
-        /**
-         * @return true if this corresponding event was synthesized.
-         */
-        @Override
-        public boolean isSynthesized() {
-            return true;
-        }
-
-        /**
-         * Save to return this instance because it does not have state
-         *
-         * @return this instance
-         */
-        @Override
-        public Augmentations clone() {
-            return this;
-        }
-
-        /**
-         * @return a string representation of this object.
-         */
-        @Override
-        public String toString() {
-            return "synthesized";
-        }
+        return c;
     }
 }
