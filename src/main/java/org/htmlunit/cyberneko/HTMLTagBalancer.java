@@ -31,7 +31,6 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
@@ -69,7 +68,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
  * @author Marc Guillemot
  * @author Ronald Brill
  */
-public class HTMLTagBalancer implements XMLDocumentFilter, XMLComponent {
+public class HTMLTagBalancer
+    implements XMLDocumentFilter, HTMLComponent {
 
     // features
 

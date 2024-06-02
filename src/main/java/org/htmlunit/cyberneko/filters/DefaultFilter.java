@@ -15,6 +15,7 @@
  */
 package org.htmlunit.cyberneko.filters;
 
+import org.htmlunit.cyberneko.HTMLComponent;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -23,7 +24,6 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
@@ -37,7 +37,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
  * @author Andy Clark
  */
 public class DefaultFilter
-    implements XMLDocumentFilter, XMLComponent {
+    implements XMLDocumentFilter, HTMLComponent {
 
     /** Document handler. */
     private XMLDocumentHandler documentHandler_;

@@ -44,4 +44,5 @@ public interface XMLComponentManager {
      * @throws XMLConfigurationException Thrown on configuration error.
      */
     Object getProperty(String propertyId) throws XMLConfigurationException;
+
 }
