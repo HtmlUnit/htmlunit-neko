@@ -316,8 +316,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         // The doctype is disconnected and not associated with any document.
         // Assign the doctype a number relative to the implementation.
         if (doctypeNumber_ == 0) {
-
-            final CoreDOMImplementationImpl cd = (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
+            final CoreDOMImplementationImpl cd = CoreDOMImplementationImpl.INSTANCE;
             doctypeNumber_ = cd.assignDocTypeNumber();
         }
         return doctypeNumber_;

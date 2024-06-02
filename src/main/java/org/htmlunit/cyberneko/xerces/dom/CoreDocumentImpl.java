@@ -548,7 +548,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     public DOMImplementation getImplementation() {
         // Currently implemented as a singleton, since it's hardcoded
         // information anyway.
-        return CoreDOMImplementationImpl.getDOMImplementation();
+        return CoreDOMImplementationImpl.INSTANCE;
     }
 
     /**
@@ -948,7 +948,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     protected int getNodeNumber() {
         if (documentNumber_ == 0) {
 
-            final CoreDOMImplementationImpl cd = (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
+            final CoreDOMImplementationImpl cd = CoreDOMImplementationImpl.INSTANCE;
             documentNumber_ = cd.assignDocumentNumber();
         }
         return documentNumber_;

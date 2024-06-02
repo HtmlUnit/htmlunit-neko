@@ -29,12 +29,7 @@ import org.w3c.dom.DocumentType;
 public class DOMImplementationImpl extends CoreDOMImplementationImpl {
 
     /** Dom implementation singleton. */
-    private static final DOMImplementationImpl singleton = new DOMImplementationImpl();
-
-    // NON-DOM: Obtain and return the single shared object
-    public static DOMImplementation getDOMImplementation() {
-        return singleton;
-    }
+    public static final DOMImplementationImpl INSTANCE = new DOMImplementationImpl();
 
     /**
      * {@inheritDoc}

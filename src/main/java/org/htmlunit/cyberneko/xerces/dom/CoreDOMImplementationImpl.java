@@ -42,12 +42,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
     private int docAndDoctypeCounter_ = 0;
 
     /** Dom implementation singleton. */
-    private static final CoreDOMImplementationImpl singleton = new CoreDOMImplementationImpl();
-
-    // NON-DOM: Obtain and return the single shared object
-    public static DOMImplementation getDOMImplementation() {
-        return singleton;
-    }
+    public static final CoreDOMImplementationImpl INSTANCE = new CoreDOMImplementationImpl();
 
     /**
      * {@inheritDoc}
@@ -197,8 +192,8 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
      */
     @Override
     public Object getFeature(final String feature, final String version) {
-        if (singleton.hasFeature(feature, version)) {
-            return singleton;
+        if (INSTANCE.hasFeature(feature, version)) {
+            return INSTANCE;
         }
         return null;
     }

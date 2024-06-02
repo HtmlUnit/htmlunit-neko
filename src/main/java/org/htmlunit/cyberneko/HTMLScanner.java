@@ -1344,7 +1344,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, XMLComponent
         HTMLNamedEntitiesParser.State lastMatchingResult = null;
 
         while (nextChar != -1) {
-            final HTMLNamedEntitiesParser.State intermediateResult = HTMLNamedEntitiesParser.get().lookup(nextChar, result);
+            final HTMLNamedEntitiesParser.State intermediateResult = HTMLNamedEntitiesParser.INSTANCE.lookup(nextChar, result);
 
             if (intermediateResult.endNode_) {
                 result = intermediateResult;

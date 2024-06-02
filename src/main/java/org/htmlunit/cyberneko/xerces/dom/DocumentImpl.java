@@ -90,7 +90,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
     public DOMImplementation getImplementation() {
         // Currently implemented as a singleton, since it's hardcoded
         // information anyway.
-        return DOMImplementationImpl.getDOMImplementation();
+        return DOMImplementationImpl.INSTANCE;
     }
 
     /**
