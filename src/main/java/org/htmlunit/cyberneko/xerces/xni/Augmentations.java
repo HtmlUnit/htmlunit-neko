@@ -41,39 +41,39 @@ public interface Augmentations {
     // location information
 
     /**
-     * @return the line number of the beginning of this event.
+     * @return the line number of the beginning of this Augmentations.
      */
     int getBeginLineNumber();
 
     /**
-     * @return the column number of the beginning of this event.
+     * @return the column number of the beginning of this Augmentations.
      */
     int getBeginColumnNumber();
 
     /**
-     * @return the character offset of the beginning of this event.
+     * @return the character offset of the beginning of this Augmentations.
      */
     int getBeginCharacterOffset();
 
     /**
-     * @return the line number of the end of this event.
+     * @return the line number of the end of this Augmentations.
      */
     int getEndLineNumber();
 
     /**
-     * @return the column number of the end of this event.
+     * @return the column number of the end of this Augmentations.
      */
     int getEndColumnNumber();
 
     /**
-     * @return the character offset of the end of this event.
+     * @return the character offset of the end of this Augmentations.
      */
     int getEndCharacterOffset();
 
     // other information
 
     /**
-     * @return true if this corresponding event was synthesized.
+     * @return true if this Augmentations was synthesized.
      */
     boolean isSynthesized();
 }
