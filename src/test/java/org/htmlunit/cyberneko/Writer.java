@@ -319,24 +319,23 @@ public class Writer extends DefaultFilter {
      * there are no HTML augmentations available.
      */
     protected void doAugs(final Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
-        if (evInfo != null) {
-            if (evInfo.isSynthesized()) {
+        if (augs != null) {
+            if (augs.isSynthesized()) {
                 out_.print("[synth]");
             }
             else {
                 out_.print('[');
-                out_.print(evInfo.getBeginLineNumber());
+                out_.print(augs.getBeginLineNumber());
                 out_.print(',');
-                out_.print(evInfo.getBeginColumnNumber());
+                out_.print(augs.getBeginColumnNumber());
                 out_.print(',');
-                out_.print(evInfo.getBeginCharacterOffset());
+                out_.print(augs.getBeginCharacterOffset());
                 out_.print(';');
-                out_.print(evInfo.getEndLineNumber());
+                out_.print(augs.getEndLineNumber());
                 out_.print(',');
-                out_.print(evInfo.getEndColumnNumber());
+                out_.print(augs.getEndColumnNumber());
                 out_.print(',');
-                out_.print(evInfo.getEndCharacterOffset());
+                out_.print(augs.getEndCharacterOffset());
                 out_.print(']');
             }
         }
@@ -348,11 +347,10 @@ public class Writer extends DefaultFilter {
      * are no HTML augmentations available.
      */
     protected void storeCharactersStart(final Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
-        if (evInfo != null) {
-            charactersBeginLine_ = evInfo.getBeginLineNumber();
-            charactersBeginColumn_ = evInfo.getBeginColumnNumber();
-            charactersBeginCharacterOffset_ = evInfo.getBeginCharacterOffset();
+        if (augs != null) {
+            charactersBeginLine_ = augs.getBeginLineNumber();
+            charactersBeginColumn_ = augs.getBeginColumnNumber();
+            charactersBeginCharacterOffset_ = augs.getBeginCharacterOffset();
         }
     }
 
@@ -362,11 +360,10 @@ public class Writer extends DefaultFilter {
      * are no HTML augmentations available.
      */
     protected void storeCharactersEnd(final Augmentations augs) {
-        final HTMLEventInfo evInfo = (augs == null) ? null : (HTMLEventInfo) augs;
-        if (evInfo != null) {
-            charactersEndLine_ = evInfo.getEndLineNumber();
-            charactersEndColumn_ = evInfo.getEndColumnNumber();
-            charactersEndCharacterOffset_ = evInfo.getEndCharacterOffset();
+        if (augs != null) {
+            charactersEndLine_ = augs.getEndLineNumber();
+            charactersEndColumn_ = augs.getEndColumnNumber();
+            charactersEndCharacterOffset_ = augs.getEndCharacterOffset();
         }
     }
 

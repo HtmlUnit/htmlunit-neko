@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
+import org.htmlunit.cyberneko.HTMLScanner.SynthesizedItem;
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
 import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
@@ -149,9 +150,6 @@ public class HTMLTagBalancer implements XMLDocumentFilter, XMLComponent {
     private static final short NAMES_LOWERCASE = 2;
 
     // static vars
-
-    /** Synthesized event info item. */
-    private static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
 
     /** Namespaces. */
     protected boolean fNamespaces;
@@ -1279,7 +1277,7 @@ public class HTMLTagBalancer implements XMLDocumentFilter, XMLComponent {
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         if (fAugmentations) {
-            return SYNTHESIZED_ITEM;
+            return SynthesizedItem.INSTANCE;
         }
         return null;
     }
