@@ -14,6 +14,8 @@
  */
 package org.htmlunit.cyberneko.xerces.parsers;
 
+import java.io.IOException;
+
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -23,6 +25,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
@@ -34,7 +37,17 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public abstract class AbstractXMLDocumentParser extends XMLParser implements XMLDocumentHandler {
+public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
+
+
+    /** Property identifier: error handler. */
+    protected static final String ERROR_HANDLER = Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
+
+    /** Recognized properties. */
+    private static final String[] RECOGNIZED_PROPERTIES = {ERROR_HANDLER};
+
+    /** The parser configuration. */
+    protected final XMLParserConfiguration parserConfiguration_;
 
     private XMLDocumentSource documentSource_;
 
@@ -44,10 +57,33 @@ public abstract class AbstractXMLDocumentParser extends XMLParser implements XML
      * @param config the config
      */
     protected AbstractXMLDocumentParser(final XMLParserConfiguration config) {
-        super(config);
+        // save configuration
+        parserConfiguration_ = config;
+
+        // add default recognized properties
+        parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
 
         // set handlers
         config.setDocumentHandler(this);
+    }
+
+    /**
+     * Parse.
+     *
+     * @param inputSource the input source
+     *
+     * @exception XNIException        on error
+     * @exception java.io.IOException on error
+     */
+    public void parse(final XMLInputSource inputSource) throws XNIException, IOException {
+        reset();
+        parserConfiguration_.parse(inputSource);
+    }
+
+    /**
+     * reset all components before parsing
+     */
+    protected void reset() throws XNIException {
     }
 
     /**
