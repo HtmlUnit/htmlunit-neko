@@ -60,7 +60,7 @@ public final class HTMLNamedEntitiesParser {
     /*
      * Our single instance of the parser, we don't have state, so we are safe
      */
-    public static final HTMLNamedEntitiesParser INSTANCE = new HTMLNamedEntitiesParser();
+    private static final HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
 
     /*
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
@@ -112,6 +112,16 @@ public final class HTMLNamedEntitiesParser {
             // or build
             throw new RuntimeException("Unable to initilaize the HTML entities from file");
         }
+    }
+
+    /**
+     * Returns the singleton. The singleton is stateless and can safely be used in a multi-threaded
+     * context.
+     *
+     * @return the singleton instance of the parser, can never be null
+     */
+    public static HTMLNamedEntitiesParser get() {
+        return instance;
     }
 
     /**

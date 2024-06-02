@@ -207,7 +207,7 @@ public class HTMLWriterFilter extends DefaultFilter {
             for (int i = 0; i < text.length(); i++) {
                 final char c = text.charAt(i);
                 if (c != '\n') {
-                    final String entity = HTMLNamedEntitiesParser.INSTANCE.lookupEntityRefFor(Character.toString(c));
+                    final String entity = HTMLNamedEntitiesParser.get().lookupEntityRefFor(Character.toString(c));
                     if (entity != null) {
                         printer_.print(entity);
                     }
