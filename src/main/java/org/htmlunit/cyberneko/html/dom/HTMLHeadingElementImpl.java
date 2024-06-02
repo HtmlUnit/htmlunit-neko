@@ -26,7 +26,7 @@ public class HTMLHeadingElementImpl extends HTMLElementImpl implements HTMLHeadi
 
     @Override
     public String getAlign() {
-        return "Align";
+        return getCapitalized("align");
     }
 
     @Override

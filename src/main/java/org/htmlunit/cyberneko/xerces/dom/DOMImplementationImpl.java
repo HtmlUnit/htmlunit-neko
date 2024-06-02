@@ -14,6 +14,7 @@
  */
 package org.htmlunit.cyberneko.xerces.dom;
 
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.DocumentType;
 
 /**
