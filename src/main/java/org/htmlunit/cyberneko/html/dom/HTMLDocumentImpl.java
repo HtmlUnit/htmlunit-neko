@@ -503,10 +503,18 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
     @Override
     public Element createElementNS(final String namespaceURI, final String qualifiedname) {
         if (namespaceURI == null
-                || namespaceURI.length() == 0
-                || NamespaceBinder.XHTML_1_0_URI.equals(namespaceURI)) {
+                || namespaceURI.length() == 0) {
             return createElement(qualifiedname);
         }
+
+        if (NamespaceBinder.XHTML_1_0_URI.equals(namespaceURI)) {
+            final int index = qualifiedname.indexOf(':');
+            if (index != -1) {
+                return createElement(qualifiedname.substring(index + 1));
+            }
+            return createElement(qualifiedname);
+        }
+
         return super.createElementNS(namespaceURI, qualifiedname);
     }
 

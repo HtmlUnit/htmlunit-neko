@@ -1,7 +1,7 @@
 (HTML
 (HEAD
 )HEAD
-(H:BODY
+(BODY
 A{http://www.w3.org/2000/xmlns/}xmlns:h http://www.w3.org/1999/xhtml
-)H:BODY
+)BODY
 )HTML
