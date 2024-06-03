@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+(STYLE
+" first line\nlast line
+)STYLE
+"\n
+)HEAD
+(BODY
+(H1
+"Foo
+)H1
+)BODY
+)HTML

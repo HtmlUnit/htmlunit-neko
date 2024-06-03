@@ -1,0 +1,17 @@
+(HTML
+(HEAD
+"\n
+(SCRIPT
+Asrc /foo.js
+"<!-- this shouldn't be a problem -->
+)SCRIPT
+"\n
+(SCRIPT
+Asrc /foo.js
+"<!-- this shouldn't be a problem either --> 
+)SCRIPT
+"\n
+)HEAD
+(BODY
+)BODY
+)HTML

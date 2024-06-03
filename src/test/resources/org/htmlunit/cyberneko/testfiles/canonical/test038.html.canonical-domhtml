@@ -1,0 +1,28 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"\n  
+(P
+"Here we go! 
+(A
+Ahref http://bigidea.com/
+"Bob
+)A
+" 
+(BR
+)BR
+"\n  and 
+(A
+Ahref http://larryboy.com/
+" Larry 
+)A
+"\n  and friends 
+(A
+Ahref http://google.com/
+"Google
+)A
+"\n
+)P
+)BODY
+)HTML

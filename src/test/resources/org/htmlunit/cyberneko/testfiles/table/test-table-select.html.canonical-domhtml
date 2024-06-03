@@ -1,0 +1,20 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(TABLE
+(SELECT
+Aname Lang
+(OPTION
+Avalue da
+"Dansk
+)OPTION
+(OPTION
+Aselected selected
+Avalue en
+"English
+)OPTION
+)SELECT
+)TABLE
+)BODY
+)HTML

@@ -1,0 +1,19 @@
+!html
+(HTML
+(HEAD
+)HEAD
+(BODY
+(DIV
+"1
+)DIV
+# in comment 
+(DIV
+"2
+)DIV
+# in bang comment 
+(DIV
+"3
+)DIV
+"-->
+)BODY
+)HTML

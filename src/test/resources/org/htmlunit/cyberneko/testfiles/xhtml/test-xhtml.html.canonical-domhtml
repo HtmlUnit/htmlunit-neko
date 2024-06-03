@@ -1,0 +1,28 @@
+xencoding UTF-8
+!html
+p-//W3C//DTD XHTML 1.0 Strict//EN
+shttp://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd
+(HTML
+Alang en
+A{http://www.w3.org/XML/1998/namespace}xml:lang en
+A{http://www.w3.org/2000/xmlns/}xmlns http://www.w3.org/1999/xhtml
+(HEAD
+"\n    
+(TITLE
+"Simple XHTML sample
+)TITLE
+"\n  
+)HEAD
+(BODY
+"\n    
+(P
+"Moved to 
+(A
+Ahref http://example.org/
+"example.org
+)A
+".
+)P
+"\n  
+)BODY
+)HTML

@@ -1,0 +1,10 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"\n
+(DIV
+"not closed div\n
+)DIV
+)BODY
+)HTML

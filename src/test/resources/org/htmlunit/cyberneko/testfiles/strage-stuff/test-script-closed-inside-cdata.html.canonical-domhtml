@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+(SCRIPT
+Asrc /jenkins
+"\n//<![CDATA[\n
+)SCRIPT
+(SCRIPT
+Asrc /jenkins.js
+"\n//]]\n
+)SCRIPT
+)HEAD
+(BODY
+)BODY
+)HTML

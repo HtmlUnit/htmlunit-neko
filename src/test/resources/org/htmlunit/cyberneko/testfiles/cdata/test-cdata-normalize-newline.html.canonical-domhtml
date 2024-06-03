@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(P
+"P1
+#[CDATA[cdata\n\n\n]]
+"\n
+)P
+(P
+"P2
+)P
+)BODY
+)HTML

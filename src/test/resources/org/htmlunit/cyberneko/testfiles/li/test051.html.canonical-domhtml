@@ -1,0 +1,18 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(UL
+"\n
+(LI
+"Item 1\n 
+(P
+"Paragraph\n
+)P
+)LI
+(LI
+"Item 2\n
+)LI
+)UL
+)BODY
+)HTML

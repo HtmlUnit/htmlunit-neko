@@ -1,0 +1,39 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"\n
+(FONT
+"\n
+(TABLE
+"\n
+(TBODY
+(TR
+"\n
+(TD
+(B
+(FONT
+"\nRow 1
+)FONT
+)B
+(FONT
+", Cell 1
+)FONT
+)TD
+"\n
+(TD
+"Row 1, Cell 2
+)TD
+"\n
+)TR
+"\n
+)TBODY
+)TABLE
+"\n
+(P
+"Test paragraph 2 (after table)
+)P
+)FONT
+"\n
+)BODY
+)HTML

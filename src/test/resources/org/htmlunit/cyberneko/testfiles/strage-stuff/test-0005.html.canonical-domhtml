@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+(STYLE
+"b<![cdata[
+)STYLE
+)HEAD
+(BODY
+(A
+Ahref javascript:alert(1)
+"test
+)A
+)BODY
+)HTML

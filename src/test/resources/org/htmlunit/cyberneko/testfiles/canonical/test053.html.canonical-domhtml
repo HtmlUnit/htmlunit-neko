@@ -1,0 +1,20 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"\n
+(FORM
+"\n
+(SPAN
+Aid span1
+(SPAN
+Aid span2
+(SELECT
+)SELECT
+)SPAN
+)SPAN
+"\n
+)FORM
+"\n
+)BODY
+)HTML

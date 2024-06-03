@@ -1,0 +1,10 @@
+(HTML
+(HEAD
+(TITLE
+"foo</head><body>
+)TITLE
+)HEAD
+(BODY
+"foo
+)BODY
+)HTML

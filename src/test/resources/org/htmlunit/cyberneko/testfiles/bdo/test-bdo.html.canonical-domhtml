@@ -1,0 +1,12 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(P
+(BDO
+Adir rtl
+"This text will go right to left.
+)BDO
+)P
+)BODY
+)HTML

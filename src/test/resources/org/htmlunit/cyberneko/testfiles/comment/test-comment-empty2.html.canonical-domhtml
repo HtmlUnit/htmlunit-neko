@@ -1,0 +1,52 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(DIV
+"before1
+#
+"after1
+)DIV
+"\n
+# good comment 1 
+"\n
+(DIV
+"before2
+#
+"after2
+)DIV
+"\n
+# good comment 2 
+"\n
+(DIV
+"before3
+#
+"after3
+)DIV
+"\n
+# good comment 3 
+"\n
+(DIV
+"before4
+#
+"after4
+)DIV
+"\n
+# good comment 4 
+"\n
+(DIV
+"before5
+#
+"after5
+)DIV
+"\n
+# good comment 5 
+"\n
+(DIV
+"before6<>after6
+)DIV
+"\n
+# good comment 6 
+"\n
+)BODY
+)HTML

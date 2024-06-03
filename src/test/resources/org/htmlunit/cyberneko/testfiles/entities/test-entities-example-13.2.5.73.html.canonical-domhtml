@@ -1,0 +1,23 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(SPAN
+"I'm ¬it; I tell you
+)SPAN
+"\n
+(SPAN
+"I'm ∉ I tell you
+)SPAN
+"\n
+(SPAN
+Atitle I'm &notit; I tell you
+"¬¬i∉
+)SPAN
+"\n
+(SPAN
+Atitle I'm ∉ I tell you
+"Parsed correctly
+)SPAN
+)BODY
+)HTML

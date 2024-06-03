@@ -1,0 +1,17 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(A
+Ahref foo
+"hello 
+(DIV
+"new
+)DIV
+)A
+(A
+Aname foo
+"world
+)A
+)BODY
+)HTML

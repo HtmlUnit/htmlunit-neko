@@ -1,0 +1,12 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(SCRIPT
+"\ndoSomething\n
+)SCRIPT
+(SCRIPT
+"\ndoSomethingElse\n
+)SCRIPT
+)BODY
+)HTML

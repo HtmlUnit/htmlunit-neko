@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(TEMPLATE
+(DIV
+"some 
+(B
+"content
+)B
+)DIV
+)TEMPLATE
+)BODY
+)HTML

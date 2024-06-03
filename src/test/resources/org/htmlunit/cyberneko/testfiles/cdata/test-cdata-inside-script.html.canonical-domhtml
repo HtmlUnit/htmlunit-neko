@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+(SCRIPT
+"\n<![CDATA[\nxhtml script content\n]]>\n
+)SCRIPT
+"\n
+)HEAD
+(BODY
+(H1
+"Foo
+)H1
+)BODY
+)HTML

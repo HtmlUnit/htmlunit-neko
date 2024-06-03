@@ -1,0 +1,16 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(STYLE
+"h1 {color:red;} p {color:blue;}
+)STYLE
+(H1
+"A heading
+)H1
+(P
+"A paragraph.
+)P
+" 
+)BODY
+)HTML

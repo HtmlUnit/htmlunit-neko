@@ -1,0 +1,12 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(IFRAME
+Asrc foo1
+)IFRAME
+(IFRAME
+Asrc foo2
+)IFRAME
+)BODY
+)HTML

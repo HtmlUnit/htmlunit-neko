@@ -1,0 +1,19 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(P
+"outer paragraph\n
+)P
+(P
+"inner paragraph
+(BR
+)BR
+"second line in inner paragraph\n
+)P
+"second line in outer paragrapth\n
+(P
+)P
+"outside paragraph tags
+)BODY
+)HTML

@@ -1,0 +1,11 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(SELECT
+(SCRIPT
+"alert('xyz');
+)SCRIPT
+)SELECT
+)BODY
+)HTML

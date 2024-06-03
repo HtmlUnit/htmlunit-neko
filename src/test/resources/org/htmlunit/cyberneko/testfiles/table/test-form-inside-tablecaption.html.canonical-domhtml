@@ -1,0 +1,26 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(TABLE
+(CAPTION
+(FORM
+(INPUT
+Aname xyz
+Atype hidden
+)INPUT
+(INPUT
+Atype submit
+Avalue Submit
+)INPUT
+)FORM
+)CAPTION
+(TBODY
+(TR
+(TD
+)TD
+)TR
+)TBODY
+)TABLE
+)BODY
+)HTML

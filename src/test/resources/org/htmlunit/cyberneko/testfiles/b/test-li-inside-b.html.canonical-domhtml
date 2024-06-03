@@ -1,0 +1,16 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(B
+"Leading Text
+(LI
+"data1
+)LI
+(LI
+"data2
+)LI
+"Closing Text
+)B
+)BODY
+)HTML

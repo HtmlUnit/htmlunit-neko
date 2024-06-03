@@ -1,0 +1,13 @@
+#one\ntwo\n\nthree\n\n\n
+?target one\ntwo\n\nthree\n\n\n
+(HTML
+Aattr one two three
+(HEAD
+)HEAD
+(BODY
+"\n[one\ntwo\n\nthree\n\n\n]\n
+(TEXTAREA
+"one\ntwo\n\nthree\n\n\n
+)TEXTAREA
+)BODY
+)HTML

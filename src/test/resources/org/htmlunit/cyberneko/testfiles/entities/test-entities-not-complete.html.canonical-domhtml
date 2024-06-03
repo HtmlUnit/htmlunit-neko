@@ -1,0 +1,16 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+"Some entities with missing ; should be recognized but not in attributes\n
+(A
+Ahref foo?a=1&prod=sd
+"link 1
+)A
+"\n
+(A
+Ahref foo?a=1&copy=sd
+"link 2
+)A
+)BODY
+)HTML

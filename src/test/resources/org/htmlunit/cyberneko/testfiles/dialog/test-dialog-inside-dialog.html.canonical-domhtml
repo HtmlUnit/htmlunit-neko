@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(DIALOG
+"before
+(DIALOG
+"inner
+)DIALOG
+"after
+)DIALOG
+" 
+)BODY
+)HTML

@@ -1,0 +1,14 @@
+(HTML
+(HEAD
+(NOSCRIPT
+)NOSCRIPT
+)HEAD
+(BODY
+(DIV
+"hello 
+(SPAN
+"world
+)SPAN
+)DIV
+)BODY
+)HTML

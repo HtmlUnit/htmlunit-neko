@@ -1,0 +1,12 @@
+(HTML
+(HEAD
+)HEAD
+(BODY
+(A
+Ahref foo
+(P
+"Blah
+)P
+)A
+)BODY
+)HTML

@@ -1,0 +1,11 @@
+(HTML
+(HEAD
+(SCRIPT
+"document.write("</SCRIPT\\>");
+)SCRIPT
+)HEAD
+(BODY
+(P
+)P
+)BODY
+)HTML
