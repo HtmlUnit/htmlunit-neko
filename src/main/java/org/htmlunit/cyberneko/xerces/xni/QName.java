@@ -21,9 +21,6 @@ package org.htmlunit.cyberneko.xerces.xni;
  * strings. Within the parser, these values are considered symbols and should
  * always be retrieved from the <code>SymbolTable</code>.
  *
- * @see <a href=
- *      "../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">org.htmlunit.cyberneko.xerces.util.SymbolTable</a>
- *
  * @author Andy Clark, IBM
  */
 public class QName implements Cloneable {
