@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.htmlunit.cyberneko.filters.NamespaceBinder;
 import org.htmlunit.cyberneko.util.FastHashMap;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
@@ -501,7 +502,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public Element createElementNS(final String namespaceURI, final String qualifiedname) {
-        if (namespaceURI == null || namespaceURI.length() == 0) {
+        if (namespaceURI == null
+                || namespaceURI.length() == 0
+                || NamespaceBinder.XHTML_1_0_URI.equals(namespaceURI)) {
             return createElement(qualifiedname);
         }
         return super.createElementNS(namespaceURI, qualifiedname);
