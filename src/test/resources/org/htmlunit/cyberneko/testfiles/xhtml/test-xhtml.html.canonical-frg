@@ -1,0 +1,26 @@
+"\n\n
+(html
+Alang en
+Axml:lang en
+Axmlns http://www.w3.org/1999/xhtml
+"\n  
+(head
+"\n    
+(title
+"Simple XHTML sample
+)title
+"\n  \n  
+)head
+(body
+"\n    
+(p
+"Moved to 
+(a
+Ahref http://example.org/
+"example.org
+)a
+".
+)p
+"\n  \n
+)body
+)html

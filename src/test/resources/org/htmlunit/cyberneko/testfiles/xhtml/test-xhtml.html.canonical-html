@@ -1,0 +1,5 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+    <title>Simple XHTML sample</title>
+  </head><body>
+    <p>Moved to <a href="http://example.org/">example&period;org</a>&period;</p>
+  </body></html>

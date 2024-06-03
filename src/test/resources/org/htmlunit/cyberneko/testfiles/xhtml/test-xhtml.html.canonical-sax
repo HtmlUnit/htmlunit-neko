@@ -1,0 +1,27 @@
+!html
+p-//W3C//DTD XHTML 1.0 Strict//EN
+shttp://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd
+(html
+Alang en
+A{http://www.w3.org/XML/1998/namespace}xml:lang en
+A{http://www.w3.org/2000/xmlns/}xmlns http://www.w3.org/1999/xhtml
+(head
+"\n    
+(title
+"Simple XHTML sample
+)title
+"\n  
+)head
+(body
+"\n    
+(p
+"Moved to 
+(a
+Ahref http://example.org/
+"example.org
+)a
+".
+)p
+"\n  
+)body
+)html
