@@ -16,7 +16,7 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
-### Latest release Version 4.1.0 / April 28, 2024
+### Latest release Version 4.2.0 / June 05, 2024
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
 ##### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
@@ -32,7 +32,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.1.0</version>
+    <version>4.2.0</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.1.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.2.0'
 ```
 
 ## HowTo use
