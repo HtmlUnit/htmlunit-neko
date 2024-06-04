@@ -18,8 +18,7 @@ package org.htmlunit.cyberneko.xerces.xni;
  * A structure that holds the components of an XML Namespaces qualified name.
  * <p>
  * To be used correctly, the strings must be identical references for equal
- * strings. Within the parser, these values are considered symbols and should
- * always be retrieved from the <code>SymbolTable</code>.
+ * strings.
  *
  * @author Andy Clark, IBM
  */

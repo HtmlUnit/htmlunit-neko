@@ -21,7 +21,7 @@ import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 /**
  * Namespace support for XML document handlers. This class doesn't perform any
  * error checking and assumes that all strings passed as arguments to methods
- * are unique symbols. The SymbolTable class can be used for this purpose.
+ * are unique symbols.
  *
  * @author Andy Clark, IBM
  */

@@ -18,12 +18,7 @@ package org.htmlunit.cyberneko.xerces.xni;
  * Represents an interface to query namespace information.
  * <p>
  * The prefix and namespace must be identical references for equal strings, thus
- * each string should be internalized (@see String.intern()) or added to the
- * <code>SymbolTable</code>
- *
- * @see <a href=
- *      "../../../../../xerces2/org/apache/xerces/util/SymbolTable.html">
- *      org.htmlunit.cyberneko.xerces.util.SymbolTable</a>
+ * each string should be internalized (@see String.intern()).
  *
  * @author Andy Clark, IBM
  */
