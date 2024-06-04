@@ -44,7 +44,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentScanner;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 
 /**
@@ -90,7 +90,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * @author Ronald Brill
  * @author Ren&eacute; Schwietzke
  */
-public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponent {
+public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent {
 
     // doctype info: HTML 4.01 strict
 
@@ -773,8 +773,13 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         }
     }
 
-    /** Sets the input source. */
-    @Override
+    /**
+     * Sets the input source.
+     *
+     * @param inputSource The input source.
+     *
+     * @throws IOException Thrown on i/o error.
+     */
     public void setInputSource(final XMLInputSource source) throws IOException {
 
         // reset state
@@ -851,8 +856,20 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         setScannerState(STATE_START_DOCUMENT);
     }
 
-    /** Scans the document. */
-    @Override
+    /**
+     * Scans a document.
+     *
+     * @param complete True if the scanner should scan the document completely,
+     *                 pushing all events to the registered document handler. A
+     *                 value of false indicates that that the scanner should only
+     *                 scan the next portion of the document and return. A scanner
+     *                 instance is permitted to completely scan a document if it
+     *                 does not support this "pull" scanning model.
+     *
+     * @return True if there is more to scan, false otherwise.
+     * @throws IOException  Thrown on i/o error.
+     * @throws XNIException on error.
+     */
     public boolean scanDocument(final boolean complete) throws XNIException, IOException {
         do {
             if (!fScanner.scan(complete)) {
