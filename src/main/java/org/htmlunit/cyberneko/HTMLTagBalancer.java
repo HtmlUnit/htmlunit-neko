@@ -1451,7 +1451,7 @@ public class HTMLTagBalancer
     }
 
     /**
-     * Structure to hold information about an element placed in buffer to be comsumed later
+     * Structure to hold information about an element placed in buffer to be consumed later
      */
     static class ElementEntry {
         final QName name_;
