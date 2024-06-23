@@ -102,4 +102,53 @@ public class FragmentContextStackTest {
                 "(option" + NL + "\"Two" + NL + ")option",
                 FEATURES);
     }
+
+    @Test
+    public void fragmentTitle() throws Exception {
+        GeneralTest.doTest("</> HtmlUnit", new String[] {"html", "head", "title"},
+                "\"</> HtmlUnit",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentTextarea() throws Exception {
+        GeneralTest.doTest("</> HtmlUnit", new String[] {"html", "body", "textarea"},
+                "\"</> HtmlUnit",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentXmp() throws Exception {
+        GeneralTest.doTest("</> &euro;<span>HtmlUnit<span>", new String[] {"html", "body", "xmp"},
+                "\"</> &euro;<span>HtmlUnit<span>",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentStyle() throws Exception {
+        GeneralTest.doTest(":before { content: \"</> <span>HtmlUnit<span>\" }", new String[] {"html", "body", "style"},
+                "\":before { content: \"</> <span>HtmlUnit<span>\" }",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentPlaintext() throws Exception {
+        GeneralTest.doTest("</> &euro;<span>HtmlUnit<span>", new String[] {"html", "body", "plaintext"},
+                "\"</> &euro;<span>HtmlUnit<span>",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentScript() throws Exception {
+        GeneralTest.doTest("log('test </script>');", new String[] {"html", "body", "script"},
+                "\"log('test ');",
+                FEATURES);
+    }
+
+    @Test
+    public void fragmentScript2() throws Exception {
+        GeneralTest.doTest("document.section1.innerHTML = '<p>Section 1</p>';", new String[] {"html", "body", "script"},
+                "\"document.section1.innerHTML = '<p>Section 1</p>';",
+                FEATURES);
+    }
 }

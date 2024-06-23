@@ -448,6 +448,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Element depth. */
     protected int fElementDepth;
 
+    /** if not empty this is the name of the tag, that requires the special scanner. */
+    private String fFragmentSpecialScannerTag_;
+
     // scanners
 
     /** Content scanner. */
@@ -460,6 +463,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     protected final SpecialScanner fSpecialScanner = new SpecialScanner();
 
+    /**
+     * Special scanner used script tags.
+     */
+    protected final ScriptScanner fScriptScanner = new ScriptScanner();
+
     // temp vars
 
     /** String buffer. */
@@ -468,9 +476,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** String buffer used when resolving entity refs. */
     final XMLString fStringBufferEntiyRef = new XMLString();
     final XMLString fStringBufferPlainAttribValue = new XMLString();
-
-    /** String buffer, larger because scripts areas are larger */
-    final XMLString fScanScriptContent = new XMLString(128);
 
     final XMLString fScanUntilEndTag = new XMLString();
 
@@ -718,6 +723,20 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fEncodingTranslator = (EncodingTranslator) manager.getProperty(ENCODING_TRANSLATOR);
         fDoctypePubid = String.valueOf(manager.getProperty(DOCTYPE_PUBID));
         fDoctypeSysid = String.valueOf(manager.getProperty(DOCTYPE_SYSID));
+
+        final QName[] fragmentContextStack = (QName[]) manager.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
+        if (fragmentContextStack != null) {
+            int length = fragmentContextStack.length;
+            if (length > 0) {
+                QName lastQname = fragmentContextStack[length - 1];
+                final String name = lastQname.getLocalpart();
+                final String nameLC = name.toLowerCase(Locale.ROOT);
+                if (htmlConfiguration_.getHtmlElements().getElement(nameLC).isSpecial()) {
+                    fFragmentSpecialScannerTag_ = name;
+                }
+            }
+        }
+
     }
 
     /** Sets a feature. */
@@ -852,8 +871,23 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
 
         // set scanner and state
-        setScanner(fContentScanner);
-        setScannerState(STATE_START_DOCUMENT);
+        if (fFragmentSpecialScannerTag_ != null) {
+            if ("script".equals(fFragmentSpecialScannerTag_.toLowerCase(Locale.ROOT))) {
+                setScanner(fScriptScanner);
+            }
+            else if ("plaintext".equals(fFragmentSpecialScannerTag_.toLowerCase(Locale.ROOT))) {
+                setScanner(new PlainTextScanner());
+            }
+            else {
+                setScanner(fSpecialScanner.setElementName(fFragmentSpecialScannerTag_));
+                setScannerState(STATE_CONTENT);
+            }
+
+        }
+        else {
+            setScanner(fContentScanner);
+            setScannerState(STATE_START_DOCUMENT);
+        }
     }
 
     /**
@@ -1689,8 +1723,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * Basic scanner interface.
-     *
-     * @author Andy Clark
      */
     public interface Scanner {
 
@@ -1710,8 +1742,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * Current entity.
-     *
-     * @author Andy Clark
      */
     private static final class CurrentEntity {
 
@@ -1986,8 +2016,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * The primary HTML document scanner.
-     *
-     * @author Andy Clark
      */
     public class ContentScanner implements Scanner {
 
@@ -2095,7 +2123,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
 
                                 if ("script".equals(enameLC)) {
-                                    scanScriptContent();
+                                    setScanner(fScriptScanner);
+                                    setScannerState(STATE_CONTENT);
+                                    return true;
                                 }
                                 else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
                                     scanUntilEndTag("iframe");
@@ -2236,207 +2266,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
                 fDocumentHandler.characters(fScanUntilEndTag, locationAugs());
             }
-        }
-
-        private void scanScriptContent() throws IOException {
-            fScanScriptContent.clear();
-
-            ScanScriptState state = ScanScriptState.DATA;
-            int closeIndex = 0;
-            int openIndex = 0;
-            boolean invalidComment = false;
-
-            OUTER:
-                while (true) {
-                    final int c = fCurrentEntity.read();
-                    if (c == -1) {
-                        break OUTER;
-                    }
-
-                    switch (state) {
-                    case DATA:
-                        if (c == '-' && fScanScriptContent.endsWith("<!-")) {
-                            state = ScanScriptState.ESCAPED;
-                        }
-                        else if (c == '<') {
-                            final String next = nextContent(8) + " ";
-                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
-                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
-                                fCurrentEntity.rewind();
-                                break OUTER;
-                            }
-                        }
-                        break;
-                    case ESCAPED:
-                        if (c == '>') {
-                            if (fScanScriptContent.endsWith("--")) {
-                                state = ScanScriptState.DATA;
-                            }
-                            else if (fScanScriptContent.endsWith("--!")) {
-                                state = ScanScriptState.DATA;
-                                invalidComment = true;
-                            }
-                        }
-                        else if (c == '<') {
-                            final String next = nextContent(8) + " ";
-                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
-                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
-                                fCurrentEntity.rewind();
-                                break OUTER;
-                            }
-                            openIndex = 0;
-                            state = ScanScriptState.ESCAPED_LT;
-                        }
-                        break;
-                    case ESCAPED_LT:
-                        if (openIndex < 6) {
-                            if (Character.toLowerCase(c) == "script".charAt(openIndex)) {
-                                openIndex++;
-                            }
-                            else {
-                                state = ScanScriptState.ESCAPED;
-                            }
-                        }
-                        else if (openIndex == 6) {
-                            if (Character.isWhitespace(c)) {
-                                openIndex++;
-                            }
-                            else if (c == '>') {
-                                // buffer must not end with "--"
-                                state = ScanScriptState.DOUBLE_ESCAPED;
-                            }
-                            else {
-                                state = ScanScriptState.ESCAPED;
-                            }
-                        }
-                        else {
-                            if (c == '>') {
-                                if (fScanScriptContent.endsWith("--")) {
-                                    state = ScanScriptState.DATA;
-                                }
-                                else {
-                                    state = ScanScriptState.DOUBLE_ESCAPED;
-                                }
-                            }
-                        }
-                        break;
-                    case DOUBLE_ESCAPED:
-                        if (c == '>' && fScanScriptContent.endsWith("--")) {
-                            state = ScanScriptState.DATA;
-                        }
-                        else if (c == '<') {
-                            state = ScanScriptState.DOUBLE_ESCAPED_LT;
-                        }
-                        break;
-                    case DOUBLE_ESCAPED_LT:
-                        if (closeIndex < 7) {
-                            if (Character.toLowerCase(c) == "/script".charAt(closeIndex)) {
-                                closeIndex++;
-                            }
-                            else if (c == '<') {
-                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
-                                closeIndex = 0;
-                            }
-                            else {
-                                state = ScanScriptState.DOUBLE_ESCAPED;
-                            }
-                        }
-                        else {
-                            if (c == '>') {
-                                state = ScanScriptState.ESCAPED;
-                            }
-                            else if (Character.isWhitespace(c)) {
-                                // skip white space
-                                // </script(\s)*>
-                                //         ^^^^^
-                            }
-                            else if (c == '<') {
-                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
-                                closeIndex = 0;
-                            }
-                            else {
-                                state = ScanScriptState.DOUBLE_ESCAPED;
-                            }
-                        }
-                        break;
-                    }
-
-                    if (c == '\r' || c == '\n') {
-                        fCurrentEntity.rewind();
-                        final int newlines = skipNewlines();
-                        for (int i = 0; i < newlines; i++) {
-                            fScanScriptContent.append('\n');
-                        }
-                    }
-                    else {
-                        if (!fScanScriptContent.appendCodePoint(c)) {
-                            if (fReportErrors_) {
-                                fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                            }
-                        }
-                    }
-                }
-
-            if (fScriptStripCommentDelims_) {
-                if (invalidComment) {
-                    fScanScriptContent.trimToContent("<!--", "--!>");
-                }
-                else {
-                    fScanScriptContent.trimToContent("<!--", "-->");
-                }
-            }
-            if (fScriptStripCDATADelims_) {
-                fScanScriptContent.trimToContent("<![CDATA[", "]]>");
-            }
-
-            if (fScanScriptContent.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
-                if (DEBUG_CALLBACKS) {
-                    System.out.println("characters(" + fScanScriptContent + ")");
-                }
-                fEndLineNumber = fCurrentEntity.getLineNumber();
-                fEndColumnNumber = fCurrentEntity.getColumnNumber();
-                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
-                fDocumentHandler.characters(fScanScriptContent, locationAugs());
-            }
-        }
-
-        /**
-         * Reads the next characters WITHOUT impacting the buffer content up to current
-         * offset.
-         *
-         * @param len the number of characters to read
-         * @return the read string (length may be smaller if EOF is encountered)
-         * @throws IOException in case of io problems
-         */
-        protected String nextContent(final int len) throws IOException {
-            final int originalOffset = fCurrentEntity.offset_;
-            final int originalColumnNumber = fCurrentEntity.getColumnNumber();
-            final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
-
-            final char[] buff = new char[len];
-            int nbRead;
-            for (nbRead = 0; nbRead < len; ++nbRead) {
-                // read() should not clear the buffer
-                if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                    final int count = fCurrentEntity.load(fCurrentEntity.offset_);
-                    if (count == -1) {
-                        break;
-                    }
-                }
-
-                final int c = fCurrentEntity.read();
-                if (c == -1) {
-                    break;
-                }
-                buff[nbRead] = (char) c;
-            }
-
-            // restore position
-            fCurrentEntity.offset_ = originalOffset;
-            fCurrentEntity.columnNumber_ = originalColumnNumber;
-            fCurrentEntity.characterOffset_ = originalCharacterOffset;
-
-            return new String(buff, 0, nbRead);
         }
 
         // Scans characters.
@@ -3399,8 +3228,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * Special scanner used for elements whose content needs to be scanned as plain
      * text, ignoring markup such as elements and entity references. For example:
      * &lt;SCRIPT&gt; and &lt;COMMENT&gt;.
-     *
-     * @author Andy Clark
      */
     public class SpecialScanner implements Scanner {
 
@@ -3640,9 +3467,184 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     /**
+     * Special scanner used for {@code PLAINTEXT}
+     */
+    public class ScriptScanner implements Scanner {
+
+        /** String buffer, larger because scripts areas are larger */
+        final XMLString fScanScriptContent = new XMLString(128);
+
+        @Override
+        public boolean scan(final boolean complete) throws IOException {
+            fScanScriptContent.clear();
+
+            ScanScriptState state = ScanScriptState.DATA;
+            int closeIndex = 0;
+            int openIndex = 0;
+            boolean invalidComment = false;
+
+            OUTER:
+                while (true) {
+                    final int c = fCurrentEntity.read();
+                    if (c == -1) {
+                        break OUTER;
+                    }
+
+                    switch (state) {
+                    case DATA:
+                        if (c == '-' && fScanScriptContent.endsWith("<!-")) {
+                            state = ScanScriptState.ESCAPED;
+                        }
+                        else if (c == '<') {
+                            final String next = nextContent(8) + " ";
+                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
+                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                                fCurrentEntity.rewind();
+                                break OUTER;
+                            }
+                        }
+                        break;
+                    case ESCAPED:
+                        if (c == '>') {
+                            if (fScanScriptContent.endsWith("--")) {
+                                state = ScanScriptState.DATA;
+                            }
+                            else if (fScanScriptContent.endsWith("--!")) {
+                                state = ScanScriptState.DATA;
+                                invalidComment = true;
+                            }
+                        }
+                        else if (c == '<') {
+                            final String next = nextContent(8) + " ";
+                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
+                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                                fCurrentEntity.rewind();
+                                break OUTER;
+                            }
+                            openIndex = 0;
+                            state = ScanScriptState.ESCAPED_LT;
+                        }
+                        break;
+                    case ESCAPED_LT:
+                        if (openIndex < 6) {
+                            if (Character.toLowerCase(c) == "script".charAt(openIndex)) {
+                                openIndex++;
+                            }
+                            else {
+                                state = ScanScriptState.ESCAPED;
+                            }
+                        }
+                        else if (openIndex == 6) {
+                            if (Character.isWhitespace(c)) {
+                                openIndex++;
+                            }
+                            else if (c == '>') {
+                                // buffer must not end with "--"
+                                state = ScanScriptState.DOUBLE_ESCAPED;
+                            }
+                            else {
+                                state = ScanScriptState.ESCAPED;
+                            }
+                        }
+                        else {
+                            if (c == '>') {
+                                if (fScanScriptContent.endsWith("--")) {
+                                    state = ScanScriptState.DATA;
+                                }
+                                else {
+                                    state = ScanScriptState.DOUBLE_ESCAPED;
+                                }
+                            }
+                        }
+                        break;
+                    case DOUBLE_ESCAPED:
+                        if (c == '>' && fScanScriptContent.endsWith("--")) {
+                            state = ScanScriptState.DATA;
+                        }
+                        else if (c == '<') {
+                            state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                        }
+                        break;
+                    case DOUBLE_ESCAPED_LT:
+                        if (closeIndex < 7) {
+                            if (Character.toLowerCase(c) == "/script".charAt(closeIndex)) {
+                                closeIndex++;
+                            }
+                            else if (c == '<') {
+                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                                closeIndex = 0;
+                            }
+                            else {
+                                state = ScanScriptState.DOUBLE_ESCAPED;
+                            }
+                        }
+                        else {
+                            if (c == '>') {
+                                state = ScanScriptState.ESCAPED;
+                            }
+                            else if (Character.isWhitespace(c)) {
+                                // skip white space
+                                // </script(\s)*>
+                                //         ^^^^^
+                            }
+                            else if (c == '<') {
+                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
+                                closeIndex = 0;
+                            }
+                            else {
+                                state = ScanScriptState.DOUBLE_ESCAPED;
+                            }
+                        }
+                        break;
+                    }
+
+                    if (c == '\r' || c == '\n') {
+                        fCurrentEntity.rewind();
+                        final int newlines = skipNewlines();
+                        for (int i = 0; i < newlines; i++) {
+                            fScanScriptContent.append('\n');
+                        }
+                    }
+                    else {
+                        if (!fScanScriptContent.appendCodePoint(c)) {
+                            if (fReportErrors_) {
+                                fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
+                            }
+                        }
+                    }
+                }
+
+            if (fScriptStripCommentDelims_) {
+                if (invalidComment) {
+                    fScanScriptContent.trimToContent("<!--", "--!>");
+                }
+                else {
+                    fScanScriptContent.trimToContent("<!--", "-->");
+                }
+            }
+            if (fScriptStripCDATADelims_) {
+                fScanScriptContent.trimToContent("<![CDATA[", "]]>");
+            }
+
+            if (fScanScriptContent.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (DEBUG_CALLBACKS) {
+                    System.out.println("characters(" + fScanScriptContent + ")");
+                }
+                fEndLineNumber = fCurrentEntity.getLineNumber();
+                fEndColumnNumber = fCurrentEntity.getColumnNumber();
+                fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
+                fDocumentHandler.characters(fScanScriptContent, locationAugs());
+            }
+
+            setScanner(fContentScanner);
+            setScannerState(STATE_CONTENT);
+
+            return true;
+        }
+    }
+
+    /**
      * Location infoset item.
-     *
-     * @author Andy Clark
      */
     static final class LocationItem implements HTMLEventInfo {
 
@@ -3799,6 +3801,45 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final byte[] bytesEncoding1 = reference.getBytes(encodeCharset);
         final String referenceWithEncoding2 = new String(bytesEncoding1, decodeCharset);
         return reference.equals(referenceWithEncoding2);
+    }
+
+    /**
+     * Reads the next characters WITHOUT impacting the buffer content up to current
+     * offset.
+     *
+     * @param len the number of characters to read
+     * @return the read string (length may be smaller if EOF is encountered)
+     * @throws IOException in case of io problems
+     */
+    protected String nextContent(final int len) throws IOException {
+        final int originalOffset = fCurrentEntity.offset_;
+        final int originalColumnNumber = fCurrentEntity.getColumnNumber();
+        final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
+
+        final char[] buff = new char[len];
+        int nbRead;
+        for (nbRead = 0; nbRead < len; ++nbRead) {
+            // read() should not clear the buffer
+            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                final int count = fCurrentEntity.load(fCurrentEntity.offset_);
+                if (count == -1) {
+                    break;
+                }
+            }
+
+            final int c = fCurrentEntity.read();
+            if (c == -1) {
+                break;
+            }
+            buff[nbRead] = (char) c;
+        }
+
+        // restore position
+        fCurrentEntity.offset_ = originalOffset;
+        fCurrentEntity.columnNumber_ = originalColumnNumber;
+        fCurrentEntity.characterOffset_ = originalCharacterOffset;
+
+        return new String(buff, 0, nbRead);
     }
 
     // Reads a single character, preserving the old buffer content
