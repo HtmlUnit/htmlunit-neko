@@ -895,7 +895,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      *
      * @param complete True if the scanner should scan the document completely,
      *                 pushing all events to the registered document handler. A
-     *                 value of false indicates that that the scanner should only
+     *                 value of false indicates that the scanner should only
      *                 scan the next portion of the document and return. A scanner
      *                 instance is permitted to completely scan a document if it
      *                 does not support this "pull" scanning model.
@@ -1706,12 +1706,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             return SYNTHESIZED_ITEM;
         }
         return null;
-    }
-
-    // Returns true if the name is a built-in XML general entity reference.
-    protected static boolean builtinXmlRef(final String name) {
-        return "amp".equals(name) || "lt".equals(name) || "gt".equals(name) || "quot".equals(name)
-                || "apos".equals(name);
     }
 
     /**
@@ -2705,7 +2699,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     final String standalone = attributes_.getValue("standalone");
 
                     // if the encoding is successfully changed, the stream will be processed again
-                    // with the right encoding an we will come here again but without need to change
+                    // with the right encoding and we will come here again but without need to change
                     // the encoding
                     final boolean xmlDeclNow = fIgnoreSpecifiedCharset_ || !changeEncoding(encoding);
                     if (xmlDeclNow) {

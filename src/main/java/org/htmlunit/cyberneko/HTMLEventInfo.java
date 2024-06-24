@@ -18,7 +18,7 @@ package org.htmlunit.cyberneko;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 
 /**
- * This interface is used to pass augmentated information to the
+ * This interface is used to pass augmented information to the
  * application through the XNI pipeline.
  *
  * @author Andy Clark

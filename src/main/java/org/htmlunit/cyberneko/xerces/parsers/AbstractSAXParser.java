@@ -86,9 +86,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Standalone document declaration. */
     protected boolean fStandalone;
 
-    /** Use EntityResolver2. */
-    protected boolean fUseEntityResolver2 = true;
-
     // parser handlers
 
     /** Content handler. */

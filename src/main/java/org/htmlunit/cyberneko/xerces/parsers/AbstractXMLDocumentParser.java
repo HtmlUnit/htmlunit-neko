@@ -99,7 +99,7 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @param namespaceContext The namespace context in effect at the start of this
      *                         document. This object represents the current context.
      *                         Implementors of this class are responsible for
-     *                         copying the namespace bindings from the the current
+     *                         copying the namespace bindings from the current
      *                         context (and its parent contexts) if that information
      *                         is important.
      * @param augs             Additional information that may include infoset
