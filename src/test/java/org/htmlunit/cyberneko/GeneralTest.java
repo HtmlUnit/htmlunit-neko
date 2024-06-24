@@ -297,7 +297,7 @@ public class GeneralTest {
             Charset.forName("macintosh");
             Assertions.fail("UnsupportedCharsetException expected");
         }
-        catch (UnsupportedCharsetException e) {
+        catch (final UnsupportedCharsetException e) {
             // expected
         };
 

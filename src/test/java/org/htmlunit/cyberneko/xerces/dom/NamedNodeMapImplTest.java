@@ -29,27 +29,27 @@ public class NamedNodeMapImplTest {
 
     @Test
     public void cloneEmpty() throws Exception {
-        DocumentImpl doc = new DocumentImpl();
-        ElementImpl elem = new ElementImpl(doc, "TestElem");
-        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
+        final DocumentImpl doc = new DocumentImpl();
+        final ElementImpl elem = new ElementImpl(doc, "TestElem");
+        final NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
         assertEquals(0, map.getLength());
 
-        NamedNodeMapImpl clone = map.cloneMap(elem);
+        final NamedNodeMapImpl clone = map.cloneMap(elem);
         assertEquals(0, clone.getLength());
     }
 
     @Test
     public void cloneOneAttribute() throws Exception {
-        DocumentImpl doc = new DocumentImpl();
-        ElementImpl elem = new ElementImpl(doc, "TestElem");
-        NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
+        final DocumentImpl doc = new DocumentImpl();
+        final ElementImpl elem = new ElementImpl(doc, "TestElem");
+        final NamedNodeMapImpl map = new NamedNodeMapImpl(elem);
         assertEquals(0, map.getLength());
 
-        Node attr = new AttrImpl(doc, "TestAttr");
+        final Node attr = new AttrImpl(doc, "TestAttr");
         map.setNamedItem(attr);
         assertEquals(1, map.getLength());
 
-        NamedNodeMapImpl clone = map.cloneMap(elem);
+        final NamedNodeMapImpl clone = map.cloneMap(elem);
         assertEquals(1, clone.getLength());
     }
 }

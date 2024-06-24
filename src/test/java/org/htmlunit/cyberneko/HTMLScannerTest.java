@@ -325,9 +325,9 @@ public class HTMLScannerTest {
             final Writer filter = new Writer(out);
             parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
 
-            StringReader testReader = new StringReader(string) {
+            final StringReader testReader = new StringReader(string) {
                 @Override
-                public int read(char[] cbuf, int off, int len) throws IOException {
+                public int read(final char[] cbuf, final int off, final int len) throws IOException {
                     // this simulates the return of a smaller buffer
                     return super.read(cbuf, off, 1);
                 }

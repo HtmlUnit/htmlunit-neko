@@ -29,16 +29,16 @@ public class TextImplTest {
 
     @Test
     public void ctor() throws Exception {
-        DocumentImpl doc = new DocumentImpl();
-        TextImpl text = new TextImpl(doc, "Neko");
+        final DocumentImpl doc = new DocumentImpl();
+        final TextImpl text = new TextImpl(doc, "Neko");
 
         assertEquals("Neko", text.getData());
     }
 
     @Test
     public void replaceWholeTextSimple() throws Exception {
-        DocumentImpl doc = new DocumentImpl();
-        TextImpl text = new TextImpl(doc, "Neko");
+        final DocumentImpl doc = new DocumentImpl();
+        final TextImpl text = new TextImpl(doc, "Neko");
 
         text.replaceWholeText("new text");
         assertEquals("new text", text.getData());
@@ -46,10 +46,10 @@ public class TextImplTest {
 
     @Test
     public void cloneNode() throws Exception {
-        DocumentImpl doc = new DocumentImpl();
-        TextImpl text = new TextImpl(doc, "Neko");
+        final DocumentImpl doc = new DocumentImpl();
+        final TextImpl text = new TextImpl(doc, "Neko");
 
-        Node clone = text.cloneNode(true);
+        final Node clone = text.cloneNode(true);
         assertEquals(3, clone.getNodeType());
 
         assertEquals("Neko", ((TextImpl) clone).getData());
