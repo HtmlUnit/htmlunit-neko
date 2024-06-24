@@ -66,7 +66,7 @@ public final class HTMLNamedEntitiesParser {
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
      * it employs a different lookup on the characters (calculation rather comparison).
      */
-    private RootState rootLevel_ = new RootState();
+    private final RootState rootLevel_ = new RootState();
 
     /*
      * Support back mapping from char to entity.

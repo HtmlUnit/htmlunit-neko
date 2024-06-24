@@ -1149,14 +1149,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 root = modifyName(root, fNamesElems);
             }
             if (skipSpaces()) {
-                if (skip("PUBLIC", false)) {
+                if (skip("PUBLIC")) {
                     skipSpaces();
                     pubid = scanLiteral();
                     if (skipSpaces()) {
                         sysid = scanLiteral();
                     }
                 }
-                else if (skip("SYSTEM", false)) {
+                else if (skip("SYSTEM")) {
                     skipSpaces();
                     sysid = scanLiteral();
                 }
@@ -1519,8 +1519,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         return -1;
     }
 
-    // Returns true if the specified text is present and is skipped.
-    protected boolean skip(final String s, final boolean caseSensitive) throws IOException {
+    // Returns true if the specified text is present (case-insensitive) and is skipped.
+    protected boolean skip(final String s) throws IOException {
         final int length = s != null ? s.length() : 0;
         for (int i = 0; i < length; i++) {
             if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
@@ -1532,10 +1532,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             char c0 = s.charAt(i);
             char c1 = fCurrentEntity.getNextChar();
-            if (!caseSensitive) {
-                c0 = String.valueOf(c0).toUpperCase(Locale.ROOT).charAt(0);
-                c1 = String.valueOf(c1).toUpperCase(Locale.ROOT).charAt(0);
-            }
+            c0 = String.valueOf(c0).toUpperCase(Locale.ROOT).charAt(0);
+            c1 = String.valueOf(c1).toUpperCase(Locale.ROOT).charAt(0);
             if (c0 != c1) {
                 fCurrentEntity.rewind(i + 1);
                 return false;
@@ -2063,10 +2061,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                             if (c == '!') {
                                 // process some strange self closing comments first
-                                if (skip("--->", false)
-                                        || skip("-->", false)
-                                        || skip("->", false)
-                                        || skip(">", false)) {
+                                if (skip("--->")
+                                        || skip("-->")
+                                        || skip("->")
+                                        || skip(">")) {
                                     fEndLineNumber = fCurrentEntity.getLineNumber();
                                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
@@ -2075,7 +2073,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     // never do anything else with it, so safe for now
                                     fDocumentHandler.comment(XMLString.EMPTY, locationAugs());
                                 }
-                                else if (skip("-!>", false)) {
+                                else if (skip("-!>")) {
                                     fEndLineNumber = fCurrentEntity.getLineNumber();
                                     fEndColumnNumber = fCurrentEntity.getColumnNumber();
                                     fEndCharacterOffset = fCurrentEntity.getCharacterOffset();
@@ -2083,13 +2081,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     str.append("-!");
                                     fDocumentHandler.comment(str, locationAugs());
                                 }
-                                else if (skip("--", false)) {
+                                else if (skip("--")) {
                                     scanComment();
                                 }
-                                else if (skip("[CDATA[", false)) {
+                                else if (skip("[CDATA[")) {
                                     scanCDATA();
                                 }
-                                else if (skip("DOCTYPE", false)) {
+                                else if (skip("DOCTYPE")) {
                                     scanDoctype();
                                 }
                                 else {
@@ -3289,11 +3287,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 fCurrentEntity.rewind();
                                 charBuffer_.clear();
                             }
-                            scanCharacters(charBuffer_, -1);
+                            scanCharacters(charBuffer_);
                             break;
                         }
                         case STATE_MARKUP_BRACKET: {
-                            final int delimiter = -1;
                             final int c = fCurrentEntity.read();
                             if (c == '/') {
                                 String ename = scanName(true);
@@ -3332,7 +3329,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     }
                                 }
                             }
-                            scanCharacters(charBuffer_, delimiter);
+                            scanCharacters(charBuffer_);
                             setScannerState(STATE_CONTENT);
                             break;
                         }
@@ -3355,9 +3352,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Scan characters.
-        protected void scanCharacters(final XMLString buffer, final int delimiter) throws IOException {
+        protected void scanCharacters(final XMLString buffer) throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanCharacters, delimiter=" + delimiter + ": ");
+                fCurrentEntity.debugBufferIfNeeded("(scanCharacters");
             }
 
             while (true) {
