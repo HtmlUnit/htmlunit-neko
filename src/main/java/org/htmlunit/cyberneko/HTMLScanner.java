@@ -726,9 +726,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         final QName[] fragmentContextStack = (QName[]) manager.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack != null) {
-            int length = fragmentContextStack.length;
+            final int length = fragmentContextStack.length;
             if (length > 0) {
-                QName lastQname = fragmentContextStack[length - 1];
+                final QName lastQname = fragmentContextStack[length - 1];
                 final String name = lastQname.getLocalpart();
                 final String nameLC = name.toLowerCase(Locale.ROOT);
                 if (htmlConfiguration_.getHtmlElements().getElement(nameLC).isSpecial()) {
@@ -819,7 +819,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fJavaEncoding = fIANAEncoding;
 
         // get location information
-        String encoding = source.getEncoding();
+        final String encoding = source.getEncoding();
         final String publicId = source.getPublicId();
         final String baseSystemId = source.getBaseSystemId();
         final String literalSystemId = source.getSystemId();
@@ -1931,7 +1931,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             System.out.println();
         }
 
-        void setStream(final Reader inputStreamReader, String encoding) {
+        void setStream(final Reader inputStreamReader, final String encoding) {
             stream_ = inputStreamReader;
             offset_ = 0;
             length_ = 0;
@@ -1942,7 +1942,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         /**
-         * Goes back, cancelling the effect of the previous read() call.
+         * Goes back, canceling the effect of the previous read() call.
          */
         void rewind() {
             offset_--;

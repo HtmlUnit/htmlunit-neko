@@ -854,7 +854,7 @@ public final class EncodingMap implements EncodingTranslator {
             return null;
         }
 
-        String label = charsetLabel.trim().toUpperCase(Locale.ROOT);
+        final String label = charsetLabel.trim().toUpperCase(Locale.ROOT);
         return fIANA2JavaMap.get(label);
     }
 }

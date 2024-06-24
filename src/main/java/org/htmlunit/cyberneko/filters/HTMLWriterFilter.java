@@ -296,7 +296,7 @@ public class HTMLWriterFilter extends DefaultFilter {
         printer_.flush();
     }
 
-    protected void print(String content) {
+    protected void print(final String content) {
         printer_.print(content);
     }
 
