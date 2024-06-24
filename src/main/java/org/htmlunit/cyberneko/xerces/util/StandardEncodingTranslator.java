@@ -38,7 +38,7 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
 
     /**
      * https://encoding.spec.whatwg.org/#replacement
-     *
+     * <p>
      * For the moment we are using this constant in the {@link HTMLScanner} to support
      * this encoding. Another option might be to install a proper charset impl in the
      * jvm (like https://github.com/lovasoa/replacement-charset-java) but this might

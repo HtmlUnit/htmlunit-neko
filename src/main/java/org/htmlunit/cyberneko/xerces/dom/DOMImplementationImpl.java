@@ -66,8 +66,7 @@ public class DOMImplementationImpl extends CoreDOMImplementationImpl {
             return ("Events".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)))
                     || ("MutationEvents".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)))
                     || ("Traversal".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)))
-                    || ("Range".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)))
-                    || ("MutationEvents".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)));
+                    || ("Range".equalsIgnoreCase(feature) && (anyVersion || "2.0".equals(version)));
         }
         return result;
     }

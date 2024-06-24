@@ -795,7 +795,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /**
      * Sets the input source.
      *
-     * @param inputSource The input source.
+     * @param source The input source.
      *
      * @throws IOException Thrown on i/o error.
      */
@@ -1359,17 +1359,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         if ('#' == nextChar) {
             final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
-            nextChar = readPreservingBufferContent();
-            if (nextChar != -1) {
-                str.append((char) nextChar);
-            }
-
-            while (nextChar != -1 && parser.parseNumeric(nextChar)) {
+            do {
                 nextChar = readPreservingBufferContent();
                 if (nextChar != -1) {
                     str.append((char) nextChar);
                 }
-            }
+            } while (nextChar != -1 && parser.parseNumeric(nextChar));
 
             final String match = parser.getMatch();
             if (match == null) {
@@ -1836,7 +1831,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @return count
          * @throws IOException in case of io problems
          */
-        protected int load(final int loadOffset) throws IOException {
+        int load(final int loadOffset) throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(load: ");
             }
@@ -1864,7 +1859,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Reads a single character.
-        protected int read() throws IOException {
+        int read() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(read: ");
             }
@@ -2772,7 +2767,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         System.out.println("+++ <META>");
                     }
                     final String httpEquiv = getValue(attributes_, "http-equiv");
-                    if (httpEquiv != null && "content-type".equalsIgnoreCase(httpEquiv)) {
+                    if ("content-type".equalsIgnoreCase(httpEquiv)) {
                         if (DEBUG_CHARSET) {
                             System.out.println("+++ @content-type: \"" + httpEquiv + '"');
                         }
@@ -3679,7 +3674,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         /**
          * We need a cloning way to keep reference. See the main interface.
          *
-         * @returns a copy of this state
+         * @return a copy of this state
          */
         @Override
         public Augmentations clone() {

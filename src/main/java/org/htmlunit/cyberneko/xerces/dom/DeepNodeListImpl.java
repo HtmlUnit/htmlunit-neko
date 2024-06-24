@@ -194,7 +194,7 @@ public class DeepNodeListImpl implements NodeList {
                 else {
                     // DOM2: Namespace logic.
                     if ("*".equals(tagName_)) {
-                        if (nsName_ != null && "*".equals(nsName_)) {
+                        if ("*".equals(nsName_)) {
                             return current;
                         }
 
@@ -207,7 +207,7 @@ public class DeepNodeListImpl implements NodeList {
                     else {
                         final ElementImpl el = (ElementImpl) current;
                         if (el.getLocalName() != null && el.getLocalName().equals(tagName_)) {
-                            if (nsName_ != null && "*".equals(nsName_)) {
+                            if ("*".equals(nsName_)) {
                                 return current;
                             }
 

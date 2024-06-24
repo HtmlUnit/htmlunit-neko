@@ -47,7 +47,7 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  * <li>Pass the same unique String references for all symbols that are
  * propagated to the registered handlers. Symbols include, but may not be
  * limited to, the names of elements and attributes (including their uri,
- * prefix, and localpart). This is suggested but not an absolute must. However,
+ * prefix, and local part). This is suggested but not an absolute must. However,
  * the standard parser components may require access to the same symbol table
  * for creation of unique symbol references to be propagated in the XNI
  * pipeline.</li>

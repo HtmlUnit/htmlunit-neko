@@ -212,9 +212,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         tMap.put("UL", HTMLUListElementImpl.class);
 
         // also put all lowercase versions here to safe on lookup
-        tMap.entrySet().forEach(e -> {
-            final String key = e.getKey();
-            final Class<? extends HTMLElementImpl> value = e.getValue();
+        tMap.forEach((key, value) -> {
 
             final String uKey = key.toUpperCase(Locale.ENGLISH);
             final String lKey = key.toLowerCase(Locale.ENGLISH);
@@ -225,8 +223,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
                 final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
                 elementTypesHTMLUpper_.put(uKey, holder);
                 elementTypesHTMLLower_.put(lKey, holder);
-            }
-            catch (NoSuchMethodException | SecurityException ex) {
+            } catch (NoSuchMethodException | SecurityException ex) {
                 throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
             }
         });
@@ -536,7 +533,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             // owner document and a tag name. Use the constructor to instantiate
             // a new object and return it.
             try {
-                return htmlHolder.ctr_.newInstance(new Object[] {this, htmlHolder.tagName_});
+                return htmlHolder.ctr_.newInstance(this, htmlHolder.tagName_);
             }
             catch (final Exception e) {
                 throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.\n" + tagName, e);

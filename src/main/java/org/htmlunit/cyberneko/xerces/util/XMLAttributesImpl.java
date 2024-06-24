@@ -27,7 +27,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
  * the startElement method.
  * <p>
  * The attributes are read-write so that subsequent stages in the document
- * pipeline can modify the values or change the attributes that are propogated
+ * pipeline can modify the values or change the attributes that are propagated
  * to the next stage.
  *
  * @see org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler#startElement
@@ -239,7 +239,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * <p>
      * If the parser has not read a declaration for the attribute, or if the parser
      * does not report attribute types, then it must return the value "CDATA" as
-     * stated in the XML 1.0 Recommentation (clause 3.3.3, "Attribute-Value
+     * stated in the XML 1.0 Recommendation (clause 3.3.3, "Attribute-Value
      * Normalization").
      * </p>
      *

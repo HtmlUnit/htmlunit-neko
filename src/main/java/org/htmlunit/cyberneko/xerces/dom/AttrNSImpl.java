@@ -213,14 +213,6 @@ public class AttrNSImpl extends AttrImpl {
 
     /**
      * {@inheritDoc}
-     */
-    @Override
-    public String getTypeName() {
-        return type;
-    }
-
-    /**
-     * {@inheritDoc}
      *
      * Introduced in DOM Level 3.
      * <p>
@@ -237,16 +229,5 @@ public class AttrNSImpl extends AttrImpl {
     @Override
     public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {
         return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getTypeNamespace() {
-        if (type != null) {
-            return DTD_URI;
-        }
-        return null;
     }
 }

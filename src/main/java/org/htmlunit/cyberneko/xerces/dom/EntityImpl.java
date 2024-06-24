@@ -105,8 +105,7 @@ public class EntityImpl extends ParentNode implements Entity {
      */
     @Override
     public Node cloneNode(final boolean deep) {
-        final EntityImpl newentity = (EntityImpl) super.cloneNode(deep);
-        return newentity;
+        return super.cloneNode(deep);
     }
 
     /**

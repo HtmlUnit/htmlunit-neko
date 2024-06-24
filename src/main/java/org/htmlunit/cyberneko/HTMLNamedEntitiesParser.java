@@ -71,7 +71,7 @@ public final class HTMLNamedEntitiesParser {
     /*
      * Support back mapping from char to entity.
      */
-    private FastHashMap<String, String> entities_ = new FastHashMap<>();
+    private final FastHashMap<String, String> entities_ = new FastHashMap<>();
 
     /**
      * Constructor. It builds the parser state from an entity defining properties file. This file has been taken
@@ -321,9 +321,7 @@ public final class HTMLNamedEntitiesParser {
                     System.arraycopy(characters_, newPos, characters_, newPos + 1, characters_.length - newPos - 1);
                     System.arraycopy(nextState_, newPos, nextState_, newPos + 1, nextState_.length - newPos - 1);
                 }
-                else {
-                    // we insert at the end, so no move needed
-                }
+
                 final State newLevel = new State(depth_ + 1, entity, resolvedValue);
                 characters_[newPos] = c;
                 nextState_[newPos] = newLevel;

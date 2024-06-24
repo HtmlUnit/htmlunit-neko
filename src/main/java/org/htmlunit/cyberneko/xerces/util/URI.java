@@ -736,7 +736,6 @@ public class URI {
     private void initializeScheme(final String uriSpec) throws MalformedURIException {
         final int uriSpecLen = uriSpec.length();
         int index = 0;
-        String scheme = null;
 
         while (index < uriSpecLen) {
             final char testChar = uriSpec.charAt(index);
@@ -745,8 +744,8 @@ public class URI {
             }
             index++;
         }
-        scheme = uriSpec.substring(0, index);
 
+        String scheme = uriSpec.substring(0, index);
         if (scheme.length() == 0) {
             throw new MalformedURIException("No scheme found in URI.");
         }
@@ -784,7 +783,6 @@ public class URI {
 
         // host is everything up to last ':', or up to
         // and including ']' if followed by ':'.
-        String host = null;
         start = index;
         boolean hasPort = false;
         if (index < end) {
@@ -805,7 +803,8 @@ public class URI {
                 hasPort = index != end;
             }
         }
-        host = uriSpec.substring(start, index);
+
+        String host = uriSpec.substring(start, index);
         int port = -1;
         if (host.length() > 0) {
             // port
@@ -1747,7 +1746,7 @@ public class URI {
     /**
      * Determine whether a char is a digit.
      *
-     * @return true if the char is betweeen '0' and '9', false otherwise
+     * @return true if the char is between '0' and '9', false otherwise
      */
     private static boolean isDigit(final char chr) {
         return chr >= '0' && chr <= '9';
@@ -1756,7 +1755,7 @@ public class URI {
     /**
      * Determine whether a character is a hexadecimal character.
      *
-     * @return true if the char is betweeen '0' and '9', 'a' and 'f' or 'A' and 'F',
+     * @return true if the char is between '0' and '9', 'a' and 'f' or 'A' and 'F',
      *         false otherwise
      */
     private static boolean isHex(final char ch) {

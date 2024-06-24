@@ -76,9 +76,6 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     private XMLDocumentSource documentSource_;
 
-    /** DOM document fragment. */
-    private DocumentFragment documentFragment_;
-
     /** Document. */
     private Document document_;
 
@@ -120,8 +117,7 @@ public class DOMFragmentParser implements XMLDocumentHandler {
         throws SAXException, IOException {
 
         currentNode_ = fragment;
-        documentFragment_ = fragment;
-        document_ = documentFragment_.getOwnerDocument();
+        document_ = fragment.getOwnerDocument();
 
         try {
             final String pubid = source.getPublicId();

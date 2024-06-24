@@ -600,9 +600,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                     }
                 }
             }
-            else if (nodeType == Node.PROCESSING_INSTRUCTION_NODE) {
-                baseURI = fCurrentNode.getBaseURI();
-            }
         }
     }
 

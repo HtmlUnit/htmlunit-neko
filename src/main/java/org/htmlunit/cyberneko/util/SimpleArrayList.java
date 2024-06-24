@@ -186,7 +186,7 @@ public class SimpleArrayList<T> implements List<T> {
         return result;
     }
 
-    class Partition<K> extends SimpleArrayList<K> {
+    static class Partition<K> extends SimpleArrayList<K> {
         private final int from_;
         private final int size_;
 

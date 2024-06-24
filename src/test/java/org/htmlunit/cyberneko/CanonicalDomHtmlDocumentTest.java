@@ -29,7 +29,6 @@ import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.html.dom.HTMLDocumentImpl;
 import org.htmlunit.cyberneko.parsers.DOMParser;
-import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

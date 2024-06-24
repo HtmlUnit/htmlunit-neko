@@ -23,8 +23,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 
 /**
- * <p>This class is meant to replaces the old {@link XMLString} in all areas
- * where performance and memory-efficency is key. XMLString compatibility
+ * <p>This class is meant to replace the old {@link XMLString} in all areas
+ * where performance and memory-efficiency is key. XMLString compatibility
  * remains in place in case one has used that in their own code.
  *
  * <p>This buffer is mutable and when you use it, make sure you work with
@@ -173,9 +173,6 @@ public class XMLString implements CharSequence {
     /**
      * Appends a single character to the buffer but growing it first without
      * checking if needed.
-     *
-     * @param c the character to append
-     * @return this instance
      */
     private void growByAtLeastOne() {
         final int newSize = Math.max(growBy_, (data_.length << 1) + 2);
@@ -589,7 +586,7 @@ public class XMLString implements CharSequence {
     /**
      * Get the characters as char array, this will be a copy!
      *
-     * @return a copy of the underlying char darta
+     * @return a copy of the underlying char data
      */
     public char[] getChars() {
         return Arrays.copyOf(data_, length_);
@@ -738,8 +735,6 @@ public class XMLString implements CharSequence {
      *          if <tt>start</tt> or <tt>end</tt> are negative,
      *          if <tt>end</tt> is greater than <tt>length()</tt>,
      *          or if <tt>start</tt> is greater than <tt>end</tt>
-     *
-     * @return a charsequence of this buffer
      */
     @Override
     public CharSequence subSequence(final int start, final int end) {
@@ -800,7 +795,7 @@ public class XMLString implements CharSequence {
      *
      * @param sequence the sequence to compare to, null is permitted
      * @param s the XMLString to use for comparison
-     * @return true if the sequence matches case-insensive, false otherwise
+     * @return true if the sequence matches case-insensitive, false otherwise
      */
     public static boolean equals(final CharSequence sequence, final XMLString s) {
         if (s == null) {
@@ -974,7 +969,7 @@ public class XMLString implements CharSequence {
      *
      * @param sequence the sequence to compare to, null is permitted
      * @param s the XMLString to use for comparison
-     * @return true if the sequence matches case-insensive, false otherwise
+     * @return true if the sequence matches case-insensitive, false otherwise
      */
     public static boolean equalsIgnoreCase(final CharSequence sequence, final XMLString s) {
         if (s == null) {
@@ -997,7 +992,7 @@ public class XMLString implements CharSequence {
      * this should not be any issue for us.
      *
      * @param s the sequence to compare to, null is permitted
-     * @return true if the sequences match case-insensive, false otherwise
+     * @return true if the sequences match case-insensitive, false otherwise
      */
     public boolean equalsIgnoreCase(final CharSequence s) {
         if (s == null || s.length() != length_) {
@@ -1084,8 +1079,10 @@ public class XMLString implements CharSequence {
             if (i <= max) {
                 int j = i + 1;
                 final int end = j + targetCount - 1;
-                for (int k = targetOffset + 1; j < end && source[j] == target[k]; j++, k++) {
-                    // empty
+                int k = targetOffset + 1;
+                while (j < end && source[j] == target[k]) {
+                    j++;
+                    k++;
                 }
 
                 if (j == end) {
@@ -1130,7 +1127,7 @@ public class XMLString implements CharSequence {
      * @return true if s is in this string or false otherwise
      */
     public boolean contains(final XMLString s) {
-        return s != null ? indexOf(data_, 0, length_, s.data_, 0, s.length_, 0) > -1 : false;
+        return s != null && indexOf(data_, 0, length_, s.data_, 0, s.length_, 0) > -1;
     }
 
     // this stuff is here for performance reasons to avoid a copy

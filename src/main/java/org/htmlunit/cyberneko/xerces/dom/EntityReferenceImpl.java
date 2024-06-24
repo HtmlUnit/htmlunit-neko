@@ -108,8 +108,7 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
      */
     @Override
     public Node cloneNode(final boolean deep) {
-        final EntityReferenceImpl er = (EntityReferenceImpl) super.cloneNode(deep);
-        return er;
+        return super.cloneNode(deep);
     }
 
     /**

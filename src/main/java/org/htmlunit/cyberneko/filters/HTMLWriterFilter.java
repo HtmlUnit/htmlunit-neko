@@ -58,13 +58,13 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
 public class HTMLWriterFilter extends DefaultFilter {
 
     /** The encoding. */
-    private String encoding_;
+    private final String encoding_;
 
     /**
      * The print writer used for serializing the document with the
      * appropriate character encoding.
      */
-    private PrintWriter printer_;
+    private final PrintWriter printer_;
 
     /** Seen root element. */
     private boolean seenRootElement_;
@@ -234,7 +234,7 @@ public class HTMLWriterFilter extends DefaultFilter {
         // modify META[@http-equiv='content-type']/@content value
         int contentIndex = -1;
         String originalContent = null;
-        if (element.getRawname().toLowerCase().equals("meta")) {
+        if (element.getRawname().equalsIgnoreCase("meta")) {
             String httpEquiv = null;
             final int length = attributes.getLength();
             for (int i = 0; i < length; i++) {
@@ -246,7 +246,7 @@ public class HTMLWriterFilter extends DefaultFilter {
                     contentIndex = i;
                 }
             }
-            if (httpEquiv != null && httpEquiv.toLowerCase().equals("content-type")) {
+            if (httpEquiv != null && httpEquiv.equalsIgnoreCase("content-type")) {
                 String content = null;
                 if (contentIndex != -1) {
                     originalContent = attributes.getValue(contentIndex);
@@ -302,7 +302,7 @@ public class HTMLWriterFilter extends DefaultFilter {
 
     protected boolean hasSeenRootElement() {
         return seenRootElement_;
-    };
+    }
 
     protected int getElementDepth() {
         return elementDepth_;
