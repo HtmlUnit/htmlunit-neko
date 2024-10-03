@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
-import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -42,9 +41,7 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.ext.Attributes2;
 import org.xml.sax.ext.LexicalHandler;
-import org.xml.sax.ext.Locator2;
 import org.xml.sax.ext.Locator2Impl;
 
 /**
@@ -145,7 +142,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             // SAX2
             if (fContentHandler != null) {
                 if (locator != null) {
-                    fContentHandler.setDocumentLocator(new LocatorProxy(locator));
+                    fContentHandler.setDocumentLocator(locator);
                 }
                 // The application may have set the ContentHandler to null
                 // within setDocumentLocator() so we need to check again.
@@ -1007,65 +1004,5 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         // features
         fNamespaces = parserConfiguration_.getFeature(NAMESPACES);
-    }
-
-    protected static final class LocatorProxy implements Locator2 {
-
-        /** XML locator. */
-        private final XMLLocator fLocator;
-
-        // Constructs an XML locator proxy.
-        public LocatorProxy(final XMLLocator locator) {
-            fLocator = locator;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getPublicId() {
-            return fLocator.getPublicId();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getSystemId() {
-            return fLocator.getExpandedSystemId();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int getLineNumber() {
-            return fLocator.getLineNumber();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int getColumnNumber() {
-            return fLocator.getColumnNumber();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getXMLVersion() {
-            return fLocator.getXMLVersion();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getEncoding() {
-            return fLocator.getEncoding();
-        }
-
     }
 }

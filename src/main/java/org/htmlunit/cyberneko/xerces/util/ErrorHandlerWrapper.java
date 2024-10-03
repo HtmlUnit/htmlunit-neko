@@ -166,7 +166,7 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
     // Creates an XMLParseException from a SAXParseException. */
     protected static XMLParseException createXMLParseException(final SAXParseException exception) {
         final String fPublicId = exception.getPublicId();
-        final String fExpandedSystemId = exception.getSystemId();
+        final String fSystemId = exception.getSystemId();
         final int fLineNumber = exception.getLineNumber();
         final int fColumnNumber = exception.getColumnNumber();
         final XMLLocator location = new XMLLocator() {
@@ -176,8 +176,8 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
             }
 
             @Override
-            public String getExpandedSystemId() {
-                return fExpandedSystemId;
+            public String getSystemId() {
+                return fSystemId;
             }
 
             @Override

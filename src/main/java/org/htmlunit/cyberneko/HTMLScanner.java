@@ -630,7 +630,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Returns the expanded system identifier. */
     @Override
-    public String getExpandedSystemId() {
+    public String getSystemId() {
         return fCurrentEntity != null ? fCurrentEntity.expandedSystemId : null;
     }
 

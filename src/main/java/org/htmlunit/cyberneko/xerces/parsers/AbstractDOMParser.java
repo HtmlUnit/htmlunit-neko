@@ -283,7 +283,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             // set actual encoding
             fDocumentImpl.setInputEncoding(encoding);
             // set documentURI
-            fDocumentImpl.setDocumentURI(locator.getExpandedSystemId());
+            fDocumentImpl.setDocumentURI(locator.getSystemId());
         }
         else {
             // use specified document class
@@ -299,7 +299,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 fDocumentImpl.setInputEncoding(encoding);
                 // set documentURI
                 if (locator != null) {
-                    fDocumentImpl.setDocumentURI(locator.getExpandedSystemId());
+                    fDocumentImpl.setDocumentURI(locator.getSystemId());
                 }
             }
             catch (final Exception e) {

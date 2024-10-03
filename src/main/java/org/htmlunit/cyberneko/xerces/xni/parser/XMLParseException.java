@@ -53,7 +53,7 @@ public class XMLParseException extends XNIException {
         if (locator != null) {
             publicId_ = locator.getPublicId();
             literalSystemId_ = locator.getLiteralSystemId();
-            expandedSystemId_ = locator.getExpandedSystemId();
+            expandedSystemId_ = locator.getSystemId();
             baseSystemId_ = locator.getBaseSystemId();
             lineNumber_ = locator.getLineNumber();
             columnNumber_ = locator.getColumnNumber();
@@ -67,7 +67,7 @@ public class XMLParseException extends XNIException {
         if (locator != null) {
             publicId_ = locator.getPublicId();
             literalSystemId_ = locator.getLiteralSystemId();
-            expandedSystemId_ = locator.getExpandedSystemId();
+            expandedSystemId_ = locator.getSystemId();
             baseSystemId_ = locator.getBaseSystemId();
             lineNumber_ = locator.getLineNumber();
             columnNumber_ = locator.getColumnNumber();
