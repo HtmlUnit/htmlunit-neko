@@ -163,23 +163,6 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Sets the type of the attribute at the specified index.
-     *
-     * @param attrIndex The attribute index.
-     * @param attrType  The attribute type. The type name is determined by the type
-     *                  specified for this attribute in the DTD. For example:
-     *                  "CDATA", "ID", "NMTOKEN", etc. However, attributes of type
-     *                  enumeration will have the type value specified as the pipe
-     *                  ('|') separated list of the enumeration values prefixed by
-     *                  an open parenthesis and suffixed by a close parenthesis. For
-     *                  example: "(true|false)".
-     */
-    @Override
-    public void setType(final int attrIndex, final String attrType) {
-        attributes_.get(attrIndex).type_ = attrType;
-    }
-
-    /**
      * Sets the value of the attribute at the specified index. This method will
      * overwrite the non-normalized value of the attribute.
      *
@@ -487,6 +470,52 @@ public class XMLAttributesImpl implements XMLAttributes {
         return attributes_.get(index).getNonNormalizedValue();
     }
 
+    // Attributes2 impl
+
+    @Override
+    public boolean isDeclared(final int index) {
+        return false;
+    }
+
+    @Override
+    public boolean isDeclared(final String qName) {
+        return false;
+    }
+
+    @Override
+    public boolean isDeclared(final String uri, final String localName) {
+        return false;
+    }
+
+    @Override
+    public boolean isSpecified(final String qName) {
+        final int index = getIndex(qName);
+        if (index == -1) {
+            throw new IllegalArgumentException(qName);
+        }
+        return isSpecified(index);
+    }
+
+    @Override
+    public boolean isSpecified(final String uri, final String localName) {
+        final int index = getIndex(uri, localName);
+        if (index == -1) {
+            throw new IllegalArgumentException(localName);
+        }
+        return isSpecified(index);
+    }
+
+    // end Attributes2 impl
+
+    /**
+     * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
+     *
+     * @return the internal attributes_ {@link ArrayList} to allow some performance optimizations.
+     */
+    public ArrayList<Attribute> getAttributes() {
+        return attributes_;
+    }
+
     /**
      * Returns the value passed in or NMTOKEN if it's an enumerated type.
      *
@@ -502,17 +531,29 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
+     * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
+     *
      * Attribute information.
+     * Only public to allow some performance optimizations.
      */
-    static class Attribute {
+    public static class Attribute {
         /** Name. */
         final QName name_ = new QName();
+
+        public QName getQName() {
+            return name_;
+        }
 
         /** Type. */
         String type_;
 
         /** Value. */
         String value_;
+
+        public String getValue() {
+            return value_;
+        }
+
 
         /** Specified. */
         boolean specified_;

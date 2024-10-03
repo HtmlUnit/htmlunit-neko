@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
+import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -102,9 +103,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
     // track the version of the document being parsed
     protected String fVersion;
-
-    // temp vars
-    private final AttributesProxy fAttributesProxy = new AttributesProxy();
 
     // Default constructor.
     protected AbstractSAXParser(final XMLParserConfiguration config) {
@@ -235,8 +233,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
                 final String uri = element.getUri() != null ? element.getUri() : "";
                 final String localpart = fNamespaces ? element.getLocalpart() : "";
-                fAttributesProxy.setAttributes(attributes);
-                fContentHandler.startElement(uri, localpart, element.getRawname(), fAttributesProxy);
+                fContentHandler.startElement(uri, localpart, element.getRawname(), attributes);
             }
         }
         catch (final SAXException e) {
@@ -1068,123 +1065,6 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
         @Override
         public String getEncoding() {
             return fLocator.getEncoding();
-        }
-
-    }
-
-    protected static final class AttributesProxy implements Attributes2 {
-
-        /** XML attributes. */
-        private XMLAttributes fAttributes;
-
-        // Sets the XML attributes.
-        public void setAttributes(final XMLAttributes attributes) {
-            fAttributes = attributes;
-        }
-
-        @Override
-        public int getLength() {
-            return fAttributes.getLength();
-        }
-
-        @Override
-        public String getQName(final int index) {
-            return fAttributes.getQName(index);
-        }
-
-        @Override
-        public String getURI(final int index) {
-            // REVISIT: this hides the fact that internally we use
-            // null instead of empty string
-            // SAX requires URI to be a string or an empty string
-            final String uri = fAttributes.getURI(index);
-            return uri != null ? uri : "";
-        }
-
-        @Override
-        public String getLocalName(final int index) {
-            return fAttributes.getLocalName(index);
-        }
-
-        @Override
-        public String getType(final int i) {
-            return fAttributes.getType(i);
-        }
-
-        @Override
-        public String getType(final String name) {
-            return fAttributes.getType(name);
-        }
-
-        @Override
-        public String getType(final String uri, final String localName) {
-            return uri.length() == 0 ? fAttributes.getType(null, localName) : fAttributes.getType(uri, localName);
-        }
-
-        @Override
-        public String getValue(final int i) {
-            return fAttributes.getValue(i);
-        }
-
-        @Override
-        public String getValue(final String name) {
-            return fAttributes.getValue(name);
-        }
-
-        @Override
-        public String getValue(final String uri, final String localName) {
-            return uri.length() == 0 ? fAttributes.getValue(null, localName) : fAttributes.getValue(uri, localName);
-        }
-
-        @Override
-        public int getIndex(final String qName) {
-            return fAttributes.getIndex(qName);
-        }
-
-        @Override
-        public int getIndex(final String uri, final String localPart) {
-            return uri.length() == 0 ? fAttributes.getIndex(null, localPart) : fAttributes.getIndex(uri, localPart);
-        }
-
-        @Override
-        public boolean isDeclared(final int index) {
-            return false;
-        }
-
-        @Override
-        public boolean isDeclared(final String qName) {
-            return false;
-        }
-
-        @Override
-        public boolean isDeclared(final String uri, final String localName) {
-            return false;
-        }
-
-        @Override
-        public boolean isSpecified(final int index) {
-            if (index < 0 || index >= fAttributes.getLength()) {
-                throw new ArrayIndexOutOfBoundsException(index);
-            }
-            return fAttributes.isSpecified(index);
-        }
-
-        @Override
-        public boolean isSpecified(final String qName) {
-            final int index = getIndex(qName);
-            if (index == -1) {
-                throw new IllegalArgumentException(qName);
-            }
-            return fAttributes.isSpecified(index);
-        }
-
-        @Override
-        public boolean isSpecified(final String uri, final String localName) {
-            final int index = getIndex(uri, localName);
-            if (index == -1) {
-                throw new IllegalArgumentException(localName);
-            }
-            return fAttributes.isSpecified(index);
         }
 
     }
