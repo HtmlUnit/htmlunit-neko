@@ -68,7 +68,7 @@ public class DefaultErrorHandler implements XMLErrorHandler {
         fOut_.print("[");
         fOut_.print(type);
         fOut_.print("] ");
-        String systemId = ex.getExpandedSystemId();
+        String systemId = ex.getSystemId();
         if (systemId != null) {
             final int index = systemId.lastIndexOf('/');
             if (index != -1) {

@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
+import org.htmlunit.cyberneko.xerces.util.XMLLocatorImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -42,7 +43,6 @@ import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
-import org.xml.sax.ext.Locator2Impl;
 
 /**
  * This is the base class of all SAX parsers. It implements both the SAX1 and
@@ -441,17 +441,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info
                 // and throw a SAXParseException
-                final Locator2Impl locatorImpl = new Locator2Impl();
-                // since XMLParseExceptions know nothing about encoding,
-                // we cannot return anything meaningful in this context.
-                // We *could* consult the LocatorProxy, but the
-                // application can do this itself if it wishes to possibly
-                // be mislead.
-                locatorImpl.setXMLVersion(fVersion);
-                locatorImpl.setPublicId(e.getPublicId());
-                locatorImpl.setSystemId(e.getExpandedSystemId());
-                locatorImpl.setLineNumber(e.getLineNumber());
-                locatorImpl.setColumnNumber(e.getColumnNumber());
+                final XMLLocatorImpl locatorImpl = new XMLLocatorImpl(
+                        e.getPublicId(),
+                        e.getSystemId(),
+                        e.getLineNumber(),
+                        e.getColumnNumber());
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
                         : new SAXParseException(e.getMessage(), locatorImpl, ex);
             }
@@ -500,17 +494,11 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
             if (ex == null || ex instanceof CharConversionException) {
                 // must be a parser exception; mine it for locator info
                 // and throw a SAXParseException
-                final Locator2Impl locatorImpl = new Locator2Impl();
-                // since XMLParseExceptions know nothing about encoding,
-                // we cannot return anything meaningful in this context.
-                // We *could* consult the LocatorProxy, but the
-                // application can do this itself if it wishes to possibly
-                // be mislead.
-                locatorImpl.setXMLVersion(fVersion);
-                locatorImpl.setPublicId(e.getPublicId());
-                locatorImpl.setSystemId(e.getExpandedSystemId());
-                locatorImpl.setLineNumber(e.getLineNumber());
-                locatorImpl.setColumnNumber(e.getColumnNumber());
+                final XMLLocatorImpl locatorImpl = new XMLLocatorImpl(
+                        e.getPublicId(),
+                        e.getSystemId(),
+                        e.getLineNumber(),
+                        e.getColumnNumber());
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
                         : new SAXParseException(e.getMessage(), locatorImpl, ex);
             }

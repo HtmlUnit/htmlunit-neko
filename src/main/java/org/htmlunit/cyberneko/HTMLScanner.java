@@ -523,8 +523,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final String publicId = inputSource.getPublicId();
         final String baseSystemId = inputSource.getBaseSystemId();
         final String literalSystemId = inputSource.getSystemId();
-        final String expandedSystemId = expandSystemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
+        final String systemId = systemId(literalSystemId, baseSystemId);
+        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, systemId);
     }
 
     private Reader getReader(final XMLInputSource inputSource) {
@@ -560,8 +560,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final String publicId = inputSource.getPublicId();
         final String baseSystemId = inputSource.getBaseSystemId();
         final String literalSystemId = inputSource.getSystemId();
-        final String expandedSystemId = expandSystemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
+        final String systemId = systemId(literalSystemId, baseSystemId);
+        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, systemId);
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
@@ -631,7 +631,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the expanded system identifier. */
     @Override
     public String getSystemId() {
-        return fCurrentEntity != null ? fCurrentEntity.expandedSystemId : null;
+        return fCurrentEntity != null ? fCurrentEntity.systemId : null;
     }
 
     /** Returns the current line number. */
@@ -823,14 +823,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final String publicId = source.getPublicId();
         final String baseSystemId = source.getBaseSystemId();
         final String literalSystemId = source.getSystemId();
-        final String expandedSystemId = expandSystemId(literalSystemId, baseSystemId);
+        final String systemId = systemId(literalSystemId, baseSystemId);
 
         // open stream
         Reader reader = source.getCharacterStream();
         if (reader == null) {
             InputStream inputStream = source.getByteStream();
             if (inputStream == null) {
-                final URL url = new URL(expandedSystemId);
+                final URL url = new URL(systemId);
                 inputStream = url.openStream();
             }
             fByteStream = new PlaybackInputStream(inputStream);
@@ -868,7 +868,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
             }
         }
-        fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, expandedSystemId);
+        fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, systemId);
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
@@ -954,7 +954,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      *
      */
     @SuppressWarnings("unused")
-    public static String expandSystemId(final String systemId, final String baseSystemId) {
+    public static String systemId(final String systemId, final String baseSystemId) {
 
         // check for bad parameters id
         if (systemId == null || systemId.length() == 0) {
@@ -1748,7 +1748,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         public final String literalSystemId;
 
         /** Expanded system identifier. */
-        final String expandedSystemId;
+        final String systemId;
 
         /** XML version. */
         public final String version = "1.0";
@@ -1777,13 +1777,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // Constructs an entity from the specified stream.
         CurrentEntity(final Reader stream, final String encoding, final String publicId,
-                final String baseSystemId, final String literalSystemId, final String expandedSystemId) {
+                final String baseSystemId, final String literalSystemId, final String systemId) {
             stream_ = stream;
             encoding_ = encoding;
             this.publicId = publicId;
             this.baseSystemId = baseSystemId;
             this.literalSystemId = literalSystemId;
-            this.expandedSystemId = expandedSystemId;
+            this.systemId = systemId;
         }
 
         char getCurrentChar() {

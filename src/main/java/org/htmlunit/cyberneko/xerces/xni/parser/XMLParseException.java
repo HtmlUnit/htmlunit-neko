@@ -29,11 +29,11 @@ public class XMLParseException extends XNIException {
     /** Public identifier. */
     private String publicId_;
 
+    /** System identifier. */
+    private String systemId_;
+
     /** literal System identifier. */
     private String literalSystemId_;
-
-    /** expanded System identifier. */
-    private String expandedSystemId_;
 
     /** Base system identifier. */
     private String baseSystemId_;
@@ -53,7 +53,7 @@ public class XMLParseException extends XNIException {
         if (locator != null) {
             publicId_ = locator.getPublicId();
             literalSystemId_ = locator.getLiteralSystemId();
-            expandedSystemId_ = locator.getSystemId();
+            systemId_ = locator.getSystemId();
             baseSystemId_ = locator.getBaseSystemId();
             lineNumber_ = locator.getLineNumber();
             columnNumber_ = locator.getColumnNumber();
@@ -67,7 +67,7 @@ public class XMLParseException extends XNIException {
         if (locator != null) {
             publicId_ = locator.getPublicId();
             literalSystemId_ = locator.getLiteralSystemId();
-            expandedSystemId_ = locator.getSystemId();
+            systemId_ = locator.getSystemId();
             baseSystemId_ = locator.getBaseSystemId();
             lineNumber_ = locator.getLineNumber();
             columnNumber_ = locator.getColumnNumber();
@@ -81,8 +81,8 @@ public class XMLParseException extends XNIException {
     }
 
     /** @return the expanded system identifier. */
-    public String getExpandedSystemId() {
-        return expandedSystemId_;
+    public String getSystemId() {
+        return systemId_;
     }
 
     /** @return the literal system identifier. */
@@ -121,8 +121,8 @@ public class XMLParseException extends XNIException {
             str.append(literalSystemId_);
         }
         str.append(':');
-        if (expandedSystemId_ != null) {
-            str.append(expandedSystemId_);
+        if (systemId_ != null) {
+            str.append(systemId_);
         }
         str.append(':');
         if (baseSystemId_ != null) {

@@ -14,7 +14,6 @@
  */
 package org.htmlunit.cyberneko.xerces.util;
 
-import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLErrorHandler;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLParseException;
@@ -159,62 +158,18 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
 
     // Creates a SAXParseException from an XMLParseException.
     protected static SAXParseException createSAXParseException(final XMLParseException exception) {
-        return new SAXParseException(exception.getMessage(), exception.getPublicId(), exception.getExpandedSystemId(),
+        return new SAXParseException(exception.getMessage(), exception.getPublicId(), exception.getSystemId(),
                 exception.getLineNumber(), exception.getColumnNumber(), exception.getException());
     }
 
     // Creates an XMLParseException from a SAXParseException. */
     protected static XMLParseException createXMLParseException(final SAXParseException exception) {
-        final String fPublicId = exception.getPublicId();
-        final String fSystemId = exception.getSystemId();
-        final int fLineNumber = exception.getLineNumber();
-        final int fColumnNumber = exception.getColumnNumber();
-        final XMLLocator location = new XMLLocator() {
-            @Override
-            public String getPublicId() {
-                return fPublicId;
-            }
-
-            @Override
-            public String getSystemId() {
-                return fSystemId;
-            }
-
-            @Override
-            public String getBaseSystemId() {
-                return null;
-            }
-
-            @Override
-            public String getLiteralSystemId() {
-                return null;
-            }
-
-            @Override
-            public int getColumnNumber() {
-                return fColumnNumber;
-            }
-
-            @Override
-            public int getLineNumber() {
-                return fLineNumber;
-            }
-
-            @Override
-            public int getCharacterOffset() {
-                return -1;
-            }
-
-            @Override
-            public String getEncoding() {
-                return null;
-            }
-
-            @Override
-            public String getXMLVersion() {
-                return null;
-            }
-        };
+        final XMLLocatorImpl location = new XMLLocatorImpl(
+                exception.getPublicId(),
+                exception.getSystemId(),
+                exception.getLineNumber(),
+                exception.getColumnNumber()
+                );
         return new XMLParseException(location, exception.getMessage(), exception);
     }
 

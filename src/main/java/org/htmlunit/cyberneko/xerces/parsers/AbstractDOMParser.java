@@ -716,7 +716,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // a SAXParseException
                 final LocatorImpl locatorImpl = new LocatorImpl();
                 locatorImpl.setPublicId(e.getPublicId());
-                locatorImpl.setSystemId(e.getExpandedSystemId());
+                locatorImpl.setSystemId(e.getSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
                 locatorImpl.setColumnNumber(e.getColumnNumber());
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
@@ -775,7 +775,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 // a SAXParseException
                 final LocatorImpl locatorImpl = new LocatorImpl();
                 locatorImpl.setPublicId(e.getPublicId());
-                locatorImpl.setSystemId(e.getExpandedSystemId());
+                locatorImpl.setSystemId(e.getSystemId());
                 locatorImpl.setLineNumber(e.getLineNumber());
                 locatorImpl.setColumnNumber(e.getColumnNumber());
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
