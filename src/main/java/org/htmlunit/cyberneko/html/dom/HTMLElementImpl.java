@@ -113,7 +113,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
         try {
             return Integer.parseInt(value);
         }
-        catch (final NumberFormatException except) {
+        catch (final NumberFormatException expected) {
             return 0;
         }
     }
@@ -196,16 +196,13 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
      * @return The capitalized value
      */
     String capitalize(final String value) {
-        final char[] chars;
-        int i;
-
-        // Convert string to charactares. Convert the first one to upper case,
+        // Convert string to characters. Convert the first one to upper case,
         // the other characters to lower case, and return the converted string.
-        chars = value.toCharArray();
-        if (chars.length > 0) {
-            chars[ 0 ] = Character.toUpperCase(chars[ 0 ]);
-            for (i = 1; i < chars.length; ++i) {
-                chars[ i ] = Character.toLowerCase(chars[ i ]);
+        if (value.length() > 0) {
+            final char[] chars = value.toCharArray();
+            chars[0] = Character.toUpperCase(chars[0]);
+            for (int i=1; i < chars.length; ++i) {
+                chars[i] = Character.toLowerCase(chars[i]);
             }
             return String.valueOf(chars);
         }
@@ -221,22 +218,9 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
      * @return The capitalized value
      */
     String getCapitalized(final String attrname) {
-        final String value;
-        final char[] chars;
-        int i;
-
-        value = getAttribute(attrname);
+        final String value = getAttribute(attrname);
         if (value != null) {
-            // Convert string to charactares. Convert the first one to upper case,
-            // the other characters to lower case, and return the converted string.
-            chars = value.toCharArray();
-            if (chars.length > 0) {
-                chars[ 0 ] = Character.toUpperCase(chars[ 0 ]);
-                for (i = 1; i < chars.length; ++i) {
-                    chars[ i ] = Character.toLowerCase(chars[ i ]);
-                }
-                return String.valueOf(chars);
-            }
+            return capitalize(value);
         }
         return value;
     }
