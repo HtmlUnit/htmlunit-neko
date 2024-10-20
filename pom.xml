@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.5.0-SNAPSHOT</version>
+    <version>4.5.0</version>
     <name>HtmlUnit NekoHtml</name>
     <organization>
         <name>HtmlUnit</name>
@@ -25,10 +25,10 @@
 
         <junit.version>5.10.2</junit.version>
 
-        <checkstyle.version>10.17.0</checkstyle.version>
+        <checkstyle.version>10.18.2</checkstyle.version>
         <spotbugs.version>4.8.6</spotbugs.version>
-        <pmd.version>6.55.0</pmd.version>
-        <dependencycheck.version>10.0.3</dependencycheck.version>
+        <pmd.version>7.6.0</pmd.version>
+        <dependencycheck.version>10.0.4</dependencycheck.version>
     </properties>
 
     <dependencies>
@@ -54,7 +54,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.5.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -95,7 +95,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.10.1</version>
                 <configuration>
                     <doclint>none</doclint>
                     <quiet>true</quiet>
@@ -114,7 +114,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.2.7</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -143,7 +143,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.0</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
@@ -160,7 +160,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.6.2</version>
+                <version>4.8.6.4</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
@@ -175,7 +175,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.21.2</version>
+                <version>3.25.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>

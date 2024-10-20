@@ -14,9 +14,11 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 ### Project News
 
+**[Developer Blog][5]**
+
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
-### Latest release Version 4.4.0 / July 28, 2024
+### Latest release Version 4.5.0 / October 20, 2024
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
 ##### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
@@ -32,7 +34,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.4.0</version>
+    <version>4.5.0</version>
 </dependency>
 ```
 
@@ -41,7 +43,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.4.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.5.0'
 ```
 
 ## HowTo use
@@ -154,7 +156,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.5.0-SNAPSHOT</version>
+        <version>4.6.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom `repositories` section also:
@@ -246,7 +248,7 @@ This part is intended for committer who are packaging a release.
    mvn -U clean test
 ```
 
-* Update the version number in pom.xml and readme.md
+* Update the version number in pom.xml and README.md
 * Commit the changes
 
 
@@ -265,16 +267,16 @@ This part is intended for committer who are packaging a release.
     * click Releases > Draft new release
     * fill the tag and title field with the release number (e.g. 4.0.0)
     * append 
+        * neko-htmlunit-4.xx.jar
+        * neko-htmlunit-4.xx.jar.asc
+        * neko-htmlunit-4.xx.pom
+        * neko-htmlunit-4.xx.pom.asc 
         * neko-htmlunit-4.xx-javadoc.jar
         * neko-htmlunit-4.xx-javadoc.jar.asc
         * neko-htmlunit-4.xx-sources.jar
         * neko-htmlunit-4.xx-sources.jar.asc
         * neko-htmlunit-4.xx-tests.jar
         * neko-htmlunit-4.xx-tests.jar.asc
-        * neko-htmlunit-4.xx.jar
-        * neko-htmlunit-4.xx.jar.asc
-        * neko-htmlunit-4.xx.pom
-        * neko-htmlunit-4.xx.pom.asc 
     * and publish the release 
 
 * Update the version number in pom.xml to start next snapshot development
@@ -308,3 +310,4 @@ Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino/NekoHtml in t
 [2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
 [3]: https://twitter.com/HtmlUnit "https://twitter.com/HtmlUnit"
 [4]: https://fosstodon.org/@HtmlUnit
+[5]: https://htmlunit.github.io/htmlunit-blog/
