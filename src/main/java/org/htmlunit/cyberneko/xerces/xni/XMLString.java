@@ -480,7 +480,9 @@ public class XMLString implements CharSequence {
      * @return true if we have only whitespace, false otherwise
      */
     public boolean isWhitespace() {
-        for (int i = 0; i < length_; i++) {
+        // there is a good chance the whitespace is at the beginning
+        // therefore it makes sense to start at the end to return early
+        for (int i = length_ - 1; i >= 0; i--) {
             if (!Character.isWhitespace(data_[i])) {
                 return false;
             }

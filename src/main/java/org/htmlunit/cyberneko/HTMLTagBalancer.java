@@ -785,14 +785,15 @@ public class HTMLTagBalancer
             }
             else {
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
-                    final int depth = getParentDepth(element.parent, element.bounds);
+                    final int depth = getParentDepth(element);
                     if (depth == -1) { // no parent found
                         final String pname = modifyName(preferedParent.name, fNamesElems);
-                        final QName qname = createQName(pname);
                         if (fReportErrors) {
                             final String ename = elem.getRawname();
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
                         }
+
+                        final QName qname = createQName(pname);
                         final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
@@ -1004,43 +1005,58 @@ public class HTMLTagBalancer
             return;
         }
 
-        // is this text whitespace?
-        final boolean whitespace = text.isWhitespace();
         if (!fDocumentFragment) {
             // handle bare characters
             if (!fSeenRootElement) {
                 forceStartBody();
             }
 
-            if (whitespace && (fElementStack.top < 2 || endElementsBuffer_.size() == 1)) {
-                // ignore spaces directly within <html>
-                return;
+            // isWhitespace() can be an expensive opertation because, if you have many
+            // whitespace at the beginning of an string
+            // therefore we like to call it at late as possible - this leads to a bit
+            // strange code but it is worth the price
+            int whitespace = -1;
+            if (fElementStack.top < 2 || endElementsBuffer_.size() == 1) {
+                whitespace = text.isWhitespace() ? 1: 0;
+                if (whitespace == 1) {
+                    // ignore spaces directly within <html>
+                    return;
+                }
             }
 
             // handle character content in head
             // NOTE: This frequently happens when the document looks like:
             //       <title>Title</title>
             //       And here's some text.
-            else if (!whitespace) {
+            if (text.length() > 0) {
                 final Info info = fElementStack.peek();
                 if (info.element.code == HTMLElements.HEAD || info.element.code == HTMLElements.HTML) {
-                    if (fReportErrors) {
-                        final String hname = modifyName("head", fNamesElems);
-                        final String bname = modifyName("body", fNamesElems);
-                        fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
+                    if (whitespace == 0) {
+                        if (fReportErrors) {
+                            final String hname = modifyName("head", fNamesElems);
+                            final String bname = modifyName("body", fNamesElems);
+                            fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
+                        }
+                        forceStartBody();
                     }
-                    forceStartBody();
+                    else if (whitespace == -1 && !text.isWhitespace()) {
+                        if (fReportErrors) {
+                            final String hname = modifyName("head", fNamesElems);
+                            final String bname = modifyName("body", fNamesElems);
+                            fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
+                        }
+                        forceStartBody();
+                    }
                 }
             }
         }
 
-        fSeenCharacters = fSeenCharacters || !whitespace;
+        fSeenCharacters = fSeenCharacters || text.length() > 0;
 
         // call handler
         if (documentHandler_ != null) {
             documentHandler_.characters(text, augs);
         }
-
     }
 
     /** End element. */
@@ -1259,8 +1275,10 @@ public class HTMLTagBalancer
      * @param parents The parent elements.
      * @param bounds bounds
      */
-    protected int getParentDepth(final HTMLElements.Element[] parents, final short bounds) {
-        if (parents != null) {
+    protected int getParentDepth(final Element element) {
+        final HTMLElements.Element[] parents = element.parent;
+        if (parents != null && parents.length > 0) {
+            final short bounds = element.bounds;
             for (int i = fElementStack.top - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (info.element.code == bounds) {

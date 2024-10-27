@@ -1165,21 +1165,51 @@ public class XMLStringTest {
         {
             final XMLString a = new XMLString("");
             assertTrue(a.isWhitespace());
+            assertTrue(a.isWhitespace());
         }
         {
             final XMLString a = new XMLString(" ");
+            assertTrue(a.isWhitespace());
             assertTrue(a.isWhitespace());
         }
         {
             final XMLString a = new XMLString("a");
             assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
         }
         {
-            final XMLString a = new XMLString(" a     \n");
+            final XMLString a = new XMLString("a ");
+            assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
+        }
+        {
+            final XMLString a = new XMLString("a  ");
+            assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
+        }
+        {
+            final XMLString a = new XMLString(" a");
+            assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
+        }
+        {
+            final XMLString a = new XMLString("  a");
+            assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
+        }
+        {
+            final XMLString a = new XMLString("a     \n");
+            assertFalse(a.isWhitespace());
+            assertFalse(a.isWhitespace());
+        }
+        {
+            final XMLString a = new XMLString("     \na");
+            assertFalse(a.isWhitespace());
             assertFalse(a.isWhitespace());
         }
         {
             final XMLString a = new XMLString("      \n");
+            assertTrue(a.isWhitespace());
             assertTrue(a.isWhitespace());
         }
     }
