@@ -47,7 +47,7 @@ class LostText {
      * Adds some text that need to be re-feed later. The information gets copied.
      */
     public void add(final XMLString text, final Augmentations augs) {
-        if (!entries_.isEmpty() || text.toString().trim().length() > 0) {
+        if (!entries_.isEmpty() || !text.isWhitespace()) {
             entries_.add(new Entry(text, augs));
         }
     }
