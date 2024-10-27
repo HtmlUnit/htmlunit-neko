@@ -1368,8 +1368,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             final String match = parser.getMatch();
             if (match == null) {
-                final String consumed = str.toString();
-                fCurrentEntity.rewind(consumed.length() - 1);
+                fCurrentEntity.rewind(str.length() - 1);
                 if (plainValue != null) {
                     plainValue.append('&');
                 }
