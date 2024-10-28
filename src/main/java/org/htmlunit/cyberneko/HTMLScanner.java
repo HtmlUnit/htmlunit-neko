@@ -183,6 +183,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Allows self closing &lt;iframe/&gt; tag */
     public static final String ALLOW_SELFCLOSING_IFRAME = "http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe";
 
+    /** Allows self closing &lt;script/&gt; tag */
+    public static final String ALLOW_SELFCLOSING_SCRIPT = "http://cyberneko.org/html/features/scanner/allow-selfclosing-script";
+
     /** Allows self closing tags e.g. &lt;div/&gt; (XHTML) */
     public static final String ALLOW_SELFCLOSING_TAGS = "http://cyberneko.org/html/features/scanner/allow-selfclosing-tags";
 
@@ -208,6 +211,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         PLAIN_ATTRIBUTE_VALUES,
         PARSE_NOSCRIPT_CONTENT,
         ALLOW_SELFCLOSING_IFRAME,
+        ALLOW_SELFCLOSING_SCRIPT,
         ALLOW_SELFCLOSING_TAGS, };
 
     /** Recognized features defaults. */
@@ -225,6 +229,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.TRUE,
+        Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE, };
 
@@ -369,6 +374,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Allows self closing iframe tags. */
     boolean fAllowSelfclosingIframe_;
+
+    /** Allows self closing script tags. */
+    boolean fAllowSelfclosingScript_;
 
     /** Allows self closing tags. */
     boolean fAllowSelfclosingTags_;
@@ -713,6 +721,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fPlainAttributeValues_ = manager.getFeature(PLAIN_ATTRIBUTE_VALUES);
         fParseNoScriptContent_ = manager.getFeature(PARSE_NOSCRIPT_CONTENT);
         fAllowSelfclosingIframe_ = manager.getFeature(ALLOW_SELFCLOSING_IFRAME);
+        fAllowSelfclosingScript_ =  manager.getFeature(ALLOW_SELFCLOSING_SCRIPT);
         fAllowSelfclosingTags_ = manager.getFeature(ALLOW_SELFCLOSING_TAGS);
 
         // get properties
@@ -766,6 +775,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
         else if (featureId.equals(ALLOW_SELFCLOSING_IFRAME)) {
             fAllowSelfclosingIframe_ = state;
+        }
+        else if (featureId.equals(ALLOW_SELFCLOSING_SCRIPT)) {
+            fAllowSelfclosingScript_ = state;
         }
         else if (featureId.equals(ALLOW_SELFCLOSING_TAGS)) {
             fAllowSelfclosingTags_ = state;
@@ -2109,8 +2121,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
 
                                 if ("script".equals(enameLC)) {
-                                    setScanner(fScriptScanner);
-                                    setScannerState(STATE_CONTENT);
+                                    if (!fAllowSelfclosingScript_) {
+                                      setScanner(fScriptScanner);
+                                      setScannerState(STATE_CONTENT);
+                                    }
                                     return true;
                                 }
                                 else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {

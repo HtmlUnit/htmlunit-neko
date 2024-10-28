@@ -174,6 +174,9 @@ public class HTMLTagBalancer
     /** Allows self closing iframe tags. */
     protected boolean fAllowSelfclosingIframe;
 
+    /** Allows self closing script tags. */
+    protected boolean fAllowSelfclosingScript;
+
     /** Allows self closing tags. */
     protected boolean fAllowSelfclosingTags;
 
@@ -317,6 +320,7 @@ public class HTMLTagBalancer
         fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT);
         fIgnoreOutsideContent = manager.getFeature(IGNORE_OUTSIDE_CONTENT);
         fAllowSelfclosingIframe = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME);
+        fAllowSelfclosingScript = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_SCRIPT);
         fAllowSelfclosingTags = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
 
         // get properties
@@ -940,7 +944,8 @@ public class HTMLTagBalancer
         if (elem.isEmpty()
                 || fAllowSelfclosingTags
                 || elem.code == HTMLElements.UNKNOWN
-                || (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)) {
+                || (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)
+                || (elem.code == HTMLElements.SCRIPT && fAllowSelfclosingScript)) {
             endElement(element, augs);
         }
     }

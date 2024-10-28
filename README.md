@@ -116,6 +116,7 @@ Supported features:
 * PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
 
 * ALLOW_SELFCLOSING_IFRAME - Allows self closing &lt;iframe/&gt; tag
+* ALLOW_SELFCLOSING_SCRIPT - Allows self closing &lt;script/&gt; tag
 * ALLOW_SELFCLOSING_TAGS - Allows self closing tags e.g. &lt;div/&gt; (XHTML)
 
 * NORMALIZE_ATTRIBUTES - Normalize attribute values
