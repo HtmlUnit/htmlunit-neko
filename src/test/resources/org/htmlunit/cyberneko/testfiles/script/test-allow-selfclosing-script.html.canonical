@@ -1,0 +1,12 @@
+(HTML
+(head
+)head
+(body
+(script
+Asrc foo1
+)script
+(script
+Asrc foo2
+)script
+)body
+)HTML
