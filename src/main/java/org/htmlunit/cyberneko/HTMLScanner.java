@@ -2125,8 +2125,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     if (!fAllowSelfclosingScript_) {
                                       setScanner(fScriptScanner);
                                       setScannerState(STATE_CONTENT);
+                                      return true;
                                     }
-                                    return true;
                                 }
                                 else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
                                     scanUntilEndTag("iframe");
