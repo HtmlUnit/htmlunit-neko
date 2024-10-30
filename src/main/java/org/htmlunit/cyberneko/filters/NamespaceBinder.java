@@ -90,7 +90,6 @@ public class NamespaceBinder extends DefaultFilter {
     /** Property defaults. */
     private static final Object[] PROPERTY_DEFAULTS = {
         null,
-        null,
         XHTML_1_0_URI,
     };
 
