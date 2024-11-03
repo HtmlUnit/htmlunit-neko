@@ -628,7 +628,7 @@ public class HTMLTagBalancer
 
         if (!fTemplateFragment && fOpenedSelect) {
             if (elementCode == HTMLElements.SELECT) {
-                final QName head = createQName("SELECT");
+                final QName head = createQName("select");
                 endElement(head, synthesizedAugs());
 
                 notifyDiscardedStartElement(elem, attrs, augs);
