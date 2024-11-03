@@ -114,5 +114,5 @@ public class LocatorEncodingTest {
         @Override
         public void characters(final char[] ch, final int start, final int length) throws SAXException {
         }
-    };
+    }
 }

@@ -63,7 +63,7 @@ public abstract class AbstractCanonicalTest {
     protected static final File canonicalDir = new File("src/test/resources/org/htmlunit/cyberneko/testfiles/canonical");
     protected static final File outputDir = new File("target/data/output");
 
-    private static Stream<Arguments> testFiles() {
+    protected static Stream<Arguments> testFiles() {
         // System.out.println(canonicalDir.getAbsolutePath());
         outputDir.mkdirs();
 

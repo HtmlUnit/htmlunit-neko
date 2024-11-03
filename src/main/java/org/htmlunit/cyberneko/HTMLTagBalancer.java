@@ -151,7 +151,7 @@ public class HTMLTagBalancer
     // static vars
 
     /** Synthesized event info item. */
-    private static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
+    private static final Augmentations SYNTHESIZED_ITEM = new SynthesizedItem();
 
     /** Namespaces. */
     protected boolean fNamespaces;

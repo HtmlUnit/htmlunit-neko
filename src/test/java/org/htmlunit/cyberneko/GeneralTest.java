@@ -299,7 +299,7 @@ public class GeneralTest {
         }
         catch (final UnsupportedCharsetException e) {
             // expected
-        };
+        }
 
         final String expected = "(HTML" + NL
                 + "(head" + NL

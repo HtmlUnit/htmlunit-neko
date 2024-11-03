@@ -329,7 +329,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // static vars
 
     /** Synthesized event info item. */
-    protected static final HTMLEventInfo SYNTHESIZED_ITEM = new HTMLEventInfo.SynthesizedItem();
+    protected static final Augmentations SYNTHESIZED_ITEM = new SynthesizedItem();
 
     // features
 
@@ -3639,131 +3639,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             setScannerState(STATE_CONTENT);
 
             return true;
-        }
-    }
-
-    /**
-     * Location infoset item.
-     */
-    static final class LocationItem implements HTMLEventInfo {
-
-        /** Beginning line number. */
-        private int beginLineNumber_;
-
-        /** Beginning column number. */
-        private int beginColumnNumber_;
-
-        /** Beginning character offset. */
-        private int beginCharacterOffset_;
-
-        /** Ending line number. */
-        private int endLineNumber_;
-
-        /** Ending column number. */
-        private int endColumnNumber_;
-
-        /** Ending character offset. */
-        private int endCharacterOffset_;
-
-        public void setValues(final int beginLine, final int beginColumn, final int beginOffset,
-                final int endLine, final int endColumn, final int endOffset) {
-            beginLineNumber_ = beginLine;
-            beginColumnNumber_ = beginColumn;
-            beginCharacterOffset_ = beginOffset;
-            endLineNumber_ = endLine;
-            endColumnNumber_ = endColumn;
-            endCharacterOffset_ = endOffset;
-        }
-
-        /**
-         * We need a cloning way to keep reference. See the main interface.
-         *
-         * @return a copy of this state
-         */
-        @Override
-        public Augmentations clone() {
-            final LocationItem clone = new LocationItem();
-            clone.setValues(beginLineNumber_, beginColumnNumber_, beginCharacterOffset_,
-                    endLineNumber_, endColumnNumber_, endCharacterOffset_);
-            return clone;
-        }
-
-        /**
-         * @return the line number of the beginning of this event.
-         */
-        @Override
-        public int getBeginLineNumber() {
-            return beginLineNumber_;
-        }
-
-        /**
-         * @return the column number of the beginning of this event.
-         */
-        @Override
-        public int getBeginColumnNumber() {
-            return beginColumnNumber_;
-        }
-
-        /**
-         * @return the character offset of the beginning of this event.
-         */
-        @Override
-        public int getBeginCharacterOffset() {
-            return beginCharacterOffset_;
-        }
-
-        /**
-         * @return the line number of the end of this event.
-         */
-        @Override
-        public int getEndLineNumber() {
-            return endLineNumber_;
-        }
-
-        /**
-         * @return the column number of the end of this event.
-         */
-        @Override
-        public int getEndColumnNumber() {
-            return endColumnNumber_;
-        }
-
-        /**
-         * @return the character offset of the end of this event.
-         */
-        @Override
-        public int getEndCharacterOffset() {
-            return endCharacterOffset_;
-        }
-
-        // other information
-
-        /**
-         * @return true if this corresponding event was synthesized.
-         */
-        @Override
-        public boolean isSynthesized() {
-            return false;
-        }
-
-        /**
-         * @return a string representation of this object.
-         */
-        @Override
-        public String toString() {
-            final StringBuilder str = new StringBuilder();
-            str.append(beginLineNumber_);
-            str.append(':');
-            str.append(beginColumnNumber_);
-            str.append(':');
-            str.append(beginCharacterOffset_);
-            str.append(':');
-            str.append(endLineNumber_);
-            str.append(':');
-            str.append(endColumnNumber_);
-            str.append(':');
-            str.append(endCharacterOffset_);
-            return str.toString();
         }
     }
 

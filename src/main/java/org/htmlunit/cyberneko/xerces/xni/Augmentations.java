@@ -27,8 +27,48 @@ package org.htmlunit.cyberneko.xerces.xni;
  * structure should not save any reference to the structure.
  *
  * @author Elena Litani, IBM
+ * @author Ronald Brill
  */
 public interface Augmentations {
+    // location information
+
+    /**
+     * @return the line number of the beginning of this event.
+     */
+    int getBeginLineNumber();
+
+    /**
+     * @return the column number of the beginning of this event.
+     */
+    int getBeginColumnNumber();
+
+    /**
+     * @return the character offset of the beginning of this event.
+     */
+    int getBeginCharacterOffset();
+
+    /**
+     * @return the line number of the end of this event.
+     */
+    int getEndLineNumber();
+
+    /**
+     * @return the column number of the end of this event.
+     */
+    int getEndColumnNumber();
+
+    /**
+     * @return the character offset of the end of this event.
+     */
+    int getEndCharacterOffset();
+
+    // other information
+
+    /**
+     * @return true if this corresponding event was synthesized.
+     */
+    boolean isSynthesized();
+
     /**
      * Clones this Augmentation in case one has to keep the reference.
      * The standard interface says, storing the original reference is
