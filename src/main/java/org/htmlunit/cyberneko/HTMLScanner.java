@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Locale;
 
+import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.io.PlaybackInputStream;
 import org.htmlunit.cyberneko.util.MiniStack;
 import org.htmlunit.cyberneko.xerces.util.EncodingMap;
@@ -59,6 +60,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
  * <li>http://cyberneko.org/html/features/scanner/style/strip-comment-delims
  * <li>http://cyberneko.org/html/features/scanner/ignore-specified-charset
  * <li>http://cyberneko.org/html/features/scanner/cdata-sections
+ * <li>http://cyberneko.org/html/features/scanner/cdata-early-closing
  * <li>http://cyberneko.org/html/features/override-doctype
  * <li>http://cyberneko.org/html/features/insert-doctype
  * <li>http://cyberneko.org/html/features/parse-noscript-content
@@ -165,6 +167,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
     /** Scan CDATA sections. */
     public static final String CDATA_SECTIONS = "http://cyberneko.org/html/features/scanner/cdata-sections";
 
+    /** '>' closes the cdata section (see html spec) */
+    public static final String CDATA_EARLY_CLOSING = "http://cyberneko.org/html/features/scanner/cdata-early-closing";
+
     /** Override doctype declaration public and system identifiers. */
     public static final String OVERRIDE_DOCTYPE = "http://cyberneko.org/html/features/override-doctype";
 
@@ -193,6 +198,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         STYLE_STRIP_COMMENT_DELIMS,
         IGNORE_SPECIFIED_CHARSET,
         CDATA_SECTIONS,
+        CDATA_EARLY_CLOSING,
         OVERRIDE_DOCTYPE,
         INSERT_DOCTYPE,
         NORMALIZE_ATTRIBUTES,
@@ -210,6 +216,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
+        Boolean.TRUE,
         Boolean.FALSE,
         Boolean.FALSE,
         Boolean.FALSE,
@@ -335,6 +342,9 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
 
     /** CDATA sections. */
     boolean fCDATASections_;
+
+    /** CDATA early closing. */
+    boolean fCDATAEarlyClosing_;
 
     /** Override doctype declaration public and system identifiers. */
     private boolean fOverrideDoctype_;
@@ -676,6 +686,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
         fStyleStripCommentDelims_ = manager.getFeature(STYLE_STRIP_COMMENT_DELIMS);
         fIgnoreSpecifiedCharset_ = manager.getFeature(IGNORE_SPECIFIED_CHARSET);
         fCDATASections_ = manager.getFeature(CDATA_SECTIONS);
+        fCDATAEarlyClosing_ = manager.getFeature(CDATA_EARLY_CLOSING);
         fOverrideDoctype_ = manager.getFeature(OVERRIDE_DOCTYPE);
         fInsertDoctype_ = manager.getFeature(INSERT_DOCTYPE);
         fNormalizeAttributes_ = manager.getFeature(NORMALIZE_ATTRIBUTES);
@@ -2655,7 +2666,7 @@ public class HTMLScanner implements XMLDocumentScanner, XMLLocator, HTMLComponen
                     }
                     break;
                 }
-                else if (c == '>') {
+                else if (fCDATAEarlyClosing_&& c == '>') {
                     // don't add the ]] to the buffer
                     return false;
                 }
