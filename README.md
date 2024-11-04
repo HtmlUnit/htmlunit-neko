@@ -111,6 +111,7 @@ Supported features:
 
 * IGNORE_SPECIFIED_CHARSET -Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
 * CDATA_SECTIONS - Scan CDATA sections
+* CDATA_EARLY_CLOSING - '>' closes the cdata section (see html spec) - default enabled
 * OVERRIDE_DOCTYPE - Override doctype declaration public and system identifiers
 * INSERT_DOCTYPE - Insert document type declaration
 * PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
