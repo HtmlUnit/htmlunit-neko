@@ -148,11 +148,6 @@ public class HTMLTagBalancer
     /** Lowercase HTML names. */
     private static final short NAMES_LOWERCASE = 2;
 
-    // static vars
-
-    /** Synthesized event info item. */
-    private static final Augmentations SYNTHESIZED_ITEM = new SynthesizedItem();
-
     /** Namespaces. */
     protected boolean fNamespaces;
 
@@ -1302,7 +1297,7 @@ public class HTMLTagBalancer
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         if (fAugmentations) {
-            return SYNTHESIZED_ITEM;
+            return SynthesizedItem.INSTANCE;
         }
         return null;
     }

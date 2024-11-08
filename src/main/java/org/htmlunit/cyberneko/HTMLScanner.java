@@ -333,11 +333,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Set to true to debug callbacks. */
     protected static final boolean DEBUG_CALLBACKS = false;
 
-    // static vars
-
-    /** Synthesized event info item. */
-    protected static final Augmentations SYNTHESIZED_ITEM = new SynthesizedItem();
-
     // features
 
     /** Augmentations. */
@@ -1725,7 +1720,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // Returns an augmentations object with a synthesized item added.
     protected final Augmentations synthesizedAugs() {
         if (fAugmentations_) {
-            return SYNTHESIZED_ITEM;
+            return SynthesizedItem.INSTANCE;
         }
         return null;
     }

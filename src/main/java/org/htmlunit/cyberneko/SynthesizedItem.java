@@ -25,6 +25,14 @@ import org.htmlunit.cyberneko.xerces.xni.Augmentations;
  */
 final class SynthesizedItem implements Augmentations {
 
+    public static final SynthesizedItem INSTANCE = new SynthesizedItem();
+
+    /**
+     * We only like to have one instance.
+     */
+    private SynthesizedItem() {
+    }
+
     /**
      * @return the line number of the beginning of this event.
      */
