@@ -895,10 +895,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
-            if ("script".equals(fFragmentSpecialScannerTag_.toLowerCase(Locale.ROOT))) {
+            if ("script".equalsIgnoreCase(fFragmentSpecialScannerTag_)) {
                 setScanner(fScriptScanner);
             }
-            else if ("plaintext".equals(fFragmentSpecialScannerTag_.toLowerCase(Locale.ROOT))) {
+            else if ("plaintext".equalsIgnoreCase(fFragmentSpecialScannerTag_)) {
                 setScanner(new PlainTextScanner());
             }
             else {

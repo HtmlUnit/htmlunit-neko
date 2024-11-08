@@ -15,6 +15,7 @@
  */
 package org.htmlunit.cyberneko.html.dom;
 
+import org.htmlunit.cyberneko.util.StringUtils;
 import org.htmlunit.cyberneko.xerces.dom.DeepNodeListImpl;
 import org.htmlunit.cyberneko.xerces.dom.ElementImpl;
 import org.htmlunit.cyberneko.xerces.dom.NodeImpl;
@@ -71,7 +72,7 @@ public class NameNodeListImpl extends DeepNodeListImpl {
             if (current != rootNode_ && current != null
                 && current.getNodeType() ==  Node.ELEMENT_NODE) {
                 final String name = ((ElementImpl) current).getAttribute("name");
-                if ("*".equals(name) || name.equals(tagName_)) {
+                if (StringUtils.equalsChar('*', name) || name.equals(tagName_)) {
                     return current;
                 }
             }

@@ -16,6 +16,7 @@ package org.htmlunit.cyberneko.xerces.dom;
 
 import java.util.ArrayList;
 
+import org.htmlunit.cyberneko.util.StringUtils;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -187,14 +188,14 @@ public class DeepNodeListImpl implements NodeList {
             // ("*" matches anything.)
             if (current != rootNode_ && current != null && current.getNodeType() == Node.ELEMENT_NODE) {
                 if (!enableNS_) {
-                    if ("*".equals(tagName_) || ((ElementImpl) current).getTagName().equals(tagName_)) {
+                    if (StringUtils.equalsChar('*', tagName_) || ((ElementImpl) current).getTagName().equals(tagName_)) {
                         return current;
                     }
                 }
                 else {
                     // DOM2: Namespace logic.
-                    if ("*".equals(tagName_)) {
-                        if ("*".equals(nsName_)) {
+                    if (StringUtils.equalsChar('*', tagName_)) {
+                        if (StringUtils.equalsChar('*', nsName_)) {
                             return current;
                         }
 
@@ -207,7 +208,7 @@ public class DeepNodeListImpl implements NodeList {
                     else {
                         final ElementImpl el = (ElementImpl) current;
                         if (el.getLocalName() != null && el.getLocalName().equals(tagName_)) {
-                            if ("*".equals(nsName_)) {
+                            if (StringUtils.equalsChar('*', nsName_)) {
                                 return current;
                             }
 
