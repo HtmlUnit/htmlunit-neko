@@ -46,6 +46,21 @@ public class XMLAttributesImpl implements XMLAttributes {
         attributes_ = new ArrayList<>();
     }
 
+    /** Copy constructor. */
+    public XMLAttributesImpl(final XMLAttributesImpl attributes) {
+        ArrayList<Attribute> attribs = attributes.getAttributes();
+        final int length = attribs.size();
+        if (length > 0) {
+            attributes_ = new ArrayList<>(length);
+            for (int i = 0; i < length; i++) {
+                attributes_.add(attribs.get(i).clone());
+            }
+            return;
+        }
+
+        attributes_ = new ArrayList<>();
+    }
+
     /**
      * Adds an attribute. The attribute's non-normalized value of the attribute will
      * have the same value as the attribute value. Also, the added attribute will be
@@ -554,12 +569,21 @@ public class XMLAttributesImpl implements XMLAttributes {
             return value_;
         }
 
-
         /** Specified. */
         boolean specified_;
 
         String getNonNormalizedValue() {
             return value_;
+        }
+
+        @Override
+        public Attribute clone() {
+            final Attribute clone = new Attribute();
+            clone.name_.setValues(name_);
+            clone.type_ = type_;
+            clone.value_ = value_;
+            clone.specified_ = specified_;
+            return clone;
         }
     }
 
@@ -572,6 +596,18 @@ public class XMLAttributesImpl implements XMLAttributes {
         @Override
         String getNonNormalizedValue() {
             return nonNormalizedValue_;
+        }
+
+        @Override
+        public Attribute clone() {
+            final AttributeExt clone = new AttributeExt();
+            clone.name_.setValues(name_);
+            clone.type_ = type_;
+            clone.value_ = value_;
+            clone.specified_ = specified_;
+
+            clone.nonNormalizedValue_ = nonNormalizedValue_;
+            return clone;
         }
     }
 }
