@@ -41,8 +41,8 @@ public class DOMFragmentParserTest {
      * See <a href="https://sourceforge.net/p/nekohtml/bugs/154/">Bug 154</a>.
      */
     @Test
-    public void attrEndingWithCRAtEndOfStream() {
-        // TODO doTest("<a href=\"\r", "<A href=\"&#xa;\"/>");
+    public void attrEndingWithCRAtEndOfStream() throws Exception {
+        doTest("<a href=\"\r", "");
     }
 
     /**

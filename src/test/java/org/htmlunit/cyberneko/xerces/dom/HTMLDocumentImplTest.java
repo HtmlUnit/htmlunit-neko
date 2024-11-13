@@ -41,12 +41,6 @@ public class HTMLDocumentImplTest {
                 + "</bodY></HTML>";
 
         DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-//        parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-//        parser.setProperty("http://cyberneko.org/html/properties/names/attrs", "lower");
-
-//        parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
-//        parser.setProperty("http://cyberneko.org/html/properties/names/attrs", "upper");
-
         parser.parse(new InputSource(new StringReader(html)));
         Document doc = parser.getDocument();
 
