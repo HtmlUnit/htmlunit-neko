@@ -684,7 +684,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
         // check whether a class change is required
         final Constructor<?> newCtr = elementTypesHTMLUpper_.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr_;
-        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName()).ctr_;
+        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName().toUpperCase(Locale.ENGLISH)).ctr_;
         return newCtr == oldCtr;
     }
 

@@ -48,7 +48,7 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
     @Override
     public synchronized void setCaption(final HTMLTableCaptionElement caption) {
-        if (caption != null && !caption.getTagName().equals("CAPTION")) {
+        if (caption != null && !"CAPTION".equalsIgnoreCase(caption.getTagName())) {
             throw new IllegalArgumentException("HTM016 Argument 'caption' is not an element of type <CAPTION>.");
         }
 
@@ -98,7 +98,7 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
     @Override
     public synchronized void setTHead(final HTMLTableSectionElement tHead) {
-        if (tHead != null && !tHead.getTagName().equals("THEAD")) {
+        if (tHead != null && !"THEAD".equalsIgnoreCase(tHead.getTagName())) {
             throw new IllegalArgumentException("HTM017 Argument 'tHead' is not an element of type <THEAD>.");
         }
 
@@ -147,7 +147,7 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
     @Override
     public synchronized void setTFoot(final HTMLTableSectionElement tFoot) {
-        if (tFoot != null && !tFoot.getTagName().equals("TFOOT")) {
+        if (tFoot != null && !"TFOOT".equalsIgnoreCase(tFoot.getTagName())) {
             throw new IllegalArgumentException("HTM018 Argument 'tFoot' is not an element of type <TFOOT>.");
         }
 

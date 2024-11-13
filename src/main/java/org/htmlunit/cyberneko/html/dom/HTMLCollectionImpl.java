@@ -399,7 +399,7 @@ class HTMLCollectionImpl implements HTMLCollection {
                     break;
                 case TBODY:
                     // Any <TBODY> element (one of three table section types).
-                    match = elem instanceof HTMLTableSectionElement && elem.getTagName().equals("TBODY");
+                    match = elem instanceof HTMLTableSectionElement && "TBODY".equalsIgnoreCase(elem.getTagName());
                     break;
                 case CELL:
                     // Any <TD> or <TH> element.

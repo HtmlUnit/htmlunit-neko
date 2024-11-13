@@ -188,7 +188,8 @@ public class DeepNodeListImpl implements NodeList {
             // ("*" matches anything.)
             if (current != rootNode_ && current != null && current.getNodeType() == Node.ELEMENT_NODE) {
                 if (!enableNS_) {
-                    if (StringUtils.equalsChar('*', tagName_) || ((ElementImpl) current).getTagName().equals(tagName_)) {
+                    if (StringUtils.equalsChar('*', tagName_)
+                            || ((ElementImpl) current).getTagName().equalsIgnoreCase(tagName_)) {
                         return current;
                     }
                 }

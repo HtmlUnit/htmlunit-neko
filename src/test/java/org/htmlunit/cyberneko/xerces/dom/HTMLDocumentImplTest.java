@@ -55,6 +55,16 @@ public class HTMLDocumentImplTest {
 
         Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("DIv", divElem.getTagName());
+
+        assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("body").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("BODY").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("Body").item(0));
+
+        assertEquals(divElem, doc.getElementsByTagName("DIv").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("div").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("DIV").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("diV").item(0));
     }
 
     @Test
@@ -81,6 +91,16 @@ public class HTMLDocumentImplTest {
 
         Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("div", divElem.getTagName());
+
+        assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("body").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("BODY").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("Body").item(0));
+
+        assertEquals(divElem, doc.getElementsByTagName("DIv").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("div").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("DIV").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("diV").item(0));
     }
 
     @Test
@@ -107,5 +127,15 @@ public class HTMLDocumentImplTest {
 
         Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("DIV", divElem.getTagName());
+
+        assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("body").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("BODY").item(0));
+        assertEquals(bodyElem, doc.getElementsByTagName("Body").item(0));
+
+        assertEquals(divElem, doc.getElementsByTagName("DIv").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("div").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("DIV").item(0));
+        assertEquals(divElem, doc.getElementsByTagName("diV").item(0));
     }
 }
