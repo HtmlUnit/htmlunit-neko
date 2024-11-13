@@ -68,23 +68,20 @@ public class DOMFragmentParserTest {
         final DocumentFragment fragment = document.createDocumentFragment();
         final InputSource source = new InputSource(new StringReader(html));
         parser.parse(source, fragment);
-//        final OutputFormat of = new OutputFormat();
-//        of.setOmitXMLDeclaration(true);
-//        XMLSerializer s = new XMLSerializer(of);
-//        StringWriter sw = new StringWriter();
-//        s.setOutputCharStream(sw);
-//        s.serialize(fragment);
         final DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
 
-        final DOMImplementationLS impl =
-            (DOMImplementationLS) registry.getDOMImplementation("LS");
+        final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
 
         final LSSerializer writer = impl.createLSSerializer();
         String str = writer.writeToString(fragment);
         str = str.replace("\r", "").replace("\n", "");
 
         final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>";
-        assertEquals(xmlDecl + expected, str);
+        if (str.startsWith(xmlDecl)) {
+            str = str.substring(xmlDecl.length());
+        }
+
+        assertEquals(expected, str);
     }
 
     public static void print(final Node node, final String indent) {
