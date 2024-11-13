@@ -50,7 +50,7 @@ public class DOMFragmentParserTest {
      */
     @Test
     public void invalidProcessingInstruction() throws Exception {
-        doTest("<html><?9 ?></html>", "<HTML/>");
+        doTest("<html><?9 ?></html>", "<html/>");
     }
 
     /**
@@ -58,7 +58,7 @@ public class DOMFragmentParserTest {
      */
     @Test
     public void invalidAttributeName() throws Exception {
-        doTest("<html 9='id'></html>", "<HTML/>");
+        doTest("<html 9='id'></html>", "<html/>");
     }
 
     private static void doTest(final String html, final String expected) throws Exception {
