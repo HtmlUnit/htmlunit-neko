@@ -85,6 +85,7 @@ public final class PlaybackInputStream extends InputStream {
             throw new IOException("Should not detect encoding twice.");
         }
         detected_ = true;
+
         final int b1 = read();
         if (b1 == -1) {
             return;
@@ -105,20 +106,26 @@ public final class PlaybackInputStream extends InputStream {
             }
             pushbackLength_ = 3;
         }
+
         // UTF-16 LE BOM: 0xFFFE
-        if (b1 == 0xFF && b2 == 0xFE) {
+        else if (b1 == 0xFF && b2 == 0xFE) {
+            pushbackOffset_ = 2;
             encodings[0] = "UTF-16";
             encodings[1] = "UnicodeLittleUnmarked";
             return;
         }
+
         // UTF-16 BE BOM: 0xFEFF
         else if (b1 == 0xFE && b2 == 0xFF) {
+            pushbackOffset_ = 2;
             encodings[0] = "UTF-16";
             encodings[1] = "UnicodeBigUnmarked";
             return;
         }
-        // unknown
-        pushbackLength_ = 2;
+        else {
+            // unknown
+            pushbackLength_ = 2;
+        }
     }
 
     /** Playback buffer contents. */
