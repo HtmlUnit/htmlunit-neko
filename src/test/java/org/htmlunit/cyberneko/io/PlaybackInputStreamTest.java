@@ -33,11 +33,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingOneByte() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
@@ -53,11 +54,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingTwoBytes() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0x20, (byte) 0x21 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0x20, (byte)0x21};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
@@ -74,11 +76,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingThreeBytes() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0x20, (byte) 0x21, (byte) 0x22 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0x20, (byte)0x21, (byte)0x22};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
@@ -96,11 +99,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf8() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xef, (byte) 0xbb, (byte) 0xbf, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xef, (byte)0xbb, (byte)0xbf, (byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals("UTF-8", encoding[0]);
@@ -116,11 +120,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf8Part() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xef, (byte) 0xbb, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xef, (byte)0xbb, (byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
@@ -138,11 +143,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16LE() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xff, (byte) 0xfe, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xff, (byte)0xfe, (byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals("UTF-16", encoding[0]);
@@ -158,11 +164,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16LEPart() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xff, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xff,(byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
@@ -173,16 +180,18 @@ public class PlaybackInputStreamTest {
             assertEquals(-1, pbis.read());
         }
     }
+
     /**
      * @throws Exception if the test fails
      */
     @Test
     public void detectEncodingUtf16BE() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xfe, (byte) 0xff, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xfe, (byte)0xff, (byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals("UTF-16", encoding[0]);
@@ -198,11 +207,12 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16BEPart() throws Exception {
-        byte[] bytes = new byte[] { (byte) 0xfe, (byte) 0x20 };
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        final byte[] bytes = new byte[] {(byte)0xfe, (byte)0x20};
 
-            String[] encoding = new String[2];
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
 
             assertEquals(null, encoding[0]);
