@@ -33,10 +33,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingOneByte() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -54,10 +54,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingTwoBytes() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0x20, (byte)0x21};
+        final byte[] bytes = new byte[] {(byte) 0x20, (byte) 0x21};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -76,10 +76,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingThreeBytes() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0x20, (byte)0x21, (byte)0x22};
+        final byte[] bytes = new byte[] {(byte) 0x20, (byte) 0x21, (byte) 0x22};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -99,10 +99,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf8() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xef, (byte)0xbb, (byte)0xbf, (byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xef, (byte) 0xbb, (byte) 0xbf, (byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -120,10 +120,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf8Part() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xef, (byte)0xbb, (byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xef, (byte) 0xbb, (byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -143,10 +143,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16LE() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xff, (byte)0xfe, (byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xff, (byte) 0xfe, (byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -164,10 +164,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16LEPart() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xff,(byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xff,(byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -186,10 +186,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16BE() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xfe, (byte)0xff, (byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xfe, (byte) 0xff, (byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
@@ -207,10 +207,10 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16BEPart() throws Exception {
-        final byte[] bytes = new byte[] {(byte)0xfe, (byte)0x20};
+        final byte[] bytes = new byte[] {(byte) 0xfe, (byte) 0x20};
 
-        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-                final PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
             pbis.detectEncoding(encoding);
