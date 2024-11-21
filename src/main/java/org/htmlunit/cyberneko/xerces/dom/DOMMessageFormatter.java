@@ -25,9 +25,10 @@ import java.util.ResourceBundle;
  */
 public final class DOMMessageFormatter {
 
-    public static final String DOM_DOMAIN = "http://www.w3.org/dom/DOMTR";
+    private static ResourceBundle DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
 
-    private static ResourceBundle DomResourceBundle_;
+    private DOMMessageFormatter() {
+    }
 
     /**
      * Formats a message with the specified arguments.
@@ -43,67 +44,25 @@ public final class DOMMessageFormatter {
      * @throws MissingResourceException Thrown if the message with the specified key
      *                                  cannot be found.
      */
-    public static String formatMessage(final String domain, final String key, final Object[] arguments) throws MissingResourceException {
-        ResourceBundle resourceBundle = getResourceBundle(domain);
-        if (resourceBundle == null) {
-            init();
-            resourceBundle = getResourceBundle(domain);
-            if (resourceBundle == null) {
-                throw new MissingResourceException("Unknown domain" + domain, null, key);
-            }
-        }
-        // format message
-        String msg;
+    public static String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
         try {
-            msg = key + ": " + resourceBundle.getString(key);
+            String msg = key + ": " + DomResourceBundle_.getString(key);
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
                 }
                 catch (final Exception e) {
-                    msg = resourceBundle.getString("FormatFailed");
-                    msg += " " + resourceBundle.getString(key);
+                    msg = DomResourceBundle_.getString("FormatFailed");
+                    msg += " " + DomResourceBundle_.getString(key);
                 }
             }
+
+            return msg;
         }
         catch (final MissingResourceException e) {
-            msg = resourceBundle.getString("BadMessageKey");
-            throw new MissingResourceException(key, msg, key);
+            MissingResourceException mre = new MissingResourceException(key, DomResourceBundle_.getString("BadMessageKey"), key);
+            mre.initCause(e);
+            throw mre;
         }
-
-        // no message
-        if (msg == null) {
-            msg = key;
-            if (arguments.length > 0) {
-                final StringBuilder str = new StringBuilder(msg);
-                str.append('?');
-                for (int i = 0; i < arguments.length; i++) {
-                    if (i > 0) {
-                        str.append('&');
-                    }
-                    str.append(arguments[i]);
-                }
-                msg = str.toString();
-            }
-        }
-
-        return msg;
-    }
-
-    static ResourceBundle getResourceBundle(final String domain) {
-        if (domain == DOM_DOMAIN || domain.equals(DOM_DOMAIN)) {
-            return DomResourceBundle_;
-        }
-        return null;
-    }
-
-    /**
-     * Initialize Message Formatter.
-     */
-    public static void init() {
-        DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
-    }
-
-    private DOMMessageFormatter() {
     }
 }

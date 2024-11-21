@@ -67,7 +67,7 @@ public class AttrNSImpl extends AttrImpl {
                 if ("xmlns".equals(qname) && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
                         || (namespaceURI != null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
                                 && !"xmlns".equals(qname))) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
@@ -162,28 +162,28 @@ public class AttrNSImpl extends AttrImpl {
             if (prefix != null && prefix.length() != 0) {
 
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
                 if (namespaceURI_ == null || prefix.indexOf(':') >= 0) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
 
                 }
                 if ("xmlns".equals(prefix)) {
                     if (!namespaceURI_.equals(xmlnsURI)) {
-                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                        final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
                 }
                 else if ("xml".equals(prefix)) {
                     if (!namespaceURI_.equals(xmlURI)) {
-                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                        final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
                 }
                 else if ("xmlns".equals(name)) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }

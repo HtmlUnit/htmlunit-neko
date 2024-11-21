@@ -65,7 +65,7 @@ public class ElementNSImpl extends ElementImpl {
         // We dont need to check for namespaceURI != null, if qualified name is null
         // throw DOMException.
         if (qname == null) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
             throw new DOMException(DOMException.NAMESPACE_ERR, msg);
         }
 
@@ -81,7 +81,7 @@ public class ElementNSImpl extends ElementImpl {
                 if ("xmlns".equals(qname) && (namespaceURI == null || !namespaceURI.equals(NamespaceContext.XMLNS_URI))
                         || (namespaceURI != null && namespaceURI.equals(NamespaceContext.XMLNS_URI)
                                 && !"xmlns".equals(qname))) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
@@ -98,7 +98,7 @@ public class ElementNSImpl extends ElementImpl {
 
             if (ownerDocument.errorChecking) {
                 if (namespaceURI == null || ("xml".equals(prefix) && !namespaceURI.equals(NamespaceContext.XML_URI))) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
 
@@ -187,16 +187,16 @@ public class ElementNSImpl extends ElementImpl {
         if (ownerDocument.errorChecking) {
             if (prefix != null && prefix.length() != 0) {
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument.isXML11Version())) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
                 if (namespaceURI == null || prefix.indexOf(':') >= 0) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
                 else if ("xml".equals(prefix)) {
                     if (!namespaceURI.equals(xmlURI)) {
-                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                        final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                         throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                     }
                 }

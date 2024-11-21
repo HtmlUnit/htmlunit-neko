@@ -68,11 +68,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         if (ownerDocument.errorChecking) {
             final int colon1 = name.indexOf(':');
             if (colon1 != -1) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }
             if (!CoreDocumentImpl.isXMLName(name, ownerDocument.isXML11Version())) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
         }
@@ -323,7 +323,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     @Override
     public Attr removeAttributeNode(final Attr oldAttr) throws DOMException {
         if (attributes_ == null) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
         return (Attr) attributes_.removeItem(oldAttr);
@@ -385,7 +385,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     public Attr setAttributeNode(final Attr newAttr) throws DOMException {
         if (ownerDocument.errorChecking) {
             if (newAttr.getOwnerDocument() != ownerDocument) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -562,7 +562,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     public Attr setAttributeNodeNS(final Attr newAttr) throws DOMException {
         if (ownerDocument.errorChecking) {
             if (newAttr.getOwnerDocument() != ownerDocument) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -678,7 +678,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     public void setIdAttributeNode(final Attr at, final boolean makeId) {
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
@@ -701,13 +701,13 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         final Attr at = getAttributeNode(name);
 
         if (at == null) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }
@@ -731,13 +731,13 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
         final Attr at = getAttributeNodeNS(namespaceURI, localName);
 
         if (at == null) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
         if (ownerDocument.errorChecking) {
             if (at.getOwnerElement() != this) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }

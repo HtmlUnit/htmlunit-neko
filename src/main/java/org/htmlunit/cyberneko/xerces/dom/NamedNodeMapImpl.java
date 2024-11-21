@@ -157,7 +157,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
             if (arg.getOwnerDocument() != ownerDocument) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -190,7 +190,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
         final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         if (ownerDocument.errorChecking) {
             if (arg.getOwnerDocument() != ownerDocument) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
         }
@@ -236,7 +236,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     public Node removeNamedItem(final String name) throws DOMException {
         final int i = findNamePoint(name);
         if (i < 0) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
@@ -254,7 +254,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     public Node removeNamedItemNS(final String namespaceURI, final String name) throws DOMException {
         final int i = findNamePoint(namespaceURI, name);
         if (i < 0) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 

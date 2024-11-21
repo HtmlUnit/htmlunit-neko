@@ -236,7 +236,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
             // make sure we can make the replacement
             if (!canModifyPrev(this) || !canModifyNext(this)) {
                 throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, DOMMessageFormatter
-                        .formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null));
+                        .formatMessage("NO_MODIFICATION_ALLOWED_ERR", null));
             }
         }
 
@@ -495,8 +495,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
     @Override
     public Text splitText(final int offset) throws DOMException {
         if (offset < 0 || offset > data_.length()) {
-            throw new DOMException(DOMException.INDEX_SIZE_ERR,
-                    DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null));
+            throw new DOMException(DOMException.INDEX_SIZE_ERR, DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null));
         }
 
         // split text into two separate nodes

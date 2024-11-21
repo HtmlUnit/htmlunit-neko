@@ -182,7 +182,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 doctypeImpl = (DocumentTypeImpl) doctype;
             }
             catch (final ClassCastException e) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
             doctypeImpl.ownerDocument = this;
@@ -274,7 +274,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             if ((type == Node.ELEMENT_NODE && docElement_ != null)
                     || (type == Node.DOCUMENT_TYPE_NODE && docType_ != null)) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
         }
@@ -338,7 +338,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                         && newChild.getNodeType() == Node.ELEMENT_NODE))) {
 
             throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
-                    DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                    DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null));
         }
         super.replaceChild(newChild, oldChild);
 
@@ -380,7 +380,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public Attr createAttribute(final String name) throws DOMException {
         if (errorChecking && !isXMLName(name, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new AttrImpl(this, name);
@@ -435,7 +435,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         // don't check the name here - this is done by the HTMLScanner and
         // not all valid html tag names are valid xml names
         //        if (errorChecking && !isXMLName(tagName, xml11Version_)) {
-        //            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+        //            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
         //            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         //        }
         return new ElementImpl(this, tagName);
@@ -453,7 +453,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public EntityReference createEntityReference(final String name) throws DOMException {
         if (errorChecking && !isXMLName(name, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new EntityReferenceImpl(this, name);
@@ -475,7 +475,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public ProcessingInstruction createProcessingInstruction(final String target, final String data) throws DOMException {
         if (errorChecking && !isXMLName(target, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new ProcessingInstructionImpl(this, target, data);
@@ -665,7 +665,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             // supported by
             // this document
             // we dont support any other XML version
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
 
         }
@@ -741,7 +741,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public Node renameNode(final Node n, final String namespaceURI, final String name) throws DOMException {
         if (errorChecking && n.getOwnerDocument() != this && n != this) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
             throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
         }
         switch (n.getNodeType()) {
@@ -818,7 +818,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 return at;
             }
             default: {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
                 throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
             }
         }
@@ -933,7 +933,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     public Entity createEntity(final String name) throws DOMException {
         if (errorChecking && !isXMLName(name, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         return new EntityImpl(this, name);
@@ -1169,7 +1169,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 // unless this is used as part of cloning a Document
                 // forbid it for the sake of being compliant to the DOM spec
                 if (!cloningDoc) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
                     throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
                 }
                 final DocumentType srcdoctype = (DocumentType) source;
@@ -1212,7 +1212,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
             case DOCUMENT_NODE: // Can't import document nodes
             default: { // Unknown node type
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
                 throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
             }
         }
@@ -1282,7 +1282,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             // runtime will fall through to NOTATION_NODE
             case ENTITY_NODE:
             case NOTATION_NODE: {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NO_MODIFICATION_ALLOWED_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NO_MODIFICATION_ALLOWED_ERR", null);
                 throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, msg);
 
             }
@@ -1290,7 +1290,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             // runtime will fall through to DocumentTypeNode
             case DOCUMENT_NODE:
             case DOCUMENT_TYPE_NODE: {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
                 throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
             }
             case ENTITY_REFERENCE_NODE: {
@@ -1661,7 +1661,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         // check if it is valid QName [Namespace in XML production 6]
         // :camera , nikon:camera:minolta, camera:
         if (colon1 == 0 || colon1 == qname.length() - 1 || colon2 != colon1) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
             throw new DOMException(DOMException.NAMESPACE_ERR, msg);
         }
     }
@@ -1669,16 +1669,16 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     protected final void checkDOMNSErr(final String prefix, final String namespace) {
         if (errorChecking) {
             if (namespace == null) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }
             else if ("xml".equals(prefix) && !namespace.equals(NamespaceContext.XML_URI)) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }
             else if ("xmlns".equals(prefix) && !namespace.equals(NamespaceContext.XMLNS_URI)
                     || (!"xmlns".equals(prefix) && namespace.equals(NamespaceContext.XMLNS_URI))) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                 throw new DOMException(DOMException.NAMESPACE_ERR, msg);
             }
         }
@@ -1708,7 +1708,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
         if (!validNCName) {
             // REVISIT: add qname parameter to the message
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
     }

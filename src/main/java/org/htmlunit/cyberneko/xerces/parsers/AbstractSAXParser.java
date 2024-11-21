@@ -87,16 +87,16 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     // parser handlers
 
     /** Content handler. */
-    protected ContentHandler fContentHandler;
+    private ContentHandler fContentHandler;
 
     /** Namespace context */
     protected NamespaceContext fNamespaceContext;
 
     /** DTD handler. */
-    protected org.xml.sax.DTDHandler fDTDHandler;
+    private org.xml.sax.DTDHandler fDTDHandler;
 
     /** Lexical handler. */
-    protected LexicalHandler fLexicalHandler;
+    private LexicalHandler fLexicalHandler;
 
     // track the version of the document being parsed
     protected String fVersion;
@@ -146,9 +146,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
                 }
                 // The application may have set the ContentHandler to null
                 // within setDocumentLocator() so we need to check again.
-                if (fContentHandler != null) {
-                    fContentHandler.startDocument();
-                }
+                fContentHandler.startDocument();
             }
         }
         catch (final SAXException e) {

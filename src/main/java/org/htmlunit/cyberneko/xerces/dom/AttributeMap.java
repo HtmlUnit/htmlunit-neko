@@ -59,11 +59,11 @@ public class AttributeMap extends NamedNodeMapImpl {
         final boolean errCheck = ownerNode.ownerDocument().errorChecking;
         if (errCheck) {
             if (arg.getOwnerDocument() != ownerNode.ownerDocument()) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
             if (arg.getNodeType() != Node.ATTRIBUTE_NODE) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
         }
@@ -71,7 +71,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
         if (argn.isOwned()) {
             if (errCheck && argn.getOwnerElement() != ownerNode) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INUSE_ATTRIBUTE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INUSE_ATTRIBUTE_ERR", null);
                 throw new DOMException(DOMException.INUSE_ATTRIBUTE_ERR, msg);
             }
             // replacing an Attribute with itself does nothing
@@ -129,11 +129,11 @@ public class AttributeMap extends NamedNodeMapImpl {
         final boolean errCheck = ownerNode.ownerDocument().errorChecking;
         if (errCheck) {
             if (arg.getOwnerDocument() != ownerNode.ownerDocument()) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
             if (arg.getNodeType() != Node.ATTRIBUTE_NODE) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
         }
@@ -141,7 +141,7 @@ public class AttributeMap extends NamedNodeMapImpl {
 
         if (argn.isOwned()) {
             if (errCheck && argn.getOwnerElement() != ownerNode) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INUSE_ATTRIBUTE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INUSE_ATTRIBUTE_ERR", null);
                 throw new DOMException(DOMException.INUSE_ATTRIBUTE_ERR, msg);
             }
             // replacing an Attribute with itself does nothing
@@ -235,7 +235,7 @@ public class AttributeMap extends NamedNodeMapImpl {
             }
         }
         if (index < 0) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
 
@@ -254,7 +254,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         final int i = findNamePoint(name);
         if (i < 0) {
             if (raiseEx) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
 
@@ -322,7 +322,7 @@ public class AttributeMap extends NamedNodeMapImpl {
         final int i = findNamePoint(namespaceURI, name);
         if (i < 0) {
             if (raiseEx) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
 

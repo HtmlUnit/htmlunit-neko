@@ -301,8 +301,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 }
             }
             catch (final Exception e) {
-                throw new RuntimeException(DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,
-                        "CannotCreateDocumentClass", new Object[] {fDocumentClass.getSimpleName()}));
+                throw new RuntimeException(DOMMessageFormatter.formatMessage("CannotCreateDocumentClass", new Object[] {fDocumentClass.getSimpleName()}));
             }
         }
         fCurrentNode = fDocument;

@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
  */
 public final class SAXMessageFormatter {
 
+    private static final ResourceBundle SAXResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
+
     private SAXMessageFormatter() {
     }
 
@@ -41,44 +43,24 @@ public final class SAXMessageFormatter {
      *                                  cannot be found.
      */
     public static String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
-        final ResourceBundle resourceBundle = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
-
-        // format message
-        String msg;
         try {
-            msg = resourceBundle.getString(key);
+            String msg = SAXResourceBundle_.getString(key);
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
                 }
                 catch (final Exception e) {
-                    msg = resourceBundle.getString("FormatFailed");
-                    msg += " " + resourceBundle.getString(key);
+                    msg = SAXResourceBundle_.getString("FormatFailed");
+                    msg += " " + SAXResourceBundle_.getString(key);
                 }
             }
-        }
 
-        // error
+            return msg;
+        }
         catch (final MissingResourceException e) {
-            msg = resourceBundle.getString("BadMessageKey");
-            throw new MissingResourceException(key, msg, key);
+            MissingResourceException mre = new MissingResourceException(key, SAXResourceBundle_.getString("BadMessageKey"), key);
+            mre.initCause(e);
+            throw mre;
         }
-
-        // no message
-        if (msg == null) {
-            msg = key;
-            if (arguments.length > 0) {
-                final StringBuilder str = new StringBuilder(msg);
-                str.append('?');
-                for (int i = 0; i < arguments.length; i++) {
-                    if (i > 0) {
-                        str.append('&');
-                    }
-                    str.append(arguments[i]);
-                }
-                msg = str.toString();
-            }
-        }
-        return msg;
     }
 }

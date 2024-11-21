@@ -114,7 +114,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         // it is an error for NCName to have more than one ':'
         // check if it is valid QName [Namespace in XML production 6]
         if (index == 0 || index == length - 1 || lastIndex != index) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
             throw new DOMException(DOMException.NAMESPACE_ERR, msg);
         }
         int start = 0;
@@ -122,12 +122,12 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         if (index > 0) {
             // check that prefix is NCName
             if (!XMLChar.isNCNameStart(qname.charAt(start))) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
             for (int i = 1; i < index; i++) {
                 if (!XMLChar.isNCName(qname.charAt(i))) {
-                    final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                    final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
                 }
             }
@@ -137,12 +137,12 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
         // check local part
         if (!XMLChar.isNCNameStart(qname.charAt(start))) {
             // REVISIT: add qname parameter to the message
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
         }
         for (int i = start + 1; i < length; i++) {
             if (!XMLChar.isNCName(qname.charAt(i))) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INVALID_CHARACTER_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                 throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
             }
         }
@@ -173,7 +173,7 @@ public class CoreDOMImplementationImpl implements DOMImplementation {
     public Document createDocument(final String namespaceURI, final String qualifiedName, final DocumentType doctype)
             throws DOMException {
         if (doctype != null && doctype.getOwnerDocument() != null) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
             throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
         }
         final CoreDocumentImpl doc = createDocument(doctype);

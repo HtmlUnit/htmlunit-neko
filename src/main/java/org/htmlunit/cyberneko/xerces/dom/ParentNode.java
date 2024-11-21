@@ -299,7 +299,7 @@ public abstract class ParentNode extends ChildNode {
 
                     if (!ownerDocument.isKidOK(this, kid)) {
                         throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, DOMMessageFormatter
-                                .formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                                .formatMessage("HIERARCHY_REQUEST_ERR", null));
                     }
                 }
             }
@@ -325,16 +325,16 @@ public abstract class ParentNode extends ChildNode {
         if (errorChecking) {
             if (newChild.getOwnerDocument() != ownerDocument && newChild != ownerDocument) {
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR,
-                        DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null));
+                        DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null));
             }
             if (!ownerDocument.isKidOK(this, newChild)) {
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, DOMMessageFormatter
-                        .formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                        .formatMessage("HIERARCHY_REQUEST_ERR", null));
             }
             // refChild must be a child of this node (or null)
             if (refChild != null && refChild.getParentNode() != this) {
                 throw new DOMException(DOMException.NOT_FOUND_ERR,
-                        DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
+                        DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null));
             }
 
             // Prevent cycles in the tree
@@ -346,7 +346,7 @@ public abstract class ParentNode extends ChildNode {
             }
             if (!treeSafe) {
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, DOMMessageFormatter
-                        .formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                        .formatMessage("HIERARCHY_REQUEST_ERR", null));
             }
         }
 
@@ -460,8 +460,7 @@ public abstract class ParentNode extends ChildNode {
         final CoreDocumentImpl ownerDoc = ownerDocument();
         if (ownerDoc.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
-                throw new DOMException(DOMException.NOT_FOUND_ERR,
-                        DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
+                throw new DOMException(DOMException.NOT_FOUND_ERR, DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null));
             }
         }
 

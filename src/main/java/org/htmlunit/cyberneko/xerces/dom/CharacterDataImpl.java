@@ -187,7 +187,7 @@ public abstract class CharacterDataImpl extends ChildNode {
         final CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (count < 0) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null);
                 throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
             }
         }
@@ -203,7 +203,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             ownerDocument.deletedText(this, offset, count);
         }
         catch (final StringIndexOutOfBoundsException e) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
     }
@@ -239,7 +239,7 @@ public abstract class CharacterDataImpl extends ChildNode {
             ownerDocument.insertedText(this, offset, data.length());
         }
         catch (final StringIndexOutOfBoundsException e) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
 
@@ -314,7 +314,7 @@ public abstract class CharacterDataImpl extends ChildNode {
     public String substringData(final int offset, final int count) throws DOMException {
         final int length = data_.length();
         if (count < 0 || offset < 0 || offset > length - 1) {
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "INDEX_SIZE_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null);
             throw new DOMException(DOMException.INDEX_SIZE_ERR, msg);
         }
 

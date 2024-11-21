@@ -521,7 +521,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                         kid != null; kid = kid.getNextSibling()) {
 
                     if (!ownerDocument.isKidOK(this, kid)) {
-                        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
+                        final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                         throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
                     }
                 }
@@ -543,16 +543,16 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         if (errorChecking) {
             if (newChild.getOwnerDocument() != ownerDocument) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "WRONG_DOCUMENT_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("WRONG_DOCUMENT_ERR", null);
                 throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, msg);
             }
             if (!ownerDocument.isKidOK(this, newChild)) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
             // refChild must be a child of this node (or null)
             if (refChild != null && refChild.getParentNode() != this) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
 
@@ -564,8 +564,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
                 treeSafe = newChild != a;
             }
             if (!treeSafe) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR",
-                        null);
+                final String msg = DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null);
                 throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, msg);
             }
         }
@@ -654,7 +653,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         // Tail-call, should be optimizable
         if (hasStringValue()) {
             // we don't have any child per say so it can't be one of them!
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
             throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
         }
         return internalRemoveChild(oldChild, false);
@@ -670,7 +669,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
         final         CoreDocumentImpl ownerDocument = ownerDocument();
         if (ownerDocument.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
-                final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null);
+                final String msg = DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null);
                 throw new DOMException(DOMException.NOT_FOUND_ERR, msg);
             }
         }

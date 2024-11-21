@@ -410,7 +410,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     @Override
     public Node insertBefore(final Node newChild, final Node refChild) throws DOMException {
         throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
-                DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null));
     }
 
     /**
@@ -430,7 +430,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     @Override
     public Node removeChild(final Node oldChild) throws DOMException {
         throw new DOMException(DOMException.NOT_FOUND_ERR,
-                DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_FOUND_ERR", null));
+                DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null));
     }
 
     /**
@@ -458,7 +458,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     @Override
     public Node replaceChild(final Node newChild, final Node oldChild) throws DOMException {
         throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
-                DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "HIERARCHY_REQUEST_ERR", null));
+                DOMMessageFormatter.formatMessage("HIERARCHY_REQUEST_ERR", null));
     }
 
     /**
@@ -602,7 +602,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     @Override
     public void setPrefix(final String prefix) throws DOMException {
         throw new DOMException(DOMException.NAMESPACE_ERR,
-                DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NAMESPACE_ERR", null));
+                DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null));
     }
 
     /**
@@ -683,7 +683,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         // check if other is from a different implementation
         if (other != null && !(other instanceof NodeImpl)) {
             // other comes from a different implementation
-            final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+            final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
             throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
         }
 

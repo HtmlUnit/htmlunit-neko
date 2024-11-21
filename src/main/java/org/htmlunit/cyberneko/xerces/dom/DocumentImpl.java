@@ -147,7 +147,7 @@ public class DocumentImpl extends CoreDocumentImpl implements DocumentEvent {
      */
     @Override
     public Event createEvent(final String type) throws DOMException {
-        final String msg = DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN, "NOT_SUPPORTED_ERR", null);
+        final String msg = DOMMessageFormatter.formatMessage("NOT_SUPPORTED_ERR", null);
         throw new DOMException(DOMException.NOT_SUPPORTED_ERR, msg);
     }
 
