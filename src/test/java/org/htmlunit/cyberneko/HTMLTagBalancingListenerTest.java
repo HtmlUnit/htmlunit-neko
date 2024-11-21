@@ -61,7 +61,7 @@ public class HTMLTagBalancingListenerTest {
             "end div", "ignored end form",
             "end body", "end html"};
 
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.getMessages().toString());
     }
 
     /**
@@ -81,15 +81,15 @@ public class HTMLTagBalancingListenerTest {
         final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
             "start body", "start div", "end div", "end body", "end HTML"};
 
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.getMessages().toString());
 
-        parser.messages_.clear();
+        parser.getMessages().clear();
         parser.parse(new XMLInputSource(null, "foo", null, new StringReader(string), null));
-        assertEquals(Arrays.asList(expectedMessages).toString(), parser.messages_.toString());
+        assertEquals(Arrays.asList(expectedMessages).toString(), parser.getMessages().toString());
     }
 
     private static final class TestParser extends AbstractSAXParser implements HTMLTagBalancingListener {
-        final List<String> messages_ = new ArrayList<>();
+        private final List<String> messages_ = new ArrayList<>();
 
         TestParser() throws Exception {
             super(new HTMLConfiguration());
@@ -117,6 +117,10 @@ public class HTMLTagBalancingListenerTest {
         public void endElement(final QName element, final Augmentations augs) throws XNIException {
             messages_.add("end " + element.getRawname());
             super.endElement(element, augs);
+        }
+
+        public List<String> getMessages() {
+            return messages_;
         }
     }
 }

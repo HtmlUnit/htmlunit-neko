@@ -164,7 +164,7 @@ public class PlaybackInputStreamTest {
      */
     @Test
     public void detectEncodingUtf16LEPart() throws Exception {
-        final byte[] bytes = new byte[] {(byte) 0xff,(byte) 0x20};
+        final byte[] bytes = new byte[] {(byte) 0xff, (byte) 0x20};
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {

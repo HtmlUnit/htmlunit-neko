@@ -40,20 +40,20 @@ public class HTMLDocumentImplTest {
                 + "<DIv>abc</DIv>"
                 + "</bodY></HTML>";
 
-        DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.parse(new InputSource(new StringReader(html)));
-        Document doc = parser.getDocument();
+        final Document doc = parser.getDocument();
 
-        Element htmlElem = doc.getDocumentElement();
+        final Element htmlElem = doc.getDocumentElement();
         assertEquals("HTML", htmlElem.getTagName());
 
-        Element headElem = (Element) htmlElem.getChildNodes().item(0);
+        final Element headElem = (Element) htmlElem.getChildNodes().item(0);
         assertEquals("head", headElem.getTagName());
 
-        Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
+        final Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
         assertEquals("bODy", bodyElem.getTagName());
 
-        Element divElem = (Element) bodyElem.getChildNodes().item(0);
+        final Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("DIv", divElem.getTagName());
 
         assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));
@@ -74,22 +74,22 @@ public class HTMLDocumentImplTest {
                 + "<DIv>abc</DIv>"
                 + "</bodY></HTML>";
 
-        DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
 
         parser.parse(new InputSource(new StringReader(html)));
-        Document doc = parser.getDocument();
+        final Document doc = parser.getDocument();
 
-        Element htmlElem = doc.getDocumentElement();
+        final Element htmlElem = doc.getDocumentElement();
         assertEquals("html", htmlElem.getTagName());
 
-        Element headElem = (Element) htmlElem.getChildNodes().item(0);
+        final Element headElem = (Element) htmlElem.getChildNodes().item(0);
         assertEquals("head", headElem.getTagName());
 
-        Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
+        final Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
         assertEquals("body", bodyElem.getTagName());
 
-        Element divElem = (Element) bodyElem.getChildNodes().item(0);
+        final Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("div", divElem.getTagName());
 
         assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));
@@ -110,22 +110,22 @@ public class HTMLDocumentImplTest {
                 + "<DIv>abc</DIv>"
                 + "</bodY></HTML>";
 
-        DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+        final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
 
         parser.parse(new InputSource(new StringReader(html)));
-        Document doc = parser.getDocument();
+        final Document doc = parser.getDocument();
 
-        Element htmlElem = doc.getDocumentElement();
+        final Element htmlElem = doc.getDocumentElement();
         assertEquals("HTML", htmlElem.getTagName());
 
-        Element headElem = (Element) htmlElem.getChildNodes().item(0);
+        final Element headElem = (Element) htmlElem.getChildNodes().item(0);
         assertEquals("HEAD", headElem.getTagName());
 
-        Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
+        final Element bodyElem = (Element) htmlElem.getChildNodes().item(1);
         assertEquals("BODY", bodyElem.getTagName());
 
-        Element divElem = (Element) bodyElem.getChildNodes().item(0);
+        final Element divElem = (Element) bodyElem.getChildNodes().item(0);
         assertEquals("DIV", divElem.getTagName());
 
         assertEquals(bodyElem, doc.getElementsByTagName("bODy").item(0));

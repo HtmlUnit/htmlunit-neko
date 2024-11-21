@@ -66,7 +66,7 @@ public class LocatorEncodingTest {
     static final class TestContentHandler implements ContentHandler {
         private final Locator[] locators_;
 
-        public TestContentHandler(final Locator[] locators) {
+        TestContentHandler(final Locator[] locators) {
             locators_ = locators;
         }
 
