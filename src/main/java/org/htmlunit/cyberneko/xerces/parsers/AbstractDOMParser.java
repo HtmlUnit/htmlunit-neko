@@ -22,7 +22,6 @@ import org.htmlunit.cyberneko.xerces.dom.AttrImpl;
 import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
-import org.htmlunit.cyberneko.xerces.dom.EntityImpl;
 import org.htmlunit.cyberneko.xerces.dom.TextImpl;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
@@ -110,7 +109,6 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** Current node. */
     protected Node fCurrentNode;
     protected CDATASection fCurrentCDATASection;
-    protected EntityImpl fCurrentEntityDecl;
 
     /** Character buffer */
     protected final XMLString fStringBuffer = new XMLString();

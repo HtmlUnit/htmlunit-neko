@@ -1346,49 +1346,6 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     }
 
     /**
-     * Traverses the DOM Tree and expands deferred nodes and their children.
-     *
-     * @param node the node
-     *
-     */
-    protected void undeferChildren(Node node) {
-        final Node top = node;
-
-        while (null != node) {
-            final NamedNodeMap attributes = node.getAttributes();
-            if (attributes != null) {
-                final int length = attributes.getLength();
-                for (int i = 0; i < length; ++i) {
-                    undeferChildren(attributes.item(i));
-                }
-            }
-
-            Node nextNode;
-            nextNode = node.getFirstChild();
-
-            while (null == nextNode) {
-
-                if (top.equals(node)) {
-                    break;
-                }
-
-                nextNode = node.getNextSibling();
-
-                if (null == nextNode) {
-                    node = node.getParentNode();
-
-                    if ((null == node) || (top.equals(node))) {
-                        nextNode = null;
-                        break;
-                    }
-                }
-            }
-
-            node = nextNode;
-        }
-    }
-
-    /**
      * Introduced in DOM Level 2 Returns the Element whose ID is given by elementId.
      * If no such element exists, returns null. Behavior is not defined if more than
      * one element has this ID.
