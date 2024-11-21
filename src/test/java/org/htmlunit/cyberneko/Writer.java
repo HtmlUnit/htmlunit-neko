@@ -219,7 +219,7 @@ public class Writer extends DefaultFilter {
                     out_.print(' ');
                     print(attrs.getValue(aname));
 
-                    if(anamesNonNormalized[i] != null && !anamesNonNormalized[i].equals(attrs.getValue(aname))) {
+                    if (anamesNonNormalized[i] != null && !anamesNonNormalized[i].equals(attrs.getValue(aname))) {
                         out_.print(" / ");
                         out_.print(anamesNonNormalized[i]);
                     }

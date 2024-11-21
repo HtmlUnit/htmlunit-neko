@@ -201,7 +201,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
         if (value.length() > 0) {
             final char[] chars = value.toCharArray();
             chars[0] = Character.toUpperCase(chars[0]);
-            for (int i=1; i < chars.length; ++i) {
+            for (int i = 1; i < chars.length; ++i) {
                 chars[i] = Character.toLowerCase(chars[i]);
             }
             return String.valueOf(chars);

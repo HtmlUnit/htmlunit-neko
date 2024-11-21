@@ -2128,9 +2128,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                                 if ("script".equals(enameLC)) {
                                     if (!fAllowSelfclosingScript_) {
-                                      setScanner(fScriptScanner);
-                                      setScannerState(STATE_CONTENT);
-                                      return true;
+                                        setScanner(fScriptScanner);
+                                        setScannerState(STATE_CONTENT);
+                                        return true;
                                     }
                                 }
                                 else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
@@ -2571,7 +2571,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     break;
                 }
-                else if (fCDATAEarlyClosing_&& c == '>') {
+                else if (fCDATAEarlyClosing_ && c == '>') {
                     // don't add the ]] to the buffer
                     return false;
                 }

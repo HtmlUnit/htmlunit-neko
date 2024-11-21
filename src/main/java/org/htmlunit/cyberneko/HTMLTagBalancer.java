@@ -1017,7 +1017,7 @@ public class HTMLTagBalancer
             // strange code but it is worth the price
             int whitespace = -1;
             if (fElementStack.top < 2 || endElementsBuffer_.size() == 1) {
-                whitespace = text.isWhitespace() ? 1: 0;
+                whitespace = text.isWhitespace() ? 1 : 0;
                 if (whitespace == 1) {
                     // ignore spaces directly within <html>
                     return;
