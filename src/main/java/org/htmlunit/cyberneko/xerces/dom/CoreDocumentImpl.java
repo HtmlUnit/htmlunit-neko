@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.htmlunit.cyberneko.xerces.util.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.util.URI;
 import org.htmlunit.cyberneko.xerces.util.XML11Char;
 import org.htmlunit.cyberneko.xerces.util.XMLChar;

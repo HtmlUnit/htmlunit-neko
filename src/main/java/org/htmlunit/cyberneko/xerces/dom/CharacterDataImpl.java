@@ -14,6 +14,7 @@
  */
 package org.htmlunit.cyberneko.xerces.dom;
 
+import org.htmlunit.cyberneko.xerces.util.DOMMessageFormatter;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

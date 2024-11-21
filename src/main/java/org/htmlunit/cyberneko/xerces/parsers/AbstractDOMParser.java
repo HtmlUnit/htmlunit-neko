@@ -20,9 +20,9 @@ import java.util.Stack;
 
 import org.htmlunit.cyberneko.xerces.dom.AttrImpl;
 import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
-import org.htmlunit.cyberneko.xerces.dom.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.dom.TextImpl;
+import org.htmlunit.cyberneko.xerces.util.DOMMessageFormatter;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.SAXMessageFormatter;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;

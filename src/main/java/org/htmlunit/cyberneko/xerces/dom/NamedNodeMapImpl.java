@@ -17,6 +17,7 @@ package org.htmlunit.cyberneko.xerces.dom;
 import java.util.List;
 
 import org.htmlunit.cyberneko.util.SimpleArrayList;
+import org.htmlunit.cyberneko.xerces.util.DOMMessageFormatter;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

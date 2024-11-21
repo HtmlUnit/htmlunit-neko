@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.htmlunit.cyberneko.xerces.dom;
+package org.htmlunit.cyberneko.xerces.util;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  */
 public final class DOMMessageFormatter {
 
-    private static ResourceBundle DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.DOMMessages");
+    private static ResourceBundle DomResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.res.DOMMessages");
 
     private DOMMessageFormatter() {
     }

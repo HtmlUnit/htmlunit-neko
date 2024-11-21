@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  */
 public final class SAXMessageFormatter {
 
-    private static final ResourceBundle SAXResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.xerces.impl.msg.SAXMessages");
+    private static final ResourceBundle SAXResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.res.SAXMessages");
 
     private SAXMessageFormatter() {
     }
