@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Unit tests for {@link MiniStack}.
  *
  * @author René Schwietzke
  */
 public class MiniStackTest {
+
     @Test
     public void ctr() {
         final MiniStack<String> m = new MiniStack<>();
@@ -196,5 +196,4 @@ public class MiniStackTest {
             assertNull(m.pop());
         }
     }
-
 }

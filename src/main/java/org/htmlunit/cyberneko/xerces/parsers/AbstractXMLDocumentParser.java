@@ -39,7 +39,6 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  */
 public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
 
-
     /** Property identifier: error handler. */
     protected static final String ERROR_HANDLER = Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_HANDLER_PROPERTY;
 

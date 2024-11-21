@@ -27,8 +27,6 @@ package org.htmlunit.cyberneko.xerces.xni;
  */
 public class XNIException extends RuntimeException {
 
-    private static final long serialVersionUID = 7447489736019161121L;
-
     /**
      * Constructs an XNI exception with a message.
      *

@@ -71,5 +71,3 @@ public class DOMParserTest {
         parser.parse(source);
     }
 }
-
-
