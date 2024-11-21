@@ -33,7 +33,6 @@ public final class DOMMessageFormatter {
     /**
      * Formats a message with the specified arguments.
      *
-     * @param domain    domain from which error string is to come.
      * @param key       The message key.
      * @param arguments The message replacement text arguments. The order of the
      *                  arguments must match that of the placeholders in the actual
