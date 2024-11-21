@@ -48,7 +48,7 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /** Copy constructor. */
     public XMLAttributesImpl(final XMLAttributesImpl attributes) {
-        ArrayList<Attribute> attribs = attributes.getAttributes();
+        final ArrayList<Attribute> attribs = attributes.getAttributes();
         final int length = attribs.size();
         if (length > 0) {
             attributes_ = new ArrayList<>(length);
@@ -478,7 +478,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * {@inheritDoc}
      */
     @Override
-    public String getNonNormalizedValue(int index) {
+    public String getNonNormalizedValue(final int index) {
         if (index < 0 || index >= getLength()) {
             return null;
         }

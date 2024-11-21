@@ -341,7 +341,7 @@ public class HTMLTagBalancer
         fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack_ != null) {
             fSeenAnything = fragmentContextStack_.length > 0;
-            for (QName qname : fragmentContextStack_) {
+            for (final QName qname : fragmentContextStack_) {
                 if ("html".equalsIgnoreCase(qname.getLocalpart())) {
                     fSeenRootElement = true;
                     fSeenRealHtmlElement = true;

@@ -234,7 +234,7 @@ public class HTMLWriterFilter extends DefaultFilter {
         // modify META[@http-equiv='content-type']/@content value
         int contentIndex = -1;
         String originalContent = null;
-        if (element.getRawname().equalsIgnoreCase("meta")) {
+        if ("meta".equalsIgnoreCase(element.getRawname())) {
             String httpEquiv = null;
             final int length = attributes.getLength();
             for (int i = 0; i < length; i++) {
@@ -246,7 +246,7 @@ public class HTMLWriterFilter extends DefaultFilter {
                     contentIndex = i;
                 }
             }
-            if (httpEquiv != null && httpEquiv.equalsIgnoreCase("content-type")) {
+            if ("content-type".equalsIgnoreCase(httpEquiv)) {
                 String content = null;
                 if (contentIndex != -1) {
                     originalContent = attributes.getValue(contentIndex);

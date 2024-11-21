@@ -745,7 +745,7 @@ public class URI {
             index++;
         }
 
-        String scheme = uriSpec.substring(0, index);
+        final String scheme = uriSpec.substring(0, index);
         if (scheme.length() == 0) {
             throw new MalformedURIException("No scheme found in URI.");
         }
@@ -804,7 +804,7 @@ public class URI {
             }
         }
 
-        String host = uriSpec.substring(start, index);
+        final String host = uriSpec.substring(start, index);
         int port = -1;
         if (host.length() > 0) {
             // port

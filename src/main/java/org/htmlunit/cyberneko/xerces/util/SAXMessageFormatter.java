@@ -58,7 +58,7 @@ public final class SAXMessageFormatter {
             return msg;
         }
         catch (final MissingResourceException e) {
-            MissingResourceException mre = new MissingResourceException(key, SAXResourceBundle_.getString("BadMessageKey"), key);
+            final MissingResourceException mre = new MissingResourceException(key, SAXResourceBundle_.getString("BadMessageKey"), key);
             mre.initCause(e);
             throw mre;
         }
