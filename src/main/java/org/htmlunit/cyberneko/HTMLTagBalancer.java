@@ -1272,8 +1272,7 @@ public class HTMLTagBalancer
      * @return the depth of the open tag associated with the specified
      * element parent names or -1 if no matching element is found.
      *
-     * @param parents The parent elements.
-     * @param bounds bounds
+     * @param element the element to get the parents from.
      */
     protected int getParentDepth(final Element element) {
         final HTMLElements.Element[] parents = element.parent;

@@ -31,7 +31,7 @@ public final class StringUtils {
 
     /**
      * Returns true if the param is not null and empty. This is different from
-     * {@link org.apache.commons.lang3.StringUtils#isEmpty(CharSequence)} because
+     * org.apache.commons.lang3.StringUtils#isEmpty(CharSequence) because
      * this returns false if the provided string is null.
      *
      * @param s the string to check
