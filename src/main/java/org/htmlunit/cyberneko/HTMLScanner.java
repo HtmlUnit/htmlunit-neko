@@ -2759,7 +2759,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 return null;
             }
             ename = modifyName(ename, fNamesElems);
-            attributes_.removeAllAttributes();
+            if (attributes_.getLength() != 0) {
+                attributes_.removeAllAttributes();
+            }
             final int beginLineNumber = fBeginLineNumber;
             final int beginColumnNumber = fBeginColumnNumber;
             final int beginCharacterOffset = fBeginCharacterOffset;
