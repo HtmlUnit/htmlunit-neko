@@ -1,0 +1,5 @@
+startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(2,1,8) (2,7,14) false]characters '
+'[(2,7,14) (3,1,16) false]startElement [(3,1,16) (3,7,22) false]characters '
+'[(3,7,22) (4,1,24) false]startElement [(4,1,24) (4,16,39) false]startElement [(4,16,39) (4,31,54) false]startElement [(4,31,54) (4,39,62) false]endElement [(4,39,62) (4,48,71) false]endElement [(4,48,71) (4,55,78) false]endElement [(4,55,78) (4,62,85) false]characters '
+'[(4,62,85) (5,1,87) false]endElement [(5,1,87) (5,8,94) false]characters '
+'[(5,8,94) (6,1,96) false]endElement [(6,1,96) (6,8,103) false]endElement [(6,8,103) (6,15,110) false]endDocument [(6,15,110) (6,15,110) false]

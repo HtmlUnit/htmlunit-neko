@@ -1,0 +1,2 @@
+startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]emptyElement [(1,1,0) (1,71,70) false]characters '
+'[(1,71,70) (2,1,72) false]startElement [(2,1,72) (2,8,79) false]characters 'Avec à, é et é'[(2,8,79) (2,22,93) false]endElement [(2,22,93) (2,30,101) false]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(2,30,101) (2,30,101) false]

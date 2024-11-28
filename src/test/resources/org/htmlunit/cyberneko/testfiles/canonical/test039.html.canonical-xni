@@ -1,0 +1,9 @@
+startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(1,1,0) (1,5,4) false]characters 'Header1'[(1,5,4) (1,12,11) false]endElement [(1,12,11) (1,17,16) false]characters '
+'[(1,17,16) (2,1,18) false]startElement [(2,1,18) (2,9,26) false]characters '
+document.write('ABC');
+<!--
+document.write("<script>document.write('Hello, World')</script>");
+//-->
+document.write('XYZ');
+'[(2,9,26) (8,1,157) false]endElement [(8,1,157) (8,10,166) false]characters '
+'[(8,10,166) (9,1,168) false]startElement [(9,1,168) (9,5,172) false]characters 'Header2'[(9,5,172) (9,12,179) false]endElement [(9,12,179) (9,17,184) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(9,17,184) (9,17,184) false]
