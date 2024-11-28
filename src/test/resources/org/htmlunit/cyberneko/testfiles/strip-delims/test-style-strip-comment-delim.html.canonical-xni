@@ -1,0 +1,18 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,8,7) false]
+characters '<!-- first line
+last line-->
+'[(1,8,7) (3,1,38) false]
+endElement [(3,1,38) (3,9,46) false]
+characters '
+'[(3,9,46) (4,1,48) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(4,1,48) (4,5,52) false]
+characters 'Foo'[(4,5,52) (4,8,55) false]
+endElement [(4,8,55) (4,13,60) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(4,13,60) (4,13,60) false]

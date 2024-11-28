@@ -1,0 +1,45 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,8,7) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,8,7) (1,12,11) false]
+characters '
+'[(1,12,11) (2,1,13) false]
+startElement [(2,1,13) (2,5,17) false]
+characters 'td1'[(2,5,17) (2,8,20) false]
+endElement [(2,8,20) (2,13,25) false]
+characters '
+'[(2,13,25) (3,1,27) false]
+startElement [(3,1,27) (3,5,31) false]
+startElement [(3,5,31) (3,10,36) false]
+characters 'td2
+'[(3,10,36) (4,1,41) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(4,1,41) (4,5,45) false]
+characters '
+'[(4,5,45) (5,1,47) false]
+startElement [(5,1,47) (5,5,51) false]
+characters 'td3'[(5,5,51) (5,8,54) false]
+endElement [(5,8,54) (5,13,59) false]
+characters '
+'[(5,13,59) (6,1,61) false]
+startElement [(6,1,61) (6,5,65) false]
+characters 'td4'[(6,5,65) (6,8,68) false]
+endElement [(6,8,68) (6,13,73) false]
+characters '
+'[(6,13,73) (7,1,75) false]
+endElement [(7,1,75) (7,6,80) false]
+characters '
+'[(7,6,80) (8,1,82) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(8,1,82) (8,9,90) false]
+characters '
+'[(8,9,90) (9,1,92) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(9,1,92) (9,1,92) false]

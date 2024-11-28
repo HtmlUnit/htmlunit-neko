@@ -1,0 +1,14 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(2,1,8) (2,7,14) false]
+endElement [(2,7,14) (2,14,21) false]
+startElement [(3,1,23) (3,7,29) false]
+characters '
+'[(3,7,29) (4,1,31) false]
+startElement [(4,1,31) (4,6,36) false]
+characters 'not closed div
+'[(4,6,36) (5,1,52) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(5,1,52) (5,8,59) false]
+endElement [(6,1,61) (6,8,68) false]
+endDocument [(6,8,68) (6,8,68) false]

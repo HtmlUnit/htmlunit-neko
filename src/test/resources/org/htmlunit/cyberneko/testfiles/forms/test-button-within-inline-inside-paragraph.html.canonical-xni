@@ -1,0 +1,30 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,4,3) false]
+characters '
+ '[(1,4,3) (2,2,6) false]
+startElement [(2,2,6) (2,10,14) false]
+characters '
+  '[(2,10,14) (3,3,18) false]
+startElement [(3,3,18) (3,9,24) false]
+characters 'Color'[(3,9,24) (3,14,29) false]
+endElement [(3,14,29) (3,21,36) false]
+characters '
+  '[(3,21,36) (4,3,40) false]
+startElement [(4,3,40) (4,8,45) false]
+characters 'test'[(4,8,45) (4,12,49) false]
+endElement [(4,12,49) (4,18,55) false]
+characters '
+ '[(4,18,55) (5,2,58) false]
+endElement [(5,2,58) (5,11,67) false]
+characters '
+'[(5,11,67) (6,1,69) false]
+endElement [(6,1,69) (6,5,73) false]
+characters '
+'[(6,5,73) (7,1,75) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(7,1,75) (7,1,75) false]

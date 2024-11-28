@@ -1,0 +1,18 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(1,7,6) (1,15,14) false]
+characters '
+doSomething
+'[(1,15,14) (3,1,27) false]
+endElement [(3,1,27) (3,10,36) false]
+startElement [(3,10,36) (3,18,44) false]
+characters '
+doSomethingElse
+'[(3,18,44) (5,1,61) false]
+endElement [(5,1,61) (5,10,70) false]
+endElement [(5,10,70) (5,17,77) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(5,17,77) (5,17,77) false]

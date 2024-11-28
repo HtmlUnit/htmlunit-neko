@@ -1,0 +1,19 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(2,1,8) (2,7,14) false]
+characters '
+'[(2,7,14) (3,1,16) false]
+startElement [(3,1,16) (3,7,22) false]
+characters '
+'[(3,7,22) (4,1,24) false]
+startElement [(4,1,24) (4,6,29) false]
+characters 'second div'[(4,6,29) (4,16,39) false]
+endElement [(4,16,39) (4,22,45) false]
+characters '
+'[(4,22,45) (5,1,47) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(5,1,47) (5,8,54) false]
+endElement [(6,1,56) (6,8,63) false]
+endDocument [(6,8,63) (6,8,63) false]

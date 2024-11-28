@@ -1,0 +1,25 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(2,1,8) (2,7,14) false]
+characters '
+    '[(2,7,14) (3,5,20) false]
+startElement [(3,5,20) (3,13,28) false]
+characters '
+        <!-- yy --!>
+        var loc = 7;
+    '[(3,13,28) (6,5,78) false]
+endElement [(6,5,78) (6,14,87) false]
+characters '
+'[(6,14,87) (7,1,89) false]
+endElement [(7,1,89) (7,8,96) false]
+startElement [(8,1,98) (8,7,104) false]
+characters '
+    '[(8,7,104) (9,5,110) false]
+comment [(9,5,110) (9,15,120) false]
+characters '
+'[(9,15,120) (10,1,122) false]
+characters '
+'[(11,8,138) (12,1,140) false]
+endElement [(10,1,122) (10,8,129) false]
+endElement [(11,1,131) (11,8,138) false]
+endDocument [(12,1,140) (12,1,140) false]

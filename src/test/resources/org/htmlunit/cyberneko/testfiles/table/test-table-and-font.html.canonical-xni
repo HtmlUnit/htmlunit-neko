@@ -1,0 +1,51 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(2,1,8) (2,7,14) false]
+characters '
+'[(2,7,14) (3,1,16) false]
+startElement [(3,1,16) (3,7,22) false]
+characters '
+'[(3,7,22) (4,1,24) false]
+startElement [(4,1,24) (4,8,31) false]
+characters '
+'[(4,8,31) (5,1,33) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(5,1,33) (5,5,37) false]
+characters '
+'[(5,5,37) (6,1,39) false]
+startElement [(6,1,39) (6,5,43) false]
+startElement [(6,5,43) (6,8,46) false]
+startElement [(6,8,46) (6,14,52) false]
+characters '
+Row 1'[(6,14,52) (7,6,59) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(7,6,59) (7,10,63) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+characters ', Cell 1'[(7,10,63) (7,18,71) false]
+endElement [(7,18,71) (7,25,78) false]
+endElement [(7,25,78) (7,30,83) false]
+characters '
+'[(7,30,83) (8,1,85) false]
+startElement [(8,1,85) (8,5,89) false]
+characters 'Row 1, Cell 2'[(8,5,89) (8,18,102) false]
+endElement [(8,18,102) (8,23,107) false]
+characters '
+'[(8,23,107) (9,1,109) false]
+endElement [(9,1,109) (9,6,114) false]
+characters '
+'[(9,6,114) (10,1,116) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(10,1,116) (10,9,124) false]
+characters '
+'[(10,9,124) (11,1,126) false]
+startElement [(11,1,126) (11,4,129) false]
+characters 'Test paragraph 2 (after table)'[(11,4,129) (11,34,159) false]
+endElement [(11,34,159) (11,38,163) false]
+endElement [(11,38,163) (11,45,170) false]
+characters '
+'[(11,45,170) (12,1,172) false]
+endElement [(12,1,172) (12,8,179) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(12,8,179) (12,8,179) false]

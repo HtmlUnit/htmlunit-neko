@@ -1,0 +1,23 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(1,7,6) (1,13,12) false]
+startElement [(1,13,12) (1,20,19) false]
+characters 'foo'[(1,20,19) (1,23,22) false]
+endElement [(1,23,22) (1,31,30) false]
+characters '
+'[(1,31,30) (2,1,32) false]
+startElement [(2,1,32) (2,31,62) false]
+characters '<!-- alert(1);'[(2,31,62) (2,45,76) false]
+endElement [(2,45,76) (2,54,85) false]
+characters '
+'[(2,54,85) (3,1,87) false]
+startElement [(3,1,87) (3,31,117) false]
+characters 'alert(1);-->'[(3,31,117) (3,43,129) false]
+endElement [(3,43,129) (3,52,138) false]
+characters '
+'[(3,52,138) (4,1,140) false]
+endElement [(4,1,140) (4,8,147) false]
+startElement [(5,1,149) (5,7,155) false]
+endElement [(5,7,155) (5,14,162) false]
+endElement [(5,14,162) (5,21,169) false]
+endDocument [(5,21,169) (5,21,169) false]

@@ -1,0 +1,12 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (3,11,46) false]
+characters '
+'[(3,11,46) (4,1,48) false]
+startElement [(4,1,48) (16,10,245) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(16,10,245) (16,10,245) false]

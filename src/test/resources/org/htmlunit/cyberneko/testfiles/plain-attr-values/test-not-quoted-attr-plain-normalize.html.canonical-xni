@@ -1,0 +1,49 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,13,12) false]
+endElement [(1,13,12) (1,19,18) false]
+characters '
+'[(1,19,18) (2,1,20) false]
+startElement [(2,1,20) (2,14,33) false]
+endElement [(2,14,33) (2,20,39) false]
+characters '
+'[(2,20,39) (3,1,41) false]
+startElement [(3,1,41) (3,15,55) false]
+endElement [(3,15,55) (3,21,61) false]
+characters '
+'[(3,21,61) (4,1,63) false]
+startElement [(4,1,63) (4,14,76) false]
+endElement [(4,14,76) (4,20,82) false]
+characters '
+'[(4,20,82) (5,1,84) false]
+startElement [(5,1,84) (5,15,98) false]
+endElement [(5,15,98) (5,21,104) false]
+characters '
+'[(5,21,104) (6,1,106) false]
+startElement [(6,1,106) (6,14,119) false]
+endElement [(6,14,119) (6,20,125) false]
+characters '
+'[(6,20,125) (7,1,127) false]
+startElement [(7,1,127) (7,16,142) false]
+endElement [(7,16,142) (7,22,148) false]
+characters '
+'[(7,22,148) (8,1,150) false]
+startElement [(8,1,150) (14,3,175) false]
+endElement [(14,3,175) (14,9,181) false]
+characters '
+
+'[(14,9,181) (16,1,185) false]
+startElement [(16,1,185) (16,13,197) false]
+endElement [(16,13,197) (16,19,203) false]
+characters '
+'[(16,19,203) (17,1,205) false]
+startElement [(17,1,205) (18,8,226) false]
+endElement [(18,8,226) (18,14,232) false]
+characters '
+'[(18,14,232) (19,1,234) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(19,1,234) (19,1,234) false]

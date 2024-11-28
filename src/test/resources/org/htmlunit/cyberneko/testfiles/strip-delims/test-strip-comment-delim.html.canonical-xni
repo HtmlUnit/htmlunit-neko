@@ -1,0 +1,20 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,9,8) false]
+characters '
+<!-- on comment line
+html script content
+//-->
+'[(1,9,8) (5,1,60) false]
+endElement [(5,1,60) (5,10,69) false]
+characters '
+'[(5,10,69) (6,1,71) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(6,1,71) (6,5,75) false]
+characters 'Foo'[(6,5,75) (6,8,78) false]
+endElement [(6,8,78) (6,13,83) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(6,13,83) (6,13,83) false]

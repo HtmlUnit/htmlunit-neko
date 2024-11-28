@@ -1,0 +1,20 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(1,7,6) (1,13,12) false]
+characters '
+'[(1,13,12) (2,1,14) false]
+startElement [(2,1,14) (2,23,36) false]
+characters '<!-- this shouldn't be a problem -->'[(2,23,36) (2,59,72) false]
+endElement [(2,59,72) (2,68,81) false]
+characters '
+'[(2,68,81) (3,1,83) false]
+startElement [(3,1,83) (3,23,105) false]
+characters '<!-- this shouldn't be a problem either --> '[(3,23,105) (3,67,149) false]
+endElement [(3,67,149) (3,76,158) false]
+characters '
+'[(3,76,158) (4,1,160) false]
+endElement [(4,1,160) (4,8,167) false]
+startElement [(4,8,167) (4,14,173) false]
+endElement [(4,14,173) (4,21,180) false]
+endElement [(4,21,180) (4,28,187) false]
+endDocument [(4,28,187) (4,28,187) false]

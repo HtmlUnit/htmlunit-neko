@@ -1,0 +1,24 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,1,0) (1,10,9) false]
+characters '
+'[(1,10,9) (2,1,11) false]
+startElement [(2,1,11) (2,7,17) false]
+characters '
+Hello
+'[(2,7,17) (4,1,26) false]
+characters '
+World!
+'[(4,10,35) (6,1,45) false]
+endElement [(6,1,45) (6,8,52) false]
+characters '
+'[(6,8,52) (7,1,54) false]
+endElement [(7,1,54) (7,11,64) false]
+characters '
+'[(7,11,64) (8,1,66) false]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(8,1,66) (8,1,66) false]

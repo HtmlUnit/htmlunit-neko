@@ -1,0 +1,19 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement [(1,1,0) (1,7,6) false]
+startElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement [(-1,-1,-1) (-1,-1,-1) true]
+startElement [(1,7,6) (1,13,12) false]
+characters '
+'[(1,13,12) (2,1,14) false]
+startElement [(2,1,14) (2,47,60) false]
+endElement [(2,47,60) (2,56,69) false]
+characters '
+'[(2,56,69) (3,1,71) false]
+startElement [(3,1,71) (3,19,89) false]
+characters 'test text'[(3,19,89) (3,28,98) false]
+endElement [(3,28,98) (3,34,104) false]
+characters '
+'[(3,34,104) (4,1,106) false]
+endElement [(4,1,106) (4,8,113) false]
+endElement [(4,8,113) (4,15,120) false]
+endDocument [(4,15,120) (4,15,120) false]
