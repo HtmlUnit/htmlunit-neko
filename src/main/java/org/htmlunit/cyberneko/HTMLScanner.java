@@ -2344,14 +2344,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded("(scanComment: ");
             }
+
+            final int endLineNumber = fCurrentEntity.getLineNumber();
+            final int endColumnNumber = fCurrentEntity.getColumnNumber();
+            final int endCharacterOffset = fCurrentEntity.getCharacterOffset();
+
             fScanComment.clear();
             boolean eof = scanCommentContent(fScanComment);
             // no --> found, comment with end only with >
             if (eof) {
-                fCurrentEntity.resetBuffer(fScanComment,
-                                                fCurrentEntity.getLineNumber(),
-                                                fCurrentEntity.getColumnNumber(),
-                                                fCurrentEntity.getCharacterOffset());
+                fCurrentEntity.resetBuffer(fScanComment, endLineNumber, endColumnNumber, endCharacterOffset);
                 fScanComment.clear(); // take a new one to avoid interactions
                 while (true) {
                     final int c = fCurrentEntity.read();
