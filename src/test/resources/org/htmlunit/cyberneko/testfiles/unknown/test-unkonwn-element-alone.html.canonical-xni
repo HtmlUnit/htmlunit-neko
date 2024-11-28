@@ -6,6 +6,8 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="foobar",rawname="foobar") [(1,1,0) (1,9,8) false]
 characters 'Text'[(1,9,8) (1,13,12) false]
 endElement (localpart="foobar",rawname="foobar") [(1,13,12) (1,22,21) false]
+characters '
+'[(1,22,21) (2,1,22) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,22,21) (1,22,21) false]
+endDocument [(2,1,22) (2,1,22) false]

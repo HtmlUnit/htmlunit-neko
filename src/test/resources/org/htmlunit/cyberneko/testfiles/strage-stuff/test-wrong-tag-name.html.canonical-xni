@@ -5,6 +5,8 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 characters '<'[no augs]
 characters '1ag>text'[(1,2,1) (1,10,9) false]
+characters '
+'[(1,17,16) (2,1,17) false]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,17,16) (1,17,16) false]
+endDocument [(2,1,17) (2,1,17) false]

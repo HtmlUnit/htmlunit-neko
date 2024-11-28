@@ -5,11 +5,12 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="p",rawname="p") [(1,1,0) (1,4,3) false]
 characters 'Paragraph text.
-'[(1,4,3) (2,1,20) false]
+'[(1,4,3) (2,1,19) false]
 endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="p",rawname="p") [(2,1,20) (2,4,23) false]
-characters 'Additional text.'[(2,4,23) (2,20,39) false]
+startElement (localpart="p",rawname="p") [(2,1,19) (2,4,22) false]
+characters 'Additional text.
+'[(2,4,22) (3,1,39) false]
 endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(2,20,39) (2,20,39) false]
+endDocument [(3,1,39) (3,1,39) false]

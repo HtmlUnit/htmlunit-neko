@@ -5,14 +5,16 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="div",rawname="div") [(1,1,0) (1,6,5) false]
 characters '
-'[(1,6,5) (2,1,7) false]
+'[(1,6,5) (2,1,6) false]
 comment '
 comment line1
 comment line1
-'[(2,1,7) (5,4,46) false]
+'[(2,1,6) (5,4,42) false]
 characters '
-content'[(5,4,46) (6,8,55) false]
-endElement (localpart="div",rawname="div") [(6,8,55) (6,14,61) false]
+content'[(5,4,42) (6,8,50) false]
+endElement (localpart="div",rawname="div") [(6,8,50) (6,14,56) false]
+characters '
+'[(6,14,56) (7,1,57) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(6,14,61) (6,14,61) false]
+endDocument [(7,1,57) (7,1,57) false]

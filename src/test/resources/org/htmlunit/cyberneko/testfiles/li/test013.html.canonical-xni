@@ -5,30 +5,32 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="ul",rawname="ul") [(1,1,0) (1,5,4) false]
 characters '
- '[(1,5,4) (2,2,7) false]
-startElement (localpart="li",rawname="li") [(2,2,7) (2,6,11) false]
+ '[(1,5,4) (2,2,6) false]
+startElement (localpart="li",rawname="li") [(2,2,6) (2,6,10) false]
 characters 'One
- '[(2,6,11) (3,2,17) false]
+ '[(2,6,10) (3,2,15) false]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="li",rawname="li") [(3,2,17) (3,6,21) false]
+startElement (localpart="li",rawname="li") [(3,2,15) (3,6,19) false]
 characters 'Two
- '[(3,6,21) (4,2,27) false]
-startElement (localpart="ul",rawname="ul") [(4,2,27) (4,6,31) false]
+ '[(3,6,19) (4,2,24) false]
+startElement (localpart="ul",rawname="ul") [(4,2,24) (4,6,28) false]
 characters '
-  '[(4,6,31) (5,3,35) false]
-startElement (localpart="li",rawname="li") [(5,3,35) (5,7,39) false]
+  '[(4,6,28) (5,3,31) false]
+startElement (localpart="li",rawname="li") [(5,3,31) (5,7,35) false]
 characters 'Two.One
- '[(5,7,39) (6,2,49) false]
+ '[(5,7,35) (6,2,44) false]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="ul",rawname="ul") [(6,2,49) (6,7,54) false]
+endElement (localpart="ul",rawname="ul") [(6,2,44) (6,7,49) false]
 characters '
- '[(6,7,54) (7,2,57) false]
+ '[(6,7,49) (7,2,51) false]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="li",rawname="li") [(7,2,57) (7,6,61) false]
+startElement (localpart="li",rawname="li") [(7,2,51) (7,6,55) false]
 characters 'Three
-'[(7,6,61) (8,1,68) false]
+'[(7,6,55) (8,1,61) false]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="ul",rawname="ul") [(8,1,68) (8,6,73) false]
+endElement (localpart="ul",rawname="ul") [(8,1,61) (8,6,66) false]
+characters '
+'[(8,6,66) (9,1,67) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(8,6,73) (8,6,73) false]
+endDocument [(9,1,67) (9,1,67) false]

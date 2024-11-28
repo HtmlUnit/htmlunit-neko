@@ -7,24 +7,26 @@ characters '<!--
 xhtml script content
 ]]>
 -->
-'[(1,9,8) (6,1,57) false]
-endElement (localpart="script",rawname="script") [(6,1,57) (6,10,66) false]
+'[(1,9,8) (6,1,52) false]
+endElement (localpart="script",rawname="script") [(6,1,52) (6,10,61) false]
 characters '
-'[(6,10,66) (7,1,68) false]
-startElement (localpart="script",rawname="script") [(7,1,68) (7,9,76) false]
+'[(6,10,61) (7,1,62) false]
+startElement (localpart="script",rawname="script") [(7,1,62) (7,9,70) false]
 characters '
 <![CDATA[<!--
 xhtml script content
 -->]]>
-'[(7,9,76) (11,1,123) false]
-endElement (localpart="script",rawname="script") [(11,1,123) (11,10,132) false]
+'[(7,9,70) (11,1,113) false]
+endElement (localpart="script",rawname="script") [(11,1,113) (11,10,122) false]
 characters '
-'[(11,10,132) (12,1,134) false]
+'[(11,10,122) (12,1,123) false]
 endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="h1",rawname="h1") [(12,1,134) (12,5,138) false]
-characters 'Foo'[(12,5,138) (12,8,141) false]
-endElement (localpart="h1",rawname="h1") [(12,8,141) (12,13,146) false]
+startElement (localpart="h1",rawname="h1") [(12,1,123) (12,5,127) false]
+characters 'Foo'[(12,5,127) (12,8,130) false]
+endElement (localpart="h1",rawname="h1") [(12,8,130) (12,13,135) false]
+characters '
+'[(12,13,135) (13,1,136) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(12,13,146) (12,13,146) false]
+endDocument [(13,1,136) (13,1,136) false]

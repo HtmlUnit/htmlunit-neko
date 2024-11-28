@@ -4,26 +4,26 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
 characters '
-'[(1,7,6) (2,1,8) false]
-startElement (localpart="form",rawname="form") [(2,1,8) (2,20,27) false]
+'[(1,7,6) (2,1,7) false]
+startElement (localpart="form",rawname="form") [(2,1,7) (2,20,26) false]
 characters '
-'[(2,20,27) (3,1,29) false]
-emptyElement (localpart="input",rawname="input") [(3,1,29) (3,22,50) false]
+'[(2,20,26) (3,1,27) false]
+emptyElement (localpart="input",rawname="input") [(3,1,27) (3,22,48) false]
 characters '
-'[(3,22,50) (4,1,52) false]
+'[(3,22,48) (4,1,49) false]
 characters '
-'[(4,20,71) (5,1,73) false]
-emptyElement (localpart="input",rawname="input") [(5,1,73) (5,19,91) false]
+'[(4,20,68) (5,1,69) false]
+emptyElement (localpart="input",rawname="input") [(5,1,69) (5,19,87) false]
 characters '
-'[(5,19,91) (6,1,93) false]
-endElement (localpart="form",rawname="form") [(6,1,93) (6,8,100) false]
+'[(5,19,87) (6,1,88) false]
+endElement (localpart="form",rawname="form") [(6,1,88) (6,8,95) false]
 characters '
-'[(6,8,100) (7,1,102) false]
-emptyElement (localpart="input",rawname="input") [(7,1,102) (7,26,127) false]
+'[(6,8,95) (7,1,96) false]
+emptyElement (localpart="input",rawname="input") [(7,1,96) (7,26,121) false]
 characters '
-'[(7,26,127) (8,1,129) false]
+'[(7,26,121) (8,1,122) false]
 characters '
-'[(8,8,136) (9,1,138) false]
-endElement (localpart="body",rawname="body") [(9,1,138) (9,8,145) false]
+'[(8,8,129) (9,1,130) false]
+endElement (localpart="body",rawname="body") [(9,1,130) (9,8,137) false]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(9,8,145) (9,8,145) false]
+endDocument [(10,1,138) (10,1,138) false]

@@ -4,10 +4,12 @@ startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="script",rawname="script") [(1,1,0) (1,30,29) false]
 characters '
  This is a <b>test</b>. Don't go crazy! </i>
-'[(1,30,29) (3,1,77) false]
-endElement (localpart="script",rawname="script") [(3,1,77) (3,10,86) false]
+'[(1,30,29) (3,1,75) false]
+endElement (localpart="script",rawname="script") [(3,1,75) (3,10,84) false]
+characters '
+'[(3,10,84) (4,1,85) false]
 endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(3,10,86) (3,10,86) false]
+endDocument [(4,1,85) (4,1,85) false]

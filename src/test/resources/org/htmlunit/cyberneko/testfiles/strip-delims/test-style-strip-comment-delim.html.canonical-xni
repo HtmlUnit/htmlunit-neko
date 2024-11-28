@@ -4,15 +4,17 @@ startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="style",rawname="style") [(1,1,0) (1,8,7) false]
 characters '<!-- first line
 last line-->
-'[(1,8,7) (3,1,38) false]
-endElement (localpart="style",rawname="style") [(3,1,38) (3,9,46) false]
+'[(1,8,7) (3,1,36) false]
+endElement (localpart="style",rawname="style") [(3,1,36) (3,9,44) false]
 characters '
-'[(3,9,46) (4,1,48) false]
+'[(3,9,44) (4,1,45) false]
 endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="h1",rawname="h1") [(4,1,48) (4,5,52) false]
-characters 'Foo'[(4,5,52) (4,8,55) false]
-endElement (localpart="h1",rawname="h1") [(4,8,55) (4,13,60) false]
+startElement (localpart="h1",rawname="h1") [(4,1,45) (4,5,49) false]
+characters 'Foo'[(4,5,49) (4,8,52) false]
+endElement (localpart="h1",rawname="h1") [(4,8,52) (4,13,57) false]
+characters '
+'[(4,13,57) (5,1,58) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(4,13,60) (4,13,60) false]
+endDocument [(5,1,58) (5,1,58) false]

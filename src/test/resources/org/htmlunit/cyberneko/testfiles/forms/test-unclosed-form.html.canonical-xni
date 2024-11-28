@@ -5,8 +5,9 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 characters 'x'[(1,1,0) (1,2,1) false]
 startElement (localpart="form",rawname="form") [(1,2,1) (1,8,7) false]
-characters 'y'[(1,8,7) (1,9,8) false]
+characters 'y
+'[(1,8,7) (2,1,9) false]
 endElement (localpart="form",rawname="form") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,9,8) (1,9,8) false]
+endDocument [(2,1,9) (2,1,9) false]

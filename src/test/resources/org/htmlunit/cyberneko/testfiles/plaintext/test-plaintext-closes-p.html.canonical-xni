@@ -6,8 +6,9 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="p",rawname="p") [(1,1,0) (1,4,3) false]
 endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="plaintext",rawname="plaintext") [(1,4,3) (1,15,14) false]
-characters 'plain</plaintext>'[(1,15,14) (1,32,31) false]
+characters 'plain</plaintext>
+'[(1,15,14) (2,1,32) false]
 endElement (localpart="plaintext",rawname="plaintext") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,15,14) (1,32,31) false]
+endDocument [(1,15,14) (2,1,32) false]

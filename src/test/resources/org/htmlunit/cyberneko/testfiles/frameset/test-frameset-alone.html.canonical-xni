@@ -4,10 +4,10 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="frameset",rawname="frameset") [(1,1,0) (1,23,22) false]
 characters '
-  '[(1,23,22) (2,3,26) false]
-emptyElement (localpart="frame",rawname="frame") [(2,3,26) (2,33,56) false]
+  '[(1,23,22) (2,3,25) false]
+emptyElement (localpart="frame",rawname="frame") [(2,3,25) (2,33,55) false]
 characters '
-'[(2,33,56) (3,1,58) false]
-endElement (localpart="frameset",rawname="frameset") [(3,1,58) (3,12,69) false]
+'[(2,33,55) (3,1,56) false]
+endElement (localpart="frameset",rawname="frameset") [(3,1,56) (3,12,67) false]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(3,12,69) (3,12,69) false]
+endDocument [(4,1,68) (4,1,68) false]

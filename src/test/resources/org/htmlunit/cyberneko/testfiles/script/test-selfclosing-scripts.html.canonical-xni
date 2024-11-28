@@ -4,8 +4,9 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
 startElement (localpart="script",rawname="script") [(1,7,6) (1,27,26) false]
-characters '<script src="foo2"/></body>'[(1,27,26) (1,54,53) false]
+characters '<script src="foo2"/></body>
+'[(1,27,26) (2,1,54) false]
 endElement (localpart="script",rawname="script") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,54,53) (1,54,53) false]
+endDocument [(2,1,54) (2,1,54) false]

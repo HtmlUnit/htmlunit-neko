@@ -7,6 +7,8 @@ startElement (localpart="template",rawname="template") [(1,13,12) (1,23,22) fals
 startElement (localpart="template",rawname="template") [(1,23,22) (1,33,32) false]
 endElement (localpart="template",rawname="template") [(1,33,32) (1,44,43) false]
 endElement (localpart="template",rawname="template") [(1,44,43) (1,55,54) false]
+characters '
+'[(1,69,68) (2,1,69) false]
 endElement (localpart="body",rawname="body") [(1,55,54) (1,62,61) false]
 endElement (localpart="html",rawname="html") [(1,62,61) (1,69,68) false]
-endDocument [(1,69,68) (1,69,68) false]
+endDocument [(2,1,69) (2,1,69) false]

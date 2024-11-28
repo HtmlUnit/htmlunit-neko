@@ -7,21 +7,23 @@ startElement (localpart="h1",rawname="h1") [(1,1,0) (1,5,4) false]
 characters 'Header1'[(1,5,4) (1,12,11) false]
 endElement (localpart="h1",rawname="h1") [(1,12,11) (1,17,16) false]
 characters '
-'[(1,17,16) (2,1,18) false]
-startElement (localpart="script",rawname="script") [(2,1,18) (2,9,26) false]
+'[(1,17,16) (2,1,17) false]
+startElement (localpart="script",rawname="script") [(2,1,17) (2,9,25) false]
 characters '
 document.write('ABC');
 <!--
 document.write("<script>document.write('Hello, World')</script>");
 //-->
 document.write('XYZ');
-'[(2,9,26) (8,1,157) false]
-endElement (localpart="script",rawname="script") [(8,1,157) (8,10,166) false]
+'[(2,9,25) (8,1,150) false]
+endElement (localpart="script",rawname="script") [(8,1,150) (8,10,159) false]
 characters '
-'[(8,10,166) (9,1,168) false]
-startElement (localpart="h2",rawname="h2") [(9,1,168) (9,5,172) false]
-characters 'Header2'[(9,5,172) (9,12,179) false]
-endElement (localpart="h2",rawname="h2") [(9,12,179) (9,17,184) false]
+'[(8,10,159) (9,1,160) false]
+startElement (localpart="h2",rawname="h2") [(9,1,160) (9,5,164) false]
+characters 'Header2'[(9,5,164) (9,12,171) false]
+endElement (localpart="h2",rawname="h2") [(9,12,171) (9,17,176) false]
+characters '
+'[(9,17,176) (10,1,177) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(9,17,184) (9,17,184) false]
+endDocument [(10,1,177) (10,1,177) false]

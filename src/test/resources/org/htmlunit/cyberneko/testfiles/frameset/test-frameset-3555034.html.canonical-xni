@@ -4,9 +4,9 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="frameset",rawname="frameset") [(1,1,0) (1,11,10) false]
 characters '
- '[(1,11,10) (2,2,13) false]
+ '[(1,11,10) (2,2,12) false]
 characters '
-'[(2,9,20) (3,1,22) false]
-endElement (localpart="frameset",rawname="frameset") [(3,1,22) (3,12,33) false]
+'[(2,9,19) (3,1,20) false]
+endElement (localpart="frameset",rawname="frameset") [(3,1,20) (3,12,31) false]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(5,8,44) (5,8,44) false]
+endDocument [(6,1,41) (6,1,41) false]

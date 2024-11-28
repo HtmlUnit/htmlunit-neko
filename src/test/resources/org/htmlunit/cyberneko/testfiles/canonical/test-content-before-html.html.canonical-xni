@@ -1,20 +1,22 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement (localpart="html",rawname="html") [(2,1,7) (2,7,13) false]
-startElement (localpart="head",rawname="head") [(3,1,15) (3,7,21) false]
+startElement (localpart="html",rawname="html") [(2,1,6) (2,7,12) false]
+startElement (localpart="head",rawname="head") [(3,1,13) (3,7,19) false]
 characters '
-'[(3,7,21) (4,1,23) false]
-startElement (localpart="title",rawname="title") [(4,1,23) (4,8,30) false]
-characters 'title'[(4,8,30) (4,13,35) false]
-endElement (localpart="title",rawname="title") [(4,13,35) (4,21,43) false]
+'[(3,7,19) (4,1,20) false]
+startElement (localpart="title",rawname="title") [(4,1,20) (4,8,27) false]
+characters 'title'[(4,8,27) (4,13,32) false]
+endElement (localpart="title",rawname="title") [(4,13,32) (4,21,40) false]
 characters '
-'[(4,21,43) (5,1,45) false]
-endElement (localpart="head",rawname="head") [(5,1,45) (5,8,52) false]
-startElement (localpart="body",rawname="body") [(5,8,52) (5,14,58) false]
+'[(4,21,40) (5,1,41) false]
+endElement (localpart="head",rawname="head") [(5,1,41) (5,8,48) false]
+startElement (localpart="body",rawname="body") [(5,8,48) (5,14,54) false]
 characters 'hello
-'[(1,1,0) (2,1,7) false]
+'[(1,1,0) (2,1,6) false]
 characters '
 world
-'[(5,14,58) (7,1,67) false]
-endElement (localpart="body",rawname="body") [(7,1,67) (7,8,74) false]
-endElement (localpart="html",rawname="html") [(8,1,76) (8,8,83) false]
-endDocument [(8,8,83) (8,8,83) false]
+'[(5,14,54) (7,1,61) false]
+characters '
+'[(8,8,76) (9,1,77) false]
+endElement (localpart="body",rawname="body") [(7,1,61) (7,8,68) false]
+endElement (localpart="html",rawname="html") [(8,1,69) (8,8,76) false]
+endDocument [(9,1,77) (9,1,77) false]

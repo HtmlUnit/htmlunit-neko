@@ -5,8 +5,10 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="span",rawname="span") [(1,1,0) (1,7,6) false]
 startElement (localpart="form",rawname="form") [(1,7,6) (1,13,12) false]
+characters '
+'[(1,13,12) (2,1,13) false]
 endElement (localpart="form",rawname="form") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="span",rawname="span") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,13,12) (1,13,12) false]
+endDocument [(2,1,13) (2,1,13) false]

@@ -2,19 +2,20 @@ startDocument [(1,1,0) (1,1,0) false]
 startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
 startElement (localpart="head",rawname="head") [(1,7,6) (1,13,12) false]
 characters '
-'[(1,13,12) (2,1,14) false]
-startElement (localpart="title",rawname="title") [(2,1,14) (2,8,21) false]
+'[(1,13,12) (2,1,13) false]
+startElement (localpart="title",rawname="title") [(2,1,13) (2,8,20) false]
 characters 'Unclosed title
-'[(2,8,21) (3,1,37) false]
+'[(2,8,20) (3,1,35) false]
 characters '</head>
-'[(3,1,37) (4,1,46) false]
-characters '<body>Hello there'[(4,1,46) (4,18,63) false]
+'[(3,1,35) (4,1,43) false]
+characters '<body>Hello there'[(4,1,43) (4,18,60) false]
 characters '</body>
-'[(4,18,63) (5,1,72) false]
-characters '</html>'[(5,1,72) (5,8,79) false]
+'[(4,18,60) (5,1,68) false]
+characters '</html>
+'[(5,1,68) (6,1,76) false]
 endElement (localpart="title",rawname="title") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="head",rawname="head") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(5,8,79) (5,8,79) false]
+endDocument [(6,1,76) (6,1,76) false]

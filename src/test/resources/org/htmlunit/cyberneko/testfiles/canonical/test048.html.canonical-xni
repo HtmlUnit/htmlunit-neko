@@ -4,7 +4,9 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
 startElement (localpart="isindex",rawname="isindex") [(1,7,6) (1,39,38) false]
+characters '
+'[(1,39,38) (2,1,39) false]
 endElement (localpart="isindex",rawname="isindex") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,39,38) (1,39,38) false]
+endDocument [(2,1,39) (2,1,39) false]

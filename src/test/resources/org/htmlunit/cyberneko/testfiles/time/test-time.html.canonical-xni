@@ -6,6 +6,8 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="time",rawname="time") [(1,1,0) (1,35,34) false]
 characters 'Valentines day'[(1,35,34) (1,49,48) false]
 endElement (localpart="time",rawname="time") [(1,49,48) (1,56,55) false]
+characters '
+'[(1,56,55) (2,1,56) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,56,55) (1,56,55) false]
+endDocument [(2,1,56) (2,1,56) false]

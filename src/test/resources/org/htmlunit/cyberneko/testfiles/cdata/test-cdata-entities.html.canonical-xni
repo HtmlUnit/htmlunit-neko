@@ -4,13 +4,15 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,7,6) (1,13,12) false]
 characters '
-'[(1,13,12) (2,1,14) false]
+'[(1,13,12) (2,1,13) false]
 comment '[CDATA[
 &
 above shouldn't be encoded
-]]'[(2,1,14) (5,4,59) false]
+]]'[(2,1,13) (5,4,55) false]
 characters '
-'[(5,4,59) (6,1,61) false]
-endElement (localpart="body",rawname="body") [(6,1,61) (6,8,68) false]
-endElement (localpart="html",rawname="html") [(6,8,68) (6,15,75) false]
-endDocument [(6,15,75) (6,15,75) false]
+'[(5,4,55) (6,1,56) false]
+characters '
+'[(6,15,70) (7,1,71) false]
+endElement (localpart="body",rawname="body") [(6,1,56) (6,8,63) false]
+endElement (localpart="html",rawname="html") [(6,8,63) (6,15,70) false]
+endDocument [(7,1,71) (7,1,71) false]

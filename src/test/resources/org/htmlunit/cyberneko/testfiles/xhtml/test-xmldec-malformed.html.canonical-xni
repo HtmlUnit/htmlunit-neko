@@ -6,7 +6,8 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 characters '
 
-hello'[(1,39,38) (3,6,47) false]
+hello
+'[(1,39,38) (4,1,46) false]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(3,6,47) (3,6,47) false]
+endDocument [(4,1,46) (4,1,46) false]

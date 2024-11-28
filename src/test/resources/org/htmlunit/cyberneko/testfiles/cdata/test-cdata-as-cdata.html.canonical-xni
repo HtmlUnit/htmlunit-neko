@@ -6,7 +6,7 @@ startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml"
 characters 'Text before '[(1,1,0) (1,13,12) false]
 comment '[CDATA[ text in CDATA]]'[(1,13,12) (1,39,38) false]
 characters ' text after
-'[(1,39,38) (2,1,51) false]
+'[(1,39,38) (2,1,50) false]
 endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(2,1,51) (2,1,51) false]
+endDocument [(2,1,50) (2,1,50) false]

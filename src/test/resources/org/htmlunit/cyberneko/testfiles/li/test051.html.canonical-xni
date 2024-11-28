@@ -5,20 +5,22 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="ul",rawname="ul") [(1,1,0) (1,5,4) false]
 characters '
-'[(1,5,4) (2,1,6) false]
-startElement (localpart="li",rawname="li") [(2,1,6) (2,5,10) false]
+'[(1,5,4) (2,1,5) false]
+startElement (localpart="li",rawname="li") [(2,1,5) (2,5,9) false]
 characters 'Item 1
- '[(2,5,10) (3,2,19) false]
-startElement (localpart="p",rawname="p") [(3,2,19) (3,5,22) false]
+ '[(2,5,9) (3,2,17) false]
+startElement (localpart="p",rawname="p") [(3,2,17) (3,5,20) false]
 characters 'Paragraph
-'[(3,5,22) (4,1,33) false]
+'[(3,5,20) (4,1,30) false]
 endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="li",rawname="li") [(4,1,33) (4,5,37) false]
+startElement (localpart="li",rawname="li") [(4,1,30) (4,5,34) false]
 characters 'Item 2
-'[(4,5,37) (5,1,45) false]
+'[(4,5,34) (5,1,41) false]
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="ul",rawname="ul") [(5,1,45) (5,6,50) false]
+endElement (localpart="ul",rawname="ul") [(5,1,41) (5,6,46) false]
+characters '
+'[(5,6,46) (6,1,47) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(5,6,50) (5,6,50) false]
+endDocument [(6,1,47) (6,1,47) false]

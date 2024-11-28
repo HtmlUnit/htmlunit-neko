@@ -8,4 +8,4 @@ endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(1,25,24) (1,32,31) false]
-endDocument [(1,32,31) (1,32,31) false]
+endDocument [(2,1,32) (2,1,32) false]

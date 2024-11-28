@@ -4,6 +4,8 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 characters 'hello'[(1,9,8) (1,14,13) false]
+characters '
+'[(1,24,23) (2,1,24) false]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,24,23) (1,24,23) false]
+endDocument [(2,1,24) (2,1,24) false]

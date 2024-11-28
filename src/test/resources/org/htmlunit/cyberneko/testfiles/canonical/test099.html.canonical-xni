@@ -6,9 +6,10 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="mainA6",rawname="mainA6") [(1,22,21) (1,30,29) false]
 emptyElement (localpart="META",rawname="META") [(1,30,29) (1,102,101) false]
 startElement (localpart="h1",rawname="h1") [(1,102,101) (1,106,105) false]
-characters 'Foo'[(1,106,105) (1,109,108) false]
+characters 'Foo
+'[(1,106,105) (2,1,109) false]
 endElement (localpart="h1",rawname="h1") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="mainA6",rawname="mainA6") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,109,108) (1,109,108) false]
+endDocument [(2,1,109) (2,1,109) false]

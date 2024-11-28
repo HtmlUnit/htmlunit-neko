@@ -5,6 +5,8 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="canvas",rawname="canvas") [(1,1,0) (1,21,20) false]
 endElement (localpart="canvas",rawname="canvas") [(1,21,20) (1,30,29) false]
+characters '
+'[(1,30,29) (2,1,30) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,30,29) (1,30,29) false]
+endDocument [(2,1,30) (2,1,30) false]

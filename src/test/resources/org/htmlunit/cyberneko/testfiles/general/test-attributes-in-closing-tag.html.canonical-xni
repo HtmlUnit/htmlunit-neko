@@ -6,6 +6,8 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="h1",rawname="h1") [(1,1,0) (1,15,14) false]
 characters 'Header'[(1,15,14) (1,21,20) false]
 endElement (localpart="h1",rawname="h1") [(1,21,20) (1,42,41) false]
+characters '
+'[(1,42,41) (2,1,42) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,42,41) (1,42,41) false]
+endDocument [(2,1,42) (2,1,42) false]

@@ -6,6 +6,8 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="textarea",rawname="textarea") [(1,1,0) (1,11,10) false]
 characters '&'[(1,11,10) (1,16,15) false]
 endElement (localpart="textarea",rawname="textarea") [(1,16,15) (1,27,26) false]
+characters '
+'[(1,27,26) (2,1,27) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,27,26) (1,27,26) false]
+endDocument [(2,1,27) (2,1,27) false]

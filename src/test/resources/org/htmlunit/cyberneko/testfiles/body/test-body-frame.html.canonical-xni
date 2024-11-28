@@ -5,4 +5,4 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
 endElement (localpart="body",rawname="body") [(1,14,13) (1,21,20) false]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,21,20) (1,21,20) false]
+endDocument [(2,1,21) (2,1,21) false]

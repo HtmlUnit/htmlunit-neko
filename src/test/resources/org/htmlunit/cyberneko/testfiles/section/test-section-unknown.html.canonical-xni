@@ -5,20 +5,20 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="section",rawname="section") [(1,1,0) (1,10,9) false]
 characters '
-'[(1,10,9) (2,1,11) false]
-startElement (localpart="form",rawname="form") [(2,1,11) (2,7,17) false]
+'[(1,10,9) (2,1,10) false]
+startElement (localpart="form",rawname="form") [(2,1,10) (2,7,16) false]
 characters '
 Hello
-'[(2,7,17) (4,1,26) false]
+'[(2,7,16) (4,1,23) false]
 characters '
 World!
-'[(4,10,35) (6,1,45) false]
-endElement (localpart="form",rawname="form") [(6,1,45) (6,8,52) false]
+'[(4,10,32) (6,1,40) false]
+endElement (localpart="form",rawname="form") [(6,1,40) (6,8,47) false]
 characters '
-'[(6,8,52) (7,1,54) false]
-endElement (localpart="section",rawname="section") [(7,1,54) (7,11,64) false]
+'[(6,8,47) (7,1,48) false]
+endElement (localpart="section",rawname="section") [(7,1,48) (7,11,58) false]
 characters '
-'[(7,11,64) (8,1,66) false]
+'[(7,11,58) (8,1,59) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(8,1,66) (8,1,66) false]
+endDocument [(8,1,59) (8,1,59) false]

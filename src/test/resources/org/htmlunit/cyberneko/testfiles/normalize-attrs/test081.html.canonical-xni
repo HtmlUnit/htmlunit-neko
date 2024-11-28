@@ -6,11 +6,11 @@ three
 
 
 '[(1,1,0) (7,4,24) false]
-processingInstruction [(8,1,26) (14,3,54) false]
-startElement (localpart="html",rawname="html") [(15,1,56) (21,3,87) false]
+processingInstruction [(8,1,25) (14,3,53) false]
+startElement (localpart="html",rawname="html") [(15,1,54) (21,3,85) false]
 startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="body",rawname="body") [(22,1,89) (22,7,95) false]
+startElement (localpart="body",rawname="body") [(22,1,86) (22,7,92) false]
 characters '
 [one
 two
@@ -19,16 +19,18 @@ three
 
 
 ]
-'[(22,7,95) (30,1,118) false]
-startElement (localpart="textarea",rawname="textarea") [(30,1,118) (30,11,128) false]
+'[(22,7,92) (30,1,113) false]
+startElement (localpart="textarea",rawname="textarea") [(30,1,113) (30,11,123) false]
 characters 'one
 two
 
 three
 
 
-'[(30,11,128) (36,1,145) false]
-endElement (localpart="textarea",rawname="textarea") [(36,1,145) (36,12,156) false]
+'[(30,11,123) (36,1,140) false]
+endElement (localpart="textarea",rawname="textarea") [(36,1,140) (36,12,151) false]
+characters '
+'[(36,12,151) (37,1,152) false]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(36,12,156) (36,12,156) false]
+endDocument [(37,1,152) (37,1,152) false]

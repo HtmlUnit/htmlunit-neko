@@ -6,7 +6,8 @@ startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="dialog",rawname="dialog") [(1,2,1) (1,15,14) false]
 characters 'This is an open dialog window'[(1,15,14) (1,44,43) false]
 endElement (localpart="dialog",rawname="dialog") [(1,44,43) (1,53,52) false]
-characters ' '[(1,53,52) (1,54,53) false]
+characters ' 
+'[(1,53,52) (2,1,54) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,54,53) (1,54,53) false]
+endDocument [(2,1,54) (2,1,54) false]

@@ -1,25 +1,25 @@
 startDocument [(1,1,0) (1,1,0) false]
 startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
-startElement (localpart="head",rawname="head") [(2,1,8) (2,7,14) false]
+startElement (localpart="head",rawname="head") [(2,1,7) (2,7,13) false]
 characters '
-    '[(2,7,14) (3,5,20) false]
-startElement (localpart="script",rawname="script") [(3,5,20) (3,13,28) false]
+    '[(2,7,13) (3,5,18) false]
+startElement (localpart="script",rawname="script") [(3,5,18) (3,13,26) false]
 characters '
         <!-- yy --!>
         var loc = 7;
-    '[(3,13,28) (6,5,78) false]
-endElement (localpart="script",rawname="script") [(6,5,78) (6,14,87) false]
+    '[(3,13,26) (6,5,73) false]
+endElement (localpart="script",rawname="script") [(6,5,73) (6,14,82) false]
 characters '
-'[(6,14,87) (7,1,89) false]
-endElement (localpart="head",rawname="head") [(7,1,89) (7,8,96) false]
-startElement (localpart="body",rawname="body") [(8,1,98) (8,7,104) false]
+'[(6,14,82) (7,1,83) false]
+endElement (localpart="head",rawname="head") [(7,1,83) (7,8,90) false]
+startElement (localpart="body",rawname="body") [(8,1,91) (8,7,97) false]
 characters '
-    '[(8,7,104) (9,5,110) false]
-comment 'xx '[(9,5,110) (9,15,120) false]
+    '[(8,7,97) (9,5,102) false]
+comment 'xx '[(9,5,102) (9,15,112) false]
 characters '
-'[(9,15,120) (10,1,122) false]
+'[(9,15,112) (10,1,113) false]
 characters '
-'[(11,8,138) (12,1,140) false]
-endElement (localpart="body",rawname="body") [(10,1,122) (10,8,129) false]
-endElement (localpart="html",rawname="html") [(11,1,131) (11,8,138) false]
-endDocument [(12,1,140) (12,1,140) false]
+'[(11,8,128) (12,1,129) false]
+endElement (localpart="body",rawname="body") [(10,1,113) (10,8,120) false]
+endElement (localpart="html",rawname="html") [(11,1,121) (11,8,128) false]
+endDocument [(12,1,129) (12,1,129) false]

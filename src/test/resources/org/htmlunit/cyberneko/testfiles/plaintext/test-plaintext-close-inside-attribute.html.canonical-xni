@@ -5,9 +5,10 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="div",rawname="div") [(1,1,0) (1,6,5) false]
 startElement (localpart="plaintext",rawname="plaintext") [(1,6,5) (1,17,16) false]
-characters '<link href="</plaintext>"/></plaintext>'[(1,17,16) (1,56,55) false]
+characters '<link href="</plaintext>"/></plaintext>
+'[(1,17,16) (2,1,56) false]
 endElement (localpart="plaintext",rawname="plaintext") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,17,16) (1,56,55) false]
+endDocument [(1,17,16) (2,1,56) false]

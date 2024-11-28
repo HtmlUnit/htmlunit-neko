@@ -5,8 +5,9 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 characters 'Hello'[(1,7,6) (1,12,11) false]
 startElement (localpart="p",rawname="p") [(1,12,11) (1,15,14) false]
-characters 'World'[(1,15,14) (1,20,19) false]
+characters 'World
+'[(1,15,14) (2,1,20) false]
 endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,20,19) (1,20,19) false]
+endDocument [(2,1,20) (2,1,20) false]

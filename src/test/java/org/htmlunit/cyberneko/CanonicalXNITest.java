@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -101,7 +102,10 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
             HTMLConfiguration htmlConfiguration = new HTMLConfiguration();
             htmlConfiguration.setFeature(HTMLConfiguration.AUGMENTATIONS, true);
             htmlConfiguration.setDocumentHandler(parser);
-            htmlConfiguration.parse(new XMLInputSource(null, infile.toString(), null));
+
+
+            final String normalized = getCanonical(infile);
+            htmlConfiguration.parse(new XMLInputSource(null, null, null, new StringReader(normalized), StandardCharsets.UTF_8.name()));
 
             final StringBuilder sb = new StringBuilder();
 

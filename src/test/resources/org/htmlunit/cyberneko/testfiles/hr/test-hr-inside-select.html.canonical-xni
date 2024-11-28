@@ -5,7 +5,9 @@ endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") 
 startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="select",rawname="select") [(1,1,0) (1,9,8) false]
 emptyElement (localpart="hr",rawname="hr") [(1,9,8) (1,14,13) false]
+characters '
+'[(1,14,13) (2,1,14) false]
 endElement (localpart="select",rawname="select") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,14,13) (1,14,13) false]
+endDocument [(2,1,14) (2,1,14) false]

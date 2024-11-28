@@ -3,7 +3,8 @@ startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml"
 startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
-comment ' in bang comment '[(1,7,6) (1,28,27) false]
+comment ' in bang comment --!
+'[(1,7,6) (2,1,31) false]
 endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,7,6) (1,28,27) false]
+endDocument [(1,7,6) (2,1,31) false]

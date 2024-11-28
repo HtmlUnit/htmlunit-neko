@@ -14,4 +14,4 @@ endElement (localpart="unknown2",rawname="unknown2") [(-1,-1,-1) (-1,-1,-1) true
 endElement (localpart="unknown1",rawname="unknown1") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(2,1,70) (2,1,70) false]
+endDocument [(2,1,69) (2,1,69) false]

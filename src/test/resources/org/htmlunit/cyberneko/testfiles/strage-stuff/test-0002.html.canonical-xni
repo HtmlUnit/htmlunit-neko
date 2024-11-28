@@ -8,7 +8,8 @@ endElement (localpart="select<style",rawname="select<style") [(1,1,0) (1,16,15) 
 characters 'k'[(1,16,15) (1,17,16) false]
 startElement (localpart="input<<",rawname="input<<") [(1,17,16) (1,27,26) false]
 endElement (localpart="input<<",rawname="input<<") [(1,17,16) (1,27,26) false]
-characters 'input/onfocus=alert(1)>'[(1,27,26) (1,50,49) false]
+characters 'input/onfocus=alert(1)>
+'[(1,27,26) (2,1,50) false]
 endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endDocument [(1,50,49) (1,50,49) false]
+endDocument [(2,1,50) (2,1,50) false]
