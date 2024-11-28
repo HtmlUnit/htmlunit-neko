@@ -1,5 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(2,1,8) (2,7,14) false]characters '
-'[(2,7,14) (3,1,16) false]startElement [(3,1,16) (3,4,19) false]characters '
-'[(3,4,19) (4,1,21) false]startElement [(4,1,21) (4,9,29) false]characters ' a button '[(4,9,29) (4,19,39) false]endElement [(4,19,39) (4,28,48) false]characters ' '[(4,28,48) (4,29,49) false]emptyElement [(4,29,49) (4,33,53) false]characters '
-'[(4,33,53) (5,1,55) false]endElement [(5,1,55) (5,5,59) false]characters '
-'[(5,5,59) (6,1,61) false]endElement [(6,1,61) (6,8,68) false]endElement [(6,8,68) (6,15,75) false]endDocument [(6,15,75) (6,15,75) false]

@@ -1,4 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(1,1,0) (1,4,3) false]characters 'outer paragraph
-'[(1,4,3) (2,1,20) false]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(2,1,20) (2,4,23) false]characters 'inner paragraph'[(2,4,23) (2,19,38) false]emptyElement [(2,19,38) (2,23,42) false]characters 'second line in inner paragraph
-'[(2,23,42) (3,1,74) false]endElement [(3,1,74) (3,5,78) false]characters 'second line in outer paragrapth
-'[(3,5,78) (4,1,111) false]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(4,1,111) (4,5,115) false]characters 'outside paragraph tags'[(4,5,115) (4,27,137) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(4,27,137) (4,27,137) false]

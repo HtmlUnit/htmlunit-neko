@@ -1,5 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(1,7,6) (1,13,12) false]characters '
-'[(1,13,12) (2,1,14) false]startElement [(2,1,14) (2,8,21) false]characters 'Unclosed title
-'[(2,8,21) (3,1,37) false]characters '</head>
-'[(3,1,37) (4,1,46) false]characters '<body>Hello there'[(4,1,46) (4,18,63) false]characters '</body>
-'[(4,18,63) (5,1,72) false]characters '</html>'[(5,1,72) (5,8,79) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(5,8,79) (5,8,79) false]

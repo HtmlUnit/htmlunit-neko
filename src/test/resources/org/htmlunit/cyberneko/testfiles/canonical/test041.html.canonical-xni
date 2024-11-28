@@ -1,4 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(1,7,6) (1,13,12) false]startElement [(1,13,12) (1,20,19) false]characters 'foo'[(1,20,19) (1,23,22) false]endElement [(1,23,22) (1,31,30) false]endElement [(1,31,30) (1,38,37) false]startElement [(1,38,37) (1,44,43) false]characters '
-'[(1,44,43) (2,1,45) false]startElement [(2,1,45) (2,18,62) false]characters '
-'[(2,18,62) (3,1,64) false]startElement [(3,1,64) (3,33,96) false]endElement [(3,33,96) (3,43,106) false]characters '
-'[(3,43,106) (4,1,108) false]endElement [(4,1,108) (4,8,115) false]endElement [(4,8,115) (4,15,122) false]endElement [(4,15,122) (4,22,129) false]endDocument [(4,22,129) (4,22,129) false]

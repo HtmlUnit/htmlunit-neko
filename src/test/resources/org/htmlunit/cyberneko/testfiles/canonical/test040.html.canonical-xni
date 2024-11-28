@@ -1,8 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(1,1,0) (1,8,7) false]characters '
- '[(1,8,7) (2,2,10) false]startElement [(-1,-1,-1) (-1,-1,-1) true]emptyElement [(2,2,10) (2,7,15) false]characters '
- '[(2,7,15) (3,2,18) false]emptyElement [(3,2,18) (3,33,49) false]characters '
- '[(3,33,49) (4,2,52) false]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(4,2,52) (4,6,56) false]characters '
-  '[(4,6,56) (5,3,60) false]startElement [(5,3,60) (5,7,64) false]characters 'This'[(5,7,64) (5,11,68) false]endElement [(5,11,68) (5,16,73) false]characters '
-  '[(5,16,73) (6,3,77) false]startElement [(6,3,77) (6,7,81) false]characters 'That'[(6,7,81) (6,11,85) false]endElement [(6,11,85) (6,16,90) false]characters '
- '[(6,16,90) (7,2,93) false]endElement [(7,2,93) (7,7,98) false]characters '
-'[(7,7,98) (8,1,100) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(8,1,100) (8,9,108) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(8,9,108) (8,9,108) false]

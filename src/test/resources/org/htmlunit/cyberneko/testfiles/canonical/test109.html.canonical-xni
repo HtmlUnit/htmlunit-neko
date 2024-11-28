@@ -1,7 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(1,7,6) (1,13,12) false]startElement [(1,13,12) (1,21,20) false]characters '
-function test() {
-var x = '<!>';
-alert(x.length);
-}
-'[(1,21,20) (6,1,78) false]endElement [(6,1,78) (6,10,87) false]endElement [(6,10,87) (6,17,94) false]startElement [(6,17,94) (6,39,116) false]characters '
-'[(6,39,116) (7,1,118) false]endElement [(7,1,118) (7,8,125) false]endElement [(7,8,125) (7,15,132) false]endDocument [(7,15,132) (7,15,132) false]

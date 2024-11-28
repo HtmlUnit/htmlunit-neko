@@ -1,5 +1,0 @@
-startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(1,1,0) (1,24,23) false]characters '
-//<![CDATA[
-'[(1,24,23) (3,1,38) false]endElement [(3,1,38) (3,10,47) false]startElement [(3,10,47) (3,36,73) false]characters '
-//]]
-'[(3,36,73) (5,1,81) false]endElement [(5,1,81) (5,10,90) false]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(5,10,90) (5,10,90) false]
