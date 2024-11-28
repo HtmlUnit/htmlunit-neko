@@ -147,7 +147,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
 
         @Override
         public void comment(XMLString text, Augmentations augs) throws XNIException {
-            out_.append("comment ");
+            out_.append("comment '").append(text.toString()).append('\'');
             appendAugmentations(augs);
             out_.append('\n');
         }
@@ -161,14 +161,14 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
 
         @Override
         public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-            out_.append("startElement ");
+            out_.append("startElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
         public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
-            out_.append("emptyElement ");
+            out_.append("emptyElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }
@@ -182,7 +182,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
 
         @Override
         public void endElement(QName element, Augmentations augs) throws XNIException {
-            out_.append("endElement ");
+            out_.append("endElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }

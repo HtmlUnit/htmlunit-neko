@@ -1,20 +1,20 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(1,1,0) (1,9,8) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="script",rawname="script") [(1,1,0) (1,9,8) false]
 characters '
 <![CDATA[
 xhtml script content
 ]]>
 '[(1,9,8) (5,1,48) false]
-endElement [(5,1,48) (5,10,57) false]
+endElement (localpart="script",rawname="script") [(5,1,48) (5,10,57) false]
 characters '
 '[(5,10,57) (6,1,59) false]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(6,1,59) (6,5,63) false]
+endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="h1",rawname="h1") [(6,1,59) (6,5,63) false]
 characters 'Foo'[(6,5,63) (6,8,66) false]
-endElement [(6,8,66) (6,13,71) false]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="h1",rawname="h1") [(6,8,66) (6,13,71) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(6,13,71) (6,13,71) false]

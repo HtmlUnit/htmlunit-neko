@@ -1,24 +1,24 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(1,1,0) (1,7,6) false]
-startElement [(2,1,8) (2,7,14) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(2,1,8) (2,7,14) false]
 characters '
 '[(2,7,14) (3,1,16) false]
-startElement [(3,1,16) (3,8,23) false]
+startElement (localpart="title",rawname="title") [(3,1,16) (3,8,23) false]
 characters 'Produced ArrayIndexOutOfBoundsException'[(3,8,23) (3,47,62) false]
-endElement [(3,47,62) (3,55,70) false]
+endElement (localpart="title",rawname="title") [(3,47,62) (3,55,70) false]
 characters '
 '[(3,55,70) (4,1,72) false]
-startElement [(4,1,72) (4,24,95) false]
+startElement (localpart="style",rawname="style") [(4,1,72) (4,24,95) false]
 characters '
 
 
 -->
 '[(4,24,95) (8,1,106) false]
-endElement [(8,1,106) (8,9,114) false]
+endElement (localpart="style",rawname="style") [(8,1,106) (8,9,114) false]
 characters '
 '[(8,9,114) (9,1,116) false]
-endElement [(9,1,116) (9,8,123) false]
-startElement [(10,1,125) (10,7,131) false]
-endElement [(10,7,131) (10,14,138) false]
-endElement [(11,1,140) (11,8,147) false]
+endElement (localpart="head",rawname="head") [(9,1,116) (9,8,123) false]
+startElement (localpart="body",rawname="body") [(10,1,125) (10,7,131) false]
+endElement (localpart="body",rawname="body") [(10,7,131) (10,14,138) false]
+endElement (localpart="html",rawname="html") [(11,1,140) (11,8,147) false]
 endDocument [(11,8,147) (11,8,147) false]

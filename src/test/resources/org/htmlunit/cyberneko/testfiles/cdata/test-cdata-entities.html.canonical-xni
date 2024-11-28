@@ -1,13 +1,16 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(1,1,0) (1,7,6) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(1,7,6) (1,13,12) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(1,7,6) (1,13,12) false]
 characters '
 '[(1,13,12) (2,1,14) false]
-comment [(2,1,14) (5,4,59) false]
+comment '[CDATA[
+&
+above shouldn't be encoded
+]]'[(2,1,14) (5,4,59) false]
 characters '
 '[(5,4,59) (6,1,61) false]
-endElement [(6,1,61) (6,8,68) false]
-endElement [(6,8,68) (6,15,75) false]
+endElement (localpart="body",rawname="body") [(6,1,61) (6,8,68) false]
+endElement (localpart="html",rawname="html") [(6,8,68) (6,15,75) false]
 endDocument [(6,15,75) (6,15,75) false]

@@ -1,29 +1,29 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(1,1,0) (1,7,6) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
 characters '
 '[(1,7,6) (2,1,8) false]
-startElement [(2,1,8) (2,20,27) false]
+startElement (localpart="form",rawname="form") [(2,1,8) (2,20,27) false]
 characters '
 '[(2,20,27) (3,1,29) false]
-emptyElement [(3,1,29) (3,22,50) false]
+emptyElement (localpart="input",rawname="input") [(3,1,29) (3,22,50) false]
 characters '
 '[(3,22,50) (4,1,52) false]
 characters '
 '[(4,20,71) (5,1,73) false]
-emptyElement [(5,1,73) (5,19,91) false]
+emptyElement (localpart="input",rawname="input") [(5,1,73) (5,19,91) false]
 characters '
 '[(5,19,91) (6,1,93) false]
-endElement [(6,1,93) (6,8,100) false]
+endElement (localpart="form",rawname="form") [(6,1,93) (6,8,100) false]
 characters '
 '[(6,8,100) (7,1,102) false]
-emptyElement [(7,1,102) (7,26,127) false]
+emptyElement (localpart="input",rawname="input") [(7,1,102) (7,26,127) false]
 characters '
 '[(7,26,127) (8,1,129) false]
 characters '
 '[(8,8,136) (9,1,138) false]
-endElement [(9,1,138) (9,8,145) false]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body") [(9,1,138) (9,8,145) false]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(9,8,145) (9,8,145) false]

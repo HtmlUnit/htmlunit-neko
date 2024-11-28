@@ -1,10 +1,16 @@
 startDocument [(1,1,0) (1,1,0) false]
-comment [(1,1,0) (7,4,24) false]
+comment 'one
+two
+
+three
+
+
+'[(1,1,0) (7,4,24) false]
 processingInstruction [(8,1,26) (14,3,54) false]
-startElement [(15,1,56) (21,3,87) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(22,1,89) (22,7,95) false]
+startElement (localpart="html",rawname="html") [(15,1,56) (21,3,87) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(22,1,89) (22,7,95) false]
 characters '
 [one
 two
@@ -14,7 +20,7 @@ three
 
 ]
 '[(22,7,95) (30,1,118) false]
-startElement [(30,1,118) (30,11,128) false]
+startElement (localpart="textarea",rawname="textarea") [(30,1,118) (30,11,128) false]
 characters 'one
 two
 
@@ -22,7 +28,7 @@ three
 
 
 '[(30,11,128) (36,1,145) false]
-endElement [(36,1,145) (36,12,156) false]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="textarea",rawname="textarea") [(36,1,145) (36,12,156) false]
+endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(36,12,156) (36,12,156) false]

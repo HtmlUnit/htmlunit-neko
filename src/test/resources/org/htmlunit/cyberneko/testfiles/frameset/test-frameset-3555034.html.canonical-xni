@@ -1,12 +1,12 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
-startElement [(1,1,0) (1,11,10) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="frameset",rawname="frameset") [(1,1,0) (1,11,10) false]
 characters '
  '[(1,11,10) (2,2,13) false]
 characters '
 '[(2,9,20) (3,1,22) false]
-endElement [(3,1,22) (3,12,33) false]
-endElement [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="frameset",rawname="frameset") [(3,1,22) (3,12,33) false]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(5,8,44) (5,8,44) false]

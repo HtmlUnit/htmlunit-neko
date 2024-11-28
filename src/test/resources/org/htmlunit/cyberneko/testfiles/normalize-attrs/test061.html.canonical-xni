@@ -1,23 +1,23 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement [(1,1,0) (1,7,6) false]
-startElement [(-1,-1,-1) (-1,-1,-1) true]
-emptyElement [(2,1,8) (2,46,53) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+emptyElement (localpart="meta",rawname="meta") [(2,1,8) (2,46,53) false]
 characters '
 '[(2,46,53) (3,1,55) false]
 characters '
 '[(3,7,61) (4,1,63) false]
-startElement [(4,1,63) (4,8,70) false]
+startElement (localpart="title",rawname="title") [(4,1,63) (4,8,70) false]
 characters 'Title'[(4,8,70) (4,13,75) false]
-endElement [(4,13,75) (4,21,83) false]
+endElement (localpart="title",rawname="title") [(4,13,75) (4,21,83) false]
 characters '
 '[(4,21,83) (5,1,85) false]
-emptyElement [(5,1,85) (6,21,158) false]
+emptyElement (localpart="meta",rawname="meta") [(5,1,85) (6,21,158) false]
 characters '
 '[(6,21,158) (7,1,160) false]
-endElement [(7,1,160) (7,8,167) false]
-startElement [(8,1,169) (8,7,175) false]
+endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(7,1,160) (7,8,167) false]
+startElement (localpart="body",rawname="body") [(8,1,169) (8,7,175) false]
 characters '
 '[(8,7,175) (9,1,177) false]
-endElement [(9,1,177) (9,8,184) false]
-endElement [(10,1,186) (10,8,193) false]
+endElement (localpart="body",rawname="body") [(9,1,177) (9,8,184) false]
+endElement (localpart="html",rawname="html") [(10,1,186) (10,8,193) false]
 endDocument [(10,8,193) (10,8,193) false]
