@@ -1,0 +1,16 @@
+startDocument [(1,1,0) (1,1,0) false]startElement [(1,1,0) (1,7,6) false]startElement [(1,7,6) (1,13,12) false]startElement [(1,13,12) (1,20,19) false]characters 'foo'[(1,20,19) (1,23,22) false]characters '</head>
+'[(1,23,22) (2,1,31) false]characters '<body>
+'[(2,1,31) (3,1,39) false]characters '<a>Here is an '[(3,1,39) (3,15,53) false]characters '<unknown>unknown element'[(3,15,53) (3,39,77) false]characters '</unknown> in some inline text'[(3,39,77) (3,69,107) false]characters '</a>
+'[(3,69,107) (4,1,113) false]characters '<div>and '[(4,1,113) (4,10,122) false]characters '<unknown>here'[(4,10,122) (4,23,135) false]characters '</unknown> in some block text'[(4,23,135) (4,52,164) false]characters '</div>
+'[(4,52,164) (5,1,172) false]characters '<p>and '[(5,1,172) (5,8,179) false]characters '<unknown>here'[(5,8,179) (5,21,192) false]characters '</unknown> in a paragraph'[(5,21,192) (5,46,217) false]characters '</p>
+
+'[(5,46,217) (7,1,225) false]characters '<unknown>
+'[(7,1,225) (8,1,236) false]characters '<p>containing p tag'[(8,1,236) (8,20,255) false]characters '</p>
+'[(8,20,255) (9,1,261) false]characters '</unknown>
+'[(9,1,261) (10,1,273) false]characters '<unknown>
+'[(10,1,273) (11,1,284) false]characters '<a>a tag'[(11,1,284) (11,9,292) false]characters '</a>
+'[(11,9,292) (12,1,298) false]characters '</unknown>
+'[(12,1,298) (13,1,310) false]characters '<unknown>
+'[(13,1,310) (14,1,321) false]characters '<div>and a div'[(14,1,321) (14,15,335) false]characters '</div>
+'[(14,15,335) (15,1,343) false]characters '</unknown>
+'[(15,1,343) (16,1,355) false]characters '</body>'[(16,1,355) (16,8,362) false]characters '</html>'[(16,8,362) (16,15,369) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(16,15,369) (16,15,369) false]

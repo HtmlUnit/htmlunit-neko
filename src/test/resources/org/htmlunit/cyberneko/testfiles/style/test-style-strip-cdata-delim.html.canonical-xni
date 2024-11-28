@@ -1,0 +1,4 @@
+startDocument [(1,1,0) (1,1,0) false]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(1,1,0) (1,8,7) false]characters '<![CDATA[ first line
+last line]]>
+'[(1,8,7) (3,1,43) false]endElement [(3,1,43) (3,9,51) false]characters '
+'[(3,9,51) (4,1,53) false]endElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(-1,-1,-1) (-1,-1,-1) true]startElement [(4,1,53) (4,5,57) false]characters 'Foo'[(4,5,57) (4,8,60) false]endElement [(4,8,60) (4,13,65) false]endElement [(-1,-1,-1) (-1,-1,-1) true]endElement [(-1,-1,-1) (-1,-1,-1) true]endDocument [(4,13,65) (4,13,65) false]
