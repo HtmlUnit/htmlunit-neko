@@ -1,9 +1,6 @@
 (HTML
 (head
 )head
-(BODY
-(A
-Ahref index.html
-)A
-)BODY
-)HTML
+(body
+)body
+)html

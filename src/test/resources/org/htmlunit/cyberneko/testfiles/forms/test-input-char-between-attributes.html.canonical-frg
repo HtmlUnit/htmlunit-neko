@@ -1,10 +1,12 @@
 (input
+A; 
 Aname Login
 Aonclick javascript: submitForm(this)
 Atype submit
 )input
 "\n
 (input
+A? 
 Aname Login
 Aonclick javascript: submitForm(this)
 Atype submit

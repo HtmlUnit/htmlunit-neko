@@ -324,9 +324,10 @@ public class DOMFragmentParser implements XMLDocumentHandler {
             for (int i = 0; i < count; i++) {
                 final String aname = attrs.getQName(i);
                 final String avalue = attrs.getValue(i);
-                if (XMLChar.isValidName(aname)) {
-                    elementNode.setAttribute(aname, avalue);
-                }
+
+                // don't check the name here - this is done by the HTMLScanner and
+                // not all valid html tag names are valid xml names
+                elementNode.setAttribute(aname, avalue);
             }
         }
         currentNode_.appendChild(elementNode);

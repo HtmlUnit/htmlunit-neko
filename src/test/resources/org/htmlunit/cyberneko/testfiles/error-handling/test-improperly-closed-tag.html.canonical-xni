@@ -4,8 +4,8 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,7,6) (1,13,12) false]
 startElement (localpart="div",rawname="div") [(1,13,12) (1,18,17) false]
-startElement (localpart="span",rawname="span") [(1,18,17) (1,24,23) false]
-endElement (localpart="span",rawname="span") [(1,24,23) (1,31,30) false]
+startElement (localpart="span",rawname="span") [(1,18,17) (1,31,30) false]
+endElement (localpart="span",rawname="span") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="div",rawname="div") [(1,31,30) (1,37,36) false]
 characters '
 '[(1,51,50) (2,1,51) false]

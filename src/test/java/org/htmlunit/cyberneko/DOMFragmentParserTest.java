@@ -58,7 +58,13 @@ public class DOMFragmentParserTest {
      */
     @Test
     public void invalidAttributeName() throws Exception {
-        doTest("<html 9='id'></html>", "<html/>");
+        // doTest("<html 9='id'></html>", "<html/>");
+
+        // changed in version 4.8.0 as this is an valid (html) attribute name
+        // doTest("<html 9='id'></html>", "<html 9=\"id\"/>");
+
+        // this fail on jdk8 because the DOMImplementationLS returns null if the dom is not xml
+        // migrated to test-digit-attr-name
     }
 
     private static void doTest(final String html, final String expected) throws Exception {
@@ -74,6 +80,9 @@ public class DOMFragmentParserTest {
 
         final LSSerializer writer = impl.createLSSerializer();
         String str = writer.writeToString(fragment);
+        if (str == null) {
+            str = "";
+        }
         str = str.replace("\r", "").replace("\n", "");
 
         final String xmlDecl = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>";

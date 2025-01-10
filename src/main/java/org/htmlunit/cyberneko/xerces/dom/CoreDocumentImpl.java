@@ -380,10 +380,12 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public Attr createAttribute(final String name) throws DOMException {
-        if (errorChecking && !isXMLName(name, xml11Version_)) {
-            final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
-            throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
-        }
+        // don't check the name here - this is done by the HTMLScanner and
+        // not all valid html tag names are valid xml names
+        // if (errorChecking && !isXMLName(name, xml11Version_)) {
+        //     final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
+        //     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
+        // }
         return new AttrImpl(this, name);
 
     }

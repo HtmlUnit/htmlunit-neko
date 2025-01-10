@@ -5,7 +5,11 @@
 (body
 (div
 [Err] HTML1016 Error parsing attribute name.
+[Err] HTML1013 Missing whitespace before attribute "span".
 (span
+A< 
+Aspan 
+[Warn] HTML2007 End element <div> automatically closes element <span>.
 )span
 )div
 "\n

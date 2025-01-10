@@ -14,7 +14,7 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 ### Project News
 
-**[Developer Blog][5]**
+**[Developer Blog](https://htmlunit.github.io/htmlunit-blog/)**
 
 [HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
 
@@ -312,4 +312,3 @@ Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino/NekoHtml in t
 [2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
 [3]: https://twitter.com/HtmlUnit "https://twitter.com/HtmlUnit"
 [4]: https://fosstodon.org/@HtmlUnit
-[5]: https://htmlunit.github.io/htmlunit-blog/

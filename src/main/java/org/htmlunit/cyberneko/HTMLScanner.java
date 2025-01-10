@@ -742,7 +742,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
         }
-
     }
 
     /** Sets a feature. */
@@ -2895,17 +2894,18 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
                     }
-                    return false;
+                    throw new EOFException();
                 }
                 if (c == '>') {
                     return false;
                 }
+
+                // https://html.spec.whatwg.org/multipage/parsing.html#parse-error-unexpected-character-in-attribute-name
                 if (c == '<') {
-                    fCurrentEntity.rewind();
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1016", null);
                     }
-                    return false;
+                    // report but process as part of the attrib name
                 }
             }
 
@@ -2937,13 +2937,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 throw new EOFException();
             }
-            if (c == '/' || c == '>') {
+            if (c == '/') {
                 qName_.setValues(null, aname, aname, null);
                 attributes.addAttribute(qName_, "CDATA", "", true);
-                if (c == '/') {
-                    fCurrentEntity.rewind();
-                    empty[0] = skipMarkup(false);
-                }
+                return true;
+            }
+            if (c == '>') {
+                qName_.setValues(null, aname, aname, null);
+                attributes.addAttribute(qName_, "CDATA", "", true);
                 return false;
             }
             if (c == '=') {

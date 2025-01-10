@@ -25,6 +25,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.parsers.DOMFragmentParser;
@@ -94,7 +95,10 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
             }
         }
         catch (final AssertionFailedError e) {
-            final File output = new File(outputDir, dataFile.getName());
+            String path = dataFile.getAbsolutePath();
+            path = path.substring(path.indexOf("\\testfiles\\") + 11);
+            final File output = new File(outputDir, path + ".canonical-frg");
+            Files.createDirectories(Paths.get(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);
             }
