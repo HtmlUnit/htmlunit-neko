@@ -16,9 +16,10 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 **[Developer Blog](https://htmlunit.github.io/htmlunit-blog/)**
 
-[HtmlUnit@mastodon][4] | [HtmlUnit@Twitter][3]
+[HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.7.0 / November 29, 2024
+### Latest release Version 4.8.0 / January 12, 2024
+
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
 ##### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
@@ -34,7 +35,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.7.0</version>
+    <version>4.8.0</version>
 </dependency>
 ```
 
@@ -43,7 +44,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.7.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.8.0'
 ```
 
 ## HowTo use
@@ -310,5 +311,3 @@ Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino/NekoHtml in t
 
 
 [2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
-[3]: https://twitter.com/HtmlUnit "https://twitter.com/HtmlUnit"
-[4]: https://fosstodon.org/@HtmlUnit
