@@ -18,7 +18,7 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.9.0 / January 22, 2025
+### Latest release Version 4.10.0 / February 22, 2025
 
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
@@ -35,7 +35,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.9.0</version>
+    <version>4.10.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.9.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.10.0'
 ```
 
 ## HowTo use
@@ -149,7 +149,7 @@ Supported properties:
 
 ### Last CI build
 The latest builds are available from our
-[Jenkins CI build server][2]
+[Jenkins CI build server](https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI")
 
 [![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
 
@@ -159,7 +159,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.10.0-SNAPSHOT</version>
+        <version>4.11.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype snapshot repository to your pom `repositories` section also:
@@ -308,6 +308,3 @@ This project is licensed under the Apache 2.0 License
 ## Acknowledgments
 
 Many thanks to all of you contributing to HtmlUnit/CSSParser/Rhino/NekoHtml in the past.
-
-
-[2]: https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI"
