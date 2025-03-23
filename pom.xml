@@ -25,9 +25,9 @@
 
         <junit.version>5.12.0</junit.version>
 
-        <checkstyle.version>10.21.1</checkstyle.version>
-        <spotbugs.version>4.9.1</spotbugs.version>
-        <pmd.version>7.10.0</pmd.version>
+        <checkstyle.version>10.21.4</checkstyle.version>
+        <spotbugs.version>4.9.3</spotbugs.version>
+        <pmd.version>7.11.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version>
     </properties>
 
@@ -97,9 +97,9 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.2</version>
                 <configuration>
-                    <doclint>none</doclint>
                     <quiet>true</quiet>
-                    <!--doclint>html,missing,reference,syntax<doclint-->
+                    <show>protected</show>
+                    <doclint>html,reference,syntax</doclint>
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>
                 </configuration>
@@ -161,7 +161,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.9.1.0</version>
+                <version>4.9.3.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>

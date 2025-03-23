@@ -1238,7 +1238,7 @@ public class HTMLTagBalancer
 
     /**
      * @return the depth of the open tag associated with the specified
-     * element name or -1 if no matching element is found.
+     *      element name or -1 if no matching element is found.
      *
      * @param element The element.
      */
@@ -1270,7 +1270,7 @@ public class HTMLTagBalancer
 
     /**
      * @return the depth of the open tag associated with the specified
-     * element parent names or -1 if no matching element is found.
+     *      element parent names or -1 if no matching element is found.
      *
      * @param element the element to get the parents from.
      */

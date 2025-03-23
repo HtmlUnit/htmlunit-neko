@@ -9,6 +9,12 @@
         <property name="file" value="${checkstyle.suppressions.file}"/>
     </module>
 
+    <!-- Checks that a package.html file exists for each package.     -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
+    <module name="JavadocPackage">
+        <property name="allowLegacy" value="true"/>
+    </module>
+
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
     <module name="NewlineAtEndOfFile"/>
@@ -16,21 +22,21 @@
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
-<!--
-    <module name="RegexpHeader">
-        <property name="headerFile" value="java.header"/>
-        <property name="fileExtensions" value="java"/>
+
+    <!--
+    <module name="Header">
+        <property name="header" value="/*\n * Copyright (c) 2002-2025 Gargoyle Software Inc.\n *\n * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n * https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n"/>
     </module>
--->
+    -->
+
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
 
-    <!--
     <module name="LineLength">
         <property name="max" value="120"/>
+        <property name="ignorePattern" value="^(package|import| *\* *[^ ]+).*"/>
     </module>
-    -->
 
     <!-- Prevent two spaces after @xxxx -->
     <module name="RegexpSingleline">
@@ -96,13 +102,11 @@
         <property name="message" value="Use static import for BrowserVersionFeatures"/>
     </module>
 
-    <!--
     <module name="RegexpMultiline">
         <property name="id" value="sysout"/>
         <property name="format" value="System\s*\.\s*(out)|(err)\s*\.\s*print(ln)?\("/>
         <property name="message" value="System.out.print/ln found"/>
     </module>
-    -->
 
     <module name="TreeWalker">
 
@@ -118,13 +122,12 @@
             <property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT"/>
         </module>
 
-        <module name="ConstantName">
-            <property name="format" value="log|^[a-zA-Z][a-zA-Z0-9_]*$"/>
-        </module>
-
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <!--
+        <module name="MissingJavadocMethod"/>
+        <module name="MissingJavadocPackage"/>
+        <module name="MissingJavadocType"/>
+
         <module name="JavadocMethod">
             <property name="accessModifiers" value="public, protected"/>
         </module>
@@ -141,10 +144,22 @@
             <property name="checkEmptyJavadoc" value="false"/>
             <property name="checkHtml" value="true"/>
         </module>
-        -->
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocContentLocation"/>
+        <module name="JavadocLeadingAsteriskAlign" />
+        <!--module name="JavadocMissingLeadingAsterisk"/-->
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <!--module name="JavadocParagraph"/-->
+        <module name="JavadocTagContinuationIndentation"/>
+        <module name="NonEmptyAtclauseDescription"/>
+        <!--module name="RequireEmptyLineBeforeBlockTagGroup"/-->
+        <module name="SingleLineJavadoc"/>
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
+        <module name="CatchParameterName">
+            <property name="format" value="^(ex?|ignored|expected)$"/>
+        </module>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
         <module name="MethodName">
@@ -158,6 +173,9 @@
         <module name="TypeName"/>
         <module name="MemberName">
             <property name="format" value="^[a-z][a-zA-Z0-9_]+_$"/>
+        </module>
+        <module name="ConstantName">
+            <property name="format" value="log|^[A-Z][A-Z0-9_]*$"/>
         </module>
 
         <!-- Checks for imports                               -->

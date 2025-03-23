@@ -1366,7 +1366,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (nextChar != -1) {
                     str.append((char) nextChar);
                 }
-            } while (nextChar != -1 && parser.parseNumeric(nextChar));
+            }
+            while (nextChar != -1 && parser.parseNumeric(nextChar));
 
             final String match = parser.getMatch();
             if (match == null) {
@@ -2195,7 +2196,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         /**
-         * Scans the content of <noscript>: it doesn't get parsed but is considered as
+         * Scans the content of &lt;noscript&gr;: it doesn't get parsed but is considered as
          * plain text when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to
          * false.
          *

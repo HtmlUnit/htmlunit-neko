@@ -5,13 +5,23 @@
     "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 
 <suppressions>
+    <suppress checks="MissingJavadocMethod" files=".*"/>
+    <suppress checks="MissingJavadocPackage" files=".*"/>
+    <suppress checks="MissingJavadocType" files=".*"/>
+    <suppress checks="JavadocMethod" files=".*"/>
+    <suppress checks="JavadocType" files=".*"/>
+    <suppress checks="JavadocVariable" files=".*"/>
+
     <suppress checks="MissingSwitchDefault" files="HTMLEntitiesParser.java"/>
     
     <suppress checks="AvoidNestedBlocks" files="FastHashMapTest.java"/>
     <suppress checks="AvoidNestedBlocks" files="HTMLNamedEntitiesParserTest.java"/>
+    <suppress checks="AvoidNestedBlocks" files="HTMLScanner.java"/>
     <suppress checks="AvoidNestedBlocks" files="MiniStackTest.java"/>
     <suppress checks="AvoidNestedBlocks" files="SimpleArrayListTest.java"/>
     <suppress checks="AvoidNestedBlocks" files="XMLStringTest.java"/>
+    
+    <suppress checks="NonEmptyAtclauseDescription" files="FastHashMap.java"/>
     
     <suppress checks="LineLength" files="DOMMessages.properties"/>
     <suppress checks="LineLength" files="XMLMessages.properties"/>

@@ -149,7 +149,7 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * This resolve to &not;
+     * This resolve to &not;.
      */
     @Test
     public void notSemicolon() {
@@ -164,7 +164,7 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * This resolve to &not
+     * This resolve to &not;.
      */
     @Test
     public void notHash() {
@@ -179,8 +179,7 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * See that we can handle something out of the range of indexed
-     * chars
+     * See that we can handle something out of the range of indexed chars.
      */
     @Test
     public void smallerThanA() {
@@ -195,8 +194,7 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * See that we can handle something out of the range of indexed
-     * chars
+     * See that we can handle something out of the range of indexed chars.
      */
     @Test
     public void largeThanLowercaseZ() {
@@ -211,8 +209,7 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * Handle chars that are in the holes of our look up on
-     * the root level
+     * Handle chars that are in the holes of our look up on the root level.
      */
     @Test
     public void oneCharInAHoleWithoutNextLevel() {
@@ -227,9 +224,9 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * Test all entities
+     * Test all entities.
      *
-     * @throws IOException
+     * @throws IOException in case of error
      */
     @Test
     public void allEntitiesWithSemicolonFull() throws IOException {
@@ -269,9 +266,9 @@ public class HTMLNamedEntitiesParserTest {
     }
 
     /**
-     * Test lookupEntityRefFor()
+     * Test lookupEntityRefFor().
      *
-     * @throws IOException
+     * @throws IOException in case of error
      */
     @Test
     public void lookupEntityRefFor() throws IOException {

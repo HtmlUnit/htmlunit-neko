@@ -223,7 +223,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
                 final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
                 elementTypesHTMLUpper_.put(uKey, holder);
                 elementTypesHTMLLower_.put(lKey, holder);
-            } catch (NoSuchMethodException | SecurityException ex) {
+            }
+            catch (NoSuchMethodException | SecurityException ex) {
                 throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
             }
         });
@@ -550,7 +551,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      * @param name The name of the attribute
      * @return An attribute whose name is all lower case
      * @throws DOMException INVALID_NAME_ERR if the attribute name
-     *   is not acceptable
+     *       is not acceptable
      */
     @Override
     public Attr createAttribute(final String name) throws DOMException {
