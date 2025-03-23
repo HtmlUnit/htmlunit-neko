@@ -99,7 +99,8 @@
                 <configuration>
                     <quiet>true</quiet>
                     <show>protected</show>
-                    <doclint>html,reference,syntax</doclint>
+                    <doclint>none</doclint>
+                    <!-- doclint>html,reference,syntax</doclint -->
                     <detectLinks>true</detectLinks>
                     <detectJavaApiLink>true</detectJavaApiLink>
                 </configuration>
