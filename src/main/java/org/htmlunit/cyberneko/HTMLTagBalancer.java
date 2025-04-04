@@ -768,10 +768,9 @@ public class HTMLTagBalancer
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
                 String pname = preferedParent.name;
-                pname = modifyName(pname, fNamesElems);
                 if (fReportErrors) {
                     final String ename = elem.getRawname();
-                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
+                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename, modifyName(pname, fNamesElems)});
                 }
                 final QName qname = createQName(pname);
                 final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
@@ -786,10 +785,10 @@ public class HTMLTagBalancer
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
                     final int depth = getParentDepth(element);
                     if (depth == -1) { // no parent found
-                        final String pname = modifyName(preferedParent.name, fNamesElems);
+                        String pname = preferedParent.name;
                         if (fReportErrors) {
                             final String ename = elem.getRawname();
-                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
+                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename, modifyName(pname, fNamesElems)});
                         }
 
                         final QName qname = createQName(pname);
