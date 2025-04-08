@@ -3665,7 +3665,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             fCurrentEntity.debugBufferIfNeeded("(readPreserving: ");
         }
         if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(fCurrentEntity.length_) < 1) {
+            if (fCurrentEntity.load(fCurrentEntity.length_) == -1) {
                 if (DEBUG_BUFFER) {
                     System.out.println(")readPreserving: -> -1");
                 }
