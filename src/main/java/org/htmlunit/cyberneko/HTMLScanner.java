@@ -3257,6 +3257,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             if (c == '/') {
                                 String ename = scanName(true);
                                 if (ename != null) {
+                                    skipSpaces();
+
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
                                             ename = modifyName(ename, fNamesElems);

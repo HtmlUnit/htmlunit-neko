@@ -1,0 +1,24 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+characters 'link'[(1,1,0) (1,5,4) false]
+startElement (localpart="a",rawname="a") [(1,5,4) (1,39,38) false]
+characters 'HtmlUnit'[(1,39,38) (1,47,46) false]
+endElement (localpart="a",rawname="a") [(1,47,46) (3,2,52) false]
+characters '
+'[(3,2,52) (4,1,53) false]
+emptyElement (localpart="br",rawname="br") [(4,1,53) (6,3,61) false]
+characters '
+'[(6,3,61) (7,1,62) false]
+startElement (localpart="style",rawname="style") [(7,1,62) (7,8,69) false]
+characters '
+.big { font-size: 20px; }
+'[(7,8,69) (9,1,96) false]
+endElement (localpart="style",rawname="style") [(9,1,96) (11,2,108) false]
+characters '
+'[(11,2,108) (12,1,109) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(12,1,109) (12,1,109) false]

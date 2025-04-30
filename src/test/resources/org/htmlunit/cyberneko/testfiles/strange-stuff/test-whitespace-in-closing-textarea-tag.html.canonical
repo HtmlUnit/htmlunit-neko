@@ -1,0 +1,18 @@
+(HTML
+(head
+)head
+(BODY
+"link
+(a
+Ahref http://www.htmlunit.org
+"HtmlUnit
+)a
+"\n
+(br
+)br
+"\n
+(textarea
+"\nLorem ipsum\n
+)textarea
+)BODY
+)HTML
