@@ -1607,16 +1607,18 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
             }
+
             final char c = fCurrentEntity.getNextChar();
             // compare against the usual suspects first before going
             // the expensive route
-            if (c == ' ' || c == '\n' || Character.isWhitespace(c)) {
+            // unix \n might dominate
+            if (c == '\n' || c == '\r') {
                 spaces = true;
-                // unix \n might dominate
-                if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    skipNewlines();
-                }
+                fCurrentEntity.rewind();
+                skipNewlines();
+            }
+            else if (Character.isWhitespace(c)) {
+                spaces = true;
             }
             else {
                 fCurrentEntity.rewind();
