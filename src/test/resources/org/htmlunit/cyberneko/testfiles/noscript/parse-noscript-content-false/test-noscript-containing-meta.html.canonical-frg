@@ -1,0 +1,19 @@
+(html
+"\n
+(head
+(noscript
+"<meta http-equiv='refresh' content='0;url=NoScript.html'>
+)noscript
+(title
+"Titel
+)title
+"\n
+)head
+(body
+(form
+Aaction HasScript.html
+Aname form
+)form
+"\n
+)body
+)html
