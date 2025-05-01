@@ -1,0 +1,15 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+emptyElement (localpart="input",rawname="input") [(3,1,14) (3,23,36) false]
+characters '
+'[(3,23,36) (4,1,37) false]
+characters '
+'[(5,8,52) (6,1,53) false]
+endElement (localpart="body",rawname="body") [(4,1,37) (4,8,44) false]
+endElement (localpart="html",rawname="html") [(5,1,45) (5,8,52) false]
+endDocument [(6,1,53) (6,1,53) false]
