@@ -20,7 +20,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -34,6 +36,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.opentest4j.AssertionFailedError;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -49,8 +53,21 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
     @ParameterizedTest
     @MethodSource("testFiles")
     public void runTest(final File dataFile) throws Exception {
-        final String domDataLines = getResult(dataFile);
+        final String infilename = dataFile.toString();
 
+        final DOMParser parser = new DOMParser(null);
+        setupParser(infilename, parser);
+
+        String domDataLines = getResult(parser, infilename);
+        verify(dataFile, domDataLines);
+
+        // reset and run again
+        parser.reset();
+        domDataLines = getResult(parser, infilename);
+        verify(dataFile, domDataLines);
+    }
+
+    private static void verify(final File dataFile, final String domDataLines) throws IOException, AssertionFailedError {
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-dom");
@@ -98,50 +115,8 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getResult(final File infile) throws Exception {
+    private static String getResult(final DOMParser parser, final String infilename) throws Exception {
         try (StringWriter out = new StringWriter()) {
-            final DOMParser parser = new DOMParser(null);
-
-            final String infilename = infile.toString();
-            final File insettings = new File(infilename + ".settings");
-            if (insettings.exists()) {
-                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
-                    String settingline;
-                    while ((settingline = settings.readLine()) != null) {
-                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
-                        final String type = tokenizer.nextToken();
-                        final String id = tokenizer.nextToken();
-                        final String value = tokenizer.nextToken();
-                        if ("feature".equals(type)) {
-                            parser.setFeature(id, "true".equals(value));
-                            /* feature not implemented
-                            if (HTMLScanner.REPORT_ERRORS.equals(id)) {
-                                parser.setErrorHandler(new ErrorHandler() {
-                                    @Override
-                                    public void warning(SAXParseException exception) throws SAXException {
-                                        out.append("[warning]").append(exception.getMessage());
-                                    }
-
-                                    @Override
-                                    public void fatalError(SAXParseException exception) throws SAXException {
-                                        out.append("[error]").append(exception.getMessage());
-                                    }
-
-                                    @Override
-                                    public void error(SAXParseException exception) throws SAXException {
-                                        out.append("[error]").append(exception.getMessage());
-                                    }
-                                });
-                            }
-                            */
-                        }
-                        else {
-                            parser.setProperty(id, value);
-                        }
-                    }
-                }
-            }
-
             // parse
             parser.parse(new XMLInputSource(null, infilename, null));
 
@@ -159,6 +134,48 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
             write(sb, doc);
 
             return sb.toString();
+        }
+    }
+
+    private static void setupParser(final String infilename, final DOMParser parser)
+            throws IOException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
+        final File insettings = new File(infilename + ".settings");
+        if (insettings.exists()) {
+            try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                String settingline;
+                while ((settingline = settings.readLine()) != null) {
+                    final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                    final String type = tokenizer.nextToken();
+                    final String id = tokenizer.nextToken();
+                    final String value = tokenizer.nextToken();
+                    if ("feature".equals(type)) {
+                        parser.setFeature(id, "true".equals(value));
+                        /* feature not implemented
+                        if (HTMLScanner.REPORT_ERRORS.equals(id)) {
+                            parser.setErrorHandler(new ErrorHandler() {
+                                @Override
+                                public void warning(SAXParseException exception) throws SAXException {
+                                    out.append("[warning]").append(exception.getMessage());
+                                }
+
+                                @Override
+                                public void fatalError(SAXParseException exception) throws SAXException {
+                                    out.append("[error]").append(exception.getMessage());
+                                }
+
+                                @Override
+                                public void error(SAXParseException exception) throws SAXException {
+                                    out.append("[error]").append(exception.getMessage());
+                                }
+                            });
+                        }
+                        */
+                    }
+                    else {
+                        parser.setProperty(id, value);
+                    }
+                }
+            }
         }
     }
 }

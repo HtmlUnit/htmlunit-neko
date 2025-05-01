@@ -20,7 +20,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -33,6 +35,8 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.opentest4j.AssertionFailedError;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 /**
  * This test generates canonical result using the <code>Writer</code> class
@@ -48,8 +52,22 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
     @ParameterizedTest
     @MethodSource("testFiles")
     public void runTest(final File dataFile) throws Exception {
-        final String domDataLines = getResult(dataFile);
+        final String infilename = dataFile.toString();
 
+        final SAXParser parser = new SAXParser();
+        setupParser(infilename, parser);
+
+        String saxDataLines = getResult(parser, infilename);
+        verify(dataFile, saxDataLines);
+
+        // reset and run again
+        parser.reset();
+        saxDataLines = getResult(parser, infilename);
+        verify(dataFile, saxDataLines);
+    }
+
+
+    private static void verify(final File dataFile, final String saxDataLines) throws IOException, AssertionFailedError {
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-sax");
@@ -66,23 +84,23 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
             }
 
             if (!canonicalFile.exists()) {
-                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
+                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + saxDataLines);
             }
 
             final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
-                    assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                    assertEquals(getCanonical(canonicalFile), saxDataLines, dataFile.toString());
                     fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
                 }
                 catch (final AssertionFailedError e) {
                     // expected
                 }
 
-                assertEquals(getCanonical(nyiFile), domDataLines, "NYI: " + dataFile);
+                assertEquals(getCanonical(nyiFile), saxDataLines, "NYI: " + dataFile);
             }
             else {
-                assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                assertEquals(getCanonical(canonicalFile), saxDataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {
@@ -91,36 +109,14 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
             final File output = new File(outputDir, path + ".canonical-sax");
             Files.createDirectories(Paths.get(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
-                pw.print(domDataLines);
+                pw.print(saxDataLines);
             }
             throw e;
         }
     }
 
-    private static String getResult(final File infile) throws Exception {
+    private static String getResult(final SAXParser parser, final String infilename) throws Exception {
         try (StringWriter out = new StringWriter()) {
-            final SAXParser parser = new SAXParser();
-
-            final String infilename = infile.toString();
-            final File insettings = new File(infilename + ".settings");
-            if (insettings.exists()) {
-                try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
-                    String settingline;
-                    while ((settingline = settings.readLine()) != null) {
-                        final StringTokenizer tokenizer = new StringTokenizer(settingline);
-                        final String type = tokenizer.nextToken();
-                        final String id = tokenizer.nextToken();
-                        final String value = tokenizer.nextToken();
-                        if ("feature".equals(type)) {
-                            parser.setFeature(id, "true".equals(value));
-                        }
-                        else {
-                            parser.setProperty(id, value);
-                        }
-                    }
-                }
-            }
-
             // parse
             final SaxHandler saxHandler = new SaxHandler(out);
             parser.setContentHandler(saxHandler);
@@ -138,6 +134,28 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
             }
 
             return sb.toString();
+        }
+    }
+
+    private static void setupParser(final String infilename, final SAXParser parser)
+            throws IOException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
+        final File insettings = new File(infilename + ".settings");
+        if (insettings.exists()) {
+            try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
+                String settingline;
+                while ((settingline = settings.readLine()) != null) {
+                    final StringTokenizer tokenizer = new StringTokenizer(settingline);
+                    final String type = tokenizer.nextToken();
+                    final String id = tokenizer.nextToken();
+                    final String value = tokenizer.nextToken();
+                    if ("feature".equals(type)) {
+                        parser.setFeature(id, "true".equals(value));
+                    }
+                    else {
+                        parser.setProperty(id, value);
+                    }
+                }
+            }
         }
     }
 }
