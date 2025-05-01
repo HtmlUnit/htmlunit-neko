@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
  */
 public final class SAXMessageFormatter {
 
-    private static final ResourceBundle SAXResourceBundle_ = ResourceBundle.getBundle("org.htmlunit.cyberneko.res.SAXMessages");
+    private static final ResourceBundle SAX_RESOURCE_BUNDLE_
+                            = ResourceBundle.getBundle("org.htmlunit.cyberneko.res.SAXMessages");
 
     private SAXMessageFormatter() {
     }
@@ -44,21 +45,22 @@ public final class SAXMessageFormatter {
      */
     public static String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
         try {
-            String msg = SAXResourceBundle_.getString(key);
+            String msg = SAX_RESOURCE_BUNDLE_.getString(key);
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
                 }
                 catch (final Exception e) {
-                    msg = SAXResourceBundle_.getString("FormatFailed");
-                    msg += " " + SAXResourceBundle_.getString(key);
+                    msg = SAX_RESOURCE_BUNDLE_.getString("FormatFailed");
+                    msg += " " + SAX_RESOURCE_BUNDLE_.getString(key);
                 }
             }
 
             return msg;
         }
         catch (final MissingResourceException e) {
-            final MissingResourceException mre = new MissingResourceException(key, SAXResourceBundle_.getString("BadMessageKey"), key);
+            final MissingResourceException mre
+                        = new MissingResourceException(key, SAX_RESOURCE_BUNDLE_.getString("BadMessageKey"), key);
             mre.initCause(e);
             throw mre;
         }

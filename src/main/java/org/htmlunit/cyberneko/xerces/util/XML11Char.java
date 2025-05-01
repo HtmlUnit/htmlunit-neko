@@ -45,10 +45,10 @@ public final class XML11Char {
     /** XML 1.1 Name character mask. */
     public static final int MASK_XML11_NAME = 0x08;
 
-    /** XML namespaces 1.1 NCNameStart */
+    /** XML namespaces 1.1 NCNameStart. */
     public static final int MASK_XML11_NCNAME_START = 0x40;
 
-    /** XML namespaces 1.1 NCName */
+    /** XML namespaces 1.1 NCName. */
     public static final int MASK_XML11_NCNAME = 0x80;
 
     static {
@@ -175,7 +175,7 @@ public final class XML11Char {
      */
     /**
      * Check to see if a string is a valid Name according to [5] in the XML 1.1
-     * Recommendation
+     * Recommendation.
      *
      * @param name string to check
      * @return true if name is a valid Name
@@ -222,7 +222,7 @@ public final class XML11Char {
      */
     /**
      * Check to see if a string is a valid NCName according to [4] from the XML
-     * Namespaces 1.1 Recommendation
+     * Namespaces 1.1 Recommendation.
      *
      * @param ncName string to check
      * @return true if name is a valid NCName

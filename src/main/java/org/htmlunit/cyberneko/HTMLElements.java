@@ -210,7 +210,8 @@ public class HTMLElements {
         // <!ENTITY % special "A | IMG | OBJECT | BR | SCRIPT | MAP | Q | SUB | SUP | SPAN | BDO">
         // <!ENTITY % formctrl "INPUT | SELECT | TEXTAREA | LABEL | BUTTON">
         // <!ENTITY % inline "#PCDATA | %fontstyle; | %phrase; | %special; | %formctrl;">
-        // <!ENTITY % block "P | %heading; | %list; | %preformatted; | DL | DIV | NOSCRIPT | BLOCKQUOTE | FORM | HR | TABLE | FIELDSET | ADDRESS">
+        // <!ENTITY % block "P | %heading; | %list; | %preformatted; | DL | DIV
+        //                     | NOSCRIPT | BLOCKQUOTE | FORM | HR | TABLE | FIELDSET | ADDRESS">
         // <!ENTITY % flow "%block; | %inline;">
 
         // initialize array of element information
@@ -518,7 +519,8 @@ public class HTMLElements {
             // TITLE - - (#PCDATA) -(%head.misc;)
             new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD, BODY}, null),
             // TR - O (TH|TD)+
-            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE, new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
+            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE,
+                    new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
 
             new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
             // TT - - (%inline;)*
@@ -804,7 +806,7 @@ public class HTMLElements {
 
         /**
          * @return true if this element is special -- if its content
-         * should be parsed ignoring markup.
+         *     should be parsed ignoring markup.
          */
         public final boolean isSpecial() {
             return (flags & SPECIAL) != 0;
@@ -855,7 +857,7 @@ public class HTMLElements {
         }
 
         /**
-         * Indicates if the provided element is an accepted parent of current element
+         * Indicates if the provided element is an accepted parent of current element.
          * @param element the element to test for "paternity"
          * @return <code>true</code> if <code>element</code> belongs to the {@link #parent}
          */

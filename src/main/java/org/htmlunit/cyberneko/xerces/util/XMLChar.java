@@ -747,7 +747,7 @@ public final class XMLChar {
      */
     /**
      * Check to see if a string is a valid Name according to [5] in the XML 1.0
-     * Recommendation
+     * Recommendation.
      *
      * @param name string to check
      * @return true if name is a valid Name
@@ -775,7 +775,7 @@ public final class XMLChar {
      */
     /**
      * Check to see if a string is a valid NCName according to [4] from the XML
-     * Namespaces 1.0 Recommendation
+     * Namespaces 1.0 Recommendation.
      *
      * @param ncName string to check
      * @return true if name is a valid NCName

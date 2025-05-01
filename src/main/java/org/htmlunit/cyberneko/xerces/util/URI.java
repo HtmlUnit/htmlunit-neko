@@ -68,7 +68,7 @@ public class URI {
         }
     }
 
-    private static final byte[] fgLookupTable = new byte[128];
+    private static final byte[] FG_LOOKUP_TABLE = new byte[128];
 
     /** reserved characters ;/?:@&=+$,[] */
     // RFC 2732 added '[' and ']' as reserved characters
@@ -121,70 +121,70 @@ public class URI {
     static {
         // Add ASCII Digits and ASCII Hex Numbers
         for (int i = '0'; i <= '9'; ++i) {
-            fgLookupTable[i] |= ASCII_DIGIT_CHARACTERS | ASCII_HEX_CHARACTERS;
+            FG_LOOKUP_TABLE[i] |= ASCII_DIGIT_CHARACTERS | ASCII_HEX_CHARACTERS;
         }
 
         // Add ASCII Letters and ASCII Hex Numbers
         for (int i = 'A'; i <= 'F'; ++i) {
-            fgLookupTable[i] |= ASCII_ALPHA_CHARACTERS | ASCII_HEX_CHARACTERS;
-            fgLookupTable[i + 0x00000020] |= ASCII_ALPHA_CHARACTERS | ASCII_HEX_CHARACTERS;
+            FG_LOOKUP_TABLE[i] |= ASCII_ALPHA_CHARACTERS | ASCII_HEX_CHARACTERS;
+            FG_LOOKUP_TABLE[i + 0x00000020] |= ASCII_ALPHA_CHARACTERS | ASCII_HEX_CHARACTERS;
         }
 
         // Add ASCII Letters
         for (int i = 'G'; i <= 'Z'; ++i) {
-            fgLookupTable[i] |= ASCII_ALPHA_CHARACTERS;
-            fgLookupTable[i + 0x00000020] |= ASCII_ALPHA_CHARACTERS;
+            FG_LOOKUP_TABLE[i] |= ASCII_ALPHA_CHARACTERS;
+            FG_LOOKUP_TABLE[i + 0x00000020] |= ASCII_ALPHA_CHARACTERS;
         }
 
         // Add Reserved Characters
-        fgLookupTable[';'] |= RESERVED_CHARACTERS;
-        fgLookupTable['/'] |= RESERVED_CHARACTERS;
-        fgLookupTable['?'] |= RESERVED_CHARACTERS;
-        fgLookupTable[':'] |= RESERVED_CHARACTERS;
-        fgLookupTable['@'] |= RESERVED_CHARACTERS;
-        fgLookupTable['&'] |= RESERVED_CHARACTERS;
-        fgLookupTable['='] |= RESERVED_CHARACTERS;
-        fgLookupTable['+'] |= RESERVED_CHARACTERS;
-        fgLookupTable['$'] |= RESERVED_CHARACTERS;
-        fgLookupTable[','] |= RESERVED_CHARACTERS;
-        fgLookupTable['['] |= RESERVED_CHARACTERS;
-        fgLookupTable[']'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE[';'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['/'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['?'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE[':'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['@'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['&'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['='] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['+'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['$'] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE[','] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE['['] |= RESERVED_CHARACTERS;
+        FG_LOOKUP_TABLE[']'] |= RESERVED_CHARACTERS;
 
         // Add Mark Characters
-        fgLookupTable['-'] |= MARK_CHARACTERS;
-        fgLookupTable['_'] |= MARK_CHARACTERS;
-        fgLookupTable['.'] |= MARK_CHARACTERS;
-        fgLookupTable['!'] |= MARK_CHARACTERS;
-        fgLookupTable['~'] |= MARK_CHARACTERS;
-        fgLookupTable['*'] |= MARK_CHARACTERS;
-        fgLookupTable['\''] |= MARK_CHARACTERS;
-        fgLookupTable['('] |= MARK_CHARACTERS;
-        fgLookupTable[')'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['-'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['_'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['.'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['!'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['~'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['*'] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['\''] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE['('] |= MARK_CHARACTERS;
+        FG_LOOKUP_TABLE[')'] |= MARK_CHARACTERS;
 
         // Add Scheme Characters
-        fgLookupTable['+'] |= SCHEME_CHARACTERS;
-        fgLookupTable['-'] |= SCHEME_CHARACTERS;
-        fgLookupTable['.'] |= SCHEME_CHARACTERS;
+        FG_LOOKUP_TABLE['+'] |= SCHEME_CHARACTERS;
+        FG_LOOKUP_TABLE['-'] |= SCHEME_CHARACTERS;
+        FG_LOOKUP_TABLE['.'] |= SCHEME_CHARACTERS;
 
         // Add Userinfo Characters
-        fgLookupTable[';'] |= USERINFO_CHARACTERS;
-        fgLookupTable[':'] |= USERINFO_CHARACTERS;
-        fgLookupTable['&'] |= USERINFO_CHARACTERS;
-        fgLookupTable['='] |= USERINFO_CHARACTERS;
-        fgLookupTable['+'] |= USERINFO_CHARACTERS;
-        fgLookupTable['$'] |= USERINFO_CHARACTERS;
-        fgLookupTable[','] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE[';'] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE[':'] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE['&'] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE['='] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE['+'] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE['$'] |= USERINFO_CHARACTERS;
+        FG_LOOKUP_TABLE[','] |= USERINFO_CHARACTERS;
 
         // Add Path Characters
-        fgLookupTable[';'] |= PATH_CHARACTERS;
-        fgLookupTable['/'] |= PATH_CHARACTERS;
-        fgLookupTable[':'] |= PATH_CHARACTERS;
-        fgLookupTable['@'] |= PATH_CHARACTERS;
-        fgLookupTable['&'] |= PATH_CHARACTERS;
-        fgLookupTable['='] |= PATH_CHARACTERS;
-        fgLookupTable['+'] |= PATH_CHARACTERS;
-        fgLookupTable['$'] |= PATH_CHARACTERS;
-        fgLookupTable[','] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE[';'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['/'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE[':'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['@'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['&'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['='] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['+'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE['$'] |= PATH_CHARACTERS;
+        FG_LOOKUP_TABLE[','] |= PATH_CHARACTERS;
     }
 
     /** Stores the scheme (usually the protocol) for this URI. */
@@ -302,7 +302,8 @@ public class URI {
      * @exception MalformedURIException if any of the parameters violates syntax
      *                                  rules or semantic rules
      */
-    public URI(final String scheme, final String host, final String path, final String queryString, final String fragment)
+    public URI(final String scheme, final String host, final String path,
+                final String queryString, final String fragment)
             throws MalformedURIException {
         this(scheme, null, host, -1, path, queryString, fragment);
     }
@@ -329,7 +330,8 @@ public class URI {
      * @exception MalformedURIException if any of the parameters violates syntax
      *                                  rules or semantic rules
      */
-    public URI(final String scheme, final String userinfo, final String host, final int port, final String path, final String queryString,
+    public URI(final String scheme, final String userinfo, final String host, final int port,
+                final String path, final String queryString,
             final String fragment) throws MalformedURIException {
         if (scheme == null || scheme.trim().length() == 0) {
             throw new MalformedURIException("Scheme is required!");
@@ -396,7 +398,8 @@ public class URI {
      *                                  absolute URI or if p_uriSpec violates syntax
      *                                  rules
      */
-    private void initialize(final URI base, final String uriSpec, final boolean allowNonAbsoluteURI) throws MalformedURIException {
+    private void initialize(final URI base, final String uriSpec,
+                    final boolean allowNonAbsoluteURI) throws MalformedURIException {
 
         final int uriSpecLen = (uriSpec != null) ? uriSpec.length() : 0;
 
@@ -825,7 +828,7 @@ public class URI {
                             --port;
                         }
                     }
-                    catch (final NumberFormatException nfe) {
+                    catch (final NumberFormatException ex) {
                         port = -2;
                     }
                 }
@@ -1759,7 +1762,7 @@ public class URI {
      *         false otherwise
      */
     private static boolean isHex(final char ch) {
-        return ch <= 'f' && (fgLookupTable[ch] & ASCII_HEX_CHARACTERS) != 0;
+        return ch <= 'f' && (FG_LOOKUP_TABLE[ch] & ASCII_HEX_CHARACTERS) != 0;
     }
 
     /**
@@ -1777,7 +1780,7 @@ public class URI {
      * @return true if the char is alphanumeric, false otherwise
      */
     private static boolean isAlphanum(final char ch) {
-        return ch <= 'z' && (fgLookupTable[ch] & MASK_ALPHA_NUMERIC) != 0;
+        return ch <= 'z' && (FG_LOOKUP_TABLE[ch] & MASK_ALPHA_NUMERIC) != 0;
     }
 
     /**
@@ -1787,7 +1790,7 @@ public class URI {
      * @return true if the char is a URI character, false otherwise
      */
     private static boolean isURICharacter(final char ch) {
-        return ch <= '~' && (fgLookupTable[ch] & MASK_URI_CHARACTER) != 0;
+        return ch <= '~' && (FG_LOOKUP_TABLE[ch] & MASK_URI_CHARACTER) != 0;
     }
 
     /**
@@ -1796,7 +1799,7 @@ public class URI {
      * @return true if the char is a scheme character, false otherwise
      */
     private static boolean isSchemeCharacter(final char ch) {
-        return ch <= 'z' && (fgLookupTable[ch] & MASK_SCHEME_CHARACTER) != 0;
+        return ch <= 'z' && (FG_LOOKUP_TABLE[ch] & MASK_SCHEME_CHARACTER) != 0;
     }
 
     /**
@@ -1805,7 +1808,7 @@ public class URI {
      * @return true if the char is a userinfo character, false otherwise
      */
     private static boolean isUserinfoCharacter(final char ch) {
-        return ch <= 'z' && (fgLookupTable[ch] & MASK_USERINFO_CHARACTER) != 0;
+        return ch <= 'z' && (FG_LOOKUP_TABLE[ch] & MASK_USERINFO_CHARACTER) != 0;
     }
 
     /**
@@ -1814,7 +1817,7 @@ public class URI {
      * @return true if the char is a path character, false otherwise
      */
     private static boolean isPathCharacter(final char ch) {
-        return ch <= '~' && (fgLookupTable[ch] & MASK_PATH_CHARACTER) != 0;
+        return ch <= '~' && (FG_LOOKUP_TABLE[ch] & MASK_PATH_CHARACTER) != 0;
     }
 
     /**

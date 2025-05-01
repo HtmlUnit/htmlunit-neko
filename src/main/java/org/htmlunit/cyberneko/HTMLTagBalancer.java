@@ -83,10 +83,12 @@ public class HTMLTagBalancer
     protected static final String REPORT_ERRORS = "http://cyberneko.org/html/features/report-errors";
 
     /** Document fragment balancing only. */
-    protected static final String DOCUMENT_FRAGMENT = "http://cyberneko.org/html/features/balance-tags/document-fragment";
+    protected static final String DOCUMENT_FRAGMENT
+                            = "http://cyberneko.org/html/features/balance-tags/document-fragment";
 
     /** Ignore outside content. */
-    protected static final String IGNORE_OUTSIDE_CONTENT = "http://cyberneko.org/html/features/balance-tags/ignore-outside-content";
+    protected static final String IGNORE_OUTSIDE_CONTENT
+                            = "http://cyberneko.org/html/features/balance-tags/ignore-outside-content";
 
     /** Recognized features. */
     private static final String[] RECOGNIZED_FEATURES = {
@@ -121,7 +123,8 @@ public class HTMLTagBalancer
      * &lt;font color="red"&gt;EXPERIMENTAL: may change in next release&lt;/font&gt;&lt;br/&gt;
      * Name of the property holding the stack of elements in which context a document fragment should be parsed.
      */
-    public static final String FRAGMENT_CONTEXT_STACK = "http://cyberneko.org/html/properties/balance-tags/fragment-context-stack";
+    public static final String FRAGMENT_CONTEXT_STACK
+                                = "http://cyberneko.org/html/properties/balance-tags/fragment-context-stack";
 
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
@@ -232,13 +235,19 @@ public class HTMLTagBalancer
     /** True if seen non whitespace characters. */
     private boolean fSeenCharacters;
 
-    /** True if a form is in the stack (allow to discard opening of nested forms) */
+    /**
+     * True if a form is in the stack (allow to discard opening of nested forms).
+     */
     protected boolean fOpenedForm;
 
-    /** True if a svg is in the stack (no parent checking takes place) */
+    /**
+     * True if a svg is in the stack (no parent checking takes place).
+     */
     protected boolean fOpenedSvg;
 
-    /** True if a select is in the stack */
+    /**
+     * True if a select is in the stack.
+     */
     protected boolean fOpenedSelect;
 
     // temp vars
@@ -431,7 +440,8 @@ public class HTMLTagBalancer
 
     /** Start document. */
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext nscontext, final Augmentations augs)
         throws XNIException {
 
         // reset state
@@ -459,7 +469,8 @@ public class HTMLTagBalancer
 
     /** XML declaration. */
     @Override
-    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone,
+                    final Augmentations augs) throws XNIException {
         if (!fSeenAnything && documentHandler_ != null) {
             documentHandler_.xmlDecl(version, encoding, standalone, augs);
         }
@@ -574,7 +585,8 @@ public class HTMLTagBalancer
 
     /** Processing instruction. */
     @Override
-    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data,
+                    final Augmentations augs) throws XNIException {
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
         if (documentHandler_ != null) {
@@ -616,7 +628,10 @@ public class HTMLTagBalancer
             return;
         }
         // accept only frame and frameset within frameset
-        if (fSeenFramesetElement && elementCode != HTMLElements.FRAME && elementCode != HTMLElements.FRAMESET && elementCode != HTMLElements.NOFRAMES) {
+        if (fSeenFramesetElement
+                && elementCode != HTMLElements.FRAME
+                && elementCode != HTMLElements.FRAMESET
+                && elementCode != HTMLElements.NOFRAMES) {
             notifyDiscardedStartElement(elem, attrs, augs);
             return;
         }
@@ -785,14 +800,16 @@ public class HTMLTagBalancer
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
                     final int depth = getParentDepth(element);
                     if (depth == -1) { // no parent found
-                        String pname = preferedParent.name;
+                        final String pname = preferedParent.name;
                         if (fReportErrors) {
                             final String ename = elem.getRawname();
-                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename, modifyName(pname, fNamesElems)});
+                            fErrorReporter.reportWarning("HTML2004",
+                                            new Object[]{ename, modifyName(pname, fNamesElems)});
                         }
 
                         final QName qname = createQName(pname);
-                        final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
+                        final boolean parentCreated = forceStartElement(qname,
+                                                        new XMLAttributesImpl(), synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -832,7 +849,8 @@ public class HTMLTagBalancer
         // in head, no element has children
         if ((fElementStack.top > 1
                 && (fElementStack.peek().element.code == HTMLElements.SCRIPT))
-                || fElementStack.top > 2 && fElementStack.data[fElementStack.top - 2].element.code == HTMLElements.HEAD) {
+                || fElementStack.top > 2
+                && fElementStack.data[fElementStack.top - 2].element.code == HTMLElements.HEAD) {
             final Info info = fElementStack.pop();
             if (documentHandler_ != null) {
                 callEndElement(info.qname, synthesizedAugs());
@@ -916,8 +934,8 @@ public class HTMLTagBalancer
      * the element has been forced.
      * @return <code>true</code> if creation could be done (TABLE's creation for instance can't be forced)
      */
-    private boolean forceStartElement(final QName elem, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-
+    private boolean forceStartElement(final QName elem, final XMLAttributes attrs,
+                        final Augmentations augs) throws XNIException {
         forcedStartElement_ = true;
         startElement(elem, attrs, augs);
 
@@ -931,7 +949,8 @@ public class HTMLTagBalancer
 
     /** Empty element. */
     @Override
-    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         // browser ignore the closing indication for non empty tags like <form .../> but not for unknown element
         final HTMLElements.Element elem = getElement(element);
@@ -1250,7 +1269,8 @@ public class HTMLTagBalancer
         for (int i = fElementStack.top - 1; i >= fragmentContextStackSize_; i--) {
             final Info info = fElementStack.data[i];
             if (info.element.code == element.code
-                    && (elementCode != HTMLElements.UNKNOWN || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
+                    && (elementCode != HTMLElements.UNKNOWN
+                            || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
                 depth = fElementStack.top - i;
                 break;
             }
@@ -1373,12 +1393,13 @@ public class HTMLTagBalancer
          * @param attributes The element attributes.
          * @param qname qname
          */
-        public Info(final HTMLElements.Element element, final QName qname, final XMLAttributes attributes) {
+        public Info(final HTMLElements.Element element, final QName qname,
+                final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);
             if (attributes != null) {
                 if (attributes instanceof XMLAttributesImpl) {
-                    this.attributes = new XMLAttributesImpl((XMLAttributesImpl)attributes);
+                    this.attributes = new XMLAttributesImpl((XMLAttributesImpl) attributes);
                     return;
                 }
 
@@ -1388,7 +1409,8 @@ public class HTMLTagBalancer
                     final XMLAttributesImpl newattrs = new XMLAttributesImpl();
                     for (int i = 0; i < length; i++) {
                         attributes.getName(i, aqname);
-                        newattrs.addAttribute(aqname, attributes.getType(i), attributes.getValue(i), attributes.isSpecified(i));
+                        newattrs.addAttribute(aqname, attributes.getType(i),
+                                                attributes.getValue(i), attributes.isSpecified(i));
                     }
                     this.attributes = newattrs;
                 }
@@ -1396,7 +1418,7 @@ public class HTMLTagBalancer
         }
 
         /**
-         * Simple representation to make debugging easier
+         * Simple representation to make debugging easier.
          */
         @Override
         public String toString() {

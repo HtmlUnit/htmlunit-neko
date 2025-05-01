@@ -43,7 +43,9 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
         fErrorHandler_ = errorHandler;
     }
 
-    /** @return the SAX error handler. */
+    /**
+     * @return the SAX error handler.
+     */
     public ErrorHandler getErrorHandler() {
         return fErrorHandler_;
     }
@@ -138,7 +140,8 @@ public class ErrorHandlerWrapper implements XMLErrorHandler {
      *                      document.
      */
     @Override
-    public void fatalError(final String domain, final String key, final XMLParseException exception) throws XNIException {
+    public void fatalError(final String domain, final String key, final XMLParseException exception)
+                    throws XNIException {
 
         if (fErrorHandler_ != null) {
             final SAXParseException saxException = createSAXParseException(exception);

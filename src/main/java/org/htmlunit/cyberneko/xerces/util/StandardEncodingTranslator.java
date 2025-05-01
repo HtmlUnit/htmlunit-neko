@@ -23,7 +23,7 @@ import org.htmlunit.cyberneko.HTMLScanner;
 
 /**
  * EncodingTranslator based on <a href='https://encoding.spec.whatwg.org/#names-and-labels'>
- * https://encoding.spec.whatwg.org/#names-and-labels</a>
+ * https://encoding.spec.whatwg.org/#names-and-labels</a>.
  *
  * @author Ronald Brill
  * @author Lai Quang Duong
@@ -446,9 +446,9 @@ public final class StandardEncodingTranslator implements EncodingTranslator {
 
     /**
      * @return the Java encoding name for the specified HTTP encoding name, or {@code null} if the name
-     * is unknown. The returned encoding name may or may not be supported by the running JVM. Use
-     * {@link Charset#isSupported(String)} to check availability. Moreover, either of the special definitions
-     * {@link #REPLACEMENT} or "x-user-defined" may be returned depending on input.
+     *     is unknown. The returned encoding name may or may not be supported by the running JVM. Use
+     *     {@link Charset#isSupported(String)} to check availability. Moreover, either of the special definitions
+     *     {@link #REPLACEMENT} or "x-user-defined" may be returned depending on input.
      */
     @Override
     public String encodingNameFromLabel(final String charsetLabel) {

@@ -115,7 +115,7 @@ public class ParserConfigurationSettings implements XMLComponentManager {
     }
 
     /**
-     * setProperty
+     * setProperty.
      *
      * @param propertyId the property id
      * @param value      the value

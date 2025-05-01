@@ -24,5 +24,5 @@ package org.htmlunit.cyberneko.xerces.util;
  * @author Ronald Brill
  */
 public interface EncodingTranslator {
-    String encodingNameFromLabel(final String encodingLabel);
+    String encodingNameFromLabel(String encodingLabel);
 }
