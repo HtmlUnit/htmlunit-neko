@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><picture><source media="(min-width:650px)" srcset="img_pink_flowers.jpg"><img src="img_orange_flowers.jpg" alt="Flowers" style="width:auto;"></picture></BODY></HTML>
+<HTML><head></head><BODY><picture><source media="(min-width:650px)" srcset="img_pink_flowers.jpg" /><img src="img_orange_flowers.jpg" alt="Flowers" style="width:auto;" /></picture></BODY></HTML>

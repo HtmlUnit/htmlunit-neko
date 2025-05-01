@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><video controls=""><source src="myVideo.webm" type="video/webm"><source src="myVideo.mp4" type="video/mp4"><p>Your browser doesn&apos;t support HTML video&period; Here is a <a href="myVideo.mp4">link to the video</a> instead&period;</p></video></BODY></HTML>
+<HTML><head></head><BODY><video controls=""><source src="myVideo.webm" type="video/webm" /><source src="myVideo.mp4" type="video/mp4" /><p>Your browser doesn&apos;t support HTML video&period; Here is a <a href="myVideo.mp4">link to the video</a> instead&period;</p></video></BODY></HTML>

@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><table><TBODY><tr><th><form><input type="hidden" name="xyz"><input type="submit" value="Submit"></form></th></tr></TBODY></table></BODY></HTML>
+<HTML><head></head><BODY><table><TBODY><tr><th><form><input type="hidden" name="xyz" /><input type="submit" value="Submit" /></form></th></tr></TBODY></table></BODY></HTML>

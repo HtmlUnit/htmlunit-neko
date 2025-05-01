@@ -1,4 +1,4 @@
 <html><head></head><body>
 <form name="form1">
-<input name="first">
+<input name="first" />
 </form></body></html>

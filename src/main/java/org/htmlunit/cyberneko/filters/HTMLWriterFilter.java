@@ -155,7 +155,7 @@ public class HTMLWriterFilter extends DefaultFilter {
         seenRootElement_ = true;
         elementDepth_++;
         normalize_ = !htmlElements_.getElement(element.getRawname()).isSpecial();
-        printStartElement(element, attributes);
+        printStartElement(element, attributes, false);
         super.startElement(element, attributes, augs);
     }
 
@@ -164,7 +164,7 @@ public class HTMLWriterFilter extends DefaultFilter {
     public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs)
         throws XNIException {
         seenRootElement_ = true;
-        printStartElement(element, attributes);
+        printStartElement(element, attributes, true);
         super.emptyElement(element, attributes, augs);
     }
 
@@ -230,7 +230,7 @@ public class HTMLWriterFilter extends DefaultFilter {
     }
 
     /** Print start element. */
-    protected void printStartElement(final QName element, final XMLAttributes attributes) {
+    protected void printStartElement(final QName element, final XMLAttributes attributes, final boolean isEmpty) {
         // modify META[@http-equiv='content-type']/@content value
         int contentIndex = -1;
         String originalContent = null;
@@ -279,7 +279,7 @@ public class HTMLWriterFilter extends DefaultFilter {
             printAttributeValue(avalue);
             printer_.print('"');
         }
-        printer_.print('>');
+        printer_.print(isEmpty ? " />" : '>');
         printer_.flush();
 
         // return original META[@http-equiv]/@content value

@@ -1,9 +1,9 @@
 <HTML><head></head><body>
 <form name="form1">
-<input name="first">
+<input name="first" />
 
-<input name="in2">
+<input name="in2" />
 </form>
-<input name="in1_after2">
+<input name="in1_after2" />
 
 </body></HTML>
