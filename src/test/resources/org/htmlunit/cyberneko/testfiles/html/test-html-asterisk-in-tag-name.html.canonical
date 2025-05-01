@@ -1,0 +1,12 @@
+(HTML
+(head
+)head
+(BODY
+(test*
+)test*
+"\n
+(tes*t
+)tes*t
+"\n<*test>\n
+)BODY
+)HTML
