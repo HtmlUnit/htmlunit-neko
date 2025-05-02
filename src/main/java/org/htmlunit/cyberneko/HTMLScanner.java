@@ -2903,17 +2903,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return false;
                 }
                 if (c == '/') {
-                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                        if (fCurrentEntity.load(0) == -1) {
-                            throw new EOFException();
+                    if (fCurrentEntity.hasNext()) {
+                        c = fCurrentEntity.getNextChar();
+                        if (c == '>') {
+                            empty[0] = true;
+                            return false;
                         }
+                        fCurrentEntity.rewind();
                     }
-                    c = fCurrentEntity.getNextChar();
-                    if (c == '>') {
-                        empty[0] = true;
-                        return false;
-                    }
-                    fCurrentEntity.rewind();
                 }
 
                 // https://html.spec.whatwg.org/multipage/parsing.html#parse-error-unexpected-character-in-attribute-name
