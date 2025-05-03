@@ -83,7 +83,8 @@ public class XMLInputSource {
      * @param byteStream   The byte stream.
      * @param encoding     The encoding of the byte stream, if known.
      */
-    public XMLInputSource(final String publicId, final String systemId, final String baseSystemId, final InputStream byteStream, final String encoding) {
+    public XMLInputSource(final String publicId, final String systemId, final String baseSystemId,
+                            final InputStream byteStream, final String encoding) {
         publicId_ = publicId;
         systemId_ = systemId;
         baseSystemId_ = baseSystemId;
@@ -106,7 +107,8 @@ public class XMLInputSource {
      * @param encoding     The original encoding of the byte stream used by the
      *                     reader, if known.
      */
-    public XMLInputSource(final String publicId, final String systemId, final String baseSystemId, final Reader charStream, final String encoding) {
+    public XMLInputSource(final String publicId, final String systemId, final String baseSystemId,
+                            final Reader charStream, final String encoding) {
         publicId_ = publicId;
         systemId_ = systemId;
         baseSystemId_ = baseSystemId;

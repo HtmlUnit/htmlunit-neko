@@ -203,14 +203,16 @@ public class GeneralTest {
                 FEATURES);
     }
 
-    public static void doTest(final String html, final String[] contextStack, final String expected, final String... features) throws Exception {
+    public static void doTest(final String html, final String[] contextStack, final String expected,
+                                final String... features) throws Exception {
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         for (final String feature : features) {
             parser.setFeature(feature, true);
         }
 
         if (contextStack != null) {
-            parser.setProperty("http://cyberneko.org/html/properties/balance-tags/fragment-context-stack", toQNames(contextStack));
+            parser.setProperty("http://cyberneko.org/html/properties/balance-tags/fragment-context-stack",
+                                toQNames(contextStack));
         }
 
         final StringWriter out = new StringWriter();

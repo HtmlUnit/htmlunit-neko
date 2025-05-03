@@ -59,16 +59,19 @@ import org.xml.sax.ext.LexicalHandler;
  * @author Ronald Brill
  */
 public abstract class AbstractCanonicalTest {
-    protected static final File dataDir = new File("src/test/resources/org/htmlunit/cyberneko/testfiles");
-    protected static final File canonicalDir = new File("src/test/resources/org/htmlunit/cyberneko/testfiles/canonical");
-    protected static final File outputDir = new File("target/data/output");
+    protected static final File DATA_DIR
+                        = new File("src/test/resources/org/htmlunit/cyberneko/testfiles");
+    protected static final File CANONICAL_DIR
+                        = new File("src/test/resources/org/htmlunit/cyberneko/testfiles/canonical");
+    protected static final File OUTOUT_DIR
+                        = new File("target/data/output");
 
     protected static Stream<Arguments> testFiles() {
         // System.out.println(canonicalDir.getAbsolutePath());
-        outputDir.mkdirs();
+        OUTOUT_DIR.mkdirs();
 
         final List<File> dataFiles = new ArrayList<>();
-        dataDir.listFiles(new FileFilter() {
+        DATA_DIR.listFiles(new FileFilter() {
             @Override
             public boolean accept(final File file) {
                 final String name = file.getName();

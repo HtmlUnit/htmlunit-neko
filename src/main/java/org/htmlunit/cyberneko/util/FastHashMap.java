@@ -316,7 +316,8 @@ public class FastHashMap<K, V> implements Serializable {
     public static int arraySize(final int expected, final float f) {
         final long s = Math.max(2, nextPowerOfTwo((long) Math.ceil(expected / f)));
         if (s > (1 << 30)) {
-            throw new IllegalArgumentException("Too large (" + expected + " expected elements with load factor " + f + ")");
+            throw new IllegalArgumentException(
+                        "Too large (" + expected + " expected elements with load factor " + f + ")");
         }
         return (int) s;
     }

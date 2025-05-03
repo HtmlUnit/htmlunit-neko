@@ -56,15 +56,18 @@ public class HTMLUnicodeEntitiesParser {
     }
 
     public void setMatchFromCode() {
-        // If the number is 0x00, then this is a null-character-reference parse error. Set the character reference code to 0xFFFD.
-        // If the number is greater than 0x10FFFF, then this is a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
+        // If the number is 0x00, then this is a null-character-reference parse error.
+        // Set the character reference code to 0xFFFD.
+        // If the number is greater than 0x10FFFF, then this is
+        // a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
         if ((0x00 == code_) || (code_ > 0x10FFFF)) {
             match_ = "\uFFFD";
             matchLength_ = consumedCount_;
             return;
         }
 
-        // If the number is a surrogate, then this is a surrogate-character-reference parse error. Set the character reference code to 0xFFFD
+        // If the number is a surrogate, then this is
+        // a surrogate-character-reference parse error. Set the character reference code to 0xFFFD
         if (Character.isSurrogate((char) code_)) {
             match_ = "\uFFFD";
             return;
@@ -72,9 +75,11 @@ public class HTMLUnicodeEntitiesParser {
 
         // If the number is a noncharacter, then this is a noncharacter-character-reference parse error.
 
-        // If the number is 0x0D, or a control that's not ASCII whitespace, then this is a control-character-reference parse error.
+        // If the number is 0x0D, or a control that's not ASCII whitespace,
+        // then this is a control-character-reference parse error.
 
-        // If the number is one of the numbers in the first column of the following table, then find the row with that number in the first column,
+        // If the number is one of the numbers in the first column of the following table,
+        // then find the row with that number in the first column,
         // and set the character reference code to the number in the second column of that row.
         switch (code_) {
             case 0x80:

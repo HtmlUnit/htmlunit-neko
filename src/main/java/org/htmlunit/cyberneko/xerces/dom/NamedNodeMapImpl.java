@@ -392,7 +392,8 @@ public class NamedNodeMapImpl implements NamedNodeMap {
             final String aNamespaceURI = a.getNamespaceURI();
             final String aLocalName = a.getLocalName();
             if (namespaceURI == null) {
-                if (aNamespaceURI == null && (name.equals(aLocalName) || (aLocalName == null && name.equals(a.getNodeName())))) {
+                if (aNamespaceURI == null && (name.equals(aLocalName)
+                        || (aLocalName == null && name.equals(a.getNodeName())))) {
                     return i;
                 }
             }

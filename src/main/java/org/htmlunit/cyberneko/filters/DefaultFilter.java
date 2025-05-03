@@ -74,7 +74,8 @@ public class DefaultFilter
 
     /** Start document. */
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
+    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext,
+                        final Augmentations augs)
         throws XNIException {
         if (documentHandler_ != null) {
             documentHandler_.startDocument(locator, encoding, nscontext, augs);

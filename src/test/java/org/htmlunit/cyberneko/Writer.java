@@ -113,7 +113,8 @@ public class Writer extends DefaultFilter {
 
     /** Start document. */
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
         stringBuffer_.clear();
     }
 
@@ -125,7 +126,8 @@ public class Writer extends DefaultFilter {
 
     /** XML declaration. */
     @Override
-    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone,
+                    final Augmentations augs) throws XNIException {
         doAugs(augs);
         if (version != null) {
             out_.print("xversion ");
@@ -144,7 +146,8 @@ public class Writer extends DefaultFilter {
 
     /** Doctype declaration. */
     @Override
-    public void doctypeDecl(final String root, final String pubid, final String sysid, final Augmentations augs) throws XNIException {
+    public void doctypeDecl(final String root, final String pubid, final String sysid,
+                    final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out_.print('!');
@@ -167,7 +170,8 @@ public class Writer extends DefaultFilter {
 
     /** Processing instruction. */
     @Override
-    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data,
+                    final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out_.print('?');
@@ -193,7 +197,8 @@ public class Writer extends DefaultFilter {
 
     /** Start element. */
     @Override
-    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         chars();
         doAugs(augs);
         out_.print('(');
@@ -243,7 +248,8 @@ public class Writer extends DefaultFilter {
 
     /** Empty element. */
     @Override
-    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
     }
@@ -391,7 +397,8 @@ public class Writer extends DefaultFilter {
     }
 
     /** Sorts the attribute names. */
-    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames, final String[] anamesNonNormalized, final String[] auris) {
+    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames,
+                            final String[] anamesNonNormalized, final String[] auris) {
         for (int i = 0; i < anames.length; i++) {
             anames[i] = attrs.getQName(i);
             anamesNonNormalized[i] = attrs.getNonNormalizedValue(i);

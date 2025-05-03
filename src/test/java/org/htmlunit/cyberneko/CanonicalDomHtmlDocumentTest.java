@@ -59,12 +59,12 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
                     canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                     if (!canonicalFile.exists()) {
-                        canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-domhtml");
+                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-domhtml");
                         if (!canonicalFile.exists()) {
-                            canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-dom");
+                            canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-dom");
 
                             if (!canonicalFile.exists()) {
-                                canonicalFile = new File(canonicalDir, dataFile.getName());
+                                canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
                             }
                         }
                     }
@@ -95,8 +95,8 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
             final String anchorLoc = "org/htmlunit/cyberneko/testfiles";
             String path = dataFile.getParentFile().toURI().toString();
             path = path.substring(path.indexOf(anchorLoc) + anchorLoc.length());
-            new File(outputDir + path).mkdirs();
-            final File output = new File(outputDir + path + dataFile.getName() + ".canonical-domhtml");
+            new File(OUTOUT_DIR + path).mkdirs();
+            final File output = new File(OUTOUT_DIR + path + dataFile.getName() + ".canonical-domhtml");
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);
             }

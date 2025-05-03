@@ -110,8 +110,8 @@ public class ElementNSImpl extends ElementImpl {
     }
 
     // when local name is known
-    protected ElementNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI, final String qualifiedName, final String localName)
-            throws DOMException {
+    protected ElementNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI,
+                    final String qualifiedName, final String localName) throws DOMException {
         super(ownerDocument, qualifiedName);
 
         this.localName = localName;

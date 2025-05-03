@@ -134,7 +134,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
 
         fNamespaceContext = namespaceContext;
 
@@ -168,7 +169,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone,
+                    final Augmentations augs) throws XNIException {
         // the version need only be set once; if
         // document's XML 1.0|1.1, that's how it'll stay
         fVersion = version;
@@ -188,7 +190,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void doctypeDecl(final String rootElement, final String publicId, final String systemId, final Augmentations augs)
+    public void doctypeDecl(final String rootElement, final String publicId, final String systemId,
+                    final Augmentations augs)
             throws XNIException {
 
         try {
@@ -215,7 +218,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attributes,
+                    final Augmentations augs) throws XNIException {
 
         try {
             // SAX2
@@ -372,7 +376,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data,
+                    final Augmentations augs) throws XNIException {
 
         // REVISIT - I keep running into SAX apps that expect
         // null data to be an empty string, which is contrary
@@ -479,7 +484,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
 
         // parse document
         try {
-            final XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(), inputSource.getSystemId(), null);
+            final XMLInputSource xmlInputSource = new XMLInputSource(inputSource.getPublicId(),
+                                                                        inputSource.getSystemId(), null);
             xmlInputSource.setByteStream(inputSource.getByteStream());
             xmlInputSource.setCharacterStream(inputSource.getCharacterStream());
             xmlInputSource.setEncoding(inputSource.getEncoding());
@@ -671,8 +677,8 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
      *                                      the requested state is not supported.
      */
     @Override
-    public void setFeature(final String featureId, final boolean state) throws SAXNotRecognizedException, SAXNotSupportedException {
-
+    public void setFeature(final String featureId, final boolean state)
+                    throws SAXNotRecognizedException, SAXNotSupportedException {
         try {
             if (featureId.startsWith(Constants.SAX_FEATURE_PREFIX)) {
                 final int suffixLength = featureId.length() - Constants.SAX_FEATURE_PREFIX.length();

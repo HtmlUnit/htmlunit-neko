@@ -120,7 +120,8 @@ public class EvaluateInputSourceTest {
                 super.endElement(element, augs);
 
                 if ("script".equals(element.getRawname())) {
-                    final XMLInputSource in = new XMLInputSource(null, null, null, new StringReader(htmlEval), StandardCharsets.UTF_8.name());
+                    final XMLInputSource in = new XMLInputSource(null, null, null,
+                                                        new StringReader(htmlEval), StandardCharsets.UTF_8.name());
                     ((HTMLConfiguration) parser.getXMLParserConfiguration()).evaluateInputSource(in);
                 }
             }

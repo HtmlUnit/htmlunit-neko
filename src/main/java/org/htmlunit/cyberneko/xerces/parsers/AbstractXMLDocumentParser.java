@@ -108,7 +108,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      */
 
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
     }
 
     /**
@@ -125,7 +126,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void xmlDecl(final String version, final String encoding, final String standalone, final Augmentations augs) throws XNIException {
+    public void xmlDecl(final String version, final String encoding, final String standalone,
+                    final Augmentations augs) throws XNIException {
     }
 
     /**
@@ -141,8 +143,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void doctypeDecl(final String rootElement, final String publicId, final String systemId, final Augmentations augs)
-            throws XNIException {
+    public void doctypeDecl(final String rootElement, final String publicId, final String systemId,
+                    final Augmentations augs) throws XNIException {
     }
 
     /**
@@ -158,7 +160,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attributes,
+                    final Augmentations augs) throws XNIException {
     }
 
     /**
@@ -172,7 +175,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @throws XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void emptyElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attributes,
+                    final Augmentations augs) throws XNIException {
         startElement(element, attributes, augs);
         endElement(element, augs);
     }
@@ -263,7 +267,8 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
      * @exception XNIException Thrown by handler to signal an error.
      */
     @Override
-    public void processingInstruction(final String target, final XMLString data, final Augmentations augs) throws XNIException {
+    public void processingInstruction(final String target, final XMLString data,
+                    final Augmentations augs) throws XNIException {
     }
 
     /**

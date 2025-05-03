@@ -318,7 +318,8 @@ public class AttributeMap extends NamedNodeMapImpl {
      * @param raiseEx      if true raise exception
      * @return the node
      */
-    protected final Node internalRemoveNamedItemNS(final String namespaceURI, final String name, final boolean raiseEx) {
+    protected final Node internalRemoveNamedItemNS(final String namespaceURI, final String name,
+                                    final boolean raiseEx) {
         final CoreDocumentImpl ownerDocument = ownerNode.ownerDocument();
         final int i = findNamePoint(namespaceURI, name);
         if (i < 0) {

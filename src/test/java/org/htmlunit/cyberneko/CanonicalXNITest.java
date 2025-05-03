@@ -58,7 +58,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-xni");
             if (!canonicalFile.exists()) {
-                canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-xni");
+                canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-xni");
             }
 
             if (!canonicalFile.exists()) {
@@ -84,7 +84,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
         catch (final AssertionFailedError e) {
             String path = dataFile.getAbsolutePath();
             path = path.substring(path.indexOf("\\testfiles\\") + 11);
-            final File output = new File(outputDir, path + ".canonical-xni");
+            final File output = new File(OUTOUT_DIR, path + ".canonical-xni");
             Files.createDirectories(Paths.get(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);

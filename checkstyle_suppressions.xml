@@ -11,6 +11,8 @@
     <suppress checks="JavadocMethod" files=".*"/>
     <suppress checks="JavadocType" files=".*"/>
     <suppress checks="JavadocVariable" files=".*"/>
+    <suppress checks="HiddenField" files=".*"/>
+    <suppress checks="MemberName" files=".*"/>
 
     <suppress checks="MissingSwitchDefault" files="HTMLEntitiesParser.java"/>
     
@@ -23,6 +25,7 @@
     
     <suppress checks="NonEmptyAtclauseDescription" files="FastHashMap.java"/>
     
+    <suppress checks="LineLength" files="DOMParserTest.java"/>
     <suppress checks="LineLength" files="DOMMessages.properties"/>
     <suppress checks="LineLength" files="XMLMessages.properties"/>
     

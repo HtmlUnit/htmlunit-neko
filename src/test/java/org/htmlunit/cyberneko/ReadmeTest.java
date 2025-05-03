@@ -86,7 +86,8 @@ public class ReadmeTest {
         }
 
         @Override
-        public void startElement(final String uri, final String localName, final String qName, final Attributes atts) throws SAXException {
+        public void startElement(final String uri, final String localName, final String qName,
+                                    final Attributes atts) throws SAXException {
         }
 
         @Override

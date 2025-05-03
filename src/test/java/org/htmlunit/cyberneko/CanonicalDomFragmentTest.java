@@ -61,13 +61,13 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
                     canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                     if (!canonicalFile.exists()) {
-                        canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-frg");
+                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-frg");
 
                         if (!canonicalFile.exists()) {
-                            canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-dom");
+                            canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-dom");
 
                             if (!canonicalFile.exists()) {
-                                canonicalFile = new File(canonicalDir, dataFile.getName());
+                                canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
                             }
                         }
                     }
@@ -97,7 +97,7 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
         catch (final AssertionFailedError e) {
             String path = dataFile.getAbsolutePath();
             path = path.substring(path.indexOf("\\testfiles\\") + 11);
-            final File output = new File(outputDir, path + ".canonical-frg");
+            final File output = new File(OUTOUT_DIR, path + ".canonical-frg");
             Files.createDirectories(Paths.get(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);

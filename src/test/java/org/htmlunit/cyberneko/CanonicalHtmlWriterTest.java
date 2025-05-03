@@ -55,7 +55,7 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-html");
             if (!canonicalFile.exists()) {
-                canonicalFile = new File(canonicalDir, dataFile.getName());
+                canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
             }
             if (!canonicalFile.exists()) {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
@@ -78,10 +78,11 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
             }
         }
         catch (final AssertionFailedError e) {
-            File output = new File(outputDir, dataFile.getName() + ".canonical-html");
+            File output = new File(OUTOUT_DIR, dataFile.getName() + ".canonical-html");
             if (!dataFile.getParent().endsWith("testfiles")) {
-                new File(outputDir, dataFile.getParentFile().getName()).mkdir();
-                output = new File(outputDir, dataFile.getParentFile().getName() + "/" + dataFile.getName() + ".canonical-html");
+                new File(OUTOUT_DIR, dataFile.getParentFile().getName()).mkdir();
+                output = new File(OUTOUT_DIR,
+                            dataFile.getParentFile().getName() + "/" + dataFile.getName() + ".canonical-html");
             }
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(dataLines);

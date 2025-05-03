@@ -280,7 +280,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     // Start document.
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
         inCDATASection_ = false;
     }
 
@@ -292,7 +293,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     // Document type declaration.
     @Override
-    public void doctypeDecl(final String root, final String pubid, final String sysid, final Augmentations augs) throws XNIException {
+    public void doctypeDecl(final String root, final String pubid, final String sysid,
+                    final Augmentations augs) throws XNIException {
     }
 
     // Processing instruction.
@@ -318,7 +320,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     // Start element.
     @Override
-    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+    public void startElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         final Element elementNode = document_.createElement(element.getRawname());
 
         if (attrs != null) {
@@ -338,7 +341,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
 
     // Empty element.
     @Override
-    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+    public void emptyElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         startElement(element, attrs, augs);
         endElement(element, augs);
     }

@@ -149,16 +149,34 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     static {
         kidOK = new int[13];
 
-        kidOK[DOCUMENT_NODE] = 1 << ELEMENT_NODE | 1 << PROCESSING_INSTRUCTION_NODE | 1 << COMMENT_NODE
-                | 1 << DOCUMENT_TYPE_NODE;
+        kidOK[DOCUMENT_NODE]
+                = 1 << ELEMENT_NODE
+                    | 1 << PROCESSING_INSTRUCTION_NODE
+                    | 1 << COMMENT_NODE
+                    | 1 << DOCUMENT_TYPE_NODE;
 
-        kidOK[DOCUMENT_FRAGMENT_NODE] = kidOK[ENTITY_NODE] = kidOK[ENTITY_REFERENCE_NODE] = kidOK[ELEMENT_NODE] = 1 << ELEMENT_NODE
-                | 1 << PROCESSING_INSTRUCTION_NODE | 1 << COMMENT_NODE | 1 << TEXT_NODE | 1 << CDATA_SECTION_NODE
-                | 1 << ENTITY_REFERENCE_NODE;
+        kidOK[DOCUMENT_FRAGMENT_NODE]
+                = kidOK[ENTITY_NODE]
+                = kidOK[ENTITY_REFERENCE_NODE]
+                = kidOK[ELEMENT_NODE]
+                = 1 << ELEMENT_NODE
+                    | 1 << PROCESSING_INSTRUCTION_NODE
+                    | 1 << COMMENT_NODE
+                    | 1 << TEXT_NODE
+                    | 1 << CDATA_SECTION_NODE
+                    | 1 << ENTITY_REFERENCE_NODE;
 
-        kidOK[ATTRIBUTE_NODE] = 1 << TEXT_NODE | 1 << ENTITY_REFERENCE_NODE;
+        kidOK[ATTRIBUTE_NODE]
+                = 1 << TEXT_NODE
+                    | 1 << ENTITY_REFERENCE_NODE;
 
-        kidOK[DOCUMENT_TYPE_NODE] = kidOK[PROCESSING_INSTRUCTION_NODE] = kidOK[COMMENT_NODE] = kidOK[TEXT_NODE] = kidOK[CDATA_SECTION_NODE] = kidOK[NOTATION_NODE] = 0;
+        kidOK[DOCUMENT_TYPE_NODE]
+                = kidOK[PROCESSING_INSTRUCTION_NODE]
+                = kidOK[COMMENT_NODE]
+                = kidOK[TEXT_NODE]
+                = kidOK[CDATA_SECTION_NODE]
+                = kidOK[NOTATION_NODE]
+                = 0;
     }
 
     /**
@@ -476,7 +494,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      *                      implemented.)
      */
     @Override
-    public ProcessingInstruction createProcessingInstruction(final String target, final String data) throws DOMException {
+    public ProcessingInstruction createProcessingInstruction(final String target, final String data)
+                                    throws DOMException {
         if (errorChecking && !isXMLName(target, xml11Version_)) {
             final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
@@ -917,10 +936,9 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @throws DOMException NOT_SUPPORTED_ERR for HTML documents, where DTDs are not
      *                      permitted. (HTML not yet implemented.)
      */
-    public DocumentType createDocumentType(final String qualifiedName, final String publicID, final String systemID) throws DOMException {
-
+    public DocumentType createDocumentType(final String qualifiedName, final String publicID,
+                                            final String systemID) throws DOMException {
         return new DocumentTypeImpl(this, qualifiedName, publicID, systemID);
-
     }
 
     /**
@@ -950,8 +968,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     protected int getNodeNumber() {
         if (documentNumber_ == 0) {
-
-            final CoreDOMImplementationImpl cd = (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
+            final CoreDOMImplementationImpl cd =
+                    (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
             documentNumber_ = cd.assignDocumentNumber();
         }
         return documentNumber_;
@@ -1016,7 +1034,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @param cloningDoc          the cloning Doc
      * @param reversedIdentifiers helper
      */
-    private Node importNode(final Node source, boolean deep, final boolean cloningDoc, final HashMap<Node, String> reversedIdentifiers)
+    private Node importNode(final Node source, boolean deep, final boolean cloningDoc,
+                            final HashMap<Node, String> reversedIdentifiers)
             throws DOMException {
         Node newnode = null;
 
@@ -1478,7 +1497,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @exception DOMException INVALID_CHARACTER_ERR: Raised if the specified name
      *                         contains an invalid character.
      */
-    public Element createElementNS(final String namespaceURI, final String qualifiedName, final String localpart) throws DOMException {
+    public Element createElementNS(final String namespaceURI, final String qualifiedName,
+                                    final String localpart) throws DOMException {
         return new ElementNSImpl(this, namespaceURI, qualifiedName, localpart);
     }
 
@@ -1516,7 +1536,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      * @throws DOMException INVALID_CHARACTER_ERR: Raised if the specified name
      *                      contains an invalid character.
      */
-    public Attr createAttributeNS(final String namespaceURI, final String qualifiedName, final String localpart) throws DOMException {
+    public Attr createAttributeNS(final String namespaceURI, final String qualifiedName,
+                    final String localpart) throws DOMException {
         return new AttrNSImpl(this, namespaceURI, qualifiedName, localpart);
     }
 
@@ -1724,11 +1745,13 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         return xml11Version_;
     }
 
-    protected void addEventListener(final NodeImpl node, final String type, final EventListener listener, final boolean useCapture) {
+    protected void addEventListener(final NodeImpl node, final String type,
+                        final EventListener listener, final boolean useCapture) {
         // does nothing by default - overidden in subclass
     }
 
-    protected void removeEventListener(final NodeImpl node, final String type, final EventListener listener, final boolean useCapture) {
+    protected void removeEventListener(final NodeImpl node, final String type,
+                        final EventListener listener, final boolean useCapture) {
         // does nothing by default - overidden in subclass
     }
 

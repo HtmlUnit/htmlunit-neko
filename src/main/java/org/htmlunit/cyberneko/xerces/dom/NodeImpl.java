@@ -769,7 +769,9 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                     case Node.ENTITY_NODE: {
                         if (thisAncestorType != otherAncestorType) {
                             // the nodes are of different types
-                            return (thisAncestorType > otherAncestorType) ? DOCUMENT_POSITION_PRECEDING : DOCUMENT_POSITION_FOLLOWING;
+                            return (thisAncestorType > otherAncestorType)
+                                        ? DOCUMENT_POSITION_PRECEDING
+                                                : DOCUMENT_POSITION_FOLLOWING;
                         }
 
                         // the nodes are of the same type. Find order.

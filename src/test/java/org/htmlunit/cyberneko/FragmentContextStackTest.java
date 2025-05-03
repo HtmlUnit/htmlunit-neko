@@ -59,7 +59,8 @@ public class FragmentContextStackTest {
             + "\"hello" + NL
             + ")td" + NL
             + ")tr" + NL;
-        GeneralTest.doTest("<tr><td>hello</td></tr>", new String[] {"html", "body", "table", "tbody"}, expected, FEATURES);
+        GeneralTest.doTest("<tr><td>hello</td></tr>",
+                        new String[] {"html", "body", "table", "tbody"}, expected, FEATURES);
         expected = "(TBODY" + NL
             + expected
             + ")TBODY\n";
@@ -76,10 +77,16 @@ public class FragmentContextStackTest {
 
     @Test
     public void fragmentShouldNotCloseContextStackPHack() throws Exception {
-        GeneralTest.doTest("<p>hello world</p>", new String[] {"html", "body", "p" }, ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
-        GeneralTest.doTest("<p>hello world", new String[] {"html", "body", "p" }, ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
+        GeneralTest.doTest("<p>hello world</p>",
+                            new String[] {"html", "body", "p" },
+                            ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
+        GeneralTest.doTest("<p>hello world",
+                            new String[] {"html", "body", "p" },
+                            ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
 
-        GeneralTest.doTest("<p>hello world</p>", new String[] {"html", "body", "p", "span"}, ")null" + NL + ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
+        GeneralTest.doTest("<p>hello world</p>",
+                            new String[] {"html", "body", "p", "span"},
+                            ")null" + NL + ")null" + NL + "(p" + NL + "\"hello world" + NL + ")p", FEATURES);
     }
 
     @Test

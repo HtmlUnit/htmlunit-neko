@@ -75,10 +75,10 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
                 canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
 
                 if (!canonicalFile.exists()) {
-                    canonicalFile = new File(canonicalDir, dataFile.getName() + ".canonical-sax");
+                    canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-sax");
 
                     if (!canonicalFile.exists()) {
-                        canonicalFile = new File(canonicalDir, dataFile.getName());
+                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
                     }
                 }
             }
@@ -106,7 +106,7 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
         catch (final AssertionFailedError e) {
             String path = dataFile.getAbsolutePath();
             path = path.substring(path.indexOf("\\testfiles\\") + 11);
-            final File output = new File(outputDir, path + ".canonical-sax");
+            final File output = new File(OUTOUT_DIR, path + ".canonical-sax");
             Files.createDirectories(Paths.get(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(saxDataLines);

@@ -121,7 +121,8 @@ public class XMLAttributesImpl implements XMLAttributes {
         attributes_.add(attribute);
     }
 
-    public void addAttribute(final QName name, final String type, final String value, final String nonNormalizedValue, final boolean specified) {
+    public void addAttribute(final QName name, final String type, final String value,
+                    final String nonNormalizedValue, final boolean specified) {
         final AttributeExt attribute = new AttributeExt();
         attribute.name_.setValues(name);
         attribute.type_ = type;
@@ -381,7 +382,9 @@ public class XMLAttributesImpl implements XMLAttributes {
             final Attribute attribute = attributes_.get(i);
             if (attribute.name_.getLocalpart() != null && attribute.name_.getLocalpart().equals(localPart)
                     && ((uri == attribute.name_.getUri())
-                            || (uri != null && attribute.name_.getUri() != null && attribute.name_.getUri().equals(uri)))) {
+                            || (uri != null
+                                    && attribute.name_.getUri() != null
+                                    && attribute.name_.getUri().equals(uri)))) {
                 return i;
             }
         }

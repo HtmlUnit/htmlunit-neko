@@ -82,7 +82,8 @@ public class AttrNSImpl extends AttrImpl {
     }
 
     // when local name is known
-    public AttrNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI, final String qualifiedName, final String localName) {
+    public AttrNSImpl(final CoreDocumentImpl ownerDocument, final String namespaceURI,
+                        final String qualifiedName, final String localName) {
         super(ownerDocument, qualifiedName);
 
         this.localName_ = localName;

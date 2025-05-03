@@ -128,8 +128,10 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      *
      * @see #createElement
      */
-    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLLower_ = new FastHashMap<>(11, 0.5f);
-    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLUpper_ = new FastHashMap<>(11, 0.5f);
+    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLLower_
+                            = new FastHashMap<>(11, 0.5f);
+    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLUpper_
+                            = new FastHashMap<>(11, 0.5f);
 
     /**
      * Signature used to locate constructor of HTML element classes. This
@@ -225,7 +227,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
                 elementTypesHTMLLower_.put(lKey, holder);
             }
             catch (NoSuchMethodException | SecurityException ex) {
-                throw new IllegalStateException("HTM15 Tag '" + key + "' associated with an Element class that failed to construct.\n" + key, ex);
+                throw new IllegalStateException(
+                        "HTM15 Tag '" + key
+                            + "' associated with an Element class that failed to construct.\n" + key, ex);
             }
         });
     }
@@ -494,7 +498,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      *                      name contains an invalid character.
      */
     @Override
-    public Element createElementNS(final String namespaceURI, final String qualifiedName, final String localpart) throws DOMException {
+    public Element createElementNS(final String namespaceURI, final String qualifiedName,
+                                    final String localpart) throws DOMException {
         return createElementNS(namespaceURI, qualifiedName);
     }
 
@@ -537,7 +542,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
                 return htmlHolder.ctr_.newInstance(this, tagName);
             }
             catch (final Exception e) {
-                throw new IllegalStateException("HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.", e);
+                throw new IllegalStateException(
+                        "HTM15 Tag '" + tagName + "' associated with an Element class that failed to construct.", e);
             }
         }
         return new HTMLElementImpl(this, tagName);

@@ -36,7 +36,6 @@ import org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator;
 import org.htmlunit.cyberneko.xerces.util.URI;
 import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
-import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
@@ -143,32 +142,37 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * Strip HTML comment delimiters ("&lt;!&minus;&minus;" and
      * "&minus;&minus;&gt;") from SCRIPT tag contents.
      */
-    public static final String SCRIPT_STRIP_COMMENT_DELIMS = "http://cyberneko.org/html/features/scanner/script/strip-comment-delims";
+    public static final String SCRIPT_STRIP_COMMENT_DELIMS
+                                    = "http://cyberneko.org/html/features/scanner/script/strip-comment-delims";
 
     /**
      * Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]&gt;") from SCRIPT tag
      * contents.
      */
-    public static final String SCRIPT_STRIP_CDATA_DELIMS = "http://cyberneko.org/html/features/scanner/script/strip-cdata-delims";
+    public static final String SCRIPT_STRIP_CDATA_DELIMS
+                                    = "http://cyberneko.org/html/features/scanner/script/strip-cdata-delims";
 
     /**
      * Strip HTML comment delimiters ("&lt;!&minus;&minus;" and
      * "&minus;&minus;&gt;") from STYLE tag contents.
      */
-    public static final String STYLE_STRIP_COMMENT_DELIMS = "http://cyberneko.org/html/features/scanner/style/strip-comment-delims";
+    public static final String STYLE_STRIP_COMMENT_DELIMS
+                                    = "http://cyberneko.org/html/features/scanner/style/strip-comment-delims";
 
     /**
      * Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]&gt;") from STYLE tag
      * contents.
      */
-    public static final String STYLE_STRIP_CDATA_DELIMS = "http://cyberneko.org/html/features/scanner/style/strip-cdata-delims";
+    public static final String STYLE_STRIP_CDATA_DELIMS
+                                    = "http://cyberneko.org/html/features/scanner/style/strip-cdata-delims";
 
     /**
      * Ignore specified charset found in the &lt;meta equiv='Content-Type'
      * content='text/html;charset=&hellip;'&gt; tag or in the &lt;?xml &hellip;
      * encoding='&hellip;'&gt; processing instruction.
      */
-    public static final String IGNORE_SPECIFIED_CHARSET = "http://cyberneko.org/html/features/scanner/ignore-specified-charset";
+    public static final String IGNORE_SPECIFIED_CHARSET
+                                    = "http://cyberneko.org/html/features/scanner/ignore-specified-charset";
 
     /** Scan CDATA sections. */
     public static final String CDATA_SECTIONS = "http://cyberneko.org/html/features/scanner/cdata-sections";
@@ -186,13 +190,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public static final String PARSE_NOSCRIPT_CONTENT = "http://cyberneko.org/html/features/parse-noscript-content";
 
     /** Allows self closing &lt;iframe/&gt; tag. */
-    public static final String ALLOW_SELFCLOSING_IFRAME = "http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe";
+    public static final String ALLOW_SELFCLOSING_IFRAME
+                                    = "http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe";
 
     /** Allows self closing &lt;script/&gt; tag. */
-    public static final String ALLOW_SELFCLOSING_SCRIPT = "http://cyberneko.org/html/features/scanner/allow-selfclosing-script";
+    public static final String ALLOW_SELFCLOSING_SCRIPT
+                                    = "http://cyberneko.org/html/features/scanner/allow-selfclosing-script";
 
     /** Allows self closing tags e.g. &lt;div/&gt; (XHTML) */
-    public static final String ALLOW_SELFCLOSING_TAGS = "http://cyberneko.org/html/features/scanner/allow-selfclosing-tags";
+    public static final String ALLOW_SELFCLOSING_TAGS
+                                    = "http://cyberneko.org/html/features/scanner/allow-selfclosing-tags";
 
     /** Normalize attribute values. */
     public static final String NORMALIZE_ATTRIBUTES = "http://cyberneko.org/html/features/scanner/normalize-attrs";
@@ -1266,7 +1273,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 // we check for the regular space first because isWhitespace is no inlineable and hence expensive
                 // regular space should be the norm as well as newlines
-                else if (!strict && (c == ' ' || c == '\n' || c == '=' || c == '/' || c == '>' || Character.isWhitespace(c))) {
+                else if (!strict
+                            && (c == ' '
+                                    || c == '\n'
+                                    || c == '='
+                                    || c == '/'
+                                    || c == '>'
+                                    || Character.isWhitespace(c))) {
                     fCurrentEntity.rewind();
                     break;
                 }
@@ -1353,7 +1366,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     // Scans an entity reference.
-    protected int scanEntityRef(final XMLString str, final XMLString plainValue, final boolean content) throws IOException {
+    protected int scanEntityRef(final XMLString str, final XMLString plainValue, final boolean content)
+                        throws IOException {
         str.clearAndAppend('&');
 
         // use readPreservingBufferContent inside this method to be sure we can rewind
@@ -1405,7 +1419,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         HTMLNamedEntitiesParser.State lastMatchingResult = null;
 
         while (nextChar != -1) {
-            final HTMLNamedEntitiesParser.State intermediateResult = HTMLNamedEntitiesParser.get().lookup(nextChar, result);
+            final HTMLNamedEntitiesParser.State intermediateResult
+                        = HTMLNamedEntitiesParser.get().lookup(nextChar, result);
 
             if (intermediateResult.endNode_) {
                 result = intermediateResult;
@@ -2132,7 +2147,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                         return true;
                                     }
                                 }
-                                else if (!fAllowSelfclosingTags_ && !fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
+                                else if (!fAllowSelfclosingTags_
+                                            && !fAllowSelfclosingIframe_
+                                            && "iframe".equals(enameLC)) {
                                     scanUntilEndTag("iframe");
                                 }
                                 else if (!fParseNoScriptContent_ && "noscript".equals(enameLC)) {
@@ -2169,10 +2186,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 if (DEBUG_CALLBACKS) {
                                     System.out.println("startDocument()");
                                 }
-                                final XMLLocator locator = HTMLScanner.this;
-                                final String encoding = fIANAEncoding;
-                                final NamespaceContext nscontext = new NamespaceSupport();
-                                fDocumentHandler.startDocument(locator, encoding, nscontext, locationAugs(fCurrentEntity));
+                                fDocumentHandler.startDocument(HTMLScanner.this,
+                                                                fIANAEncoding,
+                                                                new NamespaceSupport(),
+                                                                locationAugs(fCurrentEntity));
                             }
                             if (fInsertDoctype_ && fDocumentHandler != null) {
                                 String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
@@ -2932,7 +2949,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                 }
 
-                // https://html.spec.whatwg.org/multipage/parsing.html#parse-error-unexpected-character-in-attribute-name
+                // https://html.spec.whatwg.org/multipage/parsing.html
+                //                    #parse-error-unexpected-character-in-attribute-name
                 if (c == '<') {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1016", null);
@@ -3042,7 +3060,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     scanAttributeUnquotedValue(fCurrentEntity, attribValue, nonNormalizedAttribValue);
 
                     qName_.setValues(null, aname, aname, null);
-                    attributes.addAttribute(qName_, "CDATA", attribValue.toString(), nonNormalizedAttribValue.toString(), true);
+                    attributes.addAttribute(qName_, "CDATA",
+                                                attribValue.toString(),
+                                                nonNormalizedAttribValue.toString(), true);
                 }
                 else {
                     scanAttributeUnquotedValue(fCurrentEntity, attribValue, null);

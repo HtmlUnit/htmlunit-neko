@@ -210,9 +210,8 @@ public class NamespaceBinder extends DefaultFilter {
 
     /** Start document. */
     @Override
-    public void startDocument(final XMLLocator locator, final String encoding, final NamespaceContext nscontext, final Augmentations augs)
-        throws XNIException {
-
+    public void startDocument(final XMLLocator locator, final String encoding,
+                    final NamespaceContext nscontext, final Augmentations augs) throws XNIException {
         // perform default handling
         // NOTE: using own namespace context
         super.startDocument(locator, encoding, namespaceContext_, augs);
@@ -220,8 +219,8 @@ public class NamespaceBinder extends DefaultFilter {
 
     /** Start element. */
     @Override
-    public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-
+    public void startElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         // bind namespaces, if needed
         if (namespaces_) {
             namespaceContext_.pushContext();
@@ -234,8 +233,8 @@ public class NamespaceBinder extends DefaultFilter {
 
     /** Empty element. */
     @Override
-    public void emptyElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
-
+    public void emptyElement(final QName element, final XMLAttributes attrs,
+                    final Augmentations augs) throws XNIException {
         // bind namespaces, if needed
         if (namespaces_) {
             namespaceContext_.pushContext();

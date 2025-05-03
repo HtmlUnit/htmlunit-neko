@@ -34,7 +34,8 @@ public class DOMParserTest {
      */
     @Test
     public void parse() throws Exception {
-        final String html = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head>"
+        final String html = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">"
+                + "<html xmlns=\"http://www.w3.org/1999/xhtml\"><head>"
                 + "<meta name=\"author\" content=\"中国政府采购招标网\" /><title></title>"
                 + "<meta name=\"Description\" content=\"国家税务总局山东省税务局2024年行政办公类软件运维服务中标公告-中国政府采购招标网\" />"
                 + "<meta name=\"keywords\" content=\"国家税务总局山东省税务局2024年行政办公类软件运维服务中标公告,中国政府采购招标网\" />"

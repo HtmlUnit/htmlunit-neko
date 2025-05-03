@@ -137,7 +137,8 @@ public class HTMLScannerTest {
         }
 
         @Override
-        public void startElement(final QName element, final XMLAttributes attrs, final Augmentations augs) throws XNIException {
+        public void startElement(final QName element, final XMLAttributes attrs,
+                        final Augmentations augs) throws XNIException {
             collectedStrings_.add("(" + element.getRawname());
         }
 
@@ -186,7 +187,8 @@ public class HTMLScannerTest {
                 return new InfiniteLoopScanner();
             }
         };
-        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(buffer.toString()), "UTF-8");
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null,
+                                            new StringReader(buffer.toString()), "UTF-8");
         parser.parse(source);
     }
 
