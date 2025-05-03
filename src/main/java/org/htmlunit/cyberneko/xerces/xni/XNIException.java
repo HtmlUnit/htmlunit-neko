@@ -55,7 +55,9 @@ public class XNIException extends RuntimeException {
         super(message, exception);
     }
 
-    /** @return the wrapped exception. */
+    /**
+     * @return the wrapped exception.
+     */
     public Exception getException() {
         return (Exception) getCause();
     }

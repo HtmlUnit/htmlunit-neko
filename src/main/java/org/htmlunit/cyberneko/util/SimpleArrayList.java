@@ -35,10 +35,11 @@ public class SimpleArrayList<T> implements List<T> {
     private int size;
 
     /**
-     * Creates a new list wrapper from an existing one. This is not copying anything rather referencing it. Make sure
-     * that you understand that!
+     * Creates a new list wrapper from an existing one.
+     * This is not copying anything rather referencing it.
+     * Make sure that you understand that!
      *
-     * @param list
+     * @param list the referencing list
      */
     SimpleArrayList(final SimpleArrayList<T> list) {
         data = list.data;
@@ -163,18 +164,18 @@ public class SimpleArrayList<T> implements List<T> {
      * @return a list of lists
      */
     public List<List<T>> partition(final int count) {
-        final int _count;
+        final int newCount;
         if (count > size) {
-            _count = size;
+            newCount = size;
         }
         else {
-            _count = count <= 0 ? 1 : count;
+            newCount = count <= 0 ? 1 : count;
         }
 
         final SimpleArrayList<List<T>> result = new SimpleArrayList<>(count);
 
-        final int newSize = (int) Math.ceil((double) size / (double) _count);
-        for (int i = 0; i < _count; i++) {
+        final int newSize = (int) Math.ceil((double) size / (double) newCount);
+        for (int i = 0; i < newCount; i++) {
             final int from = i * newSize;
             int to = from + newSize - 1;
             if (to >= size) {

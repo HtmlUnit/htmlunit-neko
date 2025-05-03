@@ -156,11 +156,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
                 final String uri = attrNode.getNodeValue();
                 if (uri.length() != 0) { // attribute value is always empty string
                     try {
-                        final URI _uri = new URI(uri, true);
+                        final URI absUri = new URI(uri, true);
                         // If the URI is already absolute return it; otherwise it's relative and we need
                         // to resolve it.
-                        if (_uri.isAbsoluteURI()) {
-                            return _uri.toString();
+                        if (absUri.isAbsoluteURI()) {
+                            return absUri.toString();
                         }
 
                         // Make any parentURI into a URI object to use with the URI(URI, String)
@@ -168,9 +168,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
                         final String parentBaseURI = (this.ownerNode_ != null) ? this.ownerNode_.getBaseURI() : null;
                         if (parentBaseURI != null) {
                             try {
-                                final URI _parentBaseURI = new URI(parentBaseURI);
-                                _uri.absolutize(_parentBaseURI);
-                                return _uri.toString();
+                                absUri.absolutize(new URI(parentBaseURI));
+                                return absUri.toString();
                             }
                             catch (final org.htmlunit.cyberneko.xerces.util.URI.MalformedURIException ex) {
                                 // This should never happen: parent should have checked the URI and returned
