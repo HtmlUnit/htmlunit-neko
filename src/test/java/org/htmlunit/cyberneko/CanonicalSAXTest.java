@@ -66,8 +66,8 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
         verify(dataFile, saxDataLines);
     }
 
-
-    private static void verify(final File dataFile, final String saxDataLines) throws IOException, AssertionFailedError {
+    private static void verify(final File dataFile, final String saxDataLines)
+                throws IOException, AssertionFailedError {
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-sax");

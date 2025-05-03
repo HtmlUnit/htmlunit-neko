@@ -103,9 +103,9 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
             htmlConfiguration.setFeature(HTMLConfiguration.AUGMENTATIONS, true);
             htmlConfiguration.setDocumentHandler(parser);
 
-
             final String normalized = getCanonical(infile);
-            htmlConfiguration.parse(new XMLInputSource(null, null, null, new StringReader(normalized), StandardCharsets.UTF_8.name()));
+            htmlConfiguration.parse(new XMLInputSource(null, null, null,
+                                            new StringReader(normalized), StandardCharsets.UTF_8.name()));
 
             final StringBuilder sb = new StringBuilder();
 

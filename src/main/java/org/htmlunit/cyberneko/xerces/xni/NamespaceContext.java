@@ -32,7 +32,7 @@ public interface NamespaceContext {
     /**
      * XML Information Set REC all namespace attributes (including those named
      * xmlns, whose [prefix] property has no value) have a namespace URI of
-     * http://www.w3.org/2000/xmlns/
+     * http://www.w3.org/2000/xmlns/.
      */
     String XMLNS_URI = "http://www.w3.org/2000/xmlns/";
 

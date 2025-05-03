@@ -35,7 +35,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class HeadNamespaceBugTest {
 
     /**
-     * Ensure that the inserted head element has the right namespace
+     * Ensure that the inserted head element has the right namespace.
      */
     @Test
     public void headNamespace() throws Exception {
@@ -48,7 +48,8 @@ public class HeadNamespaceBugTest {
             }
         };
         final InputSource source = new InputSource();
-        source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body/></html>".getBytes()));
+        source.setByteStream(new ByteArrayInputStream(
+                                "<html xmlns='http://www.w3.org/1999/xhtml'><body/></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
         final AbstractSAXParser parser = new AbstractSAXParser(conf) { };

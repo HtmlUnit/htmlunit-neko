@@ -782,7 +782,7 @@ public class HTMLTagBalancer
                 // nothing, don't force/check parent for the direct template children
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
-                String pname = preferedParent.name;
+                final String pname = preferedParent.name;
                 if (fReportErrors) {
                     final String ename = elem.getRawname();
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, modifyName(pname, fNamesElems)});

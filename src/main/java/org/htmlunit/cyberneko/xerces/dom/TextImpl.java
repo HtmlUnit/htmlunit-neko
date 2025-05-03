@@ -103,7 +103,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
     /**
      * internal method taking a StringBuffer in parameter and inserts the text
-     * content at the start of the buffer
+     * content at the start of the buffer.
      *
      * @param builder string buffer
      * @throws DOMException on error
@@ -496,7 +496,8 @@ public class TextImpl extends CharacterDataImpl implements Text {
     @Override
     public Text splitText(final int offset) throws DOMException {
         if (offset < 0 || offset > data_.length()) {
-            throw new DOMException(DOMException.INDEX_SIZE_ERR, DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null));
+            throw new DOMException(DOMException.INDEX_SIZE_ERR,
+                                    DOMMessageFormatter.formatMessage("INDEX_SIZE_ERR", null));
         }
 
         // split text into two separate nodes

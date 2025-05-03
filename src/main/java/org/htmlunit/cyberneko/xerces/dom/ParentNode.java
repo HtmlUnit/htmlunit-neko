@@ -67,12 +67,12 @@ public abstract class ParentNode extends ChildNode {
     /** First child. */
     protected ChildNode firstChild = null;
 
-    /** NodeList cache */
+    /** NodeList cache. */
     protected NodeListCache fNodeListCache = null;
 
     /**
      * No public constructor; only subclasses of ParentNode should be instantiated,
-     * and those normally via a Document's factory methods
+     * and those normally via a Document's factory methods.
      *
      * @param ownerDocument the owner document
      */
@@ -461,7 +461,8 @@ public abstract class ParentNode extends ChildNode {
         final CoreDocumentImpl ownerDoc = ownerDocument();
         if (ownerDoc.errorChecking) {
             if (oldChild != null && oldChild.getParentNode() != this) {
-                throw new DOMException(DOMException.NOT_FOUND_ERR, DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null));
+                throw new DOMException(DOMException.NOT_FOUND_ERR,
+                                        DOMMessageFormatter.formatMessage("NOT_FOUND_ERR", null));
             }
         }
 

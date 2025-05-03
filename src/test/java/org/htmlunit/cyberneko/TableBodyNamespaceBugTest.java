@@ -35,8 +35,8 @@ import org.xml.sax.helpers.DefaultHandler;
 public class TableBodyNamespaceBugTest {
 
     /**
-    * Ensure that the inserted tbody element has the right namespace
-    */
+     * Ensure that the inserted tbody element has the right namespace.
+     */
     @Test
     public void headNamespace() throws Exception {
         final int[] nbTags = {0};
@@ -48,7 +48,8 @@ public class TableBodyNamespaceBugTest {
             }
         };
         final InputSource source = new InputSource();
-        source.setByteStream(new ByteArrayInputStream("<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
+        source.setByteStream(new ByteArrayInputStream(
+                    "<html xmlns='http://www.w3.org/1999/xhtml'><body><table><tr></tr></table></html>".getBytes()));
         final HTMLConfiguration conf = new HTMLConfiguration();
         conf.setFeature("http://cyberneko.org/html/features/insert-namespaces", true);
         final AbstractSAXParser parser = new AbstractSAXParser(conf) { };

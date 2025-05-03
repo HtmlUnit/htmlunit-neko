@@ -1704,7 +1704,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // infoset utility methods
 
     // Returns an augmentations object with a location item added.
-    protected final Augmentations locationAugs(CurrentEntity currentEntity) {
+    protected final Augmentations locationAugs(final CurrentEntity currentEntity) {
         // we don't have to create a new LocationItem all the time, because the interface says:
         // Methods that receive Augmentations are required to copy the information
         // if it is to be saved for use beyond the scope of the method.

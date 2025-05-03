@@ -65,7 +65,7 @@ public class HTMLTagBalancingListenerTest {
     }
 
     /**
-     * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17
+     * HTMLTagBalancer field fSeenFramesetElement was not correctly reset as of 1.19.17.
      * @throws Exception on error
      */
     @Test
@@ -97,8 +97,8 @@ public class HTMLTagBalancingListenerTest {
         }
 
         @Override
-        public void startElement(final QName element, final XMLAttributes attributes, final Augmentations augs) throws XNIException {
-
+        public void startElement(final QName element, final XMLAttributes attributes,
+                final Augmentations augs) throws XNIException {
             messages_.add("start " + element.getRawname());
             super.startElement(element, attributes, augs);
         }
