@@ -75,37 +75,51 @@ public class XMLParseException extends XNIException {
         }
     }
 
-    /** @return the public identifier. */
+    /**
+     * @return the public identifier.
+     */
     public String getPublicId() {
         return publicId_;
     }
 
-    /** @return the expanded system identifier. */
+    /**
+     * @return the expanded system identifier.
+     */
     public String getSystemId() {
         return systemId_;
     }
 
-    /** @return the literal system identifier. */
+    /**
+     * @return the literal system identifier.
+     */
     public String getLiteralSystemId() {
         return literalSystemId_;
     }
 
-    /** @return the base system identifier. */
+    /**
+     * return the base system identifier.
+     */
     public String getBaseSystemId() {
         return baseSystemId_;
     }
 
-    /** @return the line number. */
+    /**
+     * @return the line number.
+     */
     public int getLineNumber() {
         return lineNumber_;
     }
 
-    /** @return the row number. */
+    /**
+     * @return the row number.
+     */
     public int getColumnNumber() {
         return columnNumber_;
     }
 
-    /** @return the character offset. */
+    /**
+     * @return the character offset.
+     */
     public int getCharacterOffset() {
         return characterOffset_;
     }

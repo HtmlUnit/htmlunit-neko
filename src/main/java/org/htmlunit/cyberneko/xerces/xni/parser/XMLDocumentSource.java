@@ -35,6 +35,8 @@ public interface XMLDocumentSource {
      */
     void setDocumentHandler(XMLDocumentHandler handler);
 
-    /** @return the document handler */
+    /**
+     * @return the document handler
+     */
     XMLDocumentHandler getDocumentHandler();
 }

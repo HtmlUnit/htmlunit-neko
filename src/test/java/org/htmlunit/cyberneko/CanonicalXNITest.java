@@ -99,7 +99,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
             // parse
             final XNIParser parser = new XNIParser(out);
 
-            HTMLConfiguration htmlConfiguration = new HTMLConfiguration();
+            final HTMLConfiguration htmlConfiguration = new HTMLConfiguration();
             htmlConfiguration.setFeature(HTMLConfiguration.AUGMENTATIONS, true);
             htmlConfiguration.setDocumentHandler(parser);
 
@@ -121,99 +121,105 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
     }
 
     private static class XNIParser implements XMLDocumentHandler {
-        private StringWriter out_;
+        private final StringWriter out_;
 
         /** Default constructor. */
-        XNIParser(StringWriter out) {
+        XNIParser(final StringWriter out) {
             out_ = out;
         }
 
         @Override
-        public void startDocument(XMLLocator locator, String encoding, NamespaceContext namespaceContext, Augmentations augs) throws XNIException {
+        public void startDocument(final XMLLocator locator, final String encoding,
+                final NamespaceContext namespaceContext, final Augmentations augs) throws XNIException {
             out_.append("startDocument ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void xmlDecl(String version, String encoding, String standalone, Augmentations augs) throws XNIException {
+        public void xmlDecl(final String version, final String encoding, final String standalone,
+                final Augmentations augs) throws XNIException {
             out_.append("xmlDecl ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void doctypeDecl(String rootElement, String publicId, String systemId, Augmentations augs) throws XNIException {
+        public void doctypeDecl(final String rootElement, final String publicId, final String systemId,
+                final Augmentations augs) throws XNIException {
             out_.append("doctypeDecl ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void comment(XMLString text, Augmentations augs) throws XNIException {
+        public void comment(final XMLString text, final Augmentations augs) throws XNIException {
             out_.append("comment '").append(text.toString()).append('\'');
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void processingInstruction(String target, XMLString data, Augmentations augs) throws XNIException {
+        public void processingInstruction(final String target, final XMLString data,
+                final Augmentations augs) throws XNIException {
             out_.append("processingInstruction ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void startElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
+        public void startElement(final QName element, final XMLAttributes attributes,
+                final Augmentations augs) throws XNIException {
             out_.append("startElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void emptyElement(QName element, XMLAttributes attributes, Augmentations augs) throws XNIException {
+        public void emptyElement(final QName element, final XMLAttributes attributes,
+                final Augmentations augs) throws XNIException {
             out_.append("emptyElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void characters(XMLString text, Augmentations augs) throws XNIException {
+        public void characters(final XMLString text, final Augmentations augs) throws XNIException {
             out_.append("characters '").append(text.toString()).append('\'');
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void endElement(QName element, Augmentations augs) throws XNIException {
+        public void endElement(final QName element, final Augmentations augs) throws XNIException {
             out_.append("endElement (").append(element.toString()).append(") ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void startCDATA(Augmentations augs) throws XNIException {
+        public void startCDATA(final Augmentations augs) throws XNIException {
             out_.append("startCDATA ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void endCDATA(Augmentations augs) throws XNIException {
+        public void endCDATA(final Augmentations augs) throws XNIException {
             out_.append("endCDATA ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void endDocument(Augmentations augs) throws XNIException {
+        public void endDocument(final Augmentations augs) throws XNIException {
             out_.append("endDocument ");
             appendAugmentations(augs);
             out_.append('\n');
         }
 
         @Override
-        public void setDocumentSource(XMLDocumentSource source) {
+        public void setDocumentSource(final XMLDocumentSource source) {
         }
 
         @Override

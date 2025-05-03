@@ -55,16 +55,41 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
     public void runTest(final File dataFile) throws Exception {
         final String infilename = dataFile.toString();
 
+//        for (int i = 1024 * 10; i < 1024 * 20; i++) {
+//            System.out.println(i);
+//            final DOMParser parser = new DOMParser(null);
+//            setupParser(infilename, parser);
+//            parser.setProperty(HTMLScanner.READER_BUFFER_SIZE, Integer.toString(i));
+//
+//            String domDataLines = getResult(parser, infilename);
+//            verify(dataFile, domDataLines);
+//        }
+
         final DOMParser parser = new DOMParser(null);
         setupParser(infilename, parser);
 
-        String domDataLines = getResult(parser, infilename);
+        final String domDataLines = getResult(parser, infilename);
         verify(dataFile, domDataLines);
+//
+//        // reset and run again
+//        parser.reset();
+//        domDataLines = getResult(parser, infilename);
+//        verify(dataFile, domDataLines);
+    }
 
-        // reset and run again
-        parser.reset();
-        domDataLines = getResult(parser, infilename);
-        verify(dataFile, domDataLines);
+    // @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runBufferTest(final File dataFile) throws Exception {
+        final String infilename = dataFile.toString();
+
+        for (int i = 10; i < 1024 * 20; i++) {
+            final DOMParser parser = new DOMParser(null);
+            setupParser(infilename, parser);
+            parser.setProperty(HTMLScanner.READER_BUFFER_SIZE, Integer.toString(i));
+
+            final String domDataLines = getResult(parser, infilename);
+            verify(dataFile, domDataLines);
+        }
     }
 
     private static void verify(final File dataFile, final String domDataLines) throws IOException, AssertionFailedError {

@@ -103,7 +103,7 @@ public class DOMFragmentParserTest {
     }
 
     /**
-     * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17
+     * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17.
      * @throws Exception on error
      */
     @Test

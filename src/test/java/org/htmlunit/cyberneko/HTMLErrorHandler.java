@@ -33,7 +33,9 @@ class HTMLErrorHandler extends DefaultErrorHandler {
         out_ = out;
     }
 
-    /** @see DefaultErrorHandler#error(String,String,XMLParseException) */
+    /**
+     * @see DefaultErrorHandler#error(String,String,XMLParseException)
+     */
     @Override
     public void error(final String domain, final String key,
             final XMLParseException exception) throws XNIException {
@@ -42,14 +44,23 @@ class HTMLErrorHandler extends DefaultErrorHandler {
 
     private void println(final String type, final String key, final XMLParseException exception) throws XNIException {
         try {
-            out_.append("[").append(type).append("] ").append(key).append(" ").append(exception.getMessage()).append("\n");
+            out_
+                .append("[")
+                .append(type)
+                .append("] ")
+                .append(key)
+                .append(" ")
+                .append(exception.getMessage())
+                .append("\n");
         }
         catch (final IOException e) {
             throw new XNIException(e);
         }
     }
 
-    /** @see DefaultErrorHandler#warning(String,String,XMLParseException) */
+    /**
+     * @see DefaultErrorHandler#warning(String,String,XMLParseException)
+     */
     @Override
     public void warning(final String domain, final String key,
             final XMLParseException exception) throws XNIException {

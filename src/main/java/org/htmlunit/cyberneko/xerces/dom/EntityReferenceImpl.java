@@ -70,13 +70,13 @@ import org.w3c.dom.Node;
  */
 public class EntityReferenceImpl extends ParentNode implements EntityReference {
 
-    /** Name of Entity referenced */
+    /** Name of Entity referenced. */
     protected final String name;
 
     // Factory constructor.
-    public EntityReferenceImpl(final CoreDocumentImpl ownerDoc, final String name) {
+    public EntityReferenceImpl(final CoreDocumentImpl ownerDoc, final String newName) {
         super(ownerDoc);
-        this.name = name;
+        name = newName;
         needsSyncChildren(true);
     }
 

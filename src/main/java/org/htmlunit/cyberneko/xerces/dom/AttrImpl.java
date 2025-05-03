@@ -109,7 +109,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     /** Attribute name. */
     protected String name;
 
-    /** Type information */
+    /** Type information. */
     protected String type;
 
     /**
@@ -117,12 +117,13 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
      * Document class.
      *
      * @param ownerDocument the owner document
-     * @param name          the name
+     * @param newName the name of the new AttrImpl
      */
-    protected AttrImpl(final CoreDocumentImpl ownerDocument, final String name) {
+    protected AttrImpl(final CoreDocumentImpl ownerDocument, final String newName) {
         super(ownerDocument);
-        this.name = name;
-        /* False for default attributes. */
+        name = newName;
+
+        // False for default attributes
         isSpecified(true);
         hasStringValue(true);
     }
@@ -131,8 +132,8 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     // Note: This only deals with part of the pb. It is expected to be
     // called after the Attr has been detached for one thing.
     // CoreDocumentImpl does all the work.
-    void rename(final String name) {
-        this.name = name;
+    void rename(final String newName) {
+        name = newName;
     }
 
     // create a real text node as child if we don't have one yet
@@ -151,7 +152,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     /**
-     * NON-DOM set the ownerDocument of this node and its children
+     * NON-DOM set the ownerDocument of this node and its children.
      */
     @Override
     protected void setOwnerDocument(final CoreDocumentImpl doc) {
@@ -164,7 +165,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     /**
-     * DOM Level 3: isId {@inheritDoc}
+     * DOM Level 3: isId {@inheritDoc}.
      */
     @Override
     public boolean isId() {
@@ -772,7 +773,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
     }
 
     /**
-     * NodeList method: Count the immediate children of this node
+     * NodeList method: Count the immediate children of this node.
      *
      * @return int
      */

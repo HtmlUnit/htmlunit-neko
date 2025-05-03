@@ -369,7 +369,7 @@ public class AttributeMap extends NamedNodeMapImpl {
     }
 
     /**
-     * Override parent's method to set the ownerNode correctly
+     * Override parent's method to set the ownerNode correctly.
      *
      * @param srcmap the source map
      */

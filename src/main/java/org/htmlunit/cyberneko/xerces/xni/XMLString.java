@@ -202,7 +202,7 @@ public class XMLString implements CharSequence {
 
     /**
      * Append two characters at once, mainly to make
-     * a codePoint add more efficient
+     * a codePoint add more efficient.
      *
      * @param c1 the first character to append
      * @param c2 the second character to append
@@ -261,7 +261,7 @@ public class XMLString implements CharSequence {
 
     /**
      * Add data from a char array to this buffer with the ability to specify
-     * a range to copy from
+     * a range to copy from.
      *
      * @param src the source char array
      * @param offset the pos to start to copy from
@@ -281,7 +281,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Inserts a character at the beginning
+     * Inserts a character at the beginning.
      *
      * @param c the char to insert at the beginning
      * @return this instance
@@ -304,7 +304,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Returns the current length
+     * Returns the current length.
      *
      * @return the length of the charbuffer data
      */
@@ -314,7 +314,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Tell us how much the capacity grows if needed
+     * Tell us how much the capacity grows if needed.
      *
      * @return the value that determines how much we grow the backing
      *      array in case we have to
@@ -475,7 +475,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Check if we have only whitespaces
+     * Check if we have only whitespaces.
      *
      * @return true if we have only whitespace, false otherwise
      */
@@ -491,7 +491,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Trims the string similar to {@link java.lang.String#trim()}
+     * Trims the string similar to {@link java.lang.String#trim()}.
      *
      * @return a string with removed whitespace at the beginning and the end
      */
@@ -713,7 +713,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Returns a content copy of this buffer
+     * Returns a content copy of this buffer.
      *
      * @return a copy of this buffer, the capacity might differ
      */
@@ -1097,7 +1097,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Find the first occurrence of a char
+     * Find the first occurrence of a char.
      *
      * @param c the char to search
      * @return the position or -1 otherwise
@@ -1113,7 +1113,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Search for the first occurrence of another buffer in this buffer
+     * Search for the first occurrence of another buffer in this buffer.
      *
      * @param s the buffer to be search for
      * @return the first found position or -1 if not found
@@ -1123,7 +1123,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * See if this string contains the other
+     * See if this string contains the other.
      *
      * @param s the XMLString to search and match
      * @return true if s is in this string or false otherwise

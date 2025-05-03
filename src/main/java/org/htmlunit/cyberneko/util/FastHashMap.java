@@ -281,7 +281,8 @@ public class FastHashMap<K, V> implements Serializable {
         return key.hashCode() & m_mask_;
     }
 
-    /** Return the least power of two greater than or equal to the specified value.
+    /**
+     * Return the least power of two greater than or equal to the specified value.
      *
      * <p>Note that this function will return 1 when the argument is 0.
      *
@@ -303,7 +304,9 @@ public class FastHashMap<K, V> implements Serializable {
         return (x | x >> 32) + 1;
     }
 
-    /** Returns the least power of two smaller than or equal to 2<sup>30</sup> and larger than or equal to <code>Math.ceil( expected / f )</code>.
+    /**
+     * Returns the least power of two smaller than or equal to 2<sup>30</sup>
+     * and larger than or equal to <code>Math.ceil( expected / f )</code>.
      *
      * @param expected the expected number of elements in a hash table.
      * @param f the load factor.

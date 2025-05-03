@@ -60,7 +60,7 @@ public final class HTMLNamedEntitiesParser {
     /*
      * Our single instance of the parser, we don't have state, so we are safe
      */
-    private static final HTMLNamedEntitiesParser instance = new HTMLNamedEntitiesParser();
+    private static final HTMLNamedEntitiesParser INSTANCE = new HTMLNamedEntitiesParser();
 
     /*
      * Our starting point of the pseudo tree of entities. The root level is a little special, because of the size,
@@ -121,7 +121,7 @@ public final class HTMLNamedEntitiesParser {
      * @return the singleton instance of the parser, can never be null
      */
     public static HTMLNamedEntitiesParser get() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -221,7 +221,7 @@ public final class HTMLNamedEntitiesParser {
         public boolean endNode_;
 
         /**
-         * Create the empty state
+         * Create the empty state.
          */
         protected State() {
             entityOrFragment_ = "";
@@ -292,7 +292,7 @@ public final class HTMLNamedEntitiesParser {
         }
 
         /**
-         * Add a new entity to the pseudo-tree
+         * Add a new entity to the pseudo-tree.
          *
          * @param entity the entity to look for later
          * @param resolvedValue the value it resolves to
@@ -340,7 +340,7 @@ public final class HTMLNamedEntitiesParser {
 
         /**
          * Lookup the state by iterating over the chars at this state, should not be that
-         * many and due to the small size of the array, should be cache only
+         * many and due to the small size of the array, should be cache only.
          *
          * @param character the char to look up
          * @return the next state or the same in case the character was not found

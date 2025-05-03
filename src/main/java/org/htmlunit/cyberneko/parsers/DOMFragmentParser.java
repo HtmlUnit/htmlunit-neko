@@ -95,7 +95,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     }
 
     /**
-     * Parses a document fragment
+     * Parses a document fragment.
+     *
      * @param systemId systemId
      * @param fragment fragment
      * @throws SAXException in case of sax error
@@ -107,7 +108,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     }
 
     /**
-     * Parses a document fragment
+     * Parses a document fragment.
+     *
      * @param source input source
      * @param fragment fragment
      * @throws SAXException in case of sax error

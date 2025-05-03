@@ -89,7 +89,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     /** Content handler. */
     private ContentHandler fContentHandler;
 
-    /** Namespace context */
+    /** Namespace context. */
     protected NamespaceContext fNamespaceContext;
 
     /** DTD handler. */
@@ -944,7 +944,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     }
 
     /**
-     * Send startPrefixMapping events
+     * Send startPrefixMapping events.
      *
      * @throws SAXException on error
      */
@@ -962,7 +962,7 @@ public abstract class AbstractSAXParser extends AbstractXMLDocumentParser implem
     }
 
     /**
-     * Send endPrefixMapping events
+     * Send endPrefixMapping events.
      *
      * @throws SAXException on error
      */

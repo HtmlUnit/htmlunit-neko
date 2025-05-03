@@ -123,7 +123,9 @@ public class XMLInputSource {
         publicId_ = publicId;
     }
 
-    /** @return the public identifier. */
+    /**
+     * @return the public identifier.
+     */
     public String getPublicId() {
         return publicId_;
     }
@@ -137,7 +139,9 @@ public class XMLInputSource {
         systemId_ = systemId;
     }
 
-    /** @return the system identifier. */
+    /**
+     * @return the system identifier.
+     */
     public String getSystemId() {
         return systemId_;
     }
@@ -151,7 +155,9 @@ public class XMLInputSource {
         baseSystemId_ = baseSystemId;
     }
 
-    /** @return the base system identifier. */
+    /**
+     * @return the base system identifier.
+     */
     public String getBaseSystemId() {
         return baseSystemId_;
     }
@@ -168,7 +174,9 @@ public class XMLInputSource {
         byteStream_ = byteStream;
     }
 
-    /** @return the byte stream. */
+    /**
+     * @return the byte stream.
+     */
     public InputStream getByteStream() {
         return byteStream_;
     }
@@ -187,7 +195,9 @@ public class XMLInputSource {
         charStream_ = charStream;
     }
 
-    /** @return the character stream. */
+    /**
+     * @return the character stream.
+     */
     public Reader getCharacterStream() {
         return charStream_;
     }
@@ -201,7 +211,9 @@ public class XMLInputSource {
         encoding_ = encoding;
     }
 
-    /** @return the encoding of the stream, or null if not known. */
+    /**
+     * @return the encoding of the stream, or null if not known.
+     */
     public String getEncoding() {
         return encoding_;
     }

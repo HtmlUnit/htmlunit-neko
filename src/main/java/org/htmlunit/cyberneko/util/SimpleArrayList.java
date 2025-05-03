@@ -65,7 +65,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
-     * Add an element to the end of the list
+     * Add an element to the end of the list.
      *
      * @param element
      *            the element to add
@@ -116,7 +116,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
-     * Returns the size of this list
+     * Returns the size of this list.
      */
     @Override
     public int size() {
@@ -271,7 +271,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
-     * Removes the data at index and shifts all data right of it
+     * Removes the data at index and shifts all data right of it.
      *
      * @param index the position to clear
      * @return the previous value at position index

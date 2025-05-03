@@ -23,10 +23,14 @@ import org.xml.sax.ext.Locator2;
  */
 public interface XMLLocator extends Locator2 {
 
-    /** @return the literal system identifier. */
+    /**
+     * @return the literal system identifier.
+     */
     String getLiteralSystemId();
 
-    /** @return the base system identifier. */
+    /**
+     * @return the base system identifier.
+     */
     String getBaseSystemId();
 
     /**

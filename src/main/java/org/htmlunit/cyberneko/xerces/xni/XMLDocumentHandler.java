@@ -187,6 +187,8 @@ public interface XMLDocumentHandler {
      */
     void setDocumentSource(XMLDocumentSource source);
 
-    /** @return the document source. */
+    /**
+     * @return the document source.
+     */
     XMLDocumentSource getDocumentSource();
 }

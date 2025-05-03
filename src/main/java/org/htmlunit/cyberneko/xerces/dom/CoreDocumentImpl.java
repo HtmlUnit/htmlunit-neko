@@ -298,7 +298,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Since insertBefore caches the docElement (and, currently, docType),
-     * removeChild has to know how to undo the cache
+     * removeChild has to know how to undo the cache.
      * <p>
      * REVISIT: According to the spec it is not allowed to alter neither the
      * document element nor the document type in any way
@@ -321,7 +321,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Since we cache the docElement (and, currently, docType), replaceChild has to
-     * update the cache
+     * update the cache.
      * <p>
      * REVISIT: According to the spec it is not allowed to alter neither the
      * document element nor the document type in any way
@@ -1232,7 +1232,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * DOM Level 3 WD - Experimental Change the node's ownerDocument, and its
-     * subtree, to this Document
+     * subtree, to this Document.
      *
      * @param source The node to adopt.
      * @see #importNode
@@ -1366,7 +1366,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     }
 
     /**
-     * Remove all identifiers from the ID table
+     * Remove all identifiers from the ID table.
      */
     protected final void clearIdentifiers() {
         if (identifiers_ != null) {
@@ -1551,7 +1551,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
 
     /**
      * Check the string against XML's definition of acceptable names for elements
-     * and attributes and so on using the XMLCharacterProperties utility class
+     * and attributes and so on using the XMLCharacterProperties utility class.
      *
      * @param s            the string to check
      * @param xml11Version if true use xml 11 rules

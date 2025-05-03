@@ -80,7 +80,7 @@ public abstract class AbstractXMLDocumentParser implements XMLDocumentHandler {
     }
 
     /**
-     * reset all components before parsing
+     * Reset all components before parsing.
      */
     protected void reset() throws XNIException {
     }

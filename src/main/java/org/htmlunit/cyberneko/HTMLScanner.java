@@ -166,14 +166,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /**
      * Ignore specified charset found in the &lt;meta equiv='Content-Type'
      * content='text/html;charset=&hellip;'&gt; tag or in the &lt;?xml &hellip;
-     * encoding='&hellip;'&gt; processing instruction
+     * encoding='&hellip;'&gt; processing instruction.
      */
     public static final String IGNORE_SPECIFIED_CHARSET = "http://cyberneko.org/html/features/scanner/ignore-specified-charset";
 
     /** Scan CDATA sections. */
     public static final String CDATA_SECTIONS = "http://cyberneko.org/html/features/scanner/cdata-sections";
 
-    /** '>' closes the cdata section (see html spec) */
+    /** '>' closes the cdata section (see html spec). */
     public static final String CDATA_EARLY_CLOSING = "http://cyberneko.org/html/features/scanner/cdata-early-closing";
 
     /** Override doctype declaration public and system identifiers. */
@@ -182,13 +182,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Insert document type declaration. */
     public static final String INSERT_DOCTYPE = "http://cyberneko.org/html/features/insert-doctype";
 
-    /** Parse &lt;noscript&gt;...&lt;/noscript&gt; content */
+    /** Parse &lt;noscript&gt;...&lt;/noscript&gt; content. */
     public static final String PARSE_NOSCRIPT_CONTENT = "http://cyberneko.org/html/features/parse-noscript-content";
 
-    /** Allows self closing &lt;iframe/&gt; tag */
+    /** Allows self closing &lt;iframe/&gt; tag. */
     public static final String ALLOW_SELFCLOSING_IFRAME = "http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe";
 
-    /** Allows self closing &lt;script/&gt; tag */
+    /** Allows self closing &lt;script/&gt; tag. */
     public static final String ALLOW_SELFCLOSING_SCRIPT = "http://cyberneko.org/html/features/scanner/allow-selfclosing-script";
 
     /** Allows self closing tags e.g. &lt;div/&gt; (XHTML) */
@@ -263,6 +263,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Doctype declaration system identifier. */
     public static final String DOCTYPE_SYSID = "http://cyberneko.org/html/properties/doctype/sysid";
 
+    /** Reader buffer size. */
+    public static final String READER_BUFFER_SIZE = "http://cyberneko.org/html/properties/reader-buffer-size";
+
     /** Recognized properties. */
     private static final String[] RECOGNIZED_PROPERTIES = {
         NAMES_ELEMS,
@@ -271,7 +274,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         ERROR_REPORTER,
         ENCODING_TRANSLATOR,
         DOCTYPE_PUBID,
-        DOCTYPE_SYSID};
+        DOCTYPE_SYSID,
+        READER_BUFFER_SIZE};
 
     /** Recognized properties defaults. */
     private static final Object[] RECOGNIZED_PROPERTIES_DEFAULTS = {
@@ -281,7 +285,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         null,
         StandardEncodingTranslator.INSTANCE,
         HTML_4_01_TRANSITIONAL_PUBID,
-        HTML_4_01_TRANSITIONAL_SYSID};
+        HTML_4_01_TRANSITIONAL_SYSID,
+
+        /* Default buffer size, 10 cache lines minus overhead
+         * A smaller buffer creates less cache misses compared
+         * to 2048 bytes or more.
+         * Xerces org: (10 * 64) - 24
+         */
+        (10 * 64) - 24};
 
     // states
 
@@ -307,14 +318,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Lowercase HTML names. */
     protected static final short NAMES_LOWERCASE = 2;
-
-    // defaults
-
-    /* Default buffer size, 10 cache lines minus overhead
-     * A smaller buffer creates less cache misses compared
-     * to 2048 bytes or more.
-     */
-    protected static final int DEFAULT_BUFFER_SIZE = (10 * 64) - 24;
 
     // debugging
 
@@ -408,6 +411,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Doctype declaration system identifier. */
     protected String fDoctypeSysid;
+
+    private int fReaderBufferSize;
 
     // boundary locator information
 
@@ -528,7 +533,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final String baseSystemId = inputSource.getBaseSystemId();
         final String literalSystemId = inputSource.getSystemId();
         final String systemId = systemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, systemId);
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, encoding,
+                                    publicId, baseSystemId, literalSystemId, systemId);
     }
 
     private Reader getReader(final XMLInputSource inputSource) {
@@ -565,7 +571,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final String baseSystemId = inputSource.getBaseSystemId();
         final String literalSystemId = inputSource.getSystemId();
         final String systemId = systemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, encoding, publicId, baseSystemId, literalSystemId, systemId);
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, encoding,
+                                            publicId, baseSystemId, literalSystemId, systemId);
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
@@ -729,6 +736,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fEncodingTranslator = (EncodingTranslator) manager.getProperty(ENCODING_TRANSLATOR);
         fDoctypePubid = String.valueOf(manager.getProperty(DOCTYPE_PUBID));
         fDoctypeSysid = String.valueOf(manager.getProperty(DOCTYPE_SYSID));
+        fReaderBufferSize = Integer.parseInt(String.valueOf(manager.getProperty(READER_BUFFER_SIZE)));
 
         final QName[] fragmentContextStack = (QName[]) manager.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack != null) {
@@ -873,7 +881,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 reader = new BufferedReader(new InputStreamReader(fByteStream, fJavaEncoding));
             }
         }
-        fCurrentEntity = new CurrentEntity(reader, fIANAEncoding, publicId, baseSystemId, literalSystemId, systemId);
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, fIANAEncoding,
+                                            publicId, baseSystemId, literalSystemId, systemId);
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
@@ -1447,15 +1456,21 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                 // If there is a match
                 // {
-                //      If the character reference was consumed as part of an attribute, and the last character matched is not
-                //      a U+003B SEMICOLON character (;), and the next input character is either a U+003D EQUALS SIGN character (=)
+                //      If the character reference was consumed as part of an attribute,
+                //      and the last character matched is not
+                //      a U+003B SEMICOLON character (;), and the next input character
+                //      is either a U+003D EQUALS SIGN character (=)
                 //      or an ASCII alphanumeric,
-                //      then, for historical reasons, flush code points consumed as a character reference and switch to the return state.
+                //      then, for historical reasons, flush code points consumed as
+                //      a character reference and switch to the return state.
 
                 //      Otherwise:
-                //      1. If the last character matched is not a U+003B SEMICOLON character (;), then this is a missing-semicolon-after-character-reference parse error.
-                //      2. Set the temporary buffer to the empty string. Append one or two characters corresponding to the character reference name
-                //      (as given by the second column of the named character references table) to the temporary buffer.
+                //      1. If the last character matched is not a U+003B SEMICOLON character (;),
+                //         then this is a missing-semicolon-after-character-reference parse error.
+                //      2. Set the temporary buffer to the empty string. Append one or two characters
+                //         corresponding to the character reference name
+                //         (as given by the second column of the named character references table)
+                //         to the temporary buffer.
                 //      3. Flush code points consumed as a character reference. Switch to the return state.
                 // }
                 // Otherwise
@@ -1768,7 +1783,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // buffer
 
         /** Character buffer. */
-        char[] buffer_ = new char[DEFAULT_BUFFER_SIZE];
+        char[] buffer_;
 
         /** Offset into character buffer. */
         int offset_ = 0;
@@ -1779,14 +1794,18 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private boolean endReached_ = false;
 
         // Constructs an entity from the specified stream.
-        CurrentEntity(final Reader stream, final String encoding, final String publicId,
-                final String baseSystemId, final String literalSystemId, final String systemId) {
+        CurrentEntity(final Reader stream, final int readerBufferSize, final String encoding,
+                final String publicId, final String baseSystemId,
+                final String literalSystemId, final String systemId) {
             stream_ = stream;
+            buffer_= new char[readerBufferSize];
             encoding_ = encoding;
+
             this.publicId = publicId;
             this.baseSystemId = baseSystemId;
             this.literalSystemId = literalSystemId;
             this.systemId = systemId;
+
         }
 
         char getCurrentChar() {
@@ -2971,7 +2990,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                     if (fPlainAttributeValues_) {
                         final XMLString plainAttribValue = fStringBufferPlainAttribValue.clear();
-                        scanAttributeQuotedValue(c, fCurrentEntity, attribValue, plainAttribValue, fNormalizeAttributes_);
+                        scanAttributeQuotedValue(c, fCurrentEntity, attribValue,
+                                                    plainAttribValue, fNormalizeAttributes_);
 
                         if (fNormalizeAttributes_ && attribValue.length() > 0) {
                             // trailing whitespace already normalized to single space
@@ -2979,7 +2999,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
 
                         qName_.setValues(null, aname, aname, null);
-                        attributes.addAttribute(qName_, "CDATA", attribValue.toString(), plainAttribValue.toString(), true);
+                        attributes.addAttribute(qName_, "CDATA", attribValue.toString(),
+                                                    plainAttribValue.toString(), true);
                     }
                     else {
                         scanAttributeQuotedValue(c, fCurrentEntity, attribValue, null, fNormalizeAttributes_);
@@ -3378,7 +3399,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     /**
-     * Special scanner used for {@code PLAINTEXT}
+     * Special scanner used for {@code PLAINTEXT}.
      */
     public class PlainTextScanner implements Scanner {
 
@@ -3426,7 +3447,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     /**
-     * Special scanner used for {@code PLAINTEXT}
+     * Special scanner used for {@code PLAINTEXT}.
      */
     public class ScriptScanner implements Scanner {
 

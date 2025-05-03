@@ -244,7 +244,9 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         }
     }
 
-    /** @return the document handler. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return documentHandler_;
@@ -256,33 +258,45 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         errorHandler_ = handler;
     }
 
-    /** @return the error handler. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public XMLErrorHandler getErrorHandler() {
         return errorHandler_;
     }
 
-    /** @return the HTMLElements */
+    /**
+     * {@inheritDoc}
+     */
     public HTMLElements getHtmlElements() {
         return htmlElements_;
     }
 
-    /** @return the list of HTMLComponents */
+    /**
+     * {@inheritDoc}
+     */
     public List<HTMLComponent> getHtmlComponents() {
         return htmlComponents_;
     }
 
-    /** @return the DocumentScanner */
+    /**
+     * {@inheritDoc}
+     */
     public HTMLScanner getDocumentScanner() {
         return documentScanner_;
     }
 
-    /** @return the TagBalancer */
+    /**
+     * {@inheritDoc}
+     */
     public HTMLTagBalancer getTagBalancer() {
         return tagBalancer_;
     }
 
-    /** @return the NamespaceBinder */
+    /**
+     * {@inheritDoc}
+     */
     public NamespaceBinder getNamespaceBinder() {
         return namespaceBinder_;
     }

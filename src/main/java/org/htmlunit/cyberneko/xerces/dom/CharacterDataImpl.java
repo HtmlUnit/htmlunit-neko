@@ -77,7 +77,7 @@ public abstract class CharacterDataImpl extends ChildNode {
 
     /**
      * Convenience wrapper for calling setNodeValueInternal when we are not
-     * performing a replacement operation
+     * performing a replacement operation.
      *
      * @param value the value
      */

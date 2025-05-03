@@ -55,7 +55,7 @@ public class XMLConfigurationException extends XNIException {
 
     /**
      * Constructs a configuration exception with the specified type,
-     * feature/property identifier, and error message
+     * feature/property identifier, and error message.
      *
      * @param type       The type of the exception.
      * @param identifier The feature or property identifier.
@@ -80,7 +80,9 @@ public class XMLConfigurationException extends XNIException {
         return type_;
     }
 
-    /** @return the feature or property identifier. */
+    /**
+     * @return the feature or property identifier.
+     */
     public String getIdentifier() {
         return identifier_;
     }

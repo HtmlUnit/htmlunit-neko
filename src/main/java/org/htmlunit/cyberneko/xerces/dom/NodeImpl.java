@@ -284,13 +284,13 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         return null;
     }
 
-    /** The next child of this node's parent, or null if none */
+    /** The next child of this node's parent, or null if none. */
     @Override
     public Node getNextSibling() {
         return null; // default behavior, overriden in ChildNode
     }
 
-    /** The previous child of this node's parent, or null if none */
+    /** The previous child of this node's parent, or null if none. */
     @Override
     public Node getPreviousSibling() {
         return null; // default behavior, overriden in ChildNode
