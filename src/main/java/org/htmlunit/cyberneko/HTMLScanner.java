@@ -1798,7 +1798,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 final String publicId, final String baseSystemId,
                 final String literalSystemId, final String systemId) {
             stream_ = stream;
-            buffer_= new char[readerBufferSize];
+            buffer_ = new char[readerBufferSize];
             encoding_ = encoding;
 
             this.publicId = publicId;

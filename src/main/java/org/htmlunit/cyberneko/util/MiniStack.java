@@ -64,7 +64,7 @@ public class MiniStack<E> {
     }
 
     /**
-     * Removes and returns the last element
+     * Removes and returns the last element.
      *
      * @return the last element or null of none
      */

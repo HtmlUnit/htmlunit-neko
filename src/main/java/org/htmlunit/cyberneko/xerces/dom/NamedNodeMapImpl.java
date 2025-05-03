@@ -301,7 +301,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     }
 
     /**
-     * NON-DOM set the ownerDocument of this node, and the attributes it contains
+     * NON-DOM set the ownerDocument of this node, and the attributes it contains.
      *
      * @param doc the doc
      */
@@ -422,7 +422,7 @@ public class NamedNodeMapImpl implements NamedNodeMap {
     }
 
     /**
-     * NON-DOM remove all elements from this map
+     * NON-DOM remove all elements from this map.
      */
     public void removeAll() {
         if (nodes != null) {

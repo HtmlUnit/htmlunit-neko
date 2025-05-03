@@ -21,7 +21,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 
 /**
- * <span style="color: red">EXPERIMENTAL: may change in next release</span><br>
+ * <span style="color: red">EXPERIMENTAL: may change in next release.</span><br>
  * {@link XMLDocumentHandler} implementing this interface will get notified of elements discarded
  * by the tag balancer when they:
  * <ul>

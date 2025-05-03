@@ -287,7 +287,7 @@ public class FastHashMapTest {
 
     /**
      * Test serialization, should work out of the box, just to
-     * ensure nobody removes that
+     * ensure nobody removes that.
      *
      * @throws IOException
      * @throws ClassNotFoundException
@@ -302,8 +302,10 @@ public class FastHashMapTest {
             objectOutputStream.close();
         }
 
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
-            final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
+        try (ObjectInputStream objectInputStream =
+                new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
+            final FastHashMap<String, Integer> copy =
+                    (FastHashMap<String, Integer>) objectInputStream.readObject();
 
             assertEquals(src.size(), copy.size());
 
@@ -316,7 +318,7 @@ public class FastHashMapTest {
 
     /**
      * Test serialization, should work out of the box, just to
-     * ensure nobody removes that
+     * ensure nobody removes that.
      *
      * @throws IOException
      * @throws ClassNotFoundException
@@ -335,7 +337,8 @@ public class FastHashMapTest {
             objectOutputStream.writeObject(src);
             objectOutputStream.close();
         }
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
+        try (ObjectInputStream objectInputStream =
+                new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {
             final FastHashMap<String, Integer> copy = (FastHashMap<String, Integer>) objectInputStream.readObject();
             objectInputStream.close();
 
@@ -347,7 +350,7 @@ public class FastHashMapTest {
     }
 
     /**
-     * Try to hit all slots with bad hashcodes
+     * Try to hit all slots with bad hashcodes.
      */
     @Test
     public void hitEachSlot() {

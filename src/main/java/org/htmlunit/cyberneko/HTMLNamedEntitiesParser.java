@@ -234,7 +234,7 @@ public final class HTMLNamedEntitiesParser {
         }
 
         /**
-         * Create us a new state that describes itself nicely
+         * Create us a new state that describes itself nicely.
          */
         protected State(final int depth, final String entityFragment, final String resolvedValue) {
             if (depth == entityFragment.length()) {
