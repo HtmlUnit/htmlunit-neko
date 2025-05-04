@@ -936,13 +936,20 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         return true;
     }
 
-    /** Sets the document handler. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
+        if (handler == null) {
+            throw new NullPointerException("HTMLScanner always requires a non null document handler");
+        }
         fDocumentHandler = handler;
     }
 
-    /** Returns the document handler. */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public XMLDocumentHandler getDocumentHandler() {
         return fDocumentHandler;
@@ -1198,13 +1205,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
         }
 
-        if (fDocumentHandler != null) {
-            if (fOverrideDoctype_) {
-                pubid = fDoctypePubid;
-                sysid = fDoctypeSysid;
-            }
-            fDocumentHandler.doctypeDecl(root, pubid, sysid, locationAugs(fCurrentEntity));
+        if (fOverrideDoctype_) {
+            pubid = fDoctypePubid;
+            sysid = fDoctypeSysid;
         }
+        fDocumentHandler.doctypeDecl(root, pubid, sysid, locationAugs(fCurrentEntity));
     }
 
     // Scans a quoted literal.
@@ -1542,7 +1547,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     private int returnEntityRefString(final XMLString str, final boolean content) {
-        if (content && fDocumentHandler != null && fElementCount >= fElementDepth) {
+        if (content && fElementCount >= fElementDepth) {
             fDocumentHandler.characters(str, locationAugs(fCurrentEntity));
         }
         return -1;
@@ -2084,7 +2089,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1003", null);
                                 }
-                                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                                if (fElementCount >= fElementDepth) {
                                     fStringBuffer.clearAndAppend('<');
                                     fDocumentHandler.characters(fStringBuffer, null);
                                 }
@@ -2182,7 +2187,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             break;
                         }
                         case STATE_START_DOCUMENT: {
-                            if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                            if (fElementCount >= fElementDepth) {
                                 if (DEBUG_CALLBACKS) {
                                     System.out.println("startDocument()");
                                 }
@@ -2191,7 +2196,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                                                 new NamespaceSupport(),
                                                                 locationAugs(fCurrentEntity));
                             }
-                            if (fInsertDoctype_ && fDocumentHandler != null) {
+                            if (fInsertDoctype_) {
                                 String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
                                 root = modifyName(root, fNamesElems);
                                 final String pubid = fDoctypePubid;
@@ -2202,7 +2207,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             break;
                         }
                         case STATE_END_DOCUMENT: {
-                            if (fDocumentHandler != null && fElementCount >= fElementDepth && complete) {
+                            if (fElementCount >= fElementDepth && complete) {
                                 if (DEBUG_CALLBACKS) {
                                     System.out.println("endDocument()");
                                 }
@@ -2277,7 +2282,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                 }
             }
-            if (fScanUntilEndTag.length() > 0 && fDocumentHandler != null) {
+            if (fScanUntilEndTag.length() > 0) {
                 fDocumentHandler.characters(fScanUntilEndTag, locationAugs(fCurrentEntity));
             }
         }
@@ -2307,7 +2312,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         break;
                     }
                 }
-                if (fCurrentEntity.offset_ > offset && fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (fCurrentEntity.offset_ > offset && fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
                         final XMLString xmlString = new XMLString(fCurrentEntity.buffer_, offset,
                                 fCurrentEntity.offset_ - offset);
@@ -2339,7 +2344,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             fStringBuffer.clear();
             if (fCDATASections_) {
-                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
                         System.out.println("startCDATA()");
                     }
@@ -2351,7 +2356,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             final boolean eof = scanCDataContent(fStringBuffer);
 
-            if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (fElementCount >= fElementDepth) {
                 if (fCDATASections_) {
                     if (DEBUG_CALLBACKS) {
                         System.out.println("characters(" + fStringBuffer + ")");
@@ -2422,7 +2427,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
             }
-            if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
                     System.out.println("comment(" + fScanComment + ")");
                 }
@@ -2664,10 +2669,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     else if (c == '>') {
                         // invalid procession instruction, handle as comment
-                        if (fDocumentHandler != null) {
-                            fStringBuffer.append(target);
-                            fDocumentHandler.comment(fStringBuffer, locationAugs(fCurrentEntity));
-                        }
+                        fStringBuffer.append(target);
+                        fDocumentHandler.comment(fStringBuffer, locationAugs(fCurrentEntity));
                         return;
                     }
                     else {
@@ -2678,9 +2681,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                     }
                 }
-                if (fDocumentHandler != null) {
-                    fDocumentHandler.processingInstruction(target, fStringBuffer, locationAugs(fCurrentEntity));
-                }
+                fDocumentHandler.processingInstruction(target, fStringBuffer, locationAugs(fCurrentEntity));
             }
 
             // scan xml/text declaration
@@ -2704,21 +2705,20 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         aindex++;
                     }
                 }
-                if (fDocumentHandler != null) {
-                    final String version = attributes_.getValue("version");
-                    final String encoding = attributes_.getValue("encoding");
-                    final String standalone = attributes_.getValue("standalone");
 
-                    // if the encoding is successfully changed, the stream will be processed again
-                    // with the right encoding and we will come here again but without need to change
-                    // the encoding
-                    final boolean xmlDeclNow = fIgnoreSpecifiedCharset_ || !changeEncoding(encoding);
-                    if (xmlDeclNow) {
-                        fBeginLineNumber = beginLineNumber;
-                        fBeginColumnNumber = beginColumnNumber;
-                        fBeginCharacterOffset = beginCharacterOffset;
-                        fDocumentHandler.xmlDecl(version, encoding, standalone, locationAugs(fCurrentEntity));
-                    }
+                final String version = attributes_.getValue("version");
+                final String encoding = attributes_.getValue("encoding");
+                final String standalone = attributes_.getValue("standalone");
+
+                // if the encoding is successfully changed, the stream will be processed again
+                // with the right encoding and we will come here again but without need to change
+                // the encoding
+                final boolean xmlDeclNow = fIgnoreSpecifiedCharset_ || !changeEncoding(encoding);
+                if (xmlDeclNow) {
+                    fBeginLineNumber = beginLineNumber;
+                    fBeginColumnNumber = beginColumnNumber;
+                    fBeginCharacterOffset = beginCharacterOffset;
+                    fDocumentHandler.xmlDecl(version, encoding, standalone, locationAugs(fCurrentEntity));
                 }
             }
 
@@ -2742,7 +2742,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1009", null);
                 }
-                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (fElementCount >= fElementDepth) {
                     fStringBuffer.clearAndAppend('<');
                     fDocumentHandler.characters(fStringBuffer, null);
                 }
@@ -2809,7 +2809,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
 
-            if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (fElementCount >= fElementDepth) {
                 qName_.setValues(null, ename, ename, null);
                 if (DEBUG_CALLBACKS) {
                     System.out.println("startElement(" + qName_ + ',' + attributes_ + ")");
@@ -3218,7 +3218,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             skipMarkup(false);
             if (ename != null) {
                 ename = modifyName(ename, fNamesElems);
-                if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                if (fElementCount >= fElementDepth) {
                     qName_.setValues(null, ename, ename, null);
                     if (DEBUG_CALLBACKS) {
                         System.out.println("endElement(" + qName_ + ")");
@@ -3310,7 +3310,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
                                             ename = modifyName(ename, fNamesElems);
-                                            if (fDocumentHandler != null && fElementCount >= fElementDepth) {
+                                            if (fElementCount >= fElementDepth) {
                                                 fQName_.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {
                                                     System.out.println("endElement(" + fQName_ + ")");
@@ -3401,7 +3401,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
 
-            if (buffer.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (buffer.length() > 0 && fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + buffer + ")");
                 }
@@ -3446,7 +3446,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
 
-            if (buffer.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (buffer.length() > 0 && fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + buffer + ")");
                 }
@@ -3621,7 +3621,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 fScanScriptContent.trimToContent("<![CDATA[", "]]>");
             }
 
-            if (fScanScriptContent.length() > 0 && fDocumentHandler != null && fElementCount >= fElementDepth) {
+            if (fScanScriptContent.length() > 0 && fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + fScanScriptContent + ")");
                 }
