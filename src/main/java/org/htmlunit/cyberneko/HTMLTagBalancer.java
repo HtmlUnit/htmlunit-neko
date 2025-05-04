@@ -1322,9 +1322,11 @@ public class HTMLTagBalancer
 
     // Modifies the given name based on the specified mode.
     protected static String modifyName(final String name, final short mode) {
-        switch (mode) {
-            case NAMES_UPPERCASE: return name.toUpperCase(Locale.ROOT);
-            case NAMES_LOWERCASE: return name.toLowerCase(Locale.ROOT);
+        if (NAMES_UPPERCASE == mode) {
+            return name.toUpperCase(Locale.ROOT);
+        }
+        if (NAMES_LOWERCASE == mode) {
+            return name.toLowerCase(Locale.ROOT);
         }
         return name;
     }
