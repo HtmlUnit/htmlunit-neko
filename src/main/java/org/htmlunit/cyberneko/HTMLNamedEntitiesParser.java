@@ -86,13 +86,12 @@ public final class HTMLNamedEntitiesParser {
 
             props.forEach((k, v) -> {
                 String key = (String) k;
-                final String value = (String) v;
-
                 // we might have an empty line in it
                 if (key.trim().isEmpty()) {
                     return;
                 }
 
+                final String value = (String) v;
                 rootLevel_.add(key, value);
 
                 key = "&" + key;

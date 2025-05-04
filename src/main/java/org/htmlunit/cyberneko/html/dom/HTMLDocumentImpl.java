@@ -252,15 +252,11 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public synchronized Element getDocumentElement() {
-        Node    html;
-        Node    child;
-        Node    next;
-
         // The document element is the top-level HTML element of the HTML
         // document. Only this element should exist at the top level.
         // If the HTML element is found, all other elements that might
         // precede it are placed inside the HTML element.
-        html = getFirstChild();
+        Node html = getFirstChild();
         while (html != null) {
             if (html instanceof HTMLHtmlElement) {
                 return (HTMLElement) html;
@@ -272,9 +268,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         // entire contents of the document into it in the same order as
         // they appear now.
         html = new HTMLHtmlElementImpl(this, "HTML");
-        child = getFirstChild();
+        Node child = getFirstChild();
         while (child != null) {
-            next = child.getNextSibling();
+            final Node next = child.getNextSibling();
             html.appendChild(child);
             child = next;
         }

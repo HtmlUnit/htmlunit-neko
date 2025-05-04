@@ -1353,8 +1353,8 @@ public class XMLStringTest {
     @ParameterizedTest
     @ValueSource(strings = { "éäöü€", "Ganyu (贛語 / 赣语)", "duże i małe litery", "большой и нижний регистр" })
     public void equalsIgnoreCase_MoreChallengingLocales(final String s) {
-        final String upper = s.toUpperCase();
-        final String lower = s.toLowerCase();
+        final String upper = s.toUpperCase(Locale.ROOT);
+        final String lower = s.toLowerCase(Locale.ROOT);
 
         final XMLString a = new XMLString(s);
         final XMLString l = new XMLString(upper);

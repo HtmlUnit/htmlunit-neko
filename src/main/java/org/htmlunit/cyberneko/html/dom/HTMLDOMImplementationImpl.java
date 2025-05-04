@@ -54,12 +54,11 @@ public final class HTMLDOMImplementationImpl extends DOMImplementationImpl imple
      */
     @Override
     public HTMLDocument createHTMLDocument(final String title) throws DOMException {
-        final HTMLDocument doc;
-
         if (title == null) {
             throw new NullPointerException("HTM014 Argument 'title' is null.");
         }
-        doc = new HTMLDocumentImpl();
+
+        final HTMLDocument doc = new HTMLDocumentImpl();
         doc.setTitle(title);
         return doc;
     }

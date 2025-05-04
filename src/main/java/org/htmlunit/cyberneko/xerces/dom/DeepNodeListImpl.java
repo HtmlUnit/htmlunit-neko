@@ -112,8 +112,6 @@ public class DeepNodeListImpl implements NodeList {
      */
     @Override
     public Node item(final int index) {
-        Node thisNode;
-
         // Tree changed. Do it all from scratch!
         if (rootNode_.changes() != changes_) {
             nodes_ = new ArrayList<>();
@@ -129,6 +127,7 @@ public class DeepNodeListImpl implements NodeList {
         // Not yet seen
 
         // Pick up where we left off (Which may be the beginning)
+        Node thisNode;
         if (currentSize == 0) {
             thisNode = rootNode_;
         }

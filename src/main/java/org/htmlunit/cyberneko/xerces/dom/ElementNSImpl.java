@@ -48,16 +48,12 @@ public class ElementNSImpl extends ElementImpl {
     }
 
     private void setName(final String namespaceURI, final String qname) {
-        final String prefix;
         // DOM Level 3: namespace URI is never empty string.
         this.namespaceURI = namespaceURI;
         if (namespaceURI != null) {
             // convert the empty string to 'null'
             this.namespaceURI = (namespaceURI.length() == 0) ? null : namespaceURI;
         }
-
-        final int colon1;
-        final int colon2;
 
         // NAMESPACE_ERR:
         // 1. if the qualified name is 'null' it is malformed.
@@ -70,8 +66,8 @@ public class ElementNSImpl extends ElementImpl {
             throw new DOMException(DOMException.NAMESPACE_ERR, msg);
         }
 
-        colon1 = qname.indexOf(':');
-        colon2 = qname.lastIndexOf(':');
+        final int colon1 = qname.indexOf(':');
+        final int colon2 = qname.lastIndexOf(':');
 
         ownerDocument.checkNamespaceWF(qname, colon1, colon2);
         if (colon1 < 0) {
@@ -88,7 +84,7 @@ public class ElementNSImpl extends ElementImpl {
             }
         }
         else {
-            prefix = qname.substring(0, colon1);
+            final String prefix = qname.substring(0, colon1);
             localName = qname.substring(colon2 + 1);
 
             // NAMESPACE_ERR:

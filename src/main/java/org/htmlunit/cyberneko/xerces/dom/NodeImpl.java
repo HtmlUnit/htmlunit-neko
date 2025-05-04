@@ -725,10 +725,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
         Node node;
         Node thisAncestor = this;
-        Node otherAncestor = other;
 
         int thisDepth = 0;
-        int otherDepth = 0;
         for (node = this; node != null; node = node.getParentNode()) {
             thisDepth += 1;
             if (node == other) {
@@ -738,6 +736,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
             thisAncestor = node;
         }
 
+        int otherDepth = 0;
+        Node otherAncestor = other;
         for (node = other; node != null; node = node.getParentNode()) {
             otherDepth += 1;
             if (node == this) {

@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLElements;
 import org.htmlunit.cyberneko.HTMLNamedEntitiesParser;
@@ -238,7 +239,7 @@ public class HTMLWriterFilter extends DefaultFilter {
             String httpEquiv = null;
             final int length = attributes.getLength();
             for (int i = 0; i < length; i++) {
-                final String aname = attributes.getQName(i).toLowerCase();
+                final String aname = attributes.getQName(i).toLowerCase(Locale.ROOT);
                 if ("http-equiv".equals(aname)) {
                     httpEquiv = attributes.getValue(i);
                 }
@@ -250,7 +251,7 @@ public class HTMLWriterFilter extends DefaultFilter {
                 String content = null;
                 if (contentIndex != -1) {
                     originalContent = attributes.getValue(contentIndex);
-                    content = originalContent.toLowerCase();
+                    content = originalContent.toLowerCase(Locale.ROOT);
                 }
                 if (content != null) {
                     final int charsetIndex = content.indexOf("charset=");
