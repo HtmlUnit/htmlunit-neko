@@ -3206,9 +3206,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     // ok, we finally have found the matching quote and can end here
                     break;
                 }
-                // moved into IFs to safe on conditions
-                // prevSpace = c == ' ' || c == '\t' || c == '\r' || c == '\n';
-                isStart = isStart && prevSpace;
             }
         }
 
@@ -3271,10 +3268,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         /** Scan. */
         @Override
         public boolean scan(final boolean complete) throws IOException {
-            boolean next;
             do {
                 try {
-                    next = false;
                     switch (fScannerState) {
                         case STATE_CONTENT: {
                             fBeginLineNumber = fCurrentEntity.getLineNumber();
@@ -3361,7 +3356,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return true;
                 }
             }
-            while (next || complete);
+            while (complete);
             return true;
         }
 

@@ -1638,7 +1638,6 @@ public class URI {
     public static boolean isWellFormedIPv6Reference(final String address) {
 
         final int addrLength = address.length();
-        int index = 1;
         final int end = addrLength - 1;
 
         // Check if string is a potential match for IPv6reference.
@@ -1650,12 +1649,12 @@ public class URI {
         final int[] counter = new int[1];
 
         // Scan hex sequence before possible '::' or IPv4 address.
-        index = scanHexSequence(address, index, end, counter);
+        int index = scanHexSequence(address, 1, end, counter);
         if (index == -1) {
             return false;
         }
         // Address must contain 128-bits of information.
-        else if (index == end) {
+        if (index == end) {
             return counter[0] == 8;
         }
 

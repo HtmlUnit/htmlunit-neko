@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  */
 public final class DOMMessageFormatter {
 
-    private static ResourceBundle DomResourceBundle_ =
+    private static final ResourceBundle DomResourceBundle_ =
                         ResourceBundle.getBundle("org.htmlunit.cyberneko.res.DOMMessages");
 
     private DOMMessageFormatter() {
