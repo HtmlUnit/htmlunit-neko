@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  */
 public final class DOMMessageFormatter {
 
-    private static final ResourceBundle DomResourceBundle_ =
+    private static final ResourceBundle DOM_RESOURCE_BUNDLE =
                         ResourceBundle.getBundle("org.htmlunit.cyberneko.res.DOMMessages");
 
     private DOMMessageFormatter() {
@@ -46,14 +46,14 @@ public final class DOMMessageFormatter {
      */
     public static String formatMessage(final String key, final Object[] arguments) throws MissingResourceException {
         try {
-            String msg = key + ": " + DomResourceBundle_.getString(key);
+            String msg = key + ": " + DOM_RESOURCE_BUNDLE.getString(key);
             if (arguments != null) {
                 try {
                     msg = java.text.MessageFormat.format(msg, arguments);
                 }
                 catch (final Exception e) {
-                    msg = DomResourceBundle_.getString("FormatFailed");
-                    msg += " " + DomResourceBundle_.getString(key);
+                    msg = DOM_RESOURCE_BUNDLE.getString("FormatFailed");
+                    msg += " " + DOM_RESOURCE_BUNDLE.getString(key);
                 }
             }
 
@@ -61,7 +61,7 @@ public final class DOMMessageFormatter {
         }
         catch (final MissingResourceException e) {
             final MissingResourceException mre
-                        = new MissingResourceException(key, DomResourceBundle_.getString("BadMessageKey"), key);
+                        = new MissingResourceException(key, DOM_RESOURCE_BUNDLE.getString("BadMessageKey"), key);
             mre.initCause(e);
             throw mre;
         }
