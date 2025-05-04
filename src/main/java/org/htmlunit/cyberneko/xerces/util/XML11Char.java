@@ -34,6 +34,7 @@ import java.util.Arrays;
  * @author Neil Graham, IBM
  * @author Michael Glavassevich, IBM
  */
+@SuppressWarnings("PMD.UseUnderscoresInNumericLiterals")
 public final class XML11Char {
 
     /** Character flags for XML 1.1. */

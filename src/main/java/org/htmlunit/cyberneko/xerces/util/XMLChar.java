@@ -36,6 +36,7 @@ import java.util.Arrays;
  * @author Michael Glavassevich, IBM
  * @author Rahul Srivastava, Sun Microsystems Inc.
  */
+@SuppressWarnings("PMD.UseUnderscoresInNumericLiterals")
 public final class XMLChar {
 
     /** Character flags. */
