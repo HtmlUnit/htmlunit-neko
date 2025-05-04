@@ -261,10 +261,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      * @return the node number
      */
     protected int getNodeNumber() {
-        final int nodeNumber;
-        final CoreDocumentImpl cd = (CoreDocumentImpl) (this.getOwnerDocument());
-        nodeNumber = cd.getNodeNumber(this);
-        return nodeNumber;
+        final CoreDocumentImpl cd = (CoreDocumentImpl) getOwnerDocument();
+        return cd.getNodeNumber(this);
     }
 
     /**
@@ -691,11 +689,11 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
         final Document thisOwnerDoc;
         final Document otherOwnerDoc;
         // get the respective Document owners.
-        if (this.getNodeType() == Node.DOCUMENT_NODE) {
+        if (getNodeType() == Node.DOCUMENT_NODE) {
             thisOwnerDoc = (Document) this;
         }
         else {
-            thisOwnerDoc = this.getOwnerDocument();
+            thisOwnerDoc = getOwnerDocument();
         }
         if (other.getNodeType() == Node.DOCUMENT_NODE) {
             otherOwnerDoc = (Document) other;
@@ -1061,7 +1059,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     @Override
     public boolean isDefaultNamespace(final String namespaceURI) {
         // REVISIT: remove casts when DOM L3 becomes REC.
-        final short type = this.getNodeType();
+        final short type = getNodeType();
         switch (type) {
             case Node.ELEMENT_NODE: {
                 final String namespace = this.getNamespaceURI();
@@ -1074,7 +1072,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                     }
                     return namespaceURI.equals(namespace);
                 }
-                if (this.hasAttributes()) {
+                if (hasAttributes()) {
                     final ElementImpl elem = (ElementImpl) this;
                     final NodeImpl attr = (NodeImpl) elem.getAttributeNodeNS("http://www.w3.org/2000/xmlns/", "xmlns");
                     if (attr != null) {
@@ -1107,7 +1105,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // type is unknown
                 return false;
             case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+                if (ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
                     return ownerNode_.isDefaultNamespace(namespaceURI);
 
                 }
@@ -1142,11 +1140,10 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
             return null;
         }
 
-        final short type = this.getNodeType();
-
+        final short type = getNodeType();
         switch (type) {
             case Node.ELEMENT_NODE: {
-                this.getNamespaceURI(); // to flip out children
+                getNamespaceURI(); // to flip out children
                 return lookupNamespacePrefix(namespaceURI, (ElementImpl) this);
             }
             case Node.DOCUMENT_NODE: {
@@ -1164,7 +1161,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 // type is unknown
                 return null;
             case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+                if (ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
                     return ownerNode_.lookupPrefix(namespaceURI);
 
                 }
@@ -1189,13 +1186,11 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
      */
     @Override
     public String lookupNamespaceURI(final String specifiedPrefix) {
-        final short type = this.getNodeType();
-        switch (type) {
-            case Node.ELEMENT_NODE: {
-
-                String namespace = this.getNamespaceURI();
-                final String prefix = this.getPrefix();
+        switch (getNodeType()) {
+            case Node.ELEMENT_NODE:
+                String namespace = getNamespaceURI();
                 if (namespace != null) {
+                    final String prefix = getPrefix();
                     // REVISIT: is it possible that prefix is empty string?
                     if (specifiedPrefix == null && prefix == null) {
                         // looking for default namespace
@@ -1206,8 +1201,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                         return namespace;
                     }
                 }
-                if (this.hasAttributes()) {
-                    final NamedNodeMap map = this.getAttributes();
+                if (hasAttributes()) {
+                    final NamedNodeMap map = getAttributes();
                     final int length = map.getLength();
                     for (int i = 0; i < length; i++) {
                         final Node attr = map.item(i);
@@ -1221,7 +1216,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                                 return value.length() > 0 ? value : null;
                             }
                             else if ("xmlns".equals(attrPrefix)
-                                    && attr.getLocalName().equals(specifiedPrefix)) {
+                                        && attr.getLocalName().equals(specifiedPrefix)) {
                                 // non default namespace
                                 return value.length() > 0 ? value : null;
                             }
@@ -1235,34 +1230,33 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
                 return null;
 
-            }
-            case Node.DOCUMENT_NODE: {
+            case Node.DOCUMENT_NODE:
                 final Element docElement = ((Document) this).getDocumentElement();
                 if (docElement != null) {
                     return docElement.lookupNamespaceURI(specifiedPrefix);
                 }
                 return null;
-            }
+
             case Node.ENTITY_NODE:
             case Node.NOTATION_NODE:
             case Node.DOCUMENT_FRAGMENT_NODE:
             case Node.DOCUMENT_TYPE_NODE:
                 // type is unknown
                 return null;
-            case Node.ATTRIBUTE_NODE: {
-                if (this.ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
+
+            case Node.ATTRIBUTE_NODE:
+                if (ownerNode_.getNodeType() == Node.ELEMENT_NODE) {
                     return ownerNode_.lookupNamespaceURI(specifiedPrefix);
 
                 }
                 return null;
-            }
-            default: {
-                final NodeImpl ancestor = (NodeImpl) getElementAncestor(this);
-                if (ancestor != null) {
-                    return ancestor.lookupNamespaceURI(specifiedPrefix);
+
+            default:
+                final NodeImpl ancestorDef = (NodeImpl) getElementAncestor(this);
+                if (ancestorDef != null) {
+                    return ancestorDef.lookupNamespaceURI(specifiedPrefix);
                 }
                 return null;
-            }
         }
     }
 
@@ -1279,12 +1273,11 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
     }
 
     String lookupNamespacePrefix(final String namespaceURI, final ElementImpl el) {
-        String namespace = this.getNamespaceURI();
-        // REVISIT: if no prefix is available is it null or empty string, or
-        // could be both?
-        final String prefix = this.getPrefix();
-
+        String namespace = getNamespaceURI();
         if (namespace != null && namespace.equals(namespaceURI)) {
+            // REVISIT: if no prefix is available is it null or empty string, or
+            // could be both?
+            final String prefix = getPrefix();
             if (prefix != null) {
                 final String foundNamespace = el.lookupNamespaceURI(prefix);
                 if (foundNamespace != null && foundNamespace.equals(namespaceURI)) {
@@ -1293,8 +1286,8 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
 
             }
         }
-        if (this.hasAttributes()) {
-            final NamedNodeMap map = this.getAttributes();
+        if (hasAttributes()) {
+            final NamedNodeMap map = getAttributes();
             final int length = map.getLength();
             for (int i = 0; i < length; i++) {
                 final Node attr = map.item(i);

@@ -122,14 +122,14 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
      */
     @Override
     public String getBaseURI() {
-        final DocumentType doctype;
-        final NamedNodeMap entities;
-        final EntityImpl entDef;
-        if (null != (doctype = getOwnerDocument().getDoctype()) && null != (entities = doctype.getEntities())) {
-
-            entDef = (EntityImpl) entities.getNamedItem(getNodeName());
-            if (entDef != null) {
-                return entDef.getBaseURI();
+        final DocumentType doctype = getOwnerDocument().getDoctype();
+        if (null != doctype) {
+            final NamedNodeMap entities = doctype.getEntities();
+            if (null != entities) {
+                final EntityImpl entDef = (EntityImpl) entities.getNamedItem(getNodeName());
+                if (entDef != null) {
+                    return entDef.getBaseURI();
+                }
             }
         }
 
@@ -202,22 +202,22 @@ public class EntityReferenceImpl extends ParentNode implements EntityReference {
         // no need to synchronize again
         needsSyncChildren(false);
 
-        final DocumentType doctype;
-        final NamedNodeMap entities;
-        final EntityImpl entDef;
-        if (null != (doctype = getOwnerDocument().getDoctype()) && null != (entities = doctype.getEntities())) {
+        final DocumentType doctype = getOwnerDocument().getDoctype();
+        if (null != doctype) {
+            final NamedNodeMap entities = doctype.getEntities();
+            if (null != entities) {
+                final EntityImpl entDef = (EntityImpl) entities.getNamedItem(getNodeName());
 
-            entDef = (EntityImpl) entities.getNamedItem(getNodeName());
+                // No Entity by this name, stop here.
+                if (entDef == null) {
+                    return;
+                }
 
-            // No Entity by this name, stop here.
-            if (entDef == null) {
-                return;
-            }
-
-            // If entity's definition exists, clone its kids
-            for (Node defkid = entDef.getFirstChild(); defkid != null; defkid = defkid.getNextSibling()) {
-                final Node newkid = defkid.cloneNode(true);
-                insertBefore(newkid, null);
+                // If entity's definition exists, clone its kids
+                for (Node defkid = entDef.getFirstChild(); defkid != null; defkid = defkid.getNextSibling()) {
+                    final Node newkid = defkid.cloneNode(true);
+                    insertBefore(newkid, null);
+                }
             }
         }
     }
