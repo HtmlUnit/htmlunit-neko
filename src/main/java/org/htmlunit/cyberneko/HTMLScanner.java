@@ -1096,11 +1096,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     // Modifies the given name based on the specified mode.
     protected static String modifyName(final String name, final short mode) {
-        switch (mode) {
-            case NAMES_UPPERCASE:
-                return name.toUpperCase(Locale.ROOT);
-            case NAMES_LOWERCASE:
-                return name.toLowerCase(Locale.ROOT);
+        if (NAMES_UPPERCASE == mode) {
+            return name.toUpperCase(Locale.ROOT);
+        }
+        if (NAMES_LOWERCASE == mode) {
+            return name.toLowerCase(Locale.ROOT);
         }
         return name;
     }
@@ -1554,8 +1554,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     // Returns true if the specified text is present (case-insensitive) and is skipped.
-    protected boolean skip(final String s) throws IOException {
-        final int length = s != null ? s.length() : 0;
+    // for performance reasons you have to provide the specified text in uppercase
+    protected boolean skip(final String expectedInUpperCase) throws IOException {
+        final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
         for (int i = 0; i < length; i++) {
             if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
                 System.arraycopy(fCurrentEntity.buffer_, fCurrentEntity.offset_ - i, fCurrentEntity.buffer_, 0, i);
@@ -1564,10 +1565,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return false;
                 }
             }
-            char c0 = s.charAt(i);
-            char c1 = fCurrentEntity.getNextChar();
-            c0 = String.valueOf(c0).toUpperCase(Locale.ROOT).charAt(0);
-            c1 = String.valueOf(c1).toUpperCase(Locale.ROOT).charAt(0);
+            final char c0 = expectedInUpperCase.charAt(i);
+            final char c1 = Character.toUpperCase(fCurrentEntity.getNextChar());
             if (c0 != c1) {
                 fCurrentEntity.rewind(i + 1);
                 return false;
@@ -2199,9 +2198,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             if (fInsertDoctype_) {
                                 String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
                                 root = modifyName(root, fNamesElems);
-                                final String pubid = fDoctypePubid;
-                                final String sysid = fDoctypeSysid;
-                                fDocumentHandler.doctypeDecl(root, pubid, sysid, synthesizedAugs());
+                                fDocumentHandler.doctypeDecl(root, fDoctypePubid, fDoctypeSysid, synthesizedAugs());
                             }
                             setScannerState(STATE_CONTENT);
                             break;
