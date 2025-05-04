@@ -68,7 +68,7 @@ public class HTMLButtonElementImpl extends HTMLElementImpl implements HTMLButton
         try {
             return Integer.parseInt(getAttribute("tabindex"));
         }
-        catch (final NumberFormatException except) {
+        catch (final NumberFormatException expected) {
             return 0;
         }
     }

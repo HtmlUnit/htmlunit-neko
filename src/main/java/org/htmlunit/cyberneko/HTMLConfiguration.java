@@ -267,35 +267,35 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     }
 
     /**
-     * {@inheritDoc}
+     * @return the configured {@link HTMLElements}
      */
     public HTMLElements getHtmlElements() {
         return htmlElements_;
     }
 
     /**
-     * {@inheritDoc}
+     * @return the configured {@link List} of {@link HTMLComponent}'s
      */
     public List<HTMLComponent> getHtmlComponents() {
         return htmlComponents_;
     }
 
     /**
-     * {@inheritDoc}
+     * @return the configured {@link HTMLScanner}
      */
     public HTMLScanner getDocumentScanner() {
         return documentScanner_;
     }
 
     /**
-     * {@inheritDoc}
+     * @return the configured {@link HTMLTagBalancer}
      */
     public HTMLTagBalancer getTagBalancer() {
         return tagBalancer_;
     }
 
     /**
-     * {@inheritDoc}
+     * @return the configured {@link NamespaceBinder}
      */
     public NamespaceBinder getNamespaceBinder() {
         return namespaceBinder_;

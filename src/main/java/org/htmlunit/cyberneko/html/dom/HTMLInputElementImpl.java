@@ -172,7 +172,7 @@ public class HTMLInputElementImpl extends HTMLElementImpl implements HTMLInputEl
         try {
             return Integer.parseInt(getAttribute("tabindex"));
         }
-        catch (final NumberFormatException except) {
+        catch (final NumberFormatException expected) {
             return 0;
         }
     }

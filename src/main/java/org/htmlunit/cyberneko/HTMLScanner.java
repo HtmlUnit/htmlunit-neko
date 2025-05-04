@@ -1005,7 +1005,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             .replaceAll(" ", "%20");
 
                 }
-                catch (final SecurityException se) {
+                catch (final SecurityException ignored) {
                     dir = "";
                 }
                 if (!dir.endsWith("/")) {
@@ -1024,7 +1024,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 // deal with blanks in paths; maybe we have to do better uri encoding here
                                 .replaceAll(" ", "%20");
                     }
-                    catch (final SecurityException se) {
+                    catch (final SecurityException ignored) {
                         dir = "";
                     }
                     if (baseSystemId.indexOf(':') != -1) {
@@ -3656,7 +3656,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 try {
                     return canRoundtrip(encoding2, encoding1);
                 }
-                catch (final UnsupportedOperationException e1) {
+                catch (final UnsupportedOperationException ignored) {
                     // encoding2 only supports decode too. Time to give up.
                     return false;
                 }

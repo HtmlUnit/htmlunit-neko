@@ -150,7 +150,7 @@ public class HTMLObjectElementImpl extends HTMLElementImpl implements HTMLObject
         try {
             return Integer.parseInt(getAttribute("tabindex"));
         }
-        catch (final NumberFormatException except) {
+        catch (final NumberFormatException expected) {
             return 0;
         }
     }

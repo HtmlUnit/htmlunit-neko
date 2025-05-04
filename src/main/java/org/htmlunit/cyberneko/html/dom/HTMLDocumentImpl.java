@@ -128,9 +128,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      *
      * @see #createElement
      */
-    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLLower_
+    private static final FastHashMap<String, ElementTypesHTMLHolder> ELEMENT_TYPES_HTML_LOWER
                             = new FastHashMap<>(11, 0.5f);
-    private static final FastHashMap<String, ElementTypesHTMLHolder> elementTypesHTMLUpper_
+    private static final FastHashMap<String, ElementTypesHTMLHolder> ELEMENT_TYPES_HTML_UPPER
                             = new FastHashMap<>(11, 0.5f);
 
     /**
@@ -139,7 +139,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
      *
      * @see #createElement
      */
-    private static final Class<?>[]    elemClassSigHTML_ = new Class[] {HTMLDocumentImpl.class, String.class};
+    private static final Class<?>[] ELEMENT_CLASS_CTOR_SIGNATURE = new Class[] {HTMLDocumentImpl.class, String.class};
 
     static {
         final Map<String, Class<? extends HTMLElementImpl>> tMap = new HashMap<>();
@@ -220,11 +220,11 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
             final String lKey = key.toLowerCase(Locale.ENGLISH);
 
             try {
-                final Constructor<? extends HTMLElementImpl> ctr = value.getConstructor(elemClassSigHTML_);
+                final Constructor<? extends HTMLElementImpl> ctr = value.getConstructor(ELEMENT_CLASS_CTOR_SIGNATURE);
 
                 final ElementTypesHTMLHolder holder = new ElementTypesHTMLHolder(uKey, ctr);
-                elementTypesHTMLUpper_.put(uKey, holder);
-                elementTypesHTMLLower_.put(lKey, holder);
+                ELEMENT_TYPES_HTML_UPPER.put(uKey, holder);
+                ELEMENT_TYPES_HTML_LOWER.put(lKey, holder);
             }
             catch (NoSuchMethodException | SecurityException ex) {
                 throw new IllegalStateException(
@@ -526,12 +526,12 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         // First, make sure tag name is all upper case, next get the associated
         // element class. If no class is found, generate a generic HTML element.
         // Do so also if an unexpected exception occurs.
-        ElementTypesHTMLHolder htmlHolder = elementTypesHTMLLower_.get(tagName);
+        ElementTypesHTMLHolder htmlHolder = ELEMENT_TYPES_HTML_LOWER.get(tagName);
         if (htmlHolder == null) {
             // try uppercase but only if needed and don't use this string to create
             // the element but the stored one to keep the memory usage low when the
             // tree is kept in memory longer
-            htmlHolder = elementTypesHTMLUpper_.get(tagName.toUpperCase(Locale.ENGLISH));
+            htmlHolder = ELEMENT_TYPES_HTML_UPPER.get(tagName.toUpperCase(Locale.ENGLISH));
         }
 
         if (htmlHolder != null) {
@@ -690,8 +690,8 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
         }
 
         // check whether a class change is required
-        final Constructor<?> newCtr = elementTypesHTMLUpper_.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr_;
-        final Constructor<?> oldCtr = elementTypesHTMLUpper_.get(el.getTagName().toUpperCase(Locale.ENGLISH)).ctr_;
+        final Constructor<?> newCtr = ELEMENT_TYPES_HTML_UPPER.get(newNodeName.toUpperCase(Locale.ENGLISH)).ctr_;
+        final Constructor<?> oldCtr = ELEMENT_TYPES_HTML_UPPER.get(el.getTagName().toUpperCase(Locale.ENGLISH)).ctr_;
         return newCtr == oldCtr;
     }
 
