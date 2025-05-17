@@ -318,8 +318,7 @@ public class DocumentTypeImpl extends ParentNode implements DocumentType {
         // Assign the doctype a number relative to the implementation.
         if (doctypeNumber_ == 0) {
 
-            final CoreDOMImplementationImpl cd =
-                        (CoreDOMImplementationImpl) CoreDOMImplementationImpl.getDOMImplementation();
+            final DOMImplementationImpl cd = (DOMImplementationImpl) DOMImplementationImpl.getDOMImplementation();
             doctypeNumber_ = cd.assignDocTypeNumber();
         }
         return doctypeNumber_;
