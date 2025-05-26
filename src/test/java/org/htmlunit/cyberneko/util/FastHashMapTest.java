@@ -289,8 +289,8 @@ public class FastHashMapTest {
      * Test serialization, should work out of the box, just to
      * ensure nobody removes that.
      *
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException in case of error
+     * @throws ClassNotFoundException in case of error
      */
     @Test
     public void serializable() throws IOException, ClassNotFoundException {

@@ -36,7 +36,7 @@ public abstract class CharacterDataImpl extends ChildNode {
     protected String data_;
 
     /** Empty child nodes. */
-    private static final NodeList singletonNodeList = new NodeList() {
+    private static final NodeList EMPTY_NODE_LIST_SINGLETON = new NodeList() {
         @Override
         public Node item(final int index) {
             return null;
@@ -64,7 +64,7 @@ public abstract class CharacterDataImpl extends ChildNode {
      */
     @Override
     public NodeList getChildNodes() {
-        return singletonNodeList;
+        return EMPTY_NODE_LIST_SINGLETON;
     }
 
     /*

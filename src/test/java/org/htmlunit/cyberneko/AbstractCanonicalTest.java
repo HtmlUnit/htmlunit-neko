@@ -67,7 +67,6 @@ public abstract class AbstractCanonicalTest {
                         = new File("target/data/output");
 
     protected static Stream<Arguments> testFiles() {
-        // System.out.println(canonicalDir.getAbsolutePath());
         OUTOUT_DIR.mkdirs();
 
         final List<File> dataFiles = new ArrayList<>();
