@@ -2975,7 +2975,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (fReportErrors_ && !skippedSpaces) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
             }
-            aname = modifyName(aname, fNamesAttrs);
             skipSpaces();
             c = fCurrentEntity.read();
             if (c == -1) {
@@ -2984,6 +2983,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 throw new EOFException();
             }
+            aname = modifyName(aname, fNamesAttrs);
             if (c == '/') {
                 qName_.setValues(null, aname, aname, null);
                 attributes.addAttribute(qName_, "CDATA", "", true);
@@ -3214,8 +3214,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             skipMarkup(false);
             if (ename != null) {
-                ename = modifyName(ename, fNamesElems);
                 if (fElementCount >= fElementDepth) {
+                    ename = modifyName(ename, fNamesElems);
                     qName_.setValues(null, ename, ename, null);
                     if (DEBUG_CALLBACKS) {
                         System.out.println("endElement(" + qName_ + ")");
@@ -3306,8 +3306,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
-                                            ename = modifyName(ename, fNamesElems);
                                             if (fElementCount >= fElementDepth) {
+                                                ename = modifyName(ename, fNamesElems);
                                                 fQName_.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {
                                                     System.out.println("endElement(" + fQName_ + ")");
@@ -3320,8 +3320,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                         }
                                         fCurrentEntity.rewind();
                                     }
-                                    charBuffer_.clear().append("</");
-                                    charBuffer_.append(ename);
+                                    charBuffer_.clear().append("</").append(ename);
                                 }
                                 else {
                                     charBuffer_.clear().append("</");
