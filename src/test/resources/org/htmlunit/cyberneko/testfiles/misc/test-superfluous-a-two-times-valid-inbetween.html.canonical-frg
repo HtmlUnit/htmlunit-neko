@@ -1,0 +1,23 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+(a
+Ahref link1.html
+"Link1
+)a
+"\n\n
+(a
+Ahref link2.html
+"Link2
+)a
+"\n
+(a
+Ahref link3.html
+"Link3
+)a
+"\n\n\n\n
+)body
+)html

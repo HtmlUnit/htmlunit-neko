@@ -1,0 +1,31 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="a",rawname="a") [(3,1,14) (3,22,35) false]
+characters 'Link1'[(3,22,35) (3,27,40) false]
+endElement (localpart="a",rawname="a") [(3,27,40) (3,31,44) false]
+characters '
+'[(3,31,44) (4,1,45) false]
+characters '
+'[(4,5,49) (5,1,50) false]
+startElement (localpart="a",rawname="a") [(5,1,50) (5,22,71) false]
+characters 'Link2'[(5,22,71) (5,27,76) false]
+endElement (localpart="a",rawname="a") [(5,27,76) (5,31,80) false]
+characters '
+'[(5,31,80) (6,1,81) false]
+startElement (localpart="a",rawname="a") [(6,1,81) (6,22,102) false]
+characters 'Link3'[(6,22,102) (6,27,107) false]
+endElement (localpart="a",rawname="a") [(6,27,107) (6,31,111) false]
+characters '
+'[(6,31,111) (7,1,112) false]
+characters '
+'[(7,5,116) (8,1,117) false]
+characters '
+'[(9,8,132) (10,1,133) false]
+endElement (localpart="body",rawname="body") [(8,1,117) (8,8,124) false]
+endElement (localpart="html",rawname="html") [(9,1,125) (9,8,132) false]
+endDocument [(10,1,133) (10,1,133) false]

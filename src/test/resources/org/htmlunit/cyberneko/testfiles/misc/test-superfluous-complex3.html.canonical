@@ -1,0 +1,60 @@
+!html
+p-//W3C//DTD XHTML 1.0 Transitional//EN
+shttp://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+(html
+A{http://www.w3.org/2000/xmlns/}xmlns http://www.w3.org/1999/xhtml
+(head
+"\n
+(title
+"Test
+)title
+"\n
+(meta
+Acontent text/html; charset=utf-8
+Ahttp-equiv content-type
+)meta
+"\n
+)head
+(body
+"\n
+(table
+"\n\t
+(TBODY
+(tr
+"\n\t\t
+(td
+"\n\t\t\t
+(a
+Ahref 
+)a
+"\n\t\t\t\n\t\t\t
+(a
+Ahref 
+)a
+"\n\t\t\t\n\t\t\t
+(a
+Ahref 
+)a
+"\n\t\t\t\n\t\t\t
+(a
+Ahref 
+)a
+"\n\t\t
+)td
+"\n\t\t
+(td
+"\n\t\t\t
+(a
+Ahref view_download
+"Wird gesucht!
+)a
+"\n\t\t
+)td
+"\n\t
+)tr
+"\n
+)TBODY
+)table
+"\n
+)body
+)html
