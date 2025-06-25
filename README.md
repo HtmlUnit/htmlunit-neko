@@ -156,7 +156,11 @@ The latest builds are available from our
 [![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
 
 
-If you use maven please add:
+Read on if you want to try the latest bleeding-edge snapshot.
+
+### Maven
+
+Add the dependency to your `pom.xml`:
 
     <dependency>
         <groupId>org.htmlunit</groupId>
@@ -180,6 +184,23 @@ You have to add the Central Portal snapshot repository to your pom `repositories
             </snapshots>
         </repository>
     </repositories>
+
+### Gradle
+
+Add the snapshot repository and dependency to your `build.gradle`:
+
+```groovy
+repositories {
+  maven { url "https://central.sonatype.com/repository/maven-snapshots" }
+  // ...
+}
+// ...
+dependencies {
+    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.14.0-SNAPSHOT'
+  // ...
+}
+```
+
 
 ## Porting from 3.x to 4.x
 
