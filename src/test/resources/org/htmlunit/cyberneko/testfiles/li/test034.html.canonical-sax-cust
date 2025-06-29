@@ -1,0 +1,15 @@
+(HTML
+(head
+)head
+(BODY
+(li
+"Item1
+(ul
+x)li
+(li
+"Item2
+)li
+)ul
+)li
+)BODY
+)HTML

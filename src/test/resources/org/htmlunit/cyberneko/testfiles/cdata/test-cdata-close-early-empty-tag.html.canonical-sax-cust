@@ -1,0 +1,15 @@
+(HTML
+(head
+)head
+(BODY
+(p
+"P1
+#[CDATA[<div
+x)div
+"]]>\n
+)p
+(p
+"P2
+)p
+)BODY
+)HTML

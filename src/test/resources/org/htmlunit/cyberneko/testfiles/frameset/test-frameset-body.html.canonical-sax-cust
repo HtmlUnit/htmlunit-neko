@@ -1,0 +1,10 @@
+(HTML
+(head
+)head
+(body
+x(frameset
+x(frame
+Aid frame1
+x)frameset
+)body
+)HTML

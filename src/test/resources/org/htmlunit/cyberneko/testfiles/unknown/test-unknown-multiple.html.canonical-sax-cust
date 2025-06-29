@@ -1,0 +1,13 @@
+(HTML
+(head
+)head
+(BODY
+(toto
+(div
+x)foo
+)div
+(span
+)span
+)toto
+)BODY
+)HTML

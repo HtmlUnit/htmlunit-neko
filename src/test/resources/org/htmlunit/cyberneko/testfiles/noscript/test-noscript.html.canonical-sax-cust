@@ -1,0 +1,15 @@
+(HTML
+(HEAD
+(noscript
+)noscript
+)HEAD
+(BODY
+(div
+"hello 
+(span
+"world
+)span
+x)noscript
+)div
+)BODY
+)HTML

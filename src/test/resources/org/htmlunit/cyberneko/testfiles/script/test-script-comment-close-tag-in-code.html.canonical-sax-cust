@@ -1,0 +1,14 @@
+(HTML
+(head
+)head
+(body
+(script
+"<!-- console.log('
+)script
+"'); console.log('
+x)script
+"'); -->
+x)script
+"abc
+)body
+)HTML

@@ -1,0 +1,11 @@
+(HTML
+(head
+(script
+"outer<script>inner
+)script
+)head
+(body
+"OUTER
+x)script
+)body
+)HTML
