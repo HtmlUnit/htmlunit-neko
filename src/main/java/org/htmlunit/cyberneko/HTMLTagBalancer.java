@@ -646,8 +646,8 @@ public class HTMLTagBalancer
             }
             else if (elementCode != HTMLElements.OPTION
                         && elementCode != HTMLElements.OPTGROUP
-                        && elementCode != HTMLElements.SCRIPT
-                        && elementCode != HTMLElements.HR) {
+                        && elementCode != HTMLElements.HR
+                        && !element.isScriptSupporting()) {
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
@@ -1097,7 +1097,8 @@ public class HTMLTagBalancer
             }
             else if (elementCode != HTMLElements.OPTION
                         && elementCode != HTMLElements.OPTGROUP
-                        && elementCode != HTMLElements.SCRIPT) {
+                        && elementCode != HTMLElements.HR
+                        && !elem.isScriptSupporting()) {
                 notifyDiscardedEndElement(element, augs);
                 return;
             }

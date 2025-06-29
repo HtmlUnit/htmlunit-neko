@@ -464,7 +464,8 @@ public class HTMLElements {
             // SAMP - - (%inline;)*
             new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
             // SCRIPT - - %Script;
-            new Element(SCRIPT, "SCRIPT", Element.SPECIAL, new short[]{HEAD, BODY}, null),
+            new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING,
+                            new short[]{HEAD, BODY}, null),
 
             new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{SELECT, P}),
             // SELECT - - (OPTGROUP|OPTION)+
@@ -505,7 +506,8 @@ public class HTMLElements {
             // TD - O (%flow;)*
             new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
 
-            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER, new short[]{HEAD, BODY}, null),
+            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER | Element.SCRIPT_SUPPORTING,
+                            new short[]{HEAD, BODY}, null),
             // TEXTAREA - - (#PCDATA)
             new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
             // TFOOT - O (TR)+
@@ -687,6 +689,12 @@ public class HTMLElements {
         /** Special element. */
         public static final int SPECIAL = 0x10;
 
+        /**
+         * Script-supporting elements.
+         * <a href='https://html.spec.whatwg.org/#script-supporting-elements'>Script-supporting elements</a>
+         */
+        public static final int SCRIPT_SUPPORTING = 0x20;
+
         /** The element code. */
         public final short code;
 
@@ -810,6 +818,13 @@ public class HTMLElements {
          */
         public final boolean isSpecial() {
             return (flags & SPECIAL) != 0;
+        }
+
+        /**
+         * @return true if this element is a script-supporting one.
+         */
+        public final boolean isScriptSupporting() {
+            return (flags & SCRIPT_SUPPORTING) != 0;
         }
 
         /**
