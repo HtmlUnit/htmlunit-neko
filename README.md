@@ -18,7 +18,7 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.13.0 / June 03, 2025
+### Latest release Version 4.14.0 / July 30, 2025
 
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
@@ -35,7 +35,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.13.0</version>
+    <version>4.14.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.13.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.14.0'
 ```
 
 ## HowTo use
@@ -165,12 +165,11 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.14.0-SNAPSHOT</version>
+        <version>4.15.0-SNAPSHOT</version>
     </dependency>
 
-You have to add the Central Portal snapshot repository to your pom `repositories` section also:
+You have to add the sonatype-central snapshot repository to your pom `repositories` section also:
 
-    <!-- for snapshots of our dependencies -->
     <repositories>
         <repository>
             <name>Central Portal Snapshots</name>
@@ -196,7 +195,7 @@ repositories {
 }
 // ...
 dependencies {
-    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.14.0-SNAPSHOT'
+    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.15.0-SNAPSHOT'
   // ...
 }
 ```
@@ -286,9 +285,8 @@ This part is intended for committer who are packaging a release.
    mvn -up clean deploy
 ```
 
-* Go to [Sonatype staging repositories](https://s01.oss.sonatype.org/index.html#stagingRepositories) and process the deploy
-  - select the repository and close it - wait until the close is processed
-  - release the package and wait until it is processed
+* Go to [Maven Central Portal](https://central.sonatype.com/) and process the deploy
+  - publish the package and wait until it is processed
 
 * Create the version on Github
     * login to Github and open project https://github.com/HtmlUnit/htmlunit-neko
