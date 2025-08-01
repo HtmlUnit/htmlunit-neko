@@ -66,7 +66,7 @@ public class DOMImplementationImpl implements DOMImplementation {
      */
     @Override
     public boolean hasFeature(String feature, final String version) {
-        final boolean anyVersion = version == null || version.length() == 0;
+        final boolean anyVersion = version == null || version.isEmpty();
 
         if (feature.startsWith("+")) {
             feature = feature.substring(1);

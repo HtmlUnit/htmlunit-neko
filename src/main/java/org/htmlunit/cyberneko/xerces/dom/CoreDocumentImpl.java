@@ -903,7 +903,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
      */
     @Override
     public String getBaseURI() {
-        if (fDocumentURI_ != null && fDocumentURI_.length() != 0) { // attribute value is always empty string
+        if (fDocumentURI_ != null && !fDocumentURI_.isEmpty()) { // attribute value is always empty string
             try {
                 return new URI(fDocumentURI_).toString();
             }

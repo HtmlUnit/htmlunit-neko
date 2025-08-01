@@ -627,7 +627,7 @@ public abstract class ParentNode extends ChildNode {
             removeChild(child);
         }
         // create a Text node to hold the given content
-        if (textContent != null && textContent.length() != 0) {
+        if (textContent != null && !textContent.isEmpty()) {
             appendChild(ownerDocument().createTextNode(textContent));
         }
     }

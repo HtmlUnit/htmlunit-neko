@@ -154,7 +154,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             final Attr attrNode = getXMLBaseAttribute();
             if (attrNode != null) {
                 final String uri = attrNode.getNodeValue();
-                if (uri.length() != 0) { // attribute value is always empty string
+                if (!uri.isEmpty()) { // attribute value is always empty string
                     try {
                         final URI absUri = new URI(uri, true);
                         // If the URI is already absolute return it; otherwise it's relative and we need

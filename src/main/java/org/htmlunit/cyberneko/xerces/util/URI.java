@@ -333,7 +333,7 @@ public class URI {
     public URI(final String scheme, final String userinfo, final String host, final int port,
                 final String path, final String queryString,
             final String fragment) throws MalformedURIException {
-        if (scheme == null || scheme.trim().length() == 0) {
+        if (scheme == null || scheme.trim().isEmpty()) {
             throw new MalformedURIException("Scheme is required!");
         }
 
@@ -620,7 +620,7 @@ public class URI {
         // string or a fragment (e.g. "?y" or "#s") -
         // see <http://www.ics.uci.edu/~fielding/url/test1.html> which
         // identified this as a bug in the RFC
-        if (path_.length() == 0 && scheme_ == null && host_ == null && regAuthority_ == null) {
+        if (path_.isEmpty() && scheme_ == null && host_ == null && regAuthority_ == null) {
             scheme_ = base.getScheme();
             userinfo_ = base.getUserinfo();
             host_ = base.getHost();
@@ -660,7 +660,7 @@ public class URI {
         }
 
         // check for absolute path - RFC 2396 5.2 #5
-        if (path_.length() > 0 && path_.startsWith("/")) {
+        if (!path_.isEmpty() && path_.startsWith("/")) {
             return;
         }
 
@@ -670,13 +670,13 @@ public class URI {
         final String basePath = base.getPath();
 
         // 6a - get all but the last segment of the base URI path
-        if (basePath != null && basePath.length() > 0) {
+        if (basePath != null && !basePath.isEmpty()) {
             final int lastSlash = basePath.lastIndexOf('/');
             if (lastSlash != -1) {
                 path = basePath.substring(0, lastSlash + 1);
             }
         }
-        else if (path_.length() > 0) {
+        else if (!path_.isEmpty()) {
             path = "/";
         }
 
@@ -749,7 +749,7 @@ public class URI {
         }
 
         final String scheme = uriSpec.substring(0, index);
-        if (scheme.length() == 0) {
+        if (scheme.isEmpty()) {
             throw new MalformedURIException("No scheme found in URI.");
         }
         setScheme(scheme);
@@ -809,7 +809,7 @@ public class URI {
 
         final String host = uriSpec.substring(start, index);
         int port = -1;
-        if (host.length() > 0) {
+        if (!host.isEmpty()) {
             // port
             if (hasPort) {
                 index++;
@@ -818,7 +818,7 @@ public class URI {
                     index++;
                 }
                 final String portStr = uriSpec.substring(start, index);
-                if (portStr.length() > 0) {
+                if (!portStr.isEmpty()) {
                     // REVISIT: Remove this code.
                     // REVISIT: Remove this code.
                     // Store port value as string instead of integer.
@@ -1258,7 +1258,7 @@ public class URI {
      *                                  hostname.
      */
     public void setHost(final String host) throws MalformedURIException {
-        if (host == null || host.length() == 0) {
+        if (host == null || host.isEmpty()) {
             if (host != null) {
                 regAuthority_ = null;
             }
@@ -1454,7 +1454,7 @@ public class URI {
      * @return true if the scheme is conformant, false otherwise
      */
     private static boolean isConformantSchemeName(final String scheme) {
-        if (scheme == null || scheme.trim().length() == 0 || !isAlpha(scheme.charAt(0))) {
+        if (scheme == null || scheme.trim().isEmpty() || !isAlpha(scheme.charAt(0))) {
             return false;
         }
 

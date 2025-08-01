@@ -357,7 +357,7 @@ class HTMLCollectionImpl implements HTMLCollection {
                 case ANCHOR:
                 // Anchor is an <A> element with a 'name' attribute. Otherwise, it's
                 // just a link.
-                    match = (elem instanceof HTMLAnchorElement) && elem.getAttribute("name").length() > 0;
+                    match = (elem instanceof HTMLAnchorElement) && !elem.getAttribute("name").isEmpty();
                     break;
                 case FORM:
                     // Any <FORM> element.
@@ -383,7 +383,7 @@ class HTMLCollectionImpl implements HTMLCollection {
                 case LINK:
                     // Any <A> element, and any <AREA> elements with an 'href' attribute.
                     match = (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
-                                && elem.getAttribute("href").length() > 0;
+                                && !elem.getAttribute("href").isEmpty();
                     break;
                 case AREA:
                     // Any <AREA> element.

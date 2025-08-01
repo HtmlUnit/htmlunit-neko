@@ -338,7 +338,7 @@ public class NamespaceBinder extends DefaultFilter {
                     // declare prefix, this is moved up to avoid
                     // another if
                     // final String prefix = alocal != rawname ? alocal : "";
-                    String uri = avalue.length() > 0 ? avalue : null;
+                    String uri = !avalue.isEmpty() ? avalue : null;
                     if (overrideNamespaces_ && prefix.equals(element.getPrefix())
                             && htmlConfiguration_.getHtmlElements().getElement(element.getLocalpart(), null) != null) {
                         uri = namespacesURI_;
@@ -381,7 +381,7 @@ public class NamespaceBinder extends DefaultFilter {
                 final String prefix = !"xmlns".equals(qName.getRawname())
                        ? (qName.getPrefix() != null ? qName.getPrefix() : "") : "xmlns";
                 // PATCH: Joseph Walton, if we have a non-empty prefix
-                if (prefix.length() > 0) {
+                if (!prefix.isEmpty()) {
                     qName.setUri("xml".equals(prefix) ? XML_URI : namespaceContext_.getURI(prefix));
                 }
                 // NOTE: You would think the xmlns namespace would be handled

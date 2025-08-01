@@ -52,7 +52,7 @@ public class ElementNSImpl extends ElementImpl {
         this.namespaceURI = namespaceURI;
         if (namespaceURI != null) {
             // convert the empty string to 'null'
-            this.namespaceURI = (namespaceURI.length() == 0) ? null : namespaceURI;
+            this.namespaceURI = (namespaceURI.isEmpty()) ? null : namespaceURI;
         }
 
         // NAMESPACE_ERR:
@@ -182,7 +182,7 @@ public class ElementNSImpl extends ElementImpl {
     @Override
     public void setPrefix(final String prefix) throws DOMException {
         if (ownerDocument.errorChecking) {
-            if (prefix != null && prefix.length() != 0) {
+            if (prefix != null && !prefix.isEmpty()) {
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument.isXML11Version())) {
                     final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
                     throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
@@ -201,7 +201,7 @@ public class ElementNSImpl extends ElementImpl {
 
         }
         // update node name with new qualifiedName
-        if (prefix != null && prefix.length() != 0) {
+        if (prefix != null && !prefix.isEmpty()) {
             name_ = prefix + ":" + localName;
         }
         else {

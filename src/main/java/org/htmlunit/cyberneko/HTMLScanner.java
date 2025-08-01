@@ -985,7 +985,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public static String systemId(final String systemId, final String baseSystemId) {
 
         // check for bad parameters id
-        if (systemId == null || systemId.length() == 0) {
+        if (systemId == null || systemId.isEmpty()) {
             return systemId;
         }
         // if id already expanded, return
@@ -1003,7 +1003,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         URI base;
         URI uri = null;
         try {
-            if (baseSystemId == null || baseSystemId.length() == 0 || baseSystemId.equals(systemId)) {
+            if (baseSystemId == null || baseSystemId.isEmpty() || baseSystemId.equals(systemId)) {
 
                 String dir;
                 try {
@@ -2692,7 +2692,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 while (scanAttribute(attributes_, fSingleBoolean)) {
                     // if we haven't scanned a value, remove the entry as values have special
                     // signification
-                    if (attributes_.getValue(aindex).length() == 0) {
+                    if (attributes_.getValue(aindex).isEmpty()) {
                         attributes_.removeAttributeAt(aindex);
                     }
                     else {

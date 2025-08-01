@@ -1066,7 +1066,7 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                 final String prefix = this.getPrefix();
 
                 // REVISIT: is it possible that prefix is empty string?
-                if (prefix == null || prefix.length() == 0) {
+                if (prefix == null || prefix.isEmpty()) {
                     if (namespaceURI == null) {
                         return namespace == null;
                     }
@@ -1213,12 +1213,12 @@ public abstract class NodeImpl implements Node, NodeList, EventTarget, Cloneable
                             // at this point we are dealing with DOM Level 2 nodes only
                             if (specifiedPrefix == null && "xmlns".equals(attr.getNodeName())) {
                                 // default namespace
-                                return value.length() > 0 ? value : null;
+                                return !value.isEmpty() ? value : null;
                             }
                             else if ("xmlns".equals(attrPrefix)
                                         && attr.getLocalName().equals(specifiedPrefix)) {
                                 // non default namespace
-                                return value.length() > 0 ? value : null;
+                                return !value.isEmpty() ? value : null;
                             }
                         }
                     }

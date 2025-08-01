@@ -155,7 +155,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
 
     @Override
     public Attr getAttributeNodeNS(final String namespaceURI, final String localName) {
-        if (namespaceURI != null && namespaceURI.length() > 0) {
+        if (namespaceURI != null && !namespaceURI.isEmpty()) {
             return super.getAttributeNodeNS(namespaceURI, localName);
         }
         return super.getAttributeNode(localName.toLowerCase(Locale.ENGLISH));
@@ -168,7 +168,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
 
     @Override
     public String getAttributeNS(final String namespaceURI, final String localName) {
-        if (namespaceURI != null && namespaceURI.length() > 0) {
+        if (namespaceURI != null && !namespaceURI.isEmpty()) {
             return super.getAttributeNS(namespaceURI, localName);
         }
         return super.getAttribute(localName.toLowerCase(Locale.ENGLISH));
@@ -181,7 +181,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
 
     @Override
     public final NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
-        if (namespaceURI != null && namespaceURI.length() > 0) {
+        if (namespaceURI != null && !namespaceURI.isEmpty()) {
             return super.getElementsByTagNameNS(namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
         return super.getElementsByTagName(localName.toUpperCase(Locale.ENGLISH));
@@ -198,7 +198,7 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
     String capitalize(final String value) {
         // Convert string to characters. Convert the first one to upper case,
         // the other characters to lower case, and return the converted string.
-        if (value.length() > 0) {
+        if (!value.isEmpty()) {
             final char[] chars = value.toCharArray();
             chars[0] = Character.toUpperCase(chars[0]);
             for (int i = 1; i < chars.length; ++i) {

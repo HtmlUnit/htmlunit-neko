@@ -53,7 +53,7 @@ public class AttrNSImpl extends AttrImpl {
         // DOM Level 3: namespace URI is never empty string.
         namespaceURI_ = namespaceURI;
         if (namespaceURI != null) {
-            namespaceURI_ = (namespaceURI.length() == 0) ? null : namespaceURI;
+            namespaceURI_ = (namespaceURI.isEmpty()) ? null : namespaceURI;
 
         }
         final int colon1 = qname.indexOf(':');
@@ -161,7 +161,7 @@ public class AttrNSImpl extends AttrImpl {
     @Override
     public void setPrefix(final String prefix) throws DOMException {
         if (ownerDocument().errorChecking) {
-            if (prefix != null && prefix.length() != 0) {
+            if (prefix != null && !prefix.isEmpty()) {
 
                 if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
                     final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
@@ -192,7 +192,7 @@ public class AttrNSImpl extends AttrImpl {
         }
 
         // update node name with new qualifiedName
-        if (prefix != null && prefix.length() != 0) {
+        if (prefix != null && !prefix.isEmpty()) {
             name = prefix + ":" + localName_;
         }
         else {

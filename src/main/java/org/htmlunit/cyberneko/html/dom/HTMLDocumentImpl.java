@@ -474,7 +474,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     @Override
     public final NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
-        if (namespaceURI != null && namespaceURI.length() > 0) {
+        if (namespaceURI != null && !namespaceURI.isEmpty()) {
             return super.getElementsByTagNameNS(namespaceURI, localName.toUpperCase(Locale.ENGLISH));
         }
         return super.getElementsByTagName(localName.toUpperCase(Locale.ENGLISH));
@@ -502,7 +502,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
     @Override
     public Element createElementNS(final String namespaceURI, final String qualifiedname) {
         if (namespaceURI == null
-                || namespaceURI.length() == 0) {
+                || namespaceURI.isEmpty()) {
             return createElement(qualifiedname);
         }
 

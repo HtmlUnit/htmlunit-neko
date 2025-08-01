@@ -93,7 +93,7 @@ public class DeepNodeListImpl implements NodeList {
      */
     public DeepNodeListImpl(final NodeImpl rootNode, final String nsName, final String tagName) {
         this(rootNode, tagName);
-        nsName_ = (nsName != null && nsName.length() != 0) ? nsName : null;
+        nsName_ = (nsName != null && !nsName.isEmpty()) ? nsName : null;
         enableNS_ = true;
     }
 

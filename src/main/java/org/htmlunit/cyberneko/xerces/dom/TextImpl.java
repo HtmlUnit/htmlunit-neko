@@ -82,7 +82,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
     @Override
     public String getWholeText() {
         final StringBuilder builder = new StringBuilder();
-        if (data_ != null && data_.length() != 0) {
+        if (data_ != null && !data_.isEmpty()) {
             builder.append(data_);
         }
 
@@ -224,7 +224,7 @@ public class TextImpl extends CharacterDataImpl implements Text {
     public Text replaceWholeText(final String content) throws DOMException {
         // if the content is null
         final Node parent = this.getParentNode();
-        if (content == null || content.length() == 0) {
+        if (content == null || content.isEmpty()) {
             // remove current node
             if (parent != null) { // check if node in the tree
                 parent.removeChild(this);
