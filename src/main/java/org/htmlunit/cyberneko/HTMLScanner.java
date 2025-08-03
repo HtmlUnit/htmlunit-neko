@@ -2682,8 +2682,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.offset_--;
-                                fCurrentEntity.characterOffset_--;
+                                fCurrentEntity.rewind();
                             }
                         }
                         fCurrentEntity.incLine();
@@ -2718,8 +2717,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.offset_--;
-                                fCurrentEntity.characterOffset_--;
+                                fCurrentEntity.rewind();
                             }
                         }
                         fCurrentEntity.incLine();
