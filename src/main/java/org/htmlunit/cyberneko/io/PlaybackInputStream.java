@@ -51,9 +51,6 @@ public final class PlaybackInputStream extends InputStream {
     /** Buffer cleared. */
     private boolean cleared_ = false;
 
-    /** Encoding detected. */
-    private boolean detected_ = false;
-
     // buffer info
 
     /** Byte buffer. */
@@ -81,11 +78,6 @@ public final class PlaybackInputStream extends InputStream {
 
     // Detect encoding.
     public void detectEncoding(final String[] encodings) throws IOException {
-        if (detected_) {
-            throw new IOException("Should not detect encoding twice.");
-        }
-        detected_ = true;
-
         final int b1 = read();
         if (b1 == -1) {
             return;

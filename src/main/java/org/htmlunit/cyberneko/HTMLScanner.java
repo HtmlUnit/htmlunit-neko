@@ -853,14 +853,17 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 final URL url = new URL(systemId);
                 inputStream = url.openStream();
             }
-            fByteStream = new PlaybackInputStream(inputStream);
+
             final String[] encodings = new String[2];
-            if (encoding == null) {
-                fByteStream.detectEncoding(encodings);
-            }
-            else {
+            fByteStream = new PlaybackInputStream(inputStream);
+            // always call detectEncoding() to skip bom in case
+            // we got an input stream with bom and an encoding
+            fByteStream.detectEncoding(encodings);
+            if (encoding != null) {
                 encodings[0] = encoding;
+                encodings[1] = null;
             }
+
             if (encodings[0] == null) {
                 encodings[0] = fDefaultIANAEncoding;
                 if (fReportErrors_) {
@@ -2789,12 +2792,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                     }
                 }
-                else if (fByteStream != null && "BODY".equalsIgnoreCase(ename)) {
-                    fByteStream.clear();
-                    fByteStream = null;
-                }
-                else {
-                    if (fByteStream != null) {
+                else if (fByteStream != null) {
+                    if ("BODY".equalsIgnoreCase(ename)) {
+                        fByteStream.clear();
+                        fByteStream = null;
+                    }
+                    else {
                         final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
                         if (element.parent != null
                                 && element.parent.length > 0
