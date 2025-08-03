@@ -1168,7 +1168,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         String pubid = null;
         String sysid = null;
 
-        if (skipSpaces()) {
+        if (fCurrentEntity.skipSpaces()) {
             root = scanName(true);
             if (root == null) {
                 if (fReportErrors_) {
@@ -1178,16 +1178,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             else {
                 root = modifyName(root, fNamesElems);
             }
-            if (skipSpaces()) {
-                if (skip("PUBLIC")) {
-                    skipSpaces();
+            if (fCurrentEntity.skipSpaces()) {
+                if (fCurrentEntity.skip("PUBLIC")) {
+                    fCurrentEntity.skipSpaces();
                     pubid = scanLiteral();
-                    if (skipSpaces()) {
+                    if (fCurrentEntity.skipSpaces()) {
                         sysid = scanLiteral();
                     }
                 }
-                else if (skip("SYSTEM")) {
-                    skipSpaces();
+                else if (fCurrentEntity.skip("SYSTEM")) {
+                    fCurrentEntity.skipSpaces();
                     sysid = scanLiteral();
                 }
             }
@@ -1202,7 +1202,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 break;
             }
             if (c == '[') {
-                skipMarkup(true);
+                fCurrentEntity.skipMarkup(true);
                 break;
             }
         }
@@ -1229,7 +1229,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fCurrentEntity.rewind();
                     // NOTE: This collapses newlines to a single space.
                     // [Q] Is this the right thing to do here? -Ac
-                    skipNewlines();
+                    fCurrentEntity.skipNewlines();
                     str.append(' ');
                 }
                 else if (c == '<') {
@@ -1553,173 +1553,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             fDocumentHandler.characters(str, locationAugs(fCurrentEntity));
         }
         return -1;
-    }
-
-    // Returns true if the specified text is present (case-insensitive) and is skipped.
-    // for performance reasons you have to provide the specified text in uppercase
-    protected boolean skip(final String expectedInUpperCase) throws IOException {
-        final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
-        for (int i = 0; i < length; i++) {
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                System.arraycopy(fCurrentEntity.buffer_, fCurrentEntity.offset_ - i, fCurrentEntity.buffer_, 0, i);
-                if (fCurrentEntity.load(i) == -1) {
-                    fCurrentEntity.offset_ = 0;
-                    return false;
-                }
-            }
-            final char c0 = expectedInUpperCase.charAt(i);
-            final char c1 = Character.toUpperCase(fCurrentEntity.getNextChar());
-            if (c0 != c1) {
-                fCurrentEntity.rewind(i + 1);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Skips markup.
-    protected boolean skipMarkup(final boolean balance) throws IOException {
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(skipMarkup: ");
-        }
-        int depth = 1;
-        boolean slashgt = false;
-        OUTER: while (true) {
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                if (fCurrentEntity.load(0) == -1) {
-                    break OUTER;
-                }
-            }
-            while (fCurrentEntity.hasNext()) {
-                char c = fCurrentEntity.getNextChar();
-                if (balance && c == '<') {
-                    depth++;
-                }
-                else if (c == '>') {
-                    depth--;
-                    if (depth == 0) {
-                        break OUTER;
-                    }
-                }
-                else if (c == '/') {
-                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                        if (fCurrentEntity.load(0) == -1) {
-                            break OUTER;
-                        }
-                    }
-                    c = fCurrentEntity.getNextChar();
-                    if (c == '>') {
-                        slashgt = true;
-                        depth--;
-                        if (depth == 0) {
-                            break OUTER;
-                        }
-                    }
-                    else {
-                        fCurrentEntity.rewind();
-                    }
-                }
-                else if (c == '\r' || c == '\n') {
-                    fCurrentEntity.rewind();
-                    skipNewlines();
-                }
-            }
-        }
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")skipMarkup: ", " -> " + slashgt);
-        }
-        return slashgt;
-    }
-
-    // Skips whitespace.
-    protected boolean skipSpaces() throws IOException {
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(skipSpaces: ");
-        }
-        boolean spaces = false;
-        while (true) {
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                if (fCurrentEntity.load(0) == -1) {
-                    break;
-                }
-            }
-
-            final char c = fCurrentEntity.getNextChar();
-            // compare against the usual suspects first before going
-            // the expensive route
-            // unix \n might dominate
-            if (c == '\n' || c == '\r') {
-                spaces = true;
-                fCurrentEntity.rewind();
-                skipNewlines();
-            }
-            else if (Character.isWhitespace(c)) {
-                spaces = true;
-            }
-            else {
-                fCurrentEntity.rewind();
-                break;
-            }
-        }
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")skipSpaces: ", " -> " + spaces);
-        }
-        return spaces;
-    }
-
-    // Skips newlines and returns the number of newlines skipped.
-    protected int skipNewlines() throws IOException {
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(skipNewlines: ");
-        }
-
-        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(0) == -1) {
-                if (DEBUG_BUFFER) {
-                    fCurrentEntity.debugBufferIfNeeded(")skipNewlines: ");
-                }
-                return 0;
-            }
-        }
-        char c = fCurrentEntity.getCurrentChar();
-        int newlines = 0;
-        if (c == '\n' || c == '\r') {
-            do {
-                c = fCurrentEntity.getNextChar();
-                if (c == '\n') {
-                    newlines++;
-                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                        fCurrentEntity.offset_ = newlines;
-                        if (fCurrentEntity.load(newlines) == -1) {
-                            break;
-                        }
-                    }
-                }
-                else if (c == '\r') {
-                    newlines++;
-                    if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                        fCurrentEntity.offset_ = newlines;
-                        if (fCurrentEntity.load(newlines) == -1) {
-                            break;
-                        }
-                    }
-                    if (fCurrentEntity.getCurrentChar() == '\n') {
-                        fCurrentEntity.offset_++;
-                        fCurrentEntity.characterOffset_++;
-                    }
-                }
-                else {
-                    fCurrentEntity.rewind();
-                    break;
-                }
-            }
-            while (fCurrentEntity.offset_ < fCurrentEntity.length_ - 1);
-            fCurrentEntity.incLine(newlines);
-        }
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
-        }
-        return newlines;
     }
 
     // infoset utility methods
@@ -2085,6 +1918,173 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         int getCharacterOffset() {
             return characterOffset_;
         }
+
+        // Returns true if the specified text is present (case-insensitive) and is skipped.
+        // for performance reasons you have to provide the specified text in uppercase
+        protected boolean skip(final String expectedInUpperCase) throws IOException {
+            final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
+            for (int i = 0; i < length; i++) {
+                if (offset_ == length_) {
+                    System.arraycopy(buffer_, offset_ - i, buffer_, 0, i);
+                    if (load(i) == -1) {
+                        offset_ = 0;
+                        return false;
+                    }
+                }
+                final char c0 = expectedInUpperCase.charAt(i);
+                final char c1 = Character.toUpperCase(getNextChar());
+                if (c0 != c1) {
+                    rewind(i + 1);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Skips markup.
+        protected boolean skipMarkup(final boolean balance) throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(skipMarkup: ");
+            }
+            int depth = 1;
+            boolean slashgt = false;
+            OUTER: while (true) {
+                if (offset_ == length_) {
+                    if (load(0) == -1) {
+                        break OUTER;
+                    }
+                }
+                while (hasNext()) {
+                    char c = getNextChar();
+                    if (balance && c == '<') {
+                        depth++;
+                    }
+                    else if (c == '>') {
+                        depth--;
+                        if (depth == 0) {
+                            break OUTER;
+                        }
+                    }
+                    else if (c == '/') {
+                        if (offset_ == length_) {
+                            if (load(0) == -1) {
+                                break OUTER;
+                            }
+                        }
+                        c = getNextChar();
+                        if (c == '>') {
+                            slashgt = true;
+                            depth--;
+                            if (depth == 0) {
+                                break OUTER;
+                            }
+                        }
+                        else {
+                            rewind();
+                        }
+                    }
+                    else if (c == '\r' || c == '\n') {
+                        rewind();
+                        skipNewlines();
+                    }
+                }
+            }
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")skipMarkup: ", " -> " + slashgt);
+            }
+            return slashgt;
+        }
+
+        // Skips whitespace.
+        protected boolean skipSpaces() throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(skipSpaces: ");
+            }
+            boolean spaces = false;
+            while (true) {
+                if (offset_ == length_) {
+                    if (load(0) == -1) {
+                        break;
+                    }
+                }
+
+                final char c = getNextChar();
+                // compare against the usual suspects first before going
+                // the expensive route
+                // unix \n might dominate
+                if (c == '\n' || c == '\r') {
+                    spaces = true;
+                    rewind();
+                    skipNewlines();
+                }
+                else if (Character.isWhitespace(c)) {
+                    spaces = true;
+                }
+                else {
+                    rewind();
+                    break;
+                }
+            }
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")skipSpaces: ", " -> " + spaces);
+            }
+            return spaces;
+        }
+
+        // Skips newlines and returns the number of newlines skipped.
+        protected int skipNewlines() throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(skipNewlines: ");
+            }
+
+            if (offset_ == length_) {
+                if (load(0) == -1) {
+                    if (DEBUG_BUFFER) {
+                        debugBufferIfNeeded(")skipNewlines: ");
+                    }
+                    return 0;
+                }
+            }
+            char c = getCurrentChar();
+            int newlines = 0;
+            if (c == '\n' || c == '\r') {
+                do {
+                    c = getNextChar();
+                    if (c == '\n') {
+                        newlines++;
+                        if (offset_ == length_) {
+                            offset_ = newlines;
+                            if (load(newlines) == -1) {
+                                break;
+                            }
+                        }
+                    }
+                    else if (c == '\r') {
+                        newlines++;
+                        if (offset_ == length_) {
+                            offset_ = newlines;
+                            if (load(newlines) == -1) {
+                                break;
+                            }
+                        }
+                        if (getCurrentChar() == '\n') {
+                            offset_++;
+                            characterOffset_++;
+                        }
+                    }
+                    else {
+                        rewind();
+                        break;
+                    }
+                }
+                while (offset_ < length_ - 1);
+                incLine(newlines);
+            }
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
+            }
+            return newlines;
+        }
     }
 
     /*
@@ -2157,34 +2157,34 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                             if (c == '!') {
                                 // process some strange self closing comments first
-                                if (skip("--->")
-                                        || skip("-->")
-                                        || skip("->")
-                                        || skip(">")) {
+                                if (fCurrentEntity.skip("--->")
+                                        || fCurrentEntity.skip("-->")
+                                        || fCurrentEntity.skip("->")
+                                        || fCurrentEntity.skip(">")) {
                                     // using EMPTY here is slightly dangerous but a review showed
                                     // that all implementations of comment() only read the data
                                     // never do anything else with it, so safe for now
                                     fDocumentHandler.comment(XMLString.EMPTY, locationAugs(fCurrentEntity));
                                 }
-                                else if (skip("-!>")) {
+                                else if (fCurrentEntity.skip("-!>")) {
                                     final XMLString str = new XMLString();
                                     str.append("-!");
                                     fDocumentHandler.comment(str, locationAugs(fCurrentEntity));
                                 }
-                                else if (skip("--")) {
+                                else if (fCurrentEntity.skip("--")) {
                                     scanComment();
                                 }
-                                else if (skip("[CDATA[")) {
+                                else if (fCurrentEntity.skip("[CDATA[")) {
                                     scanCDATA();
                                 }
-                                else if (skip("DOCTYPE")) {
+                                else if (fCurrentEntity.skip("DOCTYPE")) {
                                     scanDoctype();
                                 }
                                 else {
                                     if (fReportErrors_) {
                                         fErrorReporter.reportError("HTML1002", null);
                                     }
-                                    skipMarkup(true);
+                                    fCurrentEntity.skipMarkup(true);
                                 }
                             }
                             else if (c == '?') {
@@ -2327,7 +2327,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 if (c == '\n' || c == '\r') {
                     fCurrentEntity.rewind();
-                    final int newlines = skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         fScanUntilEndTag.append('\n');
                     }
@@ -2352,7 +2352,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             fStringBuffer.clear();
             while (true) {
-                final int newlines = skipNewlines();
+                final int newlines = fCurrentEntity.skipNewlines();
                 if (newlines == 0 && fCurrentEntity.offset_ == fCurrentEntity.length_) {
                     if (DEBUG_BUFFER) {
                         fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
@@ -2467,7 +2467,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     else if (c == '\n' || c == '\r') {
                         fCurrentEntity.rewind();
-                        final int newlines = skipNewlines();
+                        final int newlines = fCurrentEntity.skipNewlines();
                         for (int i = 0; i < newlines; i++) {
                             fScanComment.append('\n');
                         }
@@ -2572,7 +2572,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 else if (c == '\n' || c == '\r') {
                     fCurrentEntity.rewind();
-                    final int newlines = skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -2639,7 +2639,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 else if (c == '\n' || c == '\r') {
                     fCurrentEntity.rewind();
-                    final int newlines = skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         xmlString.append('\n');
                     }
@@ -2975,7 +2975,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @throws IOException in case of io problems
          */
         protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty) throws IOException {
-            final boolean skippedSpaces = skipSpaces();
+            final boolean skippedSpaces = fCurrentEntity.skipSpaces();
 
             fBeginLineNumber = fCurrentEntity.getLineNumber();
             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
@@ -3023,10 +3023,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
 
                 // check if the next char is '=' and handle this according to the spec
-                skipSpaces();
+                fCurrentEntity.skipSpaces();
                 if (!fCurrentEntity.hasNext() || '=' != fCurrentEntity.getNextChar()) {
                     fCurrentEntity.rewind();
-                    empty[0] = skipMarkup(false);
+                    empty[0] = fCurrentEntity.skipMarkup(false);
                     return false;
                 }
                 aname = '=' + scanName(false);
@@ -3034,7 +3034,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (fReportErrors_ && !skippedSpaces) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
             }
-            skipSpaces();
+            fCurrentEntity.skipSpaces();
             c = fCurrentEntity.read();
             if (c == -1) {
                 if (fReportErrors_) {
@@ -3054,7 +3054,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 return false;
             }
             if (c == '=') {
-                skipSpaces();
+                fCurrentEntity.skipSpaces();
                 c = fCurrentEntity.read();
 
                 // check for the good case first, before we deal with error handling
@@ -3271,7 +3271,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (fReportErrors_ && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
-            skipMarkup(false);
+            fCurrentEntity.skipMarkup(false);
             if (ename != null) {
                 if (fElementCount >= fElementDepth) {
                     ename = modifyName(ename, fNamesElems);
@@ -3361,7 +3361,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             if (c == '/') {
                                 String ename = scanName(true);
                                 if (ename != null) {
-                                    skipSpaces();
+                                    fCurrentEntity.skipSpaces();
 
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
@@ -3433,7 +3433,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 // Patch supplied by Jonathan Baxter
                 else if (c == '\r' || c == '\n') {
                     fCurrentEntity.rewind();
-                    final int newlines = skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -3650,7 +3650,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                     if (c == '\r' || c == '\n') {
                         fCurrentEntity.rewind();
-                        final int newlines = skipNewlines();
+                        final int newlines = fCurrentEntity.skipNewlines();
                         for (int i = 0; i < newlines; i++) {
                             fScanScriptContent.append('\n');
                         }
