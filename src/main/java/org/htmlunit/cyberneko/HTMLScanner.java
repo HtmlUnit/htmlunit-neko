@@ -3517,7 +3517,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     /**
-     * Special scanner used for {@code PLAINTEXT}.
+     * Special scanner used for {@code script}'s.
      */
     public class ScriptScanner implements Scanner {
 
