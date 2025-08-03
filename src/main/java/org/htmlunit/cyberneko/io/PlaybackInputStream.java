@@ -54,7 +54,7 @@ public final class PlaybackInputStream extends InputStream {
     // buffer info
 
     /** Byte buffer. */
-    private byte[] byteBuffer_ = new byte[1024];
+    private byte[] byteBuffer_ = new byte[8192];
 
     /** Offset into byte buffer during playback. */
     private int byteOffset_ = 0;
