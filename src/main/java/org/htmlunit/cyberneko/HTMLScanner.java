@@ -1791,10 +1791,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final char[] buff = new char[len];
             int nbRead;
             for (nbRead = 0; nbRead < len; ++nbRead) {
-                // read() should not clear the buffer
+                // load(length_) should not clear the buffer
                 if (offset_ == length_) {
-                    final int count = load(length_);
-                    if (count == -1) {
+                    if (load(length_) == -1) {
                         break;
                     }
                 }
