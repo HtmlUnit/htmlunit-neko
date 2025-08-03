@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+import org.htmlunit.cyberneko.util.TestUtils;
 import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -239,9 +240,9 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
                         .append('}');
                 }
 
-                out_.append(normalize(atts.getQName(i)))
+                out_.append(TestUtils.normalize(atts.getQName(i)))
                     .append(' ')
-                    .append(normalize(atts.getValue(i)))
+                    .append(TestUtils.normalize(atts.getValue(i)))
                     .append('\n');
             }
         }
@@ -258,12 +259,12 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
         @Override
         public void characters(final char[] ch, final int start, final int length) throws SAXException {
             if (lastWasChar_) {
-                out_.append(normalize(String.copyValueOf(ch, start, length)));
+                out_.append(TestUtils.normalize(String.copyValueOf(ch, start, length)));
                 return;
             }
 
             out_.append('"')
-                .append(normalize(String.copyValueOf(ch, start, length)));
+                .append(TestUtils.normalize(String.copyValueOf(ch, start, length)));
             lastWasChar_ = true;
         }
 
@@ -282,7 +283,7 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
                 .append(target);
             if (data != null && data.length() > 0) {
                 out_.append(' ')
-                    .append(normalize(data));
+                    .append(TestUtils.normalize(data));
             }
             out_.append('\n');
         }
@@ -301,19 +302,19 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
             out_.append('!');
             boolean addNl = true;
             if (name != null && name.length() > 0) {
-                out_.append(normalize(name));
+                out_.append(TestUtils.normalize(name));
                 out_.append('\n');
                 addNl = false;
             }
             if (publicId != null && publicId.length() > 0) {
                 out_.append('p');
-                out_.append(normalize(publicId));
+                out_.append(TestUtils.normalize(publicId));
                 out_.append('\n');
                 addNl = false;
             }
             if (systemId != null && systemId.length() > 0) {
                 out_.append('s');
-                out_.append(normalize(systemId));
+                out_.append(TestUtils.normalize(systemId));
                 out_.append('\n');
                 addNl = false;
             }
@@ -362,7 +363,7 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
             characters();
 
             out_.append('#')
-                .append(normalize(String.copyValueOf(ch, start, length)))
+                .append(TestUtils.normalize(String.copyValueOf(ch, start, length)))
                 .append('\n');
         }
 
@@ -397,9 +398,9 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
                         .append('}');
                 }
 
-                out_.append(normalize(attrs.getQName(i)))
+                out_.append(TestUtils.normalize(attrs.getQName(i)))
                     .append(' ')
-                    .append(normalize(attrs.getValue(i)))
+                    .append(TestUtils.normalize(attrs.getValue(i)))
                     .append('\n');
             }
 

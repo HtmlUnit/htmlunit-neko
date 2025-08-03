@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.htmlunit.cyberneko.util.TestUtils;
 import org.htmlunit.cyberneko.xerces.dom.CDATASectionImpl;
 import org.htmlunit.cyberneko.xerces.dom.CommentImpl;
 import org.htmlunit.cyberneko.xerces.dom.CoreDocumentImpl;
@@ -94,7 +95,7 @@ public abstract class AbstractCanonicalTest {
     protected static void write(final StringBuilder out, final CoreDocumentImpl doc) {
         if (doc.getXmlEncoding() != null && doc.getXmlEncoding().length() > 0) {
             out.append("xencoding ");
-            out.append(normalize(doc.getXmlEncoding()));
+            out.append(TestUtils.normalize(doc.getXmlEncoding()));
             out.append('\n');
         }
 
@@ -204,20 +205,20 @@ public abstract class AbstractCanonicalTest {
 
     private static void write(final StringBuilder out, final TextImpl text) {
         out.append('"')
-            .append(normalize(text.getTextContent()))
+            .append(TestUtils.normalize(text.getTextContent()))
             .append('\n');
     }
 
     private static void write(final StringBuilder out, final CDATASectionImpl cdata) {
         out.append("((CDATA\n\"")
-            .append(normalize(cdata.getTextContent()))
+            .append(TestUtils.normalize(cdata.getTextContent()))
             .append('\n')
             .append("))CDATA\n");
     }
 
     private static void write(final StringBuilder out, final CommentImpl comment) {
         out.append('#')
-            .append(normalize(comment.getNodeValue()))
+            .append(TestUtils.normalize(comment.getNodeValue()))
             .append('\n');
     }
 
@@ -226,7 +227,7 @@ public abstract class AbstractCanonicalTest {
             .append(processingInstruction.getTarget());
         if (processingInstruction.getData() != null && processingInstruction.getData().length() > 0) {
             out.append(' ')
-                .append(normalize(processingInstruction.getData()));
+                .append(TestUtils.normalize(processingInstruction.getData()));
         }
         out.append('\n');
     }
@@ -235,19 +236,19 @@ public abstract class AbstractCanonicalTest {
         out.append('!');
         boolean addNl = true;
         if (documentType.getName() != null && documentType.getName().length() > 0) {
-            out.append(normalize(documentType.getName()));
+            out.append(TestUtils.normalize(documentType.getName()));
             out.append('\n');
             addNl = false;
         }
         if (documentType.getPublicId() != null && documentType.getPublicId().length() > 0) {
             out.append('p');
-            out.append(normalize(documentType.getPublicId()));
+            out.append(TestUtils.normalize(documentType.getPublicId()));
             out.append('\n');
             addNl = false;
         }
         if (documentType.getSystemId() != null && documentType.getSystemId().length() > 0) {
             out.append('s');
-            out.append(normalize(documentType.getSystemId()));
+            out.append(TestUtils.normalize(documentType.getSystemId()));
             out.append('\n');
             addNl = false;
         }
@@ -264,16 +265,9 @@ public abstract class AbstractCanonicalTest {
                 .append('}');
         }
 
-        out.append(normalize(attr.getName()))
+        out.append(TestUtils.normalize(attr.getName()))
             .append(' ')
-            .append(normalize(attr.getValue()))
+            .append(TestUtils.normalize(attr.getValue()))
             .append('\n');
-    }
-
-    static String normalize(final String value) {
-        return value
-                .replace("\\", "\\\\")
-                .replace("\n", "\\n")
-                .replace("\t", "\\t");
     }
 }
