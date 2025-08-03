@@ -1315,12 +1315,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // Scans a tag name.
     protected String scanTagName() throws IOException {
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(scanName: ");
+            fCurrentEntity.debugBufferIfNeeded("(scanTagName: ");
         }
         if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
             if (fCurrentEntity.load(0) == -1) {
                 if (DEBUG_BUFFER) {
-                    fCurrentEntity.debugBufferIfNeeded(")scanName: ");
+                    fCurrentEntity.debugBufferIfNeeded(")scanTagName: ");
                 }
                 return null;
             }
@@ -1632,7 +1632,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private int columnNumber_ = 1;
 
         /** Character offset in the file. */
-        int characterOffset_ = 0;
+        private int characterOffset_ = 0;
 
         // buffer
 
