@@ -437,7 +437,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     protected PlaybackInputStream fByteStream;
 
     /** Current entity. */
-    CurrentEntity fCurrentEntity;
+    protected CurrentEntity fCurrentEntity;
 
     /** The current entity stack. */
     protected final MiniStack<CurrentEntity> fCurrentEntityStack = new MiniStack<>();
@@ -1379,7 +1379,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // use readPreservingBufferContent inside this method to be sure we can rewind
 
-        int nextChar = readPreservingBufferContent();
+        int nextChar = fCurrentEntity.readPreservingBufferContent();
         if (nextChar == -1) {
             if (plainValue != null) {
                 plainValue.append(str);
@@ -1392,7 +1392,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
             do {
-                nextChar = readPreservingBufferContent();
+                nextChar = fCurrentEntity.readPreservingBufferContent();
                 if (nextChar != -1) {
                     str.append((char) nextChar);
                 }
@@ -1442,7 +1442,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             result = intermediateResult;
 
-            nextChar = readPreservingBufferContent();
+            nextChar = fCurrentEntity.readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
                 readCount++;
@@ -1769,7 +1769,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /**
      * Current entity.
      */
-    private static final class CurrentEntity {
+    static final class CurrentEntity {
 
         /** Character stream. */
         private Reader stream_;
@@ -1796,7 +1796,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private int lineNumber_ = 1;
 
         /** Column number. */
-        int columnNumber_ = 1;
+        private int columnNumber_ = 1;
 
         /** Character offset in the file. */
         int characterOffset_ = 0;
@@ -1919,6 +1919,65 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 debugBufferIfNeeded(")read: ", " -> " + c);
             }
 
+            return c;
+        }
+
+        /**
+         * Reads the next characters WITHOUT impacting the buffer content up to current
+         * offset.
+         *
+         * @param len the number of characters to read
+         * @return the read string (length may be smaller if EOF is encountered)
+         * @throws IOException in case of io problems
+         */
+        protected String nextContent(final int len) throws IOException {
+            final int originalOffset = offset_;
+            final int originalColumnNumber = getColumnNumber();
+            final int originalCharacterOffset = getCharacterOffset();
+
+            final char[] buff = new char[len];
+            int nbRead;
+            for (nbRead = 0; nbRead < len; ++nbRead) {
+                // read() should not clear the buffer
+                if (offset_ == length_) {
+                    final int count = load(offset_);
+                    if (count == -1) {
+                        break;
+                    }
+                }
+
+                final int c = read();
+                if (c == -1) {
+                    break;
+                }
+                buff[nbRead] = (char) c;
+            }
+
+            // restore position
+            offset_ = originalOffset;
+            columnNumber_ = originalColumnNumber;
+            characterOffset_ = originalCharacterOffset;
+
+            return new String(buff, 0, nbRead);
+        }
+
+        // Reads a single character, preserving the old buffer content
+        protected int readPreservingBufferContent() throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(readPreserving: ");
+            }
+            if (offset_ == length_) {
+                if (load(length_) == -1) {
+                    if (DEBUG_BUFFER) {
+                        System.out.println(")readPreserving: -> -1");
+                    }
+                    return -1;
+                }
+            }
+            final char c = getNextChar();
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")readPreserving: ", " -> " + c);
+            }
             return c;
         }
 
@@ -2258,7 +2317,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
                 if (c == '<') {
-                    final String next = nextContent(lengthToScan) + " ";
+                    final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
                     if (next.length() >= lengthToScan && end.equalsIgnoreCase(next.substring(0, end.length()))
                             && ('>' == next.charAt(lengthToScan - 1)
                             || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
@@ -3489,7 +3548,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             state = ScanScriptState.ESCAPED;
                         }
                         else if (c == '<') {
-                            final String next = nextContent(8) + " ";
+                            final String next = fCurrentEntity.nextContent(8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
                                 fCurrentEntity.rewind();
@@ -3508,7 +3567,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                         }
                         else if (c == '<') {
-                            final String next = nextContent(8) + " ";
+                            final String next = fCurrentEntity.nextContent(8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
                                 fCurrentEntity.rewind();
@@ -3666,64 +3725,5 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final byte[] bytesEncoding1 = reference.getBytes(encodeCharset);
         final String referenceWithEncoding2 = new String(bytesEncoding1, decodeCharset);
         return reference.equals(referenceWithEncoding2);
-    }
-
-    /**
-     * Reads the next characters WITHOUT impacting the buffer content up to current
-     * offset.
-     *
-     * @param len the number of characters to read
-     * @return the read string (length may be smaller if EOF is encountered)
-     * @throws IOException in case of io problems
-     */
-    protected String nextContent(final int len) throws IOException {
-        final int originalOffset = fCurrentEntity.offset_;
-        final int originalColumnNumber = fCurrentEntity.getColumnNumber();
-        final int originalCharacterOffset = fCurrentEntity.getCharacterOffset();
-
-        final char[] buff = new char[len];
-        int nbRead;
-        for (nbRead = 0; nbRead < len; ++nbRead) {
-            // read() should not clear the buffer
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                final int count = fCurrentEntity.load(fCurrentEntity.offset_);
-                if (count == -1) {
-                    break;
-                }
-            }
-
-            final int c = fCurrentEntity.read();
-            if (c == -1) {
-                break;
-            }
-            buff[nbRead] = (char) c;
-        }
-
-        // restore position
-        fCurrentEntity.offset_ = originalOffset;
-        fCurrentEntity.columnNumber_ = originalColumnNumber;
-        fCurrentEntity.characterOffset_ = originalCharacterOffset;
-
-        return new String(buff, 0, nbRead);
-    }
-
-    // Reads a single character, preserving the old buffer content
-    protected int readPreservingBufferContent() throws IOException {
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(readPreserving: ");
-        }
-        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(fCurrentEntity.length_) == -1) {
-                if (DEBUG_BUFFER) {
-                    System.out.println(")readPreserving: -> -1");
-                }
-                return -1;
-            }
-        }
-        final char c = fCurrentEntity.getNextChar();
-        if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")readPreserving: ", " -> " + c);
-        }
-        return c;
     }
 }
