@@ -1256,13 +1256,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         return null;
     }
 
-    // Scans a name.
+    // Scan a name.
     protected String scanName(final boolean strict) throws IOException {
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded("(scanName: ");
         }
         if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(0) == -1) {
+            if (fCurrentEntity.loadWholeBuffer() == -1) {
                 if (DEBUG_BUFFER) {
                     fCurrentEntity.debugBufferIfNeeded(")scanName: ");
                 }
@@ -1312,13 +1312,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         return name;
     }
 
-    // Scans a tag name.
+    // Scan a tag name.
     protected String scanTagName() throws IOException {
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded("(scanTagName: ");
         }
         if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.load(0) == -1) {
+            if (fCurrentEntity.loadWholeBuffer() == -1) {
                 if (DEBUG_BUFFER) {
                     fCurrentEntity.debugBufferIfNeeded(")scanTagName: ");
                 }
@@ -1605,7 +1605,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     static final class CurrentEntity {
 
         /** Character stream. */
-        private Reader stream_;
+        private Reader reader_;
 
         /** Encoding. */
         String encoding_;
@@ -1648,10 +1648,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private boolean endReached_ = false;
 
         // Constructs an entity from the specified stream.
-        CurrentEntity(final Reader stream, final int readerBufferSize, final String encoding,
+        CurrentEntity(final Reader reader, final int readerBufferSize, final String encoding,
                 final String publicId, final String baseSystemId,
                 final String literalSystemId, final String systemId) {
-            stream_ = stream;
+            reader_ = reader;
             buffer_ = new char[readerBufferSize];
             encoding_ = encoding;
 
@@ -1677,7 +1677,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         void closeQuietly() {
             try {
-                stream_.close();
+                reader_.close();
             }
             catch (final IOException e) {
                 // ignore
@@ -1711,7 +1711,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 buffer_ = array;
             }
             // read a block of characters
-            final int count = stream_.read(buffer_, loadOffset, buffer_.length - loadOffset);
+            final int count = reader_.read(buffer_, loadOffset, buffer_.length - loadOffset);
             if (count == -1) {
                 length_ = loadOffset;
                 endReached_ = true;
@@ -1726,6 +1726,26 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             return count;
         }
 
+        int loadWholeBuffer() throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(loadWholeBuffer: ");
+            }
+            // read a block of characters
+            final int count = reader_.read(buffer_, 0, buffer_.length);
+            if (count == -1) {
+                length_ = 0;
+                endReached_ = true;
+            }
+            else {
+                length_ = count;
+            }
+            offset_ = 0;
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")loadWholeBuffer: ", " -> " + count);
+            }
+            return count;
+        }
+
         // Reads a single character.
         int read() throws IOException {
             if (DEBUG_BUFFER) {
@@ -1736,7 +1756,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (endReached_) {
                     return -1;
                 }
-                if (load(0) == -1) {
+                if (loadWholeBuffer() == -1) {
                     if (DEBUG_BUFFER) {
                         System.out.println(")read: -> -1");
                     }
@@ -1773,7 +1793,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             for (nbRead = 0; nbRead < len; ++nbRead) {
                 // read() should not clear the buffer
                 if (offset_ == length_) {
-                    final int count = load(offset_);
+                    final int count = load(length_);
                     if (count == -1) {
                         break;
                     }
@@ -1861,7 +1881,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         void setStream(final Reader inputStreamReader, final String encoding) {
-            stream_ = inputStreamReader;
+            reader_ = inputStreamReader;
             offset_ = 0;
             length_ = 0;
             characterOffset_ = 0;
@@ -1950,7 +1970,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             boolean slashgt = false;
             OUTER: while (true) {
                 if (offset_ == length_) {
-                    if (load(0) == -1) {
+                    if (loadWholeBuffer() == -1) {
                         break OUTER;
                     }
                 }
@@ -1967,7 +1987,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     else if (c == '/') {
                         if (offset_ == length_) {
-                            if (load(0) == -1) {
+                            if (loadWholeBuffer() == -1) {
                                 break OUTER;
                             }
                         }
@@ -2003,7 +2023,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             boolean spaces = false;
             while (true) {
                 if (offset_ == length_) {
-                    if (load(0) == -1) {
+                    if (loadWholeBuffer() == -1) {
                         break;
                     }
                 }
@@ -2038,7 +2058,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
 
             if (offset_ == length_) {
-                if (load(0) == -1) {
+                if (loadWholeBuffer() == -1) {
                     if (DEBUG_BUFFER) {
                         debugBufferIfNeeded(")skipNewlines: ");
                     }
