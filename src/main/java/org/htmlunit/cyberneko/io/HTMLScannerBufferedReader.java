@@ -13,11 +13,23 @@ public final class HTMLScannerBufferedReader {
     /** Set to true to debug the buffer. */
     static final boolean DEBUG_BUFFER = false;
 
+    /** Public identifier. */
+    private final String publicId_;
+
+    /** Base system identifier. */
+    private final String baseSystemId_;
+
+    /** Literal system identifier. */
+    private final String literalSystemId_;
+
+    /** Expanded system identifier. */
+    private final String systemId_;
+
     /** Character stream. */
     private Reader reader_;
 
     /** Encoding. */
-    public String encoding_;
+    private String encoding_;
 
     /** Line number. */
     private int lineNumber_;
@@ -27,8 +39,6 @@ public final class HTMLScannerBufferedReader {
 
     /** Character offset in the file. */
     private int characterOffset_;
-
-    // buffer
 
     /** Character buffer. */
     public char[] buffer_;
@@ -42,7 +52,9 @@ public final class HTMLScannerBufferedReader {
     private boolean endReached_;
 
     // Constructs an entity from the specified stream.
-    public HTMLScannerBufferedReader(final Reader reader, final int readerBufferSize, final String encoding) {
+    public HTMLScannerBufferedReader(final Reader reader, final int readerBufferSize, final String encoding,
+            final String publicId, final String baseSystemId,
+            final String literalSystemId, final String systemId) {
         reader_ = reader;
         encoding_ = encoding;
 
@@ -54,6 +66,31 @@ public final class HTMLScannerBufferedReader {
 
         lineNumber_ = 1;
         columnNumber_ = 1;
+
+        publicId_ = publicId;
+        baseSystemId_ = baseSystemId;
+        literalSystemId_ = literalSystemId;
+        systemId_ = systemId;
+    }
+
+    public String getPublicId() {
+        return publicId_;
+    }
+
+    public String getBaseSystemId() {
+        return baseSystemId_;
+    }
+
+    public String getLiteralSystemId() {
+        return literalSystemId_;
+    }
+
+    public String getSystemId() {
+        return systemId_;
+    }
+
+    public String getEncoding() {
+        return encoding_;
     }
 
     public char getCurrentChar() {
