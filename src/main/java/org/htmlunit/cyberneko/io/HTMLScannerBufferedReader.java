@@ -1,4 +1,4 @@
-package org.htmlunit.cyberneko;
+package org.htmlunit.cyberneko.io;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -8,13 +8,16 @@ import org.htmlunit.cyberneko.xerces.xni.XMLString;
 /**
  * Current entity.
  */
-final class HTMLScannerBufferedReader {
+public final class HTMLScannerBufferedReader {
+
+    /** Set to true to debug the buffer. */
+    static final boolean DEBUG_BUFFER = false;
 
     /** Character stream. */
     private Reader reader_;
 
     /** Encoding. */
-    String encoding_;
+    public String encoding_;
 
     /** Line number. */
     private int lineNumber_ = 1;
@@ -28,37 +31,37 @@ final class HTMLScannerBufferedReader {
     // buffer
 
     /** Character buffer. */
-    char[] buffer_;
+    public char[] buffer_;
 
     /** Offset into character buffer. */
-    int offset_ = 0;
+    public int offset_ = 0;
 
     /** Length of characters read into character buffer. */
-    int length_ = 0;
+    public int length_ = 0;
 
     private boolean endReached_ = false;
 
     // Constructs an entity from the specified stream.
-    HTMLScannerBufferedReader(final Reader reader, final int readerBufferSize, final String encoding) {
+    public HTMLScannerBufferedReader(final Reader reader, final int readerBufferSize, final String encoding) {
         reader_ = reader;
         buffer_ = new char[readerBufferSize];
         encoding_ = encoding;
     }
 
-    char getCurrentChar() {
+    public char getCurrentChar() {
         return buffer_[offset_];
     }
 
     /**
      * @return the current character and moves to next one.
      */
-    char getNextChar() {
+    public char getNextChar() {
         characterOffset_++;
         columnNumber_++;
         return buffer_[offset_++];
     }
 
-    void closeQuietly() {
+    public void closeQuietly() {
         try {
             reader_.close();
         }
@@ -70,7 +73,7 @@ final class HTMLScannerBufferedReader {
     /**
      * Indicates if there are characters left.
      */
-    boolean hasNext() {
+    public boolean hasNext() {
         return offset_ < length_;
     }
 
@@ -82,8 +85,8 @@ final class HTMLScannerBufferedReader {
      * @return count
      * @throws IOException in case of io problems
      */
-    int load(final int loadOffset) throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public int load(final int loadOffset) throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(load: ");
         }
         // resize buffer, if needed
@@ -103,14 +106,14 @@ final class HTMLScannerBufferedReader {
             length_ = count + loadOffset;
         }
         offset_ = loadOffset;
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")load: ", " -> " + count);
         }
         return count;
     }
 
-    int loadWholeBuffer() throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public int loadWholeBuffer() throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(loadWholeBuffer: ");
         }
         // read a block of characters
@@ -123,15 +126,15 @@ final class HTMLScannerBufferedReader {
             length_ = count;
         }
         offset_ = 0;
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")loadWholeBuffer: ", " -> " + count);
         }
         return count;
     }
 
     // Reads a single character.
-    int read() throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public int read() throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(read: ");
         }
 
@@ -140,7 +143,7 @@ final class HTMLScannerBufferedReader {
                 return -1;
             }
             if (loadWholeBuffer() == -1) {
-                if (HTMLScanner.DEBUG_BUFFER) {
+                if (DEBUG_BUFFER) {
                     System.out.println(")read: -> -1");
                 }
                 return -1;
@@ -151,7 +154,7 @@ final class HTMLScannerBufferedReader {
         characterOffset_++;
         columnNumber_++;
 
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")read: ", " -> " + c);
         }
 
@@ -166,7 +169,7 @@ final class HTMLScannerBufferedReader {
      * @return the read string (length may be smaller if EOF is encountered)
      * @throws IOException in case of io problems
      */
-    protected String nextContent(final int len) throws IOException {
+    public String nextContent(final int len) throws IOException {
         final int originalOffset = offset_;
         final int originalColumnNumber = getColumnNumber();
         final int originalCharacterOffset = getCharacterOffset();
@@ -197,32 +200,32 @@ final class HTMLScannerBufferedReader {
     }
 
     // Reads a single character, preserving the old buffer content
-    protected int readPreservingBufferContent() throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public int readPreservingBufferContent() throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(readPreserving: ");
         }
         if (offset_ == length_) {
             if (load(length_) == -1) {
-                if (HTMLScanner.DEBUG_BUFFER) {
+                if (DEBUG_BUFFER) {
                     System.out.println(")readPreserving: -> -1");
                 }
                 return -1;
             }
         }
         final char c = getNextChar();
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")readPreserving: ", " -> " + c);
         }
         return c;
     }
 
     /** Prints the contents of the character buffer to standard out. */
-    void debugBufferIfNeeded(final String prefix) {
+    public void debugBufferIfNeeded(final String prefix) {
         debugBufferIfNeeded(prefix, "");
     }
 
     /** Prints the contents of the character buffer to standard out. */
-    void debugBufferIfNeeded(final String prefix, final String suffix) {
+    public void debugBufferIfNeeded(final String prefix, final String suffix) {
         System.out.print(prefix);
         System.out.print('[');
         System.out.print(length_);
@@ -262,7 +265,7 @@ final class HTMLScannerBufferedReader {
         System.out.println();
     }
 
-    void setStream(final Reader inputStreamReader, final String encoding) {
+    public void setStream(final Reader inputStreamReader, final String encoding) {
         reader_ = inputStreamReader;
         offset_ = 0;
         length_ = 0;
@@ -275,24 +278,24 @@ final class HTMLScannerBufferedReader {
     /**
      * Goes back, canceling the effect of the previous read() call.
      */
-    void rewind() {
+    public void rewind() {
         offset_--;
         characterOffset_--;
         columnNumber_--;
     }
 
-    void rewind(final int i) {
+    public void rewind(final int i) {
         offset_ -= i;
         characterOffset_ -= i;
         columnNumber_ -= i;
     }
 
-    void incLine() {
+    public void incLine() {
         lineNumber_++;
         columnNumber_ = 1;
     }
 
-    void incLine(final int nbLines) {
+    private void incLine(final int nbLines) {
         lineNumber_ += nbLines;
         columnNumber_ = 1;
     }
@@ -301,7 +304,7 @@ final class HTMLScannerBufferedReader {
         return lineNumber_;
     }
 
-    void resetBuffer(final XMLString xmlBuffer, final int lineNumber, final int columnNumber,
+    public void resetBuffer(final XMLString xmlBuffer, final int lineNumber, final int columnNumber,
             final int characterOffset) {
         lineNumber_ = lineNumber;
         columnNumber_ = columnNumber;
@@ -313,17 +316,17 @@ final class HTMLScannerBufferedReader {
         length_ = xmlBuffer.length();
     }
 
-    int getColumnNumber() {
+    public int getColumnNumber() {
         return columnNumber_;
     }
 
-    int getCharacterOffset() {
+    public int getCharacterOffset() {
         return characterOffset_;
     }
 
     // Returns true if the specified text is present (case-insensitive) and is skipped.
     // for performance reasons you have to provide the specified text in uppercase
-    protected boolean skip(final String expectedInUpperCase) throws IOException {
+    public boolean skip(final String expectedInUpperCase) throws IOException {
         final int length = expectedInUpperCase.length();
         for (int i = 0; i < length; i++) {
             if (offset_ == length_) {
@@ -345,8 +348,8 @@ final class HTMLScannerBufferedReader {
     }
 
     // Skips markup.
-    protected boolean skipMarkup(final boolean balance) throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public boolean skipMarkup(final boolean balance) throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(skipMarkup: ");
         }
         int depth = 1;
@@ -392,15 +395,15 @@ final class HTMLScannerBufferedReader {
                 }
             }
         }
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")skipMarkup: ", " -> " + slashgt);
         }
         return slashgt;
     }
 
     // Skips whitespace.
-    protected boolean skipSpaces() throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public boolean skipSpaces() throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(skipSpaces: ");
         }
         boolean spaces = false;
@@ -428,15 +431,15 @@ final class HTMLScannerBufferedReader {
                 break;
             }
         }
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")skipSpaces: ", " -> " + spaces);
         }
         return spaces;
     }
 
     // Skips newlines and returns the number of newlines skipped.
-    protected int skipNewlines() throws IOException {
-        if (HTMLScanner.DEBUG_BUFFER) {
+    public int skipNewlines() throws IOException {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded("(skipNewlines: ");
         }
 
@@ -481,7 +484,7 @@ final class HTMLScannerBufferedReader {
             while (offset_ < length_ - 1);
             incLine(newlines);
         }
-        if (HTMLScanner.DEBUG_BUFFER) {
+        if (DEBUG_BUFFER) {
             debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
         }
         return newlines;
