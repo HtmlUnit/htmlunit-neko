@@ -20,13 +20,13 @@ public final class HTMLScannerBufferedReader {
     public String encoding_;
 
     /** Line number. */
-    private int lineNumber_ = 1;
+    private int lineNumber_;
 
     /** Column number. */
-    private int columnNumber_ = 1;
+    private int columnNumber_;
 
     /** Character offset in the file. */
-    private int characterOffset_ = 0;
+    private int characterOffset_;
 
     // buffer
 
@@ -34,18 +34,26 @@ public final class HTMLScannerBufferedReader {
     public char[] buffer_;
 
     /** Offset into character buffer. */
-    public int offset_ = 0;
+    public int offset_;
 
     /** Length of characters read into character buffer. */
-    public int length_ = 0;
+    public int length_;
 
-    private boolean endReached_ = false;
+    private boolean endReached_;
 
     // Constructs an entity from the specified stream.
     public HTMLScannerBufferedReader(final Reader reader, final int readerBufferSize, final String encoding) {
         reader_ = reader;
-        buffer_ = new char[readerBufferSize];
         encoding_ = encoding;
+
+        buffer_ = new char[readerBufferSize];
+        offset_ = 0;
+        characterOffset_ = 0;
+        length_ = 0;
+        endReached_ = false;
+
+        lineNumber_ = 1;
+        columnNumber_ = 1;
     }
 
     public char getCurrentChar() {
