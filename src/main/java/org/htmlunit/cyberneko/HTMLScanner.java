@@ -397,6 +397,21 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     // properties
 
+    /** Public identifier. */
+    private String publicId;
+
+    /** Base system identifier. */
+    private String baseSystemId;
+
+    /** Literal system identifier. */
+    private String literalSystemId;
+
+    /** Expanded system identifier. */
+    private String systemId;
+
+    /** XML version. */
+    private final String version = "1.0";
+
     /** Modify HTML element names. */
     protected short fNamesElems;
 
@@ -534,13 +549,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final Reader reader = getReader(inputSource);
 
         fCurrentEntityStack.push(fCurrentEntity);
-        final String encoding = inputSource.getEncoding();
-        final String publicId = inputSource.getPublicId();
-        final String baseSystemId = inputSource.getBaseSystemId();
-        final String literalSystemId = inputSource.getSystemId();
-        final String systemId = systemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, encoding,
-                                    publicId, baseSystemId, literalSystemId, systemId);
+
+        publicId = inputSource.getPublicId();
+        baseSystemId = inputSource.getBaseSystemId();
+        literalSystemId = inputSource.getSystemId();
+        systemId = systemId(literalSystemId, baseSystemId);
+
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, inputSource.getEncoding());
     }
 
     private Reader getReader(final XMLInputSource inputSource) {
@@ -572,13 +587,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final CurrentEntity previousEntity = fCurrentEntity;
         final Reader reader = getReader(inputSource);
 
-        final String encoding = inputSource.getEncoding();
-        final String publicId = inputSource.getPublicId();
-        final String baseSystemId = inputSource.getBaseSystemId();
-        final String literalSystemId = inputSource.getSystemId();
-        final String systemId = systemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, encoding,
-                                            publicId, baseSystemId, literalSystemId, systemId);
+        publicId = inputSource.getPublicId();
+        baseSystemId = inputSource.getBaseSystemId();
+        literalSystemId = inputSource.getSystemId();
+        systemId = systemId(literalSystemId, baseSystemId);
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, inputSource.getEncoding());
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
@@ -630,25 +643,25 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the public identifier. */
     @Override
     public String getPublicId() {
-        return fCurrentEntity != null ? fCurrentEntity.publicId : null;
+        return publicId;
     }
 
     /** Returns the base system identifier. */
     @Override
     public String getBaseSystemId() {
-        return fCurrentEntity != null ? fCurrentEntity.baseSystemId : null;
+        return baseSystemId;
     }
 
     /** Returns the literal system identifier. */
     @Override
     public String getLiteralSystemId() {
-        return fCurrentEntity != null ? fCurrentEntity.literalSystemId : null;
+        return literalSystemId;
     }
 
     /** Returns the expanded system identifier. */
     @Override
     public String getSystemId() {
-        return fCurrentEntity != null ? fCurrentEntity.systemId : null;
+        return systemId;
     }
 
     /** Returns the current line number. */
@@ -666,7 +679,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the XML version. */
     @Override
     public String getXMLVersion() {
-        return fCurrentEntity != null ? fCurrentEntity.version : null;
+        return version;
     }
 
     /** Returns the character offset. */
@@ -838,13 +851,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fJavaEncoding = fIANAEncoding;
 
         // get location information
-        final String encoding = source.getEncoding();
-        final String publicId = source.getPublicId();
-        final String baseSystemId = source.getBaseSystemId();
-        final String literalSystemId = source.getSystemId();
-        final String systemId = systemId(literalSystemId, baseSystemId);
+        publicId = source.getPublicId();
+        baseSystemId = source.getBaseSystemId();
+        literalSystemId = source.getSystemId();
+        systemId = systemId(literalSystemId, baseSystemId);
 
         // open stream
+        String encoding = source.getEncoding();
         Reader reader = source.getCharacterStream();
         if (reader == null) {
             InputStream inputStream = source.getByteStream();
@@ -890,8 +903,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 reader = new InputStreamReader(fByteStream, fJavaEncoding);
             }
         }
-        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, fIANAEncoding,
-                                            publicId, baseSystemId, literalSystemId, systemId);
+        fCurrentEntity = new CurrentEntity(reader, fReaderBufferSize, fIANAEncoding);
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
@@ -1610,21 +1622,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         /** Encoding. */
         String encoding_;
 
-        /** Public identifier. */
-        public final String publicId;
-
-        /** Base system identifier. */
-        public final String baseSystemId;
-
-        /** Literal system identifier. */
-        public final String literalSystemId;
-
-        /** Expanded system identifier. */
-        final String systemId;
-
-        /** XML version. */
-        public final String version = "1.0";
-
         /** Line number. */
         private int lineNumber_ = 1;
 
@@ -1648,18 +1645,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private boolean endReached_ = false;
 
         // Constructs an entity from the specified stream.
-        CurrentEntity(final Reader reader, final int readerBufferSize, final String encoding,
-                final String publicId, final String baseSystemId,
-                final String literalSystemId, final String systemId) {
+        CurrentEntity(final Reader reader, final int readerBufferSize, final String encoding) {
             reader_ = reader;
             buffer_ = new char[readerBufferSize];
             encoding_ = encoding;
-
-            this.publicId = publicId;
-            this.baseSystemId = baseSystemId;
-            this.literalSystemId = literalSystemId;
-            this.systemId = systemId;
-
         }
 
         char getCurrentChar() {
@@ -1941,9 +1930,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Returns true if the specified text is present (case-insensitive) and is skipped.
         // for performance reasons you have to provide the specified text in uppercase
         protected boolean skip(final String expectedInUpperCase) throws IOException {
-            final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
+            final int length = expectedInUpperCase.length();
             for (int i = 0; i < length; i++) {
                 if (offset_ == length_) {
+                    // preserve for rewind
                     System.arraycopy(buffer_, offset_ - i, buffer_, 0, i);
                     if (load(i) == -1) {
                         offset_ = 0;
@@ -2058,12 +2048,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             if (offset_ == length_) {
                 if (loadWholeBuffer() == -1) {
-                    if (DEBUG_BUFFER) {
-                        debugBufferIfNeeded(")skipNewlines: ");
-                    }
                     return 0;
                 }
             }
+
             char c = getCurrentChar();
             int newlines = 0;
             if (c == '\n' || c == '\r') {
