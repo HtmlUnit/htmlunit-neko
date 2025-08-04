@@ -15,6 +15,12 @@
  */
 package org.htmlunit.cyberneko.io;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.StringReader;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,6 +34,29 @@ public class HTMLScannerBufferedReaderTest {
      * @throws Exception if the test fails
      */
     @Test
-    public void detectEncodingOneByte() throws Exception {
+    public void loadWholeBuffer() throws Exception {
+        HTMLScannerBufferedReader reader = new HTMLScannerBufferedReader(new StringReader("Neko"), 20, "UTF-8");
+
+        assertEquals(0, reader.length_);
+        assertEquals(0, reader.offset_);
+        assertEquals(0, reader.getCharacterOffset());
+        // strange but the buffer is not filled at start
+        assertFalse(reader.hasNext());
+
+        int bytes = reader.loadWholeBuffer();
+        assertEquals(4, bytes);
+        assertEquals(4, reader.length_);
+        assertEquals(0, reader.offset_);
+        assertEquals(0, reader.getCharacterOffset());
+
+        assertTrue(reader.hasNext());
+
+        bytes = reader.loadWholeBuffer();
+        assertEquals(-1, bytes);
+        assertEquals(0, reader.length_);
+        assertEquals(0, reader.offset_);
+        assertEquals(0, reader.getCharacterOffset());
+
+        assertFalse(reader.hasNext());
     }
 }
