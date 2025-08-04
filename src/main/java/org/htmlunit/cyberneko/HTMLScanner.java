@@ -27,6 +27,7 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
+import org.htmlunit.cyberneko.io.HTMLScannerBufferedReader;
 import org.htmlunit.cyberneko.io.PlaybackInputStream;
 import org.htmlunit.cyberneko.util.MiniStack;
 import org.htmlunit.cyberneko.xerces.util.EncodingTranslator;
@@ -452,7 +453,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     protected PlaybackInputStream fByteStream;
 
     /** Current entity. */
-    protected HTMLScannerBufferedReader fCurrentEntity;
+    protected HTMLScannerBufferedReader fBufferedReader;
 
     /** The current entity stack. */
     protected final MiniStack<HTMLScannerBufferedReader> fCurrentEntityStack = new MiniStack<>();
@@ -548,14 +549,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public void pushInputSource(final XMLInputSource inputSource) {
         final Reader reader = getReader(inputSource);
 
-        fCurrentEntityStack.push(fCurrentEntity);
+        fCurrentEntityStack.push(fBufferedReader);
 
         publicId = inputSource.getPublicId();
         baseSystemId = inputSource.getBaseSystemId();
         literalSystemId = inputSource.getSystemId();
         systemId = systemId(literalSystemId, baseSystemId);
 
-        fCurrentEntity = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
     }
 
     private Reader getReader(final XMLInputSource inputSource) {
@@ -584,14 +585,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public void evaluateInputSource(final XMLInputSource inputSource) {
         final Scanner previousScanner = fScanner;
         final short previousScannerState = fScannerState;
-        final HTMLScannerBufferedReader previousEntity = fCurrentEntity;
+        final HTMLScannerBufferedReader previousEntity = fBufferedReader;
         final Reader reader = getReader(inputSource);
 
         publicId = inputSource.getPublicId();
         baseSystemId = inputSource.getBaseSystemId();
         literalSystemId = inputSource.getSystemId();
         systemId = systemId(literalSystemId, baseSystemId);
-        fCurrentEntity = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
@@ -605,7 +606,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // preserve the plaintext scanning process
         setScanner(fScanner instanceof PlainTextScanner ? new PlainTextScanner() : previousScanner);
         setScannerState(previousScannerState);
-        fCurrentEntity = previousEntity;
+        fBufferedReader = previousEntity;
     }
 
     /**
@@ -620,24 +621,24 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final int size = fCurrentEntityStack.size();
         if (size > 0) {
             // current entity is not the original, so close it
-            if (fCurrentEntity != null) {
-                fCurrentEntity.closeQuietly();
+            if (fBufferedReader != null) {
+                fBufferedReader.closeQuietly();
             }
             // close remaining streams
             for (int i = closeall ? 0 : 1; i < size; i++) {
-                fCurrentEntity = fCurrentEntityStack.pop();
-                fCurrentEntity.closeQuietly();
+                fBufferedReader = fCurrentEntityStack.pop();
+                fBufferedReader.closeQuietly();
             }
         }
-        else if (closeall && fCurrentEntity != null) {
-            fCurrentEntity.closeQuietly();
+        else if (closeall && fBufferedReader != null) {
+            fBufferedReader.closeQuietly();
         }
     }
 
     /** Returns the encoding. */
     @Override
     public String getEncoding() {
-        return fCurrentEntity != null ? fCurrentEntity.encoding_ : null;
+        return fBufferedReader != null ? fBufferedReader.encoding_ : null;
     }
 
     /** Returns the public identifier. */
@@ -667,13 +668,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the current line number. */
     @Override
     public int getLineNumber() {
-        return fCurrentEntity != null ? fCurrentEntity.getLineNumber() : -1;
+        return fBufferedReader != null ? fBufferedReader.getLineNumber() : -1;
     }
 
     /** Returns the current column number. */
     @Override
     public int getColumnNumber() {
-        return fCurrentEntity != null ? fCurrentEntity.getColumnNumber() : -1;
+        return fBufferedReader != null ? fBufferedReader.getColumnNumber() : -1;
     }
 
     /** Returns the XML version. */
@@ -685,7 +686,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the character offset. */
     @Override
     public int getCharacterOffset() {
-        return fCurrentEntity != null ? fCurrentEntity.getCharacterOffset() : -1;
+        return fBufferedReader != null ? fBufferedReader.getCharacterOffset() : -1;
     }
 
     /** Returns the default state for a feature. */
@@ -903,7 +904,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 reader = new InputStreamReader(fByteStream, fJavaEncoding);
             }
         }
-        fCurrentEntity = new HTMLScannerBufferedReader(reader, fReaderBufferSize, fIANAEncoding);
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, fIANAEncoding);
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
@@ -1180,7 +1181,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         String pubid = null;
         String sysid = null;
 
-        if (fCurrentEntity.skipSpaces()) {
+        if (fBufferedReader.skipSpaces()) {
             root = scanName(true);
             if (root == null) {
                 if (fReportErrors_) {
@@ -1190,31 +1191,31 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             else {
                 root = modifyName(root, fNamesElems);
             }
-            if (fCurrentEntity.skipSpaces()) {
-                if (fCurrentEntity.skip("PUBLIC")) {
-                    fCurrentEntity.skipSpaces();
+            if (fBufferedReader.skipSpaces()) {
+                if (fBufferedReader.skip("PUBLIC")) {
+                    fBufferedReader.skipSpaces();
                     pubid = scanLiteral();
-                    if (fCurrentEntity.skipSpaces()) {
+                    if (fBufferedReader.skipSpaces()) {
                         sysid = scanLiteral();
                     }
                 }
-                else if (fCurrentEntity.skip("SYSTEM")) {
-                    fCurrentEntity.skipSpaces();
+                else if (fBufferedReader.skip("SYSTEM")) {
+                    fBufferedReader.skipSpaces();
                     sysid = scanLiteral();
                 }
             }
         }
         int c;
-        while ((c = fCurrentEntity.read()) != -1) {
+        while ((c = fBufferedReader.read()) != -1) {
             if (c == '<') {
-                fCurrentEntity.rewind();
+                fBufferedReader.rewind();
                 break;
             }
             if (c == '>') {
                 break;
             }
             if (c == '[') {
-                fCurrentEntity.skipMarkup(true);
+                fBufferedReader.skipMarkup(true);
                 break;
             }
         }
@@ -1223,29 +1224,29 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             pubid = fDoctypePubid;
             sysid = fDoctypeSysid;
         }
-        fDocumentHandler.doctypeDecl(root, pubid, sysid, locationAugs(fCurrentEntity));
+        fDocumentHandler.doctypeDecl(root, pubid, sysid, locationAugs(fBufferedReader));
     }
 
     // Scans a quoted literal.
     protected String scanLiteral() throws IOException {
-        final int quote = fCurrentEntity.read();
+        final int quote = fBufferedReader.read();
 
         if (quote == '"' || quote == '\'') {
             final XMLString str = fScanLiteral.clear();
             int c;
-            while ((c = fCurrentEntity.read()) != -1) {
+            while ((c = fBufferedReader.read()) != -1) {
                 if (c == quote) {
                     break;
                 }
                 if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
+                    fBufferedReader.rewind();
                     // NOTE: This collapses newlines to a single space.
                     // [Q] Is this the right thing to do here? -Ac
-                    fCurrentEntity.skipNewlines();
+                    fBufferedReader.skipNewlines();
                     str.append(' ');
                 }
                 else if (c == '<') {
-                    fCurrentEntity.rewind();
+                    fBufferedReader.rewind();
                     break;
                 }
                 else {
@@ -1264,30 +1265,30 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             return str.toString();
         }
-        fCurrentEntity.rewind();
+        fBufferedReader.rewind();
         return null;
     }
 
     // Scan a name.
     protected String scanName(final boolean strict) throws IOException {
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(scanName: ");
+            fBufferedReader.debugBufferIfNeeded("(scanName: ");
         }
-        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.loadWholeBuffer() == -1) {
+        if (fBufferedReader.offset_ == fBufferedReader.length_) {
+            if (fBufferedReader.loadWholeBuffer() == -1) {
                 if (DEBUG_BUFFER) {
-                    fCurrentEntity.debugBufferIfNeeded(")scanName: ");
+                    fBufferedReader.debugBufferIfNeeded(")scanName: ");
                 }
                 return null;
             }
         }
-        int offset = fCurrentEntity.offset_;
+        int offset = fBufferedReader.offset_;
         while (true) {
-            while (fCurrentEntity.hasNext()) {
-                final char c = fCurrentEntity.getNextChar();
+            while (fBufferedReader.hasNext()) {
+                final char c = fBufferedReader.getNextChar();
                 // this has been split up to cater to the needs of branch prediction
                 if (strict && (!Character.isLetterOrDigit(c) && c != '-' && c != '.' && c != ':' && c != '_')) {
-                    fCurrentEntity.rewind();
+                    fBufferedReader.rewind();
                     break;
                 }
                 // we check for the regular space first because isWhitespace is no inlineable and hence expensive
@@ -1299,14 +1300,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     || c == '/'
                                     || c == '>'
                                     || Character.isWhitespace(c))) {
-                    fCurrentEntity.rewind();
+                    fBufferedReader.rewind();
                     break;
                 }
             }
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                final int length = fCurrentEntity.length_ - offset;
-                System.arraycopy(fCurrentEntity.buffer_, offset, fCurrentEntity.buffer_, 0, length);
-                final int count = fCurrentEntity.load(length);
+            if (fBufferedReader.offset_ == fBufferedReader.length_) {
+                final int length = fBufferedReader.length_ - offset;
+                System.arraycopy(fBufferedReader.buffer_, offset, fBufferedReader.buffer_, 0, length);
+                final int count = fBufferedReader.load(length);
                 offset = 0;
                 if (count == -1) {
                     break;
@@ -1316,10 +1317,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 break;
             }
         }
-        final int length = fCurrentEntity.offset_ - offset;
-        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
+        final int length = fBufferedReader.offset_ - offset;
+        final String name = length > 0 ? new String(fBufferedReader.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
+            fBufferedReader.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
         return name;
     }
@@ -1327,44 +1328,44 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // Scan a tag name.
     protected String scanTagName() throws IOException {
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded("(scanTagName: ");
+            fBufferedReader.debugBufferIfNeeded("(scanTagName: ");
         }
-        if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-            if (fCurrentEntity.loadWholeBuffer() == -1) {
+        if (fBufferedReader.offset_ == fBufferedReader.length_) {
+            if (fBufferedReader.loadWholeBuffer() == -1) {
                 if (DEBUG_BUFFER) {
-                    fCurrentEntity.debugBufferIfNeeded(")scanTagName: ");
+                    fBufferedReader.debugBufferIfNeeded(")scanTagName: ");
                 }
                 return null;
             }
         }
-        int offset = fCurrentEntity.offset_;
+        int offset = fBufferedReader.offset_;
         boolean isFirst = true;
 
         while (true) {
-            while (fCurrentEntity.hasNext()) {
-                final char c = fCurrentEntity.getNextChar();
+            while (fBufferedReader.hasNext()) {
+                final char c = fBufferedReader.getNextChar();
 
                 if (isFirst) {
                     isFirst = false;
 
                     // first char has to be ASCII alpha
                     if (!('A' <= c && c <= 'Z' || 'a' <= c && c <= 'z')) {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         break;
                     }
                 }
                 else {
                     if (c == '\t' || c == '\r' || c == '\n' || c == ' ' || c == 0
                             || c == '/' || c == '>') {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         break;
                     }
                 }
             }
-            if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
-                final int length = fCurrentEntity.length_ - offset;
-                System.arraycopy(fCurrentEntity.buffer_, offset, fCurrentEntity.buffer_, 0, length);
-                final int count = fCurrentEntity.load(length);
+            if (fBufferedReader.offset_ == fBufferedReader.length_) {
+                final int length = fBufferedReader.length_ - offset;
+                System.arraycopy(fBufferedReader.buffer_, offset, fBufferedReader.buffer_, 0, length);
+                final int count = fBufferedReader.load(length);
                 offset = 0;
                 if (count == -1) {
                     break;
@@ -1375,10 +1376,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
         }
 
-        final int length = fCurrentEntity.offset_ - offset;
-        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
+        final int length = fBufferedReader.offset_ - offset;
+        final String name = length > 0 ? new String(fBufferedReader.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
-            fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
+            fBufferedReader.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
 
         return name;
@@ -1391,7 +1392,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // use readPreservingBufferContent inside this method to be sure we can rewind
 
-        int nextChar = fCurrentEntity.readPreservingBufferContent();
+        int nextChar = fBufferedReader.readPreservingBufferContent();
         if (nextChar == -1) {
             if (plainValue != null) {
                 plainValue.append(str);
@@ -1404,7 +1405,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
 
             do {
-                nextChar = fCurrentEntity.readPreservingBufferContent();
+                nextChar = fBufferedReader.readPreservingBufferContent();
                 if (nextChar != -1) {
                     str.append((char) nextChar);
                 }
@@ -1413,14 +1414,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             final String match = parser.getMatch();
             if (match == null) {
-                fCurrentEntity.rewind(str.length() - 1);
+                fBufferedReader.rewind(str.length() - 1);
                 if (plainValue != null) {
                     plainValue.append('&');
                 }
                 str.clearAndAppend('&');
             }
             else {
-                fCurrentEntity.rewind(parser.getRewindCount());
+                fBufferedReader.rewind(parser.getRewindCount());
                 if (plainValue != null) {
                     plainValue.append(str);
                 }
@@ -1454,7 +1455,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             result = intermediateResult;
 
-            nextChar = fCurrentEntity.readPreservingBufferContent();
+            nextChar = fBufferedReader.readPreservingBufferContent();
             if (nextChar != -1) {
                 str.append((char) nextChar);
                 readCount++;
@@ -1473,7 +1474,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             // in case we overrun because the entity was broken or
             // not terminated by a ;, we have to reset the char
             // position because we read one more char than the entity has
-            fCurrentEntity.rewind(readCount - result.length_);
+            fBufferedReader.rewind(readCount - result.length_);
 
             // if we have a correct character that is terminate by ;
             // we can keep things simple
@@ -1550,7 +1551,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         else {
             // Entity not found, rewind and continue
             // broken from here, aka keeping everything
-            fCurrentEntity.rewind(readCount);
+            fBufferedReader.rewind(readCount);
             if (plainValue != null) {
                 plainValue.append('&');
             }
@@ -1562,7 +1563,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     private int returnEntityRefString(final XMLString str, final boolean content) {
         if (content && fElementCount >= fElementDepth) {
-            fDocumentHandler.characters(str, locationAugs(fCurrentEntity));
+            fDocumentHandler.characters(str, locationAugs(fBufferedReader));
         }
         return -1;
     }
@@ -1647,10 +1648,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     next = false;
                     switch (fScannerState) {
                         case STATE_CONTENT: {
-                            fBeginLineNumber = fCurrentEntity.getLineNumber();
-                            fBeginColumnNumber = fCurrentEntity.getColumnNumber();
-                            fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
-                            final int c = fCurrentEntity.read();
+                            fBeginLineNumber = fBufferedReader.getLineNumber();
+                            fBeginColumnNumber = fBufferedReader.getColumnNumber();
+                            fBeginCharacterOffset = fBufferedReader.getCharacterOffset();
+                            final int c = fBufferedReader.read();
                             if (c == -1) {
                                 throw new EOFException();
                             }
@@ -1662,13 +1663,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 scanEntityRef(fStringBuffer, null, true);
                             }
                             else {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                                 scanCharacters();
                             }
                             break;
                         }
                         case STATE_MARKUP_BRACKET: {
-                            final int c = fCurrentEntity.read();
+                            final int c = fBufferedReader.read();
                             if (c == -1) {
                                 if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1003", null);
@@ -1681,34 +1682,34 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                             if (c == '!') {
                                 // process some strange self closing comments first
-                                if (fCurrentEntity.skip("--->")
-                                        || fCurrentEntity.skip("-->")
-                                        || fCurrentEntity.skip("->")
-                                        || fCurrentEntity.skip(">")) {
+                                if (fBufferedReader.skip("--->")
+                                        || fBufferedReader.skip("-->")
+                                        || fBufferedReader.skip("->")
+                                        || fBufferedReader.skip(">")) {
                                     // using EMPTY here is slightly dangerous but a review showed
                                     // that all implementations of comment() only read the data
                                     // never do anything else with it, so safe for now
-                                    fDocumentHandler.comment(XMLString.EMPTY, locationAugs(fCurrentEntity));
+                                    fDocumentHandler.comment(XMLString.EMPTY, locationAugs(fBufferedReader));
                                 }
-                                else if (fCurrentEntity.skip("-!>")) {
+                                else if (fBufferedReader.skip("-!>")) {
                                     final XMLString str = new XMLString();
                                     str.append("-!");
-                                    fDocumentHandler.comment(str, locationAugs(fCurrentEntity));
+                                    fDocumentHandler.comment(str, locationAugs(fBufferedReader));
                                 }
-                                else if (fCurrentEntity.skip("--")) {
+                                else if (fBufferedReader.skip("--")) {
                                     scanComment();
                                 }
-                                else if (fCurrentEntity.skip("[CDATA[")) {
+                                else if (fBufferedReader.skip("[CDATA[")) {
                                     scanCDATA();
                                 }
-                                else if (fCurrentEntity.skip("DOCTYPE")) {
+                                else if (fBufferedReader.skip("DOCTYPE")) {
                                     scanDoctype();
                                 }
                                 else {
                                     if (fReportErrors_) {
                                         fErrorReporter.reportError("HTML1002", null);
                                     }
-                                    fCurrentEntity.skipMarkup(true);
+                                    fBufferedReader.skipMarkup(true);
                                 }
                             }
                             else if (c == '?') {
@@ -1718,16 +1719,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 scanEndElement();
                             }
                             else {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                                 fElementCount++;
                                 fSingleBoolean[0] = false;
 
                                 final String ename = scanStartElement(fSingleBoolean);
                                 final String enameLC = ename == null ? null : ename.toLowerCase(Locale.ROOT);
 
-                                fBeginLineNumber = fCurrentEntity.getLineNumber();
-                                fBeginColumnNumber = fCurrentEntity.getColumnNumber();
-                                fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
+                                fBeginLineNumber = fBufferedReader.getLineNumber();
+                                fBeginColumnNumber = fBufferedReader.getColumnNumber();
+                                fBeginCharacterOffset = fBufferedReader.getCharacterOffset();
 
                                 if ("script".equals(enameLC)) {
                                     if (!fAllowSelfclosingScript_) {
@@ -1778,7 +1779,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 fDocumentHandler.startDocument(HTMLScanner.this,
                                                                 fIANAEncoding,
                                                                 new NamespaceSupport(),
-                                                                locationAugs(fCurrentEntity));
+                                                                locationAugs(fBufferedReader));
                             }
                             if (fInsertDoctype_) {
                                 String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
@@ -1793,7 +1794,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 if (DEBUG_CALLBACKS) {
                                     System.out.println("endDocument()");
                                 }
-                                fDocumentHandler.endDocument(locationAugs(fCurrentEntity));
+                                fDocumentHandler.endDocument(locationAugs(fBufferedReader));
                             }
                             return false;
                         }
@@ -1811,7 +1812,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fCurrentEntity = fCurrentEntityStack.pop();
+                        fBufferedReader = fCurrentEntityStack.pop();
                     }
                     next = true;
                 }
@@ -1836,22 +1837,22 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final int lengthToScan = tagName.length() + 2;
 
             while (true) {
-                final int c = fCurrentEntity.read();
+                final int c = fBufferedReader.read();
                 if (c == -1) {
                     break;
                 }
                 if (c == '<') {
-                    final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
+                    final String next = fBufferedReader.nextContent(lengthToScan) + " ";
                     if (next.length() >= lengthToScan && end.equalsIgnoreCase(next.substring(0, end.length()))
                             && ('>' == next.charAt(lengthToScan - 1)
                             || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         break;
                     }
                 }
                 if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    fBufferedReader.rewind();
+                    final int newlines = fBufferedReader.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         fScanUntilEndTag.append('\n');
                     }
@@ -1865,49 +1866,49 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
             if (fScanUntilEndTag.length() > 0) {
-                fDocumentHandler.characters(fScanUntilEndTag, locationAugs(fCurrentEntity));
+                fDocumentHandler.characters(fScanUntilEndTag, locationAugs(fBufferedReader));
             }
         }
 
         // Scans characters.
         protected void scanCharacters() throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanCharacters: ");
+                fBufferedReader.debugBufferIfNeeded("(scanCharacters: ");
             }
             fStringBuffer.clear();
             while (true) {
-                final int newlines = fCurrentEntity.skipNewlines();
-                if (newlines == 0 && fCurrentEntity.offset_ == fCurrentEntity.length_) {
+                final int newlines = fBufferedReader.skipNewlines();
+                if (newlines == 0 && fBufferedReader.offset_ == fBufferedReader.length_) {
                     if (DEBUG_BUFFER) {
-                        fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
+                        fBufferedReader.debugBufferIfNeeded(")scanCharacters: ");
                     }
                     break;
                 }
-                final int offset = fCurrentEntity.offset_ - newlines;
-                for (int i = offset; i < fCurrentEntity.offset_; i++) {
-                    fCurrentEntity.buffer_[i] = '\n';
+                final int offset = fBufferedReader.offset_ - newlines;
+                for (int i = offset; i < fBufferedReader.offset_; i++) {
+                    fBufferedReader.buffer_[i] = '\n';
                 }
-                while (fCurrentEntity.hasNext()) {
-                    final char c = fCurrentEntity.getNextChar();
+                while (fBufferedReader.hasNext()) {
+                    final char c = fBufferedReader.getNextChar();
                     if (c == '<' || c == '&' || c == '\n' || c == '\r') {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         break;
                     }
                 }
-                if (fCurrentEntity.offset_ > offset && fElementCount >= fElementDepth) {
+                if (fBufferedReader.offset_ > offset && fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
-                        final XMLString xmlString = new XMLString(fCurrentEntity.buffer_, offset,
-                                fCurrentEntity.offset_ - offset);
+                        final XMLString xmlString = new XMLString(fBufferedReader.buffer_, offset,
+                                fBufferedReader.offset_ - offset);
                         System.out.println("characters(" + xmlString + ")");
                     }
-                    fStringBuffer.append(fCurrentEntity.buffer_, offset, fCurrentEntity.offset_ - offset);
+                    fStringBuffer.append(fBufferedReader.buffer_, offset, fBufferedReader.offset_ - offset);
                 }
                 if (DEBUG_BUFFER) {
-                    fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
+                    fBufferedReader.debugBufferIfNeeded(")scanCharacters: ");
                 }
 
-                final boolean hasNext = fCurrentEntity.offset_ < fCurrentEntity.buffer_.length;
-                final int next = hasNext ? fCurrentEntity.getCurrentChar() : -1;
+                final boolean hasNext = fBufferedReader.offset_ < fBufferedReader.buffer_.length;
+                final int next = hasNext ? fBufferedReader.getCurrentChar() : -1;
 
                 if (next == '&' || next == '<' || next == -1) {
                     break;
@@ -1915,14 +1916,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
 
             if (fStringBuffer.length() != 0) {
-                fDocumentHandler.characters(fStringBuffer, locationAugs(fCurrentEntity));
+                fDocumentHandler.characters(fStringBuffer, locationAugs(fBufferedReader));
             }
         }
 
         // Scans a CDATA section.
         protected void scanCDATA() throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanCDATA: ");
+                fBufferedReader.debugBufferIfNeeded("(scanCDATA: ");
             }
             fStringBuffer.clear();
             if (fCDATASections_) {
@@ -1930,7 +1931,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     if (DEBUG_CALLBACKS) {
                         System.out.println("startCDATA()");
                     }
-                    fDocumentHandler.startCDATA(locationAugs(fCurrentEntity));
+                    fDocumentHandler.startCDATA(locationAugs(fBufferedReader));
                 }
             }
             else {
@@ -1943,21 +1944,21 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     if (DEBUG_CALLBACKS) {
                         System.out.println("characters(" + fStringBuffer + ")");
                     }
-                    fDocumentHandler.characters(fStringBuffer, locationAugs(fCurrentEntity));
+                    fDocumentHandler.characters(fStringBuffer, locationAugs(fBufferedReader));
                     if (DEBUG_CALLBACKS) {
                         System.out.println("endCDATA()");
                     }
-                    fDocumentHandler.endCDATA(locationAugs(fCurrentEntity));
+                    fDocumentHandler.endCDATA(locationAugs(fBufferedReader));
                 }
                 else {
                     if (DEBUG_CALLBACKS) {
                         System.out.println("comment(" + fStringBuffer + ")");
                     }
-                    fDocumentHandler.comment(fStringBuffer, locationAugs(fCurrentEntity));
+                    fDocumentHandler.comment(fStringBuffer, locationAugs(fBufferedReader));
                 }
             }
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded(")scanCDATA: ");
+                fBufferedReader.debugBufferIfNeeded(")scanCDATA: ");
             }
             if (eof) {
                 throw new EOFException();
@@ -1967,21 +1968,21 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Scans a comment.
         protected void scanComment() throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanComment: ");
+                fBufferedReader.debugBufferIfNeeded("(scanComment: ");
             }
 
-            final int endLineNumber = fCurrentEntity.getLineNumber();
-            final int endColumnNumber = fCurrentEntity.getColumnNumber();
-            final int endCharacterOffset = fCurrentEntity.getCharacterOffset();
+            final int endLineNumber = fBufferedReader.getLineNumber();
+            final int endColumnNumber = fBufferedReader.getColumnNumber();
+            final int endCharacterOffset = fBufferedReader.getCharacterOffset();
 
             fScanComment.clear();
             boolean eof = scanCommentContent(fScanComment);
             // no --> found, comment with end only with >
             if (eof) {
-                fCurrentEntity.resetBuffer(fScanComment, endLineNumber, endColumnNumber, endCharacterOffset);
+                fBufferedReader.resetBuffer(fScanComment, endLineNumber, endColumnNumber, endCharacterOffset);
                 fScanComment.clear(); // take a new one to avoid interactions
                 while (true) {
-                    final int c = fCurrentEntity.read();
+                    final int c = fBufferedReader.read();
                     if (c == -1) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
@@ -1990,8 +1991,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         break;
                     }
                     else if (c == '\n' || c == '\r') {
-                        fCurrentEntity.rewind();
-                        final int newlines = fCurrentEntity.skipNewlines();
+                        fBufferedReader.rewind();
+                        final int newlines = fBufferedReader.skipNewlines();
                         for (int i = 0; i < newlines; i++) {
                             fScanComment.append('\n');
                         }
@@ -2013,10 +2014,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("comment(" + fScanComment + ")");
                 }
-                fDocumentHandler.comment(fScanComment, locationAugs(fCurrentEntity));
+                fDocumentHandler.comment(fScanComment, locationAugs(fBufferedReader));
             }
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded(")scanComment: ");
+                fBufferedReader.debugBufferIfNeeded(")scanComment: ");
             }
             if (eof) {
                 throw new EOFException();
@@ -2027,7 +2028,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         protected boolean scanCommentContent(final XMLString buffer) throws IOException {
             int c;
             OUTER: while (true) {
-                c = fCurrentEntity.read();
+                c = fBufferedReader.read();
                 if (c == -1) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
@@ -2038,7 +2039,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (c == '-') {
                     int count = 1;
                     while (true) {
-                        c = fCurrentEntity.read();
+                        c = fBufferedReader.read();
                         if (c == '-') {
                             count++;
                             continue;
@@ -2053,12 +2054,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     if (count < 2) {
                         buffer.append('-');
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         continue;
                     }
 
                     if (c == '!') {
-                        c = fCurrentEntity.read();
+                        c = fBufferedReader.read();
                         if (c == -1) {
                             if (fReportErrors_) {
                                 fErrorReporter.reportError("HTML1007", null);
@@ -2077,7 +2078,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             buffer.append('-');
                         }
                         buffer.append('!');
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         continue;
                     }
 
@@ -2091,12 +2092,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     for (int i = 0; i < count; i++) {
                         buffer.append('-');
                     }
-                    fCurrentEntity.rewind();
+                    fBufferedReader.rewind();
                     continue;
                 }
                 else if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    fBufferedReader.rewind();
+                    final int newlines = fBufferedReader.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -2116,7 +2117,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         protected boolean scanCDataContent(final XMLString xmlString) throws IOException {
             int c;
             OUTER: while (true) {
-                c = fCurrentEntity.read();
+                c = fBufferedReader.read();
                 if (c == -1) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1007", null);
@@ -2127,7 +2128,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (c == ']') {
                     int count = 1;
                     while (true) {
-                        c = fCurrentEntity.read();
+                        c = fBufferedReader.read();
                         if (c == ']') {
                             count++;
                             continue;
@@ -2142,14 +2143,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     if (count < 2) {
                         xmlString.append(']');
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         continue;
                     }
                     if (c != '>') {
                         for (int i = 0; i < count; i++) {
                             xmlString.append(']');
                         }
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         continue;
                     }
                     for (int i = 0; i < count - 2; i++) {
@@ -2162,8 +2163,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return false;
                 }
                 else if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    fBufferedReader.rewind();
+                    final int newlines = fBufferedReader.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         xmlString.append('\n');
                     }
@@ -2185,7 +2186,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Scans a processing instruction.
         protected void scanPI() throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanPI: ");
+                fBufferedReader.debugBufferIfNeeded("(scanPI: ");
             }
             if (fReportErrors_) {
                 fErrorReporter.reportWarning("HTML1008", null);
@@ -2195,62 +2196,62 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final String target = scanName(true);
             if (target != null && !"xml".equalsIgnoreCase(target)) {
                 while (true) {
-                    int c = fCurrentEntity.read();
+                    int c = fBufferedReader.read();
                     if (c == -1) {
                         break;
                     }
                     if (c == '\r' || c == '\n') {
                         if (c == '\r') {
-                            c = fCurrentEntity.read();
+                            c = fBufferedReader.read();
                             if (c == -1) {
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                             }
                         }
-                        fCurrentEntity.incLine();
+                        fBufferedReader.incLine();
                         continue;
                     }
                     if (c != ' ' && c != '\t') {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         break;
                     }
                 }
                 fStringBuffer.clear();
                 while (true) {
-                    int c = fCurrentEntity.read();
+                    int c = fBufferedReader.read();
                     if (c == -1) {
                         break;
                     }
                     if (c == '?' || c == '/') {
                         final char c0 = (char) c;
-                        c = fCurrentEntity.read();
+                        c = fBufferedReader.read();
                         if (c == -1 || c == '>') {
                             break;
                         }
                         fStringBuffer.append(c0);
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                         continue;
                     }
                     else if (c == '\r' || c == '\n') {
                         fStringBuffer.append('\n');
                         if (c == '\r') {
-                            c = fCurrentEntity.read();
+                            c = fBufferedReader.read();
                             if (c == -1) {
                                 break;
                             }
                             if (c != '\n') {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                             }
                         }
-                        fCurrentEntity.incLine();
+                        fBufferedReader.incLine();
                         continue;
                     }
                     else if (c == '>') {
                         // invalid procession instruction, handle as comment
                         fStringBuffer.append(target);
-                        fDocumentHandler.comment(fStringBuffer, locationAugs(fCurrentEntity));
+                        fDocumentHandler.comment(fStringBuffer, locationAugs(fBufferedReader));
                         return;
                     }
                     else {
@@ -2261,7 +2262,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                     }
                 }
-                fDocumentHandler.processingInstruction(target, fStringBuffer, locationAugs(fCurrentEntity));
+                fDocumentHandler.processingInstruction(target, fStringBuffer, locationAugs(fBufferedReader));
             }
 
             // scan xml/text declaration
@@ -2298,12 +2299,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fBeginLineNumber = beginLineNumber;
                     fBeginColumnNumber = beginColumnNumber;
                     fBeginCharacterOffset = beginCharacterOffset;
-                    fDocumentHandler.xmlDecl(version, encoding, standalone, locationAugs(fCurrentEntity));
+                    fDocumentHandler.xmlDecl(version, encoding, standalone, locationAugs(fBufferedReader));
                 }
             }
 
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded(")scanPI: ");
+                fBufferedReader.debugBufferIfNeeded(")scanPI: ");
             }
         }
 
@@ -2395,10 +2396,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     System.out.println("startElement(" + qName_ + ',' + attributes_ + ")");
                 }
                 if (empty[0] && !"BR".equalsIgnoreCase(ename)) {
-                    fDocumentHandler.emptyElement(qName_, attributes_, locationAugs(fCurrentEntity));
+                    fDocumentHandler.emptyElement(qName_, attributes_, locationAugs(fBufferedReader));
                 }
                 else {
-                    fDocumentHandler.startElement(qName_, attributes_, locationAugs(fCurrentEntity));
+                    fDocumentHandler.startElement(qName_, attributes_, locationAugs(fBufferedReader));
                 }
             }
             return ename;
@@ -2452,7 +2453,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     if (StandardEncodingTranslator.REPLACEMENT.equalsIgnoreCase(javaEncoding)) {
                         fJavaEncoding = javaEncoding;
                         // use a simple string reader to implement the charset
-                        fCurrentEntity.setStream(new StringReader("\uFFFD"), javaEncoding);
+                        fBufferedReader.setStream(new StringReader("\uFFFD"), javaEncoding);
                         fByteStream.playback();
                         // start from the beginning, without re-using the nodes already parsed
                         fElementDepth = 0;
@@ -2467,7 +2468,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     // change the charset
                     else {
                         fJavaEncoding = javaEncoding;
-                        fCurrentEntity.setStream(new InputStreamReader(fByteStream, javaEncoding), javaEncoding);
+                        fBufferedReader.setStream(new InputStreamReader(fByteStream, javaEncoding), javaEncoding);
                         fByteStream.playback();
                         // skip the already parsed elements
                         fElementDepth = fElementCount;
@@ -2499,13 +2500,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @throws IOException in case of io problems
          */
         protected boolean scanAttribute(final XMLAttributesImpl attributes, final boolean[] empty) throws IOException {
-            final boolean skippedSpaces = fCurrentEntity.skipSpaces();
+            final boolean skippedSpaces = fBufferedReader.skipSpaces();
 
-            fBeginLineNumber = fCurrentEntity.getLineNumber();
-            fBeginColumnNumber = fCurrentEntity.getColumnNumber();
-            fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
+            fBeginLineNumber = fBufferedReader.getLineNumber();
+            fBeginColumnNumber = fBufferedReader.getColumnNumber();
+            fBeginCharacterOffset = fBufferedReader.getCharacterOffset();
 
-            int c = fCurrentEntity.read();
+            int c = fBufferedReader.read();
 
             // try to jump over that at once
             if (c <= '>') {
@@ -2519,13 +2520,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return false;
                 }
                 if (c == '/') {
-                    if (fCurrentEntity.hasNext()) {
-                        c = fCurrentEntity.getNextChar();
+                    if (fBufferedReader.hasNext()) {
+                        c = fBufferedReader.getNextChar();
                         if (c == '>') {
                             empty[0] = true;
                             return false;
                         }
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                     }
                 }
 
@@ -2539,7 +2540,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
 
-            fCurrentEntity.rewind();
+            fBufferedReader.rewind();
             String aname = scanName(false);
             if (aname == null) {
                 if (fReportErrors_) {
@@ -2547,10 +2548,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
 
                 // check if the next char is '=' and handle this according to the spec
-                fCurrentEntity.skipSpaces();
-                if (!fCurrentEntity.hasNext() || '=' != fCurrentEntity.getNextChar()) {
-                    fCurrentEntity.rewind();
-                    empty[0] = fCurrentEntity.skipMarkup(false);
+                fBufferedReader.skipSpaces();
+                if (!fBufferedReader.hasNext() || '=' != fBufferedReader.getNextChar()) {
+                    fBufferedReader.rewind();
+                    empty[0] = fBufferedReader.skipMarkup(false);
                     return false;
                 }
                 aname = '=' + scanName(false);
@@ -2558,8 +2559,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (fReportErrors_ && !skippedSpaces) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
             }
-            fCurrentEntity.skipSpaces();
-            c = fCurrentEntity.read();
+            fBufferedReader.skipSpaces();
+            c = fBufferedReader.read();
             if (c == -1) {
                 if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1007", null);
@@ -2578,8 +2579,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 return false;
             }
             if (c == '=') {
-                fCurrentEntity.skipSpaces();
-                c = fCurrentEntity.read();
+                fBufferedReader.skipSpaces();
+                c = fBufferedReader.read();
 
                 // check for the good case first, before we deal with error handling
                 if (c == '"' || c == '\'') {
@@ -2588,7 +2589,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                     if (fPlainAttributeValues_) {
                         final XMLString plainAttribValue = fStringBufferPlainAttribValue.clear();
-                        scanAttributeQuotedValue(c, fCurrentEntity, attribValue,
+                        scanAttributeQuotedValue(c, fBufferedReader, attribValue,
                                                     plainAttribValue, fNormalizeAttributes_);
 
                         if (fNormalizeAttributes_ && attribValue.length() > 0) {
@@ -2601,7 +2602,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                                     plainAttribValue.toString(), true);
                     }
                     else {
-                        scanAttributeQuotedValue(c, fCurrentEntity, attribValue, null, fNormalizeAttributes_);
+                        scanAttributeQuotedValue(c, fBufferedReader, attribValue, null, fNormalizeAttributes_);
 
                         if (fNormalizeAttributes_ && attribValue.length() > 0) {
                             // trailing whitespace already normalized to single space
@@ -2632,12 +2633,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return false;
                 }
 
-                fCurrentEntity.rewind();
+                fBufferedReader.rewind();
 
                 final XMLString attribValue = fStringBuffer.clear();
                 if (fPlainAttributeValues_) {
                     final XMLString nonNormalizedAttribValue = fStringBufferPlainAttribValue.clear();
-                    scanAttributeUnquotedValue(fCurrentEntity, attribValue, nonNormalizedAttribValue);
+                    scanAttributeUnquotedValue(fBufferedReader, attribValue, nonNormalizedAttribValue);
 
                     qName_.setValues(null, aname, aname, null);
                     attributes.addAttribute(qName_, "CDATA",
@@ -2645,7 +2646,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                                 nonNormalizedAttribValue.toString(), true);
                 }
                 else {
-                    scanAttributeUnquotedValue(fCurrentEntity, attribValue, null);
+                    scanAttributeUnquotedValue(fBufferedReader, attribValue, null);
 
                     qName_.setValues(null, aname, aname, null);
                     attributes.addAttribute(qName_, "CDATA", attribValue.toString(), true);
@@ -2657,7 +2658,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             qName_.setValues(null, aname, aname, null);
             attributes.addAttribute(qName_, "CDATA", "", true);
 
-            fCurrentEntity.rewind();
+            fBufferedReader.rewind();
             return true;
         }
 
@@ -2795,7 +2796,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             if (fReportErrors_ && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
-            fCurrentEntity.skipMarkup(false);
+            fBufferedReader.skipMarkup(false);
             if (ename != null) {
                 if (fElementCount >= fElementDepth) {
                     ename = modifyName(ename, fNamesElems);
@@ -2803,7 +2804,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     if (DEBUG_CALLBACKS) {
                         System.out.println("endElement(" + qName_ + ")");
                     }
-                    fDocumentHandler.endElement(qName_, locationAugs(fCurrentEntity));
+                    fDocumentHandler.endElement(qName_, locationAugs(fBufferedReader));
                 }
             }
         }
@@ -2852,10 +2853,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 try {
                     switch (fScannerState) {
                         case STATE_CONTENT: {
-                            fBeginLineNumber = fCurrentEntity.getLineNumber();
-                            fBeginColumnNumber = fCurrentEntity.getColumnNumber();
-                            fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
-                            final int c = fCurrentEntity.read();
+                            fBeginLineNumber = fBufferedReader.getLineNumber();
+                            fBeginColumnNumber = fBufferedReader.getColumnNumber();
+                            fBeginCharacterOffset = fBufferedReader.getCharacterOffset();
+                            final int c = fBufferedReader.read();
                             if (c == -1) {
                                 if (fReportErrors_) {
                                     fErrorReporter.reportError("HTML1007", null);
@@ -2874,34 +2875,34 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 charBuffer_.clearAndAppend('&');
                             }
                             else {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                                 charBuffer_.clear();
                             }
                             scanCharacters(charBuffer_);
                             break;
                         }
                         case STATE_MARKUP_BRACKET: {
-                            final int c = fCurrentEntity.read();
+                            final int c = fBufferedReader.read();
                             if (c == '/') {
                                 String ename = scanName(true);
                                 if (ename != null) {
-                                    fCurrentEntity.skipSpaces();
+                                    fBufferedReader.skipSpaces();
 
                                     if (ename.equalsIgnoreCase(fElementName)) {
-                                        if (fCurrentEntity.read() == '>') {
+                                        if (fBufferedReader.read() == '>') {
                                             if (fElementCount >= fElementDepth) {
                                                 ename = modifyName(ename, fNamesElems);
                                                 fQName_.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {
                                                     System.out.println("endElement(" + fQName_ + ")");
                                                 }
-                                                fDocumentHandler.endElement(fQName_, locationAugs(fCurrentEntity));
+                                                fDocumentHandler.endElement(fQName_, locationAugs(fBufferedReader));
                                             }
                                             setScanner(fContentScanner);
                                             setScannerState(STATE_CONTENT);
                                             return true;
                                         }
-                                        fCurrentEntity.rewind();
+                                        fBufferedReader.rewind();
                                     }
                                     charBuffer_.clear().append("</").append(ename);
                                 }
@@ -2929,7 +2930,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fCurrentEntity = fCurrentEntityStack.pop();
+                        fBufferedReader = fCurrentEntityStack.pop();
                         setScannerState(STATE_CONTENT);
                     }
                     return true;
@@ -2942,22 +2943,22 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Scan characters.
         protected void scanCharacters(final XMLString buffer) throws IOException {
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded("(scanCharacters");
+                fBufferedReader.debugBufferIfNeeded("(scanCharacters");
             }
 
             while (true) {
-                final int c = fCurrentEntity.read();
+                final int c = fBufferedReader.read();
 
                 if (c == -1 || (c == '<' || c == '&')) {
                     if (c != -1) {
-                        fCurrentEntity.rewind();
+                        fBufferedReader.rewind();
                     }
                     break;
                 }
                 // Patch supplied by Jonathan Baxter
                 else if (c == '\r' || c == '\n') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    fBufferedReader.rewind();
+                    final int newlines = fBufferedReader.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -2984,10 +2985,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + buffer + ")");
                 }
-                fDocumentHandler.characters(buffer, locationAugs(fCurrentEntity));
+                fDocumentHandler.characters(buffer, locationAugs(fBufferedReader));
             }
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
+                fBufferedReader.debugBufferIfNeeded(")scanCharacters: ");
             }
         }
     }
@@ -3008,7 +3009,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         protected void scanCharacters(final XMLString buffer, final boolean complete) throws IOException {
             while (true) {
-                final int c = fCurrentEntity.read();
+                final int c = fBufferedReader.read();
 
                 if (c == -1) {
                     break;
@@ -3021,7 +3022,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
 
                 if (c == '\n') {
-                    fCurrentEntity.incLine();
+                    fBufferedReader.incLine();
                 }
             }
 
@@ -3029,13 +3030,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + buffer + ")");
                 }
-                fDocumentHandler.characters(buffer, locationAugs(fCurrentEntity));
+                fDocumentHandler.characters(buffer, locationAugs(fBufferedReader));
             }
             if (complete) {
-                fDocumentHandler.endDocument(locationAugs(fCurrentEntity));
+                fDocumentHandler.endDocument(locationAugs(fBufferedReader));
             }
             if (DEBUG_BUFFER) {
-                fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
+                fBufferedReader.debugBufferIfNeeded(")scanCharacters: ");
             }
         }
     }
@@ -3059,7 +3060,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             OUTER:
                 while (true) {
-                    final int c = fCurrentEntity.read();
+                    final int c = fBufferedReader.read();
                     if (c == -1) {
                         break OUTER;
                     }
@@ -3070,10 +3071,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             state = ScanScriptState.ESCAPED;
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
+                            final String next = fBufferedReader.nextContent(8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                                 break OUTER;
                             }
                         }
@@ -3089,10 +3090,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
+                            final String next = fBufferedReader.nextContent(8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
-                                fCurrentEntity.rewind();
+                                fBufferedReader.rewind();
                                 break OUTER;
                             }
                             openIndex = 0;
@@ -3173,8 +3174,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
 
                     if (c == '\r' || c == '\n') {
-                        fCurrentEntity.rewind();
-                        final int newlines = fCurrentEntity.skipNewlines();
+                        fBufferedReader.rewind();
+                        final int newlines = fBufferedReader.skipNewlines();
                         for (int i = 0; i < newlines; i++) {
                             fScanScriptContent.append('\n');
                         }
@@ -3204,7 +3205,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("characters(" + fScanScriptContent + ")");
                 }
-                fDocumentHandler.characters(fScanScriptContent, locationAugs(fCurrentEntity));
+                fDocumentHandler.characters(fScanScriptContent, locationAugs(fBufferedReader));
             }
 
             setScanner(fContentScanner);
