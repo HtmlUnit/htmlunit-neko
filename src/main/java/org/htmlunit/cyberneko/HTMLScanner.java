@@ -398,18 +398,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     // properties
 
-    /** Public identifier. */
-    private String publicId;
-
-    /** Base system identifier. */
-    private String baseSystemId;
-
-    /** Literal system identifier. */
-    private String literalSystemId;
-
-    /** Expanded system identifier. */
-    private String systemId;
-
     /** XML version. */
     private final String version = "1.0";
 
@@ -456,7 +444,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     protected HTMLScannerBufferedReader fBufferedReader;
 
     /** The current entity stack. */
-    protected final MiniStack<HTMLScannerBufferedReader> fCurrentEntityStack = new MiniStack<>();
+    protected final MiniStack<HTMLScannerBufferedReader> fBufferedReaderStack = new MiniStack<>();
 
     /** The current scanner. */
     protected Scanner fScanner;
@@ -549,14 +537,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public void pushInputSource(final XMLInputSource inputSource) {
         final Reader reader = getReader(inputSource);
 
-        fCurrentEntityStack.push(fBufferedReader);
+        fBufferedReaderStack.push(fBufferedReader);
 
-        publicId = inputSource.getPublicId();
-        baseSystemId = inputSource.getBaseSystemId();
-        literalSystemId = inputSource.getSystemId();
-        systemId = systemId(literalSystemId, baseSystemId);
-
-        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding(),
+                                    inputSource.getPublicId(),
+                                    inputSource.getBaseSystemId(),
+                                    inputSource.getSystemId(),
+                                    systemId(inputSource.getSystemId(), inputSource.getBaseSystemId()));
     }
 
     private Reader getReader(final XMLInputSource inputSource) {
@@ -588,11 +575,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final HTMLScannerBufferedReader previousEntity = fBufferedReader;
         final Reader reader = getReader(inputSource);
 
-        publicId = inputSource.getPublicId();
-        baseSystemId = inputSource.getBaseSystemId();
-        literalSystemId = inputSource.getSystemId();
-        systemId = systemId(literalSystemId, baseSystemId);
-        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding());
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding(),
+                                    inputSource.getPublicId(),
+                                    inputSource.getBaseSystemId(),
+                                    inputSource.getSystemId(),
+                                    systemId(inputSource.getSystemId(), inputSource.getBaseSystemId()));
+
         setScanner(fContentScanner);
         setScannerState(STATE_CONTENT);
         try {
@@ -618,7 +606,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      *                 stream and should be responsible for closing it.
      */
     public void cleanup(final boolean closeall) {
-        final int size = fCurrentEntityStack.size();
+        final int size = fBufferedReaderStack.size();
         if (size > 0) {
             // current entity is not the original, so close it
             if (fBufferedReader != null) {
@@ -626,7 +614,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             // close remaining streams
             for (int i = closeall ? 0 : 1; i < size; i++) {
-                fBufferedReader = fCurrentEntityStack.pop();
+                fBufferedReader = fBufferedReaderStack.pop();
                 fBufferedReader.closeQuietly();
             }
         }
@@ -638,31 +626,31 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Returns the encoding. */
     @Override
     public String getEncoding() {
-        return fBufferedReader != null ? fBufferedReader.encoding_ : null;
+        return fBufferedReader != null ? fBufferedReader.getEncoding() : null;
     }
 
     /** Returns the public identifier. */
     @Override
     public String getPublicId() {
-        return publicId;
+        return fBufferedReader != null ? fBufferedReader.getPublicId() : null;
     }
 
     /** Returns the base system identifier. */
     @Override
     public String getBaseSystemId() {
-        return baseSystemId;
+        return fBufferedReader != null ? fBufferedReader.getBaseSystemId() : null;
     }
 
     /** Returns the literal system identifier. */
     @Override
     public String getLiteralSystemId() {
-        return literalSystemId;
+        return fBufferedReader != null ? fBufferedReader.getLiteralSystemId() : null;
     }
 
     /** Returns the expanded system identifier. */
     @Override
     public String getSystemId() {
-        return systemId;
+        return fBufferedReader != null ? fBufferedReader.getSystemId() : null;
     }
 
     /** Returns the current line number. */
@@ -841,7 +829,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fElementCount = 0;
         fElementDepth = -1;
         fByteStream = null;
-        fCurrentEntityStack.clear();
+        fBufferedReaderStack.clear();
 
         fBeginLineNumber = 1;
         fBeginColumnNumber = 1;
@@ -852,10 +840,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fJavaEncoding = fIANAEncoding;
 
         // get location information
-        publicId = source.getPublicId();
-        baseSystemId = source.getBaseSystemId();
-        literalSystemId = source.getSystemId();
-        systemId = systemId(literalSystemId, baseSystemId);
+        final String publicId = source.getPublicId();
+        final String baseSystemId = source.getBaseSystemId();
+        final String literalSystemId = source.getSystemId();
+        final String systemId = systemId(literalSystemId, baseSystemId);
 
         // open stream
         String encoding = source.getEncoding();
@@ -904,7 +892,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 reader = new InputStreamReader(fByteStream, fJavaEncoding);
             }
         }
-        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, fIANAEncoding);
+        fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, fIANAEncoding,
+                                publicId, baseSystemId, literalSystemId, systemId);
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
@@ -1808,11 +1797,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                 }
                 catch (final EOFException e) {
-                    if (fCurrentEntityStack.isEmpty()) {
+                    if (fBufferedReaderStack.isEmpty()) {
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fBufferedReader = fCurrentEntityStack.pop();
+                        fBufferedReader = fBufferedReaderStack.pop();
                     }
                     next = true;
                 }
@@ -2926,11 +2915,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 catch (final EOFException e) {
                     setScanner(fContentScanner);
-                    if (fCurrentEntityStack.isEmpty()) {
+                    if (fBufferedReaderStack.isEmpty()) {
                         setScannerState(STATE_END_DOCUMENT);
                     }
                     else {
-                        fBufferedReader = fCurrentEntityStack.pop();
+                        fBufferedReader = fBufferedReaderStack.pop();
                         setScannerState(STATE_CONTENT);
                     }
                     return true;

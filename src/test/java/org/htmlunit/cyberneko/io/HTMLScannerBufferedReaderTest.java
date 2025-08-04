@@ -35,7 +35,8 @@ public class HTMLScannerBufferedReaderTest {
      */
     @Test
     public void loadWholeBuffer() throws Exception {
-        HTMLScannerBufferedReader reader = new HTMLScannerBufferedReader(new StringReader("Neko"), 20, "UTF-8");
+        HTMLScannerBufferedReader reader = new HTMLScannerBufferedReader(new StringReader("Neko"), 20, "UTF-8",
+                                                    "publicId", "baseSystemId", "literalSystemId", "systemId");
 
         assertEquals(0, reader.length_);
         assertEquals(0, reader.offset_);
