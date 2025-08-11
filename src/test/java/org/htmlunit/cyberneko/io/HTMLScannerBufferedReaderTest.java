@@ -41,6 +41,7 @@ public class HTMLScannerBufferedReaderTest {
         assertEquals(0, reader.length_);
         assertEquals(0, reader.offset_);
         assertEquals(0, reader.getCharacterOffset());
+
         // strange but the buffer is not filled at start
         assertFalse(reader.hasNext());
 
@@ -50,6 +51,7 @@ public class HTMLScannerBufferedReaderTest {
         assertEquals(0, reader.offset_);
         assertEquals(0, reader.getCharacterOffset());
 
+        assertEquals('N', reader.getCurrentChar());
         assertTrue(reader.hasNext());
 
         bytes = reader.loadWholeBuffer();
@@ -58,6 +60,7 @@ public class HTMLScannerBufferedReaderTest {
         assertEquals(0, reader.offset_);
         assertEquals(0, reader.getCharacterOffset());
 
+        assertEquals('N', reader.getCurrentChar());
         assertFalse(reader.hasNext());
     }
 }

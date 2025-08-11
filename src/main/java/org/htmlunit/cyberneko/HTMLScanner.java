@@ -535,10 +535,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * @see #evaluateInputSource(XMLInputSource)
      */
     public void pushInputSource(final XMLInputSource inputSource) {
-        final Reader reader = getReader(inputSource);
 
         fBufferedReaderStack.push(fBufferedReader);
 
+        final Reader reader = getReader(inputSource);
         fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding(),
                                     inputSource.getPublicId(),
                                     inputSource.getBaseSystemId(),
@@ -573,8 +573,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final Scanner previousScanner = fScanner;
         final short previousScannerState = fScannerState;
         final HTMLScannerBufferedReader previousEntity = fBufferedReader;
-        final Reader reader = getReader(inputSource);
 
+        final Reader reader = getReader(inputSource);
         fBufferedReader = new HTMLScannerBufferedReader(reader, fReaderBufferSize, inputSource.getEncoding(),
                                     inputSource.getPublicId(),
                                     inputSource.getBaseSystemId(),
