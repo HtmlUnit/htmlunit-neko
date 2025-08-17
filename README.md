@@ -18,7 +18,7 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.14.0 / July 30, 2025
+### Latest release Version 4.15.0 / August 17, 2025
 
 ##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
@@ -35,7 +35,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.14.0</version>
+    <version>4.15.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.14.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.15.0'
 ```
 
 ## HowTo use
@@ -270,7 +270,7 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.15.0-SNAPSHOT</version>
+        <version>4.16.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype-central snapshot repository to your pom `repositories` section also:
