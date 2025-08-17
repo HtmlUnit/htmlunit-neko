@@ -761,9 +761,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Sets a feature. */
     @Override
     public void setFeature(final String featureId, final boolean state) {
-
         if (featureId.equals(AUGMENTATIONS)) {
             fAugmentations_ = state;
+        }
+        else if (featureId.equals(REPORT_ERRORS)) {
+            fReportErrors_ = state;
         }
         else if (featureId.equals(IGNORE_SPECIFIED_CHARSET)) {
             fIgnoreSpecifiedCharset_ = state;
@@ -779,6 +781,27 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
         else if (featureId.equals(STYLE_STRIP_COMMENT_DELIMS)) {
             fStyleStripCommentDelims_ = state;
+        }
+        else if (featureId.equals(IGNORE_SPECIFIED_CHARSET)) {
+            fIgnoreSpecifiedCharset_ = state;
+        }
+        else if (featureId.equals(CDATA_SECTIONS)) {
+            fCDATASections_ = state;
+        }
+        else if (featureId.equals(CDATA_EARLY_CLOSING)) {
+            fCDATAEarlyClosing_ = state;
+        }
+        else if (featureId.equals(OVERRIDE_DOCTYPE)) {
+            fOverrideDoctype_ = state;
+        }
+        else if (featureId.equals(INSERT_DOCTYPE)) {
+            fInsertDoctype_ = state;
+        }
+        else if (featureId.equals(NORMALIZE_ATTRIBUTES)) {
+            fNormalizeAttributes_ = state;
+        }
+        else if (featureId.equals(PLAIN_ATTRIBUTE_VALUES)) {
+            fPlainAttributeValues_ = state;
         }
         else if (featureId.equals(PARSE_NOSCRIPT_CONTENT)) {
             fParseNoScriptContent_ = state;
@@ -798,19 +821,30 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     @Override
     public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
 
+
         if (propertyId.equals(NAMES_ELEMS)) {
             fNamesElems = getNamesValue(String.valueOf(value));
-            return;
         }
-
-        if (propertyId.equals(NAMES_ATTRS)) {
+        else if (propertyId.equals(NAMES_ATTRS)) {
             fNamesAttrs = getNamesValue(String.valueOf(value));
-            return;
         }
-
-        if (propertyId.equals(DEFAULT_ENCODING)) {
+        else if (propertyId.equals(DEFAULT_ENCODING)) {
             fDefaultIANAEncoding = String.valueOf(value);
-            return;
+        }
+        else if (propertyId.equals(ERROR_REPORTER)) {
+            fErrorReporter = (HTMLErrorReporter) value;
+        }
+        else if (propertyId.equals(ENCODING_TRANSLATOR)) {
+            fEncodingTranslator = (EncodingTranslator) value;
+        }
+        else if (propertyId.equals(DOCTYPE_PUBID)) {
+            fDoctypePubid = String.valueOf(value);
+        }
+        else if (propertyId.equals(DOCTYPE_SYSID)) {
+            fDoctypeSysid = String.valueOf(value);
+        }
+        else if (propertyId.equals(READER_BUFFER_SIZE)) {
+            fReaderBufferSize = Integer.parseInt(String.valueOf(value));
         }
     }
 
