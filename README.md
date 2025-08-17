@@ -95,99 +95,164 @@ Using the SAXParser is straigtforward - simple provide your own org.xml.sax.Cont
 
 
 ### Features
-The behavior of the scanner/parser can be influenced via a series of switches.
 
-    parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
+The behavior of the scanner/parser can be influenced via a series of feature switches that control how the parser handles various HTML constructs and edge cases.
 
-Supported features:
+```java
+parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
+```
 
-**AUGMENTATIONS**  
-Include infoset augmentations
+#### General Processing Features
 
-**REPORT_ERRORS**  
-Report errors
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **AUGMENTATIONS** | `false` | Include infoset augmentations in the parsing output. When enabled, provides additional metadata about the parsed elements including location information (line numbers, column numbers, character offsets). |
+| **REPORT_ERRORS** | `false` | Enable detailed error reporting during parsing. When enabled, the parser will report syntax errors, malformed markup, and other parsing issues through the configured error reporter. |
 
-**SCRIPT_STRIP_COMMENT_DELIMS**  
-Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
+#### Script and Style Processing
 
-**SCRIPT_STRIP_CDATA_DELIMS**  
-Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **SCRIPT_STRIP_COMMENT_DELIMS** | `false` | Automatically strip HTML comment delimiters (`<!--` and `-->`) from `<script>` tag contents. Useful for handling legacy JavaScript wrapped in HTML comments. |
+| **SCRIPT_STRIP_CDATA_DELIMS** | `false` | Strip XHTML CDATA delimiters (`<![CDATA[` and `]]>`) from `<script>` tag contents. Enables clean processing of XHTML-style JavaScript sections. |
+| **STYLE_STRIP_COMMENT_DELIMS** | `false` | Strip HTML comment delimiters (`<!--` and `-->`) from `<style>` tag contents. Handles CSS code wrapped in HTML comments for backward compatibility. |
+| **STYLE_STRIP_CDATA_DELIMS** | `false` | Strip XHTML CDATA delimiters (`<![CDATA[` and `]]>`) from `<style>` tag contents. Processes XHTML-style CSS sections cleanly. |
 
-**STYLE_STRIP_COMMENT_DELIMS**  
-Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
+#### Character Encoding Features
 
-**STYLE_STRIP_CDATA_DELIMS**  
-Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **IGNORE_SPECIFIED_CHARSET** | `false` | Ignore charset specifications found in `<meta http-equiv='Content-Type' content='text/html;charset=...'>` tags or `<?xml ... encoding='...'>` processing instructions. Forces the parser to use the default or manually specified encoding. |
 
-**IGNORE_SPECIFIED_CHARSET**  
-Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
+#### CDATA and Comment Processing
 
-**CDATA_SECTIONS**  
-Whether CDATA sections (<![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments.  
-When CDATA_SECTIONS is true
-  * CDATA sections are parsed according to XML rules
-  * Three distinct events are fired:
-    * startCDATA() - when <![CDATA[ is encountered
-    * characters() - for the content between the delimiters
-    * endCDATA() - when ]]> is found
-  * the actual CDATA delimiters (<![CDATA[ and ]]>) are NOT included in the character content
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **CDATA_SECTIONS** | `false` | **Controls how CDATA sections (`<![CDATA[...]]>`) are processed:**<br/><br/>**When `true` (XML-style processing):**<br/>• CDATA sections follow strict XML parsing rules<br/>• Fires three distinct events: `startCDATA()`, `characters()`, `endCDATA()`<br/>• CDATA delimiters are NOT included in character content<br/>• Only properly closed sections (ending with `]]>`) are recognized<br/><br/>**When `false` (HTML-style processing - default):**<br/>• CDATA sections are treated as HTML comments<br/>• Only a single `comment()` event is fired<br/>• Opening delimiter `[CDATA[` is included in comment content<br/>• More lenient parsing for malformed sections |
+| **CDATA_EARLY_CLOSING** | `true` | Allow CDATA sections to be closed by a single `>` character, following HTML specification behavior. When disabled, CDATA sections must be properly closed with `]]>`. |
 
-When CDATA_SECTIONS is false (default)
-  * CDATA sections are treated as HTML comments
-  * Only a comment() event is fired
-  * The opening delimiter [CDATA[ is included in the comment content
+#### Document Structure Features
 
-**CDATA_EARLY_CLOSING**  
-'>' closes the cdata section (see html spec) - default enabled
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **OVERRIDE_DOCTYPE** | `false` | Override any existing DOCTYPE declaration with the values specified in the `DOCTYPE_PUBID` and `DOCTYPE_SYSID` properties. Useful for forcing a specific document type. |
+| **INSERT_DOCTYPE** | `false` | Automatically insert a DOCTYPE declaration if none is present in the document. Uses the values from `DOCTYPE_PUBID` and `DOCTYPE_SYSID` properties. |
 
-**OVERRIDE_DOCTYPE**  
-Override doctype declaration public and system identifiers
+#### Tag and Element Processing
 
-**INSERT_DOCTYPE**  
-Insert document type declaration
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **PARSE_NOSCRIPT_CONTENT** | `true` | Parse the content within `<noscript>...</noscript>` tags as regular HTML markup. When disabled, noscript content is treated as plain text. |
+| **ALLOW_SELFCLOSING_IFRAME** | `false` | Allow self-closing iframe tags (`<iframe/>`). When enabled, treats `<iframe/>` as a complete element rather than requiring a separate closing tag. |
+| **ALLOW_SELFCLOSING_SCRIPT** | `false` | Allow self-closing script tags (`<script/>`). When enabled, treats `<script/>` as a complete element. Note: This may not work as expected in all browsers. |
+| **ALLOW_SELFCLOSING_TAGS** | `false` | Enable XHTML-style self-closing tags for all elements (e.g., `<div/>`, `<p/>`). Allows XML-style syntax in HTML documents. |
 
-**PARSE_NOSCRIPT_CONTENT**  
-Parse &lt;noscript>...&lt;/noscript>' content
+#### Attribute Processing
 
-**ALLOW_SELFCLOSING_IFRAME**  
-Allows self closing &lt;iframe/&gt; tag
+| Feature | Default | Description |
+|---------|---------|-------------|
+| **NORMALIZE_ATTRIBUTES** | `false` | Normalize attribute values by collapsing consecutive whitespace characters into single spaces and trimming leading/trailing whitespace. Follows XML attribute value normalization rules. |
+| **PLAIN_ATTRIBUTE_VALUES** | `false` | Store both the normalized and original (plain) attribute values. When enabled, provides access to attribute values exactly as they appear in the source, before any entity resolution or normalization. |
 
-**ALLOW_SELFCLOSING_SCRIPT**  
-Allows self closing &lt;script/&gt; tag
+#### Usage Examples
 
-**ALLOW_SELFCLOSING_TAGS**  
-Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+```java
+// Enable comprehensive error reporting and augmentations
+parser.setFeature(HTMLScanner.REPORT_ERRORS, true);
+parser.setFeature(HTMLScanner.AUGMENTATIONS, true);
 
-**NORMALIZE_ATTRIBUTES**  
-Normalize attribute values
+// Process CDATA sections as proper XML constructs
+parser.setFeature(HTMLScanner.CDATA_SECTIONS, true);
 
-**PLAIN_ATTRIBUTE_VALUES**
-Store the plain attribute values also
+// Handle legacy script/style sections with HTML comments
+parser.setFeature(HTMLScanner.SCRIPT_STRIP_COMMENT_DELIMS, true);
+parser.setFeature(HTMLScanner.STYLE_STRIP_COMMENT_DELIMS, true);
 
+// Enable XHTML-style self-closing tags
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS, true);
+
+// Normalize and preserve original attribute values
+parser.setFeature(HTMLScanner.NORMALIZE_ATTRIBUTES, true);
+parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
+```
+
+#### Important Notes
+
+- **CDATA_SECTIONS**: This is one of the most important features for XML/XHTML compatibility. Enable it when processing XHTML documents or when you need to distinguish between CDATA sections and comments.
+- **Error Reporting**: Enable `REPORT_ERRORS` during development to catch malformed HTML early.
+- **Self-Closing Tags**: Use caution with self-closing script and iframe tags as they may not behave consistently across all browsers.
+- **Attribute Normalization**: When `NORMALIZE_ATTRIBUTES` is enabled, whitespace handling follows XML rules, which may differ from browser behavior.
 
 ### Properties
-The behavior of the scanner/parser can be influenced via a series of switches.
 
-    parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);
+The behavior of the scanner/parser can be influenced via a series of property switches that control various aspects of parsing behavior and output formatting.
 
-Supported properties:
+```java
+parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);
+```
 
-* NAMES_ELEMS - "upper", "lower", "default"
-* NAMES_ATTRS - "upper", "lower", "default"
+#### Element and Attribute Name Handling
 
-* DEFAULT_ENCODING
+| Property | Values | Default | Description |
+|----------|--------|---------|-------------|
+| **NAMES_ELEMS** | `"upper"`, `"lower"`, `"default"` | `"default"` | Controls how HTML element names are modified during parsing. `"upper"` converts all element names to uppercase, `"lower"` converts to lowercase, and `"default"` preserves the original case. |
+| **NAMES_ATTRS** | `"upper"`, `"lower"`, `"default"` | `"default"` | Controls how HTML attribute names are modified during parsing. Similar to `NAMES_ELEMS` but applies to attribute names only. |
 
-* ERROR_REPORTER - Error reporter; an instance of org.htmlunit.cyberneko.HTMLErrorReporter or null
-* ENCODING_TRANSLATOR - an implementation of org.htmlunit.cyberneko.xerces.util.EncodingTranslator. Starting with version 4.0.0
-  the default encoding translator is set to the StandardEncodingTranslator which provides a much better and standard compliant
-  handling of encodings. You can switch back the EncodingMap, if you still need the old behavior.
+#### Character Encoding Configuration
 
-* DOCTYPE_PUBID - Doctype declaration public identifier
-* DOCTYPE_SYSID - Doctype declaration system identifier
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **DEFAULT_ENCODING** | `String` | `"Windows-1252"` | Sets the default character encoding to use when no encoding is specified in the document or input source. Should be a valid IANA encoding name. |
+| **ENCODING_TRANSLATOR** | `EncodingTranslator` | `StandardEncodingTranslator.INSTANCE` | Provides encoding name translation from HTML meta tag labels to Java encoding names. Starting with version 4.0.0, uses `StandardEncodingTranslator` for spec-compliant behavior. Can be set to `EncodingMap.INSTANCE` for legacy behavior. |
 
-* READER_BUFFER_SIZE - Size of the reader buffer used during content scanning
+#### Error and Debugging Configuration
 
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **ERROR_REPORTER** | `HTMLErrorReporter` | `null` | Error reporter instance for handling parsing errors and warnings. Must implement `org.htmlunit.cyberneko.HTMLErrorReporter` interface. When `null`, error reporting is disabled. |
 
+#### Document Type Configuration
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **DOCTYPE_PUBID** | `String` | `"-//W3C//DTD HTML 4.01 Transitional//EN"` | DOCTYPE declaration public identifier used when `INSERT_DOCTYPE` or `OVERRIDE_DOCTYPE` features are enabled. |
+| **DOCTYPE_SYSID** | `String` | `"http://www.w3.org/TR/html4/loose.dtd"` | DOCTYPE declaration system identifier used when `INSERT_DOCTYPE` or `OVERRIDE_DOCTYPE` features are enabled. |
+
+#### Performance Configuration
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| **READER_BUFFER_SIZE** | `Integer` | `616` | Size of the internal character buffer used during content scanning. Larger values may improve performance for large documents but use more memory. Default is optimized for cache efficiency (10 × 64 - 24 bytes). |
+
+#### Usage Examples
+
+```java
+// Configure element and attribute name casing
+parser.setProperty(HTMLScanner.NAMES_ELEMS, "upper");
+parser.setProperty(HTMLScanner.NAMES_ATTRS, "lower");
+
+// Set custom encoding handling
+parser.setProperty(HTMLScanner.DEFAULT_ENCODING, "UTF-8");
+parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE);
+
+// Configure DOCTYPE for inserted declarations
+parser.setProperty(HTMLScanner.DOCTYPE_PUBID, "-//W3C//DTD XHTML 1.0 Strict//EN");
+parser.setProperty(HTMLScanner.DOCTYPE_SYSID, "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd");
+
+// Set up error reporting
+HTMLErrorReporter errorReporter = new MyCustomErrorReporter();
+parser.setProperty(HTMLScanner.ERROR_REPORTER, errorReporter);
+
+// Optimize buffer size for large documents
+parser.setProperty(HTMLScanner.READER_BUFFER_SIZE, 2048);
+```
+
+#### Important Notes
+
+- **Encoding Translator**: The `StandardEncodingTranslator` provides WHATWG-compliant encoding name mapping. Use `EncodingMap` only if you need legacy behavior compatibility.
+- **Buffer Size**: The default buffer size is optimized for cache efficiency. Increasing it may help with very large documents but will use more memory.
+- **Error Reporter**: Implementing a custom error reporter allows you to handle parsing errors according to your application's needs.
+- **Name Casing**: Changing element/attribute name casing affects the output and may impact CSS selectors or JavaScript that relies on specific casing.
 
 ### Last CI build
 The latest builds are available from our
