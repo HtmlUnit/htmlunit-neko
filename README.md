@@ -101,28 +101,68 @@ The behavior of the scanner/parser can be influenced via a series of switches.
 
 Supported features:
 
-* AUGMENTATIONS - Include infoset augmentations
-* REPORT_ERRORS - Report errors
+**AUGMENTATIONS**  
+Include infoset augmentations
 
-* SCRIPT_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
-* SCRIPT_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
+**REPORT_ERRORS**  
+Report errors
 
-* STYLE_STRIP_COMMENT_DELIMS - Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
-* STYLE_STRIP_CDATA_DELIMS - Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
+**SCRIPT_STRIP_COMMENT_DELIMS**  
+Strip HTML comment delimiters ("&lt;!--" and "-->") from SCRIPT tag contents
 
-* IGNORE_SPECIFIED_CHARSET -Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
-* CDATA_SECTIONS - Scan CDATA sections
-* CDATA_EARLY_CLOSING - '>' closes the cdata section (see html spec) - default enabled
-* OVERRIDE_DOCTYPE - Override doctype declaration public and system identifiers
-* INSERT_DOCTYPE - Insert document type declaration
-* PARSE_NOSCRIPT_CONTENT - Parse &lt;noscript>...&lt;/noscript>' content
+**SCRIPT_STRIP_CDATA_DELIMS**  
+Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from SCRIPT tag contents
 
-* ALLOW_SELFCLOSING_IFRAME - Allows self closing &lt;iframe/&gt; tag
-* ALLOW_SELFCLOSING_SCRIPT - Allows self closing &lt;script/&gt; tag
-* ALLOW_SELFCLOSING_TAGS - Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+**STYLE_STRIP_COMMENT_DELIMS**  
+Strip HTML comment delimiters ("&lt;!--" and "-->") from STYLE tag contents
 
-* NORMALIZE_ATTRIBUTES - Normalize attribute values
-* PLAIN_ATTRIBUTE_VALUES - Store the plain attribute values also
+**STYLE_STRIP_CDATA_DELIMS**  
+Strip XHTML CDATA delimiters ("&lt;![CDATA[" and "]]>") from STYLE tag contents
+
+**IGNORE_SPECIFIED_CHARSET**  
+Ignore specified charset found in the &lt;meta equiv='Content-Type' content='text/html;charset=...'> tag or in the &lt;?xml ... encoding='...'> processing instruction
+
+**CDATA_SECTIONS**  
+Whether CDATA sections (<![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments.  
+When CDATA_SECTIONS is true
+  * CDATA sections are parsed according to XML rules
+  * Three distinct events are fired:
+    * startCDATA() - when <![CDATA[ is encountered
+    * characters() - for the content between the delimiters
+    * endCDATA() - when ]]> is found
+  * the actual CDATA delimiters (<![CDATA[ and ]]>) are NOT included in the character content
+
+When CDATA_SECTIONS is false (default)
+  * CDATA sections are treated as HTML comments
+  * Only a comment() event is fired
+  * The opening delimiter [CDATA[ is included in the comment content
+
+**CDATA_EARLY_CLOSING**  
+'>' closes the cdata section (see html spec) - default enabled
+
+**OVERRIDE_DOCTYPE**  
+Override doctype declaration public and system identifiers
+
+**INSERT_DOCTYPE**  
+Insert document type declaration
+
+**PARSE_NOSCRIPT_CONTENT**  
+Parse &lt;noscript>...&lt;/noscript>' content
+
+**ALLOW_SELFCLOSING_IFRAME**  
+Allows self closing &lt;iframe/&gt; tag
+
+**ALLOW_SELFCLOSING_SCRIPT**  
+Allows self closing &lt;script/&gt; tag
+
+**ALLOW_SELFCLOSING_TAGS**  
+Allows self closing tags e.g. &lt;div/&gt; (XHTML)
+
+**NORMALIZE_ATTRIBUTES**  
+Normalize attribute values
+
+**PLAIN_ATTRIBUTE_VALUES**
+Store the plain attribute values also
 
 
 ### Properties
