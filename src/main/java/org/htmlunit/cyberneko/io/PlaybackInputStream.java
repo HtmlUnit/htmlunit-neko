@@ -17,6 +17,7 @@ package org.htmlunit.cyberneko.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.zip.InflaterInputStream;
 
 /**
  * A playback input stream. This class has the ability to save the bytes read
@@ -41,6 +42,16 @@ import java.io.InputStream;
  * @author Andy Clark
  */
 public final class PlaybackInputStream extends InputStream {
+
+    private static Class apacheCommonsCompressorInputStream;
+
+    static {
+        try {
+            apacheCommonsCompressorInputStream = Class.forName("org.apache.commons.compress.compressors.CompressorInputStream");
+        } catch (ClassNotFoundException e) {
+            // all good, class is not there
+        }
+    }
 
     /** Set to true to debug playback. */
     private static final boolean DEBUG_PLAYBACK = false;
@@ -77,7 +88,19 @@ public final class PlaybackInputStream extends InputStream {
     }
 
     // Detect encoding.
-    public void detectEncoding(final String[] encodings) throws IOException {
+    public void detectBomEncoding(final String[] encodings) throws IOException {
+        // makes no sense for compressed streams
+        if (in_ instanceof InflaterInputStream) {
+            return;
+        }
+        if ("BrotliInputStream".equals(in_.getClass().getSimpleName())) {
+            return;
+        }
+        if (apacheCommonsCompressorInputStream != null
+                && apacheCommonsCompressorInputStream.isInstance(in_)) {
+            return;
+        }
+
         final int b1 = read();
         if (b1 == -1) {
             return;

@@ -889,9 +889,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             final String[] encodings = new String[2];
             fByteStream = new PlaybackInputStream(inputStream);
-            // always call detectEncoding() to skip bom in case
+            // always call detectBomEncoding() to skip bom in case
             // we got an input stream with bom and an encoding
-            fByteStream.detectEncoding(encodings);
+            fByteStream.detectBomEncoding(encodings);
             if (encoding != null) {
                 encodings[0] = encoding;
                 encodings[1] = null;

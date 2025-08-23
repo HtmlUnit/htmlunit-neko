@@ -39,7 +39,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
@@ -60,7 +60,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
@@ -82,7 +82,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
@@ -105,13 +105,18 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals("UTF-8", encoding[0]);
             assertEquals("UTF8", encoding[1]);
 
             assertEquals(32, pbis.read());
             assertEquals(-1, pbis.read());
+
+            // FIXME
+            // pbis.playback();
+            // assertEquals(32, pbis.read());
+            // assertEquals(-1, pbis.read());
         }
     }
 
@@ -126,7 +131,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
@@ -135,6 +140,51 @@ public class PlaybackInputStreamTest {
             assertEquals(-69, pbis.read());
             assertEquals(32, pbis.read());
             assertEquals(-1, pbis.read());
+
+            pbis.playback();
+            assertEquals(-17, pbis.read());
+            assertEquals(-69, pbis.read());
+            assertEquals(32, pbis.read());
+            assertEquals(-1, pbis.read());
+        }
+    }
+
+    /**
+     * @throws Exception if the test fails
+     */
+    @Test
+    public void detectEncodingUtf8PartBufer() throws Exception {
+        final byte[] bytes = new byte[] {(byte) 0xef, (byte) 0xbb, (byte) 0x20};
+
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
+
+            final String[] encoding = new String[2];
+            pbis.detectBomEncoding(encoding);
+
+            assertEquals(null, encoding[0]);
+            assertEquals(null, encoding[1]);
+
+            final byte[] read = new byte[1024];
+            int count = pbis.read(read);
+
+            assertEquals(3, count);
+            assertEquals(-17, read[0]);
+            assertEquals(-69, read[1]);
+            assertEquals(32, read[2]);
+            assertEquals(0, read[3]);
+            assertEquals(-1, pbis.read(read));
+
+            pbis.playback();
+            count = pbis.read(read);
+
+            assertEquals(3, count);
+            assertEquals(-17, read[0]);
+            assertEquals(-69, read[1]);
+            assertEquals(32, read[2]);
+            assertEquals(0, read[3]);
+
+            assertEquals(-1, pbis.read(read));
         }
     }
 
@@ -149,7 +199,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals("UTF-16", encoding[0]);
             assertEquals("UnicodeLittleUnmarked", encoding[1]);
@@ -170,7 +220,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
@@ -192,7 +242,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals("UTF-16", encoding[0]);
             assertEquals("UnicodeBigUnmarked", encoding[1]);
@@ -213,7 +263,7 @@ public class PlaybackInputStreamTest {
                 PlaybackInputStream pbis = new PlaybackInputStream(bais)) {
 
             final String[] encoding = new String[2];
-            pbis.detectEncoding(encoding);
+            pbis.detectBomEncoding(encoding);
 
             assertEquals(null, encoding[0]);
             assertEquals(null, encoding[1]);
