@@ -15,18 +15,21 @@
  */
 package org.htmlunit.cyberneko;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.util.FastHashMap;
 
 /**
- * Collection of HTML element information.
+ * Collection of HTML element information. Parts if it was in the original
+ * HtmlElements, now HtmlElementsCollection. It has been changed to allow 
+ * modifications at runtime in the sense of caching any lookup results,
+ * especially for not found elements to speed things up. 
  *
  * @author Andy Clark
  * @author Ahmed Ashour
  * @author Marc Guillemot
  * @author Ronald Brill
+ * @author Rene Schwietzke
  */
 public class HTMLElements {
 
@@ -35,6 +38,8 @@ public class HTMLElements {
     // NOTE: The element codes *must* start with 0 and increment in
     //       sequence. The parent and closes references depends on
     //       this assumption. -Ac
+    // Note 2: This codes are here to maintain compatibility with
+    //         existing code despite having the main use in HtmlElementsCollection.
 
     public static final short A = 0;
     public static final short ABBR = A + 1;
@@ -183,26 +188,43 @@ public class HTMLElements {
     public static final short XML = WBR + 1;
     public static final short XMP = XML + 1;
     public static final short UNKNOWN = XMP + 1;
-
-    // information
-
-    /** No such element. */
-    public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY}, null);
-
-    // these fields became private to avoid exposing them for indirect modification
-    // this cannot be final because HtmlUnit might add to that
-    private Element[] elementsByCode_;
-
-    // keep the list here for later modification
-    private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
-
-    // this is a optimized version which will be later queried
-    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.70f);
+    
+    // holds the original elements to query against
+    private final HTMLElementsCollection htmlElementsCollection_;
 
     // this map helps us to know what elements we don't have and speed things up
-    private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
+    private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(17, 0.50f);
 
+    /**
+     * Create a new lookup instance based on the default elements. This instance
+     * features a cache for not found elements to speed things up.
+     * 
+     * @param htmlElements the elements to lookup against
+     */
     public HTMLElements() {
+        this.htmlElementsCollection_ = HTMLElementsCollection.DEFAULT;
+    }
+    
+    /**
+     * Create a new lookup instance based on the given elements. This instance
+     * features a cache for not found elements to speed things up.
+     * 
+     * @param htmlElements the elements to lookup against
+     */
+    public HTMLElements(final HTMLElementsCollection htmlElements) {
+        this.htmlElementsCollection_ = htmlElements;
+    }
+    
+    /**
+     * Creates the default setup of HTML elements. We cannot statically set
+     * them up because some elements refer to others and these references
+     * might be changed later when adding custom elements.
+     * 
+     * This is not for public use.
+     * 
+     * @return the array of arrays of default elements
+     */
+    static Element[][] setupDefaultHTMElements() {
         final Element[][] elementsArray = new Element[26][];
         // <!ENTITY % heading "H1|H2|H3|H4|H5|H6">
         // <!ENTITY % fontstyle "TT | I | B | BIG | SMALL">
@@ -550,102 +572,65 @@ public class HTMLElements {
             // XMP
             new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
         };
-
-        // keep contiguous list of elements for lookups by code
-        for (final Element[] elements : elementsArray) {
-            if (elements != null) {
-                for (final Element element : elements) {
-                    this.elementsByNameForReference_.put(element.name, element);
-                }
-            }
-        }
-
-        // setup optimized versions
-        setupOptimizedVersions();
-    }
-
-    public void setElement(final Element element) {
-        this.elementsByNameForReference_.put(element.name, element);
-
-        // rebuild the information "trees"
-        setupOptimizedVersions();
-    }
-
-    private void setupOptimizedVersions() {
-        // we got x amount of elements + 1 unknown
-        // put that into an array instead of a map, that
-        // is a faster look up and avoids equals
-        // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
-        // list here, we might get a list with holes, so check the range first
-        final int size = elementsByNameForReference_.values().stream().mapToInt(v -> v.code).max().getAsInt();
-        elementsByCode_ = new Element[Math.max(size, NO_SUCH_ELEMENT.code) + 1];
-        elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
-        elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
-
-        // initialize cross references to parent elements
-        for (final Element element : elementsByCode_) {
-            if (element != null) {
-                defineParents(element);
-            }
-        }
-        // get us a second version that is lowercase stringified to
-        // reduce lookup overhead
-        for (final Element element : elementsByCode_) {
-            // we might have holes due to HtmlUnitNekoHtmlParser
-            if (element != null) {
-                elementsByNameOptimized_.put(element.name.toLowerCase(Locale.ROOT), element);
-            }
-        }
-    }
-
-    private void defineParents(final Element element) {
-        if (element.parentCodes_ != null) {
-            element.parent = new Element[element.parentCodes_.length];
-            for (int j = 0; j < element.parentCodes_.length; j++) {
-                element.parent[j] = elementsByCode_[element.parentCodes_[j]];
-            }
-            element.parentCodes_ = null;
-        }
+        
+        return elementsArray;
     }
 
     /**
-     * @return the element information for the specified element code.
+     * Lookup table for elements by code. There is not range check applied
+     * for the sake of performance. Java will check that anyway, so we
+     * don't have to.
      *
      * @param code The element code.
+     * @return the element information for the specified element code.
      */
     public final Element getElement(final short code) {
-        return elementsByCode_[code];
+        return this.htmlElementsCollection_.getElement(code);
     }
 
     /**
-     * @return the element information for the specified element name.
-     *
+     * Finds an element by its name and returns the element information. If
+     * the element is not known, a new element with the UNKNOWN code is
+     * returned. 
+     * 
      * @param ename The element name.
+     * @return the element information for the specified element name or an new instance with the 
+     *         UNKNOWN code if not found.
      */
     public final Element getElement(final String ename) {
-        Element element = getElement(ename, NO_SUCH_ELEMENT);
-        if (element == NO_SUCH_ELEMENT) {
-            element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),
-                                NO_SUCH_ELEMENT.flags, NO_SUCH_ELEMENT.parentCodes_, NO_SUCH_ELEMENT.closes);
-            element.parent = NO_SUCH_ELEMENT.parent;
-            element.parentCodes_ = NO_SUCH_ELEMENT.parentCodes_;
+        Element element = getElement(ename, this.htmlElementsCollection_.NO_SUCH_ELEMENT);
+        
+        if (element == this.htmlElementsCollection_.NO_SUCH_ELEMENT) {
+            element = new Element(UNKNOWN, 
+                    ename.toUpperCase(Locale.ROOT),
+                    this.htmlElementsCollection_.NO_SUCH_ELEMENT.flags, 
+                    this.htmlElementsCollection_.NO_SUCH_ELEMENT.parentCodes_, 
+                    this.htmlElementsCollection_.NO_SUCH_ELEMENT.closes);
+            element.parent = this.htmlElementsCollection_.NO_SUCH_ELEMENT.parent;
+            element.parentCodes_ = this.htmlElementsCollection_.NO_SUCH_ELEMENT.parentCodes_;
         }
+        
         return element;
     }
-
     /**
-     * @return the element information for the specified element name.
-     *
+     * Looks up an element by its name and returns the element information. If the
+     * current form of the name is not found, it tries again with the lowercase form.
+     * If still not found, the given default element is returned.
+     * 
      * @param ename The element name.
      * @param element The default element to return if not found.
+     *
+     * @return the element information for the specified element name.
      */
     public final Element getElement(final String ename, final Element element) {
         // check the current form casing first, which is mostly lowercase only
-        Element r = elementsByNameOptimized_.get(ename);
+        Element r = this.htmlElementsCollection_.lookupElement(ename);
+        
+        // we have not found it, so it might feature different casing
         if (r == null) {
             // check first if we know that we don't know and avoid the
             // lowercasing later
-            if (unknownElements_.get(ename) != null) {
+            if (this.unknownElements_.get(ename) != null) {
                 // we added it to the cache, so we know it has been
                 // queried once unsuccessfully before
                 return element;
@@ -656,14 +641,15 @@ public class HTMLElements {
             // good HTML is mostly all lowercase in the first place so this is the
             // fallback for atypical HTML
             // we also have not seen that element missing yet
-            r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
+            r = this.htmlElementsCollection_.lookupElement(ename.toLowerCase(Locale.ROOT));
 
             // remember that we had a miss
             if (r == null) {
-                unknownElements_.put(ename, Boolean.TRUE);
+                this.unknownElements_.put(ename, Boolean.TRUE);
                 return element;
             }
         }
+        
         return r;
     }
 
@@ -698,6 +684,12 @@ public class HTMLElements {
         /** The element code. */
         public final short code;
 
+        /** 
+         * hash code base on the name, kept here to avoid one extra memory
+         * access as well as the extra logic in String.hashCode()  
+         */
+        private final int hashCode_;
+
         /** The element name. */
         public final String name;
 
@@ -707,7 +699,10 @@ public class HTMLElements {
         /** Informational flags. */
         public final int flags;
 
-        /** Parent elements. */
+        /** 
+         * Parent elements, having that open is dangerous but for 
+         * legacy reasons we won't change that right now
+         */
         public Element[] parent;
 
         /** The bounding element code. */
@@ -718,7 +713,7 @@ public class HTMLElements {
 
         /** Parent elements. */
         short[] parentCodes_;
-
+        
         /**
          * Constructs an element object.
          *
@@ -782,6 +777,9 @@ public class HTMLElements {
             this.parent = null;
             this.bounds = bounds;
             this.closes = closes;
+            // the name is never null, if so, the lowercase would have blown
+            // up already
+            this.hashCode_ = name.hashCode();
         }
 
         /**
@@ -844,11 +842,11 @@ public class HTMLElements {
         }
 
         /**
-         * @return a hash code for this object.
+         * @return the hash code for this object.
          */
         @Override
         public int hashCode() {
-            return name.hashCode();
+            return this.hashCode_;
         }
 
         /**
@@ -858,7 +856,7 @@ public class HTMLElements {
         public boolean equals(final Object o) {
             if (o instanceof Element) {
                 final Element e = (Element) o;
-                return lowercaseName.equals(e.name) || name.equals(e.name);
+                return name.equals(e.name) || lowercaseName.equals(e.name);
             }
             return false;
         }
