@@ -18,9 +18,6 @@ package org.htmlunit.cyberneko;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.htmlunit.cyberneko.HTMLElements.Element;
-import org.htmlunit.cyberneko.util.FastHashMap;
-
 /**
  * Collection of HTML element information.
  *

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
@@ -76,7 +77,7 @@ public class HTMLElementsNameIndex {
 
     public static final class IndexEntry {
         private Element[] elements_;
-        private List<char[]> names_;
+        private ArrayList<char[]> names_;
 
         public IndexEntry(Map<String, Element> elements) {
             List<String> names = new ArrayList<>(elements.keySet());
@@ -88,19 +89,21 @@ public class HTMLElementsNameIndex {
             for (String name : names) {
                 elements_[i] = elements.get(name);
                 // todo check for ascii
-                names_.add(name.toUpperCase().toCharArray());
+                names_.add(name.toUpperCase(Locale.ROOT).toCharArray());
                 i++;
             }
         }
 
-        public Element getElement(final String ename) {
+        public Element getElement(final String ename, final Element elementIfNotFound) {
             char[] enameChars = ename.toCharArray();
             int length = enameChars.length;
 
             int converted = 0;
             int foundIdx = -1;
 
-            for (char[] nameChars : names_) {
+            int len = names_.size();
+            for (int n = 0; n < len; n++) {
+                char[] nameChars = names_.get(n);
                 outer: {
                     foundIdx++;
                     int i = 0;
@@ -109,7 +112,7 @@ public class HTMLElementsNameIndex {
                         char expected = nameChars[i];
                         char c = enameChars[i];
                         if (c < expected) {
-                            return null;
+                            return elementIfNotFound;
                         }
 
                         if (c > expected) {
@@ -123,7 +126,7 @@ public class HTMLElementsNameIndex {
 
                         char expected = nameChars[i];
                         if (c < expected) {
-                            return null;
+                            return elementIfNotFound;
                         }
 
                         if (c > expected) {
@@ -137,7 +140,7 @@ public class HTMLElementsNameIndex {
                 }
             }
 
-            return null;
+            return elementIfNotFound;
         }
     }
 
@@ -153,11 +156,6 @@ public class HTMLElementsNameIndex {
             return elementIfNotFound;
         }
 
-        Element element = indexEntries_[length - 1].getElement(ename);
-        if (element != null) {
-            return element;
-        }
-
-        return elementIfNotFound;
+        return indexEntries_[length - 1].getElement(ename, elementIfNotFound);
     }
 }
