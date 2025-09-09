@@ -18,6 +18,7 @@ package org.htmlunit.cyberneko;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.util.FastHashMap;
 
 /**
@@ -197,10 +198,11 @@ public class HTMLElements {
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
     // this is a optimized version which will be later queried
-    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.70f);
+    // private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.70f);
+    private HTMLElementsNameIndex htmlElementsNameIndex_;
 
     // this map helps us to know what elements we don't have and speed things up
-    private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
+    // private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -588,14 +590,24 @@ public class HTMLElements {
                 defineParents(element);
             }
         }
-        // get us a second version that is lowercase stringified to
-        // reduce lookup overhead
+//        // get us a second version that is lowercase stringified to
+//        // reduce lookup overhead
+//        for (final Element element : elementsByCode_) {
+//            // we might have holes due to HtmlUnitNekoHtmlParser
+//            if (element != null) {
+//                elementsByNameOptimized_.put(element.name.toLowerCase(Locale.ROOT), element);
+//            }
+//        }
+
+        HTMLElementsNameIndex.HTMLElementsNameIndexBuilder builder = new HTMLElementsNameIndex.HTMLElementsNameIndexBuilder();
+
         for (final Element element : elementsByCode_) {
             // we might have holes due to HtmlUnitNekoHtmlParser
-            if (element != null) {
-                elementsByNameOptimized_.put(element.name.toLowerCase(Locale.ROOT), element);
+            if (element != null && element.name.length() > 0) {
+                builder.register(element);
             }
         }
+        htmlElementsNameIndex_ = builder.build();
     }
 
     private void defineParents(final Element element) {
@@ -640,31 +652,32 @@ public class HTMLElements {
      * @param element The default element to return if not found.
      */
     public final Element getElement(final String ename, final Element element) {
-        // check the current form casing first, which is mostly lowercase only
-        Element r = elementsByNameOptimized_.get(ename);
-        if (r == null) {
-            // check first if we know that we don't know and avoid the
-            // lowercasing later
-            if (unknownElements_.get(ename) != null) {
-                // we added it to the cache, so we know it has been
-                // queried once unsuccessfully before
-                return element;
-            }
-
-            // we have not found it in its current form, might be uppercase
-            // or mixed case, so try all lowercase for sanity, we speculated that
-            // good HTML is mostly all lowercase in the first place so this is the
-            // fallback for atypical HTML
-            // we also have not seen that element missing yet
-            r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
-
-            // remember that we had a miss
-            if (r == null) {
-                unknownElements_.put(ename, Boolean.TRUE);
-                return element;
-            }
-        }
-        return r;
+        return htmlElementsNameIndex_.getElement(ename, element);
+//        // check the current form casing first, which is mostly lowercase only
+//        Element r = elementsByNameOptimized_.get(ename);
+//        if (r == null) {
+//            // check first if we know that we don't know and avoid the
+//            // lowercasing later
+//            if (unknownElements_.get(ename) != null) {
+//                // we added it to the cache, so we know it has been
+//                // queried once unsuccessfully before
+//                return element;
+//            }
+//
+//            // we have not found it in its current form, might be uppercase
+//            // or mixed case, so try all lowercase for sanity, we speculated that
+//            // good HTML is mostly all lowercase in the first place so this is the
+//            // fallback for atypical HTML
+//            // we also have not seen that element missing yet
+//            r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
+//
+//            // remember that we had a miss
+//            if (r == null) {
+//                unknownElements_.put(ename, Boolean.TRUE);
+//                return element;
+//            }
+//        }
+//        return r;
     }
 
     /**
