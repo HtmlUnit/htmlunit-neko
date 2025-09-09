@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
@@ -34,11 +33,9 @@ public class HTMLElementsNameIndex {
     IndexEntry[] indexEntries_;
 
     public static final class HTMLElementsNameIndexBuilder {
-        private int maxLength_;
         private ArrayList<Map<String, Element>> elementsByLength_;
 
         public HTMLElementsNameIndexBuilder() {
-            maxLength_ = 0;
             elementsByLength_ = new ArrayList<>();
         }
 
@@ -49,7 +46,6 @@ public class HTMLElementsNameIndex {
          */
         public void register(final Element element) {
             int length = element.name.length();
-            maxLength_ = Math.max(maxLength_, length);
 
             while (elementsByLength_.size() < length) {
                 elementsByLength_.add(new HashMap<>());
@@ -63,12 +59,12 @@ public class HTMLElementsNameIndex {
          */
         public HTMLElementsNameIndex build() {
             HTMLElementsNameIndex index = new HTMLElementsNameIndex();
-            index.maxLength_ = maxLength_;
+            index.maxLength_ = elementsByLength_.size();
 
-            index.indexEntries_ = new IndexEntry[maxLength_];
+            index.indexEntries_ = new IndexEntry[index.maxLength_];
             int i = 0;
             for (final Map<String, Element> elements : elementsByLength_) {
-                index.indexEntries_[i] = new IndexEntry(elements);
+                index.indexEntries_[i] = new IndexEntry(i + 1, elements);
                 i++;
             }
             return index;
@@ -77,66 +73,68 @@ public class HTMLElementsNameIndex {
 
     public static final class IndexEntry {
         private Element[] elements_;
-        private ArrayList<char[]> names_;
+        private char[] names_;
+        private int l_;
 
-        public IndexEntry(Map<String, Element> elements) {
+        public IndexEntry(int l, Map<String, Element> elements) {
             List<String> names = new ArrayList<>(elements.keySet());
             Collections.sort(names);
 
             elements_ = new Element[names.size()];
-            names_ = new ArrayList<>(names.size());
+            names_ = new char[l * names.size()];
+            l_ = l;
             int i = 0;
+            int k = 0;
             for (String name : names) {
                 elements_[i] = elements.get(name);
                 // todo check for ascii
-                names_.add(name.toUpperCase(Locale.ROOT).toCharArray());
+                char[] chars = name.toCharArray();
+                for (int j = 0; j < chars.length; j++) {
+                    names_[k] = Character.toUpperCase(chars[j]);
+                    k++;
+                }
                 i++;
             }
         }
 
         public Element getElement(final String ename, final Element elementIfNotFound) {
             char[] enameChars = ename.toCharArray();
-            int length = enameChars.length;
+            int enameCharsLength = enameChars.length;
 
-            int converted = 0;
-            int foundIdx = -1;
+            int jumpIdx = 0;
+            int convertedIdx = 0;
+            int foundIdx = 0;
 
-            int len = names_.size();
+            int len = names_.length;
+            int i = 0;
             for (int n = 0; n < len; n++) {
-                char[] nameChars = names_.get(n);
-                outer: {
+                char expected = names_[n];
+
+                char c;
+                if (i < convertedIdx) {
+                    c = enameChars[i];
+                }
+                else {
+                    c = Character.toUpperCase(enameChars[i]);
+                    enameChars[i] = c;
+                    convertedIdx++;
+                }
+
+                if (c < expected) {
+                    return elementIfNotFound;
+                }
+
+                if (c > expected) {
+                    jumpIdx += l_;
+                    n = jumpIdx - 1;
+                    i = 0;
                     foundIdx++;
-                    int i = 0;
+                    continue;
+                }
 
-                    for (; i < converted; i++) {
-                        char expected = nameChars[i];
-                        char c = enameChars[i];
-                        if (c < expected) {
-                            return elementIfNotFound;
-                        }
-
-                        if (c > expected) {
-                            break outer;
-                        }
-                    }
-                    for (; i < length; i++) {
-                        char c = Character.toUpperCase(enameChars[i]);
-                        enameChars[i] = c;
-                        converted++;
-
-                        char expected = nameChars[i];
-                        if (c < expected) {
-                            return elementIfNotFound;
-                        }
-
-                        if (c > expected) {
-                            break outer;
-                        }
-                    }
-
-                    if (i == length) {
-                        return elements_[foundIdx];
-                    }
+                i++;
+                if (i == enameCharsLength) {
+                    return elements_[foundIdx];
                 }
             }
 
