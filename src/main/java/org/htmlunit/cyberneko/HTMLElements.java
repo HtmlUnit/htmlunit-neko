@@ -620,13 +620,32 @@ public class HTMLElements {
     /**
      * @return the element information for the specified element name.
      *
-     * @param ename The element name.
+     * @param ename the element name.
      */
     public final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
             element = new Element(UNKNOWN,
                                     ename.toUpperCase(Locale.ROOT),
+                                    NO_SUCH_ELEMENT.flags,
+                                    NO_SUCH_ELEMENT.parentCodes_,
+                                    NO_SUCH_ELEMENT.bounds,
+                                    NO_SUCH_ELEMENT.closes);
+            element.parent = NO_SUCH_ELEMENT.parent;
+        }
+        return element;
+    }
+
+    /**
+     * @return the element information for the specified element name.
+     *
+     * @param enameLC the element name as lower case.
+     */
+    public final Element getElementLC(final String enameLC) {
+        Element element = getElementLC(enameLC, NO_SUCH_ELEMENT);
+        if (element == NO_SUCH_ELEMENT) {
+            element = new Element(UNKNOWN,
+                                    enameLC.toUpperCase(Locale.ROOT),
                                     NO_SUCH_ELEMENT.flags,
                                     NO_SUCH_ELEMENT.parentCodes_,
                                     NO_SUCH_ELEMENT.bounds,
@@ -673,7 +692,7 @@ public class HTMLElements {
     /**
      * @return the element information for the specified element name.
      *
-     * @param ename the element name in lower case
+     * @param enameLC the element name in lower case
      * @param elementIfNotFound the default element to return if not found.
      */
     public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {

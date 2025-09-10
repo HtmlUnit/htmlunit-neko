@@ -2874,41 +2874,43 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
             if (fElementDepth == -1) {
-                if (fByteStream != null && !fIgnoreSpecifiedCharset_ && "META".equalsIgnoreCase(ename)) {
-                    if (DEBUG_CHARSET) {
-                        System.out.println("+++ <META>");
-                    }
-                    final String httpEquiv = getValue(attributes_, "http-equiv");
-                    if ("content-type".equalsIgnoreCase(httpEquiv)) {
+                if (fByteStream != null) {
+                    final String enameLC = ename.toLowerCase(Locale.ROOT);
+
+                    if ( !fIgnoreSpecifiedCharset_ && "meta".equals(enameLC)) {
                         if (DEBUG_CHARSET) {
-                            System.out.println("+++ @content-type: \"" + httpEquiv + '"');
+                            System.out.println("+++ <META>");
                         }
-                        String content = getValue(attributes_, "content");
-                        if (content != null) {
-                            content = removeSpaces(content);
-                            final int index1 = content.toLowerCase(Locale.ROOT).indexOf("charset=");
-                            if (index1 != -1) {
-                                final int index2 = content.indexOf(';', index1);
-                                final String charset = index2 != -1 ? content.substring(index1 + 8, index2)
-                                        : content.substring(index1 + 8);
-                                changeEncoding(charset);
+                        final String httpEquiv = getValue(attributes_, "http-equiv");
+                        if ("content-type".equalsIgnoreCase(httpEquiv)) {
+                            if (DEBUG_CHARSET) {
+                                System.out.println("+++ @content-type: \"" + httpEquiv + '"');
+                            }
+                            String content = getValue(attributes_, "content");
+                            if (content != null) {
+                                content = removeSpaces(content);
+                                final int index1 = content.toLowerCase(Locale.ROOT).indexOf("charset=");
+                                if (index1 != -1) {
+                                    final int index2 = content.indexOf(';', index1);
+                                    final String charset = index2 != -1 ? content.substring(index1 + 8, index2)
+                                            : content.substring(index1 + 8);
+                                    changeEncoding(charset);
+                                }
+                            }
+                        }
+                        else {
+                            final String metaCharset = getValue(attributes_, "charset");
+                            if (metaCharset != null) {
+                                changeEncoding(metaCharset);
                             }
                         }
                     }
-                    else {
-                        final String metaCharset = getValue(attributes_, "charset");
-                        if (metaCharset != null) {
-                            changeEncoding(metaCharset);
-                        }
-                    }
-                }
-                else if (fByteStream != null) {
-                    if ("BODY".equalsIgnoreCase(ename)) {
+                    else if ("body".equals(enameLC)) {
                         fByteStream.clear();
                         fByteStream = null;
                     }
                     else {
-                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElement(ename);
+                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElementLC(enameLC);
                         if (element.parent != null
                                 && element.parent.length > 0
                                 && element.parent[0].code == HTMLElements.BODY) {
