@@ -751,7 +751,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 final QName lastQname = fragmentContextStack[length - 1];
                 final String name = lastQname.getLocalpart();
                 final String nameLC = name.toLowerCase(Locale.ROOT);
-                final Element elem = htmlConfiguration_.getHtmlElements().getElement(nameLC, null);
+                final Element elem = htmlConfiguration_.getHtmlElements().getElementLC(nameLC, null);
                 if (elem != null && elem.isSpecial()) {
                     fFragmentSpecialScannerTag_ = name;
                 }
@@ -2289,7 +2289,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     setScanner(new PlainTextScanner());
                                 }
                                 else if (ename != null) {
-                                    final Element elem = htmlConfiguration_.getHtmlElements().getElement(enameLC, null);
+                                    final Element elem = htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
                                     if (elem != null && elem.isSpecial()) {
                                         setScanner(fSpecialScanner.setElementName(ename));
                                         setScannerState(STATE_CONTENT);

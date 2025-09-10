@@ -636,10 +636,10 @@ public class HTMLElements {
     /**
      * @return the element information for the specified element name.
      *
-     * @param ename The element name.
-     * @param element The default element to return if not found.
+     * @param ename the element name.
+     * @param elementIfNotFound the default element to return if not found.
      */
-    public final Element getElement(final String ename, final Element element) {
+    public final Element getElement(final String ename, final Element elementIfNotFound) {
         // check the current form casing first, which is mostly lowercase only
         Element r = elementsByNameOptimized_.get(ename);
         if (r == null) {
@@ -648,7 +648,7 @@ public class HTMLElements {
             if (unknownElements_.get(ename) != null) {
                 // we added it to the cache, so we know it has been
                 // queried once unsuccessfully before
-                return element;
+                return elementIfNotFound;
             }
 
             // we have not found it in its current form, might be uppercase
@@ -661,8 +661,30 @@ public class HTMLElements {
             // remember that we had a miss
             if (r == null) {
                 unknownElements_.put(ename, Boolean.TRUE);
-                return element;
+                return elementIfNotFound;
             }
+        }
+        return r;
+    }
+
+    /**
+     * @return the element information for the specified element name.
+     *
+     * @param ename the element name in lower case
+     * @param elementIfNotFound the default element to return if not found.
+     */
+    public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {
+        // check the current form casing first, which is mostly lowercase only
+        Element r = elementsByNameOptimized_.get(enameLC);
+        if (r == null) {
+            if (unknownElements_.get(enameLC) != null) {
+                // we added it to the cache, so we know it has been
+                // queried once unsuccessfully before
+                return elementIfNotFound;
+            }
+            // remember that we had a miss
+            unknownElements_.put(enameLC, Boolean.TRUE);
+            return elementIfNotFound;
         }
         return r;
     }
