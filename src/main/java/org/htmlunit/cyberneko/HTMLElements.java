@@ -593,7 +593,7 @@ public class HTMLElements {
         for (final Element element : elementsByCode_) {
             // we might have holes due to HtmlUnitNekoHtmlParser
             if (element != null) {
-                elementsByNameOptimized_.put(element.name.toLowerCase(Locale.ROOT), element);
+                elementsByNameOptimized_.put(element.lowercaseName, element);
             }
         }
     }
@@ -625,10 +625,13 @@ public class HTMLElements {
     public final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
-            element = new Element(UNKNOWN, ename.toUpperCase(Locale.ROOT),
-                                NO_SUCH_ELEMENT.flags, NO_SUCH_ELEMENT.parentCodes_, NO_SUCH_ELEMENT.closes);
+            element = new Element(UNKNOWN,
+                                    ename.toUpperCase(Locale.ROOT),
+                                    NO_SUCH_ELEMENT.flags,
+                                    NO_SUCH_ELEMENT.parentCodes_,
+                                    NO_SUCH_ELEMENT.bounds,
+                                    NO_SUCH_ELEMENT.closes);
             element.parent = NO_SUCH_ELEMENT.parent;
-            element.parentCodes_ = NO_SUCH_ELEMENT.parentCodes_;
         }
         return element;
     }
