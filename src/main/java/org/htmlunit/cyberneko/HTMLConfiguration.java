@@ -126,6 +126,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     /** Namespace binder. */
     private final NamespaceBinder namespaceBinder_ = new NamespaceBinder(this);
 
+    /** HTML elements to be used */
     private final HTMLElements htmlElements_;
 
     /** Default constructor. */
