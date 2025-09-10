@@ -306,12 +306,11 @@ public class NamespaceBinder extends DefaultFilter {
             for (int i = attrCount - 1; i >= 0; i--) {
                 attrs.getName(i, qName_);
                 String rawname = qName_.getRawname();
-                // we don't uppercase anymore, instead we lowercase, because most
-                // of the time, we are lowercase already and save on memory because
-                // we don't convert it
-                final String rawnameUC = rawname.toLowerCase(Locale.ROOT);
+                // we lowercase, because most of the time, we are lowercase already
+                // and save on memory because we don't convert it
+                final String rawnameLC = rawname.toLowerCase(Locale.ROOT);
 
-                if ("xmlns".equals(rawnameUC) || rawnameUC.startsWith("xmlns:")) {
+                if ("xmlns".equals(rawnameLC) || rawnameLC.startsWith("xmlns:")) {
                     final int anamelen = rawname.length();
 
                     // get parts
@@ -322,22 +321,19 @@ public class NamespaceBinder extends DefaultFilter {
                     // re-case parts and set them back into attributes
                     final String prefix;
                     if (anamelen > 5) {
-                        aprefix = modifyName(aprefix, NAMES_LOWERCASE);
+                        aprefix = aprefix.toLowerCase(Locale.ROOT);
                         alocal = modifyName(alocal, namesElems_);
                         rawname = aprefix + ':' + alocal;
                         prefix = alocal;
                     }
                     else {
-                        alocal = modifyName(alocal, NAMES_LOWERCASE);
+                        alocal = alocal.toLowerCase(Locale.ROOT);
                         rawname = alocal;
                         prefix = "";
                     }
                     qName_.setValues(aprefix, alocal, rawname, null);
                     attrs.setName(i, qName_);
 
-                    // declare prefix, this is moved up to avoid
-                    // another if
-                    // final String prefix = alocal != rawname ? alocal : "";
                     String uri = !avalue.isEmpty() ? avalue : null;
                     if (overrideNamespaces_ && prefix.equals(element.getPrefix())
                             && htmlConfiguration_.getHtmlElements().getElement(element.getLocalpart(), null) != null) {
