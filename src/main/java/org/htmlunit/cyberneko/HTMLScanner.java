@@ -751,7 +751,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 final QName lastQname = fragmentContextStack[length - 1];
                 final String name = lastQname.getLocalpart();
                 final String nameLC = name.toLowerCase(Locale.ROOT);
-                if (htmlConfiguration_.getHtmlElements().getElement(nameLC).isSpecial()) {
+                final Element elem = htmlConfiguration_.getHtmlElements().getElement(nameLC, null);
+                if (elem != null && elem.isSpecial()) {
                     fFragmentSpecialScannerTag_ = name;
                 }
             }
