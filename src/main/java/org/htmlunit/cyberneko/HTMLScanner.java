@@ -2937,7 +2937,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         /**
-         * Removes all spaces for the string (remember: JDK 1.3!)
+         * Removes all whitespaces from the string
          */
         private String removeSpaces(final String content) {
             StringBuilder sb = null;

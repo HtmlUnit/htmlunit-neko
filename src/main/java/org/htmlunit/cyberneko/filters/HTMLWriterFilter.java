@@ -239,30 +239,30 @@ public class HTMLWriterFilter extends DefaultFilter {
             String httpEquiv = null;
             final int length = attributes.getLength();
             for (int i = 0; i < length; i++) {
-                final String aname = attributes.getQName(i).toLowerCase(Locale.ROOT);
-                if ("http-equiv".equals(aname)) {
+                final String anameLC = attributes.getQName(i).toLowerCase(Locale.ROOT);
+                if ("http-equiv".equals(anameLC)) {
                     httpEquiv = attributes.getValue(i);
                 }
-                else if ("content".equals(aname)) {
+                else if ("content".equals(anameLC)) {
                     contentIndex = i;
                 }
             }
             if ("content-type".equalsIgnoreCase(httpEquiv)) {
-                String content = null;
+                String contentLC = null;
                 if (contentIndex != -1) {
                     originalContent = attributes.getValue(contentIndex);
-                    content = originalContent.toLowerCase(Locale.ROOT);
+                    contentLC = originalContent.toLowerCase(Locale.ROOT);
                 }
-                if (content != null) {
-                    final int charsetIndex = content.indexOf("charset=");
+                if (contentLC != null) {
+                    final int charsetIndex = contentLC.indexOf("charset=");
                     if (charsetIndex != -1) {
-                        content = content.substring(0, charsetIndex + 8);
+                        contentLC = contentLC.substring(0, charsetIndex + 8);
                     }
                     else {
-                        content += ";charset=";
+                        contentLC += ";charset=";
                     }
-                    content += encoding_;
-                    attributes.setValue(contentIndex, content);
+                    contentLC += encoding_;
+                    attributes.setValue(contentIndex, contentLC);
                 }
             }
         }
