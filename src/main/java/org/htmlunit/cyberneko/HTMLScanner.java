@@ -2910,10 +2910,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         fByteStream = null;
                     }
                     else {
-                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElementLC(enameLC);
-                        if (element.parent != null
-                                && element.parent.length > 0
-                                && element.parent[0].code == HTMLElements.BODY) {
+                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
+                        if (element== null // unknown has body as parent
+                                || (element.parent != null
+                                    && element.parent.length > 0
+                                    && element.parent[0].code == HTMLElements.BODY)) {
                             fByteStream.clear();
                             fByteStream = null;
                         }
