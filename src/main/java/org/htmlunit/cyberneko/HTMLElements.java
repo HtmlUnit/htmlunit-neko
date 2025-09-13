@@ -15,7 +15,9 @@
  */
 package org.htmlunit.cyberneko;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.util.FastHashMap;
@@ -197,10 +199,7 @@ public class HTMLElements {
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
     // this is a optimized version which will be later queried
-    private final FastHashMap<String, Element> elementsByNameOptimized_ = new FastHashMap<>(311, 0.70f);
-
-    // this map helps us to know what elements we don't have and speed things up
-    private final FastHashMap<String, Boolean> unknownElements_ = new FastHashMap<>(11, 0.70f);
+    private FastHashMap<String, Element>[] elementsByNamePerLength_;
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -572,30 +571,50 @@ public class HTMLElements {
     }
 
     private void setupOptimizedVersions() {
+        int maxCode = -1;
+        ArrayList<List<Element>> elementsByLength = new ArrayList<>(10);
+        for (final Element element : elementsByNameForReference_.values()) {
+            if (element.code > maxCode) {
+                maxCode = element.code;
+            }
+
+            int length = element.lowercaseName.length();
+            while (elementsByLength.size() < length) {
+                elementsByLength.add(new ArrayList<>(30));
+            }
+            List<Element> elements = elementsByLength.get(length - 1);
+            elements.add(element);
+        }
+
         // we got x amount of elements + 1 unknown
         // put that into an array instead of a map, that
         // is a faster look up and avoids equals
         // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
         // list here, we might get a list with holes, so check the range first
-        final int size = elementsByNameForReference_.values().stream().mapToInt(v -> v.code).max().getAsInt();
-        elementsByCode_ = new Element[Math.max(size, NO_SUCH_ELEMENT.code) + 1];
+        elementsByCode_ = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
         elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
         elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
-        // initialize cross references to parent elements
-        for (final Element element : elementsByCode_) {
-            if (element != null) {
-                defineParents(element);
-            }
-        }
         // get us a second version that is lowercase stringified to
         // reduce lookup overhead
-        for (final Element element : elementsByCode_) {
-            // we might have holes due to HtmlUnitNekoHtmlParser
-            if (element != null) {
-                elementsByNameOptimized_.put(element.lowercaseName, element);
+        elementsByNamePerLength_ = new FastHashMap[elementsByLength.size()];
+        int i = 0;
+        for (final List<Element> elements : elementsByLength) {
+            if (elements.size() > 0) {
+                FastHashMap<String, Element> entry = new FastHashMap<>(elements.size(), 0.70f);
+                for (Element element : elements) {
+                    entry.put(element.lowercaseName, element);
+
+                    // initialize cross references to parent elements
+                    defineParents(element);
+                }
+                elementsByNamePerLength_[i] = entry;
             }
+            i++;
         }
+
+        // NO_SUCH_ELEMENT is not part of elementsByLength
+        defineParents(NO_SUCH_ELEMENT);
     }
 
     private void defineParents(final Element element) {
@@ -662,30 +681,29 @@ public class HTMLElements {
      * @param elementIfNotFound the default element to return if not found.
      */
     public final Element getElement(final String ename, final Element elementIfNotFound) {
-        // check the current form casing first, which is mostly lowercase only
-        Element r = elementsByNameOptimized_.get(ename);
-        if (r == null) {
-            // check first if we know that we don't know and avoid the
-            // lowercasing later
-            if (unknownElements_.get(ename) != null) {
-                // we added it to the cache, so we know it has been
-                // queried once unsuccessfully before
-                return elementIfNotFound;
-            }
+        int length = ename.length();
+        if (length > elementsByNamePerLength_.length) {
+            return elementIfNotFound;
+        }
 
+        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
+        if (entry == null) {
+            return elementIfNotFound;
+        }
+
+        // check the current form casing first, which is mostly lowercase only
+        Element r = entry.get(ename);
+        if (r == null) {
             // we have not found it in its current form, might be uppercase
             // or mixed case, so try all lowercase for sanity, we speculated that
             // good HTML is mostly all lowercase in the first place so this is the
             // fallback for atypical HTML
-            // we also have not seen that element missing yet
-            r = elementsByNameOptimized_.get(ename.toLowerCase(Locale.ROOT));
-
-            // remember that we had a miss
-            if (r == null) {
-                unknownElements_.put(ename, Boolean.TRUE);
-                return elementIfNotFound;
-            }
+            r = entry.get(ename.toLowerCase(Locale.ROOT));
         }
+        if (r == null) {
+            return elementIfNotFound;
+        }
+
         return r;
     }
 
@@ -696,18 +714,22 @@ public class HTMLElements {
      * @param elementIfNotFound the default element to return if not found.
      */
     public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {
-        // check the current form casing first, which is mostly lowercase only
-        Element r = elementsByNameOptimized_.get(enameLC);
-        if (r == null) {
-            if (unknownElements_.get(enameLC) != null) {
-                // we added it to the cache, so we know it has been
-                // queried once unsuccessfully before
-                return elementIfNotFound;
-            }
-            // remember that we had a miss
-            unknownElements_.put(enameLC, Boolean.TRUE);
+        int length = enameLC.length();
+        if (length > elementsByNamePerLength_.length) {
             return elementIfNotFound;
         }
+
+        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
+        if (entry == null) {
+            return elementIfNotFound;
+        }
+
+        // check the current form casing first, which is mostly lowercase only
+        Element r = entry.get(enameLC);
+        if (r == null) {
+            return elementIfNotFound;
+        }
+
         return r;
     }
 
