@@ -15,9 +15,7 @@
  */
 package org.htmlunit.cyberneko;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.util.FastHashMap;
@@ -202,7 +200,7 @@ public class HTMLElements implements HTMLElementsProvider {
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
     // this is a optimized version which will be later queried
-    FastHashMap<String, Element>[] elementsByNamePerLength_;
+    FastHashMap<String, Element> elementsByName_;
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -218,339 +216,339 @@ public class HTMLElements implements HTMLElementsProvider {
 
         // initialize array of element information
         elementsArray['A' - 'A'] = new Element[] {
-            // A - - (%inline;)* -(A)
-            new Element(A, "A", Element.CONTAINER, BODY, new short[] {A}),
-            // ABBR - - (%inline;)*
-            new Element(ABBR, "ABBR", Element.INLINE, BODY, null),
-            // ACRONYM - - (%inline;)*
-            new Element(ACRONYM, "ACRONYM", Element.INLINE, BODY, null),
-            // ADDRESS - - (%inline;)*
-            new Element(ADDRESS, "ADDRESS", Element.BLOCK, BODY, new short[] {P}),
-            // APPLET
-            new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
-            // AREA - O EMPTY
-            new Element(AREA, "AREA", Element.EMPTY, BODY, null),
+                // A - - (%inline;)* -(A)
+                new Element(A, "A", Element.CONTAINER, BODY, new short[] {A}),
+                // ABBR - - (%inline;)*
+                new Element(ABBR, "ABBR", Element.INLINE, BODY, null),
+                // ACRONYM - - (%inline;)*
+                new Element(ACRONYM, "ACRONYM", Element.INLINE, BODY, null),
+                // ADDRESS - - (%inline;)*
+                new Element(ADDRESS, "ADDRESS", Element.BLOCK, BODY, new short[] {P}),
+                // APPLET
+                new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
+                // AREA - O EMPTY
+                new Element(AREA, "AREA", Element.EMPTY, BODY, null),
 
-            new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
+                new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
 
-            new Element(ASIDE, "ASIDE", Element.BLOCK, BODY, new short[] {P}),
+                new Element(ASIDE, "ASIDE", Element.BLOCK, BODY, new short[] {P}),
 
-            new Element(AUDIO, "AUDIO", Element.CONTAINER, BODY, null),
+                new Element(AUDIO, "AUDIO", Element.CONTAINER, BODY, null),
         };
         elementsArray['B' - 'A'] = new Element[] {
-            // B - - (%inline;)*
-            new Element(B, "B", Element.INLINE, BODY, new short[] {SVG}),
-            // BASE - O EMPTY
-            new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
-            // BASEFONT
-            new Element(BASEFONT, "BASEFONT", Element.EMPTY, HEAD, null),
+                // B - - (%inline;)*
+                new Element(B, "B", Element.INLINE, BODY, new short[] {SVG}),
+                // BASE - O EMPTY
+                new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
+                // BASEFONT
+                new Element(BASEFONT, "BASEFONT", Element.EMPTY, HEAD, null),
 
-            new Element(BDI, "BDI", Element.INLINE, BODY, null),
-            // BDO - - (%inline;)*
-            new Element(BDO, "BDO", Element.INLINE, BODY, null),
-            // BGSOUND
-            new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
-            // BIG - - (%inline;)*
-            new Element(BIG, "BIG", Element.INLINE, BODY, new short[]{SVG}),
-            // BLINK
-            new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
-            // BLOCKQUOTE - - (%block;|SCRIPT)+
-            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P, SVG}),
-            // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
-            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD, SVG}),
-            // BR - O EMPTY
-            new Element(BR, "BR", Element.EMPTY, BODY, new short[]{SVG}),
-            // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
-            new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
+                new Element(BDI, "BDI", Element.INLINE, BODY, null),
+                // BDO - - (%inline;)*
+                new Element(BDO, "BDO", Element.INLINE, BODY, null),
+                // BGSOUND
+                new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
+                // BIG - - (%inline;)*
+                new Element(BIG, "BIG", Element.INLINE, BODY, new short[]{SVG}),
+                // BLINK
+                new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
+                // BLOCKQUOTE - - (%block;|SCRIPT)+
+                new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P, SVG}),
+                // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
+                new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD, SVG}),
+                // BR - O EMPTY
+                new Element(BR, "BR", Element.EMPTY, BODY, new short[]{SVG}),
+                // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
+                new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
         };
         elementsArray['C' - 'A'] = new Element[] {
-            new Element(CANVAS, "CANVAS",  Element.CONTAINER, BODY, null),
-            // CAPTION - - (%inline;)*
-            new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
-            // CENTER,
-            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P, SVG}),
-            // CITE - - (%inline;)*
-            new Element(CITE, "CITE", Element.INLINE, BODY, null),
-            // CODE - - (%inline;)*
-            new Element(CODE, "CODE", Element.INLINE, BODY, new short[]{SVG}),
-            // COL - O EMPTY
-            new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
-            // COLGROUP - O (COL)*
-            new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL, COLGROUP}),
-            // COMMENT
-            new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
+                new Element(CANVAS, "CANVAS",  Element.CONTAINER, BODY, null),
+                // CAPTION - - (%inline;)*
+                new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
+                // CENTER,
+                new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P, SVG}),
+                // CITE - - (%inline;)*
+                new Element(CITE, "CITE", Element.INLINE, BODY, null),
+                // CODE - - (%inline;)*
+                new Element(CODE, "CODE", Element.INLINE, BODY, new short[]{SVG}),
+                // COL - O EMPTY
+                new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
+                // COLGROUP - O (COL)*
+                new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL, COLGROUP}),
+                // COMMENT
+                new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
         };
         elementsArray['D' - 'A'] = new Element[] {
-            new Element(DATA, "DATA",  Element.CONTAINER, BODY, null),
+                new Element(DATA, "DATA",  Element.CONTAINER, BODY, null),
 
-            new Element(DATALIST, "DATALIST",  Element.CONTAINER, BODY, null),
+                new Element(DATALIST, "DATALIST",  Element.CONTAINER, BODY, null),
 
-            // DEL - - (%flow;)*
-            new Element(DEL, "DEL", Element.INLINE, BODY, null),
+                // DEL - - (%flow;)*
+                new Element(DEL, "DEL", Element.INLINE, BODY, null),
 
-            new Element(DETAILS, "DETAILS", Element.BLOCK, BODY, new short[] {P}),
-            // DFN - - (%inline;)*
-            new Element(DFN, "DFN", Element.INLINE, BODY, null),
+                new Element(DETAILS, "DETAILS", Element.BLOCK, BODY, new short[] {P}),
+                // DFN - - (%inline;)*
+                new Element(DFN, "DFN", Element.INLINE, BODY, null),
 
-            new Element(DIALOG, "DIALOG",  Element.CONTAINER, BODY, new short[] {P}),
-            // DIR
-            new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
-            // DIV - - (%flow;)*
-            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P, SVG}),
-            // DD - O (%flow;)*
-            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
-            // DL - - (DT|DD)+
-            new Element(DL, "DL", Element.BLOCK | Element.CONTAINER, BODY, new short[] {P, SVG}),
-            // DT - O (%inline;)*
-            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
+                new Element(DIALOG, "DIALOG",  Element.CONTAINER, BODY, new short[] {P}),
+                // DIR
+                new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
+                // DIV - - (%flow;)*
+                new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P, SVG}),
+                // DD - O (%flow;)*
+                new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
+                // DL - - (DT|DD)+
+                new Element(DL, "DL", Element.BLOCK | Element.CONTAINER, BODY, new short[] {P, SVG}),
+                // DT - O (%inline;)*
+                new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
         };
         elementsArray['E' - 'A'] = new Element[] {
-            // EM - - (%inline;)*
-            new Element(EM, "EM", Element.INLINE, BODY, new short[]{SVG}),
-            // EMBED
-            new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
+                // EM - - (%inline;)*
+                new Element(EM, "EM", Element.INLINE, BODY, new short[]{SVG}),
+                // EMBED
+                new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
         };
         elementsArray['F' - 'A'] = new Element[] {
-            // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
-            new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
+                // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
+                new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
 
-            new Element(FIGCAPTION, "FIGCAPTION", Element.BLOCK, BODY, new short[] {P}),
+                new Element(FIGCAPTION, "FIGCAPTION", Element.BLOCK, BODY, new short[] {P}),
 
-            new Element(FIGURE, "FIGURE", Element.BLOCK, BODY, new short[] {P}),
-            // FONT
-            new Element(FONT, "FONT", Element.CONTAINER, BODY, null),
+                new Element(FIGURE, "FIGURE", Element.BLOCK, BODY, new short[] {P}),
+                // FONT
+                new Element(FONT, "FONT", Element.CONTAINER, BODY, null),
 
-            new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
+                new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
 
-            // FORM - - (%block;|SCRIPT)+ -(FORM)
-            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY, TD, DIV}, new short[]{P}),
-            // FRAME - O EMPTY
-            new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
-            // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
-            new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, new short[]{HEAD}),
+                // FORM - - (%block;|SCRIPT)+ -(FORM)
+                new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY, TD, DIV}, new short[]{P}),
+                // FRAME - O EMPTY
+                new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
+                // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
+                new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, new short[]{HEAD}),
         };
         elementsArray['H' - 'A'] = new Element[] {
-            // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
-            new Element(H1, "H1", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H2, "H2", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H3, "H3", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H4, "H4", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H5, "H5", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H6, "H6", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            // HEAD O O (%head.content;) +(%head.misc;)
-            new Element(HEAD, "HEAD", 0, HTML, null),
+                // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
+                new Element(H1, "H1", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                new Element(H2, "H2", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                new Element(H3, "H3", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                new Element(H4, "H4", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                new Element(H5, "H5", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                new Element(H6, "H6", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+                // HEAD O O (%head.content;) +(%head.misc;)
+                new Element(HEAD, "HEAD", 0, HTML, null),
 
-            new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
+                new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
 
-            // HR - O EMPTY
-            new Element(HR, "HR", Element.EMPTY, new short[]{BODY, SELECT}, new short[]{P, SVG}),
-            // HTML O O (%html.content;)
-            new Element(HTML, "HTML", 0, null, null),
+                // HR - O EMPTY
+                new Element(HR, "HR", Element.EMPTY, new short[]{BODY, SELECT}, new short[]{P, SVG}),
+                // HTML O O (%html.content;)
+                new Element(HTML, "HTML", 0, null, null),
         };
         elementsArray['I' - 'A'] = new Element[] {
-            // I - - (%inline;)*
-            new Element(I, "I", Element.INLINE, BODY, new short[]{SVG}),
-            // IFRAME
-            new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
-            // ILAYER
-            new Element(ILAYER, "ILAYER", Element.BLOCK, BODY, null),
-            // IMG - O EMPTY
-            new Element(IMG, "IMG", Element.EMPTY, BODY, new short[]{SVG}),
+                // I - - (%inline;)*
+                new Element(I, "I", Element.INLINE, BODY, new short[]{SVG}),
+                // IFRAME
+                new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
+                // ILAYER
+                new Element(ILAYER, "ILAYER", Element.BLOCK, BODY, null),
+                // IMG - O EMPTY
+                new Element(IMG, "IMG", Element.EMPTY, BODY, new short[]{SVG}),
 
-            new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
-            // INPUT - O EMPTY
-            new Element(INPUT, "INPUT", Element.EMPTY, BODY, null),
-            // INS - - (%flow;)*
-            new Element(INS, "INS", Element.INLINE, BODY, null),
+                new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
+                // INPUT - O EMPTY
+                new Element(INPUT, "INPUT", Element.EMPTY, BODY, null),
+                // INS - - (%flow;)*
+                new Element(INS, "INS", Element.INLINE, BODY, null),
         };
         elementsArray['K' - 'A'] = new Element[] {
-            // KBD - - (%inline;)*
-            new Element(KBD, "KBD", Element.INLINE, BODY, null),
-            // KEYGEN
-            new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
+                // KBD - - (%inline;)*
+                new Element(KBD, "KBD", Element.INLINE, BODY, null),
+                // KEYGEN
+                new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
         };
         elementsArray['L' - 'A'] = new Element[] {
-            // LABEL - - (%inline;)* -(LABEL)
-            new Element(LABEL, "LABEL", Element.INLINE, BODY, null),
-            // LAYER
-            new Element(LAYER, "LAYER", Element.BLOCK, BODY, null),
-            // LEGEND - - (%inline;)*
-            new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
-            // LI - O (%flow;)*
-            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY, UL, OL, MENU}, new short[]{LI, P, SVG}),
-            // LINK - O EMPTY
-            new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
-            // LISTING
-            new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P, SVG}),
+                // LABEL - - (%inline;)* -(LABEL)
+                new Element(LABEL, "LABEL", Element.INLINE, BODY, null),
+                // LAYER
+                new Element(LAYER, "LAYER", Element.BLOCK, BODY, null),
+                // LEGEND - - (%inline;)*
+                new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
+                // LI - O (%flow;)*
+                new Element(LI, "LI", Element.CONTAINER, new short[]{BODY, UL, OL, MENU}, new short[]{LI, P, SVG}),
+                // LINK - O EMPTY
+                new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
+                // LISTING
+                new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P, SVG}),
         };
         elementsArray['M' - 'A'] = new Element[] {
-            new Element(MAIN, "MAIN", Element.BLOCK, BODY, new short[] {P}),
-            // MAP - - ((%block;) | AREA)+
-            new Element(MAP, "MAP", Element.INLINE, BODY, null),
+                new Element(MAIN, "MAIN", Element.BLOCK, BODY, new short[] {P}),
+                // MAP - - ((%block;) | AREA)+
+                new Element(MAP, "MAP", Element.INLINE, BODY, null),
 
-            new Element(MARK, "MARK",  Element.CONTAINER, BODY, null),
-            // MARQUEE
-            new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
-            // MENU
-            new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P, SVG}),
+                new Element(MARK, "MARK",  Element.CONTAINER, BODY, null),
+                // MARQUEE
+                new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
+                // MENU
+                new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P, SVG}),
 
-            new Element(METER, "METER",  Element.CONTAINER, BODY, null),
-            // META - O EMPTY
-            new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE, TITLE, SVG}),
-            // MULTICOL
-            new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
+                new Element(METER, "METER",  Element.CONTAINER, BODY, null),
+                // META - O EMPTY
+                new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE, TITLE, SVG}),
+                // MULTICOL
+                new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
         };
         elementsArray['N' - 'A'] = new Element[] {
-            new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
+                new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
 
-            // NEXTID
-            new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
-            // NOBR
-            new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR, SVG}),
-            // NOEMBED
-            new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
-            // NOFRAMES - - (BODY) -(NOFRAMES)
-            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, null, null),
-            // NOLAYER
-            new Element(NOLAYER, "NOLAYER", Element.CONTAINER, BODY, null),
-            // NOSCRIPT - - (%block;)+
-            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD, BODY}, null),
+                // NEXTID
+                new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
+                // NOBR
+                new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR, SVG}),
+                // NOEMBED
+                new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
+                // NOFRAMES - - (BODY) -(NOFRAMES)
+                new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, null, null),
+                // NOLAYER
+                new Element(NOLAYER, "NOLAYER", Element.CONTAINER, BODY, null),
+                // NOSCRIPT - - (%block;)+
+                new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD, BODY}, null),
         };
         elementsArray['O' - 'A'] = new Element[] {
-            // OBJECT - - (PARAM | %flow;)*
-            new Element(OBJECT, "OBJECT", Element.CONTAINER, BODY, null),
-            // OL - - (LI)+
-            new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P, SVG}),
-            // OPTGROUP - - (OPTION)+
-            new Element(OPTGROUP, "OPTGROUP", Element.INLINE, BODY, new short[]{OPTION}),
-            // OPTION - O (#PCDATA)
-            new Element(OPTION, "OPTION", Element.INLINE, BODY, new short[]{OPTION}),
+                // OBJECT - - (PARAM | %flow;)*
+                new Element(OBJECT, "OBJECT", Element.CONTAINER, BODY, null),
+                // OL - - (LI)+
+                new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P, SVG}),
+                // OPTGROUP - - (OPTION)+
+                new Element(OPTGROUP, "OPTGROUP", Element.INLINE, BODY, new short[]{OPTION}),
+                // OPTION - O (#PCDATA)
+                new Element(OPTION, "OPTION", Element.INLINE, BODY, new short[]{OPTION}),
 
-            new Element(OUTPUT, "OUTPUT",  Element.CONTAINER, BODY, null),
+                new Element(OUTPUT, "OUTPUT",  Element.CONTAINER, BODY, null),
         };
         elementsArray['P' - 'A'] = new Element[] {
-            // P - O (%inline;)*
-            new Element(P, "P", Element.CONTAINER, BODY, new short[]{P, SVG}),
-            // PARAM - O EMPTY
-            new Element(PARAM, "PARAM", Element.EMPTY, BODY, null),
+                // P - O (%inline;)*
+                new Element(P, "P", Element.CONTAINER, BODY, new short[]{P, SVG}),
+                // PARAM - O EMPTY
+                new Element(PARAM, "PARAM", Element.EMPTY, BODY, null),
 
-            new Element(PICTURE, "PICTURE",  Element.CONTAINER, BODY, null),
-            // PLAINTEXT
-            new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
-            // PRE - - (%inline;)* -(%pre.exclusion;)
-            new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P, SVG}),
+                new Element(PICTURE, "PICTURE",  Element.CONTAINER, BODY, null),
+                // PLAINTEXT
+                new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
+                // PRE - - (%inline;)* -(%pre.exclusion;)
+                new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P, SVG}),
 
-            new Element(PROGRESS, "PROGRESS",  Element.CONTAINER, BODY, null),
+                new Element(PROGRESS, "PROGRESS",  Element.CONTAINER, BODY, null),
         };
         elementsArray['Q' - 'A'] = new Element[] {
-            // Q - - (%inline;)*
-            new Element(Q, "Q", Element.INLINE, BODY, null),
+                // Q - - (%inline;)*
+                new Element(Q, "Q", Element.INLINE, BODY, null),
         };
         elementsArray['R' - 'A'] = new Element[] {
-            // RB
-            new Element(RB, "RB", Element.INLINE, BODY, null),
-            // RBC
-            new Element(RBC, "RBC", 0, BODY, null),
-            // RP
-            new Element(RP, "RP", Element.INLINE, BODY, null),
-            // RT
-            new Element(RT, "RT", Element.INLINE, BODY, null),
-            // RTC
-            new Element(RTC, "RTC", Element.INLINE, BODY, null),
-            // RUBY
-            new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{SVG}),
+                // RB
+                new Element(RB, "RB", Element.INLINE, BODY, null),
+                // RBC
+                new Element(RBC, "RBC", 0, BODY, null),
+                // RP
+                new Element(RP, "RP", Element.INLINE, BODY, null),
+                // RT
+                new Element(RT, "RT", Element.INLINE, BODY, null),
+                // RTC
+                new Element(RTC, "RTC", Element.INLINE, BODY, null),
+                // RUBY
+                new Element(RUBY, "RUBY", Element.CONTAINER, BODY, new short[]{SVG}),
         };
         elementsArray['S' - 'A'] = new Element[] {
-            // S
-            new Element(S, "S", Element.INLINE, BODY, new short[]{SVG}),
-            // SAMP - - (%inline;)*
-            new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
-            // SCRIPT - - %Script;
-            new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING,
-                            new short[]{HEAD, BODY}, null),
+                // S
+                new Element(S, "S", Element.INLINE, BODY, new short[]{SVG}),
+                // SAMP - - (%inline;)*
+                new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
+                // SCRIPT - - %Script;
+                new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING,
+                        new short[]{HEAD, BODY}, null),
 
-            new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{SELECT, P}),
-            // SELECT - - (OPTGROUP|OPTION)+
-            new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
+                new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{SELECT, P}),
+                // SELECT - - (OPTGROUP|OPTION)+
+                new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
 
-            new Element(SLOT, "SLOT",  Element.CONTAINER, BODY, null),
-            // SMALL - - (%inline;)*
-            new Element(SMALL, "SMALL", Element.INLINE, BODY, new short[]{SVG}),
-            // SOUND
-            new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
+                new Element(SLOT, "SLOT",  Element.CONTAINER, BODY, null),
+                // SMALL - - (%inline;)*
+                new Element(SMALL, "SMALL", Element.INLINE, BODY, new short[]{SVG}),
+                // SOUND
+                new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
 
-            new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
-            // SPACER
-            new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
-            // SPAN - - (%inline;)*
-            new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
-            // STRIKE
-            new Element(STRIKE, "STRIKE", Element.INLINE, BODY, new short[]{SVG}),
-            // STRONG - - (%inline;)*
-            new Element(STRONG, "STRONG", Element.INLINE, BODY, new short[]{SVG}),
-            // STYLE - - %StyleSheet;
-            new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD, BODY}, new short[]{STYLE, TITLE, META}),
-            // SUB - - (%inline;)*
-            new Element(SUB, "SUB", Element.INLINE, BODY, new short[]{SVG}),
+                new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
+                // SPACER
+                new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
+                // SPAN - - (%inline;)*
+                new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
+                // STRIKE
+                new Element(STRIKE, "STRIKE", Element.INLINE, BODY, new short[]{SVG}),
+                // STRONG - - (%inline;)*
+                new Element(STRONG, "STRONG", Element.INLINE, BODY, new short[]{SVG}),
+                // STYLE - - %StyleSheet;
+                new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD, BODY}, new short[]{STYLE, TITLE, META}),
+                // SUB - - (%inline;)*
+                new Element(SUB, "SUB", Element.INLINE, BODY, new short[]{SVG}),
 
-            new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
-            // SUP - - (%inline;)*
-            new Element(SUP, "SUP", Element.INLINE, BODY, new short[]{SVG}),
+                new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
+                // SUP - - (%inline;)*
+                new Element(SUP, "SUP", Element.INLINE, BODY, new short[]{SVG}),
 
-            // SVG - - (%SVG;)*
-            new Element(SVG, "SVG", Element.CONTAINER, BODY, null),
+                // SVG - - (%SVG;)*
+                new Element(SVG, "SVG", Element.CONTAINER, BODY, null),
         };
         elementsArray['T' - 'A'] = new Element[] {
-            // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
-            new Element(TABLE, "TABLE", Element.BLOCK | Element.CONTAINER, BODY, new short[]{SVG}),
-            // TBODY O O (TR)+
-            new Element(TBODY, "TBODY", 0, TABLE, new short[]{FORM, THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
-            // TD - O (%flow;)*
-            new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
+                // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
+                new Element(TABLE, "TABLE", Element.BLOCK | Element.CONTAINER, BODY, new short[]{SVG}),
+                // TBODY O O (TR)+
+                new Element(TBODY, "TBODY", 0, TABLE, new short[]{FORM, THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
+                // TD - O (%flow;)*
+                new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
 
-            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER | Element.SCRIPT_SUPPORTING,
-                            new short[]{HEAD, BODY}, null),
-            // TEXTAREA - - (#PCDATA)
-            new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
-            // TFOOT - O (TR)+
-            new Element(TFOOT, "TFOOT", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR}),
-            // TH - O (%flow;)*
-            new Element(TH, "TH", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
-            // THEAD - O (TR)+
-            new Element(THEAD, "THEAD", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
+                new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER | Element.SCRIPT_SUPPORTING,
+                        new short[]{HEAD, BODY}, null),
+                // TEXTAREA - - (#PCDATA)
+                new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
+                // TFOOT - O (TR)+
+                new Element(TFOOT, "TFOOT", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR}),
+                // TH - O (%flow;)*
+                new Element(TH, "TH", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
+                // THEAD - O (TR)+
+                new Element(THEAD, "THEAD", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
 
-            new Element(TIME, "TIME",  Element.CONTAINER, BODY, null),
-            // TITLE - - (#PCDATA) -(%head.misc;)
-            new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD, BODY}, null),
-            // TR - O (TH|TD)+
-            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE,
-                    new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
+                new Element(TIME, "TIME",  Element.CONTAINER, BODY, null),
+                // TITLE - - (#PCDATA) -(%head.misc;)
+                new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD, BODY}, null),
+                // TR - O (TH|TD)+
+                new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE,
+                        new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
 
-            new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
-            // TT - - (%inline;)*
-            new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
+                new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
+                // TT - - (%inline;)*
+                new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
         };
         elementsArray['U' - 'A'] = new Element[] {
-            // U,
-            new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
-            // UL - - (LI)+
-            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P, SVG}),
+                // U,
+                new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
+                // UL - - (LI)+
+                new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P, SVG}),
         };
         elementsArray['V' - 'A'] = new Element[] {
-            // VAR - - (%inline;)*
-            new Element(VAR, "VAR", Element.INLINE, BODY, new short[]{SVG}),
+                // VAR - - (%inline;)*
+                new Element(VAR, "VAR", Element.INLINE, BODY, new short[]{SVG}),
 
-            new Element(VIDEO, "VIDEO", Element.CONTAINER, BODY, null),
+                new Element(VIDEO, "VIDEO", Element.CONTAINER, BODY, null),
         };
         elementsArray['W' - 'A'] = new Element[] {
-            // WBR
-            new Element(WBR, "WBR", Element.EMPTY, BODY, null),
+                // WBR
+                new Element(WBR, "WBR", Element.EMPTY, BODY, null),
         };
         elementsArray['X' - 'A'] = new Element[] {
-            // XML
-            new Element(XML, "XML", 0, BODY, null),
-            // XMP
-            new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
+                // XML
+                new Element(XML, "XML", 0, BODY, null),
+                // XMP
+                new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
         };
 
         // keep contiguous list of elements for lookups by code
@@ -574,20 +572,8 @@ public class HTMLElements implements HTMLElementsProvider {
     }
 
     private void setupOptimizedVersions() {
-        int maxCode = -1;
-        ArrayList<List<Element>> elementsByLength = new ArrayList<>(10);
-        for (final Element element : elementsByNameForReference_.values()) {
-            if (element.code > maxCode) {
-                maxCode = element.code;
-            }
-
-            int length = element.lowercaseName.length();
-            while (elementsByLength.size() < length) {
-                elementsByLength.add(new ArrayList<>(30));
-            }
-            List<Element> elements = elementsByLength.get(length - 1);
-            elements.add(element);
-        }
+        // get us the max length
+        final int maxCode = elementsByNameForReference_.values().stream().mapToInt(e -> e.code).max().orElse(0);
 
         // we got x amount of elements + 1 unknown
         // put that into an array instead of a map, that
@@ -598,22 +584,17 @@ public class HTMLElements implements HTMLElementsProvider {
         elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
         elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
-        // get us a second version that is lowercase stringified to
-        // reduce lookup overhead
-        elementsByNamePerLength_ = new FastHashMap[elementsByLength.size()];
-        int i = 0;
-        for (final List<Element> elements : elementsByLength) {
-            if (elements.size() > 0) {
-                FastHashMap<String, Element> entry = new FastHashMap<>(elements.size(), 0.70f);
-                for (Element element : elements) {
-                    entry.put(element.lowercaseName, element);
+        // add all together and also get us a second version that is 
+        // lowercase only for faster lower case lookups, hence we have twice
+        // the size of the map as we need to store both versions
+        elementsByName_ = new FastHashMap<>(2 * maxCode, 0.50f);
+        
+        for (final Element element : elementsByNameForReference_.values()) {
+            elementsByName_.put(element.name, element);
+            elementsByName_.put(element.name.toLowerCase(Locale.ROOT), element);
 
-                    // initialize cross references to parent elements
-                    defineParents(element);
-                }
-                elementsByNamePerLength_[i] = entry;
-            }
-            i++;
+            // initialize cross references to parent elements
+            defineParents(element);
         }
 
         // NO_SUCH_ELEMENT is not part of elementsByLength
@@ -646,11 +627,11 @@ public class HTMLElements implements HTMLElementsProvider {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
             element = new Element(UNKNOWN,
-                                    ename.toUpperCase(Locale.ROOT),
-                                    NO_SUCH_ELEMENT.flags,
-                                    NO_SUCH_ELEMENT.parentCodes_,
-                                    NO_SUCH_ELEMENT.bounds,
-                                    NO_SUCH_ELEMENT.closes);
+                    ename.toUpperCase(Locale.ROOT),
+                    NO_SUCH_ELEMENT.flags,
+                    NO_SUCH_ELEMENT.parentCodes_,
+                    NO_SUCH_ELEMENT.bounds,
+                    NO_SUCH_ELEMENT.closes);
             element.parent = NO_SUCH_ELEMENT.parent;
         }
         return element;
@@ -661,24 +642,14 @@ public class HTMLElements implements HTMLElementsProvider {
      */
     @Override
     public final Element getElement(final String ename, final Element elementIfNotFound) {
-        int length = ename.length();
-        if (length > elementsByNamePerLength_.length) {
-            return elementIfNotFound;
-        }
-
-        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
-        if (entry == null) {
-            return elementIfNotFound;
-        }
-
         // check the current form casing first, which is mostly lowercase only
-        Element r = entry.get(ename);
+        Element r = elementsByName_.get(ename);
         if (r == null) {
             // we have not found it in its current form, might be uppercase
             // or mixed case, so try all lowercase for sanity, we speculated that
             // good HTML is mostly all lowercase in the first place so this is the
             // fallback for atypical HTML
-            r = entry.get(ename.toLowerCase(Locale.ROOT));
+            r = elementsByName_.get(ename.toLowerCase(Locale.ROOT));
         }
         if (r == null) {
             return elementIfNotFound;
@@ -692,23 +663,10 @@ public class HTMLElements implements HTMLElementsProvider {
      */
     @Override
     public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {
-        int length = enameLC.length();
-        if (length > elementsByNamePerLength_.length) {
-            return elementIfNotFound;
-        }
-
-        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
-        if (entry == null) {
-            return elementIfNotFound;
-        }
-
-        Element r = entry.get(enameLC);
-        if (r == null) {
-            return elementIfNotFound;
-        }
-
-        return r;
+        final Element r = elementsByName_.get(enameLC);
+        return r == null ? elementIfNotFound : r;
     }
+    
 
     public static class HTMLElementsWithCache implements HTMLElementsProvider {
 
@@ -719,7 +677,7 @@ public class HTMLElements implements HTMLElementsProvider {
 
         public HTMLElementsWithCache(final HTMLElements htmlElements) {
             htmlElements_ = htmlElements;
-            unknownElements_ = new FastHashMap<>(11, 0.70f);
+            unknownElements_ = new FastHashMap<>(11, 0.50f);
         }
 
         @Override
@@ -728,53 +686,23 @@ public class HTMLElements implements HTMLElementsProvider {
         }
 
         @Override
-        public Element getElement(String ename) {
+        public Element getElement(final String ename) {
             Element element = getElement(ename, htmlElements_.NO_SUCH_ELEMENT);
             if (element == htmlElements_.NO_SUCH_ELEMENT) {
                 element = new Element(UNKNOWN,
-                                        ename.toUpperCase(Locale.ROOT),
-                                        htmlElements_.NO_SUCH_ELEMENT.flags,
-                                        htmlElements_.NO_SUCH_ELEMENT.parentCodes_,
-                                        htmlElements_.NO_SUCH_ELEMENT.bounds,
-                                        htmlElements_.NO_SUCH_ELEMENT.closes);
+                        ename.toUpperCase(Locale.ROOT),
+                        htmlElements_.NO_SUCH_ELEMENT.flags,
+                        htmlElements_.NO_SUCH_ELEMENT.parentCodes_,
+                        htmlElements_.NO_SUCH_ELEMENT.bounds,
+                        htmlElements_.NO_SUCH_ELEMENT.closes);
                 element.parent = htmlElements_.NO_SUCH_ELEMENT.parent;
             }
             return element;
         }
 
         @Override
-        public Element getElement(String ename, Element elementIfNotFound) {
-            int length = ename.length();
-            if (length > htmlElements_.elementsByNamePerLength_.length) {
-                if (unknownElements_.get(ename) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(ename, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
-            if (entry == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(ename) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(ename, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            Element r = entry.get(ename);
+        public Element getElement(final String ename, final Element elementIfNotFound) {
+            Element r = htmlElements_.elementsByName_.get(ename);
             if (r == null) {
                 // check first if we know that we don't know and avoid the
                 // lowercasing later
@@ -789,7 +717,7 @@ public class HTMLElements implements HTMLElementsProvider {
                 // good HTML is mostly all lowercase in the first place so this is the
                 // fallback for atypical HTML
                 // we also have not seen that element missing yet
-                r = entry.get(ename.toLowerCase(Locale.ROOT));
+                r = htmlElements_.elementsByName_.get(ename.toLowerCase(Locale.ROOT));
                 if (r == null) {
                     // remember that we had a miss
                     unknownElements_.put(ename, Boolean.TRUE);
@@ -801,56 +729,9 @@ public class HTMLElements implements HTMLElementsProvider {
         }
 
         @Override
-        public Element getElementLC(String enameLC, Element elementIfNotFound) {
-            int length = enameLC.length();
-            if (length > htmlElements_.elementsByNamePerLength_.length) {
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
-            if (entry == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            Element r = entry.get(enameLC);
-            if (r == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            return r;
+        public Element getElementLC(final String enameLC, final Element elementIfNotFound) {
+            return htmlElements_.getElementLC(enameLC, elementIfNotFound);
         }
-
     }
 
     /**
