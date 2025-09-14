@@ -16,17 +16,27 @@
 package org.htmlunit.cyberneko.parsers;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
+import org.htmlunit.cyberneko.HTMLElementsProvider;
 import org.htmlunit.cyberneko.xerces.parsers.AbstractSAXParser;
 
 /**
  * A SAX parser for HTML documents.
  *
  * @author Andy Clark
+ * @author Ronald Brill
  */
 public class SAXParser extends AbstractSAXParser {
 
     /** Default constructor. */
     public SAXParser() {
         super(new HTMLConfiguration());
+    }
+
+    /**
+     * Ctor using a custom {@link HTMLElementsProvider}
+     * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
+     */
+    public SAXParser(final HTMLElementsProvider htmlElementsProvider) {
+        super(new HTMLConfiguration(htmlElementsProvider));
     }
 }

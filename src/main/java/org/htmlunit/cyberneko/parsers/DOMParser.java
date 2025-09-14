@@ -16,6 +16,7 @@
 package org.htmlunit.cyberneko.parsers;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
+import org.htmlunit.cyberneko.HTMLElementsProvider;
 import org.htmlunit.cyberneko.xerces.dom.DocumentImpl;
 import org.htmlunit.cyberneko.xerces.parsers.AbstractDOMParser;
 
@@ -23,11 +24,21 @@ import org.htmlunit.cyberneko.xerces.parsers.AbstractDOMParser;
  * A DOM parser for HTML documents.
  *
  * @author Andy Clark
+ * @author Ronald Brill
  */
 public class DOMParser extends AbstractDOMParser {
 
     /** Default constructor. */
     public DOMParser(final Class<? extends DocumentImpl> documentClass) {
         super(new HTMLConfiguration(), documentClass);
+    }
+
+    /**
+     * Ctor using a custom {@link HTMLElementsProvider}
+     * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
+     * @param documentClass the {@link DocumentImpl} to be used
+     */
+    public DOMParser(final HTMLElementsProvider htmlElementsProvider, final Class<? extends DocumentImpl> documentClass) {
+        super(new HTMLConfiguration(htmlElementsProvider), documentClass);
     }
 }

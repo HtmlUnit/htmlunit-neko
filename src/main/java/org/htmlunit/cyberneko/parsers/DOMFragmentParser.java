@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.htmlunit.cyberneko.HTMLConfiguration;
+import org.htmlunit.cyberneko.HTMLElementsProvider;
 import org.htmlunit.cyberneko.xerces.parsers.Constants;
 import org.htmlunit.cyberneko.xerces.util.ErrorHandlerWrapper;
 import org.htmlunit.cyberneko.xerces.util.XMLChar;
@@ -88,6 +89,18 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     /** Default constructor. */
     public DOMFragmentParser() {
         parserConfiguration_ = new HTMLConfiguration();
+        parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
+        parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
+        parserConfiguration_.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
+        parserConfiguration_.setDocumentHandler(this);
+    }
+
+    /**
+     * Ctor using a custom {@link HTMLElementsProvider}
+     * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
+     */
+    public DOMFragmentParser(final HTMLElementsProvider htmlElementsProvider) {
+        parserConfiguration_ = new HTMLConfiguration(htmlElementsProvider);
         parserConfiguration_.addRecognizedFeatures(RECOGNIZED_FEATURES);
         parserConfiguration_.addRecognizedProperties(RECOGNIZED_PROPERTIES);
         parserConfiguration_.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
