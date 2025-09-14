@@ -15,9 +15,7 @@
  */
 package org.htmlunit.cyberneko;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import org.htmlunit.cyberneko.util.FastHashMap;
@@ -32,6 +30,7 @@ import org.htmlunit.cyberneko.util.FastHashMap;
  * @author Ahmed Ashour
  * @author Marc Guillemot
  * @author Ronald Brill
+ * @author René Schwietzke
  */
 public class HTMLElements implements HTMLElementsProvider {
 
@@ -202,7 +201,7 @@ public class HTMLElements implements HTMLElementsProvider {
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
     // this is a optimized version which will be later queried
-    FastHashMap<String, Element>[] elementsByNamePerLength_;
+    FastHashMap<String, Element> elementsByName_;
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -557,7 +556,7 @@ public class HTMLElements implements HTMLElementsProvider {
         for (final Element[] elements : elementsArray) {
             if (elements != null) {
                 for (final Element element : elements) {
-                    this.elementsByNameForReference_.put(element.name, element);
+                    elementsByNameForReference_.put(element.name, element);
                 }
             }
         }
@@ -566,28 +565,22 @@ public class HTMLElements implements HTMLElementsProvider {
         setupOptimizedVersions();
     }
 
+    /**
+     * Adds or replaces an element definition in the collection.
+     * Rebuilds the internal lookup structures to reflect the change.
+     *
+     * @param element the element to add or replace
+     */
     public void setElement(final Element element) {
-        this.elementsByNameForReference_.put(element.name, element);
+        elementsByNameForReference_.put(element.name, element);
 
         // rebuild the information "trees"
         setupOptimizedVersions();
     }
 
     private void setupOptimizedVersions() {
-        int maxCode = -1;
-        ArrayList<List<Element>> elementsByLength = new ArrayList<>(10);
-        for (final Element element : elementsByNameForReference_.values()) {
-            if (element.code > maxCode) {
-                maxCode = element.code;
-            }
-
-            int length = element.lowercaseName.length();
-            while (elementsByLength.size() < length) {
-                elementsByLength.add(new ArrayList<>(30));
-            }
-            List<Element> elements = elementsByLength.get(length - 1);
-            elements.add(element);
-        }
+        // get us the max length
+        final int maxCode = elementsByNameForReference_.values().stream().mapToInt(e -> e.code).max().orElse(0);
 
         // we got x amount of elements + 1 unknown
         // put that into an array instead of a map, that
@@ -598,22 +591,16 @@ public class HTMLElements implements HTMLElementsProvider {
         elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
         elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
-        // get us a second version that is lowercase stringified to
-        // reduce lookup overhead
-        elementsByNamePerLength_ = new FastHashMap[elementsByLength.size()];
-        int i = 0;
-        for (final List<Element> elements : elementsByLength) {
-            if (elements.size() > 0) {
-                FastHashMap<String, Element> entry = new FastHashMap<>(elements.size(), 0.70f);
-                for (Element element : elements) {
-                    entry.put(element.lowercaseName, element);
+        // add all together and also get us a second version that is
+        // lowercase only for faster lower case lookups, hence we have twice
+        // the size of the map as we need to store both versions
+        elementsByName_ = new FastHashMap<>(2 * maxCode, 0.50f);
 
-                    // initialize cross references to parent elements
-                    defineParents(element);
-                }
-                elementsByNamePerLength_[i] = entry;
-            }
-            i++;
+        for (final Element element : elementsByNameForReference_.values()) {
+            // initialize cross references to parent elements
+            defineParents(element);
+
+            elementsByName_.put(element.lowercaseName, element);
         }
 
         // NO_SUCH_ELEMENT is not part of elementsByLength
@@ -661,24 +648,14 @@ public class HTMLElements implements HTMLElementsProvider {
      */
     @Override
     public final Element getElement(final String ename, final Element elementIfNotFound) {
-        int length = ename.length();
-        if (length > elementsByNamePerLength_.length) {
-            return elementIfNotFound;
-        }
-
-        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
-        if (entry == null) {
-            return elementIfNotFound;
-        }
-
         // check the current form casing first, which is mostly lowercase only
-        Element r = entry.get(ename);
+        Element r = elementsByName_.get(ename);
         if (r == null) {
             // we have not found it in its current form, might be uppercase
             // or mixed case, so try all lowercase for sanity, we speculated that
             // good HTML is mostly all lowercase in the first place so this is the
             // fallback for atypical HTML
-            r = entry.get(ename.toLowerCase(Locale.ROOT));
+            r = elementsByName_.get(ename.toLowerCase(Locale.ROOT));
         }
         if (r == null) {
             return elementIfNotFound;
@@ -692,24 +669,24 @@ public class HTMLElements implements HTMLElementsProvider {
      */
     @Override
     public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {
-        int length = enameLC.length();
-        if (length > elementsByNamePerLength_.length) {
-            return elementIfNotFound;
-        }
-
-        FastHashMap<String, Element> entry = elementsByNamePerLength_[length - 1];
-        if (entry == null) {
-            return elementIfNotFound;
-        }
-
-        Element r = entry.get(enameLC);
-        if (r == null) {
-            return elementIfNotFound;
-        }
-
-        return r;
+        final Element r = elementsByName_.get(enameLC);
+        return r == null ? elementIfNotFound : r;
     }
 
+    /**
+     * An implementation of {@link HTMLElementsProvider} that wraps an {@link HTMLElements}
+     * instance and adds a simple cache for unknown element lookups.
+     * <p>
+     * This class is optimized for repeated element name lookups, especially for names
+     * that are not present in the known elements set. It avoids repeated lowercasing
+     * and unnecessary lookups for unknown elements by caching misses.
+     * </p>
+     *
+     * <p>
+     * This implementation is not thread-safe.
+     * </p>
+     *
+     */
     public static class HTMLElementsWithCache implements HTMLElementsProvider {
 
         private final HTMLElements htmlElements_;
@@ -719,16 +696,22 @@ public class HTMLElements implements HTMLElementsProvider {
 
         public HTMLElementsWithCache(final HTMLElements htmlElements) {
             htmlElements_ = htmlElements;
-            unknownElements_ = new FastHashMap<>(11, 0.70f);
+            unknownElements_ = new FastHashMap<>(11, 0.50f);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Element getElement(short code) {
             return htmlElements_.getElement(code);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public Element getElement(String ename) {
+        public Element getElement(final String ename) {
             Element element = getElement(ename, htmlElements_.NO_SUCH_ELEMENT);
             if (element == htmlElements_.NO_SUCH_ELEMENT) {
                 element = new Element(UNKNOWN,
@@ -742,39 +725,12 @@ public class HTMLElements implements HTMLElementsProvider {
             return element;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public Element getElement(String ename, Element elementIfNotFound) {
-            int length = ename.length();
-            if (length > htmlElements_.elementsByNamePerLength_.length) {
-                if (unknownElements_.get(ename) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(ename, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
-            if (entry == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(ename) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(ename, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            Element r = entry.get(ename);
+        public Element getElement(final String ename, final Element elementIfNotFound) {
+            Element r = htmlElements_.elementsByName_.get(ename);
             if (r == null) {
                 // check first if we know that we don't know and avoid the
                 // lowercasing later
@@ -789,7 +745,7 @@ public class HTMLElements implements HTMLElementsProvider {
                 // good HTML is mostly all lowercase in the first place so this is the
                 // fallback for atypical HTML
                 // we also have not seen that element missing yet
-                r = entry.get(ename.toLowerCase(Locale.ROOT));
+                r = htmlElements_.elementsByName_.get(ename.toLowerCase(Locale.ROOT));
                 if (r == null) {
                     // remember that we had a miss
                     unknownElements_.put(ename, Boolean.TRUE);
@@ -801,62 +757,13 @@ public class HTMLElements implements HTMLElementsProvider {
         }
 
         @Override
-        public Element getElementLC(String enameLC, Element elementIfNotFound) {
-            int length = enameLC.length();
-            if (length > htmlElements_.elementsByNamePerLength_.length) {
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
-            if (entry == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            Element r = entry.get(enameLC);
-            if (r == null) {
-                // check first if we know that we don't know and avoid the
-                // lowercasing later
-                if (unknownElements_.get(enameLC) != null) {
-                    // we added it to the cache, so we know it has been
-                    // queried once unsuccessfully before
-                    return elementIfNotFound;
-                }
-
-                // remember that we had a miss
-                unknownElements_.put(enameLC, Boolean.TRUE);
-
-                return elementIfNotFound;
-            }
-
-            return r;
+        public Element getElementLC(final String enameLC, final Element elementIfNotFound) {
+            return htmlElements_.getElementLC(enameLC, elementIfNotFound);
         }
-
     }
 
     /**
      * Element information.
-     *
-     * @author Andy Clark
      */
     public static class Element {
 
