@@ -48,8 +48,18 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
     @ParameterizedTest
     @MethodSource("testFiles")
     public void runTest(final File dataFile) throws Exception {
-        final String domDataLines = getResult(dataFile);
+        final String dataLines = getResult(dataFile, false);
+        test(dataFile, dataLines);
+    }
 
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runTestWithCachedElementsProvider(final File dataFile) throws Exception {
+        final String dataLines = getResult(dataFile, true);
+        test(dataFile, dataLines);
+    }
+
+    private static void test(final File dataFile, final String dataLines) throws Exception {
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-domhtml");
@@ -72,23 +82,23 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
             }
 
             if (!canonicalFile.exists()) {
-                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);
+                fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
 
             final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
             if (nyiFile.exists()) {
                 try {
-                    assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                    assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
                     fail("test " + dataFile.getName() + "is marked as not yet implemented but already works");
                 }
                 catch (final AssertionFailedError e) {
                     // expected
                 }
 
-                assertEquals(getCanonical(nyiFile), domDataLines, "NYI: " + dataFile);
+                assertEquals(getCanonical(nyiFile), dataLines, "NYI: " + dataFile);
             }
             else {
-                assertEquals(getCanonical(canonicalFile), domDataLines, dataFile.toString());
+                assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
             }
         }
         catch (final AssertionFailedError e) {
@@ -98,15 +108,21 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
             new File(OUTOUT_DIR + path).mkdirs();
             final File output = new File(OUTOUT_DIR + path + dataFile.getName() + ".canonical-domhtml");
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
-                pw.print(domDataLines);
+                pw.print(dataLines);
             }
             throw e;
         }
     }
 
-    private static String getResult(final File infile) throws Exception {
+    private static String getResult(final File infile, final boolean cached) throws Exception {
         try (StringWriter out = new StringWriter()) {
-            final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+            final DOMParser parser;
+            if (cached) {
+                parser = new DOMParser(new HTMLElements.HTMLElementsWithCache(new HTMLElements()), HTMLDocumentImpl.class);
+            }
+            else {
+                parser = new DOMParser(HTMLDocumentImpl.class);
+            }
 
             final String infilename = infile.toString();
             final File insettings = new File(infilename + ".settings");

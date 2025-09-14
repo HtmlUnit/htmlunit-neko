@@ -55,26 +55,23 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
     public void runTest(final File dataFile) throws Exception {
         final String infilename = dataFile.toString();
 
-//        for (int i = 1024 * 10; i < 1024 * 20; i++) {
-//            System.out.println(i);
-//            final DOMParser parser = new DOMParser(null);
-//            setupParser(infilename, parser);
-//            parser.setProperty(HTMLScanner.READER_BUFFER_SIZE, Integer.toString(i));
-//
-//            String domDataLines = getResult(parser, infilename);
-//            verify(dataFile, domDataLines);
-//        }
-
         final DOMParser parser = new DOMParser(null);
         setupParser(infilename, parser);
 
         final String domDataLines = getResult(parser, infilename);
         verify(dataFile, domDataLines);
-//
-//        // reset and run again
-//        parser.reset();
-//        domDataLines = getResult(parser, infilename);
-//        verify(dataFile, domDataLines);
+    }
+
+    // @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runTestWithCachedElementsProvider(final File dataFile) throws Exception {
+        final String infilename = dataFile.toString();
+
+        final DOMParser parser = new DOMParser(new HTMLElements.HTMLElementsWithCache(new HTMLElements()), null);
+        setupParser(infilename, parser);
+
+        final String domDataLines = getResult(parser, infilename);
+        verify(dataFile, domDataLines);
     }
 
     // @ParameterizedTest

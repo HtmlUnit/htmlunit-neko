@@ -66,6 +66,23 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
         verify(dataFile, saxDataLines);
     }
 
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runTestWithCachedElementsProvider(final File dataFile) throws Exception {
+        final String infilename = dataFile.toString();
+
+        final SAXParser parser = new SAXParser(new HTMLElements.HTMLElementsWithCache(new HTMLElements()));
+        setupParser(infilename, parser);
+
+        String saxDataLines = getResult(parser, infilename);
+        verify(dataFile, saxDataLines);
+
+        // reset and run again
+        parser.reset();
+        saxDataLines = getResult(parser, infilename);
+        verify(dataFile, saxDataLines);
+    }
+
     private static void verify(final File dataFile, final String saxDataLines)
                 throws IOException, AssertionFailedError {
         try {

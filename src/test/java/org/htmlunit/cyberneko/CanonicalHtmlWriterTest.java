@@ -49,8 +49,18 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
     @ParameterizedTest
     @MethodSource("testFiles")
     public void runTest(final File dataFile) throws Exception {
-        final String dataLines = getResult(dataFile);
+        final String dataLines = getResult(dataFile, false);
+        test(dataFile, dataLines);
+    }
 
+    @ParameterizedTest
+    @MethodSource("testFiles")
+    public void runTestWithCachedElementsProvider(final File dataFile) throws Exception {
+        final String dataLines = getResult(dataFile, true);
+        test(dataFile, dataLines);
+    }
+
+    private static void test(final File dataFile, final String dataLines) throws Exception {
         try {
             // prepare for future changes where canonical files are next to test file
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-html");
@@ -91,13 +101,19 @@ public class CanonicalHtmlWriterTest extends AbstractCanonicalTest {
         }
     }
 
-    private static String getResult(final File infile) throws Exception {
+    private static String getResult(final File infile, final boolean cached) throws Exception {
         try (StringWriter out = new StringWriter()) {
             // create filters
             final XMLDocumentFilter[] filters = {new HTMLWriterFilter(out, "UTF-8", new HTMLElements())};
 
             // create parser
-            final XMLParserConfiguration parser = new HTMLConfiguration();
+            final XMLParserConfiguration parser;
+            if (cached) {
+                parser = new HTMLConfiguration(new HTMLElements.HTMLElementsWithCache(new HTMLElements()));
+            }
+            else {
+                parser = new HTMLConfiguration();
+            }
 
             // parser settings
             parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
