@@ -24,13 +24,16 @@ import org.htmlunit.cyberneko.util.FastHashMap;
 
 /**
  * Collection of HTML element information.
+ * This does not manage any state and therefore it is thread safe.
+ * There is also an optimized but not thread save implementation
+ * of the {@link HTMLElementsProvider} interface  - {@link HTMLElementsWithCache}.
  *
  * @author Andy Clark
  * @author Ahmed Ashour
  * @author Marc Guillemot
  * @author Ronald Brill
  */
-public class HTMLElements {
+public class HTMLElements implements HTMLElementsProvider {
 
     // element codes
 
@@ -199,7 +202,7 @@ public class HTMLElements {
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
     // this is a optimized version which will be later queried
-    private FastHashMap<String, Element>[] elementsByNamePerLength_;
+    FastHashMap<String, Element>[] elementsByNamePerLength_;
 
     public HTMLElements() {
         final Element[][] elementsArray = new Element[26][];
@@ -628,19 +631,17 @@ public class HTMLElements {
     }
 
     /**
-     * @return the element information for the specified element code.
-     *
-     * @param code The element code.
+     * {@inheritDoc}
      */
+    @Override
     public final Element getElement(final short code) {
         return elementsByCode_[code];
     }
 
     /**
-     * @return the element information for the specified element name.
-     *
-     * @param ename the element name.
+     * {@inheritDoc}
      */
+    @Override
     public final Element getElement(final String ename) {
         Element element = getElement(ename, NO_SUCH_ELEMENT);
         if (element == NO_SUCH_ELEMENT) {
@@ -656,11 +657,9 @@ public class HTMLElements {
     }
 
     /**
-     * @return the element information for the specified element name.
-     *
-     * @param ename the element name.
-     * @param elementIfNotFound the default element to return if not found.
+     * {@inheritDoc}
      */
+    @Override
     public final Element getElement(final String ename, final Element elementIfNotFound) {
         int length = ename.length();
         if (length > elementsByNamePerLength_.length) {
@@ -689,11 +688,9 @@ public class HTMLElements {
     }
 
     /**
-     * @return the element information for the specified element name.
-     *
-     * @param enameLC the element name in lower case
-     * @param elementIfNotFound the default element to return if not found.
+     * {@inheritDoc}
      */
+    @Override
     public final Element getElementLC(final String enameLC, final Element elementIfNotFound) {
         int length = enameLC.length();
         if (length > elementsByNamePerLength_.length) {
@@ -705,13 +702,155 @@ public class HTMLElements {
             return elementIfNotFound;
         }
 
-        // check the current form casing first, which is mostly lowercase only
         Element r = entry.get(enameLC);
         if (r == null) {
             return elementIfNotFound;
         }
 
         return r;
+    }
+
+    public static class HTMLElementsWithCache implements HTMLElementsProvider {
+
+        private final HTMLElements htmlElements_;
+
+        // this map helps us to know what elements we don't have and speed things up
+        private final FastHashMap<String, Boolean> unknownElements_;
+
+        public HTMLElementsWithCache(final HTMLElements htmlElements) {
+            htmlElements_ = htmlElements;
+            unknownElements_ = new FastHashMap<>(11, 0.70f);
+        }
+
+        @Override
+        public Element getElement(short code) {
+            return htmlElements_.getElement(code);
+        }
+
+        @Override
+        public Element getElement(String ename) {
+            Element element = getElement(ename, htmlElements_.NO_SUCH_ELEMENT);
+            if (element == htmlElements_.NO_SUCH_ELEMENT) {
+                element = new Element(UNKNOWN,
+                                        ename.toUpperCase(Locale.ROOT),
+                                        htmlElements_.NO_SUCH_ELEMENT.flags,
+                                        htmlElements_.NO_SUCH_ELEMENT.parentCodes_,
+                                        htmlElements_.NO_SUCH_ELEMENT.bounds,
+                                        htmlElements_.NO_SUCH_ELEMENT.closes);
+                element.parent = htmlElements_.NO_SUCH_ELEMENT.parent;
+            }
+            return element;
+        }
+
+        @Override
+        public Element getElement(String ename, Element elementIfNotFound) {
+            int length = ename.length();
+            if (length > htmlElements_.elementsByNamePerLength_.length) {
+                if (unknownElements_.get(ename) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // remember that we had a miss
+                unknownElements_.put(ename, Boolean.TRUE);
+
+                return elementIfNotFound;
+            }
+
+            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
+            if (entry == null) {
+                // check first if we know that we don't know and avoid the
+                // lowercasing later
+                if (unknownElements_.get(ename) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // remember that we had a miss
+                unknownElements_.put(ename, Boolean.TRUE);
+
+                return elementIfNotFound;
+            }
+
+            Element r = entry.get(ename);
+            if (r == null) {
+                // check first if we know that we don't know and avoid the
+                // lowercasing later
+                if (unknownElements_.get(ename) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // we have not found it in its current form, might be uppercase
+                // or mixed case, so try all lowercase for sanity, we speculated that
+                // good HTML is mostly all lowercase in the first place so this is the
+                // fallback for atypical HTML
+                // we also have not seen that element missing yet
+                r = entry.get(ename.toLowerCase(Locale.ROOT));
+                if (r == null) {
+                    // remember that we had a miss
+                    unknownElements_.put(ename, Boolean.TRUE);
+                    return elementIfNotFound;
+                }
+            }
+
+            return r;
+        }
+
+        @Override
+        public Element getElementLC(String enameLC, Element elementIfNotFound) {
+            int length = enameLC.length();
+            if (length > htmlElements_.elementsByNamePerLength_.length) {
+                if (unknownElements_.get(enameLC) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // remember that we had a miss
+                unknownElements_.put(enameLC, Boolean.TRUE);
+
+                return elementIfNotFound;
+            }
+
+            FastHashMap<String, Element> entry = htmlElements_.elementsByNamePerLength_[length - 1];
+            if (entry == null) {
+                // check first if we know that we don't know and avoid the
+                // lowercasing later
+                if (unknownElements_.get(enameLC) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // remember that we had a miss
+                unknownElements_.put(enameLC, Boolean.TRUE);
+
+                return elementIfNotFound;
+            }
+
+            Element r = entry.get(enameLC);
+            if (r == null) {
+                // check first if we know that we don't know and avoid the
+                // lowercasing later
+                if (unknownElements_.get(enameLC) != null) {
+                    // we added it to the cache, so we know it has been
+                    // queried once unsuccessfully before
+                    return elementIfNotFound;
+                }
+
+                // remember that we had a miss
+                unknownElements_.put(enameLC, Boolean.TRUE);
+
+                return elementIfNotFound;
+            }
+
+            return r;
+        }
+
     }
 
     /**

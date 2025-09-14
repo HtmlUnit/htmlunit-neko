@@ -126,14 +126,19 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     /** Namespace binder. */
     private final NamespaceBinder namespaceBinder_ = new NamespaceBinder(this);
 
-    private final HTMLElements htmlElements_;
+    private final HTMLElementsProvider htmlElements_;
 
     /** Default constructor. */
     public HTMLConfiguration() {
         this(new HTMLElements());
     }
 
+    // for backward compatibility
     public HTMLConfiguration(final HTMLElements htmlElements) {
+        this((HTMLElementsProvider) htmlElements);
+    }
+
+    public HTMLConfiguration(final HTMLElementsProvider htmlElements) {
         htmlElements_ = htmlElements;
 
         // add components
@@ -269,7 +274,7 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     /**
      * @return the configured {@link HTMLElements}
      */
-    public HTMLElements getHtmlElements() {
+    public HTMLElementsProvider getHtmlElements() {
         return htmlElements_;
     }
 
