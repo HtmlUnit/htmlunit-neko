@@ -193,10 +193,6 @@ public class HTMLElements implements HTMLElementsProvider {
     /** No such element. */
     public final Element NO_SUCH_ELEMENT = new Element(UNKNOWN, "",  Element.CONTAINER, new short[]{BODY}, null);
 
-    // these fields became private to avoid exposing them for indirect modification
-    // this cannot be final because HtmlUnit might add to that
-    private Element[] elementsByCode_;
-
     // keep the list here for later modification
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
@@ -587,9 +583,9 @@ public class HTMLElements implements HTMLElementsProvider {
         // is a faster look up and avoids equals
         // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
         // list here, we might get a list with holes, so check the range first
-        elementsByCode_ = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
-        elementsByNameForReference_.values().forEach(v -> elementsByCode_[v.code] = v);
-        elementsByCode_[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
+        Element[] elementsByCode = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
+        elementsByNameForReference_.values().forEach(v -> elementsByCode[v.code] = v);
+        elementsByCode[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
         // add all together and also get us a second version that is
         // lowercase only for faster lower case lookups, hence we have twice
@@ -598,31 +594,24 @@ public class HTMLElements implements HTMLElementsProvider {
 
         for (final Element element : elementsByNameForReference_.values()) {
             // initialize cross references to parent elements
-            defineParents(element);
+            defineParents(element, elementsByCode);
 
+            elementsByName_.put(element.name, element);
             elementsByName_.put(element.lowercaseName, element);
         }
 
         // NO_SUCH_ELEMENT is not part of elementsByLength
-        defineParents(NO_SUCH_ELEMENT);
+        defineParents(NO_SUCH_ELEMENT, elementsByCode);
     }
 
-    private void defineParents(final Element element) {
+    private static void defineParents(final Element element, final Element[] elementsByCode) {
         if (element.parentCodes_ != null) {
             element.parent = new Element[element.parentCodes_.length];
             for (int j = 0; j < element.parentCodes_.length; j++) {
-                element.parent[j] = elementsByCode_[element.parentCodes_[j]];
+                element.parent[j] = elementsByCode[element.parentCodes_[j]];
             }
             element.parentCodes_ = null;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Element getElement(final short code) {
-        return elementsByCode_[code];
     }
 
     /**
@@ -697,14 +686,6 @@ public class HTMLElements implements HTMLElementsProvider {
         public HTMLElementsWithCache(final HTMLElements htmlElements) {
             htmlElements_ = htmlElements;
             unknownElements_ = new FastHashMap<>(11, 0.50f);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public Element getElement(short code) {
-            return htmlElements_.getElement(code);
         }
 
         /**

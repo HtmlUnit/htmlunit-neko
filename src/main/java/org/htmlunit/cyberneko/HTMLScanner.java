@@ -2311,9 +2311,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                                                 locationAugs(fCurrentEntity));
                             }
                             if (fInsertDoctype_) {
-                                String root = htmlConfiguration_.getHtmlElements().getElement(HTMLElements.HTML).name;
-                                root = modifyName(root, fNamesElems);
-                                fDocumentHandler.doctypeDecl(root, fDoctypePubid, fDoctypeSysid, synthesizedAugs());
+                                fDocumentHandler.doctypeDecl(
+                                                    modifyName("HTML", fNamesElems),
+                                                    fDoctypePubid,
+                                                    fDoctypeSysid,
+                                                    synthesizedAugs());
                             }
                             setScannerState(STATE_CONTENT);
                             break;

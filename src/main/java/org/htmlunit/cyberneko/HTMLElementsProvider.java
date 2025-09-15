@@ -25,13 +25,6 @@ import org.htmlunit.cyberneko.HTMLElements.Element;
 public interface HTMLElementsProvider {
 
     /**
-     * @return the element information for the specified element code.
-     *
-     * @param code The element code.
-     */
-    Element getElement(final short code);
-
-    /**
      * @return the element information for the specified element name.
      *
      * @param ename the element name.
