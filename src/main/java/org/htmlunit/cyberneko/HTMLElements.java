@@ -585,23 +585,25 @@ public class HTMLElements implements HTMLElementsProvider {
         // list here, we might get a list with holes, so check the range first
         Element[] elementsByCode = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
         elementsByNameForReference_.values().forEach(v -> elementsByCode[v.code] = v);
-        elementsByCode[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
 
         // add all together and also get us a second version that is
         // lowercase only for faster lower case lookups, hence we have twice
         // the size of the map as we need to store both versions
         elementsByName_ = new FastHashMap<>(2 * maxCode, 0.50f);
 
-        for (final Element element : elementsByNameForReference_.values()) {
-            // initialize cross references to parent elements
-            defineParents(element, elementsByCode);
+        for (int i = 0; i < elementsByCode.length; i++) {
+            final Element element = elementsByCode[i];
+            if (element != null) {
+                // initialize cross references to parent elements
+                defineParents(element, elementsByCode);
 
-            elementsByName_.put(element.name, element);
-            elementsByName_.put(element.lowercaseName, element);
+                elementsByName_.put(element.name, element);
+                elementsByName_.put(element.lowercaseName, element);
+            }
         }
 
-        // NO_SUCH_ELEMENT is not part of elementsByLength
         defineParents(NO_SUCH_ELEMENT, elementsByCode);
+        elementsByCode[NO_SUCH_ELEMENT.code] = NO_SUCH_ELEMENT;
     }
 
     private static void defineParents(final Element element, final Element[] elementsByCode) {
@@ -640,8 +642,8 @@ public class HTMLElements implements HTMLElementsProvider {
         // check the current form casing first, which is mostly lowercase only
         Element r = elementsByName_.get(ename);
         if (r == null) {
-            // we have not found it in its current form, might be uppercase
-            // or mixed case, so try all lowercase for sanity, we speculated that
+            // we have not found it in its current form, might be mixed case,
+            // so try all lowercase for sanity, we speculated that
             // good HTML is mostly all lowercase in the first place so this is the
             // fallback for atypical HTML
             r = elementsByName_.get(ename.toLowerCase(Locale.ROOT));
@@ -714,15 +716,15 @@ public class HTMLElements implements HTMLElementsProvider {
             Element r = htmlElements_.elementsByName_.get(ename);
             if (r == null) {
                 // check first if we know that we don't know and avoid the
-                // lowercasing later
+                // lower casing later
                 if (unknownElements_.get(ename) != null) {
                     // we added it to the cache, so we know it has been
                     // queried once unsuccessfully before
                     return elementIfNotFound;
                 }
 
-                // we have not found it in its current form, might be uppercase
-                // or mixed case, so try all lowercase for sanity, we speculated that
+                // we have not found it in its current form, might be mixed case,
+                // so try all lowercase for sanity, we speculated that
                 // good HTML is mostly all lowercase in the first place so this is the
                 // fallback for atypical HTML
                 // we also have not seen that element missing yet
