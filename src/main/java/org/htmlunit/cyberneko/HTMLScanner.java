@@ -173,7 +173,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public static final String IGNORE_SPECIFIED_CHARSET
                                     = "http://cyberneko.org/html/features/scanner/ignore-specified-charset";
 
-    /** Whether CDATA sections (<![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments */
+    /** Whether CDATA sections (&lt;![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments */
     public static final String CDATA_SECTIONS = "http://cyberneko.org/html/features/scanner/cdata-sections";
 
     /** '>' closes the cdata section (see html spec). */
