@@ -24,24 +24,26 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <!-- test dependencies -->
-        <junit.version>5.13.4</junit.version>
-        <junit-launcher.version>1.13.4</junit-launcher.version>
+        <junit.version>5.14.0</junit.version>
+        <junit-launcher.version>1.14.0</junit-launcher.version>
 
         <!-- quality -->
-        <checkstyle.version>10.26.1</checkstyle.version>
+        <checkstyle.version>11.1.0</checkstyle.version>
         <spotbugs.version>4.9.4</spotbugs.version>
-        <pmd.version>7.16.0</pmd.version>
-        <dependencycheck.version>10.0.4</dependencycheck.version>
+        <pmd.version>7.17.0</pmd.version>
+        <dependencycheck.version>12.1.6</dependencycheck.version>
 
         <!-- plugins -->
-        <central-publishing-plugin.version>0.8.0</central-publishing-plugin.version>
+        <central-publishing-plugin.version>0.9.0</central-publishing-plugin.version>
         <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
         <pmd-plugin.version>3.27.0</pmd-plugin.version>
-        <spotbugs-plugin.version>4.9.4.0</spotbugs-plugin.version>
+        <spotbugs-plugin.version>4.9.6.0</spotbugs-plugin.version>
         <gpg-plugin.version>3.2.8</gpg-plugin.version>
-        <enforcer-plugin.version>3.6.1</enforcer-plugin.version>
+        <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
+        <compiler-plugin.version>3.14.1</compiler-plugin.version>
         <jar-plugin.version>3.4.2</jar-plugin.version>
-        <javadoc-plugin.version>3.11.3</javadoc-plugin.version>
+        <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
+        <surefire-plugin.version>3.5.4</surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -69,11 +71,11 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>${compiler-plugin.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>${surefire-plugin.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
