@@ -114,7 +114,6 @@ public class CanonicalTest extends AbstractCanonicalTest {
                 parser = new HTMLConfiguration();
             }
 
-
             // parser settings
             parser.setProperty("http://cyberneko.org/html/properties/filters", filters);
 

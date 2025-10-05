@@ -16,11 +16,11 @@
 package org.htmlunit.cyberneko.util;
 
 /**
- * Sonme test utils.
+ * Some test utils.
  *
  * @author Ronald Brill
  */
-public class TestUtils {
+public final class TestUtils {
 
     /**
      * Hidden ctor.

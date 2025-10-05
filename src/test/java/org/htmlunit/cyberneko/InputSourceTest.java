@@ -43,14 +43,13 @@ public class InputSourceTest {
         final byte[] html = "<html><head></head><body>Neko</body></html>".getBytes(StandardCharsets.UTF_8);
 
         byte[] bytes = new byte[bom.length + html.length];
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        final ByteBuffer buffer = ByteBuffer.wrap(bytes);
         buffer.put(bom);
         buffer.put(html);
         bytes = buffer.array();
 
-
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes)) {
-            InputSource source = new InputSource(bais);
+            final InputSource source = new InputSource(bais);
             source.setEncoding("ASCII");
 
             final SAXParser parser = new SAXParser();

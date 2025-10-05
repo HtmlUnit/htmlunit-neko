@@ -43,12 +43,14 @@ import java.util.zip.InflaterInputStream;
  */
 public final class PlaybackInputStream extends InputStream {
 
-    private static Class apacheCommonsCompressorInputStream;
+    private static Class ApacheCommonsCompressorInputStream_;
 
     static {
         try {
-            apacheCommonsCompressorInputStream = Class.forName("org.apache.commons.compress.compressors.CompressorInputStream");
-        } catch (ClassNotFoundException e) {
+            ApacheCommonsCompressorInputStream_ =
+                    Class.forName("org.apache.commons.compress.compressors.CompressorInputStream");
+        }
+        catch (final ClassNotFoundException e) {
             // all good, class is not there
         }
     }
@@ -96,8 +98,8 @@ public final class PlaybackInputStream extends InputStream {
         if ("BrotliInputStream".equals(in_.getClass().getSimpleName())) {
             return;
         }
-        if (apacheCommonsCompressorInputStream != null
-                && apacheCommonsCompressorInputStream.isInstance(in_)) {
+        if (ApacheCommonsCompressorInputStream_ != null
+                && ApacheCommonsCompressorInputStream_.isInstance(in_)) {
             return;
         }
 

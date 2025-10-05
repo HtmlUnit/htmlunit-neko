@@ -126,7 +126,6 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
                 parser = new DOMFragmentParser();
             }
 
-
             final CoreDocumentImpl document = new CoreDocumentImpl();
             final DocumentFragmentImpl fragment = (DocumentFragmentImpl) document.createDocumentFragment();
 

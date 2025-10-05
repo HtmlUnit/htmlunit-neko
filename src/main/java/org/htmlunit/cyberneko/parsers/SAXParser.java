@@ -33,7 +33,7 @@ public class SAXParser extends AbstractSAXParser {
     }
 
     /**
-     * Ctor using a custom {@link HTMLElementsProvider}
+     * Ctor using a custom {@link HTMLElementsProvider}.
      * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
      */
     public SAXParser(final HTMLElementsProvider htmlElementsProvider) {

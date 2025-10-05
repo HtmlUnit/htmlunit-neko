@@ -118,7 +118,8 @@ public class CanonicalDomHtmlDocumentTest extends AbstractCanonicalTest {
         try (StringWriter out = new StringWriter()) {
             final DOMParser parser;
             if (cached) {
-                parser = new DOMParser(new HTMLElements.HTMLElementsWithCache(new HTMLElements()), HTMLDocumentImpl.class);
+                parser = new DOMParser(new HTMLElements.HTMLElementsWithCache(new HTMLElements()),
+                                        HTMLDocumentImpl.class);
             }
             else {
                 parser = new DOMParser(HTMLDocumentImpl.class);

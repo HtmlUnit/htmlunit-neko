@@ -96,7 +96,7 @@ public class DOMFragmentParser implements XMLDocumentHandler {
     }
 
     /**
-     * Ctor using a custom {@link HTMLElementsProvider}
+     * Ctor using a custom {@link HTMLElementsProvider}.
      * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
      */
     public DOMFragmentParser(final HTMLElementsProvider htmlElementsProvider) {

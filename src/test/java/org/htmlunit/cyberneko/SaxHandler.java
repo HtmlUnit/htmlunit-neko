@@ -28,7 +28,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.ext.LexicalHandler;
 
-
 /**
  * Helper.
  *

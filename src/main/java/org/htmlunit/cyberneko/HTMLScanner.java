@@ -173,7 +173,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     public static final String IGNORE_SPECIFIED_CHARSET
                                     = "http://cyberneko.org/html/features/scanner/ignore-specified-charset";
 
-    /** Whether CDATA sections (&lt;![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments */
+    /** Whether CDATA sections (&lt;![CDATA[...]]>) are treated as proper XML CDATA sections or as HTML comments. */
     public static final String CDATA_SECTIONS = "http://cyberneko.org/html/features/scanner/cdata-sections";
 
     /** '>' closes the cdata section (see html spec). */
@@ -821,8 +821,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Sets a property. */
     @Override
     public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
-
-
         if (propertyId.equals(NAMES_ELEMS)) {
             fNamesElems = getNamesValue(String.valueOf(value));
         }
@@ -2289,7 +2287,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     setScanner(new PlainTextScanner());
                                 }
                                 else if (ename != null) {
-                                    final Element elem = htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
+                                    final Element elem =
+                                            htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
                                     if (elem != null && elem.isSpecial()) {
                                         setScanner(fSpecialScanner.setElementName(ename));
                                         setScannerState(STATE_CONTENT);
@@ -2879,7 +2878,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (fByteStream != null) {
                     final String enameLC = ename.toLowerCase(Locale.ROOT);
 
-                    if ( !fIgnoreSpecifiedCharset_ && "meta".equals(enameLC)) {
+                    if (!fIgnoreSpecifiedCharset_ && "meta".equals(enameLC)) {
                         if (DEBUG_CHARSET) {
                             System.out.println("+++ <META>");
                         }
@@ -2912,8 +2911,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         fByteStream = null;
                     }
                     else {
-                        final HTMLElements.Element element = htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
-                        if (element== null // unknown has body as parent
+                        final HTMLElements.Element element =
+                                htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
+                        if (element == null // unknown has body as parent
                                 || (element.parent != null
                                     && element.parent.length > 0
                                     && element.parent[0].code == HTMLElements.BODY)) {

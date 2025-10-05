@@ -583,7 +583,7 @@ public class HTMLElements implements HTMLElementsProvider {
         // is a faster look up and avoids equals
         // ATTENTION: Due to some HtmlUnit custom tag handling that overwrites our
         // list here, we might get a list with holes, so check the range first
-        Element[] elementsByCode = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
+        final Element[] elementsByCode = new Element[Math.max(maxCode, NO_SUCH_ELEMENT.code) + 1];
         elementsByNameForReference_.values().forEach(v -> elementsByCode[v.code] = v);
 
         // add all together and also get us a second version that is

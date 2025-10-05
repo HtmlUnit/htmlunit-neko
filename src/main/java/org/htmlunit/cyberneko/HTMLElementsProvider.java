@@ -18,7 +18,7 @@ package org.htmlunit.cyberneko;
 import org.htmlunit.cyberneko.HTMLElements.Element;
 
 /**
- * Interface to support different {@link Element}'s providers
+ * Interface to support different {@link Element}'s providers.
  *
  * @author Ronald Brill
  */
@@ -29,7 +29,7 @@ public interface HTMLElementsProvider {
      *
      * @param ename the element name.
      */
-    Element getElement(final String ename);
+    Element getElement(String ename);
 
     /**
      * @return the element information for the specified element name.
@@ -37,7 +37,7 @@ public interface HTMLElementsProvider {
      * @param ename the element name.
      * @param elementIfNotFound the default element to return if not found.
      */
-    Element getElement(final String ename, final Element elementIfNotFound);
+    Element getElement(String ename, Element elementIfNotFound);
 
     /**
      * @return the element information for the specified element name.
@@ -45,5 +45,5 @@ public interface HTMLElementsProvider {
      * @param enameLC the element name in lower case
      * @param elementIfNotFound the default element to return if not found.
      */
-    Element getElementLC(final String enameLC, final Element elementIfNotFound);
+    Element getElementLC(String enameLC, Element elementIfNotFound);
 }

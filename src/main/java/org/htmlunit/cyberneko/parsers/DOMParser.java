@@ -34,11 +34,12 @@ public class DOMParser extends AbstractDOMParser {
     }
 
     /**
-     * Ctor using a custom {@link HTMLElementsProvider}
+     * Ctor using a custom {@link HTMLElementsProvider}.
      * @param htmlElementsProvider the custom {@link HTMLElementsProvider}
      * @param documentClass the {@link DocumentImpl} to be used
      */
-    public DOMParser(final HTMLElementsProvider htmlElementsProvider, final Class<? extends DocumentImpl> documentClass) {
+    public DOMParser(final HTMLElementsProvider htmlElementsProvider,
+                        final Class<? extends DocumentImpl> documentClass) {
         super(new HTMLConfiguration(htmlElementsProvider), documentClass);
     }
 }
