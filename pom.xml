@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.17.0-SNAPSHOT</version>
+    <version>4.17.0</version>
     <name>HtmlUnit NekoHtml</name>
     <organization>
         <name>HtmlUnit</name>
@@ -31,7 +31,7 @@
         <checkstyle.version>11.1.0</checkstyle.version>
         <spotbugs.version>4.9.4</spotbugs.version>
         <pmd.version>7.17.0</pmd.version>
-        <dependencycheck.version>12.1.6</dependencycheck.version>
+        <dependencycheck.version>10.0.4</dependencycheck.version>
 
         <!-- plugins -->
         <central-publishing-plugin.version>0.9.0</central-publishing-plugin.version>
