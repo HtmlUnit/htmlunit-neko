@@ -8,7 +8,7 @@ NekoHTML adds missing parent elements; automatically closes elements with option
 The **Htmlunit-NekoHtml** Parser has no external dependencies at all, requires Java 8 and works also on Android.  
 The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/neko-htmlunit)
+[![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/neko-htmlunit)](https://central.sonatype.com/artifact/org.htmlunit/neko-htmlunit)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
