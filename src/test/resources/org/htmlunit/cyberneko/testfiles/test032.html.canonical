@@ -1,0 +1,11 @@
+(HTML
+(head
+)head
+(BODY
+(img
+Aalt this ain't a real quote
+Asrc aint.gif
+)img
+"\n"this & that" ™\n  -- Andy <andyc@apache.org>
+)BODY
+)HTML

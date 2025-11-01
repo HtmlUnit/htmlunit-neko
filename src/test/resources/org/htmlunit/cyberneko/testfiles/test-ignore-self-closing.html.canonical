@@ -1,0 +1,38 @@
+(html
+(head
+"\n
+(title
+"foo
+)title
+"\n
+)head
+(body
+"\n
+(p
+"after p
+)p
+"\n
+(div
+"after div
+)div
+"\n
+(span
+"after span
+)span
+"\n
+(a
+Ahref foo
+"after a href
+)a
+"\n
+(a
+Aname foo
+"after a name
+)a
+"\n
+(form
+"after form
+)form
+"\n
+)body
+)html

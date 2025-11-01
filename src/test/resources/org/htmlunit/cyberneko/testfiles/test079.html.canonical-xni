@@ -1,0 +1,8 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="HTML",rawname="HTML") [(1,1,0) (1,2109,2108) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML") [(1,2109,2108) (1,2116,2115) false]
+endDocument [(2,1,2116) (2,1,2116) false]

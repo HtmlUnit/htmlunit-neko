@@ -1,0 +1,20 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(1,7,6) (1,13,12) false]
+startElement (localpart="script",rawname="script") [(1,13,12) (1,21,20) false]
+characters '
+function test() {
+var x = '<!>';
+alert(x.length);
+}
+'[(1,21,20) (6,1,73) false]
+endElement (localpart="script",rawname="script") [(6,1,73) (6,10,82) false]
+endElement (localpart="head",rawname="head") [(6,10,82) (6,17,89) false]
+startElement (localpart="body",rawname="body") [(6,17,89) (6,39,111) false]
+characters '
+'[(6,39,111) (7,1,112) false]
+characters '
+'[(7,15,126) (8,1,127) false]
+endElement (localpart="body",rawname="body") [(7,1,112) (7,8,119) false]
+endElement (localpart="html",rawname="html") [(7,8,119) (7,15,126) false]
+endDocument [(8,1,127) (8,1,127) false]

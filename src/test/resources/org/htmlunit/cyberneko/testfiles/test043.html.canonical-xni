@@ -1,0 +1,25 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="p",rawname="p") [(3,1,14) (3,4,17) false]
+characters '
+'[(3,4,17) (4,1,18) false]
+startElement (localpart="button",rawname="button") [(4,1,18) (4,9,26) false]
+characters ' a button '[(4,9,26) (4,19,36) false]
+endElement (localpart="button",rawname="button") [(4,19,36) (4,28,45) false]
+characters ' '[(4,28,45) (4,29,46) false]
+emptyElement (localpart="br",rawname="br") [(4,29,46) (4,33,50) false]
+characters '
+'[(4,33,50) (5,1,51) false]
+endElement (localpart="p",rawname="p") [(5,1,51) (5,5,55) false]
+characters '
+'[(5,5,55) (6,1,56) false]
+characters '
+'[(6,15,70) (7,1,71) false]
+endElement (localpart="body",rawname="body") [(6,1,56) (6,8,63) false]
+endElement (localpart="html",rawname="html") [(6,8,63) (6,15,70) false]
+endDocument [(7,1,71) (7,1,71) false]

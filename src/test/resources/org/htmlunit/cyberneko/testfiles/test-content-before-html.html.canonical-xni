@@ -1,0 +1,22 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(2,1,6) (2,7,12) false]
+startElement (localpart="head",rawname="head") [(3,1,13) (3,7,19) false]
+characters '
+'[(3,7,19) (4,1,20) false]
+startElement (localpart="title",rawname="title") [(4,1,20) (4,8,27) false]
+characters 'title'[(4,8,27) (4,13,32) false]
+endElement (localpart="title",rawname="title") [(4,13,32) (4,21,40) false]
+characters '
+'[(4,21,40) (5,1,41) false]
+endElement (localpart="head",rawname="head") [(5,1,41) (5,8,48) false]
+startElement (localpart="body",rawname="body") [(5,8,48) (5,14,54) false]
+characters 'hello
+'[(1,1,0) (2,1,6) false]
+characters '
+world
+'[(5,14,54) (7,1,61) false]
+characters '
+'[(8,8,76) (9,1,77) false]
+endElement (localpart="body",rawname="body") [(7,1,61) (7,8,68) false]
+endElement (localpart="html",rawname="html") [(8,1,69) (8,8,76) false]
+endDocument [(9,1,77) (9,1,77) false]

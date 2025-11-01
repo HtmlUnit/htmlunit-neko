@@ -1,0 +1,13 @@
+(HTML
+(HEAD
+(script
+"\n<!--\nhtml script content\n//-->\n
+)script
+"\n
+)HEAD
+(BODY
+(h1
+"Foo
+)h1
+)BODY
+)HTML

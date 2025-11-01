@@ -1,0 +1,18 @@
+(html
+(head
+(title
+"foo
+)title
+)head
+(body
+"\n
+(form
+Aid form1
+"\n
+(isindex
+Aprompt enterSomeText
+)isindex
+"\n
+)form
+)body
+)html

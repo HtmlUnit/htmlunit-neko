@@ -1,0 +1,11 @@
+(html
+(head
+(script
+"\nfunction test() {\nvar x = '<!>';\nalert(x.length);\n}\n
+)script
+)head
+(body
+Aonload test()
+"\n
+)body
+)html

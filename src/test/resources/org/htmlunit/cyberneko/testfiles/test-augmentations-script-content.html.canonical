@@ -1,0 +1,12 @@
+[synth](HTML
+[synth](head
+[synth])head
+[1,1,0;1,7,6](body
+[1,7,6;1,15,14](script
+[1,15,14;3,1,27]"\ndoSomething\n
+[3,1,27;3,10,36])script
+[3,10,36;3,18,44](script
+[3,18,44;5,1,61]"\ndoSomethingElse\n
+[5,1,61;5,10,70])script
+[5,10,70;5,17,77])body
+[synth])HTML

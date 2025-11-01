@@ -1,0 +1,18 @@
+(HTML
+(head
+)head
+(BODY
+(table
+"\n
+(TBODY
+(tr
+(td
+(input
+Atype text
+)input
+)td
+)tr
+)TBODY
+)table
+)BODY
+)HTML

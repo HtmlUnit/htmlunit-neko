@@ -1,0 +1,21 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="p",rawname="p") [(1,1,0) (1,4,3) false]
+characters '
+'[(1,4,3) (2,1,4) false]
+startElement (localpart="a",rawname="a") [(2,1,4) (2,20,23) false]
+startElement (localpart="h3",rawname="h3") [(2,20,23) (2,24,27) false]
+characters 'Header'[(2,24,27) (2,30,33) false]
+endElement (localpart="h3",rawname="h3") [(2,30,33) (2,35,38) false]
+endElement (localpart="a",rawname="a") [(2,35,38) (2,39,42) false]
+characters '
+'[(2,39,42) (3,1,43) false]
+endElement (localpart="p",rawname="p") [(3,1,43) (3,5,47) false]
+characters '
+'[(3,5,47) (4,1,48) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(4,1,48) (4,1,48) false]
