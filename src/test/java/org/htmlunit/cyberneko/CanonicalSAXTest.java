@@ -90,14 +90,6 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-sax");
             if (!canonicalFile.exists()) {
                 canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
-
-                if (!canonicalFile.exists()) {
-                    canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-sax");
-
-                    if (!canonicalFile.exists()) {
-                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
-                    }
-                }
             }
 
             if (!canonicalFile.exists()) {

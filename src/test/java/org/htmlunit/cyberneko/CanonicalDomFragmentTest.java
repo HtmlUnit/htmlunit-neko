@@ -69,18 +69,6 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
 
                 if (!canonicalFile.exists()) {
                     canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
-
-                    if (!canonicalFile.exists()) {
-                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-frg");
-
-                        if (!canonicalFile.exists()) {
-                            canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-dom");
-
-                            if (!canonicalFile.exists()) {
-                                canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
-                            }
-                        }
-                    }
                 }
             }
 

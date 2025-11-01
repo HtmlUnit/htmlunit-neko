@@ -56,10 +56,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
 
         try {
             // prepare for future changes where canonical files are next to test file
-            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-xni");
-            if (!canonicalFile.exists()) {
-                canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-xni");
-            }
+            final File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-xni");
 
             if (!canonicalFile.exists()) {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + domDataLines);

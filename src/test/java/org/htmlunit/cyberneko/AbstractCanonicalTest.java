@@ -54,8 +54,6 @@ import org.w3c.dom.NodeList;
 public abstract class AbstractCanonicalTest {
     protected static final File DATA_DIR
                         = new File("src/test/resources/org/htmlunit/cyberneko/testfiles");
-    protected static final File CANONICAL_DIR
-                        = new File("src/test/resources/org/htmlunit/cyberneko/testfiles/canonical");
     protected static final File OUTOUT_DIR
                         = new File("target/data/output");
 

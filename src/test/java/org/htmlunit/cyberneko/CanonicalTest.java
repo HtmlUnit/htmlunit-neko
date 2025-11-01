@@ -64,10 +64,7 @@ public class CanonicalTest extends AbstractCanonicalTest {
     private static void test(final File dataFile, final String dataLines) throws Exception {
         try {
             // prepare for future changes where canonical files are next to test file
-            File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
-            if (!canonicalFile.exists()) {
-                canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
-            }
+            final File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
             if (!canonicalFile.exists()) {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }

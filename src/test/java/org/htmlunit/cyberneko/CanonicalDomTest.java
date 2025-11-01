@@ -96,14 +96,6 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
             File canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical-dom");
             if (!canonicalFile.exists()) {
                 canonicalFile = new File(dataFile.getParentFile(), dataFile.getName() + ".canonical");
-
-                if (!canonicalFile.exists()) {
-                    canonicalFile = new File(CANONICAL_DIR, dataFile.getName() + ".canonical-dom");
-
-                    if (!canonicalFile.exists()) {
-                        canonicalFile = new File(CANONICAL_DIR, dataFile.getName());
-                    }
-                }
             }
 
             if (!canonicalFile.exists()) {
