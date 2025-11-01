@@ -4,8 +4,8 @@
 (BODY
 (progress
 Aid file
-Amax 100
 Avalue 32
+Amax 100
 " 32% 
 )progress
 )BODY

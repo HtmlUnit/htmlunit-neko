@@ -10,8 +10,8 @@ A{http://www.w3.org/2000/xmlns/}xmlns http://www.w3.org/1999/xhtml
 )title
 "\n
 (meta
-Acontent text/html; charset=utf-8
 Ahttp-equiv content-type
+Acontent text/html; charset=utf-8
 )meta
 "\n
 )head

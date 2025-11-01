@@ -17,7 +17,6 @@ package org.htmlunit.cyberneko;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.htmlunit.cyberneko.util.TestUtils;
 import org.xml.sax.Attributes;
@@ -83,8 +82,6 @@ public final class SaxHandler implements ContentHandler, LexicalHandler, ErrorHa
         for (int i = 0; i < atts.getLength(); i++) {
             attNames.add(atts.getQName(i));
         }
-
-        Collections.sort(attNames);
 
         for (final String attName : attNames) {
             out_.append('A');

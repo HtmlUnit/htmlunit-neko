@@ -8,8 +8,8 @@
 (td
 (form
 (input
-Aname xyz
 Atype hidden
+Aname xyz
 )input
 (input
 Atype submit

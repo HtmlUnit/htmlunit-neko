@@ -1,0 +1,17 @@
+(HTML
+(head
+)head
+(body
+Aonload alert(1)\n// comment\nalert(2)
+"\n
+(div
+Aall   2s\t\t2t\n\n2n|2s  
+Aleading-newline \n\n2n
+Aleading-space   2s
+Aleading-tab \t\t2t
+Atrailing-newline 2n\n\n
+Atrailing-space 2s  
+Atrailing-tab 2t\t\t
+)div
+)body
+)HTML

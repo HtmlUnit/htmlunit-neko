@@ -3,23 +3,23 @@
 )head
 (BODY
 (a
-Ahref http://www.charityadvantage.com/ChildrensmuseumEaston/images/BookswithBill.jpg
 Aonblur try {parent.deselectBloggerImageGracefully();}catch(e) {}
+Ahref http://www.charityadvantage.com/ChildrensmuseumEaston/images/BookswithBill.jpg
 (imgstyle="FLOAT:
+Aright; 
+Amargin: 
 A0px 
 A0px 
-A100px" 
 A10px 
 A10px; 
+Awidth: 
 A150px; 
-Aalt 
-Aborder 0
 Acursor:hand; 
 Aheight: 
-Amargin: 
-Aright; 
+A100px" 
+Aalt 
 Asrc http://www.charityadvantage.com/ChildrensmuseumEaston/images/BookswithBill.jpg
-Awidth: 
+Aborder 0
 )imgstyle="FLOAT:
 )a
 (br

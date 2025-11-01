@@ -206,27 +206,26 @@ public class Writer extends DefaultFilter {
         if (attrs != null) {
             final int acount = attrs.getLength();
             if (acount > 0) {
-                final String[] anames = new String[acount];
-                final String[] anamesNonNormalized = new String[acount];
-                final String[] auris = new String[acount];
-                sortAttrNames(attrs, anames, anamesNonNormalized, auris);
                 for (int i = 0; i < acount; i++) {
-                    final String aname = anames[i];
+                    final String qName = attrs.getQName(i);
+                    final String nonNormalizedValue = attrs.getNonNormalizedValue(i);
+                    final String uri = attrs.getURI(i);
+
                     out_.println();
                     out_.flush();
                     out_.print('A');
-                    if (auris[i] != null) {
+                    if (uri != null) {
                         out_.print('{');
-                        out_.print(auris[i]);
+                        out_.print(uri);
                         out_.print('}');
                     }
-                    out_.print(aname);
+                    out_.print(qName);
                     out_.print(' ');
-                    print(attrs.getValue(aname));
+                    print(attrs.getValue(qName));
 
-                    if (anamesNonNormalized[i] != null && !anamesNonNormalized[i].equals(attrs.getValue(aname))) {
+                    if (nonNormalizedValue != null && !nonNormalizedValue.equals(attrs.getValue(qName))) {
                         out_.print(" / ");
-                        out_.print(anamesNonNormalized[i]);
+                        out_.print(nonNormalizedValue);
                     }
                 }
             }
@@ -393,38 +392,6 @@ public class Writer extends DefaultFilter {
             out_.print(',');
             out_.print(charactersEndCharacterOffset_);
             out_.print(']');
-        }
-    }
-
-    /** Sorts the attribute names. */
-    protected static void sortAttrNames(final XMLAttributes attrs, final String[] anames,
-                            final String[] anamesNonNormalized, final String[] auris) {
-        for (int i = 0; i < anames.length; i++) {
-            anames[i] = attrs.getQName(i);
-            anamesNonNormalized[i] = attrs.getNonNormalizedValue(i);
-            auris[i] = attrs.getURI(i);
-        }
-        // NOTE: This is super inefficient but it doesn't really matter. -Ac
-        for (int i = 0; i < anames.length - 1; i++) {
-            int index = i;
-            for (int j = i + 1; j < anames.length; j++) {
-                if (anames[j].compareTo(anames[index]) < 0) {
-                    index = j;
-                }
-            }
-            if (index != i) {
-                final String tn = anames[i];
-                anames[i] = anames[index];
-                anames[index] = tn;
-
-                final String tnn = anamesNonNormalized[i];
-                anamesNonNormalized[i] = anamesNonNormalized[index];
-                anamesNonNormalized[index] = tnn;
-
-                final String tu = auris[i];
-                auris[i] = auris[index];
-                auris[index] = tu;
-            }
         }
     }
 }

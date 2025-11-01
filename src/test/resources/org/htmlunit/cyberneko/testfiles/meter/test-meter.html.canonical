@@ -4,9 +4,9 @@
 (BODY
 (meter
 Aid disk_c
-Amax 10
-Amin 0
 Avalue 2
+Amin 0
+Amax 10
 "2 out of 10
 )meter
 )BODY

@@ -8,8 +8,8 @@
 Acols 100%
 "\n  
 (frame
-Aid frame1
 Asrc foo
+Aid frame1
 )frame
 "\n
 )frameset

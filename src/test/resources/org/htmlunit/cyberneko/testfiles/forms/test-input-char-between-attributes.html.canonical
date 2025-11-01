@@ -3,17 +3,17 @@
 )head
 (BODY
 (input
-A; 
-Aname Login
 Aonclick javascript: submitForm(this)
+A; 
 Atype submit
+Aname Login
 )input
 "\n
 (input
-A? 
-Aname Login
 Aonclick javascript: submitForm(this)
+A? 
 Atype submit
+Aname Login
 )input
 )BODY
 )HTML

@@ -1,0 +1,17 @@
+(HTML
+(head
+)head
+(BODY
+(picture
+(source
+Amedia (min-width:650px)
+Asrcset img_pink_flowers.jpg
+)source
+(img
+Aalt Flowers
+Asrc img_orange_flowers.jpg
+Astyle width:auto;
+)img
+)picture
+)BODY
+)HTML

@@ -1,8 +1,8 @@
 (html
 (HEAD
 (meta
-Acontent no-cache
 Ahttp-equiv Pragma
+Acontent no-cache
 )meta
 "\n
 x(head
@@ -12,8 +12,8 @@ x(head
 )title
 "\n
 (meta
-Acontent text/html; charset=iso-8859-1
 Ahttp-equiv Content-Type
+Acontent text/html; charset=iso-8859-1
 )meta
 "\n
 )HEAD

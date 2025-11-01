@@ -3,8 +3,8 @@
 )head
 (BODY
 (input
-A="" 
 Aname button
+A="" 
 Avalue detect me
 )input
 )BODY

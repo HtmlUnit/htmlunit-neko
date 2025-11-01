@@ -29,7 +29,6 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.util.TestUtils;
@@ -229,8 +228,6 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
                 attNames.add(atts.getQName(i));
             }
 
-            Collections.sort(attNames);
-
             for (final String attName : attNames) {
                 out_.append('A');
                 final int i = atts.getIndex(attName);
@@ -386,8 +383,6 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
             for (int i = 0; i < attrs.getLength(); i++) {
                 attNames.add(attrs.getQName(i));
             }
-
-            Collections.sort(attNames);
 
             for (final String attName : attNames) {
                 out_.append('A');

@@ -3,8 +3,8 @@
 )head
 (BODY
 (img
-Aonclick javascript:if(this.width>100) this.width=100;
 Asrc example.jpg
+Aonclick javascript:if(this.width>100) this.width=100;
 )img
 )BODY
 )HTML

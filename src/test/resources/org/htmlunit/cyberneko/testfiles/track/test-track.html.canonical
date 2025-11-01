@@ -3,10 +3,10 @@
 )head
 (BODY
 (track
-Akind subtitles
-Alabel English
 Asrc fgsubtitles_en.vtt
+Akind subtitles
 Asrclang en
+Alabel English
 )track
 )BODY
 )HTML

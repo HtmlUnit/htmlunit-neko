@@ -1,0 +1,11 @@
+(HTML
+(head
+)head
+(BODY
+(input
+A=' 
+Aname button
+)input
+"' ='/>' value="detect me">
+)BODY
+)HTML
