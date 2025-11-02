@@ -613,6 +613,8 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
+        reopenInlineElements(null);
+
         if (elementCode == HTMLElements.TEMPLATE) {
             fTemplateFragment = true;
         }
@@ -980,6 +982,7 @@ public class HTMLTagBalancer
         fSeenAnything = true;
 
         consumeEarlyTextIfNeeded();
+        reopenInlineElements(null);
 
         // check for end of document
         if (fSeenRootElementEnd) {
@@ -1022,6 +1025,8 @@ public class HTMLTagBalancer
             lostText_.add(text, augs);
             return;
         }
+
+        reopenInlineElements(null);
 
         if (!fDocumentFragment) {
             // handle bare characters
@@ -1090,6 +1095,10 @@ public class HTMLTagBalancer
         // get element information
         final HTMLElements.Element elem = getElement(element);
         final short elementCode = elem.code;
+
+        if (reopenInlineElements(elem)) {
+            return;
+        }
 
         if (!fTemplateFragment && fOpenedSelect) {
             if (elementCode == HTMLElements.SELECT) {
@@ -1199,21 +1208,42 @@ public class HTMLTagBalancer
                 callEndElement(info.qname, i < depth - 1 ? synthesizedAugs() : augs);
             }
         }
+    }
 
-        // re-open inline elements
-        if (depth > 1) {
-            final int size = fInlineStack.top;
-            for (int i = 0; i < size; i++) {
-                final Info info = fInlineStack.pop();
-                final XMLAttributes attributes = info.attributes;
-                if (fReportErrors) {
-                    final String iname = info.qname.getRawname();
-                    fErrorReporter.reportWarning("HTML2008", new Object[]{iname});
-                }
-                forceStartElement(info.qname, attributes, synthesizedAugs());
-            }
+    // re-open inline elements
+    protected boolean reopenInlineElements(final HTMLElements.Element element) {
+        final int size = fInlineStack.top;
+
+        if (size == 0) {
+            return false;
         }
 
+        int i = 0;
+        Info info = fInlineStack.pop();
+        XMLAttributes attributes = info.attributes;
+        if (fReportErrors) {
+            final String iname = info.qname.getRawname();
+            fErrorReporter.reportWarning("HTML2008", new Object[]{iname});
+        }
+
+        if (element != null && info.element.code == element.code) {
+            return true;
+        }
+
+        forceStartElement(info.qname, attributes, synthesizedAugs());
+        i++;
+
+        for ( ; i < size; i++) {
+            info = fInlineStack.pop();
+            attributes = info.attributes;
+            if (fReportErrors) {
+                final String iname = info.qname.getRawname();
+                fErrorReporter.reportWarning("HTML2008", new Object[]{iname});
+            }
+
+            forceStartElement(info.qname, attributes, synthesizedAugs());
+        }
+        return false;
     }
 
     // Returns an HTML element.
