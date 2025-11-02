@@ -1,0 +1,33 @@
+(html
+(head
+)head
+(body
+"\n
+(form
+"\n
+(div
+"\n
+(label
+"Name: 
+(input
+Atype text
+)input
+"\n
+(select
+"\n
+(option
+"Option 1\n
+)option
+(option
+"Option 2\n
+)option
+)select
+"\n
+(textarea
+"Text area content\n</div>\n<button>Submit\n</form>\n</body>\n</html>\n
+)textarea
+)label
+)div
+)form
+)body
+)html

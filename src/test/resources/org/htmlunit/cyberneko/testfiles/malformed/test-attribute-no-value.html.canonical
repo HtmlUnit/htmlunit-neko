@@ -1,0 +1,33 @@
+(html
+(head
+)head
+(body
+"\n
+(input
+Atype checkbox
+Achecked 
+Adisabled 
+Areadonly 
+)input
+"\n
+(button
+Adisabled 
+"Click me
+)button
+"\n
+(select
+Amultiple 
+"\n
+(option
+Aselected 
+"Option 1
+)option
+"\n
+(option
+"Option 2
+)option
+"\n
+)select
+"\n\n
+)body
+)html
