@@ -1,0 +1,14 @@
+(HTML
+(head
+(title
+"No HTML tag
+)title
+)head
+(body
+"\n
+(p
+"This document has no HTML tag
+)p
+"\n
+)body
+)HTML

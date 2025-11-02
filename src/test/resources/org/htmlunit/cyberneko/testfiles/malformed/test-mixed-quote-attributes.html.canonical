@@ -1,0 +1,25 @@
+(html
+(head
+)head
+(body
+"\n
+(div
+Aclass container
+Aid main
+"\n
+(a
+Ahref page.html
+Atarget _blank
+"Link
+)a
+"\n
+(input
+Atype text
+Aname username
+Avalue default
+)input
+"\n
+)div
+"\n\n
+)body
+)html

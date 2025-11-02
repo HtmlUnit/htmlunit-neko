@@ -1,0 +1,41 @@
+(html
+(head
+)head
+(body
+"\n
+(table
+"\n
+(tbody
+"\n
+(tr
+(td
+"Body 1
+)td
+)tr
+"\n
+)tbody
+"\n
+(thead
+"\n
+(tr
+(th
+"Header 1
+)th
+)tr
+"\n
+)thead
+"\n
+(tfoot
+"\n
+(tr
+(td
+"Footer 1
+)td
+)tr
+"\n
+)tfoot
+"\n
+)table
+"\n\n
+)body
+)html

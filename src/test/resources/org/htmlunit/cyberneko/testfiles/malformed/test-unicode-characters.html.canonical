@@ -1,0 +1,28 @@
+(html
+(head
+"\n
+(meta
+Acharset UTF-8
+)meta
+"\n
+(title
+"日本語テスト
+)title
+"\n
+)head
+(body
+"\n
+(p
+"こんにちは世界
+)p
+"\n
+(div
+"中文测试 한국어 テスト
+)div
+"\n
+(span
+"Emoji: 😀 🎉 ✨
+)span
+"\n\n
+)body
+)html

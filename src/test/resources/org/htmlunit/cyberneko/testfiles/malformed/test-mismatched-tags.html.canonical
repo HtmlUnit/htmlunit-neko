@@ -1,0 +1,17 @@
+(html
+(head
+)head
+(body
+"\n
+(div
+"Content\n
+(p
+"Paragraph
+)p
+)div
+"\n
+(strong
+"Bold\n\n
+)strong
+)body
+)html
