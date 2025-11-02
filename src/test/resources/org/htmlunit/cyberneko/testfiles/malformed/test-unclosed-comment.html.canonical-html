@@ -1,5 +1,6 @@
 <html><head></head><body>
 <!-- This comment is never closed
-<p-->Content after unclosed comment<p></p>
-
-</body></html>
+<p>Content after unclosed comment</p>
+</body>
+</html>
+--></body></html>

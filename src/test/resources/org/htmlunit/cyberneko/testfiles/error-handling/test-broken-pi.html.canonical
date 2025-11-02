@@ -1,8 +1,6 @@
 [Warn] HTML1000 No character encoding indicator at beginning of document.
 [Err] HTML1007 Premature end of file encountered.
-#?
-[Warn] HTML1008 Skipping processing instruction.
-?a
+#?><?a/
 [Err] HTML2000 Empty document.
 [Warn] HTML2006 Bare character content found. Inserting parent element <body>.
 [Warn] HTML2002 Missing parent chain. Inserting proper parent <HTML> for element <head>.

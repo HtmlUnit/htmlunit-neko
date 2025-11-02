@@ -2506,40 +2506,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final int endCharacterOffset = fCurrentEntity.getCharacterOffset();
 
             fScanComment.clear();
-            boolean eof = scanCommentContent(fScanComment);
-            // no --> found, comment with end only with >
-            if (eof) {
-                fCurrentEntity.resetBuffer(fScanComment, endLineNumber, endColumnNumber, endCharacterOffset);
-                fScanComment.clear(); // take a new one to avoid interactions
-                while (true) {
-                    final int c = fCurrentEntity.read();
-                    if (c == -1) {
-                        if (fReportErrors_) {
-                            fErrorReporter.reportError("HTML1007", null);
-                        }
-                        eof = true;
-                        break;
-                    }
-                    else if (c == '\n' || c == '\r') {
-                        fCurrentEntity.rewind();
-                        final int newlines = fCurrentEntity.skipNewlines();
-                        for (int i = 0; i < newlines; i++) {
-                            fScanComment.append('\n');
-                        }
-                        continue;
-                    }
-                    else if (c != '>') {
-                        if (!fScanComment.appendCodePoint(c)) {
-                            if (fReportErrors_) {
-                                fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                            }
-                        }
-                        continue;
-                    }
-                    eof = false;
-                    break;
-                }
-            }
+            final boolean eof = scanCommentContent(fScanComment);
             if (fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
                     System.out.println("comment(" + fScanComment + ")");

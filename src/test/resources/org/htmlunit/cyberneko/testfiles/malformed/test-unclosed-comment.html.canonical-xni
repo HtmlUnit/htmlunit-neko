@@ -6,14 +6,10 @@ startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
 characters '
 '[(2,7,13) (3,1,14) false]
 comment ' This comment is never closed
-<p'[(3,1,14) (4,4,51) false]
-characters 'Content after unclosed comment'[(4,4,51) (4,34,81) false]
-startElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="p",rawname="p") [(4,34,81) (4,38,85) false]
-characters '
-'[(4,38,85) (5,1,86) false]
-characters '
-'[(6,8,101) (7,1,102) false]
-endElement (localpart="body",rawname="body") [(5,1,86) (5,8,93) false]
-endElement (localpart="html",rawname="html") [(6,1,94) (6,8,101) false]
-endDocument [(7,1,102) (7,1,102) false]
+<p>Content after unclosed comment</p>
+</body>
+</html>
+'[(3,1,14) (7,1,102) false]
+endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(3,1,14) (7,1,102) false]
