@@ -1,0 +1,56 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="div",rawname="div") [(3,1,14) (3,6,19) false]
+characters '
+'[(3,6,19) (4,1,20) false]
+startElement (localpart="div",rawname="div") [(4,1,20) (4,6,25) false]
+characters '
+'[(4,6,25) (5,1,26) false]
+startElement (localpart="div",rawname="div") [(5,1,26) (5,6,31) false]
+characters '
+'[(5,6,31) (6,1,32) false]
+startElement (localpart="div",rawname="div") [(6,1,32) (6,6,37) false]
+characters '
+'[(6,6,37) (7,1,38) false]
+startElement (localpart="div",rawname="div") [(7,1,38) (7,6,43) false]
+characters '
+'[(7,6,43) (8,1,44) false]
+startElement (localpart="div",rawname="div") [(8,1,44) (8,6,49) false]
+characters '
+'[(8,6,49) (9,1,50) false]
+startElement (localpart="div",rawname="div") [(9,1,50) (9,6,55) false]
+characters '
+'[(9,6,55) (10,1,56) false]
+startElement (localpart="div",rawname="div") [(10,1,56) (10,6,61) false]
+characters '
+'[(10,6,61) (11,1,62) false]
+startElement (localpart="div",rawname="div") [(11,1,62) (11,6,67) false]
+characters '
+'[(11,6,67) (12,1,68) false]
+startElement (localpart="div",rawname="div") [(12,1,68) (12,6,73) false]
+characters '
+'[(12,6,73) (13,1,74) false]
+startElement (localpart="p",rawname="p") [(13,1,74) (13,4,77) false]
+characters 'Deep nesting without closing tags
+'[(13,4,77) (14,1,111) false]
+characters '
+'[(15,8,126) (16,1,127) false]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body") [(14,1,111) (14,8,118) false]
+endElement (localpart="html",rawname="html") [(15,1,119) (15,8,126) false]
+endDocument [(16,1,127) (16,1,127) false]

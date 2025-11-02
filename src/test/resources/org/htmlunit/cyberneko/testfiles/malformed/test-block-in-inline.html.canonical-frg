@@ -1,0 +1,27 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+(span
+(div
+"Block inside inline
+)div
+)span
+"\n
+(a
+Ahref #
+(p
+"Paragraph inside link
+)p
+)a
+"\n
+(em
+(section
+"Section inside em
+)section
+)em
+"\n\n\n
+)body
+)html

@@ -1,0 +1,15 @@
+<html><head></head><body>
+<form>
+<div>
+<label>Name&colon; <input type="text" />
+<select>
+<option>Option 1
+</option><option>Option 2
+</option></select>
+<textarea>Text area content
+</div>
+<button>Submit
+</form>
+</body>
+</html>
+</textarea></label></div></form></body></html>

@@ -1,0 +1,14 @@
+<html><head></head><body>
+<li>Item outside list</li>
+<ul>
+<div>Div inside ul</div>
+<li>Item 1
+<p>Paragraph in li</p>
+</li><li>Item 2
+</li></ul>
+<ol>
+Text directly in ol
+<li>Numbered item
+</li></ol>
+
+</body></html>

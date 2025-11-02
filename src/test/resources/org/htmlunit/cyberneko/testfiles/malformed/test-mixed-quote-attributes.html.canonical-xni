@@ -1,0 +1,26 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="div",rawname="div") [(3,1,14) (3,34,47) false]
+characters '
+'[(3,34,47) (4,1,48) false]
+startElement (localpart="a",rawname="a") [(4,1,48) (4,37,84) false]
+characters 'Link'[(4,37,84) (4,41,88) false]
+endElement (localpart="a",rawname="a") [(4,41,88) (4,45,92) false]
+characters '
+'[(4,45,92) (5,1,93) false]
+emptyElement (localpart="input",rawname="input") [(5,1,93) (5,50,142) false]
+characters '
+'[(5,50,142) (6,1,143) false]
+endElement (localpart="div",rawname="div") [(6,1,143) (6,7,149) false]
+characters '
+'[(6,7,149) (7,1,150) false]
+characters '
+'[(8,8,165) (9,1,166) false]
+endElement (localpart="body",rawname="body") [(7,1,150) (7,8,157) false]
+endElement (localpart="html",rawname="html") [(8,1,158) (8,8,165) false]
+endDocument [(9,1,166) (9,1,166) false]

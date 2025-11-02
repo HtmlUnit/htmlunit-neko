@@ -1,0 +1,13 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+# This comment is never closed\n<p
+"Content after unclosed comment
+(p
+)p
+"\n\n\n
+)body
+)html

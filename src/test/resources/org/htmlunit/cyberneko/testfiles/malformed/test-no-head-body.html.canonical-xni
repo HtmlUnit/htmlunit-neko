@@ -1,0 +1,23 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="title",rawname="title") [(2,1,7) (2,8,14) false]
+characters 'No head or body tags'[(2,8,14) (2,28,34) false]
+endElement (localpart="title",rawname="title") [(2,28,34) (2,36,42) false]
+characters '
+'[(2,36,42) (3,1,43) false]
+endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="p",rawname="p") [(3,1,43) (3,4,46) false]
+characters 'Paragraph directly in html'[(3,4,46) (3,30,72) false]
+endElement (localpart="p",rawname="p") [(3,30,72) (3,34,76) false]
+characters '
+'[(3,34,76) (4,1,77) false]
+startElement (localpart="div",rawname="div") [(4,1,77) (4,6,82) false]
+characters 'Div directly in html'[(4,6,82) (4,26,102) false]
+endElement (localpart="div",rawname="div") [(4,26,102) (4,32,108) false]
+characters '
+'[(4,32,108) (5,1,109) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(5,1,109) (5,8,116) false]
+endDocument [(6,1,117) (6,1,117) false]

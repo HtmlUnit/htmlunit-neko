@@ -1,0 +1,40 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="ul",rawname="ul") [(1,1,0) (1,5,4) false]
+characters '
+'[(1,5,4) (2,1,5) false]
+startElement (localpart="li",rawname="li") [(2,1,5) (2,5,9) false]
+characters 'First item
+'[(2,5,9) (3,1,20) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="li",rawname="li") [(3,1,20) (3,5,24) false]
+characters 'Second item
+'[(3,5,24) (4,1,36) false]
+startElement (localpart="ol",rawname="ol") [(4,1,36) (4,5,40) false]
+characters '
+'[(4,5,40) (5,1,41) false]
+startElement (localpart="li",rawname="li") [(5,1,41) (5,5,45) false]
+characters 'Nested item 1
+'[(5,5,45) (6,1,59) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="li",rawname="li") [(6,1,59) (6,5,63) false]
+characters 'Nested item 2
+'[(6,5,63) (7,1,77) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="ol",rawname="ol") [(7,1,77) (7,6,82) false]
+characters '
+'[(7,6,82) (8,1,83) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="li",rawname="li") [(8,1,83) (8,5,87) false]
+characters 'Third item
+'[(8,5,87) (9,1,98) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="ul",rawname="ul") [(9,1,98) (9,6,103) false]
+characters '
+'[(9,6,103) (10,1,104) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(10,1,104) (10,1,104) false]

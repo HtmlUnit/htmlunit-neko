@@ -1,0 +1,14 @@
+"\n
+(HTML
+"\n
+(head
+"\n
+(meta
+Acharset utf-8
+)meta
+"\n
+(title
+"Real World Example\n<body>\n<div id=header>\n<h1>Welcome</h1>\n</div>\n<div id=content>\n<p>This is a <b>bold <i>and italic</b></i> text.\n<ul>\n<li>First item\n<li>Second item\n<ul>\n<li>Nested item\n</ul>\n</ul>\n<table border=1>\n<tr>\n<th>Header 1<th>Header 2\n<tr>\n<td>Data 1<td>Data 2\n</table>\n<form action=submit.php method=post>\n<input type=text name=username>\n<input type=password name=password>\n<button>Submit\n</form>\n</div>\n<div id=footer>\n<p>© 2024 Example\n</div>\n</html>\n
+)title
+)head
+)HTML

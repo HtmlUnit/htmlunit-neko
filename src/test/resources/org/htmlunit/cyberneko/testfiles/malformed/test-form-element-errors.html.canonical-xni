@@ -1,0 +1,52 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="form",rawname="form") [(3,1,14) (3,7,20) false]
+characters '
+'[(3,7,20) (4,1,21) false]
+startElement (localpart="div",rawname="div") [(4,1,21) (4,6,26) false]
+characters '
+'[(4,6,26) (5,1,27) false]
+startElement (localpart="label",rawname="label") [(5,1,27) (5,8,34) false]
+characters 'Name: '[(5,8,34) (5,14,40) false]
+emptyElement (localpart="input",rawname="input") [(5,14,40) (5,33,59) false]
+characters '
+'[(5,33,59) (6,1,60) false]
+startElement (localpart="select",rawname="select") [(6,1,60) (6,9,68) false]
+characters '
+'[(6,9,68) (7,1,69) false]
+startElement (localpart="option",rawname="option") [(7,1,69) (7,9,77) false]
+characters 'Option 1
+'[(7,9,77) (8,1,86) false]
+endElement (localpart="option",rawname="option") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="option",rawname="option") [(8,1,86) (8,9,94) false]
+characters 'Option 2
+'[(8,9,94) (9,1,103) false]
+endElement (localpart="option",rawname="option") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="select",rawname="select") [(9,1,103) (9,10,112) false]
+characters '
+'[(9,10,112) (10,1,113) false]
+startElement (localpart="textarea",rawname="textarea") [(10,1,113) (10,11,123) false]
+characters 'Text area content
+'[(10,11,123) (11,1,141) false]
+characters '</div>
+'[(11,1,141) (12,1,148) false]
+characters '<button>Submit
+'[(12,1,148) (13,1,163) false]
+characters '</form>
+'[(13,1,163) (14,1,171) false]
+characters '</body>
+'[(14,1,171) (15,1,179) false]
+characters '</html>
+'[(15,1,179) (16,1,187) false]
+endElement (localpart="textarea",rawname="textarea") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="label",rawname="label") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="form",rawname="form") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(16,1,187) (16,1,187) false]

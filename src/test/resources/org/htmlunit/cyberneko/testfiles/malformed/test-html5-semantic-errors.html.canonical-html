@@ -1,0 +1,20 @@
+<html><head></head><body>
+<article>
+<header>
+<h1>Article Title
+<nav>
+<a href="#">Link 1</a>
+<a href="#">Link 2</a>
+
+<section>
+<h2>Section Title
+<p>Content
+</p><aside>
+<p>Sidebar
+</p></aside>
+
+<footer>
+<p>Footer
+
+
+</p></footer></h2></section></nav></h1></header></article></body></html>

@@ -1,0 +1,7 @@
+<html><head></head><body>
+<p>&lt;div&gt; &amp; &quot; &apos; &NonBreakingSpace;</p>
+<div>&lt;&gt; &amp; &quot; &apos;</div>
+<span>&lt;&gt; &amp; &quot; &apos;</span>
+<p>&amp;unknown&semi; &amp;invalid&semi; 󴈿</p>
+
+</body></html>

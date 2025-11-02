@@ -1,0 +1,36 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+emptyElement (localpart="input",rawname="input") [(3,1,14) (3,50,63) false]
+characters '
+'[(3,50,63) (4,1,64) false]
+startElement (localpart="button",rawname="button") [(4,1,64) (4,18,81) false]
+characters 'Click me'[(4,18,81) (4,26,89) false]
+endElement (localpart="button",rawname="button") [(4,26,89) (4,35,98) false]
+characters '
+'[(4,35,98) (5,1,99) false]
+startElement (localpart="select",rawname="select") [(5,1,99) (5,18,116) false]
+characters '
+'[(5,18,116) (6,1,117) false]
+startElement (localpart="option",rawname="option") [(6,1,117) (6,18,134) false]
+characters 'Option 1'[(6,18,134) (6,26,142) false]
+endElement (localpart="option",rawname="option") [(6,26,142) (6,35,151) false]
+characters '
+'[(6,35,151) (7,1,152) false]
+startElement (localpart="option",rawname="option") [(7,1,152) (7,9,160) false]
+characters 'Option 2'[(7,9,160) (7,17,168) false]
+endElement (localpart="option",rawname="option") [(7,17,168) (7,26,177) false]
+characters '
+'[(7,26,177) (8,1,178) false]
+endElement (localpart="select",rawname="select") [(8,1,178) (8,10,187) false]
+characters '
+'[(8,10,187) (9,1,188) false]
+characters '
+'[(10,8,203) (11,1,204) false]
+endElement (localpart="body",rawname="body") [(9,1,188) (9,8,195) false]
+endElement (localpart="html",rawname="html") [(10,1,196) (10,8,203) false]
+endDocument [(11,1,204) (11,1,204) false]

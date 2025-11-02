@@ -1,0 +1,28 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="script",rawname="script") [(3,1,14) (3,9,22) false]
+characters '
+var html = "<div>test</div>";
+var tag = "'[(3,9,22) (5,12,64) false]
+endElement (localpart="script",rawname="script") [(5,12,64) (5,21,73) false]
+endElement (localpart="head",rawname="head") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+characters '";
+'[(5,21,73) (6,1,76) false]
+characters '
+'[(6,10,85) (7,1,86) false]
+characters '
+'[(8,7,100) (9,1,101) false]
+startElement (localpart="p",rawname="p") [(9,1,101) (9,4,104) false]
+characters 'Content'[(9,4,104) (9,11,111) false]
+endElement (localpart="p",rawname="p") [(9,11,111) (9,15,115) false]
+characters '
+'[(9,15,115) (10,1,116) false]
+characters '
+'[(10,8,123) (11,1,124) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(11,1,124) (11,8,131) false]
+endDocument [(12,1,132) (12,1,132) false]

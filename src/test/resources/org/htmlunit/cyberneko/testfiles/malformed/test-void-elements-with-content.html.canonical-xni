@@ -1,0 +1,29 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+emptyElement (localpart="br",rawname="br") [(3,1,14) (3,5,18) false]
+characters 'Content after br'[(3,5,18) (3,21,34) false]
+emptyElement (localpart="br",rawname="br") [(-1,-1,-1) (-1,-1,-1) true]
+characters '
+'[(3,26,39) (4,1,40) false]
+emptyElement (localpart="img",rawname="img") [(4,1,40) (4,21,60) false]
+characters 'Alt text'[(4,21,60) (4,29,68) false]
+characters '
+'[(4,35,74) (5,1,75) false]
+emptyElement (localpart="input",rawname="input") [(5,1,75) (5,20,94) false]
+characters 'Input content'[(5,20,94) (5,33,107) false]
+characters '
+'[(5,41,115) (6,1,116) false]
+emptyElement (localpart="hr",rawname="hr") [(6,1,116) (6,5,120) false]
+characters 'Content after hr'[(6,5,120) (6,21,136) false]
+characters '
+'[(6,26,141) (7,1,142) false]
+characters '
+'[(8,8,157) (9,1,158) false]
+endElement (localpart="body",rawname="body") [(7,1,142) (7,8,149) false]
+endElement (localpart="html",rawname="html") [(8,1,150) (8,8,157) false]
+endDocument [(9,1,158) (9,1,158) false]

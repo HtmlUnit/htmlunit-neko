@@ -1,0 +1,44 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="table",rawname="table") [(3,1,14) (3,8,21) false]
+characters '
+'[(3,8,21) (4,1,22) false]
+startElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tr",rawname="tr") [(4,1,22) (4,5,26) false]
+characters '
+'[(4,5,26) (5,1,27) false]
+startElement (localpart="td",rawname="td") [(5,1,27) (5,5,31) false]
+characters 'Cell 1
+'[(5,5,31) (6,1,38) false]
+endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="td",rawname="td") [(6,1,38) (6,5,42) false]
+characters 'Cell 2
+'[(6,5,42) (7,1,49) false]
+endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tr",rawname="tr") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tr",rawname="tr") [(7,1,49) (7,5,53) false]
+characters '
+'[(7,5,53) (8,1,54) false]
+startElement (localpart="td",rawname="td") [(8,1,54) (8,5,58) false]
+characters 'Cell 3
+'[(8,5,58) (9,1,65) false]
+endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="td",rawname="td") [(9,1,65) (9,5,69) false]
+characters 'Cell 4
+'[(9,5,69) (10,1,76) false]
+endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tr",rawname="tr") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="table",rawname="table") [(10,1,76) (10,9,84) false]
+characters '
+'[(10,9,84) (11,1,85) false]
+characters '
+'[(12,8,100) (13,1,101) false]
+endElement (localpart="body",rawname="body") [(11,1,85) (11,8,92) false]
+endElement (localpart="html",rawname="html") [(12,1,93) (12,8,100) false]
+endDocument [(13,1,101) (13,1,101) false]

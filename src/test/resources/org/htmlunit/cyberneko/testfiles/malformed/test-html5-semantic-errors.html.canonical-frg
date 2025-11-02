@@ -1,0 +1,52 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+(article
+"\n
+(header
+"\n
+(h1
+"Article Title\n
+(nav
+"\n
+(a
+Ahref #
+"Link 1
+)a
+"\n
+(a
+Ahref #
+"Link 2
+)a
+"\n\n
+(section
+"\n
+(h2
+"Section Title\n
+(p
+"Content\n
+)p
+(aside
+"\n
+(p
+"Sidebar\n
+)p
+)aside
+"\n\n
+(footer
+"\n
+(p
+"Footer\n\n\n\n
+)p
+)footer
+)h2
+)section
+)nav
+)h1
+)header
+)article
+)body
+)html

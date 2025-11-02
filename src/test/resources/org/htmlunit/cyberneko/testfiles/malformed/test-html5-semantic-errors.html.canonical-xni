@@ -1,0 +1,74 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="article",rawname="article") [(3,1,14) (3,10,23) false]
+characters '
+'[(3,10,23) (4,1,24) false]
+startElement (localpart="header",rawname="header") [(4,1,24) (4,9,32) false]
+characters '
+'[(4,9,32) (5,1,33) false]
+startElement (localpart="h1",rawname="h1") [(5,1,33) (5,5,37) false]
+characters 'Article Title
+'[(5,5,37) (6,1,51) false]
+startElement (localpart="nav",rawname="nav") [(6,1,51) (6,6,56) false]
+characters '
+'[(6,6,56) (7,1,57) false]
+startElement (localpart="a",rawname="a") [(7,1,57) (7,13,69) false]
+characters 'Link 1'[(7,13,69) (7,19,75) false]
+endElement (localpart="a",rawname="a") [(7,19,75) (7,23,79) false]
+characters '
+'[(7,23,79) (8,1,80) false]
+startElement (localpart="a",rawname="a") [(8,1,80) (8,13,92) false]
+characters 'Link 2'[(8,13,92) (8,19,98) false]
+endElement (localpart="a",rawname="a") [(8,19,98) (8,23,102) false]
+characters '
+'[(8,23,102) (9,1,103) false]
+characters '
+'[(9,10,112) (10,1,113) false]
+startElement (localpart="section",rawname="section") [(10,1,113) (10,10,122) false]
+characters '
+'[(10,10,122) (11,1,123) false]
+startElement (localpart="h2",rawname="h2") [(11,1,123) (11,5,127) false]
+characters 'Section Title
+'[(11,5,127) (12,1,141) false]
+startElement (localpart="p",rawname="p") [(12,1,141) (12,4,144) false]
+characters 'Content
+'[(12,4,144) (13,1,152) false]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="aside",rawname="aside") [(13,1,152) (13,8,159) false]
+characters '
+'[(13,8,159) (14,1,160) false]
+startElement (localpart="p",rawname="p") [(14,1,160) (14,4,163) false]
+characters 'Sidebar
+'[(14,4,163) (15,1,171) false]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="aside",rawname="aside") [(15,1,171) (15,9,179) false]
+characters '
+'[(15,9,179) (16,1,180) false]
+characters '
+'[(16,11,190) (17,1,191) false]
+startElement (localpart="footer",rawname="footer") [(17,1,191) (17,9,199) false]
+characters '
+'[(17,9,199) (18,1,200) false]
+startElement (localpart="p",rawname="p") [(18,1,200) (18,4,203) false]
+characters 'Footer
+'[(18,4,203) (19,1,210) false]
+characters '
+'[(19,11,220) (20,1,221) false]
+characters '
+'[(21,8,236) (22,1,237) false]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="footer",rawname="footer") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="h2",rawname="h2") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="section",rawname="section") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="nav",rawname="nav") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="h1",rawname="h1") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="header",rawname="header") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="article",rawname="article") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body") [(20,1,221) (20,8,228) false]
+endElement (localpart="html",rawname="html") [(21,1,229) (21,8,236) false]
+endDocument [(22,1,237) (22,1,237) false]

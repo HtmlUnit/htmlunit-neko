@@ -1,0 +1,17 @@
+(html
+"\n
+(head
+"\n
+(script
+"\nvar html = "<div>test</div>";\nvar tag = "
+)script
+"";\n\n\n
+)head
+(body
+"\n
+(p
+"Content
+)p
+"\n\n\n
+)body
+)html

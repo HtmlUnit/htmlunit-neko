@@ -1,0 +1,57 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="table",rawname="table") [(3,1,14) (3,8,21) false]
+characters '
+'[(3,8,21) (4,1,22) false]
+startElement (localpart="tbody",rawname="tbody") [(4,1,22) (4,8,29) false]
+characters '
+'[(4,8,29) (5,1,30) false]
+startElement (localpart="tr",rawname="tr") [(5,1,30) (5,5,34) false]
+startElement (localpart="td",rawname="td") [(5,5,34) (5,9,38) false]
+characters 'Body 1'[(5,9,38) (5,15,44) false]
+endElement (localpart="td",rawname="td") [(5,15,44) (5,20,49) false]
+endElement (localpart="tr",rawname="tr") [(5,20,49) (5,25,54) false]
+characters '
+'[(5,25,54) (6,1,55) false]
+endElement (localpart="tbody",rawname="tbody") [(6,1,55) (6,9,63) false]
+characters '
+'[(6,9,63) (7,1,64) false]
+startElement (localpart="thead",rawname="thead") [(7,1,64) (7,8,71) false]
+characters '
+'[(7,8,71) (8,1,72) false]
+startElement (localpart="tr",rawname="tr") [(8,1,72) (8,5,76) false]
+startElement (localpart="th",rawname="th") [(8,5,76) (8,9,80) false]
+characters 'Header 1'[(8,9,80) (8,17,88) false]
+endElement (localpart="th",rawname="th") [(8,17,88) (8,22,93) false]
+endElement (localpart="tr",rawname="tr") [(8,22,93) (8,27,98) false]
+characters '
+'[(8,27,98) (9,1,99) false]
+endElement (localpart="thead",rawname="thead") [(9,1,99) (9,9,107) false]
+characters '
+'[(9,9,107) (10,1,108) false]
+startElement (localpart="tfoot",rawname="tfoot") [(10,1,108) (10,8,115) false]
+characters '
+'[(10,8,115) (11,1,116) false]
+startElement (localpart="tr",rawname="tr") [(11,1,116) (11,5,120) false]
+startElement (localpart="td",rawname="td") [(11,5,120) (11,9,124) false]
+characters 'Footer 1'[(11,9,124) (11,17,132) false]
+endElement (localpart="td",rawname="td") [(11,17,132) (11,22,137) false]
+endElement (localpart="tr",rawname="tr") [(11,22,137) (11,27,142) false]
+characters '
+'[(11,27,142) (12,1,143) false]
+endElement (localpart="tfoot",rawname="tfoot") [(12,1,143) (12,9,151) false]
+characters '
+'[(12,9,151) (13,1,152) false]
+endElement (localpart="table",rawname="table") [(13,1,152) (13,9,160) false]
+characters '
+'[(13,9,160) (14,1,161) false]
+characters '
+'[(15,8,176) (16,1,177) false]
+endElement (localpart="body",rawname="body") [(14,1,161) (14,8,168) false]
+endElement (localpart="html",rawname="html") [(15,1,169) (15,8,176) false]
+endDocument [(16,1,177) (16,1,177) false]

@@ -1,0 +1,31 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="div",rawname="div") [(1,1,0) (1,6,5) false]
+characters 'Content before HTML tag'[(1,6,5) (1,29,28) false]
+endElement (localpart="div",rawname="div") [(1,29,28) (1,35,34) false]
+characters '
+'[(1,35,34) (2,1,35) false]
+characters '
+'[(2,7,41) (3,1,42) false]
+startElement (localpart="title",rawname="title") [(3,7,48) (3,14,55) false]
+characters 'Test'[(3,14,55) (3,18,59) false]
+endElement (localpart="title",rawname="title") [(3,18,59) (3,26,67) false]
+characters '
+'[(3,33,74) (4,1,75) false]
+characters '
+'[(4,7,81) (5,1,82) false]
+startElement (localpart="p",rawname="p") [(5,1,82) (5,4,85) false]
+characters 'Normal content'[(5,4,85) (5,18,99) false]
+endElement (localpart="p",rawname="p") [(5,18,99) (5,22,103) false]
+characters '
+'[(5,22,103) (6,1,104) false]
+characters '
+'[(6,8,111) (7,1,112) false]
+characters '
+'[(7,8,119) (8,1,120) false]
+endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(8,1,120) (8,1,120) false]

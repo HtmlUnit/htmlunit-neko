@@ -1,0 +1,37 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+(li
+"Item outside list
+)li
+"\n
+(ul
+"\n
+(div
+"Div inside ul
+)div
+"\n
+(li
+"Item 1\n
+(p
+"Paragraph in li
+)p
+"\n
+)li
+(li
+"Item 2\n
+)li
+)ul
+"\n
+(ol
+"\nText directly in ol\n
+(li
+"Numbered item\n
+)li
+)ol
+"\n\n\n
+)body
+)html

@@ -1,0 +1,52 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="li",rawname="li") [(3,1,14) (3,5,18) false]
+characters 'Item outside list'[(3,5,18) (3,22,35) false]
+endElement (localpart="li",rawname="li") [(3,22,35) (3,27,40) false]
+characters '
+'[(3,27,40) (4,1,41) false]
+startElement (localpart="ul",rawname="ul") [(4,1,41) (4,5,45) false]
+characters '
+'[(4,5,45) (5,1,46) false]
+startElement (localpart="div",rawname="div") [(5,1,46) (5,6,51) false]
+characters 'Div inside ul'[(5,6,51) (5,19,64) false]
+endElement (localpart="div",rawname="div") [(5,19,64) (5,25,70) false]
+characters '
+'[(5,25,70) (6,1,71) false]
+startElement (localpart="li",rawname="li") [(6,1,71) (6,5,75) false]
+characters 'Item 1
+'[(6,5,75) (7,1,82) false]
+startElement (localpart="p",rawname="p") [(7,1,82) (7,4,85) false]
+characters 'Paragraph in li'[(7,4,85) (7,19,100) false]
+endElement (localpart="p",rawname="p") [(7,19,100) (7,23,104) false]
+characters '
+'[(7,23,104) (8,1,105) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="li",rawname="li") [(8,1,105) (8,5,109) false]
+characters 'Item 2
+'[(8,5,109) (9,1,116) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="ul",rawname="ul") [(9,1,116) (9,6,121) false]
+characters '
+'[(9,6,121) (10,1,122) false]
+startElement (localpart="ol",rawname="ol") [(10,1,122) (10,5,126) false]
+characters '
+Text directly in ol
+'[(10,5,126) (12,1,147) false]
+startElement (localpart="li",rawname="li") [(12,1,147) (12,5,151) false]
+characters 'Numbered item
+'[(12,5,151) (13,1,165) false]
+endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="ol",rawname="ol") [(13,1,165) (13,6,170) false]
+characters '
+'[(13,6,170) (14,1,171) false]
+characters '
+'[(15,8,186) (16,1,187) false]
+endElement (localpart="body",rawname="body") [(14,1,171) (14,8,178) false]
+endElement (localpart="html",rawname="html") [(15,1,179) (15,8,186) false]
+endDocument [(16,1,187) (16,1,187) false]

@@ -1,0 +1,33 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="span",rawname="span") [(3,1,14) (3,7,20) false]
+startElement (localpart="div",rawname="div") [(3,7,20) (3,12,25) false]
+characters 'Block inside inline'[(3,12,25) (3,31,44) false]
+endElement (localpart="div",rawname="div") [(3,31,44) (3,37,50) false]
+endElement (localpart="span",rawname="span") [(3,37,50) (3,44,57) false]
+characters '
+'[(3,44,57) (4,1,58) false]
+startElement (localpart="a",rawname="a") [(4,1,58) (4,13,70) false]
+startElement (localpart="p",rawname="p") [(4,13,70) (4,16,73) false]
+characters 'Paragraph inside link'[(4,16,73) (4,37,94) false]
+endElement (localpart="p",rawname="p") [(4,37,94) (4,41,98) false]
+endElement (localpart="a",rawname="a") [(4,41,98) (4,45,102) false]
+characters '
+'[(4,45,102) (5,1,103) false]
+startElement (localpart="em",rawname="em") [(5,1,103) (5,5,107) false]
+startElement (localpart="section",rawname="section") [(5,5,107) (5,14,116) false]
+characters 'Section inside em'[(5,14,116) (5,31,133) false]
+endElement (localpart="section",rawname="section") [(5,31,133) (5,41,143) false]
+endElement (localpart="em",rawname="em") [(5,41,143) (5,46,148) false]
+characters '
+'[(5,46,148) (6,1,149) false]
+characters '
+'[(7,8,164) (8,1,165) false]
+endElement (localpart="body",rawname="body") [(6,1,149) (6,8,156) false]
+endElement (localpart="html",rawname="html") [(7,1,157) (7,8,164) false]
+endDocument [(8,1,165) (8,1,165) false]

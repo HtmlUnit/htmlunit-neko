@@ -1,0 +1,27 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(2,1,7) (2,7,13) false]
+startElement (localpart="title",rawname="title") [(2,7,13) (2,14,20) false]
+characters 'Test'[(2,14,20) (2,18,24) false]
+endElement (localpart="title",rawname="title") [(2,18,24) (2,26,32) false]
+endElement (localpart="head",rawname="head") [(2,26,32) (2,33,39) false]
+startElement (localpart="body",rawname="body") [(3,1,40) (3,7,46) false]
+characters '
+'[(3,7,46) (4,1,47) false]
+startElement (localpart="div",rawname="div") [(4,1,47) (4,6,52) false]
+characters '
+'[(4,6,52) (5,1,53) false]
+startElement (localpart="p",rawname="p") [(5,1,53) (5,4,56) false]
+characters 'This div is never closed
+'[(5,4,56) (6,1,81) false]
+startElement (localpart="span",rawname="span") [(6,1,81) (6,7,87) false]
+characters 'Another unclosed span
+'[(6,7,87) (7,1,109) false]
+characters '
+'[(8,8,124) (9,1,125) false]
+endElement (localpart="span",rawname="span") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="div",rawname="div") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body") [(7,1,109) (7,8,116) false]
+endElement (localpart="html",rawname="html") [(8,1,117) (8,8,124) false]
+endDocument [(9,1,125) (9,1,125) false]

@@ -1,0 +1,20 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+comment ' Comment <!-- nested comment '[(3,1,14) (3,37,50) false]
+characters ' -->
+'[(3,37,50) (4,1,55) false]
+startElement (localpart="p",rawname="p") [(4,1,55) (4,4,58) false]
+characters 'Content'[(4,4,58) (4,11,65) false]
+endElement (localpart="p",rawname="p") [(4,11,65) (4,15,69) false]
+characters '
+'[(4,15,69) (5,1,70) false]
+characters '
+'[(6,8,85) (7,1,86) false]
+endElement (localpart="body",rawname="body") [(5,1,70) (5,8,77) false]
+endElement (localpart="html",rawname="html") [(6,1,78) (6,8,85) false]
+endDocument [(7,1,86) (7,1,86) false]

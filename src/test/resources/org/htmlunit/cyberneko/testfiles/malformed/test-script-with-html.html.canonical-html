@@ -1,0 +1,9 @@
+<html><head>
+<script>
+var html = "<div>test</div>";
+var tag = "</script></head><body>&quot;&semi;
+
+
+<p>Content</p>
+
+</body></html>

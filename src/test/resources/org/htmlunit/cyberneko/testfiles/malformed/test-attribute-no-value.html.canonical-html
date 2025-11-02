@@ -1,0 +1,9 @@
+<html><head></head><body>
+<input type="checkbox" checked="" disabled="" readonly="" />
+<button disabled="">Click me</button>
+<select multiple="">
+<option selected="">Option 1</option>
+<option>Option 2</option>
+</select>
+
+</body></html>

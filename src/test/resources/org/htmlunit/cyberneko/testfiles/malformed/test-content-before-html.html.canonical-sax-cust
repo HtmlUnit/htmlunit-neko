@@ -1,0 +1,24 @@
+(HTML
+(head
+)head
+(BODY
+(div
+"Content before HTML tag
+)div
+"\n
+x(html
+"\n
+x(head
+(title
+"Test
+)title
+x)head
+"\n
+x(body
+"\n
+(p
+"Normal content
+)p
+"\n\n\n
+)BODY
+)HTML

@@ -1,0 +1,7 @@
+<html><head></head><body>
+<br />Content after br<br />
+<img src="test.jpg" />Alt text
+<input type="text" />Input content
+<hr />Content after hr
+
+</body></html>

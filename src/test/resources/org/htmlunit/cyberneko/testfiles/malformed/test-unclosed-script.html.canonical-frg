@@ -1,0 +1,9 @@
+(html
+"\n
+(head
+"\n
+(script
+"\nfunction test() {\n  console.log("test");\n}\n</head>\n<body>\n<p>Content</p>\n</body>\n</html>\n
+)script
+)head
+)html

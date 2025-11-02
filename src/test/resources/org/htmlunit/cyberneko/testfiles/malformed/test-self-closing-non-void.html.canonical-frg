@@ -1,0 +1,20 @@
+(html
+"\n
+(head
+)head
+(body
+"\n
+(div
+"\n
+(p
+"\n
+(span
+"Content after self-closing span\n
+)span
+)p
+(section
+"\n\n\n
+)section
+)div
+)body
+)html
