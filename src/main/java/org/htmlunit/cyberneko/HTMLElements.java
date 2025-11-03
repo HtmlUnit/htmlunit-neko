@@ -214,7 +214,7 @@ public class HTMLElements implements HTMLElementsProvider {
         // initialize array of element information
         elementsArray['A' - 'A'] = new Element[] {
             // A - - (%inline;)* -(A)
-            new Element(A, "A", Element.CONTAINER, BODY, new short[] {A}),
+            new Element(A, "A", Element.CONTAINER | Element.FORMATTING, BODY, new short[] {A}),
             // ABBR - - (%inline;)*
             new Element(ABBR, "ABBR", Element.INLINE, BODY, null),
             // ACRONYM - - (%inline;)*
@@ -234,7 +234,7 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['B' - 'A'] = new Element[] {
             // B - - (%inline;)*
-            new Element(B, "B", Element.INLINE, BODY, new short[] {SVG}),
+            new Element(B, "B", Element.INLINE | Element.FORMATTING, BODY, new short[] {SVG}),
             // BASE - O EMPTY
             new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
             // BASEFONT
@@ -246,7 +246,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // BGSOUND
             new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
             // BIG - - (%inline;)*
-            new Element(BIG, "BIG", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(BIG, "BIG", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // BLINK
             new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
             // BLOCKQUOTE - - (%block;|SCRIPT)+
@@ -267,7 +267,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
             // CODE - - (%inline;)*
-            new Element(CODE, "CODE", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(CODE, "CODE", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // COL - O EMPTY
             new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
             // COLGROUP - O (COL)*
@@ -301,7 +301,7 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['E' - 'A'] = new Element[] {
             // EM - - (%inline;)*
-            new Element(EM, "EM", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(EM, "EM", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // EMBED
             new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
         };
@@ -313,7 +313,7 @@ public class HTMLElements implements HTMLElementsProvider {
 
             new Element(FIGURE, "FIGURE", Element.BLOCK, BODY, new short[] {P}),
             // FONT
-            new Element(FONT, "FONT", Element.CONTAINER, BODY, null),
+            new Element(FONT, "FONT", Element.CONTAINER | Element.FORMATTING, BODY, null),
 
             new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
 
@@ -344,7 +344,7 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['I' - 'A'] = new Element[] {
             // I - - (%inline;)*
-            new Element(I, "I", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(I, "I", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // IFRAME
             new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
             // ILAYER
@@ -401,7 +401,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // NEXTID
             new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
             // NOBR
-            new Element(NOBR, "NOBR", Element.INLINE, BODY, new short[]{NOBR, SVG}),
+            new Element(NOBR, "NOBR", Element.INLINE | Element.FORMATTING, BODY, new short[]{NOBR, SVG}),
             // NOEMBED
             new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
@@ -457,7 +457,7 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['S' - 'A'] = new Element[] {
             // S
-            new Element(S, "S", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(S, "S", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // SAMP - - (%inline;)*
             new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
             // SCRIPT - - %Script;
@@ -470,7 +470,7 @@ public class HTMLElements implements HTMLElementsProvider {
 
             new Element(SLOT, "SLOT",  Element.CONTAINER, BODY, null),
             // SMALL - - (%inline;)*
-            new Element(SMALL, "SMALL", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(SMALL, "SMALL", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // SOUND
             new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
 
@@ -480,9 +480,9 @@ public class HTMLElements implements HTMLElementsProvider {
             // SPAN - - (%inline;)*
             new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
             // STRIKE
-            new Element(STRIKE, "STRIKE", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(STRIKE, "STRIKE", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // STRONG - - (%inline;)*
-            new Element(STRONG, "STRONG", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(STRONG, "STRONG", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // STYLE - - %StyleSheet;
             new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD, BODY}, new short[]{STYLE, TITLE, META}),
             // SUB - - (%inline;)*
@@ -523,11 +523,11 @@ public class HTMLElements implements HTMLElementsProvider {
 
             new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
             // TT - - (%inline;)*
-            new Element(TT, "TT", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(TT, "TT", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
         };
         elementsArray['U' - 'A'] = new Element[] {
             // U,
-            new Element(U, "U", Element.INLINE, BODY, new short[]{SVG}),
+            new Element(U, "U", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // UL - - (LI)+
             new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P, SVG}),
         };
@@ -771,6 +771,12 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         public static final int SCRIPT_SUPPORTING = 0x20;
 
+        /**
+         * Formatting elements.
+         * <a href='https://html.spec.whatwg.org/#formatting'>active formatting elements</a>
+         */
+        public static final int FORMATTING = 0x40;
+
         /** The element code. */
         public final short code;
 
@@ -901,6 +907,13 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         public final boolean isScriptSupporting() {
             return (flags & SCRIPT_SUPPORTING) != 0;
+        }
+
+        /**
+         * @return true if this element is formatting one.
+         */
+        public final boolean isFormatting() {
+            return (flags & FORMATTING) != 0;
         }
 
         /**

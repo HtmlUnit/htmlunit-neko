@@ -199,7 +199,7 @@ public class HTMLTagBalancer
     protected final InfoStack fElementStack = new InfoStack();
 
     /** The inline stack. */
-    protected final InfoStack fInlineStack = new InfoStack();
+    protected final InfoStack fFormattingStack = new InfoStack();
 
     /** True if seen anything. Important for xml declaration. */
     protected boolean fSeenAnything;
@@ -613,7 +613,7 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
-        reopenInlineElements(null);
+        reopenFormattingElements(null);
 
         if (elementCode == HTMLElements.TEMPLATE) {
             fTemplateFragment = true;
@@ -830,20 +830,20 @@ public class HTMLTagBalancer
             fOpenedSelect = true;
         }
 
-        // if block element, save immediate parent inline elements
+        // if block element, save immediate parent formatting elements
         int depth = 0;
         if (element.flags == 0) {
             final int length = fElementStack.top;
-            fInlineStack.top = 0;
+            fFormattingStack.top = 0;
             for (int i = length - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
-                if (!info.element.isInline()) {
+                if (!info.element.isFormatting()) {
                     break;
                 }
-                fInlineStack.push(info);
+                fFormattingStack.push(info);
                 endElement(info.qname, synthesizedAugs());
             }
-            depth = fInlineStack.top;
+            depth = fFormattingStack.top;
         }
 
         // close previous elements
@@ -920,9 +920,9 @@ public class HTMLTagBalancer
             }
         }
 
-        // re-open inline elements
+        // re-open formatting elements
         for (int i = 0; i < depth; i++) {
-            final Info info = fInlineStack.pop();
+            final Info info = fFormattingStack.pop();
             forceStartElement(info.qname, info.attributes, synthesizedAugs());
         }
 
@@ -982,7 +982,7 @@ public class HTMLTagBalancer
         fSeenAnything = true;
 
         consumeEarlyTextIfNeeded();
-        reopenInlineElements(null);
+        reopenFormattingElements(null);
 
         // check for end of document
         if (fSeenRootElementEnd) {
@@ -1026,7 +1026,7 @@ public class HTMLTagBalancer
             return;
         }
 
-        reopenInlineElements(null);
+        reopenFormattingElements(null);
 
         if (!fDocumentFragment) {
             // handle bare characters
@@ -1096,7 +1096,7 @@ public class HTMLTagBalancer
         final HTMLElements.Element elem = getElement(element);
         final short elementCode = elem.code;
 
-        if (reopenInlineElements(elem)) {
+        if (reopenFormattingElements(elem)) {
             return;
         }
 
@@ -1178,18 +1178,18 @@ public class HTMLTagBalancer
             return;
         }
 
-        // find unbalanced inline elements
+        // find unbalanced formatting elements
         if (depth > 1 && elem.isInline()) {
             final int size = fElementStack.top;
-            fInlineStack.top = 0;
+            fFormattingStack.top = 0;
             for (int i = 0; i < depth - 1; i++) {
                 final Info info = fElementStack.data[size - i - 1];
                 final HTMLElements.Element pelem = info.element;
-                if (pelem.isInline() || pelem.code == HTMLElements.FONT) { // TODO: investigate if only FONT
+                if (pelem.isFormatting()) {
                     // NOTE: I don't have to make a copy of the info because
                     //       it will just be popped off of the element stack
                     //       as soon as we close it, anyway.
-                    fInlineStack.push(info);
+                    fFormattingStack.push(info);
                 }
             }
         }
@@ -1211,15 +1211,15 @@ public class HTMLTagBalancer
     }
 
     // re-open inline elements
-    protected boolean reopenInlineElements(final HTMLElements.Element element) {
-        final int size = fInlineStack.top;
+    protected boolean reopenFormattingElements(final HTMLElements.Element element) {
+        final int size = fFormattingStack.top;
 
         if (size == 0) {
             return false;
         }
 
         int i = 0;
-        Info info = fInlineStack.pop();
+        Info info = fFormattingStack.pop();
         XMLAttributes attributes = info.attributes;
         if (fReportErrors) {
             final String iname = info.qname.getRawname();
@@ -1234,7 +1234,7 @@ public class HTMLTagBalancer
         i++;
 
         for ( ; i < size; i++) {
-            info = fInlineStack.pop();
+            info = fFormattingStack.pop();
             attributes = info.attributes;
             if (fReportErrors) {
                 final String iname = info.qname.getRawname();
