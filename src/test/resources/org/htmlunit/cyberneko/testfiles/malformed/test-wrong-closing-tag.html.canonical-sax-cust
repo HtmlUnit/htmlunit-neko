@@ -5,7 +5,7 @@
 "\n
 (h1
 "Heading
-x)h2
+)h1
 "\n
 (section
 "Content
@@ -19,6 +19,5 @@ x)ol
 )li
 )ul
 )section
-)h1
 )body
 )html

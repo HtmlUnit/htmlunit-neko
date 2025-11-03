@@ -1164,6 +1164,7 @@ public class HTMLTagBalancer
 
         // empty element
         final int depth = getElementDepth(elem);
+        // no matching tag found
         if (depth == -1) {
             if (elementCode == HTMLElements.P) {
                 forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
@@ -1171,6 +1172,29 @@ public class HTMLTagBalancer
             }
             else if (elementCode == HTMLElements.BR) {
                 forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
+            }
+            else if (elementCode == HTMLElements.H1
+                        || elementCode == HTMLElements.H2
+                        || elementCode == HTMLElements.H3
+                        || elementCode == HTMLElements.H4
+                        || elementCode == HTMLElements.H5
+                        || elementCode == HTMLElements.H6) {
+                for (int i = fElementStack.top - 1; i >= 0; i--) {
+                    final Info info = fElementStack.data[i];
+                    final short infoElemCode = info.element.code;
+                    if (infoElemCode == HTMLElements.H1
+                            || infoElemCode == HTMLElements.H2
+                            || infoElemCode == HTMLElements.H3
+                            || infoElemCode == HTMLElements.H4
+                            || infoElemCode == HTMLElements.H5
+                            || infoElemCode == HTMLElements.H6) {
+                        if (documentHandler_ != null) {
+                            addBodyIfNeeded(infoElemCode);
+                            endElement(info.qname, augs);
+                            return;
+                        }
+                    }
+                }
             }
             else if (!elem.isEmpty()) {
                 notifyDiscardedEndElement(element, augs);

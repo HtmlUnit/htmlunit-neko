@@ -7,6 +7,7 @@ characters '
 '[(2,7,13) (3,1,14) false]
 startElement (localpart="h1",rawname="h1") [(3,1,14) (3,5,18) false]
 characters 'Heading'[(3,5,18) (3,12,25) false]
+endElement (localpart="h1",rawname="h1") [(3,12,25) (3,17,30) false]
 characters '
 '[(3,17,30) (4,1,31) false]
 startElement (localpart="section",rawname="section") [(4,1,31) (4,10,40) false]
@@ -23,7 +24,6 @@ characters '
 endElement (localpart="li",rawname="li") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="ul",rawname="ul") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="section",rawname="section") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="h1",rawname="h1") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="body",rawname="body") [(6,1,76) (6,8,83) false]
 endElement (localpart="html",rawname="html") [(7,1,84) (7,8,91) false]
 endDocument [(8,1,92) (8,1,92) false]

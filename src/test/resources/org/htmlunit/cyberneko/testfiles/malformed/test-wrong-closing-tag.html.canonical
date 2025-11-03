@@ -4,8 +4,9 @@
 (body
 "\n
 (h1
-"Heading\n
+"Heading
 )h1
+"\n
 (section
 "Content\n
 (ul

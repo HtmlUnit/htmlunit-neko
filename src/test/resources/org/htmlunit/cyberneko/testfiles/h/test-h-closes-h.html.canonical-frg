@@ -8,13 +8,17 @@
 "Heading
 )h1
 "\n
-(section
-"Content\n
-(ul
-(li
-"Item\n\n\n
-)li
-)ul
-)section
+(p
+"delim 1
+)p
+"\n
+(h4
+"Heading
+)h4
+"\n
+(p
+"delim 2
+)p
+"\n\n\n
 )body
 )html
