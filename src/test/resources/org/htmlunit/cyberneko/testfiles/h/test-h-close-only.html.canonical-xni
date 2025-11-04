@@ -1,0 +1,29 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body") [(2,1,7) (2,7,13) false]
+characters '
+'[(2,7,13) (3,1,14) false]
+startElement (localpart="p",rawname="p") [(3,1,14) (3,4,17) false]
+characters 'Heading'[(3,4,17) (3,11,24) false]
+characters '
+'[(3,16,29) (4,1,30) false]
+endElement (localpart="p",rawname="p") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="p",rawname="p") [(4,1,30) (4,4,33) false]
+characters 'delim 1'[(4,4,33) (4,11,40) false]
+endElement (localpart="p",rawname="p") [(4,11,40) (4,15,44) false]
+characters '
+Heading'[(4,15,44) (5,8,52) false]
+characters '
+'[(5,13,57) (6,1,58) false]
+startElement (localpart="p",rawname="p") [(6,1,58) (6,4,61) false]
+characters 'delim 2'[(6,4,61) (6,11,68) false]
+endElement (localpart="p",rawname="p") [(6,11,68) (6,15,72) false]
+characters '
+'[(6,15,72) (7,1,73) false]
+characters '
+'[(8,8,88) (9,1,89) false]
+endElement (localpart="body",rawname="body") [(7,1,73) (7,8,80) false]
+endElement (localpart="html",rawname="html") [(8,1,81) (8,8,88) false]
+endDocument [(9,1,89) (9,1,89) false]

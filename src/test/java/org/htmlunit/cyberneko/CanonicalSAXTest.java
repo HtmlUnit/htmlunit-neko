@@ -96,7 +96,8 @@ public class CanonicalSAXTest extends AbstractCanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + saxDataLines);
             }
 
-            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
+            final File nyiFile = new File(canonicalFile.getParentFile(),
+                                            dataFile.getName() + ".canonical-sax.nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), saxDataLines, dataFile.toString());

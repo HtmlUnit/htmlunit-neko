@@ -76,7 +76,8 @@ public class CanonicalDomFragmentTest extends AbstractCanonicalTest {
                 fail("Canonical file not found for input: " + dataFile.getAbsolutePath() + ": " + dataLines);
             }
 
-            final File nyiFile = new File(canonicalFile.getParentFile(), canonicalFile.getName() + ".nyi");
+            final File nyiFile = new File(canonicalFile.getParentFile(),
+                                            dataFile.getName() + ".canonical-frg.nyi");
             if (nyiFile.exists()) {
                 try {
                     assertEquals(getCanonical(canonicalFile), dataLines, dataFile.toString());
