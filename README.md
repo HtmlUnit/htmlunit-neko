@@ -1,16 +1,27 @@
 # Htmlunit-NekoHtml Parser
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/neko-htmlunit)](https://central.sonatype.com/artifact/org.htmlunit/neko-htmlunit)
+[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Java Version](https://img.shields.io/badge/Java-8%2B-orange.svg)](https://www.oracle.com/java/)
+
 The **Htmlunit-NekoHtml** Parser is a HTML scanner and tag balancer that enables application programmers to parse HTML documents
 and access the information using standard XML interfaces.  
 The parser can scan HTML files and "fix up" many common mistakes that human (and computer) authors make in writing HTML documents.  
 NekoHTML adds missing parent elements; automatically closes elements with optional end tags; and can handle mismatched inline element tags.
 
-The **Htmlunit-NekoHtml** Parser has no external dependencies at all, requires Java 8 and works also on Android.  
-The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
+## Key Features
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/neko-htmlunit)](https://central.sonatype.com/artifact/org.htmlunit/neko-htmlunit)
+✅ **Error Tolerant** - Handles malformed HTML gracefully  
+✅ **Standards Compliant** - Follows HTML parsing specifications  
+✅ **Well Tested** - Over 8,000 test cases
+✅ **No External Dependencies** - Pure Java implementation  
+✅ **Java 8+ Compatible** - Works with Java 8, 11, 17, 21 and beyond  
+✅ **Android Support** - Runs on Android platforms  
 
-:heart: [Sponsor](https://github.com/sponsors/rbri)
+The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourceforge.io/).
+
+:heart: [Sponsor this project](https://github.com/sponsors/rbri)
 
 ### Project News
 
@@ -20,9 +31,12 @@ The **Htmlunit-NekoHtml** Parser is used by Htmlunit.
 
 ### Latest release Version 4.18.0 / October 30, 2025
 
-##### [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546)
+##### Security Advisories
+
+[CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546): Fixed in versions 2.61.0+  
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
-##### [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366)
+
+[CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366): Fixed in versions 2.27+  
 Htmlunit-NekoHtml Parser suffers from a denial of service via crafted Processing Instruction vulnerability on versions 2.26 and below.
 
 ## Get it!
