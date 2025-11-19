@@ -14,6 +14,6 @@
  */
 
 /**
- * Filtes.
+ * Filters.
  */
 package org.htmlunit.cyberneko.filters;
