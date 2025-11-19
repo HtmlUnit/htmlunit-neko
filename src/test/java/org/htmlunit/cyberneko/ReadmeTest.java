@@ -15,6 +15,8 @@
  */
 package org.htmlunit.cyberneko;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -56,7 +58,8 @@ public class ReadmeTest {
         final HTMLDocumentImpl doc = (HTMLDocumentImpl) parser.getDocument();
         final NodeList headings = doc.getElementsByTagName("h1");
 
-        System.out.println(headings.item(0));
+        // Verify we found the heading
+        assertNotNull(headings.item(0));
     }
 
     @Test

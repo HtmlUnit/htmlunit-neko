@@ -93,6 +93,9 @@ public class DOMFragmentParserTest {
         assertEquals(expected, str);
     }
 
+    // Utility method for debugging - prints the node tree structure
+    // Uncomment when needed for debugging purposes
+    /*
     public static void print(final Node node, final String indent) {
         System.out.println(indent + node.getClass().getName());
         Node child = node.getFirstChild();
@@ -101,6 +104,7 @@ public class DOMFragmentParserTest {
             child = child.getNextSibling();
         }
     }
+    */
 
     /**
      * HTMLTagBalancer field fSeenBodyElementEnd was not correctly reset as of 1.19.17.
