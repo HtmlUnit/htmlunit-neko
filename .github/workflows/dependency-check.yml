@@ -10,6 +10,8 @@ jobs:
   dependency-check:
     name: Check Dependencies for Vulnerabilities
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
