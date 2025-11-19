@@ -14,7 +14,7 @@ NekoHTML adds missing parent elements; automatically closes elements with option
 
 ✅ **Error Tolerant** - Handles malformed HTML gracefully  
 ✅ **Standards Compliant** - Follows HTML parsing specifications  
-✅ **Well Tested** - Over 8,000 test cases
+✅ **Well Tested** - Over 8,000 test cases  
 ✅ **No External Dependencies** - Pure Java implementation  
 ✅ **Java 8+ Compatible** - Works with Java 8, 11, 17, 21 and beyond  
 ✅ **Android Support** - Runs on Android platforms  
