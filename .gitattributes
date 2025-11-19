@@ -1,12 +1,37 @@
 *        text=auto
 
+# Source files
 *.java   text diff=java
+*.xml    text
+*.properties text
+
+# Web files
 *.html   text diff=html
 *.css    text
 *.js     text
-*.xml    text
-.travis.yml text
 
+# Documentation
+*.md     text diff=markdown
+*.txt    text
+
+# Configuration files
+*.yml    text
+*.yaml   text
+.editorconfig text
+.gitignore text
+.gitattributes text
+
+# Scripts
+*.sh     text eol=lf
+*.bat    text eol=crlf
+
+# Archives
+*.jar    binary
+*.zip    binary
+*.tar    binary
+*.gz     binary
+
+# Test files - specific binary files
 src/test/resources/org/htmlunit/cyberneko/testfiles/test010.html binary
 src/test/resources/org/htmlunit/cyberneko/testfiles/test011.html binary
 

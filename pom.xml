@@ -41,7 +41,7 @@
         <gpg-plugin.version>3.2.8</gpg-plugin.version>
         <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
-        <jar-plugin.version>3.4.2</jar-plugin.version>
+        <jar-plugin.version>3.5.0</jar-plugin.version>
         <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
         <surefire-plugin.version>3.5.4</surefire-plugin.version>
     </properties>
