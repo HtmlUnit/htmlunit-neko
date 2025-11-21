@@ -1129,17 +1129,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         return str;
     }
 
-    // Modifies the given name based on the specified mode.
-    protected static String modifyName(final String name, final short mode) {
-        if (NAMES_UPPERCASE == mode) {
-            return name.toUpperCase(Locale.ROOT);
-        }
-        if (NAMES_LOWERCASE == mode) {
-            return name.toLowerCase(Locale.ROOT);
-        }
-        return name;
-    }
-
     // Converts HTML names string value to constant value.
     //
     // @see #NAMES_NO_CHANGE
@@ -1202,14 +1191,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         String sysid = null;
 
         if (fCurrentEntity.skipSpaces()) {
-            root = scanName(true);
+            root = scanName(true, fNamesElems);
             if (root == null) {
                 if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1014", null);
                 }
-            }
-            else {
-                root = modifyName(root, fNamesElems);
             }
             if (fCurrentEntity.skipSpaces()) {
                 if (fCurrentEntity.skip("PUBLIC")) {
@@ -1290,7 +1276,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     }
 
     // Scan a name.
-    protected String scanName(final boolean strict) throws IOException {
+    protected String scanName(final boolean strict, final short mode) throws IOException {
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded("(scanName: ");
         }
@@ -1306,6 +1292,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         while (true) {
             while (fCurrentEntity.hasNext()) {
                 final char c = fCurrentEntity.getNextChar();
+
                 // this has been split up to cater to the needs of branch prediction
                 if (strict && (!Character.isLetterOrDigit(c) && c != '-' && c != '.' && c != ':' && c != '_')) {
                     fCurrentEntity.rewind();
@@ -1322,6 +1309,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     || Character.isWhitespace(c))) {
                     fCurrentEntity.rewind();
                     break;
+                }
+
+                if (NAMES_NO_CHANGE == mode) {
+                    // nothing to do
+                }
+                else if (NAMES_UPPERCASE == mode && !Character.isUpperCase(c)) {
+                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toUpperCase(c);
+                }
+                else if (NAMES_LOWERCASE == mode && !Character.isLowerCase(c)) {
+                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toLowerCase(c);
                 }
             }
             if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
@@ -1381,7 +1378,18 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         break;
                     }
                 }
+
+                if (NAMES_NO_CHANGE == fNamesElems) {
+                    // nothing to do
+                }
+                else if (NAMES_UPPERCASE == fNamesElems && !Character.isUpperCase(c)) {
+                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toUpperCase(c);
+                }
+                else if (NAMES_LOWERCASE == fNamesElems && !Character.isLowerCase(c)) {
+                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toLowerCase(c);
+                }
             }
+
             if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
                 final int length = fCurrentEntity.length_ - offset;
                 System.arraycopy(fCurrentEntity.buffer_, offset, fCurrentEntity.buffer_, 0, length);
@@ -2311,7 +2319,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                             if (fInsertDoctype_) {
                                 fDocumentHandler.doctypeDecl(
-                                                    modifyName("HTML", fNamesElems),
+                                                    NAMES_LOWERCASE == fNamesElems ? "html" : "HTML",
                                                     fDoctypePubid,
                                                     fDoctypeSysid,
                                                     synthesizedAugs());
@@ -2690,7 +2698,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
 
             // scan processing instruction
-            final String target = scanName(true);
+            final String target = scanName(true, fNamesElems);
             if (target != null && !"xml".equalsIgnoreCase(target)) {
                 while (true) {
                     int c = fCurrentEntity.read();
@@ -2814,7 +2822,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @throws IOException in case of io problems
          */
         protected String scanStartElement(final boolean[] empty) throws IOException {
-            String ename = scanTagName();
+            final String ename = scanTagName();
             final int length = ename != null ? ename.length() : 0;
             if (length == 0) {
                 if (fReportErrors_) {
@@ -2826,7 +2834,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 return null;
             }
-            ename = modifyName(ename, fNamesElems);
             if (attributes_.getLength() != 0) {
                 attributes_.removeAllAttributes();
             }
@@ -3042,7 +3049,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
 
             fCurrentEntity.rewind();
-            String aname = scanName(false);
+            String aname = scanName(false, fNamesAttrs);
             if (aname == null) {
                 if (fReportErrors_) {
                     fErrorReporter.reportError("HTML1011", null);
@@ -3055,7 +3062,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     empty[0] = fCurrentEntity.skipMarkup(false);
                     return false;
                 }
-                aname = '=' + scanName(false);
+                aname = '=' + scanName(false, fNamesElems);
             }
             if (fReportErrors_ && !skippedSpaces) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
@@ -3068,7 +3075,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 throw new EOFException();
             }
-            aname = modifyName(aname, fNamesAttrs);
             if (c == '/') {
                 qName_.setValues(null, aname, aname, null);
                 attributes.addAttribute(qName_, "CDATA", "", true);
@@ -3293,14 +3299,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // Scans an end element.
         protected void scanEndElement() throws IOException {
-            String ename = scanTagName();
+            final String ename = scanTagName();
             if (fReportErrors_ && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
             fCurrentEntity.skipMarkup(false);
             if (ename != null) {
                 if (fElementCount >= fElementDepth) {
-                    ename = modifyName(ename, fNamesElems);
                     qName_.setValues(null, ename, ename, null);
                     if (DEBUG_CALLBACKS) {
                         System.out.println("endElement(" + qName_ + ")");
@@ -3385,14 +3390,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         case STATE_MARKUP_BRACKET: {
                             final int c = fCurrentEntity.read();
                             if (c == '/') {
-                                String ename = scanName(true);
+                                final String ename = scanName(true, fNamesElems);
                                 if (ename != null) {
                                     fCurrentEntity.skipSpaces();
 
                                     if (ename.equalsIgnoreCase(fElementName)) {
                                         if (fCurrentEntity.read() == '>') {
                                             if (fElementCount >= fElementDepth) {
-                                                ename = modifyName(ename, fNamesElems);
                                                 fQName_.setValues(null, ename, ename, null);
                                                 if (DEBUG_CALLBACKS) {
                                                     System.out.println("endElement(" + fQName_ + ")");
