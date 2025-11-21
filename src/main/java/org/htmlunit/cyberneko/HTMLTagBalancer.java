@@ -551,12 +551,30 @@ public class HTMLTagBalancer
      * at the end of document
      */
     private void consumeBufferedEndElements() {
-        if (endElementsBuffer_.isEmpty()) {
+        final int s = endElementsBuffer_.size();
+        if (s == 0) {
+            return;
+        }
+
+        if (s == 1) {
+            final ElementEntry entry = endElementsBuffer_.get(0);
+            forcedEndElement_ = true;
+            endElement(entry.name_, entry.augs_);
+            endElementsBuffer_.clear();
+            return;
+        }
+
+        if (s == 2) {
+            final ElementEntry entry0 = endElementsBuffer_.get(0);
+            final ElementEntry entry1 = endElementsBuffer_.get(1);
+            forcedEndElement_ = true;
+            endElement(entry0.name_, entry0.augs_);
+            endElement(entry1.name_, entry1.augs_);
+            endElementsBuffer_.clear();
             return;
         }
 
         final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
-        endElementsBuffer_.clear();
         for (final ElementEntry entry : toConsume) {
             forcedEndElement_ = true;
             endElement(entry.name_, entry.augs_);
