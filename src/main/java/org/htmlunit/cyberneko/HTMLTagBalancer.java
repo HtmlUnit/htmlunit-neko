@@ -196,10 +196,10 @@ public class HTMLTagBalancer
     // state
 
     /** The element stack. */
-    protected final InfoStack fElementStack = new InfoStack();
+    protected final InfoStack fElementStack = new InfoStack(20);
 
     /** The inline stack. */
-    protected final InfoStack fFormattingStack = new InfoStack();
+    protected final InfoStack fFormattingStack = new InfoStack(10);
 
     /** True if seen anything. Important for xml declaration. */
     protected boolean fSeenAnything;
@@ -267,8 +267,8 @@ public class HTMLTagBalancer
     private QName[] fragmentContextStack_ = null;
     private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
-    private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>();
-    private final List<String> discardedStartElements = new ArrayList<>();
+    private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(4);
+    private final List<String> discardedStartElements = new ArrayList<>(2);
 
     private final HTMLConfiguration htmlConfiguration_;
 
@@ -1508,7 +1508,11 @@ public class HTMLTagBalancer
         public int top;
 
         /** The stack data. */
-        public Info[] data = new Info[10];
+        public Info[] data;
+
+        public InfoStack(final int initialSize) {
+            data = new Info[initialSize];
+        }
 
         // Pushes element information onto the stack.
         public void push(final Info info) {
