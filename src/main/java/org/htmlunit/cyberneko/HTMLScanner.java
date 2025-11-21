@@ -1313,6 +1313,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             return SCAN_COMPLETE;
         }
         fCurrentEntity.rewind();
+        fScanLiteral.clear();
         return SCAN_COMPLETE;
     }
 
