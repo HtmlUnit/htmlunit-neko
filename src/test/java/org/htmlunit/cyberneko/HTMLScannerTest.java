@@ -201,10 +201,10 @@ public class HTMLScannerTest {
         class MyContentScanner extends HTMLScanner.ContentScanner {
 
             @Override
-            protected void scanComment() throws IOException {
+            protected int scanComment() throws IOException {
                 // bug was here: calling nextContent() at the end of the buffer/input
                 fCurrentEntity.nextContent(30);
-                super.scanComment();
+                return super.scanComment();
             }
         }
     }
