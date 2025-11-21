@@ -1191,25 +1191,27 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     private static final class NameCache {
         private static final int MAX_CACHE_SIZE = 256;
-        
+
         // ThreadLocal cache for lowercase conversions
-        private static final ThreadLocal<java.util.LinkedHashMap<String, String>> LOWERCASE_CACHE = 
+        private static final ThreadLocal<java.util.LinkedHashMap<String, String>> LOWERCASE_CACHE =
             ThreadLocal.withInitial(() -> new java.util.LinkedHashMap<String, String>(16, 0.75f, true) {
                 @Override
-                protected boolean removeEldestEntry(final java.util.Map.Entry<String, String> eldest) {
+                protected boolean removeEldestEntry(
+                        final java.util.Map.Entry<String, String> eldest) {
                     return size() > MAX_CACHE_SIZE;
                 }
             });
-        
+
         // ThreadLocal cache for uppercase conversions
-        private static final ThreadLocal<java.util.LinkedHashMap<String, String>> UPPERCASE_CACHE = 
+        private static final ThreadLocal<java.util.LinkedHashMap<String, String>> UPPERCASE_CACHE =
             ThreadLocal.withInitial(() -> new java.util.LinkedHashMap<String, String>(16, 0.75f, true) {
                 @Override
-                protected boolean removeEldestEntry(final java.util.Map.Entry<String, String> eldest) {
+                protected boolean removeEldestEntry(
+                        final java.util.Map.Entry<String, String> eldest) {
                     return size() > MAX_CACHE_SIZE;
                 }
             });
-        
+
         static {
             // Pre-populate cache with common HTML5 tags
             final String[] commonTags = {
@@ -1229,22 +1231,24 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 "p", "param", "picture", "pre", "progress",
                 "q",
                 "rp", "rt", "ruby",
-                "s", "samp", "script", "section", "select", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "svg",
-                "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track",
+                "s", "samp", "script", "section", "select", "small", "source", "span",
+                "strong", "style", "sub", "summary", "sup", "svg",
+                "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
+                "time", "title", "tr", "track",
                 "u", "ul",
                 "var", "video",
                 "wbr"
             };
-            
+
             final java.util.LinkedHashMap<String, String> lowerCache = LOWERCASE_CACHE.get();
             final java.util.LinkedHashMap<String, String> upperCache = UPPERCASE_CACHE.get();
-            
+
             for (final String tag : commonTags) {
                 lowerCache.put(tag, tag);
                 upperCache.put(tag, tag.toUpperCase(Locale.ROOT));
             }
         }
-        
+
         static String toLowerCase(final String name) {
             final java.util.LinkedHashMap<String, String> cache = LOWERCASE_CACHE.get();
             String result = cache.get(name);
@@ -1254,7 +1258,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             }
             return result;
         }
-        
+
         static String toUpperCase(final String name) {
             final java.util.LinkedHashMap<String, String> cache = UPPERCASE_CACHE.get();
             String result = cache.get(name);

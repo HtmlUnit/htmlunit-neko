@@ -43,14 +43,14 @@ public class StringCachingPerformanceTest {
     public void testAlreadyLowercaseString() throws Exception {
         final String html = "<html><body><div><span>test</span></div></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         // Parse with lowercase mode
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         // All element names are already lowercase, should use fast path
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
@@ -65,14 +65,14 @@ public class StringCachingPerformanceTest {
     public void testAlreadyUppercaseString() throws Exception {
         final String html = "<HTML><BODY><DIV><SPAN>test</SPAN></DIV></BODY></HTML>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         // Parse with uppercase mode
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         // All element names are already uppercase, should use fast path
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("HTML", doc.getDocumentElement().getNodeName());
@@ -87,13 +87,13 @@ public class StringCachingPerformanceTest {
     public void testMixedCaseToLowercase() throws Exception {
         final String html = "<HTML><BODY><DiV><SpAn>test</SpAn></DiV></BODY></HTML>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
         assertEquals("div", doc.getElementsByTagName("div").item(0).getNodeName());
@@ -107,13 +107,13 @@ public class StringCachingPerformanceTest {
     public void testMixedCaseToUppercase() throws Exception {
         final String html = "<html><body><DiV><SpAn>test</SpAn></DiV></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("HTML", doc.getDocumentElement().getNodeName());
         assertEquals("DIV", doc.getElementsByTagName("DIV").item(0).getNodeName());
@@ -129,17 +129,17 @@ public class StringCachingPerformanceTest {
                 + "<body><div><p><span><a href='#'>Link</a></span></p></div>"
                 + "<table><tr><td>Cell</td></tr></table>"
                 + "<form><input type='text'/><button>Submit</button></form></body></html>";
-        
+
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
-        
+
         // Verify nested elements
         assertEquals("body", doc.getElementsByTagName("body").item(0).getNodeName());
         assertEquals("div", doc.getElementsByTagName("div").item(0).getNodeName());
@@ -153,22 +153,22 @@ public class StringCachingPerformanceTest {
     @Test
     public void testRepeatedTagNames() throws Exception {
         final StringBuilder html = new StringBuilder("<html><body>");
-        
+
         // Add many div elements to test cache hits
         for (int i = 0; i < 100; i++) {
             html.append("<div>Content ").append(i).append("</div>");
         }
         html.append("</body></html>");
-        
+
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html.toString());
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
-        
+
         // Should have 100 div elements
         assertEquals(100, doc.getElementsByTagName("div").getLength());
     }
@@ -180,16 +180,16 @@ public class StringCachingPerformanceTest {
     public void testAttributeNameCaching() throws Exception {
         final String html = "<div ID='test' CLASS='myclass' DATA-VALUE='123'></div>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/attrs", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         final org.w3c.dom.Element div = (org.w3c.dom.Element) doc.getElementsByTagName("div").item(0);
-        
+
         // Attributes should be lowercase
         assertEquals("test", div.getAttribute("id"));
         assertEquals("myclass", div.getAttribute("class"));
@@ -202,15 +202,15 @@ public class StringCachingPerformanceTest {
     public void testNoChangeMode() throws Exception {
         final String html = "<html><body><DiV><SpAn>test</SpAn></DiV></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "default");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
-        
+
         // Default mode in HTML is lowercase
         assertEquals("html", doc.getDocumentElement().getNodeName());
     }
@@ -221,21 +221,21 @@ public class StringCachingPerformanceTest {
     @Test
     public void testCacheSizeLimit() throws Exception {
         final StringBuilder html = new StringBuilder("<html><body>");
-        
+
         // Create more unique tags than cache size (256)
         // This tests that the LRU eviction works correctly
         for (int i = 0; i < 300; i++) {
             html.append("<div id='").append(i).append("'>Content</div>");
         }
         html.append("</body></html>");
-        
+
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html.toString());
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
         assertEquals(300, doc.getElementsByTagName("div").getLength());
@@ -248,30 +248,31 @@ public class StringCachingPerformanceTest {
     @Test
     public void testThreadSafety() throws Exception {
         final String html = "<html><body><div>Test</div></body></html>";
-        
+
         final Runnable parseTask = () -> {
             try {
                 final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
                 parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-                
+
                 final StringReader sr = new StringReader(html);
                 final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
                 parser.parse(source);
-                
+
                 final org.w3c.dom.Document doc = parser.getDocument();
                 assertEquals("html", doc.getDocumentElement().getNodeName());
-            } catch (final Exception e) {
+            }
+            catch (final Exception e) {
                 throw new RuntimeException(e);
             }
         };
-        
+
         // Run parsing in multiple threads
         final Thread[] threads = new Thread[10];
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(parseTask);
             threads[i].start();
         }
-        
+
         // Wait for all threads to complete
         for (final Thread thread : threads) {
             thread.join();
@@ -287,13 +288,13 @@ public class StringCachingPerformanceTest {
         // but we test it for completeness
         final String html = "<html><body><div></div></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
     }
@@ -308,14 +309,14 @@ public class StringCachingPerformanceTest {
                 + "<main><article><section><h1>Title</h1><p>Content</p></section></article></main>"
                 + "<footer><address>Contact</address></footer>"
                 + "</body></html>";
-        
+
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
         assertEquals(1, doc.getElementsByTagName("header").getLength());
@@ -333,13 +334,13 @@ public class StringCachingPerformanceTest {
     public void testUppercaseCommonTags() throws Exception {
         final String html = "<html><body><div><span>test</span></div></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("HTML", doc.getDocumentElement().getNodeName());
         assertEquals("BODY", doc.getElementsByTagName("BODY").item(0).getNodeName());
@@ -354,13 +355,13 @@ public class StringCachingPerformanceTest {
         // Custom tags with unicode characters
         final String html = "<html><body><div-ñoño><span>test</span></div-ñoño></body></html>";
         final DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
-        
+
         parser.setProperty("http://cyberneko.org/html/properties/names/elems", "lower");
-        
+
         final StringReader sr = new StringReader(html);
         final XMLInputSource source = new XMLInputSource(null, "test", null, sr, null);
         parser.parse(source);
-        
+
         final org.w3c.dom.Document doc = parser.getDocument();
         assertEquals("html", doc.getDocumentElement().getNodeName());
     }
