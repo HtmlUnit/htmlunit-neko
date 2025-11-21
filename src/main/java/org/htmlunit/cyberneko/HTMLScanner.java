@@ -1212,45 +1212,50 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             });
 
-        static {
-            // Pre-populate cache with common HTML5 tags
-            final String[] commonTags = {
-                "a", "abbr", "address", "area", "article", "aside", "audio",
-                "b", "base", "bdi", "bdo", "blockquote", "body", "br", "button",
-                "canvas", "caption", "cite", "code", "col", "colgroup",
-                "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt",
-                "em", "embed",
-                "fieldset", "figcaption", "figure", "footer", "form",
-                "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hr", "html",
-                "i", "iframe", "img", "input", "ins",
-                "kbd",
-                "label", "legend", "li", "link",
-                "main", "map", "mark", "meta", "meter",
-                "nav", "noscript",
-                "object", "ol", "optgroup", "option", "output",
-                "p", "param", "picture", "pre", "progress",
-                "q",
-                "rp", "rt", "ruby",
-                "s", "samp", "script", "section", "select", "small", "source", "span",
-                "strong", "style", "sub", "summary", "sup", "svg",
-                "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
-                "time", "title", "tr", "track",
-                "u", "ul",
-                "var", "video",
-                "wbr"
-            };
+        // Common HTML5 tags for pre-population
+        private static final String[] COMMON_TAGS = {
+            "a", "abbr", "address", "area", "article", "aside", "audio",
+            "b", "base", "bdi", "bdo", "blockquote", "body", "br", "button",
+            "canvas", "caption", "cite", "code", "col", "colgroup",
+            "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt",
+            "em", "embed",
+            "fieldset", "figcaption", "figure", "footer", "form",
+            "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hr", "html",
+            "i", "iframe", "img", "input", "ins",
+            "kbd",
+            "label", "legend", "li", "link",
+            "main", "map", "mark", "meta", "meter",
+            "nav", "noscript",
+            "object", "ol", "optgroup", "option", "output",
+            "p", "param", "picture", "pre", "progress",
+            "q",
+            "rp", "rt", "ruby",
+            "s", "samp", "script", "section", "select", "small", "source", "span",
+            "strong", "style", "sub", "summary", "sup", "svg",
+            "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
+            "time", "title", "tr", "track",
+            "u", "ul",
+            "var", "video",
+            "wbr"
+        };
 
-            final java.util.LinkedHashMap<String, String> lowerCache = LOWERCASE_CACHE.get();
-            final java.util.LinkedHashMap<String, String> upperCache = UPPERCASE_CACHE.get();
+        // Pre-populate cache with common HTML5 tags on first access
+        private static void ensureInitialized(final java.util.LinkedHashMap<String, String> cache,
+                                               final boolean uppercase) {
+            // Check if already initialized (cache will have entries)
+            if (!cache.isEmpty()) {
+                return;
+            }
 
-            for (final String tag : commonTags) {
-                lowerCache.put(tag, tag);
-                upperCache.put(tag, tag.toUpperCase(Locale.ROOT));
+            // Pre-populate with common tags
+            for (final String tag : COMMON_TAGS) {
+                cache.put(tag, uppercase ? tag.toUpperCase(Locale.ROOT) : tag);
             }
         }
 
         static String toLowerCase(final String name) {
             final java.util.LinkedHashMap<String, String> cache = LOWERCASE_CACHE.get();
+            ensureInitialized(cache, false);
             String result = cache.get(name);
             if (result == null) {
                 result = name.toLowerCase(Locale.ROOT);
@@ -1261,6 +1266,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         static String toUpperCase(final String name) {
             final java.util.LinkedHashMap<String, String> cache = UPPERCASE_CACHE.get();
+            ensureInitialized(cache, true);
             String result = cache.get(name);
             if (result == null) {
                 result = name.toUpperCase(Locale.ROOT);
