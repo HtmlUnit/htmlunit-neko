@@ -499,17 +499,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     // temp vars
 
     /** String buffer. */
-    protected final XMLString fStringBuffer = new XMLString();
+    protected final XMLString fStringBuffer = new XMLString(256);
 
     /** String buffer used when resolving entity refs. */
-    final XMLString fStringBufferEntiyRef = new XMLString();
-    final XMLString fStringBufferPlainAttribValue = new XMLString();
+    final XMLString fStringBufferEntiyRef = new XMLString(16);
 
-    final XMLString fScanUntilEndTag = new XMLString();
-
-    final XMLString fScanComment = new XMLString();
-
-    private final XMLString fScanLiteral = new XMLString();
+    // Lazy-initialized buffers for rarely-used features
+    private XMLString fStringBufferPlainAttribValue;
+    private XMLString fScanUntilEndTag;
+    private XMLString fScanComment;
+    private XMLString fScanLiteral;
 
     /** Single boolean array. */
     final boolean[] fSingleBoolean = {false};
@@ -529,6 +528,62 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     HTMLScanner(final HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
+    }
+
+    /**
+     * Lazy getter for fStringBufferPlainAttribValue.
+     * Only creates buffer when PLAIN_ATTRIBUTE_VALUES feature is enabled.
+     *
+     * @return the plain attribute value buffer, creating it if needed
+     */
+    private XMLString getPlainAttribValueBuffer() {
+        if (fStringBufferPlainAttribValue == null) {
+            fStringBufferPlainAttribValue = new XMLString(64);
+        }
+        fStringBufferPlainAttribValue.clear();
+        return fStringBufferPlainAttribValue;
+    }
+
+    /**
+     * Lazy getter for fScanUntilEndTag.
+     * Only creates buffer when scanning content until end tag (noscript, iframe, noframes).
+     *
+     * @return the scan until end tag buffer, creating it if needed
+     */
+    private XMLString getScanUntilEndTag() {
+        if (fScanUntilEndTag == null) {
+            fScanUntilEndTag = new XMLString(256);
+        }
+        fScanUntilEndTag.clear();
+        return fScanUntilEndTag;
+    }
+
+    /**
+     * Lazy getter for fScanComment.
+     * Only creates buffer when HTML contains comments.
+     *
+     * @return the comment scan buffer, creating it if needed
+     */
+    private XMLString getScanComment() {
+        if (fScanComment == null) {
+            fScanComment = new XMLString(128);
+        }
+        fScanComment.clear();
+        return fScanComment;
+    }
+
+    /**
+     * Lazy getter for fScanLiteral.
+     * Only creates buffer when scanning DOCTYPE declarations.
+     *
+     * @return the literal scan buffer, creating it if needed
+     */
+    private XMLString getScanLiteral() {
+        if (fScanLiteral == null) {
+            fScanLiteral = new XMLString(128);
+        }
+        fScanLiteral.clear();
+        return fScanLiteral;
     }
 
     /**
@@ -1274,7 +1329,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         final int quote = fCurrentEntity.read();
 
         if (quote == '"' || quote == '\'') {
-            final XMLString str = fScanLiteral.clear();
+            final XMLString str = getScanLiteral();
             int c;
             while ((c = fCurrentEntity.read()) != -1) {
                 if (c == quote) {
@@ -2432,7 +2487,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @throws IOException on error
          */
         private void scanUntilEndTag(final String tagName) throws IOException {
-            fScanUntilEndTag.clear();
+            final XMLString buffer = getScanUntilEndTag();
 
             final String end = "/" + tagName;
             final int lengthToScan = tagName.length() + 2;
@@ -2455,19 +2510,19 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fCurrentEntity.rewind();
                     final int newlines = fCurrentEntity.skipNewlines();
                     for (int i = 0; i < newlines; i++) {
-                        fScanUntilEndTag.append('\n');
+                        buffer.append('\n');
                     }
                 }
                 else {
-                    if (!fScanUntilEndTag.appendCodePoint(c)) {
+                    if (!buffer.appendCodePoint(c)) {
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
                     }
                 }
             }
-            if (fScanUntilEndTag.length() > 0) {
-                fDocumentHandler.characters(fScanUntilEndTag, locationAugs(fCurrentEntity));
+            if (buffer.length() > 0) {
+                fDocumentHandler.characters(buffer, locationAugs(fCurrentEntity));
             }
         }
 
@@ -2571,13 +2626,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 fCurrentEntity.debugBufferIfNeeded("(scanComment: ");
             }
 
-            fScanComment.clear();
-            final int scanComment = scanCommentContent(fScanComment);
+            final XMLString commentBuffer = getScanComment();
+            final int scanComment = scanCommentContent(commentBuffer);
             if (fElementCount >= fElementDepth) {
                 if (DEBUG_CALLBACKS) {
-                    System.out.println("comment(" + fScanComment + ")");
+                    System.out.println("comment(" + commentBuffer + ")");
                 }
-                fDocumentHandler.comment(fScanComment, locationAugs(fCurrentEntity));
+                fDocumentHandler.comment(commentBuffer, locationAugs(fCurrentEntity));
             }
             if (DEBUG_BUFFER) {
                 fCurrentEntity.debugBufferIfNeeded(")scanComment: ");
@@ -3168,7 +3223,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     final XMLString attribValue = fStringBuffer.clear();
 
                     if (fPlainAttributeValues_) {
-                        final XMLString plainAttribValue = fStringBufferPlainAttribValue.clear();
+                        final XMLString plainAttribValue = getPlainAttribValueBuffer();
                         if (SCAN_EOF == scanAttributeQuotedValue(c, fCurrentEntity, attribValue,
                                                     plainAttribValue, fNormalizeAttributes_)) {
                             return SCAN_EOF;
@@ -3221,7 +3276,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                 final XMLString attribValue = fStringBuffer.clear();
                 if (fPlainAttributeValues_) {
-                    final XMLString nonNormalizedAttribValue = fStringBufferPlainAttribValue.clear();
+                    final XMLString nonNormalizedAttribValue = getPlainAttribValueBuffer();
                     if (SCAN_EOF == scanAttributeUnquotedValue(fCurrentEntity, attribValue, nonNormalizedAttribValue)) {
                         return SCAN_EOF;
                     }
