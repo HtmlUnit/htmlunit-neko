@@ -498,17 +498,19 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     // temp vars
 
-    /** String buffer. */
+    /** String buffer for general content - sized for typical text nodes (256 chars). */
     protected final XMLString fStringBuffer = new XMLString(256);
 
-    /** String buffer used when resolving entity refs. */
+    /** String buffer for entity references - sized for typical entity names (16 chars). */
     final XMLString fStringBufferEntityRef = new XMLString(16);
 
     // Lazy-initialized buffers for rarely-used features
-    private XMLString fStringBufferPlainAttribValue;
-    private XMLString fScanUntilEndTag;
-    private XMLString fScanComment;
-    private XMLString fScanLiteral;
+    // These are created on-demand to save ~512 bytes per scanner instance
+    private XMLString fStringBufferPlainAttribValue;  // 64 chars - for plain attribute values
+    private XMLString fScanUntilEndTag;                // 256 chars - for noscript/iframe/noframes content
+    private XMLString fScanComment;                    // 128 chars - for HTML comments
+    private XMLString fScanLiteral;                    // 128 chars - for DOCTYPE declarations
+
 
     /** Single boolean array. */
     final boolean[] fSingleBoolean = {false};
