@@ -502,7 +502,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     protected final XMLString fStringBuffer = new XMLString(256);
 
     /** String buffer used when resolving entity refs. */
-    final XMLString fStringBufferEntiyRef = new XMLString(16);
+    final XMLString fStringBufferEntityRef = new XMLString(16);
 
     // Lazy-initialized buffers for rarely-used features
     private XMLString fStringBufferPlainAttribValue;
@@ -3327,8 +3327,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
 
                 if (c == '&') {
-                    scanEntityRef(fStringBufferEntiyRef, plainAttribValue, false);
-                    attribValue.append(fStringBufferEntiyRef);
+                    scanEntityRef(fStringBufferEntityRef, plainAttribValue, false);
+                    attribValue.append(fStringBufferEntityRef);
                 }
                 else {
                     if (!attribValue.appendCodePoint(c)) {
@@ -3402,7 +3402,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 else if (c == '&') {
                     isStart = false;
-                    final int ce = scanEntityRef(fStringBufferEntiyRef, plainAttribValue, false);
+                    final int ce = scanEntityRef(fStringBufferEntityRef, plainAttribValue, false);
                     if (ce != -1) {
                         if (!attribValue.appendCodePoint(ce)) {
                             if (fReportErrors_) {
@@ -3411,7 +3411,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                     }
                     else {
-                        attribValue.append(fStringBufferEntiyRef);
+                        attribValue.append(fStringBufferEntityRef);
                     }
                     prevSpace = false;
                 }
