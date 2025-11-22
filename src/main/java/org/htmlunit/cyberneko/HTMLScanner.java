@@ -519,8 +519,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * {@code scanStartElement} and {@code scanAttribute}. The array is reset before
      * each use to ensure correctness.
      * <p>
-     * This pattern eliminates 100-500 temporary allocations per document parse,
-     * reducing heap pressure and improving cache locality.
+     * Without this optimization, a new array would be allocated for every start element
+     * and attribute scanned. Typical documents contain dozens to hundreds of elements,
+     * making this reuse pattern beneficial for reducing heap pressure and improving
+     * cache locality.
      * <p>
      * Thread safety: Safe because scanner instances are single-threaded.
      */
