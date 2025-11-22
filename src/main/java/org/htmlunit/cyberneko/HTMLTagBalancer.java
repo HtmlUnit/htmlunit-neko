@@ -350,7 +350,9 @@ public class HTMLTagBalancer
         fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack_ != null) {
             fSeenAnything = fragmentContextStack_.length > 0;
-            for (final QName qname : fragmentContextStack_) {
+            // use indexed loop to avoid Iterator allocation
+            for (int i = 0; i < fragmentContextStack_.length; i++) {
+                final QName qname = fragmentContextStack_[i];
                 if ("html".equalsIgnoreCase(qname.getLocalpart())) {
                     fSeenRootElement = true;
                     fSeenRealHtmlElement = true;
@@ -448,7 +450,9 @@ public class HTMLTagBalancer
         fElementStack.top = 0;
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
-            for (final QName name : fragmentContextStack_) {
+            // use indexed loop to avoid Iterator allocation
+            for (int i = 0; i < fragmentContextStackSize_; i++) {
+                final QName name = fragmentContextStack_[i];
                 final Element elt = htmlConfiguration_.getHtmlElements().getElement(name.getLocalpart());
                 fElementStack.push(new Info(elt, name));
             }
@@ -1375,7 +1379,9 @@ public class HTMLTagBalancer
                 if (info.element.code == bounds) {
                     break;
                 }
-                for (final Element parent : parents) {
+                // use indexed loop to avoid Iterator allocation
+                for (int j = 0; j < parents.length; j++) {
+                    final Element parent = parents[j];
                     if (info.element.code == parent.code) {
                         return fElementStack.top - i;
                     }
