@@ -255,6 +255,15 @@ public class HTMLTagBalancer
     /** A qualified name. */
     private final QName fQName = new QName();
 
+    // ========== QName POOLING OPTIMIZATION ==========
+    
+    /**
+     * Pool of reusable QName objects to avoid allocations.
+     * Size 8 is sufficient for typical nesting depth during tag balancing.
+     */
+    private final QName[] qnamePool_ = new QName[8];
+    private int qnamePoolIndex_ = 0;
+
     protected HTMLTagBalancingListener tagBalancingListener;
     private final LostText lostText_ = new LostText();
 
@@ -274,6 +283,11 @@ public class HTMLTagBalancer
 
     HTMLTagBalancer(final HTMLConfiguration htmlConfiguration) {
         htmlConfiguration_ = htmlConfiguration;
+        
+        // Pre-allocate QName pool
+        for (int i = 0; i < qnamePool_.length; i++) {
+            qnamePool_[i] = new QName();
+        }
     }
 
     /** Returns the default state for a feature. */
@@ -962,9 +976,23 @@ public class HTMLTagBalancer
         return fElementStack.top > 0 && elem.equals(fElementStack.peek().qname);
     }
 
+    /**
+     * Gets a QName from pool using round-robin selection.
+     * Much faster than creating new QName objects.
+     * The returned QName will be reused, so callers that need to keep it
+     * must make a defensive copy.
+     */
+    private QName getPooledQName() {
+        final QName pooled = qnamePool_[qnamePoolIndex_];
+        qnamePoolIndex_ = (qnamePoolIndex_ + 1) % qnamePool_.length;
+        return pooled;
+    }
+
     private QName createQName(String tagName) {
         tagName = modifyName(tagName, fNamesElems);
-        return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
+        final QName qname = getPooledQName();
+        qname.setValues(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
+        return qname;
     }
 
     /** Empty element. */
