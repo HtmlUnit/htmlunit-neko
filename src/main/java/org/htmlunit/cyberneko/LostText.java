@@ -58,7 +58,8 @@ class LostText {
      */
     public void refeed(final XMLDocumentHandler tagBalancer) {
         // Use indexed loop - no Iterator allocation
-        for (int i = 0; i < entries_.size(); i++) {
+        final int size = entries_.size();
+        for (int i = 0; i < size; i++) {
             final Entry entry = entries_.get(i);
             tagBalancer.characters(entry.text_, entry.augs_);
         }

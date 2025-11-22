@@ -579,7 +579,8 @@ public class HTMLTagBalancer
         }
 
         // Use indexed loop - no Iterator allocation
-        for (int i = 0; i < endElementsBuffer_.size(); i++) {
+        final int size = endElementsBuffer_.size();
+        for (int i = 0; i < size; i++) {
             final ElementEntry entry = endElementsBuffer_.get(i);
             forcedEndElement_ = true;
             endElement(entry.name_, entry.augs_);
