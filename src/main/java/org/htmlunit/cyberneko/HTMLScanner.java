@@ -1167,6 +1167,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
         return NAMES_NO_CHANGE;
     }
+
     // debugging
 
     // Sets the scanner.
@@ -2452,9 +2453,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 if (c == '<') {
                     final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
-                    if (next.length() >= lengthToScan && end.equalsIgnoreCase(next.substring(0, end.length()))
+                    if (next.length() >= lengthToScan
+                            && end.equalsIgnoreCase(next.substring(0, end.length()))
                             && ('>' == next.charAt(lengthToScan - 1)
-                            || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
+                                    || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
                         fCurrentEntity.rewind();
                         break;
                     }
@@ -2984,7 +2986,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("startElement(" + qName_ + ',' + attributes_ + ")");
                 }
-                if (empty[0] && !"BR".equalsIgnoreCase(scanStartElement_)) {
+                if (empty[0] && !"br".equalsIgnoreCase(scanStartElement_)) {
                     fDocumentHandler.emptyElement(qName_, attributes_, locationAugs(fCurrentEntity));
                 }
                 else {
@@ -3437,9 +3439,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Sets the element name.
         public Scanner setElementName(final String ename) {
             fElementName = ename;
-            fStyle = "STYLE".equalsIgnoreCase(fElementName);
-            fTextarea = "TEXTAREA".equalsIgnoreCase(fElementName);
-            fTitle = "TITLE".equalsIgnoreCase(fElementName);
+            fStyle = "style".equalsIgnoreCase(fElementName);
+            fTextarea = "textarea".equalsIgnoreCase(fElementName);
+            fTitle = "title".equalsIgnoreCase(fElementName);
             return this;
         }
 

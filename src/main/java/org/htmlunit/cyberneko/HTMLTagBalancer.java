@@ -18,7 +18,6 @@ package org.htmlunit.cyberneko;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
@@ -517,11 +516,11 @@ public class HTMLTagBalancer
             if (documentHandler_ != null) {
                 fSeenRootElementEnd = false;
                 forceStartBody(); // will force <html> and <head></head>
-                final String body = modifyName("body", fNamesElems);
+                final String body = NAMES_UPPERCASE == fNamesElems ? "BODY" : "body";
                 fQName.setValues(null, body, body, null);
                 callEndElement(fQName, synthesizedAugs());
 
-                final String ename = modifyName("html", fNamesElems);
+                final String ename = NAMES_UPPERCASE == fNamesElems ? "HTML": "html";
                 fQName.setValues(null, ename, ename, null);
                 callEndElement(fQName, synthesizedAugs());
             }
@@ -809,7 +808,7 @@ public class HTMLTagBalancer
                 final String pname = preferedParent.name;
                 if (fReportErrors) {
                     final String ename = elem.getRawname();
-                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename, modifyName(pname, fNamesElems)});
+                    fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
                 final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
@@ -827,8 +826,7 @@ public class HTMLTagBalancer
                         final String pname = preferedParent.name;
                         if (fReportErrors) {
                             final String ename = elem.getRawname();
-                            fErrorReporter.reportWarning("HTML2004",
-                                            new Object[]{ename, modifyName(pname, fNamesElems)});
+                            fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
                         }
 
                         final QName qname = createQName(pname);
@@ -967,7 +965,6 @@ public class HTMLTagBalancer
     }
 
     private QName createQName(String tagName) {
-        tagName = modifyName(tagName, fNamesElems);
         return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
     }
 
@@ -1078,16 +1075,16 @@ public class HTMLTagBalancer
                 if (info.element.code == HTMLElements.HEAD || info.element.code == HTMLElements.HTML) {
                     if (whitespace == 0) {
                         if (fReportErrors) {
-                            final String hname = modifyName("head", fNamesElems);
-                            final String bname = modifyName("body", fNamesElems);
+                            final String hname = NAMES_UPPERCASE == fNamesElems ? "HEAD" : "head";
+                            final String bname = NAMES_UPPERCASE == fNamesElems ? "BODY" : "body";
                             fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
                         }
                         forceStartBody();
                     }
                     else if (whitespace == -1 && !text.isWhitespace()) {
                         if (fReportErrors) {
-                            final String hname = modifyName("head", fNamesElems);
-                            final String bname = modifyName("body", fNamesElems);
+                            final String hname = NAMES_UPPERCASE == fNamesElems ? "HEAD" : "head";
+                            final String bname = NAMES_UPPERCASE == fNamesElems ? "BODY" : "body";
                             fErrorReporter.reportWarning("HTML2009", new Object[]{hname, bname});
                         }
                         forceStartBody();
@@ -1244,7 +1241,7 @@ public class HTMLTagBalancer
         for (int i = 0; i < depth; i++) {
             final Info info = fElementStack.pop();
             if (fReportErrors && i < depth - 1) {
-                final String ename = modifyName(element.getRawname(), fNamesElems);
+                final String ename = element.getRawname();
                 final String iname = info.qname.getRawname();
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename, iname});
             }
@@ -1397,17 +1394,6 @@ public class HTMLTagBalancer
             return SynthesizedItem.INSTANCE;
         }
         return null;
-    }
-
-    // Modifies the given name based on the specified mode.
-    protected static String modifyName(final String name, final short mode) {
-        if (NAMES_UPPERCASE == mode) {
-            return name.toUpperCase(Locale.ROOT);
-        }
-        if (NAMES_LOWERCASE == mode) {
-            return name.toLowerCase(Locale.ROOT);
-        }
-        return name;
     }
 
      // Converts HTML names string value to constant value.
