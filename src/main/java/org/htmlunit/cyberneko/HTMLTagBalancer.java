@@ -392,6 +392,9 @@ public class HTMLTagBalancer
 
         endElementsBuffer_.clear();
         discardedStartElements.clear();
+        
+        // Reset QName pool index for consistent behavior
+        qnamePoolIndex_ = 0;
     }
 
     /** Sets a feature. */
