@@ -511,8 +511,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     private final XMLString fScanLiteral = new XMLString();
 
-    /** Single boolean array. */
-    final boolean[] fSingleBoolean = {false};
+    /**
+     * Reusable single-element boolean array used as an out-parameter.
+     * <p>
+     * Performance optimization: This array is reused across method calls to avoid
+     * allocating a new single-element array on every invocation of methods like
+     * {@code scanStartElement} and {@code scanAttribute}. The array is reset before
+     * each use to ensure correctness.
+     * <p>
+     * Thread safety: Safe because scanner instances are single-threaded.
+     */    final boolean[] fSingleBoolean = {false};
 
     final HTMLConfiguration htmlConfiguration_;
 
