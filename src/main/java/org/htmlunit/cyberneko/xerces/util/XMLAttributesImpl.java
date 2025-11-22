@@ -43,7 +43,7 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /** Default constructor. */
     public XMLAttributesImpl() {
-        attributes_ = new ArrayList<>();
+        attributes_ = new ArrayList<>(8);
     }
 
     /** Copy constructor. */
@@ -58,7 +58,7 @@ public class XMLAttributesImpl implements XMLAttributes {
             return;
         }
 
-        attributes_ = new ArrayList<>();
+        attributes_ = new ArrayList<>(8);
     }
 
     /**

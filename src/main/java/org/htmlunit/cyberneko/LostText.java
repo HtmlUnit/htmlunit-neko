@@ -41,7 +41,7 @@ class LostText {
         }
     }
 
-    private final List<Entry> entries_ = new ArrayList<>();
+    private final List<Entry> entries_ = new ArrayList<>(4);
 
     /**
      * Adds some text that need to be re-feed later. The information gets copied.

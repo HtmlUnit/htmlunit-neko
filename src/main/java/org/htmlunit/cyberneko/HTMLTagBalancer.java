@@ -267,8 +267,8 @@ public class HTMLTagBalancer
     private QName[] fragmentContextStack_ = null;
     private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
-    private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(4);
-    private final List<String> discardedStartElements = new ArrayList<>(2);
+    private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(8);
+    private final List<String> discardedStartElements = new ArrayList<>(16);
 
     private final HTMLConfiguration htmlConfiguration_;
 
