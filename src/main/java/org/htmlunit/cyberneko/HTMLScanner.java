@@ -2453,9 +2453,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 if (c == '<') {
                     final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
-                    if (next.length() >= lengthToScan
+                    if (next.length() >= lengthToScan 
                             && end.equalsIgnoreCase(next.substring(0, end.length()))
-                            && ('>' == next.charAt(lengthToScan - 1)
+                            && ('>' == next.charAt(lengthToScan - 1) 
                                     || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
                         fCurrentEntity.rewind();
                         break;
