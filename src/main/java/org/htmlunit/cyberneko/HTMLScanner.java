@@ -806,9 +806,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         else if (featureId.equals(STYLE_STRIP_COMMENT_DELIMS)) {
             fStyleStripCommentDelims_ = state;
         }
-        else if (featureId.equals(IGNORE_SPECIFIED_CHARSET)) {
-            fIgnoreSpecifiedCharset_ = state;
-        }
         else if (featureId.equals(CDATA_SECTIONS)) {
             fCDATASections_ = state;
         }

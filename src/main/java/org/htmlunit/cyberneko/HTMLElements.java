@@ -196,7 +196,7 @@ public class HTMLElements implements HTMLElementsProvider {
     // keep the list here for later modification
     private final HashMap<String, Element> elementsByNameForReference_ = new HashMap<>();
 
-    // this is a optimized version which will be later queried
+    // this is an optimized version which will be later queried
     FastHashMap<String, Element> elementsByName_;
 
     public HTMLElements() {
