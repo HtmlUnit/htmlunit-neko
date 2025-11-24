@@ -302,7 +302,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
 
         // Create and add the new one, generating only non-aggregate events
         // (There are no listeners on the new Text, but there may be
-        // capture/bubble listeners on the Attr.
+        // capture/bubble listeners on the Attr).
         // Note that aggregate events are NOT dispatched here,
         // since we need to combine the remove and insert.
         isSpecified(true);
@@ -513,7 +513,7 @@ public class AttrImpl extends NodeImpl implements Attr, TypeInfo {
             // have been transferred. (Alternative behaviors would be to
             // reparent up to the first failure point or reparent all those
             // which are acceptable to the target node, neither of which is
-            // as robust. PR-DOM-0818 isn't entirely clear on which it
+            // as robust.) PR-DOM-0818 isn't entirely clear on which it
             // recommends?????
 
             // No need to check kids for right-document; if they weren't,

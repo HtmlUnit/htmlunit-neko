@@ -550,7 +550,7 @@ public class XMLAttributesImpl implements XMLAttributes {
 
     /**
      * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
-     *
+     * <p>
      * Attribute information.
      * Only public to allow some performance optimizations.
      */

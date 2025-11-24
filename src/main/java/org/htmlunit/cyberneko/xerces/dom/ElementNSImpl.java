@@ -59,7 +59,7 @@ public class ElementNSImpl extends ElementImpl {
         // 1. if the qualified name is 'null' it is malformed.
         // 2. or if the qualifiedName is null and the namespaceURI is different from
         // null,
-        // We dont need to check for namespaceURI != null, if qualified name is null
+        // We don't need to check for namespaceURI != null, if qualified name is null
         // throw DOMException.
         if (qname == null) {
             final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);

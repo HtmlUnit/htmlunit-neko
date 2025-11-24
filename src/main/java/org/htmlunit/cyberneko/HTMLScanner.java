@@ -844,29 +844,31 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Sets a property. */
     @Override
     public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
-        if (propertyId.equals(NAMES_ELEMS)) {
-            fNamesElems = getNamesValue(String.valueOf(value));
-        }
-        else if (propertyId.equals(NAMES_ATTRS)) {
-            fNamesAttrs = getNamesValue(String.valueOf(value));
-        }
-        else if (propertyId.equals(DEFAULT_ENCODING)) {
-            fDefaultIANAEncoding = String.valueOf(value);
-        }
-        else if (propertyId.equals(ERROR_REPORTER)) {
-            fErrorReporter = (HTMLErrorReporter) value;
-        }
-        else if (propertyId.equals(ENCODING_TRANSLATOR)) {
-            fEncodingTranslator = (EncodingTranslator) value;
-        }
-        else if (propertyId.equals(DOCTYPE_PUBID)) {
-            fDoctypePubid = String.valueOf(value);
-        }
-        else if (propertyId.equals(DOCTYPE_SYSID)) {
-            fDoctypeSysid = String.valueOf(value);
-        }
-        else if (propertyId.equals(READER_BUFFER_SIZE)) {
-            fReaderBufferSize = Integer.parseInt(String.valueOf(value));
+        switch (propertyId) {
+            case NAMES_ELEMS:
+                fNamesElems = getNamesValue(String.valueOf(value));
+                break;
+            case NAMES_ATTRS:
+                fNamesAttrs = getNamesValue(String.valueOf(value));
+                break;
+            case DEFAULT_ENCODING:
+                fDefaultIANAEncoding = String.valueOf(value);
+                break;
+            case ERROR_REPORTER:
+                fErrorReporter = (HTMLErrorReporter) value;
+                break;
+            case ENCODING_TRANSLATOR:
+                fEncodingTranslator = (EncodingTranslator) value;
+                break;
+            case DOCTYPE_PUBID:
+                fDoctypePubid = String.valueOf(value);
+                break;
+            case DOCTYPE_SYSID:
+                fDoctypeSysid = String.valueOf(value);
+                break;
+            case READER_BUFFER_SIZE:
+                fReaderBufferSize = Integer.parseInt(String.valueOf(value));
+                break;
         }
     }
 

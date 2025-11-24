@@ -127,7 +127,7 @@ public class HTMLNamedEntitiesParserTest {
             assertFalse(r.endNode_);
             assertFalse(r.endsWithSemicolon_);
 
-            assertEquals(null, r.resolvedValue_);
+            assertNull(r.resolvedValue_);
             assertEquals("ab", r.entityOrFragment_);
             assertEquals(2, r.length_);
         }
@@ -188,7 +188,7 @@ public class HTMLNamedEntitiesParserTest {
         assertFalse(r.endNode_);
         assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue_);
+        assertNull(r.resolvedValue_);
         assertEquals("", r.entityOrFragment_);
         assertEquals(0, r.length_);
     }
@@ -203,7 +203,7 @@ public class HTMLNamedEntitiesParserTest {
         assertFalse(r.endNode_);
         assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue_);
+        assertNull(r.resolvedValue_);
         assertEquals("", r.entityOrFragment_);
         assertEquals(0, r.length_);
     }
@@ -218,7 +218,7 @@ public class HTMLNamedEntitiesParserTest {
         assertFalse(r.endNode_);
         assertFalse(r.endsWithSemicolon_);
 
-        assertEquals(null, r.resolvedValue_);
+        assertNull(r.resolvedValue_);
         assertEquals("", r.entityOrFragment_);
         assertEquals(0, r.length_);
     }

@@ -47,7 +47,7 @@ import org.w3c.dom.Node;
  * synchronized with its parent. This leads me back to the "cached image of
  * centrally defined data" solution, much as I dislike it.
  * <P>
- * For now I have decided, since REC-DOM-Level-1-19980818 doesn't cover this in
+ * For now, I have decided, since REC-DOM-Level-1-19980818 doesn't cover this in
  * much detail, that synchronization doesn't have to be considered while the
  * user is deep in the tree. That is, if you're looking within one of the
  * EntityReferennce's children and the Entity changes, you won't be informed;

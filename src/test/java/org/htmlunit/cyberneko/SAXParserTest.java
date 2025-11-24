@@ -81,7 +81,7 @@ public class SAXParserTest {
                 "org.htmlunit.cyberneko.sax.helpers.NekoSAXParserFactory");
         final javax.xml.parsers.SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
 
-        Assertions.assertTrue(saxParser instanceof NekoSAXParserAdapter);
+        Assertions.assertInstanceOf(NekoSAXParserAdapter.class, saxParser);
         saxParser.parse(source, (DefaultHandler) null);
     }
 
@@ -100,7 +100,7 @@ public class SAXParserTest {
                                     "org.htmlunit.cyberneko.sax.helpers.NekoSAXParserFactory", null)
                                 .newSAXParser();
 
-        Assertions.assertTrue(saxParser instanceof NekoSAXParserAdapter);
+        Assertions.assertInstanceOf(NekoSAXParserAdapter.class, saxParser);
         saxParser.parse(source, (DefaultHandler) null);
     }
 }

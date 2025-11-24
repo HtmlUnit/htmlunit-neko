@@ -171,7 +171,7 @@ public class FastHashMapTest {
 
     @Test
     public void clear() {
-        final FastHashMap<String, Integer> m = new FastHashMap<String, Integer>();
+        final FastHashMap<String, Integer> m = new FastHashMap<>();
         m.put("a", 1);
         assertEquals(1, m.size());
 
@@ -206,34 +206,34 @@ public class FastHashMapTest {
 
     @Test
     public void collision() {
-        final FastHashMap<MockKey<String>, String> f = new FastHashMap<MockKey<String>, String>(13, 0.5f);
+        final FastHashMap<MockKey<String>, String> f = new FastHashMap<>(13, 0.5f);
         IntStream.range(0, 15).forEach(i -> {
-            f.put(new MockKey<String>(12, "k" + i), "v" + i);
+            f.put(new MockKey<>(12, "k" + i), "v" + i);
         });
 
         assertEquals(15, f.size());
 
         IntStream.range(0, 15).forEach(i -> {
-            assertEquals("v" + i, f.get(new MockKey<String>(12, "k" + i)));
+            assertEquals("v" + i, f.get(new MockKey<>(12, "k" + i)));
         });
 
         // round 2
         IntStream.range(0, 20).forEach(i -> {
-            f.put(new MockKey<String>(12, "k" + i), "v" + i);
+            f.put(new MockKey<>(12, "k" + i), "v" + i);
         });
 
         assertEquals(20, f.size());
 
         IntStream.range(0, 20).forEach(i -> {
-            assertEquals("v" + i, f.get(new MockKey<String>(12, "k" + i)));
+            assertEquals("v" + i, f.get(new MockKey<>(12, "k" + i)));
         });
 
         // round 3
         IntStream.range(0, 10).forEach(i -> {
-            assertEquals("v" + i, f.remove(new MockKey<String>(12, "k" + i)));
+            assertEquals("v" + i, f.remove(new MockKey<>(12, "k" + i)));
         });
         IntStream.range(10, 20).forEach(i -> {
-            assertEquals("v" + i, f.get(new MockKey<String>(12, "k" + i)));
+            assertEquals("v" + i, f.get(new MockKey<>(12, "k" + i)));
         });
     }
 
@@ -246,7 +246,7 @@ public class FastHashMapTest {
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 152)
                 .mapToObj(Integer::valueOf)
                 .collect(
-                        Collectors.toMap(i -> new MockKey<String>(1, "k" + i),
+                        Collectors.toMap(i -> new MockKey<>(1, "k" + i),
                                 i -> i));
 
         // add all
@@ -359,14 +359,14 @@ public class FastHashMapTest {
         final Map<MockKey<String>, Integer> data = IntStream.range(0, 150)
                 .mapToObj(Integer::valueOf)
                 .collect(
-                        Collectors.toMap(i -> new MockKey<String>(i, "k1" + i),
+                        Collectors.toMap(i -> new MockKey<>(i, "k1" + i),
                                 i -> i));
 
         // add the same hash codes again but other keys
         data.putAll(IntStream.range(0, 150)
                 .mapToObj(Integer::valueOf)
                 .collect(
-                        Collectors.toMap(i -> new MockKey<String>(i, "k2" + i),
+                        Collectors.toMap(i -> new MockKey<>(i, "k2" + i),
                                 i -> i)));
         // add all
         data.forEach((k, v) -> m.put(k, v));

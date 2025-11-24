@@ -147,7 +147,7 @@ public class XMLStringTest {
     public void ctr_string() {
         // empty
         {
-            final XMLString a = new XMLString("".toString());
+            final XMLString a = new XMLString("");
             assertEquals("", a.toString());
             assertEquals(0, a.length());
             assertEquals(0, a.capacity());
@@ -155,7 +155,7 @@ public class XMLStringTest {
         }
         // standard
         {
-            final XMLString a = new XMLString("1234".toString());
+            final XMLString a = new XMLString("1234");
             assertEquals("1234", a.toString());
             assertEquals(4, a.length());
             assertEquals(4, a.capacity());
@@ -696,14 +696,14 @@ public class XMLStringTest {
 
         // just push something into the string to see if we have growth pain
         final XMLString b = new XMLString("foo");
-        String exB = "foo";
+        StringBuilder exB = new StringBuilder("foo");
         final String src = "This is a test of the prepending";
         for (int i = 0; i < src.length(); i++) {
             final char c = src.charAt(i);
-            exB = c + exB;
+            exB.insert(0, c);
             b.prepend(c);
         }
-        assertEquals(exB, b.toString());
+        assertEquals(exB.toString(), b.toString());
     }
 
     @Test
@@ -999,14 +999,14 @@ public class XMLStringTest {
             final XMLString a = o.clone();
             assertEquals(0, a.length());
             assertEquals("", a.toString());
-            assertTrue(o != a);
+            assertNotSame(o, a);
         }
         {
             final XMLString o = new XMLString("abc");
             final XMLString a = o.clone();
             assertEquals(3, a.length());
             assertEquals("abc", a.toString());
-            assertTrue(o != a);
+            assertNotSame(o, a);
         }
         {
             final XMLString o = new XMLString(" 817 ");
@@ -1015,7 +1015,7 @@ public class XMLStringTest {
             final XMLString c = b.clone();
             assertEquals(5, c.length());
             assertEquals(" 817 ", c.toString());
-            assertTrue(o != c);
+            assertNotSame(o, c);
         }
     }
 
@@ -1084,79 +1084,79 @@ public class XMLStringTest {
         {
             final Integer a = Integer.valueOf(192);
             final XMLString b = new XMLString();
-            assertFalse(a.equals(b));
-            assertFalse(b.equals(a));
+            assertNotEquals(a, b);
+            assertNotEquals(b, a);
         }
         // both empty
         {
             final XMLString a = new XMLString();
             final XMLString b = new XMLString();
-            assertTrue(a.equals(b));
-            assertTrue(b.equals(a));
+            assertEquals(a, b);
+            assertEquals(b, a);
         }
         // self
         {
             final XMLString a = new XMLString();
             final XMLString b = new XMLString("abc");
-            assertTrue(a.equals(a));
-            assertTrue(b.equals(b));
+            assertEquals(a, a);
+            assertEquals(b, b);
         }
         // different length
         {
             final XMLString a = new XMLString("a");
             final XMLString b = new XMLString("ab");
-            assertFalse(a.equals(b));
-            assertFalse(b.equals(a));
+            assertNotEquals(a, b);
+            assertNotEquals(b, a);
         }
         // different content, same length
         {
             final XMLString a = new XMLString("ac");
             final XMLString b = new XMLString("ab");
-            assertFalse(a.equals(b));
-            assertFalse(b.equals(a));
+            assertNotEquals(a, b);
+            assertNotEquals(b, a);
         }
         // length 1, identical
         {
             final XMLString a = new XMLString("a");
             final XMLString b = new XMLString("a");
-            assertTrue(a.equals(b));
-            assertTrue(b.equals(a));
+            assertEquals(a, b);
+            assertEquals(b, a);
         }
         // length 1, different
         {
             final XMLString a = new XMLString("b");
             final XMLString b = new XMLString("b");
-            assertTrue(a.equals(b));
-            assertTrue(b.equals(a));
+            assertEquals(a, b);
+            assertEquals(b, a);
         }
         // length > 1, same
         {
             final XMLString a = new XMLString("81hal/&%$");
             final XMLString b = new XMLString("81hal/&%$");
-            assertTrue(a.equals(b));
-            assertTrue(b.equals(a));
+            assertEquals(a, b);
+            assertEquals(b, a);
         }
         // length > 1, different
         {
             final XMLString a = new XMLString("b091872983");
             final XMLString b = new XMLString("b09187298_");
-            assertFalse(a.equals(b));
-            assertFalse(b.equals(a));
+            assertNotEquals(a, b);
+            assertNotEquals(b, a);
         }
 
         // CharSequence works too
         {
             final String a = new String("b091872983");
             final XMLString b = new XMLString("b091872983");
-            assertFalse(a.equals(b)); // a string is not so open :)
-            assertTrue(b.equals(a));
+            assertNotEquals(a, b); // a string is not so open :)
+            assertEquals(b, a);
         }
         // CharSequence works too
         {
             final String a = new String("983");
             final XMLString b = new XMLString("b09187298_");
-            assertFalse(a.equals(b));
-            assertFalse(b.equals(a));
+            assertNotEquals(a, b);
+            assertNotEquals(b, a);
         }
     }
 
@@ -1379,7 +1379,7 @@ public class XMLStringTest {
     }
 
     /**
-     * @see XMLString#toLowerCase()
+     * @see XMLString#toLowerCase(Locale) 
      */
     @ParameterizedTest
     @ValueSource(strings = {
@@ -1395,7 +1395,7 @@ public class XMLStringTest {
     }
 
     /**
-     * @see XMLString#toUpperCase()
+     * @see XMLString#toUpperCase(Locale)
      */
     @ParameterizedTest
     @ValueSource(strings = {

@@ -16,6 +16,7 @@
 package org.htmlunit.cyberneko.io;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.ByteArrayInputStream;
 
@@ -41,8 +42,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(32, pbis.read());
             assertEquals(-1, pbis.read());
@@ -62,8 +63,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(32, pbis.read());
             assertEquals(33, pbis.read());
@@ -84,8 +85,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(32, pbis.read());
             assertEquals(33, pbis.read());
@@ -133,8 +134,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(-17, pbis.read());
             assertEquals(-69, pbis.read());
@@ -162,8 +163,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             final byte[] read = new byte[1024];
             int count = pbis.read(read);
@@ -222,8 +223,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(-1, pbis.read());
             assertEquals(32, pbis.read());
@@ -265,8 +266,8 @@ public class PlaybackInputStreamTest {
             final String[] encoding = new String[2];
             pbis.detectBomEncoding(encoding);
 
-            assertEquals(null, encoding[0]);
-            assertEquals(null, encoding[1]);
+            assertNull(encoding[0]);
+            assertNull(encoding[1]);
 
             assertEquals(-2, pbis.read());
             assertEquals(32, pbis.read());

@@ -386,17 +386,16 @@ public class HTMLTagBalancer
     public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
 
-        if (featureId.equals(AUGMENTATIONS)) {
-            fAugmentations = state;
-            return;
-        }
-        if (featureId.equals(REPORT_ERRORS)) {
-            fReportErrors = state;
-            return;
-        }
-        if (featureId.equals(IGNORE_OUTSIDE_CONTENT)) {
-            fIgnoreOutsideContent = state;
-            return;
+        switch (featureId) {
+            case AUGMENTATIONS:
+                fAugmentations = state;
+                return;
+            case REPORT_ERRORS:
+                fReportErrors = state;
+                return;
+            case IGNORE_OUTSIDE_CONTENT:
+                fIgnoreOutsideContent = state;
+                return;
         }
     }
 

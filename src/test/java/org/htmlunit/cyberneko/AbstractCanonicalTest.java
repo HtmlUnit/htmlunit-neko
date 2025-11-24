@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -80,7 +81,7 @@ public abstract class AbstractCanonicalTest {
 
     protected static String getCanonical(final File infile) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new FileInputStream(infile), StandardCharsets.UTF_8))) {
+                Files.newInputStream(infile.toPath()), StandardCharsets.UTF_8))) {
             final StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

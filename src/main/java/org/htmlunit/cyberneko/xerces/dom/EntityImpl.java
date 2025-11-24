@@ -195,7 +195,7 @@ public class EntityImpl extends ParentNode implements Entity {
      *
      * An attribute specifying the encoding used for this entity at the tiome of
      * parsing, when it is an external parsed entity. This is <code>null</code> if
-     * it an entity from the internal subset or if it is not known..
+     * it is an entity from the internal subset or if it is not known.
      */
     @Override
     public String getInputEncoding() {

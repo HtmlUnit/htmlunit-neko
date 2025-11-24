@@ -27,7 +27,7 @@ import java.util.List;
  * Simple hash map implementation taken from here
  * https://github.com/mikvor/hashmapTest/blob/master/src/main/java/map/objobj/ObjObjMap.java
  * No concrete license specified at the source. The project is public domain.
- *
+ * <p>
  * Not thread-safe! Null support was removed.
  *
  * @param <K> the type of the key
@@ -340,7 +340,7 @@ public class FastHashMap<K, V> implements Serializable {
         clear();
 
         // sort things in, so we get a nice clean new map, this will
-        // also cleanup what was previously a removed entry, we have not
+        // also clean up what was previously a removed entry, we have not
         // kept that information anyway
         for (int i = 0; i < srcData.length; i += 2) {
             final Object key = srcData[i];

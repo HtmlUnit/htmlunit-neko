@@ -16,6 +16,7 @@
 package org.htmlunit.cyberneko.xerces.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.charset.Charset;
 import java.util.Collection;
@@ -64,7 +65,7 @@ public class StandardEncodingTranslatorTest {
         // but browsers are doing
         assertEquals("windows-1252", StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("x-user-defined"));
 
-        assertEquals(null, StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("foo"));
+        assertNull(StandardEncodingTranslator.INSTANCE.encodingNameFromLabel("foo"));
     }
 
     @Test
