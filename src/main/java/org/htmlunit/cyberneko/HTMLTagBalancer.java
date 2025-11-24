@@ -1341,9 +1341,9 @@ public class HTMLTagBalancer
         int depth = -1;
         for (int i = fElementStack.top - 1; i >= fragmentContextStackSize_; i--) {
             final Info info = fElementStack.data[i];
-            if (info.element.code == element.code
+            if (info.element.code == elementCode
                     && (elementCode != HTMLElements.UNKNOWN
-                            || (elementCode == HTMLElements.UNKNOWN && element.name.equals(info.element.name)))) {
+                            || element.name.equals(info.element.name))) {
                 depth = fElementStack.top - i;
                 break;
             }
@@ -1375,6 +1375,7 @@ public class HTMLTagBalancer
                 if (info.element.code == bounds) {
                     break;
                 }
+
                 // use indexed loop to avoid Iterator allocation
                 for (int j = 0; j < parents.length; j++) {
                     final Element parent = parents[j];

@@ -166,7 +166,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * Ignore specified charset found in the &lt;meta equiv='Content-Type'
-     * content='text/html;charset=&hellip;'&gt; tag or in the &lt;?xml &hellip;
+     * content='text/html;charset='&hellip;'&gt; tag or in the &lt;?xml &hellip;
      * encoding='&hellip;'&gt; processing instruction.
      */
     public static final String IGNORE_SPECIFIED_CHARSET
@@ -334,9 +334,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Scan return code: continue scanning (state transition). */
     private static final int SCAN_FALSE = 2;
-
-    /** Scan return code: scanner changed, return control to caller. */
-    private static final int SCAN_SCANNER_CHANGED = 3;
 
     // debugging
 
@@ -1544,11 +1541,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // the error route
         if (result.isMatch_) {
             // in case we overrun because the entity was broken or
-            // not terminated by a ;, we have to reset the char
+            // not terminated by a ';', we have to reset the char
             // position because we read one more char than the entity has
             fCurrentEntity.rewind(readCount - result.length_);
 
-            // if we have a correct character that is terminate by ;
+            // if we have a correct character that is terminated by ';'
             // we can keep things simple
             if (result.endsWithSemicolon_) {
                 if (plainValue != null) {
@@ -2598,7 +2595,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Scans markup content.
         protected int scanCommentContent(final XMLString buffer) throws IOException {
             int c;
-            OUTER: while (true) {
+            while (true) {
                 c = fCurrentEntity.read();
                 if (c == -1) {
                     if (fReportErrors_) {
@@ -2621,7 +2618,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
-                        break OUTER;
+                        break;
                     }
                     if (count < 2) {
                         buffer.append('-');
@@ -2687,7 +2684,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Scans cdata content.
         protected int scanCDataContent(final XMLString xmlString) throws IOException {
             int c;
-            OUTER: while (true) {
+            while (true) {
                 c = fCurrentEntity.read();
                 if (c == -1) {
                     if (fReportErrors_) {
@@ -2710,7 +2707,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         if (fReportErrors_) {
                             fErrorReporter.reportError("HTML1007", null);
                         }
-                        break OUTER;
+                        break;
                     }
                     if (count < 2) {
                         xmlString.append(']');
@@ -3739,7 +3736,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 closeIndex++;
                             }
                             else if (c == '<') {
-                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
                                 closeIndex = 0;
                             }
                             else {
@@ -3756,7 +3752,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 //         ^^^^^
                             }
                             else if (c == '<') {
-                                state = ScanScriptState.DOUBLE_ESCAPED_LT;
                                 closeIndex = 0;
                             }
                             else {
