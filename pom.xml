@@ -25,7 +25,7 @@
 
         <!-- test dependencies -->
         <junit.version>5.14.1</junit.version>
-        <junit-launcher.version>1.14.1</junit-launcher.version>
+        <junit-launcher.version>6.0.1</junit-launcher.version>
 
         <!-- quality -->
         <checkstyle.version>12.1.2</checkstyle.version>
