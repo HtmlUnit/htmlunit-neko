@@ -1871,7 +1871,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @return the read string (length may be smaller if EOF is encountered)
          * @throws IOException in case of io problems
          */
-        protected String nextContent(final int len) throws IOException {
+        String nextContent(final int len) throws IOException {
             final int originalOffset = offset_;
             final int originalColumnNumber = getColumnNumber();
             final int originalCharacterOffset = getCharacterOffset();
@@ -1902,7 +1902,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Reads a single character, preserving the old buffer content
-        protected int readPreservingBufferContent() throws IOException {
+        private int readPreservingBufferContent() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(readPreserving: ");
             }
@@ -2028,7 +2028,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // Returns true if the specified text is present (case-insensitive) and is skipped.
         // for performance reasons you have to provide the specified text in uppercase
-        protected boolean skip(final String expectedInUpperCase) throws IOException {
+        private boolean skip(final String expectedInUpperCase) throws IOException {
             final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
             for (int i = 0; i < length; i++) {
                 if (offset_ == length_) {
@@ -2049,7 +2049,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips markup.
-        protected boolean skipMarkup(final boolean balance) throws IOException {
+        private boolean skipMarkup(final boolean balance) throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipMarkup: ");
             }
@@ -2103,7 +2103,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips whitespace.
-        protected boolean skipSpaces() throws IOException {
+        private boolean skipSpaces() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipSpaces: ");
             }
@@ -2139,7 +2139,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips newlines and returns the number of newlines skipped.
-        protected int skipNewlines() throws IOException {
+        private int skipNewlines() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipNewlines: ");
             }
