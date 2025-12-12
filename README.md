@@ -261,6 +261,19 @@ parser.setProperty(HTMLScanner.ERROR_REPORTER, errorReporter);
 parser.setProperty(HTMLScanner.READER_BUFFER_SIZE, 2048);
 ```
 
+### Tag Case Handling
+
+By default, tags inserted by the parser to fix the DOM tree are created in **lowercase** to maintain XHTML compatibility. 
+For example, when the parser automatically inserts missing elements like `<html>`, `<head>`, or `<body>`, these tags will be in lowercase form.
+
+However, you can control the case of element names using the property:
+```java
+parser.setProperty("http://cyberneko.org/html/properties/names/elems", "upper");
+```
+
+When this property is set to `"upper"`, the parser will create all tag names in **uppercase** instead. 
+This includes both tags present in the source HTML and tags automatically inserted to balance the DOM tree.
+
 #### Important Notes
 
 - **Encoding Translator**: The `StandardEncodingTranslator` provides WHATWG-compliant encoding name mapping. Use `EncodingMap` only if you need legacy behavior compatibility.
