@@ -1,6 +1,6 @@
 startDocument [(1,1,0) (1,1,0) false]
 startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
-startElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 emptyElement (localpart="meta",rawname="meta") [(2,1,7) (2,46,52) false]
 characters '
 '[(2,46,52) (3,1,53) false]
@@ -14,7 +14,7 @@ characters '
 emptyElement (localpart="meta",rawname="meta") [(5,1,81) (6,21,153) false]
 characters '
 '[(6,21,153) (7,1,154) false]
-endElement (localpart="HEAD",rawname="HEAD",uri="http://www.w3.org/1999/xhtml") [(7,1,154) (7,8,161) false]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(7,1,154) (7,8,161) false]
 startElement (localpart="body",rawname="body") [(8,1,162) (8,7,168) false]
 characters '
 '[(8,7,168) (9,1,169) false]

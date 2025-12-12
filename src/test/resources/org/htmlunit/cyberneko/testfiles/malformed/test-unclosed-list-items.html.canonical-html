@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><ul>
+<html><head></head><body><ul>
 <li>First item
 </li><li>Second item
 <ol>
@@ -7,4 +7,4 @@
 </li></ol>
 </li><li>Third item
 </li></ul>
-</BODY></HTML>
+</body></html>

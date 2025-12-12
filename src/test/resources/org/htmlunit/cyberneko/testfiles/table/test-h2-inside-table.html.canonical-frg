@@ -1,5 +1,5 @@
 (table
-(TBODY
+(tbody
 (tr
 (td
 )td
@@ -7,5 +7,5 @@
 "Wrong Place
 )h2
 )tr
-)TBODY
+)tbody
 )table

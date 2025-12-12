@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (nobr
 "hello
 )nobr
@@ -9,5 +9,5 @@
 "world
 )nobr
 x)nobr
-)BODY
-)HTML
+)body
+)html

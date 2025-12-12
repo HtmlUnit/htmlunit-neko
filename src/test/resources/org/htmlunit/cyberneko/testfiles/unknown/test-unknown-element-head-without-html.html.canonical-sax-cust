@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (unknown1
 (title
 "foo
@@ -12,5 +12,5 @@
 x)head
 )unknown2
 )unknown1
-)BODY
-)HTML
+)body
+)html

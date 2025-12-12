@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 Aid outer
 )head
-(BODY
+(body
 (command
 x)head
 )command
-)BODY
-)HTML
+)body
+)html

@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (test*
 )test*
 "\n
 (tes*t
 )tes*t
 "\n<*test>\n
-)BODY
-)HTML
+)body
+)html

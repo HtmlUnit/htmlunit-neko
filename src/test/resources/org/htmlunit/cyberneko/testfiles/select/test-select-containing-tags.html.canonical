@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 "abcjjo
 (option
@@ -9,5 +9,5 @@
 )option
 "pqx
 )select
-)BODY
-)HTML
+)body
+)html

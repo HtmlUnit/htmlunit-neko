@@ -1,11 +1,11 @@
 (html
-(HEAD
+(head
 (title
 "No head or body tags
 )title
 "\n
-)HEAD
-(BODY
+)head
+(body
 (p
 "Paragraph directly in html
 )p
@@ -14,5 +14,5 @@
 "Div directly in html
 )div
 "\n
-)BODY
+)body
 )html

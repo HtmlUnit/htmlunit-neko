@@ -1,12 +1,12 @@
 (html
 (head
 )head
-(BODY
+(body
 (SELECT
 (OPTION
 Avalue da
 "Dansk
 )OPTION
 )SELECT
-)BODY
+)body
 )html

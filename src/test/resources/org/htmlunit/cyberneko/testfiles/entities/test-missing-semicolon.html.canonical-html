@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><div>abc&Integral;</div>
+<html><head></head><body><div>abc&Integral;</div>
 <div>abc&amp;int1</div>
 <div>abc&amp;int&equals;1</div>
-</BODY></HTML>
+</body></html>

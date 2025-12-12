@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><select><script>alert('xyz');</script></select></BODY></HTML>
+<html><head></head><body><select><script>alert('xyz');</script></select></body></html>

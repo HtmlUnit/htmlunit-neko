@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "Some entities with missing ; should be recognized but not in attributes\n
 (a
 Ahref foo?a=1&prod=sd
@@ -12,5 +12,5 @@ Ahref foo?a=1&prod=sd
 Ahref foo?a=1&copy=sd
 "link 2
 )a
-)BODY
-)HTML
+)body
+)html

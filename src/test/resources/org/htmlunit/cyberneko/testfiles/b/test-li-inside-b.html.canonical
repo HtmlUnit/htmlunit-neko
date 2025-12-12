@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (B
 "Leading Text
 (LI
@@ -12,5 +12,5 @@
 )LI
 "Closing Text
 )B
-)BODY
-)HTML
+)body
+)html

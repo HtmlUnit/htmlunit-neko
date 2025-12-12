@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 (title
 "No HTML tag
@@ -12,4 +12,4 @@
 )p
 "\n\n
 )body
-)HTML
+)html

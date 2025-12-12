@@ -1,9 +1,9 @@
-<HTML><head></head><BODY><table id="tbl-a">
+<html><head></head><body><table id="tbl-a">
 <tbody><tr><td>
 <table id="tbl-b">
 
-<TBODY><tr><td id="td-b1"></td></tr>
-</TBODY></table>
+<tbody><tr><td id="td-b1"></td></tr>
+</tbody></table>
 </td></tr>
 </tbody></table>
-</BODY></HTML>
+</body></html>

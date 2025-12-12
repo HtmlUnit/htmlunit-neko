@@ -1,12 +1,12 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-startElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="table",rawname="table") [(1,1,0) (1,8,7) false]
 characters '
   '[(1,8,7) (2,3,10) false]
-startElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="tr",rawname="tr") [(2,3,10) (2,7,14) false]
 characters '
     '[(2,7,14) (3,5,19) false]
@@ -15,14 +15,14 @@ characters 'Alpha
 '[(3,9,23) (4,1,29) false]
 endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="tr",rawname="tr") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="table",rawname="table") [(4,1,29) (4,9,37) false]
 characters '
 '[(4,9,37) (5,1,38) false]
 startElement (localpart="table",rawname="table") [(5,1,38) (5,8,45) false]
 characters '
   '[(5,8,45) (6,3,48) false]
-startElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="tr",rawname="tr") [(6,3,48) (6,7,52) false]
 characters '
     '[(6,7,52) (7,5,57) false]
@@ -31,10 +31,10 @@ characters 'Beta
 '[(7,9,61) (8,1,66) false]
 endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="tr",rawname="tr") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="table",rawname="table") [(8,1,66) (8,9,74) false]
 characters '
 '[(8,9,74) (9,1,75) false]
-endElement (localpart="BODY",rawname="BODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(9,1,75) (9,1,75) false]

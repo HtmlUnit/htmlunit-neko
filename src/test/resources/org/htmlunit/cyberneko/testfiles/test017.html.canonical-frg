@@ -1,6 +1,6 @@
 (table
 "\n
-(TBODY
+(tbody
 (tr
 (td
 (input
@@ -8,5 +8,5 @@ Atype text
 )input
 )td
 )tr
-)TBODY
+)tbody
 )table

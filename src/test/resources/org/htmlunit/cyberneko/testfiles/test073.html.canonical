@@ -1,11 +1,11 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 )script
-)HEAD
-(BODY
+)head
+(body
 (h1
 "Title
 )h1
-)BODY
-)HTML
+)body
+)html

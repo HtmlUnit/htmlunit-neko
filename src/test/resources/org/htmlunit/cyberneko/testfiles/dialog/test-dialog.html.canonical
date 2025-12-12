@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (dialog
 Aopen 
 "This is an open dialog window
 )dialog
 " 
-)BODY
-)HTML
+)body
+)html

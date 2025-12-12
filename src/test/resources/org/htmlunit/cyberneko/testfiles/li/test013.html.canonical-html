@@ -1,8 +1,8 @@
-<HTML><head></head><BODY><ul>
+<html><head></head><body><ul>
  <li>One
  </li><li>Two
  <ul>
   <li>Two&period;One
  </li></ul>
  </li><li>Three
-</li></ul></BODY></HTML>
+</li></ul></body></html>

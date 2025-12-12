@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (xmp
 "Hello <span>Worlds</span>
 )xmp
-)BODY
-)HTML
+)body
+)html

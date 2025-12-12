@@ -1,13 +1,13 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 " on comment line\nhtml script content\n
 )script
 "\n
-)HEAD
-(BODY
+)head
+(body
 (h1
 "Foo
 )h1
-)BODY
-)HTML
+)body
+)html

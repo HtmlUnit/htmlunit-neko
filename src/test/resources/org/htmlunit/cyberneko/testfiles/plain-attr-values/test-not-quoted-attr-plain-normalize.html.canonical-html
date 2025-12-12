@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><div a="abcd"></div>
+<html><head></head><body><div a="abcd"></div>
 <div a="abcd"></div>
 <div a="abcd"></div>
 <div a="abcd"></div>
@@ -9,4 +9,4 @@
 
 <div a="<"></div>
 <div a="<" &gt;=""></div>
-</BODY></HTML>
+</body></html>

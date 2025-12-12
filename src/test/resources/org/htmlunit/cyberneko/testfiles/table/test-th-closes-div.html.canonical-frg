@@ -1,5 +1,5 @@
 (table
-(TBODY
+(tbody
 (tr
 (th
 (div
@@ -12,5 +12,5 @@
 )td
 )tr
 "\n
-)TBODY
+)tbody
 )table

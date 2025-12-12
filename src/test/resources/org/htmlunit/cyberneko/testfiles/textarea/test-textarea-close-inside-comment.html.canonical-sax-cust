@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (textarea
 "<!-- 
@@ -9,5 +9,5 @@
 " -->
 x)textarea
 )div
-)BODY
-)HTML
+)body
+)html

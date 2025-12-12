@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (nobr
 "hello
 )nobr
 (nobr
 "world
 )nobr
-)BODY
-)HTML
+)body
+)html

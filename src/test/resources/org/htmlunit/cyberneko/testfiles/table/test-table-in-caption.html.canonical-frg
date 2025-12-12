@@ -1,12 +1,12 @@
 (table
 (caption
 (table
-(TBODY
-(TR
+(tbody
+(tr
 (td
 )td
-)TR
-)TBODY
+)tr
+)tbody
 )table
 )caption
 )table

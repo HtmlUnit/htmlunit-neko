@@ -4,12 +4,12 @@
 (body
 (template
 (table
-(TBODY
+(tbody
 (tr
 (td
 )td
 )tr
-)TBODY
+)tbody
 )table
 )template
 )body

@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (noscript
 "<!-- 
 )noscript
 " -->
 )div
-)BODY
-)HTML
+)body
+)html

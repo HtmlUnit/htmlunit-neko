@@ -1,14 +1,14 @@
-(HTML
-(HEAD
+(html
+(head
 (meta
 Ahttp-equiv content-type
 Acontent text/html; charset=utf-8
 )meta
 "\n
-)HEAD
-(BODY
+)head
+(body
 (h1
 "アニメ
 )h1
-)BODY
-)HTML
+)body
+)html

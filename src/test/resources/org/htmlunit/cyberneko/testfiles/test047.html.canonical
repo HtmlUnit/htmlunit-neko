@@ -1,5 +1,5 @@
 ?php print "Hello, World.\\n";\n
-(HTML
+(html
 (head
 )head
 (body

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 Ahref foo
 "hello 
@@ -11,5 +11,5 @@ Aname foo
 "world
 )a
 x)a
-)BODY
-)HTML
+)body
+)html

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 Ahref http://www.charityadvantage.com/ChildrensmuseumEaston/images/BookswithBill.jpg
 Aonblur try {parent.deselectBloggerImageGracefully();}catch(e) {}
@@ -35,5 +35,5 @@ Aid SPELLING_ERROR_0
 )br
 "Jane
 )spanclass="blsp-spelling-corrected"
-)BODY
-)HTML
+)body
+)html

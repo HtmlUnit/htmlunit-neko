@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (video
 Acontrols 
 (source
@@ -21,5 +21,5 @@ Ahref myVideo.mp4
 " instead.
 )p
 )video
-)BODY
-)HTML
+)body
+)html

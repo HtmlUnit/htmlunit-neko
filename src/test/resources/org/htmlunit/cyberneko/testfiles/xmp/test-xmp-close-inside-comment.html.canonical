@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (xmp
 "<!-- 
 )xmp
 " -->
 )div
-)BODY
-)HTML
+)body
+)html

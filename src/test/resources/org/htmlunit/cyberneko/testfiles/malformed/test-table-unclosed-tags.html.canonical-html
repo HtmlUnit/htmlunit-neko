@@ -1,11 +1,11 @@
 <html><head></head><body>
 <table>
-<TBODY><tr>
+<tbody><tr>
 <td>Cell 1
 </td><td>Cell 2
 </td></tr><tr>
 <td>Cell 3
 </td><td>Cell 4
-</td></tr></TBODY></table>
+</td></tr></tbody></table>
 
 </body></html>

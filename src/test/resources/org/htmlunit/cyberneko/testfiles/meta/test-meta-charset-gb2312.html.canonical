@@ -1,5 +1,5 @@
-(HTML
-(HEAD
+(html
+(head
 (meta
 Acharset gb2312
 )meta
@@ -7,7 +7,7 @@ Acharset gb2312
 (title
 "Avec à, é et è 和平
 )title
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

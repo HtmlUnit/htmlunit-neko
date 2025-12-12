@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (textarea
 "<script>alert('x');</script>
 )textarea
-)BODY
-)HTML
+)body
+)html

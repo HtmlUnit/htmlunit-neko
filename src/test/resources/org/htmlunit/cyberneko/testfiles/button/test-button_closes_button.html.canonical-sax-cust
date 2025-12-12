@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (button
 "hello
 )button
@@ -9,5 +9,5 @@
 "world
 )button
 x)button
-)BODY
-)HTML
+)body
+)html

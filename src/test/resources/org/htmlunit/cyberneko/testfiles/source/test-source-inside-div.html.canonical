@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (source
 Asrc horse.ogg
 Atype audio/ogg
 )source
 )div
-)BODY
-)HTML
+)body
+)html

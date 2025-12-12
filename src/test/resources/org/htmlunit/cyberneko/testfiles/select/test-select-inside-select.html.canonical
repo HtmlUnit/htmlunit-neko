@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 "before
 (option
@@ -17,5 +17,5 @@
 (option
 "Peas
 )option
-)BODY
-)HTML
+)body
+)html

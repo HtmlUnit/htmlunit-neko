@@ -1,6 +1,6 @@
 (table
 "\n 
-(TBODY
+(tbody
 (tr
 "\n  
 (td
@@ -23,5 +23,5 @@
 "\n 
 )tr
 "\n
-)TBODY
+)tbody
 )table

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 "abc∫
 )div
@@ -14,5 +14,5 @@
 "abc&int=1
 )div
 "\n
-)BODY
-)HTML
+)body
+)html

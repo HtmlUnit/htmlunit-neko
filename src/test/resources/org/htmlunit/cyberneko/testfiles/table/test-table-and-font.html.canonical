@@ -7,7 +7,7 @@
 "\n
 (TABLE
 "\n
-(TBODY
+(tbody
 (TR
 "\n
 (TD
@@ -27,7 +27,7 @@
 "\n
 )TR
 "\n
-)TBODY
+)tbody
 )TABLE
 "\n
 (p

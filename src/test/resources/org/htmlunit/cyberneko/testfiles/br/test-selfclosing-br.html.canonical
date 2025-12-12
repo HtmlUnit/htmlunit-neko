@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "this is para data
 )p
@@ -10,5 +10,5 @@
 (p
 "this is para data 2
 )p
-)BODY
-)HTML
+)body
+)html

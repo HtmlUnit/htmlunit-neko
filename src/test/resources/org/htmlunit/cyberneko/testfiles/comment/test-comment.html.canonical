@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 # comment 
 "content
@@ -11,5 +11,5 @@
 #comment
 "content
 )div
-)BODY
-)HTML
+)body
+)html

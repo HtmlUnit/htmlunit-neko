@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (toto
 (div
 )div
 (span
 )span
 )toto
-)BODY
-)HTML
+)body
+)html

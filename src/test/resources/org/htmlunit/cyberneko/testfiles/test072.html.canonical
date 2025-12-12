@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 Ahref a&b
 )a
-)BODY
-)HTML
+)body
+)html

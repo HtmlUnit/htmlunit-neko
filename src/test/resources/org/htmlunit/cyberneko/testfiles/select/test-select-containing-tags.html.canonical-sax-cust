@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 "abc
 x(div
@@ -16,5 +16,5 @@ x(strong
 "x
 x)strong
 )select
-)BODY
-)HTML
+)body
+)html

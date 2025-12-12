@@ -1,9 +1,9 @@
-(HTML
-(HEAD
+(html
+(head
 (noscript
 "<div>hello <span>world</span>
 )noscript
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

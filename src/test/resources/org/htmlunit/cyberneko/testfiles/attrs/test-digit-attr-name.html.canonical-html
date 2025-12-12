@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><p :style="abc" 7="c">Content</p></BODY></HTML>
+<html><head></head><body><p :style="abc" 7="c">Content</p></body></html>

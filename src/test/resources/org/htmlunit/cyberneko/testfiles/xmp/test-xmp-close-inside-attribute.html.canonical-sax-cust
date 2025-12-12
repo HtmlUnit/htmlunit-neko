@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (xmp
 "<link href="
@@ -9,5 +9,5 @@
 ""/>
 x)xmp
 )div
-)BODY
-)HTML
+)body
+)html

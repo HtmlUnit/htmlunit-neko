@@ -19,7 +19,7 @@ characters '
 startElement (prefix="",localpart="table",rawname="table",uri="http://www.w3.org/1999/xhtml") [(8,1,278) (8,8,285) false]
 characters '
 	'[(8,8,285) (9,2,287) false]
-startElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (prefix="",localpart="tr",rawname="tr",uri="http://www.w3.org/1999/xhtml") [(9,2,287) (9,6,291) false]
 characters '
 		'[(9,6,291) (10,3,294) false]
@@ -65,7 +65,7 @@ characters '
 endElement (prefix="",localpart="tr",rawname="tr",uri="http://www.w3.org/1999/xhtml") [(22,2,468) (22,7,473) false]
 characters '
 '[(22,7,473) (23,1,474) false]
-endElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (prefix="",localpart="table",rawname="table",uri="http://www.w3.org/1999/xhtml") [(23,1,474) (23,9,482) false]
 characters '
 '[(23,9,482) (24,1,483) false]

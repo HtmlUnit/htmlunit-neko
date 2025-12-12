@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 "\n 
-(COLGROUP
+(colgroup
 (col
 )col
 "\n 
@@ -12,8 +12,8 @@
 Astyle text-align: right
 )col
 "\n 
-)COLGROUP
-(TBODY
+)colgroup
+(tbody
 (tr
 "\n  
 (td
@@ -26,7 +26,7 @@ Astyle text-align: right
 "\n 
 )tr
 "\n
-)TBODY
+)tbody
 )table
-)BODY
-)HTML
+)body
+)html

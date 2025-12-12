@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 (template
 (a
@@ -10,5 +10,5 @@ Ahref abc
 )a
 )template
 )select
-)BODY
-)HTML
+)body
+)html

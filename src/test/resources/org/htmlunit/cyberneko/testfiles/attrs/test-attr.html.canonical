@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 Aa abcd
 )div
@@ -69,5 +69,5 @@ Aa Üabc
 (div
 Aa &abc;abc
 )div
-)BODY
-)HTML
+)body
+)html

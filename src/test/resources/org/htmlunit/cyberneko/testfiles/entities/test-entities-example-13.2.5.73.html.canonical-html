@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><span>I&apos;m &not;it&semi; I tell you</span>
+<html><head></head><body><span>I&apos;m &not;it&semi; I tell you</span>
 <span>I&apos;m &NotElement; I tell you</span>
 <span title="I'm &notit; I tell you">&not;&not;i&NotElement;</span>
-<span title="I'm ∉ I tell you">Parsed correctly</span></BODY></HTML>
+<span title="I'm ∉ I tell you">Parsed correctly</span></body></html>

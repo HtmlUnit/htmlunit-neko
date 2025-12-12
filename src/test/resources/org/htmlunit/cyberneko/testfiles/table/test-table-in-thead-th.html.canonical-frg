@@ -3,12 +3,12 @@
 (tr
 (th
 (table
-(TBODY
-(TR
+(tbody
+(tr
 (td
 )td
-)TR
-)TBODY
+)tr
+)tbody
 )table
 )th
 )tr

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 (option
 "Tyrannosaurus
@@ -10,5 +10,5 @@
 "Velociraptor
 )option
 )select
-)BODY
-)HTML
+)body
+)html

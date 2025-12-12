@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "outer paragraph\n
 )p
@@ -15,5 +15,5 @@
 (p
 )p
 "outside paragraph tags
-)BODY
-)HTML
+)body
+)html

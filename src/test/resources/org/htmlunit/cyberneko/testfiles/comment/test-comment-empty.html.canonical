@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 "before1
 #
@@ -36,5 +36,5 @@
 "before6<>after6
 )div
 "\n
-)BODY
-)HTML
+)body
+)html

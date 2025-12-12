@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (h1
 (font
 "h1
@@ -9,5 +9,5 @@
 )h1
 (h2
 )h2
-)BODY
-)HTML
+)body
+)html

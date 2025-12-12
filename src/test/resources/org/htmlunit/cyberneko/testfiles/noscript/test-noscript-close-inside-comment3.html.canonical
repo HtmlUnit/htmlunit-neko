@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 )head
 (body
@@ -6,4 +6,4 @@
 #</noscript><img src=x onerror=aler()>
 )noscript
 )body
-)HTML
+)html

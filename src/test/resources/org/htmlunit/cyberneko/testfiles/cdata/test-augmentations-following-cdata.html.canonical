@@ -1,4 +1,4 @@
-[synth](HTML
+[synth](html
 [synth](head
 [synth])head
 [synth](body
@@ -6,4 +6,4 @@
 [1,13,12;1,39,38]#[CDATA[ text in CDATA]]
 [1,39,38;2,1,50]" text after\n
 [synth])body
-[synth])HTML
+[synth])html

@@ -1,4 +1,4 @@
-<HTML><head></head><body onload="alert(1)
+<html><head></head><body onload="alert(1)
 // comment
 alert(2)">
 <div leading-space="  2s" leading-tab="		2t" leading-newline="
@@ -7,4 +7,4 @@ alert(2)">
 
 " all="  2s		2t
 
-2n|2s  "></div></body></HTML>
+2n|2s  "></div></body></html>

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 "before1
 #
@@ -48,5 +48,5 @@
 "\n
 # good comment 6 
 "\n
-)BODY
-)HTML
+)body
+)html

@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 (script
 "alert('xyz');
 )script
 )select
-)BODY
-)HTML
+)body
+)html

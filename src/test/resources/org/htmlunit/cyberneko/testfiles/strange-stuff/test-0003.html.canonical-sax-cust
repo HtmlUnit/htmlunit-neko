@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select<style
 )select<style
 "W
@@ -9,5 +9,5 @@
 "alert(1)
 x)script
 )xmp<script
-)BODY
-)HTML
+)body
+)html

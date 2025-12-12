@@ -1,5 +1,5 @@
 (table
-(TBODY
+(tbody
 (tr
 (th
 (form
@@ -14,5 +14,5 @@ Avalue Submit
 )form
 )th
 )tr
-)TBODY
+)tbody
 )table

@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 )head
 (body
@@ -6,4 +6,4 @@
 #[CDATA[ text in CDATA]]
 " text after\n
 )body
-)HTML
+)html

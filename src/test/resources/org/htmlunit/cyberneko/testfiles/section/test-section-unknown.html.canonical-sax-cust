@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (section
 "\n
 (form
@@ -12,5 +12,5 @@ x)isslot
 "\n
 )section
 "\n
-)BODY
-)HTML
+)body
+)html

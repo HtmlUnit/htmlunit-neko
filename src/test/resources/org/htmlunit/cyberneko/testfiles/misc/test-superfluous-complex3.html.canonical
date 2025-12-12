@@ -19,7 +19,7 @@ Acontent text/html; charset=utf-8
 "\n
 (table
 "\n\t
-(TBODY
+(tbody
 (tr
 "\n\t\t
 (td
@@ -53,7 +53,7 @@ Ahref view_download
 "\n\t
 )tr
 "\n
-)TBODY
+)tbody
 )table
 "\n
 )body

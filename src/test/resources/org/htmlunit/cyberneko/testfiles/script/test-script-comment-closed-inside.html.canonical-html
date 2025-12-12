@@ -1,1 +1,1 @@
-<HTML><head></head><body><script><!-- console.log('a'); --> console.log('b');</script>abc</body></HTML>
+<html><head></head><body><script><!-- console.log('a'); --> console.log('b');</script>abc</body></html>

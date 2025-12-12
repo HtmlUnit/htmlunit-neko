@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "link
 (a
 Ahref http://www.htmlunit.org
@@ -14,5 +14,5 @@ Ahref http://www.htmlunit.org
 (textarea
 "\nLorem ipsum\n
 )textarea
-)BODY
-)HTML
+)body
+)html

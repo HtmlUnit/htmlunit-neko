@@ -8,7 +8,7 @@ characters '
 startElement (localpart="table",rawname="table") [(3,1,14) (3,8,21) false]
 characters '
 '[(3,8,21) (4,1,22) false]
-startElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="tr",rawname="tr") [(4,1,22) (4,5,26) false]
 characters '
 '[(4,5,26) (5,1,27) false]
@@ -33,7 +33,7 @@ characters 'Cell 4
 '[(9,5,69) (10,1,76) false]
 endElement (localpart="td",rawname="td") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="tr",rawname="tr") [(-1,-1,-1) (-1,-1,-1) true]
-endElement (localpart="TBODY",rawname="TBODY",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="tbody",rawname="tbody",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="table",rawname="table") [(10,1,76) (10,9,84) false]
 characters '
 '[(10,9,84) (11,1,85) false]

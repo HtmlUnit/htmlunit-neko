@@ -1,1 +1,1 @@
-<HTML><head></head><body><script>console.log('a'); --!></script>abc</body></HTML>
+<html><head></head><body><script>console.log('a'); --!></script>abc</body></html>

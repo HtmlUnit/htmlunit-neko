@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (picture
 (source
 Amedia (min-width:650px)
@@ -13,5 +13,5 @@ Asrc img_orange_flowers.jpg
 Astyle width:auto;
 )img
 )picture
-)BODY
-)HTML
+)body
+)html

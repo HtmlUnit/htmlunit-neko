@@ -1,11 +1,11 @@
 (html
 (head
 )head
-(BODY
+(body
 (foo
+)foo
 (title
 "ti</head><body>1234</body></html>
 )title
-)foo
-)BODY
+)body
 )html

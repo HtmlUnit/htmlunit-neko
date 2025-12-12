@@ -1,10 +1,10 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 Atype text/javascript
 "\n This is a <b>test</b>. Don't go crazy! </i>\n
 )script
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

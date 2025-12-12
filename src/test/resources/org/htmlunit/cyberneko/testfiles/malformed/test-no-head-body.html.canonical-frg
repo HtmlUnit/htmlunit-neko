@@ -6,7 +6,7 @@
 "\n
 (head
 )head
-(BODY
+(body
 (p
 "Paragraph directly in html
 )p
@@ -15,5 +15,5 @@
 "Div directly in html
 )div
 "\n\n
-)BODY
+)body
 )html

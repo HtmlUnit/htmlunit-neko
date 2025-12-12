@@ -1,26 +1,20 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 (b
 "Leading Text
 )b
 )p
 (li
-(b
 "data1
-)b
 )li
 (li
-(b
 "data2
-)b
 )li
-(b
 "Closing Text
-)b
 (p
 )p
-)BODY
-)HTML
+)body
+)html

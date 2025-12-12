@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "\n
 (a
@@ -12,5 +12,5 @@ Ahref link.htm
 )a
 "\n
 )p
-)BODY
-)HTML
+)body
+)html

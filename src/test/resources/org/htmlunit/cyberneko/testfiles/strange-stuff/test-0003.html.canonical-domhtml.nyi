@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select<style
 )select<style
 "W
 (xmp<script
 "alert(1)
 )xmp<script
-)BODY
-)HTML
+)body
+)html

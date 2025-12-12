@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (plaintext
 "<!-- </plaintext> --></plaintext></div>
 )plaintext
 )div
-)BODY
-)HTML
+)body
+)html

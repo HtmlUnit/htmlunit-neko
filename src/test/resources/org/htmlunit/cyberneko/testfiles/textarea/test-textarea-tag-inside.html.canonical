@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (textarea
 "Hello <span>Worlds</span>
 )textarea
-)BODY
-)HTML
+)body
+)html

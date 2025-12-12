@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (audio
 Acontrols 
 (source
@@ -14,5 +14,5 @@ Atype audio/mpeg
 )source
 "Your browser does not support the audio element.
 )audio
-)BODY
-)HTML
+)body
+)html

@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 "\n  
-(TBODY
+(tbody
 (tr
 "\n    
 (th
@@ -29,7 +29,7 @@
 "baz\n
 )td
 )tr
-)TBODY
+)tbody
 )table
-)BODY
-)HTML
+)body
+)html

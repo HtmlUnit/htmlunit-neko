@@ -1,5 +1,5 @@
 startDocument [(1,1,0) (1,1,0) false]
-startElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,1,0) (1,7,6) false]
@@ -14,5 +14,5 @@ doSomethingElse
 '[(3,18,44) (5,1,61) false]
 endElement (localpart="script",rawname="script") [(5,1,61) (5,10,70) false]
 endElement (localpart="body",rawname="body") [(5,10,70) (5,17,77) false]
-endElement (localpart="HTML",rawname="HTML",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 endDocument [(6,1,78) (6,1,78) false]

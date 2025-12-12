@@ -1,9 +1,9 @@
-<HTML><head></head><BODY><table><TBODY><tr>
+<html><head></head><body><table><tbody><tr>
 <td>td1</td>
 <td><div>td2
 </div></td></tr><tr>
 <td>td3</td>
 <td>td4</td>
 </tr>
-</TBODY></table>
-</BODY></HTML>
+</tbody></table>
+</body></html>

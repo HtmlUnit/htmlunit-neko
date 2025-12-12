@@ -2,11 +2,11 @@
 (head
 "\n
 )head
-(BODY
+(body
 (span
 Aid cc
 Astyle behavior:url(#default#clientCaps)
 )span
 "\n
-)BODY
+)body
 )html

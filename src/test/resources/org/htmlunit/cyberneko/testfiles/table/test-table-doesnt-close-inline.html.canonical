@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 Ahref #
 "\n
@@ -14,5 +14,5 @@ Ahref #
 )table
 )b
 )a
-)BODY
-)HTML
+)body
+)html

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (form
 (center
 (select
@@ -10,5 +10,5 @@
 )select
 )center
 )form
-)BODY
-)HTML
+)body
+)html

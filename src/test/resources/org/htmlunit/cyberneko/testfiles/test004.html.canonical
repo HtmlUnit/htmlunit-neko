@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "Paragraph text.\n
 )p
 (p
 "Additional text.
 )p
-)BODY
-)HTML
+)body
+)html

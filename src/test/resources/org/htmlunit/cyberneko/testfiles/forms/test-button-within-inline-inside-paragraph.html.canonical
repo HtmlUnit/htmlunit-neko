@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "\n 
 (button
@@ -18,5 +18,5 @@
 "\n
 )p
 "\n
-)BODY
-)HTML
+)body
+)html

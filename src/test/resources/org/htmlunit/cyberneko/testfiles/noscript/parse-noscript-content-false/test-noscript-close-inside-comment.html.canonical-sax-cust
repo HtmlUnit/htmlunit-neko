@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 (noscript
 "<!-- 
@@ -9,5 +9,5 @@
 " -->
 x)noscript
 )div
-)BODY
-)HTML
+)body
+)html

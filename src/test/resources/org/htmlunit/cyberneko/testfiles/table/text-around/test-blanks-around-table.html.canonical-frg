@@ -1,13 +1,13 @@
 (div
 "  
 (table
-(TBODY
+(tbody
 (tr
 (td
 "seven
 )td
 )tr
-)TBODY
+)tbody
 )table
 " 
 )div

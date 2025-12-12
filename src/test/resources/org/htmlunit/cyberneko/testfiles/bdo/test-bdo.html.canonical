@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 (bdo
 Adir rtl
 "This text will go right to left.
 )bdo
 )p
-)BODY
-)HTML
+)body
+)html

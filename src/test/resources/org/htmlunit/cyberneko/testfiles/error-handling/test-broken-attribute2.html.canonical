@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (input
 Aname button
 A="" 
 Avalue detect me
 )input
-)BODY
-)HTML
+)body
+)html

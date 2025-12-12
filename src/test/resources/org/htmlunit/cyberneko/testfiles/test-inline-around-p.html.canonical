@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (b
 (big
 (i
@@ -19,5 +19,5 @@
 )i
 )big
 )b
-)BODY
-)HTML
+)body
+)html

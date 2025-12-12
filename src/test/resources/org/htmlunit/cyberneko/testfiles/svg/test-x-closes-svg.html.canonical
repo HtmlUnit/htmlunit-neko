@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (svg
 )svg
 (b
@@ -56,5 +56,5 @@
 )strike
 )h6
 )b
-)BODY
-)HTML
+)body
+)html

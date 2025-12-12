@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (iframe
 Asrc foo1
 )iframe
 (iframe
 Asrc foo2
 )iframe
-)BODY
-)HTML
+)body
+)html

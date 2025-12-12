@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 (form
 )form
-(TBODY
+(tbody
 (tr
 (td
 (input
@@ -14,7 +14,7 @@ Avalue Submit
 )input
 )td
 )tr
-)TBODY
+)tbody
 )table
-)BODY
-)HTML
+)body
+)html

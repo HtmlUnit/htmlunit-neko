@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (ul
 (li
 (menu
@@ -11,5 +11,5 @@
 )menu
 )li
 )ul
-)BODY
-)HTML
+)body
+)html

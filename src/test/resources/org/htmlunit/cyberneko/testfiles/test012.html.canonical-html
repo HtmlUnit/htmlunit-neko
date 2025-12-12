@@ -1,14 +1,14 @@
-<HTML><head></head><BODY><table>
- <TBODY><tr>
+<html><head></head><body><table>
+ <tbody><tr>
   <td>
    <table>
-    <TBODY><tr>
+    <tbody><tr>
      <td>cell 1</td>
      <td>
-   </td></tr></TBODY></table>
+   </td></tr></tbody></table>
   </td>
  </tr>
  <tr>
   <td>cell 2</td>
  </tr>
-</TBODY></table></BODY></HTML>
+</tbody></table></body></html>

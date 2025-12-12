@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (ul
 "\n
 (li
@@ -14,5 +14,5 @@
 "Item 2\n
 )li
 )ul
-)BODY
-)HTML
+)body
+)html

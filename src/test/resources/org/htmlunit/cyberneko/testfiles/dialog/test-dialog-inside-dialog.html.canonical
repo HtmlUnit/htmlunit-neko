@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (dialog
 "before
 (dialog
@@ -10,5 +10,5 @@
 "after
 )dialog
 " 
-)BODY
-)HTML
+)body
+)html

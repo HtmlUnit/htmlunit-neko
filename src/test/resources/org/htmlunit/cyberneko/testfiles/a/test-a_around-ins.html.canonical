@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 "ab
 (ins
@@ -9,5 +9,5 @@
 )ins
 "ef
 )a
-)BODY
-)HTML
+)body
+)html

@@ -1,5 +1,5 @@
-(HTML
-(HEAD
+(html
+(head
 (meta
 Acharset UniCode20utf8
 )meta
@@ -7,7 +7,7 @@ Acharset UniCode20utf8
 (title
 "Avec à, é et è
 )title
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

@@ -1,13 +1,13 @@
-(HTML
-(HEAD
+(html
+(head
 (style
 "b<![cdata[
 )style
-)HEAD
-(BODY
+)head
+(body
 (a
 Ahref javascript:alert(1)
 "test
 )a
-)BODY
-)HTML
+)body
+)html

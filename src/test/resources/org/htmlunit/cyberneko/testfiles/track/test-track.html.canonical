@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (track
 Asrc fgsubtitles_en.vtt
 Akind subtitles
 Asrclang en
 Alabel English
 )track
-)BODY
-)HTML
+)body
+)html

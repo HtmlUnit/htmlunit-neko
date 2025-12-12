@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "link
 (a
 Ahref http://www.htmlunit.org
@@ -14,5 +14,5 @@ Ahref http://www.htmlunit.org
 (style
 "\n.big { font-size: 20px; }\n
 )style
-)BODY
-)HTML
+)body
+)html

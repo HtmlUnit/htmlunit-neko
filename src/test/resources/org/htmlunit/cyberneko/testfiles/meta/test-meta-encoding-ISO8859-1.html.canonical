@@ -1,5 +1,5 @@
-(HTML
-(HEAD
+(html
+(head
 (meta
 Ahttp-equiv Content-Type
 Acontent text/html;charset=ISO8859-1
@@ -8,7 +8,7 @@ Acontent text/html;charset=ISO8859-1
 (title
 "Avec à, é et é
 )title
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

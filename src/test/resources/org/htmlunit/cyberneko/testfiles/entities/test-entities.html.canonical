@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "&unknown1; & &unknown2; &unknown3;
 (br
 )br
@@ -9,5 +9,5 @@
 (br
 )br
 "\n&unknown1 & &unknown2 &unknown3&
-)BODY
-)HTML
+)body
+)html

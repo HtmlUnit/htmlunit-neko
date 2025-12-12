@@ -1,5 +1,5 @@
 (table
-(TBODY
+(tbody
 (tr
 (td
 )td
@@ -14,5 +14,5 @@ Atype submit
 Avalue Submit
 )input
 )tr
-)TBODY
+)tbody
 )table

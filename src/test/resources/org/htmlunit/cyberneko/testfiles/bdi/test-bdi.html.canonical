@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (ul
 (li
 (bdi
@@ -18,5 +18,5 @@ Aclass name
 ": 2nd place
 )li
 )ul
-)BODY
-)HTML
+)body
+)html

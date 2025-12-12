@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><div a="abcd"></div>
+<html><head></head><body><div a="abcd"></div>
 <div a="<"></div>
 <div a="*"></div>
 <div a="B"></div>
@@ -14,4 +14,4 @@
 <div a="&Uuml=abc"></div>
 <div a="Ü"></div>
 <div a="Üabc"></div>
-<div a="&abc;abc"></div></BODY></HTML>
+<div a="&abc;abc"></div></body></html>

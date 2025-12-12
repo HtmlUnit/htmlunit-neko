@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "P1
 #[CDATA[<div
@@ -11,5 +11,5 @@ x)div
 (p
 "P2
 )p
-)BODY
-)HTML
+)body
+)html

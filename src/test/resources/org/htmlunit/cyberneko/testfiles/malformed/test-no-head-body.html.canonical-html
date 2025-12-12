@@ -1,4 +1,4 @@
-<html><HEAD><title>No head or body tags</title>
-</HEAD><BODY><p>Paragraph directly in html</p>
+<html><head><title>No head or body tags</title>
+</head><body><p>Paragraph directly in html</p>
 <div>Div directly in html</div>
-</BODY></html>
+</body></html>

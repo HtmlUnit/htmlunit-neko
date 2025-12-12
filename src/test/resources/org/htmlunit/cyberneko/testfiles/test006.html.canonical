@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "This 
 (i
 "is 
@@ -15,5 +15,5 @@ Aclass test
 " content
 )b
 ", dude!
-)BODY
-)HTML
+)body
+)html

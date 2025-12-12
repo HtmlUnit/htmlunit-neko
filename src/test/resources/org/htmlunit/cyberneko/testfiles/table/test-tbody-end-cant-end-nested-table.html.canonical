@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 Aid tbl-a
 "\n
@@ -12,14 +12,14 @@ Aid tbl-a
 (table
 Aid tbl-b
 "\n\n
-(TBODY
+(tbody
 (tr
 (td
 Aid td-b1
 )td
 )tr
 "\n
-)TBODY
+)tbody
 )table
 "\n
 )td
@@ -28,5 +28,5 @@ Aid td-b1
 )tbody
 )table
 "\n
-)BODY
-)HTML
+)body
+)html

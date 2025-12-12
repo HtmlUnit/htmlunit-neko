@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (foobar
 "Text
 )foobar
-)BODY
-)HTML
+)body
+)html

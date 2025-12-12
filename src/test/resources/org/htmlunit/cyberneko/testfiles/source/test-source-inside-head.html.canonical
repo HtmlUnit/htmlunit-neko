@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (source
 Asrc horse.ogg
 Atype audio/ogg
 )source
-)BODY
-)HTML
+)body
+)html

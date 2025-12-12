@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 "\n
 (meta
@@ -9,4 +9,4 @@ Acontent text/html;charset=iso-2022-cn
 (body
 "�
 )body
-)HTML
+)html

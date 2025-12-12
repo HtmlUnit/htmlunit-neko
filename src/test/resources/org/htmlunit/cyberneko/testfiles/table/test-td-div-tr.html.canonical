@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
-(TBODY
+(tbody
 (tr
 "\n
 (td
@@ -28,8 +28,8 @@
 "\n
 )tr
 "\n
-)TBODY
+)tbody
 )table
 "\n
-)BODY
-)HTML
+)body
+)html

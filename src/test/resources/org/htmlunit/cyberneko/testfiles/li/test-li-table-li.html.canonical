@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (li
 "k\n
 (table
 "\n
-(TBODY
+(tbody
 (tr
 (td
 "\n
@@ -15,8 +15,8 @@
 )li
 )td
 )tr
-)TBODY
+)tbody
 )table
 )li
-)BODY
-)HTML
+)body
+)html

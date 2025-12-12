@@ -1,13 +1,13 @@
 (table
 "\n 
-(TBODY
+(tbody
 (tr
 "\n  
 (td
 "\n   
 (table
 "\n    
-(TBODY
+(tbody
 (tr
 "\n     
 (td
@@ -18,7 +18,7 @@
 "\n   
 )td
 )tr
-)TBODY
+)tbody
 )table
 "\n  
 )td
@@ -33,5 +33,5 @@
 "\n 
 )tr
 "\n
-)TBODY
+)tbody
 )table

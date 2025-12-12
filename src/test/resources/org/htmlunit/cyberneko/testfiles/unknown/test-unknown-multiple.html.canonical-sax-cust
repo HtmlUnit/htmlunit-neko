@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (toto
 (div
 x)foo
@@ -9,5 +9,5 @@ x)foo
 (span
 )span
 )toto
-)BODY
-)HTML
+)body
+)html

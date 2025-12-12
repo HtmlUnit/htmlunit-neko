@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 Aid 1
 )div
@@ -9,5 +9,5 @@ x(body
 (div
 Aid 2
 )div
-)BODY
-)HTML
+)body
+)html

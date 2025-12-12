@@ -1,16 +1,16 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
-(COLGROUP
+(colgroup
 (col
 Awidth 7
 )col
 (col
 Awidth 1
 )col
-)COLGROUP
+)colgroup
 (tbody
 (tr
 (td
@@ -22,5 +22,5 @@ Awidth 1
 )tr
 )tbody
 )table
-)BODY
-)HTML
+)body
+)html

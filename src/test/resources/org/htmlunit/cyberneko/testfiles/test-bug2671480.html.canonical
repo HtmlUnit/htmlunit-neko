@@ -40,7 +40,7 @@ Aborder 0
 Acellpadding 2
 Aheight 100%
 "    
-(TBODY
+(tbody
 (tr
 "      
 (td
@@ -54,7 +54,7 @@ Aborder 0
 Acellpadding 2
 Aheight 4
 "            
-(TBODY
+(tbody
 (tr
 "               
 (td
@@ -100,7 +100,7 @@ Aborder 0
 "            
 )tr
 "          
-)TBODY
+)tbody
 )table
 "        
 )div
@@ -109,7 +109,7 @@ Aborder 0
 "    
 )tr
 "  
-)TBODY
+)tbody
 )table
 )div
 (SCRIPT

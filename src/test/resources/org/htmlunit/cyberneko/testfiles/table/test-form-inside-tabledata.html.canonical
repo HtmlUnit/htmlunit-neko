@@ -1,9 +1,9 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
-(TBODY
+(tbody
 (tr
 (td
 (form
@@ -18,7 +18,7 @@ Avalue Submit
 )form
 )td
 )tr
-)TBODY
+)tbody
 )table
-)BODY
-)HTML
+)body
+)html

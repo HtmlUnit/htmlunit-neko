@@ -1,7 +1,7 @@
 (html
 (head
 )head
-(BODY
+(body
 (unknown1
 (title
 "foo
@@ -12,5 +12,5 @@
 "\n
 )unknown2
 )unknown1
-)BODY
+)body
 )html

@@ -5,7 +5,7 @@
 "\n
 (table
 "\n
-(TBODY
+(tbody
 (tr
 "\n
 (td
@@ -24,7 +24,7 @@
 "Cell 4\n
 )td
 )tr
-)TBODY
+)tbody
 )table
 "\n\n
 )body

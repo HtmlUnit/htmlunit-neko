@@ -1,6 +1,6 @@
 ?base http://foo.bar
 ?tags :noads:
-(HTML
+(html
 (head
 )head
 (body

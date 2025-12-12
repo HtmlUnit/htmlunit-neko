@@ -1,5 +1,5 @@
 (html
-(HEAD
+(head
 (meta
 Acontent no-cache
 Ahttp-equiv Pragma
@@ -14,7 +14,7 @@ Acontent text/html; charset=iso-8859-1
 Ahttp-equiv Content-Type
 )meta
 "\n
-)HEAD
+)head
 (body
 "\n
 )body

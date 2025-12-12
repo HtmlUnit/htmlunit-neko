@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 (optgroup
 Alabel Theropods
@@ -13,5 +13,5 @@ Alabel Theropods
 )option
 )optgroup
 )select
-)BODY
-)HTML
+)body
+)html

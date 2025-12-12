@@ -1,9 +1,9 @@
-(HTML
-(HEAD
+(html
+(head
 (noscript
 )noscript
-)HEAD
-(BODY
+)head
+(body
 (div
 "hello 
 (span
@@ -11,5 +11,5 @@
 )span
 x)noscript
 )div
-)BODY
-)HTML
+)body
+)html

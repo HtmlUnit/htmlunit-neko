@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (span
 "I'm ¬it; I tell you
 )span
@@ -19,5 +19,5 @@ Atitle I'm &notit; I tell you
 Atitle I'm ∉ I tell you
 "Parsed correctly
 )span
-)BODY
-)HTML
+)body
+)html

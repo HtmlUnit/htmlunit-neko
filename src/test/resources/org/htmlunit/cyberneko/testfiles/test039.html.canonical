@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (h1
 "Header1
 )h1
@@ -13,5 +13,5 @@
 (h2
 "Header2
 )h2
-)BODY
-)HTML
+)body
+)html

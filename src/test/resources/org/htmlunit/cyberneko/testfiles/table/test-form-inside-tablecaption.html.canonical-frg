@@ -11,10 +11,10 @@ Avalue Submit
 )input
 )form
 )caption
-(TBODY
+(tbody
 (tr
 (td
 )td
 )tr
-)TBODY
+)tbody
 )table

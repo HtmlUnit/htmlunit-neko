@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 (script
 "<!-- outer <script >inner</script</script>
@@ -6,4 +6,4 @@
 )head
 (body
 )body
-)HTML
+)html

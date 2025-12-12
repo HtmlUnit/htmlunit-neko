@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 )head
 (body
@@ -14,4 +14,4 @@ Atrailing-newline 2n
 Aall 2s 2t 2n|2s
 )div
 )body
-)HTML
+)html

@@ -1,1 +1,1 @@
-<HTML><head></head><BODY><slot name="attributes"><p>None</p></slot></BODY></HTML>
+<html><head></head><body><slot name="attributes"><p>None</p></slot></body></html>

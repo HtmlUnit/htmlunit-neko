@@ -1,11 +1,11 @@
 <html><head></head><body>
 <font>
 <TABLE>
-<TBODY><TR>
+<tbody><TR>
 <TD><B><font>
 Row 1</font></B><font>&comma; Cell 1</font></TD>
 <TD>Row 1&comma; Cell 2</TD>
 </TR>
-</TBODY></TABLE>
+</tbody></TABLE>
 <p>Test paragraph 2 &lpar;after table&rpar;</p></font>
 </body></html>

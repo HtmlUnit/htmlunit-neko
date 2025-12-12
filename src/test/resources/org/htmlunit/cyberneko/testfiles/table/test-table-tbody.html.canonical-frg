@@ -1,10 +1,10 @@
 (table
-(TBODY
+(tbody
 (tr
 (td
 "hello
 )td
 )tr
-)TBODY
+)tbody
 )table
 "\n

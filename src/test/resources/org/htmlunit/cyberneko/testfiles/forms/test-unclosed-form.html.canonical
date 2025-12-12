@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 "x
 (form
 "y
 )form
-)BODY
-)HTML
+)body
+)html

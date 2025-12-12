@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (li
 "Item1
 (ul
@@ -11,5 +11,5 @@ x)li
 )li
 )ul
 )li
-)BODY
-)HTML
+)body
+)html

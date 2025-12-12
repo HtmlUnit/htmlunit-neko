@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 Astyle x &notit;
 "not recognized
@@ -11,5 +11,5 @@ Astyle x &notit;
 Astyle x ¬#
 "recognized
 )div
-)BODY
-)HTML
+)body
+)html

@@ -1,5 +1,5 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 Asrc /jenkins
 "\n//<![CDATA[\n
@@ -8,7 +8,7 @@ Asrc /jenkins
 Asrc /jenkins.js
 "\n//]]\n
 )script
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

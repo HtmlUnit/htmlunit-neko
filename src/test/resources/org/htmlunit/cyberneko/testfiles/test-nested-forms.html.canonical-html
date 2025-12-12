@@ -1,4 +1,4 @@
-<HTML><head></head><body>
+<html><head></head><body>
 <form name="form1">
 <input name="first" />
 
@@ -6,4 +6,4 @@
 </form>
 <input name="in1_after2" />
 
-</body></HTML>
+</body></html>

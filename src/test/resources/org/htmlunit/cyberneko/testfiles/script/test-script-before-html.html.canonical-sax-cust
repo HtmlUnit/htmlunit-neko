@@ -1,11 +1,11 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 "var i = 7;
 )script
 x(html
-)HEAD
+)head
 (body
 "x
 )body
-)HTML
+)html

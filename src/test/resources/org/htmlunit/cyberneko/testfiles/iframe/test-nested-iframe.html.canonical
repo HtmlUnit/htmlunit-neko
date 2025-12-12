@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (iframe
 Asrc foo1
 "<iframe src="foo2">
 )iframe
-)BODY
-)HTML
+)body
+)html

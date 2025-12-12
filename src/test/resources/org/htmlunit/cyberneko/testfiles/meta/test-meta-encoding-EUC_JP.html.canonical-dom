@@ -1,5 +1,5 @@
-(HTML
-(HEAD
+(html
+(head
 (meta
 Acontent text/html;charset=EUC_JP
 Ahttp-equiv Content-Type
@@ -8,7 +8,7 @@ Ahttp-equiv Content-Type
 (title
 "日本語　ＥＵＣ　Ｔｅｘｔ
 )title
-)HEAD
+)head
 (body
 )body
-)HTML
+)html

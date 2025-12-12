@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (img
 Asrc example.jpg
 Aonclick javascript:if(this.width>100) this.width=100;
 )img
-)BODY
-)HTML
+)body
+)html

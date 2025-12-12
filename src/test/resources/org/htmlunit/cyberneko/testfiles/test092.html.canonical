@@ -1,11 +1,11 @@
-(HTML
-(HEAD
+(html
+(head
 (script
 "document.write("</SCRIPT\\>");
 )script
-)HEAD
-(BODY
+)head
+(body
 (p
 )p
-)BODY
-)HTML
+)body
+)html

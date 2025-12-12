@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (param
 Aname param1
 Avalue value1
 )param
-)BODY
-)HTML
+)body
+)html

@@ -1,13 +1,13 @@
 (table
 "\n
-(TBODY
+(tbody
 (tr
 (td
 "hello
 )td
 )tr
 "\n
-)TBODY
+)tbody
 (tfoot
 (tr
 (td

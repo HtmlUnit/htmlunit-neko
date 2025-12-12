@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (section
 "\n
 (form
@@ -10,5 +10,5 @@
 "\n
 )section
 "\n
-)BODY
-)HTML
+)body
+)html

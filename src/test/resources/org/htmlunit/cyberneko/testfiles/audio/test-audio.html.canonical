@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (audio
 Acontrols 
 Asrc /media/cc0-audio/t-rex-roar.mp3
@@ -10,5 +10,5 @@ Ahref /media/cc0-audio/t-rex-roar.mp3
 "Download audio
 )a
 )audio
-)BODY
-)HTML
+)body
+)html

@@ -1,2 +1,2 @@
-<HTML><head></head><BODY><input onclick="javascript: submitForm(this)" ;="" type="submit" name="Login" />
-<input onclick="javascript: submitForm(this)" ?="" type="submit" name="Login" /></BODY></HTML>
+<html><head></head><body><input onclick="javascript: submitForm(this)" ;="" type="submit" name="Login" />
+<input onclick="javascript: submitForm(this)" ?="" type="submit" name="Login" /></body></html>

@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 #
 )p
@@ -19,5 +19,5 @@
 #-!
 )p
 #4
-)BODY
-)HTML
+)body
+)html

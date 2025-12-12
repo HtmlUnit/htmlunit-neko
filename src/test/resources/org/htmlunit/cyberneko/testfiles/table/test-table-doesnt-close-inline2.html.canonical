@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 (table
 )table
@@ -16,5 +16,5 @@
 (table
 )table
 )sub
-)BODY
-)HTML
+)body
+)html

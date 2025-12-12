@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (B
 (font
 "first in bold
@@ -10,5 +10,5 @@
 (font
 ", second
 )font
-)BODY
-)HTML
+)body
+)html

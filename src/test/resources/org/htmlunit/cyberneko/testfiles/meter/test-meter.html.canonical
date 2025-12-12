@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (meter
 Aid disk_c
 Avalue 2
@@ -9,5 +9,5 @@ Amin 0
 Amax 10
 "2 out of 10
 )meter
-)BODY
-)HTML
+)body
+)html

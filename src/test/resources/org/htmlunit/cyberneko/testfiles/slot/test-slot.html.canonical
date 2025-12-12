@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (slot
 Aname attributes
 (p
 "None
 )p
 )slot
-)BODY
-)HTML
+)body
+)html

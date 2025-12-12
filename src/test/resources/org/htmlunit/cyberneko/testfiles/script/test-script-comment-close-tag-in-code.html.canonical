@@ -1,4 +1,4 @@
-(HTML
+(html
 (head
 )head
 (body
@@ -7,4 +7,4 @@
 )script
 "'); console.log(''); -->abc
 )body
-)HTML
+)html

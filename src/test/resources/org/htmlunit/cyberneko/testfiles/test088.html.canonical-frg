@@ -2,9 +2,9 @@
 "Hello
 (head
 )head
-(BODY
+(body
 (p
 "World
 )p
-)BODY
+)body
 )HTML

@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (command
 Alabel Save
 Aonclick save()
 Atype command
 "Save
 )command
-)BODY
-)HTML
+)body
+)html

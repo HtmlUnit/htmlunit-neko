@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 Aa abcd
 )div
@@ -49,5 +49,5 @@ Aa < > /  &lt;
 &gt;  
 )div
 "\n
-)BODY
-)HTML
+)body
+)html

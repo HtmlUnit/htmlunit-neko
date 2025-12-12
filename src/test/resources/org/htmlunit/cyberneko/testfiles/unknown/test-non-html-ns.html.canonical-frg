@@ -1,9 +1,9 @@
 (html
 (head
 )head
-(BODY
+(body
 (h:body
 Axmlns:h urn:not-a-html-ns
 )h:body
-)BODY
+)body
 )html

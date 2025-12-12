@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><div>before1<!---->after1</div>
+<html><head></head><body><div>before1<!---->after1</div>
 <!-- good comment 1 -->
 <div>before2<!---->after2</div>
 <!-- good comment 2 -->
@@ -10,4 +10,4 @@
 <!-- good comment 5 -->
 <div>before6&lt;&gt;after6</div>
 <!-- good comment 6 -->
-</BODY></HTML>
+</body></html>

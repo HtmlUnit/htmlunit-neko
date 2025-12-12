@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (datalist
 Aid browsers
 (option
 Avalue Firefox
 )option
 )datalist
-)BODY
-)HTML
+)body
+)html

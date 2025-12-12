@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (a
 Ahref /cgi-bin/myscript
 "happy
 )a
-)BODY
-)HTML
+)body
+)html

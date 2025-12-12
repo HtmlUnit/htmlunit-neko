@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 "&
 )div
@@ -41,5 +41,5 @@
 (div
 "<>
 )div
-)BODY
-)HTML
+)body
+)html

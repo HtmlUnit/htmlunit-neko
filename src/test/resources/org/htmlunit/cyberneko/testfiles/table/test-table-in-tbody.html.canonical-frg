@@ -3,10 +3,10 @@
 )tbody
 )table
 (table
-(TBODY
-(TR
+(tbody
+(tr
 (td
 )td
-)TR
-)TBODY
+)tr
+)tbody
 )table

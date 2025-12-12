@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "P1
 #[CDATA[cdata\n\n\n]]
@@ -10,5 +10,5 @@
 (p
 "P2
 )p
-)BODY
-)HTML
+)body
+)html

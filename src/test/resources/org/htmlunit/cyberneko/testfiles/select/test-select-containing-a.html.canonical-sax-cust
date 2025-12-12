@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (select
 x(a
 Ahref abc
 "anchor
 x)a
 )select
-)BODY
-)HTML
+)body
+)html

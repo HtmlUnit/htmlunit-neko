@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 (tbody
 (form
@@ -21,5 +21,5 @@ x)form
 )tr
 )tbody
 )table
-)BODY
-)HTML
+)body
+)html

@@ -1,12 +1,12 @@
 (html
 (head
 )head
-(BODY
+(body
 (div
 "x
 )div
 (div
 "y
 )div
-)BODY
+)body
 )html

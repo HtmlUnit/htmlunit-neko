@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 (b
 "Leading Text
@@ -16,5 +16,5 @@
 "Closing Text
 (p
 )p
-)BODY
-)HTML
+)body
+)html

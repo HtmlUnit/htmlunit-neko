@@ -1,11 +1,11 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 A:style abc
 Aa:b c
 "Content
 )p
-)BODY
-)HTML
+)body
+)html

@@ -3,5 +3,5 @@
 <!--?><?a/-->
 [Err] HTML2000 Empty document.
 [Warn] HTML2006 Bare character content found. Inserting parent element <body>.
-[Warn] HTML2002 Missing parent chain. Inserting proper parent <HTML> for element <head>.
-<HTML><head></head><body></body></html>
+[Warn] HTML2002 Missing parent chain. Inserting proper parent <html> for element <head>.
+<html><head></head><body></body></html>

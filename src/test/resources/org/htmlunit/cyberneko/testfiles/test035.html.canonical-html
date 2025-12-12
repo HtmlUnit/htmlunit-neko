@@ -1,5 +1,5 @@
-<HTML><head></head><BODY><table>
-  <TBODY><tr>
+<html><head></head><body><table>
+  <tbody><tr>
     <th>foo
     </th><th>bar
     </th><th>baz
@@ -7,4 +7,4 @@
     <td>foo
     </td><td>bar
     </td><td>baz
-</td></tr></TBODY></table></BODY></HTML>
+</td></tr></tbody></table></body></html>

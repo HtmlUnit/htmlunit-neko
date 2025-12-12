@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (ruby
 "Y
 (rp
@@ -14,5 +14,5 @@
 ")
 )rp
 )ruby
-)BODY
-)HTML
+)body
+)html

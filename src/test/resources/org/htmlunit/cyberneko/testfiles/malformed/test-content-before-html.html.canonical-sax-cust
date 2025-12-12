@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (div
 "Content before HTML tag
 )div
@@ -20,5 +20,5 @@ x(body
 "Normal content
 )p
 "\n\n\n
-)BODY
-)HTML
+)body
+)html

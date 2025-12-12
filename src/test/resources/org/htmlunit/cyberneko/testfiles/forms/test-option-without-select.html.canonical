@@ -1,10 +1,10 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (option
 Aname foo
 "hello
 )option
-)BODY
-)HTML
+)body
+)html

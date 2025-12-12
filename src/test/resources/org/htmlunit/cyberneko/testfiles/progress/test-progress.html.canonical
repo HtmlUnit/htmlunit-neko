@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (progress
 Aid file
 Avalue 32
 Amax 100
 " 32% 
 )progress
-)BODY
-)HTML
+)body
+)html

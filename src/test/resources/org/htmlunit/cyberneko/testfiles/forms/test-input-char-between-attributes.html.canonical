@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (input
 Aonclick javascript: submitForm(this)
 A; 
@@ -15,5 +15,5 @@ A?
 Atype submit
 Aname Login
 )input
-)BODY
-)HTML
+)body
+)html

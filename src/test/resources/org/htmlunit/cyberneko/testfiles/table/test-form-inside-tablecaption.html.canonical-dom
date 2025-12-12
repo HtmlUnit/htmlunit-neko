@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (table
 (caption
 (form
@@ -15,12 +15,12 @@ Avalue Submit
 )input
 )form
 )caption
-(TBODY
+(tbody
 (tr
 (td
 )td
 )tr
-)TBODY
+)tbody
 )table
-)BODY
-)HTML
+)body
+)html

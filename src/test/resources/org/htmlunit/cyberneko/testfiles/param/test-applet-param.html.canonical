@@ -1,12 +1,12 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (applet
 (param
 Aname param1
 Avalue value1
 )param
 )applet
-)BODY
-)HTML
+)body
+)html

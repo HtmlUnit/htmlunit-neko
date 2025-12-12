@@ -1,4 +1,4 @@
-<HTML><head></head><BODY><table>
-<TBODY><tr><td>hello</td></tr>
-</TBODY><tfoot><tr><td>foot</td></tr></tfoot>
-</table></BODY></HTML>
+<html><head></head><body><table>
+<tbody><tr><td>hello</td></tr>
+</tbody><tfoot><tr><td>foot</td></tr></tfoot>
+</table></body></html>

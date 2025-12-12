@@ -1,7 +1,7 @@
-(HTML
+(html
 (head
 )head
-(BODY
+(body
 (p
 "Paragraph 
 )p
@@ -11,5 +11,5 @@
 "text.
 (p
 )p
-)BODY
-)HTML
+)body
+)html

@@ -1,8 +1,8 @@
-<HTML><head></head><BODY><table>
- <COLGROUP><col />
+<html><head></head><body><table>
+ <colgroup><col />
  <col style="text-align: right" />
- </COLGROUP><TBODY><tr>
+ </colgroup><tbody><tr>
   <td>This</td>
   <td>That</td>
  </tr>
-</TBODY></table></BODY></HTML>
+</tbody></table></body></html>
