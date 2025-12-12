@@ -981,7 +981,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     public boolean scanDocument(final boolean complete) throws XNIException, IOException {
         do {
-            int scan = fScanner.scan(complete);
+            final int scan = fScanner.scan(complete);
             if (SCAN_FALSE == scan) {
                 return false;
             }
@@ -1240,7 +1240,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 else if (fCurrentEntity.skip("SYSTEM")) {
                     fCurrentEntity.skipSpaces();
-                    int scanLiteral = scanLiteral();
+                    final int scanLiteral = scanLiteral();
                     if (SCAN_EOF == scanLiteral) {
                         return SCAN_EOF;
                     }
@@ -1896,7 +1896,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Reads a single character, preserving the old buffer content
-        private int readPreservingBufferContent() throws IOException {
+        int readPreservingBufferContent() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(readPreserving: ");
             }
@@ -2022,7 +2022,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // Returns true if the specified text is present (case-insensitive) and is skipped.
         // for performance reasons you have to provide the specified text in uppercase
-        private boolean skip(final String expectedInUpperCase) throws IOException {
+        boolean skip(final String expectedInUpperCase) throws IOException {
             final int length = expectedInUpperCase != null ? expectedInUpperCase.length() : 0;
             for (int i = 0; i < length; i++) {
                 if (offset_ == length_) {
@@ -2043,7 +2043,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips markup.
-        private boolean skipMarkup(final boolean balance) throws IOException {
+        boolean skipMarkup(final boolean balance) throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipMarkup: ");
             }
@@ -2097,7 +2097,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips whitespace.
-        private boolean skipSpaces() throws IOException {
+        boolean skipSpaces() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipSpaces: ");
             }
@@ -2133,7 +2133,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         // Skips newlines and returns the number of newlines skipped.
-        private int skipNewlines() throws IOException {
+        int skipNewlines() throws IOException {
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded("(skipNewlines: ");
             }
@@ -2388,7 +2388,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                         if (fInsertDoctype_) {
                             fDocumentHandler.doctypeDecl(
-                                                NAMES_LOWERCASE == fNamesElems ? "html" : "HTML",
+                                                NAMES_UPPERCASE == fNamesElems ? "HTML" : "html",
                                                 fDoctypePubid,
                                                 fDoctypeSysid,
                                                 synthesizedAugs());
@@ -2449,9 +2449,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 if (c == '<') {
                     final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
-                    if (next.length() >= lengthToScan 
+                    if (next.length() >= lengthToScan
                             && end.equalsIgnoreCase(next.substring(0, end.length()))
-                            && ('>' == next.charAt(lengthToScan - 1) 
+                            && ('>' == next.charAt(lengthToScan - 1)
                                     || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
                         fCurrentEntity.rewind();
                         break;
@@ -2864,7 +2864,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 return SCAN_EOF;
             }
 
-
             final String version = attributes_.getValue("version");
             final String encoding = attributes_.getValue("encoding");
             final String standalone = attributes_.getValue("standalone");
@@ -3190,7 +3189,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                                     plainAttribValue.toString(), true);
                     }
                     else {
-                        if (SCAN_EOF == scanAttributeQuotedValue(c, fCurrentEntity, attribValue, null, fNormalizeAttributes_)) {
+                        if (SCAN_EOF == scanAttributeQuotedValue(c, fCurrentEntity,
+                                                    attribValue, null, fNormalizeAttributes_)) {
                             return SCAN_EOF;
                         }
 

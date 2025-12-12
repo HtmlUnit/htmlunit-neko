@@ -519,7 +519,7 @@ public class HTMLTagBalancer
                 fQName.setValues(null, body, body, null);
                 callEndElement(fQName, synthesizedAugs());
 
-                final String ename = NAMES_UPPERCASE == fNamesElems ? "HTML": "html";
+                final String ename = NAMES_UPPERCASE == fNamesElems ? "HTML" : "html";
                 fQName.setValues(null, ename, ename, null);
                 callEndElement(fQName, synthesizedAugs());
             }
@@ -660,7 +660,7 @@ public class HTMLTagBalancer
 
         if (!fTemplateFragment && fOpenedSelect) {
             if (elementCode == HTMLElements.SELECT) {
-                final QName head = createQName("select");
+                final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "SELECT" : "select");
                 endElement(head, synthesizedAugs());
 
                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -693,7 +693,7 @@ public class HTMLTagBalancer
             }
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
-                final QName head = createQName("head");
+                final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
                 forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
@@ -712,7 +712,7 @@ public class HTMLTagBalancer
         else if (elementCode == HTMLElements.BODY) {
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
-                final QName head = createQName("head");
+                final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
                 forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
@@ -749,7 +749,8 @@ public class HTMLTagBalancer
                         || info.element.code == HTMLElements.TABLE) {
                     if (documentHandler_ != null) {
                         callStartElement(elem, attrs, augs);
-                        callEndElement(createQName("form"), synthesizedAugs());
+                        callEndElement(createQName(fNamesElems == NAMES_UPPERCASE ? "FORM" : "form"),
+                                            synthesizedAugs());
                     }
                     fOpenedForm = false;
                     return;
@@ -782,7 +783,7 @@ public class HTMLTagBalancer
                         || info.element.code == HTMLElements.TBODY
                         || info.element.code == HTMLElements.TFOOT
                         || info.element.code == HTMLElements.TABLE) {
-                    final QName table = createQName("table");
+                    final QName table = createQName(fNamesElems == NAMES_UPPERCASE ? "TABLE" : "table");
                     endElement(table, synthesizedAugs());
                     break;
                 }
@@ -804,7 +805,8 @@ public class HTMLTagBalancer
                 // nothing, don't force/check parent for the direct template children
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
-                final String pname = preferedParent.name;
+                final String pname = fNamesElems == NAMES_UPPERCASE
+                                        ? preferedParent.name : preferedParent.lowercaseName;
                 if (fReportErrors) {
                     final String ename = elem.getRawname();
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
@@ -822,7 +824,8 @@ public class HTMLTagBalancer
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
                     final int depth = getParentDepth(element);
                     if (depth == -1) { // no parent found
-                        final String pname = preferedParent.name;
+                        final String pname = fNamesElems == NAMES_UPPERCASE
+                                                ? preferedParent.name : preferedParent.lowercaseName;
                         if (fReportErrors) {
                             final String ename = elem.getRawname();
                             fErrorReporter.reportWarning("HTML2004", new Object[]{ename, pname});
@@ -963,7 +966,7 @@ public class HTMLTagBalancer
         return fElementStack.top > 0 && elem.equals(fElementStack.peek().qname);
     }
 
-    private QName createQName(String tagName) {
+    private static QName createQName(final String tagName) {
         return new QName(null, tagName, tagName, NamespaceBinder.XHTML_1_0_URI);
     }
 
@@ -987,7 +990,7 @@ public class HTMLTagBalancer
      * Generates a missing <body> (which creates missing <head> when needed)
      */
     private void forceStartBody() {
-        final QName body = createQName("body");
+        final QName body = createQName(fNamesElems == NAMES_UPPERCASE ? "BODY" : "body");
         if (fReportErrors) {
             fErrorReporter.reportWarning("HTML2006", new Object[]{body.getLocalpart()});
         }
@@ -1309,12 +1312,12 @@ public class HTMLTagBalancer
     private void addBodyIfNeeded(final short element) {
         if (!fDocumentFragment && !fSeenFramesetElement && element == HTMLElements.HTML) {
             if (!fSeenHeadElement) {
-                final QName head = createQName("head");
+                final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
                 callStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
                 callEndElement(head, synthesizedAugs());
             }
             if (!fSeenBodyElement) {
-                final QName body = createQName("body");
+                final QName body = createQName(fNamesElems == NAMES_UPPERCASE ? "BODY" : "body");
                 callStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
                 callEndElement(body, synthesizedAugs());
             }
