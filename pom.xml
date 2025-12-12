@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.20.0</version>
+    <version>4.20.1-SNAPSHOT</version>
     <name>HtmlUnit NekoHtml</name>
     <organization>
         <name>HtmlUnit</name>
