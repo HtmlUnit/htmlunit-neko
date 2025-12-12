@@ -78,8 +78,8 @@ public class HTMLTagBalancingListenerTest {
 
         parser.parse(in);
 
-        final String[] expectedMessages = {"start HTML", "start head", "start title", "end title", "end head",
-            "start body", "start div", "end div", "end body", "end HTML"};
+        final String[] expectedMessages = {"start html", "start head", "start title", "end title", "end head",
+            "start body", "start div", "end div", "end body", "end html"};
 
         assertEquals(Arrays.asList(expectedMessages).toString(), parser.getMessages().toString());
 

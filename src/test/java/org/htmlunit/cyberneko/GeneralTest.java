@@ -46,17 +46,17 @@ public class GeneralTest {
     @Test
     public void newlineInAttributeCrLf() throws Exception {
         String expected =
-            "[synth](HTML" + NL
+            "[synth](html" + NL
             + "[synth](head" + NL
             + "[synth])head" + NL
-            + "[synth](BODY" + NL
+            + "[synth](body" + NL
             + "[1,1,0;1,11,10]\"some text " + NL
             + "[1,11,10;2,23,52](span" + NL
             + "Aclass value\\ncontaining a newline" + NL
             + "[2,23,52;2,34,63]\"spancontent" + NL
             + "[2,34,63;2,41,70])span" + NL
-            + "[synth])BODY" + NL
-            + "[synth])HTML" + NL;
+            + "[synth])body" + NL
+            + "[synth])html" + NL;
         doTest("some text <span class='value\r\n"
                 + "containing a newline'>spancontent</span>", new String[] {}, expected,
                 FEATURES);
@@ -89,17 +89,17 @@ public class GeneralTest {
     @Test
     public void newlineInAttributeLf() throws Exception {
         String expected =
-            "[synth](HTML" + NL
+            "[synth](html" + NL
             + "[synth](head" + NL
             + "[synth])head" + NL
-            + "[synth](BODY" + NL
+            + "[synth](body" + NL
             + "[1,1,0;1,11,10]\"some text " + NL
             + "[1,11,10;2,23,51](span" + NL
             + "Aclass value\\ncontaining a newline" + NL
             + "[2,23,51;2,34,62]\"spancontent" + NL
             + "[2,34,62;2,41,69])span" + NL
-            + "[synth])BODY" + NL
-            + "[synth])HTML" + NL;
+            + "[synth])body" + NL
+            + "[synth])html" + NL;
         doTest("some text <span class='value\n"
                 + "containing a newline'>spancontent</span>", new String[] {}, expected,
                 FEATURES);
@@ -132,7 +132,7 @@ public class GeneralTest {
     @Test
     public void newlineInPiCrLf() throws Exception {
         String expected =
-            "[synth](HTML" + NL
+            "[synth](html" + NL
             + "[synth](head" + NL
             + "[synth])head" + NL
             + "[synth](body" + NL
@@ -140,7 +140,7 @@ public class GeneralTest {
             + "[1,11,10;2,23,63]?instruct beforenl='content'\\n  afternl=\"content\" " + NL
             + "[2,23,63;3,1,74]\"more text\\n" + NL
             + "[synth])body" + NL
-            + "[synth])HTML" + NL;
+            + "[synth])html" + NL;
         doTest("some text <?instruct beforenl='content'\r\n"
                 + "  afternl=\"content\" ?>more text\r\n", new String[] {}, expected,
                 FEATURES);
@@ -169,7 +169,7 @@ public class GeneralTest {
     @Test
     public void newlineInPiLf() throws Exception {
         String expected =
-            "[synth](HTML" + NL
+            "[synth](html" + NL
             + "[synth](head" + NL
             + "[synth])head" + NL
             + "[synth](body" + NL
@@ -177,7 +177,7 @@ public class GeneralTest {
             + "[1,11,10;2,23,62]?instruct beforenl='content'\\n  afternl=\"content\" " + NL
             + "[2,23,62;3,1,73]\"more text\\n" + NL
             + "[synth])body" + NL
-            + "[synth])HTML" + NL;
+            + "[synth])html" + NL;
         doTest("some text <?instruct beforenl='content'\n"
                 + "  afternl=\"content\" ?>more text\r\n", new String[] {}, expected,
                 FEATURES);
@@ -248,7 +248,7 @@ public class GeneralTest {
         in.setEncoding("replacement");
         parser.parse(in);
 
-        final String expected = "(HTML" + NL
+        final String expected = "(html" + NL
                 + "(head" + NL
                 + ")head" + NL
                 + "(body" + NL
@@ -271,7 +271,7 @@ public class GeneralTest {
         in.setEncoding("csiso2022kr");
         parser.parse(in);
 
-        final String expected = "(HTML" + NL
+        final String expected = "(html" + NL
                 + "(head" + NL
                 + ")head" + NL
                 + "(body" + NL
@@ -303,7 +303,7 @@ public class GeneralTest {
             // expected
         }
 
-        final String expected = "(HTML" + NL
+        final String expected = "(html" + NL
                 + "(head" + NL
                 + ")head" + NL
                 + "(body" + NL

@@ -696,7 +696,7 @@ public class XMLStringTest {
 
         // just push something into the string to see if we have growth pain
         final XMLString b = new XMLString("foo");
-        StringBuilder exB = new StringBuilder("foo");
+        final StringBuilder exB = new StringBuilder("foo");
         final String src = "This is a test of the prepending";
         for (int i = 0; i < src.length(); i++) {
             final char c = src.charAt(i);
@@ -1379,7 +1379,7 @@ public class XMLStringTest {
     }
 
     /**
-     * @see XMLString#toLowerCase(Locale) 
+     * @see XMLString#toLowerCase(Locale)
      */
     @ParameterizedTest
     @ValueSource(strings = {

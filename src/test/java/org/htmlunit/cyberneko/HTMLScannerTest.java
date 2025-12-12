@@ -263,7 +263,7 @@ public class HTMLScannerTest {
         final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
         parser.parse(source);
 
-        final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
+        final String[] expected = {"(html", "(head", ")head", "(body", ")body", ")html"};
         assertEquals(Arrays.asList(expected).toString(), filter.getCollectedStrings().toString());
     }
 
@@ -281,7 +281,7 @@ public class HTMLScannerTest {
         final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
         parser.parse(source);
 
-        final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
+        final String[] expected = {"(html", "(head", ")head", "(body", ")body", ")html"};
         assertEquals(Arrays.asList(expected).toString(), filter.getCollectedStrings().toString());
     }
 
@@ -299,7 +299,7 @@ public class HTMLScannerTest {
         final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
         parser.parse(source);
 
-        final String[] expected = {"(HTML", "(head", ")head", "(body", ")body", ")html"};
+        final String[] expected = {"(html", "(head", ")head", "(body", ")body", ")html"};
         assertEquals(Arrays.asList(expected).toString(), filter.getCollectedStrings().toString());
     }
 

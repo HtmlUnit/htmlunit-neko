@@ -42,13 +42,13 @@ public class FragmentContextStackTest {
 
         expected = "(head" + NL
                 + ")head" + NL
-                + "(BODY" + NL
+                + "(body" + NL
                 + "(div" + NL
                 + "(span" + NL
                 + "\"hello" + NL
                 + ")span" + NL
                 + ")div" + NL
-                + ")BODY" + NL;
+                + ")body" + NL;
         GeneralTest.doTest("<div><span>hello</span>", new String[] {"html"}, expected, FEATURES);
     }
 
@@ -61,9 +61,9 @@ public class FragmentContextStackTest {
             + ")tr" + NL;
         GeneralTest.doTest("<tr><td>hello</td></tr>",
                         new String[] {"html", "body", "table", "tbody"}, expected, FEATURES);
-        expected = "(TBODY" + NL
+        expected = "(tbody" + NL
             + expected
-            + ")TBODY\n";
+            + ")tbody\n";
         GeneralTest.doTest("<tr><td>hello</td></tr>", new String[] {"html", "body", "table"}, expected, FEATURES);
         GeneralTest.doTest("<tr><td>hello</td></tr>", new String[] {"html", "body"}, "\"hello", FEATURES);
     }

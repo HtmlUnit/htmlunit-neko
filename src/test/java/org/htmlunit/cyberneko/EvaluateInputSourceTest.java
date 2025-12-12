@@ -100,11 +100,11 @@ public class EvaluateInputSourceTest {
                 + "(script" + NL
                 + ")script" + NL
                 + ")head" + NL
-                + "(BODY" + NL
+                + "(body" + NL
                 + "(plaintext" + NL
                 + "\"foo<title>Test</title></head><body>  bar</body></html>" + NL
                 + ")plaintext" + NL
-                + ")BODY" + NL
+                + ")body" + NL
                 + ")html";
 
         doTest(html, htmlEval, expected);
