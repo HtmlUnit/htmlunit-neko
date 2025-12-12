@@ -155,6 +155,12 @@ public class HTMLScannerTest {
             }
         }
 
+        @Override
+        public void doctypeDecl(final String root,
+                final String publicId, final String systemId, final Augmentations augs) throws XNIException {
+            collectedStrings_.add("doctype " + publicId + " - " + systemId);
+        }
+
         public List<String> getCollectedStrings() {
             return collectedStrings_;
         }
@@ -344,5 +350,48 @@ public class HTMLScannerTest {
 
             assertEquals(String.join(System.lineSeparator(), expected), out.toString().trim());
         }
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    @Test
+    public void insertDoctype() throws Exception {
+        final String string = "";
+
+        final HTMLConfiguration parser = new HTMLConfiguration();
+        parser.setFeature(HTMLScanner.INSERT_DOCTYPE, true);
+
+        final EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expected = {
+            "doctype -//W3C//DTD HTML 4.01 Transitional//EN - http://www.w3.org/TR/html4/loose.dtd",
+            "(html", "(head", ")head", "(body", ")body", ")html"};
+        assertEquals(Arrays.asList(expected).toString(), filter.getCollectedStrings().toString());
+    }
+
+    /**
+     * @throws Exception on error
+     */
+    @Test
+    public void insertDoctypeUppercase() throws Exception {
+        final String string = "";
+
+        final HTMLConfiguration parser = new HTMLConfiguration();
+        parser.setFeature(HTMLScanner.INSERT_DOCTYPE, true);
+        parser.setProperty(HTMLScanner.NAMES_ELEMS, "upper");
+
+        final EvaluateInputSourceFilter filter = new EvaluateInputSourceFilter(parser);
+        parser.setProperty("http://cyberneko.org/html/properties/filters", new XMLDocumentFilter[] {filter});
+        final XMLInputSource source = new XMLInputSource(null, "myTest", null, new StringReader(string), "UTF-8");
+        parser.parse(source);
+
+        final String[] expected = {
+            "doctype -//W3C//DTD HTML 4.01 Transitional//EN - http://www.w3.org/TR/html4/loose.dtd",
+            "(HTML", "(HEAD", ")HEAD", "(BODY", ")BODY", ")HTML"};
+        assertEquals(Arrays.asList(expected).toString(), filter.getCollectedStrings().toString());
     }
 }
