@@ -29,7 +29,7 @@ The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourcefo
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.20.0 / December 07, 2025
+### Latest release Version 4.20.1 / December 15, 2025
 
 ##### Security Advisories
 
@@ -49,7 +49,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.20.0</version>
+    <version>4.20.1</version>
 </dependency>
 ```
 
@@ -58,7 +58,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.20.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.20.1'
 ```
 
 ## HowTo use
