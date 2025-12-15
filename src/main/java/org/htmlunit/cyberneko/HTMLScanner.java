@@ -2514,10 +2514,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
                 }
 
-                final boolean hasNext = fCurrentEntity.offset_ < fCurrentEntity.buffer_.length;
-                final int next = hasNext ? fCurrentEntity.getCurrentChar() : -1;
-
-                if (next == '&' || next == '<' || next == -1) {
+                if (fCurrentEntity.offset_ < fCurrentEntity.buffer_.length) {
+                    final int next = fCurrentEntity.getCurrentChar();
+                    if (next == '&' || next == '<' || next == -1) {
+                        break;
+                    }
+                }
+                else {
                     break;
                 }
             }
