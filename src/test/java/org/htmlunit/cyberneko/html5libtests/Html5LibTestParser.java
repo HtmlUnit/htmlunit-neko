@@ -203,6 +203,9 @@ public final class Html5LibTestParser {
                         currentTest.addTreeLine(line);
                     }
                     break;
+
+                default:
+                    throw new IllegalArgumentException("unsupported section '" + section + "'");
             }
         }
 
@@ -277,15 +280,21 @@ public final class Html5LibTestParser {
                 case DOCTYPE:
                     sb.append("<!DOCTYPE ").append(value_).append(">");
                     break;
+
                 case COMMENT:
                     sb.append("<!-- ").append(value_).append(" -->");
                     break;
+
                 case ELEMENT:
                     sb.append("<").append(value_).append(">");
                     break;
+
                 case TEXT:
                     sb.append("\"").append(value_).append("\"");
                     break;
+
+                default:
+                    throw new IllegalArgumentException("unsupported type '" + type_ + "'");
             }
 
             return sb.toString();

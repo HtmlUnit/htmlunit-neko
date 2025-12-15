@@ -45,22 +45,22 @@ import org.junit.jupiter.api.TestFactory;
  */
 public class Html5LibTreeConstructionTest {
 
-    private static String TEST_DATA_DIR;
+    private static String TEST_DATA_DIR_;
 
     @BeforeAll
     public static void setup() {
         // Try to get test data directory from system property or environment variable
-        TEST_DATA_DIR = System.getProperty("html5lib.testdata.dir");
-        if (TEST_DATA_DIR == null) {
-            TEST_DATA_DIR = System.getenv("HTML5LIB_TESTDATA_DIR");
+        TEST_DATA_DIR_ = System.getProperty("html5lib.testdata.dir");
+        if (TEST_DATA_DIR_ == null) {
+            TEST_DATA_DIR_ = System.getenv("HTML5LIB_TESTDATA_DIR");
         }
-        if (TEST_DATA_DIR == null) {
+        if (TEST_DATA_DIR_ == null) {
             // Default location relative to project root
             // testDataDir = "src/test/resources/html5lib-tests/tree-construction";
-            TEST_DATA_DIR = "../html5lib-tests/tree-construction";
+            TEST_DATA_DIR_ = "../html5lib-tests/tree-construction";
         }
 
-        System.out.println("Html5lib test data directory: " + TEST_DATA_DIR);
+        System.out.println("Html5lib test data directory: " + TEST_DATA_DIR_);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Html5LibTreeConstructionTest {
     public Collection<DynamicTest> html5libTreeConstructionTests() throws IOException {
         final List<DynamicTest> tests = new ArrayList<>();
 
-        final Path testDir = Paths.get(TEST_DATA_DIR);
+        final Path testDir = Paths.get(TEST_DATA_DIR_);
         if (!Files.exists(testDir)) {
             System.out.println("WARNING: Test directory does not exist: " + testDir.toAbsolutePath());
             System.out.println("Please clone html5lib-tests and set html5lib.testdata.dir property");

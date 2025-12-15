@@ -419,12 +419,10 @@ public class Html5LibTestRunner {
             parser.setProperty(HTMLScanner.NAMES_ELEMS, "lower");
             parser.setProperty("http://xml.org/sax/properties/lexical-handler", handler);
 
-//            if (test.getScriptingEnabled() != null) {
-//                final boolean scriptingEnabled = test.getScriptingEnabled();
-//                if (scriptingEnabled) {
-//                    parser.setFeature(HTMLScanner.PARSE_NOSCRIPT_CONTENT, true);
-//                }
-//            }
+            if (test.getScriptingEnabled() != null) {
+                final boolean scriptingEnabled = test.getScriptingEnabled();
+                parser.setFeature(HTMLScanner.PARSE_NOSCRIPT_CONTENT, !scriptingEnabled);
+            }
 
             // parser.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
 
