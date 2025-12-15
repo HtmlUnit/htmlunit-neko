@@ -142,20 +142,6 @@ public class Html5LibTreeConstructionTest {
      */
     private void runSingleTest(final Html5LibTestParser.TestCase testCase,
                                 final String fileName, final int testNumber) {
-        // Run test with scripting enabled (or default)
-        final Boolean scriptingEnabled = testCase.getScriptingEnabled();
-
-        if (scriptingEnabled == null) {
-            // Test should be run in both modes - for now just run with default
-            runTestWithScripting(testCase, null, fileName, testNumber);
-        }
-        else {
-            runTestWithScripting(testCase, scriptingEnabled, fileName, testNumber);
-        }
-    }
-
-    private void runTestWithScripting(final Html5LibTestParser.TestCase testCase,
-            final Boolean scriptingEnabled, final String fileName, final int testNumber) {
         final Html5LibTestRunner.TestResult result = Html5LibTestRunner.runTest(testCase);
 
         if (!result.isPassed()) {
@@ -183,14 +169,16 @@ public class Html5LibTreeConstructionTest {
     /**
      * Truncate string for display.
      */
-    private String truncate(String str, final int maxLength) {
+    private static String truncate(String str, final int maxLength) {
         if (str == null) {
             return "";
         }
+
         str = str.replace("\n", "\\n").replace("\r", "");
         if (str.length() <= maxLength) {
             return str;
         }
+
         return str.substring(0, maxLength - 3) + "...";
     }
 }
