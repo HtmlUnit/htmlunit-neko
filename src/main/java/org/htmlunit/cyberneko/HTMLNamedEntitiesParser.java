@@ -402,7 +402,7 @@ public final class HTMLNamedEntitiesParser {
             if (offset_ > 0) {
                 // that is just for later to tell us that we don't understand our
                 // own code anymore and called that incorrectly
-                throw new RuntimeException("Optimiize was called twice");
+                throw new RuntimeException("Optimize was called twice");
             }
 
             // ok, smallest char is the start

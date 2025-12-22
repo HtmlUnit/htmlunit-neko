@@ -18,6 +18,7 @@ package org.htmlunit.cyberneko;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
@@ -352,21 +353,22 @@ public class HTMLTagBalancer
             // use indexed loop to avoid Iterator allocation
             for (int i = 0; i < fragmentContextStack_.length; i++) {
                 final QName qname = fragmentContextStack_[i];
-                if ("html".equalsIgnoreCase(qname.getLocalpart())) {
+                final String qnameLocalpartLC = qname.getLocalpart().toLowerCase(Locale.ROOT);
+                if ("html".equals(qnameLocalpartLC)) {
                     fSeenRootElement = true;
                     fSeenRealHtmlElement = true;
                 }
-                else if ("body".equalsIgnoreCase(qname.getLocalpart())) {
+                else if ("body".equals(qnameLocalpartLC)) {
                     fSeenHeadElement = true;
                     fSeenBodyElement = true;
                 }
-                else if ("form".equalsIgnoreCase(qname.getLocalpart())) {
+                else if ("form".equals(qnameLocalpartLC)) {
                     fOpenedForm = true;
                 }
-                else if ("select".equalsIgnoreCase(qname.getLocalpart())) {
+                else if ("select".equals(qnameLocalpartLC)) {
                     fOpenedSelect = true;
                 }
-                else if ("svg".equalsIgnoreCase(qname.getLocalpart())) {
+                else if ("svg".equals(qnameLocalpartLC)) {
                     fOpenedSvg = true;
                 }
             }
@@ -549,7 +551,7 @@ public class HTMLTagBalancer
     }
 
     /**
-     * Consume elements that have been buffered, like </body></html> that are first consumed
+     * Consume elements that have been buffered, like &lt;/body&gt;&lt;/html&gt; that are first consumed
      * at the end of document
      */
     private void consumeBufferedEndElements() {

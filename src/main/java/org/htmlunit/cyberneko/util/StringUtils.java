@@ -16,35 +16,48 @@
 package org.htmlunit.cyberneko.util;
 
 /**
- * String utilities class for utility functions not covered by third party libraries.
+ * String utilities class providing utility functions not covered by third party libraries.
+ *
+ * <p>This class contains static utility methods for common string operations used
+ * throughout the HtmlUnit NekoHtml parser.  It focuses on lightweight, performance-oriented
+ * string checks that avoid creating unnecessary String objects or using expensive operations.</p>
  *
  * @author Ronald Brill
  */
 public final class StringUtils {
 
     /**
-     * Disallow instantiation of this class.
+     * Private constructor to prevent instantiation of this utility class.
      */
     private StringUtils() {
-        // Empty.
+        // Empty - utility class should not be instantiated
     }
 
     /**
-     * Returns true if the param is not null and empty. This is different from
-     * org.apache.commons.lang3.StringUtils#isEmpty(CharSequence) because
-     * this returns false if the provided string is null.
+     * Checks if the provided character sequence is not null and has zero length.
      *
-     * @param s the string to check
-     * @return true if the param is not null and empty
+     * <p>This method differs from {@code org.apache.commons.lang3.StringUtils#isEmpty(CharSequence)}
+     * in that it returns {@code false} if the provided string is {@code null}.</p>
+     *
+     * @param s the character sequence to check, may be null
+     * @return {@code true} if the sequence is not null AND has length of zero; {@code false} otherwise
      */
     public static boolean isEmptyString(final CharSequence s) {
         return s != null && s.length() == 0;
     }
 
     /**
-     * @param expected the char that we expect
-     * @param s the string to check
-     * @return true if the provided string has only one char and this matches the expectation
+     * Checks if the provided character sequence consists of exactly one character that matches
+     * the expected character.
+     *
+     * <p>This is an optimized equality check for single-character strings, avoiding the overhead
+     * of full string comparison.  It's particularly useful during HTML parsing when checking for
+     * single-character tokens or delimiters.</p>
+     *
+     * @param expected the character that we expect to match
+     * @param s the character sequence to check, may be null
+     * @return {@code true} if and only if the provided sequence is not null, has exactly one character,
+     *         and that character equals the expected character; {@code false} otherwise
      */
     public static boolean equalsChar(final char expected, final CharSequence s) {
         return s != null && s.length() == 1 && expected == s.charAt(0);

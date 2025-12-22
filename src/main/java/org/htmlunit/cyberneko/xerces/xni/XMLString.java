@@ -399,6 +399,7 @@ public class XMLString implements CharSequence {
      *
      * @deprecated Use the new method {@link #trimToContent(String, String)} instead.
      */
+    @Deprecated
     public XMLString reduceToContent(final String startMarker, final String endMarker) {
         return trimToContent(startMarker, endMarker);
     }

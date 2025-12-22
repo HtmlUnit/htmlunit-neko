@@ -874,7 +874,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * @throws IOException Thrown on i/o error.
      */
     public void setInputSource(final XMLInputSource source) throws IOException {
-
         // reset state
         fElementCount = 0;
         fElementDepth = -1;
@@ -947,14 +946,15 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         // set scanner and state
         if (fFragmentSpecialScannerTag_ != null) {
-            if ("script".equalsIgnoreCase(fFragmentSpecialScannerTag_)) {
+            final String scannerTagLC = fFragmentSpecialScannerTag_.toLowerCase(Locale.ROOT);
+            if ("script".equals(scannerTagLC)) {
                 setScanner(fScriptScanner);
             }
-            else if ("plaintext".equalsIgnoreCase(fFragmentSpecialScannerTag_)) {
+            else if ("plaintext".equals(scannerTagLC)) {
                 setScanner(new PlainTextScanner());
             }
             else {
-                setScanner(fSpecialScanner.setElementName(fFragmentSpecialScannerTag_));
+                setScanner(fSpecialScanner.setElementName(fFragmentSpecialScannerTag_, scannerTagLC));
                 setScannerState(STATE_CONTENT);
             }
 
@@ -2367,7 +2367,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 final Element elem =
                                         htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
                                 if (elem != null && elem.isSpecial()) {
-                                    setScanner(fSpecialScanner.setElementName(ename));
+                                    setScanner(fSpecialScanner.setElementName(ename, enameLC));
                                     setScannerState(STATE_CONTENT);
                                     return SCAN_TRUE;
                                 }
@@ -3436,11 +3436,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         private final XMLString charBuffer_ = new XMLString();
 
         // Sets the element name.
-        public Scanner setElementName(final String ename) {
+        public Scanner setElementName(final String ename, final String enameLC) {
             fElementName = ename;
-            fStyle = "style".equalsIgnoreCase(fElementName);
-            fTextarea = "textarea".equalsIgnoreCase(fElementName);
-            fTitle = "title".equalsIgnoreCase(fElementName);
+            fStyle = "style".equals(enameLC);
+            fTextarea = "textarea".equals(enameLC);
+            fTitle = "title".equals(enameLC);
             return this;
         }
 
