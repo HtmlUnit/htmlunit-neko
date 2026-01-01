@@ -396,25 +396,6 @@ public class XMLString implements CharSequence {
      * @param startMarker the start string to find, must not be null
      * @param endMarker the end string to find, must not be null
      * @return this instance
-     *
-     * @deprecated Use the new method {@link #trimToContent(String, String)} instead.
-     */
-    @Deprecated
-    public XMLString reduceToContent(final String startMarker, final String endMarker) {
-        return trimToContent(startMarker, endMarker);
-    }
-
-    /**
-     * Reduces the buffer to the content between start and end marker when
-     * only whitespaces are found before the startMarker as well as after the end marker.
-     * If both strings overlap due to identical characters such as "foo" and "oof"
-     * and the buffer is " foof ", we don't do anything.
-     *
-     * <p>If a marker is empty, it behaves like {@link java.lang.String#trim()} on that side.
-     *
-     * @param startMarker the start string to find, must not be null
-     * @param endMarker the end string to find, must not be null
-     * @return this instance
      */
     public XMLString trimToContent(final String startMarker, final String endMarker) {
         // if both are longer or same length than content, don't do anything
@@ -535,18 +516,6 @@ public class XMLString implements CharSequence {
         length_ = newLength;
 
         return this;
-    }
-
-    /**
-     * Removes all whitespace at the end.
-     * If all are whitespace, we get an empty buffer
-     *
-     * @return this instance
-     *
-     * @deprecated Use {@link #trimTrailing()} instead.
-     */
-    public XMLString trimWhitespaceAtEnd() {
-        return trimTrailing();
     }
 
     /**
@@ -766,8 +735,7 @@ public class XMLString implements CharSequence {
      */
     @Override
     public boolean equals(final Object o) {
-        if (o instanceof CharSequence) {
-            final CharSequence ob = (CharSequence) o;
+        if (o instanceof CharSequence ob) {
 
             if (ob.length() != length_) {
                 return false;
