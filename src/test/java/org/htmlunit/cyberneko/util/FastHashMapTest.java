@@ -299,7 +299,6 @@ public class FastHashMapTest {
         final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer)) {
             objectOutputStream.writeObject(src);
-            objectOutputStream.close();
         }
 
         try (ObjectInputStream objectInputStream =
@@ -335,7 +334,6 @@ public class FastHashMapTest {
         final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(buffer)) {
             objectOutputStream.writeObject(src);
-            objectOutputStream.close();
         }
         try (ObjectInputStream objectInputStream =
                 new ObjectInputStream(new ByteArrayInputStream(buffer.toByteArray()))) {

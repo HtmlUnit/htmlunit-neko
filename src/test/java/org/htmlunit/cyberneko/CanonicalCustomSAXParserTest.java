@@ -139,7 +139,7 @@ public class CanonicalCustomSAXParserTest extends AbstractCanonicalTest {
     }
 
     private static void setupParser(final String infilename, final CustomSaxParser parser)
-            throws IOException, SAXNotRecognizedException, SAXNotSupportedException, FileNotFoundException {
+            throws IOException, SAXNotRecognizedException, SAXNotSupportedException {
         final File insettings = new File(infilename + ".settings");
         if (insettings.exists()) {
             try (BufferedReader settings = new BufferedReader(new FileReader(insettings))) {
