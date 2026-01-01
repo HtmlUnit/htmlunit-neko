@@ -353,59 +353,49 @@ class HTMLCollectionImpl implements HTMLCollection {
             // way to match involving only a cast. Do the expensive string
             // comparison later on.
             match = false;
-            switch (lookingFor_) {
-                case ANCHOR:
-                // Anchor is an <A> element with a 'name' attribute. Otherwise, it's
-                // just a link.
-                    match = (elem instanceof HTMLAnchorElement) && !elem.getAttribute("name").isEmpty();
-                    break;
-                case FORM:
+            match = switch (lookingFor_) {
+                case ANCHOR ->
+                    // Anchor is an <A> element with a 'name' attribute. Otherwise, it's
+                    // just a link.
+                        (elem instanceof HTMLAnchorElement) && !elem.getAttribute("name").isEmpty();
+                case FORM ->
                     // Any <FORM> element.
-                    match = elem instanceof HTMLFormElement;
-                    break;
-                case IMAGE:
+                        elem instanceof HTMLFormElement;
+                case IMAGE ->
                     // Any <IMG> element. <OBJECT> elements with images are not returned.
-                    match = elem instanceof HTMLImageElement;
-                    break;
-                case APPLET:
+                        elem instanceof HTMLImageElement;
+                case APPLET ->
                     // Any <APPLET> element, and any <OBJECT> element which represents an
                     // Applet. This is determined by 'codetype' attribute being
                     // 'application/java' or 'classid' attribute starting with 'java:'.
-                    match = (elem instanceof HTMLAppletElement)
-                            || (elem instanceof HTMLObjectElement
-                            && ("application/java".equals(elem.getAttribute("codetype"))
-                                    || elem.getAttribute("classid").startsWith("java:")));
-                    break;
-                case ELEMENT:
+                        (elem instanceof HTMLAppletElement)
+                                || (elem instanceof HTMLObjectElement
+                                && ("application/java".equals(elem.getAttribute("codetype"))
+                                || elem.getAttribute("classid").startsWith("java:")));
+                case ELEMENT ->
                     // All form elements implement HTMLFormControl for easy identification.
-                    match = elem instanceof HTMLFormControl;
-                    break;
-                case LINK:
+                        elem instanceof HTMLFormControl;
+                case LINK ->
                     // Any <A> element, and any <AREA> elements with an 'href' attribute.
-                    match = (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
+                        (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
                                 && !elem.getAttribute("href").isEmpty();
-                    break;
-                case AREA:
+                case AREA ->
                     // Any <AREA> element.
-                    match = elem instanceof HTMLAreaElement;
-                    break;
-                case OPTION:
+                        elem instanceof HTMLAreaElement;
+                case OPTION ->
                     // Any <OPTION> element.
-                    match = elem instanceof HTMLOptionElement;
-                    break;
-                case ROW:
+                        elem instanceof HTMLOptionElement;
+                case ROW ->
                     // Any <TR> element.
-                    match = elem instanceof HTMLTableRowElement;
-                    break;
-                case TBODY:
+                        elem instanceof HTMLTableRowElement;
+                case TBODY ->
                     // Any <TBODY> element (one of three table section types).
-                    match = elem instanceof HTMLTableSectionElement && "TBODY".equalsIgnoreCase(elem.getTagName());
-                    break;
-                case CELL:
+                        elem instanceof HTMLTableSectionElement && "TBODY".equalsIgnoreCase(elem.getTagName());
+                case CELL ->
                     // Any <TD> or <TH> element.
-                    match = elem instanceof HTMLTableCellElement;
-                    break;
-            }
+                        elem instanceof HTMLTableCellElement;
+                default -> match;
+            };
 
             // If element type was matched and a name was specified, must also match
             // the name against either the 'id' or the 'name' attribute. The 'name'

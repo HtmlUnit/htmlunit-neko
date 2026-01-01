@@ -354,22 +354,18 @@ public class HTMLTagBalancer
             for (int i = 0; i < fragmentContextStack_.length; i++) {
                 final QName qname = fragmentContextStack_[i];
                 final String qnameLocalpartLC = qname.getLocalpart().toLowerCase(Locale.ROOT);
-                if ("html".equals(qnameLocalpartLC)) {
-                    fSeenRootElement = true;
-                    fSeenRealHtmlElement = true;
-                }
-                else if ("body".equals(qnameLocalpartLC)) {
-                    fSeenHeadElement = true;
-                    fSeenBodyElement = true;
-                }
-                else if ("form".equals(qnameLocalpartLC)) {
-                    fOpenedForm = true;
-                }
-                else if ("select".equals(qnameLocalpartLC)) {
-                    fOpenedSelect = true;
-                }
-                else if ("svg".equals(qnameLocalpartLC)) {
-                    fOpenedSvg = true;
+                switch (qnameLocalpartLC) {
+                    case "html" -> {
+                        fSeenRootElement = true;
+                        fSeenRealHtmlElement = true;
+                    }
+                    case "body" -> {
+                        fSeenHeadElement = true;
+                        fSeenBodyElement = true;
+                    }
+                    case "form" -> fOpenedForm = true;
+                    case "select" -> fOpenedSelect = true;
+                    case "svg" -> fOpenedSvg = true;
                 }
             }
         }
