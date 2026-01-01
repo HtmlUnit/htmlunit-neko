@@ -39,12 +39,13 @@ public class ReadmeTest {
     @Test
     public void domParser() throws Exception {
         final String html =
-                " <!DOCTYPE html>\n"
-                + "<html>\n"
-                + "<body>\n"
-                + "<h1>NekoHtml</h1>\n"
-                + "</body>\n"
-                + "</html>";
+                """
+                 <!DOCTYPE html>
+                <html>
+                <body>
+                <h1>NekoHtml</h1>
+                </body>
+                </html>""";
 
         final StringReader sr = new StringReader(html);
         final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);
@@ -62,12 +63,13 @@ public class ReadmeTest {
     @Test
     public void test() throws IOException {
         final String html =
-                " <!DOCTYPE html>\n"
-                + "<html>\n"
-                + "<body>\n"
-                + "<h1>NekoHtml</h1>\n"
-                + "</body>\n"
-                + "</html>";
+                """
+                 <!DOCTYPE html>
+                <html>
+                <body>
+                <h1>NekoHtml</h1>
+                </body>
+                </html>""";
 
         final StringReader sr = new StringReader(html);
         final XMLInputSource in = new XMLInputSource(null, "foo", null, sr, null);

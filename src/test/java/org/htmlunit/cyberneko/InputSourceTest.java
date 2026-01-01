@@ -71,13 +71,15 @@ public class InputSourceTest {
                 }
 
                 Assertions.assertEquals(
-                        "(html\n"
-                        + "(head\n"
-                        + ")head\n"
-                        + "(body\n"
-                        + "\"Neko\n"
-                        + ")body\n"
-                        + ")html\n",
+                        """
+                        (html
+                        (head
+                        )head
+                        (body
+                        "Neko
+                        )body
+                        )html
+                        """,
                         sb.toString());
             }
         }

@@ -730,12 +730,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
                         : new SAXParseException(e.getMessage(), locatorImpl, ex);
             }
-            if (ex instanceof SAXException) {
+            if (ex instanceof SAXException exception) {
                 // why did we create an XMLParseException?
-                throw (SAXException) ex;
+                throw exception;
             }
-            if (ex instanceof IOException) {
-                throw (IOException) ex;
+            if (ex instanceof IOException exception) {
+                throw exception;
             }
             throw new SAXException(ex);
         }
@@ -745,11 +745,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }
-            if (ex instanceof SAXException) {
-                throw (SAXException) ex;
+            if (ex instanceof SAXException exception) {
+                throw exception;
             }
-            if (ex instanceof IOException) {
-                throw (IOException) ex;
+            if (ex instanceof IOException exception) {
+                throw exception;
             }
             throw new SAXException(ex);
         }
@@ -790,12 +790,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
                 throw (ex == null) ? new SAXParseException(e.getMessage(), locatorImpl)
                         : new SAXParseException(e.getMessage(), locatorImpl, ex);
             }
-            if (ex instanceof SAXException) {
+            if (ex instanceof SAXException exception) {
                 // why did we create an XMLParseException?
-                throw (SAXException) ex;
+                throw exception;
             }
-            if (ex instanceof IOException) {
-                throw (IOException) ex;
+            if (ex instanceof IOException exception) {
+                throw exception;
             }
             throw new SAXException(ex);
         }
@@ -804,11 +804,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
             if (ex == null) {
                 throw new SAXException(e.getMessage());
             }
-            if (ex instanceof SAXException) {
-                throw (SAXException) ex;
+            if (ex instanceof SAXException exception) {
+                throw exception;
             }
-            if (ex instanceof IOException) {
-                throw (IOException) ex;
+            if (ex instanceof IOException exception) {
+                throw exception;
             }
             throw new SAXException(ex);
         }
@@ -837,8 +837,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     public void setErrorHandler(final ErrorHandler errorHandler) {
         try {
             final XMLErrorHandler xeh = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
-            if (xeh instanceof ErrorHandlerWrapper) {
-                final ErrorHandlerWrapper ehw = (ErrorHandlerWrapper) xeh;
+            if (xeh instanceof ErrorHandlerWrapper ehw) {
                 ehw.setErrorHandler(errorHandler);
             }
             else {
@@ -861,8 +860,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         ErrorHandler errorHandler = null;
         try {
             final XMLErrorHandler xmlErrorHandler = (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
-            if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper) {
-                errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
+            if (xmlErrorHandler != null && xmlErrorHandler instanceof ErrorHandlerWrapper wrapper) {
+                errorHandler = wrapper.getErrorHandler();
             }
         }
         catch (final XMLConfigurationException e) {

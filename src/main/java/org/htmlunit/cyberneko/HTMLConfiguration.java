@@ -228,8 +228,8 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
             final XMLDocumentFilter[] filters = (XMLDocumentFilter[]) getProperty(FILTERS);
             if (filters != null) {
                 for (final XMLDocumentFilter filter : filters) {
-                    if (filter instanceof HTMLComponent) {
-                        addComponent((HTMLComponent) filter);
+                    if (filter instanceof HTMLComponent component) {
+                        addComponent(component);
                     }
                 }
             }
@@ -244,8 +244,8 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     @Override
     public void setDocumentHandler(final XMLDocumentHandler handler) {
         documentHandler_ = handler;
-        if (handler instanceof HTMLTagBalancingListener) {
-            tagBalancer_.setTagBalancingListener((HTMLTagBalancingListener) handler);
+        if (handler instanceof HTMLTagBalancingListener listener) {
+            tagBalancer_.setTagBalancingListener(listener);
         }
     }
 

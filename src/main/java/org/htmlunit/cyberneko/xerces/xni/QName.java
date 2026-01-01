@@ -140,8 +140,7 @@ public class QName implements Cloneable {
 
     @Override
     public boolean equals(final Object object) {
-        if (object instanceof QName) {
-            final QName qname = (QName) object;
+        if (object instanceof QName qname) {
             if (qname.uri_ != null) {
                 return qname.uri_.equals(uri_) && localpart_ == qname.localpart_;
             }

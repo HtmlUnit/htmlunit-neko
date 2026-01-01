@@ -113,8 +113,8 @@ public class HTMLWriterFilter extends DefaultFilter {
      */
     public HTMLWriterFilter(final Writer writer, final String encoding, final HTMLElements htmlElements) {
         encoding_ = encoding;
-        if (writer instanceof PrintWriter) {
-            printer_ = (PrintWriter) writer;
+        if (writer instanceof PrintWriter printWriter) {
+            printer_ = printWriter;
         }
         else {
             printer_ = new PrintWriter(writer);

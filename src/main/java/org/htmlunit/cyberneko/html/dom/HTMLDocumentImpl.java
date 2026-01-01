@@ -704,9 +704,9 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
         child = node.getFirstChild();
         while (child != null) {
-            if (child instanceof Element) {
-                if (elementId.equals(((Element) child).getAttribute("id"))) {
-                    return (Element) child;
+            if (child instanceof Element element) {
+                if (elementId.equals(element.getAttribute("id"))) {
+                    return element;
                 }
                 result = getElementById(elementId, child);
                 if (result != null) {

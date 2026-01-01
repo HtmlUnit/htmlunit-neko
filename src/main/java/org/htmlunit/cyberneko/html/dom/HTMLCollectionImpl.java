@@ -219,12 +219,12 @@ class HTMLCollectionImpl implements HTMLCollection {
                 // do two things: if it's the one we're looking for, count
                 // another matched element; at any rate, traverse it's
                 // children as well.
-                if (node instanceof Element) {
-                    if (collectionMatch((Element) node, null)) {
+                if (node instanceof Element element) {
+                    if (collectionMatch(element, null)) {
                         ++length;
                     }
                     else if (recurse()) {
-                        length += getLength((Element) node);
+                        length += getLength(element);
                     }
                 }
                 node = node.getNextSibling();
@@ -263,15 +263,15 @@ class HTMLCollectionImpl implements HTMLCollection {
                 // do two things: if it's the one we're looking for, decrease
                 // the index and if zero, return this node; at any rate,
                 // traverse it's children as well.
-                if (node instanceof Element) {
-                    if (collectionMatch((Element) node, null)) {
+                if (node instanceof Element element) {
+                    if (collectionMatch(element, null)) {
                         if (index.isZero()) {
                             return node;
                         }
                         index.decrement();
                     }
                     else if (recurse()) {
-                        result = item((Element) node, index);
+                        result = item(element, index);
                         if (result != null) {
                             return result;
                         }
@@ -304,12 +304,12 @@ class HTMLCollectionImpl implements HTMLCollection {
                 // do two things: if it's the one we're looking for, and the
                 // name (id attribute) attribute is the one we're looking for,
                 // return this element; otherwise, traverse it's children.
-                if (node instanceof Element) {
-                    if (collectionMatch((Element) node, name)) {
+                if (node instanceof Element element) {
+                    if (collectionMatch(element, name)) {
                         return node;
                     }
                     else if (recurse()) {
-                        result = namedItem((Element) node, name);
+                        result = namedItem(element, name);
                         if (result != null) {
                             return result;
                         }

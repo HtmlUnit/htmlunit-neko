@@ -945,8 +945,7 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         @Override
         public boolean equals(final Object o) {
-            if (o instanceof Element) {
-                final Element e = (Element) o;
+            if (o instanceof Element e) {
                 return lowercaseName.equals(e.name) || name.equals(e.name);
             }
             return false;

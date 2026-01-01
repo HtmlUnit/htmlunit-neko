@@ -1385,8 +1385,7 @@ public class URI {
      */
     @Override
     public boolean equals(final Object test) {
-        if (test instanceof URI) {
-            final URI testURI = (URI) test;
+        if (test instanceof URI testURI) {
             if (((scheme_ == null && testURI.scheme_ == null)
                     || (scheme_ != null && testURI.scheme_ != null && scheme_.equals(testURI.scheme_)))
                     && ((userinfo_ == null && testURI.userinfo_ == null) || (userinfo_ != null

@@ -27,7 +27,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.StringTokenizer;
 
 import org.htmlunit.cyberneko.parsers.DOMParser;
@@ -123,7 +123,7 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
             String path = dataFile.getAbsolutePath();
             path = path.substring(path.indexOf("\\testfiles\\") + 11);
             final File output = new File(OUTOUT_DIR, path + ".canonical-dom");
-            Files.createDirectories(Paths.get(output.getParentFile().getPath()));
+            Files.createDirectories(Path.of(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);
             }

@@ -298,8 +298,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
             }
         }
         // Adopt orphan doctypes
-        if (newChild.getOwnerDocument() == null && newChild instanceof DocumentTypeImpl) {
-            ((DocumentTypeImpl) newChild).ownerDocument = this;
+        if (newChild.getOwnerDocument() == null && newChild instanceof DocumentTypeImpl impl) {
+            impl.ownerDocument = this;
         }
         super.insertBefore(newChild, refChild);
 
@@ -347,8 +347,8 @@ public class CoreDocumentImpl extends ParentNode implements Document {
     @Override
     public Node replaceChild(final Node newChild, final Node oldChild) throws DOMException {
         // Adopt orphan doctypes
-        if (newChild.getOwnerDocument() == null && newChild instanceof DocumentTypeImpl) {
-            ((DocumentTypeImpl) newChild).ownerDocument = this;
+        if (newChild.getOwnerDocument() == null && newChild instanceof DocumentTypeImpl impl) {
+            impl.ownerDocument = this;
         }
 
         if (errorChecking && ((docType_ != null && oldChild.getNodeType() != Node.DOCUMENT_TYPE_NODE
@@ -769,9 +769,9 @@ public class CoreDocumentImpl extends ParentNode implements Document {
         switch (n.getNodeType()) {
             case ELEMENT_NODE: {
                 ElementImpl el = (ElementImpl) n;
-                if (el instanceof ElementNSImpl) {
+                if (el instanceof ElementNSImpl impl) {
                     if (canRenameElements(namespaceURI, name, el)) {
-                        ((ElementNSImpl) el).rename(namespaceURI, name);
+                        impl.rename(namespaceURI, name);
                     }
                     else {
                         el = replaceRenameElement(el, namespaceURI, name);
@@ -1121,8 +1121,7 @@ public class CoreDocumentImpl extends ParentNode implements Document {
                 }
                 // if source is an AttrImpl from this very same implementation
                 // avoid creating the child nodes if possible
-                if (source instanceof AttrImpl) {
-                    final AttrImpl attr = (AttrImpl) source;
+                if (source instanceof AttrImpl attr) {
                     if (attr.hasStringValue()) {
                         final AttrImpl newattr = (AttrImpl) newnode;
                         newattr.setValue(attr.getValue());

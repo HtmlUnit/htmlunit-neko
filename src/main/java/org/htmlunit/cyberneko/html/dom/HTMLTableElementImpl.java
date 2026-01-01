@@ -38,8 +38,8 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
         child = getFirstChild();
         while (child != null) {
-            if (child instanceof HTMLTableCaptionElement && child.getNodeName().equals("CAPTION")) {
-                return (HTMLTableCaptionElement) child;
+            if (child instanceof HTMLTableCaptionElement element && child.getNodeName().equals("CAPTION")) {
+                return element;
             }
             child = child.getNextSibling();
         }
@@ -88,8 +88,8 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
         child = getFirstChild();
         while (child != null) {
-            if (child instanceof HTMLTableSectionElement && child.getNodeName().equals("THEAD")) {
-                return (HTMLTableSectionElement) child;
+            if (child instanceof HTMLTableSectionElement element && child.getNodeName().equals("THEAD")) {
+                return element;
             }
             child = child.getNextSibling();
         }
@@ -137,8 +137,8 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
 
         child = getFirstChild();
         while (child != null) {
-            if (child instanceof HTMLTableSectionElement && child.getNodeName().equals("TFOOT")) {
-                return (HTMLTableSectionElement) child;
+            if (child instanceof HTMLTableSectionElement element && child.getNodeName().equals("TFOOT")) {
+                return element;
             }
             child = child.getNextSibling();
         }
@@ -310,9 +310,9 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
                 }
             }
             else {
-                if (child instanceof HTMLTableSectionElementImpl) {
+                if (child instanceof HTMLTableSectionElementImpl impl) {
                     lastSection = child;
-                    index = ((HTMLTableSectionElementImpl) child).insertRowX(index, newRow);
+                    index = impl.insertRowX(index, newRow);
                     if (index < 0) {
                         return;
                     }
@@ -342,8 +342,8 @@ public class HTMLTableElementImpl extends HTMLElementImpl implements HTMLTableEl
                 --index;
             }
             else {
-                if (child instanceof HTMLTableSectionElementImpl) {
-                    index = ((HTMLTableSectionElementImpl) child).deleteRowX(index);
+                if (child instanceof HTMLTableSectionElementImpl impl) {
+                    index = impl.deleteRowX(index);
                     if (index < 0) {
                         return;
                     }

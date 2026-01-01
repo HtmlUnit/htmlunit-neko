@@ -35,8 +35,8 @@ public class HTMLTitleElementImpl extends HTMLElementImpl implements HTMLTitleEl
         // concatenated value. Required to go around comments, entities, etc.
         child = getFirstChild();
         while (child != null) {
-            if (child instanceof Text) {
-                text.append(((Text) child).getData());
+            if (child instanceof Text text1) {
+                text.append(text1.getData());
             }
             child = child.getNextSibling();
         }

@@ -100,8 +100,9 @@ public class GeneralTest {
             + "[2,34,62;2,41,69])span" + NL
             + "[synth])body" + NL
             + "[synth])html" + NL;
-        doTest("some text <span class='value\n"
-                + "containing a newline'>spancontent</span>", new String[] {}, expected,
+        doTest("""
+                some text <span class='value
+                containing a newline'>spancontent</span>""", new String[] {}, expected,
                 FEATURES);
 
         expected =
@@ -114,8 +115,9 @@ public class GeneralTest {
                 + "[2,23,51;2,34,62]\"spancontent" + NL
                 + "[2,34,62;2,41,69])span" + NL
                 + "[synth])body" + NL;
-        doTest("some text <span class='value\n"
-                + "containing a newline'>spancontent</span>", new String[] {"html"}, expected,
+        doTest("""
+                some text <span class='value
+                containing a newline'>spancontent</span>""", new String[] {"html"}, expected,
                 FEATURES);
 
         expected =
@@ -124,8 +126,9 @@ public class GeneralTest {
                 + "Aclass value\\ncontaining a newline" + NL
                 + "[2,23,51;2,34,62]\"spancontent" + NL
                 + "[2,34,62;2,41,69])span" + NL;
-        doTest("some text <span class='value\n"
-                + "containing a newline'>spancontent</span>", new String[] {"html", "body"}, expected,
+        doTest("""
+                some text <span class='value
+                containing a newline'>spancontent</span>""", new String[] {"html", "body"}, expected,
                 FEATURES);
     }
 

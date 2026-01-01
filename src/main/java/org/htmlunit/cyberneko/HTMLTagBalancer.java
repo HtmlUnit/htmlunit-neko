@@ -1470,8 +1470,8 @@ public class HTMLTagBalancer
             this.element = element;
             this.qname = new QName(qname);
             if (attributes != null) {
-                if (attributes instanceof XMLAttributesImpl) {
-                    this.attributes = new XMLAttributesImpl((XMLAttributesImpl) attributes);
+                if (attributes instanceof XMLAttributesImpl impl) {
+                    this.attributes = new XMLAttributesImpl(impl);
                     return;
                 }
 

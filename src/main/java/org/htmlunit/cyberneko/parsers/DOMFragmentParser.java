@@ -192,8 +192,8 @@ public class DOMFragmentParser implements XMLDocumentHandler {
         try {
             final XMLErrorHandler xmlErrorHandler =
                 (XMLErrorHandler) parserConfiguration_.getProperty(ERROR_HANDLER);
-            if (xmlErrorHandler instanceof ErrorHandlerWrapper) {
-                errorHandler = ((ErrorHandlerWrapper) xmlErrorHandler).getErrorHandler();
+            if (xmlErrorHandler instanceof ErrorHandlerWrapper wrapper) {
+                errorHandler = wrapper.getErrorHandler();
             }
         }
         catch (final XMLConfigurationException e) {

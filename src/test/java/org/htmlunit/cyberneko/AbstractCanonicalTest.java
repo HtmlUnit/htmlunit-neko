@@ -101,23 +101,23 @@ public abstract class AbstractCanonicalTest {
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node childNode = childNodes.item(i);
 
-            if (childNode instanceof CDATASectionImpl) {
-                write(out, (CDATASectionImpl) childNode);
+            if (childNode instanceof CDATASectionImpl impl5) {
+                write(out, impl5);
             }
-            else if (childNode instanceof TextImpl) {
-                write(out, (TextImpl) childNode);
+            else if (childNode instanceof TextImpl impl4) {
+                write(out, impl4);
             }
-            else if (childNode instanceof CommentImpl) {
-                write(out, (CommentImpl) childNode);
+            else if (childNode instanceof CommentImpl impl3) {
+                write(out, impl3);
             }
-            else if (childNode instanceof DocumentTypeImpl) {
-                write(out, (DocumentTypeImpl) childNode);
+            else if (childNode instanceof DocumentTypeImpl impl2) {
+                write(out, impl2);
             }
-            else if (childNode instanceof ProcessingInstructionImpl) {
-                write(out, (ProcessingInstructionImpl) childNode);
+            else if (childNode instanceof ProcessingInstructionImpl impl1) {
+                write(out, impl1);
             }
-            else if (childNode instanceof NodeImpl) {
-                write(out, (NodeImpl) childNode);
+            else if (childNode instanceof NodeImpl impl) {
+                write(out, impl);
             }
         }
     }
@@ -127,23 +127,23 @@ public abstract class AbstractCanonicalTest {
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node childNode = childNodes.item(i);
 
-            if (childNode instanceof CDATASectionImpl) {
-                write(out, (CDATASectionImpl) childNode);
+            if (childNode instanceof CDATASectionImpl impl5) {
+                write(out, impl5);
             }
-            else if (childNode instanceof TextImpl) {
-                write(out, (TextImpl) childNode);
+            else if (childNode instanceof TextImpl impl4) {
+                write(out, impl4);
             }
-            else if (childNode instanceof CommentImpl) {
-                write(out, (CommentImpl) childNode);
+            else if (childNode instanceof CommentImpl impl3) {
+                write(out, impl3);
             }
-            else if (childNode instanceof DocumentTypeImpl) {
-                write(out, (DocumentTypeImpl) childNode);
+            else if (childNode instanceof DocumentTypeImpl impl2) {
+                write(out, impl2);
             }
-            else if (childNode instanceof ProcessingInstructionImpl) {
-                write(out, (ProcessingInstructionImpl) childNode);
+            else if (childNode instanceof ProcessingInstructionImpl impl1) {
+                write(out, impl1);
             }
-            else if (childNode instanceof NodeImpl) {
-                write(out, (NodeImpl) childNode);
+            else if (childNode instanceof NodeImpl impl) {
+                write(out, impl);
             }
         }
     }
@@ -159,8 +159,8 @@ public abstract class AbstractCanonicalTest {
             for (int i = 0; i < attributes.getLength(); i++) {
                 final Node attribute = attributes.item(i);
 
-                if (attribute instanceof Attr) {
-                    write(out, (Attr) attribute);
+                if (attribute instanceof Attr attr) {
+                    write(out, attr);
                 }
                 else {
                     throw new RuntimeException("");
@@ -173,23 +173,23 @@ public abstract class AbstractCanonicalTest {
         for (int i = 0; i < childNodes.getLength(); i++) {
             final Node childNode = childNodes.item(i);
 
-            if (childNode instanceof CDATASectionImpl) {
-                write(out, (CDATASectionImpl) childNode);
+            if (childNode instanceof CDATASectionImpl impl5) {
+                write(out, impl5);
             }
-            else if (childNode instanceof TextImpl) {
-                write(out, (TextImpl) childNode);
+            else if (childNode instanceof TextImpl impl4) {
+                write(out, impl4);
             }
-            else if (childNode instanceof CommentImpl) {
-                write(out, (CommentImpl) childNode);
+            else if (childNode instanceof CommentImpl impl3) {
+                write(out, impl3);
             }
-            else if (childNode instanceof DocumentTypeImpl) {
-                write(out, (DocumentTypeImpl) childNode);
+            else if (childNode instanceof DocumentTypeImpl impl2) {
+                write(out, impl2);
             }
-            else if (childNode instanceof ProcessingInstructionImpl) {
-                write(out, (ProcessingInstructionImpl) childNode);
+            else if (childNode instanceof ProcessingInstructionImpl impl1) {
+                write(out, impl1);
             }
-            else if (childNode instanceof NodeImpl) {
-                write(out, (NodeImpl) childNode);
+            else if (childNode instanceof NodeImpl impl) {
+                write(out, impl);
             }
             else {
                 throw new RuntimeException("");

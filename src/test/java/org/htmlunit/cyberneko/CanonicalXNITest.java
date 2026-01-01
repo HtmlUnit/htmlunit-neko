@@ -25,7 +25,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
@@ -83,7 +83,7 @@ public class CanonicalXNITest extends AbstractCanonicalTest {
             String path = dataFile.getAbsolutePath();
             path = path.substring(path.indexOf("\\testfiles\\") + 11);
             final File output = new File(OUTOUT_DIR, path + ".canonical-xni");
-            Files.createDirectories(Paths.get(output.getParentFile().getPath()));
+            Files.createDirectories(Path.of(output.getParentFile().getPath()));
             try (PrintWriter pw = new PrintWriter(Files.newOutputStream(output.toPath()))) {
                 pw.print(domDataLines);
             }

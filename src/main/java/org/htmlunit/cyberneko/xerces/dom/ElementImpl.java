@@ -471,9 +471,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
             attributes_.setNamedItemNS(newAttr);
         }
         else {
-            if (newAttr instanceof AttrNSImpl) {
+            if (newAttr instanceof AttrNSImpl impl) {
                 // change prefix and value
-                ((AttrNSImpl) newAttr).name = (prefix != null) ? (prefix + ":" + localName) : localName;
+                impl.name = (prefix != null) ? (prefix + ":" + localName) : localName;
             }
             else {
                 // This case may happen if user calls:

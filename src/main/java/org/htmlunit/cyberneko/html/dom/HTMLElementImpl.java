@@ -233,8 +233,8 @@ public class HTMLElementImpl extends ElementImpl implements HTMLElement {
     public HTMLFormElement getForm() {
         Node parent = getParentNode();
         while (parent != null) {
-            if (parent instanceof HTMLFormElement) {
-                return (HTMLFormElement) parent;
+            if (parent instanceof HTMLFormElement element) {
+                return element;
             }
             parent = parent.getParentNode();
         }
