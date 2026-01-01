@@ -697,12 +697,9 @@ public class URI {
         // 6e - remove all "<segment>/../" where "<segment>" is a complete
         // path segment not equal to ".."
         index = 1;
-        int segIndex = -1;
-        String tempString = null;
-
         while ((index = path.indexOf("/../", index)) > 0) {
-            tempString = path.substring(0, path.indexOf("/../"));
-            segIndex = tempString.lastIndexOf('/');
+            String tempString = path.substring(0, path.indexOf("/../"));
+            int segIndex = tempString.lastIndexOf('/');
             if (segIndex != -1) {
                 if (!"..".equals(tempString.substring(segIndex))) {
                     path = path.substring(0, segIndex + 1).concat(path.substring(index + 4));
@@ -720,8 +717,8 @@ public class URI {
         // 6f - remove ending "<segment>/.." where "<segment>" is a
         // complete path segment
         if (path.endsWith("/..")) {
-            tempString = path.substring(0, path.length() - 3);
-            segIndex = tempString.lastIndexOf('/');
+            String tempString = path.substring(0, path.length() - 3);
+            int segIndex = tempString.lastIndexOf('/');
             if (segIndex != -1) {
                 path = path.substring(0, segIndex + 1);
             }

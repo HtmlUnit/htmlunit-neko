@@ -219,7 +219,7 @@ public class AttrNSImpl extends AttrImpl {
      * Introduced in DOM Level 3.
      * <p>
      * Checks if a type is derived from another by restriction. See:
-     * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
+     * <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom">...</a>
      *
      * @param typeNamespaceArg The namspace of the ancestor type declaration
      * @param typeNameArg      The name of the ancestor type declaration

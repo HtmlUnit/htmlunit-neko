@@ -62,7 +62,7 @@ public class HTMLDocumentImpl extends DocumentImpl implements HTMLDocument {
 
     /**
      * All valid HTML5 tags without deprecated elements
-     * https://www.tutorialrepublic.com/html-reference/html5-tags.php
+     * <a href="https://www.tutorialrepublic.com/html-reference/html5-tags.php">...</a>
      */
     private static final String[] HTML5ELEMENTS = {
         "A", "ABBR", "ADDRESS", "AREA", "ARTICLE", "ASIDE", "AUDIO",

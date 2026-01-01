@@ -519,25 +519,15 @@ public class XMLStringTest {
     public void charAt_Errors() {
         // empty
         final XMLString a1 = new XMLString();
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            a1.charAt(0);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> a1.charAt(0));
 
         final XMLString a2 = new XMLString("");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            a2.charAt(0);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> a2.charAt(0));
 
         final XMLString b = new XMLString("foo");
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            b.charAt(-1);
-        });
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            b.charAt(3);
-        });
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            b.charAt(4);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> b.charAt(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> b.charAt(3));
+        assertThrows(IndexOutOfBoundsException.class, () -> b.charAt(4));
     }
 
     @Test
@@ -562,9 +552,7 @@ public class XMLStringTest {
         a1.unsafeCharAt(0);
 
         // cannot read outside the array of course
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            a1.unsafeCharAt(XMLString.INITIAL_CAPACITY);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> a1.unsafeCharAt(XMLString.INITIAL_CAPACITY));
     }
 
     @Test
@@ -1057,24 +1045,14 @@ public class XMLStringTest {
     public void subSequenceErrors() {
         {
             final CharSequence o = new XMLString("");
-            assertThrows(IndexOutOfBoundsException.class, () -> {
-                o.subSequence(-1, 2);
-            });
-            assertThrows(IndexOutOfBoundsException.class, () -> {
-                o.subSequence(0, 1);
-            });
+            assertThrows(IndexOutOfBoundsException.class, () -> o.subSequence(-1, 2));
+            assertThrows(IndexOutOfBoundsException.class, () -> o.subSequence(0, 1));
         }
         {
             final CharSequence o = new XMLString("12345");
-            assertThrows(IndexOutOfBoundsException.class, () -> {
-                o.subSequence(-2, 3);
-            });
-            assertThrows(IndexOutOfBoundsException.class, () -> {
-                o.subSequence(0, 6);
-            });
-            assertThrows(IndexOutOfBoundsException.class, () -> {
-                o.subSequence(1, 0);
-            });
+            assertThrows(IndexOutOfBoundsException.class, () -> o.subSequence(-2, 3));
+            assertThrows(IndexOutOfBoundsException.class, () -> o.subSequence(0, 6));
+            assertThrows(IndexOutOfBoundsException.class, () -> o.subSequence(1, 0));
         }
     }
 
