@@ -28,7 +28,7 @@
         <junit-launcher.version>1.14.1</junit-launcher.version>
 
         <!-- quality -->
-        <checkstyle.version>12.3.0</checkstyle.version>
+        <checkstyle.version>12.3.1</checkstyle.version>
         <spotbugs.version>4.9.8</spotbugs.version>
         <pmd.version>7.19.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version>
