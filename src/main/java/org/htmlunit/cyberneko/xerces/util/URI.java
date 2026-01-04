@@ -16,6 +16,7 @@ package org.htmlunit.cyberneko.xerces.util;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A class to represent a Uniform Resource Identifier (URI). This class is
@@ -698,8 +699,8 @@ public class URI {
         // path segment not equal to ".."
         index = 1;
         while ((index = path.indexOf("/../", index)) > 0) {
-            String tempString = path.substring(0, path.indexOf("/../"));
-            int segIndex = tempString.lastIndexOf('/');
+            final String tempString = path.substring(0, path.indexOf("/../"));
+            final int segIndex = tempString.lastIndexOf('/');
             if (segIndex != -1) {
                 if (!"..".equals(tempString.substring(segIndex))) {
                     path = path.substring(0, segIndex + 1).concat(path.substring(index + 4));
@@ -717,8 +718,8 @@ public class URI {
         // 6f - remove ending "<segment>/.." where "<segment>" is a
         // complete path segment
         if (path.endsWith("/..")) {
-            String tempString = path.substring(0, path.length() - 3);
-            int segIndex = tempString.lastIndexOf('/');
+            final String tempString = path.substring(0, path.length() - 3);
+            final int segIndex = tempString.lastIndexOf('/');
             if (segIndex != -1) {
                 path = path.substring(0, segIndex + 1);
             }
@@ -1400,6 +1401,11 @@ public class URI {
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(scheme_, userinfo_, host_, port_, path_, queryString_, fragment_);
     }
 
     /**

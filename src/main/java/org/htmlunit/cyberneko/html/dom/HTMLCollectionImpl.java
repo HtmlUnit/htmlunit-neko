@@ -357,43 +357,43 @@ class HTMLCollectionImpl implements HTMLCollection {
                 case ANCHOR ->
                     // Anchor is an <A> element with a 'name' attribute. Otherwise, it's
                     // just a link.
-                        (elem instanceof HTMLAnchorElement) && !elem.getAttribute("name").isEmpty();
+                    (elem instanceof HTMLAnchorElement) && !elem.getAttribute("name").isEmpty();
                 case FORM ->
                     // Any <FORM> element.
-                        elem instanceof HTMLFormElement;
+                    elem instanceof HTMLFormElement;
                 case IMAGE ->
                     // Any <IMG> element. <OBJECT> elements with images are not returned.
-                        elem instanceof HTMLImageElement;
+                    elem instanceof HTMLImageElement;
                 case APPLET ->
                     // Any <APPLET> element, and any <OBJECT> element which represents an
                     // Applet. This is determined by 'codetype' attribute being
                     // 'application/java' or 'classid' attribute starting with 'java:'.
-                        (elem instanceof HTMLAppletElement)
-                                || (elem instanceof HTMLObjectElement
+                    (elem instanceof HTMLAppletElement)
+                            || (elem instanceof HTMLObjectElement
                                 && ("application/java".equals(elem.getAttribute("codetype"))
-                                || elem.getAttribute("classid").startsWith("java:")));
+                                    || elem.getAttribute("classid").startsWith("java:")));
                 case ELEMENT ->
                     // All form elements implement HTMLFormControl for easy identification.
-                        elem instanceof HTMLFormControl;
+                    elem instanceof HTMLFormControl;
                 case LINK ->
                     // Any <A> element, and any <AREA> elements with an 'href' attribute.
-                        (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
-                                && !elem.getAttribute("href").isEmpty();
+                    (elem instanceof HTMLAnchorElement || elem instanceof HTMLAreaElement)
+                            && !elem.getAttribute("href").isEmpty();
                 case AREA ->
                     // Any <AREA> element.
-                        elem instanceof HTMLAreaElement;
+                    elem instanceof HTMLAreaElement;
                 case OPTION ->
                     // Any <OPTION> element.
-                        elem instanceof HTMLOptionElement;
+                    elem instanceof HTMLOptionElement;
                 case ROW ->
                     // Any <TR> element.
-                        elem instanceof HTMLTableRowElement;
+                    elem instanceof HTMLTableRowElement;
                 case TBODY ->
                     // Any <TBODY> element (one of three table section types).
-                        elem instanceof HTMLTableSectionElement && "TBODY".equalsIgnoreCase(elem.getTagName());
+                    elem instanceof HTMLTableSectionElement && "TBODY".equalsIgnoreCase(elem.getTagName());
                 case CELL ->
                     // Any <TD> or <TH> element.
-                        elem instanceof HTMLTableCellElement;
+                    elem instanceof HTMLTableCellElement;
                 default -> match;
             };
 
