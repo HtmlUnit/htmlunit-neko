@@ -3,7 +3,7 @@
 [![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/neko-htmlunit)](https://central.sonatype.com/artifact/org.htmlunit/neko-htmlunit)
 [![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Java Version](https://img.shields.io/badge/Java-8%2B-orange.svg)](https://www.oracle.com/java/)
+[![Java Version](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://www.oracle.com/java/)
 
 The **Htmlunit-NekoHtml** Parser is a HTML scanner and tag balancer that enables application programmers to parse HTML documents
 and access the information using standard XML interfaces.  
@@ -16,7 +16,7 @@ NekoHTML adds missing parent elements; automatically closes elements with option
 ✅ **Standards Compliant** - Follows HTML parsing specifications  
 ✅ **Well Tested** - Over 8,000 test cases  
 ✅ **No External Dependencies** - Pure Java implementation  
-✅ **Java 8+ Compatible** - Works with Java 8, 11, 17, 21 and beyond  
+✅ **Java 17+ Compatible** - Works with Java 17, 21 and beyond  
 ✅ **Android Support** - Runs on Android platforms  
 
 The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourceforge.io/).
