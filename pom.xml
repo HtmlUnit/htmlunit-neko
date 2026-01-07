@@ -23,8 +23,10 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
+        <maven.version.ignore>(?i).*-(alpha|beta|m|rc)([\.-]?\d+)?</maven.version.ignore>
+
         <!-- test dependencies -->
-        <junit.version>6.0.1</junit.version>
+        <junit.version>6.0.2</junit.version>
 
         <!-- quality -->
         <checkstyle.version>13.0.0</checkstyle.version>
