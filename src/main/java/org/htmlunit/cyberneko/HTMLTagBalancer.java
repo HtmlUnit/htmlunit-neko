@@ -443,7 +443,7 @@ public class HTMLTagBalancer
         throws XNIException {
 
         // reset state
-        fElementStack.top = 0;
+        fElementStack.length = 0;
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
             // use indexed loop to avoid Iterator allocation
@@ -525,7 +525,7 @@ public class HTMLTagBalancer
 
         // pop all remaining elements
         else {
-            final int length = fElementStack.top - fragmentContextStackSize_;
+            final int length = fElementStack.length - fragmentContextStackSize_;
             for (int i = 0; i < length; i++) {
                 final Info info = fElementStack.pop();
                 if (fReportErrors) {
@@ -733,7 +733,7 @@ public class HTMLTagBalancer
             // check if inside a table
             //    forms are only valid inside td/th/caption
             //    otherwise close the form
-            for (int i = fElementStack.top - 1; i >= 0; i--) {
+            for (int i = fElementStack.length - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (info.element.code == HTMLElements.TD
                         || info.element.code == HTMLElements.TH
@@ -769,7 +769,7 @@ public class HTMLTagBalancer
             // check if inside another table
             //    tables are only valid inside td/th/caption
             //    otherwise close the surrounding table
-            for (int i = fElementStack.top - 1; i >= 0; i--) {
+            for (int i = fElementStack.length - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (info.element.code == HTMLElements.TD
                         || info.element.code == HTMLElements.TH
@@ -798,8 +798,8 @@ public class HTMLTagBalancer
                 // if there was no explicit head before
             }
             else if (fTemplateFragment
-                        && fElementStack.top > 0
-                        && fElementStack.data[fElementStack.top - 1].element.code == HTMLElements.TEMPLATE) {
+                        && fElementStack.length > 0
+                        && fElementStack.data[fElementStack.length - 1].element.code == HTMLElements.TEMPLATE) {
                 // nothing, don't force/check parent for the direct template children
             }
             else if (!fSeenRootElement && !fDocumentFragment) {
@@ -853,8 +853,8 @@ public class HTMLTagBalancer
         // if block element, save immediate parent formatting elements
         int depth = 0;
         if (element.flags == 0) {
-            final int length = fElementStack.top;
-            fFormattingStack.top = 0;
+            final int length = fElementStack.length;
+            fFormattingStack.length = 0;
             for (int i = length - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (!info.element.isFormatting()) {
@@ -863,16 +863,17 @@ public class HTMLTagBalancer
                 fFormattingStack.push(info);
                 endElement(info.qname, synthesizedAugs());
             }
-            depth = fFormattingStack.top;
+            depth = fFormattingStack.length;
         }
 
         // close previous elements
         // all elements close a <script>
         // in head, no element has children
-        if ((fElementStack.top > 1
+        final int elementsLength = fElementStack.length;
+        if ((elementsLength > 1
                 && (fElementStack.peek().element.code == HTMLElements.SCRIPT))
-                || fElementStack.top > 2
-                && fElementStack.data[fElementStack.top - 2].element.code == HTMLElements.HEAD) {
+                || elementsLength > 2
+                && fElementStack.data[elementsLength - 2].element.code == HTMLElements.HEAD) {
             final Info info = fElementStack.pop();
             if (documentHandler_ != null) {
                 callEndElement(info.qname, synthesizedAugs());
@@ -880,7 +881,7 @@ public class HTMLTagBalancer
         }
 
         if (element.closes != null) {
-            int length = fElementStack.top;
+            int length = fElementStack.length;
             for (int i = length - 1; i >= 0; i--) {
                 Info info = fElementStack.data[i];
 
@@ -961,7 +962,7 @@ public class HTMLTagBalancer
         forcedStartElement_ = true;
         startElement(elem, attrs, augs);
 
-        return fElementStack.top > 0 && elem.equals(fElementStack.peek().qname);
+        return fElementStack.length > 0 && elem.equals(fElementStack.peek().qname);
     }
 
     private static QName createQName(final String tagName) {
@@ -1039,7 +1040,7 @@ public class HTMLTagBalancer
             return;
         }
 
-        if (fElementStack.top == 0 && !fDocumentFragment) {
+        if (fElementStack.length == 0 && !fDocumentFragment) {
             // character before first opening tag
             lostText_.add(text, augs);
             return;
@@ -1058,7 +1059,7 @@ public class HTMLTagBalancer
             // therefore we like to call it at late as possible - this leads to a bit
             // strange code but it is worth the price
             int whitespace = -1;
-            if (fElementStack.top < 2 || endElementsBuffer_.size() == 1) {
+            if (fElementStack.length < 2 || endElementsBuffer_.size() == 1) {
                 whitespace = text.isWhitespace() ? 1 : 0;
                 if (whitespace == 1) {
                     // ignore spaces directly within <html>
@@ -1198,7 +1199,7 @@ public class HTMLTagBalancer
                         || elementCode == HTMLElements.H4
                         || elementCode == HTMLElements.H5
                         || elementCode == HTMLElements.H6) {
-                for (int i = fElementStack.top - 1; i >= 0; i--) {
+                for (int i = fElementStack.length - 1; i >= 0; i--) {
                     final Info info = fElementStack.data[i];
                     final short infoElemCode = info.element.code;
                     if (infoElemCode == HTMLElements.H1
@@ -1223,12 +1224,11 @@ public class HTMLTagBalancer
 
         // find unbalanced formatting elements
         if (depth > 1 && elem.isInline()) {
-            final int size = fElementStack.top;
-            fFormattingStack.top = 0;
+            final int size = fElementStack.length;
+            fFormattingStack.length = 0;
             for (int i = 0; i < depth - 1; i++) {
                 final Info info = fElementStack.data[size - i - 1];
-                final HTMLElements.Element pelem = info.element;
-                if (pelem.isFormatting()) {
+                if (info.element.isFormatting()) {
                     // NOTE: I don't have to make a copy of the info because
                     //       it will just be popped off of the element stack
                     //       as soon as we close it, anyway.
@@ -1255,7 +1255,7 @@ public class HTMLTagBalancer
 
     // re-open inline elements
     protected boolean reopenFormattingElements(final HTMLElements.Element element) {
-        final int size = fFormattingStack.top;
+        final int size = fFormattingStack.length;
 
         if (size == 0) {
             return false;
@@ -1340,12 +1340,12 @@ public class HTMLTagBalancer
         final boolean tableBodyOrHtml = (elementCode == HTMLElements.TABLE)
             || (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
         int depth = -1;
-        for (int i = fElementStack.top - 1; i >= fragmentContextStackSize_; i--) {
+        for (int i = fElementStack.length - 1; i >= fragmentContextStackSize_; i--) {
             final Info info = fElementStack.data[i];
             if (info.element.code == elementCode
                     && (elementCode != HTMLElements.UNKNOWN
                             || element.name.equals(info.element.name))) {
-                depth = fElementStack.top - i;
+                depth = fElementStack.length - i;
                 break;
             }
             if (!container && info.element.isBlock()) {
@@ -1371,7 +1371,7 @@ public class HTMLTagBalancer
         final HTMLElements.Element[] parents = element.parent;
         if (parents != null && parents.length > 0) {
             final short bounds = element.bounds;
-            for (int i = fElementStack.top - 1; i >= 0; i--) {
+            for (int i = fElementStack.length - 1; i >= 0; i--) {
                 final Info info = fElementStack.data[i];
                 if (info.element.code == bounds) {
                     break;
@@ -1381,7 +1381,7 @@ public class HTMLTagBalancer
                 for (int j = 0; j < parents.length; j++) {
                     final Element parent = parents[j];
                     if (info.element.code == parent.code) {
-                        return fElementStack.top - i;
+                        return fElementStack.length - i;
                     }
                 }
             }
@@ -1497,8 +1497,8 @@ public class HTMLTagBalancer
     /** Unsynchronized stack of element information. */
     public static class InfoStack {
 
-        /** The top of the stack. */
-        public int top;
+        /** The length of the stack. */
+        public int length;
 
         /** The stack data. */
         public Info[] data;
@@ -1509,29 +1509,29 @@ public class HTMLTagBalancer
 
         // Pushes element information onto the stack.
         public void push(final Info info) {
-            if (top == data.length) {
-                final Info[] newarray = new Info[top + 10];
-                System.arraycopy(data, 0, newarray, 0, top);
+            if (length == data.length) {
+                final Info[] newarray = new Info[length + 10];
+                System.arraycopy(data, 0, newarray, 0, length);
                 data = newarray;
             }
-            data[top++] = info;
+            data[length++] = info;
         }
 
         // Peeks at the top of the stack.
         public Info peek() {
-            return data[top - 1];
+            return data[length - 1];
         }
 
         // Pops the top item off of the stack.
         public Info pop() {
-            return data[--top];
+            return data[--length];
         }
 
         // Simple representation to make debugging easier
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("InfoStack(");
-            for (int i = top - 1; i >= 0; --i) {
+            for (int i = length - 1; i >= 0; --i) {
                 sb.append(data[i]);
                 if (i != 0) {
                     sb.append(", ");
