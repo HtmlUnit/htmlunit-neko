@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2002-2009 Andy Clark, Marc Guillemot
- * Copyright (c) 2017-2025 Ronald Brill
+ * Copyright (c) 2017-2026 Ronald Brill
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
