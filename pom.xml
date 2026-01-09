@@ -30,7 +30,7 @@
         <junit.version>6.0.2</junit.version>
 
         <!-- quality -->
-        <checkstyle.version>13.0.0</checkstyle.version>
+        <checkstyle.version>12.3.1</checkstyle.version>
         <spotbugs.version>4.9.8</spotbugs.version>
         <pmd.version>7.20.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version>
