@@ -28,6 +28,7 @@ import java.util.Locale;
 import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.io.PlaybackInputStream;
 import org.htmlunit.cyberneko.util.MiniStack;
+import org.htmlunit.cyberneko.util.StringCache;
 import org.htmlunit.cyberneko.xerces.util.EncodingTranslator;
 import org.htmlunit.cyberneko.xerces.util.NamespaceSupport;
 import org.htmlunit.cyberneko.xerces.util.StandardEncodingTranslator;
@@ -522,6 +523,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Reusable parser for numeric character references (&#x...; and &#...;) */
     private final HTMLUnicodeEntitiesParser fUnicodeEntitiesParser = new HTMLUnicodeEntitiesParser();
+
+    final StringCache fStringCache = new StringCache();
 
     final HTMLConfiguration htmlConfiguration_;
 
@@ -1349,7 +1352,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         final int length = fCurrentEntity.offset_ - offset;
-        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
+        final String name = length > 0 ? fStringCache.get(fCurrentEntity.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
@@ -1419,7 +1422,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         final int length = fCurrentEntity.offset_ - offset;
-        final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
+        final String name = length > 0 ? fStringCache.get(fCurrentEntity.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
@@ -1837,7 +1840,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @return the read string (length may be smaller if EOF is encountered)
          * @throws IOException in case of io problems
          */
-        String nextContent(final int len) throws IOException {
+        String nextContent(final StringCache strCache, final int len) throws IOException {
             final int originalOffset = offset_;
             final int originalColumnNumber = getColumnNumber();
             final int originalCharacterOffset = getCharacterOffset();
@@ -1864,7 +1867,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             columnNumber_ = originalColumnNumber;
             characterOffset_ = originalCharacterOffset;
 
-            return new String(buff, 0, nbRead);
+            return strCache.get(buff, 0, nbRead);
         }
 
         // Reads a single character, preserving the old buffer content
@@ -2419,7 +2422,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
                 if (c == '<') {
-                    final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
+                    final String next = fCurrentEntity.nextContent(fStringCache, lengthToScan) + " ";
                     if (next.length() >= lengthToScan
                             && tagNameWithLeadingSlash.equalsIgnoreCase(
                                     next.substring(0, tagNameWithLeadingSlash.length()))
@@ -3636,7 +3639,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             state = ScanScriptState.ESCAPED;
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
+                            final String next = fCurrentEntity.nextContent(fStringCache, 8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
                                 fCurrentEntity.rewind();
@@ -3655,7 +3658,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
+                            final String next = fCurrentEntity.nextContent(fStringCache, 8) + " ";
                             if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
                                     && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
                                 fCurrentEntity.rewind();

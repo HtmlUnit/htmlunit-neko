@@ -209,7 +209,7 @@ public class HTMLScannerTest {
             @Override
             protected int scanComment() throws IOException {
                 // bug was here: calling nextContent() at the end of the buffer/input
-                fCurrentEntity.nextContent(30);
+                fCurrentEntity.nextContent(fStringCache, 30);
                 return super.scanComment();
             }
         }
