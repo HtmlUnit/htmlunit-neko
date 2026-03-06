@@ -1331,6 +1331,66 @@ public class HTMLScanner
         return name;
     }
 
+    // Scans a tag name.
+    protected String scanTagName() throws IOException {
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded("(scanName: ");
+        }
+        if (fCurrentEntity.offset == fCurrentEntity.length) {
+            if (fCurrentEntity.load(0) == -1) {
+                if (DEBUG_BUFFER) {
+                    fCurrentEntity.debugBufferIfNeeded(")scanName: ");
+                }
+                return null;
+            }
+        }
+        int offset = fCurrentEntity.offset;
+        boolean isFirst = true;
+
+        while (true) {
+            while (fCurrentEntity.hasNext()) {
+                final char c = fCurrentEntity.getNextChar();
+
+                if (isFirst) {
+                    isFirst = false;
+
+                    // first char has to be ASCII alpha
+                    if (!('A' <= c && c <= 'Z' || 'a' <= c && c <= 'z')) {
+                        fCurrentEntity.rewind();
+                        break;
+                    }
+                }
+                else {
+                    if (c == '\t' || c == '\r' || c == '\n' || c == ' ' || c == 0
+                            || c == '/' || c == '>') {
+                        fCurrentEntity.rewind();
+                        break;
+                    }
+                }
+            }
+            if (fCurrentEntity.offset == fCurrentEntity.length) {
+                final int length = fCurrentEntity.length - offset;
+                System.arraycopy(fCurrentEntity.buffer, offset, fCurrentEntity.buffer, 0, length);
+                final int count = fCurrentEntity.load(length);
+                offset = 0;
+                if (count == -1) {
+                    break;
+                }
+            }
+            else {
+                break;
+            }
+        }
+
+        final int length = fCurrentEntity.offset - offset;
+        final String name = length > 0 ? new String(fCurrentEntity.buffer, offset, length) : null;
+        if (DEBUG_BUFFER) {
+            fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
+        }
+
+        return name;
+    }
+
     // Scans an entity reference.
     protected int scanEntityRef(final XMLStringBuffer str, final boolean content)
         throws IOException {
@@ -2733,10 +2793,9 @@ public class HTMLScanner
          * @throws IOException in case of io problems
          */
         protected String scanStartElement(boolean[] empty) throws IOException {
-            String ename = scanName(true);
+            String ename = scanTagName();
             final int length = ename != null ? ename.length() : 0;
-            final int c = length > 0 ? ename.charAt(0) : -1;
-            if (length == 0 || !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+            if (length == 0) {
                 if (fReportErrors) {
                     fErrorReporter.reportError("HTML1009", null);
                 }
@@ -2761,8 +2820,8 @@ public class HTMLScanner
             fBeginLineNumber = beginLineNumber;
             fBeginColumnNumber = beginColumnNumber;
             fBeginCharacterOffset = beginCharacterOffset;
-            if (fByteStream != null && fElementDepth == -1) {
-                if (ename.equalsIgnoreCase("META") && !fIgnoreSpecifiedCharset) {
+            if (fElementDepth == -1) {
+                if (fByteStream != null && !fIgnoreSpecifiedCharset && "META".equalsIgnoreCase(ename)) {
                     if (DEBUG_CHARSET) {
                         System.out.println("+++ <META>");
                     }
@@ -2789,13 +2848,17 @@ public class HTMLScanner
                         }
                     }
                 }
-                else if (ename.equalsIgnoreCase("BODY")) {
+                else if (fByteStream != null && "BODY".equalsIgnoreCase(ename)) {
                     fByteStream.clear();
                     fByteStream = null;
                 }
                 else {
                      final HTMLElements.Element element = htmlConfiguration_.htmlElements_.getElement(ename);
-                     if (element.parent != null && element.parent.length > 0) {
+                     if (element.code == HTMLElements.UNKNOWN) {
+                         empty[0] = false;
+                     }
+
+                     if (fByteStream != null && element.parent != null && element.parent.length > 0) {
                          if (element.parent[0].code == HTMLElements.BODY) {
                              fByteStream.clear();
                              fByteStream = null;
@@ -2803,6 +2866,7 @@ public class HTMLScanner
                      }
                 }
             }
+
             if (fDocumentHandler != null && fElementCount >= fElementDepth) {
                 fQName.setValues(null, ename, ename, null);
                 if (DEBUG_CALLBACKS) {
@@ -3181,7 +3245,7 @@ public class HTMLScanner
 
         // Scans an end element.
         protected void scanEndElement() throws IOException {
-            String ename = scanName(true);
+            String ename = scanTagName();
             if (fReportErrors && ename == null) {
                 fErrorReporter.reportError("HTML1012", null);
             }
