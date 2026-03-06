@@ -52,7 +52,20 @@ public class HTMLUnicodeEntitiesParser {
     }
 
     public HTMLUnicodeEntitiesParser() {
+        reset();
+    }
+
+    /**
+     * Resets this parser to its initial state so it can be reused
+     * for parsing another numeric entity reference. This avoids
+     * allocating a new instance per entity.
+     */
+    public void reset() {
         state_ = STATE_START;
+        consumedCount_ = 0;
+        match_ = null;
+        code_ = 0;
+        matchLength_ = 0;
     }
 
     public void setMatchFromCode() {
