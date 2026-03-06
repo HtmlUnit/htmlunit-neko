@@ -229,16 +229,15 @@ public class XMLString implements CharSequence {
      * @return this instance
      */
     public XMLString append(final String src) {
-        final int start = length_;
-        length_ = length_ + src.length();
-        ensureCapacity(length_);
-
-        // copy char by char because we don't get a copy for free
-        // from a string yet, this might change when immutable arrays
-        // make it into Java, but that will not be very soon
-        for (int i = 0; i < src.length(); i++) {
-            data_[start + i] = src.charAt(i);
+        final int srcLen = src.length();
+        if (srcLen == 0) {
+            return this;
         }
+
+        final int start = length_;
+        length_ = start + srcLen;
+        ensureCapacity(length_);
+        src.getChars(0, srcLen, data_, start);
 
         return this;
     }
