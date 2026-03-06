@@ -517,7 +517,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      * each use to ensure correctness.
      * <p>
      * Thread safety: Safe because scanner instances are single-threaded.
-     */    final boolean[] fSingleBoolean = {false};
+     */
+    final boolean[] fSingleBoolean = {false};
+
+    /** Reusable parser for numeric character references (&#x...; and &#...;) */
+    private final HTMLUnicodeEntitiesParser fUnicodeEntitiesParser = new HTMLUnicodeEntitiesParser();
 
     final HTMLConfiguration htmlConfiguration_;
 
@@ -1343,6 +1347,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 break;
             }
         }
+
         final int length = fCurrentEntity.offset_ - offset;
         final String name = length > 0 ? new String(fCurrentEntity.buffer_, offset, length) : null;
         if (DEBUG_BUFFER) {
@@ -1418,7 +1423,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         if (DEBUG_BUFFER) {
             fCurrentEntity.debugBufferIfNeeded(")scanName: ", " -> \"" + name + '"');
         }
-
         return name;
     }
 
@@ -1439,7 +1443,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         str.append((char) nextChar);
 
         if ('#' == nextChar) {
-            final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
+            fUnicodeEntitiesParser.reset();
 
             do {
                 nextChar = fCurrentEntity.readPreservingBufferContent();
@@ -1447,9 +1451,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     str.append((char) nextChar);
                 }
             }
-            while (nextChar != -1 && parser.parseNumeric(nextChar));
+            while (nextChar != -1 && fUnicodeEntitiesParser.parseNumeric(nextChar));
 
-            final String match = parser.getMatch();
+            final String match = fUnicodeEntitiesParser.getMatch();
             if (match == null) {
                 fCurrentEntity.rewind(str.length() - 1);
                 if (plainValue != null) {
@@ -1458,7 +1462,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 str.clearAndAppend('&');
             }
             else {
-                fCurrentEntity.rewind(parser.getRewindCount());
+                fCurrentEntity.rewind(fUnicodeEntitiesParser.getRewindCount());
                 if (plainValue != null) {
                     plainValue.append(str);
                 }
@@ -2312,16 +2316,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             else if (!fAllowSelfclosingTags_
                                         && !fAllowSelfclosingIframe_
                                         && "iframe".equals(enameLC)) {
-                                scanUntilEndTag("iframe");
+                                scanUntilEndTag("/iframe");
                             }
                             else if (!fParseNoScriptContent_ && "noscript".equals(enameLC)) {
-                                scanUntilEndTag("noscript");
+                                scanUntilEndTag("/noscript");
                             }
                             else if ("noframes".equals(enameLC)) {
-                                scanUntilEndTag("noframes");
+                                scanUntilEndTag("/noframes");
                             }
                             else if ("noembed".equals(enameLC)) {
-                                scanUntilEndTag("noembed");
+                                scanUntilEndTag("/noembed");
                             }
                             // title inside svg
                             else if ("title".equals(enameLC)
@@ -2400,15 +2404,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * plain text when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to
          * false.
          *
-         * @param tagName the tag for which content is scanned (one of "noscript",
-         *                "noframes", "iframe")
+         * @param tagName the tag for which content is scanned (one of "/noscript",
+         *                "/noframes", "/noembed", "/iframe")
          * @throws IOException on error
          */
-        private void scanUntilEndTag(final String tagName) throws IOException {
+        private void scanUntilEndTag(final String tagNameWithLeadingSlash) throws IOException {
             fScanUntilEndTag.clear();
 
-            final String end = "/" + tagName;
-            final int lengthToScan = tagName.length() + 2;
+            final int lengthToScan = tagNameWithLeadingSlash.length() + 1;
 
             while (true) {
                 final int c = fCurrentEntity.read();
@@ -2418,7 +2421,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (c == '<') {
                     final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
                     if (next.length() >= lengthToScan
-                            && end.equalsIgnoreCase(next.substring(0, end.length()))
+                            && tagNameWithLeadingSlash.equalsIgnoreCase(
+                                    next.substring(0, tagNameWithLeadingSlash.length()))
                             && ('>' == next.charAt(lengthToScan - 1)
                                     || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
                         fCurrentEntity.rewind();
