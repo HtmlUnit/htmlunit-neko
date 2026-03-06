@@ -366,22 +366,25 @@ public class XMLString implements CharSequence {
      * @return true of the end matches the buffer, false otherwise
      */
     public boolean endsWith(final String s) {
+        final int sLen = s.length();
+
         // length does not match, cannot be the end
-        if (length_ < s.length()) {
+        if (length_ < sLen) {
             return false;
         }
 
-        // check the string by each char, avoids a copy of the string
-        final int start = length_ - s.length();
-
-        // change this to Arrays.mismatch when going JDK 11 or higher
-        for (int i = 0; i < s.length(); i++) {
-            if (data_[i + start] != s.charAt(i)) {
-                return false;
-            }
+        // empty string always matches
+        if (sLen == 0) {
+            return true;
         }
 
-        return true;
+        // Extract the String's chars and use vectorized comparison.
+        // For short strings (typical HTML markers are 2-7 chars),
+        // toCharArray() is very cheap — it's a single small arraycopy.
+        final char[] sChars = s.toCharArray();
+        final int start = length_ - sLen;
+
+        return Arrays.mismatch(data_, start, length_, sChars, 0, sLen) < 0;
     }
 
     /**
@@ -734,22 +737,26 @@ public class XMLString implements CharSequence {
      */
     @Override
     public boolean equals(final Object o) {
-        if (o instanceof CharSequence ob) {
+        if (o instanceof XMLString ob) {
+            // Fast path: both sides are XMLString, use vectorized array comparison
+            if (ob.length_ != length_) {
+                return false;
+            }
+            return Arrays.mismatch(data_, 0, length_, ob.data_, 0, ob.length_) < 0;
+        }
 
+        if (o instanceof CharSequence ob) {
             if (ob.length() != length_) {
                 return false;
             }
 
-            // ok, in JDK 11 or up, we could use an
-            // Arrays.mismatch, but we cannot do that
-            // due to JDK 8 compatibility @TODO RS
+            // General CharSequence: must use per-character comparison
             for (int i = 0; i < length_; i++) {
                 if (ob.charAt(i) != data_[i]) {
                     return false;
                 }
             }
 
-            // length and content match, be happy
             return true;
         }
 
