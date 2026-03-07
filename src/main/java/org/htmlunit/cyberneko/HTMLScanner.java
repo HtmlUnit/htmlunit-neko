@@ -2116,42 +2116,60 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
             char c = getCurrentChar();
+            if (c != '\n' && c != '\r') {
+                if (DEBUG_BUFFER) {
+                    debugBufferIfNeeded(")skipNewlines: ", " -> 0");
+                }
+                return 0;
+            }
+
             int newlines = 0;
-            if (c == '\n' || c == '\r') {
-                do {
-                    c = getNextChar();
-                    if (c == '\n') {
-                        newlines++;
-                        if (offset_ == length_) {
-                            offset_ = newlines;
-                            if (load(newlines) == -1) {
-                                break;
-                            }
+            do {
+                c = getCurrentChar(); // peek, no advance
+                if (c == '\n') {
+                    newlines++;
+                    // move forward
+                    offset_++;
+                    characterOffset_++;
+                    columnNumber_++;
+
+                    if (offset_ == length_) {
+                        offset_ = newlines;
+                        if (load(newlines) == -1) {
+                            break;
                         }
-                    }
-                    else if (c == '\r') {
-                        newlines++;
-                        if (offset_ == length_) {
-                            offset_ = newlines;
-                            if (load(newlines) == -1) {
-                                break;
-                            }
-                        }
-                        if (getCurrentChar() == '\n') {
-                            // skip
-                            offset_++;
-                            characterOffset_++;
-                            columnNumber_++;
-                        }
-                    }
-                    else {
-                        rewind();
-                        break;
                     }
                 }
-                while (offset_ < length_ - 1);
-                incLine(newlines);
+                else if (c == '\r') {
+                    newlines++;
+                    // move forward
+                    offset_++;
+                    characterOffset_++;
+                    columnNumber_++;
+
+                    if (offset_ == length_) {
+                        offset_ = newlines;
+                        if (load(newlines) == -1) {
+                            break;
+                        }
+                    }
+
+                    // \r\n pair: consume the \n
+                    if (getCurrentChar() == '\n') {
+                        // move forward
+                        offset_++;
+                        characterOffset_++;
+                        columnNumber_++;
+                    }
+                }
+                else {
+                    break;
+                }
             }
+            while (offset_ < length_ - 1);
+
+            incLine(newlines);
+
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
             }
@@ -2178,6 +2196,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                 }
                 if (getCurrentChar() == '\n') {
+                    // move forward
                     offset_++;
                     characterOffset_++;
                     columnNumber_++;
