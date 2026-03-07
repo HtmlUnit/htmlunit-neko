@@ -1436,4 +1436,180 @@ public class XMLStringTest {
         assertEquals(true, t.apply("abc", "bc"));
         assertEquals(true, t.apply("abcabc", "abc"));
     }
+
+    // -------------------------------------------------------------------------
+    // startsWithLowerCase
+    // -------------------------------------------------------------------------
+
+    @Test
+    public void startsWithLowerCase_exactMatchAllLower() {
+        final XMLString s = new XMLString("/script");
+        assertTrue(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_exactMatchUpperCaseInBuffer() {
+        final XMLString s = new XMLString("/SCRIPT");
+        assertTrue(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_exactMatchMixedCaseInBuffer() {
+        final XMLString s = new XMLString("/Script");
+        assertTrue(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_prefixShorterThanBuffer() {
+        final XMLString s = new XMLString("/script>");
+        assertTrue(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_prefixShorterThanBufferUpperCase() {
+        final XMLString s = new XMLString("/SCRIPT>");
+        assertTrue(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_noMatch() {
+        final XMLString s = new XMLString("/style");
+        assertFalse(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_noMatchPartialOverlap() {
+        final XMLString s = new XMLString("/scrivener");
+        assertFalse(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_bufferShorterThanPrefix() {
+        final XMLString s = new XMLString("/scr");
+        assertFalse(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_emptyPrefix() {
+        final XMLString s = new XMLString("/script");
+        assertTrue(s.startsWithLowerCase(""));
+    }
+
+    @Test
+    public void startsWithLowerCase_emptyPrefixAgainstEmptyBuffer() {
+        final XMLString s = new XMLString(0);
+        assertTrue(s.startsWithLowerCase(""));
+    }
+
+    @Test
+    public void startsWithLowerCase_emptyBuffer_nonEmptyPrefix() {
+        final XMLString s = new XMLString(0);
+        assertFalse(s.startsWithLowerCase("/script"));
+    }
+
+    @Test
+    public void startsWithLowerCase_singleCharMatchLower() {
+        final XMLString s = new XMLString("a");
+        assertTrue(s.startsWithLowerCase("a"));
+    }
+
+    @Test
+    public void startsWithLowerCase_singleCharMatchUpper() {
+        final XMLString s = new XMLString("A");
+        assertTrue(s.startsWithLowerCase("a"));
+    }
+
+    @Test
+    public void startsWithLowerCase_singleCharNoMatch() {
+        final XMLString s = new XMLString("b");
+        assertFalse(s.startsWithLowerCase("a"));
+    }
+
+    @Test
+    public void startsWithLowerCase_realWorldScriptLowerCase() {
+        final XMLString s = new XMLString("/script>");
+        assertTrue(s.startsWithLowerCase("/script"));
+        assertEquals('>', s.charAt(7, ' '));
+    }
+
+    @Test
+    public void startsWithLowerCase_realWorldScriptUpperCase() {
+        final XMLString s = new XMLString("/SCRIPT>");
+        assertTrue(s.startsWithLowerCase("/script"));
+        assertEquals('>', s.charAt(7, ' '));
+    }
+
+    @Test
+    public void startsWithLowerCase_realWorldScriptWhitespaceSeparator() {
+        final XMLString s = new XMLString("/SCRIPT ");
+        assertTrue(s.startsWithLowerCase("/script"));
+        assertTrue(Character.isWhitespace(s.charAt(7, ' ')));
+    }
+
+    // -------------------------------------------------------------------------
+    // charAt(int, char)
+    // -------------------------------------------------------------------------
+
+    @Test
+    public void charAtWithDefault_withinBounds() {
+        final XMLString s = new XMLString("hello");
+        assertEquals('h', s.charAt(0, ' '));
+        assertEquals('e', s.charAt(1, ' '));
+        assertEquals('o', s.charAt(4, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_exactlyAtLastIndex() {
+        final XMLString s = new XMLString("hi");
+        assertEquals('i', s.charAt(1, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_onePastEnd_returnsDefault() {
+        final XMLString s = new XMLString("hi");
+        assertEquals(' ', s.charAt(2, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_wellBeyondEnd_returnsDefault() {
+        final XMLString s = new XMLString("hi");
+        assertEquals(' ', s.charAt(99, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_emptyBuffer_returnsDefault() {
+        final XMLString s = new XMLString(0);
+        assertEquals(' ', s.charAt(0, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_customDefault() {
+        final XMLString s = new XMLString("ab");
+        assertEquals('X', s.charAt(5, 'X'));
+    }
+
+    @Test
+    public void charAtWithDefault_sentinelPatternGt() {
+        // replicates: '>' == fNextContent.charAt(7, ' ')
+        // buffer has exactly 7 chars — index 7 is out of bounds, returns ' '
+        // which is whitespace, satisfying the isWhitespace branch
+        final XMLString s = new XMLString("/script");   // length 7
+        final char sentinel = s.charAt(7, ' ');
+        assertEquals(' ', sentinel);
+        assertTrue(Character.isWhitespace(sentinel));
+    }
+
+    @Test
+    public void charAtWithDefault_sentinelPatternExactGt() {
+        // buffer has 8 chars ending with '>'
+        final XMLString s = new XMLString("/script>");  // length 8
+        assertEquals('>', s.charAt(7, ' '));
+    }
+
+    @Test
+    public void charAtWithDefault_bufferFilledToRequestedLen() {
+        // EOF case: nextContent asked for 8, got only 4 — index 7 out of bounds
+        final XMLString s = new XMLString("/scr");      // length 4
+        assertEquals(' ', s.charAt(7, ' '));
+    }
 }

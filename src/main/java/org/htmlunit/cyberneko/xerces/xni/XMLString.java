@@ -1121,4 +1121,37 @@ public class XMLString implements CharSequence {
     public void comment(final LexicalHandler lexicalHandler) throws SAXException {
         lexicalHandler.comment(data_, 0, length_);
     }
+    
+    /**
+     * Returns true if the first {@code prefix.length()} chars of this buffer
+     * match {@code prefix} case-insensitively, where {@code prefix} is assumed
+     * to be already lowercase. This is faster than equalsIgnoreCase because
+     * it only needs one case conversion per char instead of two.
+     *
+     * @param lowercasePrefix a lowercase string to match against the start of this buffer
+     * @return true if this buffer starts with prefix (case-insensitive)
+     */
+    public boolean startsWithLowerCase(final String lowercasePrefix) {
+        if (length_ < lowercasePrefix.length()) {
+            return false;
+        }
+        for (int i = 0; i < lowercasePrefix.length(); i++) {
+            if (Character.toLowerCase(data_[i]) != lowercasePrefix.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Returns the char at {@code index}, or {@code defaultChar} if index is
+     * out of bounds.
+     *
+     * @param index the position to read
+     * @param defaultChar value to return when index >= length
+     * @return the char at index, or defaultChar
+     */
+    public char charAt(final int index, final char defaultChar) {
+        return index < length_ ? data_[index] : defaultChar;
+    }
 }

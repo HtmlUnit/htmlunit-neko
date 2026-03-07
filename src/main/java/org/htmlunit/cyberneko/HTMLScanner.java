@@ -507,6 +507,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     final XMLString fScanComment = new XMLString();
 
     private final XMLString fScanLiteral = new XMLString();
+    private final XMLString fNextContent = new XMLString(10);
 
     /**
      * Reusable single-element boolean array used as an out-parameter.
@@ -1827,41 +1828,47 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         /**
-         * Reads the next characters WITHOUT impacting the buffer content up to current
-         * offset.
+         * Performs a non-destructive lookahead read of up to {@code len} characters,
+         * filling {@code result} without advancing the current position. The offset,
+         * column number, and character offset are all restored after the read, so
+         * subsequent reads continue from the same position as before this call.
          *
-         * @param len the number of characters to read
-         * @return the read string (length may be smaller if EOF is encountered)
-         * @throws IOException in case of io problems
+         * <p>If EOF is reached before {@code len} characters have been read, the
+         * result is shorter than requested; callers must check {@code result.length()}
+         * rather than assuming it equals {@code len}.
+         *
+         * <p>The {@code result} buffer is cleared before filling, so any previous
+         * content is discarded. The caller is expected to pass a shared, reusable
+         * {@link XMLString} instance to avoid allocation on every call.
+         *
+         * @param result the buffer to fill with the lookahead characters; must not
+         *               be null. Cleared before use.
+         * @param len    the maximum number of characters to read
+         * @throws IOException if an I/O error occurs while reading
          */
-        String nextContent(final int len) throws IOException {
+        void nextContent(final XMLString result, final int len) throws IOException {
+            result.clear();
+
             final int originalOffset = offset_;
             final int originalColumnNumber = getColumnNumber();
             final int originalCharacterOffset = getCharacterOffset();
 
-            final char[] buff = new char[len];
-            int nbRead;
-            for (nbRead = 0; nbRead < len; ++nbRead) {
-                // load(length_) should not clear the buffer
+            for (int i = 0; i < len; i++) {
                 if (offset_ == length_) {
                     if (load(length_) == -1) {
                         break;
                     }
                 }
-
                 final int c = read();
                 if (c == -1) {
                     break;
                 }
-                buff[nbRead] = (char) c;
+                result.append((char) c);
             }
 
-            // restore position
             offset_ = originalOffset;
             columnNumber_ = originalColumnNumber;
             characterOffset_ = originalCharacterOffset;
-
-            return new String(buff, 0, nbRead);
         }
 
         // Reads a single character, preserving the old buffer content
@@ -2514,12 +2521,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
                 if (c == '<') {
-                    final String next = fCurrentEntity.nextContent(lengthToScan) + " ";
-                    if (next.length() >= lengthToScan
-                            && tagNameWithLeadingSlash.equalsIgnoreCase(
-                                    next.substring(0, tagNameWithLeadingSlash.length()))
-                            && ('>' == next.charAt(lengthToScan - 1)
-                                    || Character.isWhitespace(next.charAt(lengthToScan - 1)))) {
+                    fCurrentEntity.nextContent(fNextContent, lengthToScan);
+                    if (fNextContent.length() >= lengthToScan
+                            && fNextContent.startsWithLowerCase(tagNameWithLeadingSlash)
+                            && ('>' == fNextContent.charAt(lengthToScan - 1, ' ')
+                                    || Character.isWhitespace(fNextContent.charAt(lengthToScan - 1, ' ')))) {
                         fCurrentEntity.rewind();
                         break;
                     }
@@ -3211,6 +3217,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     empty[0] = fCurrentEntity.skipMarkup(false);
                     return SCAN_FALSE;
                 }
+                // TODO add test and maybe fix me by using fNamesAttrs as second param
                 aname = '=' + scanName(false, fNamesElems);
             }
             if (fReportErrors_ && !skippedSpaces) {
@@ -3731,9 +3738,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             state = ScanScriptState.ESCAPED;
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
-                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
-                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                            fCurrentEntity.nextContent(fNextContent, 8);
+                            if (fNextContent.length() >= 8
+                                    && fNextContent.startsWithLowerCase("/script")
+                                    && ('>' == fNextContent.charAt(7, ' ')
+                                            || Character.isWhitespace(fNextContent.charAt(7, ' ')))) {
                                 fCurrentEntity.rewind();
                                 break OUTER;
                             }
@@ -3750,9 +3759,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                         }
                         else if (c == '<') {
-                            final String next = fCurrentEntity.nextContent(8) + " ";
-                            if (next.length() >= 8 && "/script".equalsIgnoreCase(next.substring(0, 7))
-                                    && ('>' == next.charAt(7) || Character.isWhitespace(next.charAt(7)))) {
+                            fCurrentEntity.nextContent(fNextContent, 8);
+                            if (fNextContent.length() >= 8
+                                    && fNextContent.startsWithLowerCase("/script")
+                                    && ('>' == fNextContent.charAt(7, ' ')
+                                            || Character.isWhitespace(fNextContent.charAt(7, ' ')))) {
                                 fCurrentEntity.rewind();
                                 break OUTER;
                             }
