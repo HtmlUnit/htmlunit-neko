@@ -1258,10 +1258,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     break;
                 }
                 if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
                     // NOTE: This collapses newlines to a single space.
                     // [Q] Is this the right thing to do here? -Ac
-                    fCurrentEntity.skipNewlines();
+                    fCurrentEntity.skipNewlines(c);
                     str.append(' ');
                 }
                 else if (c == '<') {
@@ -2057,8 +2056,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         }
                     }
                     else if (c == '\r' || c == '\n') {
-                        rewind();
-                        skipNewlines();
+                        skipNewlines(c);
                     }
                 }
             }
@@ -2087,8 +2085,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 // unix \n might dominate
                 if (c == '\n' || c == '\r') {
                     spaces = true;
-                    rewind();
-                    skipNewlines();
+                    skipNewlines(c);
                 }
                 else if (Character.isWhitespace(c)) {
                     spaces = true;
@@ -2155,6 +2152,85 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 while (offset_ < length_ - 1);
                 incLine(newlines);
             }
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
+            }
+            return newlines;
+        }
+
+        // Skips newlines and returns the number of newlines skipped.
+        int skipNewlines(final int lastChar) throws IOException {
+            if (DEBUG_BUFFER) {
+                debugBufferIfNeeded("(skipNewlines(" + lastChar + "): ");
+            }
+
+            int newlines = 0;
+            if (lastChar == '\n') {
+                newlines++;
+            }
+            else if (lastChar == '\r') {
+                newlines++;
+                // \r\n pair: consume the \n if present
+                if (offset_ == length_) {
+                    if (loadWholeBuffer() == -1) {
+                        incLine(newlines);
+                        return newlines;
+                    }
+                }
+                if (getCurrentChar() == '\n') {
+                    offset_++;
+                    characterOffset_++;
+                    columnNumber_++;
+                }
+            }
+            else {
+                return 0;
+            }
+
+            // consume any further consecutive newlines
+            while (true) {
+                if (offset_ == length_) {
+                    if (loadWholeBuffer() == -1) {
+                        break;
+                    }
+                }
+
+                final char c = getCurrentChar(); // peek, no advance
+                if (c == '\n') {
+                    newlines++;
+                    // move forward
+                    offset_++;
+                    characterOffset_++;
+                    columnNumber_++;
+                }
+                else if (c == '\r') {
+                    newlines++;
+                    // move forward
+                    offset_++;
+                    characterOffset_++;
+                    columnNumber_++;
+
+                    // \r\n pair: consume the \n
+                    if (offset_ == length_) {
+                        if (loadWholeBuffer() == -1) {
+                            break;
+                        }
+                    }
+                    if (getCurrentChar() == '\n') {
+                        // consume
+                        offset_++;
+                        characterOffset_++;
+                        columnNumber_++;
+                    }
+                }
+                else {
+                    // non-newline: leave it unconsumed
+                    break;
+                }
+            }
+
+            incLine(newlines);
+
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")skipNewlines: ", " -> " + newlines);
             }
@@ -2432,8 +2508,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                 }
                 if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines(c);
                     for (int i = 0; i < newlines; i++) {
                         fScanUntilEndTag.append('\n');
                     }
@@ -2641,8 +2716,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     continue;
                 }
                 else if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines(c);
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -2708,8 +2782,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return SCAN_FALSE;
                 }
                 else if (c == '\n' || c == '\r') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines(c);
                     for (int i = 0; i < newlines; i++) {
                         xmlString.append('\n');
                     }
@@ -3524,8 +3597,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
                 // Patch supplied by Jonathan Baxter
                 else if (c == '\r' || c == '\n') {
-                    fCurrentEntity.rewind();
-                    final int newlines = fCurrentEntity.skipNewlines();
+                    final int newlines = fCurrentEntity.skipNewlines(c);
                     for (int i = 0; i < newlines; i++) {
                         buffer.append('\n');
                     }
@@ -3739,8 +3811,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
 
                     if (c == '\r' || c == '\n') {
-                        fCurrentEntity.rewind();
-                        final int newlines = fCurrentEntity.skipNewlines();
+                        final int newlines = fCurrentEntity.skipNewlines(c);
                         for (int i = 0; i < newlines; i++) {
                             fScanScriptContent.append('\n');
                         }
