@@ -2141,8 +2141,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             }
                         }
                         if (getCurrentChar() == '\n') {
+                            // skip
                             offset_++;
                             characterOffset_++;
+                            columnNumber_++;
                         }
                     }
                     else {
