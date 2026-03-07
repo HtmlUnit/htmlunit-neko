@@ -1816,10 +1816,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     return -1;
                 }
             }
-            final char c = buffer_[offset_];
-            offset_++;
-            characterOffset_++;
-            columnNumber_++;
+
+            final char c = getNextChar();
 
             if (DEBUG_BUFFER) {
                 debugBufferIfNeeded(")read: ", " -> " + c);
@@ -2564,11 +2562,15 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fCurrentEntity.buffer_[i] = '\n';
                 }
                 while (fCurrentEntity.hasNext()) {
-                    final char c = fCurrentEntity.getNextChar();
+                    final char c = fCurrentEntity.getCurrentChar();
                     if (c == '<' || c == '&' || c == '\n' || c == '\r') {
-                        fCurrentEntity.rewind();
+                        // leave it unconsumed, no rewind needed
                         break;
                     }
+                    // otherwise consume
+                    fCurrentEntity.offset_++;
+                    fCurrentEntity.characterOffset_++;
+                    fCurrentEntity.columnNumber_++;
                 }
                 if (fCurrentEntity.offset_ > offset && fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
