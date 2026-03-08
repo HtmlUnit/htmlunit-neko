@@ -1,0 +1,11 @@
+(html
+(head
+)head
+(body
+(input
+ANAME button
+A='ABC' 
+AVALUE detect me
+)input
+)body
+)html

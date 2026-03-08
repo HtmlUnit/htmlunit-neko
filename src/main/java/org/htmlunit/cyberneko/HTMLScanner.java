@@ -3217,8 +3217,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     empty[0] = fCurrentEntity.skipMarkup(false);
                     return SCAN_FALSE;
                 }
-                // TODO add test and maybe fix me by using fNamesAttrs as second param
-                aname = '=' + scanName(false, fNamesElems);
+                aname = '=' + scanName(false, fNamesAttrs);
             }
             if (fReportErrors_ && !skippedSpaces) {
                 fErrorReporter.reportError("HTML1013", new Object[] {aname});
