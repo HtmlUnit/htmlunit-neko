@@ -2592,8 +2592,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
 
                 if (fCurrentEntity.offset_ < fCurrentEntity.buffer_.length) {
-                    final int next = fCurrentEntity.getCurrentChar();
-                    if (next == '&' || next == '<' || next == -1) {
+                    final char next = fCurrentEntity.getCurrentChar();
+                    if (next == '&' || next == '<') {
                         break;
                     }
                 }
