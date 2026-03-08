@@ -1849,9 +1849,16 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         void nextContent(final XMLString result, final int len) throws IOException {
             result.clear();
 
+            // fast path: all requested chars are already in the buffer
+            if (offset_ + len <= length_) {
+                result.append(buffer_, offset_, len);
+                return;
+            }
+
+            // slow path: need to load more data — save/restore position
             final int originalOffset = offset_;
-            final int originalColumnNumber = getColumnNumber();
-            final int originalCharacterOffset = getCharacterOffset();
+            final int originalColumnNumber = columnNumber_;
+            final int originalCharacterOffset = characterOffset_;
 
             for (int i = 0; i < len; i++) {
                 if (offset_ == length_) {
