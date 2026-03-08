@@ -493,6 +493,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     protected final ScriptScanner fScriptScanner = new ScriptScanner();
 
+    /**
+     * Special scanner used script tags.
+     */
+    protected final PlainTextScanner fPlainTextScanner = new PlainTextScanner();
+
     // temp vars
 
     /** String buffer. */
@@ -614,8 +619,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         catch (final IOException e) {
             // ignore
         }
+
         // preserve the plaintext scanning process
-        setScanner(fScanner instanceof PlainTextScanner ? new PlainTextScanner() : previousScanner);
+        setScanner(fScanner == fPlainTextScanner ? fPlainTextScanner : previousScanner);
         setScannerState(previousScannerState);
         fCurrentEntity = previousEntity;
     }
@@ -924,7 +930,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 setScanner(fScriptScanner);
             }
             else if ("plaintext".equals(scannerTagLC)) {
-                setScanner(new PlainTextScanner());
+                setScanner(fPlainTextScanner);
             }
             else {
                 setScanner(fSpecialScanner.setElementName(fFragmentSpecialScannerTag_, scannerTagLC));
@@ -2392,7 +2398,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             final String enameLC;
                             if (SCAN_TRUE == scanStartElement) {
                                 ename = scanStartElement_;
-                                enameLC = ename.toLowerCase(Locale.ROOT);
+                                enameLC = (fNamesElems == NAMES_LOWERCASE) ? ename : ename.toLowerCase(Locale.ROOT);
                             }
                             else {
                                 ename = null;
@@ -2430,7 +2436,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 setScannerState(STATE_CONTENT);
                             }
                             else if ("plaintext".equals(enameLC)) {
-                                setScanner(new PlainTextScanner());
+                                setScanner(fPlainTextScanner);
                             }
                             else if (ename != null) {
                                 final Element elem =
@@ -3000,7 +3006,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             fBeginCharacterOffset = beginCharacterOffset;
             if (fElementDepth == -1) {
                 if (fByteStream != null) {
-                    final String enameLC = scanStartElement_.toLowerCase(Locale.ROOT);
+                    final String enameLC = (fNamesElems == NAMES_LOWERCASE)
+                                                ? scanStartElement_
+                                                : scanStartElement_.toLowerCase(Locale.ROOT);
 
                     if (!fIgnoreSpecifiedCharset_ && "meta".equals(enameLC)) {
                         if (DEBUG_CHARSET) {
@@ -3053,7 +3061,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (DEBUG_CALLBACKS) {
                     System.out.println("startElement(" + qName_ + ',' + attributes_ + ")");
                 }
-                if (empty[0] && !"br".equalsIgnoreCase(scanStartElement_)) {
+                if (empty[0] && !(fNamesElems == NAMES_LOWERCASE
+                                    ? "br".equals(scanStartElement_)
+                                    : "br".equalsIgnoreCase(scanStartElement_))) {
                     fDocumentHandler.emptyElement(qName_, attributes_, locationAugs(fCurrentEntity));
                 }
                 else {
@@ -3664,11 +3674,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         @Override
         public int scan(final boolean complete) throws IOException {
+            xmlString_.clear();
             scanCharacters(xmlString_, complete);
             return SCAN_FALSE;
         }
 
-        protected void scanCharacters(final XMLString buffer, final boolean complete) throws IOException {
+        private void scanCharacters(final XMLString buffer, final boolean complete) throws IOException {
             while (true) {
                 final int c = fCurrentEntity.read();
 
