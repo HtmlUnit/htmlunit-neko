@@ -1983,18 +1983,6 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             return lineNumber_;
         }
 
-        void resetBuffer(final XMLString xmlBuffer, final int lineNumber, final int columnNumber,
-                final int characterOffset) {
-            lineNumber_ = lineNumber;
-            columnNumber_ = columnNumber;
-            characterOffset_ = characterOffset;
-
-            // TODO RBRi
-            buffer_ = xmlBuffer.getChars();
-            offset_ = 0;
-            length_ = xmlBuffer.length();
-        }
-
         int getColumnNumber() {
             return columnNumber_;
         }
