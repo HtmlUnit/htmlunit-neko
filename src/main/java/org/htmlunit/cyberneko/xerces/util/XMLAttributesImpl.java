@@ -613,4 +613,54 @@ public class XMLAttributesImpl implements XMLAttributes {
             return clone;
         }
     }
+
+    /**
+     * An immutable, empty {@link XMLAttributesImpl} used as a flyweight for
+     * synthesized elements. Any attempt to mutate it throws
+     * {@link UnsupportedOperationException} so that accidental downstream
+     * mutations are caught loudly rather than silently corrupting a shared
+     * instance.
+     */
+    public static final class EmptyXMLAttributesImpl extends XMLAttributesImpl {
+
+        public static final EmptyXMLAttributesImpl INSTANCE = new EmptyXMLAttributesImpl();
+
+        private EmptyXMLAttributesImpl() {
+            // zero attributes, no further setup needed
+        }
+
+        @Override
+        public int addAttribute(QName name, String type, String value) {
+            throw mutation();
+        }
+
+        @Override
+        public void removeAllAttributes() {
+            throw mutation();
+        }
+
+        @Override
+        public void removeAttributeAt(int i) {
+            throw mutation();
+        }
+
+        @Override
+        public void setName(int i, QName q) {
+            throw mutation();
+        }
+
+        @Override
+        public void setValue(final int i, final String v) {
+            throw mutation();
+        }
+
+        @Override
+        public void setSpecified(final int i, final boolean s) {
+            throw mutation();
+        }
+
+        private static UnsupportedOperationException mutation() {
+            return new UnsupportedOperationException("EmptyAttributes is a shared immutable instance");
+        }
+    }
 }

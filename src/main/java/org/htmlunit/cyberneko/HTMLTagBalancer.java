@@ -16,6 +16,7 @@
 package org.htmlunit.cyberneko;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -23,6 +24,7 @@ import java.util.Locale;
 import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
 import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl;
+import org.htmlunit.cyberneko.xerces.util.XMLAttributesImpl.EmptyXMLAttributesImpl;
 import org.htmlunit.cyberneko.xerces.xni.Augmentations;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 import org.htmlunit.cyberneko.xerces.xni.QName;
@@ -253,6 +255,9 @@ public class HTMLTagBalancer
     // temp vars
 
     /** A qualified name. */
+    private final EmptyXMLAttributesImpl fEmptyXMLAttributes = XMLAttributesImpl.EmptyXMLAttributesImpl.INSTANCE;
+
+    /** A qualified name. */
     private final QName fQName = new QName();
 
     protected HTMLTagBalancingListener tagBalancingListener;
@@ -443,7 +448,7 @@ public class HTMLTagBalancer
         throws XNIException {
 
         // reset state
-        fElementStack.length = 0;
+        fElementStack.clear();
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
             // use indexed loop to avoid Iterator allocation
@@ -692,7 +697,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
-                forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
+                forceStartElement(head, fEmptyXMLAttributes, synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -711,7 +716,7 @@ public class HTMLTagBalancer
             // create <head></head> if none was present
             if (!fSeenHeadElement) {
                 final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
-                forceStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
+                forceStartElement(head, fEmptyXMLAttributes, synthesizedAugs());
                 endElement(head, synthesizedAugs());
             }
             consumeBufferedEndElements(); // </head> (if any) has been buffered
@@ -810,7 +815,7 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
-                final boolean parentCreated = forceStartElement(qname, new XMLAttributesImpl(), synthesizedAugs());
+                final boolean parentCreated = forceStartElement(qname, fEmptyXMLAttributes, synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
                         notifyDiscardedStartElement(elem, attrs, augs);
@@ -830,8 +835,7 @@ public class HTMLTagBalancer
                         }
 
                         final QName qname = createQName(pname);
-                        final boolean parentCreated = forceStartElement(qname,
-                                                        new XMLAttributesImpl(), synthesizedAugs());
+                        final boolean parentCreated = forceStartElement(qname, fEmptyXMLAttributes, synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -924,7 +928,7 @@ public class HTMLTagBalancer
         fSeenRootElement = true;
         if (element.isEmpty()) {
             if (attrs == null) {
-                attrs = new XMLAttributesImpl();
+                attrs = fEmptyXMLAttributes;
             }
             if (documentHandler_ != null) {
                 documentHandler_.emptyElement(elem, attrs, augs);
@@ -934,7 +938,7 @@ public class HTMLTagBalancer
             final boolean inline = element.isInline();
             fElementStack.push(new Info(element, elem, inline ? attrs : null));
             if (attrs == null) {
-                attrs = new XMLAttributesImpl();
+                attrs = fEmptyXMLAttributes;
             }
             if (documentHandler_ != null) {
                 callStartElement(elem, attrs, augs);
@@ -993,7 +997,7 @@ public class HTMLTagBalancer
         if (fReportErrors) {
             fErrorReporter.reportWarning("HTML2006", new Object[]{body.getLocalpart()});
         }
-        forceStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
+        forceStartElement(body, fEmptyXMLAttributes, synthesizedAugs());
     }
 
     /** Start CDATA section. */
@@ -1187,11 +1191,11 @@ public class HTMLTagBalancer
         // no matching tag found
         if (depth == -1) {
             if (elementCode == HTMLElements.P) {
-                forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
+                forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
                 endElement(element, augs);
             }
             else if (elementCode == HTMLElements.BR) {
-                forceStartElement(element, new XMLAttributesImpl(), synthesizedAugs());
+                forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
             }
             else if (elementCode == HTMLElements.H1
                         || elementCode == HTMLElements.H2
@@ -1311,12 +1315,12 @@ public class HTMLTagBalancer
         if (!fDocumentFragment && !fSeenFramesetElement && element == HTMLElements.HTML) {
             if (!fSeenHeadElement) {
                 final QName head = createQName(fNamesElems == NAMES_UPPERCASE ? "HEAD" : "head");
-                callStartElement(head, new XMLAttributesImpl(), synthesizedAugs());
+                callStartElement(head, fEmptyXMLAttributes, synthesizedAugs());
                 callEndElement(head, synthesizedAugs());
             }
             if (!fSeenBodyElement) {
                 final QName body = createQName(fNamesElems == NAMES_UPPERCASE ? "BODY" : "body");
-                callStartElement(body, new XMLAttributesImpl(), synthesizedAugs());
+                callStartElement(body, fEmptyXMLAttributes, synthesizedAugs());
                 callEndElement(body, synthesizedAugs());
             }
         }
@@ -1525,6 +1529,12 @@ public class HTMLTagBalancer
         // Pops the top item off of the stack.
         public Info pop() {
             return data[--length];
+        }
+
+     // Resets the stack and releases all Info references so they can be GC'd.
+        public void clear() {
+            Arrays.fill(data, 0, length, null);
+            length = 0;
         }
 
         // Simple representation to make debugging easier
