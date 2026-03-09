@@ -17,7 +17,6 @@ package org.htmlunit.cyberneko;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -1144,12 +1143,14 @@ public class HTMLTagBalancer
         // if we consider outside content, just buffer </body> and </html> to consider them at the very end
         if (!fIgnoreOutsideContent
                 && (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
-            for (final Iterator<String> it = discardedStartElements.iterator(); it.hasNext();) {
-                if (element.getRawname().equals(it.next())) {
-                    it.remove();
+            final String rawname = element.getRawname();
+            for (int i = 0, n = discardedStartElements.size(); i < n; i++) {
+                if (rawname.equals(discardedStartElements.get(i))) {
+                    discardedStartElements.remove(i);
                     return;
                 }
             }
+
             // only add to buffer if the elements was discarded before
             endElementsBuffer_.add(new ElementEntry(element, augs));
             return;
