@@ -38,7 +38,7 @@ import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
  */
 public class XMLAttributesImpl implements XMLAttributes {
 
-    /** Attribute information. */
+    /** Active attribute information. */
     private final ArrayList<Attribute> attributes_;
 
     /** Default constructor. */
@@ -187,8 +187,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public void setValue(final int attrIndex, final String attrValue) {
-        final Attribute attribute = attributes_.get(attrIndex);
-        attribute.value_ = attrValue;
+        attributes_.get(attrIndex).value_ = attrValue;
     }
 
     /**
@@ -254,7 +253,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getType(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return getReportableType(attributes_.get(index).type_);
@@ -294,7 +293,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getValue(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return attributes_.get(index).value_;
@@ -338,7 +337,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @see #getLength
      */
     public String getNameRawName(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return attributes_.get(index).name_.getRawname();
@@ -360,9 +359,10 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public int getIndex(final String qName) {
-        for (int i = 0; i < getLength(); i++) {
-            final Attribute attribute = attributes_.get(i);
-            if (attribute.name_.getRawname() != null && attribute.name_.getRawname().equals(qName)) {
+        final int length = attributes_.size();
+        for (int i = 0; i < length; i++) {
+            final String rawname = attributes_.get(i).name_.getRawname();
+            if (rawname != null && rawname.equals(qName)) {
                 return i;
             }
         }
@@ -378,14 +378,15 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public int getIndex(final String uri, final String localPart) {
-        for (int i = 0; i < getLength(); i++) {
-            final Attribute attribute = attributes_.get(i);
-            if (attribute.name_.getLocalpart() != null && attribute.name_.getLocalpart().equals(localPart)
-                    && ((uri == attribute.name_.getUri())
-                            || (uri != null
-                                    && attribute.name_.getUri() != null
-                                    && attribute.name_.getUri().equals(uri)))) {
-                return i;
+        final int length = attributes_.size();
+        for (int i = 0; i < length; i++) {
+            final QName name = attributes_.get(i).name_;
+            final String attrLocal = name.getLocalpart();
+            if (attrLocal != null && attrLocal.equals(localPart)) {
+                final String attrUri = name.getUri();
+                if (uri == attrUri || (uri != null && uri.equals(attrUri))) {
+                    return i;
+                }
             }
         }
         return -1;
@@ -401,7 +402,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getLocalName(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return attributes_.get(index).name_.getLocalpart();
@@ -417,7 +418,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getQName(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         final String rawname = attributes_.get(index).name_.getRawname();
@@ -452,7 +453,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getURI(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return attributes_.get(index).name_.getUri();
@@ -482,7 +483,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      */
     @Override
     public String getNonNormalizedValue(final int index) {
-        if (index < 0 || index >= getLength()) {
+        if (index < 0 || index >= attributes_.size()) {
             return null;
         }
         return attributes_.get(index).getNonNormalizedValue();
@@ -541,7 +542,6 @@ public class XMLAttributesImpl implements XMLAttributes {
      * @return the value passed in or NMTOKEN if it's an enumerated type.
      */
     private static String getReportableType(final String type) {
-
         if (type.charAt(0) == '(') {
             return "NMTOKEN";
         }
@@ -608,7 +608,6 @@ public class XMLAttributesImpl implements XMLAttributes {
             clone.type_ = type_;
             clone.value_ = value_;
             clone.specified_ = specified_;
-
             clone.nonNormalizedValue_ = nonNormalizedValue_;
             return clone;
         }
