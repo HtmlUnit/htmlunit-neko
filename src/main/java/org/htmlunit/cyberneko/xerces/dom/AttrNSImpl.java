@@ -160,44 +160,41 @@ public class AttrNSImpl extends AttrImpl {
      */
     @Override
     public void setPrefix(final String prefix) throws DOMException {
+        // update node name with new qualifiedName
+        if (prefix == null || prefix.isEmpty()) {
+            name = localName_;
+            return;
+        }
+
         if (ownerDocument().errorChecking) {
-            if (prefix != null && !prefix.isEmpty()) {
+            if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
+                final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
+                throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
+            }
+            if (namespaceURI_ == null || prefix.indexOf(':') >= 0) {
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
+                throw new DOMException(DOMException.NAMESPACE_ERR, msg);
 
-                if (!CoreDocumentImpl.isXMLName(prefix, ownerDocument().isXML11Version())) {
-                    final String msg = DOMMessageFormatter.formatMessage("INVALID_CHARACTER_ERR", null);
-                    throw new DOMException(DOMException.INVALID_CHARACTER_ERR, msg);
-                }
-                if (namespaceURI_ == null || prefix.indexOf(':') >= 0) {
-                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
-                    throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-
-                }
-                if ("xmlns".equals(prefix)) {
-                    if (!namespaceURI_.equals(xmlnsURI)) {
-                        final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
-                        throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-                    }
-                }
-                else if ("xml".equals(prefix)) {
-                    if (!namespaceURI_.equals(xmlURI)) {
-                        final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
-                        throw new DOMException(DOMException.NAMESPACE_ERR, msg);
-                    }
-                }
-                else if ("xmlns".equals(name)) {
+            }
+            if ("xmlns".equals(prefix)) {
+                if (!namespaceURI_.equals(xmlnsURI)) {
                     final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
                     throw new DOMException(DOMException.NAMESPACE_ERR, msg);
                 }
             }
+            else if ("xml".equals(prefix)) {
+                if (!namespaceURI_.equals(xmlURI)) {
+                    final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
+                    throw new DOMException(DOMException.NAMESPACE_ERR, msg);
+                }
+            }
+            else if ("xmlns".equals(name)) {
+                final String msg = DOMMessageFormatter.formatMessage("NAMESPACE_ERR", null);
+                throw new DOMException(DOMException.NAMESPACE_ERR, msg);
+            }
         }
 
-        // update node name with new qualifiedName
-        if (prefix != null && !prefix.isEmpty()) {
-            name = prefix + ":" + localName_;
-        }
-        else {
-            name = localName_;
-        }
+        name = prefix + ":" + localName_;
     }
 
     /**
