@@ -90,7 +90,7 @@ final class SynthesizedItem implements Augmentations {
     }
 
     /**
-     * Save to return this instance because it does not have state
+     * Safe to return this instance because it does not have state
      *
      * @return this instance
      */

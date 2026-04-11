@@ -419,7 +419,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
     /** Error reporter. */
     protected HTMLErrorReporter fErrorReporter;
 
-    /** Error reporter. */
+    /** Encoding translator. */
     protected EncodingTranslator fEncodingTranslator;
 
     /** Doctype declaration public identifier. */
@@ -488,14 +488,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
      */
     protected final SpecialScanner fSpecialScanner = new SpecialScanner();
 
-    /**
-     * Special scanner used script tags.
-     */
+    /** Special scanner used script tags. */
     protected final ScriptScanner fScriptScanner = new ScriptScanner();
 
-    /**
-     * Special scanner used script tags.
-     */
+    /** Special scanner used for plaintext content. */
     protected final PlainTextScanner fPlainTextScanner = new PlainTextScanner();
 
     // temp vars
@@ -1652,7 +1648,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * @param complete True if the scanner should not return until scanning is
          *                 complete.
          *
-         * @return True if additional scanning is required.
+         * @return One of SCAN_TRUE, SCAN_EOF, or SCAN_FALSE indicating the scanning result.
          *
          * @throws IOException Thrown if I/O error occurs.
          */
@@ -2503,11 +2499,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         }
 
         /**
-         * Scans the content of &lt;noscript&gr;: it doesn't get parsed but is considered as
-         * plain text when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to
-         * false.
+         * Scans the content of &lt;noscript&gt; &lt;noframes&gt;, &lt;noembed&get;, and &lt;iframe&gt;
+         * it doesn't get parsed but is considered as plain text
+         * when feature {@link HTMLScanner#PARSE_NOSCRIPT_CONTENT} is set to false.
          *
-         * @param tagName the tag for which content is scanned (one of "/noscript",
+         * @param tagNameWithLeadingSlash the tag for which content is scanned (one of "/noscript",
          *                "/noframes", "/noembed", "/iframe")
          * @throws IOException on error
          */
@@ -2969,7 +2965,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          *
          * @param empty Is used for a second return value to indicate whether the start
          *              element tag is empty (e.g. "/&gt;").
-         * @return ename
+         * @return One of SCAN_TRUE, SCAN_FALSE, or SCAN_EOF.
          * @throws IOException in case of io problems
          */
         protected int scanStartElement(final boolean[] empty) throws IOException {

@@ -804,7 +804,7 @@ public class XMLString implements CharSequence {
      * represented by two UTF-16 code points.
      *
      * @param codePoint The character value.
-     * @return this instance for fluid programming
+     * @return true if the code point was valid and appended, false if a replacement character was used instead
      *
      * @throws IllegalArgumentException if the specified
      *          {@code codePoint} is not a valid Unicode code point.
@@ -886,7 +886,7 @@ public class XMLString implements CharSequence {
      * This lowercases an XMLString in place and will likely not
      * consume extra memory unless the character might grow. This
      * conversion can be incorrect for certain characters from some
-     * locales. See {@link String#toUpperCase()}.
+     * locales. See {@link String#toLowerCase()}.
      *
      * <p>Note: We change the current XMLString and don't get a copy back
      * but this instance.
@@ -1121,7 +1121,7 @@ public class XMLString implements CharSequence {
     public void comment(final LexicalHandler lexicalHandler) throws SAXException {
         lexicalHandler.comment(data_, 0, length_);
     }
-    
+
     /**
      * Returns true if the first {@code prefix.length()} chars of this buffer
      * match {@code prefix} case-insensitively, where {@code prefix} is assumed
@@ -1142,7 +1142,7 @@ public class XMLString implements CharSequence {
         }
         return true;
     }
-    
+
     /**
      * Returns the char at {@code index}, or {@code defaultChar} if index is
      * out of bounds.
