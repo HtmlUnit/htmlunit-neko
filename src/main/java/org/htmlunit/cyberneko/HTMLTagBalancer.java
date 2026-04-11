@@ -1489,14 +1489,15 @@ public class HTMLTagBalancer
                 final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);
-            if (attributes != null) {
-                if (attributes instanceof XMLAttributesImpl impl) {
-                    this.attributes = new XMLAttributesImpl(impl);
-                    return;
-                }
 
+            if (attributes != null) {
                 final int length = attributes.getLength();
                 if (length > 0) {
+                    if (attributes instanceof XMLAttributesImpl impl) {
+                        this.attributes = new XMLAttributesImpl(impl);
+                        return;
+                    }
+
                     final QName aqname = new QName();
                     final XMLAttributesImpl newattrs = new XMLAttributesImpl();
                     for (int i = 0; i < length; i++) {
