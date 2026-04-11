@@ -1043,7 +1043,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 try {
                     dir = fixURI(System.getProperty("user.dir"))
                             // deal with blanks in paths; maybe we have to do better uri encoding here
-                            .replaceAll(" ", "%20");
+                            .replace(" ", "%20");
 
                 }
                 catch (final SecurityException ignored) {
@@ -1113,7 +1113,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             final char ch1 = str.charAt(1);
             // change "C:blah" to "/C:blah"
             if (ch1 == ':') {
-                final char ch0 = String.valueOf(str.charAt(0)).toUpperCase(Locale.ROOT).charAt(0);
+                final char ch0 = Character.toUpperCase(str.charAt(0));
                 if (ch0 >= 'A' && ch0 <= 'Z') {
                     str = "/" + str;
                 }
