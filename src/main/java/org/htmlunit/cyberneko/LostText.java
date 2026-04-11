@@ -58,11 +58,13 @@ class LostText {
      * @param tagBalancer the tag balancer that will receive the events
      */
     public void refeed(final XMLDocumentHandler tagBalancer) {
-        for (final Entry entry : new ArrayList<>(entries_)) {
+        final int bufferSize = entries_.size();
+        for (int i = 0; i < bufferSize; i++) {
+            final Entry entry = entries_.get(i);
             tagBalancer.characters(entry.text_, entry.augs_);
         }
         // not needed anymore once it has been used -> clear to free memory
-        entries_.clear();
+        entries_.subList(0, bufferSize).clear();
     }
 
     /**

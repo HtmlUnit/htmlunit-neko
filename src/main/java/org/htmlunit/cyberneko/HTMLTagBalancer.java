@@ -578,12 +578,13 @@ public class HTMLTagBalancer
             return;
         }
 
-        final List<ElementEntry> toConsume = new ArrayList<>(endElementsBuffer_);
-        for (final ElementEntry entry : toConsume) {
+        final int bufferSize = endElementsBuffer_.size();
+        for (int i = 0; i < bufferSize; i++) {
+            final ElementEntry entry = endElementsBuffer_.get(i);
             forcedEndElement_ = true;
             endElement(entry.name_, entry.augs_);
         }
-        endElementsBuffer_.clear();
+        endElementsBuffer_.subList(0, bufferSize).clear();
     }
 
     /** Comment. */
@@ -1108,7 +1109,10 @@ public class HTMLTagBalancer
     /** End element. */
     @Override
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
-        final boolean forcedEndElement = forcedEndElement_;
+        final boolean isForcedEndElement = forcedEndElement_;
+        forcedEndElement_ = false;
+
+
         // is there anything to do?
         if (fSeenRootElementEnd) {
             notifyDiscardedEndElement(element, augs);
@@ -1181,7 +1185,7 @@ public class HTMLTagBalancer
         else if (elementCode == HTMLElements.SVG) {
             fOpenedSvg = false;
         }
-        else if (elementCode == HTMLElements.HEAD && !forcedEndElement) {
+        else if (elementCode == HTMLElements.HEAD && !isForcedEndElement) {
             // consume </head> first when <body> is reached to retrieve content lost between </head> and <body>
             endElementsBuffer_.add(new ElementEntry(element, augs));
             return;
@@ -1529,10 +1533,12 @@ public class HTMLTagBalancer
 
         // Pops the top item off of the stack.
         public Info pop() {
-            return data[--length];
+            final Info info = data[--length];
+            data[length] = null;
+            return info;
         }
 
-     // Resets the stack and releases all Info references so they can be GC'd.
+        // Resets the stack and releases all Info references so they can be GC'd.
         public void clear() {
             Arrays.fill(data, 0, length, null);
             length = 0;

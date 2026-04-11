@@ -14,8 +14,6 @@ startElement (localpart="title",rawname="title") [(3,7,48) (3,14,55) false]
 characters 'Test'[(3,14,55) (3,18,59) false]
 endElement (localpart="title",rawname="title") [(3,18,59) (3,26,67) false]
 characters '
-'[(3,33,74) (4,1,75) false]
-characters '
 '[(4,7,81) (5,1,82) false]
 startElement (localpart="p",rawname="p") [(5,1,82) (5,4,85) false]
 characters 'Normal content'[(5,4,85) (5,18,99) false]

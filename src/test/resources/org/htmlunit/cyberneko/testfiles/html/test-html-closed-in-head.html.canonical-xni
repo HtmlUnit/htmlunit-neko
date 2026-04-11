@@ -1,7 +1,7 @@
 startDocument [(1,1,0) (1,1,0) false]
 startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
 startElement (localpart="head",rawname="head") [(1,7,6) (1,13,12) false]
-endElement (localpart="head",rawname="head") [(1,20,19) (1,27,26) false]
+endElement (localpart="head",rawname="head") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(1,27,26) (1,33,32) false]
 characters 'hello'[(1,33,32) (1,38,37) false]
 characters '
