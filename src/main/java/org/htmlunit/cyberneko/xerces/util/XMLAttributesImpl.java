@@ -67,8 +67,9 @@ public class XMLAttributesImpl implements XMLAttributes {
      * marked as specified in the XML instance document unless set otherwise using
      * the <code>setSpecified</code> method.
      * <p>
-     * <strong>Note:</strong> If an attribute of the same name already exists, the
-     * old values for the attribute are replaced by the new values.
+     * <strong>Note:</strong> This implementation does <em>not</em> check whether an
+     * attribute of the same name already exists. If duplicate prevention is required,
+     * the caller must verify uniqueness before calling this method.
      *
      * @param name  The attribute name.
      * @param type  The attribute type. The type name is determined by the type
@@ -122,14 +123,21 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Same as {@link #addAttribute(QName, String, String, String, boolean)} but with an additional
-     * nonNormalizedValue parameter
+     * Adds an attribute together with its non-normalized (plain) value.
+     * <p>
+     * This variant stores both the normalized {@code value} and the original
+     * {@code nonNormalizedValue} so that downstream consumers can access the
+     * raw attribute text via {@link #getNonNormalizedValue(int)}.
+     * <p>
+     * Like the other {@code addAttribute} overloads, this method does
+     * <em>not</em> check for duplicate attribute names.
      *
-     * @param name  the attribute name
-     * @param type  the attribute type
-     * @param value the attribute value
-     * @param nonNormalizedValue the non-normalized attribute value
-     * @param specified the specified attribute value
+     * @param name               the attribute name
+     * @param type               the attribute type (e.g. "CDATA")
+     * @param value              the normalized attribute value
+     * @param nonNormalizedValue  the original, non-normalized attribute value
+     * @param specified          {@code true} if the attribute was specified in the
+     *                           instance document
      */
     public void addAttribute(final QName name, final String type, final String value,
                     final String nonNormalizedValue, final boolean specified) {
@@ -328,22 +336,16 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Return the name of an attribute in this list (by position).
-     *
+     * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
      * <p>
-     * The names must be unique: the SAX parser shall not include the same attribute
-     * twice. Attributes without values (those declared #IMPLIED without a value
-     * specified in the start tag) will be omitted from the list.
-     * </p>
-     *
-     * <p>
-     * If the attribute name has a namespace prefix, the prefix will still be
-     * attached.
-     * </p>
+     * Returns the raw (prefixed) name of the attribute at the given index.
+     * This is a convenience shortcut equivalent to
+     * {@code getName(index).getRawname()} but with bounds checking.
      *
      * @param index The index of the attribute in the list (starting at 0).
-     * @return The name of the indexed attribute, or null if the index is out of
-     *         range.
+     * @return The raw name of the indexed attribute, or null if the index is
+     *         out of range.
+     * @see #getQName(int)
      * @see #getLength
      */
     public String getNameRawName(final int index) {
@@ -458,7 +460,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * Look up an attribute's Namespace URI by index.
      *
      * @param index The attribute index (zero-based).
-     * @return The Namespace URI
+     * @return The Namespace URI, or null if the index is out of range.
      * @see #getLength
      */
     @Override
@@ -477,7 +479,7 @@ public class XMLAttributesImpl implements XMLAttributes {
      * values.
      * </p>
      *
-     * @param uri       The Namespace URI, or null if the
+     * @param uri       The Namespace URI, or null if the name has no Namespace URI.
      * @param localName The local name of the attribute.
      * @return The attribute value as a string, or null if the attribute is not in
      *         the list.

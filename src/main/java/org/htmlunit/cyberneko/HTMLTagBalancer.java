@@ -220,13 +220,13 @@ public class HTMLTagBalancer
      */
     protected boolean fSeenRootElementEnd;
 
-    /** True if seen {@code head} element. */
+    /** True if an explicit (non-synthesized) {@code <html>} element has been seen. */
     protected boolean fSeenRealHtmlElement;
 
-    /** True if seen {@code head} element. */
+    /** True if seen {@code <head>} element. */
     protected boolean fSeenHeadElement;
 
-    /** True if seen {@code body} element. */
+    /** True if seen {@code <body>} element. */
     protected boolean fSeenBodyElement;
     private boolean fSeenBodyElementEnd;
 
@@ -551,8 +551,20 @@ public class HTMLTagBalancer
     }
 
     /**
-     * Consume elements that have been buffered, like &lt;/body&gt;&lt;/html&gt; that are first consumed
-     * at the end of document
+     * Consumes end-element events that have been buffered (e.g.
+     * {@code </head>}, {@code </body>}, {@code </html>}) so they can be
+     * replayed at the correct point in the document — typically at the
+     * very end, after all outside content has been processed.
+     * <p>
+     * The size-1 and size-2 fast paths avoid allocating a copy of the
+     * buffer list. These cover the overwhelmingly common cases:
+     * <ul>
+     *   <li><b>size 1</b> — only {@code </head>} was buffered.</li>
+     *   <li><b>size 2</b> — {@code </body>} and {@code </html>} were
+     *       buffered (or {@code </head>} followed by {@code </body>}).</li>
+     * </ul>
+     * The general path (size &gt; 2) makes a defensive copy because
+     * {@link #endElement} may re-enter this method or modify the buffer.
      */
     private void consumeBufferedEndElements() {
         final int s = endElementsBuffer_.size();
@@ -1453,24 +1465,27 @@ public class HTMLTagBalancer
          * <strong>Note:</strong>
          * This constructor makes a copy of the element information.
          *
-         * @param element The element qualified name.
-         * @param qname qname
+         * @param element The HTML element definition.
+         * @param qname   The element's qualified name (will be deep-copied).
          */
         public Info(final HTMLElements.Element element, final QName qname) {
             this(element, qname, null);
         }
 
-        /**
-         * Creates an element information object.
-         * <p>
-         * <strong>Note:</strong>
-         * This constructor makes a copy of the element information.
-         *
-         * @param element The element qualified name.
-         * @param attributes The element attributes.
-         * @param qname qname
-         */
-        public Info(final HTMLElements.Element element, final QName qname,
+    /**
+     * Creates an element information object.
+     * <p>
+     * <strong>Note:</strong>
+     * This constructor makes a deep copy of the qualified name and,
+     * for inline elements, of the attributes so that formatting
+     * elements can be re-opened with their original attributes.
+     *
+     * @param element    The HTML element definition.
+     * @param qname      The element's qualified name (will be deep-copied).
+     * @param attributes The element attributes to copy, or {@code null} if
+     *                   no attribute snapshot is needed.
+     */
+     public Info(final HTMLElements.Element element, final QName qname,
                 final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);
