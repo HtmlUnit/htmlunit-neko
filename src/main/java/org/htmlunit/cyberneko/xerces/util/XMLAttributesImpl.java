@@ -121,6 +121,16 @@ public class XMLAttributesImpl implements XMLAttributes {
         attributes_.add(attribute);
     }
 
+    /**
+     * Same as {@link #addAttribute(QName, String, String, String, boolean)} but with an additional
+     * nonNormalizedValue parameter
+     *
+     * @param name  the attribute name
+     * @param type  the attribute type
+     * @param value the attribute value
+     * @param nonNormalizedValue the non-normalized attribute value
+     * @param specified the specified attribute value
+     */
     public void addAttribute(final QName name, final String type, final String value,
                     final String nonNormalizedValue, final boolean specified) {
         final AttributeExt attribute = new AttributeExt();
@@ -630,6 +640,17 @@ public class XMLAttributesImpl implements XMLAttributes {
 
         @Override
         public int addAttribute(QName name, String type, String value) {
+            throw mutation();
+        }
+
+        @Override
+        public void addAttribute(QName name, String type, String value, boolean specified) {
+            throw mutation();
+        }
+
+        @Override
+        public void addAttribute(QName name, String type, String value,
+                        String nonNormalizedValue, boolean specified) {
             throw mutation();
         }
 
