@@ -1308,20 +1308,33 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
             while (fCurrentEntity.hasNext()) {
                 final char c = fCurrentEntity.getNextChar();
 
-                // this has been split up to cater to the needs of branch prediction
-                if (strict && (!Character.isLetterOrDigit(c) && c != '-' && c != '.' && c != ':' && c != '_')) {
-                    fCurrentEntity.rewind();
-                    break;
+                // ASCII fast-paths first: HTML element/attribute names are virtually
+                // always lowercase ASCII letters and digits, and the JDK Character.*
+                // helpers are not inlineable. Falling through to them only for c >= 0x80.
+                if (strict) {
+                    final boolean isNameChar;
+                    if (c < 0x80) {
+                        isNameChar = (c >= 'a' && c <= 'z')
+                                  || (c >= 'A' && c <= 'Z')
+                                  || (c >= '0' && c <= '9')
+                                  || c == '-' || c == '.' || c == ':' || c == '_';
+                    }
+                    else {
+                        isNameChar = Character.isLetterOrDigit(c);
+                    }
+                    if (!isNameChar) {
+                        fCurrentEntity.rewind();
+                        break;
+                    }
                 }
                 // we check for the regular space first because isWhitespace is no inlineable and hence expensive
                 // regular space should be the norm as well as newlines
-                else if (!strict
-                            && (c == ' '
-                                    || c == '\n'
-                                    || c == '='
-                                    || c == '/'
-                                    || c == '>'
-                                    || Character.isWhitespace(c))) {
+                else if (c == ' '
+                            || c == '\n'
+                            || c == '='
+                            || c == '/'
+                            || c == '>'
+                            || Character.isWhitespace(c)) {
                     fCurrentEntity.rewind();
                     break;
                 }
@@ -1329,11 +1342,23 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 if (NAMES_NO_CHANGE == mode) {
                     // nothing to do
                 }
-                else if (NAMES_UPPERCASE == mode && !Character.isUpperCase(c)) {
-                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toUpperCase(c);
+                else if (NAMES_LOWERCASE == mode) {
+                    // ASCII fast-path: most names already arrive lowercase. Avoid
+                    // Character.isLowerCase + Character.toLowerCase round-trip for them.
+                    if (c >= 'A' && c <= 'Z') {
+                        fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = (char) (c | 0x20);
+                    }
+                    else if (c >= 0x80 && !Character.isLowerCase(c)) {
+                        fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toLowerCase(c);
+                    }
                 }
-                else if (NAMES_LOWERCASE == mode && !Character.isLowerCase(c)) {
-                    fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toLowerCase(c);
+                else if (NAMES_UPPERCASE == mode) {
+                    if (c >= 'a' && c <= 'z') {
+                        fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = (char) (c & 0x5F);
+                    }
+                    else if (c >= 0x80 && !Character.isUpperCase(c)) {
+                        fCurrentEntity.buffer_[fCurrentEntity.offset_ - 1] = Character.toUpperCase(c);
+                    }
                 }
             }
             if (fCurrentEntity.offset_ == fCurrentEntity.length_) {
