@@ -31,4 +31,6 @@ module org.htmlunit.cyberneko {
     exports org.htmlunit.cyberneko.xerces.dom;
     exports org.htmlunit.cyberneko.xerces.parsers;
     exports org.htmlunit.cyberneko.xerces.util;
+    exports org.htmlunit.cyberneko.xerces.xni;
+    exports org.htmlunit.cyberneko.xerces.xni.parser;
 }
