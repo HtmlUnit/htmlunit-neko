@@ -1124,7 +1124,6 @@ public class HTMLTagBalancer
         final boolean isForcedEndElement = forcedEndElement_;
         forcedEndElement_ = false;
 
-
         // is there anything to do?
         if (fSeenRootElementEnd) {
             notifyDiscardedEndElement(element, augs);
@@ -1205,39 +1204,32 @@ public class HTMLTagBalancer
 
         // empty element
         final int depth = getElementDepth(elem);
+
         // no matching tag found
         if (depth == -1) {
             if (elementCode == HTMLElements.P) {
                 forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
                 endElement(element, augs);
+                return;
             }
-            else if (elementCode == HTMLElements.BR) {
+            if (elementCode == HTMLElements.BR) {
                 forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
+                return;
             }
-            else if (elementCode == HTMLElements.H1
-                        || elementCode == HTMLElements.H2
-                        || elementCode == HTMLElements.H3
-                        || elementCode == HTMLElements.H4
-                        || elementCode == HTMLElements.H5
-                        || elementCode == HTMLElements.H6) {
-                for (int i = fElementStack.length - 1; i >= 0; i--) {
+
+            // Headings: if a heading end tag appears but there is no matching open tag,
+            // close the nearest open heading (H1..H6).
+            if (isHeading(elementCode)) {
+                for (int i = fElementStack.length - 1; i >= fragmentContextStackSize_; i--) {
                     final Info info = fElementStack.data[i];
-                    final short infoElemCode = info.element.code;
-                    if (infoElemCode == HTMLElements.H1
-                            || infoElemCode == HTMLElements.H2
-                            || infoElemCode == HTMLElements.H3
-                            || infoElemCode == HTMLElements.H4
-                            || infoElemCode == HTMLElements.H5
-                            || infoElemCode == HTMLElements.H6) {
-                        if (documentHandler_ != null) {
-                            addBodyIfNeeded(infoElemCode);
-                            endElement(info.qname, augs);
-                            return;
-                        }
+                    if (isHeading(info.element.code)) {
+                        closeTopElements(element, fElementStack.length - i, augs);
+                        return;
                     }
                 }
             }
-            else if (!elem.isEmpty()) {
+
+            if (!elem.isEmpty()) {
                 notifyDiscardedEndElement(element, augs);
             }
             return;
@@ -1259,16 +1251,40 @@ public class HTMLTagBalancer
         }
 
         // close children up to appropriate element
+        closeTopElements(element, depth, augs);
+    }
+
+    private static boolean isHeading(final short code) {
+        return code == HTMLElements.H1
+                || code == HTMLElements.H2
+                || code == HTMLElements.H3
+                || code == HTMLElements.H4
+                || code == HTMLElements.H5
+                || code == HTMLElements.H6;
+    }
+
+    /**
+     * Pops and closes the top {@code depth} elements from {@link #fElementStack}, emitting warnings
+     * and endElement events exactly like the old inline loop in {@link #endElement(QName, Augmentations)}.
+     *
+     * @param triggeringElement the end tag that caused this close (used for warnings and for deciding
+     *                          which Augmentations are "real" vs synthesized)
+     * @param depth how many stack entries to close (must be > 0)
+     * @param augs augmentations from the triggering end tag
+     */
+    private void closeTopElements(final QName triggeringElement, final int depth, final Augmentations augs) {
         for (int i = 0; i < depth; i++) {
             final Info info = fElementStack.pop();
+
             if (fReportErrors && i < depth - 1) {
-                final String ename = element.getRawname();
+                final String ename = triggeringElement.getRawname();
                 final String iname = info.qname.getRawname();
                 fErrorReporter.reportWarning("HTML2007", new Object[]{ename, iname});
             }
+
             if (documentHandler_ != null) {
                 addBodyIfNeeded(info.element.code);
-                // PATCH: Marc-Andr� Morissette
+                // PATCH: Marc-André Morissette
                 callEndElement(info.qname, i < depth - 1 ? synthesizedAugs() : augs);
             }
         }
@@ -1276,13 +1292,10 @@ public class HTMLTagBalancer
 
     // re-open inline elements
     protected boolean reopenFormattingElements(final HTMLElements.Element element) {
-        final int size = fFormattingStack.length;
-
-        if (size == 0) {
+        if (fFormattingStack.length == 0) {
             return false;
         }
 
-        int i = 0;
         Info info = fFormattingStack.pop();
         XMLAttributes attributes = info.attributes;
         if (fReportErrors) {
@@ -1295,9 +1308,8 @@ public class HTMLTagBalancer
         }
 
         forceStartElement(info.qname, attributes, synthesizedAugs());
-        i++;
 
-        for ( ; i < size; i++) {
+        while(fFormattingStack.length > 0) {
             info = fFormattingStack.pop();
             attributes = info.attributes;
             if (fReportErrors) {

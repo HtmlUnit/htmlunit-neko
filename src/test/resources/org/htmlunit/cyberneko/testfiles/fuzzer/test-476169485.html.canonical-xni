@@ -1,0 +1,18 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+characters 'try{}catch(u){try{}catch(u){try{}catch(u){try{}catch([0for([0for([0for([4for([2for([1for([1for([0for([]in
+E)]in
+E)]in
+E)]in
+E)]in
+E)]in
+E)]in
+E)]in
+Et)]){
+'[(1,1,0) (10,1,155) false]
+endElement (localpart="body",rawname="body") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(10,1,155) (10,1,155) false]
