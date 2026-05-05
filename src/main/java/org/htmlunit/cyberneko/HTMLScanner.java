@@ -40,10 +40,10 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * A simple HTML scanner. This scanner makes no attempt to balance tags or fix
@@ -740,38 +740,38 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /** Resets the component. */
     @Override
-    public void reset(final XMLComponentManager manager) throws XMLConfigurationException {
+    public void reset(final XMLParserConfiguration xmlParserConfiguration) throws XMLConfigurationException {
 
         // get features
-        fAugmentations_ = manager.getFeature(AUGMENTATIONS);
-        fReportErrors_ = manager.getFeature(REPORT_ERRORS);
-        fScriptStripCDATADelims_ = manager.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
-        fScriptStripCommentDelims_ = manager.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
-        fStyleStripCDATADelims_ = manager.getFeature(STYLE_STRIP_CDATA_DELIMS);
-        fStyleStripCommentDelims_ = manager.getFeature(STYLE_STRIP_COMMENT_DELIMS);
-        fIgnoreSpecifiedCharset_ = manager.getFeature(IGNORE_SPECIFIED_CHARSET);
-        fCDATASections_ = manager.getFeature(CDATA_SECTIONS);
-        fCDATAEarlyClosing_ = manager.getFeature(CDATA_EARLY_CLOSING);
-        fOverrideDoctype_ = manager.getFeature(OVERRIDE_DOCTYPE);
-        fInsertDoctype_ = manager.getFeature(INSERT_DOCTYPE);
-        fNormalizeAttributes_ = manager.getFeature(NORMALIZE_ATTRIBUTES);
-        fPlainAttributeValues_ = manager.getFeature(PLAIN_ATTRIBUTE_VALUES);
-        fParseNoScriptContent_ = manager.getFeature(PARSE_NOSCRIPT_CONTENT);
-        fAllowSelfclosingIframe_ = manager.getFeature(ALLOW_SELFCLOSING_IFRAME);
-        fAllowSelfclosingScript_ =  manager.getFeature(ALLOW_SELFCLOSING_SCRIPT);
-        fAllowSelfclosingTags_ = manager.getFeature(ALLOW_SELFCLOSING_TAGS);
+        fAugmentations_ = xmlParserConfiguration.getFeature(AUGMENTATIONS);
+        fReportErrors_ = xmlParserConfiguration.getFeature(REPORT_ERRORS);
+        fScriptStripCDATADelims_ = xmlParserConfiguration.getFeature(SCRIPT_STRIP_CDATA_DELIMS);
+        fScriptStripCommentDelims_ = xmlParserConfiguration.getFeature(SCRIPT_STRIP_COMMENT_DELIMS);
+        fStyleStripCDATADelims_ = xmlParserConfiguration.getFeature(STYLE_STRIP_CDATA_DELIMS);
+        fStyleStripCommentDelims_ = xmlParserConfiguration.getFeature(STYLE_STRIP_COMMENT_DELIMS);
+        fIgnoreSpecifiedCharset_ = xmlParserConfiguration.getFeature(IGNORE_SPECIFIED_CHARSET);
+        fCDATASections_ = xmlParserConfiguration.getFeature(CDATA_SECTIONS);
+        fCDATAEarlyClosing_ = xmlParserConfiguration.getFeature(CDATA_EARLY_CLOSING);
+        fOverrideDoctype_ = xmlParserConfiguration.getFeature(OVERRIDE_DOCTYPE);
+        fInsertDoctype_ = xmlParserConfiguration.getFeature(INSERT_DOCTYPE);
+        fNormalizeAttributes_ = xmlParserConfiguration.getFeature(NORMALIZE_ATTRIBUTES);
+        fPlainAttributeValues_ = xmlParserConfiguration.getFeature(PLAIN_ATTRIBUTE_VALUES);
+        fParseNoScriptContent_ = xmlParserConfiguration.getFeature(PARSE_NOSCRIPT_CONTENT);
+        fAllowSelfclosingIframe_ = xmlParserConfiguration.getFeature(ALLOW_SELFCLOSING_IFRAME);
+        fAllowSelfclosingScript_ =  xmlParserConfiguration.getFeature(ALLOW_SELFCLOSING_SCRIPT);
+        fAllowSelfclosingTags_ = xmlParserConfiguration.getFeature(ALLOW_SELFCLOSING_TAGS);
 
         // get properties
-        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fNamesAttrs = getNamesValue(String.valueOf(manager.getProperty(NAMES_ATTRS)));
-        fDefaultIANAEncoding = String.valueOf(manager.getProperty(DEFAULT_ENCODING));
-        fErrorReporter = (HTMLErrorReporter) manager.getProperty(ERROR_REPORTER);
-        fEncodingTranslator = (EncodingTranslator) manager.getProperty(ENCODING_TRANSLATOR);
-        fDoctypePubid = String.valueOf(manager.getProperty(DOCTYPE_PUBID));
-        fDoctypeSysid = String.valueOf(manager.getProperty(DOCTYPE_SYSID));
-        fReaderBufferSize = Integer.parseInt(String.valueOf(manager.getProperty(READER_BUFFER_SIZE)));
+        fNamesElems = getNamesValue(String.valueOf(xmlParserConfiguration.getProperty(NAMES_ELEMS)));
+        fNamesAttrs = getNamesValue(String.valueOf(xmlParserConfiguration.getProperty(NAMES_ATTRS)));
+        fDefaultIANAEncoding = String.valueOf(xmlParserConfiguration.getProperty(DEFAULT_ENCODING));
+        fErrorReporter = (HTMLErrorReporter) xmlParserConfiguration.getProperty(ERROR_REPORTER);
+        fEncodingTranslator = (EncodingTranslator) xmlParserConfiguration.getProperty(ENCODING_TRANSLATOR);
+        fDoctypePubid = String.valueOf(xmlParserConfiguration.getProperty(DOCTYPE_PUBID));
+        fDoctypeSysid = String.valueOf(xmlParserConfiguration.getProperty(DOCTYPE_SYSID));
+        fReaderBufferSize = Integer.parseInt(String.valueOf(xmlParserConfiguration.getProperty(READER_BUFFER_SIZE)));
 
-        final QName[] fragmentContextStack = (QName[]) manager.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
+        final QName[] fragmentContextStack = (QName[]) xmlParserConfiguration.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack != null) {
             final int length = fragmentContextStack.length;
             if (length > 0) {

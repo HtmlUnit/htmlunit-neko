@@ -32,10 +32,10 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * Balances tags in an HTML document. This component receives document events
@@ -318,22 +318,20 @@ public class HTMLTagBalancer
 
     /** Resets the component. */
     @Override
-    public void reset(final XMLComponentManager manager)
-        throws XMLConfigurationException {
-
+    public void reset(final XMLParserConfiguration xmlParserConfiguration) throws XMLConfigurationException {
         // get features
-        fNamespaces = manager.getFeature(NAMESPACES);
-        fAugmentations = manager.getFeature(AUGMENTATIONS);
-        fReportErrors = manager.getFeature(REPORT_ERRORS);
-        fDocumentFragment = manager.getFeature(DOCUMENT_FRAGMENT);
-        fIgnoreOutsideContent = manager.getFeature(IGNORE_OUTSIDE_CONTENT);
-        fAllowSelfclosingIframe = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME);
-        fAllowSelfclosingScript = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_SCRIPT);
-        fAllowSelfclosingTags = manager.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
+        fNamespaces = xmlParserConfiguration.getFeature(NAMESPACES);
+        fAugmentations = xmlParserConfiguration.getFeature(AUGMENTATIONS);
+        fReportErrors = xmlParserConfiguration.getFeature(REPORT_ERRORS);
+        fDocumentFragment = xmlParserConfiguration.getFeature(DOCUMENT_FRAGMENT);
+        fIgnoreOutsideContent = xmlParserConfiguration.getFeature(IGNORE_OUTSIDE_CONTENT);
+        fAllowSelfclosingIframe = xmlParserConfiguration.getFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME);
+        fAllowSelfclosingScript = xmlParserConfiguration.getFeature(HTMLScanner.ALLOW_SELFCLOSING_SCRIPT);
+        fAllowSelfclosingTags = xmlParserConfiguration.getFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS);
 
         // get properties
-        fNamesElems = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        fErrorReporter = (HTMLErrorReporter) manager.getProperty(ERROR_REPORTER);
+        fNamesElems = getNamesValue(String.valueOf(xmlParserConfiguration.getProperty(NAMES_ELEMS)));
+        fErrorReporter = (HTMLErrorReporter) xmlParserConfiguration.getProperty(ERROR_REPORTER);
 
         fSeenAnything = false;
         fSeenDoctype = false;
@@ -351,7 +349,7 @@ public class HTMLTagBalancer
         fOpenedSelect = false;
         fOpenedSvg = false;
 
-        fragmentContextStack_ = (QName[]) manager.getProperty(FRAGMENT_CONTEXT_STACK);
+        fragmentContextStack_ = (QName[]) xmlParserConfiguration.getProperty(FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack_ != null) {
             fSeenAnything = fragmentContextStack_.length > 0;
             // use indexed loop to avoid Iterator allocation

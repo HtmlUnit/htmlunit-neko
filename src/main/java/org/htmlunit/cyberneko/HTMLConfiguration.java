@@ -18,12 +18,12 @@ package org.htmlunit.cyberneko;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
-import org.htmlunit.cyberneko.xerces.util.ParserConfigurationSettings;
 import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
@@ -67,7 +67,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
  *
  * @author Andy Clark
  */
-public class HTMLConfiguration extends ParserConfigurationSettings implements XMLParserConfiguration {
+public class HTMLConfiguration implements XMLParserConfiguration {
 
     // features
 
@@ -98,6 +98,18 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
     protected static final String ERROR_REPORTER = "http://cyberneko.org/html/properties/error-reporter";
 
     // other
+
+    /** Recognized properties. */
+    private final ArrayList<String> fRecognizedProperties_;
+
+    /** Properties. */
+    private final HashMap<String, Object> fProperties_;
+
+    /** Recognized features. */
+    private final ArrayList<String> fRecognizedFeatures_;
+
+    /** Features. */
+    private final HashMap<String, Boolean> fFeatures_;
 
     /** Error domain. */
     protected static final String ERROR_DOMAIN = "http://cyberneko.org/html";
@@ -140,6 +152,14 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
 
     public HTMLConfiguration(final HTMLElementsProvider htmlElements) {
         htmlElements_ = htmlElements;
+
+        // create storage for recognized features and properties
+        fRecognizedFeatures_ = new ArrayList<>();
+        fRecognizedProperties_ = new ArrayList<>();
+
+        // create table for features and properties
+        fFeatures_ = new HashMap<>();
+        fProperties_ = new HashMap<>();
 
         // add components
         addComponent(documentScanner_);
@@ -208,21 +228,45 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
         documentScanner_.evaluateInputSource(inputSource);
     }
 
-    // Sets a feature.
+
+    /**
+     * Set the state of a feature.
+     * <p>
+     * Set the state of any feature in a SAX2 parser. The parser might not recognize
+     * the feature, and if it does recognize it, it might not be able to fulfill the
+     * request.
+     *
+     * @param featureId The unique identifier (URI) of the feature.
+     * @param state     The requested state of the feature (true or false).
+     *
+     * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
+     *            the requested feature is not known.
+     */
     @Override
     public void setFeature(final String featureId, final boolean state)
         throws XMLConfigurationException {
-        super.setFeature(featureId, state);
+        // check and store
+        checkFeature(featureId);
+        fFeatures_.put(featureId, state ? Boolean.TRUE : Boolean.FALSE);
+
         for (final HTMLComponent component : htmlComponents_) {
             component.setFeature(featureId, state);
         }
     }
 
-    // Sets a property.
+    /**
+     * setProperty.
+     *
+     * @param propertyId the property id
+     * @param value      the value
+     * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
+     *            the requested feature is not known.
+     */
     @Override
-    public void setProperty(final String propertyId, final Object value)
-        throws XMLConfigurationException {
-        super.setProperty(propertyId, value);
+    public void setProperty(final String propertyId, final Object value) throws XMLConfigurationException {
+        // check and store
+        checkProperty(propertyId);
+        fProperties_.put(propertyId, value);
 
         if (propertyId.equals(FILTERS)) {
             final XMLDocumentFilter[] filters = (XMLDocumentFilter[]) getProperty(FILTERS);
@@ -518,6 +562,105 @@ public class HTMLConfiguration extends ParserConfigurationSettings implements XM
                 }
             }
             return str.toString();
+        }
+    }
+
+    /**
+     * Allows a parser to add parser specific features to be recognized and managed
+     * by the parser configuration.
+     *
+     * @param featureIds An array of the additional feature identifiers to be
+     *                   recognized.
+     */
+    @Override
+    public void addRecognizedFeatures(final String[] featureIds) {
+        // add recognized features
+        final int featureIdsCount = featureIds != null ? featureIds.length : 0;
+        for (int i = 0; i < featureIdsCount; i++) {
+            final String featureId = featureIds[i];
+            if (!fRecognizedFeatures_.contains(featureId)) {
+                fRecognizedFeatures_.add(featureId);
+            }
+        }
+    }
+
+    /**
+     * Allows a parser to add parser specific properties to be recognized and
+     * managed by the parser configuration.
+     *
+     * @param propertyIds An array of the additional property identifiers to be
+     *                    recognized.
+     */
+    @Override
+    public void addRecognizedProperties(final String[] propertyIds) {
+        // add recognizedProperties
+        final int propertyIdsCount = propertyIds != null ? propertyIds.length : 0;
+        for (int i = 0; i < propertyIdsCount; i++) {
+            final String propertyId = propertyIds[i];
+            if (!fRecognizedProperties_.contains(propertyId)) {
+                fRecognizedProperties_.add(propertyId);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean getFeature(final String featureId) throws XMLConfigurationException {
+        final Boolean state = fFeatures_.get(featureId);
+
+        if (state == null) {
+            checkFeature(featureId);
+            return false;
+        }
+        return state.booleanValue();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProperty(final String propertyId) throws XMLConfigurationException {
+        final Object propertyValue = fProperties_.get(propertyId);
+
+        if (propertyValue == null) {
+            checkProperty(propertyId);
+        }
+
+        return propertyValue;
+    }
+
+    /**
+     * Check a feature. If feature is known and supported, this method simply
+     * returns. Otherwise, the appropriate exception is thrown.
+     *
+     * @param featureId The unique identifier (URI) of the feature.
+     *
+     * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
+     *            the requested feature is not known.
+     */
+    protected void checkFeature(final String featureId) throws XMLConfigurationException {
+        // check feature
+        if (!fRecognizedFeatures_.contains(featureId)) {
+            final short type = XMLConfigurationException.NOT_RECOGNIZED;
+            throw new XMLConfigurationException(type, featureId);
+        }
+    }
+
+    /**
+     * Check a property. If the property is known and supported, this method simply
+     * returns. Otherwise, the appropriate exception is thrown.
+     *
+     * @param propertyId The unique identifier (URI) of the property being set.
+     * @exception org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException If
+     *            the requested feature is not known.
+     */
+    protected void checkProperty(final String propertyId) throws XMLConfigurationException {
+        // check property
+        if (!fRecognizedProperties_.contains(propertyId)) {
+            final short type = XMLConfigurationException.NOT_RECOGNIZED;
+            throw new XMLConfigurationException(type, propertyId);
         }
     }
 }

@@ -15,7 +15,9 @@
  */
 package org.htmlunit.cyberneko;
 
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
+import org.htmlunit.cyberneko.xerces.xni.XNIException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * This interface extends the XNI <code>XMLComponent</code> interface
@@ -24,22 +26,84 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponent;
  *
  * @author Andy Clark
  */
-public interface HTMLComponent
-    extends XMLComponent {
+public interface HTMLComponent {
+    /**
+     * Resets the component. The component can query the component manager about any
+     * features and properties that affect the operation of the component.
+     *
+     * @param xmlParserConfiguration The {@link XMLParserConfiguration}.
+     *
+     * @throws XNIException Thrown by component on initialization error.
+     */
+    void reset(XMLParserConfiguration xmlParserConfiguration) throws XMLConfigurationException;
+
+    /**
+     * @return an array of feature identifiers that are recognized by this
+     *         component. This method may return null if no features are recognized
+     *         by this component.
+     */
+    String[] getRecognizedFeatures();
+
+    /**
+     * Sets the state of a feature. This method is called by the component manager
+     * any time after reset when a feature changes state.
+     * <p>
+     * <strong>Note:</strong> Components should silently ignore features that do not
+     * affect the operation of the component.
+     *
+     * @param featureId The feature identifier.
+     * @param state     The state of the feature.
+     *
+     * @throws XMLConfigurationException Thrown for configuration error. In general,
+     *                                   components should only throw this exception
+     *                                   if it is <strong>really</strong> a critical
+     *                                   error.
+     */
+    void setFeature(String featureId, boolean state) throws XMLConfigurationException;
+
+    /**
+     * @return an array of property identifiers that are recognized by this
+     *         component. This method may return null if no properties are
+     *         recognized by this component.
+     */
+    String[] getRecognizedProperties();
+
+    /**
+     * Sets the value of a property. This method is called by the component manager
+     * any time after reset when a property changes value.
+     * <p>
+     * <strong>Note:</strong> Components should silently ignore properties that do
+     * not affect the operation of the component.
+     *
+     * @param propertyId The property identifier.
+     * @param value      The value of the property.
+     *
+     * @throws XMLConfigurationException Thrown for configuration error. In general,
+     *                                   components should only throw this exception
+     *                                   if it is <strong>really</strong> a critical
+     *                                   error.
+     */
+    void setProperty(String propertyId, Object value) throws XMLConfigurationException;
 
     /**
      * Returns the default state for a feature, or null if this
      * component does not want to report a default value for this
      * feature.
+     *
+     * @param featureId The feature identifier.
+     * @return the default state for a feature, or null if this component does not
+     *         want to report a default value for this feature.
      */
-    @Override
     Boolean getFeatureDefault(String featureId);
 
     /**
      * Returns the default state for a property, or null if this
      * component does not want to report a default value for this
      * property.
+     *
+     * @param propertyId The property identifier.
+     * @return the default state for a property, or null if this component does not
+     *         want to report a default value for this property
      */
-    @Override
     Object getPropertyDefault(String propertyId);
 }

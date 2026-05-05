@@ -24,10 +24,10 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XMLString;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentFilter;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * This class implements a filter that simply passes document
@@ -36,8 +36,7 @@ import org.htmlunit.cyberneko.xerces.xni.parser.XMLDocumentSource;
  *
  * @author Andy Clark
  */
-public class DefaultFilter
-    implements XMLDocumentFilter, HTMLComponent {
+public class DefaultFilter implements XMLDocumentFilter, HTMLComponent {
 
     /** Document handler. */
     private XMLDocumentHandler documentHandler_;
@@ -223,12 +222,12 @@ public class DefaultFilter
      * about any features and properties that affect the operation of the
      * component.
      *
-     * @param componentManager The component manager.
+     * @param xmlParserConfiguration The {@link XMLParserConfiguration}.
      *
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(final XMLComponentManager componentManager)
+    public void reset(final XMLParserConfiguration xmlParserConfiguration)
         throws XMLConfigurationException {
     }
 

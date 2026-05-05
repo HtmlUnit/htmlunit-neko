@@ -24,8 +24,8 @@ import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
-import org.htmlunit.cyberneko.xerces.xni.parser.XMLComponentManager;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLConfigurationException;
+import org.htmlunit.cyberneko.xerces.xni.parser.XMLParserConfiguration;
 
 /**
  * This filter binds namespaces if namespace processing is turned on
@@ -186,23 +186,23 @@ public class NamespaceBinder extends DefaultFilter {
      * about any features and properties that affect the operation of the
      * component.
      *
-     * @param manager The component manager.
+     * @param xmlParserConfiguration The {@link XMLParserConfiguration}.
      *
      * @throws XNIException Thrown by component on initialization error.
      */
     @Override
-    public void reset(final XMLComponentManager manager)
+    public void reset(final XMLParserConfiguration xmlParserConfiguration)
         throws XMLConfigurationException {
-        super.reset(manager);
+        super.reset(xmlParserConfiguration);
 
         // features
-        namespaces_ = manager.getFeature(NAMESPACES);
-        overrideNamespaces_ = manager.getFeature(OVERRIDE_NAMESPACES);
-        insertNamespaces_ = manager.getFeature(INSERT_NAMESPACES);
+        namespaces_ = xmlParserConfiguration.getFeature(NAMESPACES);
+        overrideNamespaces_ = xmlParserConfiguration.getFeature(OVERRIDE_NAMESPACES);
+        insertNamespaces_ = xmlParserConfiguration.getFeature(INSERT_NAMESPACES);
 
         // get properties
-        namesElems_ = getNamesValue(String.valueOf(manager.getProperty(NAMES_ELEMS)));
-        namespacesURI_ = String.valueOf(manager.getProperty(NAMESPACES_URI));
+        namesElems_ = getNamesValue(String.valueOf(xmlParserConfiguration.getProperty(NAMES_ELEMS)));
+        namespacesURI_ = String.valueOf(xmlParserConfiguration.getProperty(NAMESPACES_URI));
 
         // initialize state
         namespaceContext_.reset();

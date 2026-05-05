@@ -56,7 +56,7 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  */
-public interface XMLParserConfiguration extends XMLComponentManager {
+public interface XMLParserConfiguration {
 
     /**
      * Parse an XML document.
@@ -110,7 +110,6 @@ public interface XMLParserConfiguration extends XMLComponentManager {
      *
      * @throws XMLConfigurationException Thrown if there is a configuration error.
      */
-    @Override
     boolean getFeature(String featureId) throws XMLConfigurationException;
 
     /**
@@ -139,7 +138,6 @@ public interface XMLParserConfiguration extends XMLComponentManager {
      *
      * @throws XMLConfigurationException Thrown if there is a configuration error.
      */
-    @Override
     Object getProperty(String propertyId) throws XMLConfigurationException;
 
     // handlers
