@@ -315,4 +315,40 @@ public class GeneralTest {
                 + ")html";
         assertEquals(expected.trim(), out.toString().trim());
     }
+
+    @Test
+    public void textContentConsecutiveAmpersandsBeforeNamedEntity() throws Exception {
+        final String expected = "(html" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"FOO&&&>BAR" + NL
+                + ")body" + NL
+                + ")html";
+        doTest("FOO&&&&gt;BAR", null, expected);
+    }
+
+    @Test
+    public void textContentSurrogateNumericReference() throws Exception {
+        final String expected = "(html" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"FOO\uFFFDZOO" + NL
+                + ")body" + NL
+                + ")html";
+        doTest("FOO&#xDFFF;ZOO", null, expected);
+    }
+
+    @Test
+    public void textContentWindows1252ControlMapping() throws Exception {
+        final String expected = "(html" + NL
+                + "(head" + NL
+                + ")head" + NL
+                + "(body" + NL
+                + "\"FOO\u02DCZOO" + NL
+                + ")body" + NL
+                + ")html";
+        doTest("FOO&#x0098;ZOO", null, expected);
+    }
 }

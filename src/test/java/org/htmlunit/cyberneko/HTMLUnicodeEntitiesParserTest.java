@@ -150,7 +150,21 @@ public class HTMLUnicodeEntitiesParserTest {
         }
 
         assertEquals("\uFFFD", parser.getMatch());
-        assertEquals(6, parser.getRewindCount());
+        assertEquals(0, parser.getRewindCount());
+    }
+
+    @Test
+    public void parseWindows1252SmallTilde() {
+        final HTMLUnicodeEntitiesParser parser = new HTMLUnicodeEntitiesParser();
+
+        final String input = "x98;";
+        int i = 0;
+        while (parser.parseNumeric(input.charAt(i))) {
+            i++;
+        }
+
+        assertEquals("\u02DC", parser.getMatch());
+        assertEquals(0, parser.getRewindCount());
     }
 
     @Test

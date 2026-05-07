@@ -83,6 +83,7 @@ public class HTMLUnicodeEntitiesParser {
         // a surrogate-character-reference parse error. Set the character reference code to 0xFFFD
         if (Character.isSurrogate((char) code_)) {
             match_ = "\uFFFD";
+            matchLength_ = consumedCount_;
             return;
         }
 
@@ -196,7 +197,7 @@ public class HTMLUnicodeEntitiesParser {
                 return;
 
             case 0x98:
-                match_ = "\u20DC";
+                match_ = "\u02DC";
                 matchLength_ = consumedCount_;
                 return;
 
