@@ -126,13 +126,16 @@ public final class Html5LibTestParser {
     public static List<TestCase> parseTestFile(final String content) throws IOException {
         final List<TestCase> tests = new ArrayList<>();
 
-        TestCase currentTest = null;
-        String line;
-        String section = null;
-        int errorCount = 0;
-        int testNumber = 0;
+        try (final BufferedReader reader = new BufferedReader(new StringReader(content))) {
+            TestCase currentTest = null;
+            String line;
+            String section = null;
+            int errorCount = 0;
+            int testNumber = 0;
+            // true while the last tree line is an unclosed text node (contains a
+            // literal newline that has not yet been terminated by a closing '"').
+            boolean inTextNode = false;
 
-        try(final BufferedReader reader = new BufferedReader(new StringReader(content))) {
             while ((line = reader.readLine()) != null) {
                 // Start of new test
                 if ("#data".equals(line)) {
@@ -142,6 +145,8 @@ public final class Html5LibTestParser {
                     currentTest = new TestCase();
                     currentTest.setTestName("Test " + (++testNumber));
                     section = "data";
+                    errorCount = 0;
+                    inTextNode = false;
                     continue;
                 }
 
@@ -157,34 +162,40 @@ public final class Html5LibTestParser {
                 }
 
                 if ("#new-errors".equals(line)) {
-                    currentTest.setExpectedErrors(errorCount);
+                    // flush the plain-errors count before switching
+                    if ("errors".equals(section)) {
+                        currentTest.setExpectedErrors(errorCount);
+                    }
                     section = "new-errors";
                     errorCount = 0;
                     continue;
                 }
 
                 if ("#document-fragment".equals(line)) {
+                    // flush whichever error section we were in
+                    flushErrors(currentTest, section, errorCount);
                     section = "fragment";
                     continue;
                 }
 
                 if ("#document".equals(line)) {
-                    if ("errors".equals(section)) {
-                        currentTest.setExpectedErrors(errorCount);
-                    }
-                    else if ("new-errors".equals(section)) {
-                        currentTest.setNewErrors(errorCount);
-                    }
+                    // flush whichever error section we were in
+                    flushErrors(currentTest, section, errorCount);
                     section = "document";
+                    inTextNode = false;
                     continue;
                 }
 
                 if ("#script-off".equals(line)) {
+                    // flush whichever error section we were in before the flag
+                    flushErrors(currentTest, section, errorCount);
                     currentTest.setScriptingEnabled(false);
                     continue;
                 }
 
                 if ("#script-on".equals(line)) {
+                    // flush whichever error section we were in before the flag
+                    flushErrors(currentTest, section, errorCount);
                     currentTest.setScriptingEnabled(true);
                     continue;
                 }
@@ -212,22 +223,27 @@ public final class Html5LibTestParser {
                         break;
 
                     case "document":
-                        if (line.isEmpty()) {
-                            // blank line between tests - skip
-                            break;
+                        if (inTextNode) {
+                            // Continuation of a multi-line text node.
+                            // The README says "Newlines aren't escaped", so a text value
+                            // that contains a newline spans multiple raw lines in the file.
+                            // Re-assemble using LF (\n) to match what the SAX parser emits.
+                            currentTest.appendLastTreeLine("\n" + line);
+                            if (line.endsWith("\"")) {
+                                inTextNode = false;
+                            }
                         }
-                        if (line.startsWith("| ")) {
-                            // normal tree node line
+                        else if (line.startsWith("| ")) {
                             currentTest.addTreeLine(line);
+                            // Detect an unclosed text node: content starts with '"' but
+                            // does not end with '"', meaning the value continues on the
+                            // next raw line(s).
+                            final String nodeContent = line.substring(2).stripLeading();
+                            if (nodeContent.startsWith("\"") && !nodeContent.endsWith("\"")) {
+                                inTextNode = true;
+                            }
                         }
-                        else {
-                            // continuation of a multi-line text node, e.g.:
-                            //   |   "FOO       <- previous line
-                            //   ZOO"           <- this line
-                            // Reconstruct as a single string with an embedded newline so
-                            // it matches what TreeNode.toOutputLines() produces.
-                            currentTest.appendLastTreeLine("\r\n" + line);
-                        }
+                        // else: empty line = blank separator between tests, ignore
                         break;
 
                     default:
@@ -242,6 +258,20 @@ public final class Html5LibTestParser {
         }
 
         return tests;
+    }
+
+    /**
+     * Saves the accumulated error count into the test case for whichever error
+     * section is currently active ("errors" or "new-errors").  A no-op for every
+     * other section so callers can invoke it unconditionally on every transition.
+     */
+    private static void flushErrors(final TestCase test, final String section, final int errorCount) {
+        if ("errors".equals(section)) {
+            test.setExpectedErrors(errorCount);
+        }
+        else if ("new-errors".equals(section)) {
+            test.setNewErrors(errorCount);
+        }
     }
 
     /**
