@@ -94,6 +94,19 @@ public final class Html5LibTestParser {
             expectedTree_.add(line);
         }
 
+        /**
+         * Appends a continuation string to the last tree line already added.
+         * Used to handle multi-line text nodes in the expected #document section,
+         * where a line that does not start with "| " is a continuation of the
+         * preceding text node (e.g. the second line of |   "FOO\nZOO").
+         */
+        public void appendLastTreeLine(final String continuation) {
+            if (!expectedTree_.isEmpty()) {
+                final int last = expectedTree_.size() - 1;
+                expectedTree_.set(last, expectedTree_.get(last) + continuation);
+            }
+        }
+
         public String getTestName() {
             return testName_;
         }
@@ -199,8 +212,21 @@ public final class Html5LibTestParser {
                         break;
 
                     case "document":
-                        if (!line.isEmpty()) {
+                        if (line.isEmpty()) {
+                            // blank line between tests - skip
+                            break;
+                        }
+                        if (line.startsWith("| ")) {
+                            // normal tree node line
                             currentTest.addTreeLine(line);
+                        }
+                        else {
+                            // continuation of a multi-line text node, e.g.:
+                            //   |   "FOO       <- previous line
+                            //   ZOO"           <- this line
+                            // Reconstruct as a single string with an embedded newline so
+                            // it matches what TreeNode.toOutputLines() produces.
+                            currentTest.appendLastTreeLine("\r\n" + line);
                         }
                         break;
 
@@ -208,11 +234,11 @@ public final class Html5LibTestParser {
                         throw new IllegalArgumentException("unsupported section '" + section + "'");
                 }
             }
-        }
 
-        // Add last test
-        if (currentTest != null) {
-            tests.add(currentTest);
+            // Add last test
+            if (currentTest != null) {
+                tests.add(currentTest);
+            }
         }
 
         return tests;

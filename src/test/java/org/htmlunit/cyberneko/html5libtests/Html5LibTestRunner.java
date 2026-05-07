@@ -18,9 +18,12 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import org.htmlunit.cyberneko.HTMLScanner;
+import org.htmlunit.cyberneko.HTMLTagBalancer;
 import org.htmlunit.cyberneko.parsers.SAXParser;
+import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.parser.XMLInputSource;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -419,7 +422,20 @@ public class Html5LibTestRunner {
                 parser.setFeature(HTMLScanner.PARSE_NOSCRIPT_CONTENT, !scriptingEnabled);
             }
 
-            // parser.setFeature("http://cyberneko.org/html/features/balance-tags/document-fragment", true);
+            // Fragment parsing support.
+            // When a test specifies a #document-fragment context element, the #data must be
+            // parsed using the HTML fragment parsing algorithm with that element as context.
+            // We model this by enabling the document-fragment balance-tags feature and
+            // providing a FRAGMENT_CONTEXT_STACK that reflects the ancestor chain of the
+            // context element so the parser adopts the correct initial insertion mode.
+            final String fragmentContext = test.getFragmentContext();
+            if (fragmentContext != null) {
+                parser.setFeature(
+                    "http://cyberneko.org/html/features/balance-tags/document-fragment", true);
+                parser.setProperty(
+                    HTMLTagBalancer.FRAGMENT_CONTEXT_STACK,
+                    buildFragmentContextStack(fragmentContext));
+            }
 
             // Parse the HTML
             String html = test.getData();
@@ -448,6 +464,67 @@ public class Html5LibTestRunner {
             final TestResult result = new TestResult(false, "Exception during parsing: " + e.getMessage());
             result.setException(e);
             return result;
+        }
+    }
+
+    /**
+     * Build the FRAGMENT_CONTEXT_STACK QName array for a given html5lib fragment context string.
+     *
+     * <p>Per the html5lib spec the context string takes one of three forms:
+     * <ul>
+     *   <li>{@code "svg <localname>"} – context element is in the SVG namespace</li>
+     *   <li>{@code "math <localname>"} – context element is in the MathML namespace</li>
+     *   <li>{@code "<localname>"} – context element is in the HTML namespace</li>
+     * </ul>
+     *
+     * <p>The returned stack represents the already-open ancestor elements that the parser
+     * should assume when it starts, from outermost to innermost (matching what
+     * {@link HTMLTagBalancer#FRAGMENT_CONTEXT_STACK} expects).  We always include the
+     * context element itself as the innermost entry, and prepend the minimal HTML ancestor
+     * chain needed for correct insertion-mode initialisation:
+     * <ul>
+     *   <li>{@code html} context → {@code [html]}</li>
+     *   <li>{@code head} context → {@code [html, head]}</li>
+     *   <li>everything else → {@code [html, body, <context>]}</li>
+     * </ul>
+     */
+    private static QName[] buildFragmentContextStack(final String fragmentContext) {
+        String namespace = null; // null → HTML namespace
+        String localName = fragmentContext.trim();
+
+        if (localName.startsWith("svg ")) {
+            namespace = "http://www.w3.org/2000/svg";
+            localName = localName.substring(4);
+        }
+        else if (localName.startsWith("math ")) {
+            namespace = "http://www.w3.org/1998/Math/MathML";
+            localName = localName.substring(5);
+        }
+
+        final QName contextQName = new QName(null, localName, localName, namespace);
+
+        switch (localName.toLowerCase(Locale.ROOT)) {
+            case "html":
+                // Context is the root element itself – no further ancestors needed.
+                return new QName[] { contextQName };
+
+            case "head":
+                // Context is inside <html> but before <body>.
+                return new QName[] {
+                    new QName(null, "html", "html", null),
+                    contextQName
+                };
+
+            default:
+                // For all other HTML/SVG/MathML elements use the standard
+                // html > body > <context> ancestor chain.  This covers the
+                // majority of tree-construction test cases (div, table, tr,
+                // td, select, template, svg elements, math elements, …).
+                return new QName[] {
+                    new QName(null, "html", "html", null),
+                    new QName(null, "body", "body", null),
+                    contextQName
+                };
         }
     }
 
@@ -492,6 +569,9 @@ public class Html5LibTestRunner {
         System.out.println("=== Running Test ===");
         System.out.println("Input HTML:");
         System.out.println(test.getData());
+        if (test.getFragmentContext() != null) {
+            System.out.println("Fragment context: " + test.getFragmentContext());
+        }
         System.out.println();
 
         TestResult result = runTest(test);
