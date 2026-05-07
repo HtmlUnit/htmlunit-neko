@@ -103,7 +103,7 @@ public class Html5LibTreeConstructionTest {
         final List<DynamicTest> tests = new ArrayList<>();
 
         try {
-            final String content = new String(Files.readAllBytes(filePath));
+            final String content = Files.readString(filePath);
             final List<Html5LibTestParser.TestCase> testCases = Html5LibTestParser.parseTestFile(content);
 
             System.out.println(fileName + ": " + testCases.size() + " tests");

@@ -112,7 +112,6 @@ public final class Html5LibTestParser {
      */
     public static List<TestCase> parseTestFile(final String content) throws IOException {
         final List<TestCase> tests = new ArrayList<>();
-        final BufferedReader reader = new BufferedReader(new StringReader(content));
 
         TestCase currentTest = null;
         String line;
@@ -120,92 +119,94 @@ public final class Html5LibTestParser {
         int errorCount = 0;
         int testNumber = 0;
 
-        while ((line = reader.readLine()) != null) {
-            // Start of new test
-            if ("#data".equals(line)) {
-                if (currentTest != null) {
-                    tests.add(currentTest);
+        try(final BufferedReader reader = new BufferedReader(new StringReader(content))) {
+            while ((line = reader.readLine()) != null) {
+                // Start of new test
+                if ("#data".equals(line)) {
+                    if (currentTest != null) {
+                        tests.add(currentTest);
+                    }
+                    currentTest = new TestCase();
+                    currentTest.setTestName("Test " + (++testNumber));
+                    section = "data";
+                    continue;
                 }
-                currentTest = new TestCase();
-                currentTest.setTestName("Test " + (++testNumber));
-                section = "data";
-                continue;
-            }
 
-            if (currentTest == null) {
-                continue;
-            }
+                if (currentTest == null) {
+                    continue;
+                }
 
-            // Section markers
-            if ("#errors".equals(line)) {
-                section = "errors";
-                errorCount = 0;
-                continue;
-            }
+                // Section markers
+                if ("#errors".equals(line)) {
+                    section = "errors";
+                    errorCount = 0;
+                    continue;
+                }
 
-            if ("#new-errors".equals(line)) {
-                currentTest.setExpectedErrors(errorCount);
-                section = "new-errors";
-                errorCount = 0;
-                continue;
-            }
-
-            if ("#document-fragment".equals(line)) {
-                section = "fragment";
-                continue;
-            }
-
-            if ("#document".equals(line)) {
-                if ("errors".equals(section)) {
+                if ("#new-errors".equals(line)) {
                     currentTest.setExpectedErrors(errorCount);
+                    section = "new-errors";
+                    errorCount = 0;
+                    continue;
                 }
-                else if ("new-errors".equals(section)) {
-                    currentTest.setNewErrors(errorCount);
+
+                if ("#document-fragment".equals(line)) {
+                    section = "fragment";
+                    continue;
                 }
-                section = "document";
-                continue;
-            }
 
-            if ("#script-off".equals(line)) {
-                currentTest.setScriptingEnabled(false);
-                continue;
-            }
-
-            if ("#script-on".equals(line)) {
-                currentTest.setScriptingEnabled(true);
-                continue;
-            }
-
-            // Process section content
-            switch (section) {
-                case "data":
-                    if (currentTest.getData() == null) {
-                        currentTest.setData(line);
+                if ("#document".equals(line)) {
+                    if ("errors".equals(section)) {
+                        currentTest.setExpectedErrors(errorCount);
                     }
-                    else {
-                        currentTest.setData(currentTest.getData() + "\n" + line);
+                    else if ("new-errors".equals(section)) {
+                        currentTest.setNewErrors(errorCount);
                     }
-                    break;
+                    section = "document";
+                    continue;
+                }
 
-                case "errors":
-                case "new-errors":
-                    if (!line.isEmpty()) {
-                        errorCount++;
-                    }
-                    break;
+                if ("#script-off".equals(line)) {
+                    currentTest.setScriptingEnabled(false);
+                    continue;
+                }
 
-                case "fragment":
-                    currentTest.setFragmentContext(line);
-                    break;
+                if ("#script-on".equals(line)) {
+                    currentTest.setScriptingEnabled(true);
+                    continue;
+                }
 
-                case "document":
-                    if (!line.isEmpty()) {
-                        currentTest.addTreeLine(line);
-                    }
-                    break;
+                // Process section content
+                switch (section) {
+                    case "data":
+                        if (currentTest.getData() == null) {
+                            currentTest.setData(line);
+                        }
+                        else {
+                            currentTest.setData(currentTest.getData() + "\n" + line);
+                        }
+                        break;
 
-                default:
-                    throw new IllegalArgumentException("unsupported section '" + section + "'");
+                    case "errors":
+                    case "new-errors":
+                        if (!line.isEmpty()) {
+                            errorCount++;
+                        }
+                        break;
+
+                    case "fragment":
+                        currentTest.setFragmentContext(line);
+                        break;
+
+                    case "document":
+                        if (!line.isEmpty()) {
+                            currentTest.addTreeLine(line);
+                        }
+                        break;
+
+                    default:
+                        throw new IllegalArgumentException("unsupported section '" + section + "'");
+                }
             }
         }
 

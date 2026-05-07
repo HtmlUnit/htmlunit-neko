@@ -16,7 +16,6 @@ package org.htmlunit.cyberneko.html5libtests;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -97,12 +96,7 @@ public class Html5LibTestRunner {
             }
 
             // Sort attributes by name (lexicographically)
-            Collections.sort(attributes, new Comparator<TreeNode.Attribute>() {
-                @Override
-                public int compare(final TreeNode.Attribute a1, final TreeNode.Attribute a2) {
-                    return a1.getName().compareTo(a2.getName());
-                }
-            });
+            attributes.sort(Comparator.comparing(TreeNode.Attribute::getName));
 
             for (final TreeNode.Attribute attr : attributes) {
                 element.addAttribute(attr);
@@ -327,7 +321,8 @@ public class Html5LibTestRunner {
 
         @Override
         public String toString() {
-            return toOutputLines().isEmpty() ? "" : toOutputLines().get(0);
+            final List<String> lines = toOutputLines();
+            return lines.isEmpty() ? "" : lines.get(0);
         }
 
         /**
