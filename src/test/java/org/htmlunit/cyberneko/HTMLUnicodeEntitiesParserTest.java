@@ -148,9 +148,12 @@ public class HTMLUnicodeEntitiesParserTest {
         while (parser.parseNumeric(input.charAt(i))) {
             i++;
         }
-
+        // A surrogate code point (&#xD800;) is invalid in HTML, so the parser emits
+        // the replacement character U+FFFD. Because the semicolon-terminated reference
+        // was fully consumed, matchLength equals consumedCount and rewindCount is 0 —
+        // no characters need to be put back into the input stream.
         assertEquals("\uFFFD", parser.getMatch());
-        assertEquals(6, parser.getRewindCount());
+        assertEquals(0, parser.getRewindCount());
     }
 
     @Test
