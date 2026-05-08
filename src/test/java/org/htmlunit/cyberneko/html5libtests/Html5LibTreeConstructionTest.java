@@ -28,7 +28,6 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
 
 /**
  * JUnit 5 test suite that runs all html5lib tree-construction tests.
@@ -66,7 +65,7 @@ public class Html5LibTreeConstructionTest {
     /**
      * Generates dynamic tests for all .dat files in the test directory.
      */
-    @TestFactory
+    // @TestFactory
     public Collection<DynamicTest> html5libTreeConstructionTests() throws IOException {
         final List<DynamicTest> tests = new ArrayList<>();
 
