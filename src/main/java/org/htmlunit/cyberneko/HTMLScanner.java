@@ -3883,11 +3883,15 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             fScanScriptContent.append('\n');
                         }
                     }
-                    else {
-                        if (!fScanScriptContent.appendCodePoint(c)) {
-                            if (fReportErrors_) {
-                                fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                            }
+                    else if (c == 0) {
+                        fScanScriptContent.append('\uFFFD');
+                        if (fReportErrors_) {
+                            fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
+                        }
+                    }
+                    else if (!fScanScriptContent.appendCodePoint(c)) {
+                        if (fReportErrors_) {
+                            fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
                     }
                 }
