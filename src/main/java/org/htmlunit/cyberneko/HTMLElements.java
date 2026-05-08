@@ -98,7 +98,8 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short H6 = H5 + 1;
     public static final short HEAD = H6 + 1;
     public static final short HEADER = HEAD + 1;
-    public static final short HR = HEADER + 1;
+    public static final short HGROUP = HEADER + 1;
+    public static final short HR = HGROUP + 1;
     public static final short HTML = HR + 1;
     public static final short I = HTML + 1;
     public static final short IFRAME = I + 1;
@@ -336,6 +337,8 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(HEAD, "HEAD", 0, HTML, null),
 
             new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
+
+            new Element(HGROUP, "HGROUP", Element.BLOCK, BODY, new short[] {P}),
 
             // HR - O EMPTY
             new Element(HR, "HR", Element.EMPTY, new short[]{BODY, SELECT}, new short[]{P, SVG}),
