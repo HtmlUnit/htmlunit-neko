@@ -27,7 +27,7 @@
         <maven.version.ignore>(?i).*-(alpha|beta|m|rc)([\.-]?\d+)?</maven.version.ignore>
 
         <!-- test dependencies -->
-        <junit.version>6.0.2</junit.version>
+        <junit.version>6.0.3</junit.version>
 
         <!-- quality -->
         <checkstyle.version>12.3.1</checkstyle.version>
