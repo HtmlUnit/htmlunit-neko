@@ -1270,11 +1270,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     fCurrentEntity.rewind();
                     break;
                 }
-                else {
-                    if (!str.appendCodePoint(c)) {
-                        if (fReportErrors_) {
-                            fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                        }
+                else if (!str.appendCodePoint(c)) {
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                     }
                 }
             }
@@ -1488,6 +1486,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
             while (nextChar != -1 && fUnicodeEntitiesParser.parseNumeric(nextChar));
+
+            // EOF finalization for numeric character reference without semicolon
+            if (nextChar == -1) {
+                fUnicodeEntitiesParser.finalizeNumericAtEOF();
+            }
 
             final String match = fUnicodeEntitiesParser.getMatch();
             if (match == null) {
@@ -2567,11 +2570,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         fScanUntilEndTag.append('\n');
                     }
                 }
-                else {
-                    if (!fScanUntilEndTag.appendCodePoint(c)) {
-                        if (fReportErrors_) {
-                            fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                        }
+                else if (!fScanUntilEndTag.appendCodePoint(c)) {
+                    if (fReportErrors_) {
+                        fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                     }
                 }
             }
@@ -2932,11 +2933,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         fDocumentHandler.comment(fStringBuffer, locationAugs(fCurrentEntity));
                         return SCAN_TRUE;
                     }
-                    else {
-                        if (!fStringBuffer.appendCodePoint(c)) {
-                            if (fReportErrors_) {
-                                fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
-                            }
+                    else if (!fStringBuffer.appendCodePoint(c)) {
+                        if (fReportErrors_) {
+                            fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
                         }
                     }
                 }

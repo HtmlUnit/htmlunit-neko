@@ -73,7 +73,7 @@ public class HTMLUnicodeEntitiesParser {
         // Set the character reference code to 0xFFFD.
         // If the number is greater than 0x10FFFF, then this is
         // a character-reference-outside-unicode-range parse error. Set the character reference code to 0xFFFD.
-        if ((0x00 == code_) || (code_ > 0x10FFFF)) {
+        if ((0x00 >= code_) || (code_ > 0x10FFFF)) {
             match_ = "\uFFFD";
             matchLength_ = consumedCount_;
             return;
@@ -326,4 +326,14 @@ public class HTMLUnicodeEntitiesParser {
         return false;
     }
 
+    public void finalizeNumericAtEOF() {
+        if (match_ != null) {
+            return;
+        }
+        if (state_ == STATE_DECIMAL_CHAR || state_ == STATE_HEXADECIMAL_CHAR) {
+            // treat EOF like "missing semicolon": finalize what we have
+            setMatchFromCode();
+            matchLength_ = consumedCount_;
+        }
+    }
 }
