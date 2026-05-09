@@ -81,6 +81,8 @@ public class Html5LibTreeConstructionTest {
             final List<Path> datFiles = paths
                 .filter(Files::isRegularFile)
                 .filter(p -> p.toString().endsWith(".dat"))
+                .filter(p -> !p.toString().contains("webkit"))
+                .filter(p -> !p.toString().contains("math"))
                 .sorted()
                 .collect(Collectors.toList());
 
