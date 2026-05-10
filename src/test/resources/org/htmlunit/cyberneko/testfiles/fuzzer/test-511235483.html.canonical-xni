@@ -1,0 +1,10 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="noframes",rawname="noframes") [(1,5,4) (3,3,19) false]
+characters '<D'<6!><!>'[(3,3,19) (3,13,29) false]
+endElement (localpart="noframes",rawname="noframes") [(3,13,29) (3,24,40) false]
+startElement (localpart="script",rawname="script") [(4,9,108) (4,38,137) false]
+characters '/�D/p{�������������p*:\E]\\E]�p��[�����]\E]]]]]]//m<v
+&gt/sax/feature
+'[(4,38,137) (6,1,208) false]
+endElement (localpart="script",rawname="script") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(6,1,208) (6,1,208) false]
