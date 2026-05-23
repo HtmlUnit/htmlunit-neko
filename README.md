@@ -16,7 +16,7 @@ NekoHTML adds missing parent elements; automatically closes elements with option
 ✅ **Standards Compliant** - Follows HTML parsing specifications  
 ✅ **Well Tested** - Over 8,000 test cases  
 ✅ **No External Dependencies** - Pure Java implementation  
-✅ **Java 8+ Compatible** - Works with Java 8, 11, 17, 21 and beyond  
+✅ **Java 17 Compatible** - Works with Java 17, 21 and beyond  
 ✅ **Android Support** - Runs on Android platforms  
 
 The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourceforge.io/).
@@ -31,25 +31,11 @@ The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourcefo
 
 #### Version 5
 
-Work on HtmlUnit-NekoHTML 5.0 has started. This new major version will require **JDK 17 or higher**.
+Starting with version 5.0.0, **JDK 17 or higher is required**.  
+If you are still on JDK 8, see [Legacy Support (JDK 8)](#legacy-support-jdk-8) below.
 
 
-#### Legacy Support (JDK 8)
-
-If you need to continue using **JDK 8**, please note that versions 4.x will remain available as-is. However,
-**ongoing maintenance and fixes for JDK 8 compatibility are only available through sponsorship**.
-
-Maintaining separate fix versions for JDK 8 requires significant additional effort for __backporting__, testing, and release management.
-
-**To enable continued JDK 8 support**, please contact me via email to discuss sponsorship options. Sponsorship provides:
-
-- __Backporting__ security and bug fixes to the 4.x branch
-- Maintaining compatibility with older Java versions
-- Timely releases for critical issues
-
-Without sponsorship, the 4.x branch will not receive updates. Your support ensures the long-term __sustainability__ of this project across multiple Java versions.
-
-### Latest release Version 4.21.0 / December 28, 2025
+### Latest release Version 5.0.0 / May 24, 2026
 
 ##### Security Advisories
 
@@ -69,7 +55,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>4.21.0</version>
+    <version>5.0.0</version>
 </dependency>
 ```
 
@@ -78,7 +64,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.21.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.0.0'
 ```
 
 ## HowTo use
@@ -301,6 +287,21 @@ This includes both tags present in the source HTML and tags automatically insert
 - **Error Reporter**: Implementing a custom error reporter allows you to handle parsing errors according to your application's needs.
 - **Name Casing**: Changing element/attribute name casing affects the output and may impact CSS selectors or JavaScript that relies on specific casing.
 
+
+<a name="legacy-support-jdk-8"></a>
+### Legacy Support (JDK 8)
+
+If you need to continue using **JDK 8**, versions 4.x remain available as-is.
+Ongoing maintenance and fixes for JDK 8 are only available through sponsorship —
+please contact me via email to discuss options. Sponsorship provides:
+
+- Backporting security and bug fixes to the 4.x branch
+- Compatibility maintenance with older Java versions
+- Timely releases for critical issues
+
+Without sponsorship, the 4.x branch will not receive further updates.
+
+
 ### Last CI build
 The latest builds are available from our
 [Jenkins CI build server](https://jenkins.wetator.org/job/HtmlUnit%20-%20Neko/ "HtmlUnit -Neko CI")
@@ -317,7 +318,7 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>4.22.0-SNAPSHOT</version>
+        <version>5.1.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype-central snapshot repository to your pom `repositories` section also:
@@ -347,13 +348,71 @@ repositories {
 }
 // ...
 dependencies {
-    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '4.22.0-SNAPSHOT'
+    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.1.0-SNAPSHOT'
   // ...
 }
 ```
 
 
-## Porting from 3.x to 4.x
+## Migrating from 4.x to 5.x
+
+Version 5.0.0 is a major release. The changes below cover everything you need to update when upgrading from any 4.x release.
+
+### Java version requirement
+
+5.x requires **JDK 17 or higher**. Java 8 and Java 11 are no longer supported.
+If you cannot upgrade your JDK, stay on the [4.x branch](#legacy-support-jdk-8).
+
+### HTMLElements thread-safety fix (since 4.17.0)
+
+The shared `HTMLElements` instance no longer caches unknown elements because that cache was not thread-safe. If your code relied on the unknown-element cache, switch to `HTMLElementsWithCache` and create a new instance per parse run:
+
+```java
+// 4.x — relied on shared cache in HTMLElements (not thread-safe)
+DOMParser parser = new DOMParser(HTMLDocumentImpl.class);
+
+// 5.x — use a fresh HTMLElementsWithCache per parse run if you need the cache
+HTMLElementsProvider provider = new HTMLElementsWithCache();
+DOMParser parser = new DOMParser(HTMLDocumentImpl.class, provider);
+```
+
+### HTMLScanner document handler is now required (since 4.12.0)
+
+`HTMLScanner` now enforces that a document handler is set before parsing. The null check was moved to the setter, so passing `null` will throw immediately rather than failing silently mid-parse. Ensure you always call `setContentHandler` (SAXParser) or provide a handler via the `DOMParser` constructor before calling `parse()`.
+
+### Tag name casing for auto-inserted tags (since 4.20.0 / 4.21.0)
+
+Auto-inserted tags (e.g. `<html>`, `<head>`, `<body>`) are now consistently produced in **lowercase** by default. If your code compared tag names assuming uppercase auto-inserted tags, update those comparisons or set the `NAMES_ELEMS` property explicitly:
+
+```java
+// Force uppercase if your code depends on it
+parser.setProperty(HTMLScanner.NAMES_ELEMS, "upper");
+
+// Or update comparisons to be case-insensitive
+String name = element.getTagName().toLowerCase(Locale.ROOT);
+```
+
+### EOF handling changed from exceptions to return codes (since 4.19.0)
+
+EOF conditions inside the scanner are now signalled via return codes rather than exceptions. This is an internal change that should not affect typical parser usage, but if you have custom `HTMLScanner` subclasses that override scanning methods and catch internal exceptions for EOF detection, review those overrides.
+
+### SAXParser factory added (since 4.15.0)
+
+`NekoSAXParserFactory` was added as a standard `javax.xml.parsers.SAXParserFactory` entry point. If you were constructing `SAXParser` directly and want to align with the standard JAXP pattern going forward:
+
+```java
+// New in 4.15 / available in 5.x
+SAXParserFactory factory = new NekoSAXParserFactory();
+javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
+```
+
+### Removed and unsupported features
+
+- **`XMLLocator`** was simplified and some internal fields removed in 4.5.0. Custom subclasses that accessed internal locator fields will need to be updated.
+- **`XMLAttributesImpl`** was simplified in 4.5.0; direct field access patterns in custom subclasses should be replaced with the public API.
+
+
+## Migrating from 3.x to 4.x
 
 Version 4.x introduces a major change in the handling of encodings - the mapping from the encoding
 label found in the meta tag to the encoding to be used for parsing the document got some significant
@@ -369,7 +428,7 @@ For this also
    encoding translator if you like to have the old translation behavior (parser.setProperty(HTMLScanner.ENCODING_TRANSLATOR, EncodingMap.INSTANCE))
 
 
-## Porting from 2.x to 3.x
+## Migrating from 2.x to 3.x
 
 Usually the upgrade should be simple:
 
@@ -443,18 +502,18 @@ This part is intended for committer who are packaging a release.
 * Create the version on Github
     * login to Github and open project https://github.com/HtmlUnit/htmlunit-neko
     * click Releases > Draft new release
-    * fill the tag and title field with the release number (e.g. 4.0.0)
+    * fill the tag and title field with the release number (e.g. 5.0.0)
     * append 
-        * neko-htmlunit-4.xx.jar
-        * neko-htmlunit-4.xx.jar.asc
-        * neko-htmlunit-4.xx.pom
-        * neko-htmlunit-4.xx.pom.asc 
-        * neko-htmlunit-4.xx-javadoc.jar
-        * neko-htmlunit-4.xx-javadoc.jar.asc
-        * neko-htmlunit-4.xx-sources.jar
-        * neko-htmlunit-4.xx-sources.jar.asc
-        * neko-htmlunit-4.xx-tests.jar
-        * neko-htmlunit-4.xx-tests.jar.asc
+        * neko-htmlunit-5.xx.jar
+        * neko-htmlunit-5.xx.jar.asc
+        * neko-htmlunit-5.xx.pom
+        * neko-htmlunit-5.xx.pom.asc 
+        * neko-htmlunit-5.xx-javadoc.jar
+        * neko-htmlunit-5.xx-javadoc.jar.asc
+        * neko-htmlunit-5.xx-sources.jar
+        * neko-htmlunit-5.xx-sources.jar.asc
+        * neko-htmlunit-5.xx-tests.jar
+        * neko-htmlunit-5.xx-tests.jar.asc
     * and publish the release 
 
 * Update the version number in pom.xml to start next snapshot development
