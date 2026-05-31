@@ -35,7 +35,7 @@ Starting with version 5.0.0, **JDK 17 or higher is required**.
 If you are still on JDK 8, see [Legacy Support (JDK 8)](#legacy-support-jdk-8) below.
 
 
-### Latest release Version 5.0.0 / May 24, 2026
+### Latest release Version 5.1.0 / May 31, 2026
 
 ##### Security Advisories
 
@@ -55,7 +55,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
 </dependency>
 ```
 
@@ -64,7 +64,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.0.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.1.0'
 ```
 
 ## HowTo use
@@ -318,7 +318,7 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>5.1.0-SNAPSHOT</version>
+        <version>5.2.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype-central snapshot repository to your pom `repositories` section also:
@@ -348,7 +348,7 @@ repositories {
 }
 // ...
 dependencies {
-    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.1.0-SNAPSHOT'
+    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.2.0-SNAPSHOT'
   // ...
 }
 ```
