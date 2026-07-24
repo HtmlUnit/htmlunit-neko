@@ -357,7 +357,7 @@ public class HTMLElements implements HTMLElementsProvider {
 
             new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
             // INPUT - O EMPTY
-            new Element(INPUT, "INPUT", Element.EMPTY, BODY, null),
+            new Element(INPUT, "INPUT", Element.EMPTY, BODY, new short[]{SELECT}),
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
         };

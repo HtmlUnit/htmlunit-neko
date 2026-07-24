@@ -3,10 +3,8 @@
 )head
 (body
 (select
-(a
-Ahref abc
-"anchor
-)a
 )select
+(input
+)input
 )body
 )html

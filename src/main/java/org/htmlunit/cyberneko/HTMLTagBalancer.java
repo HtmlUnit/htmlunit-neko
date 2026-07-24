@@ -679,13 +679,6 @@ public class HTMLTagBalancer
                 notifyDiscardedStartElement(elem, attrs, augs);
                 return;
             }
-            else if (elementCode != HTMLElements.OPTION
-                        && elementCode != HTMLElements.OPTGROUP
-                        && elementCode != HTMLElements.HR
-                        && !element.isScriptSupporting()) {
-                notifyDiscardedStartElement(elem, attrs, augs);
-                return;
-            }
         }
 
         if (elementCode == HTMLElements.HTML && !isForcedCreation) {
@@ -1139,13 +1132,6 @@ public class HTMLTagBalancer
         if (!fTemplateFragment && fOpenedSelect) {
             if (elementCode == HTMLElements.SELECT) {
                 fOpenedSelect = false;
-            }
-            else if (elementCode != HTMLElements.OPTION
-                        && elementCode != HTMLElements.OPTGROUP
-                        && elementCode != HTMLElements.HR
-                        && !elem.isScriptSupporting()) {
-                notifyDiscardedEndElement(element, augs);
-                return;
             }
         }
 
