@@ -205,7 +205,7 @@ public class HTMLTagBalancer
     /** True if seen anything. Important for xml declaration. */
     protected boolean fSeenAnything;
 
-    /** True if root element has been seen. */
+    /** True if doctype has been seen. */
     protected boolean fSeenDoctype;
 
     /** True if root element has been seen. */
@@ -283,7 +283,7 @@ public class HTMLTagBalancer
     /** Returns the default state for a feature. */
     @Override
     public Boolean getFeatureDefault(final String featureId) {
-        final int length = RECOGNIZED_FEATURES != null ? RECOGNIZED_FEATURES.length : 0;
+        final int length = RECOGNIZED_FEATURES.length;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_FEATURES[i].equals(featureId)) {
                 return RECOGNIZED_FEATURES_DEFAULTS[i];
@@ -295,7 +295,7 @@ public class HTMLTagBalancer
     /** Returns the default state for a property. */
     @Override
     public Object getPropertyDefault(final String propertyId) {
-        final int length = RECOGNIZED_PROPERTIES != null ? RECOGNIZED_PROPERTIES.length : 0;
+        final int length = RECOGNIZED_PROPERTIES.length;
         for (int i = 0; i < length; i++) {
             if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
                 return RECOGNIZED_PROPERTIES_DEFAULTS[i];
@@ -911,7 +911,7 @@ public class HTMLTagBalancer
                             fragmentContextStackSize_--;
                         }
                         if (documentHandler_ != null) {
-                            // PATCH: Marc-Andr� Morissette
+                            // PATCH: Marc-André Morissette
                             callEndElement(info.qname, synthesizedAugs());
                         }
                     }
