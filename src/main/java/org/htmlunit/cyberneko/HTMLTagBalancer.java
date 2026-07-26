@@ -446,6 +446,7 @@ public class HTMLTagBalancer
 
         // reset state
         fElementStack.clear();
+
         if (fragmentContextStack_ != null) {
             fragmentContextStackSize_ = fragmentContextStack_.length;
             // use indexed loop to avoid Iterator allocation
@@ -818,7 +819,7 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
-                final boolean parentCreated = forceStartElement(qname, fEmptyXMLAttributes, synthesizedAugs());
+                final boolean parentCreated = forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
                         notifyDiscardedStartElement(elem, attrs, augs);
@@ -838,7 +839,7 @@ public class HTMLTagBalancer
                         }
 
                         final QName qname = createQName(pname);
-                        final boolean parentCreated = forceStartElement(qname, fEmptyXMLAttributes, synthesizedAugs());
+                        final boolean parentCreated = forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -964,12 +965,23 @@ public class HTMLTagBalancer
      * the element has been forced.
      * @return <code>true</code> if creation could be done (TABLE's creation for instance can't be forced)
      */
-    private boolean forceStartElement(final QName elem, final XMLAttributes attrs,
+    private boolean forceStartElementParentCreated(final QName elem, final XMLAttributes attrs,
                         final Augmentations augs) throws XNIException {
         forcedStartElement_ = true;
         startElement(elem, attrs, augs);
 
         return fElementStack.length > 0 && elem.equals(fElementStack.peek().qname);
+    }
+
+    /**
+     * Forces an element start, taking care to set the information to allow startElement to "see" that's
+     * the element has been forced.
+     * @return <code>true</code> if creation could be done (TABLE's creation for instance can't be forced)
+     */
+    private void forceStartElement(final QName elem, final XMLAttributes attrs,
+                        final Augmentations augs) throws XNIException {
+        forcedStartElement_ = true;
+        startElement(elem, attrs, augs);
     }
 
     private static QName createQName(final String tagName) {
@@ -1162,7 +1174,11 @@ public class HTMLTagBalancer
         }
 
         // check for end of document
-        if (elementCode == HTMLElements.HTML) {
+        if (elementCode == HTMLElements.BR) {
+            forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
+            return;
+        }
+        else if (elementCode == HTMLElements.HTML) {
             fSeenRootElementEnd = true;
         }
         else if (fIgnoreOutsideContent) {
@@ -1194,10 +1210,6 @@ public class HTMLTagBalancer
             if (elementCode == HTMLElements.P) {
                 forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
                 endElement(element, augs);
-                return;
-            }
-            if (elementCode == HTMLElements.BR) {
-                forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
                 return;
             }
 
@@ -1239,12 +1251,7 @@ public class HTMLTagBalancer
     }
 
     private static boolean isHeading(final short code) {
-        return code == HTMLElements.H1
-                || code == HTMLElements.H2
-                || code == HTMLElements.H3
-                || code == HTMLElements.H4
-                || code == HTMLElements.H5
-                || code == HTMLElements.H6;
+        return HTMLElements.H1 <= code && code <= HTMLElements.H6;
     }
 
     /**
@@ -1552,7 +1559,7 @@ public class HTMLTagBalancer
 
         // Resets the stack and releases all Info references so they can be GC'd.
         public void clear() {
-            Arrays.fill(data, 0, length, null);
+            Arrays.fill(data, null);
             length = 0;
         }
 
