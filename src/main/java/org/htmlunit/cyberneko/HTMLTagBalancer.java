@@ -858,22 +858,6 @@ public class HTMLTagBalancer
             fOpenedSelect = true;
         }
 
-        // if block element, save immediate parent formatting elements
-        int depth = 0;
-        if (element.flags == 0) {
-            final int length = fElementStack.length;
-            fFormattingStack.length = 0;
-            for (int i = length - 1; i >= 0; i--) {
-                final Info info = fElementStack.data[i];
-                if (!info.element.isFormatting()) {
-                    break;
-                }
-                fFormattingStack.push(info);
-                endElement(info.qname, synthesizedAugs());
-            }
-            depth = fFormattingStack.length;
-        }
-
         // close previous elements
         // all elements close a <script>
         // in head, no element has children
@@ -947,12 +931,6 @@ public class HTMLTagBalancer
             if (documentHandler_ != null) {
                 callStartElement(elem, attrs, augs);
             }
-        }
-
-        // re-open formatting elements
-        for (int i = 0; i < depth; i++) {
-            final Info info = fFormattingStack.pop();
-            forceStartElement(info.qname, info.attributes, synthesizedAugs());
         }
 
         if (elementCode == HTMLElements.BODY) {

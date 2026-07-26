@@ -1,0 +1,13 @@
+(html
+(head
+)head
+(body
+(b
+"bold text before
+(div
+"a block element
+)div
+"bold text after
+)b
+)body
+)html
