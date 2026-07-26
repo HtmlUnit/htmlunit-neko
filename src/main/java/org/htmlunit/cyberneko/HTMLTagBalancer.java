@@ -647,6 +647,19 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
+        // HTML5 special case: a new <a> start tag closes an <a> that is
+        // still open, even across intervening block elements (e.g.
+        // <a href="1">1<div><a href="2">2</a></div> ). Real browsers
+        // un-nest the <div> so it becomes a sibling of the first <a>,
+        // with an empty clone of that <a> reopened as the div's first
+        // child. This mirrors that behavior for the common case.
+        if (elementCode == HTMLElements.A) {
+            final int aPos = findLastOpen(HTMLElements.A);
+            if (aPos != -1) {
+                closeAndReopenThroughAnchor(aPos);
+            }
+        }
+
         reopenFormattingElements(null);
 
         if (elementCode == HTMLElements.TEMPLATE) {
@@ -923,8 +936,7 @@ public class HTMLTagBalancer
             }
         }
         else {
-            final boolean inline = element.isInline();
-            fElementStack.push(new Info(element, elem, inline ? attrs : null));
+            fElementStack.push(new Info(element, elem, attrs));
             if (attrs == null) {
                 attrs = fEmptyXMLAttributes;
             }
@@ -1256,6 +1268,69 @@ public class HTMLTagBalancer
                 // PATCH: Marc-André Morissette
                 callEndElement(info.qname, i < depth - 1 ? synthesizedAugs() : augs);
             }
+        }
+    }
+
+    /**
+     * @return the stack index of the topmost currently-open element with the
+     *         given code, or -1 if none is open.
+     */
+    private int findLastOpen(final short elementCode) {
+        if (!fElementStack.isOpen(elementCode)) {
+            return -1;
+        }
+        for (int i = fElementStack.length - 1; i >= 0; i--) {
+            if (fElementStack.data[i].element.code == elementCode) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Closes every open element from the top of the stack down to and
+     * including the element at {@code anchorPos} (which must be an open
+     * {@code <a>}), then reopens the elements that were above it as empty
+     * elements/clones, innermost being the {@code <a>} itself, so that the
+     * caller can push the new {@code <a>} as a child of the reopened chain.
+     * This approximates the HTML5 adoption agency algorithm for the common
+     * "single furthest block" case; it does not implement the full
+     * multi-iteration algorithm.
+     *
+     * @param anchorPos stack index of the still-open {@code <a>} to un-nest.
+     */
+    private void closeAndReopenThroughAnchor(final int anchorPos) {
+        final int count = fElementStack.length - anchorPos;
+        final Info[] popped = new Info[count];
+        for (int i = 0; i < count; i++) {
+            popped[i] = fElementStack.data[anchorPos + i];
+        }
+
+        if (fReportErrors) {
+            fErrorReporter.reportWarning("HTML2008", new Object[]{popped[0].qname.getRawname()});
+        }
+
+        // close everything from the top of the stack down through the <a>
+        for (int i = count - 1; i >= 0; i--) {
+            final Info info = fElementStack.pop();
+            if (documentHandler_ != null) {
+                callEndElement(info.qname, synthesizedAugs());
+            }
+        }
+
+        // reopen the ancestors that were above the <a>, outermost first
+        for (int i = 1; i < count; i++) {
+            forceStartElement(popped[i].qname, popped[i].attributes, synthesizedAugs());
+        }
+
+        // if there were intervening ancestors, reopen an empty clone of the
+        // <a> as their innermost child, then close it immediately: this is
+        // what browsers show as the empty "<a href=...></a>" left behind.
+        // With no intervening ancestors (direct <a>...<a> nesting) the new
+        // <a> simply becomes a sibling of the old one, so no clone is needed.
+        if (count > 1) {
+            forceStartElement(popped[0].qname, popped[0].attributes, synthesizedAugs());
+            endElement(popped[0].qname, synthesizedAugs());
         }
     }
 
