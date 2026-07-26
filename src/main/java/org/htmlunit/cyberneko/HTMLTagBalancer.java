@@ -1178,11 +1178,11 @@ public class HTMLTagBalancer
             forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
             return;
         }
-        else if (elementCode == HTMLElements.HTML) {
-            fSeenRootElementEnd = true;
-        }
         else if (fIgnoreOutsideContent) {
-            if (elementCode == HTMLElements.BODY) {
+            if (elementCode == HTMLElements.HTML) {
+                fSeenRootElementEnd = true;
+            }
+            else if (elementCode == HTMLElements.BODY) {
                 fSeenBodyElementEnd = true;
             }
             else if (fSeenBodyElementEnd) {
