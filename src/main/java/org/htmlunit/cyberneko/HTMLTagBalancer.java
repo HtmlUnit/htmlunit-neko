@@ -197,7 +197,7 @@ public class HTMLTagBalancer
     // state
 
     /** The element stack. */
-    protected final InfoStack fElementStack = new InfoStack(20);
+    protected final InfoStackWithOpenCounters fElementStack = new InfoStackWithOpenCounters(20);
 
     /** The inline stack. */
     protected final InfoStack fFormattingStack = new InfoStack(10);
@@ -1359,8 +1359,14 @@ public class HTMLTagBalancer
      * @param element The element.
      */
     protected final int getElementDepth(final HTMLElements.Element element) {
-        final boolean container = element.isContainer();
         final short elementCode = element.code;
+
+        // fast path: this element type isn't open anywhere on the stack
+        if (!fElementStack.isOpen(elementCode)) {
+            return -1;
+        }
+
+        final boolean container = element.isContainer();
         final boolean tableBodyOrHtml = (elementCode == HTMLElements.TABLE)
             || (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
         int depth = -1;
@@ -1475,20 +1481,20 @@ public class HTMLTagBalancer
             this(element, qname, null);
         }
 
-    /**
-     * Creates an element information object.
-     * <p>
-     * <strong>Note:</strong>
-     * This constructor makes a deep copy of the qualified name and,
-     * for inline elements, of the attributes so that formatting
-     * elements can be re-opened with their original attributes.
-     *
-     * @param element    The HTML element definition.
-     * @param qname      The element's qualified name (will be deep-copied).
-     * @param attributes The element attributes to copy, or {@code null} if
-     *                   no attribute snapshot is needed.
-     */
-     public Info(final HTMLElements.Element element, final QName qname,
+        /**
+         * Creates an element information object.
+         * <p>
+         * <strong>Note:</strong>
+         * This constructor makes a deep copy of the qualified name and,
+         * for inline elements, of the attributes so that formatting
+         * elements can be re-opened with their original attributes.
+         *
+         * @param element    The HTML element definition.
+         * @param qname      The element's qualified name (will be deep-copied).
+         * @param attributes The element attributes to copy, or {@code null} if
+         *                   no attribute snapshot is needed.
+         */
+         public Info(final HTMLElements.Element element, final QName qname,
                 final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);
@@ -1545,6 +1551,58 @@ public class HTMLTagBalancer
             data[length++] = info;
         }
 
+        // Pops the top item off of the stack.
+        public Info pop() {
+            final Info info = data[--length];
+            data[length] = null;
+            return info;
+        }
+
+        // Simple representation to make debugging easier
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("InfoStack(");
+            for (int i = length - 1; i >= 0; --i) {
+                sb.append(data[i]);
+                if (i != 0) {
+                    sb.append(", ");
+                }
+            }
+            sb.append(")");
+            return sb.toString();
+        }
+    }
+
+    /** Unsynchronized stack of element information. */
+    public static class InfoStackWithOpenCounters {
+
+        /** The length of the stack. */
+        public int length;
+
+        /** The stack data. */
+        public Info[] data;
+
+        /** Count of currently-open elements per element code; index = HTMLElements code. */
+        private final int[] openCounters;
+
+        public InfoStackWithOpenCounters(final int initialSize) {
+            data = new Info[initialSize];
+
+            // hopefully noone will ever use more than 200 elements
+            openCounters = new int[200];
+        }
+
+        // Pushes element information onto the stack.
+        public void push(final Info info) {
+            if (length == data.length) {
+                final Info[] newarray = new Info[length + 10];
+                System.arraycopy(data, 0, newarray, 0, length);
+                data = newarray;
+            }
+            data[length++] = info;
+            openCounters[info.element.code]++;
+        }
+
         // Peeks at the top of the stack.
         public Info peek() {
             return data[length - 1];
@@ -1554,19 +1612,30 @@ public class HTMLTagBalancer
         public Info pop() {
             final Info info = data[--length];
             data[length] = null;
+            openCounters[info.element.code]--;
             return info;
+        }
+
+        /**
+         * Returns true if at least one element with this code is currently open.
+         *
+         * @return true if at least one element with this code is currently open.
+         */
+        public boolean isOpen(final short elementCode) {
+            return openCounters[elementCode] > 0;
         }
 
         // Resets the stack and releases all Info references so they can be GC'd.
         public void clear() {
             Arrays.fill(data, null);
+            Arrays.fill(openCounters, 0);
             length = 0;
         }
 
         // Simple representation to make debugging easier
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("InfoStack(");
+            final StringBuilder sb = new StringBuilder("InfoStackWithOpenCounters(");
             for (int i = length - 1; i >= 0; --i) {
                 sb.append(data[i]);
                 if (i != 0) {

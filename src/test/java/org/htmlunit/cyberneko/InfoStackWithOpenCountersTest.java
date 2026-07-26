@@ -22,13 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.htmlunit.cyberneko.HTMLTagBalancer.Info;
 import org.htmlunit.cyberneko.HTMLTagBalancer.InfoStack;
+import org.htmlunit.cyberneko.HTMLTagBalancer.InfoStackWithOpenCounters;
 import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link InfoStack}.
  */
-public class InfoStackTest {
+public class InfoStackWithOpenCountersTest {
 
     private static Info newInfo(final String name) {
         final HTMLElements elements = new HTMLElements();
@@ -39,20 +40,21 @@ public class InfoStackTest {
     // ---- basic push / peek / pop ----
 
     @Test
-    public void pushPop() {
-        final InfoStack stack = new InfoStack(4);
+    public void pushPeekPop() {
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
         final Info info = newInfo("div");
 
         stack.push(info);
 
         assertEquals(1, stack.length);
+        assertSame(info, stack.peek());
         assertSame(info, stack.pop());
         assertEquals(0, stack.length);
     }
 
     @Test
     public void lifoOrder() {
-        final InfoStack stack = new InfoStack(4);
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
         final Info a = newInfo("div");
         final Info b = newInfo("span");
         final Info c = newInfo("p");
@@ -70,7 +72,7 @@ public class InfoStackTest {
 
     @Test
     public void pushBeyondInitialCapacityTriggersGrowth() {
-        final InfoStack stack = new InfoStack(2);
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(2);
 
         for (int i = 0; i < 50; i++) {
             stack.push(newInfo("div"));
@@ -85,11 +87,27 @@ public class InfoStackTest {
         assertEquals(0, stack.length);
     }
 
+    // ---- clear ----
+
+    @Test
+    public void clearResetsLengthAndNullsReferences() {
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
+        stack.push(newInfo("div"));
+        stack.push(newInfo("span"));
+
+        stack.clear();
+
+        assertEquals(0, stack.length);
+        // verify references are nulled out to allow GC
+        assertNull(stack.data[0]);
+        assertNull(stack.data[1]);
+    }
+
     // ---- pop on empty (documents current behavior) ----
 
     @Test
     public void popOnEmptyThrowsArrayIndexOutOfBounds() {
-        final InfoStack stack = new InfoStack(4);
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
         assertThrows(ArrayIndexOutOfBoundsException.class, stack::pop);
     }
 
@@ -98,7 +116,7 @@ public class InfoStackTest {
         // This test documents bug 1.1: after pop(), data[length] still
         // holds a reference. If the bug is fixed, change assertNotNull
         // to assertNull.
-        final InfoStack stack = new InfoStack(4);
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
         final Info info = newInfo("div");
         stack.push(info);
 
@@ -111,17 +129,17 @@ public class InfoStackTest {
 
     @Test
     public void toStringEmpty() {
-        final InfoStack stack = new InfoStack(4);
-        assertEquals("InfoStack()", stack.toString());
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
+        assertEquals("InfoStackWithOpenCounters()", stack.toString());
     }
 
     @Test
     public void toStringNonEmpty() {
-        final InfoStack stack = new InfoStack(4);
+        final InfoStackWithOpenCounters stack = new InfoStackWithOpenCounters(4);
         stack.push(newInfo("div"));
         final String s = stack.toString();
         assertNotNull(s);
         // just verify it doesn't throw and contains the wrapper
-        assertEquals("InfoStack(", s.substring(0, 10));
+        assertEquals("InfoStackWithOpenCounters(", s.substring(0, 26));
     }
 }
