@@ -68,8 +68,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short CODE = CITE + 1;
     public static final short COL = CODE + 1;
     public static final short COLGROUP = COL + 1;
-    public static final short COMMENT = COLGROUP + 1;
-    public static final short DATA = COMMENT + 1;
+    public static final short DATA = COLGROUP + 1;
     public static final short DATALIST = DATA + 1;
     public static final short DEL = DATALIST + 1;
     public static final short DETAILS = DEL + 1;
@@ -273,8 +272,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
             // COLGROUP - O (COL)*
             new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL, COLGROUP}),
-            // COMMENT
-            new Element(COMMENT, "COMMENT", Element.SPECIAL, HTML, null),
         };
         elementsArray['D' - 'A'] = new Element[] {
             new Element(DATA, "DATA",  Element.CONTAINER, BODY, null),
