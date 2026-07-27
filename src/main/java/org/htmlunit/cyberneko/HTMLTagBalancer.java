@@ -647,16 +647,19 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
-        // HTML5 special case: a new <a> start tag closes an <a> that is
-        // still open, even across intervening block elements (e.g.
-        // <a href="1">1<div><a href="2">2</a></div> ). Real browsers
-        // un-nest the <div> so it becomes a sibling of the first <a>,
-        // with an empty clone of that <a> reopened as the div's first
-        // child. This mirrors that behavior for the common case.
-        if (elementCode == HTMLElements.A) {
-            final int aPos = findLastOpen(HTMLElements.A);
-            if (aPos != -1) {
-                closeAndReopenThroughAnchor(aPos);
+        // HTML5 special case: a new <a> or <nobr> start tag closes one of
+        // the same type that is still open, even across intervening block
+        // elements (e.g. <a href="1">1<div><a href="2">2</a></div> ). Real
+        // browsers un-nest the <div> so it becomes a sibling of the first
+        // <a>, with an empty clone of that <a> reopened as the div's first
+        // child. This mirrors that behavior for the common case. Per the
+        // HTML5 parsing algorithm, "a" and "nobr" are the only two elements
+        // with this start-tag-triggered rule -- other formatting elements
+        // like <b>/<i>/<u> are unaffected and continue to nest normally.
+        if (elementCode == HTMLElements.A || elementCode == HTMLElements.NOBR) {
+            final int pos = findLastOpen(elementCode);
+            if (pos != -1) {
+                closeAndReopenThroughElement(pos);
             }
         }
 
@@ -1272,16 +1275,47 @@ public class HTMLTagBalancer
     }
 
     /**
+     * Elements that push a "marker" onto the list of active formatting
+     * elements per the HTML5 parsing algorithm. An {@code <a>}/{@code <nobr>}
+     * opened before one of these is not considered reachable by a later
+     * {@code <a>}/{@code <nobr>} opened after it -- e.g. an {@code <a>}
+     * wrapping a whole {@code <table>} is NOT un-nested by a nested
+     * {@code <a>} inside one of that table's cells, but an {@code <a>}
+     * wrapping an {@code <object>}/{@code <applet>}/{@code <marquee>} still
+     * reaches inside them (verified against browsers: TD/TH/CAPTION mostly
+     * matter together with table foster-parenting, which this balancer does
+     * not otherwise implement, but they are included here defensively).
+     */
+    private static final short[] AFE_MARKER_ELEMENTS = {
+        HTMLElements.OBJECT, HTMLElements.APPLET, HTMLElements.MARQUEE,
+        HTMLElements.TD, HTMLElements.TH, HTMLElements.CAPTION,
+    };
+
+    private static boolean isMarkerElement(final short code) {
+        for (final short marker : AFE_MARKER_ELEMENTS) {
+            if (marker == code) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @return the stack index of the topmost currently-open element with the
-     *         given code, or -1 if none is open.
+     *         given code, or -1 if none is open or if the search is blocked
+     *         by an intervening marker element (see {@link #isMarkerElement}).
      */
     private int findLastOpen(final short elementCode) {
         if (!fElementStack.isOpen(elementCode)) {
             return -1;
         }
         for (int i = fElementStack.length - 1; i >= 0; i--) {
-            if (fElementStack.data[i].element.code == elementCode) {
+            final short code = fElementStack.data[i].element.code;
+            if (code == elementCode) {
                 return i;
+            }
+            if (isMarkerElement(code)) {
+                return -1;
             }
         }
         return -1;
@@ -1289,21 +1323,21 @@ public class HTMLTagBalancer
 
     /**
      * Closes every open element from the top of the stack down to and
-     * including the element at {@code anchorPos} (which must be an open
-     * {@code <a>}), then reopens the elements that were above it as empty
-     * elements/clones, innermost being the {@code <a>} itself, so that the
-     * caller can push the new {@code <a>} as a child of the reopened chain.
-     * This approximates the HTML5 adoption agency algorithm for the common
-     * "single furthest block" case; it does not implement the full
-     * multi-iteration algorithm.
+     * including the element at {@code pos} (an open {@code <a>} or
+     * {@code <nobr>}), then reopens the elements that were above it as empty
+     * elements/clones, innermost being a clone of that element itself, so
+     * that the caller can push the new {@code <a>}/{@code <nobr>} as a child
+     * of the reopened chain. This approximates the HTML5 adoption agency
+     * algorithm for the common "single furthest block" case; it does not
+     * implement the full multi-iteration algorithm.
      *
-     * @param anchorPos stack index of the still-open {@code <a>} to un-nest.
+     * @param pos stack index of the still-open element to un-nest.
      */
-    private void closeAndReopenThroughAnchor(final int anchorPos) {
-        final int count = fElementStack.length - anchorPos;
+    private void closeAndReopenThroughElement(final int pos) {
+        final int count = fElementStack.length - pos;
         final Info[] popped = new Info[count];
         for (int i = 0; i < count; i++) {
-            popped[i] = fElementStack.data[anchorPos + i];
+            popped[i] = fElementStack.data[pos + i];
         }
 
         if (fReportErrors) {
