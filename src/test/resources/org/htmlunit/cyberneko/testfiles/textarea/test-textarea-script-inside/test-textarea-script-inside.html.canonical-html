@@ -1,1 +1,1 @@
-<html><head></head><body><textarea><script>alert('x');</script></textarea></body></html>
+<html><head></head><body><textarea>&lt;script&gt;alert&lpar;&apos;x&apos;&rpar;&semi;&lt;&sol;script&gt;</textarea></body></html>

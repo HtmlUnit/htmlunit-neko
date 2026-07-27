@@ -155,7 +155,13 @@ public class HTMLWriterFilter extends DefaultFilter {
         throws XNIException {
         seenRootElement_ = true;
         elementDepth_++;
-        normalize_ = !htmlElements_.getElement(element.getRawname()).isSpecial();
+
+        final int elementCode = htmlElements_.getElement(element.getRawname()).code;
+        normalize_ = HTMLElements.PLAINTEXT != elementCode
+                        && HTMLElements.SCRIPT != elementCode
+                        && HTMLElements.STYLE != elementCode
+                        && HTMLElements.XMP != elementCode;
+
         printStartElement(element, attributes, false);
         super.startElement(element, attributes, augs);
     }

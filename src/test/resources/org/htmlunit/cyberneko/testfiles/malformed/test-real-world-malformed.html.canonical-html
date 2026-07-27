@@ -1,33 +1,33 @@
 <HTML><head>
 <meta charset="utf-8" />
 <title>Real World Example
-<body>
-<div id=header>
-<h1>Welcome</h1>
-</div>
-<div id=content>
-<p>This is a <b>bold <i>and italic</b></i> text.
-<ul>
-<li>First item
-<li>Second item
-<ul>
-<li>Nested item
-</ul>
-</ul>
-<table border=1>
-<tr>
-<th>Header 1<th>Header 2
-<tr>
-<td>Data 1<td>Data 2
-</table>
-<form action=submit.php method=post>
-<input type=text name=username>
-<input type=password name=password>
-<button>Submit
-</form>
-</div>
-<div id=footer>
-<p>© 2024 Example
-</div>
-</html>
+&lt;body&gt;
+&lt;div id&equals;header&gt;
+&lt;h1&gt;Welcome&lt;&sol;h1&gt;
+&lt;&sol;div&gt;
+&lt;div id&equals;content&gt;
+&lt;p&gt;This is a &lt;b&gt;bold &lt;i&gt;and italic&lt;&sol;b&gt;&lt;&sol;i&gt; text&period;
+&lt;ul&gt;
+&lt;li&gt;First item
+&lt;li&gt;Second item
+&lt;ul&gt;
+&lt;li&gt;Nested item
+&lt;&sol;ul&gt;
+&lt;&sol;ul&gt;
+&lt;table border&equals;1&gt;
+&lt;tr&gt;
+&lt;th&gt;Header 1&lt;th&gt;Header 2
+&lt;tr&gt;
+&lt;td&gt;Data 1&lt;td&gt;Data 2
+&lt;&sol;table&gt;
+&lt;form action&equals;submit&period;php method&equals;post&gt;
+&lt;input type&equals;text name&equals;username&gt;
+&lt;input type&equals;password name&equals;password&gt;
+&lt;button&gt;Submit
+&lt;&sol;form&gt;
+&lt;&sol;div&gt;
+&lt;div id&equals;footer&gt;
+&lt;p&gt;&copy; 2024 Example
+&lt;&sol;div&gt;
+&lt;&sol;html&gt;
 </title></head><body></body></HTML>

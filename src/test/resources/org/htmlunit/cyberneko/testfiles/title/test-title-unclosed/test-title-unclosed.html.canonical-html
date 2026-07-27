@@ -1,5 +1,5 @@
 <html><head>
 <title>Unclosed title
-</head>
-<body>Hello there</body>
-</html></title></head><body></body></html>
+&lt;&sol;head&gt;
+&lt;body&gt;Hello there&lt;&sol;body&gt;
+&lt;&sol;html&gt;</title></head><body></body></html>

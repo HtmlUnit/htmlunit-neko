@@ -7,9 +7,9 @@
 </option><option>Option 2
 </option></select>
 <textarea>Text area content
-</div>
-<button>Submit
-</form>
-</body>
-</html>
+&lt;&sol;div&gt;
+&lt;button&gt;Submit
+&lt;&sol;form&gt;
+&lt;&sol;body&gt;
+&lt;&sol;html&gt;
 </textarea></label></div></form></body></html>
