@@ -61,7 +61,7 @@ public class CanonicalDomTest extends AbstractCanonicalTest {
         verify(dataFile, domDataLines);
     }
 
-    // @ParameterizedTest
+    @ParameterizedTest
     @MethodSource("testFiles")
     public void runTestWithCachedElementsProvider(final File dataFile) throws Exception {
         final String infilename = dataFile.toString();
