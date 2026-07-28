@@ -102,8 +102,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short HTML = HR + 1;
     public static final short I = HTML + 1;
     public static final short IFRAME = I + 1;
-    public static final short ILAYER = IFRAME + 1;
-    public static final short IMG = ILAYER + 1;
+    public static final short IMG = IFRAME + 1;
     public static final short IMAGE = IMG + 1;
     public static final short INPUT = IMAGE + 1;
     public static final short INS = INPUT + 1;
@@ -346,8 +345,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(I, "I", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // IFRAME
             new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
-            // ILAYER
-            new Element(ILAYER, "ILAYER", Element.BLOCK, BODY, null),
             // IMG - O EMPTY
             new Element(IMG, "IMG", Element.EMPTY, BODY, new short[]{SVG}),
 
