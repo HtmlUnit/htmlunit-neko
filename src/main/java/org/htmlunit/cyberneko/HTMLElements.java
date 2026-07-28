@@ -56,8 +56,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short BDO = BDI + 1;
     public static final short BGSOUND = BDO + 1;
     public static final short BIG = BGSOUND + 1;
-    public static final short BLINK = BIG + 1;
-    public static final short BLOCKQUOTE = BLINK + 1;
+    public static final short BLOCKQUOTE = BIG + 1;
     public static final short BODY = BLOCKQUOTE + 1;
     public static final short BR = BODY + 1;
     public static final short BUTTON = BR + 1;
@@ -150,8 +149,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short SLOT = SELECT + 1;
     public static final short SMALL = SLOT + 1;
     public static final short SOURCE = SMALL + 1;
-    public static final short SPACER = SOURCE + 1;
-    public static final short SPAN = SPACER + 1;
+    public static final short SPAN = SOURCE + 1;
     public static final short STRIKE = SPAN + 1;
     public static final short STRONG = STRIKE + 1;
     public static final short STYLE = STRONG + 1;
@@ -241,8 +239,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
             // BIG - - (%inline;)*
             new Element(BIG, "BIG", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
-            // BLINK
-            new Element(BLINK, "BLINK", Element.INLINE, BODY, null),
             // BLOCKQUOTE - - (%block;|SCRIPT)+
             new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P, SVG}),
             // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
@@ -456,8 +452,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(SMALL, "SMALL", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // SOURCE
             new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
-            // SPACER
-            new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
             // SPAN - - (%inline;)*
             new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
             // STRIKE
