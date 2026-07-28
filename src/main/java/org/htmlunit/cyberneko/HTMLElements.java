@@ -106,7 +106,8 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short INPUT = IMAGE + 1;
     public static final short INS = INPUT + 1;
     public static final short KBD = INS + 1;
-    public static final short LABEL = KBD + 1;
+    public static final short KEYGEN = KBD + 1;
+    public static final short LABEL = KEYGEN + 1;
     public static final short LEGEND = LABEL + 1;
     public static final short LI = LEGEND + 1;
     public static final short LINK = LI + 1;
@@ -347,6 +348,8 @@ public class HTMLElements implements HTMLElementsProvider {
         elementsArray['K' - 'A'] = new Element[] {
             // KBD - - (%inline;)*
             new Element(KBD, "KBD", Element.INLINE, BODY, null),
+            // KEYGEN
+            new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
         };
         elementsArray['L' - 'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
