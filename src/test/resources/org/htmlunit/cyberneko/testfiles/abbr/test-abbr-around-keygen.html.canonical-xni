@@ -4,7 +4,8 @@ startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml"
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="abbr",rawname="abbr") [(1,1,0) (1,7,6) false]
-emptyElement (localpart="keygen",rawname="keygen") [(1,7,6) (1,15,14) false]
+startElement (localpart="keygen",rawname="keygen") [(1,7,6) (1,15,14) false]
+endElement (localpart="keygen",rawname="keygen") [(1,15,14) (1,24,23) false]
 endElement (localpart="abbr",rawname="abbr") [(1,24,23) (1,31,30) false]
 characters '
 '[(1,31,30) (2,1,31) false]
