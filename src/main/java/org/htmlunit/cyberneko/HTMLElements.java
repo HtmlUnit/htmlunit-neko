@@ -120,8 +120,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short MENU = MARQUEE + 1;
     public static final short META = MENU + 1;
     public static final short METER = META + 1;
-    public static final short MULTICOL = METER + 1;
-    public static final short NAV = MULTICOL + 1;
+    public static final short NAV = METER + 1;
     public static final short NOBR = NAV + 1;
     public static final short NOEMBED = NOBR + 1;
     public static final short NOFRAMES = NOEMBED + 1;
@@ -379,12 +378,10 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
             // MENU
             new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P, SVG}),
-
+            // METER
             new Element(METER, "METER",  Element.CONTAINER, BODY, null),
             // META - O EMPTY
             new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE, TITLE, SVG}),
-            // MULTICOL
-            new Element(MULTICOL, "MULTICOL", Element.CONTAINER, BODY, null),
         };
         elementsArray['N' - 'A'] = new Element[] {
             new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
