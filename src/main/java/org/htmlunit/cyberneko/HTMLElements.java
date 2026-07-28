@@ -154,8 +154,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short SELECT = SECTION + 1;
     public static final short SLOT = SELECT + 1;
     public static final short SMALL = SLOT + 1;
-    public static final short SOUND = SMALL + 1;
-    public static final short SOURCE = SOUND + 1;
+    public static final short SOURCE = SMALL + 1;
     public static final short SPACER = SOURCE + 1;
     public static final short SPAN = SPACER + 1;
     public static final short STRIKE = SPAN + 1;
@@ -471,9 +470,7 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(SLOT, "SLOT",  Element.CONTAINER, BODY, null),
             // SMALL - - (%inline;)*
             new Element(SMALL, "SMALL", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
-            // SOUND
-            new Element(SOUND, "SOUND", Element.EMPTY, HEAD, null),
-
+            // SOURCE
             new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
             // SPACER
             new Element(SPACER, "SPACER", Element.INLINE, BODY, null),
