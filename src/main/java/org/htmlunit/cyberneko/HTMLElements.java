@@ -909,7 +909,7 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         @Override
         public int hashCode() {
-            return name.hashCode();
+            return lowercaseName.hashCode();
         }
 
         /**
@@ -918,7 +918,7 @@ public class HTMLElements implements HTMLElementsProvider {
         @Override
         public boolean equals(final Object o) {
             if (o instanceof Element e) {
-                return lowercaseName.equals(e.name) || name.equals(e.name);
+                return lowercaseName.equals(e.lowercaseName);
             }
             return false;
         }
