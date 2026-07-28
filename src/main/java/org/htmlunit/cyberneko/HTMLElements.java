@@ -122,8 +122,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short METER = META + 1;
     public static final short MULTICOL = METER + 1;
     public static final short NAV = MULTICOL + 1;
-    public static final short NEXTID = NAV + 1;
-    public static final short NOBR = NEXTID + 1;
+    public static final short NOBR = NAV + 1;
     public static final short NOEMBED = NOBR + 1;
     public static final short NOFRAMES = NOEMBED + 1;
     public static final short NOSCRIPT = NOFRAMES + 1;
@@ -389,9 +388,6 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['N' - 'A'] = new Element[] {
             new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
-
-            // NEXTID
-            new Element(NEXTID, "NEXTID", Element.INLINE, BODY, null),
             // NOBR
             new Element(NOBR, "NOBR", Element.INLINE | Element.FORMATTING, BODY, new short[]{NOBR, SVG}),
             // NOEMBED
