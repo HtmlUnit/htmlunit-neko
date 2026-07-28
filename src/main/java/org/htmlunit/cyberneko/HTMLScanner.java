@@ -483,8 +483,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * Special scanner used for elements whose content needs to be scanned as plain
-     * text, ignoring markup such as elements and entity references. For example:
-     * &lt;SCRIPT&gt; and &lt;COMMENT&gt;.
+     * text, ignoring markup such as elements and entity references. (&lt;TITLE&gt;,
+     * &lt;STYLE&gt;, &lt;TEXTAREA&gt; and &lt;XMP&gt;).
      */
     protected final SpecialScanner fSpecialScanner = new SpecialScanner();
 
@@ -3518,24 +3518,19 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
     /**
      * Special scanner used for elements whose content needs to be scanned as plain
-     * text, ignoring markup such as elements and entity references. For example:
-     * &lt;SCRIPT&gt; and &lt;COMMENT&gt;.
+     * text, ignoring markup such as elements and entity references.(&lt;TITLE&gt;,
+     * &lt;STYLE&gt;, &lt;TEXTAREA&gt; and &lt;XMP&gt;)
      */
-    public class SpecialScanner implements Scanner {
+    public final class SpecialScanner implements Scanner {
 
         /** Name of element whose content needs to be scanned as text. */
-        protected String fElementName;
+        private String fElementName;
 
         /** True if &lt;style&gt; element. */
-        protected boolean fStyle;
+        private boolean fStyle;
 
-        /** True if &lt;textarea&gt; element. */
-        protected boolean fTextarea;
-
-        /** True if &lt;title&gt; element. */
-        protected boolean fTitle;
-
-        // temp vars
+        /** True if &lt;textarea&gt; or &lt;title&gt; element. */
+        private boolean fTextareaOrTitle;
 
         /** A qualified name. */
         private final QName fQName_ = new QName();
@@ -3546,9 +3541,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         // Sets the element name.
         public Scanner setElementName(final String ename, final String enameLC) {
             fElementName = ename;
+
             fStyle = "style".equals(enameLC);
-            fTextarea = "textarea".equals(enameLC);
-            fTitle = "title".equals(enameLC);
+            fTextareaOrTitle = "textarea".equals(enameLC) || "title".equals(enameLC);
+
+            charBuffer_.clear();
+
             return this;
         }
 
@@ -3582,7 +3580,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             continue;
                         }
                         if (c == '&') {
-                            if (fTextarea || fTitle) {
+                            if (fTextareaOrTitle) {
                                 scanEntityRef(charBuffer_, null, true);
                                 continue;
                             }
@@ -3638,6 +3636,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                 }
             }
             while (complete);
+
             return SCAN_TRUE;
         }
 
