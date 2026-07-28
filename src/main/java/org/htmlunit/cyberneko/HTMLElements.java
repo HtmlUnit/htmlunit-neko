@@ -175,8 +175,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short VAR = UL + 1;
     public static final short VIDEO = VAR + 1;
     public static final short WBR = VIDEO + 1;
-    public static final short XML = WBR + 1;
-    public static final short XMP = XML + 1;
+    public static final short XMP = WBR + 1;
     public static final short UNKNOWN = XMP + 1;
 
     // information
@@ -514,8 +513,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(WBR, "WBR", Element.EMPTY, BODY, null),
         };
         elementsArray['X' - 'A'] = new Element[] {
-            // XML
-            new Element(XML, "XML", 0, BODY, null),
             // XMP
             new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
         };
