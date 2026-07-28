@@ -109,8 +109,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short KBD = INS + 1;
     public static final short KEYGEN = KBD + 1;
     public static final short LABEL = KEYGEN + 1;
-    public static final short LAYER = LABEL + 1;
-    public static final short LEGEND = LAYER + 1;
+    public static final short LEGEND = LABEL + 1;
     public static final short LI = LEGEND + 1;
     public static final short LINK = LI + 1;
     public static final short LISTING = LINK + 1;
@@ -127,8 +126,7 @@ public class HTMLElements implements HTMLElementsProvider {
     public static final short NOBR = NEXTID + 1;
     public static final short NOEMBED = NOBR + 1;
     public static final short NOFRAMES = NOEMBED + 1;
-    public static final short NOLAYER = NOFRAMES + 1;
-    public static final short NOSCRIPT = NOLAYER + 1;
+    public static final short NOSCRIPT = NOFRAMES + 1;
     public static final short OBJECT = NOSCRIPT + 1;
     public static final short OL = OBJECT + 1;
     public static final short OPTGROUP = OL + 1;
@@ -363,8 +361,6 @@ public class HTMLElements implements HTMLElementsProvider {
         elementsArray['L' - 'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
             new Element(LABEL, "LABEL", Element.INLINE, BODY, null),
-            // LAYER
-            new Element(LAYER, "LAYER", Element.BLOCK, BODY, null),
             // LEGEND - - (%inline;)*
             new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
             // LI - O (%flow;)*
@@ -402,8 +398,6 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
             new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, null, null),
-            // NOLAYER
-            new Element(NOLAYER, "NOLAYER", Element.CONTAINER, BODY, null),
             // NOSCRIPT - - (%block;)+
             new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD, BODY}, null),
         };
