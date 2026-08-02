@@ -442,7 +442,7 @@ public class HTMLElements implements HTMLElementsProvider {
             new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING,
                             new short[]{HEAD, BODY}, null),
 
-            new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{SELECT, P}),
+            new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{P}),
             // SELECT - - (OPTGROUP|OPTION)+
             new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
 
