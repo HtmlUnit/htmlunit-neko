@@ -4,6 +4,6 @@
 (body
 "Text before 
 #[CDATA[ text in CDATA]]
-" text after\n
+" text after
 )body
 )html
