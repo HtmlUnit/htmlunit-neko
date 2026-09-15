@@ -40,7 +40,7 @@
 
         <!-- plugins -->
         <central-publishing-plugin.version>0.11.0</central-publishing-plugin.version>
-        <build-helper-plugin.version>3.6.1</build-helper-plugin.version>
+        <build-helper-plugin.version>3.6.2</build-helper-plugin.version>
         <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
         <pmd-plugin.version>3.28.0</pmd-plugin.version>
         <spotbugs-plugin.version>4.10.4.0</spotbugs-plugin.version>
