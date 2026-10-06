@@ -16,6 +16,7 @@
 package org.htmlunit.cyberneko;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.SAXParserFactory;
 
@@ -102,5 +103,52 @@ public class SAXParserTest {
 
         Assertions.assertInstanceOf(NekoSAXParserAdapter.class, saxParser);
         saxParser.parse(source, (DefaultHandler) null);
+    }
+
+    /**
+     * @throws Exception in case of error
+     */
+    @Test
+    public void noframesBeforeHtml() throws Exception {
+        final String html = "<noframes><body></noframes><html><head>"
+                + "<meta name='robots' content='noindex,nofollow'></head>"
+                + "<body><p>retained</p></body></html>";
+
+        Assertions.assertEquals("(html\n(head\n(noframes\n\"<body>\n)noframes\n"
+                + "(meta\nAname robots\nAcontent noindex,nofollow\n)meta\n)head\n"
+                + "(body\n(p\n\"retained\n)p\n)body\n)html\n", parseEvents(html));
+    }
+
+    /**
+     * @throws Exception in case of error
+     */
+    @Test
+    public void noframesInBody() throws Exception {
+        final String html = "<html><head></head><body><noframes>fallback</noframes>"
+                + "<p>retained</p></body></html>";
+
+        Assertions.assertEquals("(html\n(head\n)head\n(body\n(noframes\n\"fallback\n)noframes\n"
+                + "(p\n\"retained\n)p\n)body\n)html\n", parseEvents(html));
+    }
+
+    /**
+     * @throws Exception in case of error
+     */
+    @Test
+    public void noframesInFrameset() throws Exception {
+        final String html = "<html><head></head><frameset><frame src='frame.html'>"
+                + "<noframes>fallback</noframes></frameset></html>";
+
+        Assertions.assertEquals("(html\n(head\n)head\n(frameset\n(frame\nAsrc frame.html\n)frame\n"
+                + "(noframes\n\"fallback\n)noframes\n)frameset\n)html\n", parseEvents(html));
+    }
+
+    private static String parseEvents(final String html) throws Exception {
+        final SAXParser parser = new SAXParser();
+        parser.setFeature("http://xml.org/sax/features/namespaces", false);
+        final StringWriter out = new StringWriter();
+        parser.setContentHandler(new SaxHandler(out));
+        parser.parse(new InputSource(new StringReader(html)));
+        return out.toString();
     }
 }

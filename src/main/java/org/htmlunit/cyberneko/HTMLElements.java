@@ -385,7 +385,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // NOEMBED
             new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
-            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, null, null),
+            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, new short[]{HEAD, BODY, FRAMESET}, null),
             // NOSCRIPT - - (%block;)+
             new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD, BODY}, null),
         };

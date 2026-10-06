@@ -1,11 +1,13 @@
 startDocument [(1,1,0) (1,1,0) false]
 startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="noframes",rawname="noframes") [(2,1,7) (2,11,17) false]
 characters '
 <p>hello
 '[(2,11,17) (4,1,27) false]
 endElement (localpart="noframes",rawname="noframes") [(4,1,27) (4,12,38) false]
-startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+characters '
+'[(4,12,38) (5,1,39) false]
 endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
 startElement (localpart="body",rawname="body") [(5,1,39) (5,7,45) false]
 characters '

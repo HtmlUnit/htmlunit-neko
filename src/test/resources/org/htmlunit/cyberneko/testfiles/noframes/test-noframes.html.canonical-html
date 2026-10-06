@@ -1,5 +1,6 @@
-<html><noframes>
+<html><head><noframes>
 &lt;p&gt;hello
-</noframes><head></head><body>
+</noframes>
+</head><body>
 <p>hello again
 </p></body></html>
