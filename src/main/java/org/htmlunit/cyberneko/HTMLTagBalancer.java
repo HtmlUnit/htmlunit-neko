@@ -1201,8 +1201,13 @@ public class HTMLTagBalancer
         // no matching tag found
         if (depth == -1) {
             if (elementCode == HTMLElements.P) {
-                forceStartElement(element, fEmptyXMLAttributes, synthesizedAugs());
-                endElement(element, augs);
+                // A rejected synthesized start tag must not cause another retry.
+                if (forceStartElementParentCreated(element, fEmptyXMLAttributes, synthesizedAugs())) {
+                    endElement(element, augs);
+                }
+                else {
+                    notifyDiscardedEndElement(element, augs);
+                }
                 return;
             }
 
