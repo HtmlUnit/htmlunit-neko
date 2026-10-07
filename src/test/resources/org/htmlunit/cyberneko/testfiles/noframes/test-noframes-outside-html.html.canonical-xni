@@ -1,0 +1,21 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="noframes",rawname="noframes") [(1,1,0) (1,11,10) false]
+characters 'no-frames'[(1,11,10) (1,20,19) false]
+endElement (localpart="noframes",rawname="noframes") [(1,20,19) (1,31,30) false]
+characters '
+'[(1,31,30) (2,1,31) false]
+characters '
+'[(2,7,37) (3,1,38) false]
+startElement (localpart="title",rawname="title") [(3,7,44) (3,14,51) false]
+characters 'T'[(3,14,51) (3,15,52) false]
+endElement (localpart="title",rawname="title") [(3,15,52) (3,23,60) false]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(3,23,60) (3,30,67) false]
+startElement (localpart="body",rawname="body") [(4,1,68) (4,7,74) false]
+characters '
+Body
+'[(4,7,74) (6,1,80) false]
+endElement (localpart="body",rawname="body") [(6,1,80) (6,8,87) false]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(7,1,88) (7,1,88) false]
