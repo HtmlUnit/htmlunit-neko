@@ -1,0 +1,19 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(2,1,7) (2,7,13) false]
+startElement (localpart="title",rawname="title") [(2,7,13) (2,14,20) false]
+characters 'T'[(2,14,20) (2,15,21) false]
+endElement (localpart="title",rawname="title") [(2,15,21) (2,23,29) false]
+startElement (localpart="noframes",rawname="noframes") [(3,1,37) (3,11,47) false]
+characters '
+<p>hello
+'[(3,11,47) (5,1,57) false]
+endElement (localpart="noframes",rawname="noframes") [(5,1,57) (5,12,68) false]
+endElement (localpart="head",rawname="head") [(2,23,29) (2,30,36) false]
+startElement (localpart="body",rawname="body") [(6,1,69) (6,7,75) false]
+characters '
+Body
+'[(6,7,75) (8,1,81) false]
+endElement (localpart="body",rawname="body") [(8,1,81) (8,8,88) false]
+endElement (localpart="html",rawname="html") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(9,1,89) (9,1,89) false]
