@@ -1,0 +1,24 @@
+(div
+)div
+(p
+Aid div-child
+"x
+)p
+x)div
+"\n
+(iframe
+)iframe
+(img
+Aid iframe-child
+Asrc x
+Aonerror alert(1)
+)img
+x)iframe
+"\n
+(script
+)script
+(b
+Aid script-child
+"x
+)b
+x)script

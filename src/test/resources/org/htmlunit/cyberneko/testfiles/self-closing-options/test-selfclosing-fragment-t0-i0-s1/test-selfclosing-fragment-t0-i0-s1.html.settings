@@ -1,0 +1,4 @@
+feature http://cyberneko.org/html/features/balance-tags/document-fragment	true
+feature http://cyberneko.org/html/features/scanner/allow-selfclosing-tags	false
+feature http://cyberneko.org/html/features/scanner/allow-selfclosing-iframe	false
+feature http://cyberneko.org/html/features/scanner/allow-selfclosing-script	true

@@ -2449,9 +2449,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     return SCAN_TRUE;
                                 }
                             }
-                            else if (!fAllowSelfclosingTags_
-                                        && !fAllowSelfclosingIframe_
-                                        && "iframe".equals(enameLC)) {
+                            else if (!fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
                                 scanUntilEndTag("/iframe");
                             }
                             else if (!fParseNoScriptContent_ && "noscript".equals(enameLC)) {

@@ -989,10 +989,10 @@ public class HTMLTagBalancer
         // browser ignore the closing indication for non empty tags like <form .../> but not for unknown element
         final HTMLElements.Element elem = getElement(element);
         if (elem.isEmpty()
-                || fAllowSelfclosingTags
-                || elem.code == HTMLElements.UNKNOWN
+                || (fAllowSelfclosingTags && elem.code != HTMLElements.IFRAME && elem.code != HTMLElements.SCRIPT)
                 || (elem.code == HTMLElements.IFRAME && fAllowSelfclosingIframe)
-                || (elem.code == HTMLElements.SCRIPT && fAllowSelfclosingScript)) {
+                || (elem.code == HTMLElements.SCRIPT && fAllowSelfclosingScript)
+                || elem.code == HTMLElements.UNKNOWN) {
             endElement(element, augs);
         }
     }

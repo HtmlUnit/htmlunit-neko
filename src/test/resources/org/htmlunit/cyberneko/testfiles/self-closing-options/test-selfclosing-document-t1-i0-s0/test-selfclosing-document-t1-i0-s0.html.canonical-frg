@@ -1,0 +1,14 @@
+(div
+)div
+(p
+Aid div-child
+"x
+)p
+"\n
+(iframe
+"<img id="iframe-child" src="x" onerror="alert(1)">
+)iframe
+"\n
+(script
+"<b id="script-child">x</b>
+)script

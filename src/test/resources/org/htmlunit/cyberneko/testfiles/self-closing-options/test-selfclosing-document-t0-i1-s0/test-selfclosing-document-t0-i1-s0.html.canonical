@@ -1,0 +1,24 @@
+(html
+(head
+)head
+(body
+(div
+(p
+Aid div-child
+"x
+)p
+)div
+"\n
+(iframe
+)iframe
+(img
+Aid iframe-child
+Asrc x
+Aonerror alert(1)
+)img
+"\n
+(script
+"<b id="script-child">x</b>
+)script
+)body
+)html

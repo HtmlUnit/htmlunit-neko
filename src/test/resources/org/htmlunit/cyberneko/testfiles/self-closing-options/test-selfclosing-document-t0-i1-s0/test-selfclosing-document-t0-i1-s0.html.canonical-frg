@@ -1,0 +1,18 @@
+(div
+(p
+Aid div-child
+"x
+)p
+)div
+"\n
+(iframe
+)iframe
+(img
+Aid iframe-child
+Aonerror alert(1)
+Asrc x
+)img
+"\n
+(script
+"<b id="script-child">x</b>
+)script
