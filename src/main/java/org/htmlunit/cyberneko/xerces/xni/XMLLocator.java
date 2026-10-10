@@ -17,25 +17,34 @@ package org.htmlunit.cyberneko.xerces.xni;
 import org.xml.sax.ext.Locator2;
 
 /**
- * Location information.
+ * Interface for tracking location information during document parsing.
+ * <p>
+ * Extends SAX {@link Locator2} to provide additional system identifiers
+ * and character offsets for precise error reporting and source tracking.
+ * </p>
  *
  * @author Andy Clark, IBM
  */
 public interface XMLLocator extends Locator2 {
 
     /**
-     * @return the literal system identifier.
+     * Returns the literal system identifier.
+     *
+     * @return the literal system identifier, or {@code null} if none is available
      */
     String getLiteralSystemId();
 
     /**
-     * @return the base system identifier.
+     * Returns the base system identifier.
+     *
+     * @return the base system identifier, or {@code null} if none is available
      */
     String getBaseSystemId();
 
     /**
-     * @return the character offset, or <code>-1</code> if no character offset is
-     *         available.
+     * Returns the character offset within the input stream or character stream.
+     *
+     * @return the character offset, or {@code -1} if no character offset is available
      */
     int getCharacterOffset();
 }

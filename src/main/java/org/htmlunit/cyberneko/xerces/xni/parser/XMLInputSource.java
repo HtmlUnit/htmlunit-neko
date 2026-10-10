@@ -18,16 +18,17 @@ import java.io.InputStream;
 import java.io.Reader;
 
 /**
- * This class represents an input source for an XML document. The basic
- * properties of an input source are the following:
+ * Represents an input source for an XML document. The basic properties of an input source are:
  * <ul>
- * <li>public identifier</li>
- * <li>system identifier</li>
- * <li>byte stream or character stream</li>
- * <li>
+ *   <li>Public identifier</li>
+ *   <li>System identifier</li>
+ *   <li>Base system identifier</li>
+ *   <li>Byte stream or character stream</li>
+ *   <li>Encoding</li>
  * </ul>
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public class XMLInputSource {
 
@@ -51,17 +52,11 @@ public class XMLInputSource {
 
     /**
      * Constructs an input source from just the public and system identifiers,
-     * leaving resolution of the entity and opening of the input stream up to the
-     * caller.
+     * leaving resolution of the entity and opening of the input stream up to the caller.
      *
-     * @param publicId     The public identifier, if known.
-     * @param systemId     The system identifier. This value should always be set,
-     *                     if possible, and can be relative or absolute. If the
-     *                     system identifier is relative, then the base system
-     *                     identifier should be set.
-     * @param baseSystemId The base system identifier. This value should always be
-     *                     set to the fully expanded URI of the base system
-     *                     identifier, if possible.
+     * @param publicId     the public identifier, if known
+     * @param systemId     the system identifier (can be relative or absolute)
+     * @param baseSystemId the base system identifier as a fully expanded URI, if known
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId) {
         publicId_ = publicId;
@@ -72,19 +67,14 @@ public class XMLInputSource {
     /**
      * Constructs an input source from a byte stream.
      *
-     * @param publicId     The public identifier, if known.
-     * @param systemId     The system identifier. This value should always be set,
-     *                     if possible, and can be relative or absolute. If the
-     *                     system identifier is relative, then the base system
-     *                     identifier should be set.
-     * @param baseSystemId The base system identifier. This value should always be
-     *                     set to the fully expanded URI of the base system
-     *                     identifier, if possible.
-     * @param byteStream   The byte stream.
-     * @param encoding     The encoding of the byte stream, if known.
+     * @param publicId     the public identifier, if known
+     * @param systemId     the system identifier (can be relative or absolute)
+     * @param baseSystemId the base system identifier as a fully expanded URI, if known
+     * @param byteStream   the byte stream
+     * @param encoding     the encoding of the byte stream, if known
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId,
-                            final InputStream byteStream, final String encoding) {
+                          final InputStream byteStream, final String encoding) {
         publicId_ = publicId;
         systemId_ = systemId;
         baseSystemId_ = baseSystemId;
@@ -95,20 +85,14 @@ public class XMLInputSource {
     /**
      * Constructs an input source from a character stream.
      *
-     * @param publicId     The public identifier, if known.
-     * @param systemId     The system identifier. This value should always be set,
-     *                     if possible, and can be relative or absolute. If the
-     *                     system identifier is relative, then the base system
-     *                     identifier should be set.
-     * @param baseSystemId The base system identifier. This value should always be
-     *                     set to the fully expanded URI of the base system
-     *                     identifier, if possible.
-     * @param charStream   The character stream.
-     * @param encoding     The original encoding of the byte stream used by the
-     *                     reader, if known.
+     * @param publicId     the public identifier, if known
+     * @param systemId     the system identifier (can be relative or absolute)
+     * @param baseSystemId the base system identifier as a fully expanded URI, if known
+     * @param charStream   the character stream
+     * @param encoding     the original encoding of the byte stream used by the reader, if known
      */
     public XMLInputSource(final String publicId, final String systemId, final String baseSystemId,
-                            final Reader charStream, final String encoding) {
+                          final Reader charStream, final String encoding) {
         publicId_ = publicId;
         systemId_ = systemId;
         baseSystemId_ = baseSystemId;
@@ -119,14 +103,16 @@ public class XMLInputSource {
     /**
      * Sets the public identifier.
      *
-     * @param publicId The new public identifier.
+     * @param publicId the new public identifier
      */
     public void setPublicId(final String publicId) {
         publicId_ = publicId;
     }
 
     /**
-     * @return the public identifier.
+     * Returns the public identifier.
+     *
+     * @return the public identifier, or {@code null} if not specified
      */
     public String getPublicId() {
         return publicId_;
@@ -135,14 +121,16 @@ public class XMLInputSource {
     /**
      * Sets the system identifier.
      *
-     * @param systemId The new system identifier.
+     * @param systemId the new system identifier
      */
     public void setSystemId(final String systemId) {
         systemId_ = systemId;
     }
 
     /**
-     * @return the system identifier.
+     * Returns the system identifier.
+     *
+     * @return the system identifier, or {@code null} if not specified
      */
     public String getSystemId() {
         return systemId_;
@@ -151,14 +139,16 @@ public class XMLInputSource {
     /**
      * Sets the base system identifier.
      *
-     * @param baseSystemId The new base system identifier.
+     * @param baseSystemId the new base system identifier
      */
     public void setBaseSystemId(final String baseSystemId) {
         baseSystemId_ = baseSystemId;
     }
 
     /**
-     * @return the base system identifier.
+     * Returns the base system identifier.
+     *
+     * @return the base system identifier, or {@code null} if not specified
      */
     public String getBaseSystemId() {
         return baseSystemId_;
@@ -166,18 +156,18 @@ public class XMLInputSource {
 
     /**
      * Sets the byte stream. If the byte stream is not already opened when this
-     * object is instantiated, then the code that opens the stream should also set
-     * the byte stream on this object. Also, if the encoding is auto-detected, then
-     * the encoding should also be set on this object.
+     * object is instantiated, the code opening the stream should set the byte stream here.
      *
-     * @param byteStream The new byte stream.
+     * @param byteStream the new byte stream
      */
     public void setByteStream(final InputStream byteStream) {
         byteStream_ = byteStream;
     }
 
     /**
-     * @return the byte stream.
+     * Returns the byte stream.
+     *
+     * @return the byte stream, or {@code null} if none is set
      */
     public InputStream getByteStream() {
         return byteStream_;
@@ -185,12 +175,9 @@ public class XMLInputSource {
 
     /**
      * Sets the character stream. If the character stream is not already opened when
-     * this object is instantiated, then the code that opens the stream should also
-     * set the character stream on this object. Also, the encoding of the byte
-     * stream used by the reader should also be set on this object, if known.
+     * this object is instantiated, the code opening the stream should set the character stream here.
      *
-     * @param charStream The new character stream.
-     *
+     * @param charStream the new character stream
      * @see #setEncoding(String)
      */
     public void setCharacterStream(final Reader charStream) {
@@ -198,7 +185,9 @@ public class XMLInputSource {
     }
 
     /**
-     * @return the character stream.
+     * Returns the character stream.
+     *
+     * @return the character stream, or {@code null} if none is set
      */
     public Reader getCharacterStream() {
         return charStream_;
@@ -207,14 +196,16 @@ public class XMLInputSource {
     /**
      * Sets the encoding of the stream.
      *
-     * @param encoding The new encoding.
+     * @param encoding the new encoding
      */
     public void setEncoding(final String encoding) {
         encoding_ = encoding;
     }
 
     /**
-     * @return the encoding of the stream, or null if not known.
+     * Returns the encoding of the stream.
+     *
+     * @return the encoding, or {@code null} if not known
      */
     public String getEncoding() {
         return encoding_;

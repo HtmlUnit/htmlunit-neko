@@ -18,11 +18,11 @@ import org.htmlunit.cyberneko.xerces.xni.XMLLocator;
 import org.htmlunit.cyberneko.xerces.xni.XNIException;
 
 /**
- * A parsing exception. This exception is different from the standard XNI
- * exception in that it stores the location in the document (or its entities)
- * where the exception occurred.
+ * A parsing exception that captures the exact location within an XML document
+ * (or its parsed entities) where the error occurred.
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public class XMLParseException extends XNIException {
 
@@ -32,7 +32,7 @@ public class XMLParseException extends XNIException {
     /** System identifier. */
     private String systemId_;
 
-    /** literal System identifier. */
+    /** Literal system identifier. */
     private String literalSystemId_;
 
     /** Base system identifier. */
@@ -47,7 +47,12 @@ public class XMLParseException extends XNIException {
     /** Character offset. */
     private int characterOffset_ = -1;
 
-    // Constructs a parse exception.
+    /**
+     * Constructs an XML parse exception with the specified locator and detail message.
+     *
+     * @param locator the XML locator providing position and source details, may be {@code null}
+     * @param message the detail message
+     */
     public XMLParseException(final XMLLocator locator, final String message) {
         super(message);
         if (locator != null) {
@@ -61,7 +66,13 @@ public class XMLParseException extends XNIException {
         }
     }
 
-    // Constructs a parse exception.
+    /**
+     * Constructs an XML parse exception with the specified locator, detail message, and cause.
+     *
+     * @param locator   the XML locator providing position and source details, may be {@code null}
+     * @param message   the detail message
+     * @param exception the wrapped cause exception
+     */
     public XMLParseException(final XMLLocator locator, final String message, final Exception exception) {
         super(message, exception);
         if (locator != null) {
@@ -76,49 +87,63 @@ public class XMLParseException extends XNIException {
     }
 
     /**
-     * @return the public identifier.
+     * Returns the public identifier where the exception occurred.
+     *
+     * @return the public identifier, or {@code null} if none is available
      */
     public String getPublicId() {
         return publicId_;
     }
 
     /**
-     * @return the expanded system identifier.
+     * Returns the expanded system identifier where the exception occurred.
+     *
+     * @return the expanded system identifier, or {@code null} if none is available
      */
     public String getSystemId() {
         return systemId_;
     }
 
     /**
-     * @return the literal system identifier.
+     * Returns the literal system identifier where the exception occurred.
+     *
+     * @return the literal system identifier, or {@code null} if none is available
      */
     public String getLiteralSystemId() {
         return literalSystemId_;
     }
 
     /**
-     * return the base system identifier.
+     * Returns the base system identifier where the exception occurred.
+     *
+     * @return the base system identifier, or {@code null} if none is available
      */
     public String getBaseSystemId() {
         return baseSystemId_;
     }
 
     /**
-     * @return the line number.
+     * Returns the line number where the exception occurred.
+     *
+     * @return the one-based line number, or {@code -1} if no line number is available
      */
     public int getLineNumber() {
         return lineNumber_;
     }
 
     /**
-     * @return the row number.
+     * Returns the column number where the exception occurred.
+     *
+     * @return the one-based column number, or {@code -1} if no column number is available
      */
     public int getColumnNumber() {
         return columnNumber_;
     }
 
     /**
-     * @return the character offset.
+     * Returns the character offset where the exception occurred.
+     *
+     * @return the zero-based character offset, or {@code -1} if no offset is available
      */
     public int getCharacterOffset() {
         return characterOffset_;

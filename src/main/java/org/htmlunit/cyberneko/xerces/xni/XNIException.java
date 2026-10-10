@@ -15,12 +15,13 @@
 package org.htmlunit.cyberneko.xerces.xni;
 
 /**
- * This exception is the base exception of all XNI exceptions. It can be
- * constructed with an error message or used to wrap another exception object.
+ * Base exception for all XNI exceptions. It can be constructed with an
+ * error message, a wrapped cause, or both.
  * <p>
- * <strong>Note:</strong> By extending the Java <code>RuntimeException</code>,
- * XNI handlers and components are not required to catch XNI exceptions but may
- * explicitly catch them, if so desired.
+ * <strong>Note:</strong> By extending {@link RuntimeException}, XNI handlers
+ * and components are not required to catch XNI exceptions explicitly, but
+ * may choose to do so if desired.
+ * </p>
  *
  * @author Andy Clark, IBM
  * @author Ronald Brill
@@ -28,37 +29,47 @@ package org.htmlunit.cyberneko.xerces.xni;
 public class XNIException extends RuntimeException {
 
     /**
-     * Constructs an XNI exception with a message.
+     * Constructs an XNI exception with the specified detail message.
      *
-     * @param message The exception message.
+     * @param message the detail message
      */
     public XNIException(final String message) {
         super(message);
     }
 
     /**
-     * Constructs an XNI exception with a wrapped exception.
+     * Constructs an XNI exception with the specified wrapped cause.
      *
-     * @param exception The wrapped exception.
+     * @param cause the wrapped cause exception
      */
-    public XNIException(final Exception exception) {
-        super(exception.getMessage(), exception);
+    public XNIException(final Throwable cause) {
+        super(cause != null ? cause.getMessage() : null, cause);
     }
 
     /**
-     * Constructs an XNI exception with a message and wrapped exception.
+     * Constructs an XNI exception with the specified detail message and wrapped cause.
      *
-     * @param message   The exception message.
-     * @param exception The wrapped exception.
+     * @param message the detail message
+     <div></div>
+     * @param cause   the wrapped cause exception
      */
-    public XNIException(final String message, final Exception exception) {
-        super(message, exception);
+    public XNIException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 
     /**
-     * @return the wrapped exception.
+     * Returns the wrapped exception cause.
+     *
+     * @return the wrapped cause as an {@link Exception}, or {@code null} if none exists
      */
     public Exception getException() {
-        return (Exception) getCause();
+        final Throwable cause = getCause();
+        if (cause instanceof Exception) {
+            return (Exception) cause;
+        }
+        if (cause != null) {
+            return new RuntimeException(cause);
+        }
+        return null;
     }
 }

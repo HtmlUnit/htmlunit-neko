@@ -70,6 +70,7 @@ public interface XMLErrorHandler {
      * same exception that is passed as a parameter to the method or a new XNI
      * exception object. If the registered error handler fails to throw an
      * exception, the continuing operation of the parser is undetermined.
+     * </p>
      *
      * @param domain    The domain of the fatal error. The domain can be any string
      *                  but is suggested to be a valid URI. The domain can be used

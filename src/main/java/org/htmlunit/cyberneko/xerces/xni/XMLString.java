@@ -26,15 +26,18 @@ import org.xml.sax.ext.LexicalHandler;
  * <p>This class is meant to replace the old {@link XMLString} in all areas
  * where performance and memory-efficiency is key. XMLString compatibility
  * remains in place in case one has used that in their own code.
+ * </p>
  *
  * <p>This buffer is mutable and when you use it, make sure you work with
  * it responsibly. In many cases, we will reuse the buffer to avoid fresh
  * memory allocations, hence you have to pay attention to its usage pattern.
  * It is not meant to be a general String replacement.
+ * </p>
  *
  * <p>This class avoids many of the standard runtime checks that will result
  * in a runtime or array exception anyway. Why check twice and raise the
  * same exception?
+ * </p>
  *
  * @author René Schwietzke
  * @since 3.10.0
@@ -135,7 +138,7 @@ public class XMLString implements CharSequence {
      * There will not be any room to grow, if you need that, construct an
      * empty one and append.
      *
-     * <p>There are not range checks performed. Make sure your data is correct.
+     * <p>There are not range checks performed. Make sure your data is correct.</p>
      *
      * @param ch     The character array, must not be null
      * @param offset The offset into the character array.
@@ -148,7 +151,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Check capacity and grow if needed automatically
+     * Check capacity and grow if needed automatically.
      *
      * @param minimumCapacity how much space do we need at least
      */
@@ -393,7 +396,7 @@ public class XMLString implements CharSequence {
      * If both strings overlap due to identical characters such as "foo" and "oof"
      * and the buffer is " foof ", we don't do anything.
      *
-     * <p>If a marker is empty, it behaves like {@link java.lang.String#trim()} on that side.
+     * <p>If a marker is empty, it behaves like {@link java.lang.String#trim()} on that side.</p>
      *
      * @param startMarker the start string to find, must not be null
      * @param endMarker the end string to find, must not be null
@@ -558,7 +561,7 @@ public class XMLString implements CharSequence {
     }
 
     /**
-     * Get the characters as char array, this will be a copy!
+     * Get the characters as char array, this will be a copy!.
      *
      * @return a copy of the underlying char data
      */
@@ -605,6 +608,7 @@ public class XMLString implements CharSequence {
      *
      * <p> The cache will be filled with a copy of the XMLString to ensure
      * immutability. This copy is minimally sized.
+     * </p>
      *
      * @param cache the cache to be used
      * @return a string of the content of this buffer, preferably taken from the cache
@@ -627,6 +631,7 @@ public class XMLString implements CharSequence {
      *
      * <p> The cache will be filled with a copy of the XMLString to ensure
      * immutability. This copy is minimally sized.
+     * </p>
      *
      * @param seq the XMLString to convert
      * @param cache the cache to be used
@@ -840,10 +845,11 @@ public class XMLString implements CharSequence {
      * conversion can be incorrect for certain characters from some
      * locales. See {@link String#toUpperCase()}.
      *
-     * <p>We cannot correctly deal with ß for instance.
+     * <p>We cannot correctly deal with ß for instance.</p>
      *
      * <p>Note: We change the current XMLString and don't get a copy back
      * but this instance.
+     * </p>
      *
      * @param locale the locale to use in case we have to bail out and convert
      *        using String, this also means, that the result is not perfect
@@ -899,6 +905,7 @@ public class XMLString implements CharSequence {
      *
      * <p>Note: We change the current XMLString and don't get a copy back
      * but this instance.
+     * </p>
      *
      * @param locale the locale to use in case we have to bail out and convert
      *        using String, this also means, that the result is not perfect
@@ -973,9 +980,11 @@ public class XMLString implements CharSequence {
      * and LATIN CAPITAL LETTER I WITH DOT ABOVE are our challengers. If the
      * input would match with {@link #equals(Object)}, everything is fine, just
      * in case we have to check for a casing difference, we might see a problem.
+     * </p>
      *
      * <p>But this is for XML/HTML characters and we know what we compare, hence
      * this should not be any issue for us.
+     * </p>
      *
      * @param s the sequence to compare to, null is permitted
      * @return true if the sequences match case-insensitive, false otherwise

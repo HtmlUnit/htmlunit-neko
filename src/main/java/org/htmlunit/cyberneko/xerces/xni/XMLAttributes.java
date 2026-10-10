@@ -25,6 +25,7 @@ import org.xml.sax.ext.Attributes2;
  * The attributes are read-write so that subsequent stages in the document
  * pipeline can modify the values or change the attributes that are propagated
  * to the next stage.
+ * </p>
  *
  * @see XMLDocumentHandler#startElement
  *
@@ -40,6 +41,7 @@ public interface XMLAttributes extends Attributes2 {
      * <p>
      * <strong>Note:</strong> If an attribute of the same name already exists, the
      * old values for the attribute are replaced by the new values.
+     * </p>
      *
      * @param attrName  The attribute name.
      * @param attrType  The attribute type. The type name is determined by the type
@@ -68,6 +70,7 @@ public interface XMLAttributes extends Attributes2 {
      * <p>
      * <strong>Note:</strong> This operation changes the indexes of all attributes
      * following the attribute at the specified index.
+     * </p>
      *
      * @param attrIndex The attribute index.
      */
@@ -109,11 +112,12 @@ public interface XMLAttributes extends Attributes2 {
     void setValue(int attrIndex, String attrValue);
 
     /**
-     * @return the non-normalized value of the attribute at the specified index. If
-     *         no non-normalized value is set, this method will return the same
-     *         value as the <code>getValue(int)</code> method.
+     * Returns the non-normalized value of the attribute at the specified index.
+     * If no non-normalized value is set, this method returns the same value as
+     * the {@link #getValue(int)} method.
      *
-     * @param attrIndex The attribute index.
+     * @param attrIndex the zero-based index of the attribute
+     * @return the non-normalized value of the attribute at the specified index
      */
     String getNonNormalizedValue(int attrIndex);
 

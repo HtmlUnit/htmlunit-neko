@@ -28,10 +28,12 @@ import org.htmlunit.cyberneko.xerces.xni.XNIException;
  * instance, applications can create new configurations and re-use the existing
  * parser components and external API generators (e.g. the DOMParser and
  * SAXParser).
+ * </p>
  * <p>
  * The internals of any specific parser configuration instance are hidden.
  * Therefore, each configuration may implement the parsing mechanism any way
  * necessary. However, the parser configuration should follow these guidelines:
+ * </p>
  * <ul>
  * <li>Call the <code>reset</code> method on each component before parsing. This
  * is only required if the configuration is re-using existing components that
@@ -64,16 +66,20 @@ public interface XMLParserConfiguration {
      * The parser can use this method to instruct this configuration to begin
      * parsing an XML document from any valid input source (a character stream, a
      * byte stream, or a URI).
+     * </p>
      * <p>
      * Parsers may not invoke this method while a parse is in progress. Once a parse
      * is complete, the parser may then parse another XML document.
+     * </p>
      * <p>
      * This method is synchronous: it will not return until parsing has ended. If a
      * client application wants to terminate parsing early, it should throw an
      * exception.
+     * </p>
      * <p>
      * When this method returns, all characters streams and byte streams opened by
      * the parser are closed.
+     * </p>
      *
      * @param inputSource The input source for the top-level of the XML document.
      *
@@ -105,10 +111,12 @@ public interface XMLParserConfiguration {
     void setFeature(String featureId, boolean state) throws XMLConfigurationException;
 
     /**
-     * @param featureId The feature identifier.
-     * @return the state of a feature.
+     * Returns the state of a feature.
      *
-     * @throws XMLConfigurationException Thrown if there is a configuration error.
+     * @param featureId the unique identifier of the feature
+     * @return {@code true} if the feature is enabled, {@code false} otherwise
+     * @throws XMLConfigurationException if the feature identifier is not recognized
+     *         or if a configuration error occurs
      */
     boolean getFeature(String featureId) throws XMLConfigurationException;
 
@@ -133,10 +141,12 @@ public interface XMLParserConfiguration {
     void setProperty(String propertyId, Object value) throws XMLConfigurationException;
 
     /**
-     * @param propertyId The property identifier.
-     * @return the value of a property.
+     * Returns the value of a property.
      *
-     * @throws XMLConfigurationException Thrown if there is a configuration error.
+     * @param propertyId the unique identifier of the property
+     * @return the value associated with the property, or {@code null} if none is set
+     * @throws XMLConfigurationException if the property identifier is not recognized
+     *         or if a configuration error occurs
      */
     Object getProperty(String propertyId) throws XMLConfigurationException;
 
@@ -150,6 +160,8 @@ public interface XMLParserConfiguration {
     void setErrorHandler(XMLErrorHandler errorHandler);
 
     /**
+     * Returns the registered error handler.
+     *
      * @return the registered error handler.
      */
     XMLErrorHandler getErrorHandler();
@@ -162,6 +174,8 @@ public interface XMLParserConfiguration {
     void setDocumentHandler(XMLDocumentHandler documentHandler);
 
     /**
+     * Return the registered document handler.
+     *
      * @return the registered document handler.
      */
     XMLDocumentHandler getDocumentHandler();

@@ -100,6 +100,7 @@ public interface XMLDocumentHandler {
      * attributes but are <strong>not</strong> parsed or presented to the
      * application as anything other than text. The application is responsible for
      * parsing the data.
+     * </p>
      *
      * @param target The target.
      * @param data   The data or null if none specified.
@@ -188,6 +189,8 @@ public interface XMLDocumentHandler {
     void setDocumentSource(XMLDocumentSource source);
 
     /**
+     * Return the document source.
+     *
      * @return the document source.
      */
     XMLDocumentSource getDocumentSource();

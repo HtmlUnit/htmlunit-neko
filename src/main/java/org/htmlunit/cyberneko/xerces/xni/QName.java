@@ -19,6 +19,7 @@ package org.htmlunit.cyberneko.xerces.xni;
  * <p>
  * To be used correctly, the strings must be identical references for equal
  * strings.
+ * </p>
  *
  * @author Andy Clark, IBM
  */
