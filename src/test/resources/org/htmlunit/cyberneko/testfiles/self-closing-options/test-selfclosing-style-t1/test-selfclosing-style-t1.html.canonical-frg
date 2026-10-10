@@ -1,3 +1,6 @@
 (style
 )style
-"<b id="child">x</b>
+(b
+Aid child
+"x
+)b

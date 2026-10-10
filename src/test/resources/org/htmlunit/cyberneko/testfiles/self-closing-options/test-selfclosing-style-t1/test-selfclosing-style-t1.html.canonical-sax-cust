@@ -4,7 +4,10 @@
 )style
 )head
 (body
-"<b id="child">x</b>
+(b
+Aid child
+"x
+)b
 x)style
 )body
 )html

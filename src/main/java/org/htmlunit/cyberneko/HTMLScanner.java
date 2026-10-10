@@ -2442,6 +2442,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             fBeginColumnNumber = fCurrentEntity.getColumnNumber();
                             fBeginCharacterOffset = fCurrentEntity.getCharacterOffset();
 
+                            // the balancer closes the element, so the content must not be scanned as raw text
+                            final boolean selfClosed = fSingleBoolean[0] && fAllowSelfclosingTags_;
+
                             if ("script".equals(enameLC)) {
                                 if (!fAllowSelfclosingScript_) {
                                     setScanner(fScriptScanner);
@@ -2452,13 +2455,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             else if (!fAllowSelfclosingIframe_ && "iframe".equals(enameLC)) {
                                 scanUntilEndTag("/iframe");
                             }
-                            else if (!fParseNoScriptContent_ && "noscript".equals(enameLC)) {
+                            else if (!selfClosed && !fParseNoScriptContent_ && "noscript".equals(enameLC)) {
                                 scanUntilEndTag("/noscript");
                             }
-                            else if ("noframes".equals(enameLC)) {
+                            else if (!selfClosed && "noframes".equals(enameLC)) {
                                 scanUntilEndTag("/noframes");
                             }
-                            else if ("noembed".equals(enameLC)) {
+                            else if (!selfClosed && "noembed".equals(enameLC)) {
                                 scanUntilEndTag("/noembed");
                             }
                             // title inside svg
@@ -2466,10 +2469,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                     && htmlConfiguration_.getTagBalancer().fOpenedSvg) {
                                 setScannerState(STATE_CONTENT);
                             }
-                            else if ("plaintext".equals(enameLC)) {
+                            else if (!selfClosed && "plaintext".equals(enameLC)) {
                                 setScanner(fPlainTextScanner);
                             }
-                            else if (ename != null) {
+                            else if (!selfClosed && ename != null) {
                                 final Element elem =
                                         htmlConfiguration_.getHtmlElements().getElementLC(enameLC, null);
                                 if (elem != null && elem.isSpecial()) {

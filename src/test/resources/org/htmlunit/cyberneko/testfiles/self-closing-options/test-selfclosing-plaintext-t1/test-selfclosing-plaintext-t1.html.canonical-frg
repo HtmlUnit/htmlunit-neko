@@ -1,3 +1,6 @@
 (plaintext
 )plaintext
-"<b id="child">x</b>
+(b
+Aid child
+"x
+)b

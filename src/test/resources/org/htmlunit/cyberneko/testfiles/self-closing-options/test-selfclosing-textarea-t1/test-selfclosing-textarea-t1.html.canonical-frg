@@ -1,3 +1,6 @@
 (textarea
 )textarea
-"<b id="child">x</b>
+(b
+Aid child
+"x
+)b
