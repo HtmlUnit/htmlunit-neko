@@ -22,9 +22,10 @@ package org.htmlunit.cyberneko.xerces.xni;
  * <p>
  * <strong>Note:</strong> Methods that receive Augmentations are required to
  * copy the information if it is to be saved for use beyond the scope of the
- * method. The Augmentations content is volatile, and maybe modified by any
+ * method. The Augmentations content is volatile, and may be modified by any
  * method in any component in the pipeline. Therefore, methods passed this
  * structure should not save any reference to the structure.
+ * </p>
  *
  * @author Elena Litani, IBM
  * @author Ronald Brill
@@ -33,46 +34,59 @@ public interface Augmentations {
     // location information
 
     /**
-     * @return the line number of the beginning of this event.
+     * Returns the line number of the beginning of this event.
+     *
+     * @return the one-based begin line number, or {@code -1} if not available
      */
     int getBeginLineNumber();
 
     /**
-     * @return the column number of the beginning of this event.
+     * Returns the column number of the beginning of this event.
+     *
+     * @return the one-based begin column number, or {@code -1} if not available
      */
     int getBeginColumnNumber();
 
     /**
-     * @return the character offset of the beginning of this event.
+     * Returns the character offset of the beginning of this event.
+     *
+     * @return the zero-based begin character offset, or {@code -1} if not available
      */
     int getBeginCharacterOffset();
 
     /**
-     * @return the line number of the end of this event.
+     * Returns the line number of the end of this event.
+     *
+     * @return the one-based end line number, or {@code -1} if not available
      */
     int getEndLineNumber();
 
     /**
-     * @return the column number of the end of this event.
+     * Returns the column number of the end of this event.
+     *
+     * @return the one-based end column number, or {@code -1} if not available
      */
     int getEndColumnNumber();
 
     /**
-     * @return the character offset of the end of this event.
+     * Returns the character offset of the end of this event.
+     *
+     * @return the zero-based end character offset, or {@code -1} if not available
      */
     int getEndCharacterOffset();
 
     // other information
 
     /**
-     * @return true if this corresponding event was synthesized.
+     * Returns whether the corresponding event was synthesized.
+     *
+     * @return {@code true} if the event was synthesized, {@code false} otherwise
      */
     boolean isSynthesized();
 
     /**
-     * Clones this Augmentation in case one has to keep the reference.
-     * The standard interface says, storing the original reference is
-     * not legal.
+     * Clones this Augmentations instance in case a reference needs to be retained.
+     * Storing the original reference directly is illegal due to its volatile nature.
      *
      * @return a full copy of this augmentations holder
      */

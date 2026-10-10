@@ -20,33 +20,40 @@ import org.htmlunit.cyberneko.xerces.xni.QName;
 import org.htmlunit.cyberneko.xerces.xni.XMLAttributes;
 
 /**
- * The XMLAttributesImpl class is an implementation of the XMLAttributes
+ * The XMLAttributesImpl class is an implementation of the {@link XMLAttributes}
  * interface which defines a collection of attributes for an element. In the
- * parser, the document source would scan the entire start element and collect
- * the attributes. The attributes are communicated to the document handler in
- * the startElement method.
+ * parser, the document source scans the entire start element and collects
+ * the attributes, communicating them to the document handler via the
+ * {@code startElement} method.
  * <p>
  * The attributes are read-write so that subsequent stages in the document
- * pipeline can modify the values or change the attributes that are propagated
- * to the next stage.
+ * pipeline can modify values or change attributes propagated to the next stage.
+ * </p>
  *
  * @see org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler#startElement
  *
  * @author Andy Clark, IBM
  * @author Elena Litani, IBM
  * @author Michael Glavassevich, IBM
+ * @author Ronald Brill
  */
 public class XMLAttributesImpl implements XMLAttributes {
 
     /** Active attribute information. */
     private final ArrayList<Attribute> attributes_;
 
-    /** Default constructor. */
+    /**
+     * Constructs a default {@code XMLAttributesImpl} instance with an initial capacity.
+     */
     public XMLAttributesImpl() {
         attributes_ = new ArrayList<>(4);
     }
 
-    /** Copy constructor. */
+    /**
+     * Constructs a copy of the specified attribute collection.
+     *
+     * @param attributes the attribute collection to copy from
+     */
     public XMLAttributesImpl(final XMLAttributesImpl attributes) {
         final ArrayList<Attribute> attribs = attributes.getAttributes();
         final int length = attribs.size();
@@ -62,26 +69,24 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Adds an attribute. The attribute's non-normalized value of the attribute will
+     * Adds an attribute. The attribute's non-normalized value will
      * have the same value as the attribute value. Also, the added attribute will be
      * marked as specified in the XML instance document unless set otherwise using
-     * the <code>setSpecified</code> method.
+     * the {@link #setSpecified} method.
      * <p>
      * <strong>Note:</strong> This implementation does <em>not</em> check whether an
      * attribute of the same name already exists. If duplicate prevention is required,
      * the caller must verify uniqueness before calling this method.
+     * </p>
      *
-     * @param name  The attribute name.
-     * @param type  The attribute type. The type name is determined by the type
-     *              specified for this attribute in the DTD. For example: "CDATA",
-     *              "ID", "NMTOKEN", etc. However, attributes of type enumeration
-     *              will have the type value specified as the pipe ('|') separated
-     *              list of the enumeration values prefixed by an open parenthesis
-     *              and suffixed by a close parenthesis. For example:
-     *              "(true|false)".
-     * @param value The attribute value.
-     *
-     * @return Returns the attribute index.
+     * @param name  the attribute name
+     * @param type  the attribute type. The type name is determined by the type
+     *              specified for this attribute in the DTD (e.g., "CDATA",
+     *              "ID", "NMTOKEN", etc.). Enumeration types will have the type
+     *              value specified as a pipe-separated list enclosed in parentheses,
+     *              for example: "(true|false)".
+     * @param value the attribute value
+     * @return the zero-based attribute index
      * @see #setSpecified
      */
     @Override
@@ -91,28 +96,29 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Adds an attribute. The attribute's non-normalized value of the attribute will
+     * Adds an attribute. The attribute's non-normalized value will
      * have the same value as the attribute value. Also, the added attribute will be
      * marked as specified in the XML instance document unless set otherwise using
-     * the <code>setSpecified</code> method.
+     * the {@link #setSpecified} method.
      * <p>
-     * This method differs from <code>addAttribute</code> in that it does not check
+     * This method differs from other addAttribute variants in that it does not check
      * if an attribute of the same name already exists in the list before adding it.
-     * In order to improve performance of namespace processing, this method allows
-     * uniqueness checks to be deferred until all the namespace information is
+     * To improve performance of namespace processing, this method allows
+     * uniqueness checks to be deferred until all namespace information is
      * available after the entire attribute specification has been read.
+     * </p>
      * <p>
-     * <strong>Caution:</strong> If this method is called it should not be mixed
-     * with calls to <code>addAttribute</code> unless it has been determined that
-     * all the attribute names are unique.
+     * <strong>Caution:</strong> If this method is called, it should not be mixed
+     * with standard {@code addAttribute} calls unless it has been determined that
+     * all attribute names are unique.
+     * </p>
      *
-     * @param name  the attribute name
-     * @param type  the attribute type
-     * @param value the attribute value
-     * @param specified the specified attribute value
+     * @param name      the attribute name
+     * @param type      the attribute type
+     * @param value     the attribute value
+     * @param specified {@code true} if the attribute was specified in the instance document
      */
     public void addAttribute(final QName name, final String type, final String value, final boolean specified) {
-        // set values
         final Attribute attribute = new Attribute();
         attribute.name_.setValues(name);
         attribute.type_ = type;
@@ -128,19 +134,20 @@ public class XMLAttributesImpl implements XMLAttributes {
      * This variant stores both the normalized {@code value} and the original
      * {@code nonNormalizedValue} so that downstream consumers can access the
      * raw attribute text via {@link #getNonNormalizedValue(int)}.
+     * </p>
      * <p>
-     * Like the other {@code addAttribute} overloads, this method does
+     * Like other {@code addAttribute} overloads, this method does
      * <em>not</em> check for duplicate attribute names.
+     * </p>
      *
      * @param name               the attribute name
-     * @param type               the attribute type (e.g. "CDATA")
+     * @param type               the attribute type (e.g., "CDATA")
      * @param value              the normalized attribute value
-     * @param nonNormalizedValue  the original, non-normalized attribute value
-     * @param specified          {@code true} if the attribute was specified in the
-     *                           instance document
+     * @param nonNormalizedValue the original, non-normalized attribute value
+     * @param specified          {@code true} if the attribute was specified in the instance document
      */
     public void addAttribute(final QName name, final String type, final String value,
-                    final String nonNormalizedValue, final boolean specified) {
+                           final String nonNormalizedValue, final boolean specified) {
         final AttributeExt attribute = new AttributeExt();
         attribute.name_.setValues(name);
         attribute.type_ = type;
@@ -152,8 +159,8 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Removes all of the attributes. This method will also remove all entities
-     * associated to the attributes.
+     * Removes all attributes from the collection. This method also removes all entities
+     * associated with the attributes.
      */
     @Override
     public void removeAllAttributes() {
@@ -163,10 +170,11 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * Removes the attribute at the specified index.
      * <p>
-     * <strong>Note:</strong> This operation changes the indexes of all attributes
-     * following the attribute at the specified index.
+     * <strong>Note:</strong> This operation shifts the indices of all attributes
+     * following the specified index.
+     * </p>
      *
-     * @param attrIndex The attribute index.
+     * @param attrIndex the zero-based attribute index
      */
     @Override
     public void removeAttributeAt(final int attrIndex) {
@@ -176,8 +184,8 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * Sets the name of the attribute at the specified index.
      *
-     * @param attrIndex The attribute index.
-     * @param attrName  The new attribute name.
+     * @param attrIndex the zero-based attribute index
+     * @param attrName  the new attribute name
      */
     @Override
     public void setName(final int attrIndex, final QName attrName) {
@@ -185,11 +193,11 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Sets the fields in the given QName structure with the values of the attribute
+     * Populates the fields of the given {@link QName} structure with the values of the attribute
      * name at the specified index.
      *
-     * @param attrIndex The attribute index.
-     * @param attrName  The attribute name structure to fill in.
+     * @param attrIndex the zero-based attribute index
+     * @param attrName  the attribute name structure to fill in
      */
     @Override
     public void getName(final int attrIndex, final QName attrName) {
@@ -197,11 +205,11 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Sets the value of the attribute at the specified index. This method will
-     * overwrite the non-normalized value of the attribute.
+     * Sets the value of the attribute at the specified index. This method also
+     * overwrites the non-normalized value of the attribute.
      *
-     * @param attrIndex The attribute index.
-     * @param attrValue The new attribute value.
+     * @param attrIndex the zero-based attribute index
+     * @param attrValue the new attribute value
      */
     @Override
     public void setValue(final int attrIndex, final String attrValue) {
@@ -209,10 +217,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Sets whether an attribute is specified in the instance document or not.
+     * Sets whether an attribute was specified in the instance document.
      *
-     * @param attrIndex The attribute index.
-     * @param specified True if the attribute is specified in the instance document.
+     * @param attrIndex the zero-based attribute index
+     * @param specified {@code true} if the attribute is specified in the instance document
      */
     @Override
     public void setSpecified(final int attrIndex, final boolean specified) {
@@ -220,9 +228,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Returns true if the attribute is specified in the instance document.
+     * Returns whether the attribute at the specified index was specified in the instance document.
      *
-     * @param attrIndex The attribute index.
+     * @param attrIndex the zero-based attribute index
+     * @return {@code true} if specified, {@code false} otherwise
      */
     @Override
     public boolean isSpecified(final int attrIndex) {
@@ -230,13 +239,12 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Return the number of attributes in the list.
-     *
+     * Returns the number of attributes in the list.
      * <p>
      * Once you know the number of attributes, you can iterate through the list.
      * </p>
      *
-     * @return The number of attributes in the list.
+     * @return the number of attributes in the list
      */
     @Override
     public int getLength() {
@@ -244,29 +252,19 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's type by index.
-     *
+     * Looks up an attribute's type by index.
      * <p>
      * The attribute type is one of the strings "CDATA", "ID", "IDREF", "IDREFS",
-     * "NMTOKEN", "NMTOKENS", "ENTITY", "ENTITIES", or "NOTATION" (always in upper
-     * case).
+     * "NMTOKEN", "NMTOKENS", "ENTITY", "ENTITIES", or "NOTATION" (always in upper case).
      * </p>
-     *
      * <p>
-     * If the parser has not read a declaration for the attribute, or if the parser
-     * does not report attribute types, then it must return the value "CDATA" as
-     * stated in the XML 1.0 Recommendation (clause 3.3.3, "Attribute-Value
-     * Normalization").
+     * If the parser has not read a declaration for the attribute, or if it
+     * does not report attribute types, it must return "CDATA" as stated in the
+     * XML 1.0 Recommendation (clause 3.3.3, "Attribute-Value Normalization").
      * </p>
      *
-     * <p>
-     * For an enumerated attribute that is not a notation, the parser will report
-     * the type as "NMTOKEN".
-     * </p>
-     *
-     * @param index The attribute index (zero-based).
-     * @return The attribute's type as a string, or null if the index is out of
-     *         range.
+     * @param index the zero-based attribute index
+     * @return the attribute's type as a string, or {@code null} if out of range
      * @see #getLength
      */
     @Override
@@ -278,16 +276,13 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's type by XML 1.0 qualified name.
-     *
+     * Looks up an attribute's type by XML 1.0 qualified name.
      * <p>
-     * See {@link #getType(int) getType(int)} for a description of the possible
-     * types.
+     * See {@link #getType(int)} for a description of possible types.
      * </p>
      *
-     * @param qname The XML 1.0 qualified name.
-     * @return The attribute type as a string, or null if the attribute is not in
-     *         the list or if qualified names are not available.
+     * @param qname the XML 1.0 qualified name
+     * @return the attribute type as a string, or {@code null} if not found
      */
     @Override
     public String getType(final String qname) {
@@ -296,17 +291,14 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's value by index.
-     *
+     * Looks up an attribute's value by index.
      * <p>
      * If the attribute value is a list of tokens (IDREFS, ENTITIES, or NMTOKENS),
-     * the tokens will be concatenated into a single string with each token
-     * separated by a single space.
+     * tokens are concatenated into a single string separated by a single space.
      * </p>
      *
-     * @param index The attribute index (zero-based).
-     * @return The attribute's value as a string, or null if the index is out of
-     *         range.
+     * @param index the zero-based attribute index
+     * @return the attribute's value as a string, or {@code null} if out of range
      * @see #getLength
      */
     @Override
@@ -318,16 +310,13 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's value by XML 1.0 qualified name.
-     *
+     * Looks up an attribute's value by XML 1.0 qualified name.
      * <p>
-     * See {@link #getValue(int) getValue(int)} for a description of the possible
-     * values.
+     * See {@link #getValue(int)} for a description of possible values.
      * </p>
      *
-     * @param qname The XML 1.0 qualified name.
-     * @return The attribute value as a string, or null if the attribute is not in
-     *         the list or if qualified names are not available.
+     * @param qname the XML 1.0 qualified name
+     * @return the attribute value as a string, or {@code null} if not found
      */
     @Override
     public String getValue(final String qname) {
@@ -340,12 +329,12 @@ public class XMLAttributesImpl implements XMLAttributes {
      * <p>
      * Returns the raw (prefixed) name of the attribute at the given index.
      * This is a convenience shortcut equivalent to
-     * {@code getName(index).getRawname()} but with bounds checking.
+     * {@code getName(index).getRawname()} with bounds checking.
+     * </p>
      *
-     * @param index The index of the attribute in the list (starting at 0).
-     * @return The raw name of the indexed attribute, or null if the index is
-     *         out of range.
-     * @see #getQName(int)
+     * @param index the zero-based attribute index
+     * @return the raw name of the indexed attribute, or {@code null} if out of range
+     * @see #getName(int)
      * @see #getLength
      */
     public String getNameRawName(final int index) {
@@ -356,7 +345,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Returns the full QName of the name of this attribute.
+     * Returns the full {@link QName} structure of the attribute at the specified index.
+     *
+     * @param index the zero-based attribute index
+     * @return the attribute's full {@link QName}
      */
     @Override
     public QName getName(final int index) {
@@ -364,10 +356,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up the index of an attribute by XML 1.0 qualified name.
+     * Looks up the index of an attribute by XML 1.0 qualified name.
      *
-     * @param qName The qualified (prefixed) name.
-     * @return The index of the attribute, or -1 if it does not appear in the list.
+     * @param qName the qualified (prefixed) name
+     * @return the attribute index, or {@code -1} if it does not appear in the list
      */
     @Override
     public int getIndex(final String qName) {
@@ -382,11 +374,11 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up the index of an attribute by Namespace name.
+     * Looks up the index of an attribute by Namespace name.
      *
-     * @param uri       The Namespace URI, or null if the name has no Namespace URI.
-     * @param localPart The attribute's local name.
-     * @return The index of the attribute, or -1 if it does not appear in the list.
+     * @param uri       the Namespace URI, or {@code null} if none
+     * @param localPart the attribute's local name
+     * @return the attribute index, or {@code -1} if it does not appear in the list
      */
     @Override
     public int getIndex(final String uri, final String localPart) {
@@ -405,11 +397,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's local name by index.
+     * Looks up an attribute's local name by index.
      *
-     * @param index The attribute index (zero-based).
-     * @return The local name, or the empty string if Namespace processing is not
-     *         being performed, or null if the index is out of range.
+     * @param index the zero-based attribute index
+     * @return the local name, empty string if namespaces are disabled, or {@code null} if out of range
      * @see #getLength
      */
     @Override
@@ -421,11 +412,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's XML 1.0 qualified name by index.
+     * Looks up an attribute's XML 1.0 qualified name by index.
      *
-     * @param index The attribute index (zero-based).
-     * @return The XML 1.0 qualified name, or the empty string if none is available,
-     *         or null if the index is out of range.
+     * @param index the zero-based attribute index
+     * @return the qualified name, empty string if none available, or {@code null} if out of range
      * @see #getLength
      */
     @Override
@@ -438,17 +428,14 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's type by Namespace name.
-     *
+     * Looks up an attribute's type by Namespace name.
      * <p>
-     * See {@link #getType(int) getType(int)} for a description of the possible
-     * types.
+     * See {@link #getType(int)} for a description of possible types.
      * </p>
      *
-     * @param uri       The Namespace URI, or null if the name has no Namespace URI.
-     * @param localName The local name of the attribute.
-     * @return The attribute type as a string, or null if the attribute is not in
-     *         the list or if Namespace processing is not being performed.
+     * @param uri       the Namespace URI, or {@code null} if none
+     * @param localName the local name of the attribute
+     * @return the attribute type, or {@code null} if not found
      */
     @Override
     public String getType(final String uri, final String localName) {
@@ -457,10 +444,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's Namespace URI by index.
+     * Looks up an attribute's Namespace URI by index.
      *
-     * @param index The attribute index (zero-based).
-     * @return The Namespace URI, or null if the index is out of range.
+     * @param index the zero-based attribute index
+     * @return the Namespace URI, or {@code null} if out of range
      * @see #getLength
      */
     @Override
@@ -472,17 +459,14 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Look up an attribute's value by Namespace name.
-     *
+     * Looks up an attribute's value by Namespace name.
      * <p>
-     * See {@link #getValue(int) getValue(int)} for a description of the possible
-     * values.
+     * See {@link #getValue(int)} for a description of possible values.
      * </p>
      *
-     * @param uri       The Namespace URI, or null if the name has no Namespace URI.
-     * @param localName The local name of the attribute.
-     * @return The attribute value as a string, or null if the attribute is not in
-     *         the list.
+     * @param uri       the Namespace URI, or {@code null} if none
+     * @param localName the local name of the attribute
+     * @return the attribute value, or {@code null} if not found
      */
     @Override
     public String getValue(final String uri, final String localName) {
@@ -541,17 +525,17 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
      *
-     * @return the internal attributes_ {@link ArrayList} to allow some performance optimizations.
+     * @return the internal attributes {@link ArrayList} to allow performance optimizations
      */
     public ArrayList<Attribute> getAttributes() {
         return attributes_;
     }
 
     /**
-     * Returns the value passed in or NMTOKEN if it's an enumerated type.
+     * Returns the reportable type string, converting enumerated types to "NMTOKEN".
      *
-     * @param type attribute type
-     * @return the value passed in or NMTOKEN if it's an enumerated type.
+     * @param type the raw attribute type
+     * @return the reportable attribute type
      */
     private static String getReportableType(final String type) {
         if (type.charAt(0) == '(') {
@@ -563,30 +547,46 @@ public class XMLAttributesImpl implements XMLAttributes {
     /**
      * <span style="color:red">INTERNAL API - SUBJECT TO CHANGE AT ANY TIME - USE AT YOUR OWN RISK.</span>
      * <p>
-     * Attribute information.
-     * Only public to allow some performance optimizations.
+     * Attribute information container.
+     * Only public to allow certain performance optimizations.
+     * </p>
      */
     public static class Attribute {
-        /** Name. */
+        /** Attribute qualified name. */
         final QName name_ = new QName();
 
+        /**
+         * Returns the attribute's qualified name structure.
+         *
+         * @return the qualified name
+         */
         public QName getQName() {
             return name_;
         }
 
-        /** Type. */
+        /** Attribute type. */
         String type_;
 
-        /** Value. */
+        /** Attribute normalized value. */
         String value_;
 
+        /**
+         * Returns the attribute's value.
+         *
+         * @return the attribute value
+         */
         public String getValue() {
             return value_;
         }
 
-        /** Specified. */
+        /** Flag indicating whether the attribute was explicitly specified in the instance document. */
         boolean specified_;
 
+        /**
+         * Returns the non-normalized value of this attribute.
+         *
+         * @return the non-normalized attribute value
+         */
         String getNonNormalizedValue() {
             return value_;
         }
@@ -603,9 +603,10 @@ public class XMLAttributesImpl implements XMLAttributes {
     }
 
     /**
-     * Attribute information.
+     * Extended attribute information container holding non-normalized text.
      */
     static class AttributeExt extends Attribute {
+        /** Non-normalized attribute value. */
         String nonNormalizedValue_;
 
         @Override
@@ -629,11 +630,11 @@ public class XMLAttributesImpl implements XMLAttributes {
      * An immutable, empty {@link XMLAttributesImpl} used as a flyweight for
      * synthesized elements. Any attempt to mutate it throws
      * {@link UnsupportedOperationException} so that accidental downstream
-     * mutations are caught loudly rather than silently corrupting a shared
-     * instance.
+     * modifications fail fast.
      */
     public static final class EmptyXMLAttributesImpl extends XMLAttributesImpl {
 
+        /** Shared singleton instance. */
         public static final EmptyXMLAttributesImpl INSTANCE = new EmptyXMLAttributesImpl();
 
         private EmptyXMLAttributesImpl() {

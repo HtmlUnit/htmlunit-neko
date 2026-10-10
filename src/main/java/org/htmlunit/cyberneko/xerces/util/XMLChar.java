@@ -28,6 +28,7 @@ import java.util.Arrays;
  * flag (e.g. <code>MASK_VALID</code>), yields the same results as calling the
  * convenience methods. There is one exception: check the comments for the
  * <code>isValid</code> method for details.
+ * </p>
  *
  * @author Glenn Marcy, IBM
  * @author Andy Clark, IBM
@@ -684,60 +685,65 @@ public final class XMLChar {
     }
 
     /**
-     * @return true the supplemental character corresponding to the given
-     *         surrogates.
+     * Returns the supplemental character corresponding to the given surrogate pair.
      *
-     * @param h The high surrogate.
-     * @param l The low surrogate.
+     * @param h the high surrogate character
+     * @param l the low surrogate character
+     * @return the corresponding supplemental character code point
      */
     public static int supplemental(final char h, final char l) {
         return (h - 0xD800) * 0x400 + (l - 0xDC00) + 0x10000;
     }
 
     /**
-     * @return whether the given character is a low surrogate
+     * Returns whether the given character or code point is a low surrogate.
      *
-     * @param c The character to check.
+     * @param c the character or code point to check
+     * @return {@code true} if the character is a low surrogate, {@code false} otherwise
      */
     public static boolean isLowSurrogate(final int c) {
         return 0xDC00 <= c && c <= 0xDFFF;
     }
 
     /**
-     * @return true if the specified character is a valid name start character as
-     *         defined by production [5] in the XML 1.0 specification.
+     * Returns whether the specified character is a valid name start character as
+     * defined by production [5] in the XML 1.0 specification.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid name start character, {@code false} otherwise
      */
     public static boolean isNameStart(final int c) {
         return c < 0x10000 && (CHARS[c] & MASK_NAME_START) != 0;
     }
 
     /**
-     * @return true if the specified character is a valid name character as defined
-     *         by production [4] in the XML 1.0 specification.
+     * Returns whether the specified character is a valid name character as defined
+     * by production [4] in the XML 1.0 specification.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid name character, {@code false} otherwise
      */
     public static boolean isName(final int c) {
         return c < 0x10000 && (CHARS[c] & MASK_NAME) != 0;
     }
 
     /**
-     * @return true if the specified character is a valid NCName start character as
-     *         defined by production [4] in Namespaces in XML recommendation.
+     * Returns whether the specified character is a valid NCName start character as
+     * defined by production [4] in the Namespaces in XML recommendation.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid NCName start character, {@code false} otherwise
      */
     public static boolean isNCNameStart(final int c) {
         return c < 0x10000 && (CHARS[c] & MASK_NCNAME_START) != 0;
     }
 
     /**
-     * @return true if the specified character is a valid NCName character as
-     *         defined by production [5] in Namespaces in XML recommendation.
+     * Returns whether the specified character is a valid NCName character as
+     * defined by production [5] in the Namespaces in XML recommendation.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid NCName character, {@code false} otherwise
      */
     public static boolean isNCName(final int c) {
         return c < 0x10000 && (CHARS[c] & MASK_NCNAME) != 0;
@@ -747,11 +753,11 @@ public final class XMLChar {
      * [5] Name ::= (Letter | '_' | ':') (NameChar)*
      */
     /**
-     * Check to see if a string is a valid Name according to [5] in the XML 1.0
+     * Checks whether a string is a valid Name according to production [5] in the XML 1.0
      * Recommendation.
      *
-     * @param name string to check
-     * @return true if name is a valid Name
+     * @param name the string to check
+     * @return {@code true} if the string is a valid Name, {@code false} otherwise
      */
     public static boolean isValidName(final String name) {
         final int length = name.length();
@@ -775,11 +781,11 @@ public final class XMLChar {
      * from the namespace rec [4] NCName ::= (Letter | '_') (NCNameChar)*
      */
     /**
-     * Check to see if a string is a valid NCName according to [4] from the XML
+     * Checks whether a string is a valid NCName according to production [4] from the XML
      * Namespaces 1.0 Recommendation.
      *
-     * @param ncName string to check
-     * @return true if name is a valid NCName
+     * @param ncName the string to check]
+     * @return {@code true} if the string is a valid NCName, {@code false} otherwise
      */
     public static boolean isValidNCName(final String ncName) {
         final int length = ncName.length();
