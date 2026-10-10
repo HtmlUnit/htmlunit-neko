@@ -1,0 +1,13 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="textarea",rawname="textarea") [(1,1,0) (1,11,10) false]
+characters 'Hello�World'[(1,11,10) (1,22,21) false]
+endElement (localpart="textarea",rawname="textarea") [(1,22,21) (1,33,32) false]
+characters '
+'[(1,33,32) (2,1,33) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(2,1,33) (2,1,33) false]
