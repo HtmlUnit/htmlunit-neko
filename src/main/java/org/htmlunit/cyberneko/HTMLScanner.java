@@ -2568,6 +2568,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         fScanUntilEndTag.append('\n');
                     }
                 }
+                else if (c == 0) {
+                    fScanUntilEndTag.appendReplacementChar();
+                }
                 else if (!fScanUntilEndTag.appendCodePoint(c)) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
@@ -3652,6 +3655,10 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                             else {
                                 charBuffer_.clear().append("</");
                             }
+                        }
+                        else if (c == 0){
+                            charBuffer_.clearAndAppend('<');
+                            charBuffer_.appendReplacementChar();
                         }
                         else {
                             charBuffer_.clearAndAppend('<');
