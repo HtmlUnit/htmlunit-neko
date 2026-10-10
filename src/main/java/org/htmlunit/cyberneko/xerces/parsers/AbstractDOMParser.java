@@ -55,14 +55,15 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.LocatorImpl;
 
 /**
- * This is the base class of all DOM parsers. It implements the XNI callback
+ * Base class of all DOM parsers. It implements the XNI callback
  * methods to create the DOM tree. After a successful parse of an XML document,
- * the DOM Document object can be queried using the <code>getDocument</code>
+ * the DOM Document object can be queried using the {@link #getDocument()}
  * method. The actual pipeline is defined in parser configuration.
  *
  * @author Arnaud Le Hors, IBM
  * @author Andy Clark, IBM
  * @author Elena Litani, IBM
+ * @author Ronald Brill
  */
 public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
@@ -132,7 +133,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /** Document locator. */
     private XMLLocator fLocator;
 
-    // Default constructor.
+    /**
+     * Constructs an abstract DOM parser with the specified configuration and document class.
+     *
+     * @param config        the parser configuration
+     * @param documentClass the document class to use
+     */
     protected AbstractDOMParser(final XMLParserConfiguration config, final Class<?
                 extends DocumentImpl> documentClass) {
         super(config);
@@ -151,20 +157,21 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * This method allows the programmer to decide which document factory to use
+     * Allows the programmer to decide which document factory to use
      * when constructing the DOM tree. However, doing so will lose the functionality
      * of the default factory. Also, a document class other than the default will
      * lose the ability to defer node expansion on the DOM tree produced.
      *
-     * @param documentClass The document factory to use when constructing the DOM
-     *                      tree.
+     * @param documentClass the document factory to use when constructing the DOM tree
      */
     protected void setDocumentClass(final Class<? extends DocumentImpl> documentClass) {
         fDocumentClass = documentClass;
     }
 
     /**
-     * @return the DOM document object.
+     * Returns the DOM document object.
+     *
+     * @return the DOM document object
      */
     public Document getDocument() {
         return fDocument;
@@ -173,7 +180,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * Resets the parser state.
      *
-     * @throws XNIException Thrown on initialization error.
+     * @throws XNIException thrown on initialization error
      */
     @Override
     public void reset() throws XNIException {
@@ -206,10 +213,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * A comment.
      *
-     * @param text The text in the comment.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by application to signal an error.
+     * @param text the text in the comment
+     * @param augs additional information that may include infoset augmentations
+     * @throws XNIException thrown by application to signal an error
      */
     @Override
     public void comment(final XMLString text, final Augmentations augs) throws XNIException {
@@ -231,12 +237,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * attributes but are <strong>not</strong> parsed or presented to the
      * application as anything other than text. The application is responsible for
      * parsing the data.
+     * </p>
      *
-     * @param target The target.
-     * @param data   The data or null if none specified.
-     * @param augs   Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param target the target
+     * @param data   the data, or {@code null} if none specified
+     * @param augs   additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void processingInstruction(final String target, final XMLString data,
@@ -253,23 +259,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * The start of the document.
      *
-     * @param locator          The system identifier of the entity if the entity is
-     *                         external, null otherwise.
-     * @param encoding         The auto-detected IANA encoding name of the entity
-     *                         stream. This value will be null in those situations
-     *                         where the entity encoding is not auto-detected (e.g.
-     *                         internal entities or a document entity that is parsed
-     *                         from a java.io.Reader).
-     * @param namespaceContext The namespace context in effect at the start of this
-     *                         document. This object represents the current context.
-     *                         Implementors of this class are responsible for
-     *                         copying the namespace bindings from the current
-     *                         context (and its parent contexts) if that information
-     *                         is important.
-     * @param augs             Additional information that may include infoset
-     *                         augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param locator          the system identifier of the entity if external, {@code null} otherwise
+     * @param encoding         the auto-detected IANA encoding name of the entity stream, or {@code null} if not auto-detected
+     * @param namespaceContext the namespace context in effect at the start of this document
+     * @param augs             additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void startDocument(final XMLLocator locator, final String encoding,
@@ -318,14 +312,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * Notifies of the presence of an XMLDecl line in the document. If present, this
      * method will be called immediately following the startDocument call.
      *
-     * @param version    The XML version.
-     * @param encoding   The IANA encoding name of the document, or null if not
-     *                   specified.
-     * @param standalone The standalone value, or null if not specified.
-     * @param augs       Additional information that may include infoset
-     *                   augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param version    the XML version
+     * @param encoding   the IANA encoding name of the document, or {@code null} if not specified
+     * @param standalone the standalone value, or {@code null} if not specified
+     * @param augs       additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void xmlDecl(final String version, final String encoding, final String standalone,
@@ -344,14 +335,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * Notifies of the presence of the DOCTYPE line in the document.
      *
-     * @param rootElement The name of the root element.
-     * @param publicId    The public identifier if an external DTD or null if the
-     *                    external DTD is specified using SYSTEM.
-     * @param systemId    The system identifier if an external DTD, null otherwise.
-     * @param augs        Additional information that may include infoset
-     *                    augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param rootElement the name of the root element
+     * @param publicId    the public identifier if an external DTD, or {@code null} if specified using SYSTEM
+     * @param systemId    the system identifier if an external DTD, or {@code null} otherwise
+     * @param augs        additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void doctypeDecl(final String rootElement, final String publicId, final String systemId,
@@ -364,15 +352,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
 
     /**
      * The start of an element. If the document specifies the start element by using
-     * an empty tag, then the startElement method will immediately be followed by
+     * an empty tag, the startElement method is immediately followed by
      * the endElement method, with no intervening methods.
      *
-     * @param element    The name of the element.
-     * @param attributes The element attributes.
-     * @param augs       Additional information that may include infoset
-     *                   augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param element    the name of the element
+     * @param attributes the element attributes
+     * @param augs       additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void startElement(final QName element, final XMLAttributes attributes,
@@ -429,12 +415,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * An empty element.
      *
-     * @param element    The name of the element.
-     * @param attributes The element attributes.
-     * @param augs       Additional information that may include infoset
-     *                   augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param element    the name of the element
+     * @param attributes the element attributes
+     * @param augs       additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void emptyElement(final QName element, final XMLAttributes attributes,
@@ -446,10 +430,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * Character content.
      *
-     * @param text The content.
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param text the content
+     * @param augs additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void characters(final XMLString text, final Augmentations augs) throws XNIException {
@@ -503,10 +486,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * The end of an element.
      *
-     * @param element The name of the element.
-     * @param augs    Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param element the name of the element
+     * @param augs    additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
@@ -520,9 +502,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * The start of a CDATA section.
      *
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param augs additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {
@@ -535,9 +516,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * The end of a CDATA section.
      *
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param augs additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void endCDATA(final Augmentations augs) throws XNIException {
@@ -553,9 +533,8 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     /**
      * The end of the document.
      *
-     * @param augs Additional information that may include infoset augmentations
-     *
-     * @throws XNIException Thrown by handler to signal an error.
+     * @param augs additional information that may include infoset augmentations
+     * @throws XNIException thrown by handler to signal an error
      */
     @Override
     public void endDocument(final Augmentations augs) throws XNIException {
@@ -572,7 +551,7 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Record baseURI information for the Element (by adding xml:base attribute) or
+     * Records baseURI information for the Element (by adding xml:base attribute) or
      * for the ProcessingInstruction (by setting a baseURI field) Non deferred DOM.
      *
      * @param node the node
@@ -610,8 +589,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         }
     }
 
-    // method to create an element node.
-    // subclasses can override this method to create element nodes in other ways.
+    /**
+     * Creates an element node. Subclasses can override this method to create element nodes in other ways.
+     *
+     * @param element the qualified name of the element
+     * @return the created element node
+     */
     protected Element createElementNode(final QName element) {
         final Element el;
 
@@ -632,8 +615,12 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         return el;
     }
 
-    // method to create an attribute node.
-    // subclasses can override this method to create attribute nodes in other ways.
+    /**
+     * Creates an attribute node. Subclasses can override this method to create attribute nodes in other ways.
+     *
+     * @param attrQName the qualified name of the attribute
+     * @return the created attribute node
+     */
     protected Attr createAttrNode(final QName attrQName) {
         final Attr attr;
 
@@ -655,18 +642,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
         return attr;
     }
 
-    /*
-     * When the first characters() call is received, the data is stored in a new
-     * Text node. If right after the first characters() we receive another chunk of
-     * data, the data from the Text node, following the new characters are appended
-     * to the fStringBuffer and the text node data is set to empty.
+    /**
+     * Appends character data from the string buffer to the current node.
      *
-     * This function is called when the state is changed and the data must be
-     * appended to the current node.
-     *
-     * Note: if DOMFilter is set, you must make sure that if Node is skipped, or
-     * removed fFistChunk must be set to true, otherwise some data can be lost.
-     *
+     * @param sawChars {@code true} if characters were seen
      */
     protected void setCharacterData(final boolean sawChars) {
 
@@ -698,15 +677,14 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
      * Parses the input source specified by the given system identifier.
      * <p>
      * This method is equivalent to the following:
-     *
      * <pre>
      * parse(new InputSource(systemId));
      * </pre>
+     * </p>
      *
-     * @param systemId The system identifier (URI).
-     *
-     * @exception org.xml.sax.SAXException Throws exception on SAX error.
-     * @exception java.io.IOException      Throws exception on i/o error.
+     0* @param systemId the system identifier (URI)
+     * @throws SAXException thrown on SAX error
+     * @throws IOException  thrown on I/O error
      */
     public void parse(final String systemId) throws SAXException, IOException {
 
@@ -757,12 +735,11 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Parse.
+     * Parses the document using the specified SAX {@link InputSource}.
      *
      * @param inputSource the input source
-     *
-     * @exception org.xml.sax.SAXException on error
-     * @exception java.io.IOException      on error
+     * @throws SAXException thrown on SAX error
+     * @throws IOException  thrown on I/O error
      */
     public void parse(final InputSource inputSource) throws SAXException, IOException {
 
@@ -816,23 +793,20 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Allow an application to register an error event handler.
-     *
+     * Allows an application to register an error event handler.
      * <p>
      * If the application does not register an error handler, all error events
      * reported by the SAX parser will be silently ignored; however, normal
      * processing may not continue. It is highly recommended that all SAX
      * applications implement an error handler to avoid unexpected bugs.
      * </p>
-     *
      * <p>
      * Applications may register a new or different handler in the middle of a
      * parse, and the SAX parser must begin using the new handler immediately.
      * </p>
      *
-     * @param errorHandler The error handler.
-     * @exception java.lang.NullPointerException If the handler argument is null.
-     * @see #getErrorHandler
+     * @param errorHandler the error handler
+     * @see #getErrorHandler()
      */
     public void setErrorHandler(final ErrorHandler errorHandler) {
         try {
@@ -851,10 +825,10 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Return the current error handler.
+     * Returns the current error handler.
      *
-     * @return The current error handler, or null if none has been registered.
-     * @see #setErrorHandler
+     * @return the current error handler, or {@code null} if none has been registered
+     * @see #setErrorHandler(ErrorHandler)
      */
     public ErrorHandler getErrorHandler() {
         ErrorHandler errorHandler = null;
@@ -871,16 +845,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Set the state of any feature in a SAX2 parser. The parser might not recognize
-     * the feature, and if it does recognize it, it might not be able to fulfill the
-     * request.
+     * Sets the state of any feature in a SAX2 parser. The parser might not recognize
+     * the feature, and if recognized, might not be able to fulfill the request.
      *
-     * @param featureId The unique identifier (URI) of the feature.
-     * @param state     The requested state of the feature (true or false).
-     *
-     * @exception SAXNotRecognizedException If the requested feature is not known.
-     * @exception SAXNotSupportedException  If the requested feature is known, but
-     *                                      the requested state is not supported.
+     * @param featureId the unique identifier (URI) of the feature
+     * @param state     the requested state of the feature ({@code true} or {@code false})
+     * @throws SAXNotRecognizedException if the requested feature is not known
+     * @throws SAXNotSupportedException  if the requested feature is known, but the requested state is not supported
      */
     public void setFeature(final String featureId, final boolean state)
                     throws SAXNotRecognizedException, SAXNotSupportedException {
@@ -900,17 +871,16 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Query the state of a feature.
+     * Queries the state of a feature.
      * <p>
-     * Query the current state of any feature in a SAX2 parser. The parser might not
+     * Queries the current state of any feature in a SAX2 parser. The parser might not
      * recognize the feature.
+     * </p>
      *
-     * @param featureId The unique identifier (URI) of the feature being set.
-     * @return The current state of the feature.
-     * @exception org.xml.sax.SAXNotRecognizedException If the requested feature is
-     *                                                  not known.
-     * @exception SAXNotSupportedException              If the requested feature is
-     *                                                  known but not supported.
+     * @param featureId the unique identifier (URI) of the feature being queried
+     * @return the current state of the feature
+     * @throws SAXNotRecognizedException if the requested feature is not known
+     * @throws SAXNotSupportedException  if the requested feature is known but not supported
      */
     public boolean getFeature(final String featureId) throws SAXNotRecognizedException, SAXNotSupportedException {
 
@@ -931,16 +901,13 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * Set the value of any property in a SAX2 parser. The parser might not
-     * recognize the property, and if it does recognize it, it might not support the
-     * requested value.
+     * Sets the value of any property in a SAX2 parser. The parser might not
+     * recognize the property, and if recognized, might not support the requested value.
      *
-     * @param propertyId The unique identifier (URI) of the property being set.
-     * @param value      The value to which the property is being set.
-     *
-     * @exception SAXNotRecognizedException If the requested property is not known.
-     * @exception SAXNotSupportedException  If the requested property is known, but
-     *                                      the requested value is not supported.
+     * @param propertyId the unique identifier (URI) of the property being set
+     * @param value      the value to which the property is being set
+     * @throws SAXNotRecognizedException if the requested property is not known
+     * @throws SAXNotSupportedException  if the requested property is known, but the requested value is not supported
      */
     public void setProperty(final String propertyId, final Object value)
             throws SAXNotRecognizedException, SAXNotSupportedException {
@@ -962,7 +929,9 @@ public class AbstractDOMParser extends AbstractXMLDocumentParser {
     }
 
     /**
-     * @return this parser's XMLParserConfiguration.
+     * Returns this parser's {@link XMLParserConfiguration}.
+     *
+     * @return the parser's configuration
      */
     public XMLParserConfiguration getXMLParserConfiguration() {
         return parserConfiguration_;

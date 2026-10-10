@@ -28,17 +28,18 @@ import org.w3c.dom.TypeInfo;
  * Elements represent most of the "markup" and structure of the document. They
  * contain both the data for the element itself (element name and attributes),
  * and any contained nodes, including document text (as children).
- * <P>
+ * <p>
  * Elements may have Attributes associated with them; the API for this is
  * defined in Node, but the function is implemented here. In general, XML
- * applications should retrive Attributes as Nodes, since they may contain
+ * applications should retrieve Attributes as Nodes, since they may contain
  * entity references and hence be a fairly complex sub-tree. HTML users will be
  * dealing with simple string values, and convenience methods are provided to
  * work in terms of Strings.
- * <P>
+ * </p>
+ * <p>
  * ElementImpl does not support Namespaces. ElementNSImpl, which inherits from
  * it, does.
- * <p>
+ * </p>
  *
  * @see ElementNSImpl
  *
@@ -47,6 +48,7 @@ import org.w3c.dom.TypeInfo;
  * @author Andy Clark, IBM
  * @author Ralf Pfeiffer, IBM
  * @author Michael Glavassevich, IBM
+ * @author Ronald Brill
  */
 public class ElementImpl extends ParentNode implements Element, TypeInfo {
 
@@ -56,7 +58,12 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /** Attributes. */
     protected AttributeMap attributes_;
 
-    // Factory constructor.
+    /**
+     * Constructs a default {@code ElementImpl} instance.
+     *
+     * @param ownerDoc the owner document
+     * @param name     the element name
+     */
     public ElementImpl(final CoreDocumentImpl ownerDoc, final String name) {
         super(ownerDoc);
         name_ = name;
@@ -94,7 +101,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * Returns the element name
+     * Returns the element name.
      */
     @Override
     public String getNodeName() {
@@ -142,7 +149,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * DOM Level 3 WD - Experimental. Retrieve baseURI
+     * DOM Level 3 WD - Experimental. Retrieve baseURI.
      */
     @Override
     public String getBaseURI() {
@@ -220,6 +227,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * Note: Attributes may contain complex node trees. This method returns the
      * "flattened" string obtained from Attribute.getValue(). If you need the
      * structure information, see getAttributeNode().
+     * </p>
      */
     @Override
     public String getAttribute(final String name) {
@@ -238,6 +246,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * string rendering may not be sufficient information.
      * <p>
      * If no matching attribute is available, returns null.
+     * </p>
      */
     @Override
     public Attr getAttributeNode(final String name) {
@@ -257,11 +266,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * Note: NodeList is a "live" view of the DOM. Its contents will change as the
      * DOM changes, and alterations made to the NodeList will be reflected in the
      * DOM.
+     * </p>
      *
-     * @param tagname The type of element to gather. To obtain a list of all
-     *                elements no matter what their names, use the wild-card tag
-     *                name "*".
-     *
+     * @param tagname the type of element to gather
+     * @return a NodeList containing all the matched Elements
      * @see DeepNodeListImpl
      */
     @Override
@@ -276,6 +284,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * also return the tag name.
      * <p>
      * This is case-preserving in XML. HTML should uppercasify it on the way in.
+     * </p>
      */
     @Override
     public String getTagName() {
@@ -287,14 +296,16 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Remove the named attribute from this Element. If the removed Attribute has a
      * default value, it is immediately replaced thereby.
-     * <P>
+     * <p>
      * The default logic is actually implemented in NamedNodeMapImpl.
      * PR-DOM-Level-1-19980818 doesn't fully address the DTD, so some of this
-     * behavior is likely to change in future versions. ?????
-     * <P>
+     * behavior is likely to change in future versions.
+     * </p>
+     * <p>
      * Note that this call "succeeds" even if no attribute by this name existed --
      * unlike removeAttributeNode, which will throw a not-found exception in that
      * case.
+     * </p>
      */
     @Override
     public void removeAttribute(final String name) {
@@ -315,10 +326,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * node with these contents. If the specific Attribute object passed in is not
      * stored in this Element, we throw a DOMException. If you really want to remove
      * an attribute by name, use removeAttribute().
+     * </p>
      *
-     * @return the Attribute object that was removed.
-     * @throws DOMException NOT_FOUND_ERR if oldattr is not an attribute of this
-     *                      Element.
+     * @return the Attribute object that was removed
+     * @throws DOMException NOT_FOUND_ERR if oldattr is not an attribute of this Element
      */
     @Override
     public Attr removeAttributeNode(final Attr oldAttr) throws DOMException {
@@ -340,13 +351,16 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * value is a string contained in a single Text node. If you want to assert a
      * more complex value (which XML permits, though HTML doesn't), see
      * setAttributeNode().
+     * </p>
      * <p>
      * The attribute is created with specified=true, meaning it's an explicit value
      * rather than inherited from the DTD as a default. Again, setAttributeNode can
      * be used to achieve other results.
+     * </p>
      *
-     * @throws DOMException INVALID_NAME_ERR if the name is not acceptable.
-     *                      (Attribute factory will do that test for us.)
+     * @param name  the name of the attribute
+     * @param value the value of the attribute
+     * @throws DOMException INVALID_NAME_ERR if the name is not acceptable
      */
     @Override
     public void setAttribute(final String name, final String value) {
@@ -372,14 +386,17 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Add a new attribute/value pair, or replace the value of the existing
      * attribute with that name.
-     * <P>
+     * <p>
      * This method allows you to add an Attribute that has already been constructed,
      * and hence avoids the limitations of the simple setAttribute() call. It can
      * handle attribute values that have arbitrarily complex tree structure -- in
      * particular, those which had entity references mixed into their text.
+     * </p>
      *
+     * @param newAttr the attribute node to set
+     * @return the replaced attribute node, or {@code null}
      * @throws DOMException INUSE_ATTRIBUTE_ERR if the Attribute object has already
-     *                      been assigned to another Element.
+     *                      been assigned to another Element
      */
     @Override
     public Attr setAttributeNode(final Attr newAttr) throws DOMException {
@@ -403,13 +420,12 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Introduced in DOM Level 2.
      * <p>
-     *
      * Retrieves an attribute value by local name and namespace URI.
+     * </p>
      *
-     * @param namespaceURI The namespace URI of the attribute to retrieve.
-     * @param localName    The local name of the attribute to retrieve.
-     * @return String The Attr value as a string, or empty string if that attribute
-     *         does not have a specified or default value.
+     * @param namespaceURI the namespace URI of the attribute to retrieve
+     * @param localName    the local name of the attribute to retrieve
+     * @return the Attr value as a string, or empty string if not specified or defaulted
      */
     @Override
     public String getAttributeNS(final String namespaceURI, final String localName) {
@@ -426,11 +442,10 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Introduced in DOM Level 2.
      * <p>
-     *
      * Adds a new attribute. If the given namespaceURI is null or an empty string
      * and the qualifiedName has a prefix that is "xml", the new attribute is bound
-     * to the predefined namespace "http://www.w3.org/XML/1998/namespace"
-     * [Namespaces]. If an attribute with the same local name and namespace URI is
+     * to the predefined namespace "http://www.w3.org/XML/1998/namespace".
+     * If an attribute with the same local name and namespace URI is
      * already present on the element, its prefix is changed to be the prefix part
      * of the qualifiedName, and its value is changed to be the value parameter.
      * This value is a simple string, it is not parsed as it is being set. So any
@@ -441,10 +456,11 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * EntityReference nodes, build the appropriate subtree, and use
      * setAttributeNodeNS or setAttributeNode to assign it as the value of an
      * attribute.
+     * </p>
      *
-     * @param namespaceURI  The namespace URI of the attribute to create or alter.
-     * @param qualifiedName The qualified name of the attribute to create or alter.
-     * @param value         The value to set in string form.
+     * @param namespaceURI  the namespace URI of the attribute to create or alter
+     * @param qualifiedName the qualified name of the attribute to create or alter
+     * @param value         the value to set in string form
      */
     @Override
     public void setAttributeNS(final String namespaceURI, final String qualifiedName, final String value) {
@@ -496,16 +512,12 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Introduced in DOM Level 2.
      * <p>
-     *
      * Removes an attribute by local name and namespace URI. If the removed
-     * attribute has a default value it is immediately replaced. The replacing
-     * attribute has the same namespace URI and local name, as well as the original
-     * prefix.
-     * <p>
+     * attribute has a default value it is immediately replaced.
+     * </p>
      *
-     * @param namespaceURI The namespace URI of the attribute to remove.
-     *
-     * @param localName    The local name of the attribute to remove.
+     * @param namespaceURI the namespace URI of the attribute to remove
+     * @param localName    the local name of the attribute to remove
      */
     @Override
     public void removeAttributeNS(final String namespaceURI, final String localName) {
@@ -522,10 +534,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Retrieves an Attr node by local name and namespace URI.
      *
-     * @param namespaceURI The namespace URI of the attribute to retrieve.
-     * @param localName    The local name of the attribute to retrieve.
-     * @return Attr The Attr node with the specified attribute local name and
-     *         namespace URI or null if there is no such attribute.
+     * @param namespaceURI the namespace URI of the attribute to retrieve
+     * @param localName    the local name of the attribute to retrieve
+     * @return the Attr node with the specified attribute local name and namespace URI, or {@code null}
      */
     @Override
     public Attr getAttributeNodeNS(final String namespaceURI, final String localName) {
@@ -540,23 +551,14 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Introduced in DOM Level 2.
      * <p>
-     *
      * Adds a new attribute. If an attribute with that local name and namespace URI
      * is already present in the element, it is replaced by the new one.
+     * </p>
      *
-     * @param newAttr The Attr node to add to the attribute list. When the Node has
-     *                no namespaceURI, this method behaves like setAttributeNode.
-     * @return Attr If the newAttr attribute replaces an existing attribute with the
-     *         same local name and namespace URI, the * previously existing Attr
-     *         node is returned, otherwise null is returned.
-     * @throws DOMException WRONG_DOCUMENT_ERR: Raised if newAttr was created from a
-     *                      different document than the one that created the
-     *                      element.
-     *
-     * @throws DOMException INUSE_ATTRIBUTE_ERR: Raised if newAttr is already an
-     *                      attribute of another Element object. The DOM user must
-     *                      explicitly clone Attr nodes to re-use them in other
-     *                      elements.
+     * @param newAttr the Attr node to add to the attribute list
+     * @return the previously existing Attr node if replaced, or {@code null} otherwise
+     * @throws DOMException WRONG_DOCUMENT_ERR if newAttr was created from a different document
+     * @throws DOMException INUSE_ATTRIBUTE_ERR if newAttr is already an attribute of another Element
      */
     @Override
     public Attr setAttributeNodeNS(final Attr newAttr) throws DOMException {
@@ -610,10 +612,9 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      *
      * Introduced in DOM Level 2.
      * <p>
-     *
      * Returns a NodeList of all the Elements with a given local name and namespace
-     * URI in the order in which they would be encountered in a preorder traversal
-     * of the Document tree, starting from this node.
+     * URI in preorder traversal order starting from this node.
+     * </p>
      *
      * @param namespaceURI The namespace URI of the elements to match on. The
      *                     special value "*" matches all namespaces. When it is null
@@ -631,8 +632,8 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * DOM Level 3 WD- Experimental. Override inherited behavior from NodeImpl and
-     * ParentNode to check on attributes
+     * DOM Level 3 WD - Experimental. Override inherited behavior from NodeImpl and
+     * ParentNode to check on attributes.
      */
     @Override
     public boolean isEqualNode(final Node arg) {
@@ -672,7 +673,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * DOM Level 3: register the given attribute node as an ID attribute
+     * DOM Level 3: register the given attribute node as an ID attribute.
      */
     @Override
     public void setIdAttributeNode(final Attr at, final boolean makeId) {
@@ -694,7 +695,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * DOM Level 3: register the given attribute node as an ID attribute
+     * DOM Level 3: register the given attribute node as an ID attribute.
      */
     @Override
     public void setIdAttribute(final String name, final boolean makeId) {
@@ -724,7 +725,7 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
     /**
      * {@inheritDoc}
      *
-     * DOM Level 3: register the given attribute node as an ID attribute
+     * DOM Level 3: register the given attribute node as an ID attribute.
      */
     @Override
     public void setIdAttributeNS(final String namespaceURI, final String localName, final boolean makeId) {
@@ -777,13 +778,12 @@ public class ElementImpl extends ParentNode implements Element, TypeInfo {
      * <p>
      * Checks if a type is derived from another by restriction. See:
      * http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-isDerivedFrom
+     * </p>
      *
-     * @param typeNamespaceArg The namspace of the ancestor type declaration
-     * @param typeNameArg      The name of the ancestor type declaration
-     * @param derivationMethod The derivation method
-     *
-     * @return boolean True if the type is derived by restriciton for the reference
-     *         type
+     * @param typeNamespaceArg the namespace of the ancestor type declaration
+     * @param typeNameArg      the name of the ancestor type declaration
+     * @param derivationMethod the derivation method
+     * @return {@code true} if derived by restriction from the reference type, {@code false} otherwise
      */
     @Override
     public boolean isDerivedFrom(final String typeNamespaceArg, final String typeNameArg, final int derivationMethod) {

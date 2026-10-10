@@ -24,7 +24,7 @@ import org.w3c.dom.NodeList;
  * ParentNode inherits from ChildNode and adds the capability of having child
  * nodes. Not every node in the DOM can have children, so only nodes that can
  * should inherit from this class and pay the price for it.
- * <P>
+ * <p>
  * ParentNode, just like NodeImpl, also implements NodeList, so it can return
  * itself in response to the getChildNodes() query. This eliminiates the need
  * for a separate ChildNodeList object. Note that this is an IMPLEMENTATION
@@ -32,11 +32,13 @@ import org.w3c.dom.NodeList;
  * other hand, subclasses may need to override this, in case of conflicting
  * names. This is the case for the classes HTMLSelectElementImpl and
  * HTMLFormElementImpl of the HTML DOM.
- * <P>
+ * </p>
+ * <p>
  * While we have a direct reference to the first child, the last child is stored
  * as the previous sibling of the first child. First child nodes are marked as
  * being so, and getNextSibling hides this fact.
- * <P>
+ * </p>
+ * <p>
  * Note: Not all parent nodes actually need to also be a child. At some point we
  * used to have ParentNode inheriting from NodeImpl and another class called
  * ChildAndParentNode that inherited from ChildNode. But due to the lack of
@@ -46,14 +48,16 @@ import org.w3c.dom.NodeList;
  * memory wasn't really worth it. The only type for which this would be the case
  * is Attribute, but we deal with there in another special way, so this is not
  * applicable.
+ * </p>
  * <p>
  * This class doesn't directly support mutation events, however, it notifies the
  * document when mutations are performed so that the document class do so.
+ * </p>
  *
  * <p>
  * <b>WARNING</b>: Some of the code here is partially duplicated in AttrImpl, be
  * careful to keep these two classes in sync!
- * <p>
+ * </p>
  *
  * @author Arnaud Le Hors, IBM
  * @author Joe Kesselman, IBM
@@ -91,14 +95,17 @@ public abstract class ParentNode extends ChildNode {
      * <p>
      * Example: Cloning a Text node will copy both the node and the text it
      * contains.
+     * </p>
      * <p>
      * Example: Cloning something that has children -- Element or Attr, for example
      * -- will _not_ clone those children unless a "deep clone" has been requested.
      * A shallow clone of an Attr node will yield an empty Attr of the same name.
+     * </p>
      * <p>
      * NOTE: Clones will always be read/write, even if the node being cloned is
      * read-only, to permit applications using only the DOM API to obtain editable
      * copies of locked portions of the tree.
+     * </p>
      */
     @Override
     public Node cloneNode(final boolean deep) {
@@ -191,9 +198,11 @@ public abstract class ParentNode extends ChildNode {
      * immediately reflect those changes. Also, the NodeList refers to the actual
      * nodes, so changes to those nodes made via the DOM tree will be reflected in
      * the NodeList and vice versa.
+     * </p>
      * <p>
      * In this implementation, Nodes implement the NodeList interface and provide
      * their own getChildNodes() support. Other DOMs may solve this differently.
+     * </p>
      */
     @Override
     public NodeList getChildNodes() {
@@ -680,7 +689,7 @@ public abstract class ParentNode extends ChildNode {
     /**
      * {@inheritDoc}
      *
-     * NodeList method: Count the immediate children of this node
+     * NodeList method: Count the immediate children of this node.
      *
      * @return int
      */
@@ -690,12 +699,13 @@ public abstract class ParentNode extends ChildNode {
     }
 
     /**
-     * @return the Nth immediate child of this node, or null if the index is out of
-     *         bounds. Use to implement NodeList.item().
-     * @param index the index
+     * Returns the Nth immediate child of this node, or {@code null} if the index is out of
+     * bounds. Used to implement {@code NodeList.item()}.
+     *
+     * @param index the zero-based index of the child node
+     * @return the child node at the specified index, or {@code null} if out of bounds
      */
     Node nodeListItem(final int index) {
-
         if (fNodeListCache == null) {
             if (needsSyncChildren()) {
                 synchronizeChildren();
@@ -833,8 +843,8 @@ public abstract class ParentNode extends ChildNode {
      * accordingly. The conditions for changing the normalized state are:
      * <ul>
      * <li>The inserted child is a text node and one of its adjacent siblings is
-     * also a text node.
-     * <li>The inserted child is is itself unnormalized.
+     * also a text node.</li>
+     * <li>The inserted child is is itself unnormalized.</li>
      * </ul>
      *
      * @param insertedChild the child node that was inserted into this node
@@ -867,7 +877,7 @@ public abstract class ParentNode extends ChildNode {
      * child causes this node to be unnormalized, then this node is flagged
      * accordingly. The conditions for changing the normalized state are:
      * <ul>
-     * <li>The removed child had two adjacent siblings that were text nodes.
+     * <li>The removed child had two adjacent siblings that were text nodes.</li>
      * </ul>
      *
      * @param previousSibling the previous sibling of the removed child, or
