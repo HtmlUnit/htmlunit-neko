@@ -1,0 +1,13 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="noembed",rawname="noembed") [(1,1,0) (1,10,9) false]
+characters 'a�b'[(1,10,9) (1,13,12) false]
+endElement (localpart="noembed",rawname="noembed") [(1,13,12) (1,23,22) false]
+characters '
+'[(1,23,22) (2,1,23) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(2,1,23) (2,1,23) false]
