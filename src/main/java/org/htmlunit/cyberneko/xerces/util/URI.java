@@ -71,13 +71,13 @@ public class URI {
 
     private static final byte[] FG_LOOKUP_TABLE = new byte[128];
 
-    /** reserved characters ;/?:@&=+$,[] */
+    /** Reserved characters ;/?:@&=+$,[] */
     // RFC 2732 added '[' and ']' as reserved characters
     private static final int RESERVED_CHARACTERS = 0x01;
 
     /**
      * URI punctuation mark characters: -_.!~*'() - these, combined with
-     * alphanumerics, constitute the "unreserved" characters
+     * alphanumerics, constitute the "unreserved" characters.
      */
     private static final int MARK_CHARACTERS = 0x02;
 
@@ -89,34 +89,34 @@ public class URI {
      */
     private static final int USERINFO_CHARACTERS = 0x08;
 
-    /** ASCII letter characters */
+    /** ASCII letter characters. */
     private static final int ASCII_ALPHA_CHARACTERS = 0x10;
 
-    /** ASCII digit characters */
+    /** ASCII digit characters. */
     private static final int ASCII_DIGIT_CHARACTERS = 0x20;
 
-    /** ASCII hex characters */
+    /** ASCII hex characters. */
     private static final int ASCII_HEX_CHARACTERS = 0x40;
 
-    /** Path characters */
+    /** Path characters. */
     private static final int PATH_CHARACTERS = 0x80;
 
     /** Mask for alpha-numeric characters */
     private static final int MASK_ALPHA_NUMERIC = ASCII_ALPHA_CHARACTERS | ASCII_DIGIT_CHARACTERS;
 
-    /** Mask for unreserved characters */
+    /** Mask for unreserved characters. */
     private static final int MASK_UNRESERVED_MASK = MASK_ALPHA_NUMERIC | MARK_CHARACTERS;
 
-    /** Mask for URI allowable characters except for % */
+    /** Mask for URI allowable characters except for %. */
     private static final int MASK_URI_CHARACTER = MASK_UNRESERVED_MASK | RESERVED_CHARACTERS;
 
-    /** Mask for scheme characters */
+    /** Mask for scheme characters. */
     private static final int MASK_SCHEME_CHARACTER = MASK_ALPHA_NUMERIC | SCHEME_CHARACTERS;
 
-    /** Mask for userinfo characters */
+    /** Mask for userinfo characters. */
     private static final int MASK_USERINFO_CHARACTER = MASK_UNRESERVED_MASK | USERINFO_CHARACTERS;
 
-    /** Mask for path characters */
+    /** Mask for path characters. */
     private static final int MASK_PATH_CHARACTER = MASK_UNRESERVED_MASK | PATH_CHARACTERS;
 
     static {
@@ -191,21 +191,21 @@ public class URI {
     /** Stores the scheme (usually the protocol) for this URI. */
     private String scheme_;
 
-    /** If specified, stores the userinfo for this URI; otherwise null */
+    /** If specified, stores the userinfo for this URI; otherwise null. */
     private String userinfo_;
 
-    /** If specified, stores the host for this URI; otherwise null */
+    /** If specified, stores the host for this URI; otherwise null. */
     private String host_;
 
-    /** If specified, stores the port for this URI; otherwise -1 */
+    /** If specified, stores the port for this URI; otherwise -1. */
     private int port_ = -1;
 
     /**
-     * If specified, stores the registry based authority for this URI; otherwise -1
+     * If specified, stores the registry based authority for this URI; otherwise -1.
      */
     private String regAuthority_;
 
-    /** If specified, stores the path for this URI; otherwise null */
+    /** If specified, stores the path for this URI; otherwise null. */
     private String path_;
 
     /**
@@ -213,7 +213,7 @@ public class URI {
      */
     private String queryString_;
 
-    /** If specified, stores the fragment for this URI; otherwise null */
+    /** If specified, stores the fragment for this URI; otherwise null. */
     private String fragment_;
 
     /**
@@ -1767,7 +1767,7 @@ public class URI {
     }
 
     /**
-     * Determine whether a char is an alphabetic character: a-z or A-Z
+     * Determine whether a char is an alphabetic character: a-z or A-Z.
      *
      * @return true if the char is alphabetic, false otherwise
      */
@@ -1776,7 +1776,7 @@ public class URI {
     }
 
     /**
-     * Determine whether a char is an alphanumeric: 0-9, a-z or A-Z
+     * Determine whether a char is an alphanumeric: 0-9, a-z or A-Z.
      *
      * @return true if the char is alphanumeric, false otherwise
      */

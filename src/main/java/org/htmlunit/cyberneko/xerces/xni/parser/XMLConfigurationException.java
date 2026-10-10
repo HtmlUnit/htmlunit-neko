@@ -71,8 +71,9 @@ public class XMLConfigurationException extends XNIException {
     }
 
     /**
-     * @return the exception type.
+     * Returns the exception type.
      *
+     * @return the exception type
      * @see #NOT_RECOGNIZED
      * @see #NOT_SUPPORTED
      */
@@ -81,7 +82,9 @@ public class XMLConfigurationException extends XNIException {
     }
 
     /**
-     * @return the feature or property identifier.
+     * Returns the feature or property identifier.
+     *
+     * @return the feature or property identifier
      */
     public String getIdentifier() {
         return identifier_;

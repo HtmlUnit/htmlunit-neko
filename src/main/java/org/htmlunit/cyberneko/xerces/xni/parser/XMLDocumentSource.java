@@ -25,18 +25,21 @@ import org.htmlunit.cyberneko.xerces.xni.XMLDocumentHandler;
  * implementor is able to emit them.
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public interface XMLDocumentSource {
 
     /**
      * Sets the document handler.
      *
-     * @param handler the new handler
+     * @param handler the new document handler to receive events
      */
     void setDocumentHandler(XMLDocumentHandler handler);
 
     /**
-     * @return the document handler
+     * Returns the registered document handler.
+     *
+     * @return the document handler, or {@code null} if none is registered
      */
     XMLDocumentHandler getDocumentHandler();
 }

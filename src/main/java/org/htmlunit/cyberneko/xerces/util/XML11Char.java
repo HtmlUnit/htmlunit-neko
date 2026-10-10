@@ -27,6 +27,7 @@ import java.util.Arrays;
  * yields the same results as calling the convenience methods. There is one
  * exception: check the comments for the <code>isValid</code> method for
  * details.
+ * </p>
  *
  * @author Glenn Marcy, IBM
  * @author Andy Clark, IBM
@@ -120,52 +121,56 @@ public final class XML11Char {
     }
 
     /**
-     * @return true if the specified character is a valid name start character as
-     *         defined by production [4] in the XML 1.1 specification.
+     * Returns whether the specified character is a valid name start character as
+     * defined by production [4] in the XML 1.1 specification.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid XML 1.1 name start character, {@code false} otherwise
      */
     public static boolean isXML11NameStart(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME_START) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
     /**
-     * @return true if the specified character is a valid name character as defined
-     *         by production [4a] in the XML 1.1 specification.
+     * Returns whether the specified character is a valid name character as defined
+     * by production [4a] in the XML 1.1 specification.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid XML 1.1 name character, {@code false} otherwise
      */
     public static boolean isXML11Name(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NAME) != 0) || (c >= 0x10000 && c < 0xF0000);
     }
 
     /**
-     * @return true if the specified character is a valid NCName start character as
-     *         defined by production [4] in Namespaces in XML 1.1 recommendation.
+     * Returns whether the specified character is a valid NCName start character as
+     * defined by production [4] in the Namespaces in XML 1.1 recommendation.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid XML 1.1 NCName start character, {@code false} otherwise
      */
     public static boolean isXML11NCNameStart(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME_START) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
     /**
-     * @return true if the specified character is a valid NCName character as
-     *         defined by production [5] in Namespaces in XML 1.1 recommendation.
+     * Returns whether the specified character is a valid NCName character as
+     * defined by production [5] in the Namespaces in XML 1.1 recommendation.
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid XML 1.1 NCName character, {@code false} otherwise
      */
     public static boolean isXML11NCName(final int c) {
         return (c < 0x10000 && (XML11CHARS[c] & MASK_XML11_NCNAME) != 0) || (0x10000 <= c && c < 0xF0000);
     }
 
     /**
-     * @return whether the given character is a valid high surrogate for a name
-     *         character. This includes all high surrogates for characters
-     *         [0x10000-0xEFFFF]. In other words everything excluding planes 15 and
-     *         16.
+     * Returns whether the given character is a valid high surrogate for a name
+     * character. This includes all high surrogates for characters
+     * [0x10000 - 0xEFFFF] (everything excluding planes 15 and 16).
      *
-     * @param c The character to check.
+     * @param c the character code point to check
+     * @return {@code true} if the character is a valid XML 1.1 name high surrogate, {@code false} otherwise
      */
     public static boolean isXML11NameHighSurrogate(final int c) {
         return 0xD800 <= c && c <= 0xDB7F;

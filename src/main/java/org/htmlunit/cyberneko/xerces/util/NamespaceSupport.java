@@ -19,11 +19,12 @@ import java.util.Objects;
 import org.htmlunit.cyberneko.xerces.xni.NamespaceContext;
 
 /**
- * Namespace support for XML document handlers. This class doesn't perform any
+ * Namespace support implementation for XML document handlers. This class doesn't perform any
  * error checking and assumes that all strings passed as arguments to methods
  * are unique symbols.
  *
  * @author Andy Clark, IBM
+ * @author Ronald Brill
  */
 public class NamespaceSupport implements NamespaceContext {
 
@@ -56,11 +57,15 @@ public class NamespaceSupport implements NamespaceContext {
     /** The current context. */
     private int fCurrentContext_;
 
-    /** Default constructor. */
+    /**
+     * Constructs a default {@code NamespaceSupport} instance.
+     */
     public NamespaceSupport() {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#reset()
      */
     @Override
@@ -75,6 +80,8 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#pushContext()
      */
     @Override
@@ -92,6 +99,8 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#popContext()
      */
     @Override
@@ -100,8 +109,9 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
-     * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#declarePrefix(String,
-     *      String)
+     * {@inheritDoc}
+     *
+     * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#declarePrefix(String, String)
      */
     @Override
     public boolean declarePrefix(final String prefix, final String uri) {
@@ -134,6 +144,8 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getURI(String)
      */
     @Override
@@ -151,6 +163,8 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getDeclaredPrefixCount()
      */
     @Override
@@ -159,6 +173,8 @@ public class NamespaceSupport implements NamespaceContext {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @see org.htmlunit.cyberneko.xerces.xni.NamespaceContext#getDeclaredPrefixAt(int)
      */
     @Override
