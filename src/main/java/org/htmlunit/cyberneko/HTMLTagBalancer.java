@@ -835,7 +835,8 @@ public class HTMLTagBalancer
                     fErrorReporter.reportWarning("HTML2002", new Object[]{ename, pname});
                 }
                 final QName qname = createQName(pname);
-                final boolean parentCreated = forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
+                final boolean parentCreated =
+                        forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
                 if (!parentCreated) {
                     if (!isForcedCreation) {
                         notifyDiscardedStartElement(elem, attrs, augs);
@@ -855,7 +856,8 @@ public class HTMLTagBalancer
                         }
 
                         final QName qname = createQName(pname);
-                        final boolean parentCreated = forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
+                        final boolean parentCreated =
+                                        forceStartElementParentCreated(qname, fEmptyXMLAttributes, synthesizedAugs());
                         if (!parentCreated) {
                             if (!isForcedCreation) {
                                 notifyDiscardedStartElement(elem, attrs, augs);
@@ -1586,7 +1588,7 @@ public class HTMLTagBalancer
          * @param attributes The element attributes to copy, or {@code null} if
          *                   no attribute snapshot is needed.
          */
-         public Info(final HTMLElements.Element element, final QName qname,
+        public Info(final HTMLElements.Element element, final QName qname,
                 final XMLAttributes attributes) {
             this.element = element;
             this.qname = new QName(qname);

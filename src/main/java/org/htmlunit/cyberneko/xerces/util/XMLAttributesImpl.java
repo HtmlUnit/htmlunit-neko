@@ -641,18 +641,18 @@ public class XMLAttributesImpl implements XMLAttributes {
         }
 
         @Override
-        public int addAttribute(QName name, String type, String value) {
+        public int addAttribute(final QName name, final String type, final String value) {
             throw mutation();
         }
 
         @Override
-        public void addAttribute(QName name, String type, String value, boolean specified) {
+        public void addAttribute(final QName name, final String type, final String value, final boolean specified) {
             throw mutation();
         }
 
         @Override
-        public void addAttribute(QName name, String type, String value,
-                        String nonNormalizedValue, boolean specified) {
+        public void addAttribute(final QName name, final String type, final String value,
+                final String nonNormalizedValue, final boolean specified) {
             throw mutation();
         }
 
@@ -662,12 +662,12 @@ public class XMLAttributesImpl implements XMLAttributes {
         }
 
         @Override
-        public void removeAttributeAt(int i) {
+        public void removeAttributeAt(final int i) {
             throw mutation();
         }
 
         @Override
-        public void setName(int i, QName q) {
+        public void setName(final int i, final QName q) {
             throw mutation();
         }
 

@@ -22,6 +22,7 @@ import org.w3c.dom.html.HTMLAppletElement;
  * @see HTMLElementImpl
  */
 public class HTMLAppletElementImpl extends HTMLElementImpl implements HTMLAppletElement {
+
     @Override
     public String getAlign() {
         return getAttribute("align");

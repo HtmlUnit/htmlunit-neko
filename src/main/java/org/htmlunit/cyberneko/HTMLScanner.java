@@ -771,7 +771,8 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
         fDoctypeSysid = String.valueOf(xmlParserConfiguration.getProperty(DOCTYPE_SYSID));
         fReaderBufferSize = Integer.parseInt(String.valueOf(xmlParserConfiguration.getProperty(READER_BUFFER_SIZE)));
 
-        final QName[] fragmentContextStack = (QName[]) xmlParserConfiguration.getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
+        final QName[] fragmentContextStack = (QName[]) xmlParserConfiguration
+                            .getProperty(HTMLTagBalancer.FRAGMENT_CONTEXT_STACK);
         if (fragmentContextStack != null) {
             final int length = fragmentContextStack.length;
             if (length > 0) {
@@ -3659,7 +3660,7 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                                 charBuffer_.clear().append("</");
                             }
                         }
-                        else if (c == 0){
+                        else if (c == 0) {
                             charBuffer_.clearAndAppend('<');
                             charBuffer_.appendReplacementChar();
                         }

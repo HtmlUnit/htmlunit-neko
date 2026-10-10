@@ -780,6 +780,7 @@ public class XMLString implements CharSequence {
         }
         return s.equals(sequence);
     }
+
     /**
      * We don't cache the hashcode because we mutate often. Don't use this in
      * hashmaps as key. But you can use that to look up in a hashmap against
