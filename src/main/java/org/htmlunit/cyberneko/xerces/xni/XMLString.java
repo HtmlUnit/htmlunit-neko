@@ -826,6 +826,14 @@ public class XMLString implements CharSequence {
     }
 
     /**
+     * Appends the Unicode replacement character (U+FFFD) in place of a code point the HTML tokenizer must not
+     * pass on, for example U+0000 in RCDATA, RAWTEXT, plaintext, comments and attribute values.
+     */
+    public void appendReplacementChar() {
+        append(REPLACEMENT_CHARACTER);
+    }
+
+    /**
      * This uppercases an XMLString in place and will likely not
      * consume extra memory unless the character might grow. This
      * conversion can be incorrect for certain characters from some

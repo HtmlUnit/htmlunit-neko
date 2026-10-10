@@ -2593,29 +2593,44 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     break;
                 }
+
                 final int offset = fCurrentEntity.offset_ - newlines;
                 for (int i = offset; i < fCurrentEntity.offset_; i++) {
                     fCurrentEntity.buffer_[i] = '\n';
                 }
+
+                int sliceStart = offset;
                 while (fCurrentEntity.hasNext()) {
                     final char c = fCurrentEntity.getCurrentChar();
                     if (c == '<' || c == '&' || c == '\n' || c == '\r') {
                         // leave it unconsumed, no rewind needed
                         break;
                     }
+                    if (c == 0) {
+                        // the tree construction ignores U+0000 in body text: flush what we have and skip the character
+                        if (fCurrentEntity.offset_ > sliceStart && fElementCount >= fElementDepth) {
+                            fStringBuffer.append(fCurrentEntity.buffer_, sliceStart, fCurrentEntity.offset_ - sliceStart);
+                        }
+                        fCurrentEntity.offset_++;
+                        fCurrentEntity.characterOffset_++;
+                        fCurrentEntity.columnNumber_++;
+                        sliceStart = fCurrentEntity.offset_;
+                        continue;
+                    }
                     // otherwise consume
                     fCurrentEntity.offset_++;
                     fCurrentEntity.characterOffset_++;
                     fCurrentEntity.columnNumber_++;
                 }
-                if (fCurrentEntity.offset_ > offset && fElementCount >= fElementDepth) {
+                if (fCurrentEntity.offset_ > sliceStart && fElementCount >= fElementDepth) {
                     if (DEBUG_CALLBACKS) {
-                        final XMLString xmlString = new XMLString(fCurrentEntity.buffer_, offset,
-                                fCurrentEntity.offset_ - offset);
+                        final XMLString xmlString = new XMLString(fCurrentEntity.buffer_, sliceStart,
+                                fCurrentEntity.offset_ - sliceStart);
                         System.out.println("characters(" + xmlString + ")");
                     }
-                    fStringBuffer.append(fCurrentEntity.buffer_, offset, fCurrentEntity.offset_ - offset);
+                    fStringBuffer.append(fCurrentEntity.buffer_, sliceStart, fCurrentEntity.offset_ - sliceStart);
                 }
+
                 if (DEBUG_BUFFER) {
                     fCurrentEntity.debugBufferIfNeeded(")scanCharacters: ");
                 }
@@ -2779,6 +2794,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     continue;
                 }
+                else if (c == 0) {
+                    buffer.appendReplacementChar();
+                    continue;
+                }
+
                 if (!buffer.appendCodePoint(c)) {
                     if (fReportErrors_) {
                         fErrorReporter.reportError("HTML1005", new Object[] {"&#" + c + ';'});
@@ -3390,6 +3410,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     scanEntityRef(fStringBufferEntityRef, plainAttribValue, false);
                     attribValue.append(fStringBufferEntityRef);
                 }
+                else if (c == 0) {
+                    attribValue.appendReplacementChar();
+                    if (plainAttribValue != null) {
+                        plainAttribValue.appendReplacementChar();
+                    }
+                }
                 else {
                     if (!attribValue.appendCodePoint(c)) {
                         if (fReportErrors_) {
@@ -3472,6 +3498,14 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                     }
                     else {
                         attribValue.append(fStringBufferEntityRef);
+                    }
+                    prevSpace = false;
+                }
+                else if (c == 0) {
+                    isStart = false;
+                    attribValue.appendReplacementChar();
+                    if (plainAttribValue != null) {
+                        plainAttribValue.appendReplacementChar();
                     }
                     prevSpace = false;
                 }
@@ -3660,6 +3694,9 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
                         buffer.append('\n');
                     }
                 }
+                else if (c == 0) {
+                    buffer.appendReplacementChar();
+                }
                 else {
                     if (!buffer.appendCodePoint(c)) {
                         if (fReportErrors_) {
@@ -3711,6 +3748,11 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
                 if (c == -1) {
                     break;
+                }
+
+                if (c == 0) {
+                    buffer.appendReplacementChar();
+                    continue;
                 }
 
                 if (!buffer.appendCodePoint(c)) {
