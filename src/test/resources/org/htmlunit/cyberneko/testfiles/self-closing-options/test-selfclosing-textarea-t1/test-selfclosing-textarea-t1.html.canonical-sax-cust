@@ -1,0 +1,10 @@
+(html
+(head
+)head
+(body
+(textarea
+)textarea
+"<b id="child">x</b>
+x)textarea
+)body
+)html

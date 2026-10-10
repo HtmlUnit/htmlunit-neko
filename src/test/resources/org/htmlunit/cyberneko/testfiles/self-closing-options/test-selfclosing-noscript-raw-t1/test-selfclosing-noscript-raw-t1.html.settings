@@ -1,0 +1,2 @@
+feature http://cyberneko.org/html/features/parse-noscript-content	false
+feature http://cyberneko.org/html/features/scanner/allow-selfclosing-tags	true

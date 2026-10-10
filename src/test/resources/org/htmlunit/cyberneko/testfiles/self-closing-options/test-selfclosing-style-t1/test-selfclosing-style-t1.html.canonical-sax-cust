@@ -1,0 +1,10 @@
+(html
+(head
+(style
+)style
+)head
+(body
+"<b id="child">x</b>
+x)style
+)body
+)html

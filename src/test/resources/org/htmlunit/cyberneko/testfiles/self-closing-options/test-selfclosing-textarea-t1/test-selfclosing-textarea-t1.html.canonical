@@ -1,0 +1,9 @@
+(html
+(head
+)head
+(body
+(textarea
+)textarea
+"<b id="child">x</b>
+)body
+)html
