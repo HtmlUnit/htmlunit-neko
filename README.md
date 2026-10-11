@@ -35,14 +35,16 @@ Starting with version 5.0.0, **JDK 17 or higher is required**.
 If you are still on JDK 8, see [Legacy Support (JDK 8)](#legacy-support-jdk-8) below.
 
 
-#### Behavior changes since 5.5.0
+#### Important behavior changes since 5.5.0
 
 The handling of self-closing tags (`<iframe/>`, `<script/>`, `<textarea/>`, ...) and of NUL characters was
-tightened to match the HTML5 parsing rules. If you set `ALLOW_SELFCLOSING_TAGS` or parse XHTML, please read
+tightened to match the HTML5 parsing rules. This also applies to **fragment parsing**: a fragment of an HTML document
+has to be parsed with the HTML defaults (the slash is ignored), a fragment of an XHTML document with all three
+self-closing flags enabled. If you set `ALLOW_SELFCLOSING_TAGS`, parse XHTML or parse fragments, please read
 [Choosing the self-closing flags](#choosing-the-self-closing-flags) and the
 [upgrade notes](#upgrade-notes-within-5x).
 
-### Latest release Version 5.5.0 / August 30, 2026
+### Latest release Version 5.6.0 / October 11, 2026
 
 ##### Security Advisories
 
@@ -54,7 +56,8 @@ the parser decodes entity references inside them, and the decoded content was wr
 A parse-serialize round trip therefore turned entity-encoded input into live HTML markup.
 
 [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546): Fixed in versions 2.61.0+  
-Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
+Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below.
+A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
 
 [CVE-2022-28366](https://nvd.nist.gov/vuln/detail/CVE-2022-28366): Fixed in versions 2.27+  
 Htmlunit-NekoHtml Parser suffers from a denial of service via crafted Processing Instruction vulnerability on versions 2.26 and below.
@@ -69,7 +72,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>5.5.0</version>
+    <version>5.6.0</version>
 </dependency>
 ```
 
@@ -78,7 +81,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.5.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.6.0'
 ```
 
 ## HowTo use
@@ -249,6 +252,8 @@ The `iframe` and `script` flags work on their own: `ALLOW_SELFCLOSING_TAGS=true`
 
 Notes:
 
+- A fragment follows the kind of the document it will be inserted into, not the kind of the fragment text. Use the two
+  fragment rows according to that document: HTML defaults for an HTML document, all three flags for an XHTML document.
 - The lenient row closes every self-closed element except `iframe` and `script`, including `<textarea/>` and `<title/>`.
   Browsers would treat these as open elements. Only use it if you know your input relies on it.
 - For XHTML also set the CDATA features, as HtmlUnit does:
@@ -295,6 +300,9 @@ A NUL character (U+0000) in the input is handled like in the HTML5 tokenizer and
   Such a parser differential is the typical way a sanitizer is bypassed.
 - **Keep the defaults for untrusted HTML.** `ALLOW_SELFCLOSING_IFRAME`, `ALLOW_SELFCLOSING_SCRIPT` and `ALLOW_SELFCLOSING_TAGS` are only for
   input that really is XML/XHTML. If you cannot tell, use the HTML defaults, they match what browsers do.
+- **Serializer round trips.** If you serialize parsed content with `HTMLWriterFilter`, use a version that contains the fix for
+  [CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828) (x.y.z+). Older versions wrote the decoded content of
+  `textarea` and `title` back without entity encoding, so serializing the result of a parse could turn encoded text into markup.
 - Neko is a parser, not a sanitizer. Use a dedicated HTML sanitizer for untrusted content and re-parse its output with the
   settings of the consumer.
 
@@ -462,8 +470,10 @@ dependencies {
   raw text when the flag is enabled. Without the flag nothing changes: the slash is ignored and the content is raw text.
 - **NUL characters** are replaced by U+FFFD in raw text, RCDATA, comments and attribute values, and dropped in regular text
   (see [NUL characters](#nul-characters)). Before, they were passed on unchanged.
-- **Fragment parsing** (`innerHTML`-like use): if you enabled `ALLOW_SELFCLOSING_TAGS` for HTML fragments only to be lenient, switch
-  it off to get the browser behavior, see the table above.
+- **Fragment parsing** (`innerHTML`-like use): the flags have to match the document the fragment belongs to.
+  For fragments of an **HTML** document use the HTML defaults; if you enabled `ALLOW_SELFCLOSING_TAGS` for all fragments only to
+  be lenient (HtmlUnit, for example, did so before), switch it off to get the browser behavior. For fragments of an **XHTML**
+  document enable all three self-closing flags, exactly as for a full XHTML page. See the table above.
 
 ## Migrating from 4.x to 5.x
 
