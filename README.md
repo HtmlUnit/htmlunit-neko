@@ -3,7 +3,7 @@
 [![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/neko-htmlunit)](https://central.sonatype.com/artifact/org.htmlunit/neko-htmlunit)
 [![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Neko)](https://jenkins.wetator.org/view/HtmlUnit/job/HtmlUnit%20-%20Neko/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Java Version](https://img.shields.io/badge/Java-8%2B-orange.svg)](https://www.oracle.com/java/)
+[![Java Version](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://www.oracle.com/java/)
 
 The **Htmlunit-NekoHtml** Parser is a HTML scanner and tag balancer that enables application programmers to parse HTML documents
 and access the information using standard XML interfaces.  
@@ -14,7 +14,7 @@ NekoHTML adds missing parent elements; automatically closes elements with option
 
 ✅ **Error Tolerant** - Handles malformed HTML gracefully  
 ✅ **Standards Compliant** - Follows HTML parsing specifications  
-✅ **Well Tested** - Over 8,000 test cases  
+✅ **Well Tested** - Over 10,000 test cases  
 ✅ **No External Dependencies** - Pure Java implementation  
 ✅ **Java 17 Compatible** - Works with Java 17, 21 and beyond  
 ✅ **Android Support** - Runs on Android platforms  
@@ -34,6 +34,13 @@ The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourcefo
 Starting with version 5.0.0, **JDK 17 or higher is required**.  
 If you are still on JDK 8, see [Legacy Support (JDK 8)](#legacy-support-jdk-8) below.
 
+
+#### Behavior changes since 5.5.0
+
+The handling of self-closing tags (`<iframe/>`, `<script/>`, `<textarea/>`, ...) and of NUL characters was
+tightened to match the HTML5 parsing rules. If you set `ALLOW_SELFCLOSING_TAGS` or parse XHTML, please read
+[Choosing the self-closing flags](#choosing-the-self-closing-flags) and the
+[upgrade notes](#upgrade-notes-within-5x).
 
 ### Latest release Version 5.5.0 / August 30, 2026
 
@@ -162,10 +169,10 @@ parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
 
 | Feature | Default | Description |
 |---------|---------|-------------|
-| **PARSE_NOSCRIPT_CONTENT** | `true` | Parse the content within `<noscript>...</noscript>` tags as regular HTML markup. When disabled, noscript content is treated as plain text. |
-| **ALLOW_SELFCLOSING_IFRAME** | `false` | Allow self-closing iframe tags (`<iframe/>`). When enabled, treats `<iframe/>` as a complete element rather than requiring a separate closing tag. |
-| **ALLOW_SELFCLOSING_SCRIPT** | `false` | Allow self-closing script tags (`<script/>`). When enabled, treats `<script/>` as a complete element. Note: This may not work as expected in all browsers. |
-| **ALLOW_SELFCLOSING_TAGS** | `false` | Enable XHTML-style self-closing tags for all elements (e.g., `<div/>`, `<p/>`). Allows XML-style syntax in HTML documents. |
+| **PARSE_NOSCRIPT_CONTENT** | `true` | Parse the content within `<noscript>...</noscript>` tags as regular HTML markup. When disabled, noscript content is treated as raw text up to `</noscript>` (like a browser with scripting enabled). A self-closed `<noscript/>` is only treated as an empty element if `ALLOW_SELFCLOSING_TAGS` is enabled. |
+| **ALLOW_SELFCLOSING_IFRAME** | `false` | Honor the trailing slash on `<iframe/>`. When `false` (default) the slash is ignored as in HTML5: `<iframe/>` opens an element and everything up to `</iframe>` is raw text, never markup. When `true` the element is empty and the following content is parsed as markup. Independent of `ALLOW_SELFCLOSING_TAGS`. **Do not enable for untrusted HTML**, see [Security considerations](#security-considerations). |
+| **ALLOW_SELFCLOSING_SCRIPT** | `false` | Honor the trailing slash on `<script/>`. When `false` (default) the slash is ignored as in HTML5 and everything up to `</script>` is script text. When `true` the element is empty and the following content is parsed as markup. Independent of `ALLOW_SELFCLOSING_TAGS`. **Do not enable for untrusted HTML**, see [Security considerations](#security-considerations). |
+| **ALLOW_SELFCLOSING_TAGS** | `false` | Honor the XML-style trailing slash on all elements except `iframe` and `script` (e.g., `<div/>`, `<p/>`). This includes the elements with raw text or RCDATA content: a self-closed `noembed`, `noframes`, `noscript`, `plaintext`, `title`, `textarea`, `style` or `xmp` is an empty element and does not swallow the rest of the document. `iframe` and `script` are controlled by their own flags above; this flag does not close them. |
 
 #### Attribute Processing
 
@@ -188,8 +195,10 @@ parser.setFeature(HTMLScanner.CDATA_SECTIONS, true);
 parser.setFeature(HTMLScanner.SCRIPT_STRIP_COMMENT_DELIMS, true);
 parser.setFeature(HTMLScanner.STYLE_STRIP_COMMENT_DELIMS, true);
 
-// Enable XHTML-style self-closing tags
+// Parse XHTML/XML input: honor the slash on every element (see "Choosing the self-closing flags")
 parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS, true);
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME, true);
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_SCRIPT, true);
 
 // Normalize and preserve original attribute values
 parser.setFeature(HTMLScanner.NORMALIZE_ATTRIBUTES, true);
@@ -200,8 +209,87 @@ parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
 
 - **CDATA_SECTIONS**: This is one of the most important features for XML/XHTML compatibility. Enable it when processing XHTML documents or when you need to distinguish between CDATA sections and comments.
 - **Error Reporting**: Enable `REPORT_ERRORS` during development to catch malformed HTML early.
-- **Self-Closing Tags**: Use caution with self-closing script and iframe tags as they may not behave consistently across all browsers.
+- **Self-Closing Tags**: Browsers ignore the slash on non-void HTML elements, XML parsers honor it. Pick the flags that match the kind of input, see [Choosing the self-closing flags](#choosing-the-self-closing-flags). The defaults are the HTML5 behavior and are the safe choice.
+- **NUL characters**: see [NUL characters](#nul-characters) for the replacement rules.
 - **Attribute Normalization**: When `NORMALIZE_ATTRIBUTES` is enabled, whitespace handling follows XML rules, which may differ from browser behavior.
+
+#### Choosing the self-closing flags
+
+In HTML5 the slash of `<div/>` is ignored (the div stays open), and `<iframe/>`, `<script/>`, `<textarea/>`, `<title/>`,
+`<style/>` and a few more open an element whose content is **text, not markup**, up to the matching end tag.
+An XML parser (XHTML) honors the slash on every element instead. The flags select which behavior you get.
+
+**Which flag controls which element**
+
+| Element | The slash is honored if |
+|---------|-------------------------|
+| `iframe` | `ALLOW_SELFCLOSING_IFRAME` is `true` |
+| `script` | `ALLOW_SELFCLOSING_SCRIPT` is `true` |
+| every other element, including `noembed`, `noframes`, `noscript`, `plaintext`, `title`, `textarea`, `style`, `xmp` | `ALLOW_SELFCLOSING_TAGS` is `true` |
+
+The `iframe` and `script` flags work on their own: `ALLOW_SELFCLOSING_TAGS=true` does **not** close `iframe` and `script`, and
+`ALLOW_SELFCLOSING_IFRAME=true` also works if `ALLOW_SELFCLOSING_TAGS` is `false`.
+
+**Recommended combinations**
+
+| Input | `ALLOW_SELFCLOSING_TAGS` | `ALLOW_SELFCLOSING_IFRAME` | `ALLOW_SELFCLOSING_SCRIPT` |
+|-------|:---:|:---:|:---:|
+| **HTML document** (browser compatible, the default) | `false` | `false` | `false` |
+| **XHTML / XML document** | `true` | `true` | `true` |
+| **Fragment in an HTML context** (what a browser does for `innerHTML`) | `false` | `false` | `false` |
+| **Fragment in an XHTML context** | `true` | `true` | `true` |
+| Lenient HTML, `<div/>` should be closed | `true` | `false` | `false` |
+
+Notes:
+
+- The lenient row closes every self-closed element except `iframe` and `script`, including `<textarea/>` and `<title/>`.
+  Browsers would treat these as open elements. Only use it if you know your input relies on it.
+- For XHTML also set the CDATA features, as HtmlUnit does:
+
+```java
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_TAGS, true);
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_IFRAME, true);
+parser.setFeature(HTMLScanner.ALLOW_SELFCLOSING_SCRIPT, true);
+parser.setFeature(HTMLScanner.CDATA_SECTIONS, true);
+parser.setFeature(HTMLScanner.CDATA_EARLY_CLOSING, false);
+parser.setFeature(HTMLScanner.SCRIPT_STRIP_CDATA_DELIMS, true);
+parser.setFeature(HTMLScanner.STYLE_STRIP_CDATA_DELIMS, true);
+```
+
+**Example**: the input `<iframe/><img src="x" onerror="alert(1)"></iframe>`
+
+| `ALLOW_SELFCLOSING_IFRAME` | Result |
+|:---:|--------|
+| `false` (default) | one `iframe` element, the `img` markup is its text content and stays inert, exactly as in a browser |
+| `true` | an empty `iframe` followed by a live `img` element with its `onerror` attribute |
+
+**Known limitations in XML mode.** Neko always uses the HTML scanner and tag balancer, also for XHTML. The flags make the slash
+behave like in XML, but elements with raw text content are still scanned as text when they are *not* self-closed:
+`<title>a<b>b</b>c</title>` in an XHTML document produces one text node `a<b>b</b>c`, not a `b` element, and the HTML content
+model of the balancer still applies (for example for elements inside `head`). Use a real XML parser if you need strict XML.
+
+#### NUL characters
+
+A NUL character (U+0000) in the input is handled like in the HTML5 tokenizer and tree construction:
+
+| Where | Result |
+|-------|--------|
+| content of `title`, `textarea`, `style`, `script`, `xmp`, `iframe`, `noframes`, `noembed`, `plaintext`, and `noscript` (if `PARSE_NOSCRIPT_CONTENT` is `false`) | replaced by U+FFFD |
+| a NUL right after a `<` in one of these elements | replaced by U+FFFD |
+| comments | replaced by U+FFFD |
+| attribute values | replaced by U+FFFD |
+| regular text content (for example inside a `div`) | ignored (dropped) |
+| character reference `&#0;` | U+FFFD (unchanged) |
+
+#### Security considerations
+
+- **Parse with the same configuration that you sanitize with.** A different treatment of the slash on `iframe`, `script`,
+  `textarea`, `style`, `title`, ... turns text in one parser into live markup (including event handler attributes) in another.
+  Such a parser differential is the typical way a sanitizer is bypassed.
+- **Keep the defaults for untrusted HTML.** `ALLOW_SELFCLOSING_IFRAME`, `ALLOW_SELFCLOSING_SCRIPT` and `ALLOW_SELFCLOSING_TAGS` are only for
+  input that really is XML/XHTML. If you cannot tell, use the HTML defaults, they match what browsers do.
+- Neko is a parser, not a sanitizer. Use a dedicated HTML sanitizer for untrusted content and re-parse its output with the
+  settings of the consumer.
 
 ### Properties
 
@@ -353,6 +441,22 @@ dependencies {
 }
 ```
 
+
+## Upgrade notes within 5.x
+
+### Self-closing flags and NUL handling (since x.y.z)
+
+- **`ALLOW_SELFCLOSING_TAGS` no longer closes `iframe` and `script`.** Before, the general flag also closed `<iframe/>` and
+  `<script/>` (a self-closed `script` was even left half closed). Now the slash on these two elements is only honored if
+  `ALLOW_SELFCLOSING_IFRAME` / `ALLOW_SELFCLOSING_SCRIPT` is enabled; otherwise the content is raw text, as in HTML5.
+  **If you parse XHTML/XML**, enable all three flags (see [Choosing the self-closing flags](#choosing-the-self-closing-flags)).
+- **Self-closed special elements are empty elements with `ALLOW_SELFCLOSING_TAGS`.** `<noembed/>`, `<noframes/>`,
+  `<noscript/>`, `<plaintext/>`, `<title/>`, `<textarea/>`, `<style/>` and `<xmp/>` no longer swallow the rest of the document as
+  raw text when the flag is enabled. Without the flag nothing changes: the slash is ignored and the content is raw text.
+- **NUL characters** are replaced by U+FFFD in raw text, RCDATA, comments and attribute values, and dropped in regular text
+  (see [NUL characters](#nul-characters)). Before, they were passed on unchanged.
+- **Fragment parsing** (`innerHTML`-like use): if you enabled `ALLOW_SELFCLOSING_TAGS` for HTML fragments only to be lenient, switch
+  it off to get the browser behavior, see the table above.
 
 ## Migrating from 4.x to 5.x
 
