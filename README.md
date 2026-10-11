@@ -46,6 +46,13 @@ tightened to match the HTML5 parsing rules. If you set `ALLOW_SELFCLOSING_TAGS` 
 
 ##### Security Advisories
 
+[CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828): Fixed in versions 5.5.5+  
+Htmlunit-NekoHtml Parser suffers from a mutation XSS (mXSS) vulnerability on versions below 5.5.5.
+`HTMLWriterFilter` wrote the content of `<textarea>` and `<title>` without entity encoding
+because both elements carry the `SPECIAL` flag in `HTMLElements`. As these elements contain escapable raw text,
+the parser decodes entity references inside them, and the decoded content was written back raw.
+A parse-serialize round trip therefore turned entity-encoded input into live HTML markup.
+
 [CVE-2022-29546](https://nvd.nist.gov/vuln/detail/CVE-2022-29546): Fixed in versions 2.61.0+  
 Htmlunit-NekoHtml Parser suffers from a denial of service vulnerability on versions 2.60.0 and below. A specifically crafted input regarding the parsing of processing instructions leads to heap memory consumption.
 
