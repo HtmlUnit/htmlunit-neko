@@ -846,8 +846,8 @@ public class HTMLTagBalancer
             }
             else {
                 if (preferedParent.code != HTMLElements.HEAD || (!fSeenBodyElement && !fDocumentFragment)) {
-                    final int depth = getParentDepth(element);
-                    if (depth == -1) { // no parent found
+                    if (!hasOpenParent(element)) {
+                        // no parent found
                         final String pname = fNamesElems == NAMES_UPPERCASE
                                                 ? preferedParent.name : preferedParent.lowercaseName;
                         if (fReportErrors) {
@@ -1486,31 +1486,43 @@ public class HTMLTagBalancer
     }
 
     /**
-     * @return the depth of the open tag associated with the specified
-     *      element parent names or -1 if no matching element is found.
-     *
-     * @param element the element to get the parents from.
+     * @return true if at least one of the required parents is currently open on the stack.
+     * @param element the element to check parents for.
      */
-    protected int getParentDepth(final Element element) {
+    protected boolean hasOpenParent(final HTMLElements.Element element) {
         final HTMLElements.Element[] parents = element.parent;
-        if (parents != null && parents.length > 0) {
-            final short bounds = element.bounds;
-            for (int i = fElementStack.length - 1; i >= 0; i--) {
-                final Info info = fElementStack.data[i];
-                if (info.element.code == bounds) {
-                    break;
-                }
+        if (parents == null || parents.length == 0) {
+            return false;
+        }
 
-                // use indexed loop to avoid Iterator allocation
-                for (int j = 0; j < parents.length; j++) {
-                    final Element parent = parents[j];
-                    if (info.element.code == parent.code) {
-                        return fElementStack.length - i;
-                    }
+        final short bounds = element.bounds;
+
+        // If there are no bounds, we can skip stack traversal entirely
+        // and rely on the O(1) open counters.
+        if (bounds == -1) {
+            for (int i = 0; i < parents.length; i++) {
+                if (fElementStack.isOpen(parents[i].code)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Bounded traversal: scan down the stack and stop if we hit bounds
+        for (int i = fElementStack.length - 1; i >= 0; i--) {
+            final Info info = fElementStack.data[i];
+            if (info.element.code == bounds) {
+                return false;
+            }
+
+            final short code = info.element.code;
+            for (int j = 0; j < parents.length; j++) {
+                if (code == parents[j].code) {
+                    return true;
                 }
             }
         }
-        return -1;
+        return false;
     }
 
     // Returns an augmentations object with a synthesized item added.
