@@ -941,7 +941,18 @@ public class HTMLTagBalancer
             }
         }
         else {
-            fElementStack.push(new Info(element, elem, attrs));
+            // Attributes are only needed later if this element may be re-opened:
+            //  - inline/formatting elements (existing reopenFormattingElements logic)
+            //  - <a>/<nobr> themselves (they get cloned by closeAndReopenThroughElement)
+            //  - any element pushed while an <a>/<nobr> is open (it may be closed and
+            //    re-opened as an ancestor by closeAndReopenThroughElement)
+            final boolean keepAttrs = element.isInline()
+                    || elementCode == HTMLElements.A
+                    || elementCode == HTMLElements.NOBR
+                    || fElementStack.isOpen(HTMLElements.A)
+                    || fElementStack.isOpen(HTMLElements.NOBR);
+            fElementStack.push(new Info(element, elem, keepAttrs ? attrs : null));
+
             if (attrs == null) {
                 attrs = fEmptyXMLAttributes;
             }
