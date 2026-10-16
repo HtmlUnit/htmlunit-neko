@@ -178,6 +178,13 @@ public class HTMLTagBalancer
      */
     private static final int MAX_CLOSE_SEARCH_DEPTH = 100;
 
+    /**
+     * Largest number of slots added at once when one of the element stacks has to
+     * grow. Below this size the capacity doubles, above it the stack grows linearly
+     * in steps of this size (262,144 entries, about 1 MB of references).
+     */
+    private static final int MAX_STACK_GROWTH = 1 << 18;
+
     /** Don't modify HTML names. */
     private static final short NAMES_NO_CHANGE = 0;
 
@@ -1809,7 +1816,7 @@ public class HTMLTagBalancer
         // Pushes element information onto the stack.
         public void push(final Info info) {
             if (length == data.length) {
-                final Info[] newarray = new Info[length + 10];
+                final Info[] newarray = new Info[grownCapacity(length)];
                 System.arraycopy(data, 0, newarray, 0, length);
                 data = newarray;
             }
@@ -1838,6 +1845,29 @@ public class HTMLTagBalancer
         }
     }
 
+    /**
+     * Calculates the capacity of a full element stack after growing.
+     * <p>
+     * A small fixed increment would copy the whole array on every resize, which
+     * makes very deep documents quadratic. Pure doubling avoids that but can waste
+     * up to half of a very large array. This uses doubling for small and medium
+     * stacks and switches to large fixed steps once the stack is huge: the copy cost
+     * stays negligible (a stack of 10 million entries needs about 40 resizes) while
+     * the unused reserve never exceeds {@link #MAX_STACK_GROWTH} entries.
+     *
+     * @param current the current (full) capacity
+     * @return the new capacity, always greater than {@code current}
+     * @throws OutOfMemoryError if the capacity would overflow an int
+     */
+    private static int grownCapacity(final int current) {
+        final int increment = Math.max(10, Math.min(current, MAX_STACK_GROWTH));
+        final int grown = current + increment;
+        if (grown < 0) {
+            throw new OutOfMemoryError("Required element stack size too large");
+        }
+        return grown;
+    }
+
     /** Unsynchronized stack of element information. */
     public static class InfoStackWithOpenCounters {
 
@@ -1860,7 +1890,7 @@ public class HTMLTagBalancer
         // Pushes element information onto the stack.
         public void push(final Info info) {
             if (length == data.length) {
-                final Info[] newarray = new Info[length + 10];
+                final Info[] newarray = new Info[grownCapacity(length)];
                 System.arraycopy(data, 0, newarray, 0, length);
                 data = newarray;
             }

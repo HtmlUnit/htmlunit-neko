@@ -252,9 +252,12 @@ public class HTMLTagBalancerDosTest {
 
     /**
      * Many deep anchors: every anchor sits beyond the window of the previous
-     * one. Must stay linear and must not synthesize anything.
-     * (Sanity guard; this input is not quadratic even without the window,
-     * the window mainly limits amplification caused by a single start tag.)
+     * one, so the stack grows to 300,000 entries. Must stay linear and must not
+     * synthesize anything.
+     * This is not about the adoption window but about the stack itself: it used
+     * to be quadratic because the element stack (HTMLTagBalancer.InfoStack*) and
+     * the NamespaceBinder context arrays grew by a fixed +10 entries, copying the
+     * whole array on every resize (~48 GB of allocation for this input).
      */
     @Test
     public void manyDeepAnchors() {

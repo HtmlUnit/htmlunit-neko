@@ -93,6 +93,13 @@ public class NamespaceBinder extends DefaultFilter {
         XHTML_1_0_URI,
     };
 
+    /**
+     * Largest number of slots added at once when one of the element stacks has to
+     * grow. Below this size the capacity doubles, above it the stack grows linearly
+     * in steps of this size (262,144 entries, about 1 MB of references).
+     */
+    private static final int MAX_STACK_GROWTH = 1 << 18;
+
     // modify HTML names
 
     /** Don't modify HTML names. */
@@ -458,7 +465,7 @@ public class NamespaceBinder extends DefaultFilter {
         @Override
         public void pushContext() {
             if (++top_ == levels_.length) {
-                final int[] iarray = new int[levels_.length + 10];
+                final int[] iarray = new int[grownCapacity(levels_.length)];
                 System.arraycopy(levels_, 0, iarray, 0, levels_.length);
                 levels_ = iarray;
             }
@@ -485,7 +492,7 @@ public class NamespaceBinder extends DefaultFilter {
             }
             final Entry entry = new Entry(prefix, uri);
             if (levels_[top_] == entries_.length) {
-                final Entry[] earray = new Entry[entries_.length + 10];
+                final Entry[] earray = new Entry[grownCapacity(entries_.length)];
                 System.arraycopy(entries_, 0, earray, 0, entries_.length);
                 entries_ = earray;
             }
@@ -508,5 +515,28 @@ public class NamespaceBinder extends DefaultFilter {
                 uri_ = uri;
             }
         }
+    }
+
+    /**
+     * Calculates the capacity of a full element stack after growing.
+     * <p>
+     * A small fixed increment would copy the whole array on every resize, which
+     * makes very deep documents quadratic. Pure doubling avoids that but can waste
+     * up to half of a very large array. This uses doubling for small and medium
+     * stacks and switches to large fixed steps once the stack is huge: the copy cost
+     * stays negligible (a stack of 10 million entries needs about 40 resizes) while
+     * the unused reserve never exceeds {@link #MAX_STACK_GROWTH} entries.
+     *
+     * @param current the current (full) capacity
+     * @return the new capacity, always greater than {@code current}
+     * @throws OutOfMemoryError if the capacity would overflow an int
+     */
+    private static int grownCapacity(final int current) {
+        final int increment = Math.max(10, Math.min(current, MAX_STACK_GROWTH));
+        final int grown = current + increment;
+        if (grown < 0) {
+            throw new OutOfMemoryError("Required element stack size too large");
+        }
+        return grown;
     }
 }
