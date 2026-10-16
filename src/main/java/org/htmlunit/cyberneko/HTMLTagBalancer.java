@@ -1464,6 +1464,15 @@ public class HTMLTagBalancer
             popped[i] = fElementStack.data[pos + i];
         }
 
+        // first special (block level) element above the anchor, -1 if there is none
+        int firstSpecial = -1;
+        for (int i = 1; i < count; i++) {
+            if (popped[i].element.isHtml5Special()) {
+                firstSpecial = i;
+                break;
+            }
+        }
+
         if (fReportErrors) {
             fErrorReporter.reportWarning("HTML2008", new Object[]{popped[0].qname.getRawname()});
         }
@@ -1476,13 +1485,23 @@ public class HTMLTagBalancer
             }
         }
 
-        // reopen the elements that were above it, outermost first
-        for (int i = 1; i < count; i++) {
-            forceStartElement(popped[i].qname, popped[i].attributes, synthesizedAugs());
+        // between the anchor and the first special element only formatting
+        // elements are reconstructed, plain ones (span, label, ...) stay closed
+        final int plainEnd = firstSpecial == -1 ? count : firstSpecial;
+        for (int i = 1; i < plainEnd; i++) {
+            if (popped[i].element.isFormatting()) {
+                forceStartElement(popped[i].qname, popped[i].attributes, synthesizedAugs());
+            }
         }
 
-        // reopen an empty clone as innermost child and close it right away
-        if (count > 1) {
+        if (firstSpecial != -1) {
+            // the first special element and everything above it, outermost first
+            for (int i = firstSpecial; i < count; i++) {
+                forceStartElement(popped[i].qname, popped[i].attributes, synthesizedAugs());
+            }
+
+            // empty clone of the anchor as innermost child, closed right away:
+            // this is the empty "<a href=...></a>" browsers leave behind
             forceStartElement(popped[0].qname, popped[0].attributes, synthesizedAugs());
             endElement(popped[0].qname, synthesizedAugs());
         }
