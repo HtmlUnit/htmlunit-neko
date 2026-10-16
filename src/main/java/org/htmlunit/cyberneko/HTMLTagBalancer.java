@@ -163,6 +163,21 @@ public class HTMLTagBalancer
      */
     private static final int MAX_PARENT_SEARCH_DEPTH = 100;
 
+    /**
+     * Maximum number of stack entries examined when searching for open elements
+     * that a new start tag implicitly closes (e.g. a {@code <td>} closing the
+     * previous {@code <td>}, an {@code <li>} closing the previous {@code <li>}).
+     * <p>
+     * The search normally ends quickly because it stops at block level elements
+     * and at parents of the new element. Elements that are neither (like
+     * {@code <div>}) do not stop it, so an input with many open elements followed
+     * by many such start tags would otherwise cost one full stack walk per tag
+     * (quadratic). Closing an element that is buried deeper than this limit is
+     * not meaningful in real documents; in that case the new element is simply
+     * nested instead.
+     */
+    private static final int MAX_CLOSE_SEARCH_DEPTH = 100;
+
     /** Don't modify HTML names. */
     private static final short NAMES_NO_CHANGE = 0;
 
@@ -907,7 +922,9 @@ public class HTMLTagBalancer
 
         if (element.closes != null) {
             int length = fElementStack.length;
-            for (int i = length - 1; i >= 0; i--) {
+            // never look further down than MAX_CLOSE_SEARCH_DEPTH entries (DoS protection)
+            final int stop = Math.max(0, length - MAX_CLOSE_SEARCH_DEPTH);
+            for (int i = length - 1; i >= stop; i--) {
                 Info info = fElementStack.data[i];
 
                 // html elements do not close the title element
