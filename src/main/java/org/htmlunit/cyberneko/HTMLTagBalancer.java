@@ -143,6 +143,26 @@ public class HTMLTagBalancer
         null,
     };
 
+    /**
+     * Maximum distance (in open elements) between the top of the stack and an
+     * already open {@code <a>}/{@code <nobr>} for which the un-nesting
+     * described in {@link #closeAndReopenThroughElement(int)} is still
+     * performed. Beyond this distance the new element is simply nested as
+     * before, which bounds the work (and the number of synthesized events)
+     * caused by a single start tag on adversarial input.
+     */
+    private static final int MAX_ADOPTION_DEPTH = 100;
+
+    /**
+     * Maximum number of stack entries examined when searching for a parent
+     * that is limited by a bounds element (see {@link #hasOpenParent}).
+     * Table structures nested deeper than this are not meaningful in real
+     * documents and are typically the signature of a denial-of-service input,
+     * so the search is cut off instead of walking the whole stack for every
+     * start tag.
+     */
+    private static final int MAX_PARENT_SEARCH_DEPTH = 100;
+
     /** Don't modify HTML names. */
     private static final short NAMES_NO_CHANGE = 0;
 
@@ -647,15 +667,10 @@ public class HTMLTagBalancer
         final HTMLElements.Element element = getElement(elem);
         final short elementCode = element.code;
 
-        // HTML5 special case: a new <a> or <nobr> start tag closes one of
-        // the same type that is still open, even across intervening block
-        // elements (e.g. <a href="1">1<div><a href="2">2</a></div> ). Real
-        // browsers un-nest the <div> so it becomes a sibling of the first
-        // <a>, with an empty clone of that <a> reopened as the div's first
-        // child. This mirrors that behavior for the common case. Per the
-        // HTML5 parsing algorithm, "a" and "nobr" are the only two elements
-        // with this start-tag-triggered rule -- other formatting elements
-        // like <b>/<i>/<u> are unaffected and continue to nest normally.
+        // HTML5: a new <a> or <nobr> closes an open one of the same type, even across
+        // intervening elements (see closeAndReopenThroughElement). Other formatting
+        // elements (<b>, <i>, <u>, ...) have no such rule and nest normally.
+        // findLastOpen() already respects marker elements and MAX_ADOPTION_DEPTH.
         if (elementCode == HTMLElements.A || elementCode == HTMLElements.NOBR) {
             final int pos = findLastOpen(elementCode);
             if (pos != -1) {
@@ -942,8 +957,8 @@ public class HTMLTagBalancer
         }
         else {
             // Attributes are only needed later if this element may be re-opened:
-            //  - inline/formatting elements (existing reopenFormattingElements logic)
-            //  - <a>/<nobr> themselves (they get cloned by closeAndReopenThroughElement)
+            //  - inline/formatting elements (reopenFormattingElements)
+            //  - <a>/<nobr> themselves (cloned by closeAndReopenThroughElement)
             //  - any element pushed while an <a>/<nobr> is open (it may be closed and
             //    re-opened as an ancestor by closeAndReopenThroughElement)
             final boolean keepAttrs = element.isInline()
@@ -1294,21 +1309,33 @@ public class HTMLTagBalancer
 
     /**
      * Elements that push a "marker" onto the list of active formatting
-     * elements per the HTML5 parsing algorithm. An {@code <a>}/{@code <nobr>}
-     * opened before one of these is not considered reachable by a later
-     * {@code <a>}/{@code <nobr>} opened after it -- e.g. an {@code <a>}
-     * wrapping a whole {@code <table>} is NOT un-nested by a nested
-     * {@code <a>} inside one of that table's cells, but an {@code <a>}
-     * wrapping an {@code <object>}/{@code <applet>}/{@code <marquee>} still
-     * reaches inside them (verified against browsers: TD/TH/CAPTION mostly
-     * matter together with table foster-parenting, which this balancer does
-     * not otherwise implement, but they are included here defensively).
+     * elements in the HTML5 parsing algorithm.
+     * <p>
+     * An {@code <a>}/{@code <nobr>} that was opened <em>before</em> one of
+     * these elements is not reachable by an {@code <a>}/{@code <nobr>}
+     * opened <em>inside</em> it, so {@link #findLastOpen(short)} stops
+     * searching when it passes one of them. Example: in
+     * {@code <a href="1">1<object><a href="2">2</a></object>} the second
+     * anchor stays nested in the first one.
+     * <p>
+     * Note: {@code OBJECT}, {@code APPLET} and {@code MARQUEE} were verified
+     * against browsers. {@code TD}, {@code TH} and {@code CAPTION} follow the
+     * specification, but their effect is mixed up with table foster parenting,
+     * which this balancer does not implement.
      */
     private static final short[] AFE_MARKER_ELEMENTS = {
         HTMLElements.OBJECT, HTMLElements.APPLET, HTMLElements.MARQUEE,
         HTMLElements.TD, HTMLElements.TH, HTMLElements.CAPTION,
     };
 
+    /**
+     * Checks whether the given element code is one of the
+     * {@link #AFE_MARKER_ELEMENTS marker elements}.
+     *
+     * @param code the element code to test (see {@link HTMLElements.Element#code})
+     * @return {@code true} if the element acts as a marker for the
+     *         {@code <a>}/{@code <nobr>} un-nesting logic
+     */
     private static boolean isMarkerElement(final short code) {
         for (final short marker : AFE_MARKER_ELEMENTS) {
             if (marker == code) {
@@ -1319,16 +1346,36 @@ public class HTMLTagBalancer
     }
 
     /**
-     * @return the stack index of the topmost currently-open element with the
-     *         given code, or -1 if none is open or if the search is blocked
-     *         by an intervening marker element (see {@link #isMarkerElement}).
+     * Finds the topmost open element with the given code, limited to the
+     * {@link #MAX_ADOPTION_DEPTH} topmost stack entries and bounded by
+     * {@link #AFE_MARKER_ELEMENTS marker elements}.
+     * <p>
+     * The search runs from the top of the stack downwards and gives up
+     * (returns {@code -1}) when
+     * <ul>
+     * <li>no element with this code is open anywhere (answered in O(1) by the
+     *     open counters, without touching the stack),</li>
+     * <li>a marker element is passed before a match is found, or</li>
+     * <li>{@code MAX_ADOPTION_DEPTH} entries were examined without a match.</li>
+     * </ul>
+     * Because of the window, the returned index {@code pos} always satisfies
+     * {@code fElementStack.length - pos <= MAX_ADOPTION_DEPTH}.
+     *
+     * @param elementCode the code of the element to look for
+     *        (e.g. {@link HTMLElements#A} or {@link HTMLElements#NOBR})
+     * @return the index of the element in {@link #fElementStack}, or
+     *         {@code -1} if it is not open, not reachable (marker) or too deep
      */
     private int findLastOpen(final short elementCode) {
         if (!fElementStack.isOpen(elementCode)) {
             return -1;
         }
-        for (int i = fElementStack.length - 1; i >= 0; i--) {
-            final short code = fElementStack.data[i].element.code;
+
+        final Info[] data = fElementStack.data;
+        final int top = fElementStack.length - 1;
+        final int stop = Math.max(0, top - MAX_ADOPTION_DEPTH + 1);
+        for (int i = top; i >= stop; i--) {
+            final short code = data[i].element.code;
             if (code == elementCode) {
                 return i;
             }
@@ -1340,16 +1387,51 @@ public class HTMLTagBalancer
     }
 
     /**
-     * Closes every open element from the top of the stack down to and
-     * including the element at {@code pos} (an open {@code <a>} or
-     * {@code <nobr>}), then reopens the elements that were above it as empty
-     * elements/clones, innermost being a clone of that element itself, so
-     * that the caller can push the new {@code <a>}/{@code <nobr>} as a child
-     * of the reopened chain. This approximates the HTML5 adoption agency
-     * algorithm for the common "single furthest block" case; it does not
-     * implement the full multi-iteration algorithm.
+     * Approximates the HTML5 "adoption agency" behavior that browsers apply
+     * when a start tag for an element that must not be nested in itself
+     * ({@code <a>}, {@code <nobr>}) arrives while one of the same type is
+     * still open &ndash; even if other elements are open in between.
+     * <p>
+     * Example: {@code <a href="1">1<div><a href="2">2</a></div>} is turned
+     * into
+     * <pre>
+     * a[href=1] "1"
+     * div
+     *   a[href=1]        (empty clone)
+     *   a[href=2] "2"
+     * </pre>
+     * instead of nesting the second anchor (and the div) inside the first one.
+     * <p>
+     * Procedure, with {@code popped[0]} being the element at {@code pos} and
+     * {@code popped[1..n]} the elements above it (bottom to top):
+     * <ol>
+     * <li>report the {@code HTML2008} warning (same key as for re-opened
+     *     formatting elements),</li>
+     * <li>close all elements from the top of the stack down to and including
+     *     {@code popped[0]},</li>
+     * <li>re-open {@code popped[1..n]}, outermost first, as empty elements
+     *     carrying their original attributes,</li>
+     * <li>only if there were such elements ({@code n > 0}): re-open an empty
+     *     clone of {@code popped[0]} as their innermost child and close it
+     *     immediately. With direct nesting ({@code <a>1<a>2</a>}) no clone is
+     *     created, the new element just becomes a sibling.</li>
+     * </ol>
+     * The caller then pushes the new start tag as usual, so it ends up inside
+     * the innermost re-opened element.
+     * <p>
+     * This relies on {@link Info#attributes} being retained for every element
+     * pushed while an {@code <a>}/{@code <nobr>} is open.
+     * <p>
+     * Limitations: this is the "single furthest block" case only. The full
+     * algorithm (bookmark handling, one clone per intervening level, up to
+     * eight outer iterations) is not implemented, e.g. for
+     * {@code <a href="1">1<div><p><a href="2">2</a></p></div>} browsers also
+     * leave an empty clone directly below the {@code div}, which is not
+     * reproduced here.
      *
-     * @param pos stack index of the still-open element to un-nest.
+     * @param pos index in {@link #fElementStack} of the still open
+     *        {@code <a>}/{@code <nobr>} to un-nest, as returned by
+     *        {@link #findLastOpen(short)} (must be {@code >= 0})
      */
     private void closeAndReopenThroughElement(final int pos) {
         final int count = fElementStack.length - pos;
@@ -1362,7 +1444,7 @@ public class HTMLTagBalancer
             fErrorReporter.reportWarning("HTML2008", new Object[]{popped[0].qname.getRawname()});
         }
 
-        // close everything from the top of the stack down through the <a>
+        // close everything from the top of the stack down through the element
         for (int i = count - 1; i >= 0; i--) {
             final Info info = fElementStack.pop();
             if (documentHandler_ != null) {
@@ -1370,16 +1452,12 @@ public class HTMLTagBalancer
             }
         }
 
-        // reopen the ancestors that were above the <a>, outermost first
+        // reopen the elements that were above it, outermost first
         for (int i = 1; i < count; i++) {
             forceStartElement(popped[i].qname, popped[i].attributes, synthesizedAugs());
         }
 
-        // if there were intervening ancestors, reopen an empty clone of the
-        // <a> as their innermost child, then close it immediately: this is
-        // what browsers show as the empty "<a href=...></a>" left behind.
-        // With no intervening ancestors (direct <a>...<a> nesting) the new
-        // <a> simply becomes a sibling of the old one, so no clone is needed.
+        // reopen an empty clone as innermost child and close it right away
         if (count > 1) {
             forceStartElement(popped[0].qname, popped[0].attributes, synthesizedAugs());
             endElement(popped[0].qname, synthesizedAugs());
@@ -1497,8 +1575,39 @@ public class HTMLTagBalancer
     }
 
     /**
-     * @return true if at least one of the required parents is currently open on the stack.
-     * @param element the element to check parents for.
+     * Checks whether at least one of the parents required by the given
+     * element is currently open, honoring the element's bounds.
+     * <p>
+     * The check is done in tiers, cheapest first:
+     * <ol>
+     * <li><b>No bounds</b> ({@code element.bounds == -1}, which is the case
+     *     for all elements except the table row/cell family): answered by
+     *     the O(1) open counters, the stack is not touched.</li>
+     * <li><b>Bounds element not open</b>: it cannot cut the search off, so
+     *     this is the same unbounded question as in tier 1.</li>
+     * <li><b>Bounds open but no parent open</b>: the answer is {@code false},
+     *     again without scanning.</li>
+     * <li><b>Bounds and a parent open</b>: the order matters, so the stack is
+     *     scanned from the top. {@code true} is returned if a parent is met
+     *     before the bounds element, {@code false} if the bounds element is
+     *     met first. At most {@link #MAX_PARENT_SEARCH_DEPTH} entries are
+     *     examined; if neither is found in that window, {@code false} is
+     *     returned.</li>
+     * </ol>
+     * Returning {@code false} makes the caller synthesize the preferred
+     * parent (or discard the element if that parent cannot be created), so
+     * hitting the depth limit degrades to bounded, well defined behavior
+     * instead of an unbounded scan per start tag.
+     * <p>
+     * Example: for {@code <td>} (parent {@code TR}, bounds {@code TABLE}) in
+     * {@code <table><tr><div>...<td>} the {@code TR} is found as long as it
+     * is within the search window; in {@code <tr><table><td>} the inner
+     * {@code TABLE} is hit first and no parent is found.
+     *
+     * @param element the element whose parents should be looked up
+     * @return {@code true} if a required parent is open (and reachable
+     *         within the bounds and the search window), {@code false} if the
+     *         element has no required parents or none was found
      */
     protected boolean hasOpenParent(final HTMLElements.Element element) {
         final HTMLElements.Element[] parents = element.parent;
@@ -1508,29 +1617,51 @@ public class HTMLTagBalancer
 
         final short bounds = element.bounds;
 
-        // If there are no bounds, we can skip stack traversal entirely
-        // and rely on the O(1) open counters.
+        // 1. hot path: no bounds
         if (bounds == -1) {
-            for (int i = 0; i < parents.length; i++) {
-                if (fElementStack.isOpen(parents[i].code)) {
-                    return true;
-                }
-            }
+            return isAnyOpen(parents);
+        }
+
+        // 2. bounds element not on the stack -> cannot cut the search off
+        if (!fElementStack.isOpen(bounds)) {
+            return isAnyOpen(parents);
+        }
+
+        // 3. bounds open: only worth scanning if a parent is open at all
+        if (!isAnyOpen(parents)) {
             return false;
         }
 
-        // Bounded traversal: scan down the stack and stop if we hit bounds
-        for (int i = fElementStack.length - 1; i >= 0; i--) {
-            final Info info = fElementStack.data[i];
-            if (info.element.code == bounds) {
+        // 4. ordered, depth-limited scan
+        final Info[] data = fElementStack.data;
+        final int top = fElementStack.length - 1;
+        final int stop = Math.max(0, top - MAX_PARENT_SEARCH_DEPTH + 1);
+        for (int i = top; i >= stop; i--) {
+            final short code = data[i].element.code;
+            if (code == bounds) {
                 return false;
             }
-
-            final short code = info.element.code;
             for (int j = 0; j < parents.length; j++) {
                 if (code == parents[j].code) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks, using only the O(1) open counters, whether at least one of the
+     * given elements is currently open anywhere on the element stack.
+     * The position on the stack is not considered.
+     *
+     * @param elements the candidate elements (must not be {@code null})
+     * @return {@code true} if any of them is open
+     */
+    private boolean isAnyOpen(final HTMLElements.Element[] elements) {
+        for (int i = 0; i < elements.length; i++) {
+            if (fElementStack.isOpen(elements[i].code)) {
+                return true;
             }
         }
         return false;
