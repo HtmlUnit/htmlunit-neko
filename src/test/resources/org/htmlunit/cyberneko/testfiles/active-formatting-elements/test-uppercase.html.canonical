@@ -1,0 +1,21 @@
+(html
+(head
+)head
+(body
+(A
+Ahref 1
+"1
+(DIV
+)DIV
+)A
+(DIV
+(A
+Ahref 1
+)A
+(A
+Ahref 2
+"2
+)A
+)DIV
+)body
+)html

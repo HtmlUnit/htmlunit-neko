@@ -1,0 +1,25 @@
+(html
+(head
+)head
+(body
+(a
+Ahref 1
+"1
+(div
+Aclass c
+Aid d
+)div
+)a
+(div
+Aclass c
+Aid d
+(a
+Ahref 1
+)a
+(a
+Ahref 2
+"2
+)a
+)div
+)body
+)html

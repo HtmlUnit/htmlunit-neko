@@ -1,0 +1,28 @@
+(html
+(head
+)head
+(body
+(a
+Ahref 1
+"1
+(font
+Acolor red
+"x
+(div
+)div
+)font
+)a
+(font
+Acolor red
+(div
+(a
+Ahref 1
+)a
+(a
+Ahref 2
+"2
+)a
+)div
+)font
+)body
+)html
