@@ -5,21 +5,13 @@
 (a
 Ahref 1
 "1
-(div
-Aclass c
-Aid d
-)div
-)a
-(div
-Aclass c
-Aid d
-(a
-Ahref 1
+(span
+)span
 )a
 (a
 Ahref 2
 "2
 )a
-)div
+x)span
 )body
 )html

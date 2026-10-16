@@ -211,15 +211,15 @@ public class HTMLElements implements HTMLElementsProvider {
             // ACRONYM - - (%inline;)*
             new Element(ACRONYM, "ACRONYM", Element.INLINE, BODY, null),
             // ADDRESS - - (%inline;)*
-            new Element(ADDRESS, "ADDRESS", Element.BLOCK, BODY, new short[] {P}),
+            new Element(ADDRESS, "ADDRESS", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // APPLET
-            new Element(APPLET, "APPLET", Element.CONTAINER, BODY, null),
+            new Element(APPLET, "APPLET", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, null),
             // AREA - O EMPTY
-            new Element(AREA, "AREA", Element.EMPTY, BODY, null),
+            new Element(AREA, "AREA", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
 
-            new Element(ARTICLE, "ARTICLE", Element.BLOCK, BODY, new short[] {P}),
+            new Element(ARTICLE, "ARTICLE", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
-            new Element(ASIDE, "ASIDE", Element.BLOCK, BODY, new short[] {P}),
+            new Element(ASIDE, "ASIDE", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
             new Element(AUDIO, "AUDIO", Element.CONTAINER, BODY, null),
         };
@@ -227,40 +227,40 @@ public class HTMLElements implements HTMLElementsProvider {
             // B - - (%inline;)*
             new Element(B, "B", Element.INLINE | Element.FORMATTING, BODY, new short[] {SVG}),
             // BASE - O EMPTY
-            new Element(BASE, "BASE", Element.EMPTY, HEAD, null),
+            new Element(BASE, "BASE", Element.EMPTY | Element.HTML5_SPECIAL, HEAD, null),
             // BASEFONT
-            new Element(BASEFONT, "BASEFONT", Element.EMPTY, HEAD, null),
+            new Element(BASEFONT, "BASEFONT", Element.EMPTY | Element.HTML5_SPECIAL, HEAD, null),
 
             new Element(BDI, "BDI", Element.INLINE, BODY, null),
             // BDO - - (%inline;)*
             new Element(BDO, "BDO", Element.INLINE, BODY, null),
             // BGSOUND
-            new Element(BGSOUND, "BGSOUND", Element.EMPTY, HEAD, null),
+            new Element(BGSOUND, "BGSOUND", Element.EMPTY | Element.HTML5_SPECIAL, HEAD, null),
             // BIG - - (%inline;)*
             new Element(BIG, "BIG", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // BLOCKQUOTE - - (%block;|SCRIPT)+
-            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK, BODY, new short[]{P, SVG}),
+            new Element(BLOCKQUOTE, "BLOCKQUOTE", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[]{P, SVG}),
             // BODY O O (%block;|SCRIPT)+ +(INS|DEL)
-            new Element(BODY, "BODY", Element.CONTAINER, HTML, new short[]{HEAD, SVG}),
+            new Element(BODY, "BODY", Element.CONTAINER | Element.HTML5_SPECIAL, HTML, new short[]{HEAD, SVG}),
             // BR - O EMPTY
-            new Element(BR, "BR", Element.EMPTY, BODY, new short[]{SVG}),
+            new Element(BR, "BR", Element.EMPTY | Element.HTML5_SPECIAL, BODY, new short[]{SVG}),
             // BUTTON - - (%flow;)* -(A|%formctrl;|FORM|FIELDSET)
-            new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK, BODY, new short[]{BUTTON}),
+            new Element(BUTTON, "BUTTON", Element.INLINE | Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[]{BUTTON}),
         };
         elementsArray['C' - 'A'] = new Element[] {
             new Element(CANVAS, "CANVAS",  Element.CONTAINER, BODY, null),
             // CAPTION - - (%inline;)*
-            new Element(CAPTION, "CAPTION", Element.INLINE, TABLE, null),
+            new Element(CAPTION, "CAPTION", Element.INLINE | Element.HTML5_SPECIAL, TABLE, null),
             // CENTER,
-            new Element(CENTER, "CENTER", Element.CONTAINER, BODY, new short[] {P, SVG}),
+            new Element(CENTER, "CENTER", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
             // CITE - - (%inline;)*
             new Element(CITE, "CITE", Element.INLINE, BODY, null),
             // CODE - - (%inline;)*
             new Element(CODE, "CODE", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // COL - O EMPTY
-            new Element(COL, "COL", Element.EMPTY, COLGROUP, null),
+            new Element(COL, "COL", Element.EMPTY | Element.HTML5_SPECIAL, COLGROUP, null),
             // COLGROUP - O (COL)*
-            new Element(COLGROUP, "COLGROUP", Element.CONTAINER, TABLE, new short[]{COL, COLGROUP}),
+            new Element(COLGROUP, "COLGROUP", Element.CONTAINER | Element.HTML5_SPECIAL, TABLE, new short[]{COL, COLGROUP}),
         };
         elementsArray['D' - 'A'] = new Element[] {
             new Element(DATA, "DATA",  Element.CONTAINER, BODY, null),
@@ -270,78 +270,78 @@ public class HTMLElements implements HTMLElementsProvider {
             // DEL - - (%flow;)*
             new Element(DEL, "DEL", Element.INLINE, BODY, null),
 
-            new Element(DETAILS, "DETAILS", Element.BLOCK, BODY, new short[] {P}),
+            new Element(DETAILS, "DETAILS", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // DFN - - (%inline;)*
             new Element(DFN, "DFN", Element.INLINE, BODY, null),
 
             new Element(DIALOG, "DIALOG",  Element.CONTAINER, BODY, new short[] {P}),
             // DIR
-            new Element(DIR, "DIR", Element.CONTAINER, BODY, new short[] {P}),
+            new Element(DIR, "DIR", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // DIV - - (%flow;)*
-            new Element(DIV, "DIV", Element.CONTAINER, BODY, new short[]{P, SVG}),
+            new Element(DIV, "DIV", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[]{P, SVG}),
             // DD - O (%flow;)*
-            new Element(DD, "DD", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
+            new Element(DD, "DD", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[]{DT, DD, P, SVG}),
             // DL - - (DT|DD)+
-            new Element(DL, "DL", Element.BLOCK | Element.CONTAINER, BODY, new short[] {P, SVG}),
+            new Element(DL, "DL", Element.BLOCK | Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
             // DT - O (%inline;)*
-            new Element(DT, "DT", Element.BLOCK, BODY, new short[]{DT, DD, P, SVG}),
+            new Element(DT, "DT", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[]{DT, DD, P, SVG}),
         };
         elementsArray['E' - 'A'] = new Element[] {
             // EM - - (%inline;)*
             new Element(EM, "EM", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // EMBED
-            new Element(EMBED, "EMBED", Element.EMPTY, BODY, new short[]{SVG}),
+            new Element(EMBED, "EMBED", Element.EMPTY | Element.HTML5_SPECIAL, BODY, new short[]{SVG}),
         };
         elementsArray['F' - 'A'] = new Element[] {
             // FIELDSET - - (#PCDATA,LEGEND,(%flow;)*)
-            new Element(FIELDSET, "FIELDSET", Element.CONTAINER, BODY, new short[] {P}),
+            new Element(FIELDSET, "FIELDSET", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
-            new Element(FIGCAPTION, "FIGCAPTION", Element.BLOCK, BODY, new short[] {P}),
+            new Element(FIGCAPTION, "FIGCAPTION", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
-            new Element(FIGURE, "FIGURE", Element.BLOCK, BODY, new short[] {P}),
+            new Element(FIGURE, "FIGURE", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // FONT
             new Element(FONT, "FONT", Element.CONTAINER | Element.FORMATTING, BODY, null),
 
-            new Element(FOOTER, "FOOTER", Element.BLOCK, BODY, new short[] {P}),
+            new Element(FOOTER, "FOOTER", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
             // FORM - - (%block;|SCRIPT)+ -(FORM)
-            new Element(FORM, "FORM", Element.CONTAINER, new short[]{BODY, TD, DIV}, new short[]{P}),
+            new Element(FORM, "FORM", Element.CONTAINER | Element.HTML5_SPECIAL, new short[]{BODY, TD, DIV}, new short[]{P}),
             // FRAME - O EMPTY
-            new Element(FRAME, "FRAME", Element.EMPTY, FRAMESET, null),
+            new Element(FRAME, "FRAME", Element.EMPTY | Element.HTML5_SPECIAL, FRAMESET, null),
             // FRAMESET - - ((FRAMESET|FRAME)+ & NOFRAMES?)
-            new Element(FRAMESET, "FRAMESET", Element.CONTAINER, HTML, new short[]{HEAD}),
+            new Element(FRAMESET, "FRAMESET", Element.CONTAINER | Element.HTML5_SPECIAL, HTML, new short[]{HEAD}),
         };
         elementsArray['H' - 'A'] = new Element[] {
             // (H1|H2|H3|H4|H5|H6) - - (%inline;)*
-            new Element(H1, "H1", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H2, "H2", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H3, "H3", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H4, "H4", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H5, "H5", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
-            new Element(H6, "H6", Element.BLOCK, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H1, "H1", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H2, "H2", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H3, "H3", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H4, "H4", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H5, "H5", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
+            new Element(H6, "H6", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{BODY, A}, new short[]{H1, H2, H3, H4, H5, H6, P, SVG}),
             // HEAD O O (%head.content;) +(%head.misc;)
-            new Element(HEAD, "HEAD", 0, HTML, null),
+            new Element(HEAD, "HEAD", Element.HTML5_SPECIAL, HTML, null),
 
-            new Element(HEADER, "HEADER", Element.BLOCK, BODY, new short[] {P}),
+            new Element(HEADER, "HEADER", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
-            new Element(HGROUP, "HGROUP", Element.BLOCK, BODY, new short[] {P}),
+            new Element(HGROUP, "HGROUP", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
 
             // HR - O EMPTY
-            new Element(HR, "HR", Element.EMPTY, new short[]{BODY, SELECT}, new short[]{P, SVG}),
+            new Element(HR, "HR", Element.EMPTY | Element.HTML5_SPECIAL, new short[]{BODY, SELECT}, new short[]{P, SVG}),
             // HTML O O (%html.content;)
-            new Element(HTML, "HTML", 0, null, null),
+            new Element(HTML, "HTML", Element.HTML5_SPECIAL, null, null),
         };
         elementsArray['I' - 'A'] = new Element[] {
             // I - - (%inline;)*
             new Element(I, "I", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // IFRAME
-            new Element(IFRAME, "IFRAME", Element.BLOCK, BODY, null),
+            new Element(IFRAME, "IFRAME", Element.BLOCK | Element.HTML5_SPECIAL, BODY, null),
             // IMG - O EMPTY
-            new Element(IMG, "IMG", Element.EMPTY, BODY, new short[]{SVG}),
+            new Element(IMG, "IMG", Element.EMPTY | Element.HTML5_SPECIAL, BODY, new short[]{SVG}),
 
             new Element(IMAGE, "IMAGE", Element.EMPTY, BODY, null),
             // INPUT - O EMPTY
-            new Element(INPUT, "INPUT", Element.EMPTY, BODY, new short[]{SELECT}),
+            new Element(INPUT, "INPUT", Element.EMPTY | Element.HTML5_SPECIAL, BODY, new short[]{SELECT}),
             // INS - - (%flow;)*
             new Element(INS, "INS", Element.INLINE, BODY, null),
         };
@@ -349,7 +349,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // KBD - - (%inline;)*
             new Element(KBD, "KBD", Element.INLINE, BODY, null),
             // KEYGEN
-            new Element(KEYGEN, "KEYGEN", Element.EMPTY, BODY, null),
+            new Element(KEYGEN, "KEYGEN", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
         };
         elementsArray['L' - 'A'] = new Element[] {
             // LABEL - - (%inline;)* -(LABEL)
@@ -357,43 +357,43 @@ public class HTMLElements implements HTMLElementsProvider {
             // LEGEND - - (%inline;)*
             new Element(LEGEND, "LEGEND", Element.INLINE, BODY, null),
             // LI - O (%flow;)*
-            new Element(LI, "LI", Element.CONTAINER, new short[]{BODY, UL, OL, MENU}, new short[]{LI, P, SVG}),
+            new Element(LI, "LI", Element.CONTAINER | Element.HTML5_SPECIAL, new short[]{BODY, UL, OL, MENU}, new short[]{LI, P, SVG}),
             // LINK - O EMPTY
-            new Element(LINK, "LINK", Element.EMPTY, HEAD, null),
+            new Element(LINK, "LINK", Element.EMPTY | Element.HTML5_SPECIAL, HEAD, null),
             // LISTING
-            new Element(LISTING, "LISTING", Element.BLOCK, BODY, new short[] {P, SVG}),
+            new Element(LISTING, "LISTING", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
         };
         elementsArray['M' - 'A'] = new Element[] {
-            new Element(MAIN, "MAIN", Element.BLOCK, BODY, new short[] {P}),
+            new Element(MAIN, "MAIN", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // MAP - - ((%block;) | AREA)+
             new Element(MAP, "MAP", Element.INLINE, BODY, null),
 
             new Element(MARK, "MARK",  Element.CONTAINER, BODY, null),
             // MARQUEE
-            new Element(MARQUEE, "MARQUEE", Element.CONTAINER, BODY, null),
+            new Element(MARQUEE, "MARQUEE", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, null),
             // MENU
-            new Element(MENU, "MENU", Element.CONTAINER, BODY, new short[] {P, SVG}),
+            new Element(MENU, "MENU", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
             // METER
             new Element(METER, "METER",  Element.CONTAINER, BODY, null),
             // META - O EMPTY
-            new Element(META, "META", Element.EMPTY, HEAD, new short[]{STYLE, TITLE, SVG}),
+            new Element(META, "META", Element.EMPTY | Element.HTML5_SPECIAL, HEAD, new short[]{STYLE, TITLE, SVG}),
         };
         elementsArray['N' - 'A'] = new Element[] {
-            new Element(NAV, "NAV", Element.BLOCK, BODY, new short[] {P}),
+            new Element(NAV, "NAV", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // NOBR
             new Element(NOBR, "NOBR", Element.INLINE | Element.FORMATTING, BODY, new short[]{NOBR, SVG}),
             // NOEMBED
-            new Element(NOEMBED, "NOEMBED", Element.CONTAINER, BODY, null),
+            new Element(NOEMBED, "NOEMBED", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, null),
             // NOFRAMES - - (BODY) -(NOFRAMES)
-            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER, new short[]{HEAD, BODY, FRAMESET}, null),
+            new Element(NOFRAMES, "NOFRAMES", Element.CONTAINER | Element.HTML5_SPECIAL, new short[]{HEAD, BODY, FRAMESET}, null),
             // NOSCRIPT - - (%block;)+
-            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER, new short[]{HEAD, BODY}, null),
+            new Element(NOSCRIPT, "NOSCRIPT", Element.CONTAINER | Element.HTML5_SPECIAL, new short[]{HEAD, BODY}, null),
         };
         elementsArray['O' - 'A'] = new Element[] {
             // OBJECT - - (PARAM | %flow;)*
-            new Element(OBJECT, "OBJECT", Element.CONTAINER, BODY, null),
+            new Element(OBJECT, "OBJECT", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, null),
             // OL - - (LI)+
-            new Element(OL, "OL", Element.BLOCK, BODY, new short[] {P, SVG}),
+            new Element(OL, "OL", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
             // OPTGROUP - - (OPTION)+
             new Element(OPTGROUP, "OPTGROUP", Element.INLINE, BODY, new short[]{OPTION}),
             // OPTION - O (#PCDATA)
@@ -403,15 +403,15 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['P' - 'A'] = new Element[] {
             // P - O (%inline;)*
-            new Element(P, "P", Element.CONTAINER, BODY, new short[]{P, SVG}),
+            new Element(P, "P", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[]{P, SVG}),
             // PARAM - O EMPTY
-            new Element(PARAM, "PARAM", Element.EMPTY, BODY, null),
+            new Element(PARAM, "PARAM", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
 
             new Element(PICTURE, "PICTURE",  Element.CONTAINER, BODY, null),
             // PLAINTEXT
-            new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL, BODY, new short[]{P}),
+            new Element(PLAINTEXT, "PLAINTEXT", Element.SPECIAL | Element.HTML5_SPECIAL, BODY, new short[]{P}),
             // PRE - - (%inline;)* -(%pre.exclusion;)
-            new Element(PRE, "PRE", Element.BLOCK, BODY, new short[] {P, SVG}),
+            new Element(PRE, "PRE", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
 
             new Element(PROGRESS, "PROGRESS",  Element.CONTAINER, BODY, null),
         };
@@ -439,18 +439,18 @@ public class HTMLElements implements HTMLElementsProvider {
             // SAMP - - (%inline;)*
             new Element(SAMP, "SAMP", Element.INLINE, BODY, null),
             // SCRIPT - - %Script;
-            new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING,
+            new Element(SCRIPT, "SCRIPT", Element.SPECIAL | Element.SCRIPT_SUPPORTING | Element.HTML5_SPECIAL,
                             new short[]{HEAD, BODY}, null),
 
-            new Element(SECTION, "SECTION", Element.BLOCK, BODY, new short[]{P}),
+            new Element(SECTION, "SECTION", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[]{P}),
             // SELECT - - (OPTGROUP|OPTION)+
-            new Element(SELECT, "SELECT", Element.CONTAINER, BODY, new short[]{SELECT}),
+            new Element(SELECT, "SELECT", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[]{SELECT}),
 
             new Element(SLOT, "SLOT",  Element.CONTAINER, BODY, null),
             // SMALL - - (%inline;)*
             new Element(SMALL, "SMALL", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // SOURCE
-            new Element(SOURCE, "SOURCE", Element.EMPTY, BODY, null),
+            new Element(SOURCE, "SOURCE", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
             // SPAN - - (%inline;)*
             new Element(SPAN, "SPAN", Element.CONTAINER, BODY, new short[]{SVG}),
             // STRIKE
@@ -458,11 +458,11 @@ public class HTMLElements implements HTMLElementsProvider {
             // STRONG - - (%inline;)*
             new Element(STRONG, "STRONG", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // STYLE - - %StyleSheet;
-            new Element(STYLE, "STYLE", Element.SPECIAL, new short[]{HEAD, BODY}, new short[]{STYLE, TITLE, META}),
+            new Element(STYLE, "STYLE", Element.SPECIAL | Element.HTML5_SPECIAL, new short[]{HEAD, BODY}, new short[]{STYLE, TITLE, META}),
             // SUB - - (%inline;)*
             new Element(SUB, "SUB", Element.INLINE, BODY, new short[]{SVG}),
 
-            new Element(SUMMARY, "SUMMARY", Element.BLOCK, BODY, new short[] {P}),
+            new Element(SUMMARY, "SUMMARY", Element.BLOCK | Element.HTML5_SPECIAL, BODY, new short[] {P}),
             // SUP - - (%inline;)*
             new Element(SUP, "SUP", Element.INLINE, BODY, new short[]{SVG}),
 
@@ -471,31 +471,31 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['T' - 'A'] = new Element[] {
             // TABLE - - (CAPTION?, (COL*|COLGROUP*), THEAD?, TFOOT?, TBODY+)
-            new Element(TABLE, "TABLE", Element.BLOCK | Element.CONTAINER, BODY, new short[]{SVG}),
+            new Element(TABLE, "TABLE", Element.BLOCK | Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[]{SVG}),
             // TBODY O O (TR)+
-            new Element(TBODY, "TBODY", 0, TABLE, new short[]{FORM, THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
+            new Element(TBODY, "TBODY", Element.HTML5_SPECIAL, TABLE, new short[]{FORM, THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
             // TD - O (%flow;)*
-            new Element(TD, "TD", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
+            new Element(TD, "TD", Element.CONTAINER | Element.HTML5_SPECIAL, TR, TABLE, new short[]{TD, TH}),
 
-            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER | Element.SCRIPT_SUPPORTING,
+            new Element(TEMPLATE, "TEMPLATE", Element.CONTAINER | Element.SCRIPT_SUPPORTING | Element.HTML5_SPECIAL,
                             new short[]{HEAD, BODY}, null),
             // TEXTAREA - - (#PCDATA)
-            new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL, BODY, null),
+            new Element(TEXTAREA, "TEXTAREA", Element.SPECIAL | Element.HTML5_SPECIAL, BODY, null),
             // TFOOT - O (TR)+
-            new Element(TFOOT, "TFOOT", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR}),
+            new Element(TFOOT, "TFOOT", Element.HTML5_SPECIAL, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR}),
             // TH - O (%flow;)*
-            new Element(TH, "TH", Element.CONTAINER, TR, TABLE, new short[]{TD, TH}),
+            new Element(TH, "TH", Element.CONTAINER | Element.HTML5_SPECIAL, TR, TABLE, new short[]{TD, TH}),
             // THEAD - O (TR)+
-            new Element(THEAD, "THEAD", 0, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
+            new Element(THEAD, "THEAD", Element.HTML5_SPECIAL, TABLE, new short[]{THEAD, TBODY, TFOOT, TD, TH, TR, COLGROUP}),
 
             new Element(TIME, "TIME",  Element.CONTAINER, BODY, null),
             // TITLE - - (#PCDATA) -(%head.misc;)
-            new Element(TITLE, "TITLE", Element.SPECIAL, new short[]{HEAD, BODY}, null),
+            new Element(TITLE, "TITLE", Element.SPECIAL | Element.HTML5_SPECIAL, new short[]{HEAD, BODY}, null),
             // TR - O (TH|TD)+
-            new Element(TR, "TR", Element.BLOCK, new short[]{TBODY, THEAD, TFOOT}, TABLE,
+            new Element(TR, "TR", Element.BLOCK | Element.HTML5_SPECIAL, new short[]{TBODY, THEAD, TFOOT}, TABLE,
                     new short[]{FORM, TD, TH, TR, COLGROUP, DIV}),
 
-            new Element(TRACK, "TRACK", Element.EMPTY, BODY, null),
+            new Element(TRACK, "TRACK", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
             // TT - - (%inline;)*
             new Element(TT, "TT", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
         };
@@ -503,7 +503,7 @@ public class HTMLElements implements HTMLElementsProvider {
             // U,
             new Element(U, "U", Element.INLINE | Element.FORMATTING, BODY, new short[]{SVG}),
             // UL - - (LI)+
-            new Element(UL, "UL", Element.CONTAINER, BODY, new short[] {P, SVG}),
+            new Element(UL, "UL", Element.CONTAINER | Element.HTML5_SPECIAL, BODY, new short[] {P, SVG}),
         };
         elementsArray['V' - 'A'] = new Element[] {
             // VAR - - (%inline;)*
@@ -513,11 +513,11 @@ public class HTMLElements implements HTMLElementsProvider {
         };
         elementsArray['W' - 'A'] = new Element[] {
             // WBR
-            new Element(WBR, "WBR", Element.EMPTY, BODY, null),
+            new Element(WBR, "WBR", Element.EMPTY | Element.HTML5_SPECIAL, BODY, null),
         };
         elementsArray['X' - 'A'] = new Element[] {
             // XMP
-            new Element(XMP, "XMP", Element.SPECIAL, BODY, new short[] {P}),
+            new Element(XMP, "XMP", Element.SPECIAL | Element.HTML5_SPECIAL, BODY, new short[] {P}),
         };
 
         // keep contiguous list of elements for lookups by code
@@ -749,6 +749,14 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         public static final int FORMATTING = 0x40;
 
+        /**
+         * Element of the "special" category of the HTML5 parsing algorithm, see
+         * <a href='https://html.spec.whatwg.org/#special'>special elements</a>.
+         * Not to be confused with {@link #SPECIAL}, which marks elements with
+         * special content handling (script, style, textarea, ...).
+         */
+        public static final int HTML5_SPECIAL = 0x80;
+
         /** The element code. */
         public final short code;
 
@@ -886,6 +894,13 @@ public class HTMLElements implements HTMLElementsProvider {
          */
         public final boolean isFormatting() {
             return (flags & FORMATTING) != 0;
+        }
+
+        /**
+         * @return true if this element belongs to the "special" category of the HTML5 parsing algorithm
+         */
+        public boolean isHtml5Special() {
+            return (flags & HTML5_SPECIAL) != 0;
         }
 
         /**
