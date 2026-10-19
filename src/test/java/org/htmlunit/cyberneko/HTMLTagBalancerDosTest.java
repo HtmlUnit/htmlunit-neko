@@ -55,6 +55,9 @@ public class HTMLTagBalancerDosTest {
     /** must match HTMLTagBalancer.MAX_CLOSE_SEARCH_DEPTH */
     private static final int CLOSE_WINDOW = 100;
 
+    /** must match HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH */
+    private static final int CONTEXT_WINDOW = 100;
+
     // ------------------------------------------------------------------
     // 1. hasOpenParent(): quadratic scan for table row/cell elements
     // ------------------------------------------------------------------
@@ -204,6 +207,166 @@ public class HTMLTagBalancerDosTest {
     }
 
     // ------------------------------------------------------------------
+    // 1c. table/form start context, end tag search, discarded elements
+    // ------------------------------------------------------------------
+
+    /**
+     * Every {@code <table>} start tag has to find out whether it is inside table
+     * structure. Under N open divs and without any table element open, the answer
+     * is known from the open counters; an unbounded stack walk would cost N per tag.
+     */
+    @Test
+    public void manyTablesBelowDeepStack() {
+        final int depth = 100_000;
+        final int tables = 50_000;
+
+        final Stats stats = parseWithTimeout(repeat("<div>", depth) + repeat("<table></table>", tables));
+
+        assertBalanced(stats);
+        assertEquals(tables, stats.count("table"));
+    }
+
+    /** Same for {@code <form>}, which uses the same context check. */
+    @Test
+    public void manyFormsBelowDeepStack() {
+        final int depth = 100_000;
+        final int forms = 50_000;
+
+        final Stats stats = parseWithTimeout(repeat("<div>", depth) + repeat("<form></form>", forms));
+
+        assertBalanced(stats);
+        assertEquals(forms, stats.count("form"));
+    }
+
+    /**
+     * A table structure element is open at the bottom, so the counters cannot answer; only the
+     * search window protects here. The cell at the bottom is out of reach, nested tables stay nested.
+     */
+    @Test
+    public void manyTablesBelowDeepStackInsideCell() {
+        final int depth = 100_000;
+        final int tables = 50_000;
+
+        final Stats stats = parseWithTimeout("<table><tr><td>" + repeat("<div>", depth)
+                + repeat("<table></table>", tables));
+
+        assertBalanced(stats);
+        assertEquals(tables + 1, stats.count("table"));
+    }
+
+    /**
+     * Unknown elements share one element code, so "is an unknown element open" cannot rule out
+     * the search. An end tag without a matching start tag must not walk the whole stack.
+     */
+    @Test
+    public void manyUnknownEndTagsBelowDeepStack() {
+        final int depth = 100_000;
+        final int endTags = 50_000;
+
+        final Stats stats = parseWithTimeout("<x-a>" + repeat("<div>", depth) + repeat("</x-b>", endTags));
+
+        assertBalanced(stats);
+        assertEquals(1, stats.count("x-a"));
+    }
+
+    /**
+     * {@code <li>} stops its search at the {@code <ul>} it finds first, so the end tags fail without
+     * removing anything from the stack.
+     */
+    @Test
+    public void manyEndTagsBehindParentBarrier() {
+        final int depth = 100_000;
+        final int endTags = 50_000;
+
+        final Stats stats = parseWithTimeout("<ul><li><ul>" + repeat("<div>", depth) + repeat("</li>", endTags));
+
+        assertBalanced(stats);
+        assertEquals(depth, stats.count("div"));
+    }
+
+    /**
+     * Discarded {@code <form>} start tags used to be remembered in a list that every
+     * {@code </body>} end tag scanned.
+     */
+    @Test
+    public void manyBodyEndTagsAfterDiscardedForms() {
+        final int forms = 100_000;
+        final int endTags = 50_000;
+
+        final Stats stats = parseWithTimeout(repeat("<form>", forms) + repeat("</body>", endTags));
+
+        assertBalanced(stats);
+        assertEquals(1, stats.count("form"));
+    }
+
+    /** Discarded duplicate html/body start tags swallow exactly one end tag each. */
+    @Test
+    public void manyDiscardedHtmlAndBodyStartTags() {
+        final int count = 100_000;
+
+        final Stats stats = parseWithTimeout(repeat("<html>", count) + repeat("<body>", count) + "x"
+                + repeat("</body>", count) + repeat("</html>", count));
+
+        assertBalanced(stats);
+        assertEquals(1, stats.count("html"));
+        assertEquals(1, stats.count("body"));
+        assertEquals(2, stats.lastCharacterDepth());
+    }
+
+    /** Same, with the end tags in the middle of the content and in mixed case. */
+    @Test
+    public void discardedHtmlAndBodyStartTagsSwallowTheirEndTags() {
+        final Stats stats = parseWithTimeout("<html><html><body><body>x</body></body></html></html>y");
+
+        assertBalanced(stats);
+        assertEquals(1, stats.count("html"));
+        assertEquals(1, stats.count("body"));
+        assertEquals(2, stats.lastCharacterDepth());
+    }
+
+    /**
+     * Within the window an end tag closes the unclosed elements above its start tag, and the text
+     * after it lands behind the closed element (html/body = depth 2).
+     */
+    @ParameterizedTest
+    @ValueSource(ints = {1, 50, CONTEXT_WINDOW - 1})
+    public void endTagClosesUnclosedElementsWithinWindow(final int unclosed) {
+        final Stats stats = parseWithTimeout("<div>" + repeat("<span>", unclosed) + "x</div>y");
+
+        assertBalanced(stats);
+        assertEquals(2, stats.lastCharacterDepth(), "unclosed " + unclosed);
+    }
+
+    /**
+     * Beyond the window the end tag is treated like one without start tag and ignored: the text after
+     * it stays inside all open elements (html, body, div and the spans).
+     */
+    @ParameterizedTest
+    @ValueSource(ints = {CONTEXT_WINDOW, CONTEXT_WINDOW + 1, 150, 5_000})
+    public void endTagIsIgnoredBeyondWindow(final int unclosed) {
+        final Stats stats = parseWithTimeout("<div>" + repeat("<span>", unclosed) + "x</div>y");
+
+        assertBalanced(stats);
+        assertEquals(unclosed + 3, stats.lastCharacterDepth(), "unclosed " + unclosed);
+    }
+
+    /**
+     * html and body are unique and sit at the bottom of the stack, they are exempt from the window:
+     * with the same unclosed elements the result must not depend on the nesting depth.
+     */
+    @Test
+    public void bodyAndHtmlEndTagsAreNotWindowed() {
+        final Stats shallow = parseWithTimeout("<body>" + repeat("<span>", 5) + "x</body>y");
+        final Stats deep = parseWithTimeout("<body>" + repeat("<span>", 500) + "x</body>y");
+
+        assertBalanced(shallow);
+        assertBalanced(deep);
+        // the elements are all closed at the end of the document, never left behind
+        assertEquals(shallow.count("body"), deep.count("body"));
+        assertEquals(shallow.lastCharacterDepth() - 5, deep.lastCharacterDepth() - 500);
+    }
+
+    // ------------------------------------------------------------------
     // 2. <a>/<nobr> un-nesting: depth window
     // ------------------------------------------------------------------
 
@@ -332,6 +495,7 @@ public class HTMLTagBalancerDosTest {
         private int ends;
         private int depth;
         private int maxDepth;
+        private int lastCharacterDepth;
 
         @Override
         public void startElement(final String uri, final String localName, final String qName,
@@ -348,12 +512,21 @@ public class HTMLTagBalancerDosTest {
             depth--;
         }
 
+        @Override
+        public void characters(final char[] ch, final int start, final int length) {
+            lastCharacterDepth = depth;
+        }
+
         int count(final String name) {
             return startCounts_.getOrDefault(name, 0);
         }
 
         int maxDepth() {
             return maxDepth;
+        }
+
+        int lastCharacterDepth() {
+            return lastCharacterDepth;
         }
     }
 }

@@ -17,8 +17,10 @@ package org.htmlunit.cyberneko;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.htmlunit.cyberneko.HTMLElements.Element;
 import org.htmlunit.cyberneko.filters.NamespaceBinder;
@@ -179,6 +181,23 @@ public class HTMLTagBalancer
     private static final int MAX_CLOSE_SEARCH_DEPTH = 100;
 
     /**
+     * Maximum number of stack entries examined by the "context" searches:
+     * <ul>
+     * <li>whether a {@code <table>}/{@code <form>} start tag is inside table structure but outside
+     *     a cell (see {@link #isInTableStructureOutsideCell()}), and</li>
+     * <li>finding the open element an end tag closes (see {@link #getElementDepth}).</li>
+     * </ul>
+     * Both walks can fail without removing anything from the stack, so on an input with many
+     * open elements followed by many such tags every tag would cost a full stack walk (quadratic).
+     * An end tag whose element is buried deeper than this limit is treated like an end tag
+     * without a matching start tag.
+     */
+    private static final int MAX_CONTEXT_SEARCH_DEPTH = 100;
+
+    /** Stacks that grew beyond this capacity are shrunk back when they are cleared. */
+    private static final int MAX_RETAINED_STACK_CAPACITY = 1 << 12;
+
+    /**
      * Largest number of slots added at once when one of the element stacks has to
      * grow. Below this size the capacity doubles, above it the stack grows linearly
      * in steps of this size (262,144 entries, about 1 MB of references).
@@ -314,7 +333,12 @@ public class HTMLTagBalancer
     private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
     private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(4);
-    private final List<String> discardedStartElements = new ArrayList<>(2);
+    /**
+     * Number of discarded {@code <body>}/{@code <html>} start tags per raw name. Only these two are
+     * ever looked up (their end tags are swallowed once), so nothing else is recorded; a list
+     * would make every end tag a linear scan.
+     */
+    private final Map<String, Integer> discardedStartElements = new HashMap<>(4);
 
     private final HTMLConfiguration htmlConfiguration_;
 
@@ -795,26 +819,14 @@ public class HTMLTagBalancer
             // check if inside a table
             //    forms are only valid inside td/th/caption
             //    otherwise close the form
-            for (int i = fElementStack.length - 1; i >= 0; i--) {
-                final Info info = fElementStack.data[i];
-                if (info.element.code == HTMLElements.TD
-                        || info.element.code == HTMLElements.TH
-                        || info.element.code == HTMLElements.CAPTION) {
-                    break;
+            if (isInTableStructureOutsideCell()) {
+                if (documentHandler_ != null) {
+                    callStartElement(elem, attrs, augs);
+                    callEndElement(createQName(fNamesElems == NAMES_UPPERCASE ? "FORM" : "form"),
+                                        synthesizedAugs());
                 }
-                if (info.element.code == HTMLElements.TR
-                        || info.element.code == HTMLElements.THEAD
-                        || info.element.code == HTMLElements.TBODY
-                        || info.element.code == HTMLElements.TFOOT
-                        || info.element.code == HTMLElements.TABLE) {
-                    if (documentHandler_ != null) {
-                        callStartElement(elem, attrs, augs);
-                        callEndElement(createQName(fNamesElems == NAMES_UPPERCASE ? "FORM" : "form"),
-                                            synthesizedAugs());
-                    }
-                    fOpenedForm = false;
-                    return;
-                }
+                fOpenedForm = false;
+                return;
             }
         }
         else if (fSeenHeadElement
@@ -831,22 +843,9 @@ public class HTMLTagBalancer
             // check if inside another table
             //    tables are only valid inside td/th/caption
             //    otherwise close the surrounding table
-            for (int i = fElementStack.length - 1; i >= 0; i--) {
-                final Info info = fElementStack.data[i];
-                if (info.element.code == HTMLElements.TD
-                        || info.element.code == HTMLElements.TH
-                        || info.element.code == HTMLElements.CAPTION) {
-                    break;
-                }
-                if (info.element.code == HTMLElements.TR
-                        || info.element.code == HTMLElements.THEAD
-                        || info.element.code == HTMLElements.TBODY
-                        || info.element.code == HTMLElements.TFOOT
-                        || info.element.code == HTMLElements.TABLE) {
-                    final QName table = createQName(fNamesElems == NAMES_UPPERCASE ? "TABLE" : "table");
-                    endElement(table, synthesizedAugs());
-                    break;
-                }
+            if (isInTableStructureOutsideCell()) {
+                final QName table = createQName(fNamesElems == NAMES_UPPERCASE ? "TABLE" : "table");
+                endElement(table, synthesizedAugs());
             }
         }
 
@@ -981,13 +980,12 @@ public class HTMLTagBalancer
         }
         else {
             // Attributes are only needed later if this element may be re-opened:
-            //  - inline/formatting elements (reopenFormattingElements)
-            //  - <a>/<nobr> themselves (cloned by closeAndReopenThroughElement)
+            //  - formatting elements (reopenFormattingElements); <a> and <nobr> are formatting
+            //    elements too, so they are covered and can be cloned by closeAndReopenThroughElement
             //  - any element pushed while an <a>/<nobr> is open (it may be closed and
             //    re-opened as an ancestor by closeAndReopenThroughElement)
-            final boolean keepAttrs = element.isInline()
-                    || elementCode == HTMLElements.A
-                    || elementCode == HTMLElements.NOBR
+            // Other inline elements (option, button, label, q, ...) are never re-opened.
+            final boolean keepAttrs = element.isFormatting()
                     || fElementStack.isOpen(HTMLElements.A)
                     || fElementStack.isOpen(HTMLElements.NOBR);
             fElementStack.push(new Info(element, elem, keepAttrs ? attrs : null));
@@ -1200,11 +1198,15 @@ public class HTMLTagBalancer
         if (!fIgnoreOutsideContent
                 && (elementCode == HTMLElements.BODY || elementCode == HTMLElements.HTML)) {
             final String rawname = element.getRawname();
-            for (int i = 0, n = discardedStartElements.size(); i < n; i++) {
-                if (rawname.equals(discardedStartElements.get(i))) {
-                    discardedStartElements.remove(i);
-                    return;
+            final Integer pending = discardedStartElements.get(rawname);
+            if (pending != null) {
+                if (pending == 1) {
+                    discardedStartElements.remove(rawname);
                 }
+                else {
+                    discardedStartElements.put(rawname, pending - 1);
+                }
+                return;
             }
 
             // only add to buffer if the elements was discarded before
@@ -1298,6 +1300,45 @@ public class HTMLTagBalancer
 
         // close children up to appropriate element
         closeTopElements(element, depth, augs);
+    }
+
+    /**
+     * Checks whether the top of the element stack is inside table structure ({@code tr}, {@code thead},
+     * {@code tbody}, {@code tfoot} or {@code table}) <em>without</em> a table cell ({@code td},
+     * {@code th}, {@code caption}) in between. A {@code <table>} or {@code <form>} start tag is only
+     * valid inside a cell, so in this case the caller closes the surrounding table or the form.
+     * <p>
+     * Answered by the O(1) open counters when none of the structure elements is open; otherwise the
+     * stack is scanned from the top, limited to {@link #MAX_CONTEXT_SEARCH_DEPTH} entries.
+     *
+     * @return {@code true} if table structure is reached before a table cell
+     */
+    private boolean isInTableStructureOutsideCell() {
+        if (!(fElementStack.isOpen(HTMLElements.TR)
+                || fElementStack.isOpen(HTMLElements.THEAD)
+                || fElementStack.isOpen(HTMLElements.TBODY)
+                || fElementStack.isOpen(HTMLElements.TFOOT)
+                || fElementStack.isOpen(HTMLElements.TABLE))) {
+            return false;
+        }
+
+        final Info[] data = fElementStack.data;
+        final int top = fElementStack.length - 1;
+        final int stop = Math.max(0, top - MAX_CONTEXT_SEARCH_DEPTH + 1);
+        for (int i = top; i >= stop; i--) {
+            final short code = data[i].element.code;
+            if (code == HTMLElements.TD || code == HTMLElements.TH || code == HTMLElements.CAPTION) {
+                return false;
+            }
+            if (code == HTMLElements.TR
+                    || code == HTMLElements.THEAD
+                    || code == HTMLElements.TBODY
+                    || code == HTMLElements.TFOOT
+                    || code == HTMLElements.TABLE) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean isHeading(final short code) {
@@ -1595,8 +1636,15 @@ public class HTMLTagBalancer
         final boolean container = element.isContainer();
         final boolean tableBodyOrHtml = (elementCode == HTMLElements.TABLE)
             || (elementCode == HTMLElements.BODY) || (elementCode == HTMLElements.HTML);
+        // html and body are unique and sit at the bottom of the stack, they have to stay reachable;
+        // every other search is limited to MAX_CONTEXT_SEARCH_DEPTH entries (DoS protection)
+        int lowest = fragmentContextStackSize_;
+        if (elementCode != HTMLElements.HTML && elementCode != HTMLElements.BODY) {
+            lowest = Math.max(lowest, fElementStack.length - MAX_CONTEXT_SEARCH_DEPTH);
+        }
+
         int depth = -1;
-        for (int i = fElementStack.length - 1; i >= fragmentContextStackSize_; i--) {
+        for (int i = fElementStack.length - 1; i >= lowest; i--) {
             final Info info = fElementStack.data[i];
             if (info.element.code == elementCode
                     && (elementCode != HTMLElements.UNKNOWN
@@ -1899,7 +1947,11 @@ public class HTMLTagBalancer
         /** Count of currently-open elements per element code; index = HTMLElements code. */
         private final int[] openCounters;
 
+        /** The capacity the stack starts with and is shrunk back to. */
+        private final int initialSize;
+
         public InfoStackWithOpenCounters(final int initialSize) {
+            this.initialSize = initialSize;
             data = new Info[initialSize];
 
             // hopefully noone will ever use more than 200 elements
@@ -1940,8 +1992,14 @@ public class HTMLTagBalancer
         }
 
         // Resets the stack and releases all Info references so they can be GC'd.
+        // An array that grew huge for one deep document is not kept for the parser's lifetime.
         public void clear() {
-            Arrays.fill(data, null);
+            if (data.length > MAX_RETAINED_STACK_CAPACITY) {
+                data = new Info[initialSize];
+            }
+            else {
+                Arrays.fill(data, 0, length, null);
+            }
             Arrays.fill(openCounters, 0);
             length = 0;
         }
@@ -1972,7 +2030,10 @@ public class HTMLTagBalancer
         if (tagBalancingListener != null) {
             tagBalancingListener.ignoredStartElement(elem, attrs, augs);
         }
-        discardedStartElements.add(elem.getRawname());
+        final short code = getElement(elem).code;
+        if (code == HTMLElements.BODY || code == HTMLElements.HTML) {
+            discardedStartElements.merge(elem.getRawname(), 1, Integer::sum);
+        }
     }
 
     /**
