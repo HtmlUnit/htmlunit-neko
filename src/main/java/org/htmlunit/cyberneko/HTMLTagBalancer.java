@@ -194,6 +194,15 @@ public class HTMLTagBalancer
      */
     private static final int MAX_CONTEXT_SEARCH_DEPTH = 100;
 
+    /**
+     * Maximum nesting depth of the elements in the generated document. Elements beyond this
+     * depth do not nest any further: they are reported as empty elements and their content ends
+     * up in the deepest open element. Browsers limit the depth of the DOM tree as well (Chrome 512,
+     * Firefox about 200); without a limit a few kilobytes of unclosed tags produce trees that are
+     * deep enough to overflow the stack of every recursive tree walker (DoS protection).
+     */
+    private static final int MAX_ELEMENT_DEPTH = 512;
+
     /** Stacks that grew beyond this capacity are shrunk back when they are cleared. */
     private static final int MAX_RETAINED_STACK_CAPACITY = 1 << 12;
 
@@ -970,7 +979,10 @@ public class HTMLTagBalancer
 
         // call handler
         fSeenRootElement = true;
-        if (element.isEmpty()) {
+        if (element.isEmpty() || fElementStack.length >= MAX_ELEMENT_DEPTH) {
+            // elements beyond the maximum depth are reported as empty elements (like browsers
+            // do, they do not nest any deeper): they are not pushed, the content goes to the
+            // current parent and the end tag is handled like any other unmatched end tag
             if (attrs == null) {
                 attrs = fEmptyXMLAttributes;
             }

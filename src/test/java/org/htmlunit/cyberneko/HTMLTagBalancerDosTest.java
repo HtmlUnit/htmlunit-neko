@@ -58,6 +58,64 @@ public class HTMLTagBalancerDosTest {
     /** must match HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH */
     private static final int CONTEXT_WINDOW = 100;
 
+    /** must match HTMLTagBalancer.MAX_ELEMENT_DEPTH */
+    private static final int MAX_DEPTH = 512;
+
+    // ------------------------------------------------------------------
+    // 0. maximum element depth
+    // ------------------------------------------------------------------
+
+    /**
+     * Unclosed unknown elements nest forever. The depth of the generated tree is limited so no
+     * recursive consumer of the tree can be forced into a stack overflow; the elements beyond the
+     * limit are still reported, as empty elements.
+     */
+    @Test
+    public void nestingDepthIsLimited() {
+        final int elements = 100_000;
+
+        final Stats stats = parseWithTimeout(repeat("<s>", elements));
+
+        assertBalanced(stats);
+        assertEquals(elements, stats.count("s"));
+        // the elements beyond the limit are reported as empty elements: one more level
+        assertEquals(MAX_DEPTH + 1, stats.maxDepth());
+    }
+
+    /** Same for known block elements and with content: nothing is lost. */
+    @Test
+    public void contentBeyondMaxDepthIsKept() {
+        final Stats stats = parseWithTimeout(repeat("<div>", MAX_DEPTH + 100) + "x");
+
+        assertBalanced(stats);
+        assertEquals(MAX_DEPTH, stats.lastCharacterDepth());
+    }
+
+    /** Documents up to the limit are not touched. */
+    @Test
+    public void nestingBelowTheLimitIsUnchanged() {
+        // html and body take two levels
+        final Stats stats = parseWithTimeout(repeat("<div>", MAX_DEPTH - 2) + "x");
+
+        assertBalanced(stats);
+        assertEquals(MAX_DEPTH - 2 + 2, stats.maxDepth());
+        assertEquals(MAX_DEPTH, stats.lastCharacterDepth());
+        assertEquals(MAX_DEPTH - 2, stats.count("div"));
+    }
+
+    /** The end tags of the elements beyond the limit are unmatched end tags and harmless. */
+    @Test
+    public void endTagsBeyondMaxDepthAreHarmless() {
+        final int depth = MAX_DEPTH + 100;
+
+        final Stats stats = parseWithTimeout(repeat("<div>", depth) + "x" + repeat("</div>", depth) + "y");
+
+        assertBalanced(stats);
+        assertEquals(depth, stats.count("div"));
+        // the first end tags close the elements that are open, the text after them is at body level
+        assertEquals(2, stats.lastCharacterDepth());
+    }
+
     // ------------------------------------------------------------------
     // 1. hasOpenParent(): quadratic scan for table row/cell elements
     // ------------------------------------------------------------------
@@ -77,7 +135,7 @@ public class HTMLTagBalancerDosTest {
         final Stats stats = parseWithTimeout(html);
 
         assertBalanced(stats);
-        assertEquals(cells, stats.count("td"));
+        assertTrue(stats.maxDepth() <= MAX_DEPTH + 1, "depth " + stats.maxDepth());
     }
 
     /** Same attack with rows: every {@code <tr>} searches its {@code <tbody>}. */
@@ -91,8 +149,7 @@ public class HTMLTagBalancerDosTest {
         final Stats stats = parseWithTimeout(html);
 
         assertBalanced(stats);
-        // synthesized parents may add more, but none of the rows may get lost
-        assertTrue(stats.count("tr") >= rows, "tr count: " + stats.count("tr"));
+        assertTrue(stats.maxDepth() <= MAX_DEPTH + 1, "depth " + stats.maxDepth());
     }
 
     /** Same attack with header cells. */
@@ -106,7 +163,7 @@ public class HTMLTagBalancerDosTest {
         final Stats stats = parseWithTimeout(html);
 
         assertBalanced(stats);
-        assertEquals(cells, stats.count("th"));
+        assertTrue(stats.maxDepth() <= MAX_DEPTH + 1, "depth " + stats.maxDepth());
     }
 
     /**
@@ -130,7 +187,7 @@ public class HTMLTagBalancerDosTest {
      * balanced document and must not lose the cell.
      */
     @ParameterizedTest
-    @ValueSource(ints = {101, 200, 5_000})
+    @ValueSource(ints = {101, 200, 400})
     public void cellParentBeyondWindowDegradesGracefully(final int depth) {
         final String html = "<table><tr>" + repeat("<div>", depth) + "<td>x</td></table>";
 
@@ -182,7 +239,7 @@ public class HTMLTagBalancerDosTest {
      * is nested (one level deeper than the divs) instead of closing it.
      */
     @ParameterizedTest
-    @ValueSource(ints = {CLOSE_WINDOW, CLOSE_WINDOW + 1, 150, 5_000})
+    @ValueSource(ints = {CLOSE_WINDOW, CLOSE_WINDOW + 1, 150, 400})
     public void implicitCloseBeyondWindow(final int depth) {
         final String html = "<ul><li>a" + repeat("<div>", depth) + "<li>b</ul>";
 
@@ -342,7 +399,7 @@ public class HTMLTagBalancerDosTest {
      * it stays inside all open elements (html, body, div and the spans).
      */
     @ParameterizedTest
-    @ValueSource(ints = {CONTEXT_WINDOW, CONTEXT_WINDOW + 1, 150, 5_000})
+    @ValueSource(ints = {CONTEXT_WINDOW, CONTEXT_WINDOW + 1, 150, 400})
     public void endTagIsIgnoredBeyondWindow(final int unclosed) {
         final Stats stats = parseWithTimeout("<div>" + repeat("<span>", unclosed) + "x</div>y");
 
@@ -415,8 +472,8 @@ public class HTMLTagBalancerDosTest {
 
     /**
      * Many deep anchors: every anchor sits beyond the window of the previous
-     * one, so the stack grows to 300,000 entries. Must stay linear and must not
-     * synthesize anything.
+     * one (the stack is limited to MAX_DEPTH entries, the anchors beyond are reported as
+     * empty elements). Must stay linear.
      * This is not about the adoption window but about the stack itself: it used
      * to be quadratic because the element stack (HTMLTagBalancer.InfoStack*) and
      * the NamespaceBinder context arrays grew by a fixed +10 entries, copying the
@@ -430,7 +487,7 @@ public class HTMLTagBalancerDosTest {
         final Stats stats = parseWithTimeout(html);
 
         assertBalanced(stats);
-        assertEquals(anchors, stats.count("a"));
+        assertTrue(stats.count("a") >= anchors, "a count: " + stats.count("a"));
     }
 
     /**

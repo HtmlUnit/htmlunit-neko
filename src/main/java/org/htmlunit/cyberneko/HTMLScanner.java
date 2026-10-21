@@ -1741,6 +1741,12 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
         private boolean endReached_ = false;
 
+        /**
+         * True if the last {@link #read()} returned -1; in this case nothing was consumed,
+         * so there is nothing a following {@link #rewind()} could cancel.
+         */
+        private boolean lastReadHitEnd_ = false;
+
         // Constructs an entity from the specified stream.
         CurrentEntity(final Reader reader, final int readerBufferSize, final String encoding,
                 final String publicId, final String baseSystemId,
@@ -1848,16 +1854,19 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
 
             if (offset_ == length_) {
                 if (endReached_) {
+                    lastReadHitEnd_ = true;
                     return -1;
                 }
                 if (loadWholeBuffer() == -1) {
                     if (DEBUG_BUFFER) {
                         System.out.println(")read: -> -1");
                     }
+                    lastReadHitEnd_ = true;
                     return -1;
                 }
             }
 
+            lastReadHitEnd_ = false;
             final char c = getNextChar();
 
             if (DEBUG_BUFFER) {
@@ -1998,6 +2007,13 @@ public class HTMLScanner implements XMLDocumentSource, XMLLocator, HTMLComponent
          * Goes back, canceling the effect of the previous read() call.
          */
         void rewind() {
+            if (lastReadHitEnd_) {
+                // read() returned -1 and consumed nothing; going back would re-read the previous
+                // character or, if the buffer was just reloaded, move before the start of the buffer
+                lastReadHitEnd_ = false;
+                return;
+            }
+
             offset_--;
             characterOffset_--;
             columnNumber_--;
