@@ -197,8 +197,8 @@ public class HTMLTagBalancer
     /**
      * Maximum nesting depth of the elements in the generated document. Elements beyond this
      * depth do not nest any further: they are reported as empty elements and their content ends
-     * up in the deepest open element. Browsers limit the depth of the DOM tree as well (Chrome 512,
-     * Firefox about 200); without a limit a few kilobytes of unclosed tags produce trees that are
+     * up in the deepest open element. Browsers limit the depth of the DOM tree as well (Chrome 512);
+     * without a limit a few kilobytes of unclosed tags produce trees that are
      * deep enough to overflow the stack of every recursive tree walker (DoS protection).
      */
     private static final int MAX_ELEMENT_DEPTH = 512;

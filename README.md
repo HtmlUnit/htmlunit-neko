@@ -23,6 +23,20 @@ The **Htmlunit-NekoHtml** Parser is used by [HtmlUnit](https://htmlunit.sourcefo
 
 :heart: [Sponsor this project](https://github.com/sponsors/rbri)
 
+## Contents
+
+- [Get it!](#get-it)
+- [HowTo use](#howto-use) (DOMParser, SAXParser)
+- [Features](#features)
+  - [Limits of the tag balancer](#limits-of-the-tag-balancer)
+  - [Choosing the self-closing flags](#choosing-the-self-closing-flags)
+  - [Security considerations](#security-considerations)
+- [Properties](#properties)
+- [Upgrade notes within 5.x](#upgrade-notes-within-5x)
+- [Migrating from 4.x to 5.x](#migrating-from-4x-to-5x) / [3.x to 4.x](#migrating-from-3x-to-4x) / [2.x to 3.x](#migrating-from-2x-to-3x)
+- [Development](#start-nekohtml-development)
+- [History](#history)
+
 ### Project News
 
 **[Developer Blog](https://htmlunit.github.io/htmlunit-blog/)**
@@ -215,6 +229,138 @@ parser.setFeature(HTMLScanner.NORMALIZE_ATTRIBUTES, true);
 parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
 ```
 
+#### Limits of the tag balancer
+
+The tag balancer repairs misnested and unclosed markup. Doing this takes searches on the stack of open elements, and a
+crafted document can make these searches walk the whole stack for every single tag (quadratic run time), or can nest
+elements so deep that every recursive tree walker overflows its stack. To keep parsing time linear and the generated tree
+walkable, the balancer has a few **fixed limits**. They are constants in `HTMLTagBalancer` and cannot be configured.
+
+**All limits described here were introduced in version 5.7.0.** Earlier versions have none of them.
+
+For real documents the limits are never reached: they count **open elements** (the entries of the element stack, counted
+from the innermost one), not characters or tags, and real pages are nested a few dozen levels deep. Only pathological input
+(generated documents, fuzzer output, attacks) is affected, and it degrades to a well defined behavior: an element is nested
+instead of closed, an end tag is ignored, or an element is not nested any deeper.
+
+| Limit | Value | Applies to | If the limit is hit |
+|-------|:-----:|------------|---------------------|
+| `MAX_ADOPTION_DEPTH` | 100 | un-nesting of `<a>` and `<nobr>` | the new element is nested inside the open one (the old behavior) |
+| `MAX_PARENT_SEARCH_DEPTH` | 100 | search for the required parent of table row/cell elements (`tr`, `td`, `th`, ...) | the parent is treated as missing and is synthesized |
+| `MAX_CLOSE_SEARCH_DEPTH` | 100 | search for the open elements a start tag closes implicitly (`li`, `td`, `option`, ...) | the open element is not closed, the new element is nested |
+| `MAX_CONTEXT_SEARCH_DEPTH` | 100 | the element an **end tag** closes; the check whether a `<table>`/`<form>` start tag is in table structure | the end tag is ignored like an end tag without start tag; the start tag is treated as not being in table structure |
+| `MAX_ELEMENT_DEPTH` | 512 | nesting depth of the generated document | the element is reported as an empty element and does not nest any deeper |
+
+All limits are inclusive of `html` and `body`, which are on the stack too. A distance of "100" means that an element is
+found if there are at most 99 other open elements above it; with 100 or more it is out of reach.
+
+##### Un-nesting of `<a>` and `<nobr>` (`MAX_ADOPTION_DEPTH`)
+
+Like browsers, the balancer does not nest an `<a>` (or `<nobr>`) inside an open `<a>`: the open one is closed, the new one
+is opened next to it and the elements in between are re-opened (a simplified version of the HTML5 *adoption agency* algorithm).
+
+```html
+<a href="1">1<div><a href="2">2</a></div>
+```
+
+If the first `<a>` is **100 or more** open elements away, nothing is un-nested and the second anchor is nested inside the first
+one as before. This bounds the number of elements that are closed and re-opened (and so the number of synthesized events)
+that one start tag can cause.
+
+*Effect:* only visible for anchors separated by 100 or more unclosed elements; the result is the pre-5.x nested tree, not an error.
+
+##### Required parents of table elements (`MAX_PARENT_SEARCH_DEPTH`)
+
+A `<td>` needs a `<tr>`, a `<tr>` needs a `<tbody>`, and so on. If the parent is not directly on top, the balancer searches
+down the stack, but not beyond the enclosing `<table>` (a nested table never sees the rows of the outer one).
+The search looks at most 99 entries below the top.
+
+```html
+<table><tr> ... 100 unclosed <div> ... <td>x</td></table>
+```
+
+Here the `<tr>` is out of reach, so the balancer synthesizes a second `<tr>` (and `<tbody>`) for the cell. With up to 99 unclosed
+elements in between the original `<tr>` is found and nothing is added.
+
+*Effect:* a table cell that is buried deeper than the limit ends up in an additional, synthesized row. The cell is not lost.
+Table structure nested like this is not meaningful in real documents.
+
+##### Implicit closing (`MAX_CLOSE_SEARCH_DEPTH`)
+
+Many start tags close an open element: `<li>` the previous `<li>`, `<td>` the previous `<td>`, `<option>` the previous
+`<option>`. The search for the element to close stops at block level elements and at the
+parents of the new element, but other elements (`<span>`, `<b>`, ...) do not stop it.
+
+```html
+<ul><li>a ... 100 unclosed <span> ... <li>b</ul>
+```
+
+With up to 99 elements in between the second `<li>` closes the first one (they become siblings). With 100 or more, the first
+`<li>` is out of reach and the second one is **nested** inside the spans of the first.
+
+*Effect:* a different shape of the tree for sloppy documents that leave 100 or more inline elements open before the next
+list item, table cell or option. Nothing is removed.
+
+##### End tags and table/form context (`MAX_CONTEXT_SEARCH_DEPTH`)
+
+An end tag closes its matching start tag and all unclosed elements above it:
+
+```html
+<div><span><span>x</div>y
+```
+
+closes both spans and the div, and `y` is outside of the div. If the matching start tag is **100 or more** open elements
+below the top, the end tag is treated like an end tag **without** start tag: it is ignored, nothing is closed and following
+content stays inside all the open elements.
+
+```html
+<div> ... 100 unclosed <span> ... x</div>y     <!-- the </div> is ignored, y is inside the div and the spans -->
+```
+
+The end tags of `html` and `body` are exempt: both are unique and sit at the bottom of the stack, so they always work.
+
+The same limit is used for the check whether a `<table>` or `<form>` start tag is inside table structure but outside a cell
+(a new `<table>` there closes the surrounding table, a `<form>` there is closed immediately and stays empty). If the enclosing table
+structure is out of reach the tag is treated as not being in a table.
+
+*Effect:* this is the limit most likely to be noticed. A document that opens 100 or more elements and relies on a single end
+tag to close all of them gets a different tree than before: the end tag does nothing and the rest of the document is nested in the
+open elements. All elements are still closed at the end of the document, and the tree stays balanced. Browsers would close the elements.
+
+##### Maximum nesting depth (`MAX_ELEMENT_DEPTH`)
+
+Elements that are never closed nest forever: `<s><s><s>...` builds a tree as deep as the input is long. A few kilobytes are
+enough to overflow the stack of any recursive tree walker (serializers, visitors, `toString()`, ...). Browsers limit the depth
+of the tree, too (Chrome: 512), and so does the balancer.
+
+Starting with 512 open elements (including `html` and `body`) a new element does **not** become a parent any more:
+
+- it is reported as an *empty element* (SAX: `startElement` immediately followed by `endElement`, DOM: an element without children)
+- its content is added to the deepest open element
+- its end tag is an ordinary unmatched end tag and is ignored
+
+```html
+<div><div><div> ... 600 times ... x
+```
+
+The tree contains 600 `div` elements, but only the first ones nest; the others are leaves, and `x` is a child of the
+last element that was still able to nest. The maximum depth of the generated tree is 512 plus the one level of the last
+empty element.
+
+*Effect:* none for documents that are less than 512 levels deep. For deeper documents the structure below the limit is
+flattened. Elements that need a parent of their own (for example a `<td>` without an open `<tr>`) can get lost, because their
+synthesized parent cannot nest either. If your application really needs deeper trees (generated documents, for example),
+please open an issue.
+
+##### Other limits
+
+Two further constants only concern memory and have no influence on the result: the element stacks grow geometrically and
+switch to linear growth in steps of 256k entries (`MAX_STACK_GROWTH`), and stacks that grew beyond 4096 entries are shrunk
+again when the parser is reset (`MAX_RETAINED_STACK_CAPACITY`), so one huge document does not keep its memory.
+
+The limits are covered by `HTMLTagBalancerDosTest` which parses the attacks above with large sizes and checks run time,
+balance of the result and the boundaries (99 entries still work, 100 do not).
+
 #### Important Notes
 
 - **CDATA_SECTIONS**: This is one of the most important features for XML/XHTML compatibility. Enable it when processing XHTML documents or when you need to distinguish between CDATA sections and comments.
@@ -303,6 +449,8 @@ A NUL character (U+0000) in the input is handled like in the HTML5 tokenizer and
 - **Serializer round trips.** If you serialize parsed content with `HTMLWriterFilter`, use a version that contains the fix for
   [CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828) (x.y.z+). Older versions wrote the decoded content of
   `textarea` and `title` back without entity encoding, so serializing the result of a parse could turn encoded text into markup.
+- **Denial of service.** The tag balancer limits the work per tag and the nesting depth of the generated tree, see
+  [Limits of the tag balancer](#limits-of-the-tag-balancer). The limits are fixed; parsing time of crafted input stays linear in the input size.
 - Neko is a parser, not a sanitizer. Use a dedicated HTML sanitizer for untrusted content and re-parse its output with the
   settings of the consumer.
 
@@ -459,7 +607,16 @@ dependencies {
 
 ## Upgrade notes within 5.x
 
-### Self-closing flags and NUL handling (since x.y.z)
+### Tag balancer limits and browser like un-nesting (since 5.7.0)
+
+- **`<a>` and `<nobr>` are un-nested** like browsers do: `<a href="1">1<div><a href="2">2</a></div>` no longer nests the second
+  anchor in the first one.
+- **The balancer has fixed limits** for the search on the stack of open elements (100 entries) and for the nesting depth of the
+  generated tree (512 elements). Documents that leave 100 or more elements open and rely on one end tag (or an implicit close) to
+  close them all get a different tree than before; documents nested deeper than 512 levels are flattened. Details and examples:
+  [Limits of the tag balancer](#limits-of-the-tag-balancer).
+
+### Self-closing flags and NUL handling (since 5.6.0)
 
 - **`ALLOW_SELFCLOSING_TAGS` no longer closes `iframe` and `script`.** Before, the general flag also closed `<iframe/>` and
   `<script/>` (a self-closed `script` was even left half closed). Now the slash on these two elements is only honored if
