@@ -603,7 +603,7 @@ public class HTMLTagBalancer
             limit = Integer.parseInt(String.valueOf(value).trim());
         }
         catch (final NumberFormatException e) {
-            throw new IllegalArgumentException("Property " + propertyId + " must be an integer but is '" + value + "'");
+            throw new IllegalArgumentException("Property " + propertyId + " must be an integer but is '" + value + "'", e);
         }
         if (limit < 1) {
             throw new IllegalArgumentException("Property " + propertyId + " must be at least 1 but is " + limit);
