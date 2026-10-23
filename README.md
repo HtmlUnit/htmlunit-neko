@@ -234,7 +234,8 @@ parser.setFeature(HTMLScanner.PLAIN_ATTRIBUTE_VALUES, true);
 The tag balancer repairs misnested and unclosed markup. Doing this takes searches on the stack of open elements, and a
 crafted document can make these searches walk the whole stack for every single tag (quadratic run time), or can nest
 elements so deep that every recursive tree walker overflows its stack. To keep parsing time linear and the generated tree
-walkable, the balancer has a few **fixed limits**. They are constants in `HTMLTagBalancer` and cannot be configured.
+walkable, the balancer has a few **limits**. The defaults are listed below; every limit can be changed with a
+[property](#configuring-the-limits).
 
 **All limits described here were introduced in version 5.7.0.** Earlier versions have none of them.
 
@@ -243,8 +244,8 @@ from the innermost one), not characters or tags, and real pages are nested a few
 (generated documents, fuzzer output, attacks) is affected, and it degrades to a well defined behavior: an element is nested
 instead of closed, an end tag is ignored, or an element is not nested any deeper.
 
-| Limit | Value | Applies to | If the limit is hit |
-|-------|:-----:|------------|---------------------|
+| Limit (property) | Default | Applies to | If the limit is hit |
+|------------------|:-----:|------------|---------------------|
 | `MAX_ADOPTION_DEPTH` | 100 | un-nesting of `<a>` and `<nobr>` | the new element is nested inside the open one (the old behavior) |
 | `MAX_PARENT_SEARCH_DEPTH` | 100 | search for the required parent of table row/cell elements (`tr`, `td`, `th`, ...) | the parent is treated as missing and is synthesized |
 | `MAX_CLOSE_SEARCH_DEPTH` | 100 | search for the open elements a start tag closes implicitly (`li`, `td`, `option`, ...) | the open element is not closed, the new element is nested |
@@ -253,6 +254,33 @@ instead of closed, an end tag is ignored, or an element is not nested any deeper
 
 All limits are inclusive of `html` and `body`, which are on the stack too. A distance of "100" means that an element is
 found if there are at most 99 other open elements above it; with 100 or more it is out of reach.
+
+##### Configuring the limits
+
+Each limit is an integer property of the tag balancer (the full property names are listed below). The value can be an `Integer`
+or a `String`; it has to be at least 1, otherwise the parse fails with an `IllegalArgumentException`.
+Use `Integer.MAX_VALUE` to remove a limit completely.
+
+| Property | Constant | Default |
+|----------|----------|:-------:|
+| `http://cyberneko.org/html/properties/balance-tags/max-adoption-depth` | `HTMLTagBalancer.MAX_ADOPTION_DEPTH` | 100 |
+| `http://cyberneko.org/html/properties/balance-tags/max-parent-search-depth` | `HTMLTagBalancer.MAX_PARENT_SEARCH_DEPTH` | 100 |
+| `http://cyberneko.org/html/properties/balance-tags/max-close-search-depth` | `HTMLTagBalancer.MAX_CLOSE_SEARCH_DEPTH` | 100 |
+| `http://cyberneko.org/html/properties/balance-tags/max-context-search-depth` | `HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH` | 100 |
+| `http://cyberneko.org/html/properties/balance-tags/max-element-depth` | `HTMLTagBalancer.MAX_ELEMENT_DEPTH` | 512 |
+
+```java
+// allow end tags to close elements that are up to 1000 levels down
+parser.setProperty(HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH, 1000);
+
+// allow deeper trees (the stack of recursive tree walkers has to cope with it!)
+parser.setProperty(HTMLTagBalancer.MAX_ELEMENT_DEPTH, 2000);
+```
+
+**Be careful when raising the limits for untrusted input.** The search limits are what keeps the parsing time linear:
+a limit of *n* allows one start or end tag to cost up to *n* steps, so *m* tags can cost *m x n*. A limit of 1000 is
+still harmless, `Integer.MAX_VALUE` brings back the quadratic parsing time for crafted input. The element depth limit protects the code that works with the generated tree: raising it moves the
+stack overflow risk into your tree walkers.
 
 ##### Un-nesting of `<a>` and `<nobr>` (`MAX_ADOPTION_DEPTH`)
 
@@ -350,7 +378,7 @@ empty element.
 *Effect:* none for documents that are less than 512 levels deep. For deeper documents the structure below the limit is
 flattened. Elements that need a parent of their own (for example a `<td>` without an open `<tr>`) can get lost, because their
 synthesized parent cannot nest either. If your application really needs deeper trees (generated documents, for example),
-please open an issue.
+raise the limit with the property `MAX_ELEMENT_DEPTH`.
 
 ##### Other limits
 
@@ -450,7 +478,7 @@ A NUL character (U+0000) in the input is handled like in the HTML5 tokenizer and
   [CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828) (x.y.z+). Older versions wrote the decoded content of
   `textarea` and `title` back without entity encoding, so serializing the result of a parse could turn encoded text into markup.
 - **Denial of service.** The tag balancer limits the work per tag and the nesting depth of the generated tree, see
-  [Limits of the tag balancer](#limits-of-the-tag-balancer). The limits are fixed; parsing time of crafted input stays linear in the input size.
+  [Limits of the tag balancer](#limits-of-the-tag-balancer). With the default limits the parsing time of crafted input stays linear in the input size; be careful when you raise them.
 - Neko is a parser, not a sanitizer. Use a dedicated HTML sanitizer for untrusted content and re-parse its output with the
   settings of the consumer.
 

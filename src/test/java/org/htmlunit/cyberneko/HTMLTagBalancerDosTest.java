@@ -1,10 +1,22 @@
 /*
  * Copyright (c) 2017-2026 Ronald Brill
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * https://www.apache.org/licenses/LICENSE-2.0
+ * Covers
+ *  - hasOpenParent():  the bounded parent search must be capped
+ *                      (MAX_PARENT_SEARCH_DEPTH = 100)
+ *  - startElement(), "close previous elements" loop: capped as well
+ *                      (MAX_CLOSE_SEARCH_DEPTH = 100). The table attacks below need
+ *                      BOTH this cap and the hasOpenParent() cap: measured with
+ *                      N=100000 / M=50000, each cap alone still leaves ~11s
+ *                      for <td>/<th>, only both together bring it to ~1s
+ *  - findLastOpen() / closeAndReopenThroughElement(): the <a>/<nobr> un-nesting
+ *                      must only happen within MAX_ADOPTION_DEPTH = 100
+ *  - isInTableStructureOutsideCell(): the table/form start tag context scan
+ *                      (MAX_CONTEXT_SEARCH_DEPTH = 100) plus an O(1) pre-check
+ *  - getElementDepth(): the search for the element an end tag closes
+ *                      (MAX_CONTEXT_SEARCH_DEPTH = 100, html/body are exempt)
+ *  - discarded body/html start tags: tracked as counters, not as a list that
+ *                      every body/html end tag has to scan
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +27,7 @@
 package org.htmlunit.cyberneko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -114,6 +127,128 @@ public class HTMLTagBalancerDosTest {
         assertEquals(depth, stats.count("div"));
         // the first end tags close the elements that are open, the text after them is at body level
         assertEquals(2, stats.lastCharacterDepth());
+    }
+
+    // ------------------------------------------------------------------
+    // 0b. the limits are configurable
+    // ------------------------------------------------------------------
+
+    /** The defaults of the properties are the documented defaults. */
+    @Test
+    public void defaultsAreRecognized() throws Exception {
+        final SAXParser parser = new SAXParser();
+        assertEquals(100, parser.getProperty(HTMLTagBalancer.MAX_ADOPTION_DEPTH));
+        assertEquals(100, parser.getProperty(HTMLTagBalancer.MAX_PARENT_SEARCH_DEPTH));
+        assertEquals(100, parser.getProperty(HTMLTagBalancer.MAX_CLOSE_SEARCH_DEPTH));
+        assertEquals(100, parser.getProperty(HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH));
+        assertEquals(512, parser.getProperty(HTMLTagBalancer.MAX_ELEMENT_DEPTH));
+    }
+
+    @Test
+    public void maxElementDepthIsConfigurable() {
+        final Stats stats = parseWithProperty(repeat("<s>", 1_000), HTMLTagBalancer.MAX_ELEMENT_DEPTH, 20);
+
+        assertBalanced(stats);
+        assertEquals(1_000, stats.count("s"));
+        assertEquals(20 + 1, stats.maxDepth());
+    }
+
+    /** The value may be a string, like for the other properties. */
+    @Test
+    public void limitMayBeAString() {
+        final Stats stats = parseWithProperty(repeat("<s>", 1_000), HTMLTagBalancer.MAX_ELEMENT_DEPTH, "20");
+
+        assertBalanced(stats);
+        assertEquals(20 + 1, stats.maxDepth());
+    }
+
+    /** Integer.MAX_VALUE removes the limit. */
+    @Test
+    public void maxElementDepthCanBeRemoved() {
+        final Stats stats = parseWithProperty(repeat("<s>", 5_000), HTMLTagBalancer.MAX_ELEMENT_DEPTH,
+                Integer.MAX_VALUE);
+
+        assertBalanced(stats);
+        // html, body and the elements
+        assertEquals(5_000 + 2, stats.maxDepth());
+    }
+
+    /** With a larger window the end tag reaches the div that is 500 elements down. */
+    @Test
+    public void maxContextSearchDepthIsConfigurable() {
+        final String html = "<div>" + repeat("<span>", 500) + "x</div>y";
+
+        final Stats defaults = parseWithTimeout(html);
+        final Stats configured = parseWithProperty(html, HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH, 1_000);
+
+        assertBalanced(defaults);
+        assertBalanced(configured);
+        assertEquals(500 + 3, defaults.lastCharacterDepth());
+        assertEquals(2, configured.lastCharacterDepth());
+    }
+
+    @Test
+    public void maxCloseSearchDepthIsConfigurable() {
+        final String html = "<ul><li>a" + repeat("<span>", 500) + "<li>b</ul>";
+
+        final Stats defaults = parseWithTimeout(html);
+        final Stats configured = parseWithProperty(html, HTMLTagBalancer.MAX_CLOSE_SEARCH_DEPTH, 1_000);
+
+        assertBalanced(defaults);
+        assertBalanced(configured);
+        // nested: html, body, ul, li, 500 spans, li
+        assertEquals(4 + 500 + 1, defaults.maxDepth());
+        // the second li is a sibling of the first one
+        assertEquals(4 + 500, configured.maxDepth());
+    }
+
+    @Test
+    public void maxParentSearchDepthIsConfigurable() {
+        final String html = "<table><tr>" + repeat("<div>", 200) + "<td>x</td></table>";
+
+        final Stats defaults = parseWithTimeout(html);
+        final Stats configured = parseWithProperty(html, HTMLTagBalancer.MAX_PARENT_SEARCH_DEPTH, 1_000);
+
+        assertBalanced(defaults);
+        assertBalanced(configured);
+        assertEquals(2, defaults.count("tr"));
+        assertEquals(1, configured.count("tr"));
+    }
+
+    @Test
+    public void maxAdoptionDepthIsConfigurable() {
+        final String html = "<a href=\"1\">1" + repeat("<div>", 200) + "<a href=\"2\">2</a>";
+
+        final Stats defaults = parseWithTimeout(html);
+        final Stats configured = parseWithProperty(html, HTMLTagBalancer.MAX_ADOPTION_DEPTH, 1_000);
+
+        assertBalanced(defaults);
+        assertBalanced(configured);
+        // not un-nested: just the two anchors
+        assertEquals(2, defaults.count("a"));
+        // un-nested: the first anchor is re-opened in every one of the 200 divs
+        assertTrue(configured.count("a") > 2, "a count: " + configured.count("a"));
+    }
+
+    /** Raising the limits does not open the door for the quadratic behavior: still fast with a deep stack. */
+    @Test
+    public void largeLimitsStayUsable() {
+        final Stats stats = parseWithProperty(repeat("<div>", 3_000) + repeat("</x-b>", 3_000),
+                HTMLTagBalancer.MAX_CONTEXT_SEARCH_DEPTH, 10_000);
+
+        assertBalanced(stats);
+    }
+
+    @Test
+    public void invalidLimitsAreRejected() {
+        for (final Object invalid : new Object[] {0, -5, "abc", ""}) {
+            assertThrows(IllegalArgumentException.class, () -> {
+                final SAXParser parser = new SAXParser();
+                parser.setProperty(HTMLTagBalancer.MAX_ELEMENT_DEPTH, invalid);
+                parser.setContentHandler(new Stats());
+                parser.parse(new InputSource(new StringReader("<div>x</div>")));
+            }, "value " + invalid);
+        }
     }
 
     // ------------------------------------------------------------------
@@ -525,6 +660,17 @@ public class HTMLTagBalancerDosTest {
     private static Stats parseWithTimeout(final String html) {
         return assertTimeoutPreemptively(TIMEOUT, () -> {
             final SAXParser parser = new SAXParser();
+            final Stats stats = new Stats();
+            parser.setContentHandler(stats);
+            parser.parse(new InputSource(new StringReader(html)));
+            return stats;
+        });
+    }
+
+    private static Stats parseWithProperty(final String html, final String property, final Object value) {
+        return assertTimeoutPreemptively(TIMEOUT, () -> {
+            final SAXParser parser = new SAXParser();
+            parser.setProperty(property, value);
             final Stats stats = new Stats();
             parser.setContentHandler(stats);
             parser.parse(new InputSource(new StringReader(html)));

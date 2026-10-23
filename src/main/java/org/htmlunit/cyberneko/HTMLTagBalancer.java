@@ -129,22 +129,6 @@ public class HTMLTagBalancer
     public static final String FRAGMENT_CONTEXT_STACK
                                 = "http://cyberneko.org/html/properties/balance-tags/fragment-context-stack";
 
-    /** Recognized properties. */
-    private static final String[] RECOGNIZED_PROPERTIES = {
-        NAMES_ELEMS,
-        NAMES_ATTRS,
-        ERROR_REPORTER,
-        FRAGMENT_CONTEXT_STACK,
-    };
-
-    /** Recognized properties defaults. */
-    private static final Object[] RECOGNIZED_PROPERTIES_DEFAULTS = {
-        null,
-        null,
-        null,
-        null,
-    };
-
     /**
      * Maximum distance (in open elements) between the top of the stack and an
      * already open {@code <a>}/{@code <nobr>} for which the un-nesting
@@ -152,8 +136,10 @@ public class HTMLTagBalancer
      * performed. Beyond this distance the new element is simply nested as
      * before, which bounds the work (and the number of synthesized events)
      * caused by a single start tag on adversarial input.
+     * <p>
+     * This is the default of the property {@link #MAX_ADOPTION_DEPTH}.
      */
-    private static final int MAX_ADOPTION_DEPTH = 100;
+    public static final int DEFAULT_MAX_ADOPTION_DEPTH = 100;
 
     /**
      * Maximum number of stack entries examined when searching for a parent
@@ -162,8 +148,10 @@ public class HTMLTagBalancer
      * documents and are typically the signature of a denial-of-service input,
      * so the search is cut off instead of walking the whole stack for every
      * start tag.
+     * <p>
+     * This is the default of the property {@link #MAX_PARENT_SEARCH_DEPTH}.
      */
-    private static final int MAX_PARENT_SEARCH_DEPTH = 100;
+    public static final int DEFAULT_MAX_PARENT_SEARCH_DEPTH = 100;
 
     /**
      * Maximum number of stack entries examined when searching for open elements
@@ -177,8 +165,10 @@ public class HTMLTagBalancer
      * (quadratic). Closing an element that is buried deeper than this limit is
      * not meaningful in real documents; in that case the new element is simply
      * nested instead.
+     * <p>
+     * This is the default of the property {@link #MAX_CLOSE_SEARCH_DEPTH}.
      */
-    private static final int MAX_CLOSE_SEARCH_DEPTH = 100;
+    public static final int DEFAULT_MAX_CLOSE_SEARCH_DEPTH = 100;
 
     /**
      * Maximum number of stack entries examined by the "context" searches:
@@ -191,17 +181,88 @@ public class HTMLTagBalancer
      * open elements followed by many such tags every tag would cost a full stack walk (quadratic).
      * An end tag whose element is buried deeper than this limit is treated like an end tag
      * without a matching start tag.
+     * <p>
+     * This is the default of the property {@link #MAX_CONTEXT_SEARCH_DEPTH}.
      */
-    private static final int MAX_CONTEXT_SEARCH_DEPTH = 100;
+    public static final int DEFAULT_MAX_CONTEXT_SEARCH_DEPTH = 100;
 
     /**
      * Maximum nesting depth of the elements in the generated document. Elements beyond this
      * depth do not nest any further: they are reported as empty elements and their content ends
-     * up in the deepest open element. Browsers limit the depth of the DOM tree as well (Chrome 512);
-     * without a limit a few kilobytes of unclosed tags produce trees that are
+     * up in the deepest open element. Browsers limit the depth of the DOM tree as well (Chrome 512,
+     * Firefox about 200); without a limit a few kilobytes of unclosed tags produce trees that are
      * deep enough to overflow the stack of every recursive tree walker (DoS protection).
+     * <p>
+     * This is the default of the property {@link #MAX_ELEMENT_DEPTH}.
      */
-    private static final int MAX_ELEMENT_DEPTH = 512;
+    public static final int DEFAULT_MAX_ELEMENT_DEPTH = 512;
+
+    /**
+     * Name of the property holding the maximum distance (in open elements) for which an open
+     * {@code <a>}/{@code <nobr>} is un-nested by a new one. Integer, default {@value #DEFAULT_MAX_ADOPTION_DEPTH}.
+     * See {@link #DEFAULT_MAX_ADOPTION_DEPTH}; use {@link Integer#MAX_VALUE} to remove the limit.
+     */
+    public static final String MAX_ADOPTION_DEPTH
+                                = "http://cyberneko.org/html/properties/balance-tags/max-adoption-depth";
+
+    /**
+     * Name of the property holding the maximum number of stack entries examined when searching for the
+     * required parent of table row/cell elements. Integer, default {@value #DEFAULT_MAX_PARENT_SEARCH_DEPTH}.
+     * See {@link #DEFAULT_MAX_PARENT_SEARCH_DEPTH}; use {@link Integer#MAX_VALUE} to remove the limit.
+     */
+    public static final String MAX_PARENT_SEARCH_DEPTH
+                                = "http://cyberneko.org/html/properties/balance-tags/max-parent-search-depth";
+
+    /**
+     * Name of the property holding the maximum number of stack entries examined when searching for the
+     * open elements a start tag closes implicitly. Integer, default {@value #DEFAULT_MAX_CLOSE_SEARCH_DEPTH}.
+     * See {@link #DEFAULT_MAX_CLOSE_SEARCH_DEPTH}; use {@link Integer#MAX_VALUE} to remove the limit.
+     */
+    public static final String MAX_CLOSE_SEARCH_DEPTH
+                                = "http://cyberneko.org/html/properties/balance-tags/max-close-search-depth";
+
+    /**
+     * Name of the property holding the maximum number of stack entries examined when searching for the
+     * element an end tag closes (and for the table/form context check). Integer, default
+     * {@value #DEFAULT_MAX_CONTEXT_SEARCH_DEPTH}.
+     * See {@link #DEFAULT_MAX_CONTEXT_SEARCH_DEPTH}; use {@link Integer#MAX_VALUE} to remove the limit.
+     */
+    public static final String MAX_CONTEXT_SEARCH_DEPTH
+                                = "http://cyberneko.org/html/properties/balance-tags/max-context-search-depth";
+
+    /**
+     * Name of the property holding the maximum nesting depth of the generated document.
+     * Integer, default {@value #DEFAULT_MAX_ELEMENT_DEPTH}.
+     * See {@link #DEFAULT_MAX_ELEMENT_DEPTH}; use {@link Integer#MAX_VALUE} to remove the limit.
+     */
+    public static final String MAX_ELEMENT_DEPTH
+                                = "http://cyberneko.org/html/properties/balance-tags/max-element-depth";
+
+    /** Recognized properties. */
+    private static final String[] RECOGNIZED_PROPERTIES = {
+        NAMES_ELEMS,
+        NAMES_ATTRS,
+        ERROR_REPORTER,
+        FRAGMENT_CONTEXT_STACK,
+        MAX_ADOPTION_DEPTH,
+        MAX_PARENT_SEARCH_DEPTH,
+        MAX_CLOSE_SEARCH_DEPTH,
+        MAX_CONTEXT_SEARCH_DEPTH,
+        MAX_ELEMENT_DEPTH,
+    };
+
+    /** Recognized properties defaults. */
+    private static final Object[] RECOGNIZED_PROPERTIES_DEFAULTS = {
+        null,
+        null,
+        null,
+        null,
+        DEFAULT_MAX_ADOPTION_DEPTH,
+        DEFAULT_MAX_PARENT_SEARCH_DEPTH,
+        DEFAULT_MAX_CLOSE_SEARCH_DEPTH,
+        DEFAULT_MAX_CONTEXT_SEARCH_DEPTH,
+        DEFAULT_MAX_ELEMENT_DEPTH,
+    };
 
     /** Stacks that grew beyond this capacity are shrunk back when they are cleared. */
     private static final int MAX_RETAINED_STACK_CAPACITY = 1 << 12;
@@ -341,6 +402,13 @@ public class HTMLTagBalancer
     private QName[] fragmentContextStack_ = null;
     private int fragmentContextStackSize_ = 0; // not 0 only when a fragment is parsed and fragmentContextStack_ is set
 
+    // the limits, see the DEFAULT_MAX_* constants
+    private int fMaxAdoptionDepth_ = DEFAULT_MAX_ADOPTION_DEPTH;
+    private int fMaxParentSearchDepth_ = DEFAULT_MAX_PARENT_SEARCH_DEPTH;
+    private int fMaxCloseSearchDepth_ = DEFAULT_MAX_CLOSE_SEARCH_DEPTH;
+    private int fMaxContextSearchDepth_ = DEFAULT_MAX_CONTEXT_SEARCH_DEPTH;
+    private int fMaxElementDepth_ = DEFAULT_MAX_ELEMENT_DEPTH;
+
     private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(4);
     /**
      * Number of discarded {@code <body>}/{@code <html>} start tags per raw name. Only these two are
@@ -407,6 +475,17 @@ public class HTMLTagBalancer
         // get properties
         fNamesElems = getNamesValue(String.valueOf(xmlParserConfiguration.getProperty(NAMES_ELEMS)));
         fErrorReporter = (HTMLErrorReporter) xmlParserConfiguration.getProperty(ERROR_REPORTER);
+
+        fMaxAdoptionDepth_ = getLimit(MAX_ADOPTION_DEPTH, xmlParserConfiguration.getProperty(MAX_ADOPTION_DEPTH),
+                DEFAULT_MAX_ADOPTION_DEPTH);
+        fMaxParentSearchDepth_ = getLimit(MAX_PARENT_SEARCH_DEPTH,
+                xmlParserConfiguration.getProperty(MAX_PARENT_SEARCH_DEPTH), DEFAULT_MAX_PARENT_SEARCH_DEPTH);
+        fMaxCloseSearchDepth_ = getLimit(MAX_CLOSE_SEARCH_DEPTH,
+                xmlParserConfiguration.getProperty(MAX_CLOSE_SEARCH_DEPTH), DEFAULT_MAX_CLOSE_SEARCH_DEPTH);
+        fMaxContextSearchDepth_ = getLimit(MAX_CONTEXT_SEARCH_DEPTH,
+                xmlParserConfiguration.getProperty(MAX_CONTEXT_SEARCH_DEPTH), DEFAULT_MAX_CONTEXT_SEARCH_DEPTH);
+        fMaxElementDepth_ = getLimit(MAX_ELEMENT_DEPTH, xmlParserConfiguration.getProperty(MAX_ELEMENT_DEPTH),
+                DEFAULT_MAX_ELEMENT_DEPTH);
 
         fSeenAnything = false;
         fSeenDoctype = false;
@@ -483,6 +562,54 @@ public class HTMLTagBalancer
             fNamesElems = getNamesValue(String.valueOf(value));
             return;
         }
+
+        switch (propertyId) {
+            case MAX_ADOPTION_DEPTH:
+                fMaxAdoptionDepth_ = getLimit(propertyId, value, DEFAULT_MAX_ADOPTION_DEPTH);
+                break;
+            case MAX_PARENT_SEARCH_DEPTH:
+                fMaxParentSearchDepth_ = getLimit(propertyId, value, DEFAULT_MAX_PARENT_SEARCH_DEPTH);
+                break;
+            case MAX_CLOSE_SEARCH_DEPTH:
+                fMaxCloseSearchDepth_ = getLimit(propertyId, value, DEFAULT_MAX_CLOSE_SEARCH_DEPTH);
+                break;
+            case MAX_CONTEXT_SEARCH_DEPTH:
+                fMaxContextSearchDepth_ = getLimit(propertyId, value, DEFAULT_MAX_CONTEXT_SEARCH_DEPTH);
+                break;
+            case MAX_ELEMENT_DEPTH:
+                fMaxElementDepth_ = getLimit(propertyId, value, DEFAULT_MAX_ELEMENT_DEPTH);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Converts the value of one of the limit properties.
+     *
+     * @param propertyId the id of the property (for the error message)
+     * @param value an {@link Integer} or a {@link String} holding an integer; <code>null</code> selects the default
+     * @param defaultValue the default
+     * @return the limit
+     * @throws IllegalArgumentException if the value is not an integer or smaller than 1
+     */
+    private static int getLimit(final String propertyId, final Object value, final int defaultValue) {
+        if (value == null) {
+            return defaultValue;
+        }
+
+        final int limit;
+        try {
+            limit = Integer.parseInt(String.valueOf(value).trim());
+        }
+        catch (final NumberFormatException e) {
+            throw new IllegalArgumentException("Property " + propertyId + " must be an integer but is '" + value + "'");
+        }
+        if (limit < 1) {
+            throw new IllegalArgumentException("Property " + propertyId + " must be at least 1 but is " + limit);
+        }
+
+        return limit;
     }
 
     /** Sets the document handler. */
@@ -938,7 +1065,7 @@ public class HTMLTagBalancer
         if (element.closes != null) {
             int length = fElementStack.length;
             // never look further down than MAX_CLOSE_SEARCH_DEPTH entries (DoS protection)
-            final int stop = Math.max(0, length - MAX_CLOSE_SEARCH_DEPTH);
+            final int stop = Math.max(0, length - fMaxCloseSearchDepth_);
             for (int i = length - 1; i >= stop; i--) {
                 Info info = fElementStack.data[i];
 
@@ -979,7 +1106,7 @@ public class HTMLTagBalancer
 
         // call handler
         fSeenRootElement = true;
-        if (element.isEmpty() || fElementStack.length >= MAX_ELEMENT_DEPTH) {
+        if (element.isEmpty() || fElementStack.length >= fMaxElementDepth_) {
             // elements beyond the maximum depth are reported as empty elements (like browsers
             // do, they do not nest any deeper): they are not pushed, the content goes to the
             // current parent and the end tag is handled like any other unmatched end tag
@@ -1336,7 +1463,7 @@ public class HTMLTagBalancer
 
         final Info[] data = fElementStack.data;
         final int top = fElementStack.length - 1;
-        final int stop = Math.max(0, top - MAX_CONTEXT_SEARCH_DEPTH + 1);
+        final int stop = Math.max(0, top - fMaxContextSearchDepth_ + 1);
         for (int i = top; i >= stop; i--) {
             final short code = data[i].element.code;
             if (code == HTMLElements.TD || code == HTMLElements.TH || code == HTMLElements.CAPTION) {
@@ -1450,7 +1577,7 @@ public class HTMLTagBalancer
 
         final Info[] data = fElementStack.data;
         final int top = fElementStack.length - 1;
-        final int stop = Math.max(0, top - MAX_ADOPTION_DEPTH + 1);
+        final int stop = Math.max(0, top - fMaxAdoptionDepth_ + 1);
         for (int i = top; i >= stop; i--) {
             final short code = data[i].element.code;
             if (code == elementCode) {
@@ -1652,7 +1779,7 @@ public class HTMLTagBalancer
         // every other search is limited to MAX_CONTEXT_SEARCH_DEPTH entries (DoS protection)
         int lowest = fragmentContextStackSize_;
         if (elementCode != HTMLElements.HTML && elementCode != HTMLElements.BODY) {
-            lowest = Math.max(lowest, fElementStack.length - MAX_CONTEXT_SEARCH_DEPTH);
+            lowest = Math.max(lowest, fElementStack.length - fMaxContextSearchDepth_);
         }
 
         int depth = -1;
@@ -1738,7 +1865,7 @@ public class HTMLTagBalancer
         // 4. ordered, depth-limited scan
         final Info[] data = fElementStack.data;
         final int top = fElementStack.length - 1;
-        final int stop = Math.max(0, top - MAX_PARENT_SEARCH_DEPTH + 1);
+        final int stop = Math.max(0, top - fMaxParentSearchDepth_ + 1);
         for (int i = top; i >= stop; i--) {
             final short code = data[i].element.code;
             if (code == bounds) {
