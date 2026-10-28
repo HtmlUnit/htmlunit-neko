@@ -409,6 +409,13 @@ public class HTMLTagBalancer
     private int fMaxContextSearchDepth_ = DEFAULT_MAX_CONTEXT_SEARCH_DEPTH;
     private int fMaxElementDepth_ = DEFAULT_MAX_ELEMENT_DEPTH;
 
+    /**
+     * True directly after the start tag of a {@code <pre>}, {@code <listing>} or {@code <textarea>}:
+     * a line feed right at the beginning of the content is dropped (HTML5 tree construction, "in body"
+     * insertion mode). Every other event resets it.
+     */
+    private boolean fIgnoreNextLinefeed_;
+
     private final List<ElementEntry> endElementsBuffer_ = new ArrayList<>(4);
     /**
      * Number of discarded {@code <body>}/{@code <html>} start tags per raw name. Only these two are
@@ -487,6 +494,7 @@ public class HTMLTagBalancer
         fMaxElementDepth_ = getLimit(MAX_ELEMENT_DEPTH, xmlParserConfiguration.getProperty(MAX_ELEMENT_DEPTH),
                 DEFAULT_MAX_ELEMENT_DEPTH);
 
+        fIgnoreNextLinefeed_ = false;
         fSeenAnything = false;
         fSeenDoctype = false;
         fSeenRootElement = false;
@@ -803,6 +811,7 @@ public class HTMLTagBalancer
     /** Comment. */
     @Override
     public void comment(final XMLString text, final Augmentations augs) throws XNIException {
+        fIgnoreNextLinefeed_ = false;
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
         if (documentHandler_ != null) {
@@ -823,6 +832,7 @@ public class HTMLTagBalancer
     @Override
     public void processingInstruction(final String target, final XMLString data,
                     final Augmentations augs) throws XNIException {
+        fIgnoreNextLinefeed_ = false;
         fSeenAnything = true;
         consumeEarlyTextIfNeeded();
         if (documentHandler_ != null) {
@@ -838,6 +848,7 @@ public class HTMLTagBalancer
 
         final boolean isForcedCreation = forcedStartElement_;
         forcedStartElement_ = false;
+        fIgnoreNextLinefeed_ = false;
 
         // check for end of document
         if (fSeenRootElementEnd) {
@@ -1135,6 +1146,12 @@ public class HTMLTagBalancer
             if (documentHandler_ != null) {
                 callStartElement(elem, attrs, augs);
             }
+
+            // only a real start tag, not an element the balancer synthesizes or re-opens
+            fIgnoreNextLinefeed_ = !isForcedCreation
+                    && (elementCode == HTMLElements.PRE
+                            || elementCode == HTMLElements.LISTING
+                            || elementCode == HTMLElements.TEXTAREA);
         }
 
         if (elementCode == HTMLElements.BODY) {
@@ -1200,6 +1217,7 @@ public class HTMLTagBalancer
     /** Start CDATA section. */
     @Override
     public void startCDATA(final Augmentations augs) throws XNIException {
+        fIgnoreNextLinefeed_ = false;
         fSeenAnything = true;
 
         consumeEarlyTextIfNeeded();
@@ -1236,6 +1254,17 @@ public class HTMLTagBalancer
     /** Characters. */
     @Override
     public void characters(final XMLString text, final Augmentations augs) throws XNIException {
+        // a line feed directly after <pre>, <listing> or <textarea> is not part of the content
+        if (fIgnoreNextLinefeed_) {
+            fIgnoreNextLinefeed_ = false;
+            if (text.length() > 0 && text.charAt(0) == '\n') {
+                if (text.length() > 1) {
+                    characters(new XMLString(text.toString().substring(1)), augs);
+                }
+                return;
+            }
+        }
+
         // check for end of document
         if (fSeenRootElementEnd || fSeenBodyElementEnd) {
             return;
@@ -1308,6 +1337,7 @@ public class HTMLTagBalancer
     public void endElement(final QName element, final Augmentations augs) throws XNIException {
         final boolean isForcedEndElement = forcedEndElement_;
         forcedEndElement_ = false;
+        fIgnoreNextLinefeed_ = false;
 
         // is there anything to do?
         if (fSeenRootElementEnd) {

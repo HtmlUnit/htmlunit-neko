@@ -13,8 +13,7 @@ emptyElement (localpart="br",rawname="br") [(4,1,53) (6,3,61) false]
 characters '
 '[(6,3,61) (7,1,62) false]
 startElement (localpart="textarea",rawname="textarea") [(7,1,62) (7,11,72) false]
-characters '
-Lorem ipsum
+characters 'Lorem ipsum
 '[(7,11,72) (9,1,85) false]
 endElement (localpart="textarea",rawname="textarea") [(9,1,85) (12,6,105) false]
 characters '

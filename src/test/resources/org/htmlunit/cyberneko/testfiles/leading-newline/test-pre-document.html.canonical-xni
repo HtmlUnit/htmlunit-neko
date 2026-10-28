@@ -1,0 +1,23 @@
+startDocument [(1,1,0) (1,1,0) false]
+doctypeDecl [(1,1,0) (1,16,15) false]
+startElement (localpart="html",rawname="html") [(2,1,16) (2,7,22) false]
+startElement (localpart="head",rawname="head") [(3,1,23) (3,7,29) false]
+startElement (localpart="title",rawname="title") [(3,7,29) (3,14,36) false]
+characters 't'[(3,14,36) (3,15,37) false]
+endElement (localpart="title",rawname="title") [(3,15,37) (3,23,45) false]
+endElement (localpart="head",rawname="head") [(3,23,45) (3,30,52) false]
+startElement (localpart="body",rawname="body") [(4,1,53) (4,7,59) false]
+characters '
+'[(4,7,59) (5,1,60) false]
+startElement (localpart="pre",rawname="pre") [(5,1,60) (5,6,65) false]
+characters '  line 1
+  line 2
+'[(5,6,65) (8,1,84) false]
+endElement (localpart="pre",rawname="pre") [(8,1,84) (8,7,90) false]
+characters '
+'[(8,7,90) (9,1,91) false]
+characters '
+'[(10,8,106) (11,1,107) false]
+endElement (localpart="body",rawname="body") [(9,1,91) (9,8,98) false]
+endElement (localpart="html",rawname="html") [(10,1,99) (10,8,106) false]
+endDocument [(11,1,107) (11,1,107) false]

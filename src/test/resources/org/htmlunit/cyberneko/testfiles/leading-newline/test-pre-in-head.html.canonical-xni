@@ -1,0 +1,13 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html") [(1,1,0) (1,7,6) false]
+startElement (localpart="head",rawname="head") [(1,7,6) (1,13,12) false]
+endElement (localpart="head",rawname="head") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="pre",rawname="pre") [(1,13,12) (1,18,17) false]
+characters 'abc'[(1,18,17) (2,4,21) false]
+endElement (localpart="pre",rawname="pre") [(2,4,21) (2,10,27) false]
+characters '
+'[(2,24,41) (3,1,42) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html") [(2,17,34) (2,24,41) false]
+endDocument [(3,1,42) (3,1,42) false]
