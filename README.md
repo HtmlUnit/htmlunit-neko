@@ -58,7 +58,7 @@ self-closing flags enabled. If you set `ALLOW_SELFCLOSING_TAGS`, parse XHTML or 
 [Choosing the self-closing flags](#choosing-the-self-closing-flags) and the
 [upgrade notes](#upgrade-notes-within-5x).
 
-### Latest release Version 5.6.0 / October 11, 2026
+### Latest release Version 5.7.0 / November 02, 2026
 
 ##### Security Advisories
 
@@ -86,7 +86,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>neko-htmlunit</artifactId>
-    <version>5.6.0</version>
+    <version>5.7.0</version>
 </dependency>
 ```
 
@@ -95,7 +95,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.6.0'
+implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.7.0'
 ```
 
 ## HowTo use
@@ -597,7 +597,7 @@ Add the dependency to your `pom.xml`:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>neko-htmlunit</artifactId>
-        <version>5.6.0-SNAPSHOT</version>
+        <version>5.8.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the sonatype-central snapshot repository to your pom `repositories` section also:
@@ -627,7 +627,7 @@ repositories {
 }
 // ...
 dependencies {
-    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.6.0-SNAPSHOT'
+    implementation group: 'org.htmlunit', name: 'neko-htmlunit', version: '5.8.0-SNAPSHOT'
   // ...
 }
 ```
