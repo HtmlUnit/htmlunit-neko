@@ -637,10 +637,8 @@ dependencies {
 
 ### Tag balancer limits and browser like un-nesting (since 5.7.0)
 
-- **`<a>` and `<nobr>` are un-nested** like browsers do: `<a href="1">1<div><a href="2">2</a></div>` no longer nests the second
-  anchor in the first one.
-- **The balancer has fixed limits** for the search on the stack of open elements (100 entries) and for the nesting depth of the
-  generated tree (512 elements). Documents that leave 100 or more elements open and rely on one end tag (or an implicit close) to
+- **The balancer has (configurable) limits** for the search on the stack of open elements and for the nesting depth of the
+  generated tree. Documents that leave 100 or more elements open and rely on one end tag (or an implicit close) to
   close them all get a different tree than before; documents nested deeper than 512 levels are flattened. Details and examples:
   [Limits of the tag balancer](#limits-of-the-tag-balancer).
 
