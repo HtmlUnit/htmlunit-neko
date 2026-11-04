@@ -1,0 +1,48 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="a",rawname="a") [(1,1,0) (1,39,38) false]
+characters 'query'[(1,39,38) (1,44,43) false]
+endElement (localpart="a",rawname="a") [(1,44,43) (1,48,47) false]
+characters '
+'[(1,48,47) (2,1,48) false]
+startElement (localpart="a",rawname="a") [(2,1,48) (2,41,88) false]
+characters 'legacy entity name followed by ='[(2,41,88) (2,73,120) false]
+endElement (localpart="a",rawname="a") [(2,73,120) (2,77,124) false]
+characters '
+'[(2,77,124) (3,1,125) false]
+startElement (localpart="a",rawname="a") [(3,1,125) (3,40,164) false]
+characters 'legacy entity name followed by letter'[(3,40,164) (3,77,201) false]
+endElement (localpart="a",rawname="a") [(3,77,201) (3,81,205) false]
+characters '
+'[(3,81,205) (4,1,206) false]
+startElement (localpart="a",rawname="a") [(4,1,206) (4,41,246) false]
+characters 'entity with semicolon'[(4,41,246) (4,62,267) false]
+endElement (localpart="a",rawname="a") [(4,62,267) (4,66,271) false]
+characters '
+'[(4,66,271) (5,1,272) false]
+startElement (localpart="a",rawname="a") [(5,1,272) (5,43,314) false]
+characters 'longer entity'[(5,43,314) (5,56,327) false]
+endElement (localpart="a",rawname="a") [(5,56,327) (5,60,331) false]
+characters '
+'[(5,60,331) (6,1,332) false]
+startElement (localpart="a",rawname="a") [(6,1,332) (6,15,346) false]
+characters 'trailing'[(6,15,346) (6,23,354) false]
+endElement (localpart="a",rawname="a") [(6,23,354) (6,27,358) false]
+characters '
+'[(6,27,358) (7,1,359) false]
+startElement (localpart="a",rawname="a") [(7,1,359) (7,15,373) false]
+characters 'leading'[(7,15,373) (7,22,380) false]
+endElement (localpart="a",rawname="a") [(7,22,380) (7,26,384) false]
+characters '
+'[(7,26,384) (8,1,385) false]
+startElement (localpart="a",rawname="a") [(8,1,385) (8,17,401) false]
+characters 'spaces'[(8,17,401) (8,23,407) false]
+endElement (localpart="a",rawname="a") [(8,23,407) (8,27,411) false]
+characters '
+'[(8,27,411) (9,1,412) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(9,1,412) (9,1,412) false]

@@ -474,9 +474,13 @@ A NUL character (U+0000) in the input is handled like in the HTML5 tokenizer and
   Such a parser differential is the typical way a sanitizer is bypassed.
 - **Keep the defaults for untrusted HTML.** `ALLOW_SELFCLOSING_IFRAME`, `ALLOW_SELFCLOSING_SCRIPT` and `ALLOW_SELFCLOSING_TAGS` are only for
   input that really is XML/XHTML. If you cannot tell, use the HTML defaults, they match what browsers do.
-- **Serializer round trips.** If you serialize parsed content with `HTMLWriterFilter`, use a version that contains the fix for
-  [CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828) (x.y.z+). Older versions wrote the decoded content of
-  `textarea` and `title` back without entity encoding, so serializing the result of a parse could turn encoded text into markup.
+- **Serializer round trips.** If you serialize parsed content with `HTMLWriterFilter`, use a version that contains both fixes:
+  - [CVE-2026-104828](https://nvd.nist.gov/vuln/detail/CVE-2026-104828) (x.y.z+): older versions wrote the decoded content of
+    `textarea` and `title` back without entity encoding, so serializing the result of a parse could turn encoded text into markup.
+  - attribute values (x.y.z+): older versions, up to and including 5.7.0, encoded only the double quote in attribute values.
+    The parser decodes character references in attribute values, so parsing the serialized output decoded them a second time
+    and the value changed: `href="&amp;#106;avascript:alert(1)"` (value `&#106;avascript:alert(1)`, which passes a URL scheme
+    check) was written as `href="&#106;avascript:alert(1)"` and read back as `javascript:alert(1)`.
 - **Denial of service.** The tag balancer limits the work per tag and the nesting depth of the generated tree, see
   [Limits of the tag balancer](#limits-of-the-tag-balancer). With the default limits the parsing time of crafted input stays linear in the input size; be careful when you raise them.
 - Neko is a parser, not a sanitizer. Use a dedicated HTML sanitizer for untrusted content and re-parse its output with the

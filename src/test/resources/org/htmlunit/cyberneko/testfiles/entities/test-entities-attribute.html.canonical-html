@@ -1,2 +1,2 @@
-<html><head></head><body><div style="x &notit;">not recognized</div>
+<html><head></head><body><div style="x &amp;notit;">not recognized</div>
 <div style="x ¬#">recognized</div></body></html>

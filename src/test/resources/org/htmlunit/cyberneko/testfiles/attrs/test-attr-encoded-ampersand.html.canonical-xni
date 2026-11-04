@@ -1,0 +1,33 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="div",rawname="div") [(1,1,0) (1,24,23) false]
+characters 'one level'[(1,24,23) (1,33,32) false]
+endElement (localpart="div",rawname="div") [(1,33,32) (1,39,38) false]
+characters '
+'[(1,39,38) (2,1,39) false]
+startElement (localpart="div",rawname="div") [(2,1,39) (2,28,66) false]
+characters 'two levels'[(2,28,66) (2,38,76) false]
+endElement (localpart="div",rawname="div") [(2,38,76) (2,44,82) false]
+characters '
+'[(2,44,82) (3,1,83) false]
+startElement (localpart="div",rawname="div") [(3,1,83) (3,20,102) false]
+characters 'only'[(3,20,102) (3,24,106) false]
+endElement (localpart="div",rawname="div") [(3,24,106) (3,30,112) false]
+characters '
+'[(3,30,112) (4,1,113) false]
+startElement (localpart="div",rawname="div") [(4,1,113) (4,22,134) false]
+characters 'between'[(4,22,134) (4,29,141) false]
+endElement (localpart="div",rawname="div") [(4,29,141) (4,35,147) false]
+characters '
+'[(4,35,147) (5,1,148) false]
+startElement (localpart="div",rawname="div") [(5,1,148) (5,30,177) false]
+characters 'many'[(5,30,177) (5,34,181) false]
+endElement (localpart="div",rawname="div") [(5,34,181) (5,40,187) false]
+characters '
+'[(5,40,187) (6,1,188) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(6,1,188) (6,1,188) false]

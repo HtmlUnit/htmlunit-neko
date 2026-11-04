@@ -193,16 +193,31 @@ public class HTMLWriterFilter extends DefaultFilter {
         super.endElement(element, augs);
     }
 
-    /** Print attribute value. */
+    /**
+     * Prints an attribute value; the value is always written inside double quotes.
+     * <p>
+     * The scanner decodes the character references in attribute values, so the value has to be
+     * encoded again. Otherwise parsing the output decodes a second time and the value changes
+     * (e.g. {@code &amp;#106;avascript:} becomes {@code javascript:}).
+     * {@code &} and {@code "} are required for that, {@code <} and {@code >} are encoded as well
+     * so the output stays inert for consumers that do not parse attributes correctly.
+     *
+     * @param text the (decoded) attribute value
+     */
     protected void printAttributeValue(final String text) {
         final int length = text.length();
         for (int j = 0; j < length; j++) {
             final char c = text.charAt(j);
-            if (c == '"') {
-                printer_.print("&quot;");
-            }
-            else {
-                printer_.print(c);
+            switch (c) {
+                case '&':
+                    printer_.print("&amp;");
+                    break;
+                case '"':
+                    printer_.print("&quot;");
+                    break;
+                default:
+                    printer_.print(c);
+                    break;
             }
         }
         printer_.flush();

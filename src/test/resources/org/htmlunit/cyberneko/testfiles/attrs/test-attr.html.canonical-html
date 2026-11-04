@@ -9,9 +9,9 @@
 <div a="񂪼"></div>
 <div a="B abc"></div>
 <div a="Ü"></div>
-<div a="&Uumlabc"></div>
+<div a="&amp;Uumlabc"></div>
 <div a="Ü abc"></div>
-<div a="&Uuml=abc"></div>
+<div a="&amp;Uuml=abc"></div>
 <div a="Ü"></div>
 <div a="Üabc"></div>
-<div a="&abc;abc"></div></body></html>
+<div a="&amp;abc;abc"></div></body></html>

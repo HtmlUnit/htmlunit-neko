@@ -1,0 +1,36 @@
+(html
+(head
+)head
+(body
+(a
+Ahref &#106;avascript:alert(1)
+"double
+)a
+"\n
+(a
+Ahref &#106;avascript:alert(1)
+"single
+)a
+"\n
+(a
+Ahref &#106;avascript:alert(1)
+"unquoted
+)a
+"\n
+(a
+Ahref &#x6a;avascript:alert(1)
+"hex
+)a
+"\n
+(a
+Ahref &#X6A;avascript:alert(1)
+"hex upper
+)a
+"\n
+(a
+Ahref &#0106;avascript:alert(1)
+"leading zero
+)a
+"\n
+)body
+)html

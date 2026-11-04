@@ -1,0 +1,28 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="div",rawname="div") [(1,1,0) (1,57,56) false]
+characters 'lt gt'[(1,57,56) (1,62,61) false]
+endElement (localpart="div",rawname="div") [(1,62,61) (1,68,67) false]
+characters '
+'[(1,68,67) (2,1,68) false]
+startElement (localpart="div",rawname="div") [(2,1,68) (2,59,126) false]
+characters 'quot'[(2,59,126) (2,63,130) false]
+endElement (localpart="div",rawname="div") [(2,63,130) (2,69,136) false]
+characters '
+'[(2,69,136) (3,1,137) false]
+startElement (localpart="div",rawname="div") [(3,1,137) (3,57,193) false]
+characters 'quot numeric'[(3,57,193) (3,69,205) false]
+endElement (localpart="div",rawname="div") [(3,69,205) (3,75,211) false]
+characters '
+'[(3,75,211) (4,1,212) false]
+startElement (localpart="div",rawname="div") [(4,1,212) (4,36,247) false]
+characters 'apos'[(4,36,247) (4,40,251) false]
+endElement (localpart="div",rawname="div") [(4,40,251) (4,46,257) false]
+characters '
+'[(4,46,257) (5,1,258) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(5,1,258) (5,1,258) false]

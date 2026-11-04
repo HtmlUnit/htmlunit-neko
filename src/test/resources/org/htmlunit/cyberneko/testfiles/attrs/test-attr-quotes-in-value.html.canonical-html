@@ -1,0 +1,6 @@
+<html><head></head><body><div title="say &quot;hi&quot;">double quotes in single quoted</div>
+<div title="it's">single quote in double quoted</div>
+<div title="&quot;quoted&quot;">quot entity</div>
+<div title="&quot;'">numeric quotes</div>
+<div title="a&quot;b">double quote unquoted</div>
+</body></html>

@@ -1,1 +1,1 @@
-<html><head></head><body><a href="http://example.com/cgi-bin/redirect?s=www.candy.com&u=Andy">M &amp; Ms</a></body></html>
+<html><head></head><body><a href="http://example.com/cgi-bin/redirect?s=www.candy.com&amp;u=Andy">M &amp; Ms</a></body></html>

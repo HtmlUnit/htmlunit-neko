@@ -1,0 +1,33 @@
+startDocument [(1,1,0) (1,1,0) false]
+startElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="head",rawname="head",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+startElement (localpart="div",rawname="div") [(1,1,0) (1,23,22) false]
+characters 'double quotes in single quoted'[(1,23,22) (1,53,52) false]
+endElement (localpart="div",rawname="div") [(1,53,52) (1,59,58) false]
+characters '
+'[(1,59,58) (2,1,59) false]
+startElement (localpart="div",rawname="div") [(2,1,59) (2,19,77) false]
+characters 'single quote in double quoted'[(2,19,77) (2,48,106) false]
+endElement (localpart="div",rawname="div") [(2,48,106) (2,54,112) false]
+characters '
+'[(2,54,112) (3,1,113) false]
+startElement (localpart="div",rawname="div") [(3,1,113) (3,33,145) false]
+characters 'quot entity'[(3,33,145) (3,44,156) false]
+endElement (localpart="div",rawname="div") [(3,44,156) (3,50,162) false]
+characters '
+'[(3,50,162) (4,1,163) false]
+startElement (localpart="div",rawname="div") [(4,1,163) (4,25,187) false]
+characters 'numeric quotes'[(4,25,187) (4,39,201) false]
+endElement (localpart="div",rawname="div") [(4,39,201) (4,45,207) false]
+characters '
+'[(4,45,207) (5,1,208) false]
+startElement (localpart="div",rawname="div") [(5,1,208) (5,16,223) false]
+characters 'double quote unquoted'[(5,16,223) (5,37,244) false]
+endElement (localpart="div",rawname="div") [(5,37,244) (5,43,250) false]
+characters '
+'[(5,43,250) (6,1,251) false]
+endElement (localpart="body",rawname="body",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endElement (localpart="html",rawname="html",uri="http://www.w3.org/1999/xhtml") [(-1,-1,-1) (-1,-1,-1) true]
+endDocument [(6,1,251) (6,1,251) false]

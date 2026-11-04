@@ -1,0 +1,9 @@
+<html><head></head><body><a href="http://example.com/?a=1&amp;b=2">query</a>
+<a href="http://example.com/?a=1&amp;not=2">legacy entity name followed by &equals;</a>
+<a href="http://example.com/?a=1&amp;notx">legacy entity name followed by letter</a>
+<a href="http://example.com/?a=1¬x">entity with semicolon</a>
+<a href="http://example.com/?a=1∉x">longer entity</a>
+<a href="x &amp;">trailing</a>
+<a href="&amp; x">leading</a>
+<a href="a &amp; b">spaces</a>
+</body></html>

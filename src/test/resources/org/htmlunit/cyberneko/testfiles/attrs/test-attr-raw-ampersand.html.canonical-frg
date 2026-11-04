@@ -1,0 +1,40 @@
+(a
+Ahref http://example.com/?a=1&b=2
+"query
+)a
+"\n
+(a
+Ahref http://example.com/?a=1&not=2
+"legacy entity name followed by =
+)a
+"\n
+(a
+Ahref http://example.com/?a=1&notx
+"legacy entity name followed by letter
+)a
+"\n
+(a
+Ahref http://example.com/?a=1¬x
+"entity with semicolon
+)a
+"\n
+(a
+Ahref http://example.com/?a=1∉x
+"longer entity
+)a
+"\n
+(a
+Ahref x &
+"trailing
+)a
+"\n
+(a
+Ahref & x
+"leading
+)a
+"\n
+(a
+Ahref a & b
+"spaces
+)a
+"\n

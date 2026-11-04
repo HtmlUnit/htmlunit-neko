@@ -1,0 +1,6 @@
+<html><head></head><body><div title="&amp;amp;">one level</div>
+<div title="&amp;amp;amp;">two levels</div>
+<div title="&amp;">only</div>
+<div title="a&amp;b">between</div>
+<div title="&amp;&amp;&amp;">many</div>
+</body></html>

@@ -1,0 +1,31 @@
+(html
+(head
+)head
+(body
+(div
+Atitle say "hi"
+"double quotes in single quoted
+)div
+"\n
+(div
+Atitle it's
+"single quote in double quoted
+)div
+"\n
+(div
+Atitle "quoted"
+"quot entity
+)div
+"\n
+(div
+Atitle "'
+"numeric quotes
+)div
+"\n
+(div
+Atitle a"b
+"double quote unquoted
+)div
+"\n
+)body
+)html
